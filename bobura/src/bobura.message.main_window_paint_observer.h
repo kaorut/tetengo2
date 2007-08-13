@@ -15,7 +15,7 @@
 namespace bobura { namespace message
 {
 	/*!
-		The template class for a paint observer of the main window.
+		\brief The class template for a paint observer of the main window.
 
 		$Id$
 	*/

@@ -20,7 +20,8 @@
 
 namespace tetengo2 { namespace gui { namespace win32
 {
-	/*!
+	/*! \class tetengo2::gui::win32::canvas
+
 		\brief The class template for a canvas for Win32 platforms.
 
 		$Id$
@@ -28,6 +29,12 @@ namespace tetengo2 { namespace gui { namespace win32
 	template <typename Char, typename Handle, typename WindowHandle>
 	class canvas;
 
+	/*!
+		\brief A partially specialized class template of
+		       canvas<Char, Handle, WindowHandle>.
+
+		$Id$
+	*/
 	template <typename Handle, typename WindowHandle>
 	class canvas<wchar_t, Handle, WindowHandle> : private boost::noncopyable
 	{

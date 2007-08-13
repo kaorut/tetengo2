@@ -23,7 +23,7 @@
 
 namespace tetengo2 { namespace gui { namespace win32
 {
-	/*!
+	/*! \class tetengo2::gui::win32::widget
 		\brief The base class template for a GUI widget for Win32 platforms.
 
 		$Id$
@@ -38,6 +38,12 @@ namespace tetengo2 { namespace gui { namespace win32
 	>
 	class widget;
 
+	/*!
+		\brief A partially specialized class template of
+		       widget<Char, Handle, GuiFactory, MessageReceiver, Canvas>.
+
+		$Id$
+	*/
 	template <
 		typename Handle,
 		typename GuiFactory,

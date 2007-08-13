@@ -12,7 +12,7 @@
 namespace bobura { namespace message
 {
 	/*!
-		The template class for a window observer of the main window.
+		\brief The class template for a window observer of the main window.
 
 		$Id$
 	*/

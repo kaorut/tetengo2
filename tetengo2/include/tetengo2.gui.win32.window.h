@@ -22,7 +22,7 @@
 
 namespace tetengo2 { namespace gui { namespace win32
 {
-	/*!
+	/*! \class tetengo::gui::win32::window
 		\brief The class template for a window for Win32 platforms.
 
 		$Id$
@@ -37,6 +37,12 @@ namespace tetengo2 { namespace gui { namespace win32
 	>
 	class window;
 
+	/*!
+		\brief A partially specialized class template of
+		       window<Char, Handle, GuiFactory, MessageReceiver, Canvas>.
+
+		$Id$
+	*/
 	template <
 		typename Handle,
 		typename GuiFactory,
