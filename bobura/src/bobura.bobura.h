@@ -96,7 +96,7 @@ namespace bobura
 		// functions
 
 		void set_message_observers(
-			window_type* const           p_window,
+			window_type* const             p_window,
 			const message_loop_type* const p_message_loop
 		)
 		const

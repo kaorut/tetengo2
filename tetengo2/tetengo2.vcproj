@@ -80,6 +80,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.gui.win32.canvas.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.gui.win32.gui_factory.h"
 				>
 			</File>

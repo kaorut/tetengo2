@@ -34,7 +34,9 @@ namespace bobura
 
 		typedef Char char_type;
 
-		typedef tetengo2::gui::win32::gui_factory<char_type> gui_factory_type;
+		typedef
+			tetengo2::gui::win32::gui_factory<char_type>
+			gui_factory_type;
 
 		typedef bobura<gui_factory_type> bobura_type;
 

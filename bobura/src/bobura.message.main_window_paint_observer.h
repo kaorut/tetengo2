@@ -9,6 +9,9 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOWPAINTOBSERVER_H)
 #define BOBURA_MESSAGE_MAINWINDOWPAINTOBSERVER_H
 
+#include <utility>
+
+
 namespace bobura { namespace message
 {
 	/*!
@@ -20,6 +23,13 @@ namespace bobura { namespace message
 	class main_window_paint_observer :	public PaintObserver
 	{
 	public:
+		// types
+
+		typedef PaintObserver parent_type;
+
+		typedef typename parent_type::canvas_type canvas_type;
+
+
 		// constructors and destructor
 
 		main_window_paint_observer()
@@ -31,9 +41,9 @@ namespace bobura { namespace message
 
 		// functions
 
-		virtual void paint()
+		virtual void paint(const canvas_type* p_canvas)
 		{
-		
+			p_canvas->draw_text(L"‚Ä‚·‚Æ", std::make_pair(64, 32));
 		}
 
 

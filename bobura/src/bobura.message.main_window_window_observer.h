@@ -22,6 +22,8 @@ namespace bobura { namespace message
 	public:
 		// types
 
+		typedef WindowObserver parent_type;
+
 		typedef MessageLoop message_loop_type;
 
 
