@@ -2,6 +2,8 @@
 	\file The definition of bobura::bobura.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #if !defined(BOBURA_BOBURA_H)
@@ -21,6 +23,7 @@ namespace bobura
 	/*!
 		\class The class template for the bobura application.
 
+		$Id$
 	*/
 	template <typename GuiFactory>
 	class bobura : private boost::noncopyable

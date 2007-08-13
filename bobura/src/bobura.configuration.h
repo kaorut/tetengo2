@@ -2,6 +2,8 @@
 	\file The definition of bobura::configuration.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #if !defined(BOBURA_CONFIGURATION_H)
@@ -22,6 +24,7 @@ namespace bobura
 	/*!
 		\class The class template for the configuration of bobura.
 
+		$Id$
 	*/
 	template <typename Char, typename InstanceHandle>
 	class configuration : private boost::noncopyable

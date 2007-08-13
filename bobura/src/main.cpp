@@ -2,6 +2,8 @@
 	\file The definition of the main function.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #include <exception>

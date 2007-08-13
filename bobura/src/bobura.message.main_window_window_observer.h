@@ -2,6 +2,8 @@
 	\file The definition of bobura::message::main_window_window_observer.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #if !defined(BOBURA_MESSAGE_MAINWINDOWWINDOWOBSERVER_H)
@@ -12,6 +14,7 @@ namespace bobura { namespace message
 	/*!
 		\class The template class for a window observer of the main window.
 
+		$Id$
 	*/
 	template <typename WindowObserver, typename MessageLoop>
 	class main_window_window_observer :	public WindowObserver

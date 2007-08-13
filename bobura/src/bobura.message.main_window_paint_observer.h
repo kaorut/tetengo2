@@ -2,6 +2,8 @@
 	\file The definition of bobura::message::main_window_paint_observer.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #if !defined(BOBURA_MESSAGE_MAINWINDOWPAINTOBSERVER_H)
@@ -12,6 +14,7 @@ namespace bobura { namespace message
 	/*!
 		\class The template class for a paint observer of the main window.
 
+		$Id$
 	*/
 	template <typename PaintObserver>
 	class main_window_paint_observer :	public PaintObserver
