@@ -1,0 +1,11 @@
+@echo off
+
+rem Visual C++ Launch Script
+rem Copyright (C) 2007 kaoru
+
+rem Customize these lines according to your environment.
+set BOOST_INCLUDE=C:\Program Files\boost\include\boost-1_34_1
+set BOOST_LIB=C:\Program Files\boost\lib
+
+rem Launches the Visual Studio.
+start bobura.sln
