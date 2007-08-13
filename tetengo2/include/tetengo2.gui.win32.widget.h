@@ -30,7 +30,6 @@ namespace tetengo2 { namespace gui { namespace win32
 	*/
 	template <
 		typename Char,
-		typename InstanceHandle,
 		typename GuiFactory,
 		template <typename Widget>
 		class    MessageReceiver
@@ -44,7 +43,6 @@ namespace tetengo2 { namespace gui { namespace win32
 	>
 	class widget<
 		wchar_t,
-		::HINSTANCE,
 		GuiFactory,
 		MessageReceiver
 	> :
@@ -56,8 +54,6 @@ namespace tetengo2 { namespace gui { namespace win32
 		typedef wchar_t char_type;
 
 		typedef std::basic_string<char_type> string_type;
-
-		typedef ::HINSTANCE instance_handle_type;
 
 		typedef GuiFactory gui_factory_type;
 

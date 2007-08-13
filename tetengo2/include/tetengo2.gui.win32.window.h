@@ -29,7 +29,6 @@ namespace tetengo2 { namespace gui { namespace win32
 	*/
 	template <
 		typename Char,
-		typename InstanceHandle,
 		typename GuiFactory,
 		template <typename Window>
 		class MessageReceiver
@@ -43,13 +42,11 @@ namespace tetengo2 { namespace gui { namespace win32
 	>
 	class window<
 		wchar_t,
-		::HINSTANCE,
 		GuiFactory,
 		MessageReceiver
 	> :
 		public widget<
 			wchar_t,
-			::HINSTANCE,
 			GuiFactory,
 			MessageReceiver
 		>
@@ -57,9 +54,9 @@ namespace tetengo2 { namespace gui { namespace win32
 	public:
 		// constructors and destructor
 
-		window(const instance_handle_type instance_handle)
+		window()
 		:
-		m_handle(create_window(instance_handle))
+		m_handle(create_window())
 		{
 			set_message_receiver(
 				std::auto_ptr<message_receiver_type>(
@@ -84,10 +81,12 @@ namespace tetengo2 { namespace gui { namespace win32
 	private:
 		// static functions
 
-		static handle_type create_window(
-			const instance_handle_type instance_handle
-		)
+		static handle_type create_window()
 		{
+			const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+			if (instance_handle == NULL)
+				throw std::runtime_error("Can't get the instance handle!");
+
 			const ::ATOM atom = register_window_class(instance_handle);
 
 			const handle_type handle = ::CreateWindowExW(
@@ -110,9 +109,7 @@ namespace tetengo2 { namespace gui { namespace win32
 			return handle;
 		}
 
-		static ::ATOM register_window_class(
-			const instance_handle_type instance_handle
-		)
+		static ::ATOM register_window_class(const ::HINSTANCE instance_handle)
 		{
 			::WNDCLASSEXW window_class;
 			window_class.cbSize = sizeof(::WNDCLASSEXW);

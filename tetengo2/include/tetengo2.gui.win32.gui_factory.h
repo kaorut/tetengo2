@@ -33,23 +33,17 @@ namespace tetengo2 { namespace gui { namespace win32
 
 		$Id$
 	*/
-	template <
-		typename Char,
-		typename InstanceHandle
-	>
+	template <typename Char>
 	class gui_factory : private boost::noncopyable
 	{
 	public:
 		// types
 
-		typedef wchar_t char_type;
-
-		typedef InstanceHandle instance_handle_type; 
+		typedef Char char_type;
 
 		typedef
 			window<
 				char_type,
-				instance_handle_type,
 				gui_factory,
 				window_message_receiver
 			>
@@ -90,9 +84,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
 		// constructors and destructor
 
-		gui_factory(const instance_handle_type instance_handle)
-		:
-		m_instance_handle(instance_handle)
+		gui_factory()
 		{}
 
 		~gui_factory()
@@ -104,9 +96,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		std::auto_ptr<window_type> create_window()
 		const
 		{
-			return std::auto_ptr<window_type>(
-				new window_type(m_instance_handle)
-			);
+			return std::auto_ptr<window_type>(new window_type());
 		}
 
 		std::auto_ptr<const message_loop_type> create_message_loop()
@@ -116,12 +106,6 @@ namespace tetengo2 { namespace gui { namespace win32
 				new message_loop_type()
 			);
 		}
-
-
-	private:
-		// variables
-
-		const instance_handle_type m_instance_handle;
 
 
 	};

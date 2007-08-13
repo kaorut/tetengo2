@@ -18,9 +18,8 @@
 
 namespace
 {
-	template <typename Char, typename InstanceHandle>
+	template <typename Char>
 	int run_application(
-		const InstanceHandle instance_handle,
 		const boost::program_options::basic_parsed_options<Char>&
 		parsed_options
 	)
@@ -29,26 +28,25 @@ namespace
 		boost::program_options::store(parsed_options, option_values);
 		boost::program_options::notify(option_values);
 
-		return bobura::configuration<Char, InstanceHandle>(
+		return bobura::configuration<Char>(
 			option_values
-		).create_bobura(instance_handle)->run();
+		).create_bobura()->run();
 	}
 }
 
 int WINAPI wWinMain(
-	const ::HINSTANCE hInstance,
+	const ::HINSTANCE /* hInstance */,
 	const ::HINSTANCE /* hPrevInstance */,
 	const ::LPWSTR    lpCmdLine,
 	const int         /* nCmdShow */
 )
 throw ()
 {
-	typedef bobura::configuration<wchar_t, ::HINSTANCE> configuration_type;
+	typedef bobura::configuration<wchar_t> configuration_type;
 
 	try
 	{
 		return ::run_application(
-			hInstance,
 			boost::program_options::wcommand_line_parser(
 				boost::program_options::split_winmain(lpCmdLine)
 			).options(configuration_type::options()).run()

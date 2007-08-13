@@ -26,7 +26,7 @@ namespace bobura
 
 		$Id$
 	*/
-	template <typename Char, typename InstanceHandle>
+	template <typename Char>
 	class configuration : private boost::noncopyable
 	{
 	public:
@@ -34,14 +34,7 @@ namespace bobura
 
 		typedef Char char_type;
 
-		typedef InstanceHandle instance_handle_type;
-
-		typedef
-			tetengo2::gui::win32::gui_factory<
-				char_type,
-				instance_handle_type
-			>
-			gui_factory_type;
+		typedef tetengo2::gui::win32::gui_factory<char_type> gui_factory_type;
 
 		typedef bobura<gui_factory_type> bobura_type;
 
@@ -72,15 +65,13 @@ namespace bobura
 
 		// functions
 
-		std::auto_ptr<bobura_type> create_bobura(
-			const instance_handle_type instance_handle
-		)
+		std::auto_ptr<bobura_type> create_bobura()
 		const
 		{
 			return std::auto_ptr<bobura_type>(
 				new bobura_type(
 					std::auto_ptr<const gui_factory_type>(
-						new gui_factory_type(instance_handle)
+						new gui_factory_type()
 					)
 				)
 			);
