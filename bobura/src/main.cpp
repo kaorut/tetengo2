@@ -16,10 +16,10 @@
 
 namespace
 {
-	template <typename CharType, typename InstanceHandleType>
+	template <typename Char, typename InstanceHandle>
 	int run_application(
-		const InstanceHandleType instance_handle,
-		const boost::program_options::basic_parsed_options<CharType>&
+		const InstanceHandle instance_handle,
+		const boost::program_options::basic_parsed_options<Char>&
 		parsed_options
 	)
 	{
@@ -27,7 +27,7 @@ namespace
 		boost::program_options::store(parsed_options, option_values);
 		boost::program_options::notify(option_values);
 
-		return bobura::configuration<CharType, InstanceHandleType>(
+		return bobura::configuration<Char, InstanceHandle>(
 			option_values
 		).create_bobura(instance_handle)->run();
 	}

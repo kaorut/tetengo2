@@ -31,8 +31,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
 	*/
 	template <
-		typename CharType,
-		typename InstanceHandleType
+		typename Char,
+		typename InstanceHandle
 	>
 	class gui_factory : private boost::noncopyable
 	{
@@ -41,7 +41,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
 		typedef wchar_t char_type;
 
-		typedef InstanceHandleType instance_handle_type; 
+		typedef InstanceHandle instance_handle_type; 
 
 		typedef
 			window<

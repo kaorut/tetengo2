@@ -26,8 +26,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
 	*/
 	template <
-		typename CharType,
-		typename InstanceHandleType,
+		typename Char,
+		typename InstanceHandle,
 		typename GuiFactory,
 		template <typename Widget>
 		class    MessageReceiver

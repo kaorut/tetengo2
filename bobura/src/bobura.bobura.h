@@ -22,13 +22,13 @@ namespace bobura
 		\class The class template for the bobura application.
 
 	*/
-	template <typename GuiFactoryType>
+	template <typename GuiFactory>
 	class bobura : private boost::noncopyable
 	{
 	public:
 		// types
 
-		typedef GuiFactoryType gui_factory_type;
+		typedef GuiFactory gui_factory_type;
 
 
 		// constructors and destructor

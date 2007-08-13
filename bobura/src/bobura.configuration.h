@@ -23,15 +23,15 @@ namespace bobura
 		\class The class template for the configuration of bobura.
 
 	*/
-	template <typename CharType, typename InstanceHandleType>
+	template <typename Char, typename InstanceHandle>
 	class configuration : private boost::noncopyable
 	{
 	public:
 		// types
 
-		typedef CharType char_type;
+		typedef Char char_type;
 
-		typedef InstanceHandleType instance_handle_type;
+		typedef InstanceHandle instance_handle_type;
 
 		typedef
 			tetengo2::gui::win32::gui_factory<

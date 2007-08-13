@@ -21,7 +21,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		\class The class template for a message loop for Win32 platforms.
 
 	*/
-	template <typename CharType>
+	template <typename Char>
 	class message_loop;
 
 	template <>
