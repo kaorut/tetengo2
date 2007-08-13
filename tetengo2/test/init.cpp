@@ -2,6 +2,8 @@
 	\file Test of tetengo2 - Initalization
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #include <boost/test/unit_test.hpp>

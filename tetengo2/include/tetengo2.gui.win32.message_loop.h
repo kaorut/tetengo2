@@ -2,6 +2,8 @@
 	\file The definition of tetengo2::gui::win32::message_loop.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #if !defined(TETENGO2_GUI_WIN32_MESSAGELOOP_H)
@@ -20,6 +22,7 @@ namespace tetengo2 { namespace gui { namespace win32
 	/*!
 		\class The class template for a message loop for Win32 platforms.
 
+		$Id$
 	*/
 	template <typename Char>
 	class message_loop;

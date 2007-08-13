@@ -2,6 +2,8 @@
 	\file The definition of tetengo2::gui::win32::gui_factory.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #if !defined(TETENGO2_GUI_WIN32_GUIFACTORY_H)
@@ -29,6 +31,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		\class The class template for the GUI object factory for Win32
 		platforms.
 
+		$Id$
 	*/
 	template <
 		typename Char,

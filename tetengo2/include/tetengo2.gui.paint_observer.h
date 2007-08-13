@@ -2,6 +2,8 @@
 	\file The definition of tetengo2::gui::paint_observer.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #if !defined(TETENGO2_GUI_PAINTOBSERVER_H)
@@ -16,6 +18,7 @@ namespace tetengo2 { namespace gui
 	/*!
 		\class The class for a window observer.
 
+		$Id$
 	*/
 	class paint_observer :
 		public boost::signals::trackable, private boost::noncopyable

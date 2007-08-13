@@ -2,6 +2,8 @@
 	\file The definition of tetengo2::gui::win32::widget_message_receiver.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #if !defined(TETENGO2_GUI_WIN32_WIDGETMESSAGERECEIVER_H)
@@ -23,6 +25,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		\class The base class template for a widget message management for
 		Win32 platforms.
 
+		$Id$
 	*/
 	template <typename Widget>
 	class widget_message_receiver : private boost::noncopyable

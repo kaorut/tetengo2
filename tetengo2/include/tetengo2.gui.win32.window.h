@@ -2,6 +2,8 @@
 	\file The definition of tetengo2::gui::win32::window.
 
 	Copyright (C) 2007 kaoru
+
+	$Id$
 */
 
 #if !defined(TETENGO2_GUI_WIN32_WINDOW_H)
@@ -23,6 +25,7 @@ namespace tetengo2 { namespace gui { namespace win32
 	/*!
 		\class The class template for a window for Win32 platforms.
 
+		$Id$
 	*/
 	template <
 		typename Char,
