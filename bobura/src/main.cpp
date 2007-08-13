@@ -1,5 +1,5 @@
-/*!
-	\file The definition of the main function.
+/*! \file
+	\brief The definition of the main function.
 
 	Copyright (C) 2007 kaoru
 

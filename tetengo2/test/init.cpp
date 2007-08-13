@@ -1,5 +1,5 @@
-/*!
-	\file Test of tetengo2 - Initalization
+/*! \file
+	\brief Test of tetengo2 - Initalization
 
 	Copyright (C) 2007 kaoru
 

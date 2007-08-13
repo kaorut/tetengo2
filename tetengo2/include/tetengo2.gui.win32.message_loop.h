@@ -1,5 +1,5 @@
-/*!
-	\file The definition of tetengo2::gui::win32::message_loop.
+/*! \file
+	\brief The definition of tetengo2::gui::win32::message_loop.
 
 	Copyright (C) 2007 kaoru
 
@@ -20,7 +20,7 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
 	/*!
-		\class The class template for a message loop for Win32 platforms.
+		\brief The class template for a message loop for Win32 platforms.
 
 		$Id$
 	*/

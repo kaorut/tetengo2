@@ -1,5 +1,5 @@
-/*!
-	\file The definition of bobura::message::main_window_paint_observer.
+/*! \file
+	\brief The definition of bobura::message::main_window_paint_observer.
 
 	Copyright (C) 2007 kaoru
 
@@ -15,7 +15,7 @@
 namespace bobura { namespace message
 {
 	/*!
-		\class The template class for a paint observer of the main window.
+		The template class for a paint observer of the main window.
 
 		$Id$
 	*/

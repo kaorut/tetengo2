@@ -1,5 +1,5 @@
-/*!
-	\file The definition of bobura::bobura.
+/*! \file
+	\brief The definition of bobura::bobura.
 
 	Copyright (C) 2007 kaoru
 
@@ -21,7 +21,7 @@
 namespace bobura
 {
 	/*!
-		\class The class template for the bobura application.
+		\brief The class template for the bobura application.
 
 		$Id$
 	*/

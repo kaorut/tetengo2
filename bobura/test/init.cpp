@@ -1,5 +1,5 @@
-/*!
-	\file Test of bobura - Initalization
+/*! \file
+	\brief Test of bobura - Initalization
 
 	Copyright (C) 2007 kaoru
 

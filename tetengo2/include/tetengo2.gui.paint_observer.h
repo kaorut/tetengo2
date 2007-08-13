@@ -1,5 +1,5 @@
-/*!
-	\file The definition of tetengo2::gui::paint_observer.
+/*! \file
+	\brief The definition of tetengo2::gui::paint_observer.
 
 	Copyright (C) 2007 kaoru
 
@@ -16,7 +16,7 @@
 namespace tetengo2 { namespace gui
 {
 	/*!
-		\class The class template for a paint observer.
+		\brief The base class template for a paint observer.
 
 		$Id$
 	*/

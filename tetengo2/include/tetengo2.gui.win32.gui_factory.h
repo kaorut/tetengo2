@@ -1,5 +1,5 @@
-/*!
-	\file The definition of tetengo2::gui::win32::gui_factory.
+/*! \file
+	\brief The definition of tetengo2::gui::win32::gui_factory.
 
 	Copyright (C) 2007 kaoru
 
@@ -29,7 +29,7 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
 	/*!
-		\class The class template for the GUI object factory for Win32
+		\brief The class template for the GUI object factory for Win32
 		platforms.
 
 		$Id$

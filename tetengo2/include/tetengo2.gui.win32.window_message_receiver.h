@@ -1,5 +1,5 @@
-/*!
-	\file The definition of tetengo2::gui::win32::window_message_receiver.
+/*! \file
+	\brief The definition of tetengo2::gui::win32::window_message_receiver.
 
 	Copyright (C) 2007 kaoru
 
@@ -26,7 +26,7 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
 	/*!
-		\class The base class template for a window message management for
+		\brief The base class template for a window message management for
 		Win32 platforms.
 
 		$Id$

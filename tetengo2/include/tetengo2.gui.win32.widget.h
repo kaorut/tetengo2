@@ -1,5 +1,5 @@
-/*!
-	\file The definition of tetengo2::gui::win32::widget.
+/*! \file
+	\brief The definition of tetengo2::gui::win32::widget.
 
 	Copyright (C) 2007 kaoru
 
@@ -24,7 +24,7 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
 	/*!
-		\class The base class template for a GUI widget for Win32 platforms.
+		\brief The base class template for a GUI widget for Win32 platforms.
 
 		$Id$
 	*/

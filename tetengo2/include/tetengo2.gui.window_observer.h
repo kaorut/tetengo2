@@ -1,5 +1,5 @@
-/*!
-	\file The definition of tetengo2::gui::window_observer.
+/*! \file
+	\brief The definition of tetengo2::gui::window_observer.
 
 	Copyright (C) 2007 kaoru
 
@@ -16,7 +16,7 @@
 namespace tetengo2 { namespace gui
 {
 	/*!
-		\class The class for a window observer.
+		\brief The base class for a window observer.
 
 		$Id$
 	*/
