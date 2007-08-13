@@ -35,7 +35,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
 		typedef Widget widget_type;
 
-		typedef paint_observer paint_observer_type;
+		typedef typename widget_type::canvas_type canvas_type;
+
+		typedef paint_observer<canvas_type> paint_observer_type;
 
 
 		// static functions
@@ -68,7 +70,8 @@ namespace tetengo2 { namespace gui { namespace win32
 			paint_paint_handler.connect(
 				boost::bind(
 					&typename paint_observer_type::paint,
-					p_paint_observer.get()
+					p_paint_observer.get(),
+					_1
 				)
 			);
 
@@ -89,7 +92,8 @@ namespace tetengo2 { namespace gui { namespace win32
 			{
 			case WM_PAINT:
 				{
-					paint_paint_handler();
+					const canvas_type canvas(m_p_widget->handle());
+					paint_paint_handler(&canvas);
 					return 0;
 				}
 			default:
@@ -163,7 +167,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
 		boost::ptr_vector<paint_observer_type> paint_observers;
 
-		boost::signal<void ()> paint_paint_handler;
+		boost::signal<void (const canvas_type*)> paint_paint_handler;
 
 
 		// functions

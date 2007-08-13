@@ -29,26 +29,34 @@ namespace tetengo2 { namespace gui { namespace win32
 	*/
 	template <
 		typename Char,
+		typename Handle,
 		typename GuiFactory,
 		template <typename Window>
-		class MessageReceiver
+		class MessageReceiver,
+		typename Canvas
 	>
 	class window;
 
 	template <
+		typename Handle,
 		typename GuiFactory,
 		template <typename Window>
-		class    MessageReceiver
+		class    MessageReceiver,
+		typename Canvas
 	>
 	class window<
 		wchar_t,
+		Handle,
 		GuiFactory,
-		MessageReceiver
+		MessageReceiver,
+		Canvas
 	> :
 		public widget<
 			wchar_t,
+			Handle,
 			GuiFactory,
-			MessageReceiver
+			MessageReceiver,
+			Canvas
 		>
 	{
 	public:

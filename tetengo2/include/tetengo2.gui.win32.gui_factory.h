@@ -20,6 +20,7 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.window.h"
 #include "tetengo2.gui.win32.window_message_receiver.h"
@@ -41,15 +42,22 @@ namespace tetengo2 { namespace gui { namespace win32
 
 		typedef Char char_type;
 
+		typedef ::HWND window_handle_type;
+
+		typedef ::HDC canvas_handle;
+
+		typedef
+			canvas<char_type, canvas_handle, window_handle_type> canvas_type;
+
 		typedef
 			window<
 				char_type,
+				window_handle_type,
 				gui_factory,
-				window_message_receiver
+				window_message_receiver,
+				canvas_type
 			>
 			window_type;
-
-		typedef typename window_type::handle_type window_handle_type;
 
 		typedef message_loop<char_type> message_loop_type;
 

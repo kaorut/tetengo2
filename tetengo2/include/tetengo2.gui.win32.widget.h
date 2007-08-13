@@ -30,21 +30,27 @@ namespace tetengo2 { namespace gui { namespace win32
 	*/
 	template <
 		typename Char,
+		typename Handle,
 		typename GuiFactory,
 		template <typename Widget>
-		class    MessageReceiver
+		class    MessageReceiver,
+		typename Canvas
 	>
 	class widget;
 
 	template <
+		typename Handle,
 		typename GuiFactory,
 		template <typename Widget>
-		class    MessageReceiver
+		class    MessageReceiver,
+		typename Canvas
 	>
 	class widget<
 		wchar_t,
+		Handle,
 		GuiFactory,
-		MessageReceiver
+		MessageReceiver,
+		Canvas
 	> :
 		private boost::noncopyable
 	{
@@ -55,11 +61,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
 		typedef std::basic_string<char_type> string_type;
 
+		typedef Handle handle_type;
+
 		typedef GuiFactory gui_factory_type;
 
 		typedef MessageReceiver<widget> message_receiver_type;
 
-		typedef ::HWND handle_type;
+		typedef Canvas canvas_type;
 
 
 		// constructors and destructor

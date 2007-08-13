@@ -16,14 +16,20 @@
 namespace tetengo2 { namespace gui
 {
 	/*!
-		\class The class for a window observer.
+		\class The class template for a paint observer.
 
 		$Id$
 	*/
+	template <typename Canvas>
 	class paint_observer :
 		public boost::signals::trackable, private boost::noncopyable
 	{
 	public:
+		// types
+
+		typedef Canvas canvas_type;
+
+
 		// constructors and destructor
 
 		paint_observer()
@@ -35,7 +41,7 @@ namespace tetengo2 { namespace gui
 
 		// functions
 
-		virtual void paint()
+		virtual void paint(const canvas_type* /* p_canvas */)
 		{}
 
 
