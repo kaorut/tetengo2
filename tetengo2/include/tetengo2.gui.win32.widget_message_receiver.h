@@ -91,18 +91,16 @@ namespace tetengo2 { namespace gui { namespace win32
 			switch (uMsg)
 			{
 			case WM_PAINT:
+				if (!paint_observers.empty())
 				{
 					const canvas_type canvas(m_p_widget->handle());
 					paint_paint_handler(&canvas);
 					return 0;
 				}
-			default:
-				{
-					return ::DefWindowProcW(
-						m_p_widget->handle(), uMsg, wParam, lParam
-					);
-				}
 			}
+			return ::DefWindowProcW(
+				m_p_widget->handle(), uMsg, wParam, lParam
+			);
 		}
 
 	private:

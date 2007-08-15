@@ -85,16 +85,14 @@ namespace tetengo2 { namespace gui { namespace win32
 					return 0;
 				}
 			case WM_LBUTTONUP:
+				// if (condition)
 				{
 					throw std::runtime_error("Mouse Clicked");
 				}
-			default:
-				{
-					return this->widget_message_receiver::window_procedure(
-						uMsg, wParam, lParam
-					);
-				}
 			}
+			return this->widget_message_receiver::window_procedure(
+				uMsg, wParam, lParam
+			);
 		}
 
 
