@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_bobura", "bobura\test_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_tetengo2", "tetengo2\test_tetengo2.vcproj", "{9D3E5F86-7307-43AA-A65F-43D29773399B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "document", "document\document.vcproj", "{6D527986-4DC8-4CF5-96FE-DA0FEC99CBC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,10 @@ Global
 		{9D3E5F86-7307-43AA-A65F-43D29773399B}.Debug|Win32.Build.0 = Debug|Win32
 		{9D3E5F86-7307-43AA-A65F-43D29773399B}.Release|Win32.ActiveCfg = Release|Win32
 		{9D3E5F86-7307-43AA-A65F-43D29773399B}.Release|Win32.Build.0 = Release|Win32
+		{6D527986-4DC8-4CF5-96FE-DA0FEC99CBC8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6D527986-4DC8-4CF5-96FE-DA0FEC99CBC8}.Debug|Win32.Build.0 = Debug|Win32
+		{6D527986-4DC8-4CF5-96FE-DA0FEC99CBC8}.Release|Win32.ActiveCfg = Release|Win32
+		{6D527986-4DC8-4CF5-96FE-DA0FEC99CBC8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

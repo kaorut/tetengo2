@@ -44,10 +44,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
 		typedef ::HWND window_handle_type;
 
-		typedef ::HDC canvas_handle;
+		typedef ::HDC canvas_handle_type;
 
 		typedef
-			canvas<char_type, canvas_handle, window_handle_type> canvas_type;
+			canvas<char_type, canvas_handle_type, window_handle_type>
+			canvas_type;
 
 		typedef
 			window<
