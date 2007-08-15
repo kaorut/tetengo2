@@ -1,6 +1,17 @@
-/*! \mainpage Bobura and Tetengo2
-	This is a test.
-	
-	
-	$Id$
+/*! \mainpage Main
+
+!!!What is Bobura?
+
+Bobura is some sortware about railways.
+
+!!!What is Tetengo2?
+
+Tetengo2 is a kind of GUI toolkit.
+
+----
+
+Copyright (C) 2007 kaoru
+
+$Id$
+
 */

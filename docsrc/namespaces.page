@@ -1,0 +1,38 @@
+/*! \namespace bobura
+
+\brief The root namespace for Bobura.
+
+$Id$
+
+*/
+/*! \namespace bobura::message
+
+\brief The namespace for message observers.
+
+$Id$
+
+*/
+
+/*! \namespace tetengo2
+
+\brief The root namespace for Tetengo2.
+
+$Id$
+
+*/
+
+/*! \namespace tetengo2::gui
+
+\brief The namespace for GUI.
+
+$Id$
+
+*/
+
+/*! \namespace tetengo2::gui::win32
+
+\brief The namespace for GUI specific to 32-bit Windows platforms.
+
+$Id$
+
+*/
