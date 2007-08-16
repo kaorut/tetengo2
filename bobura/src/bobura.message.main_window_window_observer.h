@@ -9,20 +9,21 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOWWINDOWOBSERVER_H)
 #define BOBURA_MESSAGE_MAINWINDOWWINDOWOBSERVER_H
 
+#include <tetengo2.gui.window_observer.h>
+
+
 namespace bobura { namespace message
 {
 	/*!
-		\brief The class template for a window observer of the main window.
+		\brief The class templatefor a window observer of the main window.
 
 		$Id$
 	*/
-	template <typename WindowObserver, typename MessageLoop>
-	class main_window_window_observer :	public WindowObserver
+	template <typename MessageLoop>
+	class main_window_window_observer :	public tetengo2::gui::window_observer
 	{
 	public:
 		// types
-
-		typedef WindowObserver parent_type;
 
 		typedef MessageLoop message_loop_type;
 

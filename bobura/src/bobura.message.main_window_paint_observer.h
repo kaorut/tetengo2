@@ -11,6 +11,8 @@
 
 #include <utility>
 
+#include <tetengo2.gui.paint_observer.h>
+
 
 namespace bobura { namespace message
 {
@@ -19,17 +21,11 @@ namespace bobura { namespace message
 
 		$Id$
 	*/
-	template <typename PaintObserver>
-	class main_window_paint_observer :	public PaintObserver
+	template <typename Canvas>
+	class main_window_paint_observer :
+		public tetengo2::gui::paint_observer<Canvas>
 	{
 	public:
-		// types
-
-		typedef PaintObserver parent_type;
-
-		typedef typename parent_type::canvas_type canvas_type;
-
-
 		// constructors and destructor
 
 		main_window_paint_observer()

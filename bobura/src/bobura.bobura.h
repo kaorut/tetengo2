@@ -71,6 +71,8 @@ namespace bobura
 	private:
 		//types
 
+		typedef typename gui_factory_type::canvas_type canvas_type;
+
 		typedef typename gui_factory_type::window_type window_type;
 
 		typedef
@@ -104,16 +106,14 @@ namespace bobura
 			p_window->message_receiver()->add_window_observer(
 				std::auto_ptr<window_observer_type> (
 					new message::main_window_window_observer<
-						window_observer_type, message_loop_type
+						message_loop_type
 					>(p_message_loop)
 				)
 			);
 
 			p_window->message_receiver()->add_paint_observer(
 				std::auto_ptr<paint_observer_type> (
-					new message::main_window_paint_observer<
-						paint_observer_type
-					>()
+					new message::main_window_paint_observer<canvas_type>()
 				)
 			);
 		}
