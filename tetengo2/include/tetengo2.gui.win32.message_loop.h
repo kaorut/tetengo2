@@ -33,6 +33,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		{}
 
 		~message_loop()
+		throw ()
 		{}
 
 

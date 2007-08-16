@@ -38,6 +38,7 @@ namespace bobura { namespace message
 		{}
 
 		virtual ~main_window_window_observer()
+		throw ()
 		{}
 
 

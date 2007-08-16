@@ -52,6 +52,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		}
 
 		~canvas()
+		throw ()
 		{
 			::EndPaint(m_window_handle, &m_paint_info);
 		}

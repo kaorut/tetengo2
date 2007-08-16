@@ -58,6 +58,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		}
 
 		virtual ~widget_message_receiver()
+		throw ()
 		{}
 
 

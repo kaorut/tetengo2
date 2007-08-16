@@ -91,6 +91,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		{}
 
 		~gui_factory()
+		throw ()
 		{}
 
 

@@ -32,6 +32,7 @@ namespace bobura { namespace message
 		{}
 
 		virtual ~main_window_paint_observer()
+		throw ()
 		{}
 
 

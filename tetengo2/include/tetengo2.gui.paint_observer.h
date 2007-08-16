@@ -36,6 +36,7 @@ namespace tetengo2 { namespace gui
 		{}
 
 		virtual ~paint_observer()
+		throw ()
 		{}
 
 

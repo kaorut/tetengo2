@@ -30,6 +30,7 @@ namespace tetengo2 { namespace gui
 		{}
 
 		virtual ~window_observer()
+		throw ()
 		{}
 
 

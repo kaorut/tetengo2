@@ -57,6 +57,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		}
 
 		virtual ~window()
+		throw ()
 		{}
 
 
