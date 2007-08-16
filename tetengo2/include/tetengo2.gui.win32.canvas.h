@@ -68,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace win32
 		void draw_text(const std::wstring& text, const point_type& point)
 		const
 		{
-			::BOOL successful = ::TextOut(
+			::BOOL successful = ::TextOutW(
 				this->handle(),
 				static_cast<int>(point.first),
 				static_cast<int>(point.second),
