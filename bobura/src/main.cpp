@@ -18,6 +18,13 @@
 
 namespace
 {
+	/*!
+		Creates the application and runs it.
+
+		\param parsed_options The parsed command line options.
+
+		\return The exit status code.
+	*/
 	int run_application(
 		const boost::program_options::wparsed_options& parsed_options
 	)
@@ -30,11 +37,18 @@ namespace
 	}
 }
 
+/*!
+	The entry point of the application.
+
+	\param lpCmdLine The command line arguments.
+
+	\return The exit status code.
+*/
 int WINAPI wWinMain(
-	const ::HINSTANCE /* hInstance */,
-	const ::HINSTANCE /* hPrevInstance */,
+	const ::HINSTANCE /* hInstance */,     //!< Not used.
+	const ::HINSTANCE /* hPrevInstance */, //!< Not used.
 	const ::LPWSTR    lpCmdLine,
-	const int         /* nCmdShow */
+	const int         /* nCmdShow */       //!< Not used.
 )
 throw ()
 {
