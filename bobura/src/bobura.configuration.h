@@ -22,21 +22,16 @@
 namespace bobura
 {
 	/*!
-		\brief The class template for the configuration of bobura.
+		\brief The class for the configuration of bobura.
 
 		$Id$
 	*/
-	template <typename Char>
 	class configuration : private boost::noncopyable
 	{
 	public:
 		// types
 
-		typedef Char char_type;
-
-		typedef
-			tetengo2::gui::win32::gui_factory<char_type>
-			gui_factory_type;
+		typedef tetengo2::gui::win32::gui_factory gui_factory_type;
 
 		typedef bobura<gui_factory_type> bobura_type;
 

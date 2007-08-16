@@ -22,24 +22,8 @@
 
 namespace tetengo2 { namespace gui { namespace win32
 {
-	/*! \class tetengo::gui::win32::window
-		\brief The class template for a window for Win32 platforms.
-
-		$Id$
-	*/
-	template <
-		typename Char,
-		typename Handle,
-		typename GuiFactory,
-		template <typename Window>
-		class MessageReceiver,
-		typename Canvas
-	>
-	class window;
-
 	/*!
-		\brief A partially specialized class template of
-		       window<Char, Handle, GuiFactory, MessageReceiver, Canvas>.
+		\brief The class template for a window for Win32 platforms.
 
 		$Id$
 	*/
@@ -50,15 +34,8 @@ namespace tetengo2 { namespace gui { namespace win32
 		class    MessageReceiver,
 		typename Canvas
 	>
-	class window<
-		wchar_t,
-		Handle,
-		GuiFactory,
-		MessageReceiver,
-		Canvas
-	> :
+	class window :
 		public widget<
-			wchar_t,
 			Handle,
 			GuiFactory,
 			MessageReceiver,

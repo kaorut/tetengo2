@@ -19,22 +19,12 @@
 
 namespace tetengo2 { namespace gui { namespace win32
 {
-	/*! \class tetengo2::gui::win32::message_loop
-		\brief The class template for a message loop for Win32 platforms.
-
-		$Id$
-	*/
-	template <typename Char>
-	class message_loop;
-
 	/*!
-		\brief A partially specialized class template of
-		       message_loop<Char>.
+		\brief The class for a message loop for Win32 platforms.
 
 		$Id$
 	*/
-	template <>
-	class message_loop<wchar_t> : private boost::noncopyable
+	class message_loop : private boost::noncopyable
 	{
 	public:
 		// constructors and destructor

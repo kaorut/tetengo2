@@ -23,49 +23,22 @@
 
 namespace tetengo2 { namespace gui { namespace win32
 {
-	/*! \class tetengo2::gui::win32::widget
+	/*!
 		\brief The base class template for a GUI widget for Win32 platforms.
 
 		$Id$
 	*/
 	template <
-		typename Char,
 		typename Handle,
 		typename GuiFactory,
 		template <typename Widget>
 		class    MessageReceiver,
 		typename Canvas
 	>
-	class widget;
-
-	/*!
-		\brief A partially specialized class template of
-		       widget<Char, Handle, GuiFactory, MessageReceiver, Canvas>.
-
-		$Id$
-	*/
-	template <
-		typename Handle,
-		typename GuiFactory,
-		template <typename Widget>
-		class    MessageReceiver,
-		typename Canvas
-	>
-	class widget<
-		wchar_t,
-		Handle,
-		GuiFactory,
-		MessageReceiver,
-		Canvas
-	> :
-		private boost::noncopyable
+	class widget : private boost::noncopyable
 	{
 	public:
 		// types
-
-		typedef wchar_t char_type;
-
-		typedef std::basic_string<char_type> string_type;
 
 		typedef Handle handle_type;
 
@@ -112,24 +85,24 @@ namespace tetengo2 { namespace gui { namespace win32
 			return ::IsWindowVisible(this->handle()) == TRUE;
 		}
 
-		virtual void set_text(const string_type& text)
+		virtual void set_text(const std::wstring& text)
 		{
 			if (::SetWindowText(this->handle(), text.c_str()) == 0)
 				throw std::runtime_error("Can't set text!");
 		}
 
-		virtual const string_type text()
+		virtual const std::wstring text()
 		const
 		{
 			const int length = ::GetWindowTextLengthW(this->handle());
-			if (length == 0) return string_type();
+			if (length == 0) return std::wstring();
 
-			const boost::scoped_array<char_type> p_text(
-				new char_type[length + 1]
+			const boost::scoped_array<wchar_t> p_text(
+				new wchar_t[length + 1]
 			);
 			::GetWindowTextW(this->handle(), p_text.get(), length + 1);
 
-			return string_type(p_text.get());
+			return std::wstring(p_text.get());
 		}
 
 

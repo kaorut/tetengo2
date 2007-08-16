@@ -29,30 +29,24 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
 	/*!
-		\brief The class template for the GUI object factory for Win32
+		\brief The class for the GUI object factory for Win32
 		platforms.
 
 		$Id$
 	*/
-	template <typename Char>
 	class gui_factory : private boost::noncopyable
 	{
 	public:
 		// types
 
-		typedef Char char_type;
-
 		typedef ::HWND window_handle_type;
 
 		typedef ::HDC canvas_handle_type;
 
-		typedef
-			canvas<char_type, canvas_handle_type, window_handle_type>
-			canvas_type;
+		typedef canvas<canvas_handle_type, window_handle_type> canvas_type;
 
 		typedef
 			window<
-				char_type,
 				window_handle_type,
 				gui_factory,
 				window_message_receiver,
@@ -60,7 +54,7 @@ namespace tetengo2 { namespace gui { namespace win32
 			>
 			window_type;
 
-		typedef message_loop<char_type> message_loop_type;
+		typedef message_loop message_loop_type;
 
 
 		// static functions

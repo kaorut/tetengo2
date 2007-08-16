@@ -20,30 +20,16 @@
 
 namespace tetengo2 { namespace gui { namespace win32
 {
-	/*! \class tetengo2::gui::win32::canvas
-
+	/*!
 		\brief The class template for a canvas for Win32 platforms.
 
 		$Id$
 	*/
-	template <typename Char, typename Handle, typename WindowHandle>
-	class canvas;
-
-	/*!
-		\brief A partially specialized class template of
-		       canvas<Char, Handle, WindowHandle>.
-
-		$Id$
-	*/
 	template <typename Handle, typename WindowHandle>
-	class canvas<wchar_t, Handle, WindowHandle> : private boost::noncopyable
+	class canvas : private boost::noncopyable
 	{
 	public:
 		// types
-
-		typedef wchar_t char_type;
-
-		typedef std::basic_string<char_type> string_type;
 
 		typedef Handle handle_type;
 
@@ -79,7 +65,7 @@ namespace tetengo2 { namespace gui { namespace win32
 			return m_paint_info.hdc;
 		}
 
-		void draw_text(const string_type& text, const point_type& point)
+		void draw_text(const std::wstring& text, const point_type& point)
 		const
 		{
 			::BOOL successful = ::TextOut(

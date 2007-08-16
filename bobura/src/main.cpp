@@ -18,19 +18,15 @@
 
 namespace
 {
-	template <typename Char>
 	int run_application(
-		const boost::program_options::basic_parsed_options<Char>&
-		parsed_options
+		const boost::program_options::wparsed_options& parsed_options
 	)
 	{
 		boost::program_options::variables_map option_values;
 		boost::program_options::store(parsed_options, option_values);
 		boost::program_options::notify(option_values);
 
-		return bobura::configuration<Char>(
-			option_values
-		).create_bobura()->run();
+		return bobura::configuration(option_values).create_bobura()->run();
 	}
 }
 
@@ -42,24 +38,22 @@ int WINAPI wWinMain(
 )
 throw ()
 {
-	typedef bobura::configuration<wchar_t> configuration_type;
-
 	try
 	{
 		return ::run_application(
 			boost::program_options::wcommand_line_parser(
 				boost::program_options::split_winmain(lpCmdLine)
-			).options(configuration_type::options()).run()
+			).options(bobura::configuration::options()).run()
 		);
 	}
 	catch (const std::exception& e)
 	{
-		configuration_type::gui_factory_type::show_fatal_error(NULL, e);
+		bobura::configuration::gui_factory_type::show_fatal_error(NULL, e);
 		return 1;
 	}
 	catch (...)
 	{
-		configuration_type::gui_factory_type::show_fatal_error(NULL);
+		bobura::configuration::gui_factory_type::show_fatal_error(NULL);
 		return 2;
 	}
 }
