@@ -111,7 +111,7 @@ namespace tetengo2 { namespace gui { namespace win32
 			window_class.cbClsExtra = 0;
 			window_class.cbWndExtra = sizeof(widget*);
 			window_class.hInstance = instance_handle;
-			window_class.hIcon = static_cast< ::HICON>(
+			window_class.hIcon = reinterpret_cast< ::HICON>(
 				::LoadImageW(
 					0,
 					MAKEINTRESOURCEW(OIC_WINLOGO),
@@ -121,7 +121,7 @@ namespace tetengo2 { namespace gui { namespace win32
 					LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
 				)
 			);
-			window_class.hIconSm = static_cast< ::HICON>(
+			window_class.hIconSm = reinterpret_cast< ::HICON>(
 				::LoadImageW(
 					0,
 					MAKEINTRESOURCEW(OIC_WINLOGO),
@@ -131,7 +131,7 @@ namespace tetengo2 { namespace gui { namespace win32
 					LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
 				)
 			);
-			window_class.hCursor = static_cast< ::HICON>(
+			window_class.hCursor = reinterpret_cast< ::HICON>(
 				::LoadImageW(
 					0,
 					MAKEINTRESOURCEW(OCR_NORMAL),
@@ -141,8 +141,8 @@ namespace tetengo2 { namespace gui { namespace win32
 					LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
 				)
 			);
-			window_class.hbrBackground = static_cast< ::HBRUSH>(
-				::GetSysColorBrush(COLOR_WINDOW)
+			window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(
+				::GetSysColorBrush(COLOR_3DFACE)
 			);
 			window_class.lpszMenuName = NULL;
 			window_class.lpszClassName = L"tetengo2::gui::win32::widget";
