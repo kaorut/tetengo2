@@ -201,10 +201,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\bobura.bobura.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\main.cpp"
 				>
 			</File>
@@ -214,6 +210,10 @@
 			Filter="h"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\src\bobura.bobura.h"
+				>
+			</File>
 			<File
 				RelativePath=".\src\bobura.configuration.h"
 				>
@@ -226,29 +226,29 @@
 				RelativePath=".\src\bobura.message.main_window_window_observer.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="Resources"
+			Filter="rc;resource.h;ico;manifest"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
+			<File
+				RelativePath=".\res\win32\bobura.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\res\win32\COMCTL32.DLL.manifest"
+				>
+			</File>
+			<File
+				RelativePath=".\res\win32\kuma.ico"
+				>
+			</File>
 			<File
 				RelativePath=".\res\win32\resource.h"
 				>
 			</File>
 		</Filter>
-		<Filter
-			Name="Resources"
-			Filter="res;manifest"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
-			<File
-				RelativePath=".\res\win32\COMCTL32.DLL.manifest"
-				>
-			</File>
-		</Filter>
-		<File
-			RelativePath=".\res\win32\bobura.rc"
-			>
-		</File>
-		<File
-			RelativePath=".\res\win32\kuma.ico"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
