@@ -70,6 +70,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib"
 				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -81,6 +82,8 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
+				AdditionalManifestFiles="$(ProjectDir)\res\win32\COMCTL32.DLL.manifest"
+				EmbedManifest="true"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -153,6 +156,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib"
 				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="false"
 				GenerateMapFile="false"
@@ -165,6 +169,8 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
+				AdditionalManifestFiles="$(ProjectDir)\res\win32\COMCTL32.DLL.manifest"
+				EmbedManifest="true"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -220,12 +226,29 @@
 				RelativePath=".\src\bobura.message.main_window_window_observer.h"
 				>
 			</File>
+			<File
+				RelativePath=".\res\win32\resource.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resources"
+			Filter="res;manifest"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\res\win32\COMCTL32.DLL.manifest"
+				>
+			</File>
 		</Filter>
+		<File
+			RelativePath=".\res\win32\bobura.rc"
+			>
+		</File>
+		<File
+			RelativePath=".\res\win32\kuma.ico"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
