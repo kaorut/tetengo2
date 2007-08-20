@@ -16,8 +16,6 @@ namespace bobura { namespace message
 {
 	/*!
 		\brief The class templatefor a window observer of the main window.
-
-		$Id$
 	*/
 	template <typename MessageLoop>
 	class main_window_window_observer :	public tetengo2::gui::window_observer

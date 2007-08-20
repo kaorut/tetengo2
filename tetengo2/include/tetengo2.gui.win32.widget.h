@@ -25,8 +25,6 @@ namespace tetengo2 { namespace gui { namespace win32
 {
 	/*!
 		\brief The base class template for a GUI widget for Win32 platforms.
-
-		$Id$
 	*/
 	template <
 		typename Handle,

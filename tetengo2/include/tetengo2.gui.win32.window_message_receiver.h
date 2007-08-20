@@ -28,8 +28,6 @@ namespace tetengo2 { namespace gui { namespace win32
 	/*!
 		\brief The base class template for a window message management for
 		Win32 platforms.
-
-		$Id$
 	*/
 	template <typename Window>
 	class window_message_receiver : public widget_message_receiver<Window>

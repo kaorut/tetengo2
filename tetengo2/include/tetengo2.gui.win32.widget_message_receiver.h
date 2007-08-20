@@ -24,8 +24,6 @@ namespace tetengo2 { namespace gui { namespace win32
 	/*!
 		\brief The base class template for a widget message management for
 		Win32 platforms.
-
-		$Id$
 	*/
 	template <typename Widget>
 	class widget_message_receiver : private boost::noncopyable

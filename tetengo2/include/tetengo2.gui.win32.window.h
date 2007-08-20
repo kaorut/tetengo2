@@ -24,8 +24,6 @@ namespace tetengo2 { namespace gui { namespace win32
 {
 	/*!
 		\brief The class template for a window for Win32 platforms.
-
-		$Id$
 	*/
 	template <
 		typename Handle,

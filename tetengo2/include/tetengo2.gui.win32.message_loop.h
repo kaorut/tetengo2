@@ -21,8 +21,6 @@ namespace tetengo2 { namespace gui { namespace win32
 {
 	/*!
 		\brief The class for a message loop for Win32 platforms.
-
-		$Id$
 	*/
 	class message_loop : private boost::noncopyable
 	{

@@ -18,8 +18,6 @@ namespace bobura { namespace message
 {
 	/*!
 		\brief The class template for a paint observer of the main window.
-
-		$Id$
 	*/
 	template <typename Canvas>
 	class main_window_paint_observer :

@@ -31,8 +31,6 @@ namespace tetengo2 { namespace gui { namespace win32
 	/*!
 		\brief The class for the GUI object factory for Win32
 		platforms.
-
-		$Id$
 	*/
 	class gui_factory : private boost::noncopyable
 	{

@@ -22,8 +22,6 @@ namespace tetengo2 { namespace gui { namespace win32
 {
 	/*!
 		\brief The class template for a canvas for Win32 platforms.
-
-		$Id$
 	*/
 	template <typename Handle, typename WindowHandle>
 	class canvas : private boost::noncopyable

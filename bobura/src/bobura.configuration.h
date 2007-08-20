@@ -23,8 +23,6 @@ namespace bobura
 {
 	/*!
 		\brief The class for the configuration of bobura.
-
-		$Id$
 	*/
 	class configuration : private boost::noncopyable
 	{

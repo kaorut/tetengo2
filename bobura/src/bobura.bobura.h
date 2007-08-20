@@ -23,7 +23,9 @@ namespace bobura
 	/*!
 		\brief The class template for the bobura application.
 
-		$Id$
+		\param GuiFactory The abstract factory to create platform specific
+		                  GUI components. It must conform to
+						  gui_factory_concept.
 	*/
 	template <typename GuiFactory>
 	class bobura : private boost::noncopyable
@@ -31,16 +33,25 @@ namespace bobura
 	public:
 		// types
 
+		//! The abstract factory to create platform specific GUI components.
 		typedef GuiFactory gui_factory_type;
 
 
 		// constructors and destructor
 
+		/*!
+			\brief Creates a bobura object.
+
+			\param p_gui_factory An auto pointer to a GUI factory.
+		*/
 		bobura(std::auto_ptr<const gui_factory_type> p_gui_factory)
 		:
 		m_p_gui_factory(p_gui_factory)
 		{}
 
+		/*!
+			\brief Destroys the bobura object.
+		*/
 		~bobura()
 		throw ()
 		{}
@@ -48,6 +59,11 @@ namespace bobura
 
 		// functions
 
+		/*!
+			\brief Runs the main process of the application.
+
+			\return The exit status code.
+		*/
 		int run()
 		const
 		{

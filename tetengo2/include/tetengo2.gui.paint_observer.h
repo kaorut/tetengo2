@@ -17,8 +17,6 @@ namespace tetengo2 { namespace gui
 {
 	/*!
 		\brief The base class template for a paint observer.
-
-		$Id$
 	*/
 	template <typename Canvas>
 	class paint_observer :

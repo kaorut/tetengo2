@@ -17,8 +17,6 @@ namespace tetengo2 { namespace gui
 {
 	/*!
 		\brief The base class for a window observer.
-
-		$Id$
 	*/
 	class window_observer :
 		public boost::signals::trackable, private boost::noncopyable
