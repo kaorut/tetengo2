@@ -19,7 +19,7 @@
 namespace
 {
 	/*!
-		Creates the application and runs it.
+		\brief Creates the application and runs it.
 
 		\param parsed_options The parsed command line options.
 
@@ -38,7 +38,7 @@ namespace
 }
 
 /*!
-	The entry point of the application.
+	\brief The entry point of the application.
 
 	\param lpCmdLine The command line arguments.
 

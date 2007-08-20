@@ -5,6 +5,7 @@
 $Id$
 
 */
+
 /*! \namespace bobura::message
 
 \brief The namespace for message observers.
