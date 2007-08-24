@@ -26,9 +26,15 @@ namespace bobura { namespace message
 	public:
 		// constructors and destructor
 
+		/*!
+			\brief Creates a paint observer of the main window.
+		*/
 		main_window_paint_observer()
 		{}
 
+		/*!
+			\brief Destroys the paint observer of the main window.
+		*/
 		virtual ~main_window_paint_observer()
 		throw ()
 		{}
@@ -36,6 +42,11 @@ namespace bobura { namespace message
 
 		// functions
 
+		/*!
+			\brief Called when it is necessary to repaint the main window.
+
+			\param p_canvas The pointer to the canvas.
+		*/
 		virtual void paint(const canvas_type* p_canvas)
 		{
 			p_canvas->draw_text(L"‚Ä‚·‚Æ", std::make_pair(64, 32));

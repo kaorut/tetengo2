@@ -29,13 +29,20 @@ namespace bobura
 	public:
 		// types
 
+		//! The abstract factory to create platform specific GUI components.
 		typedef tetengo2::gui::win32::gui_factory gui_factory_type;
 
+		//! The Bobura application.
 		typedef bobura<gui_factory_type> bobura_type;
 
 
 		// static functions
 
+		/*!
+			\brief Returns the option description of the application.
+
+			\return The options description.
+		*/
 		static const boost::program_options::options_description& options()
 		{
 			static const boost::program_options::options_description&
@@ -47,6 +54,11 @@ namespace bobura
 
 		// constructors and destructor
 
+		/*!
+			\brief Creates a configuration.
+
+			\param option_values The option values for the application.
+		*/
 		configuration(
 			const boost::program_options::variables_map& option_values
 		)
@@ -54,6 +66,9 @@ namespace bobura
 		m_option_values(option_values)
 		{}
 
+		/*!
+			\brief Destroyes the configuration.
+		*/
 		~configuration()
 		throw ()
 		{}
@@ -61,6 +76,11 @@ namespace bobura
 
 		// functions
 
+		/*!
+			\brief Creates a Bobura application.
+
+			\return An auto pointer to a Bobura application.
+		*/
 		std::auto_ptr<bobura_type> create_bobura()
 		const
 		{
