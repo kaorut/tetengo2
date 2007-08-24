@@ -16,6 +16,9 @@ namespace bobura { namespace message
 {
 	/*!
 		\brief The class templatefor a window observer of the main window.
+
+		\param MessageLoop The message loop of the main window. It must
+		                   conform to tetengo2::gui::message_loop_concept.
 	*/
 	template <typename MessageLoop>
 	class main_window_window_observer :	public tetengo2::gui::window_observer

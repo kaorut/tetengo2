@@ -18,6 +18,9 @@ namespace bobura { namespace message
 {
 	/*!
 		\brief The class template for a paint observer of the main window.
+
+		\param Canvas The canvas of the main window. It must conform to
+		              tetengo2::gui::canvas_concept.
 	*/
 	template <typename Canvas>
 	class main_window_paint_observer :
