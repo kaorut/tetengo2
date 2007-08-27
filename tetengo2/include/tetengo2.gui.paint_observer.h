@@ -25,14 +25,21 @@ namespace tetengo2 { namespace gui
 	public:
 		// types
 
+		//! The canvas on which graphics are drawn.
 		typedef Canvas canvas_type;
 
 
 		// constructors and destructor
 
+		/*!
+			\brief Creates a paint observer.
+		*/
 		paint_observer()
 		{}
 
+		/*!
+			\brief Destroys the paint observer.
+		*/
 		virtual ~paint_observer()
 		throw ()
 		{}
@@ -40,7 +47,12 @@ namespace tetengo2 { namespace gui
 
 		// functions
 
-		virtual void paint(const canvas_type* /* p_canvas */)
+		/*!
+			\brief Called when it is necessary to repaint the main window.
+
+			\param p_canvas The pointer to the canvas.
+		*/
+		virtual void paint(const canvas_type* p_canvas)
 		{}
 
 

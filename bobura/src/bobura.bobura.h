@@ -40,7 +40,7 @@ namespace bobura
 		// constructors and destructor
 
 		/*!
-			\brief Creates a bobura object.
+			\brief Creates a bobura application.
 
 			\param p_gui_factory An auto pointer to a GUI factory.
 		*/
@@ -50,7 +50,7 @@ namespace bobura
 		{}
 
 		/*!
-			\brief Destroys the bobura object.
+			\brief Destroys the bobura application.
 		*/
 		~bobura()
 		throw ()

@@ -40,15 +40,18 @@ namespace
 /*!
 	\brief The entry point of the application.
 
-	\param lpCmdLine The command line arguments.
+	\param hInstance     Not used.
+	\param hPrevInstance Not used.
+	\param lpCmdLine     The command line arguments.
+	\param nCmdShow      Not used.
 
 	\return The exit status code.
 */
 int WINAPI wWinMain(
-	const ::HINSTANCE /* hInstance */,     //!< Not used.
-	const ::HINSTANCE /* hPrevInstance */, //!< Not used.
+	const ::HINSTANCE hInstance,
+	const ::HINSTANCE hPrevInstance,
 	const ::LPWSTR    lpCmdLine,
-	const int         /* nCmdShow */       //!< Not used.
+	const int         nCmdShow
 )
 throw ()
 {

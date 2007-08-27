@@ -45,11 +45,7 @@ namespace bobura { namespace message
 
 		// functions
 
-		/*!
-			\brief Called when it is necessary to repaint the main window.
-
-			\param p_canvas The pointer to the canvas.
-		*/
+		// The document is derived from tetengo2::gui::paint_observer::paint.
 		virtual void paint(const canvas_type* p_canvas)
 		{
 			p_canvas->draw_text(L"‚Ä‚·‚Æ", std::make_pair(64, 32));
