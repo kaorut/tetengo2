@@ -27,9 +27,15 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // constructors and destructor
 
+        /*!
+            \brief Creates a message_loop object.
+        */
         message_loop()
         {}
 
+        /*!
+            \brief Destroys the message loop object.
+        */
         ~message_loop()
         throw ()
         {}
@@ -37,6 +43,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
+        /*!
+            \brief Runs the message loop.
+
+            \return The exit status code.
+        */
         int run()
         const
         {

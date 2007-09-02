@@ -24,7 +24,19 @@ namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
         \brief The class template for a window for Win32 platforms.
-    */
+ 
+        \param Handle          A handle type to the native interface. It must
+                               conform to
+                               tetengo2::gui::concepts::HandleConcept.
+        \param GuiFactory      An abstract factory type to create platform
+                               specific GUI components. It must conform to
+                               tetengo2::gui::concepts::GuiFactoryConcept.
+        \param MessageReceiver A message receiver type template. The type
+                               MessageReceiver<widget> must conform to
+                               tetengo2::gui::MessageReceiverConcept.
+        \param Canvas          A canvas type. It must conform to
+                               tetengo2::gui::concepts::CanvasConcept.
+   */
     template <
         typename Handle,
         typename GuiFactory,
@@ -43,6 +55,9 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // constructors and destructor
 
+        /*!
+            \brief Creates a window object.
+        */
         window()
         :
         m_handle(create_window())
@@ -54,6 +69,9 @@ namespace tetengo2 { namespace gui { namespace win32
             );
         }
 
+        /*!
+            \brief Destroys the window object.
+        */
         virtual ~window()
         throw ()
         {}
@@ -61,6 +79,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
+        // The document will be derived from tetengo2::gui::win32::widget.
         virtual handle_type handle()
         const
         {

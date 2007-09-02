@@ -26,25 +26,37 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The base class template for a window message management for
+        \brief The base class template for a window message receiver for
         Win32 platforms.
+
+        \param Widget A widget type. It must confirm to
+                      tetengo2::gui::concepts::WidgetConcept.
     */
-    template <typename Window>
-    class window_message_receiver : public widget_message_receiver<Window>
+    template <typename Widget>
+    class window_message_receiver : public widget_message_receiver<Widget>
     {
     public:
         // types
 
+        //! The window observer type.
         typedef window_observer window_observer_type;
 
 
         // constructors and destructor
 
+        /*!
+            \brief Creates a window message receiver object.
+
+            \param p_widget A pointer to a widget.
+        */
         window_message_receiver(widget_type* const p_widget)
         :
         widget_message_receiver(p_widget)
         {}
 
+        /*!
+            \brief Destroys the window message receiver object.
+        */
         virtual ~window_message_receiver()
         throw ()
         {}
@@ -52,6 +64,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
+        /*!
+            \brief Adds a window observer.
+
+            \param p_window_observer An auto pointer to a window observer.
+        */
         void add_window_observer(
             std::auto_ptr<window_observer_type> p_window_observer
         )

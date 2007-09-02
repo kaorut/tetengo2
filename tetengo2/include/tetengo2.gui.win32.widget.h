@@ -25,6 +25,18 @@ namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
         \brief The base class template for a GUI widget for Win32 platforms.
+
+        \param Handle          A handle type to the native interface. It must
+                               conform to
+                               tetengo2::gui::concepts::HandleConcept.
+        \param GuiFactory      An abstract factory type to create platform
+                               specific GUI components. It must conform to
+                               tetengo2::gui::concepts::GuiFactoryConcept.
+        \param MessageReceiver A message receiver type template. The type
+                               MessageReceiver<widget> must conform to
+                               tetengo2::gui::MessageReceiverConcept.
+        \param Canvas          A canvas type. It must conform to
+                               tetengo2::gui::concepts::CanvasConcept.
     */
     template <
         typename Handle,
@@ -38,22 +50,33 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
+        //! The handle type.
         typedef Handle handle_type;
 
+        //! The abstract factory type to create platform specific GUI
+        //! components.
         typedef GuiFactory gui_factory_type;
 
+        //! The message receiver type.
         typedef MessageReceiver<widget> message_receiver_type;
 
+        //! The canvas type.
         typedef Canvas canvas_type;
 
 
         // constructors and destructor
 
+        /*!
+            \brief Creates a widget object.
+        */
         widget()
         :
         m_p_message_receiver()
         {}
 
+        /*!
+            \brief Destroys the widget object.
+        */
         virtual ~widget()
         throw ()
         {}
@@ -61,9 +84,19 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
+        /*!
+            \brief Returns the handle.
+            
+            \return The handle.
+        */
         virtual handle_type handle()
         const = 0;
 
+        /*!
+            \brief Returns the message receiver.
+
+            \return The pointer to the message receiver.
+        */
         message_receiver_type* message_receiver()
         const
         {
@@ -73,23 +106,43 @@ namespace tetengo2 { namespace gui { namespace win32
             return m_p_message_receiver.get();
         }
 
+        /*!
+            \brief Sets the visible status.
+
+            \param visible A visible status.
+        */
         virtual void set_visible(const bool visible)
         {
             ::ShowWindow(this->handle(), visible ? SW_SHOW : SW_HIDE);
         }
 
+        /*!
+            \brief Returns the visible status.
+
+            \param The visible status.
+        */
         virtual bool is_visible()
         const
         {
             return ::IsWindowVisible(this->handle()) == TRUE;
         }
 
+        /*!
+            \brief Sets the text.
+
+            \param text A text.
+        */
         virtual void set_text(const std::wstring& text)
         {
             if (::SetWindowText(this->handle(), text.c_str()) == 0)
                 throw std::runtime_error("Can't set text!");
         }
 
+        /*!
+            \brief Retuns the text.
+
+            \return The text.
+        */
         virtual const std::wstring text()
         const
         {
@@ -108,6 +161,11 @@ namespace tetengo2 { namespace gui { namespace win32
     protected:
         // functions
 
+        /*!
+            \brief Sets the message receiver.
+
+            \param p_message_receiver An auto pointer to a message receiver.
+        */
         void set_message_receiver(
             std::auto_ptr<message_receiver_type> p_message_receiver
         )

@@ -22,8 +22,11 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The base class template for a widget message management for
+        \brief The base class template for a widget message receiver for
         Win32 platforms.
+
+        \param Widget A widget type. It must confirm to
+                      tetengo2::gui::concepts::WidgetConcept.
     */
     template <typename Widget>
     class widget_message_receiver : private boost::noncopyable
@@ -31,15 +34,23 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
+        //! The widget type.
         typedef Widget widget_type;
 
+        //! The canvas type.
         typedef typename widget_type::canvas_type canvas_type;
 
+        //! The paint observer type.
         typedef paint_observer<canvas_type> paint_observer_type;
 
 
         // static functions
 
+        /*!
+            \brief Returns the static window precedure.
+            
+            \return The pointer to the static window precedure.
+        */
         static ::WNDPROC pointer_to_static_window_procedure()
         {
             return static_window_procedure;
@@ -48,6 +59,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // constructors and destructor
 
+        /*!
+            \brief Creates a widget message receiver object.
+
+            \param p_widget A pointer to a widget.
+        */
         widget_message_receiver(widget_type* const p_widget)
         :
         m_p_widget(p_widget)
@@ -55,6 +71,9 @@ namespace tetengo2 { namespace gui { namespace win32
             set_message_receiver(p_widget);
         }
 
+        /*!
+            \brief Destroys the widget message receiver object.
+        */
         virtual ~widget_message_receiver()
         throw ()
         {}
@@ -62,6 +81,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
+        /*!
+            \brief Adds a paint observer.
+
+            \param p_paint_observer An auto pointer to a paint observer.
+        */
         void add_paint_observer(
             std::auto_ptr<paint_observer_type> p_paint_observer
         )
@@ -81,6 +105,15 @@ namespace tetengo2 { namespace gui { namespace win32
     protected:
         // functions
 
+        /*!
+            \brief Dispatches the window messages.
+
+            \param uMsg   A message.
+            \param wParam A word-sized parameter.
+            \param lParam A long-sized parameter.
+
+            \return The result code.
+        */
         virtual ::LRESULT window_procedure(
             const ::UINT   uMsg,
             const ::WPARAM wParam,

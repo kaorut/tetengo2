@@ -25,7 +25,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The class template for a canvas for Win32 platforms.
 
         \param Handle       A handle type for the native interface. It must
-                            conform to tetengo2::gui::HandleConcept.
+                            conform to tetengo2::gui::concepts::HandleConcept.
         \param Size         A size type. It must conform to
                             boost::IntegerConcept.
         \param WindowHandle A window handle type for the native interface. It
