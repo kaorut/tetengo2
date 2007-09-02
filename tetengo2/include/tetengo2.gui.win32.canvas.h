@@ -25,10 +25,11 @@ namespace tetengo2 { namespace gui { namespace win32
                             conform to tetengo2::gui::concepts::HandleConcept.
         \param Size         A size type. It must conform to
                             boost::IntegerConcept.
-        \param Point        A point type template. Point<Size, Size> must be
-                            conform to tetengo2::gui::concepts::PointConcept.
-        \param Rectangle    A rectangle type template. Rectangle<Point, Point>
-                            must be conform to
+        \param Point        A point type template. The type Point<Size, Size>
+                            must conform to
+                            tetengo2::gui::concepts::PointConcept.
+        \param Rectangle    A rectangle type template. The type
+                            Rectangle<Point, Point> must conform to
                             tetengo2::gui::concepts::RectangleConcept.
         \param String       A string type. It must conform to
                             tetengo2::concepts::StringConcept.

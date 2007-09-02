@@ -44,6 +44,7 @@ namespace tetengo2 { namespace gui { namespace win32
             window<
                 ::HWND,
                 window_message_receiver,
+                ::WNDPROC,
                 alerter_type,
                 canvas_type,
                 std::wstring

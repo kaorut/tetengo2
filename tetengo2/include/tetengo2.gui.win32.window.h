@@ -25,23 +25,31 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a window for Win32 platforms.
  
-        \param Handle          A handle type to the native interface. It must
-                               conform to
-                               tetengo2::gui::concepts::HandleConcept.
-        \param MessageReceiver A message receiver type template. The type
-                               MessageReceiver<widget> must conform to
-                               tetengo2::gui::MessageReceiverConcept.
-        \param Alerter         An alerter type. It must conform to
-                               tetengo2::gui::concepts::AlerterConcept.
-        \param Canvas          A canvas type. It must conform to
-                               tetengo2::gui::concepts::CanvasConcept.
-        \param String          A string type. It must conform to
-                               tetengo2::concepts::StringConcept.
+        \param Handle                A handle type to the native interface. It
+                                     must conform to
+                                     tetengo2::gui::concepts::HandleConcept.
+        \param MessageReceiver       A message receiver type template. The
+                                     type
+                                     MessageReceiver<Widget, StaticWindowProcedure, Alerter>
+                                     must conform to
+                                     tetengo2::gui::MessageReceiverConcept.
+        \param StaticWindowProcedure A static window procedure type. It must
+                                     conform to
+                                     tetengo2::gui::concepts::StaticWindowProcedureConcept.
+        \param Alerter               An alerter type. It must conform to
+                                     tetengo2::gui::concepts::AlerterConcept.
+        \param Canvas                A canvas type. It must conform to
+                                     tetengo2::gui::concepts::CanvasConcept.
+        \param String                A string type. It must conform to
+                                     tetengo2::concepts::StringConcept.
    */
     template <
         typename Handle,
-        template <typename Window, typename Alerter>
+        template <
+            typename Window, typename StaticWindowProcedure, typename Alerter
+        >
         class    MessageReceiver,
+        typename StaticWindowProcedure,
         typename Alerter,
         typename Canvas,
         typename String
@@ -50,6 +58,7 @@ namespace tetengo2 { namespace gui { namespace win32
         public widget<
             Handle,
             MessageReceiver,
+            StaticWindowProcedure,
             Alerter,
             Canvas,
             String
@@ -127,7 +136,7 @@ namespace tetengo2 { namespace gui { namespace win32
             window_class.cbSize = sizeof(::WNDCLASSEXW);
             window_class.style = 0;
             window_class.lpfnWndProc =
-                message_receiver_type::pointer_to_static_window_procedure();
+                message_receiver_type::p_static_window_procedure();
             window_class.cbClsExtra = 0;
             window_class.cbWndExtra = sizeof(widget*);
             window_class.hInstance = instance_handle;

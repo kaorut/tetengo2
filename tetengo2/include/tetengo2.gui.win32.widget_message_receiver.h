@@ -25,12 +25,19 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The base class template for a widget message receiver for
         Win32 platforms.
 
-        \param Widget  A widget type. It must confirm to
-                       tetengo2::gui::concepts::WidgetConcept.
-        \param Alerter An alerter type. It must conform to
-                       tetengo2::gui::concepts::AlerterConcept.
+        \param Widget                A widget type. It must confirm to
+                                     tetengo2::gui::concepts::WidgetConcept.
+        \param StaticWindowProcedure A static window procedure type. It must
+                                     conform to
+                                     tetengo2::gui::concepts::StaticWindowProcedureConcept.
+        \param Alerter               An alerter type. It must conform to
+                                     tetengo2::gui::concepts::AlerterConcept.
     */
-    template <typename Widget, typename Alerter>
+    template <
+        typename Widget,
+        typename StaticWindowProcedure,
+        typename Alerter
+    >
     class widget_message_receiver : private boost::noncopyable
     {
     public:
@@ -45,6 +52,9 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The paint observer type.
         typedef paint_observer<canvas_type> paint_observer_type;
 
+        //! The static window procedure type.
+        typedef StaticWindowProcedure static_window_procedure_type;
+
         //! The alerter type.
         typedef Alerter alerter_type;
 
@@ -56,7 +66,7 @@ namespace tetengo2 { namespace gui { namespace win32
             
             \return The pointer to the static window precedure.
         */
-        static ::WNDPROC pointer_to_static_window_procedure()
+        static static_window_procedure_type p_static_window_procedure()
         {
             return static_window_procedure;
         }
