@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_WIN32_WINDOW_H)
 #define TETENGO2_GUI_WIN32_WINDOW_H
 
-#include <exception>
 #include <memory>
+#include <stdexcept>
 
 #include <boost/noncopyable.hpp>
 
@@ -35,20 +35,24 @@ namespace tetengo2 { namespace gui { namespace win32
                                tetengo2::gui::concepts::AlerterConcept.
         \param Canvas          A canvas type. It must conform to
                                tetengo2::gui::concepts::CanvasConcept.
+        \param String          A string type. It must conform to
+                               tetengo2::concepts::StringConcept.
    */
     template <
         typename Handle,
         template <typename Window, typename Alerter>
         class    MessageReceiver,
         typename Alerter,
-        typename Canvas
+        typename Canvas,
+        typename String
     >
     class window :
         public widget<
             Handle,
             MessageReceiver,
             Alerter,
-            Canvas
+            Canvas,
+            String
         >
     {
     public:

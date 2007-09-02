@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_WIN32_CANVAS_H)
 #define TETENGO2_GUI_WIN32_CANVAS_H
 
-#include <string>
 #include <utility>
 
 #include <boost/concept_check.hpp>
@@ -28,11 +27,18 @@ namespace tetengo2 { namespace gui { namespace win32
                             conform to tetengo2::gui::concepts::HandleConcept.
         \param Size         A size type. It must conform to
                             boost::IntegerConcept.
+        \param String       A string type. It must conform to
+                            tetengo2::concepts::StringConcept.
         \param WindowHandle A window handle type for the native interface. It
                             must conform to
                             tetengo2::gui::concpets::HandleConcept.
     */
-    template <typename Handle, typename Size, typename WindowHandle>
+    template <
+        typename Handle,
+        typename Size,
+        typename String,
+        typename WindowHandle
+    >
     class canvas : private boost::noncopyable
     {
     public:
@@ -54,6 +60,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The rectangle type.
         typedef std::pair<point_type, point_type> rectangle_type;
+
+        //! The string type.
+        typedef String string_type;
 
         //! The window handle type for the native interface.
         typedef WindowHandle window_handle_type;
@@ -104,7 +113,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \param text  A text to draw.
             \param point A point where the text is drawn.
         */
-        void draw_text(const std::wstring& text, const point_type& point)
+        void draw_text(const string_type& text, const point_type& point)
         const
         {
             const ::BOOL successful = ::TextOutW(

@@ -9,9 +9,8 @@
 #if !defined(TETENGO2_GUI_WIN32_WIDGET_H)
 #define TETENGO2_GUI_WIN32_WIDGET_H
 
-#include <exception>
 #include <memory>
-#include <string>
+#include <stdexcept>
 
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -36,13 +35,16 @@ namespace tetengo2 { namespace gui { namespace win32
                                tetengo2::gui::concepts::AlerterConcept.
         \param Canvas          A canvas type. It must conform to
                                tetengo2::gui::concepts::CanvasConcept.
+        \param String          A string type. It must conform to
+                               tetengo2::concepts::StringConcept.
     */
     template <
         typename Handle,
         template <typename Widget, typename Alerter>
         class    MessageReceiver,
         typename Alerter,
-        typename Canvas
+        typename Canvas,
+        typename String
     >
     class widget : private boost::noncopyable
     {
@@ -60,6 +62,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The canvas type.
         typedef Canvas canvas_type;
+
+        //! The string type
+        typedef String string_type;
 
 
         // constructors and destructor
@@ -130,7 +135,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param text A text.
         */
-        virtual void set_text(const std::wstring& text)
+        virtual void set_text(const string_type& text)
         {
             if (::SetWindowText(this->handle(), text.c_str()) == 0)
                 throw std::runtime_error("Can't set text!");
@@ -141,18 +146,18 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The text.
         */
-        virtual const std::wstring text()
+        virtual const string_type text()
         const
         {
             const int length = ::GetWindowTextLengthW(this->handle());
-            if (length == 0) return std::wstring();
+            if (length == 0) return string_type();
 
             const boost::scoped_array<wchar_t> p_text(
                 new wchar_t[length + 1]
             );
             ::GetWindowTextW(this->handle(), p_text.get(), length + 1);
 
-            return std::wstring(p_text.get());
+            return string_type(p_text.get());
         }
 
 

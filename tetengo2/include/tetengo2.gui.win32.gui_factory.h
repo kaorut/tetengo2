@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_WIN32_GUIFACTORY_H)
 #define TETENGO2_GUI_WIN32_GUIFACTORY_H
 
+#include <string>
+
 #define OEMRESOURCE
 #include <windows.h>
 
@@ -24,7 +26,14 @@ namespace tetengo2 { namespace gui { namespace win32
 {
     namespace
     {
-        typedef canvas< ::HDC, std::size_t, ::HWND> canvas_type;
+        typedef
+            canvas<
+                ::HDC,
+                std::size_t,
+                std::wstring,
+                ::HWND
+            >
+            canvas_type;
 
         typedef alerter< ::HWND> alerter_type;
 
@@ -33,7 +42,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::HWND,
                 window_message_receiver,
                 alerter_type,
-                canvas_type
+                canvas_type,
+                std::wstring
             >
             window_type;
     }
