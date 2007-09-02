@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_WIN32_CANVAS_H)
 #define TETENGO2_GUI_WIN32_CANVAS_H
 
-#include <utility>
-
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
@@ -27,6 +25,11 @@ namespace tetengo2 { namespace gui { namespace win32
                             conform to tetengo2::gui::concepts::HandleConcept.
         \param Size         A size type. It must conform to
                             boost::IntegerConcept.
+        \param Point        A point type template. Point<Size> must be conform
+                            to tetengo2::gui::concepts::PointConcept.
+        \param Rectangle    A rectangle type template. Rectangle<Point> must
+                            be conform to
+                            tetengo2::gui::concepts::RectangleConcept.
         \param String       A string type. It must conform to
                             tetengo2::concepts::StringConcept.
         \param WindowHandle A window handle type for the native interface. It
@@ -36,6 +39,10 @@ namespace tetengo2 { namespace gui { namespace win32
     template <
         typename Handle,
         typename Size,
+        template <typename Size1, typename Size2>
+        class Point,
+        template <typename Point1, typename Point2>
+        class Rectangle,
         typename String,
         typename WindowHandle
     >
@@ -56,10 +63,10 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef Size size_type;
 
         //! The point type.
-        typedef std::pair<size_type, size_type> point_type;
+        typedef Point<size_type, size_type> point_type;
 
         //! The rectangle type.
-        typedef std::pair<point_type, point_type> rectangle_type;
+        typedef Rectangle<point_type, point_type> rectangle_type;
 
         //! The string type.
         typedef String string_type;

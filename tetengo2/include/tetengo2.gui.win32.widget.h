@@ -40,7 +40,7 @@ namespace tetengo2 { namespace gui { namespace win32
     */
     template <
         typename Handle,
-        template <typename Widget, typename Alerter>
+        template <typename Window, typename Alerter>
         class    MessageReceiver,
         typename Alerter,
         typename Canvas,
