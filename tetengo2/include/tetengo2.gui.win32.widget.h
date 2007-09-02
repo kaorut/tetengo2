@@ -115,7 +115,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The pointer to the message receiver.
         */
-        message_receiver_type* message_receiver()
+        message_receiver_type* p_message_receiver()
         const
         {
             if (m_p_message_receiver.get() == NULL)
@@ -139,7 +139,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param The visible status.
         */
-        virtual bool is_visible()
+        virtual bool visible()
         const
         {
             return ::IsWindowVisible(this->handle()) == TRUE;

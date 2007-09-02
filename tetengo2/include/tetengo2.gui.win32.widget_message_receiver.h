@@ -164,7 +164,7 @@ namespace tetengo2 { namespace gui { namespace win32
             try
             {
                 widget_message_receiver* const p_message_receiver =
-                    get_message_receiver(hWnd);
+                    p_message_receiver_from(hWnd);
                 if (p_message_receiver != NULL) {
                     return p_message_receiver->window_procedure(
                         uMsg, wParam, lParam
@@ -189,7 +189,7 @@ namespace tetengo2 { namespace gui { namespace win32
             }
         }
 
-        static widget_message_receiver* get_message_receiver(
+        static widget_message_receiver* p_message_receiver_from(
             const ::HWND window_handle
         )
         {

@@ -121,7 +121,7 @@ namespace bobura
         )
         const
         {
-            p_window->message_receiver()->add_window_observer(
+            p_window->p_message_receiver()->add_window_observer(
                 std::auto_ptr<window_observer_type> (
                     new message::main_window_window_observer<
                         message_loop_type
@@ -129,7 +129,7 @@ namespace bobura
                 )
             );
 
-            p_window->message_receiver()->add_paint_observer(
+            p_window->p_message_receiver()->add_paint_observer(
                 std::auto_ptr<paint_observer_type> (
                     new message::main_window_paint_observer<canvas_type>()
                 )
