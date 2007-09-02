@@ -29,11 +29,14 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The base class template for a window message receiver for
         Win32 platforms.
 
-        \param Widget A widget type. It must confirm to
-                      tetengo2::gui::concepts::WidgetConcept.
+        \param Widget  A widget type. It must confirm to
+                       tetengo2::gui::concepts::WidgetConcept.
+        \param Alerter An alerter type. It must conform to
+                       tetengo2::gui::concepts::AlerterConcept.
     */
-    template <typename Widget>
-    class window_message_receiver : public widget_message_receiver<Widget>
+    template <typename Widget, typename Alerter>
+    class window_message_receiver :
+        public widget_message_receiver<Widget, Alerter>
     {
     public:
         // types

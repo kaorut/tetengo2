@@ -65,12 +65,12 @@ throw ()
     }
     catch (const std::exception& e)
     {
-        bobura::configuration::gui_factory_type::show_fatal_error(NULL, e);
+        bobura::configuration::alerter_type::instance().alert(NULL, e);
         return 1;
     }
     catch (...)
     {
-        bobura::configuration::gui_factory_type::show_fatal_error(NULL);
+        bobura::configuration::alerter_type::instance().alert(NULL);
         return 2;
     }
 }

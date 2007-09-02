@@ -9,17 +9,11 @@
 #if !defined(TETENGO2_GUI_WIN32_GUIFACTORY_H)
 #define TETENGO2_GUI_WIN32_GUIFACTORY_H
 
-#include <exception>
-#include <memory>
-#include <sstream>
-#include <typeinfo>
-
-#include <boost/format.hpp>
-#include <boost/noncopyable.hpp>
-
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.gui.gui_factory.h"
+#include "tetengo2.gui.win32.alerter.h"
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.window.h"
@@ -28,91 +22,32 @@
 
 namespace tetengo2 { namespace gui { namespace win32
 {
-    /*!
-        \brief The class for the GUI object factory for Win32
-        platforms.
-    */
-    class gui_factory : private boost::noncopyable
+    namespace
     {
-    public:
-        // types
+        typedef canvas< ::HDC, std::size_t, ::HWND> canvas_type;
 
-        typedef ::HWND window_handle_type;
-
-        typedef ::HDC canvas_handle_type;
-
-        typedef
-            canvas<canvas_handle_type, std::size_t, window_handle_type>
-            canvas_type;
+        typedef alerter< ::HWND> alerter_type;
 
         typedef
             window<
-                window_handle_type,
-                gui_factory,
+                ::HWND,
                 window_message_receiver,
+                alerter_type,
                 canvas_type
             >
             window_type;
+    }
 
-        typedef message_loop message_loop_type;
+    //! The GUI object factory type for Win32 platforms.
+    typedef
+        tetengo2::gui::gui_factory<
+            canvas_type,
+            window_type,
+            message_loop,
+            alerter_type
+        >
+        gui_factory;
 
-
-        // static functions
-
-        static void show_fatal_error(
-            const window_handle_type window_handle,
-            const std::exception&    exception =
-                std::runtime_error("Unknown Error!")
-        )
-        throw ()
-        {
-            try
-            {
-                std::ostringstream message;
-                message << boost::format("%1$s:\n%2$s")
-                    % typeid(exception).name() % exception.what();
-
-                ::MessageBoxA(
-                    window_handle,
-                    message.str().c_str(),
-                    "ERROR",
-                    MB_OK | MB_ICONSTOP | MB_APPLMODAL
-                );
-            }
-            catch (...)
-            {}
-
-        }
-
-
-        // constructors and destructor
-
-        gui_factory()
-        {}
-
-        ~gui_factory()
-        throw ()
-        {}
-
-
-        // functions
-
-        std::auto_ptr<window_type> create_window()
-        const
-        {
-            return std::auto_ptr<window_type>(new window_type());
-        }
-
-        std::auto_ptr<const message_loop_type> create_message_loop()
-        const
-        {
-            return std::auto_ptr<const message_loop_type>(
-                new message_loop_type()
-            );
-        }
-
-
-    };
 }}}
 
 #endif

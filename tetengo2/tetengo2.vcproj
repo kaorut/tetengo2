@@ -72,7 +72,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\include\tetengo2.gui.gui_factory.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.gui.paint_observer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.win32.alerter.h"
 				>
 			</File>
 			<File

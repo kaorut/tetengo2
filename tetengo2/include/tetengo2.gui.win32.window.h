@@ -28,27 +28,26 @@ namespace tetengo2 { namespace gui { namespace win32
         \param Handle          A handle type to the native interface. It must
                                conform to
                                tetengo2::gui::concepts::HandleConcept.
-        \param GuiFactory      An abstract factory type to create platform
-                               specific GUI components. It must conform to
-                               tetengo2::gui::concepts::GuiFactoryConcept.
         \param MessageReceiver A message receiver type template. The type
                                MessageReceiver<widget> must conform to
                                tetengo2::gui::MessageReceiverConcept.
+        \param Alerter         An alerter type. It must conform to
+                               tetengo2::gui::concepts::AlerterConcept.
         \param Canvas          A canvas type. It must conform to
                                tetengo2::gui::concepts::CanvasConcept.
    */
     template <
         typename Handle,
-        typename GuiFactory,
-        template <typename Window>
+        template <typename Window, typename Alerter>
         class    MessageReceiver,
+        typename Alerter,
         typename Canvas
     >
     class window :
         public widget<
             Handle,
-            GuiFactory,
             MessageReceiver,
+            Alerter,
             Canvas
         >
     {

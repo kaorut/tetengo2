@@ -25,10 +25,12 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The base class template for a widget message receiver for
         Win32 platforms.
 
-        \param Widget A widget type. It must confirm to
-                      tetengo2::gui::concepts::WidgetConcept.
+        \param Widget  A widget type. It must confirm to
+                       tetengo2::gui::concepts::WidgetConcept.
+        \param Alerter An alerter type. It must conform to
+                       tetengo2::gui::concepts::AlerterConcept.
     */
-    template <typename Widget>
+    template <typename Widget, typename Alerter>
     class widget_message_receiver : private boost::noncopyable
     {
     public:
@@ -42,6 +44,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The paint observer type.
         typedef paint_observer<canvas_type> paint_observer_type;
+
+        //! The alerter type.
+        typedef Alerter alerter_type;
 
 
         // static functions
@@ -160,14 +165,14 @@ namespace tetengo2 { namespace gui { namespace win32
             }
             catch (std::exception& e)
             {
-                typename widget_type::gui_factory_type::show_fatal_error(
+                alerter_type::instance().alert(
                     hWnd, e
                 );
                 return 0;
             }
             catch (...)
             {
-                typename widget_type::gui_factory_type::show_fatal_error(
+                alerter_type::instance().alert(
                     hWnd
                 );
                 return 0;
