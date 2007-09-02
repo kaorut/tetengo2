@@ -1,9 +1,9 @@
 /*! \file
-	\brief The definition of tetengo2::gui::paint_observer.
+    \brief The definition of tetengo2::gui::paint_observer.
 
-	Copyright (C) 2007 kaoru
+    Copyright (C) 2007 kaoru
 
-	$Id$
+    $Id$
 */
 
 #if !defined(TETENGO2_GUI_PAINTOBSERVER_H)
@@ -15,51 +15,51 @@
 
 namespace tetengo2 { namespace gui
 {
-	/*!
-		\brief The base class template for a paint observer.
+    /*!
+        \brief The base class template for a paint observer.
 
-		\param Canvas A canvas type of the window. It must conform to
-		              tetengo2::gui::canvas_concept.
-	*/
-	template <typename Canvas>
-	class paint_observer :
-		public boost::signals::trackable, private boost::noncopyable
-	{
-	public:
-		// types
+        \param Canvas A canvas type of the window. It must conform to
+                      tetengo2::gui::CanvasConcept.
+    */
+    template <typename Canvas>
+    class paint_observer :
+        public boost::signals::trackable, private boost::noncopyable
+    {
+    public:
+        // types
 
-		//! The canvas on which graphics are drawn.
-		typedef Canvas canvas_type;
-
-
-		// constructors and destructor
-
-		/*!
-			\brief Creates a paint observer.
-		*/
-		paint_observer()
-		{}
-
-		/*!
-			\brief Destroys the paint observer.
-		*/
-		virtual ~paint_observer()
-		throw ()
-		{}
+        //! The canvas on which graphics are drawn.
+        typedef Canvas canvas_type;
 
 
-		// functions
+        // constructors and destructor
 
-		/*!
-			\brief Called when it is necessary to repaint the main window.
+        /*!
+            \brief Creates a paint observer.
+        */
+        paint_observer()
+        {}
 
-			\param p_canvas The pointer to the canvas.
-		*/
-		virtual void paint(const canvas_type* p_canvas)
-		{}
+        /*!
+            \brief Destroys the paint observer.
+        */
+        virtual ~paint_observer()
+        throw ()
+        {}
 
 
-	};
+        // functions
+
+        /*!
+            \brief Called when it is necessary to repaint the main window.
+
+            \param p_canvas The pointer to the canvas.
+        */
+        virtual void paint(const canvas_type* p_canvas)
+        {}
+
+
+    };
 }}
 
 #endif

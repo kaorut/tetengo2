@@ -1,9 +1,9 @@
 /*! \file
-	\brief The definition of bobura::message::main_window_window_observer.
+    \brief The definition of bobura::message::main_window_window_observer.
 
-	Copyright (C) 2007 kaoru
+    Copyright (C) 2007 kaoru
 
-	$Id$
+    $Id$
 */
 
 #if !defined(BOBURA_MESSAGE_MAINWINDOWWINDOWOBSERVER_H)
@@ -14,61 +14,62 @@
 
 namespace bobura { namespace message
 {
-	/*!
-		\brief The class templatefor a window observer of the main window.
+    /*!
+        \brief The class templatefor a window observer of the main window.
 
-		\param MessageLoop A message loop type of the main window. It must
-		                   conform to tetengo2::gui::message_loop_concept.
-	*/
-	template <typename MessageLoop>
-	class main_window_window_observer :	public tetengo2::gui::window_observer
-	{
-	public:
-		// types
+        \param MessageLoop A message loop type of the main window. It must
+                           conform to
+                           tetengo2::gui::concpets::MessageLoopConcept.
+    */
+    template <typename MessageLoop>
+    class main_window_window_observer :    public tetengo2::gui::window_observer
+    {
+    public:
+        // types
 
-		//! The message loop type.
-		typedef MessageLoop message_loop_type;
-
-
-		// constructors and destructor
-
-		/*!
-			\brief Creates a window observer of the main window.
-
-			\param p_massage_loop A pointer to a message loop.
-		*/
-		main_window_window_observer(
-			const message_loop_type* const p_message_loop
-		)
-		:
-		m_p_message_loop(p_message_loop)
-		{}
-
-		/*!
-			\brief Destroys the window observer of the main window.
-		*/
-		virtual ~main_window_window_observer()
-		throw ()
-		{}
+        //! The message loop type.
+        typedef MessageLoop message_loop_type;
 
 
-		// functions
+        // constructors and destructor
 
-		// The document will be derived from
-		// tetengo2::gui::window_observer::paint.
-		virtual void destroyed()
-		{
-			m_p_message_loop->exit(0);
-		}
+        /*!
+            \brief Creates a window observer of the main window.
+
+            \param p_massage_loop A pointer to a message loop.
+        */
+        main_window_window_observer(
+            const message_loop_type* const p_message_loop
+        )
+        :
+        m_p_message_loop(p_message_loop)
+        {}
+
+        /*!
+            \brief Destroys the window observer of the main window.
+        */
+        virtual ~main_window_window_observer()
+        throw ()
+        {}
 
 
-	private:
-		// variables
+        // functions
 
-		const message_loop_type* const m_p_message_loop;
+        // The document will be derived from
+        // tetengo2::gui::window_observer::paint.
+        virtual void destroyed()
+        {
+            m_p_message_loop->exit(0);
+        }
 
 
-	};
+    private:
+        // variables
+
+        const message_loop_type* const m_p_message_loop;
+
+
+    };
 }}
 
 #endif
