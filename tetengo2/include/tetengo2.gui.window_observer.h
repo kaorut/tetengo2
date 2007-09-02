@@ -24,9 +24,15 @@ namespace tetengo2 { namespace gui
 	public:
 		// constructors and destructor
 
+		/*!
+			\breif Creates a window observer.
+		*/
 		window_observer()
 		{}
 
+		/*!
+			\brief Destroys the window observer.
+		*/
 		virtual ~window_observer()
 		throw ()
 		{}
@@ -34,6 +40,9 @@ namespace tetengo2 { namespace gui
 
 		// functions
 
+		/*!
+			\brief Called when the main window is destroyed.
+		*/
 		virtual void destroyed()
 		{}
 

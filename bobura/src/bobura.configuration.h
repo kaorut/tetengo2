@@ -29,10 +29,11 @@ namespace bobura
 	public:
 		// types
 
-		//! The abstract factory to create platform specific GUI components.
+		//! The abstract factory type to create platform specific GUI
+		//! components.
 		typedef tetengo2::gui::win32::gui_factory gui_factory_type;
 
-		//! The Bobura application.
+		//! The Bobura application type.
 		typedef bobura<gui_factory_type> bobura_type;
 
 

@@ -17,7 +17,7 @@ namespace bobura { namespace message
 	/*!
 		\brief The class templatefor a window observer of the main window.
 
-		\param MessageLoop The message loop of the main window. It must
+		\param MessageLoop A message loop type of the main window. It must
 		                   conform to tetengo2::gui::message_loop_concept.
 	*/
 	template <typename MessageLoop>
@@ -26,7 +26,7 @@ namespace bobura { namespace message
 	public:
 		// types
 
-		//! The message loop.
+		//! The message loop type.
 		typedef MessageLoop message_loop_type;
 
 
@@ -54,9 +54,8 @@ namespace bobura { namespace message
 
 		// functions
 
-		/*!
-			\brief Called when the main window is destroyed.
-		*/
+		// The document will be derived from
+		// tetengo2::gui::window_observer::paint.
 		virtual void destroyed()
 		{
 			m_p_message_loop->exit(0);

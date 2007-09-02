@@ -41,7 +41,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
 		typedef ::HDC canvas_handle_type;
 
-		typedef canvas<canvas_handle_type, window_handle_type> canvas_type;
+		typedef
+			canvas<canvas_handle_type, std::size_t, window_handle_type>
+			canvas_type;
 
 		typedef
 			window<

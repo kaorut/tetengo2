@@ -17,6 +17,9 @@ namespace tetengo2 { namespace gui
 {
 	/*!
 		\brief The base class template for a paint observer.
+
+		\param Canvas A canvas type of the window. It must conform to
+		              tetengo2::gui::canvas_concept.
 	*/
 	template <typename Canvas>
 	class paint_observer :
