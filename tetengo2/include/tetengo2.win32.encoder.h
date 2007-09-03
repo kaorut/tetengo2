@@ -47,7 +47,7 @@ namespace tetengo2 { namespace win32
         // functions
 
         /*!
-            \brief Encodes a std::string string to a target string.
+            \brief Encodes a source string to a target string.
 
             \param Target A string type of the target.
             \param Source A string type of the source.
