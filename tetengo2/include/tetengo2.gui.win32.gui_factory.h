@@ -21,6 +21,7 @@
 #include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.window.h"
 #include "tetengo2.gui.win32.window_message_receiver.h"
+#include "tetengo2.win32.encoder.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -38,7 +39,7 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             canvas_type;
 
-        typedef alerter< ::HWND> alerter_type;
+        typedef alerter< ::HWND, tetengo2::win32::encoder> alerter_type;
 
         typedef
             window<

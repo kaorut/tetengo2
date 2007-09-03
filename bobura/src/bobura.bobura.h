@@ -21,7 +21,7 @@
 namespace bobura
 {
     /*!
-        \brief The class template for the bobura application.
+        \brief The class template for a bobura application.
 
         \param GuiFactory An abstract factory type to create platform specific
                           GUI components. It must conform to

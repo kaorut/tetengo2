@@ -26,8 +26,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
         \param WindowHandle A window handle type. It must conform to
                             tetengo2::gui::concepts::HandleConcept.
+        \param Encoder      An encoder type. It must conform to
+                            tetengo2::concepts::EncoderConcept.
     */
-    template <typename WindowHandle>
+    template <typename WindowHandle, typename Encoder>
     class alerter : private boost::noncopyable
     {
     public:
@@ -35,6 +37,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The window handle type.
         typedef WindowHandle window_handle_type;
+
+        //! The encoder type.
+        typedef Encoder encoder_type;
 
 
         // static functions
@@ -46,7 +51,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         static const alerter& instance()
         {
-            static alerter singleton;
+            static const alerter singleton;
 
             return singleton;
         }

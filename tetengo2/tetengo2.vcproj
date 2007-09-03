@@ -115,6 +115,10 @@
 				RelativePath=".\include\tetengo2.gui.window_observer.h"
 				>
 			</File>
+			<File
+				RelativePath=".\include\tetengo2.win32.encoder.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resources"

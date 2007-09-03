@@ -22,7 +22,7 @@
 namespace bobura
 {
     /*!
-        \brief The class for the configuration of bobura.
+        \brief The class for a configuration of bobura.
     */
     class configuration : private boost::noncopyable
     {

@@ -16,7 +16,7 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for the GUI object factory.
+        \brief The class template for a GUI object factory.
 
         \param Canvas      A canvas type. It must conform to
                            tetengo2::gui::concepts::CanvasConcept.
