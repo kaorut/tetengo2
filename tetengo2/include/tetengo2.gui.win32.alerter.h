@@ -11,12 +11,14 @@
 
 #include <exception>
 #include <sstream>
+#include <string>
 
 #include <boost/format.hpp>
 #include <boost/noncopyable.hpp>
 
 #define OEMRESOURCE
 #include <windows.h>
+#include <commctrl.h>
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -51,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         static const alerter& instance()
         {
-            static const alerter singleton;
+            static const alerter singleton(encoder_type::instance());
 
             return singleton;
         }
@@ -85,15 +87,17 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             try
             {
-                std::ostringstream message;
-                message << boost::format("%1$s:\n%2$s")
-                    % typeid(exception).name() % exception.what();
-
-                ::MessageBoxA(
+                ::TaskDialog(
                     window_handle,
-                    message.str().c_str(),
-                    "ERROR",
-                    MB_OK | MB_ICONSTOP | MB_APPLMODAL
+                    ::GetModuleHandle(NULL),
+                    L"Alert",
+                    m_encoder.encode<std::wstring>(
+                        typeid(exception).name()
+                    ).c_str(),
+                    m_encoder.encode<std::wstring>(exception.what()).c_str(),
+                    TDCBF_OK_BUTTON,
+                    TD_ERROR_ICON,
+                    NULL
                 );
             }
             catch (...)
@@ -106,8 +110,15 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // constructors
 
-        alerter()
+        alerter(const encoder_type& encoder)
+        :
+        m_encoder(encoder)
         {}
+
+
+        // variables
+
+        const encoder_type& m_encoder;
 
 
     };

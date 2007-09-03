@@ -9,9 +9,11 @@
 #if !defined(TETENGO2_WIN32_ENCODER_H)
 #define TETENGO2_WIN32_ENCODER_H
 
+#include <stdexcept>
 #include <string>
 
 #include <boost/noncopyable.hpp>
+#include <boost/scoped_array.hpp>
 
 #define OEMRESOURCE
 #include <windows.h>
@@ -90,14 +92,72 @@ namespace tetengo2 { namespace win32
         const std::wstring encode(const std::string& string)
         const
         {
-            return std::wstring();
+            if (string.empty()) return std::wstring();
+            
+            const int length = ::MultiByteToWideChar(
+                CP_ACP,
+                MB_PRECOMPOSED, 
+                string.c_str(),
+                static_cast<int>(string.length()),
+                NULL,
+                0
+            );
+            if (length == 0)
+            {
+                throw std::invalid_argument(
+                    "Can't convert std::string to std::wstring!"
+                );
+            }
+
+            const boost::scoped_array<wchar_t> converted(new wchar_t[length]);
+            ::MultiByteToWideChar(
+                CP_ACP,
+                MB_PRECOMPOSED,
+                string.c_str(),
+                static_cast<int>(string.length()),
+                converted.get(),
+                length
+            );
+
+            return std::wstring(converted.get(), converted.get() + length);
         }
 
         template <>
         const std::string encode(const std::wstring& string)
         const
         {
-            return std::string();
+            if (string.empty()) return std::string();
+
+            const int length = ::WideCharToMultiByte(
+                CP_ACP,
+                WC_NO_BEST_FIT_CHARS | WC_COMPOSITECHECK | WC_DEFAULTCHAR,
+                string.c_str(),
+                static_cast<int>(string.length()),
+                NULL,
+                0,
+                NULL,
+                NULL
+            );
+            if (length == 0)
+            {
+                throw std::invalid_argument(
+                    "Can't convert std::wstring to std::string!"
+                );
+            }
+            
+            const boost::scoped_array<char> converted(new char[length]);
+            ::WideCharToMultiByte(
+                CP_ACP,
+                WC_NO_BEST_FIT_CHARS | WC_COMPOSITECHECK | WC_DEFAULTCHAR,
+                string.c_str(),
+                static_cast<int>(string.length()),
+                converted.get(),
+                length,
+                NULL,
+                NULL
+            );
+
+            return std::string(converted.get(), converted.get() + length);
         }
 
 
