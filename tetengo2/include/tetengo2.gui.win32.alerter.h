@@ -14,7 +14,6 @@
 #include <string>
 
 #include <boost/format.hpp>
-#include <boost/noncopyable.hpp>
 
 #define OEMRESOURCE
 #include <windows.h>
@@ -32,7 +31,7 @@ namespace tetengo2 { namespace gui { namespace win32
                             tetengo2::concepts::EncoderConcept.
     */
     template <typename WindowHandle, typename Encoder>
-    class alerter : private boost::noncopyable
+    class alerter
     {
     public:
         // types
@@ -44,22 +43,27 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef Encoder encoder_type;
 
 
-        // static functions
+        // constructors and destructor
 
         /*!
-            \brief Returns the alerter.
+            \brief Creates an alerter object.
 
-            \return The alerter.
+            \param encoder An encoder.
         */
-        static const alerter& instance()
-        {
-            static const alerter singleton(encoder_type::instance());
+        alerter(const encoder_type& encoder)
+        :
+        m_encoder(encoder)
+        {}
 
-            return singleton;
-        }
+        /*!
+            \brief Copies an alerter object.
 
-
-        // constructors and destructor
+            \param another Another alerter.
+        */
+        alerter(const alerter& another)
+        :
+        m_encoder(alerter.m_encoder)
+        {}
 
         /*!
             \brief Destroys the alerter object.
@@ -70,6 +74,28 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
+
+        /*!
+            \brief Swaps this for another.
+
+            \param another Another alerter.
+        */
+        void swap(alerter& another)
+        throw ()
+        {
+            m_encoder.swap(another.m_encoder);
+        }
+
+        /*!
+            \brief Assigns an alerter.
+
+            \param another Another alerter.
+        */
+        alerter& operator=(const alerter& another)
+        {
+            alerter(another).swap(*this);
+            return *this;
+        }
 
         /*!
             \brief Alerts a fatal error.
@@ -107,18 +133,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-
-        // constructors
-
-        alerter(const encoder_type& encoder)
-        :
-        m_encoder(encoder)
-        {}
-
-
         // variables
 
-        const encoder_type& m_encoder;
+       encoder_type m_encoder;
 
 
     };

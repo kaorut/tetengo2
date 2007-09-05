@@ -12,7 +12,6 @@
 #include <stdexcept>
 #include <string>
 
-#include <boost/noncopyable.hpp>
 #include <boost/scoped_array.hpp>
 
 #define OEMRESOURCE
@@ -24,27 +23,53 @@ namespace tetengo2 { namespace win32
     /*!
         \brief The class for an encoder using the Win32 API.
     */
-    class encoder : private boost::noncopyable
+    class encoder
     {
     public:
-        // static functions
-
-        static const encoder& instance()
-        {
-            static const encoder singleton;
-
-            return singleton;
-        }
-
-
         // constructors and destructor
 
+        /*!
+            \brief Creates an encoder object.
+        */
+        encoder()
+        {}
+
+        /*!
+            \brief Copies an encoder object.
+
+            \param another Another encoder.
+        */
+        encoder(const encoder& another)
+        {}
+
+        /*!
+            \brief Destroys the encoder object.
+        */
         ~encoder()
         throw ()
         {}
 
 
         // functions
+
+        /*!
+            \brief Swaps this for another.
+
+            \param another Another encoder.
+        */
+        void swap(encoder& another)
+        throw ()
+        {}
+
+        /*!
+            \brief Assigns an encoder object.
+
+            \param another Another encoder.
+        */
+        encoder& operator=(const encoder& another)
+        {
+            return *this;
+        }
 
         /*!
             \brief Encodes a source string to a target string.
@@ -161,14 +186,10 @@ namespace tetengo2 { namespace win32
         }
 
 
-    private:
-        // constructors
-
-        encoder()
-        {}
-
-
     };
+
+
 }}
+
 
 #endif
