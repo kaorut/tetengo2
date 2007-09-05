@@ -29,8 +29,8 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The base class template for a window message receiver for
         Win32 platforms.
 
-        \param Widget                A widget type. It must confirm to
-                                     tetengo2::gui::concepts::WidgetConcept.
+        \param Window                A window type. It must confirm to
+                                     tetengo2::gui::concepts::WindowConcept.
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
                                      tetengo2::gui::concepts::StaticWindowProcedureConcept.
@@ -38,12 +38,12 @@ namespace tetengo2 { namespace gui { namespace win32
                                      tetengo2::gui::concepts::AlerterConcept.
     */
     template <
-        typename Widget,
+        typename Window,
         typename StaticWindowProcedure,
         typename Alerter
     >
     class window_message_receiver :
-        public widget_message_receiver<Widget, StaticWindowProcedure, Alerter>
+        public widget_message_receiver<Window, StaticWindowProcedure, Alerter>
     {
     public:
         // types
@@ -57,11 +57,11 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a window message receiver object.
 
-            \param p_widget A pointer to a widget.
+            \param p_window A pointer to a window.
         */
-        window_message_receiver(widget_type* const p_widget)
+        window_message_receiver(widget_type* const p_window)
         :
-        widget_message_receiver(p_widget)
+        widget_message_receiver(p_window)
         {}
 
         /*!
