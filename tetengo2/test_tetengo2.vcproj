@@ -99,6 +99,9 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing tetengo2..."
+				CommandLine="$(TargetPath)"
+				ExcludedFromBuild="false"
 			/>
 		</Configuration>
 		<Configuration
@@ -183,6 +186,9 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing tetengo2..."
+				CommandLine="$(TargetPath)"
+				ExcludedFromBuild="false"
 			/>
 		</Configuration>
 	</Configurations>
