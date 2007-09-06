@@ -19,13 +19,13 @@ namespace tetengo2 { namespace gui
         \brief The class template for a GUI object factory.
 
         \param Canvas      A canvas type. It must conform to
-                           tetengo2::gui::concepts::CanvasConcept.
+                           tetengo2::gui::concept::CanvasConcept.
         \param Window      A window type. It must conform to
-                           tetengo2::gui::concepts::WindowConcept.
+                           tetengo2::gui::concept::WindowConcept.
         \param MessageLoop A message loop type. It must conform to
-                           tetengo2::gui::concepts::MessageLoop.
+                           tetengo2::gui::concept::MessageLoop.
         \param Alerter     An alerter type. It must conform to
-                           tetengo2::gui::concepts::AlerterConcept.
+                           tetengo2::gui::concept::AlerterConcept.
     */
     template <
         typename Canvas,

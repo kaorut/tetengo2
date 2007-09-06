@@ -26,12 +26,12 @@ namespace tetengo2 { namespace gui { namespace win32
         Win32 platforms.
 
         \param Widget                A widget type. It must confirm to
-                                     tetengo2::gui::concepts::WidgetConcept.
+                                     tetengo2::gui::concept::WidgetConcept.
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
-                                     tetengo2::gui::concepts::StaticWindowProcedureConcept.
+                                     tetengo2::gui::concept::StaticWindowProcedureConcept.
         \param Alerter               An alerter type. It must conform to
-                                     tetengo2::gui::concepts::AlerterConcept.
+                                     tetengo2::gui::concept::AlerterConcept.
     */
     template <
         typename Widget,

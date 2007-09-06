@@ -27,7 +27,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         \param Handle                A handle type to the native interface. It
                                      must conform to
-                                     tetengo2::gui::concepts::HandleConcept.
+                                     tetengo2::gui::concept::HandleConcept.
         \param MessageReceiver       A message receiver type template. The
                                      type
                                      MessageReceiver<Widget, StaticWindowProcedure, Alerter>
@@ -35,13 +35,13 @@ namespace tetengo2 { namespace gui { namespace win32
                                      tetengo2::gui::MessageReceiverConcept.
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
-                                     tetengo2::gui::concepts::StaticWindowProcedureConcept.
+                                     tetengo2::gui::concept::StaticWindowProcedureConcept.
         \param Alerter               An alerter type. It must conform to
-                                     tetengo2::gui::concepts::AlerterConcept.
+                                     tetengo2::gui::concept::AlerterConcept.
         \param Canvas                A canvas type. It must conform to
-                                     tetengo2::gui::concepts::CanvasConcept.
+                                     tetengo2::gui::concept::CanvasConcept.
         \param String                A string type. It must conform to
-                                     tetengo2::concepts::StringConcept.
+                                     tetengo2::concept::StringConcept.
     */
     template <
         typename Handle,

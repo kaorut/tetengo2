@@ -25,7 +25,7 @@ namespace bobura
 
         \param GuiFactory An abstract factory type to create platform specific
                           GUI components. It must conform to
-                          tetengo2::gui::concepts::GuiFactoryConcept.
+                          tetengo2::gui::concept::GuiFactoryConcept.
     */
     template <typename GuiFactory>
     class bobura : private boost::noncopyable

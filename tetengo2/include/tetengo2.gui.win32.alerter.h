@@ -26,9 +26,9 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The class template for an alerter for Win32 platforms.
 
         \param WindowHandle A window handle type. It must conform to
-                            tetengo2::gui::concepts::HandleConcept.
+                            tetengo2::gui::concept::HandleConcept.
         \param Encoder      An encoder type. It must conform to
-                            tetengo2::concepts::EncoderConcept.
+                            tetengo2::concept::EncoderConcept.
     */
     template <typename WindowHandle, typename Encoder>
     class alerter

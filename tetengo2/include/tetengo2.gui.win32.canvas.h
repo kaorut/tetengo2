@@ -22,17 +22,17 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The class template for a canvas for Win32 platforms.
 
         \param Handle       A handle type for the native interface. It must
-                            conform to tetengo2::gui::concepts::HandleConcept.
+                            conform to tetengo2::gui::concept::HandleConcept.
         \param Size         A size type. It must conform to
                             boost::IntegerConcept.
         \param Point        A point type template. The type Point<Size, Size>
                             must conform to
-                            tetengo2::gui::concepts::PointConcept.
+                            tetengo2::gui::concept::PointConcept.
         \param Rectangle    A rectangle type template. The type
                             Rectangle<Point, Point> must conform to
-                            tetengo2::gui::concepts::RectangleConcept.
+                            tetengo2::gui::concept::RectangleConcept.
         \param String       A string type. It must conform to
-                            tetengo2::concepts::StringConcept.
+                            tetengo2::concept::StringConcept.
         \param WindowHandle A window handle type for the native interface. It
                             must conform to
                             tetengo2::gui::concpets::HandleConcept.
