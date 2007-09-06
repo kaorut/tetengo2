@@ -13,11 +13,14 @@
 #include <sstream>
 #include <string>
 
+#include <boost/concept_check.hpp>
 #include <boost/format.hpp>
 
 #define OEMRESOURCE
 #include <windows.h>
 #include <commctrl.h>
+
+#include "tetengo2.concept.EncoderConcept.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -34,6 +37,11 @@ namespace tetengo2 { namespace gui { namespace win32
     class alerter
     {
     public:
+        // concept check
+
+        BOOST_CLASS_REQUIRE(Encoder, tetengo2::concept, EncoderConcept);
+
+
         // types
 
         //! The window handle type.

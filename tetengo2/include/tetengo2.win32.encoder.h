@@ -12,10 +12,13 @@
 #include <stdexcept>
 #include <string>
 
+#include <boost/concept_check.hpp>
 #include <boost/scoped_array.hpp>
 
 #define OEMRESOURCE
 #include <windows.h>
+
+#include "tetengo2.concept.StringConcept.h"
 
 
 namespace tetengo2 { namespace win32
@@ -74,8 +77,11 @@ namespace tetengo2 { namespace win32
         /*!
             \brief Encodes a source string to a target string.
 
-            \param Target A string type of the target.
-            \param Source A string type of the source.
+            \param Target A string type of the target. It must conform to
+                          tetengo2::concept::StringConcept.
+            \param Source A string type of the source. It must conform to
+                          tetengo2::concept::StringConcept or
+                          boost::ConvertibleConcept<Source, std::basic_string(*Source)>.
 
             \param string A string.
 
@@ -86,16 +92,24 @@ namespace tetengo2 { namespace win32
         const;
 
         template <typename Target>
-        const Target encode(const char* const string)
+        const Target encode(const char* const& string)
         const
         {
+            boost::function_requires<
+                tetengo2::concept::StringConcept<Target>
+            >();
+
             return encode<Target, std::string>(string);
         }
 
         template <typename Target>
-        const Target encode(const wchar_t* const string)
+        const Target encode(const wchar_t* const& string)
         const
         {
+            boost::function_requires<
+                tetengo2::concept::StringConcept<Target>
+            >();
+
             return encode<Target, std::wstring>(string);
         }
 

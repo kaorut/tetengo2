@@ -15,6 +15,8 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.concept.StringConcept.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -49,12 +51,13 @@ namespace tetengo2 { namespace gui { namespace win32
     >
     class canvas : private boost::noncopyable
     {
-    public:
         // concept checks
 
         BOOST_CLASS_REQUIRE(Size, boost, IntegerConcept);
+        BOOST_CLASS_REQUIRE(String, tetengo2::concept, StringConcept);
 
 
+    public:
         // types
 
         //! The handle type for the native interface.
