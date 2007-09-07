@@ -19,7 +19,7 @@ namespace tetengo2 { namespace concept
 
         This is a subconcept of boost::Mutable_RandomAccessContainerConcept.
         
-        \param Encoder An encoder type.
+        \param String A string type.
     */
     template <typename String>
     class StringConcept
