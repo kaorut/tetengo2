@@ -19,8 +19,6 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "tetengo2.concept.StringConcept.h"
-
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -58,11 +56,6 @@ namespace tetengo2 { namespace gui { namespace win32
     >
     class widget : private boost::noncopyable
     {
-        // concept checks
-
-        BOOST_CLASS_REQUIRE(String, tetengo2::concept, StringConcept);
-
-
     public:
         // types
 

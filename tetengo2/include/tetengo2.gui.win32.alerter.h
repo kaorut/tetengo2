@@ -20,7 +20,7 @@
 #include <windows.h>
 #include <commctrl.h>
 
-#include "tetengo2.concept.EncoderConcept.h"
+#include "tetengo2.encoder.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -31,7 +31,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \param WindowHandle A window handle type. It must conform to
                             tetengo2::gui::concept::HandleConcept.
         \param Encoder      An encoder type. It must conform to
-                            tetengo2::concept::EncoderConcept.
+                            tetengo2::EncoderConcept.
     */
     template <typename WindowHandle, typename Encoder>
     class alerter
@@ -39,7 +39,7 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // concept check
 
-        BOOST_CLASS_REQUIRE(Encoder, tetengo2::concept, EncoderConcept);
+        BOOST_CLASS_REQUIRE(Encoder, tetengo2, EncoderConcept);
 
 
         // types

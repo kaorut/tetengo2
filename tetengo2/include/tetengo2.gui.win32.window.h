@@ -17,7 +17,6 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "tetengo2.concept.StringConcept.h"
 #include "tetengo2.gui.win32.widget.h"
 
 
@@ -65,11 +64,6 @@ namespace tetengo2 { namespace gui { namespace win32
             String
         >
     {
-        // concept checks
-
-        BOOST_CLASS_REQUIRE(String, tetengo2::concept, StringConcept);
-
-
     public:
         // constructors and destructor
 

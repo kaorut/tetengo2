@@ -72,11 +72,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\tetengo2.concept.EncoderConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.concept.StringConcept.h"
+				RelativePath=".\include\tetengo2.encoder.h"
 				>
 			</File>
 			<File

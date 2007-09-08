@@ -18,8 +18,6 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "tetengo2.concept.StringConcept.h"
-
 
 namespace tetengo2 { namespace win32
 {
@@ -78,10 +76,12 @@ namespace tetengo2 { namespace win32
             \brief Encodes a source string to a target string.
 
             \param Target A string type of the target. It must conform to
-                          tetengo2::concept::StringConcept.
+                          tetengo2::EncoderTargetConcept.
             \param Source A string type of the source. It must conform to
-                          tetengo2::concept::StringConcept or
-                          boost::ConvertibleConcept<Source, std::basic_string(*Source)>.
+                          boost::ConvertibleConcept<Source, std::string>,
+                          boost::ConvertibleConcept<Source, std::wstring>,
+                          boost::CopyConstructible or
+                          tetengo2::EncoderSourceConcept.
 
             \param string A string.
 
@@ -96,7 +96,10 @@ namespace tetengo2 { namespace win32
         const
         {
             boost::function_requires<
-                tetengo2::concept::StringConcept<Target>
+                tetengo2::EncoderTargetConcept<Target>
+            >();
+            boost::function_requires<
+                boost::ConvertibleConcept<const char*, std::string>
             >();
 
             return encode<Target, std::string>(string);
@@ -107,7 +110,10 @@ namespace tetengo2 { namespace win32
         const
         {
             boost::function_requires<
-                tetengo2::concept::StringConcept<Target>
+                tetengo2::EncoderTargetConcept<Target>
+            >();
+            boost::function_requires<
+                boost::ConvertibleConcept<const char*, std::wstring>
             >();
 
             return encode<Target, std::wstring>(string);
@@ -117,6 +123,13 @@ namespace tetengo2 { namespace win32
         const std::string encode(const std::string& string)
         const
         {
+            boost::function_requires<
+                tetengo2::EncoderTargetConcept<std::string>
+            >();
+            boost::function_requires<
+                boost::CopyConstructibleConcept<std::string>
+            >();
+
             return string;
         }
 
@@ -124,6 +137,13 @@ namespace tetengo2 { namespace win32
         const std::wstring encode(const std::wstring& string)
         const
         {
+            boost::function_requires<
+                tetengo2::EncoderTargetConcept<std::wstring>
+            >();
+            boost::function_requires<
+                boost::CopyConstructibleConcept<std::string>
+            >();
+
             return string;
         }
 
@@ -131,6 +151,13 @@ namespace tetengo2 { namespace win32
         const std::wstring encode(const std::string& string)
         const
         {
+            boost::function_requires<
+                tetengo2::EncoderTargetConcept<std::wstring>
+            >();
+            boost::function_requires<
+                tetengo2::EncoderSourceConcept<std::string>
+            >();
+
             if (string.empty()) return std::wstring();
             
             const int length = ::MultiByteToWideChar(
@@ -165,6 +192,13 @@ namespace tetengo2 { namespace win32
         const std::string encode(const std::wstring& string)
         const
         {
+            boost::function_requires<
+                tetengo2::EncoderTargetConcept<std::string>
+            >();
+            boost::function_requires<
+                tetengo2::EncoderSourceConcept<std::wstring>
+            >();
+
             if (string.empty()) return std::string();
 
             const int length = ::WideCharToMultiByte(
