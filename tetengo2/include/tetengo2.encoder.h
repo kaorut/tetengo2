@@ -125,9 +125,14 @@ namespace tetengo2
         */
         void const_constraints(const Source& source)
         {
-            source.empty();
-            source.c_str();
-            source.length();
+            const bool b = source.empty();
+            boost::ignore_unused_variable_warning(b);
+
+            const typename Source::value_type* const p_v = source.c_str();
+            boost::ignore_unused_variable_warning(p_v);
+
+            const typename Source::size_type s = source.length();
+            boost::ignore_unused_variable_warning(s);
         }
 
 
