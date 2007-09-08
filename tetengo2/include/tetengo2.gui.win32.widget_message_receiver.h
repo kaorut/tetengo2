@@ -175,14 +175,14 @@ namespace tetengo2 { namespace gui { namespace win32
             }
             catch (std::exception& e)
             {
-                alerter_type(typename alerter_type::encoder_type()).alert(
+                alerter_type(typename alerter_type::encode_type()).alert(
                     hWnd, e
                 );
                 return 0;
             }
             catch (...)
             {
-                alerter_type(typename alerter_type::encoder_type()).alert(
+                alerter_type(typename alerter_type::encode_type()).alert(
                     hWnd
                 );
                 return 0;

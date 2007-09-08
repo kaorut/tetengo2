@@ -66,13 +66,13 @@ throw ()
     catch (const std::exception& e)
     {
         typedef bobura::configuration::alerter_type alerter;
-        alerter(alerter::encoder_type()).alert(NULL, e);
+        alerter(alerter::encode_type()).alert(NULL, e);
         return 1;
     }
     catch (...)
     {
         typedef bobura::configuration::alerter_type alerter;
-        alerter(alerter::encoder_type()).alert(NULL);
+        alerter(alerter::encode_type()).alert(NULL);
         return 2;
     }
 }

@@ -116,7 +116,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\tetengo2.win32.encoder.h"
+				RelativePath=".\include\tetengo2.win32.encode.h"
 				>
 			</File>
 		</Filter>

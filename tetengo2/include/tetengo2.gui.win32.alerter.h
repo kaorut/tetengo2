@@ -28,32 +28,54 @@ namespace tetengo2 { namespace gui { namespace win32
 
         \param WindowHandle A window handle type. It must conform to
                             tetengo2::gui::concept::HandleConcept.
-        \param Encoder      An encoder type. It must conform to
-                            tetengo2::EncoderConcept.
+        \param Encode       An encoding unary functor type. It must conform to
+                            boost::AdaptableUnaryFunctionConcept<Encode, std::wstring, std::string>.
     */
-    template <typename WindowHandle, typename Encoder>
+    template <
+        typename WindowHandle,
+        template <typename Target, typename Source>
+        class Encode
+    >
     class alerter
     {
+    private:
+        // concept checks
+
+        struct concept_check_encode
+        {
+            typedef Encode<std::wstring, std::string> encode_type;
+            typedef std::string exception_what_type;
+            typedef std::wstring task_dialog_string_type;
+            BOOST_CLASS_REQUIRE3(
+                encode_type,
+                task_dialog_string_type,
+                exception_what_type,
+                boost,
+                AdaptableUnaryFunctionConcept
+            );
+        };
+
+
     public:
         // types
 
         //! The window handle type.
         typedef WindowHandle window_handle_type;
 
-        //! The encoder type.
-        typedef Encoder encoder_type;
+        //! The encoding unary functor type.
+        typedef Encode<std::wstring, std::string> encode_type;
 
 
-        // constructors and destructor
+       // constructors and destructor
 
         /*!
             \brief Creates an alerter object.
 
-            \param encoder An encoder.
+            \param encode An encoding unary functor.
         */
-        alerter(const encoder_type& encoder)
+        alerter(const encode_type& encode)
         :
-        m_encoder(encoder)
+        m_encode(encode)
         {}
 
         /*!
@@ -63,7 +85,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         alerter(const alerter& another)
         :
-        m_encoder(alerter.m_encoder)
+        m_encode(alerter.m_encode)
         {}
 
         /*!
@@ -84,7 +106,7 @@ namespace tetengo2 { namespace gui { namespace win32
         void swap(alerter& another)
         throw ()
         {
-            m_encoder.swap(another.m_encoder);
+            m_encode.swap(another.m_encode);
         }
 
         /*!
@@ -118,10 +140,8 @@ namespace tetengo2 { namespace gui { namespace win32
                     window_handle,
                     ::GetModuleHandle(NULL),
                     L"Alert",
-                    m_encoder.encode<std::wstring>(
-                        typeid(exception).name()
-                    ).c_str(),
-                    m_encoder.encode<std::wstring>(exception.what()).c_str(),
+                    m_encode(typeid(exception).name()).c_str(),
+                    m_encode(exception.what()).c_str(),
                     TDCBF_OK_BUTTON,
                     TD_ERROR_ICON,
                     NULL
@@ -136,7 +156,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // variables
 
-       encoder_type m_encoder;
+       encode_type m_encode;
 
 
     };
