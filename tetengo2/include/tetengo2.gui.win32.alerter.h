@@ -20,8 +20,6 @@
 #include <windows.h>
 #include <commctrl.h>
 
-#include "tetengo2.encoder.h"
-
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -37,11 +35,6 @@ namespace tetengo2 { namespace gui { namespace win32
     class alerter
     {
     public:
-        // concept check
-
-        BOOST_CLASS_REQUIRE(Encoder, tetengo2, EncoderConcept);
-
-
         // types
 
         //! The window handle type.
