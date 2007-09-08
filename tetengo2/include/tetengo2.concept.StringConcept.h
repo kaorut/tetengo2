@@ -17,7 +17,9 @@ namespace tetengo2 { namespace concept
     /*!
         \brief The concept class template for a string.
 
-        This is a subconcept of boost::Mutable_RandomAccessContainerConcept.
+        This is a refinement of boost::DefaultConstructibleConcept,
+        boost::CopyConstructibleConcept and
+        boost::Mutable_RandomAccessContainerConcept.
         
         \param String A string type.
     */
@@ -33,15 +35,17 @@ namespace tetengo2 { namespace concept
         void constraints()
         {
             boost::function_requires<
+                boost::DefaultConstructibleConcept<String>
+            >();
+            boost::function_requires<
+                boost::CopyConstructibleConcept<String>
+            >();
+            boost::function_requires<
                 boost::Mutable_RandomAccessContainerConcept<String>
             >();
 
-            String s1;
-            String s2(m_string);
-            String s3(m_iterator, m_iterator);
-            boost::ignore_unused_variable_warning(s1);
-            boost::ignore_unused_variable_warning(s2);
-            boost::ignore_unused_variable_warning(s3);
+            String s(m_iterator, m_iterator);
+            boost::ignore_unused_variable_warning(s);
 
             const_constraints(m_string);
         }
