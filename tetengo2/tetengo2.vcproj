@@ -80,7 +80,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\tetengo2.gui.win32.alerter.h"
+				RelativePath=".\include\tetengo2.gui.win32.alert.h"
 				>
 			</File>
 			<File

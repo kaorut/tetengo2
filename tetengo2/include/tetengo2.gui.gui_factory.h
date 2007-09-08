@@ -24,7 +24,7 @@ namespace tetengo2 { namespace gui
                            tetengo2::gui::concept::WindowConcept.
         \param MessageLoop A message loop type. It must conform to
                            tetengo2::gui::concept::MessageLoop.
-        \param Alerter     An alerter type. It must conform to
+        \param Alerter     An alert type. It must conform to
                            tetengo2::gui::concept::AlerterConcept.
     */
     template <
@@ -47,8 +47,8 @@ namespace tetengo2 { namespace gui
         //! The message loop type;
         typedef MessageLoop message_loop_type;
 
-        //! The alerter type.
-        typedef Alerter alerter_type;
+        //! The alert type.
+        typedef Alerter alert_type;
 
 
         // constructors and destructor

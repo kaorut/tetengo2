@@ -33,8 +33,8 @@ namespace bobura
         //! components.
         typedef tetengo2::gui::win32::gui_factory gui_factory_type;
 
-        //! The alerter type.
-        typedef gui_factory_type::alerter_type alerter_type;
+        //! The alert type.
+        typedef gui_factory_type::alert_type alert_type;
 
         //! The Bobura application type.
         typedef bobura<gui_factory_type> bobura_type;

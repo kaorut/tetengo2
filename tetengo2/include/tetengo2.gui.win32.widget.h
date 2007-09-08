@@ -36,7 +36,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
                                      tetengo2::gui::concept::StaticWindowProcedureConcept.
-        \param Alerter               An alerter type. It must conform to
+        \param Alerter               An alert type. It must conform to
                                      tetengo2::gui::concept::AlerterConcept.
         \param Canvas                A canvas type. It must conform to
                                      tetengo2::gui::concept::CanvasConcept.
@@ -65,13 +65,13 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The static window procedure type.
         typedef StaticWindowProcedure static_window_procedure_type;
 
-        //! The alerter type.
-        typedef Alerter alerter_type;
+        //! The alert type.
+        typedef Alerter alert_type;
 
         //! The message receiver type.
         typedef
             MessageReceiver<
-                widget, static_window_procedure_type, alerter_type
+                widget, static_window_procedure_type, alert_type
             >
             message_receiver_type;
 

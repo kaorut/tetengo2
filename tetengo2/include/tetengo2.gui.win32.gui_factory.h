@@ -16,7 +16,7 @@
 #include <windows.h>
 
 #include "tetengo2.gui.gui_factory.h"
-#include "tetengo2.gui.win32.alerter.h"
+#include "tetengo2.gui.win32.alert.h"
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.window.h"
@@ -39,14 +39,14 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             canvas_type;
 
-        typedef alerter< ::HWND, tetengo2::win32::encode> alerter_type;
+        typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
 
         typedef
             window<
                 ::HWND,
                 window_message_receiver,
                 ::WNDPROC,
-                alerter_type,
+                alert_type,
                 canvas_type,
                 std::wstring
             >
@@ -59,7 +59,7 @@ namespace tetengo2 { namespace gui { namespace win32
             canvas_type,
             window_type,
             message_loop,
-            alerter_type
+            alert_type
         >
         gui_factory;
 
