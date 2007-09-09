@@ -9,8 +9,11 @@
 #if !defined(TETENGO2_GUI_GUIFACTORY_H)
 #define TETENGO2_GUI_GUIFACTORY_H
 
+#include <exception>
 #include <memory>
 #include <stdexcept>
+
+#include <boost/concept_check.hpp>
 
 
 namespace tetengo2 { namespace gui
@@ -25,7 +28,7 @@ namespace tetengo2 { namespace gui
         \param MessageLoop A message loop type. It must conform to
                            tetengo2::gui::concept::MessageLoop.
         \param Alert       An alerting binary functor type. It must conform to
-                           tetengo2::gui::concept::AlerterConcept.
+                           boost::AdaptableBinaryFunctionConcept<Alert, void, Window::handle_type, std::exception>.
     */
     template <
         typename Canvas,
@@ -35,6 +38,24 @@ namespace tetengo2 { namespace gui
     >
     class gui_factory : private boost::noncopyable
     {
+    private:
+        // concept checks
+
+        struct concept_check_alert
+        {
+            typedef typename Window::handle_type window_handle_type;
+            typedef std::exception exception_type;
+            BOOST_CLASS_REQUIRE4(
+                Alert,
+                void,
+                window_handle_type,
+                exception_type,
+                boost,
+                AdaptableBinaryFunctionConcept
+            );
+        };
+
+
     public:
         // types
 

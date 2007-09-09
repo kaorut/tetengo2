@@ -45,9 +45,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         struct concept_check_encode
         {
-            typedef Encode<std::wstring, std::string> encode_type;
-            typedef std::string exception_what_type;
             typedef std::wstring task_dialog_string_type;
+            typedef std::string exception_what_type;
+            typedef
+                Encode<task_dialog_string_type, exception_what_type>
+                encode_type;
             BOOST_CLASS_REQUIRE3(
                 encode_type,
                 task_dialog_string_type,
