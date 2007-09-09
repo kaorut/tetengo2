@@ -9,9 +9,11 @@
 #if !defined(TETENGO2_GUI_WIN32_WINDOW_H)
 #define TETENGO2_GUI_WIN32_WINDOW_H
 
+#include <exception>
 #include <memory>
 #include <stdexcept>
 
+#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
 #define OEMRESOURCE
@@ -37,8 +39,9 @@ namespace tetengo2 { namespace gui { namespace win32
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
                                      tetengo2::gui::concept::StaticWindowProcedureConcept.
-        \param Alert                 An alerting bunary functor type. It must conform to
-                                     tetengo2::gui::concept::AlerterConcept.
+        \param Alert                 An alerting binary functor type. It must
+                                     conform to
+                                     boost::AdaptableBinaryFunctionConcept<Alert, void, Handle, std::exception>.
         \param Canvas                A canvas type. It must conform to
                                      tetengo2::gui::concept::CanvasConcept.
         \param String                A string type. It must conform to
@@ -68,6 +71,18 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
+        struct concept_check_Alert
+        {
+            typedef std::exception exception_type;
+            BOOST_CLASS_REQUIRE4(
+                Alert,
+                void,
+                Handle,
+                exception_type,
+                boost,
+                AdaptableBinaryFunctionConcept
+            );
+        };
         BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
 
 

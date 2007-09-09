@@ -41,7 +41,7 @@ namespace tetengo2 { namespace gui
     private:
         // concept checks
 
-        struct concept_check_alert
+        struct concept_check_Alert
         {
             typedef typename Window::handle_type window_handle_type;
             typedef std::exception exception_type;

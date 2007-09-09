@@ -43,7 +43,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
-        struct concept_check_encode
+        struct concept_check_Encode
         {
             typedef std::wstring task_dialog_string_type;
             typedef std::string exception_what_type;

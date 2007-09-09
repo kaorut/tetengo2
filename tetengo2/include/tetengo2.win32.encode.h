@@ -77,12 +77,12 @@ namespace tetengo2 { namespace win32
     private:
         // concept checks
 
-        struct concept_check_target
+        struct concept_check_Target
         {
             typedef std::wstring target_type;
             BOOST_CLASS_REQUIRE(target_type, tetengo2, StringConcept);
         };
-        struct concept_check_source
+        struct concept_check_Source
         {
             typedef std::string source_type;
             BOOST_CLASS_REQUIRE(source_type, tetengo2, StringConcept);
@@ -143,12 +143,12 @@ namespace tetengo2 { namespace win32
     private:
         // concept checks
 
-        struct concept_check_target
+        struct concept_check_Target
         {
             typedef std::string target_type;
             BOOST_CLASS_REQUIRE(target_type, tetengo2, StringConcept);
         };
-        struct concept_check_source
+        struct concept_check_Source
         {
             typedef std::wstring source_type;
             BOOST_CLASS_REQUIRE(source_type, tetengo2, StringConcept);
