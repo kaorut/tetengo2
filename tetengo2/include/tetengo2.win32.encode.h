@@ -35,6 +35,15 @@ namespace tetengo2 { namespace win32
         public std::unary_function<Source, Target>
     {
     public:
+        // types
+
+        //! The string type of the target.
+        typedef Target target_type;
+
+        //! The string type of the source.
+        typedef Source source_type;
+
+
         // functions
 
         /*!
@@ -44,51 +53,31 @@ namespace tetengo2 { namespace win32
 
             \return The encoded string.
         */
-        const Target operator()(const Source& string)
+        const target_type operator()(const source_type& string)
         {
             return string;
         }
     };
 
-    template <typename Target>
-    class encode<Target, const char*> :
-        public std::unary_function<const char*, Target>
-    {
-    public:
-        // functions
-
-        const Target operator()(const char* const& string)
-        const
-        {
-            return encode<Target, std::string>(string);
-        }
-    };
-
-    template <typename Target>
-    class encode<Target, const wchar_t*> :
-        public std::unary_function<const wchar_t*, Target>
-    {
-    public:
-        // functions
-
-        const Target operator()(const wchar_t* const& string)
-        const
-        {
-            return encode<Target, std::wstring>(string);
-        }
-    };
-
+    // A specialized template.
     template <>
     class encode<std::wstring, std::string> :
         public std::unary_function<std::string, std::wstring>
     {
     public:
+        // types
+
+        typedef std::wstring target_type;
+
+        typedef std::string source_type;
+
+
         // functions
 
-        const std::wstring operator()(const std::string& string)
+        const target_type operator()(const source_type& string)
         const
         {
-            if (string.empty()) return std::wstring();
+            if (string.empty()) return target_type();
             
             const int length = ::MultiByteToWideChar(
                 CP_ACP,
@@ -105,7 +94,9 @@ namespace tetengo2 { namespace win32
                 );
             }
 
-            const boost::scoped_array<wchar_t> converted(new wchar_t[length]);
+            const boost::scoped_array<target_type::value_type> converted(
+                new target_type::value_type[length]
+            );
             ::MultiByteToWideChar(
                 CP_ACP,
                 MB_PRECOMPOSED,
@@ -115,21 +106,29 @@ namespace tetengo2 { namespace win32
                 length
             );
 
-            return std::wstring(converted.get(), converted.get() + length);
+            return target_type(converted.get(), converted.get() + length);
         }
     };
 
+    // A specialized template.
     template <>
     class encode<std::string, std::wstring> :
         public std::unary_function<std::wstring, std::string>
     {
     public:
+        // types
+
+        typedef std::string target_type;
+
+        typedef std::wstring source_type;
+
+
         // functions
 
-        const std::string operator()(const std::wstring& string)
+        const target_type operator()(const source_type& string)
         const
         {
-            if (string.empty()) return std::string();
+            if (string.empty()) return target_type();
 
             const int length = ::WideCharToMultiByte(
                 CP_ACP,
@@ -148,7 +147,9 @@ namespace tetengo2 { namespace win32
                 );
             }
             
-            const boost::scoped_array<char> converted(new char[length]);
+            const boost::scoped_array<target_type::value_type> converted(
+                new target_type::value_type[length]
+            );
             ::WideCharToMultiByte(
                 CP_ACP,
                 WC_NO_BEST_FIT_CHARS | WC_COMPOSITECHECK | WC_DEFAULTCHAR,
@@ -160,7 +161,7 @@ namespace tetengo2 { namespace win32
                 NULL
             );
 
-            return std::string(converted.get(), converted.get() + length);
+            return target_type(converted.get(), converted.get() + length);
         }
     };
 }}
