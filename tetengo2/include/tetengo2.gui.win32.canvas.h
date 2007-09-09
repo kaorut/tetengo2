@@ -79,7 +79,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \breif Creates a canvas object.
+            \brief Creates a canvas object.
 
             \param window_handle A window handle.
         */

@@ -59,6 +59,7 @@ namespace tetengo2 { namespace win32
         }
     };
 
+#if !defined(DOCUMENTATION)
     // A specialized template.
     template <>
     class encode<std::wstring, std::string> :
@@ -164,6 +165,7 @@ namespace tetengo2 { namespace win32
             return target_type(converted.get(), converted.get() + length);
         }
     };
+#endif
 }}
 
 

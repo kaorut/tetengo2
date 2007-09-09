@@ -25,7 +25,7 @@ namespace tetengo2 { namespace gui
         // constructors and destructor
 
         /*!
-            \breif Creates a window observer.
+            \brief Creates a window observer.
         */
         window_observer()
         {}
