@@ -30,13 +30,13 @@ namespace tetengo2 { namespace gui { namespace win32
                                      tetengo2::gui::concept::HandleConcept.
         \param MessageReceiver       A message receiver type template. The
                                      type
-                                     MessageReceiver<Widget, StaticWindowProcedure, Alerter>
+                                     MessageReceiver<Widget, StaticWindowProcedure, Alert>
                                      must conform to
                                      tetengo2::gui::MessageReceiverConcept.
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
                                      tetengo2::gui::concept::StaticWindowProcedureConcept.
-        \param Alerter               An alert type. It must conform to
+        \param Alert                 An alerting bunary functor type. It must conform to
                                      tetengo2::gui::concept::AlerterConcept.
         \param Canvas                A canvas type. It must conform to
                                      tetengo2::gui::concept::CanvasConcept.
@@ -46,11 +46,11 @@ namespace tetengo2 { namespace gui { namespace win32
     template <
         typename Handle,
         template <
-            typename Widget, typename StaticWindowProcedure, typename Alerter
+            typename Widget, typename StaticWindowProcedure, typename Alert
         >
         class    MessageReceiver,
         typename StaticWindowProcedure,
-        typename Alerter,
+        typename Alert,
         typename Canvas,
         typename String
     >
@@ -65,8 +65,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The static window procedure type.
         typedef StaticWindowProcedure static_window_procedure_type;
 
-        //! The alert type.
-        typedef Alerter alert_type;
+        //! The alerting binary functor type.
+        typedef Alert alert_type;
 
         //! The message receiver type.
         typedef

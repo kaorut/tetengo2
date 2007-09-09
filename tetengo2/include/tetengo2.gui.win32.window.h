@@ -30,13 +30,13 @@ namespace tetengo2 { namespace gui { namespace win32
                                      tetengo2::gui::concept::HandleConcept.
         \param MessageReceiver       A message receiver type template. The
                                      type
-                                     MessageReceiver<Widget, StaticWindowProcedure, Alerter>
+                                     MessageReceiver<Widget, StaticWindowProcedure, Alert>
                                      must conform to
                                      tetengo2::gui::MessageReceiverConcept.
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
                                      tetengo2::gui::concept::StaticWindowProcedureConcept.
-        \param Alerter               An alert type. It must conform to
+        \param Alert                 An alerting bunary functor type. It must conform to
                                      tetengo2::gui::concept::AlerterConcept.
         \param Canvas                A canvas type. It must conform to
                                      tetengo2::gui::concept::CanvasConcept.
@@ -46,11 +46,11 @@ namespace tetengo2 { namespace gui { namespace win32
     template <
         typename Handle,
         template <
-            typename Window, typename StaticWindowProcedure, typename Alerter
+            typename Window, typename StaticWindowProcedure, typename Alert
         >
         class    MessageReceiver,
         typename StaticWindowProcedure,
-        typename Alerter,
+        typename Alert,
         typename Canvas,
         typename String
     >
@@ -59,7 +59,7 @@ namespace tetengo2 { namespace gui { namespace win32
             Handle,
             MessageReceiver,
             StaticWindowProcedure,
-            Alerter,
+            Alert,
             Canvas,
             String
         >

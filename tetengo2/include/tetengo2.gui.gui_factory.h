@@ -24,14 +24,14 @@ namespace tetengo2 { namespace gui
                            tetengo2::gui::concept::WindowConcept.
         \param MessageLoop A message loop type. It must conform to
                            tetengo2::gui::concept::MessageLoop.
-        \param Alerter     An alert type. It must conform to
+        \param Alert       An alerting binary functor type. It must conform to
                            tetengo2::gui::concept::AlerterConcept.
     */
     template <
         typename Canvas,
         typename Window,
         typename MessageLoop,
-        typename Alerter
+        typename Alert
     >
     class gui_factory : private boost::noncopyable
     {
@@ -47,8 +47,8 @@ namespace tetengo2 { namespace gui
         //! The message loop type;
         typedef MessageLoop message_loop_type;
 
-        //! The alert type.
-        typedef Alerter alert_type;
+        //! The alerting binary functor type.
+        typedef Alert alert_type;
 
 
         // constructors and destructor

@@ -34,16 +34,17 @@ namespace tetengo2 { namespace gui { namespace win32
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
                                      tetengo2::gui::concept::StaticWindowProcedureConcept.
-        \param Alerter               An alert type. It must conform to
-                                     tetengo2::gui::concept::AlerterConcept.
+        \param Alert                 An alerting binary functor type. It must
+                                     conform to
+                                     tetengo2::gui::concept::AlertConcept.
     */
     template <
         typename Window,
         typename StaticWindowProcedure,
-        typename Alerter
+        typename Alert
     >
     class window_message_receiver :
-        public widget_message_receiver<Window, StaticWindowProcedure, Alerter>
+        public widget_message_receiver<Window, StaticWindowProcedure, Alert>
     {
     public:
         // types
