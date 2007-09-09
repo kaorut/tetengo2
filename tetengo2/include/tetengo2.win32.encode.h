@@ -19,6 +19,8 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.StringConcept.h"
+
 
 namespace tetengo2 { namespace win32
 {
@@ -34,6 +36,13 @@ namespace tetengo2 { namespace win32
     class encode :
         public std::unary_function<Source, Target>
     {
+    private:
+        // concept checks
+
+        BOOST_CLASS_REQUIRE(Target, tetengo2, StringConcept);
+        BOOST_CLASS_REQUIRE(Source, tetengo2, StringConcept);
+
+
     public:
         // types
 
@@ -65,6 +74,21 @@ namespace tetengo2 { namespace win32
     class encode<std::wstring, std::string> :
         public std::unary_function<std::string, std::wstring>
     {
+    private:
+        // concept checks
+
+        struct concept_check_target
+        {
+            typedef std::wstring target_type;
+            BOOST_CLASS_REQUIRE(target_type, tetengo2, StringConcept);
+        };
+        struct concept_check_source
+        {
+            typedef std::string source_type;
+            BOOST_CLASS_REQUIRE(source_type, tetengo2, StringConcept);
+        };
+
+
     public:
         // types
 
@@ -116,6 +140,20 @@ namespace tetengo2 { namespace win32
     class encode<std::string, std::wstring> :
         public std::unary_function<std::wstring, std::string>
     {
+    private:
+        // concept checks
+
+        struct concept_check_target
+        {
+            typedef std::string target_type;
+            BOOST_CLASS_REQUIRE(target_type, tetengo2, StringConcept);
+        };
+        struct concept_check_source
+        {
+            typedef std::wstring source_type;
+            BOOST_CLASS_REQUIRE(source_type, tetengo2, StringConcept);
+        };
+
     public:
         // types
 

@@ -15,6 +15,8 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.StringConcept.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -24,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \param Handle       A handle type for the native interface. It must
                             conform to tetengo2::gui::concept::HandleConcept.
         \param Size         A size type. It must conform to
-                            boost::IntegerConcept.
+                            boost::IntegerConcept<Size>.
         \param Point        A point type template. The type Point<Size, Size>
                             must conform to
                             tetengo2::gui::concept::PointConcept.
@@ -32,7 +34,7 @@ namespace tetengo2 { namespace gui { namespace win32
                             Rectangle<Point, Point> must conform to
                             tetengo2::gui::concept::RectangleConcept.
         \param String       A string type. It must conform to
-                            tetengo2::concept::StringConcept.
+                            tetengo2::StringConcept<String>.
         \param WindowHandle A window handle type for the native interface. It
                             must conform to
                             tetengo2::gui::concpets::HandleConcept.
@@ -41,9 +43,9 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Handle,
         typename Size,
         template <typename Size1, typename Size2>
-        class Point,
+        class    Point,
         template <typename Point1, typename Point2>
-        class Rectangle,
+        class    Rectangle,
         typename String,
         typename WindowHandle
     >
@@ -52,6 +54,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // concept checks
 
         BOOST_CLASS_REQUIRE(Size, boost, IntegerConcept);
+        BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
 
 
     public:

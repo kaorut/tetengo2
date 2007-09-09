@@ -19,6 +19,8 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.StringConcept.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -41,7 +43,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \param Canvas                A canvas type. It must conform to
                                      tetengo2::gui::concept::CanvasConcept.
         \param String                A string type. It must conform to
-                                     tetengo2::concept::StringConcept.
+                                     tetengo2::StringConcept<String>.
     */
     template <
         typename Handle,
@@ -56,6 +58,12 @@ namespace tetengo2 { namespace gui { namespace win32
     >
     class widget : private boost::noncopyable
     {
+    private:
+        // concept checks
+
+        BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
+
+
     public:
         // types
 
