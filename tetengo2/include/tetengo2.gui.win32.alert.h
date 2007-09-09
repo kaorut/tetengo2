@@ -6,10 +6,11 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_ALERTER_H)
-#define TETENGO2_GUI_WIN32_ALERTER_H
+#if !defined(TETENGO2_GUI_WIN32_ALERT_H)
+#define TETENGO2_GUI_WIN32_ALERT_H
 
 #include <exception>
+#include <functional>
 #include <sstream>
 #include <string>
 
@@ -36,7 +37,8 @@ namespace tetengo2 { namespace gui { namespace win32
         template <typename Target, typename Source>
         class    Encode
     >
-    class alert
+    class alert :
+        public std::binary_function<WindowHandle, std::exception, void>
     {
     private:
         // concept checks
