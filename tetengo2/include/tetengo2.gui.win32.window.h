@@ -20,6 +20,7 @@
 #include <windows.h>
 
 #include "tetengo2.StringConcept.h"
+#include "tetengo2.gui.HandleConcept.h"
 #include "tetengo2.gui.win32.widget.h"
 
 
@@ -30,7 +31,7 @@ namespace tetengo2 { namespace gui { namespace win32
  
         \param Handle                A handle type to the native interface. It
                                      must conform to
-                                     tetengo2::gui::concept::HandleConcept.
+                                     tetengo2::gui::HandleConcept<Handle>.
         \param MessageReceiver       A message receiver type template. The
                                      type
                                      MessageReceiver<Widget, StaticWindowProcedure, Alert>
@@ -71,6 +72,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
+        BOOST_CLASS_REQUIRE(Handle, tetengo2::gui, HandleConcept);
         struct concept_check_Alert
         {
             typedef std::exception exception_type;

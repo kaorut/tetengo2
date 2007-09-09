@@ -16,6 +16,7 @@
 #include <windows.h>
 
 #include "tetengo2.StringConcept.h"
+#include "tetengo2.gui.HandleConcept.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -24,7 +25,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The class template for a canvas for Win32 platforms.
 
         \param Handle       A handle type for the native interface. It must
-                            conform to tetengo2::gui::concept::HandleConcept.
+                            conform to tetengo2::gui::HandleConcept<Handle>.
         \param Size         A size type. It must conform to
                             boost::IntegerConcept<Size>.
         \param Point        A point type template. The type Point<Size, Size>
@@ -37,7 +38,7 @@ namespace tetengo2 { namespace gui { namespace win32
                             tetengo2::StringConcept<String>.
         \param WindowHandle A window handle type for the native interface. It
                             must conform to
-                            tetengo2::gui::concpets::HandleConcept.
+                            tetengo2::gui::HandleConcept<WindowHandle>.
     */
     template <
         typename Handle,
@@ -53,8 +54,10 @@ namespace tetengo2 { namespace gui { namespace win32
     {
         // concept checks
 
+        BOOST_CLASS_REQUIRE(Handle, tetengo2::gui, HandleConcept);
         BOOST_CLASS_REQUIRE(Size, boost, IntegerConcept);
         BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
+        BOOST_CLASS_REQUIRE(WindowHandle, tetengo2::gui, HandleConcept);
 
 
     public:

@@ -76,6 +76,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.gui.HandleConcept.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.gui.paint_observer.h"
 				>
 			</File>
