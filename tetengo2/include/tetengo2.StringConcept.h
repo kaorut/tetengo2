@@ -41,7 +41,7 @@ namespace tetengo2
 
     };
 
-#if !defined(DOCUMENT)
+#if !defined(DOCUMENTATION)
     // A specialized template.
     template <>
     class StringConcept<std::string>
@@ -65,7 +65,6 @@ namespace tetengo2
         {}
 
     };
-
 #endif
 
 }
