@@ -20,7 +20,6 @@
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.window.h"
-#include "tetengo2.gui.win32.window_message_receiver.h"
 #include "tetengo2.win32.encode.h"
 
 
@@ -44,11 +43,10 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             window<
                 ::HWND,
-                window_message_receiver,
-                ::WNDPROC,
-                alert_type,
                 canvas_type,
-                std::wstring
+                alert_type,
+                std::wstring,
+                ::WNDPROC
             >
             window_type;
     }

@@ -94,18 +94,15 @@ namespace bobura
         typedef typename gui_factory_type::window_type window_type;
 
         typedef
-            typename gui_factory_type::message_loop_type message_loop_type;
-
-        typedef
-            typename window_type::message_receiver_type message_receiver_type;
-
-        typedef
-            typename message_receiver_type::window_observer_type
+            typename window_type::window_observer_type
             window_observer_type;
 
         typedef
-            typename message_receiver_type::paint_observer_type
+            typename window_type::paint_observer_type
             paint_observer_type;
+
+        typedef
+            typename gui_factory_type::message_loop_type message_loop_type;
 
 
         // variables
@@ -121,7 +118,7 @@ namespace bobura
         )
         const
         {
-            p_window->p_message_receiver()->add_window_observer(
+            p_window->add_window_observer(
                 std::auto_ptr<window_observer_type> (
                     new message::main_window_window_observer<
                         message_loop_type
@@ -129,7 +126,7 @@ namespace bobura
                 )
             );
 
-            p_window->p_message_receiver()->add_paint_observer(
+            p_window->add_paint_observer(
                 std::auto_ptr<paint_observer_type> (
                     new message::main_window_paint_observer<canvas_type>()
                 )

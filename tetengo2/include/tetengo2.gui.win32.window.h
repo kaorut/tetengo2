@@ -13,14 +13,18 @@
 #include <memory>
 #include <stdexcept>
 
+#include <boost/bind.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/signal.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 #define OEMRESOURCE
 #include <windows.h>
 
 #include "tetengo2.StringConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
+#include "tetengo2.gui.window_observer.h"
 #include "tetengo2.gui.win32.widget.h"
 
 
@@ -32,41 +36,31 @@ namespace tetengo2 { namespace gui { namespace win32
         \param Handle                A handle type to the native interface. It
                                      must conform to
                                      tetengo2::gui::HandleConcept<Handle>.
-        \param MessageReceiver       A message receiver type template. The
-                                     type
-                                     MessageReceiver<Widget, StaticWindowProcedure, Alert>
-                                     must conform to
-                                     tetengo2::gui::MessageReceiverConcept.
-        \param StaticWindowProcedure A static window procedure type. It must
-                                     conform to
-                                     tetengo2::gui::concept::StaticWindowProcedureConcept.
+        \param Canvas                A canvas type. It must conform to
+                                     tetengo2::gui::concept::CanvasConcept.
         \param Alert                 An alerting binary functor type. It must
                                      conform to
                                      boost::AdaptableBinaryFunctionConcept<Alert, void, Handle, std::exception>.
-        \param Canvas                A canvas type. It must conform to
-                                     tetengo2::gui::concept::CanvasConcept.
         \param String                A string type. It must conform to
                                      tetengo2::StringConcept<String>.
+        \param StaticWindowProcedure A static window procedure type. It must
+                                     conform to
+                                     tetengo2::gui::concept::StaticWindowProcedureConcept.
    */
     template <
         typename Handle,
-        template <
-            typename Window, typename StaticWindowProcedure, typename Alert
-        >
-        class    MessageReceiver,
-        typename StaticWindowProcedure,
-        typename Alert,
         typename Canvas,
-        typename String
+        typename Alert,
+        typename String,
+        typename StaticWindowProcedure
     >
     class window :
         public widget<
             Handle,
-            MessageReceiver,
-            StaticWindowProcedure,
-            Alert,
             Canvas,
-            String
+            Alert,
+            String,
+            StaticWindowProcedure
         >
     {
     private:
@@ -89,6 +83,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     public:
+        // types
+
+        //! The window observer type.
+        typedef window_observer window_observer_type;
+
+
         // constructors and destructor
 
         /*!
@@ -96,13 +96,11 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         window()
         :
-        m_handle(create_window())
+        m_handle(create_window()),
+        m_window_observers(),
+        m_window_destroyed_handler()
         {
-            set_message_receiver(
-                std::auto_ptr<message_receiver_type>(
-                    new message_receiver_type(this)
-                )
-            );
+            set_to_window_long_ptr(this);
         }
 
         /*!
@@ -120,6 +118,51 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_handle;
+        }
+
+        /*!
+            \brief Adds a window observer.
+
+            \param p_window_observer An auto pointer to a window observer.
+        */
+        void add_window_observer(
+            std::auto_ptr<window_observer_type> p_window_observer
+        )
+        {
+            m_window_destroyed_handler.connect(
+                boost::bind(
+                    &typename window_observer_type::destroyed,
+                    p_window_observer.get()
+                )
+            );
+
+            m_window_observers.push_back(p_window_observer);
+        }
+
+
+    protected:
+        // functions
+
+        virtual ::LRESULT window_procedure(
+            const ::UINT   uMsg,
+            const ::WPARAM wParam,
+            const ::LPARAM lParam
+        )
+        {
+            switch (uMsg)
+            {
+            case WM_DESTROY:
+                {
+                    m_window_destroyed_handler();
+                    return 0;
+                }
+            case WM_LBUTTONUP:
+                // if (condition)
+                {
+                    throw std::runtime_error("マウスがクリックされた。");
+                }
+            }
+            return this->widget::window_procedure(uMsg, wParam, lParam);
         }
 
 
@@ -159,8 +202,7 @@ namespace tetengo2 { namespace gui { namespace win32
             ::WNDCLASSEXW window_class;
             window_class.cbSize = sizeof(::WNDCLASSEXW);
             window_class.style = 0;
-            window_class.lpfnWndProc =
-                message_receiver_type::p_static_window_procedure();
+            window_class.lpfnWndProc = widget::p_static_window_procedure();
             window_class.cbClsExtra = 0;
             window_class.cbWndExtra = sizeof(widget*);
             window_class.hInstance = instance_handle;
@@ -211,6 +253,10 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         const handle_type m_handle;
+
+        boost::ptr_vector<window_observer_type> m_window_observers;
+
+        boost::signal<void ()> m_window_destroyed_handler;
 
 
     };

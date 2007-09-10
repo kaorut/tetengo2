@@ -104,15 +104,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\tetengo2.gui.win32.widget_message_receiver.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\tetengo2.gui.win32.window.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.gui.win32.window_message_receiver.h"
 				>
 			</File>
 			<File

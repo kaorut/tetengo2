@@ -13,8 +13,11 @@
 #include <memory>
 #include <stdexcept>
 
+#include <boost/bind.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/signal.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/scoped_array.hpp>
 
@@ -23,6 +26,7 @@
 
 #include "tetengo2.StringConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
+#include "tetengo2.gui.paint_observer.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -33,32 +37,23 @@ namespace tetengo2 { namespace gui { namespace win32
         \param Handle                A handle type to the native interface. It
                                      must conform to
                                      tetengo2::gui::HandleConcept<Handle>.
-        \param MessageReceiver       A message receiver type template. The
-                                     type
-                                     MessageReceiver<Widget, StaticWindowProcedure, Alert>
-                                     must conform to
-                                     tetengo2::gui::MessageReceiverConcept.
-        \param StaticWindowProcedure A static window procedure type. It must
-                                     conform to
-                                     tetengo2::gui::concept::StaticWindowProcedureConcept.
+        \param Canvas                A canvas type. It must conform to
+                                     tetengo2::gui::concept::CanvasConcept.
         \param Alert                 An alerting binary functor type. It must
                                      conform to
                                      boost::AdaptableBinaryFunctionConcept<Alert, void, Handle, std::exception>.
-        \param Canvas                A canvas type. It must conform to
-                                     tetengo2::gui::concept::CanvasConcept.
         \param String                A string type. It must conform to
                                      tetengo2::StringConcept<String>.
+        \param StaticWindowProcedure A static window procedure type. It must
+                                     conform to
+                                     tetengo2::gui::concept::StaticWindowProcedureConcept.
     */
     template <
         typename Handle,
-        template <
-            typename Widget, typename StaticWindowProcedure, typename Alert
-        >
-        class    MessageReceiver,
-        typename StaticWindowProcedure,
-        typename Alert,
         typename Canvas,
-        typename String
+        typename Alert,
+        typename String,
+        typename StaticWindowProcedure
     >
     class widget : private boost::noncopyable
     {
@@ -87,24 +82,33 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The handle type.
         typedef Handle handle_type;
 
-        //! The static window procedure type.
-        typedef StaticWindowProcedure static_window_procedure_type;
+        //! The canvas type.
+        typedef Canvas canvas_type;
 
         //! The alerting binary functor type.
         typedef Alert alert_type;
 
-        //! The message receiver type.
-        typedef
-            MessageReceiver<
-                widget, static_window_procedure_type, alert_type
-            >
-            message_receiver_type;
-
-        //! The canvas type.
-        typedef Canvas canvas_type;
-
         //! The string type
         typedef String string_type;
+
+        //! The static window procedure type.
+        typedef StaticWindowProcedure static_window_procedure_type;
+
+        //! The paint observer type.
+        typedef paint_observer<canvas_type> paint_observer_type;
+
+
+        // static functions
+
+        /*!
+            \brief Returns the static window precedure.
+            
+            \return The pointer to the static window precedure.
+        */
+        static static_window_procedure_type p_static_window_procedure()
+        {
+            return static_window_procedure;
+        }
 
 
         // constructors and destructor
@@ -114,7 +118,8 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         widget()
         :
-        m_p_message_receiver()
+        m_paint_observers(),
+        m_paint_paint_handler()
         {}
 
         /*!
@@ -134,20 +139,6 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         virtual handle_type handle()
         const = 0;
-
-        /*!
-            \brief Returns the message receiver.
-
-            \return The pointer to the message receiver.
-        */
-        message_receiver_type* p_message_receiver()
-        const
-        {
-            if (m_p_message_receiver.get() == NULL)
-                throw std::logic_error("Message receiver not set!");
-
-            return m_p_message_receiver.get();
-        }
 
         /*!
             \brief Sets the visible status.
@@ -200,27 +191,144 @@ namespace tetengo2 { namespace gui { namespace win32
             return string_type(p_text.get());
         }
 
+        /*!
+            \brief Adds a paint observer.
+
+            \param p_paint_observer An auto pointer to a paint observer.
+        */
+        void add_paint_observer(
+            std::auto_ptr<paint_observer_type> p_paint_observer
+        )
+        {
+            m_paint_paint_handler.connect(
+                boost::bind(
+                    &typename paint_observer_type::paint,
+                    p_paint_observer.get(),
+                    _1
+                )
+            );
+
+            m_paint_observers.push_back(p_paint_observer);
+        }
+
 
     protected:
+        // static functions
+
+        static void set_to_window_long_ptr(const widget* const p_widget)
+        {
+            ::SetLastError(0);
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(push)
+#    pragma warning(disable: 4244)
+#endif
+            ::SetWindowLongPtrW(
+                p_widget->handle(),
+                GWLP_USERDATA, 
+                reinterpret_cast< ::LONG_PTR>(p_widget)
+            );
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(pop)
+#endif
+            const BOOL set_window_pos_result = ::SetWindowPos(
+                p_widget->handle(),
+                NULL,
+                0,
+                0,
+                0,
+                0,
+                SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED
+            );
+
+            if (::GetLastError() > 0 || set_window_pos_result == 0)
+                throw std::runtime_error("Can't set the pointer to this!");
+        }
+
+
         // functions
 
         /*!
-            \brief Sets the message receiver.
+            \brief Dispatches the window messages.
 
-            \param p_message_receiver An auto pointer to a message receiver.
+            \param uMsg   A message.
+            \param wParam A word-sized parameter.
+            \param lParam A long-sized parameter.
+
+            \return The result code.
         */
-        void set_message_receiver(
-            std::auto_ptr<message_receiver_type> p_message_receiver
+        virtual ::LRESULT window_procedure(
+            const ::UINT   uMsg,
+            const ::WPARAM wParam,
+            const ::LPARAM lParam
         )
         {
-            m_p_message_receiver.reset(p_message_receiver.release());
+            switch (uMsg)
+            {
+            case WM_PAINT:
+                if (!m_paint_observers.empty())
+                {
+                    const canvas_type canvas(this->handle());
+                    m_paint_paint_handler(&canvas);
+                    return 0;
+                }
+            }
+            return ::DefWindowProcW(this->handle(), uMsg, wParam, lParam);
         }
 
 
     private:
+        // static functions
+
+        static ::LRESULT CALLBACK static_window_procedure(
+            const ::HWND   hWnd,
+            const ::UINT   uMsg,
+            const ::WPARAM wParam,
+            const ::LPARAM lParam
+        )
+        throw ()
+        {
+            try
+            {
+                widget* const p_widget = p_widget_from(hWnd);
+                if (p_widget != NULL)
+                    return p_widget->window_procedure(uMsg, wParam, lParam);
+                else
+                    return ::DefWindowProcW(hWnd, uMsg, wParam, lParam);
+            }
+            catch (std::exception& e)
+            {
+                alert_type()(hWnd, e);
+                return 0;
+            }
+            catch (...)
+            {
+                alert_type()(hWnd);
+                return 0;
+            }
+        }
+
+        static widget* p_widget_from(
+            const ::HWND window_handle
+        )
+        {
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(push)
+#    pragma warning(disable: 4312)
+#endif
+            return reinterpret_cast<widget*>(
+                ::GetWindowLongPtrW(window_handle, GWLP_USERDATA)
+            );
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(pop)
+#endif
+        }
+
+
         // variables
 
-        boost::scoped_ptr<message_receiver_type> m_p_message_receiver;
+        boost::ptr_vector<paint_observer_type> m_paint_observers;
+
+        boost::signal<void (const canvas_type*)> m_paint_paint_handler;
 
     };
 }}}
