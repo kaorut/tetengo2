@@ -43,10 +43,8 @@ namespace tetengo2 { namespace gui { namespace win32
     template <
         typename Handle,
         typename Size,
-        template <typename Size1, typename Size2>
-        class    Point,
-        template <typename Point1, typename Point2>
-        class    Rectangle,
+        template <typename Size1, typename Size2> class Point,
+        template <typename Point1, typename Point2> class Rectangle,
         typename String,
         typename WindowHandle
     >

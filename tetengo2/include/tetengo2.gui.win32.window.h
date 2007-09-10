@@ -22,8 +22,6 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "tetengo2.StringConcept.h"
-#include "tetengo2.gui.HandleConcept.h"
 #include "tetengo2.gui.window_observer.h"
 #include "tetengo2.gui.win32.widget.h"
 
@@ -63,25 +61,6 @@ namespace tetengo2 { namespace gui { namespace win32
             StaticWindowProcedure
         >
     {
-    private:
-        // concept checks
-
-        BOOST_CLASS_REQUIRE(Handle, tetengo2::gui, HandleConcept);
-        struct concept_check_Alert
-        {
-            typedef std::exception exception_type;
-            BOOST_CLASS_REQUIRE4(
-                Alert,
-                void,
-                Handle,
-                exception_type,
-                boost,
-                AdaptableBinaryFunctionConcept
-            );
-        };
-        BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
-
-
     public:
         // types
 
