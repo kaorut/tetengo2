@@ -100,7 +100,7 @@ namespace tetengo2 { namespace gui { namespace win32
         m_window_observers(),
         m_window_destroyed_handler()
         {
-            set_to_window_long_ptr(this);
+            widget::associate_to_native_window_system(this);
         }
 
         /*!
@@ -143,6 +143,8 @@ namespace tetengo2 { namespace gui { namespace win32
     protected:
         // functions
 
+        // The document will be derived from
+        // tetengo2::gui::win32::widget::window_procedure.
         virtual ::LRESULT window_procedure(
             const ::UINT   uMsg,
             const ::WPARAM wParam,

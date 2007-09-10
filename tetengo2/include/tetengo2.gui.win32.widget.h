@@ -215,7 +215,15 @@ namespace tetengo2 { namespace gui { namespace win32
     protected:
         // static functions
 
-        static void set_to_window_long_ptr(const widget* const p_widget)
+        /*!
+            \brief Associates the widget instance pointer to the native
+                   window system.
+            
+            \param p_widget A pointer to a widget.
+        */
+        static void associate_to_native_window_system(
+            const widget* const p_widget
+        )
         {
             ::SetLastError(0);
 #if defined(_WIN32) && !defined(_WIN64)
