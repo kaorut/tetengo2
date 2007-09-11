@@ -338,7 +338,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
         boost::signal<void (const canvas_type*)> m_paint_paint_handler;
 
+
     };
+
+
 }}}
 
 #endif

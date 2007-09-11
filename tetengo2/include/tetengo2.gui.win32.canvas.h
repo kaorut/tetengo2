@@ -44,6 +44,7 @@ namespace tetengo2 { namespace gui { namespace win32
     >
     class canvas : private boost::noncopyable
     {
+    private:
         // concept checks
 
         BOOST_CLASS_REQUIRE(Handle, tetengo2::gui, HandleConcept);
@@ -143,6 +144,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     };
+
+
 }}}
 
 #endif

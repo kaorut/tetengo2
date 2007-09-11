@@ -46,6 +46,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::WNDPROC
             >
             window_type;
+
+
     }
 
     //! The GUI object factory type for Win32 platforms.
@@ -57,6 +59,7 @@ namespace tetengo2 { namespace gui { namespace win32
             alert_type
         >
         gui_factory;
+
 
 }}}
 

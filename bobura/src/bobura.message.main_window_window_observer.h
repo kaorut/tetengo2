@@ -70,6 +70,8 @@ namespace bobura { namespace message
 
 
     };
+
+
 }}
 
 #endif

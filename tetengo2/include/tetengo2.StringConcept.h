@@ -39,6 +39,7 @@ namespace tetengo2
 
         String m_string;
 
+
     };
 
 #if !defined(DOCUMENTATION)
@@ -52,6 +53,7 @@ namespace tetengo2
         void constraints()
         {}
 
+
     };
 
     // A specialized template.
@@ -64,8 +66,10 @@ namespace tetengo2
         void constraints()
         {}
 
+
     };
 #endif
+
 
 }
 

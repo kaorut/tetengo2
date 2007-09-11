@@ -66,6 +66,8 @@ namespace tetengo2 { namespace win32
         {
             return string;
         }
+
+
     };
 
 #if !defined(DOCUMENTATION)
@@ -133,6 +135,8 @@ namespace tetengo2 { namespace win32
 
             return target_type(converted.get(), converted.get() + length);
         }
+
+
     };
 
     // A specialized template.
@@ -202,8 +206,12 @@ namespace tetengo2 { namespace win32
 
             return target_type(converted.get(), converted.get() + length);
         }
+
+
     };
 #endif
+
+
 }}
 
 
