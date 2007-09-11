@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIN32_GUIFACTORY_H
 
 #include <string>
-#include <utility>
 
 #define OEMRESOURCE
 #include <windows.h>
@@ -31,8 +30,6 @@ namespace tetengo2 { namespace gui { namespace win32
             canvas<
                 ::HDC,
                 std::size_t,
-                std::pair,
-                std::pair,
                 std::wstring,
                 ::HWND
             >
