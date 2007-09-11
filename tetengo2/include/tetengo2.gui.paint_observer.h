@@ -51,7 +51,7 @@ namespace tetengo2 { namespace gui
         // functions
 
         /*!
-            \brief Called when it is necessary to repaint the main window.
+            \brief Called when it is necessary to repaint the window.
 
             \param p_canvas The pointer to the canvas.
         */

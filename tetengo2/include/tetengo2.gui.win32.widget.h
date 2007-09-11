@@ -114,7 +114,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \brief Creates a widget object.
+            \brief Creates a widget.
         */
         widget()
         :
@@ -123,7 +123,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {}
 
         /*!
-            \brief Destroys the widget object.
+            \brief Destroys the widget.
         */
         virtual ~widget()
         throw ()

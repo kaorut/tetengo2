@@ -41,7 +41,7 @@ namespace tetengo2 { namespace gui
         // functions
 
         /*!
-            \brief Called when the main window is destroyed.
+            \brief Called when the window is destroyed.
         */
         virtual void destroyed()
         {}

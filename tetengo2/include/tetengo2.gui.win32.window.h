@@ -71,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \brief Creates a window object.
+            \brief Creates a window.
         */
         window()
         :
@@ -83,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Destroys the window object.
+            \brief Destroys the window.
         */
         virtual ~window()
         throw ()

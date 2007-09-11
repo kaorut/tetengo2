@@ -28,13 +28,13 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \brief Creates a message_loop object.
+            \brief Creates a message_loop.
         */
         message_loop()
         {}
 
         /*!
-            \brief Destroys the message loop object.
+            \brief Destroys the message loop.
         */
         ~message_loop()
         throw ()
