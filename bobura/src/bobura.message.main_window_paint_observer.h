@@ -47,7 +47,7 @@ namespace bobura { namespace message
 
         // The document will be derived from
         // tetengo2::gui::paint_observer::paint.
-        virtual void paint(const canvas_type* p_canvas)
+        virtual void paint(canvas_type* p_canvas)
         {
             p_canvas->draw_text(L"‚Ä‚·‚Æ", std::make_pair(64, 32));
         }

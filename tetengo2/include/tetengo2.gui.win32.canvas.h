@@ -16,6 +16,7 @@
 
 #define OEMRESOURCE
 #include <windows.h>
+#include <gdiplus.h>
 
 #include "tetengo2.StringConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
@@ -85,10 +86,13 @@ namespace tetengo2 { namespace gui { namespace win32
         canvas(const window_handle_type window_handle)
         :
         m_window_handle(window_handle),
-        m_paint_info()
+        m_paint_info(get_paint_info(window_handle)),
+        m_graphics(m_paint_info.hdc)
         {
-            if (::BeginPaint(m_window_handle, &m_paint_info) == NULL)
-                throw std::runtime_error("Can't begin paint!");
+            m_graphics.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+            m_graphics.SetTextRenderingHint(
+                Gdiplus::TextRenderingHintClearTypeGridFit
+            );
         }
 
         /*!
@@ -111,7 +115,7 @@ namespace tetengo2 { namespace gui { namespace win32
         handle_type handle()
         const
         {
-            return m_paint_info.hdc;
+            return &m_graphics;
         }
 
         /*!
@@ -121,26 +125,61 @@ namespace tetengo2 { namespace gui { namespace win32
             \param point A point where the text is drawn.
         */
         void draw_text(const string_type& text, const point_type& point)
-        const
         {
-            const ::BOOL successful = ::TextOutW(
-                this->handle(),
-                static_cast<int>(point.first),
-                static_cast<int>(point.second),
-                text.c_str(),
-                static_cast<int>(text.length())
+            const Gdiplus::FontFamily font_family(L"‚Ý‚©‚¿‚á‚ñ");
+            const Gdiplus::Font font(&font_family, 12);
+            const Gdiplus::SolidBrush brush(
+                Gdiplus::Color(255, 0, 0, 0)
             );
-            if (successful == 0)
+
+            const Gdiplus::Status result = m_graphics.DrawString(
+                text.c_str(),
+                static_cast< ::INT>(text.length()),
+                &font,
+                Gdiplus::PointF(
+                    static_cast<Gdiplus::REAL>(point.first),
+                    static_cast<Gdiplus::REAL>(point.second)
+                ),
+                &brush
+            );
+            if (result != Gdiplus::Ok)
                 throw std::runtime_error("Can't draw text!");
+
+            //const ::BOOL successful = ::TextOutW(
+            //    this->handle(),
+            //    static_cast<int>(point.first),
+            //    static_cast<int>(point.second),
+            //    text.c_str(),
+            //    static_cast<int>(text.length())
+            //);
+            //if (successful == 0)
+            //    throw std::runtime_error("Can't draw text!");
         }
 
 
     private:
+        // static functions
+
+        static const ::PAINTSTRUCT get_paint_info(
+            const window_handle_type window_handle
+        )
+        {
+            ::PAINTSTRUCT paint_info;
+
+            if (::BeginPaint(window_handle, &paint_info) == NULL)
+                throw std::runtime_error("Can't begin paint!");
+
+            return paint_info;
+        }
+
+
         // variables
 
         const window_handle_type m_window_handle;
 
         ::PAINTSTRUCT m_paint_info;
+
+        Gdiplus::Graphics m_graphics;
 
 
     };

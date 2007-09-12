@@ -275,7 +275,7 @@ namespace tetengo2 { namespace gui { namespace win32
             case WM_PAINT:
                 if (!m_paint_observers.empty())
                 {
-                    const canvas_type canvas(this->handle());
+                    canvas_type canvas(this->handle());
                     m_paint_paint_handler(&canvas);
                     return 0;
                 }
@@ -336,7 +336,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         boost::ptr_vector<paint_observer_type> m_paint_observers;
 
-        boost::signal<void (const canvas_type*)> m_paint_paint_handler;
+        boost::signal<void (canvas_type*)> m_paint_paint_handler;
 
 
     };

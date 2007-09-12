@@ -12,6 +12,7 @@
 
 #define OEMRESOURCE
 #include <windows.h>
+#include <gdiplus.h>
 
 #include "bobura.configuration.h"
 
@@ -29,11 +30,20 @@ namespace
         const boost::program_options::wparsed_options& parsed_options
     )
     {
+        Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+        ::ULONG_PTR gdiplusToken;
+        Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+
         boost::program_options::variables_map option_values;
         boost::program_options::store(parsed_options, option_values);
         boost::program_options::notify(option_values);
 
-        return bobura::configuration(option_values).create_bobura()->run();
+        //return bobura::configuration(option_values).create_bobura()->run();
+        const int status = bobura::configuration(option_values).create_bobura()->run();
+
+        Gdiplus::GdiplusShutdown(gdiplusToken);
+
+        return status;
     }
 
 

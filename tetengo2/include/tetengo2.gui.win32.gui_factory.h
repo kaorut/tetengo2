@@ -13,6 +13,7 @@
 
 #define OEMRESOURCE
 #include <windows.h>
+#include <gdiplus.h>
 
 #include "tetengo2.gui.gui_factory.h"
 #include "tetengo2.gui.win32.alert.h"
@@ -28,7 +29,7 @@ namespace tetengo2 { namespace gui { namespace win32
     {
         typedef
             canvas<
-                ::HDC,
+                Gdiplus::Graphics*,
                 std::size_t,
                 std::wstring,
                 ::HWND

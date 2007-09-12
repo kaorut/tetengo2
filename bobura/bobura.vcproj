@@ -70,9 +70,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib"
+				AdditionalDependencies="comctl32.lib gdiplus.lib"
 				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="true"
+				AssemblyDebug="0"
 				GenerateMapFile="true"
 				LinkTimeCodeGeneration="0"
 				TargetMachine="1"
@@ -156,7 +157,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib"
+				AdditionalDependencies="comctl32.lib gdiplus.lib"
 				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="false"
 				GenerateMapFile="false"

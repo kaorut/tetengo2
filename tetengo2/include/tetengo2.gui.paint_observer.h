@@ -55,7 +55,7 @@ namespace tetengo2 { namespace gui
 
             \param p_canvas The pointer to the canvas.
         */
-        virtual void paint(const canvas_type* p_canvas)
+        virtual void paint(canvas_type* p_canvas)
         {}
 
 
