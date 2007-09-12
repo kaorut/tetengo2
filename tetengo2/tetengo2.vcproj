@@ -96,6 +96,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.gui.win32.gui_initializer_finalizer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.gui.win32.message_loop.h"
 				>
 			</File>

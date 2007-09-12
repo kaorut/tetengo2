@@ -14,6 +14,7 @@
 #include <stdexcept>
 
 #include <boost/concept_check.hpp>
+#include <boost/scoped_ptr.hpp>
 
 
 namespace tetengo2 { namespace gui
@@ -21,16 +22,21 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for a GUI object factory.
 
-        \param Canvas      A canvas type. It must conform to
-                           tetengo2::gui::concept::CanvasConcept.
-        \param Window      A window type. It must conform to
-                           tetengo2::gui::concept::WindowConcept.
-        \param MessageLoop A message loop type. It must conform to
-                           tetengo2::gui::concept::MessageLoop.
-        \param Alert       An alerting binary functor type. It must conform to
-                           boost::AdaptableBinaryFunctionConcept<Alert, void, Window::handle_type, std::exception>.
+        \param InitializerFinalizer A initalization and finalization manager
+                                    type. It must conform to
+                                    tetengo2::gui::InitalizerFinalizerConcept.
+        \param Canvas               A canvas type. It must conform to
+                                    tetengo2::gui::concept::CanvasConcept.
+        \param Window               A window type. It must conform to
+                                    tetengo2::gui::concept::WindowConcept.
+        \param MessageLoop          A message loop type. It must conform to
+                                    tetengo2::gui::concept::MessageLoop.
+        \param Alert                An alerting binary functor type. It must
+                                    conform to
+                                    boost::AdaptableBinaryFunctionConcept<Alert, void, Window::handle_type, std::exception>.
     */
     template <
+        typename InitializerFinalizer,
         typename Canvas,
         typename Window,
         typename MessageLoop,
@@ -59,6 +65,9 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
+        //! The initialization and finalization manager type.
+        typedef InitializerFinalizer initializer_finalizer_type;
+
         //! The canvas type.
         typedef Canvas canvas_type;
 
@@ -76,8 +85,16 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Creates a GUI object factory.
+
+            \param p_initializer_finalizer An auto pointer to an initalization
+                                           and finalization manager.
         */
-        gui_factory()
+        gui_factory(
+            std::auto_ptr<const initializer_finalizer_type>
+            p_initializer_finalizer    
+        )
+        :
+        m_p_initializer_finalizer(p_initializer_finalizer)
         {}
 
         /*!
@@ -113,6 +130,13 @@ namespace tetengo2 { namespace gui
                 new message_loop_type()
             );
         }
+
+
+    private:
+        // variables
+
+        const boost::scoped_ptr<const initializer_finalizer_type>
+        m_p_initializer_finalizer;
 
 
     };

@@ -15,6 +15,7 @@
 #include <boost/program_options.hpp>
 
 #include <tetengo2.gui.win32.gui_factory.h>
+#include <tetengo2.gui.win32.gui_initializer_finalizer.h>
 
 #include "bobura.bobura.h"
 
@@ -32,6 +33,11 @@ namespace bobura
         //! The abstract factory type to create platform specific GUI
         //! components.
         typedef tetengo2::gui::win32::gui_factory gui_factory_type;
+
+        //! The GUI initialization and finalization manager type.
+        typedef
+            tetengo2::gui::win32::gui_initializer_finalizer
+            gui_initializer_finalizer_type;
 
         //! The Bobura application type.
         typedef bobura<gui_factory_type> bobura_type;
@@ -88,7 +94,13 @@ namespace bobura
             return std::auto_ptr<bobura_type>(
                 new bobura_type(
                     std::auto_ptr<const gui_factory_type>(
-                        new gui_factory_type()
+                        new gui_factory_type(
+                            std::auto_ptr<
+                                const gui_initializer_finalizer_type
+                            >(
+                                new gui_initializer_finalizer_type()
+                            )
+                        )
                     )
                 )
             );
