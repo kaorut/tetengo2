@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_CANVAS_H)
 #define TETENGO2_GUI_WIN32_CANVAS_H
 
+#include <string>
 #include <utility>
 
 #include <boost/concept_check.hpp>
@@ -33,6 +34,9 @@ namespace tetengo2 { namespace gui { namespace win32
                             boost::IntegerConcept<Size>.
         \param String       A string type. It must conform to
                             tetengo2::StringConcept<String>.
+        \param Encode       An encoding unary functor type. The type
+                            Encode<std::wstring, String> must conform to
+                            boost::AdaptableUnaryFunctionConcept<Encode, std::wstring, String>.
         \param WindowHandle A window handle type for the native interface. It
                             must conform to
                             tetengo2::gui::HandleConcept<WindowHandle>.
@@ -41,6 +45,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Handle,
         typename Size,
         typename String,
+        template <typename Target, typename Source> class Encode,
         typename WindowHandle
     >
     class canvas : private boost::noncopyable
@@ -51,6 +56,18 @@ namespace tetengo2 { namespace gui { namespace win32
         BOOST_CLASS_REQUIRE(Handle, tetengo2::gui, HandleConcept);
         BOOST_CLASS_REQUIRE(Size, boost, IntegerConcept);
         BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
+        struct concept_check_Encode
+        {
+            typedef std::wstring native_string_type;
+            typedef Encode<std::wstring, String> encode_to_native_type;
+            BOOST_CLASS_REQUIRE3(
+                encode_to_native_type,
+                native_string_type,
+                String,
+                boost,
+                AdaptableUnaryFunctionConcept
+            );
+        };
         BOOST_CLASS_REQUIRE(WindowHandle, tetengo2::gui, HandleConcept);
 
 
@@ -71,6 +88,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The string type.
         typedef String string_type;
+
+        //! The unary functor type for encoding to the native.
+        typedef Encode<std::wstring, String> encode_to_native_type;
 
         //! The window handle type for the native interface.
         typedef WindowHandle window_handle_type;
@@ -126,15 +146,16 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void draw_text(const string_type& text, const point_type& point)
         {
-            const Gdiplus::FontFamily font_family(L"‚Ý‚©‚¿‚á‚ñ");
-            const Gdiplus::Font font(&font_family, 12);
+            const Gdiplus::FontFamily font_family(L"Mikachan-P");
+            const Gdiplus::Font font(&font_family, 48);
             const Gdiplus::SolidBrush brush(
-                Gdiplus::Color(255, 0, 0, 0)
+                Gdiplus::Color(128, 255, 0, 0)
             );
 
+            const std::wstring encoded_text = encode_to_native_type()(text);
             const Gdiplus::Status result = m_graphics.DrawString(
-                text.c_str(),
-                static_cast< ::INT>(text.length()),
+                encoded_text.c_str(),
+                static_cast< ::INT>(encoded_text.length()),
                 &font,
                 Gdiplus::PointF(
                     static_cast<Gdiplus::REAL>(point.first),
@@ -144,16 +165,6 @@ namespace tetengo2 { namespace gui { namespace win32
             );
             if (result != Gdiplus::Ok)
                 throw std::runtime_error("Can't draw text!");
-
-            //const ::BOOL successful = ::TextOutW(
-            //    this->handle(),
-            //    static_cast<int>(point.first),
-            //    static_cast<int>(point.second),
-            //    text.c_str(),
-            //    static_cast<int>(text.length())
-            //);
-            //if (successful == 0)
-            //    throw std::runtime_error("Can't draw text!");
         }
 
 

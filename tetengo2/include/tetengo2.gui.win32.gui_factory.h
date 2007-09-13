@@ -33,6 +33,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 Gdiplus::Graphics*,
                 std::size_t,
                 std::wstring,
+                tetengo2::win32::encode,
                 ::HWND
             >
             canvas_type;
@@ -45,6 +46,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 canvas_type,
                 alert_type,
                 std::wstring,
+                tetengo2::win32::encode,
                 ::WNDPROC
             >
             window_type;

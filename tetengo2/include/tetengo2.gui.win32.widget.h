@@ -12,6 +12,7 @@
 #include <exception>
 #include <memory>
 #include <stdexcept>
+#include <string>
 
 #include <boost/bind.hpp>
 #include <boost/concept_check.hpp>
@@ -44,6 +45,13 @@ namespace tetengo2 { namespace gui { namespace win32
                                      boost::AdaptableBinaryFunctionConcept<Alert, void, Handle, std::exception>.
         \param String                A string type. It must conform to
                                      tetengo2::StringConcept<String>.
+        \param Encode                An encoding unary functor type. The types
+                                     Encode<String, std::wstring> and
+                                     Encode<std::wstring, String> must conform
+                                     to
+                                     boost::AdaptableUnaryFunctionConcept<Encode, String, std::wstring>
+                                     and
+                                     boost::AdaptableUnaryFunctionConcept<Encode, std::wstring, String>.
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
                                      tetengo2::gui::concept::StaticWindowProcedureConcept.
@@ -53,6 +61,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Canvas,
         typename Alert,
         typename String,
+        template <typename Target, typename Source> class Encode,
         typename StaticWindowProcedure
     >
     class widget : private boost::noncopyable
@@ -74,6 +83,26 @@ namespace tetengo2 { namespace gui { namespace win32
             );
         };
         BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
+        struct concept_check_Encode
+        {
+            typedef std::wstring native_string_type;
+            typedef Encode<String, std::wstring> encode_from_native_type;
+            typedef Encode<std::wstring, String> encode_to_native_type;
+            BOOST_CLASS_REQUIRE3(
+                encode_from_native_type,
+                String,
+                native_string_type,
+                boost,
+                AdaptableUnaryFunctionConcept
+            );
+            BOOST_CLASS_REQUIRE3(
+                encode_to_native_type,
+                native_string_type,
+                String,
+                boost,
+                AdaptableUnaryFunctionConcept
+            );
+        };
 
 
     public:
@@ -90,6 +119,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The string type
         typedef String string_type;
+
+        //! The unary functor type for encoding from the native.
+        typedef Encode<String, std::wstring> encode_from_native_type;
+
+        //! The unary functor type for encoding to the native.
+        typedef Encode<std::wstring, String> encode_to_native_type;
 
         //! The static window procedure type.
         typedef StaticWindowProcedure static_window_procedure_type;
@@ -168,7 +203,10 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         virtual void set_text(const string_type& text)
         {
-            if (::SetWindowText(this->handle(), text.c_str()) == 0)
+            const ::BOOL result = ::SetWindowTextW(
+                this->handle(), encode_to_native_type()(text).c_str()
+            );
+            if (result == 0)
                 throw std::runtime_error("Can't set text!");
         }
 
@@ -188,7 +226,7 @@ namespace tetengo2 { namespace gui { namespace win32
             );
             ::GetWindowTextW(this->handle(), p_text.get(), length + 1);
 
-            return string_type(p_text.get());
+            return encode_from_native_type()(p_text.get());
         }
 
         /*!

@@ -41,6 +41,13 @@ namespace tetengo2 { namespace gui { namespace win32
                                      boost::AdaptableBinaryFunctionConcept<Alert, void, Handle, std::exception>.
         \param String                A string type. It must conform to
                                      tetengo2::StringConcept<String>.
+        \param Encode                An encoding unary functor type. The types
+                                     Encode<String, std::wstring> and
+                                     Encode<std::wstring, String> must conform
+                                     to
+                                     boost::AdaptableUnaryFunctionConcept<Encode, String, std::wstring>
+                                     and
+                                     boost::AdaptableUnaryFunctionConcept<Encode, std::wstring, String>.
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
                                      tetengo2::gui::concept::StaticWindowProcedureConcept.
@@ -50,6 +57,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Canvas,
         typename Alert,
         typename String,
+        template <typename Target, typename Source> class Encode,
         typename StaticWindowProcedure
     >
     class window :
@@ -58,6 +66,7 @@ namespace tetengo2 { namespace gui { namespace win32
             Canvas,
             Alert,
             String,
+            Encode,
             StaticWindowProcedure
         >
     {
