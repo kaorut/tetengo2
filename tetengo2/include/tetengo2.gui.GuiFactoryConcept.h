@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_GUIFACTORYCONCEPT_H)
 #define TETENGO2_GUI_GUIFACTORYCONCEPT_H
 
-#include <boost/concept_check.hpp>
+#include <memory>
 
 
 namespace tetengo2 { namespace gui
@@ -26,18 +26,35 @@ namespace tetengo2 { namespace gui
         // functions
 
         /*!
-            \brief Checks the constraints on a handle.
+            \brief Checks the constraints on a GUI object factory.
         */
         void constraints()
         {
-            typedef typename GuiFactory::initializer_finalizer_type t1;
-            typedef typename GuiFactory::window_type                t2;
-            //typedef typename GuiFactory::message_loop_type          t3;
-            //typedef typename GuiFactory::quit_message_loop_type     t4;
-            //typedef typename GuiFactory::alert_type                 t5;
+            typedef
+                typename GuiFactory::initializer_finalizer_type
+                initializer_finalizer_type;
+            typedef typename GuiFactory::window_type window_type;
 
+            std::auto_ptr<const initializer_finalizer_type> p;
+            const GuiFactory gui_factory(p);
 
+            const_constraints(*m_p_gui_factory);
         }
+
+        /*!
+            \brief Checks the const constraints on a GUI object factory.
+        */
+        void const_constraints(const GuiFactory& gui_factory)
+        {
+            const std::auto_ptr<typename GuiFactory::window_type> p_window =
+                gui_factory.create_window();
+        }
+
+
+    private:
+        // variables
+
+        GuiFactory* m_p_gui_factory;
 
 
     };

@@ -82,9 +82,9 @@ namespace bobura
         }
 
         /*!
-            \breif Returns a unary fanctor for an alert.
+            \breif Returns a unary functor for an alert.
 
-            \return A unary fancotr for an alert.
+            \return A unary functor for an alert.
         */
         static const alert_type alert()
         {
