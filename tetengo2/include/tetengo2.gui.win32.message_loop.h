@@ -14,20 +14,17 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.generator.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
         \brief The generator class for a message loop for Win32 platforms.
     */
-    class message_loop
+    class message_loop : public tetengo2::generator<int>
     {
     public:
-        // types
-
-        typedef int return_type;
-
-
         // functions
 
         /*!
