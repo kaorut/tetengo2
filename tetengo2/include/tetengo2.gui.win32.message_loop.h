@@ -11,8 +11,6 @@
 
 #include <sstream>
 
-#include <boost/noncopyable.hpp>
-
 #define OEMRESOURCE
 #include <windows.h>
 
@@ -20,25 +18,14 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The class for a message loop for Win32 platforms.
+        \brief The generator class for a message loop for Win32 platforms.
     */
-    class message_loop : private boost::noncopyable
+    class message_loop
     {
     public:
-        // constructors and destructor
+        // types
 
-        /*!
-            \brief Creates a message_loop.
-        */
-        message_loop()
-        {}
-
-        /*!
-            \brief Destroys the message loop.
-        */
-        ~message_loop()
-        throw ()
-        {}
+        typedef int return_type;
 
 
         // functions
@@ -48,7 +35,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The exit status code.
         */
-        int run()
+        int operator()()
         const
         {
             ::MSG message;
@@ -71,12 +58,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::TranslateMessage(&message);
                 ::DispatchMessageW(&message);
             }
-        }
-
-        void exit(const int exit_code)
-        const
-        {
-            ::PostQuitMessage(exit_code);
         }
 
 

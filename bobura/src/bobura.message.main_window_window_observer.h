@@ -17,18 +17,19 @@ namespace bobura { namespace message
     /*!
         \brief The class template for a window observer of the main window.
 
-        \param MessageLoop A message loop type of the main window. It must
-                           conform to
-                           tetengo2::gui::concpets::MessageLoopConcept.
+        \param QuitMessageLoop A unary functor type for quitting the message
+                               loop. It must conform to
+                               boost::AdaptableUnaryFunctionConcept<QuitMessageLoop, void, int>
+
     */
-    template <typename MessageLoop>
-    class main_window_window_observer :    public tetengo2::gui::window_observer
+    template <typename QuitMessageLoop>
+    class main_window_window_observer : public tetengo2::gui::window_observer
     {
     public:
         // types
 
-        //! The message loop type.
-        typedef MessageLoop message_loop_type;
+        //! The unary functor type for quitting the message loop.
+        typedef QuitMessageLoop quit_message_loop_type;
 
 
         // constructors and destructor
@@ -36,13 +37,14 @@ namespace bobura { namespace message
         /*!
             \brief Creates a window observer of the main window.
 
-            \param p_massage_loop A pointer to a message loop.
+            \param quit_message_loop A unary functor for quitting the message
+                                     loop.
         */
         main_window_window_observer(
-            const message_loop_type* const p_message_loop
+            const quit_message_loop_type& quit_message_loop
         )
         :
-        m_p_message_loop(p_message_loop)
+        m_quit_message_loop(quit_message_loop)
         {}
 
         /*!
@@ -59,14 +61,14 @@ namespace bobura { namespace message
         // tetengo2::gui::window_observer::paint.
         virtual void destroyed()
         {
-            m_p_message_loop->exit(0);
+            m_quit_message_loop(0);
         }
 
 
     private:
         // variables
 
-        const message_loop_type* const m_p_message_loop;
+        const quit_message_loop_type m_quit_message_loop;
 
 
     };

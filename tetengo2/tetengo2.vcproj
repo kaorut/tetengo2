@@ -104,6 +104,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.gui.win32.quit_message_loop.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.gui.win32.widget.h"
 				>
 			</File>

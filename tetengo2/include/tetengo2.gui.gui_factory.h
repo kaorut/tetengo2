@@ -31,6 +31,9 @@ namespace tetengo2 { namespace gui
                                     tetengo2::gui::concept::WindowConcept.
         \param MessageLoop          A message loop type. It must conform to
                                     tetengo2::gui::concept::MessageLoop.
+        \param QuitMessageLoop      A unary functor type for quitting the
+                                    message loop. It must conform to
+                                    boost::AdaptableUnaryFunctionConcept<QuitMessageLoop, void, int>.
         \param Alert                An alerting binary functor type. It must
                                     conform to
                                     boost::AdaptableBinaryFunctionConcept<Alert, void, Window::handle_type, std::exception>.
@@ -40,6 +43,7 @@ namespace tetengo2 { namespace gui
         typename Canvas,
         typename Window,
         typename MessageLoop,
+        typename QuitMessageLoop,
         typename Alert
     >
     class gui_factory : private boost::noncopyable
@@ -76,6 +80,9 @@ namespace tetengo2 { namespace gui
 
         //! The message loop type;
         typedef MessageLoop message_loop_type;
+
+        //! The unary functor type for quitting the message loop.
+        typedef QuitMessageLoop quit_message_loop_type;
 
         //! The alerting binary functor type.
         typedef Alert alert_type;
@@ -116,19 +123,6 @@ namespace tetengo2 { namespace gui
         const
         {
             return std::auto_ptr<window_type>(new window_type());
-        }
-
-        /*!
-            \brief Creates a message loop.
-
-            \return An auto pointer to a message loop.
-        */
-        std::auto_ptr<const message_loop_type> create_message_loop()
-        const
-        {
-            return std::auto_ptr<const message_loop_type>(
-                new message_loop_type()
-            );
         }
 
 

@@ -72,17 +72,11 @@ namespace bobura
                 m_p_gui_factory->create_window()
             );
 
-            const boost::scoped_ptr<const message_loop_type> p_message_loop(
-                m_p_gui_factory->create_message_loop()
-            );
-
-            set_message_observers(
-                p_main_window.get(), p_message_loop.get()
-            );
+            set_message_observers(p_main_window.get());
             p_main_window->set_text(L"ぼうぶら テストプログラム");
             p_main_window->set_visible(true);
 
-            return p_message_loop->run();
+            return message_loop_type()();
         }
 
 
@@ -104,6 +98,10 @@ namespace bobura
         typedef
             typename gui_factory_type::message_loop_type message_loop_type;
 
+        typedef
+            typename gui_factory_type::quit_message_loop_type
+            quit_message_loop_type;
+
 
         // variables
 
@@ -112,17 +110,14 @@ namespace bobura
 
         // functions
 
-        void set_message_observers(
-            window_type* const             p_window,
-            const message_loop_type* const p_message_loop
-        )
+        void set_message_observers(window_type* const p_window)
         const
         {
             p_window->add_window_observer(
                 std::auto_ptr<window_observer_type> (
                     new message::main_window_window_observer<
-                        message_loop_type
-                    >(p_message_loop)
+                        quit_message_loop_type
+                    >(quit_message_loop_type())
                 )
             );
 

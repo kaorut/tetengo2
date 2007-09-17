@@ -27,7 +27,8 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The class template for an alert for Win32 platforms.
+        \brief The binary functor class template for an alert for Win32
+               platforms.
 
         \param WindowHandle A window handle type. It must conform to
                             tetengo2::gui::HandleConcept<WindowHandle>.
