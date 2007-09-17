@@ -15,6 +15,7 @@ namespace tetengo2
     /*!
         \brief The class template for a generator.
 
+        \param Result A result type.
     */
     template <typename Result>
     class generator
