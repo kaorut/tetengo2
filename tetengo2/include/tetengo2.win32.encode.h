@@ -48,10 +48,10 @@ namespace tetengo2 { namespace win32
         // types
 
         //! The string type of the target.
-        typedef Target target_type;
+        typedef result_type target_type;
 
         //! The string type of the source.
-        typedef Source source_type;
+        typedef argument_type source_type;
 
 
         // functions

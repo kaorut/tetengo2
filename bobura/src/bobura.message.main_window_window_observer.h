@@ -27,7 +27,7 @@ namespace bobura { namespace message
     template <typename QuitMessageLoop>
     class main_window_window_observer : public tetengo2::gui::window_observer
     {
-    public:
+    private:
         // concept checks
 
         BOOST_CLASS_REQUIRE3(
@@ -35,6 +35,7 @@ namespace bobura { namespace message
         );
 
 
+    public:
         // types
 
         //! The unary functor type for quitting the message loop.

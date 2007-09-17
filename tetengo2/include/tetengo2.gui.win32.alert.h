@@ -68,13 +68,10 @@ namespace tetengo2 { namespace gui { namespace win32
         // types
 
         //! The window handle type.
-        typedef WindowHandle window_handle_type;
-
-        //! The unary functor type for encoding std::string to the native.
-        typedef Encode<std::wstring, std::string> encode_type;
+        typedef first_argument_type window_handle_type;
 
 
-       // constructors and destructor
+        // functions
 
         /*!
             \brief Alerts a fatal error.
@@ -107,6 +104,12 @@ namespace tetengo2 { namespace gui { namespace win32
             {}
 
         }
+
+
+    private:
+        // types
+
+        typedef Encode<std::wstring, std::string> encode_type;
 
 
     };
