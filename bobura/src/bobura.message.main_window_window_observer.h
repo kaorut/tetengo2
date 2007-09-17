@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOWWINDOWOBSERVER_H)
 #define BOBURA_MESSAGE_MAINWINDOWWINDOWOBSERVER_H
 
+#include <boost/concept_check.hpp>
+
 #include <tetengo2.gui.window_observer.h>
 
 
@@ -26,6 +28,13 @@ namespace bobura { namespace message
     class main_window_window_observer : public tetengo2::gui::window_observer
     {
     public:
+        // concept checks
+
+        BOOST_CLASS_REQUIRE3(
+            QuitMessageLoop, void, int, boost, AdaptableUnaryFunctionConcept
+        );
+
+
         // types
 
         //! The unary functor type for quitting the message loop.

@@ -29,8 +29,9 @@ namespace tetengo2 { namespace gui
                                     tetengo2::gui::concept::CanvasConcept.
         \param Window               A window type. It must conform to
                                     tetengo2::gui::concept::WindowConcept.
-        \param MessageLoop          A message loop type. It must conform to
-                                    tetengo2::gui::concept::MessageLoop.
+        \param MessageLoop          A generator type for the message loop. It
+                                    must conform to
+                                    boost::AdaptableGeneratorConcept<MessageLoop, int>.
         \param QuitMessageLoop      A unary functor type for quitting the
                                     message loop. It must conform to
                                     boost::AdaptableUnaryFunctionConcept<QuitMessageLoop, void, int>.
@@ -51,6 +52,12 @@ namespace tetengo2 { namespace gui
     private:
         // concept checks
 
+        BOOST_CLASS_REQUIRE2(
+            MessageLoop, int, boost, AdaptableGeneratorConcept
+        );
+        BOOST_CLASS_REQUIRE3(
+            QuitMessageLoop, void, int, boost, AdaptableUnaryFunctionConcept
+        );
         struct concept_check_Alert
         {
             typedef typename Window::handle_type window_handle_type;
