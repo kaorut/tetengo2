@@ -15,9 +15,9 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The concept check class template for handles.
+        \brief The concept check class template for GUI object factories.
 
-        \param Handle A handle type.
+        \param GuiFactory A GUI object factory type.
     */
     template <typename GuiFactory>
     class GuiFactoryConcept
