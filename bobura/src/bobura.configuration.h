@@ -74,7 +74,7 @@ namespace bobura
         {}
 
         /*!
-            \brief Destroyes the configuration.
+            \brief Destroys the configuration.
         */
         ~configuration()
         throw ()

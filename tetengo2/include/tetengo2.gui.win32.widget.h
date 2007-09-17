@@ -254,7 +254,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // static functions
 
         /*!
-            \brief Associates the widget instance pointer to the native
+            \brief Associates the widget instance pointer with the native
                    window system.
             
             \param p_widget A pointer to a widget.
