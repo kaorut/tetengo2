@@ -11,8 +11,11 @@
 
 #include <memory>
 
+#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
+
+#include <tetengo2.gui.GuiFactoryConcept.h>
 
 #include "bobura.message.main_window_paint_observer.h"
 #include "bobura.message.main_window_window_observer.h"
@@ -23,13 +26,35 @@ namespace bobura
     /*!
         \brief The class template for a bobura application.
 
-        \param GuiFactory An abstract factory type to create platform specific
-                          GUI components. It must conform to
-                          tetengo2::gui::concept::GuiFactoryConcept.
+        \param GuiFactory      An abstract factory type to create platform
+                               specific GUI components. It must conform to
+                               tetengo2::gui::concept::GuiFactoryConcept.
+        \param MessageLoop     A generator type for the message loop. It must
+                               conform to
+                               boost::AdaptableGeneratorConcept<MessageLoop, int>.
+        \param QuitMessageLoop A unary functor type for quitting the message
+                               loop. It must conform to
+                               boost::AdaptableUnaryFunctionConcept<QuitMessageLoop, void, int>.
     */
-    template <typename GuiFactory>
+    template <
+        typename GuiFactory,
+        typename MessageLoop,
+        typename QuitMessageLoop
+    >
     class bobura : private boost::noncopyable
     {
+    private:
+        // concept checks
+
+        BOOST_CLASS_REQUIRE(GuiFactory, tetengo2::gui, GuiFactoryConcept);
+        BOOST_CLASS_REQUIRE2(
+            MessageLoop, int, boost, AdaptableGeneratorConcept
+        );
+        BOOST_CLASS_REQUIRE3(
+            QuitMessageLoop, void, int, boost, AdaptableUnaryFunctionConcept
+        );
+
+
     public:
         // types
 
@@ -83,9 +108,9 @@ namespace bobura
     private:
         //types
 
-        typedef typename gui_factory_type::canvas_type canvas_type;
-
         typedef typename gui_factory_type::window_type window_type;
+
+        typedef typename window_type::canvas_type canvas_type;
 
         typedef
             typename window_type::window_observer_type
@@ -95,12 +120,9 @@ namespace bobura
             typename window_type::paint_observer_type
             paint_observer_type;
 
-        typedef
-            typename gui_factory_type::message_loop_type message_loop_type;
+        typedef MessageLoop message_loop_type;
 
-        typedef
-            typename gui_factory_type::quit_message_loop_type
-            quit_message_loop_type;
+        typedef QuitMessageLoop quit_message_loop_type;
 
 
         // variables

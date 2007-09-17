@@ -80,6 +80,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.gui.GuiFactoryConcept.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.gui.HandleConcept.h"
 				>
 			</File>

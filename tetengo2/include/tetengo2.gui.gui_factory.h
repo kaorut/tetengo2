@@ -29,48 +29,16 @@ namespace tetengo2 { namespace gui
                                     tetengo2::gui::concept::CanvasConcept.
         \param Window               A window type. It must conform to
                                     tetengo2::gui::concept::WindowConcept.
-        \param MessageLoop          A generator type for the message loop. It
-                                    must conform to
-                                    boost::AdaptableGeneratorConcept<MessageLoop, int>.
-        \param QuitMessageLoop      A unary functor type for quitting the
-                                    message loop. It must conform to
-                                    boost::AdaptableUnaryFunctionConcept<QuitMessageLoop, void, int>.
-        \param Alert                An alerting binary functor type. It must
-                                    conform to
-                                    boost::AdaptableBinaryFunctionConcept<Alert, void, Window::handle_type, std::exception>.
     */
     template <
         typename InitializerFinalizer,
         typename Canvas,
-        typename Window,
-        typename MessageLoop,
-        typename QuitMessageLoop,
-        typename Alert
+        typename Window
     >
     class gui_factory : private boost::noncopyable
     {
     private:
         // concept checks
-
-        BOOST_CLASS_REQUIRE2(
-            MessageLoop, int, boost, AdaptableGeneratorConcept
-        );
-        BOOST_CLASS_REQUIRE3(
-            QuitMessageLoop, void, int, boost, AdaptableUnaryFunctionConcept
-        );
-        struct concept_check_Alert
-        {
-            typedef typename Window::handle_type window_handle_type;
-            typedef std::exception exception_type;
-            BOOST_CLASS_REQUIRE4(
-                Alert,
-                void,
-                window_handle_type,
-                exception_type,
-                boost,
-                AdaptableBinaryFunctionConcept
-            );
-        };
 
 
     public:
@@ -79,20 +47,8 @@ namespace tetengo2 { namespace gui
         //! The initialization and finalization manager type.
         typedef InitializerFinalizer initializer_finalizer_type;
 
-        //! The canvas type.
-        typedef Canvas canvas_type;
-
         //! The window type
         typedef Window window_type;
-
-        //! The message loop type;
-        typedef MessageLoop message_loop_type;
-
-        //! The unary functor type for quitting the message loop.
-        typedef QuitMessageLoop quit_message_loop_type;
-
-        //! The alerting binary functor type.
-        typedef Alert alert_type;
 
 
         // constructors and destructor

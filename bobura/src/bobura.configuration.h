@@ -14,8 +14,10 @@
 #include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 
+#include <tetengo2.gui.win32.alert.h>
 #include <tetengo2.gui.win32.gui_factory.h>
-#include <tetengo2.gui.win32.gui_initializer_finalizer.h>
+#include <tetengo2.gui.win32.message_loop.h>
+#include <tetengo2.gui.win32.quit_message_loop.h>
 
 #include "bobura.bobura.h"
 
@@ -34,13 +36,34 @@ namespace bobura
         //! components.
         typedef tetengo2::gui::win32::gui_factory gui_factory_type;
 
+        //! The binary functor type of the alert.
+        typedef
+            tetengo2::gui::win32::alert<
+                gui_factory_type::window_type::handle_type,
+                tetengo2::win32::encode
+            >
+            alert_type;
+
         //! The GUI initialization and finalization manager type.
         typedef
-            tetengo2::gui::win32::gui_initializer_finalizer
+            gui_factory_type::initializer_finalizer_type
             gui_initializer_finalizer_type;
 
+        //! The generator type for the message loop.
+        typedef tetengo2::gui::win32::message_loop message_loop_type;
+
+        //! The unary functor type for quitting the message loop.
+        typedef
+            tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
+
         //! The Bobura application type.
-        typedef bobura<gui_factory_type> bobura_type;
+        typedef
+            bobura<
+                gui_factory_type,
+                message_loop_type,
+                quit_message_loop_type
+            >
+            bobura_type;
 
 
         // static functions
@@ -56,6 +79,16 @@ namespace bobura
             singleton = make_options();
 
             return singleton;
+        }
+
+        /*!
+            \breif Returns a unary fanctor for an alert.
+
+            \return A unary fancotr for an alert.
+        */
+        static const alert_type alert()
+        {
+            return alert_type();
         }
 
 

@@ -19,8 +19,6 @@
 #include "tetengo2.gui.win32.alert.h"
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
-#include "tetengo2.gui.win32.message_loop.h"
-#include "tetengo2.gui.win32.quit_message_loop.h"
 #include "tetengo2.gui.win32.window.h"
 #include "tetengo2.win32.encode.h"
 
@@ -60,10 +58,7 @@ namespace tetengo2 { namespace gui { namespace win32
         tetengo2::gui::gui_factory<
             tetengo2::gui::win32::gui_initializer_finalizer,
             canvas_type,
-            window_type,
-            message_loop,
-            quit_message_loop,
-            alert_type
+            window_type
         >
         gui_factory;
 
