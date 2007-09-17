@@ -15,7 +15,7 @@
 namespace tetengo2
 {
     /*!
-        \brief The concept check class for strings.
+        \brief The concept check class template for strings.
 
         \param String A string type.
     */

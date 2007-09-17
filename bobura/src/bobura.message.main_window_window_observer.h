@@ -15,7 +15,7 @@
 namespace bobura { namespace message
 {
     /*!
-        \brief The class templatefor a window observer of the main window.
+        \brief The class template for a window observer of the main window.
 
         \param MessageLoop A message loop type of the main window. It must
                            conform to

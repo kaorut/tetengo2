@@ -15,7 +15,7 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The concept check class for handles.
+        \brief The concept check class template for handles.
 
         \param Handle A handle type.
     */
