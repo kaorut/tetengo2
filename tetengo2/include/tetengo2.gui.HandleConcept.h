@@ -37,6 +37,9 @@ namespace tetengo2 { namespace gui
             boost::function_requires<
                 boost::EqualityComparableConcept<Handle>
             >();
+
+            const Handle handle = NULL;
+            boost::ignore_unused_variable_warning(handle);
         }
 
 
