@@ -82,7 +82,7 @@ namespace bobura
         }
 
         /*!
-            \breif Returns a unary functor for an alert.
+            \brief Returns a unary functor for an alert.
 
             \return A unary functor for an alert.
         */
