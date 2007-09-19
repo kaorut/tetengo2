@@ -57,7 +57,6 @@ namespace tetengo2 { namespace gui { namespace win32
     typedef
         tetengo2::gui::gui_factory<
             tetengo2::gui::win32::gui_initializer_finalizer,
-            canvas_type,
             window_type
         >
         gui_factory;

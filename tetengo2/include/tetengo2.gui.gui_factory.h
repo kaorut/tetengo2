@@ -16,8 +16,6 @@
 #include <boost/concept_check.hpp>
 #include <boost/scoped_ptr.hpp>
 
-#include "tetengo2.gui.CanvasConcept.h"
-
 
 namespace tetengo2 { namespace gui
 {
@@ -27,22 +25,17 @@ namespace tetengo2 { namespace gui
         \param InitializerFinalizer A initalization and finalization manager
                                     type. It must conform to
                                     tetengo2::gui::InitalizerFinalizerConcept.
-        \param Canvas               A canvas type. It must conform to
-                                    tetengo2::gui::CanvasConcept<Canvas>.
         \param Window               A window type. It must conform to
                                     tetengo2::gui::concept::WindowConcept.
     */
     template <
         typename InitializerFinalizer,
-        typename Canvas,
         typename Window
     >
     class gui_factory : private boost::noncopyable
     {
     private:
         // concept checks
-
-        BOOST_CLASS_REQUIRE(Canvas, tetengo2::gui, CanvasConcept);
 
 
     public:
