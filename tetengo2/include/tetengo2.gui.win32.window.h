@@ -36,9 +36,9 @@ namespace tetengo2 { namespace gui { namespace win32
                                      tetengo2::gui::HandleConcept<Handle>.
         \param Canvas                A canvas type. It must conform to
                                      tetengo2::gui::CanvasConcept<Canvas>.
-        \param Alert                 An alerting binary functor type. It must
+        \param Alert                 An alerting unary functor type. It must
                                      conform to
-                                     boost::AdaptableBinaryFunctionConcept<Alert, void, Handle, std::exception>.
+                                     boost::AdaptableUnaryFunctionConcept<Alert, void, Handle, std::exception>.
         \param String                A string type. It must conform to
                                      tetengo2::StringConcept<String>.
         \param Encode                An encoding unary functor type. The types

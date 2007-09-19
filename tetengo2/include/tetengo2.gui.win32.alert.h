@@ -27,7 +27,7 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The binary functor class template for an alert for Win32
+        \brief The unary functor class template for an alert for Win32
                platforms.
 
         \param WindowHandle A window handle type. It must conform to
@@ -41,7 +41,7 @@ namespace tetengo2 { namespace gui { namespace win32
         template <typename Target, typename Source> class Encode
     >
     class alert :
-        public std::binary_function<WindowHandle, std::exception, void>
+        public std::unary_function<std::exception, void>
     {
     private:
         // concept checks
@@ -68,7 +68,19 @@ namespace tetengo2 { namespace gui { namespace win32
         // types
 
         //! The window handle type.
-        typedef first_argument_type window_handle_type;
+        typedef WindowHandle window_handle_type;
+
+
+        // constructors
+
+        /*!
+            \brief Creates an alert.
+        */
+        alert(const window_handle_type window_handle = NULL)
+        throw ()
+        :
+        m_window_handle(window_handle)
+        {}
 
 
         // functions
@@ -80,8 +92,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \param exception     An exception.
         */
         void operator()(
-            const window_handle_type window_handle,
-            const std::exception&    exception =
+            const std::exception& exception =
                 std::runtime_error("Unknown Error!")
         )
         const
@@ -90,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace win32
             try
             {
                 ::TaskDialog(
-                    window_handle,
+                    m_window_handle,
                     ::GetModuleHandle(NULL),
                     L"Alert",
                     encode_type()(typeid(exception).name()).c_str(),
@@ -102,7 +113,6 @@ namespace tetengo2 { namespace gui { namespace win32
             }
             catch (...)
             {}
-
         }
 
 
@@ -110,6 +120,11 @@ namespace tetengo2 { namespace gui { namespace win32
         // types
 
         typedef Encode<std::wstring, std::string> encode_type;
+
+
+        // variables
+
+        const window_handle_type m_window_handle;
 
 
     };

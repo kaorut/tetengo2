@@ -41,9 +41,9 @@ namespace tetengo2 { namespace gui { namespace win32
                                      tetengo2::gui::HandleConcept<Handle>.
         \param Canvas                A canvas type. It must conform to
                                      tetengo2::gui::CanvasConcept<Canvas>.
-        \param Alert                 An alerting binary functor type. It must
+        \param Alert                 An alerting unary functor type. It must
                                      conform to
-                                     boost::AdaptableBinaryFunctionConcept<Alert, void, Handle, std::exception>.
+                                     boost::AdaptableUnaryFunctionConcept<Alert, void, Handle, std::exception>.
         \param String                A string type. It must conform to
                                      tetengo2::StringConcept<String>.
         \param Encode                An encoding unary functor type. The types
@@ -75,13 +75,12 @@ namespace tetengo2 { namespace gui { namespace win32
         struct concept_check_Alert
         {
             typedef std::exception exception_type;
-            BOOST_CLASS_REQUIRE4(
+            BOOST_CLASS_REQUIRE3(
                 Alert,
                 void,
-                Handle,
                 exception_type,
                 boost,
-                AdaptableBinaryFunctionConcept
+                AdaptableUnaryFunctionConcept
             );
         };
         BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
@@ -116,7 +115,7 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The canvas type.
         typedef Canvas canvas_type;
 
-        //! The alerting binary functor type.
+        //! The alerting unary functor type.
         typedef Alert alert_type;
 
         //! The string type
@@ -345,12 +344,12 @@ namespace tetengo2 { namespace gui { namespace win32
             }
             catch (std::exception& e)
             {
-                alert_type()(hWnd, e);
+                (alert_type(hWnd))(e);
                 return 0;
             }
             catch (...)
             {
-                alert_type()(hWnd);
+                (alert_type(hWnd))();
                 return 0;
             }
         }
