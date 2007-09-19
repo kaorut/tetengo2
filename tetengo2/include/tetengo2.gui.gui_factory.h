@@ -9,9 +9,7 @@
 #if !defined(TETENGO2_GUI_GUIFACTORY_H)
 #define TETENGO2_GUI_GUIFACTORY_H
 
-#include <exception>
 #include <memory>
-#include <stdexcept>
 
 #include <boost/concept_check.hpp>
 #include <boost/scoped_ptr.hpp>
