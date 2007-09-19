@@ -29,7 +29,7 @@ namespace tetengo2 { namespace gui { namespace win32
     {
         typedef
             canvas<
-                Gdiplus::Graphics*,
+                const Gdiplus::Graphics*,
                 std::size_t,
                 std::wstring,
                 tetengo2::win32::encode,

@@ -11,6 +11,8 @@
 
 #include <memory>
 
+#include <boost/concept_check.hpp>
+
 
 namespace tetengo2 { namespace gui
 {
@@ -30,7 +32,15 @@ namespace tetengo2 { namespace gui
         */
         void constraints()
         {
+            typedef typename Canvas::handle_type handle_type;
+            typedef typename Canvas::size_type size_type;
+            typedef typename Canvas::point_type point_type;
+            typedef typename Canvas::rectangle_type rectangle_type;
+            typedef typename Canvas::string_type string_type;
 
+            m_p_canvas->draw_text(string_type(), point_type());
+
+            const_constraints(*m_p_canvas);
         }
 
         /*!
@@ -38,7 +48,8 @@ namespace tetengo2 { namespace gui
         */
         void const_constraints(const Canvas& canvas)
         {
-
+            const typename Canvas::handle_type handle = canvas.handle();
+            boost::ignore_unused_variable_warning(handle);
         }
 
 
