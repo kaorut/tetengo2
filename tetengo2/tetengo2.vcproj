@@ -76,6 +76,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.gui.CanvasConcept.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.gui.gui_factory.h"
 				>
 			</File>

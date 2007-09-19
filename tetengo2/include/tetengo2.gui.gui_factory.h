@@ -16,6 +16,8 @@
 #include <boost/concept_check.hpp>
 #include <boost/scoped_ptr.hpp>
 
+#include "tetengo2.gui.CanvasConcept.h"
+
 
 namespace tetengo2 { namespace gui
 {
@@ -26,7 +28,7 @@ namespace tetengo2 { namespace gui
                                     type. It must conform to
                                     tetengo2::gui::InitalizerFinalizerConcept.
         \param Canvas               A canvas type. It must conform to
-                                    tetengo2::gui::concept::CanvasConcept.
+                                    tetengo2::gui::CanvasConcept<Canvas>.
         \param Window               A window type. It must conform to
                                     tetengo2::gui::concept::WindowConcept.
     */
@@ -39,6 +41,8 @@ namespace tetengo2 { namespace gui
     {
     private:
         // concept checks
+
+        BOOST_CLASS_REQUIRE(Canvas, tetengo2::gui, CanvasConcept);
 
 
     public:

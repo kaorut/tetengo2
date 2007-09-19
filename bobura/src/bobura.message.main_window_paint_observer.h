@@ -11,6 +11,8 @@
 
 #include <utility>
 
+#include <boost/concept_check.hpp>
+
 #include <tetengo2.gui.paint_observer.h>
 
 
@@ -20,7 +22,7 @@ namespace bobura { namespace message
         \brief The class template for a paint observer of the main window.
 
         \param Canvas A canvas type of the main window. It must conform to
-                      tetengo2::gui::concept::CanvasConcept.
+                      tetengo2::gui::CanvasConcept<Canvas>.
     */
     template <typename Canvas>
     class main_window_paint_observer :

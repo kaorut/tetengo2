@@ -28,7 +28,7 @@ namespace bobura
 
         \param GuiFactory      An abstract factory type to create platform
                                specific GUI components. It must conform to
-                               tetengo2::gui::concept::GuiFactoryConcept.
+                               tetengo2::gui::GuiFactoryConcept<GuiFactory>.
         \param MessageLoop     A generator type for the message loop. It must
                                conform to
                                boost::AdaptableGeneratorConcept<MessageLoop, int>.

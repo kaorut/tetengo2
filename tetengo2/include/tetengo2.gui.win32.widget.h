@@ -26,6 +26,7 @@
 #include <windows.h>
 
 #include "tetengo2.StringConcept.h"
+#include "tetengo2.gui.CanvasConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
 #include "tetengo2.gui.paint_observer.h"
 
@@ -39,7 +40,7 @@ namespace tetengo2 { namespace gui { namespace win32
                                      must conform to
                                      tetengo2::gui::HandleConcept<Handle>.
         \param Canvas                A canvas type. It must conform to
-                                     tetengo2::gui::concept::CanvasConcept.
+                                     tetengo2::gui::CanvasConcept<Canvas>.
         \param Alert                 An alerting binary functor type. It must
                                      conform to
                                      boost::AdaptableBinaryFunctionConcept<Alert, void, Handle, std::exception>.
@@ -70,6 +71,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // concept checks
 
         BOOST_CLASS_REQUIRE(Handle, tetengo2::gui, HandleConcept);
+        BOOST_CLASS_REQUIRE(Canvas, tetengo2::gui, CanvasConcept);
         struct concept_check_Alert
         {
             typedef std::exception exception_type;

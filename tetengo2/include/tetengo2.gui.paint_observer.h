@@ -12,6 +12,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 
+#include "tetengo2.gui.CanvasConcept.h"
+
 
 namespace tetengo2 { namespace gui
 {
@@ -19,12 +21,18 @@ namespace tetengo2 { namespace gui
         \brief The base class template for a paint observer.
 
         \param Canvas A canvas type. It must conform to
-                      tetengo2::gui::concept::CanvasConcept.
+                      tetengo2::gui::CanvasConcept<Canvas>.
     */
     template <typename Canvas>
     class paint_observer :
         public boost::signals::trackable, private boost::noncopyable
     {
+    private:
+        // concept checks
+
+        BOOST_CLASS_REQUIRE(Canvas, tetengo2::gui, CanvasConcept);
+
+
     public:
         // types
 
