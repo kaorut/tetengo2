@@ -9,10 +9,6 @@
 #if !defined(TETENGO2_GUI_GUIINITIALIZERFINALIZERCONCEPT_H)
 #define TETENGO2_GUI_GUIINITIALIZERFINALIZERCONCEPT_H
 
-#include <memory>
-
-#include <boost/concept_check.hpp>
-
 
 namespace tetengo2 { namespace gui
 {
