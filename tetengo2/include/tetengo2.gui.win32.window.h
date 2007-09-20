@@ -48,17 +48,13 @@ namespace tetengo2 { namespace gui { namespace win32
                                      boost::UnaryFunctionConcept<Encode, String, std::wstring>
                                      and
                                      boost::UnaryFunctionConcept<Encode, std::wstring, String>.
-        \param StaticWindowProcedure A static window procedure type. It must
-                                     conform to
-                                     tetengo2::gui::concept::StaticWindowProcedureConcept.
    */
     template <
         typename Handle,
         typename Canvas,
         typename Alert,
         typename String,
-        template <typename Target, typename Source> class Encode,
-        typename StaticWindowProcedure
+        template <typename Target, typename Source> class Encode
     >
     class window :
         public widget<
@@ -66,8 +62,7 @@ namespace tetengo2 { namespace gui { namespace win32
             Canvas,
             Alert,
             String,
-            Encode,
-            StaticWindowProcedure
+            Encode
         >
     {
     public:

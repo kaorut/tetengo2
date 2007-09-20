@@ -15,6 +15,7 @@
 #include <boost/scoped_ptr.hpp>
 
 #include "tetengo2.gui.GuiInitializerFinalizerConcept.h"
+#include "tetengo2.gui.WindowConcept.h"
 
 
 namespace tetengo2 { namespace gui
@@ -26,7 +27,7 @@ namespace tetengo2 { namespace gui
                                        type. It must conform to
                                        tetengo2::gui::GuiInitalizerFinalizerConcept<GuiInitializerFinalizer>.
         \param Window                  A window type. It must conform to
-                                       tetengo2::gui::concept::WindowConcept.
+                                       tetengo2::gui::WindowConcept<Window>.
     */
     template <
         typename GuiInitializerFinalizer,
@@ -42,6 +43,7 @@ namespace tetengo2 { namespace gui
             tetengo2::gui,
             GuiInitializerFinalizerConcept
         );
+        BOOST_CLASS_REQUIRE(Window, tetengo2::gui, WindowConcept);
 
 
     public:

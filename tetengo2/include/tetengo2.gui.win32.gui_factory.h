@@ -45,8 +45,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 canvas_type,
                 alert_type,
                 std::wstring,
-                tetengo2::win32::encode,
-                ::WNDPROC
+                tetengo2::win32::encode
             >
             window_type;
 

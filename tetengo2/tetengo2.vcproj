@@ -100,6 +100,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.gui.WidgetConcept.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.gui.win32.alert.h"
 				>
 			</File>
@@ -133,6 +137,10 @@
 			</File>
 			<File
 				RelativePath=".\include\tetengo2.gui.window_observer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.WindowConcept.h"
 				>
 			</File>
 			<File
