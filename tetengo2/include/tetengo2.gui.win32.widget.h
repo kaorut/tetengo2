@@ -43,16 +43,16 @@ namespace tetengo2 { namespace gui { namespace win32
                                      tetengo2::gui::CanvasConcept<Canvas>.
         \param Alert                 An alerting unary functor type. It must
                                      conform to
-                                     boost::AdaptableUnaryFunctionConcept<Alert, void, Handle, std::exception>.
+                                     boost::UnaryFunctionConcept<Alert, void, Handle, std::exception>.
         \param String                A string type. It must conform to
                                      tetengo2::StringConcept<String>.
         \param Encode                An encoding unary functor type. The types
                                      Encode<String, std::wstring> and
                                      Encode<std::wstring, String> must conform
                                      to
-                                     boost::AdaptableUnaryFunctionConcept<Encode, String, std::wstring>
+                                     boost::UnaryFunctionConcept<Encode, String, std::wstring>
                                      and
-                                     boost::AdaptableUnaryFunctionConcept<Encode, std::wstring, String>.
+                                     boost::UnaryFunctionConcept<Encode, std::wstring, String>.
         \param StaticWindowProcedure A static window procedure type. It must
                                      conform to
                                      tetengo2::gui::concept::StaticWindowProcedureConcept.
@@ -80,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 void,
                 exception_type,
                 boost,
-                AdaptableUnaryFunctionConcept
+                UnaryFunctionConcept
             );
         };
         BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
@@ -94,14 +94,14 @@ namespace tetengo2 { namespace gui { namespace win32
                 String,
                 native_string_type,
                 boost,
-                AdaptableUnaryFunctionConcept
+                UnaryFunctionConcept
             );
             BOOST_CLASS_REQUIRE3(
                 encode_to_native_type,
                 native_string_type,
                 String,
                 boost,
-                AdaptableUnaryFunctionConcept
+                UnaryFunctionConcept
             );
         };
 

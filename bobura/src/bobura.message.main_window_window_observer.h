@@ -21,7 +21,7 @@ namespace bobura { namespace message
 
         \param QuitMessageLoop A unary functor type for quitting the message
                                loop. It must conform to
-                               boost::AdaptableUnaryFunctionConcept<QuitMessageLoop, void, int>
+                               boost::UnaryFunctionConcept<QuitMessageLoop, void, int>
 
     */
     template <typename QuitMessageLoop>
@@ -31,7 +31,7 @@ namespace bobura { namespace message
         // concept checks
 
         BOOST_CLASS_REQUIRE3(
-            QuitMessageLoop, void, int, boost, AdaptableUnaryFunctionConcept
+            QuitMessageLoop, void, int, boost, UnaryFunctionConcept
         );
 
 
