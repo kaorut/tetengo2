@@ -28,7 +28,7 @@ namespace tetengo2 { namespace gui
         // functions
 
         /*!
-            \brief Checks the constraints on a GUI object factory.
+            \brief Checks the constraints on a canvas.
         */
         void constraints()
         {
@@ -44,7 +44,7 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Checks the const constraints on a GUI object factory.
+            \brief Checks the const constraints on a canvas.
         */
         void const_constraints(const Canvas& canvas)
         {

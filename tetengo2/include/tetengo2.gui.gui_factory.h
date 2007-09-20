@@ -14,20 +14,22 @@
 #include <boost/concept_check.hpp>
 #include <boost/scoped_ptr.hpp>
 
+#include "tetengo2.gui.GuiInitializerFinalizerConcept.h"
+
 
 namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a GUI object factory.
 
-        \param InitializerFinalizer A initalization and finalization manager
-                                    type. It must conform to
-                                    tetengo2::gui::InitalizerFinalizerConcept.
-        \param Window               A window type. It must conform to
-                                    tetengo2::gui::concept::WindowConcept.
+        \param GuiInitializerFinalizer A initalization and finalization manager
+                                       type. It must conform to
+                                       tetengo2::gui::GuiInitalizerFinalizerConcept<GuiInitializerFinalizer>.
+        \param Window                  A window type. It must conform to
+                                       tetengo2::gui::concept::WindowConcept.
     */
     template <
-        typename InitializerFinalizer,
+        typename GuiInitializerFinalizer,
         typename Window
     >
     class gui_factory : private boost::noncopyable
@@ -35,12 +37,18 @@ namespace tetengo2 { namespace gui
     private:
         // concept checks
 
+        BOOST_CLASS_REQUIRE(
+            GuiInitializerFinalizer,
+            tetengo2::gui,
+            GuiInitializerFinalizerConcept
+        );
+
 
     public:
         // types
 
-        //! The initialization and finalization manager type.
-        typedef InitializerFinalizer initializer_finalizer_type;
+        //! The GUI initialization and finalization manager type.
+        typedef GuiInitializerFinalizer gui_initializer_finalizer_type;
 
         //! The window type
         typedef Window window_type;
@@ -51,15 +59,16 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Creates a GUI object factory.
 
-            \param p_initializer_finalizer An auto pointer to an initalization
-                                           and finalization manager.
+            \param p_gui_initializer_finalizer An auto pointer to a GUI
+                                               initalization and finalization
+                                               manager.
         */
         gui_factory(
-            std::auto_ptr<const initializer_finalizer_type>
-            p_initializer_finalizer    
+            std::auto_ptr<const gui_initializer_finalizer_type>
+            p_gui_initializer_finalizer    
         )
         :
-        m_p_initializer_finalizer(p_initializer_finalizer)
+        m_p_gui_initializer_finalizer(p_gui_initializer_finalizer)
         {}
 
         /*!
@@ -87,8 +96,8 @@ namespace tetengo2 { namespace gui
     private:
         // variables
 
-        const boost::scoped_ptr<const initializer_finalizer_type>
-        m_p_initializer_finalizer;
+        const boost::scoped_ptr<const gui_initializer_finalizer_type>
+        m_p_gui_initializer_finalizer;
 
 
     };

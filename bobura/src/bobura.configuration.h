@@ -46,7 +46,7 @@ namespace bobura
 
         //! The GUI initialization and finalization manager type.
         typedef
-            gui_factory_type::initializer_finalizer_type
+            gui_factory_type::gui_initializer_finalizer_type
             gui_initializer_finalizer_type;
 
         //! The generator type for the message loop.

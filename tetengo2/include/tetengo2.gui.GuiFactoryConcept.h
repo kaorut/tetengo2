@@ -31,11 +31,11 @@ namespace tetengo2 { namespace gui
         void constraints()
         {
             typedef
-                typename GuiFactory::initializer_finalizer_type
-                initializer_finalizer_type;
+                typename GuiFactory::gui_initializer_finalizer_type
+                gui_initializer_finalizer_type;
             typedef typename GuiFactory::window_type window_type;
 
-            std::auto_ptr<const initializer_finalizer_type> p;
+            std::auto_ptr<const gui_initializer_finalizer_type> p;
             const GuiFactory gui_factory(p);
 
             const_constraints(*m_p_gui_factory);
