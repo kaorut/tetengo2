@@ -48,13 +48,16 @@ namespace tetengo2 { namespace gui { namespace win32
                                      boost::UnaryFunctionConcept<Encode, String, std::wstring>
                                      and
                                      boost::UnaryFunctionConcept<Encode, std::wstring, String>.
+        \param PaintObserver         A paint observer type. It must conform to
+                                     tetengo2::gui::PaintObserverConcept<PaintObserver>.
    */
     template <
         typename Handle,
         typename Canvas,
         typename Alert,
         typename String,
-        template <typename Target, typename Source> class Encode
+        template <typename Target, typename Source> class Encode,
+        typename PaintObserver
     >
     class window :
         public widget<
@@ -62,7 +65,8 @@ namespace tetengo2 { namespace gui { namespace win32
             Canvas,
             Alert,
             String,
-            Encode
+            Encode,
+            PaintObserver
         >
     {
     public:
