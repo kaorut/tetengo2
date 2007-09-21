@@ -17,6 +17,7 @@
 
 #include "tetengo2.gui.gui_factory.h"
 #include "tetengo2.gui.paint_observer.h"
+#include "tetengo2.gui.window_observer.h"
 #include "tetengo2.gui.win32.alert.h"
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
@@ -47,7 +48,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 alert_type,
                 std::wstring,
                 tetengo2::win32::encode,
-                tetengo2::gui::paint_observer<canvas_type>
+                tetengo2::gui::paint_observer<canvas_type>,
+                tetengo2::gui::window_observer
             >
             window_type;
 

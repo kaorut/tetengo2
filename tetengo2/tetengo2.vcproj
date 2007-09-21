@@ -148,6 +148,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.gui.WindowObserverConcept.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.StringConcept.h"
 				>
 			</File>

@@ -22,7 +22,7 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "tetengo2.gui.window_observer.h"
+#include "tetengo2.gui.WindowObserverConcept.h"
 #include "tetengo2.gui.win32.widget.h"
 
 
@@ -50,6 +50,9 @@ namespace tetengo2 { namespace gui { namespace win32
                                      boost::UnaryFunctionConcept<Encode, std::wstring, String>.
         \param PaintObserver         A paint observer type. It must conform to
                                      tetengo2::gui::PaintObserverConcept<PaintObserver>.
+        \param WindowObserver        A window observer type. It must conform
+                                     to
+                                     tetengo2::gui::WindowObserverConcept<WindowObserver>.
    */
     template <
         typename Handle,
@@ -57,7 +60,8 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Alert,
         typename String,
         template <typename Target, typename Source> class Encode,
-        typename PaintObserver
+        typename PaintObserver,
+        typename WindowObserver
     >
     class window :
         public widget<
@@ -69,11 +73,19 @@ namespace tetengo2 { namespace gui { namespace win32
             PaintObserver
         >
     {
+    private:
+        // concept checks
+
+        BOOST_CLASS_REQUIRE(
+            WindowObserver, tetengo2::gui, WindowObserverConcept
+        );
+
+
     public:
         // types
 
         //! The window observer type.
-        typedef window_observer window_observer_type;
+        typedef WindowObserver window_observer_type;
 
 
         // constructors and destructor
