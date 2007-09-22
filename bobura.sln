@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bobura", "bobura\bobura.vcproj", "{EA9EF0B0-E7EE-4CCD-9EA1-A939B78397E8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D3E5F86-7307-43AA-A65F-43D29773399B} = {9D3E5F86-7307-43AA-A65F-43D29773399B}
+		{AC976B25-4AEC-4A30-BCF5-F953ED0BC64A} = {AC976B25-4AEC-4A30-BCF5-F953ED0BC64A}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tetengo2", "tetengo2\tetengo2.vcproj", "{33D39114-4B0D-454C-9E23-4F47B39E82C0}"
 EndProject

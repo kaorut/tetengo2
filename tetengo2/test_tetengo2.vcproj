@@ -97,12 +97,6 @@
 			<Tool
 				Name="VCWebDeploymentTool"
 			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Testing tetengo2..."
-				CommandLine="$(TargetPath)"
-				ExcludedFromBuild="false"
-			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -183,12 +177,6 @@
 			/>
 			<Tool
 				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Testing tetengo2..."
-				CommandLine="$(TargetPath)"
-				ExcludedFromBuild="false"
 			/>
 		</Configuration>
 	</Configurations>

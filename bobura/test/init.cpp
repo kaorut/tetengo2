@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of bobura - Initalization
+    \brief The initialization of test of bobura.
 
     Copyright (C) 2007 kaoru
 
@@ -8,14 +8,18 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "test_bobura.bobura.h"
+
 
 boost::unit_test::test_suite* init_unit_test_suite(
     const int    /* argc */,
     char** const /* argv */
 )
 {
-    boost::unit_test::test_suite* const p_test_suite
-      = BOOST_TEST_SUITE("Test of bobura");
+    boost::unit_test::test_suite* const p_suite =
+        BOOST_TEST_SUITE("Test of bobura");
 
-    return p_test_suite;
+    p_suite->add(test_bobura::bobura::suite());
+
+    return p_suite;
 }
