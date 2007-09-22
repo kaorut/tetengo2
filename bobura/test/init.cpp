@@ -8,7 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "test_bobura.bobura.h"
+#include "init_bobura.h"
 
 
 boost::unit_test::test_suite* init_unit_test_suite(
@@ -16,10 +16,9 @@ boost::unit_test::test_suite* init_unit_test_suite(
     char** const /* argv */
 )
 {
-    boost::unit_test::test_suite* const p_suite =
-        BOOST_TEST_SUITE("Test of bobura");
+    boost::unit_test::test_suite* const p_suite = BOOST_TEST_SUITE("init");
 
-    p_suite->add(test_bobura::bobura::suite());
+    p_suite->add(test_bobura::suite());
 
     return p_suite;
 }

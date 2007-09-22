@@ -132,22 +132,6 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The paint observer type.
         typedef PaintObserver paint_observer_type;
 
-        //! The static window procedure type.
-        typedef ::WNDPROC static_window_procedure_type;
-
-
-        // static functions
-
-        /*!
-            \brief Returns the static window precedure.
-            
-            \return The pointer to the static window precedure.
-        */
-        static static_window_procedure_type p_static_window_procedure()
-        {
-            return static_window_procedure;
-        }
-
 
         // constructors and destructor
 
@@ -255,6 +239,16 @@ namespace tetengo2 { namespace gui { namespace win32
 
     protected:
         // static functions
+
+        /*!
+            \brief Returns the static window precedure.
+            
+            \return The pointer to the static window precedure.
+        */
+        static ::WNDPROC p_static_window_procedure()
+        {
+            return static_window_procedure;
+        }
 
         /*!
             \brief Associates the widget instance pointer with the native

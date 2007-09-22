@@ -104,6 +104,38 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.gui.stub.alert.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.stub.canvas.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.stub.gui_factory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.stub.gui_initializer_finalizer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.stub.message_loop.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.stub.quit_message_loop.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.stub.widget.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.stub.window.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.gui.WidgetConcept.h"
 				>
 			</File>
@@ -153,6 +185,10 @@
 			</File>
 			<File
 				RelativePath=".\include\tetengo2.StringConcept.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.stub.encode.h"
 				>
 			</File>
 			<File

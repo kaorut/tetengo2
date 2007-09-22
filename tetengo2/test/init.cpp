@@ -14,8 +14,7 @@ boost::unit_test::test_suite* init_unit_test_suite(
     char** const /* argv */
 )
 {
-    boost::unit_test::test_suite* const p_test_suite
-      = BOOST_TEST_SUITE("Test of tetengo2");
+    boost::unit_test::test_suite* const p_suite = BOOST_TEST_SUITE("init");
 
-    return p_test_suite;
+    return p_suite;
 }

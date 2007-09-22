@@ -97,6 +97,9 @@
 			<Tool
 				Name="VCWebDeploymentTool"
 			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -178,6 +181,9 @@
 			<Tool
 				Name="VCWebDeploymentTool"
 			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -193,6 +199,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\init_bobura.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\test\test_bobura.bobura.cpp"
 				>
 			</File>
@@ -202,6 +212,10 @@
 			Filter="h"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\test\init_bobura.h"
+				>
+			</File>
 			<File
 				RelativePath=".\test\test_bobura.bobura.h"
 				>

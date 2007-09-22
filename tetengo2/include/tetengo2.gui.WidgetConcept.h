@@ -43,13 +43,6 @@ namespace tetengo2 { namespace gui
                 typename Widget::encode_to_native_type
                 encode_to_native_type;
             typedef typename Widget::paint_observer_type paint_observer_type;
-            typedef
-                typename Widget::static_window_procedure_type
-                static_window_procedure_type;
-
-            static_window_procedure_type p_static_window_procedure =
-                typename Widget::p_static_window_procedure();
-            boost::ignore_unused_variable_warning(p_static_window_procedure);
 
             m_p_widget->set_visible(bool());
             
