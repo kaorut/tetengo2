@@ -12,26 +12,16 @@
 #include <boost/noncopyable.hpp>
 
 
-namespace tetengo2 { namespace gui { namespace stub
+namespace stub_tetengo2 { namespace gui
 {
-    /*!
-        \brief The class for a GUI initialization and finalization management.
-    */
     class gui_initializer_finalizer : private boost::noncopyable
     {
     public:
         // constructors and destructor
 
-        /*!
-            \brief Creates a GUI initialization and finalization management.
-        */
         gui_initializer_finalizer()
         {}
 
-        /*!
-            \brief Destroys the GUI initialization and finalization
-                   management.
-        */
         ~gui_initializer_finalizer()
         throw ()
         {}
@@ -40,6 +30,6 @@ namespace tetengo2 { namespace gui { namespace stub
     };
 
 
-}}}
+}}
 
 #endif

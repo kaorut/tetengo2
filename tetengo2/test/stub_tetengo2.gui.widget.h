@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::stub::widget.
+    \brief The definition of stub_tetengo2::gui::widget.
 
     Copyright (C) 2007 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_STUB_WIDGET_H)
-#define TETENGO2_GUI_STUB_WIDGET_H
+#if !defined(STUBTETENGO2_GUI_WIDGET_H)
+#define STUBTETENGO2_GUI_WIDGET_H
 
 #include <memory>
 
@@ -20,31 +20,8 @@
 #include "tetengo2.gui.PaintObserverConcept.h"
 
 
-namespace tetengo2 { namespace gui { namespace stub
+namespace stub_tetengo2 { namespace gui
 {
-    /*!
-        \brief The base class template for a GUI widget for testing.
-
-        \param Handle                A handle type to the native interface. It
-                                     must conform to
-                                     tetengo2::gui::HandleConcept<Handle>.
-        \param Canvas                A canvas type. It must conform to
-                                     tetengo2::gui::CanvasConcept<Canvas>.
-        \param Alert                 An alerting unary functor type. It must
-                                     conform to
-                                     boost::UnaryFunctionConcept<Alert, void, Handle, std::exception>.
-        \param String                A string type. It must conform to
-                                     tetengo2::StringConcept<String>.
-        \param Encode                An encoding unary functor type. The types
-                                     Encode<String, std::wstring> and
-                                     Encode<std::wstring, String> must conform
-                                     to
-                                     boost::UnaryFunctionConcept<Encode, String, std::wstring>
-                                     and
-                                     boost::UnaryFunctionConcept<Encode, std::wstring, String>.
-        \param PaintObserver         A paint observer type. It must conform to
-                                     tetengo2::gui::PaintObserverConcept<PaintObserver>.
-    */
     template <
         typename Handle,
         typename Canvas,
@@ -100,42 +77,29 @@ namespace tetengo2 { namespace gui { namespace stub
     public:
         // types
 
-        //! The handle type.
         typedef Handle handle_type;
 
-        //! The canvas type.
         typedef Canvas canvas_type;
 
-        //! The alerting unary functor type.
         typedef Alert alert_type;
 
-        //! The string type
         typedef String string_type;
 
-        //! The unary functor type for encoding from the native.
         typedef Encode<String, String> encode_from_native_type;
 
-        //! The unary functor type for encoding to the native.
         typedef Encode<String, String> encode_to_native_type;
 
-        //! The paint observer type.
         typedef PaintObserver paint_observer_type;
 
 
         // constructors and destructor
 
-        /*!
-            \brief Creates a widget.
-        */
         widget()
         :
         m_visible(false),
         m_text()
         {}
 
-        /*!
-            \brief Destroys the widget.
-        */
         virtual ~widget()
         throw ()
         {}
@@ -143,63 +107,31 @@ namespace tetengo2 { namespace gui { namespace stub
 
         // functions
 
-        /*!
-            \brief Returns the handle.
-            
-            \return The handle. Always 0.
-        */
         virtual handle_type handle()
         const = 0;
 
-        /*!
-            \brief Sets the visible status.
-
-            \param visible A visible status.
-        */
         virtual void set_visible(const bool visible)
         {
             m_visible = visible;
         }
 
-        /*!
-            \brief Returns the visible status.
-
-            \param The visible status.
-        */
         virtual bool visible()
         const
         {
             return m_visible;
         }
 
-        /*!
-            \brief Sets the text.
-
-            \param text A text.
-        */
         virtual void set_text(const string_type& text)
         {
             m_text = text;
         }
 
-        /*!
-            \brief Retuns the text.
-
-            \return The text.
-        */
         virtual const string_type text()
         const
         {
             return m_text;
         }
 
-        /*!
-            \brief Adds a paint observer.
-
-            Do nothing actually.
-
-            \param p_paint_observer An auto pointer to a paint observer.
-        */
         void add_paint_observer(
             std::auto_ptr<paint_observer_type> p_paint_observer
         )
@@ -217,6 +149,6 @@ namespace tetengo2 { namespace gui { namespace stub
     };
 
 
-}}}
+}}
 
 #endif

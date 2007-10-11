@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::stub::alert.
+    \brief The definition of stub_tetengo2::gui::alert.
 
     Copyright (C) 2007 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_STUB_ALERT_H)
-#define TETENGO2_GUI_STUB_ALERT_H
+#if !defined(STUBTETENGO2_GUI_ALERT_H)
+#define STUBTETENGO2_GUI_ALERT_H
 
 #include <exception>
 #include <functional>
@@ -17,17 +17,8 @@
 #include "tetengo2.gui.HandleConcept.h"
 
 
-namespace tetengo2 { namespace gui { namespace stub
+namespace stub_tetengo2 { namespace gui
 {
-    /*!
-        \brief The unary functor class template for an alert for testing.
-
-        \param WindowHandle A window handle type. It must conform to
-                            tetengo2::gui::HandleConcept<WindowHandle>.
-        \param Encode       An encoding unary functor type. The type
-                            Encode<std::wstring, std::string> must conform to
-                            boost::UnaryFunctionConcept<Encode, std::wstring, std::string>.
-    */
     template <
         typename WindowHandle,
         template <typename Target, typename Source> class Encode
@@ -59,17 +50,11 @@ namespace tetengo2 { namespace gui { namespace stub
     public:
         // types
 
-        //! The window handle type.
         typedef WindowHandle window_handle_type;
 
 
         // constructors
 
-        /*!
-            \brief Creates an alert.
-
-            \param window_handle A window handle.
-        */
         alert(const window_handle_type window_handle = NULL)
         throw ()
         {}
@@ -77,13 +62,6 @@ namespace tetengo2 { namespace gui { namespace stub
 
         // functions
 
-        /*!
-            \brief Alerts a fatal error.
-
-            Does nothing actually.
-
-            \param exception An exception.
-        */
         void operator()(
             const std::exception& exception =
                 std::runtime_error("Unknown Error!")
@@ -96,6 +74,6 @@ namespace tetengo2 { namespace gui { namespace stub
     };
 
 
-}}}
+}}
 
 #endif

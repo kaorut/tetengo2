@@ -1,27 +1,28 @@
 /*! \file
-    \brief The definition of tetengo2::gui::stub::gui_factory.
+    \brief The definition of stub_tetengo2::gui::gui_factory.
 
     Copyright (C) 2007 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_STUB_GUIFACTORY_H)
-#define TETENGO2_GUI_STUB_GUIFACTORY_H
+#if !defined(STUBTETENGO2_GUI_GUIFACTORY_H)
+#define STUBTETENGO2_GUI_GUIFACTORY_H
 
 #include <string>
 
 #include "tetengo2.gui.gui_factory.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
-#include "tetengo2.gui.stub.alert.h"
-#include "tetengo2.gui.stub.canvas.h"
-#include "tetengo2.gui.stub.gui_initializer_finalizer.h"
-#include "tetengo2.gui.stub.window.h"
-#include "tetengo2.stub.encode.h"
+
+#include "stub_tetengo2.gui.alert.h"
+#include "stub_tetengo2.gui.canvas.h"
+#include "stub_tetengo2.gui.gui_initializer_finalizer.h"
+#include "stub_tetengo2.gui.window.h"
+#include "stub_tetengo2.encode.h"
 
 
-namespace tetengo2 { namespace gui { namespace stub
+namespace stub_tetengo2 { namespace gui
 {
     namespace
     {
@@ -30,12 +31,12 @@ namespace tetengo2 { namespace gui { namespace stub
                 int,
                 int,
                 std::wstring,
-                tetengo2::stub::encode,
+                stub_tetengo2::encode,
                 int
             >
             canvas_type;
 
-        typedef alert<int, tetengo2::stub::encode> alert_type;
+        typedef alert<int, stub_tetengo2::encode> alert_type;
 
         typedef
             window<
@@ -43,7 +44,7 @@ namespace tetengo2 { namespace gui { namespace stub
                 canvas_type,
                 alert_type,
                 std::wstring,
-                tetengo2::stub::encode,
+                stub_tetengo2::encode,
                 tetengo2::gui::paint_observer<canvas_type>,
                 tetengo2::gui::window_observer
             >
@@ -52,15 +53,14 @@ namespace tetengo2 { namespace gui { namespace stub
 
     }
 
-    //! The GUI object factory type for testing.
     typedef
         tetengo2::gui::gui_factory<
-            tetengo2::gui::stub::gui_initializer_finalizer,
+            stub_tetengo2::gui::gui_initializer_finalizer,
             window_type
         >
         gui_factory;
 
 
-}}}
+}}
 
 #endif
