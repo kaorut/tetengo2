@@ -54,13 +54,11 @@ namespace test_bobura
 
     void bobura::construction()
     {
-        BOOST_CHECK_NO_THROW(
-            const bobura_type bobura(
-                std::auto_ptr<const gui_factory_type>(
-                    new gui_factory_type(
-                        std::auto_ptr<const gui_initializer_finalizer_type>(
-                            new gui_initializer_finalizer_type()
-                        )
+        const bobura_type bobura(
+            std::auto_ptr<const gui_factory_type>(
+                new gui_factory_type(
+                    std::auto_ptr<const gui_initializer_finalizer_type>(
+                        new gui_initializer_finalizer_type()
                     )
                 )
             )
