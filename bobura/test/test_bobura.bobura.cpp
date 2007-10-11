@@ -8,11 +8,11 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.gui.stub.gui_factory.h>
-#include <tetengo2.gui.stub.message_loop.h>
-#include <tetengo2.gui.stub.quit_message_loop.h>
-
 #include "bobura.bobura.h"
+
+#include <stub_tetengo2.gui.gui_factory.h>
+#include <stub_tetengo2.gui.message_loop.h>
+#include <stub_tetengo2.gui.quit_message_loop.h>
 
 #include "test_bobura.bobura.h"
 
@@ -21,7 +21,7 @@ namespace
 {
     // types
 
-    typedef tetengo2::gui::stub::gui_factory gui_factory_type;
+    typedef stub_tetengo2::gui::gui_factory gui_factory_type;
 
     typedef
         gui_factory_type::gui_initializer_finalizer_type
@@ -30,8 +30,8 @@ namespace
     typedef
         bobura::bobura<
             gui_factory_type,
-            tetengo2::gui::stub::message_loop,
-            tetengo2::gui::stub::quit_message_loop
+            stub_tetengo2::gui::message_loop,
+            stub_tetengo2::gui::quit_message_loop
         >
         bobura_type;
 

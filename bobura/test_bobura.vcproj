@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(BOOST_INCLUDE)&quot;;&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(BOOST_INCLUDE)&quot;;&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -126,7 +126,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(BOOST_INCLUDE)&quot;;&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(BOOST_INCLUDE)&quot;;&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				BasicRuntimeChecks="0"

@@ -97,6 +97,9 @@
 			<Tool
 				Name="VCWebDeploymentTool"
 			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -178,6 +181,9 @@
 			<Tool
 				Name="VCWebDeploymentTool"
 			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -198,6 +204,42 @@
 			Filter="h"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\test\stub_tetengo2.encode.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\stub_tetengo2.gui.alert.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\stub_tetengo2.gui.canvas.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\stub_tetengo2.gui.gui_factory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\stub_tetengo2.gui.gui_initializer_finalizer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\stub_tetengo2.gui.message_loop.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\stub_tetengo2.gui.quit_message_loop.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\stub_tetengo2.gui.widget.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\stub_tetengo2.gui.window.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resources"
