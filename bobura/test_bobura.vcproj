@@ -206,6 +206,10 @@
 				RelativePath=".\test\test_bobura.bobura.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\test\test_bobura.configuration.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headers"
@@ -218,6 +222,10 @@
 			</File>
 			<File
 				RelativePath=".\test\test_bobura.bobura.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.configuration.h"
 				>
 			</File>
 		</Filter>

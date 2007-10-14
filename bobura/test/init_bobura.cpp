@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of bobura.bobura.
+    \brief Test of namespace bobura.
 
     Copyright (C) 2007 kaoru
 
@@ -10,6 +10,7 @@
 
 #include "init_bobura.h"
 #include "test_bobura.bobura.h"
+#include "test_bobura.configuration.h"
 
 
 namespace test_bobura
@@ -22,6 +23,7 @@ namespace test_bobura
             BOOST_TEST_SUITE("test_bobura");
 
         p_suite->add(test_bobura::bobura::suite());
+        p_suite->add(test_bobura::configuration::suite());
 
         return p_suite;
     }
