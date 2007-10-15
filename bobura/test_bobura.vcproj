@@ -70,6 +70,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib gdiplus.lib"
 				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -153,6 +154,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib gdiplus.lib"
 				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="false"
 				GenerateMapFile="false"
@@ -234,6 +236,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath=".\res\win32\COMCTL32.DLL.manifest"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
