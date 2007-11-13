@@ -19,6 +19,7 @@
 #include <windows.h>
 #include <gdiplus.h>
 
+#include "tetengo2.nothrow.h"
 #include "tetengo2.StringConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
 
@@ -119,7 +120,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the canvas.
         */
         ~canvas()
-        throw ()
+        TETENGO2_NOTHROW
         {
             ::EndPaint(m_window_handle, &m_paint_info);
         }

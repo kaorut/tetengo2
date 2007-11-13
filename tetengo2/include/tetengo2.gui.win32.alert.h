@@ -21,6 +21,7 @@
 #include <windows.h>
 #include <commctrl.h>
 
+#include "tetengo2.nothrow.h"
 #include "tetengo2.gui.HandleConcept.h"
 
 
@@ -79,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \param window_handle A window handle.
         */
         alert(const window_handle_type window_handle = NULL)
-        throw ()
+        TETENGO2_NOTHROW
         :
         m_window_handle(window_handle)
         {}
@@ -97,7 +98,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 std::runtime_error("Unknown Error!")
         )
         const
-        throw ()
+        TETENGO2_NOTHROW
         {
             try
             {

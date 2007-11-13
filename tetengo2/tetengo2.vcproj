@@ -152,6 +152,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\tetengo2.nothrow.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\tetengo2.StringConcept.h"
 				>
 			</File>

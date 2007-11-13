@@ -11,6 +11,7 @@
 
 #include <boost/concept_check.hpp>
 
+#include <tetengo2.nothrow.h>
 #include <tetengo2.gui.window_observer.h>
 
 
@@ -61,7 +62,7 @@ namespace bobura { namespace message
             \brief Destroys the window observer of the main window.
         */
         virtual ~main_window_window_observer()
-        throw ()
+        TETENGO2_NOTHROW
         {}
 
 

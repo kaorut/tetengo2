@@ -22,6 +22,7 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.nothrow.h"
 #include "tetengo2.gui.WindowObserverConcept.h"
 #include "tetengo2.gui.win32.widget.h"
 
@@ -106,7 +107,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the window.
         */
         virtual ~window()
-        throw ()
+        TETENGO2_NOTHROW
         {}
 
 

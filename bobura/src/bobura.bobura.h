@@ -15,6 +15,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
+#include <tetengo2.nothrow.h>
 #include <tetengo2.gui.GuiFactoryConcept.h>
 
 #include "bobura.message.main_window_paint_observer.h"
@@ -77,7 +78,7 @@ namespace bobura
             \brief Destroys the bobura application.
         */
         ~bobura()
-        throw ()
+        TETENGO2_NOTHROW
         {}
 
 

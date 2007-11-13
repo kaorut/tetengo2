@@ -14,6 +14,7 @@
 #include <boost/concept_check.hpp>
 #include <boost/scoped_ptr.hpp>
 
+#include "tetengo2.nothrow.h"
 #include "tetengo2.gui.GuiInitializerFinalizerConcept.h"
 #include "tetengo2.gui.WindowConcept.h"
 
@@ -77,7 +78,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the GUI object factory.
         */
         ~gui_factory()
-        throw ()
+        TETENGO2_NOTHROW
         {}
 
 

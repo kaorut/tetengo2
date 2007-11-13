@@ -12,6 +12,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 
+#include "tetengo2.nothrow.h"
+
 
 namespace tetengo2 { namespace gui
 {
@@ -34,7 +36,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the window observer.
         */
         virtual ~window_observer()
-        throw ()
+        TETENGO2_NOTHROW
         {}
 
 

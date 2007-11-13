@@ -25,6 +25,7 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.nothrow.h"
 #include "tetengo2.StringConcept.h"
 #include "tetengo2.gui.CanvasConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
@@ -148,7 +149,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the widget.
         */
         virtual ~widget()
-        throw ()
+        TETENGO2_NOTHROW
         {}
 
 
@@ -328,7 +329,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::WPARAM wParam,
             const ::LPARAM lParam
         )
-        throw ()
+        TETENGO2_NOTHROW
         {
             try
             {
