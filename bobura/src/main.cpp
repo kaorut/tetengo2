@@ -13,8 +13,6 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include <tetengo2.nothrow.h>
-
 #include "bobura.configuration.h"
 
 
@@ -57,7 +55,7 @@ int WINAPI wWinMain(
     const ::LPWSTR    lpCmdLine,
     const int         nCmdShow
 )
-TETENGO2_NOTHROW
+throw ()
 {
     try
     {

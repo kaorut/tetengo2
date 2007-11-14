@@ -14,7 +14,6 @@
 
 #include <boost/concept_check.hpp>
 
-#include "tetengo2.nothrow.h"
 #include "tetengo2.gui.HandleConcept.h"
 
 
@@ -57,7 +56,7 @@ namespace stub_tetengo2 { namespace gui
         // constructors
 
         alert(const window_handle_type window_handle = NULL)
-        TETENGO2_NOTHROW
+        throw ()
         {}
 
 
@@ -68,7 +67,7 @@ namespace stub_tetengo2 { namespace gui
                 std::runtime_error("Unknown Error!")
         )
         const
-        TETENGO2_NOTHROW
+        throw ()
         {}
 
 

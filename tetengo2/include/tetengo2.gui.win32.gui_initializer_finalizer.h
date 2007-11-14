@@ -17,8 +17,6 @@
 #include <windows.h>
 #include <gdiplus.h>
 
-#include "tetengo2.nothrow.h"
-
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -45,7 +43,7 @@ namespace tetengo2 { namespace gui { namespace win32
                    management.
         */
         ~gui_initializer_finalizer()
-        TETENGO2_NOTHROW
+        throw ()
         {
             Gdiplus::GdiplusShutdown(m_gdiplus_token);
         }

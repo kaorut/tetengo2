@@ -13,7 +13,6 @@
 
 #include <boost/concept_check.hpp>
 
-#include <tetengo2.nothrow.h>
 #include <tetengo2.gui.paint_observer.h>
 
 
@@ -42,7 +41,7 @@ namespace bobura { namespace message
             \brief Destroys the paint observer of the main window.
         */
         virtual ~main_window_paint_observer()
-        TETENGO2_NOTHROW
+        throw ()
         {}
 
 

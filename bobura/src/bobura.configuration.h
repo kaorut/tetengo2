@@ -14,7 +14,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 
-#include <tetengo2.nothrow.h>
 #include <tetengo2.gui.win32.alert.h>
 #include <tetengo2.gui.win32.gui_factory.h>
 #include <tetengo2.gui.win32.message_loop.h>
@@ -111,7 +110,7 @@ namespace bobura
             \brief Destroys the configuration.
         */
         ~configuration()
-        TETENGO2_NOTHROW
+        throw ()
         {}
 
 

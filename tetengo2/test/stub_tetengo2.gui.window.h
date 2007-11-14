@@ -60,7 +60,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~window()
-        TETENGO2_NOTHROW
+        throw ()
         {}
 
 

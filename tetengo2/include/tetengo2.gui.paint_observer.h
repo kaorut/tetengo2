@@ -12,7 +12,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 
-#include "tetengo2.nothrow.h"
 #include "tetengo2.gui.CanvasConcept.h"
 
 
@@ -53,7 +52,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the paint observer.
         */
         virtual ~paint_observer()
-        TETENGO2_NOTHROW
+        throw ()
         {}
 
 

@@ -11,8 +11,6 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.nothrow.h"
-
 
 namespace stub_tetengo2 { namespace gui
 {
@@ -25,7 +23,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         ~gui_initializer_finalizer()
-        TETENGO2_NOTHROW
+        throw ()
         {}
 
 

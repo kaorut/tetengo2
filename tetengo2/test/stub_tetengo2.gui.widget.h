@@ -14,7 +14,6 @@
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.nothrow.h"
 #include "tetengo2.StringConcept.h"
 #include "tetengo2.gui.CanvasConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
@@ -102,7 +101,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~widget()
-        TETENGO2_NOTHROW
+        throw ()
         {}
 
 
