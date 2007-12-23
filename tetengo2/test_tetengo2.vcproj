@@ -41,7 +41,6 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(BOOST_INCLUDE)&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -70,7 +69,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
 				LinkTimeCodeGeneration="0"
@@ -126,7 +124,6 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(BOOST_INCLUDE)&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
@@ -153,7 +150,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="false"
 				GenerateMapFile="false"
 				OptimizeReferences="2"

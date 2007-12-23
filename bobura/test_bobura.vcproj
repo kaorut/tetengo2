@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(BOOST_INCLUDE)&quot;;&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -71,7 +71,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib gdiplus.lib"
-				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
 				LinkTimeCodeGeneration="0"
@@ -127,7 +126,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(BOOST_INCLUDE)&quot;;&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
@@ -155,7 +154,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib gdiplus.lib"
-				AdditionalLibraryDirectories="&quot;$(BOOST_LIB)&quot;"
 				GenerateDebugInformation="false"
 				GenerateMapFile="false"
 				OptimizeReferences="2"
