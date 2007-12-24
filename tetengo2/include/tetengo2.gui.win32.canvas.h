@@ -19,6 +19,7 @@
 #include <windows.h>
 #include <gdiplus.h>
 
+#include "tetengo2.SizeConcept.h"
 #include "tetengo2.StringConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
 
@@ -54,7 +55,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // concept checks
 
         BOOST_CLASS_REQUIRE(Handle, tetengo2::gui, HandleConcept);
-        BOOST_CLASS_REQUIRE(Size, boost, IntegerConcept);
+        BOOST_CLASS_REQUIRE(Size, tetengo2, SizeConcept);
         BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
         struct concept_check_Encode
         {
