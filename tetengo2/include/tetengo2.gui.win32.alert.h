@@ -101,15 +101,10 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             try
             {
-                ::TaskDialog(
-                    m_window_handle,
-                    ::GetModuleHandle(NULL),
+                show_task_dialog(
                     L"Alert",
-                    encode_type()(typeid(exception).name()).c_str(),
-                    encode_type()(exception.what()).c_str(),
-                    TDCBF_OK_BUTTON,
-                    TD_ERROR_ICON,
-                    NULL
+                    encode_type()(typeid(exception).name()),
+                    encode_type()(exception.what())
                 );
             }
             catch (...)
@@ -127,6 +122,84 @@ namespace tetengo2 { namespace gui { namespace win32
 
         const window_handle_type m_window_handle;
 
+
+        // functions
+
+        void show_task_dialog(
+            const std::wstring& caption,
+            const std::wstring& text1,
+            const std::wstring& text2
+        )
+        const
+        {
+            struct library_loader_class
+            {
+                const ::HINSTANCE m_handle;
+
+                library_loader_class()
+                :
+                m_handle(::LoadLibraryW(L"COMCTL32.DLL"))
+                { }
+
+                ~library_loader_class()
+                throw ()
+                {
+                    if (m_handle != NULL)
+                        ::FreeLibrary(m_handle);
+                }
+            } library_loader;
+            if (library_loader.m_handle == NULL)
+            {
+                show_message_box(caption, text1, text2);
+                return;
+            }
+
+            typedef ::HRESULT (WINAPI * task_dialog)(
+                ::HWND,
+                ::HINSTANCE,
+                ::PCWSTR,
+                ::PCWSTR,
+                ::PCWSTR,
+                ::TASKDIALOG_COMMON_BUTTON_FLAGS,
+                ::PCWSTR,
+                int*
+            ); 
+            task_dialog p_task_dialog = reinterpret_cast<task_dialog>(
+                ::GetProcAddress(library_loader.m_handle, "TaskDialog")
+            );
+            if (p_task_dialog == NULL)
+            {
+                show_message_box(caption, text1, text2);
+                return;
+            }
+
+            p_task_dialog(
+                m_window_handle,
+                ::GetModuleHandle(NULL),
+                caption.c_str(),
+                text1.c_str(),
+                text2.c_str(),
+                TDCBF_OK_BUTTON,
+                TD_ERROR_ICON,
+                NULL
+            );
+        }
+
+        void show_message_box(
+            const std::wstring& caption,
+            const std::wstring& text1,
+            const std::wstring& text2
+        )
+        const
+        {
+            const std::wstring text = text1 + L"\n\n" + text2;
+            ::MessageBoxW(
+                m_window_handle,
+                text.c_str(),
+                caption.c_str(),
+                MB_OK | MB_ICONERROR
+            );
+        }
 
     };
 
