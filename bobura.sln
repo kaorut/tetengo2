@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bobura", "bobura\bobura.vcproj", "{EA9EF0B0-E7EE-4CCD-9EA1-A939B78397E8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9D3E5F86-7307-43AA-A65F-43D29773399B} = {9D3E5F86-7307-43AA-A65F-43D29773399B}
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717} = {87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}
 		{AC976B25-4AEC-4A30-BCF5-F953ED0BC64A} = {AC976B25-4AEC-4A30-BCF5-F953ED0BC64A}
 	EndProjectSection
 EndProject
@@ -12,6 +13,14 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_bobura", "bobura\test_bobura.vcproj", "{AC976B25-4AEC-4A30-BCF5-F953ED0BC64A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_tetengo2", "tetengo2\test_tetengo2.vcproj", "{9D3E5F86-7307-43AA-A65F-43D29773399B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bobura_model", "bobura_model\bobura_model.vcproj", "{454CB1CD-9796-47C0-AE09-6672B45991F4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D3E5F86-7307-43AA-A65F-43D29773399B} = {9D3E5F86-7307-43AA-A65F-43D29773399B}
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717} = {87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_bobura_model", "bobura_model\test_bobura_model.vcproj", "{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +62,22 @@ Global
 		{9D3E5F86-7307-43AA-A65F-43D29773399B}.Release|Win32.Build.0 = Release|Win32
 		{9D3E5F86-7307-43AA-A65F-43D29773399B}.Release|x64.ActiveCfg = Release|x64
 		{9D3E5F86-7307-43AA-A65F-43D29773399B}.Release|x64.Build.0 = Release|x64
+		{454CB1CD-9796-47C0-AE09-6672B45991F4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{454CB1CD-9796-47C0-AE09-6672B45991F4}.Debug|Win32.Build.0 = Debug|Win32
+		{454CB1CD-9796-47C0-AE09-6672B45991F4}.Debug|x64.ActiveCfg = Debug|x64
+		{454CB1CD-9796-47C0-AE09-6672B45991F4}.Debug|x64.Build.0 = Debug|x64
+		{454CB1CD-9796-47C0-AE09-6672B45991F4}.Release|Win32.ActiveCfg = Release|Win32
+		{454CB1CD-9796-47C0-AE09-6672B45991F4}.Release|Win32.Build.0 = Release|Win32
+		{454CB1CD-9796-47C0-AE09-6672B45991F4}.Release|x64.ActiveCfg = Release|x64
+		{454CB1CD-9796-47C0-AE09-6672B45991F4}.Release|x64.Build.0 = Release|x64
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}.Debug|Win32.ActiveCfg = Debug|Win32
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}.Debug|Win32.Build.0 = Debug|Win32
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}.Debug|x64.ActiveCfg = Debug|x64
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}.Debug|x64.Build.0 = Debug|x64
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}.Release|Win32.ActiveCfg = Release|Win32
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}.Release|Win32.Build.0 = Release|Win32
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}.Release|x64.ActiveCfg = Release|x64
+		{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
