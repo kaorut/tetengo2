@@ -3,7 +3,7 @@
 
     Copyright (C) 2007 kaoru
 
-    $Id: init.cpp 107 2007-09-22 06:24:49Z kaoru $
+    $Id$
 */
 
 #include <boost/test/unit_test.hpp>
