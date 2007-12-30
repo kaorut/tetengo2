@@ -22,18 +22,10 @@ namespace test_bobura { namespace model
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_bobura::model::timetable");
 
-        p_suite->add(
-            BOOST_TEST_CASE(test_bobura::model::timetable::construction)
-        );
-        p_suite->add(
-            BOOST_TEST_CASE(test_bobura::model::timetable::swap)
-        );
-        p_suite->add(
-            BOOST_TEST_CASE(test_bobura::model::timetable::operator_assign)
-        );
-        p_suite->add(
-            BOOST_TEST_CASE(test_bobura::model::timetable::p_stations)
-        );
+        p_suite->add(BOOST_TEST_CASE(construction));
+        p_suite->add(BOOST_TEST_CASE(swap));
+        p_suite->add(BOOST_TEST_CASE(operator_assign));
+        p_suite->add(BOOST_TEST_CASE(p_stations));
 
         return p_suite;
     }

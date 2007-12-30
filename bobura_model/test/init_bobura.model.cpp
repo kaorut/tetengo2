@@ -21,7 +21,7 @@ namespace test_bobura { namespace model
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_bobura::model");
 
-        p_suite->add(test_bobura::model::timetable::suite());
+        p_suite->add(timetable::suite());
 
         return p_suite;
     }

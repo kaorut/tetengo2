@@ -46,8 +46,8 @@ namespace test_bobura
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_bobura::bobura");
 
-        p_suite->add(BOOST_TEST_CASE(test_bobura::bobura::construction));
-        p_suite->add(BOOST_TEST_CASE(test_bobura::bobura::run));
+        p_suite->add(BOOST_TEST_CASE(construction));
+        p_suite->add(BOOST_TEST_CASE(run));
 
         return p_suite;
     }

@@ -403,11 +403,11 @@
 			Name="Resources"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\res\win32\COMCTL32.DLL.manifest"
+				>
+			</File>
 		</Filter>
-		<File
-			RelativePath=".\res\win32\COMCTL32.DLL.manifest"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -22,8 +22,8 @@ namespace test_bobura
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_bobura");
 
-        p_suite->add(test_bobura::bobura::suite());
-        p_suite->add(test_bobura::configuration::suite());
+        p_suite->add(bobura::suite());
+        p_suite->add(configuration::suite());
 
         return p_suite;
     }

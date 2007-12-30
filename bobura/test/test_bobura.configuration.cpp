@@ -22,10 +22,10 @@ namespace test_bobura
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_bobura::cofiguration");
 
-        p_suite->add(BOOST_TEST_CASE(test_bobura::configuration::options));
-        p_suite->add(BOOST_TEST_CASE(test_bobura::configuration::alert));
-        p_suite->add(BOOST_TEST_CASE(test_bobura::configuration::construction));
-        p_suite->add(BOOST_TEST_CASE(test_bobura::configuration::create_bobura));
+        p_suite->add(BOOST_TEST_CASE(options));
+        p_suite->add(BOOST_TEST_CASE(alert));
+        p_suite->add(BOOST_TEST_CASE(construction));
+        p_suite->add(BOOST_TEST_CASE(create_bobura));
 
         return p_suite;
     }
