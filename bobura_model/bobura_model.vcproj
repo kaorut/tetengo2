@@ -122,6 +122,10 @@
 				RelativePath=".\include\bobura.model.timetable.h"
 				>
 			</File>
+			<File
+				RelativePath=".\include\bobura.model.TimetableConcept.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resources"
