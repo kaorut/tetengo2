@@ -23,6 +23,12 @@ namespace test_bobura { namespace model
 
         static void construction();
 
+        static void swap();
+
+        static void operator_assign();
+
+        static void p_stations();
+
 
     };
 

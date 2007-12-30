@@ -57,6 +57,8 @@ namespace bobura { namespace model
 
         /*!
             \brief Copies a timetable.
+
+            \param another Another timetable object.
         */
         timetable(const timetable& another)
         :
@@ -73,16 +75,39 @@ namespace bobura { namespace model
 
         // functions
 
+        /*!
+            \brief Swaps the members with another timetable object.
+
+            \param another Another timetable object.
+        */
         void swap(timetable& another)
         throw ()
         {
             m_p_stations.swap(another.m_p_stations);
         }
 
+        /*!
+            \brief Assigns another timetable object.
+
+            \param another Another timetable object.
+
+            \return this object.
+        */
         timetable& operator=(const timetable& another)
         {
             timetable(another).swap(*this);
             return *this;
+        }
+
+        /*!
+            \brief Returns the pointer to the stations.
+
+            \return The pointer to the stations.
+        */
+        stations_type* p_stations()
+        const
+        {
+            return m_p_stations.get();
         }
 
 
@@ -99,14 +124,20 @@ namespace bobura { namespace model
 
 namespace std
 {
+    /*!
+        \brief Swaps two timetable objects.
+
+        \param timetable1 A timetable object #1.
+        \param timetable2 A timetable object #2.
+    */
     template <typename Stations>
     void swap(
-        bobura::model::timetable<Stations>& left,
-        bobura::model::timetable<Stations>& right
+        bobura::model::timetable<Stations>& timetable1,
+        bobura::model::timetable<Stations>& timetable2
     )
     throw ()
     {
-        left.swap(right);
+        timetable1.swap(timetable2);
     }
 
 

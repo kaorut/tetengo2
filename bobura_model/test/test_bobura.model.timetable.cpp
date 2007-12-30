@@ -25,6 +25,15 @@ namespace test_bobura { namespace model
         p_suite->add(
             BOOST_TEST_CASE(test_bobura::model::timetable::construction)
         );
+        p_suite->add(
+            BOOST_TEST_CASE(test_bobura::model::timetable::swap)
+        );
+        p_suite->add(
+            BOOST_TEST_CASE(test_bobura::model::timetable::operator_assign)
+        );
+        p_suite->add(
+            BOOST_TEST_CASE(test_bobura::model::timetable::p_stations)
+        );
 
         return p_suite;
     }
@@ -33,5 +42,21 @@ namespace test_bobura { namespace model
     {
         
     }
+
+    void timetable::swap()
+    {
+
+    }
+
+    void timetable::operator_assign()
+    {
+
+    }
+
+    void timetable::p_stations()
+    {
+
+    }
+
 
 }}
