@@ -99,7 +99,10 @@ QUIET                               = NO
 IGNORE_FILE_NAME                    = DoxyS.ignore
 FILE_PATTERNS                       = *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh *.hxx *.hpp *.h++ *.idl *.odl *.cs *.page *.dir *.dxd *.doc
 RECURSIVE                           = YES
-EXCLUDE                             = bobura/res bobura/test/ tetengo2/test doc/ bin/ .svn/ doxys/
+EXCLUDE                             = bobura/res/ bobura/test \
+                                      bobura_model/test/ \
+                                      tetengo2/test \
+                                      doc/ bin/ .svn/ doxys/
 EXCLUDE_SYMLINKS                    = NO
 EXCLUDE_PATTERNS                    = 
 EXAMPLE_PATH                        = 
