@@ -32,22 +32,22 @@ namespace test_bobura { namespace model
 
     void timetable::construction()
     {
-        
+        BOOST_WARN("Not implemented yet.");
     }
 
     void timetable::swap()
     {
-
+        BOOST_WARN("Not implemented.");
     }
 
     void timetable::operator_assign()
     {
-
+        BOOST_WARN("Not implemented yet.");
     }
 
     void timetable::p_stations()
     {
-
+        BOOST_WARN("Not implemented yet.");
     }
 
 
