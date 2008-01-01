@@ -44,6 +44,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -129,6 +130,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -210,6 +212,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
@@ -292,6 +295,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
@@ -360,12 +364,40 @@
 				RelativePath=".\test\init.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\test\init_tetengo2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\init_tetengo2.gui.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\init_tetengo2.gui.win32.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.generator.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headers"
 			Filter="h"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\test\init_tetengo2.gui.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\init_tetengo2.gui.win32.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\init_tetengo2.h"
+				>
+			</File>
 			<File
 				RelativePath=".\test\stub_tetengo2.encode.h"
 				>
@@ -400,6 +432,10 @@
 			</File>
 			<File
 				RelativePath=".\test\stub_tetengo2.gui.window.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.generator.h"
 				>
 			</File>
 		</Filter>
