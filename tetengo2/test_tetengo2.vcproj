@@ -384,6 +384,14 @@
 				RelativePath=".\test\test_tetengo2.gui.gui_factory.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.paint_observer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.window_observer.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headers"
@@ -444,6 +452,14 @@
 			</File>
 			<File
 				RelativePath=".\test\test_tetengo2.gui.gui_factory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.paint_observer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.window_observer.h"
 				>
 			</File>
 		</Filter>
