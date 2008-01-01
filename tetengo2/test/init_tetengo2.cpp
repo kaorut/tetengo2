@@ -10,6 +10,7 @@
 
 #include "init_tetengo2.h"
 #include "init_tetengo2.gui.h"
+#include "init_tetengo2.win32.h"
 #include "test_tetengo2.generator.h"
 
 
@@ -23,6 +24,7 @@ namespace test_tetengo2
             BOOST_TEST_SUITE("test_tetengo2");
 
         p_suite->add(gui::suite());
+        p_suite->add(win32::suite());
 
         p_suite->add(generator::suite());
 

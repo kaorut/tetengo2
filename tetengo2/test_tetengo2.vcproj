@@ -377,6 +377,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\init_tetengo2.win32.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\test\test_tetengo2.generator.cpp"
 				>
 			</File>
@@ -390,6 +394,10 @@
 			</File>
 			<File
 				RelativePath=".\test\test_tetengo2.gui.window_observer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.win32.encode.cpp"
 				>
 			</File>
 		</Filter>
@@ -408,6 +416,10 @@
 			</File>
 			<File
 				RelativePath=".\test\init_tetengo2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\init_tetengo2.win32.h"
 				>
 			</File>
 			<File
@@ -460,6 +472,10 @@
 			</File>
 			<File
 				RelativePath=".\test\test_tetengo2.gui.window_observer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.win32.encode.h"
 				>
 			</File>
 		</Filter>
