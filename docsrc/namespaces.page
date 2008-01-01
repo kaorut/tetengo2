@@ -2,8 +2,8 @@
     \brief bobura - The root namespace for Bobura.
 */
 
-/*! \namespace bobura::message
-    \brief bobura::message - The namespace for message observers.
+/*! \namespace bobura::model
+    \brief bobura::model - The namespace for the model of Bobura.
 */
 
 /*! \namespace tetengo2
