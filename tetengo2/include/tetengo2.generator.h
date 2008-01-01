@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::generator.
 
-    Copyright (C) 2007 kaoru
+    Copyright (C) 2007-2008 kaoru
 
     $Id$
 */

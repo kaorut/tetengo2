@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of bobura::message::main_window_window_observer.
 
-    Copyright (C) 2007 kaoru
+    Copyright (C) 2007-2008 kaoru
 
     $Id$
 */

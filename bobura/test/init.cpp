@@ -1,7 +1,7 @@
 /*! \file
     \brief The initialization of test of bobura.
 
-    Copyright (C) 2007 kaoru
+    Copyright (C) 2007-2008 kaoru
 
     $Id$
 */

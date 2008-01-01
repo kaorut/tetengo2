@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of stub_tetengo2::gui::widget.
 
-    Copyright (C) 2007 kaoru
+    Copyright (C) 2007-2008 kaoru
 
     $Id$
 */

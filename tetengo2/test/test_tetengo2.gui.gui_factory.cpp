@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::gui::gui_factory.
 
-    Copyright (C) 2007 kaoru
+    Copyright (C) 2007-2008 kaoru
 
     $Id$
 */

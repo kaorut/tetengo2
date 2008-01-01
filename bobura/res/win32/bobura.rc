@@ -73,7 +73,7 @@ BEGIN
             VALUE "FileDescription", "bobura"
             VALUE "FileVersion", "0, 0, 0, 0"
             VALUE "InternalName", "bobura"
-            VALUE "LegalCopyright", "Copyright (C) 2007 kaoru"
+            VALUE "LegalCopyright", "Copyright (C) 2007-2008 kaoru"
             VALUE "OriginalFilename", "bobura.rc"
             VALUE "ProductName", "bobura"
             VALUE "ProductVersion", "0, 0, 0, 0"

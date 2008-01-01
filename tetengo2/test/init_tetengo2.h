@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of namespace tetengo2.
 
-    Copyright (C) 2007 kaoru
+    Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
