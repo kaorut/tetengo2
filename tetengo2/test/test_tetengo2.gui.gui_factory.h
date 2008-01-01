@@ -21,6 +21,9 @@ namespace test_tetengo2 { namespace gui
 
         static boost::unit_test::test_suite* suite();
 
+        static void construction();
+
+        static void create_window();
 
     };
 
