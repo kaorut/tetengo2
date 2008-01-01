@@ -14,10 +14,6 @@
     \brief tetengo2 - The root namespace for Tetengo2.
 */
 
-/*! \namespace tetengo2::stub
-    \brief tetengo2::stub - The namespace for Tetengo2 for testing.
-*/
-
 /*! \namespace tetengo2::win32
     \brief tetengo2::win32 - The namespace for Tetengo2 specific to Win32
            platforms.
@@ -25,10 +21,6 @@
 
 /*! \namespace tetengo2::gui
     \brief tetengo2::gui - The namespace for GUI.
-*/
-
-/*! \namespace tetengo2::gui::stub
-    \brief tetengo2::gui::stub - The namespace for GUI specific for testing.
 */
 
 /*! \namespace tetengo2::gui::win32
