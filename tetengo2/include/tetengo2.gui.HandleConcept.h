@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::HandleConcept.
+    \brief The definition of tetengo2::gui::HandleConcept.
 
     Copyright (C) 2007 kaoru
 

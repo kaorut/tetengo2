@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::GuiFactoryConcept.
+    \brief The definition of tetengo2::gui::GuiFactoryConcept.
 
     Copyright (C) 2007 kaoru
 

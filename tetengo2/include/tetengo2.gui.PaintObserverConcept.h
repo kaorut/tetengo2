@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::PaintObserverConcept.
+    \brief The definition of tetengo2::gui::PaintObserverConcept.
 
     Copyright (C) 2007 kaoru
 

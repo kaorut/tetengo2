@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::tetengo2.
+    \brief Test of class tetengo2::generator.
 
     Copyright (C) 2007 kaoru
 

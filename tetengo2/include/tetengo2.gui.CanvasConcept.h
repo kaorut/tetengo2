@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::CanvasConcept.
+    \brief The definition of tetengo2::gui::CanvasConcept.
 
     Copyright (C) 2007 kaoru
 

@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of namespace tetengo2::gui.
+    \brief Test of class tetengo2::gui::gui_factory.
 
     Copyright (C) 2007 kaoru
 
@@ -8,8 +8,8 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "init_tetengo2.gui.h"
-#include "init_tetengo2.gui.win32.h"
+#include "tetengo2.gui.gui_factory.h"
+
 #include "test_tetengo2.gui.gui_factory.h"
 
 
@@ -17,14 +17,10 @@ namespace test_tetengo2 { namespace gui
 {
     // functions
 
-    boost::unit_test::test_suite* suite()
+    boost::unit_test::test_suite* gui_factory::suite()
     {
         boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::gui");
-
-        p_suite->add(win32::suite());
-
-        p_suite->add(gui_factory::suite());
+            BOOST_TEST_SUITE("test_tetengo2::gui::gui_factory");
 
         return p_suite;
     }

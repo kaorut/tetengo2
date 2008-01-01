@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::gui_initializer_finalizer.
+    \brief The definition of stub_tetengo2::gui::gui_initializer_finalizer.
 
     Copyright (C) 2007 kaoru
 

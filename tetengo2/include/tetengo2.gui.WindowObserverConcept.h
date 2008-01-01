@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::WindowObserverConcept.
+    \brief The definition of tetengo2::gui::WindowObserverConcept.
 
     Copyright (C) 2007 kaoru
 

@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::WidgetConcept.
+    \brief The definition of tetengo2::gui::WidgetConcept.
 
     Copyright (C) 2007 kaoru
 

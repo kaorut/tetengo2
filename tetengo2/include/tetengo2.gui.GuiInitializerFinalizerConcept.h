@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::GuiInitializerFinalizerConcept.
+    \brief The definition of tetengo2::gui::GuiInitializerFinalizerConcept.
 
     Copyright (C) 2007 kaoru
 

@@ -1,20 +1,20 @@
 /*! \file
-    \brief Test of class tetengo2::generator.
+    \brief Test of class tetengo2::gui::gui_factory.
 
     Copyright (C) 2007 kaoru
 
     $Id$
 */
 
-#if !defined(TESTTETENGO2_GENERATOR_H)
-#define TESTTETENGO2_GENERATOR_H
+#if !defined(TESTTETENGO2_GUI_GUIFACTORY_H)
+#define TESTTETENGO2_GUI_GUIFACTORY_H
 
 #include <boost/test/unit_test.hpp>
 
 
-namespace test_tetengo2
+namespace test_tetengo2 { namespace gui
 {
-    class generator
+    class gui_factory
     {
     public:
         // static functions
@@ -25,6 +25,6 @@ namespace test_tetengo2
     };
 
 
-}
+}}
 
 #endif
