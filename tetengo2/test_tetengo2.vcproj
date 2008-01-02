@@ -393,6 +393,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.alert.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\test\test_tetengo2.gui.window_observer.cpp"
 				>
 			</File>
@@ -468,6 +472,10 @@
 			</File>
 			<File
 				RelativePath=".\test\test_tetengo2.gui.paint_observer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.alert.h"
 				>
 			</File>
 			<File
