@@ -15,6 +15,7 @@
 
 #define OEMRESOURCE
 #include <windows.h>
+#include <commctrl.h>
 #include <gdiplus.h>
 
 

@@ -397,6 +397,34 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.canvas.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.gui_factory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.gui_initializer_finalizer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.message_loop.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.quit_message_loop.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.widget.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.window.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\test\test_tetengo2.gui.window_observer.cpp"
 				>
 			</File>
@@ -476,6 +504,34 @@
 			</File>
 			<File
 				RelativePath=".\test\test_tetengo2.gui.win32.alert.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.canvas.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.gui_factory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.gui_initializer_finalizer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.message_loop.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.quit_message_loop.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.widget.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.win32.window.h"
 				>
 			</File>
 			<File
