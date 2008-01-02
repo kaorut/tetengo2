@@ -9,6 +9,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "init_tetengo2.win32.h"
+#include "test_tetengo2.win32.encode.h"
 
 
 namespace test_tetengo2 { namespace win32
@@ -19,6 +20,8 @@ namespace test_tetengo2 { namespace win32
     {
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_tetengo2::win32");
+
+        p_suite->add(encode::suite());
 
         return p_suite;
     }
