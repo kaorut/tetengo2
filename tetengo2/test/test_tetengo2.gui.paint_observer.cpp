@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <boost/test/unit_test.hpp>
-
 #include "tetengo2.gui.paint_observer.h"
 
 #include "test_tetengo2.gui.paint_observer.h"

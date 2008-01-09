@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <boost/test/unit_test.hpp>
-
 #include "bobura.configuration.h"
 
 #include "test_bobura.configuration.h"

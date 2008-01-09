@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <boost/test/unit_test.hpp>
-
 #include "bobura.model.timetable.h"
 
 #include "test_bobura.model.timetable.h"

@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <boost/test/unit_test.hpp>
-
 #include "tetengo2.gui.win32.widget.h"
 
 #include "test_tetengo2.gui.win32.widget.h"
