@@ -9,19 +9,6 @@
 #if !defined(TETENGO2_GUI_WIN32_WINDOW_H)
 #define TETENGO2_GUI_WIN32_WINDOW_H
 
-#include <exception>
-#include <memory>
-#include <stdexcept>
-
-#include <boost/bind.hpp>
-#include <boost/concept_check.hpp>
-#include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-
-#define OEMRESOURCE
-#include <windows.h>
-
 #include "tetengo2.gui.WindowObserverConcept.h"
 #include "tetengo2.gui.win32.widget.h"
 

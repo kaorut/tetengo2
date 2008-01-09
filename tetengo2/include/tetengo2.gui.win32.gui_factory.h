@@ -9,12 +9,6 @@
 #if !defined(TETENGO2_GUI_WIN32_GUIFACTORY_H)
 #define TETENGO2_GUI_WIN32_GUIFACTORY_H
 
-#include <string>
-
-#define OEMRESOURCE
-#include <windows.h>
-#include <gdiplus.h>
-
 #include "tetengo2.gui.gui_factory.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"

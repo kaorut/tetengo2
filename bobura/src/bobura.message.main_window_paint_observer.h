@@ -11,8 +11,6 @@
 
 #include <utility>
 
-#include <boost/concept_check.hpp>
-
 #include <tetengo2.gui.paint_observer.h>
 
 

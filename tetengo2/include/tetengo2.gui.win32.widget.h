@@ -10,12 +10,9 @@
 #define TETENGO2_GUI_WIN32_WIDGET_H
 
 #include <exception>
-#include <memory>
 #include <stdexcept>
-#include <string>
 
 #include <boost/bind.hpp>
-#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/signal.hpp>

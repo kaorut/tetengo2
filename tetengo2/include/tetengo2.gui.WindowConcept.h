@@ -9,10 +9,6 @@
 #if !defined(TETENGO2_GUI_WINDOWCONCEPT_H)
 #define TETENGO2_GUI_WINDOWCONCEPT_H
 
-#include <memory>
-
-#include <boost/concept_check.hpp>
-
 #include "tetengo2.gui.WidgetConcept.h"
 
 

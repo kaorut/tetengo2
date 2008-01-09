@@ -9,12 +9,8 @@
 #if !defined(BOBURA_CONFIGURATION_H)
 #define BOBURA_CONFIGURATION_H
 
-#include <memory>
-
-#include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 
-#include <tetengo2.gui.win32.alert.h>
 #include <tetengo2.gui.win32.gui_factory.h>
 #include <tetengo2.gui.win32.message_loop.h>
 #include <tetengo2.gui.win32.quit_message_loop.h>

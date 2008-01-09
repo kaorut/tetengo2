@@ -9,9 +9,7 @@
 #if !defined(TETENGO2_GUI_GUIFACTORY_H)
 #define TETENGO2_GUI_GUIFACTORY_H
 
-#include <memory>
-
-#include <boost/concept_check.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
 #include "tetengo2.gui.GuiInitializerFinalizerConcept.h"

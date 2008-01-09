@@ -14,7 +14,6 @@
 #include <sstream>
 #include <string>
 
-#include <boost/concept_check.hpp>
 #include <boost/format.hpp>
 
 #define OEMRESOURCE

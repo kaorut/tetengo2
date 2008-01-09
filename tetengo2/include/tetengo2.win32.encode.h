@@ -11,7 +11,6 @@
 
 #include <functional>
 #include <stdexcept>
-#include <string>
 
 #include <boost/concept_check.hpp>
 #include <boost/scoped_array.hpp>

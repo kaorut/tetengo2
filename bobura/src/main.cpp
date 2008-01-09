@@ -6,13 +6,6 @@
     $Id$
 */
 
-#include <exception>
-
-#include <boost/program_options.hpp>
-
-#define OEMRESOURCE
-#include <windows.h>
-
 #include "bobura.configuration.h"
 
 
