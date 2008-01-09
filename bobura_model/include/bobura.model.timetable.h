@@ -36,6 +36,7 @@ namespace bobura { namespace model
     public:
         // types
 
+        //! The collection type of stations.
         typedef Stations stations_type;
 
 
@@ -126,9 +127,6 @@ namespace std
 {
     /*!
         \brief Swaps two timetable objects.
-
-        \param Stations A collection type of stations. It must conform to
-                        bobura::model::StationsConcept<Stations>.
 
         \param timetable1 A timetable object #1.
         \param timetable2 A timetable object #2.

@@ -175,7 +175,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns the visible status.
 
-            \param The visible status.
+            \return The visible status.
         */
         virtual bool visible()
         const

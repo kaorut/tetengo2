@@ -1,14 +1,13 @@
-/*! \mainpage Main
+/*! \mainpage
 
-!!!What is Bobura?
+\section whatsbobura What is Bobura?
 
 Bobura is some sortware about railways.
 
-!!!What is Tetengo2?
+\section whatstetengo2 What is Tetengo2?
 
 Tetengo2 is a kind of GUI toolkit.
 
-----
 
 Copyright (C) 2007-2008 kaoru
 

@@ -1,29 +1,27 @@
 /*! \namespace bobura
-    \brief bobura - The root namespace for Bobura.
+    \brief The root namespace for Bobura.
 */
 
 /*! \namespace bobura::message
-    \brief bobura::message - The namespace for message observers.
+    \brief The namespace for message observers.
 */
 
 /*! \namespace bobura::model
-    \brief bobura::model - The namespace for the model of Bobura.
+    \brief The namespace for the model of Bobura.
 */
 
 /*! \namespace tetengo2
-    \brief tetengo2 - The root namespace for Tetengo2.
+    \brief The root namespace for Tetengo2.
 */
 
 /*! \namespace tetengo2::win32
-    \brief tetengo2::win32 - The namespace for Tetengo2 specific to Win32
-           platforms.
+    \brief The namespace for Tetengo2 specific to Win32 platforms.
 */
 
 /*! \namespace tetengo2::gui
-    \brief tetengo2::gui - The namespace for GUI.
+    \brief The namespace for GUI.
 */
 
 /*! \namespace tetengo2::gui::win32
-    \brief tetengo2::gui::win32 - The namespace for GUI specific to Win32
-           platforms.
+    \brief The namespace for GUI specific to Win32 platforms.
 */
