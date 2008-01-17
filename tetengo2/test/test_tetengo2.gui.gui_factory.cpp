@@ -21,38 +21,41 @@
 
 namespace test_tetengo2 { namespace gui
 {
-    // types
+    namespace
+    {
+        // types
 
-    typedef
-        stub_tetengo2::gui::canvas<
-            int,
-            int,
-            std::wstring,
-            stub_tetengo2::encode,
-            int
-        >
-        canvas_type;
+        typedef
+            stub_tetengo2::gui::canvas<
+                int,
+                int,
+                std::wstring,
+                stub_tetengo2::encode,
+                int
+            >
+            canvas_type;
 
-    typedef 
-        stub_tetengo2::gui::window<
-            int,
-            canvas_type,
-            stub_tetengo2::gui::alert<
-                int, stub_tetengo2::encode
-            >,
-            std::wstring,
-            stub_tetengo2::encode,
-            tetengo2::gui::paint_observer<canvas_type>,
-            tetengo2::gui::window_observer
-        >
-        window_type;
-    
-    typedef
-        tetengo2::gui::gui_factory<
-            stub_tetengo2::gui::gui_initializer_finalizer,
-            window_type
-        >
-        gui_factory_type;
+        typedef 
+            stub_tetengo2::gui::window<
+                int,
+                canvas_type,
+                stub_tetengo2::gui::alert<
+                    int, stub_tetengo2::encode
+                >,
+                std::wstring,
+                stub_tetengo2::encode,
+                tetengo2::gui::paint_observer<canvas_type>,
+                tetengo2::gui::window_observer
+            >
+            window_type;
+        
+        typedef
+            tetengo2::gui::gui_factory<
+                stub_tetengo2::gui::gui_initializer_finalizer,
+                window_type
+            >
+            gui_factory_type;
+    }
 
 
     // functions
