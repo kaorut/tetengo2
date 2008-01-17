@@ -52,6 +52,8 @@ namespace test_bobura
 
     void bobura::construction()
     {
+        BOOST_CHECKPOINT("");
+
         const bobura_type bobura(
             std::auto_ptr<const gui_factory_type>(
                 new gui_factory_type(
@@ -65,6 +67,8 @@ namespace test_bobura
 
     void bobura::run()
     {
+        BOOST_CHECKPOINT("");
+
         const bobura_type bobura(
             std::auto_ptr<const gui_factory_type>(
                 new gui_factory_type(

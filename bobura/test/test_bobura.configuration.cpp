@@ -30,6 +30,8 @@ namespace test_bobura
 
     void configuration::options()
     {
+        BOOST_CHECKPOINT("");
+
         const boost::program_options::options_description options =
             bobura::configuration::options();
 
@@ -47,18 +49,24 @@ namespace test_bobura
 
     void configuration::alert()
     {
+        BOOST_CHECKPOINT("");
+
         const bobura::configuration::alert_type alert =
             bobura::configuration::alert();
     }
 
     void configuration::construction()
     {
+        BOOST_CHECKPOINT("");
+
         const boost::program_options::variables_map variables_map;
         const bobura::configuration configuration(variables_map);
     }
 
     void configuration::create_bobura()
     {
+        BOOST_CHECKPOINT("");
+
         const boost::program_options::variables_map variables_map;
         const bobura::configuration configuration(variables_map);
 
