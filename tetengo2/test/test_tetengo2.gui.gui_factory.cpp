@@ -25,11 +25,7 @@ namespace
 
     typedef
         stub_tetengo2::gui::canvas<
-            int,
-            int,
-            std::wstring,
-            stub_tetengo2::encode,
-            int
+            int, int, std::wstring, stub_tetengo2::encode, int
         >
         canvas_type;
 
@@ -49,10 +45,10 @@ namespace
     
     typedef
         tetengo2::gui::gui_factory<
-            stub_tetengo2::gui::gui_initializer_finalizer,
-            window_type
+            stub_tetengo2::gui::gui_initializer_finalizer, window_type
         >
         gui_factory_type;
+
 }
 
 namespace test_tetengo2 { namespace gui

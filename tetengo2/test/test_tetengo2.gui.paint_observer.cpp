@@ -8,8 +8,25 @@
 
 #include "tetengo2.gui.paint_observer.h"
 
+#include "stub_tetengo2.encode.h"
+#include "stub_tetengo2.gui.canvas.h"
+
 #include "test_tetengo2.gui.paint_observer.h"
 
+
+namespace
+{
+    // types
+
+    typedef
+        stub_tetengo2::gui::canvas<
+            int, int, std::wstring, stub_tetengo2::encode, int
+        >
+        canvas_type;
+
+    typedef tetengo2::gui::paint_observer<canvas_type> paint_observer_type;
+
+}
 
 namespace test_tetengo2 { namespace gui
 {
@@ -28,12 +45,19 @@ namespace test_tetengo2 { namespace gui
 
     void paint_observer::construction()
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_CHECKPOINT("");
+
+        paint_observer_type();
     }
 
     void paint_observer::paint()
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_CHECKPOINT("");
+
+        paint_observer_type paint_observer;
+        canvas_type canvas(1);
+
+        paint_observer.paint(&canvas);
     }
 
 
