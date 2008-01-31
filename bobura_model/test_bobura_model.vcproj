@@ -100,6 +100,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
+				CommandLine="&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no"
 			/>
 		</Configuration>
 		<Configuration
@@ -185,6 +187,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
+				CommandLine="&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no"
 			/>
 		</Configuration>
 		<Configuration
@@ -267,6 +271,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
+				CommandLine="&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no"
 			/>
 		</Configuration>
 		<Configuration
@@ -349,6 +355,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
+				CommandLine="&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no"
 			/>
 		</Configuration>
 	</Configurations>

@@ -104,8 +104,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Testing..."
-				CommandLine="&quot;$(OutDir)\test_tetengo2.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;&quot;$(OutDir)\test_bobura_model.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;&quot;$(OutDir)\test_bobura.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -195,8 +193,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Testing..."
-				CommandLine="&quot;$(OutDir)\test_tetengo2.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;&quot;$(OutDir)\test_bobura_model.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;&quot;$(OutDir)\test_bobura.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -282,8 +278,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Testing..."
-				CommandLine="&quot;$(OutDir)\test_tetengo2.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;&quot;$(OutDir)\test_bobura_model.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;&quot;$(OutDir)\test_bobura.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -369,8 +363,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Testing..."
-				CommandLine="&quot;$(OutDir)\test_tetengo2.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;&quot;$(OutDir)\test_bobura_model.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;&quot;$(OutDir)\test_bobura.exe&quot; --result_code=no --report_level=no&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

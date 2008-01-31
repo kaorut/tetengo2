@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="shift_jis"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
@@ -101,6 +101,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
+				CommandLine="&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no"
 			/>
 		</Configuration>
 		<Configuration
@@ -187,6 +189,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
+				CommandLine="&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no"
 			/>
 		</Configuration>
 		<Configuration
@@ -270,6 +274,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
+				CommandLine="&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no"
 			/>
 		</Configuration>
 		<Configuration
@@ -353,6 +359,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
+				CommandLine="&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no"
 			/>
 		</Configuration>
 	</Configurations>
