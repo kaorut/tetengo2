@@ -6,7 +6,7 @@
 LANG=C
 
 for f in ` \
-    find bobura bobura_model tetengo2 docsrc \
+    find bobura bobura_model tetengo2 precompiled docsrc \
     -type f -name '*.h' -or -name '*.cpp' -or -name '*.page' \
 `; \
 do

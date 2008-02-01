@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include "precompiled.h"
+
 #include "tetengo2.generator.h"
 
 #include "test_tetengo2.generator.h"

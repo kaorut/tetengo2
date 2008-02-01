@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -54,6 +54,8 @@
 				EnableFunctionLevelLinking="true"
 				EnableEnhancedInstructionSet="2"
 				DisableLanguageExtensions="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -134,7 +136,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -143,6 +145,8 @@
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				DisableLanguageExtensions="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -220,7 +224,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
@@ -228,6 +232,8 @@
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
 				DisableLanguageExtensions="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -306,13 +312,15 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
 				SmallerTypeCheck="false"
 				RuntimeLibrary="2"
 				DisableLanguageExtensions="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -378,6 +386,42 @@
 				RelativePath=".\src\main.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\precompiled\precompiled.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headers"
@@ -398,6 +442,10 @@
 			</File>
 			<File
 				RelativePath=".\src\bobura.message.main_window_window_observer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\precompiled\precompiled.h"
 				>
 			</File>
 		</Filter>

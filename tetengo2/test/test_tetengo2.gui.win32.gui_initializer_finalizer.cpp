@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include "precompiled.h"
+
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 
 #include "test_tetengo2.gui.win32.gui_initializer_finalizer.h"

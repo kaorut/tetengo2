@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include "precompiled.h"
+
 #include "tetengo2.gui.window_observer.h"
 
 #include "test_tetengo2.gui.window_observer.h"

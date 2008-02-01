@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include "precompiled.h"
+
 #include "tetengo2.win32.encode.h"
 
 #include "test_tetengo2.win32.encode.h"

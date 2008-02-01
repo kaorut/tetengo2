@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include "precompiled.h"
+
 #include "tetengo2.gui.paint_observer.h"
 
 #include "stub_tetengo2.encode.h"

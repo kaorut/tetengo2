@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include "precompiled.h"
+
 #include "bobura.bobura.h"
 
 #include <stub_tetengo2.gui.gui_factory.h>

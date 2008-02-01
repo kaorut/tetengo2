@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include "precompiled.h"
+
 #include "tetengo2.gui.win32.quit_message_loop.h"
 
 #include "test_tetengo2.gui.win32.quit_message_loop.h"

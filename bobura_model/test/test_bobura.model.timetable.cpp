@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include "precompiled.h"
+
 #include "bobura.model.timetable.h"
 
 #include "test_bobura.model.timetable.h"

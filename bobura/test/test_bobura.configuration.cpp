@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include "precompiled.h"
+
 #include "bobura.configuration.h"
 
 #include "test_bobura.configuration.h"
