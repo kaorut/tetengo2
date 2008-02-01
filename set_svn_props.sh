@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Subversion svn:keywords property setter.
-# Copyright (C) 2007 kaoru
+# Subversion property setter.
+# Copyright (C) 2007-2008 kaoru
 
 LANG=C
 
@@ -11,5 +11,6 @@ for f in ` \
 `; \
 do
     chmod 666 $f;
+    svn propdel svn:executable $f; \
     svn propset svn:keywords 'Author Date Rev Id' $f; \
 done
