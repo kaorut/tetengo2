@@ -27,7 +27,7 @@ namespace
 
     typedef
         stub_tetengo2::gui::canvas<
-            int, int, std::wstring, stub_tetengo2::encode, int
+            int, std::size_t, std::wstring, stub_tetengo2::encode, int
         >
         canvas_type;
 

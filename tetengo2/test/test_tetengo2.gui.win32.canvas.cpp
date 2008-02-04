@@ -10,8 +10,22 @@
 
 #include "tetengo2.gui.win32.canvas.h"
 
+#include "stub_tetengo2.encode.h"
+
 #include "test_tetengo2.gui.win32.canvas.h"
 
+
+namespace
+{
+    // types
+
+    typedef
+        tetengo2::gui::win32::canvas<
+            int, std::size_t, std::wstring, stub_tetengo2::encode, ::HWND
+        >
+        canvas_type;
+
+}
 
 namespace test_tetengo2 { namespace gui { namespace win32
 {
@@ -31,6 +45,7 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
     void canvas::construction()
     {
+        canvas_type(NULL);
         BOOST_WARN("Not implemented yet.");
     }
 
