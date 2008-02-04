@@ -10,8 +10,20 @@
 
 #include "tetengo2.gui.win32.alert.h"
 
+#include "stub_tetengo2.encode.h"
+
 #include "test_tetengo2.gui.win32.alert.h"
 
+
+namespace
+{
+    // types
+
+    typedef
+        tetengo2::gui::win32::alert<::HWND, stub_tetengo2::encode>
+        alert_type;
+
+}
 
 namespace test_tetengo2 { namespace gui { namespace win32
 {
@@ -30,7 +42,11 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
     void alert::construction()
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_CHECKPOINT("");
+
+        alert_type(NULL);
+
+        alert_type(reinterpret_cast< ::HWND>(0x123456));
     }
 
     void alert::operator_paren()
