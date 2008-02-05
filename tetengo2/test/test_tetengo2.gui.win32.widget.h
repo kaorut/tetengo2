@@ -35,6 +35,12 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
         static void add_paint_observer();
 
+        static void p_static_window_procedure();
+
+        static void associate_to_native_window_system();
+
+        static void window_procedure();
+
 
     };
 
