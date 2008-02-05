@@ -45,7 +45,6 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
     void canvas::construction()
     {
-        canvas_type(NULL);
         BOOST_WARN("Not implemented yet.");
     }
 
