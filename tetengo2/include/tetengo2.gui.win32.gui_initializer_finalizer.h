@@ -55,10 +55,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         static ::ULONG_PTR get_gdiplus_token()
         {
-            Gdiplus::GdiplusStartupInput startup_input;
-            ::ULONG_PTR token;
+            const Gdiplus::GdiplusStartupInput input;
+            ::ULONG_PTR token = NULL;
 
-            Gdiplus::GdiplusStartup(&token, &startup_input, NULL);
+            if (Gdiplus::GdiplusStartup(&token, &input, NULL) != Gdiplus::Ok)
+                throw std::runtime_error("Can't start up GDI+!");
 
             return token;
         }
