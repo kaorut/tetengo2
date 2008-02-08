@@ -30,12 +30,18 @@ namespace test_tetengo2 { namespace gui
 
     void window_observer::construction()
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_CHECKPOINT("");
+
+        tetengo2::gui::window_observer();
     }
 
     void window_observer::destroyed()
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_CHECKPOINT("");
+
+        tetengo2::gui::window_observer window_observer;
+
+        window_observer.destroyed();
     }
 
 
