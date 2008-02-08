@@ -23,8 +23,6 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
         static void construction();
 
-        static void handle();
-
         static void set_visible();
 
         static void visible();

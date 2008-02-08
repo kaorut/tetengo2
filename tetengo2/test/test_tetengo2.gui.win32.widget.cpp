@@ -23,7 +23,6 @@ namespace test_tetengo2 { namespace gui { namespace win32
             BOOST_TEST_SUITE("test_tetengo2::gui::win32::widget");
 
         p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(handle));
         p_suite->add(BOOST_TEST_CASE(set_visible));
         p_suite->add(BOOST_TEST_CASE(visible));
         p_suite->add(BOOST_TEST_CASE(set_text));
@@ -37,11 +36,6 @@ namespace test_tetengo2 { namespace gui { namespace win32
     }
 
     void widget::construction()
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    void widget::handle()
     {
         BOOST_WARN("Not implemented yet.");
     }

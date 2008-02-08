@@ -145,7 +145,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void draw_text(const string_type& text, const point_type& point)
         {
-            const Gdiplus::FontFamily font_family(L"Mikachan-P");
+            const Gdiplus::FontFamily font_family(L"MS PMincho");
             const Gdiplus::Font font(&font_family, 48);
             const Gdiplus::SolidBrush brush(
                 Gdiplus::Color(128, 255, 0, 0)

@@ -335,7 +335,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 else
                     return ::DefWindowProcW(hWnd, uMsg, wParam, lParam);
             }
-            catch (std::exception& e)
+            catch (const std::exception& e)
             {
                 (alert_type(hWnd))(e);
                 return 0;
@@ -347,9 +347,7 @@ namespace tetengo2 { namespace gui { namespace win32
             }
         }
 
-        static widget* p_widget_from(
-            const ::HWND window_handle
-        )
+        static widget* p_widget_from(const ::HWND window_handle)
         {
 #if defined(_WIN32) && !defined(_WIN64)
 #    pragma warning(push)
