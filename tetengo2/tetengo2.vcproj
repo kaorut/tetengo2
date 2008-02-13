@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="9.00"
 	Name="tetengo2"
 	ProjectGUID="{33D39114-4B0D-454C-9E23-4F47B39E82C0}"
 	RootNamespace="tetengo2"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
