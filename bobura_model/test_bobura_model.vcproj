@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)precompiled&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -134,7 +134,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)precompiled&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -220,7 +220,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)precompiled&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
@@ -307,7 +307,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)precompiled&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
@@ -385,6 +385,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\init_bobura.model.station_info.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\precompiled\precompiled.cpp"
 				>
 				<FileConfiguration
@@ -421,6 +425,14 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\test\test_bobura.model.station.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.station_info.grade.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\test\test_bobura.model.timetable.cpp"
 				>
 			</File>
@@ -435,7 +447,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\init_bobura.model.station_info.h"
+				>
+			</File>
+			<File
 				RelativePath="..\precompiled\precompiled.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.station.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.station_info.grade.h"
 				>
 			</File>
 			<File
