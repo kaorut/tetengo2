@@ -38,7 +38,7 @@ namespace bobura { namespace model { namespace station_info
         }
 
         /*!
-            \brief Checks the const constraints on a station.
+            \brief Checks the const constraints on a grade.
         */
         void const_constraints(const Grade& grade)
         {
