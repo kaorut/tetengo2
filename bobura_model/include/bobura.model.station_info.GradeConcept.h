@@ -30,6 +30,8 @@ namespace bobura { namespace model { namespace station_info
         */
         void constraints()
         {
+            typedef typename Grade::string_type string_type;
+
             const Grade& grade = Grade::instance();
 
             const_constraints(grade);
@@ -40,7 +42,8 @@ namespace bobura { namespace model { namespace station_info
         */
         void const_constraints(const Grade& grade)
         {
-            grade.name();
+            const typename Grade::string_type name = grade.name();
+            boost::ignore_unused_variable_warning(name);
         }
 
 
