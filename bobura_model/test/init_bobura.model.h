@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TESTBOBURA_MODEL_INITBOBURA_MODEL_H)
-#define TESTBOBURA_MODEL_INITBOBURA_MODEL_H
+#if !defined(INITBOBURA_MODEL_H)
+#define INITBOBURA_MODEL_H
 
 #include <boost/test/unit_test.hpp>
 

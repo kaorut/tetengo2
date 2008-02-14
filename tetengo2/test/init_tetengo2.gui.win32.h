@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TESTTETENGO2_INITTETENGO2_GUI_WIN32_H)
-#define TESTTETENGO2_INITTETENGO2_GUI_WIN32_H
+#if !defined(INITTETENGO2_GUI_WIN32_H)
+#define INITTETENGO2_GUI_WIN32_H
 
 #include <boost/test/unit_test.hpp>
 

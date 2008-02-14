@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TESTTETENGO2_INITTETENGO2_H)
-#define TESTTETENGO2_INITTETENGO2_H
+#if !defined(INITTETENGO2_H)
+#define INITTETENGO2_H
 
 #include <boost/test/unit_test.hpp>
 
