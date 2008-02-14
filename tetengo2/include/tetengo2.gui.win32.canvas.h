@@ -27,18 +27,18 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a canvas for Win32 platforms.
 
-        \param Handle       A handle type for the native interface. It must
-                            conform to tetengo2::gui::HandleConcept<Handle>.
-        \param Size         A size type. It must conform to
-                            boost::SizeConcept<Size>.
-        \param String       A string type. It must conform to
-                            tetengo2::StringConcept<String>.
-        \param Encode       An encoding unary functor type. The type
-                            Encode<std::wstring, String> must conform to
-                            boost::UnaryFunctionConcept<Encode, std::wstring, String>.
-        \param WindowHandle A window handle type for the native interface. It
-                            must conform to
-                            tetengo2::gui::HandleConcept<WindowHandle>.
+        \tparam Handle       A handle type for the native interface. It must
+                             conform to tetengo2::gui::HandleConcept<Handle>.
+        \tparam Size         A size type. It must conform to
+                             boost::SizeConcept<Size>.
+        \tparam String       A string type. It must conform to
+                             tetengo2::StringConcept<String>.
+        \tparam Encode       An encoding unary functor type. The type
+                             Encode<std::wstring, String> must conform to
+                             boost::UnaryFunctionConcept<Encode, std::wstring, String>.
+        \tparam WindowHandle A window handle type for the native interface. It
+                             must conform to
+                             tetengo2::gui::HandleConcept<WindowHandle>.
     */
     template <
         typename Handle,

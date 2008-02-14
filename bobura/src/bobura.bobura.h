@@ -22,15 +22,15 @@ namespace bobura
     /*!
         \brief The class template for a bobura application.
 
-        \param GuiFactory      An abstract factory type to create platform
-                               specific GUI components. It must conform to
-                               tetengo2::gui::GuiFactoryConcept<GuiFactory>.
-        \param MessageLoop     A generator type for the message loop. It must
-                               conform to
-                               boost::GeneratorConcept<MessageLoop, int>.
-        \param QuitMessageLoop A unary functor type for quitting the message
-                               loop. It must conform to
-                               boost::UnaryFunctionConcept<QuitMessageLoop, void, int>.
+        \tparam GuiFactory      An abstract factory type to create platform
+                                specific GUI components. It must conform to
+                                tetengo2::gui::GuiFactoryConcept<GuiFactory>.
+        \tparam MessageLoop     A generator type for the message loop. It must
+                                conform to
+                                boost::GeneratorConcept<MessageLoop, int>.
+        \tparam QuitMessageLoop A unary functor type for quitting the message
+                                loop. It must conform to
+                                boost::UnaryFunctionConcept<QuitMessageLoop, void, int>.
     */
     template <
         typename GuiFactory,

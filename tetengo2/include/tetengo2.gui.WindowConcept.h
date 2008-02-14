@@ -17,7 +17,7 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The concept check class template for windows.
 
-        \param Window A window type.
+        \tparam Window A window type.
     */
     template <typename Window>
     class WindowConcept

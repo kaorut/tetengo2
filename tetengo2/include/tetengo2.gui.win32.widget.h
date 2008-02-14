@@ -33,25 +33,26 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a GUI widget for Win32 platforms.
 
-        \param Handle                A handle type to the native interface. It
-                                     must conform to
-                                     tetengo2::gui::HandleConcept<Handle>.
-        \param Canvas                A canvas type. It must conform to
-                                     tetengo2::gui::CanvasConcept<Canvas>.
-        \param Alert                 An alerting unary functor type. It must
-                                     conform to
-                                     boost::UnaryFunctionConcept<Alert, void, Handle, std::exception>.
-        \param String                A string type. It must conform to
-                                     tetengo2::StringConcept<String>.
-        \param Encode                An encoding unary functor type. The types
-                                     Encode<String, std::wstring> and
-                                     Encode<std::wstring, String> must conform
-                                     to
-                                     boost::UnaryFunctionConcept<Encode, String, std::wstring>
-                                     and
-                                     boost::UnaryFunctionConcept<Encode, std::wstring, String>.
-        \param PaintObserver         A paint observer type. It must conform to
-                                     tetengo2::gui::PaintObserverConcept<PaintObserver>.
+        \tparam Handle                A handle type to the native interface.
+                                      It must conform to
+                                      tetengo2::gui::HandleConcept<Handle>.
+        \tparam Canvas                A canvas type. It must conform to
+                                      tetengo2::gui::CanvasConcept<Canvas>.
+        \tparam Alert                 An alerting unary functor type. It must
+                                      conform to
+                                      boost::UnaryFunctionConcept<Alert, void, Handle, std::exception>.
+        \tparam String                A string type. It must conform to
+                                      tetengo2::StringConcept<String>.
+        \tparam Encode                An encoding unary functor type. The 
+                                      types Encode<String, std::wstring> and
+                                      Encode<std::wstring, String> must
+                                      conform to
+                                      boost::UnaryFunctionConcept<Encode, String, std::wstring>
+                                      and
+                                      boost::UnaryFunctionConcept<Encode, std::wstring, String>.
+        \tparam PaintObserver         A paint observer type. It must conform
+                                      to
+                                      tetengo2::gui::PaintObserverConcept<PaintObserver>.
     */
     template <
         typename Handle,

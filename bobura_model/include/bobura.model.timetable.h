@@ -21,8 +21,8 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a timetable.
 
-        \param Stations A collection type of stations. It must conform to
-                        bobura::model::StationsConcept<Stations>.
+        \tparam Stations A collection type of stations. It must conform to
+                         bobura::model::StationsConcept<Stations>.
     */
     template <
         typename Stations

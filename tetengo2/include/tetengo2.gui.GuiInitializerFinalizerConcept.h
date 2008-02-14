@@ -16,8 +16,8 @@ namespace tetengo2 { namespace gui
         \brief The concept check class template for GUI initialization and
                finalization managers.
 
-        \param GuiInitializerFinalizer A GUI initialization and finalization
-                                       manager type.
+        \tparam GuiInitializerFinalizer A GUI initialization and finalization
+                                        manager type.
     */
     template <typename GuiInitializerFinalizer>
     class GuiInitializerFinalizerConcept

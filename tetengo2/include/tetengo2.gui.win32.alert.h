@@ -29,11 +29,11 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The unary functor class template for an alert for Win32
                platforms.
 
-        \param WindowHandle A window handle type. It must conform to
-                            tetengo2::gui::HandleConcept<WindowHandle>.
-        \param Encode       An encoding unary functor type. The type
-                            Encode<std::wstring, std::string> must conform to
-                            boost::UnaryFunctionConcept<Encode, std::wstring, std::string>.
+        \tparam WindowHandle A window handle type. It must conform to
+                             tetengo2::gui::HandleConcept<WindowHandle>.
+        \tparam Encode       An encoding unary functor type. The type
+                             Encode<std::wstring, std::string> must conform to
+                             boost::UnaryFunctionConcept<Encode, std::wstring, std::string>.
     */
     template <
         typename WindowHandle,

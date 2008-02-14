@@ -21,11 +21,11 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for a GUI object factory.
 
-        \param GuiInitializerFinalizer A initalization and finalization manager
-                                       type. It must conform to
-                                       tetengo2::gui::GuiInitalizerFinalizerConcept<GuiInitializerFinalizer>.
-        \param Window                  A window type. It must conform to
-                                       tetengo2::gui::WindowConcept<Window>.
+        \tparam GuiInitializerFinalizer A initalization and finalization
+                                        manager type. It must conform to
+                                        tetengo2::gui::GuiInitalizerFinalizerConcept<GuiInitializerFinalizer>.
+        \tparam Window                  A window type. It must conform to
+                                        tetengo2::gui::WindowConcept<Window>.
     */
     template <
         typename GuiInitializerFinalizer,

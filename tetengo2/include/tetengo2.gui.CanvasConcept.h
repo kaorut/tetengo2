@@ -19,7 +19,7 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The concept check class template for canvases.
 
-        \param Canvas A canvas type.
+        \tparam Canvas A canvas type.
     */
     template <typename Canvas>
     class CanvasConcept

@@ -15,7 +15,7 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The concept check class template for window observeres.
 
-        \param WindowObserver A window observer type.
+        \tparam WindowObserver A window observer type.
     */
     template <typename WindowObserver>
     class WindowObserverConcept

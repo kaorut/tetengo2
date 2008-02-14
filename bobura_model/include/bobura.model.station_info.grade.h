@@ -19,8 +19,8 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a station grade.
 
-        \param String A string type. It must conform to
-                      tetengo2::StringConcept<String>.
+        \tparam String A string type. It must conform to
+                       tetengo2::StringConcept<String>.
     */
     template <typename String>
     class grade : private boost::noncopyable
@@ -64,8 +64,6 @@ namespace bobura { namespace model { namespace station_info
 
         /*!
             \brief Creates a grade.
-
-            \param name A name.
         */
         grade()
         {}
@@ -75,7 +73,7 @@ namespace bobura { namespace model { namespace station_info
 
     namespace
     {
-        template <typename T>
+        template <typename String>
         struct grade_name;
 
         template <>
@@ -144,8 +142,8 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a local station grade.
 
-        \param String A string type. It must conform to
-                      tetengo2::StringConcept<String>.
+        \tparam String A string type. It must conform to
+                       tetengo2::StringConcept<String>.
     */
     template <typename String>
     class local : public grade<String>
@@ -199,8 +197,8 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a major station grade.
  
-        \param String A string type. It must conform to
-                      tetengo2::StringConcept<String>.
+        \tparam String A string type. It must conform to
+                       tetengo2::StringConcept<String>.
    */
     template <typename String>
     class major : public grade<String>
@@ -254,8 +252,8 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a local terminal station grade.
 
-        \param String A string type. It must conform to
-                      tetengo2::StringConcept<String>.
+        \tparam String A string type. It must conform to
+                       tetengo2::StringConcept<String>.
     */
     template <typename String>
     class local_terminal : public grade<String>
@@ -309,8 +307,8 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a major terminal station grade.
 
-        \param String A string type. It must conform to
-                      tetengo2::StringConcept<String>.
+        \tparam String A string type. It must conform to
+                       tetengo2::StringConcept<String>.
     */
     template <typename String>
     class major_terminal : public grade<String>

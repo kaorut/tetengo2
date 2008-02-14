@@ -17,7 +17,7 @@ namespace tetengo2
     /*!
         \brief The concept check class template for size types.
 
-        \param Size A size type.
+        \tparam Size A size type.
     */
     template <typename Size>
     class SizeConcept

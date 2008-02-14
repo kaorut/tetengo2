@@ -19,8 +19,8 @@ namespace bobura { namespace message
     /*!
         \brief The class template for a window observer of the main window.
 
-        \param QuitMessageLoop A unary functor type for quitting the message
-                               loop. It must conform to
+        \tparam QuitMessageLoop A unary functor type for quitting the message
+                                loop. It must conform to
                                boost::UnaryFunctionConcept<QuitMessageLoop, void, int>
 
     */

@@ -19,10 +19,10 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a station.
 
-        \param String A string type. It must conform to
-                      tetengo2::StringConcept<String>.
-        \param Grade  A grade type. It must conform to
-                      bobura::model::station_info::GradeConcept<Grade>.
+        \tparam String A string type. It must conform to
+                       tetengo2::StringConcept<String>.
+        \tparam Grade  A grade type. It must conform to
+                       bobura::model::station_info::GradeConcept<Grade>.
     */
     template <typename String, typename Grade>
     class station
@@ -125,10 +125,10 @@ namespace std
     /*!
         \brief Swaps two station objects.
 
-        \param String A string type. It must conform to
-                      tetengo2::StringConcept<String>.
-        \param Grade  A grade type. It must conform to
-                      bobura::model::station_info::GradeConcept<Grade>.
+        \tparam String A string type. It must conform to
+                       tetengo2::StringConcept<String>.
+        \tparam Grade  A grade type. It must conform to
+                       bobura::model::station_info::GradeConcept<Grade>.
 
         \param station1 A station object #1.
         \param station2 A station object #2.

@@ -15,7 +15,7 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The concept check class template for paint observeres.
 
-        \param PaintObserver A paint observer type.
+        \tparam PaintObserver A paint observer type.
     */
     template <typename PaintObserver>
     class PaintObserverConcept

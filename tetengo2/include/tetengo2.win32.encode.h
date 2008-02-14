@@ -27,10 +27,10 @@ namespace tetengo2 { namespace win32
         \brief The unary functor class template for an encode using the Win32
                API.
 
-        \param Target A string type of the target. It must conform to
-                      tetengo2::StringConcept<Target>.
-        \param Source A string type of the source. It must conform to
-                      tetengo2::StringConcept<Source>.
+        \tparam Target A string type of the target. It must conform to
+                       tetengo2::StringConcept<Target>.
+        \tparam Source A string type of the source. It must conform to
+                       tetengo2::StringConcept<Source>.
     */
     template <typename Target, typename Source>
     class encode :

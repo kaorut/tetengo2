@@ -19,7 +19,7 @@ namespace bobura { namespace model
     /*!
         \brief The concept check class template for timetables.
 
-        \param Timetable A timetable type.
+        \tparam Timetable A timetable type.
     */
     template <typename Timetable>
     class TimetableConcept

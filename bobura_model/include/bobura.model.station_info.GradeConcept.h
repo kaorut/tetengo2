@@ -17,7 +17,7 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The concept check class template for a grade.
 
-        \param Grade A grade type.
+        \tparam Grade A grade type.
     */
     template <typename Grade>
     class GradeConcept

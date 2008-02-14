@@ -19,7 +19,7 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The concept check class template for widgets.
 
-        \param Widget A widget type.
+        \tparam Widget A widget type.
     */
     template <typename Widget>
     class WidgetConcept

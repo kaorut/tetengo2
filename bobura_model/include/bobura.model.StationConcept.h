@@ -19,7 +19,7 @@ namespace bobura { namespace model
     /*!
         \brief The concept check class template for a station.
 
-        \param Station A station type.
+        \tparam Station A station type.
     */
     template <typename Station>
     class StationConcept
