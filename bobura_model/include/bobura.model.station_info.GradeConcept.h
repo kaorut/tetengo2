@@ -3,7 +3,7 @@
 
     Copyright (C) 2007-2008 kaoru
 
-    $Id: bobura.model.StationConcept.h 155 2008-02-01 14:07:53Z kaoru $
+    $Id$
 */
 
 #if !defined(BOBURA_MODEL_STATIONINFO_GRADECONCEPT_H)

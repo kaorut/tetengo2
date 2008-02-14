@@ -10,7 +10,8 @@ for f in ` \
     -type f -name '*.h' -or -name '*.cpp' -or -name '*.page' \
 `; \
 do
+    echo 'Setting to '$f
     chmod 666 $f;
-    svn propdel svn:executable $f; \
-    svn propset svn:keywords 'Author Date Rev Id' $f; \
+    svn propdel -q svn:executable $f; \
+    svn propset -q svn:keywords 'Author Date Rev Id' $f; \
 done
