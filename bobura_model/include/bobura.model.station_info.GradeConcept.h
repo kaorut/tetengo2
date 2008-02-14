@@ -40,7 +40,7 @@ namespace bobura { namespace model { namespace station_info
         */
         void const_constraints(const Grade& grade)
         {
-            
+            grade.name();
         }
 
 
