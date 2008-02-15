@@ -51,6 +51,16 @@ namespace bobura { namespace model { namespace station_info
         // functions
 
         /*!
+            \brief Returns the instance of the grade.
+
+            \return The instance of the local.
+        */
+        static const grade& instance()
+        {
+            return local<string_type>::instance();
+        }
+
+        /*!
             \brief Returns the name.
 
             \return The name.

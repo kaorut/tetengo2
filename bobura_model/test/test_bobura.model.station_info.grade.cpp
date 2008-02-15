@@ -32,11 +32,13 @@ namespace test_bobura { namespace model { namespace station_info
     {
         BOOST_CHECKPOINT("");
 
+        bobura::model::station_info::grade<std::string>::instance();
         bobura::model::station_info::local<std::string>::instance();
         bobura::model::station_info::major<std::string>::instance();
         bobura::model::station_info::local_terminal<std::string>::instance();
         bobura::model::station_info::major_terminal<std::string>::instance();
 
+        bobura::model::station_info::grade<std::wstring>::instance();
         bobura::model::station_info::local<std::wstring>::instance();
         bobura::model::station_info::major<std::wstring>::instance();
         bobura::model::station_info::local_terminal<std::wstring>::instance();
@@ -47,6 +49,11 @@ namespace test_bobura { namespace model { namespace station_info
     {
         BOOST_CHECKPOINT("");
 
+        BOOST_CHECK(
+            bobura::model::station_info::grade<
+                std::string
+            >::instance().name() == std::string("local")
+        );
         BOOST_CHECK(
             bobura::model::station_info::local<
                 std::string
@@ -68,6 +75,11 @@ namespace test_bobura { namespace model { namespace station_info
             >::instance().name() == std::string("major terminal")
         );
 
+        BOOST_CHECK(
+            bobura::model::station_info::grade<
+                std::wstring
+            >::instance().name() == std::wstring(L"local")
+        );
         BOOST_CHECK(
             bobura::model::station_info::local<
                 std::wstring

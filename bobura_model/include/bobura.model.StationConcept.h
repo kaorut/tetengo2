@@ -33,6 +33,7 @@ namespace bobura { namespace model
         void constraints()
         {
             typedef typename Station::string_type string_type;
+            typedef typename Station::grade_type grade_type;
 
             m_station.swap(m_station);
             std::swap(m_station, m_station);
@@ -49,6 +50,9 @@ namespace bobura { namespace model
         {
             const typename Station::string_type name = station.name();
             boost::ignore_unused_variable_warning(name);
+
+            const typename Station::grade_type& grade = station.grade();
+            boost::ignore_unused_variable_warning(grade);
         }
 
 

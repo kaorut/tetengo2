@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MODEL_STATION_H)
 #define BOBURA_MODEL_STATION_H
 
+#include <cassert>
+
 #include <tetengo2.StringConcept.h>
 
 #include "bobura.model.station_info.GradeConcept.h"
@@ -40,17 +42,22 @@ namespace bobura { namespace model
         //! The string type.
         typedef String string_type;
 
+        //! The grade type.
+        typedef Grade grade_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a station.
 
-            \param name A name.
+            \param name  A name.
+            \param grade A grade.
         */
-        station(const string_type& name)
+        station(const string_type& name, const grade_type& grade)
         :
-        m_name(name)
+        m_name(name),
+        m_p_grade(&grade)
         {}
 
         /*!
@@ -60,8 +67,11 @@ namespace bobura { namespace model
         */
         station(const station& another)
         :
-        m_name(another.m_name)
-        {}
+        m_name(another.m_name),
+        m_p_grade(another.m_p_grade)
+        {
+            assert(another.m_p_grade != NULL);
+        }
 
         /*!
             \brief Destroys the station.
@@ -82,6 +92,7 @@ namespace bobura { namespace model
         throw ()
         {
             m_name.swap(another.m_name);
+            std::swap(m_p_grade, another.m_p_grade);
         }
 
         /*!
@@ -98,6 +109,35 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Checks whether this is equal to anther station object.
+
+            \param another Another station object.
+
+            \retval true  When this is equal to another.
+            \retval false Otherwise.
+        */
+        bool operator==(const station& another)
+        const
+        {
+            return m_name == another.m_name &&
+                   m_p_grade == another.m_p_grade;
+        }
+
+        /*!
+            \brief Checks whether this is not equal to anther station object.
+
+            \param another Another station object.
+
+            \retval true  When this is not equal to another.
+            \retval false Otherwise.
+        */
+        bool operator!=(const station& another)
+        const
+        {
+            return !(*this == another);
+        }
+
+        /*!
             \brief Returns the name.
 
             \return The name.
@@ -108,11 +148,25 @@ namespace bobura { namespace model
             return m_name;
         }
 
+        /*!
+            \brief Returns the grade.
+
+            \return The grade.
+        */
+        const grade_type& grade()
+        const
+        {
+            assert(m_p_grade != NULL);
+            return *m_p_grade;
+        }
+
 
     private:
         // variables
 
         string_type m_name;
+
+        const grade_type* m_p_grade;
 
 
     };
@@ -145,6 +199,5 @@ namespace std
 
 
 }
-
 
 #endif
