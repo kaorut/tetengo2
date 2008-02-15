@@ -7,11 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#if defined(_MFC_VER)
 #include "afxres.h"
-#else
-#include <windows.h>
-#endif
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -71,7 +67,7 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "041104b0"
+        BLOCK "007f0000"
         BEGIN
             VALUE "CompanyName", "tetengo"
             VALUE "FileDescription", "bobura"
@@ -85,7 +81,7 @@ BEGIN
     END
     BLOCK "VarFileInfo"
     BEGIN
-        VALUE "Translation", 0x411, 1200
+        VALUE "Translation", 0x7f, 0
     END
 END
 
@@ -97,7 +93,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_KUMA               ICON                    "kuma.ico"
+IDI_KUMA                ICON                    "kuma.ico"
 #endif    // “ú–{Œê resources
 /////////////////////////////////////////////////////////////////////////////
 
