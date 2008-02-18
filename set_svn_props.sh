@@ -13,7 +13,8 @@ for f in ` \
         -name '*.cpp' -or \
         -name '*.page' -or \
         -name 'Doxyfile' -or \
-        -name 'Doxyfile.test' \
+        -name 'Doxyfile.test' -or \
+        -name 'bobura_config.h-original' \
 `; \
 do
     echo 'Setting to '$f; \
@@ -26,7 +27,6 @@ for f in ` \
     find . bobura bobura_model tetengo2 \
         -type f \
         -name 'bobura.sln' -or \
-        -name 'lauch_vsee.bat' -or \
         -name 'set_svn_props.sh'
 `; \
 do

@@ -7,7 +7,8 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#if defined(USE_VSEE)
+#include "bobura_config.h"
+#if USE_VISUAL_CPP_EXPRESS_EDITION
 #include <windows.h>
 #else
 #include "afxres.h"
@@ -38,11 +39,12 @@ END
 
 2 TEXTINCLUDE 
 BEGIN
-    "#if defined(USE_VSEE)\r\n"
+    "#include ""bobura_config.h""\r\n"
+    "#if USE_VISUAL_CPP_EXPRESS_EDITION\r\n"
     "#include <windows.h>\r\n"
     "#else\r\n"
     "#include ""afxres.h""\r\n"
-    "#endif"
+    "#endif\r\n"
     "\0"
 END
 
@@ -77,14 +79,15 @@ BEGIN
     BEGIN
         BLOCK "007f0000"
         BEGIN
-            VALUE "CompanyName", "tetengo"
-            VALUE "FileDescription", "bobura"
-            VALUE "FileVersion", "0, 0, 0, 0"
+            VALUE "Comments", "Some software about railways"
+            VALUE "CompanyName", "www.tetengo.org"
+            VALUE "FileDescription", "Some software about railways"
+            VALUE "FileVersion", "0.0.0"
             VALUE "InternalName", "bobura"
             VALUE "LegalCopyright", "Copyright (C) 2007-2008 kaoru"
-            VALUE "OriginalFilename", "bobura.rc"
+            VALUE "OriginalFilename", "bobura.exe"
             VALUE "ProductName", "bobura"
-            VALUE "ProductVersion", "0, 0, 0, 0"
+            VALUE "ProductVersion", "0.0.0"
         END
     END
     BLOCK "VarFileInfo"
