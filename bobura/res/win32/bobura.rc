@@ -38,7 +38,7 @@ END
 
 2 TEXTINCLUDE 
 BEGIN
-    "#if defined(USE_VSEE) && USE_VSEE == 1 \r\n"
+    "#if defined(USE_VSEE)\r\n"
     "#include <windows.h>\r\n"
     "#else\r\n"
     "#include ""afxres.h""\r\n"
