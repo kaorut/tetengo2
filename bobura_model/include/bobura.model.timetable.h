@@ -9,22 +9,32 @@
 #if !defined(BOBURA_MODEL_TIMETABLE_H)
 #define BOBURA_MODEL_TIMETABLE_H
 
+#include <boost/concept_check.hpp>
+
+#include "bobura.model.StationConcept.h"
+
 
 namespace bobura { namespace model
 {
     /*!
         \brief The class template for a timetable.
 
-        \tparam Station A station type. It must conform to
-                        bobura::model::StationConcept<Station>.
+        \tparam Station   A station type. It must conform to
+                          bobura::model::StationConcept<Station>.
+        \tparam Kilometer A kilometer type. It must conform to
+                          boost::LessThanComparableConcept<Kilometer>.
     */
     template <
-        typename Station
+        typename Station, 
+        typename Kilometer
     >
     class timetable
     {
     private:
         // concept checks
+
+        BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
+        BOOST_CLASS_REQUIRE(Kilometer, boost, LessThanComparableConcept);
 
 
     public:
@@ -32,6 +42,9 @@ namespace bobura { namespace model
 
         //! The station type.
         typedef Station station_type;
+
+        //! The kilometer type.
+        typedef Kilometer kilometer_type;
 
 
         // constructors and destructor
@@ -112,13 +125,18 @@ namespace std
     /*!
         \brief Swaps two timetable objects.
 
+        \tparam Station   A station type. It must conform to
+                          bobura::model::StationConcept<Station>.
+        \tparam Kilometer A kilometer type. It must conform to
+                          boost::LessThanComparableConcept<Kilometer>.
+
         \param timetable1 A timetable object #1.
         \param timetable2 A timetable object #2.
     */
-    template <typename Stations>
+    template <typename Stations, typename Kilometer>
     void swap(
-        bobura::model::timetable<Stations>& timetable1,
-        bobura::model::timetable<Stations>& timetable2
+        bobura::model::timetable<Stations, Kilometer>& timetable1,
+        bobura::model::timetable<Stations, Kilometer>& timetable2
     )
     throw ()
     {

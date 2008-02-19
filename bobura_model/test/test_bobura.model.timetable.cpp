@@ -8,7 +8,9 @@
 
 #include "precompiled.h"
 
+#include "bobura.model.station.h"
 #include "bobura.model.timetable.h"
+#include "bobura.model.station_info.grade.h"
 
 #include "test_bobura.model.timetable.h"
 
@@ -32,6 +34,14 @@ namespace test_bobura { namespace model
 
     void timetable::construction()
     {
+        typedef
+            bobura::model::station<
+                std::wstring, bobura::model::station_info::grade<std::wstring>
+            >
+            station_type;
+
+        bobura::model::timetable<station_type, double> timetable;
+
         BOOST_WARN("Not implemented yet.");
     }
 

@@ -32,7 +32,8 @@ namespace bobura { namespace model
         */
         void constraints()
         {
-            typedef typename Timetable::stations_type stations_type;
+            typedef typename Timetable::station_type station_type;
+            typedef typename Timetable::kilometer_type kilometer_type;
 
             m_timetable.swap(m_timetable);
             std::swap(m_timetable, m_timetable);
@@ -47,9 +48,6 @@ namespace bobura { namespace model
         */
         void const_constraints(const Timetable& timetable)
         {
-            typename Timetable::stations_type* const p_stations =
-                timetable.p_stations();
-            boost::ignore_unused_variable_warning(p_stations);
         }
 
 

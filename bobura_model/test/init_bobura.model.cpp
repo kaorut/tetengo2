@@ -11,7 +11,7 @@
 #include "init_bobura.model.h"
 #include "init_bobura.model.station_info.h"
 #include "test_bobura.model.station.h"
-//#include "test_bobura.model.timetable.h"
+#include "test_bobura.model.timetable.h"
 
 
 namespace test_bobura { namespace model
@@ -26,7 +26,7 @@ namespace test_bobura { namespace model
         p_suite->add(station_info::suite());
 
         p_suite->add(station::suite());
-//        p_suite->add(timetable::suite());
+        p_suite->add(timetable::suite());
 
         return p_suite;
     }

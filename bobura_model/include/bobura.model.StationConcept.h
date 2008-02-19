@@ -25,6 +25,11 @@ namespace bobura { namespace model
     class StationConcept
     {
     public:
+        // constructors and destructor
+
+        StationConcept();
+
+
         // functions
 
         /*!
