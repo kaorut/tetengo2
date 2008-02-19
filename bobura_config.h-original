@@ -10,10 +10,11 @@
 */
 
 #if !defined(BOBURACONFIG_H)
+#define BOBURACONFIG_H
 
 
 // Set to 1 when you are using Visual C++ Express Edition.
-#define USE_VISUAL_CPP_EXPESS_EDITION 0
+#define USE_VISUAL_CPP_EXPRESS_EDITION 0
 
 
 #endif
