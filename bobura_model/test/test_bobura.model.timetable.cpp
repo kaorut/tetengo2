@@ -26,7 +26,6 @@ namespace test_bobura { namespace model
         p_suite->add(BOOST_TEST_CASE(swap));
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
-        p_suite->add(BOOST_TEST_CASE(p_stations));
 
         return p_suite;
     }
@@ -47,11 +46,6 @@ namespace test_bobura { namespace model
     }
 
     void timetable::operator_equal()
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    void timetable::p_stations()
     {
         BOOST_WARN("Not implemented yet.");
     }

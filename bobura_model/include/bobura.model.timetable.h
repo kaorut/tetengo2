@@ -9,23 +9,17 @@
 #if !defined(BOBURA_MODEL_TIMETABLE_H)
 #define BOBURA_MODEL_TIMETABLE_H
 
-#include <algorithm>
-#include <memory>
-#include <stdexcept>
-
-#include <boost/scoped_ptr.hpp>
-
 
 namespace bobura { namespace model
 {
     /*!
         \brief The class template for a timetable.
 
-        \tparam Stations A collection type of stations. It must conform to
-                         bobura::model::StationsConcept<Stations>.
+        \tparam Station A station type. It must conform to
+                        bobura::model::StationConcept<Station>.
     */
     template <
-        typename Stations
+        typename Station
     >
     class timetable
     {
@@ -36,25 +30,17 @@ namespace bobura { namespace model
     public:
         // types
 
-        //! The collection type of stations.
-        typedef Stations stations_type;
+        //! The station type.
+        typedef Station station_type;
 
 
         // constructors and destructor
 
         /*!
             \brief Creates a timetalble.
-
-            \param p_stations A auto pointer to a collection of stations. It
-                              must not be NULL.
         */
-        timetable(std::auto_ptr<stations_type> p_stations)
-        :
-        m_p_stations(p_stations)
-        {
-            if (m_p_stations.get() == NULL)
-                throw std::invalid_argument("p_stations is NULL.");
-        }
+        timetable()
+        {}
 
         /*!
             \brief Copies a timetable.
@@ -62,12 +48,10 @@ namespace bobura { namespace model
             \param another Another timetable object.
         */
         timetable(const timetable& another)
-        :
-        m_p_stations(new stations_type(*another.m_p_stations))
         {}
 
         /*!
-            \brief Destroys the bobura application.
+            \brief Destroys the timetable.
         */
         ~timetable()
         throw ()
@@ -84,7 +68,6 @@ namespace bobura { namespace model
         void swap(timetable& another)
         throw ()
         {
-            m_p_stations.swap(another.m_p_stations);
         }
 
         /*!
@@ -114,22 +97,9 @@ namespace bobura { namespace model
             return false;
         }
 
-        /*!
-            \brief Returns the pointer to the stations.
-
-            \return The pointer to the stations.
-        */
-        stations_type* p_stations()
-        const
-        {
-            return m_p_stations.get();
-        }
-
 
     private:
         // variables
-
-        boost::scoped_ptr<stations_type> m_p_stations;
 
 
     };
