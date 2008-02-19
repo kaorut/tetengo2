@@ -101,6 +101,20 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Checks whether this is equal to anther timetable object.
+
+            \param another Another timetable object.
+
+            \retval true  When this is equal to another.
+            \retval false Otherwise.
+        */
+        bool operator==(const timetable& another)
+        const
+        {
+            return false;
+        }
+
+        /*!
             \brief Returns the pointer to the stations.
 
             \return The pointer to the stations.

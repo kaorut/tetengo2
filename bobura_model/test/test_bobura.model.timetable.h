@@ -27,6 +27,8 @@ namespace test_bobura { namespace model
 
         static void operator_assign();
 
+        static void operator_equal();
+
         static void p_stations();
 
 
