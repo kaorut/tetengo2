@@ -12,8 +12,6 @@
 #include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
-#include <tetengo2.SizeConcept.h>
-
 #include "bobura.model.StationConcept.h"
 
 
@@ -24,18 +22,20 @@ namespace bobura { namespace model { namespace timetable_info
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
-        \tparam Size    A size type. It must conform to
-                        tetengo2::SizeConcept<Size>.
+        \tparam Meters  A meters type. It must conform to
+                        boost::EqualityComparableConcept<Meters> and
+                        boost::LessThanComparableConcept<Meters>.
     */
-    template <typename Station, typename Size>
+    template <typename Station, typename Meters>
     class station_and_meters :
-        private boost::equality_comparable<station_and_meters<Station, Size> >
+        private boost::equality_comparable<station_and_meters<Station, Meters> >
     {
     private:
         // concept checks
 
         BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
-        BOOST_CLASS_REQUIRE(Size, tetengo2, SizeConcept);
+        BOOST_CLASS_REQUIRE(Meters, boost, EqualityComparableConcept);
+        BOOST_CLASS_REQUIRE(Meters, boost, LessThanComparableConcept);
 
 
     public:
@@ -44,8 +44,8 @@ namespace bobura { namespace model { namespace timetable_info
         //! The station type.
         typedef Station station_type;
 
-        //! The size type.
-        typedef Size size_type;
+        //! The meters type.
+        typedef Meters meters_type;
 
 
         // constructors and destructor
@@ -58,7 +58,7 @@ namespace bobura { namespace model { namespace timetable_info
         */
         station_and_meters(
             const station_type& station,
-            const size_type     meters
+            const meters_type   meters
         )
         :
         m_station(station),
@@ -129,18 +129,23 @@ namespace bobura { namespace model { namespace timetable_info
                    m_meters == another.m_meters;
         }
 
+        /*!
+            \brief Returns the station.
+
+            \return The station.
+        */
         const station_type& station()
         const
         {
             return m_station;
         }
 
-        station_type& station()
-        {
-            return m_station;
-        }
+        /*!
+            \brief Returns the meters.
 
-        size_type meters()
+            \return The meters.
+        */
+        meters_type meters()
         const
         {
             return m_meters;
@@ -152,7 +157,7 @@ namespace bobura { namespace model { namespace timetable_info
 
         station_type m_station;
 
-        size_type m_meters;
+        meters_type m_meters;
 
 
     };
@@ -167,17 +172,17 @@ namespace std
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
-        \tparam Size    A size type. It must conform to
-                        tetengo2::SizeConcept<Size>.
+        \tparam Meters  A meters type. It must conform to
+                        tetengo2::MetersConcept<Meters>.
 
         \param station_and_meters1 A station_and_meters object #1.
         \param station_and_meters2 A station_and_meters object #2.
     */
-    template <typename Station, typename Size>
+    template <typename Station, typename Meters>
     void swap(
-        bobura::model::timetable_info::station_and_meters<Station, Size>&
+        bobura::model::timetable_info::station_and_meters<Station, Meters>&
         station_and_meters1,
-        bobura::model::timetable_info::station_and_meters<Station, Size>&
+        bobura::model::timetable_info::station_and_meters<Station, Meters>&
         station_and_meters2
     )
     throw ()

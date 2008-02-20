@@ -27,6 +27,7 @@
 #include <boost/concept_check.hpp>
 #include <boost/format.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/operators.hpp>
 #include <boost/program_options.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/scoped_array.hpp>

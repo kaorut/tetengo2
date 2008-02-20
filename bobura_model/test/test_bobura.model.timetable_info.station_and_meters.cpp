@@ -30,7 +30,8 @@ namespace test_bobura { namespace model { namespace timetable_info
         p_suite->add(BOOST_TEST_CASE(swap));
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
-        p_suite->add(BOOST_TEST_CASE(operator_less));
+        p_suite->add(BOOST_TEST_CASE(station));
+        p_suite->add(BOOST_TEST_CASE(meters));
 
         return p_suite;
     }
@@ -43,13 +44,13 @@ namespace test_bobura { namespace model { namespace timetable_info
         typedef bobura::model::station<std::wstring, grade_type> station_type;
 
         {
-            bobura::model::timetable_info::station_and_meters<
+            const bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
             > station_and_meters(
                 station_type(L"", grade_type::instance()), 0
             );
 
-            bobura::model::timetable_info::station_and_meters<
+            const bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
             > copy_of_station_and_meters(station_and_meters);
 
@@ -117,7 +118,7 @@ namespace test_bobura { namespace model { namespace timetable_info
             > station_and_meters1(
                 station_type(L"A", grade_type::instance()), 1
             );
-            bobura::model::timetable_info::station_and_meters<
+            const bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
             > station_and_meters2(
                 station_type(L"B", grade_type::instance()), 2
@@ -137,12 +138,12 @@ namespace test_bobura { namespace model { namespace timetable_info
         typedef bobura::model::station<std::wstring, grade_type> station_type;
 
         {
-            bobura::model::timetable_info::station_and_meters<
+            const bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
             > station_and_meters1(
                 station_type(L"A", grade_type::instance()), 1
             );
-            bobura::model::timetable_info::station_and_meters<
+            const bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
             > station_and_meters2(
                 station_type(L"A", grade_type::instance()), 1
@@ -151,12 +152,12 @@ namespace test_bobura { namespace model { namespace timetable_info
             BOOST_CHECK(station_and_meters1 == station_and_meters2);
         }
         {
-            bobura::model::timetable_info::station_and_meters<
+            const bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
             > station_and_meters1(
                 station_type(L"A", grade_type::instance()), 1
             );
-            bobura::model::timetable_info::station_and_meters<
+            const bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
             > station_and_meters2(
                 station_type(L"B", grade_type::instance()), 2
@@ -166,7 +167,22 @@ namespace test_bobura { namespace model { namespace timetable_info
         }
     }
 
-    void station_and_meters::operator_less()
+    void station_and_meters::station()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef bobura::model::station_info::grade<std::wstring> grade_type;
+        typedef bobura::model::station<std::wstring, grade_type> station_type;
+
+        const station_type station(L"", grade_type::instance());
+        const bobura::model::timetable_info::station_and_meters<
+            station_type, std::size_t
+        > station_and_meters(station, 0);
+
+        BOOST_CHECK(station_and_meters.station() == station);
+    }
+
+    void station_and_meters::meters()
     {
         BOOST_CHECKPOINT("");
 
@@ -174,18 +190,31 @@ namespace test_bobura { namespace model { namespace timetable_info
         typedef bobura::model::station<std::wstring, grade_type> station_type;
 
         {
-            bobura::model::timetable_info::station_and_meters<
+            const bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
-            > station_and_meters1(
-                station_type(L"A", grade_type::instance()), 1
-            );
-            bobura::model::timetable_info::station_and_meters<
-                station_type, std::size_t
-            > station_and_meters2(
-                station_type(L"A", grade_type::instance()), 1
+            > station_and_meters(
+                station_type(L"", grade_type::instance()), 0
             );
 
-            BOOST_CHECK(station_and_meters1 == station_and_meters2);
+            BOOST_CHECK_EQUAL(station_and_meters.meters(), 0U);
+        }
+        {
+            const bobura::model::timetable_info::station_and_meters<
+                station_type, std::size_t
+            > station_and_meters(
+                station_type(L"", grade_type::instance()), 1
+            );
+
+            BOOST_CHECK_EQUAL(station_and_meters.meters(), 1U);
+        }
+        {
+            const bobura::model::timetable_info::station_and_meters<
+                station_type, std::size_t
+            > station_and_meters(
+                station_type(L"", grade_type::instance()), 2
+            );
+
+            BOOST_CHECK_EQUAL(station_and_meters.meters(), 2U);
         }
     }
 

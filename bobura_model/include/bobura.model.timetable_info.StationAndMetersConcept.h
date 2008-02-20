@@ -39,9 +39,6 @@ namespace bobura { namespace model { namespace timetable_info
             StationAndMeters& station_and_meters =
                 m_station_and_meters = m_station_and_meters;
 
-            station_type& station = m_station_and_meters.station();
-            boost::ignore_unused_variable_warning(station);
-
             const_constraints(m_station_and_meters);
         }
 
@@ -54,7 +51,7 @@ namespace bobura { namespace model { namespace timetable_info
                 station_and_meters.station();
             boost::ignore_unused_variable_warning(station);
 
-            const typename StationAndMeters::size_type& meters =
+            const typename StationAndMeters::meters_type& meters =
                 station_and_meters.meters();
             boost::ignore_unused_variable_warning(meters);
         }
