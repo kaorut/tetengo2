@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MODEL_TIMETABLENINFO_STATIONANDMETERSCONCEPT_H)
 #define BOBURA_MODEL_TIMETABLENINFO_STATIONANDMETERSCONCEPT_H
 
+#include <algorithm>
+
 #include <boost/concept_check.hpp>
 
 

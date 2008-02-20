@@ -9,7 +9,9 @@
 #if !defined(BOBURA_MODEL_TIMETABLEINFO_STATIONANDMETERS_H)
 #define BOBURA_MODEL_TIMETABLEINFO_STATIONANDMETERS_H
 
-#include <boost/concept_check.hpp>
+//#include <algorithm>
+
+//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
 #include "bobura.model.StationConcept.h"

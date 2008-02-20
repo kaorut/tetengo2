@@ -9,6 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_CANVAS_H)
 #define STUBTETENGO2_GUI_CANVAS_H
 
+#include <string>
 #include <utility>
 
 #include <boost/concept_check.hpp>

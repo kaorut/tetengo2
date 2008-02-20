@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_HANDLECONCEPT_H)
 #define TETENGO2_GUI_HANDLECONCEPT_H
 
+#include <cstddef>
+
 #include <boost/concept_check.hpp>
 
 

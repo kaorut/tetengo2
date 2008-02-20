@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_PAINTOBSERVERCONCEPT_H)
 #define TETENGO2_GUI_PAINTOBSERVERCONCEPT_H
 
+#include <cstddef>
+
 
 namespace tetengo2 { namespace gui
 {

@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_GUIFACTORY_H)
 #define TETENGO2_GUI_GUIFACTORY_H
 
+//#include <memory>
+
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 

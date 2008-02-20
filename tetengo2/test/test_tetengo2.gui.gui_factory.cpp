@@ -8,6 +8,12 @@
 
 #include "precompiled.h"
 
+#include <cstddef>
+#include <string>
+#include <memory>
+
+#include <boost/test/unit_test.hpp>
+
 #include "tetengo2.gui.gui_factory.h"
 
 #include "stub_tetengo2.encode.h"

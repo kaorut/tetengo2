@@ -8,6 +8,10 @@
 
 #include "precompiled.h"
 
+//#include <exception>
+
+#include <boost/program_options.hpp>
+
 #include "bobura.configuration.h"
 
 

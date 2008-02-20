@@ -9,8 +9,10 @@
 #if !defined(TETENGO2_WIN32_ENCODE_H)
 #define TETENGO2_WIN32_ENCODE_H
 
+#include <cstddef>
 #include <functional>
 #include <stdexcept>
+//#include <string>
 
 #include <boost/concept_check.hpp>
 #include <boost/scoped_array.hpp>

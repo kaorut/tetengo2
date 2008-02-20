@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_GUIINITIALIZERFINALIZER_H)
 #define TETENGO2_GUI_GUIINITIALIZERFINALIZER_H
 
+#include <cstddef>
 #include <stdexcept>
 
 #include <boost/noncopyable.hpp>

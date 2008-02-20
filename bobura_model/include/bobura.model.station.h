@@ -9,9 +9,12 @@
 #if !defined(BOBURA_MODEL_STATION_H)
 #define BOBURA_MODEL_STATION_H
 
+#include <algorithm>
 #include <cassert>
+#include <cstddef>
+//#include <string>
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
 #include <tetengo2.StringConcept.h>

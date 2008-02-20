@@ -8,6 +8,10 @@
 
 #include "precompiled.h"
 
+#include <cstddef>
+
+#include <boost/test/unit_test.hpp>
+
 #include "tetengo2.gui.win32.alert.h"
 
 #include "stub_tetengo2.encode.h"

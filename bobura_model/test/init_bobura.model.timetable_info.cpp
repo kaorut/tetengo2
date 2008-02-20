@@ -8,6 +8,8 @@
 
 #include "precompiled.h"
 
+#include <boost/test/unit_test.hpp>
+
 #include "init_bobura.model.timetable_info.h"
 #include "test_bobura.model.timetable_info.station_and_meters.h"
 

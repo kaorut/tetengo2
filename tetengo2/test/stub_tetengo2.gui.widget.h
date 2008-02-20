@@ -9,7 +9,9 @@
 #if !defined(STUBTETENGO2_GUI_WIDGET_H)
 #define STUBTETENGO2_GUI_WIDGET_H
 
+#include <exception>
 #include <memory>
+#include <string>
 
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>

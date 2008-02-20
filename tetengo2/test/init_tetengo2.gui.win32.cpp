@@ -8,6 +8,8 @@
 
 #include "precompiled.h"
 
+#include <boost/test/unit_test.hpp>
+
 #include "init_tetengo2.gui.win32.h"
 #include "test_tetengo2.gui.win32.alert.h"
 #include "test_tetengo2.gui.win32.canvas.h"

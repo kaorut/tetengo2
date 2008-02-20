@@ -8,6 +8,10 @@
 
 #include "precompiled.h"
 
+#include <string>
+
+#include <boost/test/unit_test.hpp>
+
 #include "tetengo2.win32.encode.h"
 
 #include "test_tetengo2.win32.encode.h"

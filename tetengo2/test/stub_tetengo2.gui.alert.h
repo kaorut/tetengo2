@@ -9,8 +9,11 @@
 #if !defined(STUBTETENGO2_GUI_ALERT_H)
 #define STUBTETENGO2_GUI_ALERT_H
 
+#include <cstddef>
 #include <exception>
 #include <functional>
+#include <stdexcept>
+#include <string>
 
 #include <boost/concept_check.hpp>
 

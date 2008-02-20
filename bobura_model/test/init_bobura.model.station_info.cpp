@@ -8,6 +8,8 @@
 
 #include "precompiled.h"
 
+#include <boost/test/unit_test.hpp>
+
 #include "init_bobura.model.station_info.h"
 #include "test_bobura.model.station_info.grade.h"
 

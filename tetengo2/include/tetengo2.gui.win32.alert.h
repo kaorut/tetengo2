@@ -9,11 +9,13 @@
 #if !defined(TETENGO2_GUI_WIN32_ALERT_H)
 #define TETENGO2_GUI_WIN32_ALERT_H
 
+//#include <cstddef>
 #include <exception>
 #include <functional>
-#include <sstream>
+#include <stdexcept>
 #include <string>
 
+//#include <boost/concept_check.hpp>
 #include <boost/format.hpp>
 
 #define OEMRESOURCE

@@ -8,6 +8,8 @@
 
 #include "precompiled.h"
 
+#include <boost/test/unit_test.hpp>
+
 #include "tetengo2.generator.h"
 
 #include "test_tetengo2.generator.h"
