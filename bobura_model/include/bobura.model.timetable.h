@@ -133,6 +133,12 @@ namespace std
     )
     throw ()
     {
+        boost::function_requires<
+            bobura::model::timetable_info::StationAndMetersConcept<
+                StationAndMeters
+            >
+        >();
+
         timetable1.swap(timetable2);
     }
 

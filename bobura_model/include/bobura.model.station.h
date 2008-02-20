@@ -184,6 +184,11 @@ namespace std
     )
     throw ()
     {
+        boost::function_requires<tetengo2::StringConcept<String> >();
+        boost::function_requires<
+            bobura::model::station_info::GradeConcept<Grade>
+        >();
+
         station1.swap(station2);
     }
 

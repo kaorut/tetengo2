@@ -24,7 +24,7 @@ namespace bobura { namespace model { namespace timetable_info
                         bobura::model::StationConcept<Station>.
         \tparam Meters  A meters type. It must conform to
                         boost::EqualityComparableConcept<Meters> and
-                        boost::LessThanComparableConcept<Meters>.
+                        boost::ComparableConcept<Meters>.
     */
     template <typename Station, typename Meters>
     class station_and_meters :
@@ -37,7 +37,7 @@ namespace bobura { namespace model { namespace timetable_info
 
         BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
         BOOST_CLASS_REQUIRE(Meters, boost, EqualityComparableConcept);
-        BOOST_CLASS_REQUIRE(Meters, boost, LessThanComparableConcept);
+        BOOST_CLASS_REQUIRE(Meters, boost, ComparableConcept);
 
 
     public:
@@ -187,7 +187,8 @@ namespace std
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
         \tparam Meters  A meters type. It must conform to
-                        tetengo2::MetersConcept<Meters>.
+                        boost::EqualityComparableConcept<Meters> and
+                        boost::ComparableConcept<Meters>.
 
         \param station_and_meters1 A station_and_meters object #1.
         \param station_and_meters2 A station_and_meters object #2.
@@ -201,6 +202,10 @@ namespace std
     )
     throw ()
     {
+        boost::function_requires<bobura::model::StationConcept<Station> >();
+        boost::function_requires<boost::EqualityComparableConcept<Meters> >();
+        boost::function_requires<boost::ComparableConcept<Meters> >();
+
         station_and_meters1.swap(station_and_meters2);
     }
 
