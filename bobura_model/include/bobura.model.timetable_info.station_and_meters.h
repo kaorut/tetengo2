@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TIMETABLEINFO_STATIONANDMETERS_H
 
 #include <boost/concept_check.hpp>
+#include <boost/operators.hpp>
 
 #include <tetengo2.SizeConcept.h>
 
@@ -27,7 +28,8 @@ namespace bobura { namespace model { namespace timetable_info
                         tetengo2::SizeConcept<Size>.
     */
     template <typename Station, typename Size>
-    class station_and_meters
+    class station_and_meters :
+        private boost::equality_comparable<station_and_meters<Station, Size> >
     {
     private:
         // concept checks
@@ -85,8 +87,7 @@ namespace bobura { namespace model { namespace timetable_info
         // functions
 
         /*!
-            \brief Swaps the members with another station_and_meters
-                   object.
+            \brief Swaps the members with another station_and_meters object.
 
             \param another Another station_and_meters object.
         */
@@ -128,23 +129,13 @@ namespace bobura { namespace model { namespace timetable_info
                    m_meters == another.m_meters;
         }
 
-        /*!
-            \brief Checks whether this is not equal to anther
-                   station_and_meters object.
-
-            \param another Another station_and_meters object.
-
-            \retval true  When this is not equal to another.
-            \retval false Otherwise.
-        */
-        bool operator!=(const station_and_meters& another)
-        const
-        {
-            return !(*this == another);
-        }
-
         const station_type& station()
         const
+        {
+            return m_station;
+        }
+
+        station_type& station()
         {
             return m_station;
         }

@@ -11,6 +11,9 @@
 
 #include <cassert>
 
+#include <boost/concept_check.hpp>
+#include <boost/operators.hpp>
+
 #include <tetengo2.StringConcept.h>
 
 #include "bobura.model.station_info.GradeConcept.h"
@@ -27,7 +30,8 @@ namespace bobura { namespace model
                        bobura::model::station_info::GradeConcept<Grade>.
     */
     template <typename String, typename Grade>
-    class station
+    class station :
+        private boost::equality_comparable<station<String, Grade> >
     {
     private:
         // concept checks
@@ -121,20 +125,6 @@ namespace bobura { namespace model
         {
             return m_name == another.m_name &&
                    m_p_grade == another.m_p_grade;
-        }
-
-        /*!
-            \brief Checks whether this is not equal to anther station object.
-
-            \param another Another station object.
-
-            \retval true  When this is not equal to another.
-            \retval false Otherwise.
-        */
-        bool operator!=(const station& another)
-        const
-        {
-            return !(*this == another);
         }
 
         /*!
