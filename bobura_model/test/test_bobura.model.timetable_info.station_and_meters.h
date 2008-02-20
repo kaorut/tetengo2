@@ -33,6 +33,8 @@ namespace test_bobura { namespace model { namespace timetable_info
 
         static void meters();
 
+        static void before();
+
 
     };
 

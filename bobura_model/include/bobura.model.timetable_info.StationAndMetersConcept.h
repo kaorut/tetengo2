@@ -54,6 +54,9 @@ namespace bobura { namespace model { namespace timetable_info
             const typename StationAndMeters::meters_type& meters =
                 station_and_meters.meters();
             boost::ignore_unused_variable_warning(meters);
+
+            const bool before = station_and_meters.before(station_and_meters);
+            boost::ignore_unused_variable_warning(before);
         }
 
 

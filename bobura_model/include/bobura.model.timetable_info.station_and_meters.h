@@ -151,6 +151,18 @@ namespace bobura { namespace model { namespace timetable_info
             return m_meters;
         }
 
+        /*!
+            \brief Checks this station is located before another.
+
+            \retval true  When this->meters() <= another.meters().
+            \retval false Otherwise.
+        */
+        bool before(const station_and_meters& another)
+        const
+        {
+            return m_meters <= another.m_meters;
+        }
+
 
     private:
         // variables
