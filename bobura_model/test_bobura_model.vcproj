@@ -188,7 +188,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -276,7 +276,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;  &quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;  echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -361,7 +361,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;  &quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;  echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
