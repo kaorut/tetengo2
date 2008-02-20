@@ -28,7 +28,7 @@ namespace bobura { namespace model
         // functions
 
         /*!
-            \brief Checks the constraints on a canvas.
+            \brief Checks the constraints on a timetable.
         */
         void constraints()
         {
@@ -38,16 +38,19 @@ namespace bobura { namespace model
             m_timetable.swap(m_timetable);
             std::swap(m_timetable, m_timetable);
 
-            m_timetable = m_timetable;
+            Timetable& assigned = m_timetable = m_timetable;
+            boost::ignore_unused_variable_warning(assigned);
 
             const_constraints(m_timetable);
         }
 
         /*!
-            \brief Checks the const constraints on a canvas.
+            \brief Checks the const constraints on a timetable.
         */
         void const_constraints(const Timetable& timetable)
         {
+            const bool equality = timetable == timetable;
+            boost::ignore_unused_variable_warning(equality);
         }
 
 

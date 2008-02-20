@@ -43,7 +43,8 @@ namespace bobura { namespace model
             m_station.swap(m_station);
             std::swap(m_station, m_station);
 
-            m_station = m_station;
+            Station& assigned = m_station = m_station;
+            boost::ignore_unused_variable_warning(assigned);
 
             const_constraints(m_station);
         }
@@ -53,6 +54,9 @@ namespace bobura { namespace model
         */
         void const_constraints(const Station& station)
         {
+            const bool equality = station == station;
+            boost::ignore_unused_variable_warning(equality);
+
             const typename Station::string_type name = station.name();
             boost::ignore_unused_variable_warning(name);
 
