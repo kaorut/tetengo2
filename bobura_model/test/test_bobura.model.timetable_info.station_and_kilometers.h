@@ -23,6 +23,14 @@ namespace test_bobura { namespace model { namespace timetable_info
 
         static void construction();
 
+        static void swap();
+
+        static void operator_assign();
+
+        static void operator_equal();
+
+        static void operator_less();
+
 
     };
 

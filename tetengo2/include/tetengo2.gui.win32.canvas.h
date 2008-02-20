@@ -30,7 +30,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Handle       A handle type for the native interface. It must
                              conform to tetengo2::gui::HandleConcept<Handle>.
         \tparam Size         A size type. It must conform to
-                             boost::SizeConcept<Size>.
+                             tetengo2::SizeConcept<Size>.
         \tparam String       A string type. It must conform to
                              tetengo2::StringConcept<String>.
         \tparam Encode       An encoding unary functor type. The type
