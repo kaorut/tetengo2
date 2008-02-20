@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::model::timetable_info::station_and_kilometers.
+    \brief Test of class bobura::model::timetable_info::station_and_meters.
 
     Copyright (C) 2007-2008 kaoru
 
@@ -10,20 +10,20 @@
 
 #include "bobura.model.station.h"
 #include "bobura.model.station_info.grade.h"
-#include "bobura.model.timetable_info.station_and_kilometers.h"
+#include "bobura.model.timetable_info.station_and_meters.h"
 
-#include "test_bobura.model.timetable_info.station_and_kilometers.h"
+#include "test_bobura.model.timetable_info.station_and_meters.h"
 
 
 namespace test_bobura { namespace model { namespace timetable_info
 {
     // functions
 
-    boost::unit_test::test_suite* station_and_kilometers::suite()
+    boost::unit_test::test_suite* station_and_meters::suite()
     {
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE(
-                "test_bobura::model::timetable_info::station_and_kilometers"
+                "test_bobura::model::timetable_info::station_and_meters"
             );
 
         p_suite->add(BOOST_TEST_CASE(construction));
@@ -35,7 +35,7 @@ namespace test_bobura { namespace model { namespace timetable_info
         return p_suite;
     }
 
-    void station_and_kilometers::construction()
+    void station_and_meters::construction()
     {
         BOOST_CHECKPOINT("");
 
@@ -43,38 +43,38 @@ namespace test_bobura { namespace model { namespace timetable_info
         typedef bobura::model::station<std::wstring, grade_type> station_type;
 
         {
-            bobura::model::timetable_info::station_and_kilometers<
+            bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
-            > station_and_kilometers(
+            > station_and_meters(
                 station_type(L"", grade_type::instance()), 0
             );
 
-            bobura::model::timetable_info::station_and_kilometers<
+            bobura::model::timetable_info::station_and_meters<
                 station_type, std::size_t
-            > copy_of_station_and_kilometers(station_and_kilometers);
+            > copy_of_station_and_meters(station_and_meters);
 
             BOOST_CHECK(
-                station_and_kilometers == copy_of_station_and_kilometers
+                station_and_meters == copy_of_station_and_meters
             );
         }
     }
 
-    void station_and_kilometers::swap()
+    void station_and_meters::swap()
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void station_and_kilometers::operator_assign()
+    void station_and_meters::operator_assign()
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void station_and_kilometers::operator_equal()
+    void station_and_meters::operator_equal()
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void station_and_kilometers::operator_less()
+    void station_and_meters::operator_less()
     {
         BOOST_WARN("Not implemented yet.");
     }

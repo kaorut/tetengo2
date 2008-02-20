@@ -9,7 +9,7 @@
 #include "precompiled.h"
 
 #include "init_bobura.model.timetable_info.h"
-#include "test_bobura.model.timetable_info.station_and_kilometers.h"
+#include "test_bobura.model.timetable_info.station_and_meters.h"
 
 
 namespace test_bobura { namespace model { namespace timetable_info
@@ -21,7 +21,7 @@ namespace test_bobura { namespace model { namespace timetable_info
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_bobura::model::timetable_info");
 
-        p_suite->add(station_and_kilometers::suite());
+        p_suite->add(station_and_meters::suite());
 
         return p_suite;
     }

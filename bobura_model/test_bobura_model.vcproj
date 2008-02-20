@@ -438,7 +438,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\test\test_bobura.model.timetable_info.station_and_kilometers.cpp"
+				RelativePath=".\test\test_bobura.model.timetable_info.station_and_meters.cpp"
 				>
 			</File>
 		</Filter>
@@ -476,7 +476,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\test\test_bobura.model.timetable_info.station_and_kilometers.h"
+				RelativePath=".\test\test_bobura.model.timetable_info.station_and_meters.h"
 				>
 			</File>
 		</Filter>

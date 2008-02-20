@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of bobura::model::timetable_info::station_and_kilometers.
+    \brief The definition of bobura::model::timetable_info::station_and_meters.
 
     Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_MODEL_TIMETABLEINFO_STATIONANDKILOMETERS_H)
-#define BOBURA_MODEL_TIMETABLEINFO_STATIONANDKILOMETERS_H
+#if !defined(BOBURA_MODEL_TIMETABLEINFO_STATIONANDMETERS_H)
+#define BOBURA_MODEL_TIMETABLEINFO_STATIONANDMETERS_H
 
 #include <boost/concept_check.hpp>
 
@@ -19,7 +19,7 @@
 namespace bobura { namespace model { namespace timetable_info
 {
     /*!
-        \brief The class for a station and kilometers.
+        \brief The class for a station and meters.
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
@@ -27,7 +27,7 @@ namespace bobura { namespace model { namespace timetable_info
                         tetengo2::SizeConcept<Size>.
     */
     template <typename Station, typename Size>
-    class station_and_kilometers
+    class station_and_meters
     {
     private:
         // concept checks
@@ -49,35 +49,35 @@ namespace bobura { namespace model { namespace timetable_info
         // constructors and destructor
 
         /*!
-            \brief Creates a station_and_kilometers.
+            \brief Creates a station_and_meters.
 
-            \param station    A station.
-            \param kilometers Kilometers.
+            \param station A station.
+            \param meters  Meters.
         */
-        station_and_kilometers(
+        station_and_meters(
             const station_type& station,
-            const size_type     kilometers
+            const size_type     meters
         )
         :
         m_station(station),
-        m_kilometers(kilometers)
+        m_meters(meters)
         {}
 
         /*!
-            \brief Creates a station_and_kilometers.
+            \brief Creates a station_and_meters.
 
-            \param anotherAnother station_and_kilometers object.
+            \param anotherAnother station_and_meters object.
         */
-        station_and_kilometers(const station_and_kilometers& another)
+        station_and_meters(const station_and_meters& another)
         :
         m_station(another.m_station),
-        m_kilometers(another.m_kilometers)
+        m_meters(another.m_meters)
         {}
 
         /*!
-            \brief Destroys the station_and_kilometers.
+            \brief Destroys the station_and_meters.
         */
-        virtual ~station_and_kilometers()
+        virtual ~station_and_meters()
         throw ()
         {}
 
@@ -85,59 +85,59 @@ namespace bobura { namespace model { namespace timetable_info
         // functions
 
         /*!
-            \brief Swaps the members with another station_and_kilometers
+            \brief Swaps the members with another station_and_meters
                    object.
 
-            \param another Another station_and_kilometers object.
+            \param another Another station_and_meters object.
         */
-        void swap(station_and_kilometers& another)
+        void swap(station_and_meters& another)
         throw ()
         {
             m_station.swap(another.m_station);
-            std::swap(m_kilometers, another.m_kilometers);
+            std::swap(m_meters, another.m_meters);
         }
 
         /*!
-            \brief Assigns another station_and_kilometers object.
+            \brief Assigns another station_and_meters object.
 
-            \param another Another station_and_kilometers object.
+            \param another Another station_and_meters object.
 
             \return this object.
         */
-        station_and_kilometers& operator=(
-            const station_and_kilometers& another
+        station_and_meters& operator=(
+            const station_and_meters& another
         )
         {
-            station_and_kilometers(another).swap(*this);
+            station_and_meters(another).swap(*this);
             return *this;
         }
 
         /*!
             \brief Checks whether this is equal to anther
-                   station_and_kilometers object.
+                   station_and_meters object.
 
-            \param another Another station_and_kilometers object.
+            \param another Another station_and_meters object.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
         */
-        bool operator==(const station_and_kilometers& another)
+        bool operator==(const station_and_meters& another)
         const
         {
             return m_station == another.m_station &&
-                   m_kilometers == another.m_kilometers;
+                   m_meters == another.m_meters;
         }
 
         /*!
             \brief Checks whether this is not equal to anther
-                   station_and_kilometers object.
+                   station_and_meters object.
 
-            \param another Another station_and_kilometers object.
+            \param another Another station_and_meters object.
 
             \retval true  When this is not equal to another.
             \retval false Otherwise.
         */
-        bool operator!=(const station_and_kilometers& another)
+        bool operator!=(const station_and_meters& another)
         const
         {
             return !(*this == another);
@@ -149,7 +149,7 @@ namespace bobura { namespace model { namespace timetable_info
 
         station_type m_station;
 
-        size_type m_kilometers;
+        size_type m_meters;
 
 
     };
