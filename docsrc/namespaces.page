@@ -1,3 +1,11 @@
+/*! \file
+    The Doxygen documents for namespaces.
+
+    Copyright (C) 2007-2008 kaoru
+
+    $Id$
+*/
+
 /*! \namespace bobura
     \brief The root namespace for Bobura.
 */
@@ -8,6 +16,14 @@
 
 /*! \namespace bobura::model
     \brief The namespace for the model of Bobura.
+*/
+
+/*! \namespace bobura::model::station_info
+    \brief The namespace for station information.
+*/
+
+/*! \namespace bobura::model::timetable_info
+    \brief The namespace for timetable information.
 */
 
 /*! \namespace tetengo2

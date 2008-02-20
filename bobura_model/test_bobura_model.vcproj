@@ -103,7 +103,92 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;  &quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;  echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName).$(PlatformName)"
+			IntermediateDirectory="$(ProjectDir)obj.test\$(ConfigurationName).$(PlatformName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
+				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
+				StringPooling="true"
+				BasicRuntimeChecks="0"
+				SmallerTypeCheck="false"
+				RuntimeLibrary="0"
+				EnableEnhancedInstructionSet="2"
+				DisableLanguageExtensions="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
+				BrowseInformation="1"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="0"
+				CompileAs="0"
+				DisableSpecificWarnings="4100;4127;4512;4701;4819"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				GenerateDebugInformation="false"
+				GenerateMapFile="false"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
+				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -192,91 +277,6 @@
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
 				CommandLine="if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;  &quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;  echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName).$(PlatformName)"
-			IntermediateDirectory="$(ProjectDir)obj.test\$(ConfigurationName).$(PlatformName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
-				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
-				StringPooling="true"
-				BasicRuntimeChecks="0"
-				SmallerTypeCheck="false"
-				RuntimeLibrary="0"
-				EnableEnhancedInstructionSet="2"
-				DisableLanguageExtensions="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
-				BrowseInformation="1"
-				WarningLevel="4"
-				WarnAsError="true"
-				DebugInformationFormat="0"
-				CompileAs="0"
-				DisableSpecificWarnings="4100;4127;4512;4701;4819"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				GenerateDebugInformation="false"
-				GenerateMapFile="false"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;  &quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;  echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -386,6 +386,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\init_bobura.model.timetable_info.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\precompiled\precompiled.cpp"
 				>
 				<FileConfiguration
@@ -397,7 +401,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|x64"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -405,7 +409,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -433,6 +437,10 @@
 				RelativePath=".\test\test_bobura.model.timetable.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.timetable_info.station_and_kilometers.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headers"
@@ -445,6 +453,10 @@
 			</File>
 			<File
 				RelativePath=".\test\init_bobura.model.station_info.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\init_bobura.model.timetable_info.h"
 				>
 			</File>
 			<File
@@ -461,6 +473,10 @@
 			</File>
 			<File
 				RelativePath=".\test\test_bobura.model.timetable.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.timetable_info.station_and_kilometers.h"
 				>
 			</File>
 		</Filter>
