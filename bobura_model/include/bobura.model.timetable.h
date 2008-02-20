@@ -19,14 +19,14 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a timetable.
 
-        \tparam Station   A station type. It must conform to
-                          bobura::model::StationConcept<Station>.
-        \tparam Kilometer A kilometer type. It must conform to
-                          boost::LessThanComparableConcept<Kilometer>.
+        \tparam Station A station type. It must conform to
+                        bobura::model::StationConcept<Station>.
+        \tparam Float   A float-point number type. It must conform to
+                        boost::LessThanComparableConcept<Float>.
     */
     template <
         typename Station, 
-        typename Kilometer
+        typename Float
     >
     class timetable
     {
@@ -34,7 +34,7 @@ namespace bobura { namespace model
         // concept checks
 
         BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
-        BOOST_CLASS_REQUIRE(Kilometer, boost, LessThanComparableConcept);
+        BOOST_CLASS_REQUIRE(Float, boost, LessThanComparableConcept);
 
 
     public:
@@ -43,8 +43,8 @@ namespace bobura { namespace model
         //! The station type.
         typedef Station station_type;
 
-        //! The kilometer type.
-        typedef Kilometer kilometer_type;
+        //! The float type.
+        typedef Float float_type;
 
 
         // constructors and destructor
@@ -125,18 +125,18 @@ namespace std
     /*!
         \brief Swaps two timetable objects.
 
-        \tparam Station   A station type. It must conform to
-                          bobura::model::StationConcept<Station>.
-        \tparam Kilometer A kilometer type. It must conform to
-                          boost::LessThanComparableConcept<Kilometer>.
+        \tparam Station A station type. It must conform to
+                        bobura::model::StationConcept<Station>.
+        \tparam Float   A float-point number type. It must conform to
+                        boost::LessThanComparableConcept<Float>.
 
         \param timetable1 A timetable object #1.
         \param timetable2 A timetable object #2.
     */
-    template <typename Station, typename Kilometer>
+    template <typename Station, typename Float>
     void swap(
-        bobura::model::timetable<Station, Kilometer>& timetable1,
-        bobura::model::timetable<Station, Kilometer>& timetable2
+        bobura::model::timetable<Station, Float>& timetable1,
+        bobura::model::timetable<Station, Float>& timetable2
     )
     throw ()
     {
