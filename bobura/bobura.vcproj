@@ -233,8 +233,6 @@
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
 				DisableLanguageExtensions="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -320,8 +318,6 @@
 				SmallerTypeCheck="false"
 				RuntimeLibrary="2"
 				DisableLanguageExtensions="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -400,22 +396,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"

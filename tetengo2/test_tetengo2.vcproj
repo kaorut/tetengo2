@@ -104,7 +104,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;  &quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;  echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -193,7 +193,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;  &quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;  echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -229,8 +229,6 @@
 				RuntimeLibrary="0"
 				EnableEnhancedInstructionSet="2"
 				DisableLanguageExtensions="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -279,7 +277,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;  &quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;  echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -315,8 +313,6 @@
 				SmallerTypeCheck="false"
 				RuntimeLibrary="0"
 				DisableLanguageExtensions="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -365,7 +361,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;  &quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;  echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -410,22 +406,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
