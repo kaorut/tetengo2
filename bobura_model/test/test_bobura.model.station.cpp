@@ -184,6 +184,7 @@ namespace test_bobura { namespace model
             );
 
             BOOST_CHECK(station1 == station2);
+            BOOST_CHECK(!(station1 != station2));
         }
         {
             const bobura::model::station<std::wstring, grade_type> station1(
@@ -194,6 +195,7 @@ namespace test_bobura { namespace model
             );
 
             BOOST_CHECK(station1 == station2);
+            BOOST_CHECK(!(station1 != station2));
         }
         {
             const bobura::model::station<std::wstring, grade_type> station1(
@@ -204,6 +206,7 @@ namespace test_bobura { namespace model
             );
 
             BOOST_CHECK(station1 != station2);
+            BOOST_CHECK(!(station1 == station2));
         }
     }
 

@@ -143,6 +143,18 @@ namespace bobura { namespace model { namespace timetable_info
             return !(*this == another);
         }
 
+        const station_type& station()
+        const
+        {
+            return m_station;
+        }
+
+        size_type meters()
+        const
+        {
+            return m_meters;
+        }
+
 
     private:
         // variables
@@ -156,5 +168,33 @@ namespace bobura { namespace model { namespace timetable_info
 
 
 }}}
+
+namespace std
+{
+    /*!
+        \brief Swaps two station_and_meters objects.
+
+        \tparam Station A station type. It must conform to
+                        bobura::model::StationConcept<Station>.
+        \tparam Size    A size type. It must conform to
+                        tetengo2::SizeConcept<Size>.
+
+        \param station_and_meters1 A station_and_meters object #1.
+        \param station_and_meters2 A station_and_meters object #2.
+    */
+    template <typename Station, typename Size>
+    void swap(
+        bobura::model::timetable_info::station_and_meters<Station, Size>&
+        station_and_meters1,
+        bobura::model::timetable_info::station_and_meters<Station, Size>&
+        station_and_meters2
+    )
+    throw ()
+    {
+        station_and_meters1.swap(station_and_meters2);
+    }
+
+
+}
 
 #endif
