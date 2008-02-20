@@ -60,6 +60,7 @@ namespace bobura { namespace model { namespace timetable_info
         }
 
 
+    private:
         // variables
 
         StationAndMeters m_station_and_meters;

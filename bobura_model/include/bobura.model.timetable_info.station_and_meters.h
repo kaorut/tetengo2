@@ -28,7 +28,9 @@ namespace bobura { namespace model { namespace timetable_info
     */
     template <typename Station, typename Meters>
     class station_and_meters :
-        private boost::equality_comparable<station_and_meters<Station, Meters> >
+        private boost::equality_comparable<
+            station_and_meters<Station, Meters>
+        >
     {
     private:
         // concept checks
@@ -68,7 +70,7 @@ namespace bobura { namespace model { namespace timetable_info
         /*!
             \brief Creates a station_and_meters.
 
-            \param anotherAnother station_and_meters object.
+            \param another Another station_and_meters object.
         */
         station_and_meters(const station_and_meters& another)
         :
