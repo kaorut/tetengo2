@@ -23,6 +23,11 @@ namespace bobura { namespace model { namespace timetable_info
     class StationAndMetersConcept
     {
     public:
+        // constructors and destructor
+
+        StationAndMetersConcept();
+
+
         // functions
 
         /*!
@@ -31,13 +36,14 @@ namespace bobura { namespace model { namespace timetable_info
         void constraints()
         {
             typedef typename StationAndMeters::station_type station_type;
-            typedef typename StationAndMeters::size_type size_type;
+            typedef typename StationAndMeters::meters_type meters_type;
 
             m_station_and_meters.swap(m_station_and_meters);
             std::swap(m_station_and_meters, m_station_and_meters);
 
             StationAndMeters& station_and_meters =
                 m_station_and_meters = m_station_and_meters;
+            boost::ignore_unused_variable_warning(station_and_meters);
 
             const_constraints(m_station_and_meters);
         }

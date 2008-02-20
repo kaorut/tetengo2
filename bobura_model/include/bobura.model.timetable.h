@@ -11,7 +11,7 @@
 
 #include <boost/concept_check.hpp>
 
-#include "bobura.model.StationConcept.h"
+#include "bobura.model.timetable_info.StationAndMetersConcept.h"
 
 
 namespace bobura { namespace model
@@ -19,32 +19,27 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a timetable.
 
-        \tparam Station A station type. It must conform to
-                        bobura::model::StationConcept<Station>.
-        \tparam Float   A float-point number type. It must conform to
-                        boost::LessThanComparableConcept<Float>.
+        \tparam StationAndMeters A station and meters type. It must conform to
+                                 bobura::model::timetable_info::StationAndMetersConcept<StationAndMeters>.
     */
-    template <
-        typename Station, 
-        typename Float
-    >
+    template <typename StationAndMeters>
     class timetable
     {
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
-        BOOST_CLASS_REQUIRE(Float, boost, LessThanComparableConcept);
+        BOOST_CLASS_REQUIRE(
+            StationAndMeters,
+            bobura::model::timetable_info,
+            StationAndMetersConcept
+        );
 
 
     public:
         // types
 
-        //! The station type.
-        typedef Station station_type;
-
-        //! The float type.
-        typedef Float float_type;
+        //! The station and meters type.
+        typedef StationAndMeters station_and_meters_type;
 
 
         // constructors and destructor
@@ -125,18 +120,16 @@ namespace std
     /*!
         \brief Swaps two timetable objects.
 
-        \tparam Station A station type. It must conform to
-                        bobura::model::StationConcept<Station>.
-        \tparam Float   A float-point number type. It must conform to
-                        boost::LessThanComparableConcept<Float>.
+        \tparam StationAndMeters A station and meters type. It must conform to
+                                 bobura::model::timetable_info::StationAndMetersConcept<StationAndMeters>.
 
         \param timetable1 A timetable object #1.
         \param timetable2 A timetable object #2.
     */
-    template <typename Station, typename Float>
+    template <typename StationAndMeters>
     void swap(
-        bobura::model::timetable<Station, Float>& timetable1,
-        bobura::model::timetable<Station, Float>& timetable2
+        bobura::model::timetable<StationAndMeters>& timetable1,
+        bobura::model::timetable<StationAndMeters>& timetable2
     )
     throw ()
     {

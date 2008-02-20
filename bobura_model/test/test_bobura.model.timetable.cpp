@@ -11,6 +11,7 @@
 #include "bobura.model.station.h"
 #include "bobura.model.timetable.h"
 #include "bobura.model.station_info.grade.h"
+#include "bobura.model.timetable_info.station_and_meters.h"
 
 #include "test_bobura.model.timetable.h"
 
@@ -39,15 +40,18 @@ namespace test_bobura { namespace model
                 std::wstring, bobura::model::station_info::grade<std::wstring>
             >
             station_type;
+        typedef
+            bobura::model::timetable_info::station_and_meters<
+                station_type, std::size_t
+            >
+            station_and_meters_type;
 
-        bobura::model::timetable<station_type, double> timetable;
-
-        BOOST_WARN("Not implemented yet.");
+        bobura::model::timetable<station_and_meters_type> timetable;
     }
 
     void timetable::swap()
     {
-        BOOST_WARN("Not implemented.");
+        BOOST_WARN("Not implemented yet.");
     }
 
     void timetable::operator_assign()
