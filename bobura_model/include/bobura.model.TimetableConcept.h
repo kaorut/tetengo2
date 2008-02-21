@@ -46,6 +46,8 @@ namespace bobura { namespace model
 
         /*!
             \brief Checks the const constraints on a timetable.
+
+            \param timetable A constant object.
         */
         void const_constraints(const Timetable& timetable)
         {

@@ -52,6 +52,8 @@ namespace bobura { namespace model { namespace timetable_info
 
         /*!
             \brief Checks the const constraints on a station_and_meters.
+
+            \param station_and_meters A constant object.
         */
         void const_constraints(const StationAndMeters& station_and_meters)
         {

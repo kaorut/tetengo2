@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp>
 
 #include "tetengo2.win32.encode.h"
 

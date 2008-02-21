@@ -43,6 +43,8 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Checks the const constraints on a GUI object factory.
+
+            \param gui_factory A constant object.
         */
         void const_constraints(const GuiFactory& gui_factory)
         {

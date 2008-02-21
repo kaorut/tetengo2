@@ -8,7 +8,7 @@
 
 #include "precompiled.h"
 
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp>
 
 #include "init_tetengo2.gui.h"
 #if defined(_WIN32)

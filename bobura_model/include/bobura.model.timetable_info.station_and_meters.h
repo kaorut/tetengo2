@@ -158,6 +158,8 @@ namespace bobura { namespace model { namespace timetable_info
         /*!
             \brief Checks this station is located before another.
 
+            \param another Another sation_and_meters object.
+
             \retval true  When this->meters() <= another.meters().
             \retval false Otherwise.
         */

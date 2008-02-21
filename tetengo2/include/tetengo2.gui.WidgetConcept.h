@@ -54,6 +54,8 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Checks the const constraints on a widget.
+
+            \param widget A constant object.
         */
         void const_constraints(const Widget& widget)
         {

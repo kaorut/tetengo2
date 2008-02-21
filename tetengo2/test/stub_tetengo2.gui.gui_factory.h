@@ -9,8 +9,8 @@
 #if !defined(STUBTETENGO2_GUI_GUIFACTORY_H)
 #define STUBTETENGO2_GUI_GUIFACTORY_H
 
-#include <cstddef>
-#include <string>
+//#include <cstddef>
+//#include <string>
 
 #include "tetengo2.gui.gui_factory.h"
 #include "tetengo2.gui.paint_observer.h"

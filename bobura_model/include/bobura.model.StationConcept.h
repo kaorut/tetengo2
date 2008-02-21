@@ -51,6 +51,8 @@ namespace bobura { namespace model
 
         /*!
             \brief Checks the const constraints on a station.
+
+            \param station A constant object.
         */
         void const_constraints(const Station& station)
         {

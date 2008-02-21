@@ -9,9 +9,9 @@
 #if !defined(STUBTETENGO2_GUI_WINDOW_H)
 #define STUBTETENGO2_GUI_WINDOW_H
 
-#include <memory>
+//#include <memory>
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 
 #include "tetengo2.gui.WindowObserverConcept.h"
 

@@ -45,6 +45,8 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Checks the const constraints on a canvas.
+
+            \param canvas A constant object.
         */
         void const_constraints(const Canvas& canvas)
         {

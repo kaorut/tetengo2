@@ -8,7 +8,7 @@
 
 #include "precompiled.h"
 
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 
