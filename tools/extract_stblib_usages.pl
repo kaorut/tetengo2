@@ -40,14 +40,25 @@ for (my($line) = 1; <STDIN>; $line++)
 		}
 	}
 	elsif (
-		/(std::[a-zA-Z0-9_\:]*)/ ||
-		/(assert)/ ||
-		/(NULL)/ ||
-		/(boost::[a-zA-Z0-9_\:]*)/ ||
-		/(BOOST_[A-Z0-9_]*)/
+		/std::[a-zA-Z0-9_\:]*/ ||
+		/assert/ ||
+		/NULL/ ||
+		/boost::[a-zA-Z0-9_\:]*/ ||
+		/BOOST_[A-Z0-9_]*/
 	)
 	{
-		$occurrences{$1} .= $line.', ';
+		my($code_line) = $_;
+		while (
+			$code_line =~ /(std::[a-zA-Z0-9_\:]*)/ ||
+			$code_line =~ /(assert)/ ||
+			$code_line =~ /(NULL)/ ||
+			$code_line =~ /(boost::[a-zA-Z0-9_\:]*)/ ||
+			$code_line =~ /(BOOST_[A-Z0-9_]*)/
+		)
+		{
+			$occurrences{$1} .= $line.', ';
+			$code_line =~ s/$1//;
+		}
 	}
 }
 
@@ -60,7 +71,7 @@ foreach $value (@includes)
 foreach $value (sort(keys(%occurrences)))
 {
 	my($header) = $headers{$value} eq '' ?
-		'**** UNKNOWN OPERATION ****' : $headers{$value};
+		'< UNKNOWN OPERATION >' : $headers{$value};
 	printf("  %-48s %s\n", $value, $header);
 	
 	$used_headers{$header} = '*';
