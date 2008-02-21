@@ -68,4 +68,14 @@ for f in ` \
 do
     set_prop_for_executable $f;
 done
-set_prop_for_executable $SOLUTIONDIR/tools/set_svn_props.sh
+for f in ` \
+    find \
+        $SOLUTIONDIR/tools \
+        -maxdepth 1 \
+        -type f \
+        -name '*.sh' -or \
+        -name '*.pl' \
+`;
+do
+    set_prop_for_executable $f;
+done
