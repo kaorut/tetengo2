@@ -9,6 +9,7 @@ BOOST_TEST_SUITE                                   boost/test/unit_test.hpp
 BOOST_WARN                                         boost/test/unit_test.hpp
 NULL                                               cstddef
 assert                                             cassert
+boost::AssignableConcept                           boost/concept_check.hpp
 boost::ComparableConcept                           boost/concept_check.hpp
 boost::CopyConstructibleConcept                    boost/concept_check.hpp
 boost::DefaultConstructibleConcept                 boost/concept_check.hpp

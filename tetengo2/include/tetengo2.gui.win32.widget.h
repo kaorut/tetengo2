@@ -11,7 +11,7 @@
 
 //#include <cstddef>
 #include <exception>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
 //#include <string>
 
@@ -19,7 +19,6 @@
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 

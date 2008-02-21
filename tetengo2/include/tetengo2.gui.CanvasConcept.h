@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_CANVASCONCEPT_H)
 #define TETENGO2_GUI_CANVASCONCEPT_H
 
-#include <memory>
-
 #include <boost/concept_check.hpp>
 
 

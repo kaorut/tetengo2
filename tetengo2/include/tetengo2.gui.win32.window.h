@@ -10,6 +10,10 @@
 #define TETENGO2_GUI_WIN32_WINDOW_H
 
 //#include <cstddef>
+//#include <exception>
+//#include <memory>
+//#include <stdexcept>
+//#include <string>
 
 //#include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>

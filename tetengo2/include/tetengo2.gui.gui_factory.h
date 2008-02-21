@@ -11,6 +11,7 @@
 
 //#include <memory>
 
+//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
