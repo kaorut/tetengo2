@@ -9,6 +9,9 @@
 #if !defined(BOBURA_MODEL_TIMETABLE_H)
 #define BOBURA_MODEL_TIMETABLE_H
 
+#include <stdexcept>
+#include <vector>
+
 //#include <boost/concept_check.hpp>
 
 #include "bobura.model.timetable_info.StationAndMetersConcept.h"
@@ -41,6 +44,9 @@ namespace bobura { namespace model
         //! The station and meters type.
         typedef StationAndMeters station_and_meters_type;
 
+        //! The stations and meters type.
+        typedef std::vector<station_and_meters_type> stations_and_meters_type;
+
 
         // constructors and destructor
 
@@ -48,6 +54,8 @@ namespace bobura { namespace model
             \brief Creates a timetalble.
         */
         timetable()
+        :
+        m_stations_and_meters()
         {}
 
         /*!
@@ -56,6 +64,8 @@ namespace bobura { namespace model
             \param another Another timetable object.
         */
         timetable(const timetable& another)
+        :
+        m_stations_and_meters(another.m_stations_and_meters)
         {}
 
         /*!
@@ -102,13 +112,43 @@ namespace bobura { namespace model
         bool operator==(const timetable& another)
         const
         {
-            return false;
+            return m_stations_and_meters == another.m_stations_and_meters;
+        }
+
+        const stations_and_meters_type& stations_and_meters()
+        const
+        {
+            return m_stations_and_meters;
+        }
+
+        void insert_station_and_meters(
+            const typename stations_and_meters_type::const_iterator
+                                           position,
+            const station_and_meters_type& station_and_meters
+        )
+        {
+            if (
+                (
+                    position != m_stations_and_meters.begin() &&
+                    !(position - 1)->before(station_and_meters)
+                ) ||
+                (
+                    position != m_stations_and_meters.end() &&
+                    !station_and_meters.before(*position)
+                )
+            )
+            {
+                throw std::invalid_argument("");
+            }
+
+            m_stations_and_meters.insert(position, station_and_meters);
         }
 
 
     private:
         // variables
 
+        stations_and_meters_type m_stations_and_meters;
 
     };
 
