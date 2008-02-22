@@ -11,6 +11,7 @@
 // The standard library headers
 
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 #include <exception>
 #include <functional>
@@ -25,7 +26,6 @@
 
 #include <boost/bind.hpp>
 #include <boost/concept_check.hpp>
-#include <boost/format.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
 #include <boost/program_options.hpp>
@@ -33,6 +33,7 @@
 #include <boost/scoped_array.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/signal.hpp>
+#include <boost/test/unit_test.hpp>
 
 
 // Windows headers

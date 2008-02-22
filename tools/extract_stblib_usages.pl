@@ -63,16 +63,20 @@ for (my($line) = 1; <STDIN>; $line++)
 }
 
 my($value);
-foreach $value (@includes)
+
+if ($ARGV[1] ne 'NOINC')
 {
-	print $value."\n";
+	foreach $value (@includes)
+	{
+		print $value."\n";
+	}
 }
 
 foreach $value (sort(keys(%occurrences)))
 {
 	my($header) = $headers{$value} eq '' ?
 		'< UNKNOWN OPERATION >' : $headers{$value};
-	printf("  %-48s %s\n", $value, $header);
+	printf("%-48s %s\n", $value, $header);
 	
 	$used_headers{$header} = '*';
 }

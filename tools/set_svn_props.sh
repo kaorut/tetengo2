@@ -6,6 +6,7 @@
 
 LANG=C
 SOLUTIONDIR=`dirname $0`/..
+. $SOLUTIONDIR/tools/paths.sh
 
 set_prop_for_ordinal()
 {
@@ -23,30 +24,11 @@ set_prop_for_executable()
     svn propset -q svn:keywords 'Author Date Rev Id' $1
 }
 
-for f in ` \
-    find \
-        $SOLUTIONDIR/bobura/src \
-        $SOLUTIONDIR/bobura/test \
-        $SOLUTIONDIR/bobura_model/include \
-        $SOLUTIONDIR/bobura_model/test \
-        $SOLUTIONDIR/tetengo2/include \
-        $SOLUTIONDIR/tetengo2/test \
-        $SOLUTIONDIR/precompiled \
-        -maxdepth 1 \
-        -type f \
-        -name '*.h' -or \
-        -name '*.cpp' \
-`;
+for f in `list_sources $SOLUTIONDIR`;
 do
     set_prop_for_ordinal $f;
 done
-for f in ` \
-    find \
-        $SOLUTIONDIR/docsrc \
-        -maxdepth 1 \
-        -type f \
-        -name '*.page' \
-`;
+for f in `list_document_sources $SOLUTIONDIR`;
 do
     set_prop_for_ordinal $f;
 done
@@ -56,27 +38,11 @@ set_prop_for_ordinal $SOLUTIONDIR/Doxyfile.test
 set_prop_for_ordinal $SOLUTIONDIR/tools/stdlib_headers.txt
 
 set_prop_for_executable $SOLUTIONDIR/bobura.sln
-for f in ` \
-    find \
-        $SOLUTIONDIR \
-        $SOLUTIONDIR/bobura \
-        $SOLUTIONDIR/bobura_model \
-        $SOLUTIONDIR/tetengo2 \
-        -maxdepth 1 \
-        -type f \
-        -name '*.vcproj' \
-`;
+for f in `list_projects $SOLUTIONDIR`;
 do
     set_prop_for_executable $f;
 done
-for f in ` \
-    find \
-        $SOLUTIONDIR/tools \
-        -maxdepth 1 \
-        -type f \
-        -name '*.sh' -or \
-        -name '*.pl' \
-`;
+for f in `list_tools $SOLUTIONDIR`;
 do
     set_prop_for_executable $f;
 done
