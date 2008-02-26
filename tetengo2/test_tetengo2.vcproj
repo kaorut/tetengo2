@@ -56,7 +56,7 @@
 				EnableEnhancedInstructionSet="2"
 				DisableLanguageExtensions="false"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
+				PrecompiledHeaderThrough="precompiled.test.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -145,7 +145,7 @@
 				EnableFunctionLevelLinking="true"
 				DisableLanguageExtensions="false"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
+				PrecompiledHeaderThrough="precompiled.test.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -394,7 +394,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\precompiled\precompiled.cpp"
+				RelativePath="..\precompiled\precompiled.test.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -488,7 +488,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\precompiled\precompiled.h"
+				RelativePath="..\precompiled\precompiled.test.h"
 				>
 			</File>
 			<File

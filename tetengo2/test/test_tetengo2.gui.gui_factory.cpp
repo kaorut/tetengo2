@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include "precompiled.h"
+#include "precompiled.test.h"
 
 //#include <cstddef>
 //#include <string>
