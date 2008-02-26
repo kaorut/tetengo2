@@ -8,7 +8,7 @@ LANG=C
 SOLUTIONDIR=`dirname $0`/..
 . $SOLUTIONDIR/tools/paths.sh
 
-for f in `list_sources $SOLUTIONDIR`;
+for f in `list_sources $SOLUTIONDIR; list_test_sources $SOLUTIONDIR`;
 do
     echo '['$f']';
     $SOLUTIONDIR/tools/extract_stblib_usages.pl \

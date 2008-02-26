@@ -47,4 +47,5 @@ std::size_t                                      cstddef
 std::string                                      string
 std::swap                                        algorithm
 std::unary_function                              functional
+std::vector                                      vector
 std::wstring                                     string

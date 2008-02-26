@@ -8,7 +8,7 @@ use strict;
 
 if (scalar(@ARGV) < 1)
 {
-	print 'Usage: ./extract_stdlib_usages.pl OPTIONS HEADERS_FILE'."\n";
+	print 'Usage: ./extract_stdlib_usages.pl < HEADERS_FILE'."\n";
 	exit;
 }
 
@@ -81,19 +81,22 @@ foreach $value (sort(keys(%occurrences)))
 	$used_headers{$header} = '*';
 }
 
-foreach $value (@included_headers)
+if ($ARGV[1] ne 'NOINC')
 {
-	if ($used_headers{$value} eq '')
+	foreach $value (@included_headers)
 	{
-		print 'WARNING: NOT USED: '.$value."\n";
+		if ($used_headers{$value} eq '')
+		{
+			print 'WARNING: NOT USED: '.$value."\n";
+		}
 	}
-}
 
-foreach $value (keys(%used_headers))
-{
-	if (scalar(grep(/^$value$/, @included_headers)) == 0)
+	foreach $value (keys(%used_headers))
 	{
-		print 'WARNING: NOT INCLUDED: '.$value."\n";
+		if (scalar(grep(/^$value$/, @included_headers)) == 0)
+		{
+			print 'WARNING: NOT INCLUDED: '.$value."\n";
+		}
 	}
 }
 

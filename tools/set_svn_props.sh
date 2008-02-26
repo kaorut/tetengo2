@@ -24,11 +24,12 @@ set_prop_for_executable()
     svn propset -q svn:keywords 'Author Date Rev Id' $1
 }
 
-for f in `list_sources $SOLUTIONDIR`;
-do
-    set_prop_for_ordinal $f;
-done
-for f in `list_document_sources $SOLUTIONDIR`;
+for f in ` \
+    list_sources $SOLUTIONDIR; \
+    list_test_sources $SOLUTIONDIR; \
+    list_precompiled_sources $SOLUTIONDIR; \
+    list_document_sources $SOLUTIONDIR \
+`;
 do
     set_prop_for_ordinal $f;
 done
@@ -37,12 +38,11 @@ set_prop_for_ordinal $SOLUTIONDIR/Doxyfile
 set_prop_for_ordinal $SOLUTIONDIR/Doxyfile.test
 set_prop_for_ordinal $SOLUTIONDIR/tools/stdlib_headers.txt
 
+for f in ` \
+  list_projects $SOLUTIONDIR; \
+  list_tools $SOLUTIONDIR \
+`;
+do
+    set_prop_for_executable $f;
+done
 set_prop_for_executable $SOLUTIONDIR/bobura.sln
-for f in `list_projects $SOLUTIONDIR`;
-do
-    set_prop_for_executable $f;
-done
-for f in `list_tools $SOLUTIONDIR`;
-do
-    set_prop_for_executable $f;
-done
