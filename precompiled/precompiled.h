@@ -20,6 +20,7 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include <vector>
 
 
 // Boost library headers
@@ -33,7 +34,6 @@
 #include <boost/scoped_array.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/signal.hpp>
-#include <boost/test/unit_test.hpp>
 
 
 // Windows headers

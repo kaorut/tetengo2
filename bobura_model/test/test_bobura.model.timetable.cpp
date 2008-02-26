@@ -8,6 +8,7 @@
 
 #include "precompiled.test.h"
 
+#include <algorithm>
 #include <cstddef>
 #include <string>
 
