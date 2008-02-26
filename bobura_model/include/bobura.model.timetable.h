@@ -86,6 +86,7 @@ namespace bobura { namespace model
         void swap(timetable& another)
         throw ()
         {
+            m_stations_and_meters.swap(another.m_stations_and_meters);
         }
 
         /*!
@@ -149,6 +150,7 @@ namespace bobura { namespace model
         // variables
 
         stations_and_meters_type m_stations_and_meters;
+
 
     };
 

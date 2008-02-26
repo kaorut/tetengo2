@@ -94,16 +94,56 @@ namespace test_bobura { namespace model
 
             timetable1.swap(timetable2);
 
-            //BOOST_CHECK(timetable == copy_of_timetable);
+            BOOST_CHECK(
+                timetable1.stations_and_meters()[0].station().name() ==
+                std::wstring(L"B")
+            );
+            BOOST_CHECK_EQUAL(
+                timetable1.stations_and_meters()[0].meters(), 2U
+            );
+            BOOST_CHECK(
+                timetable2.stations_and_meters()[0].station().name() ==
+                std::wstring(L"A")
+            );
+            BOOST_CHECK_EQUAL(
+                timetable2.stations_and_meters()[0].meters(), 1U
+            );
         }
         {
             bobura::model::timetable<station_and_meters_type> timetable1;
+            timetable1.insert_station_and_meters(
+                timetable1.stations_and_meters().end(),
+                station_and_meters_type(
+                    station_type(L"A", grade_type::instance()),
+                    1
+                )
+            );
 
             bobura::model::timetable<station_and_meters_type> timetable2;
+            timetable2.insert_station_and_meters(
+                timetable2.stations_and_meters().end(),
+                station_and_meters_type(
+                    station_type(L"B", grade_type::instance()),
+                    2
+                )
+            );
 
             std::swap(timetable1, timetable2);
 
-            //BOOST_CHECK(timetable == copy_of_timetable);
+            BOOST_CHECK(
+                timetable1.stations_and_meters()[0].station().name() ==
+                std::wstring(L"B")
+            );
+            BOOST_CHECK_EQUAL(
+                timetable1.stations_and_meters()[0].meters(), 2U
+            );
+            BOOST_CHECK(
+                timetable2.stations_and_meters()[0].station().name() ==
+                std::wstring(L"A")
+            );
+            BOOST_CHECK_EQUAL(
+                timetable2.stations_and_meters()[0].meters(), 1U
+            );
         }
     }
 
