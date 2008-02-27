@@ -9,10 +9,12 @@
 #if !defined(BOBURA_MODEL_TIMETABLE_H)
 #define BOBURA_MODEL_TIMETABLE_H
 
+#include <iterator>
 #include <stdexcept>
 #include <vector>
 
 //#include <boost/concept_check.hpp>
+#include <boost/operators.hpp>
 
 #include "bobura.model.timetable_info.StationAndMetersConcept.h"
 
@@ -26,7 +28,8 @@ namespace bobura { namespace model
                                  bobura::model::timetable_info::StationAndMetersConcept<StationAndMeters>.
     */
     template <typename StationAndMeters>
-    class timetable
+    class timetable :
+        private boost::equality_comparable<timetable<StationAndMeters> >
     {
     private:
         // concept checks
@@ -116,30 +119,42 @@ namespace bobura { namespace model
             return m_stations_and_meters == another.m_stations_and_meters;
         }
 
+        /*!
+            \brief Returns the stations and meters.
+
+            \return The stations and meters.
+        */
         const stations_and_meters_type& stations_and_meters()
         const
         {
             return m_stations_and_meters;
         }
 
+        /*!
+            \brief Inserts a station and meters.
+
+            After the insertion, the meters of stations and meters must be
+            sequenced in ascending order.
+
+            \param position           The position where the station and
+                                      meters is inserted.
+            \param station_and_meters A station and meters.
+
+            \throw std::invalid_argument When the meters of stations and
+                                         meters are not sequenced in ascending
+                                         order after the insertion.
+        */
         void insert_station_and_meters(
             const typename stations_and_meters_type::const_iterator
                                            position,
             const station_and_meters_type& station_and_meters
         )
         {
-            if (
-                (
-                    position != m_stations_and_meters.begin() &&
-                    !(position - 1)->before(station_and_meters)
-                ) ||
-                (
-                    position != m_stations_and_meters.end() &&
-                    !station_and_meters.before(*position)
-                )
-            )
+            if (!can_insert_to(position, station_and_meters))
             {
-                throw std::invalid_argument("");
+                throw std::invalid_argument(
+                    "The insertion position is invalid."
+                );
             }
 
             m_stations_and_meters.insert(position, station_and_meters);
@@ -150,6 +165,49 @@ namespace bobura { namespace model
         // variables
 
         stations_and_meters_type m_stations_and_meters;
+
+
+        // functions
+
+        bool can_insert_to(
+            const typename stations_and_meters_type::const_iterator
+                                           position,
+            const station_and_meters_type& station_and_meters
+        )
+        const
+        {
+            if (
+                position != m_stations_and_meters.begin() &&
+                !previous_iterator(position)->before(station_and_meters)
+            )
+            {
+                return false;
+            }
+            
+            if (
+                position != m_stations_and_meters.end() &&
+                !station_and_meters.before(*position)
+            )
+            {
+                return false;
+            }
+
+            return true;
+       }
+
+        template <typename BidirectionalIterator>
+        static const BidirectionalIterator previous_iterator(
+            const BidirectionalIterator iterator
+        )
+        {
+            boost::function_requires<
+                boost::BidirectionalIteratorConcept<BidirectionalIterator>
+            >();
+
+            typename BidirectionalIterator previous = iterator;
+            std::advance(previous, -1);
+            return previous;
+        }
 
 
     };
