@@ -421,6 +421,14 @@
 				RelativePath=".\test\test_bobura.model.timetable_info.station_and_meters.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.train.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.train_info.time.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headers"
@@ -457,6 +465,14 @@
 			</File>
 			<File
 				RelativePath=".\test\test_bobura.model.timetable_info.station_and_meters.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.train.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.train_info.time.h"
 				>
 			</File>
 		</Filter>
