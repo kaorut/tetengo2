@@ -136,8 +136,8 @@ namespace bobura { namespace model
             After the insertion, the station locations must be sequenced in
             ascending order.
 
-            \param position         The position where the station and meters
-                                    is inserted.
+            \param position         The position where the station location is
+                                    inserted.
             \param station_location A station location.
 
             \throw std::invalid_argument When the meters of stations and
