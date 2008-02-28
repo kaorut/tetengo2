@@ -91,6 +91,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates a window.
+
+            \throw std::runtime_error When a window cannot be created.
         */
         window()
         :
@@ -192,7 +194,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 NULL
             );
             if (handle == NULL)
-                throw std::runtime_error("Can't create widget!");
+                throw std::runtime_error("Can't create a window!");
 
             return handle;
         }
@@ -244,7 +246,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
             if (atom == NULL)
-                throw std::runtime_error("Can't register widget class!");
+                throw std::runtime_error("Can't register a window class!");
 
             return atom;
         }

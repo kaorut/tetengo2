@@ -105,6 +105,8 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates a canvas.
 
             \param window_handle A window handle.
+
+            \throw std::runtime_error When a canvas cannot be created.
         */
         canvas(const window_handle_type window_handle)
         :
@@ -146,6 +148,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param text  A text to draw.
             \param point A point where the text is drawn.
+
+            \throw std::runtime_error When the text cannot be drawn.
         */
         void draw_text(const string_type& text, const point_type& point)
         {

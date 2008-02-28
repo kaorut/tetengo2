@@ -32,6 +32,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates a GUI initialization and finalization management.
+
+            \throw std::runtime_error When a GUI cannot be initialized.
         */
         gui_initializer_finalizer()
         :

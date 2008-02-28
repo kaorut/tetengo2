@@ -188,6 +188,8 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Sets the text.
 
             \param text A text.
+
+            \throw std::runtime_error When the text cannot be set.
         */
         virtual void set_text(const string_type& text)
         {
@@ -256,6 +258,10 @@ namespace tetengo2 { namespace gui { namespace win32
                    window system.
             
             \param p_widget A pointer to a widget.
+
+            \throw std::runtime_error When the widget instance pointer cannot
+                                      be associated with the native window
+                                      system.
         */
         static void associate_to_native_window_system(
             const widget* const p_widget

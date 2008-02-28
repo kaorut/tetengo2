@@ -63,6 +63,8 @@ namespace tetengo2 { namespace win32
             \param string A string.
 
             \return The encoded string.
+
+            \throw std::invalid_argument When the string cannot be encoded.
         */
         const target_type operator()(const source_type& string)
         {

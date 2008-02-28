@@ -33,6 +33,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Runs the message loop.
 
             \return The exit status code.
+
+            \throw std::runtime_error When an error occurred in the message
+                                      loop.
         */
         int operator()()
         const
