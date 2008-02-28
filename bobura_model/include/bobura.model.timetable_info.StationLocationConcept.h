@@ -38,7 +38,7 @@ namespace bobura { namespace model { namespace timetable_info
         void constraints()
         {
             typedef typename StationLocation::station_type station_type;
-            typedef typename StationLocation::meters_type meters_type;
+            typedef typename StationLocation::meterage_type meterage_type;
 
             m_station_location.swap(m_station_location);
             std::swap(m_station_location, m_station_location);
@@ -61,9 +61,9 @@ namespace bobura { namespace model { namespace timetable_info
                 station_location.station();
             boost::ignore_unused_variable_warning(station);
 
-            const typename StationLocation::meters_type& meters =
-                station_location.meters();
-            boost::ignore_unused_variable_warning(meters);
+            const typename StationLocation::meterage_type& meterage =
+                station_location.meterage();
+            boost::ignore_unused_variable_warning(meterage);
 
             const bool before = station_location.before(station_location);
             boost::ignore_unused_variable_warning(before);

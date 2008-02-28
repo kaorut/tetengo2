@@ -38,7 +38,7 @@ namespace bobura { namespace model
         void constraints()
         {
             typedef typename Train::station_type station_type;
-            typedef typename Train::meters_type meters_type;
+            typedef typename Train::meterage_type meterage_type;
 
             m_train.swap(m_train);
             std::swap(m_train, m_train);
@@ -61,9 +61,9 @@ namespace bobura { namespace model
                 train.station();
             boost::ignore_unused_variable_warning(station);
 
-            const typename Train::meters_type& meters =
-                train.meters();
-            boost::ignore_unused_variable_warning(meters);
+            const typename Train::meterage_type& meterage =
+                train.meterage();
+            boost::ignore_unused_variable_warning(meterage);
 
             const bool before = train.before(train);
             boost::ignore_unused_variable_warning(before);

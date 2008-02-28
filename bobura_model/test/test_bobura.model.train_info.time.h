@@ -31,7 +31,7 @@ namespace test_bobura { namespace model { namespace timetable_info
 
         static void station();
 
-        static void meters();
+        static void meterage();
 
         static void before();
 

@@ -37,7 +37,7 @@ namespace test_bobura { namespace model { namespace timetable_info
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
         p_suite->add(BOOST_TEST_CASE(station));
-        p_suite->add(BOOST_TEST_CASE(meters));
+        p_suite->add(BOOST_TEST_CASE(meterage));
         p_suite->add(BOOST_TEST_CASE(before));
 
         return p_suite;
@@ -87,9 +87,9 @@ namespace test_bobura { namespace model { namespace timetable_info
             station_location1.swap(station_location2);
 
             BOOST_CHECK(station_location1.station().name() == L"B");
-            BOOST_CHECK_EQUAL(station_location1.meters(), 2U);
+            BOOST_CHECK_EQUAL(station_location1.meterage(), 2U);
             BOOST_CHECK(station_location2.station().name() == L"A");
-            BOOST_CHECK_EQUAL(station_location2.meters(), 1U);
+            BOOST_CHECK_EQUAL(station_location2.meterage(), 1U);
         }
         {
             bobura::model::timetable_info::station_location<
@@ -106,9 +106,9 @@ namespace test_bobura { namespace model { namespace timetable_info
             std::swap(station_location1, station_location2);
 
             BOOST_CHECK(station_location1.station().name() == L"B");
-            BOOST_CHECK_EQUAL(station_location1.meters(), 2U);
+            BOOST_CHECK_EQUAL(station_location1.meterage(), 2U);
             BOOST_CHECK(station_location2.station().name() == L"A");
-            BOOST_CHECK_EQUAL(station_location2.meters(), 1U);
+            BOOST_CHECK_EQUAL(station_location2.meterage(), 1U);
         }
     }
 
@@ -189,7 +189,7 @@ namespace test_bobura { namespace model { namespace timetable_info
         BOOST_CHECK(station_location.station() == station);
     }
 
-    void station_location::meters()
+    void station_location::meterage()
     {
         BOOST_CHECKPOINT("");
 
@@ -203,7 +203,7 @@ namespace test_bobura { namespace model { namespace timetable_info
                 station_type(L"", grade_type::instance()), 0
             );
 
-            BOOST_CHECK_EQUAL(station_location.meters(), 0U);
+            BOOST_CHECK_EQUAL(station_location.meterage(), 0U);
         }
         {
             const bobura::model::timetable_info::station_location<
@@ -212,7 +212,7 @@ namespace test_bobura { namespace model { namespace timetable_info
                 station_type(L"", grade_type::instance()), 1
             );
 
-            BOOST_CHECK_EQUAL(station_location.meters(), 1U);
+            BOOST_CHECK_EQUAL(station_location.meterage(), 1U);
         }
         {
             const bobura::model::timetable_info::station_location<
@@ -221,7 +221,7 @@ namespace test_bobura { namespace model { namespace timetable_info
                 station_type(L"", grade_type::instance()), 2
             );
 
-            BOOST_CHECK_EQUAL(station_location.meters(), 2U);
+            BOOST_CHECK_EQUAL(station_location.meterage(), 2U);
         }
     }
 

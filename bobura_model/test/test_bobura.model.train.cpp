@@ -37,7 +37,7 @@ namespace test_bobura { namespace model
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
         p_suite->add(BOOST_TEST_CASE(station));
-        p_suite->add(BOOST_TEST_CASE(meters));
+        p_suite->add(BOOST_TEST_CASE(meterage));
         p_suite->add(BOOST_TEST_CASE(before));
 
         return p_suite;
@@ -87,9 +87,9 @@ namespace test_bobura { namespace model
             train1.swap(train2);
 
             BOOST_CHECK(train1.station().name() == L"B");
-            BOOST_CHECK_EQUAL(train1.meters(), 2U);
+            BOOST_CHECK_EQUAL(train1.meterage(), 2U);
             BOOST_CHECK(train2.station().name() == L"A");
-            BOOST_CHECK_EQUAL(train2.meters(), 1U);
+            BOOST_CHECK_EQUAL(train2.meterage(), 1U);
         }
         {
             bobura::model::train<
@@ -106,9 +106,9 @@ namespace test_bobura { namespace model
             std::swap(train1, train2);
 
             BOOST_CHECK(train1.station().name() == L"B");
-            BOOST_CHECK_EQUAL(train1.meters(), 2U);
+            BOOST_CHECK_EQUAL(train1.meterage(), 2U);
             BOOST_CHECK(train2.station().name() == L"A");
-            BOOST_CHECK_EQUAL(train2.meters(), 1U);
+            BOOST_CHECK_EQUAL(train2.meterage(), 1U);
         }
     }
 
@@ -189,7 +189,7 @@ namespace test_bobura { namespace model
         BOOST_CHECK(train.station() == station);
     }
 
-    void train::meters()
+    void train::meterage()
     {
         BOOST_CHECKPOINT("");
 
@@ -203,7 +203,7 @@ namespace test_bobura { namespace model
                 station_type(L"", grade_type::instance()), 0
             );
 
-            BOOST_CHECK_EQUAL(train.meters(), 0U);
+            BOOST_CHECK_EQUAL(train.meterage(), 0U);
         }
         {
             const bobura::model::train<
@@ -212,7 +212,7 @@ namespace test_bobura { namespace model
                 station_type(L"", grade_type::instance()), 1
             );
 
-            BOOST_CHECK_EQUAL(train.meters(), 1U);
+            BOOST_CHECK_EQUAL(train.meterage(), 1U);
         }
         {
             const bobura::model::train<
@@ -221,7 +221,7 @@ namespace test_bobura { namespace model
                 station_type(L"", grade_type::instance()), 2
             );
 
-            BOOST_CHECK_EQUAL(train.meters(), 2U);
+            BOOST_CHECK_EQUAL(train.meterage(), 2U);
         }
     }
 

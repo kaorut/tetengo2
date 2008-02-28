@@ -140,9 +140,9 @@ namespace bobura { namespace model
                                     inserted.
             \param station_location A station location.
 
-            \throw std::invalid_argument When the meters of stations and
-                                         meters are not sequenced in ascending
-                                         order after the insertion.
+            \throw std::invalid_argument When the station locations are not
+                                         sequenced in ascending order after
+                                         the insertion.
         */
         void insert_station_location(
             const typename station_locations_type::const_iterator

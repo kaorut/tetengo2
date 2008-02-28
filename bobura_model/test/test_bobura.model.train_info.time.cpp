@@ -38,7 +38,7 @@ namespace test_bobura { namespace model { namespace train_info
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
         p_suite->add(BOOST_TEST_CASE(station));
-        p_suite->add(BOOST_TEST_CASE(meters));
+        p_suite->add(BOOST_TEST_CASE(meterage));
         p_suite->add(BOOST_TEST_CASE(before));
 
         return p_suite;
@@ -88,9 +88,9 @@ namespace test_bobura { namespace model { namespace train_info
             time1.swap(time2);
 
             BOOST_CHECK(time1.station().name() == L"B");
-            BOOST_CHECK_EQUAL(time1.meters(), 2U);
+            BOOST_CHECK_EQUAL(time1.meterage(), 2U);
             BOOST_CHECK(time2.station().name() == L"A");
-            BOOST_CHECK_EQUAL(time2.meters(), 1U);
+            BOOST_CHECK_EQUAL(time2.meterage(), 1U);
         }
         {
             bobura::model::train_info::time<
@@ -107,9 +107,9 @@ namespace test_bobura { namespace model { namespace train_info
             std::swap(time1, time2);
 
             BOOST_CHECK(time1.station().name() == L"B");
-            BOOST_CHECK_EQUAL(time1.meters(), 2U);
+            BOOST_CHECK_EQUAL(time1.meterage(), 2U);
             BOOST_CHECK(time2.station().name() == L"A");
-            BOOST_CHECK_EQUAL(time2.meters(), 1U);
+            BOOST_CHECK_EQUAL(time2.meterage(), 1U);
         }
     }
 
@@ -190,7 +190,7 @@ namespace test_bobura { namespace model { namespace train_info
         BOOST_CHECK(time.station() == station);
     }
 
-    void time::meters()
+    void time::meterage()
     {
         BOOST_CHECKPOINT("");
 
@@ -204,7 +204,7 @@ namespace test_bobura { namespace model { namespace train_info
                 station_type(L"", grade_type::instance()), 0
             );
 
-            BOOST_CHECK_EQUAL(time.meters(), 0U);
+            BOOST_CHECK_EQUAL(time.meterage(), 0U);
         }
         {
             const bobura::model::train_info::time<
@@ -213,7 +213,7 @@ namespace test_bobura { namespace model { namespace train_info
                 station_type(L"", grade_type::instance()), 1
             );
 
-            BOOST_CHECK_EQUAL(time.meters(), 1U);
+            BOOST_CHECK_EQUAL(time.meterage(), 1U);
         }
         {
             const bobura::model::train_info::time<
@@ -222,7 +222,7 @@ namespace test_bobura { namespace model { namespace train_info
                 station_type(L"", grade_type::instance()), 2
             );
 
-            BOOST_CHECK_EQUAL(time.meters(), 2U);
+            BOOST_CHECK_EQUAL(time.meterage(), 2U);
         }
     }
 

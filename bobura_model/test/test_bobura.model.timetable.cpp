@@ -102,14 +102,14 @@ namespace test_bobura { namespace model
                 std::wstring(L"B")
             );
             BOOST_CHECK_EQUAL(
-                timetable1.station_locations()[0].meters(), 2U
+                timetable1.station_locations()[0].meterage(), 2U
             );
             BOOST_CHECK(
                 timetable2.station_locations()[0].station().name() ==
                 std::wstring(L"A")
             );
             BOOST_CHECK_EQUAL(
-                timetable2.station_locations()[0].meters(), 1U
+                timetable2.station_locations()[0].meterage(), 1U
             );
         }
         {
@@ -138,14 +138,14 @@ namespace test_bobura { namespace model
                 std::wstring(L"B")
             );
             BOOST_CHECK_EQUAL(
-                timetable1.station_locations()[0].meters(), 2U
+                timetable1.station_locations()[0].meterage(), 2U
             );
             BOOST_CHECK(
                 timetable2.station_locations()[0].station().name() ==
                 std::wstring(L"A")
             );
             BOOST_CHECK_EQUAL(
-                timetable2.station_locations()[0].meters(), 1U
+                timetable2.station_locations()[0].meterage(), 1U
             );
         }
     }
@@ -352,7 +352,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK(
                 station_locations[0].station().name() == std::wstring(L"A")
             );
-            BOOST_CHECK_EQUAL(station_locations[0].meters(), 1U);
+            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
         }
         {
             bobura::model::timetable<station_location_type> timetable;
@@ -380,11 +380,11 @@ namespace test_bobura { namespace model
             BOOST_CHECK(
                 station_locations[0].station().name() == std::wstring(L"A")
             );
-            BOOST_CHECK_EQUAL(station_locations[0].meters(), 1U);
+            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
             BOOST_CHECK(
                 station_locations[1].station().name() == std::wstring(L"B")
             );
-            BOOST_CHECK_EQUAL(station_locations[1].meters(), 2U);
+            BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
         }
     }
 
@@ -419,7 +419,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK(
                 station_locations[0].station().name() == std::wstring(L"A")
             );
-            BOOST_CHECK_EQUAL(station_locations[0].meters(), 1U);
+            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
         }
         {
             bobura::model::timetable<station_location_type> timetable;
@@ -447,11 +447,11 @@ namespace test_bobura { namespace model
             BOOST_CHECK(
                 station_locations[0].station().name() == std::wstring(L"A")
             );
-            BOOST_CHECK_EQUAL(station_locations[0].meters(), 1U);
+            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
             BOOST_CHECK(
                 station_locations[1].station().name() == std::wstring(L"B")
             );
-            BOOST_CHECK_EQUAL(station_locations[1].meters(), 2U);
+            BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
         }
         {
             bobura::model::timetable<station_location_type> timetable;
@@ -482,7 +482,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK(
                 station_locations[0].station().name() == std::wstring(L"B")
             );
-            BOOST_CHECK_EQUAL(station_locations[0].meters(), 2U);
+            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 2U);
         }
         {
             bobura::model::timetable<station_location_type> timetable;
@@ -524,19 +524,19 @@ namespace test_bobura { namespace model
             BOOST_CHECK(
                 station_locations[0].station().name() == std::wstring(L"A")
             );
-            BOOST_CHECK_EQUAL(station_locations[0].meters(), 1U);
+            BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
             BOOST_CHECK(
                 station_locations[1].station().name() == std::wstring(L"B")
             );
-            BOOST_CHECK_EQUAL(station_locations[1].meters(), 2U);
+            BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
             BOOST_CHECK(
                 station_locations[2].station().name() == std::wstring(L"C")
             );
-            BOOST_CHECK_EQUAL(station_locations[2].meters(), 3U);
+            BOOST_CHECK_EQUAL(station_locations[2].meterage(), 3U);
             BOOST_CHECK(
                 station_locations[3].station().name() == std::wstring(L"D")
             );
-            BOOST_CHECK_EQUAL(station_locations[3].meters(), 4U);
+            BOOST_CHECK_EQUAL(station_locations[3].meterage(), 4U);
         }
     }
 

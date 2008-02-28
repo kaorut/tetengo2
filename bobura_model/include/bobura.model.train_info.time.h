@@ -24,22 +24,22 @@ namespace bobura { namespace model { namespace train_info
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
-        \tparam Meters  A meters type. It must conform to
-                        boost::EqualityComparableConcept<Meters> and
-                        boost::ComparableConcept<Meters>.
+        \tparam Meterage  A meterage type. It must conform to
+                        boost::EqualityComparableConcept<Meterage> and
+                        boost::ComparableConcept<Meterage>.
     */
-    template <typename Station, typename Meters>
+    template <typename Station, typename Meterage>
     class time :
         private boost::equality_comparable<
-            time<Station, Meters>
+            time<Station, Meterage>
         >
     {
     private:
         // concept checks
 
         BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
-        BOOST_CLASS_REQUIRE(Meters, boost, EqualityComparableConcept);
-        BOOST_CLASS_REQUIRE(Meters, boost, ComparableConcept);
+        BOOST_CLASS_REQUIRE(Meterage, boost, EqualityComparableConcept);
+        BOOST_CLASS_REQUIRE(Meterage, boost, ComparableConcept);
 
 
     public:
@@ -48,8 +48,8 @@ namespace bobura { namespace model { namespace train_info
         //! The station type.
         typedef Station station_type;
 
-        //! The meters type.
-        typedef Meters meters_type;
+        //! The meterage type.
+        typedef Meterage meterage_type;
 
 
         // constructors and destructor
@@ -58,15 +58,15 @@ namespace bobura { namespace model { namespace train_info
             \brief Creates a time.
 
             \param station A station.
-            \param meters  Meters.
+            \param meterage  Meterage.
         */
         time(
             const station_type& station,
-            const meters_type   meters
+            const meterage_type   meterage
         )
         :
         m_station(station),
-        m_meters(meters)
+        m_meterage(meterage)
         {}
 
         /*!
@@ -77,7 +77,7 @@ namespace bobura { namespace model { namespace train_info
         time(const time& another)
         :
         m_station(another.m_station),
-        m_meters(another.m_meters)
+        m_meterage(another.m_meterage)
         {}
 
         /*!
@@ -99,7 +99,7 @@ namespace bobura { namespace model { namespace train_info
         throw ()
         {
             m_station.swap(another.m_station);
-            std::swap(m_meters, another.m_meters);
+            std::swap(m_meterage, another.m_meterage);
         }
 
         /*!
@@ -130,7 +130,7 @@ namespace bobura { namespace model { namespace train_info
         const
         {
             return m_station == another.m_station &&
-                   m_meters == another.m_meters;
+                   m_meterage == another.m_meterage;
         }
 
         /*!
@@ -145,28 +145,28 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Returns the meters.
+            \brief Returns the meterage.
 
-            \return The meters.
+            \return The meterage.
         */
-        meters_type meters()
+        meterage_type meterage()
         const
         {
-            return m_meters;
+            return m_meterage;
         }
 
         /*!
             \brief Checks this station is located before another.
 
-            \param another Another sation_and_meters object.
+            \param another Another sation_and_meterage object.
 
-            \retval true  When this->meters() <= another.meters().
+            \retval true  When this->meterage() <= another.meterage().
             \retval false Otherwise.
         */
         bool before(const time& another)
         const
         {
-            return m_meters <= another.m_meters;
+            return m_meterage <= another.m_meterage;
         }
 
 
@@ -175,7 +175,7 @@ namespace bobura { namespace model { namespace train_info
 
         station_type m_station;
 
-        meters_type m_meters;
+        meterage_type m_meterage;
 
 
     };
@@ -190,25 +190,25 @@ namespace std
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
-        \tparam Meters  A meters type. It must conform to
-                        boost::EqualityComparableConcept<Meters> and
-                        boost::ComparableConcept<Meters>.
+        \tparam Meterage  A meterage type. It must conform to
+                        boost::EqualityComparableConcept<Meterage> and
+                        boost::ComparableConcept<Meterage>.
 
         \param time1 A time object #1.
         \param time2 A time object #2.
     */
-    template <typename Station, typename Meters>
+    template <typename Station, typename Meterage>
     void swap(
-        bobura::model::train_info::time<Station, Meters>&
+        bobura::model::train_info::time<Station, Meterage>&
         time1,
-        bobura::model::train_info::time<Station, Meters>&
+        bobura::model::train_info::time<Station, Meterage>&
         time2
     )
     throw ()
     {
         boost::function_requires<bobura::model::StationConcept<Station> >();
-        boost::function_requires<boost::EqualityComparableConcept<Meters> >();
-        boost::function_requires<boost::ComparableConcept<Meters> >();
+        boost::function_requires<boost::EqualityComparableConcept<Meterage> >();
+        boost::function_requires<boost::ComparableConcept<Meterage> >();
 
         time1.swap(time2);
     }
