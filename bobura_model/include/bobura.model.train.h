@@ -20,7 +20,7 @@
 namespace bobura { namespace model
 {
     /*!
-        \brief The class for a station and meters.
+        \brief The class for a station location.
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.

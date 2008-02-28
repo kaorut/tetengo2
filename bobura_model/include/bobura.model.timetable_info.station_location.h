@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of bobura::model::timetable_info::station_and_meters.
+    \brief The definition of bobura::model::timetable_info::station_location.
 
     Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_MODEL_TIMETABLEINFO_STATIONANDMETERS_H)
-#define BOBURA_MODEL_TIMETABLEINFO_STATIONANDMETERS_H
+#if !defined(BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H)
+#define BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H
 
 //#include <algorithm>
 
@@ -20,7 +20,7 @@
 namespace bobura { namespace model { namespace timetable_info
 {
     /*!
-        \brief The class for a station and meters.
+        \brief The class for a station location.
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
@@ -29,10 +29,8 @@ namespace bobura { namespace model { namespace timetable_info
                         boost::ComparableConcept<Meters>.
     */
     template <typename Station, typename Meters>
-    class station_and_meters :
-        private boost::equality_comparable<
-            station_and_meters<Station, Meters>
-        >
+    class station_location :
+        private boost::equality_comparable<station_location<Station, Meters> >
     {
     private:
         // concept checks
@@ -55,12 +53,12 @@ namespace bobura { namespace model { namespace timetable_info
         // constructors and destructor
 
         /*!
-            \brief Creates a station_and_meters.
+            \brief Creates a station_location.
 
             \param station A station.
             \param meters  Meters.
         */
-        station_and_meters(
+        station_location(
             const station_type& station,
             const meters_type   meters
         )
@@ -70,20 +68,20 @@ namespace bobura { namespace model { namespace timetable_info
         {}
 
         /*!
-            \brief Creates a station_and_meters.
+            \brief Creates a station_location.
 
-            \param another Another station_and_meters object.
+            \param another Another station_location object.
         */
-        station_and_meters(const station_and_meters& another)
+        station_location(const station_location& another)
         :
         m_station(another.m_station),
         m_meters(another.m_meters)
         {}
 
         /*!
-            \brief Destroys the station_and_meters.
+            \brief Destroys the station_location.
         */
-        virtual ~station_and_meters()
+        ~station_location()
         throw ()
         {}
 
@@ -91,11 +89,11 @@ namespace bobura { namespace model { namespace timetable_info
         // functions
 
         /*!
-            \brief Swaps the members with another station_and_meters object.
+            \brief Swaps the members with another station_location object.
 
-            \param another Another station_and_meters object.
+            \param another Another station_location object.
         */
-        void swap(station_and_meters& another)
+        void swap(station_location& another)
         throw ()
         {
             m_station.swap(another.m_station);
@@ -103,30 +101,28 @@ namespace bobura { namespace model { namespace timetable_info
         }
 
         /*!
-            \brief Assigns another station_and_meters object.
+            \brief Assigns another station_location object.
 
-            \param another Another station_and_meters object.
+            \param another Another station_location object.
 
             \return this object.
         */
-        station_and_meters& operator=(
-            const station_and_meters& another
-        )
+        station_location& operator=(const station_location& another)
         {
-            station_and_meters(another).swap(*this);
+            station_location(another).swap(*this);
             return *this;
         }
 
         /*!
             \brief Checks whether this is equal to anther
-                   station_and_meters object.
+                   station_location object.
 
-            \param another Another station_and_meters object.
+            \param another Another station_location object.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
         */
-        bool operator==(const station_and_meters& another)
+        bool operator==(const station_location& another)
         const
         {
             return m_station == another.m_station &&
@@ -163,7 +159,7 @@ namespace bobura { namespace model { namespace timetable_info
             \retval true  When this->meters() <= another.meters().
             \retval false Otherwise.
         */
-        bool before(const station_and_meters& another)
+        bool before(const station_location& another)
         const
         {
             return m_meters <= another.m_meters;
@@ -186,7 +182,7 @@ namespace bobura { namespace model { namespace timetable_info
 namespace std
 {
     /*!
-        \brief Swaps two station_and_meters objects.
+        \brief Swaps two station_location objects.
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
@@ -194,15 +190,15 @@ namespace std
                         boost::EqualityComparableConcept<Meters> and
                         boost::ComparableConcept<Meters>.
 
-        \param station_and_meters1 A station_and_meters object #1.
-        \param station_and_meters2 A station_and_meters object #2.
+        \param station_location1 A station_location object #1.
+        \param station_location2 A station_location object #2.
     */
     template <typename Station, typename Meters>
     void swap(
-        bobura::model::timetable_info::station_and_meters<Station, Meters>&
-        station_and_meters1,
-        bobura::model::timetable_info::station_and_meters<Station, Meters>&
-        station_and_meters2
+        bobura::model::timetable_info::station_location<Station, Meters>&
+        station_location1,
+        bobura::model::timetable_info::station_location<Station, Meters>&
+        station_location2
     )
     throw ()
     {
@@ -210,7 +206,7 @@ namespace std
         boost::function_requires<boost::EqualityComparableConcept<Meters> >();
         boost::function_requires<boost::ComparableConcept<Meters> >();
 
-        station_and_meters1.swap(station_and_meters2);
+        station_location1.swap(station_location2);
     }
 
 

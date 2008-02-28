@@ -16,7 +16,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
-#include "bobura.model.timetable_info.StationAndMetersConcept.h"
+#include "bobura.model.timetable_info.StationLocationConcept.h"
 
 
 namespace bobura { namespace model
@@ -24,31 +24,31 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a timetable.
 
-        \tparam StationAndMeters A station and meters type. It must conform to
-                                 bobura::model::timetable_info::StationAndMetersConcept<StationAndMeters>.
+        \tparam StationLocation A station location type. It must conform to
+                                bobura::model::timetable_info::StationLocationConcept<StationLocation>.
     */
-    template <typename StationAndMeters>
+    template <typename StationLocation>
     class timetable :
-        private boost::equality_comparable<timetable<StationAndMeters> >
+        private boost::equality_comparable<timetable<StationLocation> >
     {
     private:
         // concept checks
 
         BOOST_CLASS_REQUIRE(
-            StationAndMeters,
+            StationLocation,
             bobura::model::timetable_info,
-            StationAndMetersConcept
+            StationLocationConcept
         );
 
 
     public:
         // types
 
-        //! The station and meters type.
-        typedef StationAndMeters station_and_meters_type;
+        //! The station location type.
+        typedef StationLocation station_location_type;
 
-        //! The stations and meters type.
-        typedef std::vector<station_and_meters_type> stations_and_meters_type;
+        //! The station locations type.
+        typedef std::vector<station_location_type> station_locations_type;
 
 
         // constructors and destructor
@@ -58,7 +58,7 @@ namespace bobura { namespace model
         */
         timetable()
         :
-        m_stations_and_meters()
+        m_station_locations()
         {}
 
         /*!
@@ -68,7 +68,7 @@ namespace bobura { namespace model
         */
         timetable(const timetable& another)
         :
-        m_stations_and_meters(another.m_stations_and_meters)
+        m_station_locations(another.m_station_locations)
         {}
 
         /*!
@@ -89,7 +89,7 @@ namespace bobura { namespace model
         void swap(timetable& another)
         throw ()
         {
-            m_stations_and_meters.swap(another.m_stations_and_meters);
+            m_station_locations.swap(another.m_station_locations);
         }
 
         /*!
@@ -116,77 +116,77 @@ namespace bobura { namespace model
         bool operator==(const timetable& another)
         const
         {
-            return m_stations_and_meters == another.m_stations_and_meters;
+            return m_station_locations == another.m_station_locations;
         }
 
         /*!
-            \brief Returns the stations and meters.
+            \brief Returns the station locations.
 
-            \return The stations and meters.
+            \return The station locations.
         */
-        const stations_and_meters_type& stations_and_meters()
+        const station_locations_type& station_locations()
         const
         {
-            return m_stations_and_meters;
+            return m_station_locations;
         }
 
         /*!
-            \brief Inserts a station and meters.
+            \brief Inserts a station location.
 
-            After the insertion, the meters of stations and meters must be
-            sequenced in ascending order.
+            After the insertion, the station locations must be sequenced in
+            ascending order.
 
-            \param position           The position where the station and
-                                      meters is inserted.
-            \param station_and_meters A station and meters.
+            \param position         The position where the station and meters
+                                    is inserted.
+            \param station_location A station location.
 
             \throw std::invalid_argument When the meters of stations and
                                          meters are not sequenced in ascending
                                          order after the insertion.
         */
-        void insert_station_and_meters(
-            const typename stations_and_meters_type::const_iterator
-                                           position,
-            const station_and_meters_type& station_and_meters
+        void insert_station_location(
+            const typename station_locations_type::const_iterator
+                                         position,
+            const station_location_type& station_location
         )
         {
-            if (!can_insert_to(position, station_and_meters))
+            if (!can_insert_to(position, station_location))
             {
                 throw std::invalid_argument(
                     "The insertion position is invalid."
                 );
             }
 
-            m_stations_and_meters.insert(position, station_and_meters);
+            m_station_locations.insert(position, station_location);
         }
 
 
     private:
         // variables
 
-        stations_and_meters_type m_stations_and_meters;
+        station_locations_type m_station_locations;
 
 
         // functions
 
         bool can_insert_to(
-            const typename stations_and_meters_type::const_iterator
-                                           position,
-            const station_and_meters_type& station_and_meters
+            const typename station_locations_type::const_iterator
+                                         position,
+            const station_location_type& station_location
         )
         const
         {
             if (
-                position != m_stations_and_meters.begin() &&
-                !previous_iterator(position)->before(station_and_meters)
+                position != m_station_locations.begin() &&
+                !previous_iterator(position)->before(station_location)
             )
             {
                 return false;
             }
             
             if (
-                position != m_stations_and_meters.end() &&
-                !station_and_meters.before(*position)
+                position != m_station_locations.end() &&
+                !station_location.before(*position)
             )
             {
                 return false;
@@ -220,22 +220,22 @@ namespace std
     /*!
         \brief Swaps two timetable objects.
 
-        \tparam StationAndMeters A station and meters type. It must conform to
-                                 bobura::model::timetable_info::StationAndMetersConcept<StationAndMeters>.
+        \tparam StationLocation A station location type. It must conform to
+                                bobura::model::timetable_info::StationLocationConcept<StationLocation>.
 
         \param timetable1 A timetable object #1.
         \param timetable2 A timetable object #2.
     */
-    template <typename StationAndMeters>
+    template <typename StationLocation>
     void swap(
-        bobura::model::timetable<StationAndMeters>& timetable1,
-        bobura::model::timetable<StationAndMeters>& timetable2
+        bobura::model::timetable<StationLocation>& timetable1,
+        bobura::model::timetable<StationLocation>& timetable2
     )
     throw ()
     {
         boost::function_requires<
-            bobura::model::timetable_info::StationAndMetersConcept<
-                StationAndMeters
+            bobura::model::timetable_info::StationLocationConcept<
+                StationLocation
             >
         >();
 

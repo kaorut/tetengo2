@@ -140,11 +140,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\bobura.model.timetable_info.station_and_meters.h"
+				RelativePath=".\include\bobura.model.timetable_info.station_location.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\bobura.model.timetable_info.StationAndMetersConcept.h"
+				RelativePath=".\include\bobura.model.timetable_info.StationLocationConcept.h"
 				>
 			</File>
 			<File

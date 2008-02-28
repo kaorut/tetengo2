@@ -418,7 +418,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\test\test_bobura.model.timetable_info.station_and_meters.cpp"
+				RelativePath=".\test\test_bobura.model.timetable_info.station_location.cpp"
 				>
 			</File>
 			<File
@@ -464,7 +464,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\test\test_bobura.model.timetable_info.station_and_meters.h"
+				RelativePath=".\test\test_bobura.model.timetable_info.station_location.h"
 				>
 			</File>
 			<File
