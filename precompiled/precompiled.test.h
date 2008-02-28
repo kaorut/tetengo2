@@ -15,6 +15,7 @@
 #include <cstddef>
 #include <exception>
 #include <functional>
+#include <iterator>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
