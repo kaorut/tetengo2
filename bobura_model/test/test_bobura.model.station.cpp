@@ -43,7 +43,8 @@ namespace test_bobura { namespace model
         BOOST_CHECKPOINT("");
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::major<std::wstring> major_type;
+        typedef bobura::model::station_info::principal<std::wstring>
+        principal_type;
 
         {
             const bobura::model::station<std::wstring, grade_type> station(
@@ -86,7 +87,7 @@ namespace test_bobura { namespace model
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
-                L"", major_type::instance()
+                L"", principal_type::instance()
             );
 
             const bobura::model::station<std::wstring, grade_type>
@@ -96,7 +97,7 @@ namespace test_bobura { namespace model
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
-                L"A", major_type::instance()
+                L"A", principal_type::instance()
             );
 
             const bobura::model::station<std::wstring, grade_type>
@@ -106,7 +107,7 @@ namespace test_bobura { namespace model
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
-                L"AB", major_type::instance()
+                L"AB", principal_type::instance()
             );
 
             const bobura::model::station<std::wstring, grade_type>
@@ -131,19 +132,20 @@ namespace test_bobura { namespace model
         BOOST_CHECKPOINT("");
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::major<std::wstring> major_type;
+        typedef bobura::model::station_info::principal<std::wstring>
+        principal_type;
 
         bobura::model::station<std::wstring, grade_type> station1(
             L"A", grade_type::instance()
         );
         bobura::model::station<std::wstring, grade_type> station2(
-            L"B", major_type::instance()
+            L"B", principal_type::instance()
         );
 
         station1.swap(station2);
 
         BOOST_CHECK(station1.name() == std::wstring(L"B"));
-        BOOST_CHECK_EQUAL(&station1.grade(), &major_type::instance());
+        BOOST_CHECK_EQUAL(&station1.grade(), &principal_type::instance());
         BOOST_CHECK(station2.name() == std::wstring(L"A"));
         BOOST_CHECK_EQUAL(&station2.grade(), &grade_type::instance());
 
@@ -152,7 +154,7 @@ namespace test_bobura { namespace model
         BOOST_CHECK(station1.name() == std::wstring(L"A"));
         BOOST_CHECK_EQUAL(&station1.grade(), &grade_type::instance());
         BOOST_CHECK(station2.name() == std::wstring(L"B"));
-        BOOST_CHECK_EQUAL(&station2.grade(), &major_type::instance());
+        BOOST_CHECK_EQUAL(&station2.grade(), &principal_type::instance());
     }
 
     void station::operator_assign()
@@ -160,13 +162,14 @@ namespace test_bobura { namespace model
         BOOST_CHECKPOINT("");
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::major<std::wstring> major_type;
+        typedef bobura::model::station_info::principal<std::wstring>
+        principal_type;
 
         bobura::model::station<std::wstring, grade_type> station1(
             L"A", grade_type::instance()
         );
         const bobura::model::station<std::wstring, grade_type> station2(
-            L"B", major_type::instance()
+            L"B", principal_type::instance()
         );
 
         station1 = station2;
@@ -179,7 +182,8 @@ namespace test_bobura { namespace model
         BOOST_CHECKPOINT("");
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::major<std::wstring> major_type;
+        typedef bobura::model::station_info::principal<std::wstring>
+        principal_type;
 
         {
             const bobura::model::station<std::wstring, grade_type> station1(
@@ -193,10 +197,10 @@ namespace test_bobura { namespace model
         }
         {
             const bobura::model::station<std::wstring, grade_type> station1(
-                L"B", major_type::instance()
+                L"B", principal_type::instance()
             );
             const bobura::model::station<std::wstring, grade_type> station2(
-                L"B", major_type::instance()
+                L"B", principal_type::instance()
             );
 
             BOOST_CHECK(station1 == station2);
@@ -206,7 +210,7 @@ namespace test_bobura { namespace model
                 L"A", grade_type::instance()
             );
             const bobura::model::station<std::wstring, grade_type> station2(
-                L"B", major_type::instance()
+                L"B", principal_type::instance()
             );
 
             BOOST_CHECK(station1 != station2);
@@ -255,13 +259,14 @@ namespace test_bobura { namespace model
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
         typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station_info::major<std::wstring> major_type;
+        typedef bobura::model::station_info::principal<std::wstring>
+        principal_type;
         typedef
             bobura::model::station_info::local_terminal<std::wstring>
             local_terminal_type;
         typedef
-            bobura::model::station_info::major_terminal<std::wstring>
-            major_terminal_type;
+            bobura::model::station_info::principal_terminal<std::wstring>
+            principal_terminal_type;
 
         {
             const bobura::model::station<std::wstring, grade_type> station(
@@ -279,10 +284,10 @@ namespace test_bobura { namespace model
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
-                L"", major_type::instance()
+                L"", principal_type::instance()
             );
 
-            BOOST_CHECK_EQUAL(&station.grade(), &major_type::instance());
+            BOOST_CHECK_EQUAL(&station.grade(), &principal_type::instance());
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
@@ -295,11 +300,11 @@ namespace test_bobura { namespace model
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
-                L"", major_terminal_type::instance()
+                L"", principal_terminal_type::instance()
             );
 
             BOOST_CHECK_EQUAL(
-                &station.grade(), &major_terminal_type::instance()
+                &station.grade(), &principal_terminal_type::instance()
             );
         }
     }

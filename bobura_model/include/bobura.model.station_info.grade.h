@@ -98,9 +98,9 @@ namespace bobura { namespace model { namespace station_info
                 return singleton;
             }
 
-            static const ::std::string& major()
+            static const ::std::string& principal()
             {
-                static const ::std::string singleton = "major";
+                static const ::std::string singleton = "principal";
                 return singleton;
             }
 
@@ -110,9 +110,9 @@ namespace bobura { namespace model { namespace station_info
                 return singleton;
             }
 
-            static const ::std::string& major_terminal()
+            static const ::std::string& principal_terminal()
             {
-                static const ::std::string singleton = "major terminal";
+                static const ::std::string singleton = "principal terminal";
                 return singleton;
             }
 
@@ -128,9 +128,9 @@ namespace bobura { namespace model { namespace station_info
                 return singleton;
             }
 
-            static const ::std::wstring& major()
+            static const ::std::wstring& principal()
             {
-                static const ::std::wstring singleton = L"major";
+                static const ::std::wstring singleton = L"principal";
                 return singleton;
             }
 
@@ -140,9 +140,9 @@ namespace bobura { namespace model { namespace station_info
                 return singleton;
             }
 
-            static const ::std::wstring& major_terminal()
+            static const ::std::wstring& principal_terminal()
             {
-                static const ::std::wstring singleton = L"major terminal";
+                static const ::std::wstring singleton = L"principal terminal";
                 return singleton;
             }
 
@@ -208,21 +208,21 @@ namespace bobura { namespace model { namespace station_info
     };
 
     /*!
-        \brief The class for a major station grade.
+        \brief The class for a principal station grade.
  
         \tparam String A string type. It must conform to
                        tetengo2::StringConcept<String>.
    */
     template <typename String>
-    class major : public grade<String>
+    class principal : public grade<String>
     {
     public:
         // constructors and destructor
 
         /*!
-            \brief Destroys the major.
+            \brief Destroys the principal.
         */
-        virtual ~major()
+        virtual ~principal()
         throw ()
         {}
 
@@ -230,13 +230,13 @@ namespace bobura { namespace model { namespace station_info
         // functions
 
         /*!
-            \brief Returns the instance of the major.
+            \brief Returns the instance of the principal.
 
-            \return The instance of the major.
+            \return The instance of the principal.
         */
-        static const major& instance()
+        static const principal& instance()
         {
-            static const major singleton;
+            static const principal singleton;
 
             return singleton;
         }
@@ -244,19 +244,19 @@ namespace bobura { namespace model { namespace station_info
         /*!
             \brief Returns the name.
 
-            \return The name "major".
+            \return The name "principal".
         */
         virtual const string_type& name()
         const
         {
-            return grade_name<string_type>::major();
+            return grade_name<string_type>::principal();
         }
 
 
     private:
         // constructors
 
-        major()
+        principal()
         {}
 
 
@@ -318,21 +318,21 @@ namespace bobura { namespace model { namespace station_info
     };
 
     /*!
-        \brief The class for a major terminal station grade.
+        \brief The class for a principal terminal station grade.
 
         \tparam String A string type. It must conform to
                        tetengo2::StringConcept<String>.
     */
     template <typename String>
-    class major_terminal : public grade<String>
+    class principal_terminal : public grade<String>
     {
     public:
         // constructors and destructor
 
         /*!
-            \brief Destroys the major terminal.
+            \brief Destroys the principal terminal.
         */
-        virtual ~major_terminal()
+        virtual ~principal_terminal()
         throw ()
         {}
 
@@ -340,13 +340,13 @@ namespace bobura { namespace model { namespace station_info
         // functions
 
         /*!
-            \brief Returns the instance of the major terminal.
+            \brief Returns the instance of the principal terminal.
 
-            \return The instance of the major terminal.
+            \return The instance of the principal terminal.
         */
-        static const major_terminal& instance()
+        static const principal_terminal& instance()
         {
-            static const major_terminal singleton;
+            static const principal_terminal singleton;
 
             return singleton;
         }
@@ -354,19 +354,19 @@ namespace bobura { namespace model { namespace station_info
         /*!
             \brief Returns the name.
 
-            \return The name "major terminal".
+            \return The name "principal terminal".
         */
         virtual const string_type& name()
         const
         {
-            return grade_name<string_type>::major_terminal();
+            return grade_name<string_type>::principal_terminal();
         }
 
 
     private:
         // constructors
 
-        major_terminal()
+        principal_terminal()
         {}
 
 
