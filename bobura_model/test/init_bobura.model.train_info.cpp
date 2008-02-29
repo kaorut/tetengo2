@@ -12,6 +12,7 @@
 
 #include "init_bobura.model.train_info.h"
 #include "test_bobura.model.train_info.time.h"
+#include "test_bobura.model.train_info.time_span.h"
 
 
 namespace test_bobura { namespace model { namespace train_info
@@ -24,6 +25,7 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_TEST_SUITE("test_bobura::model::train_info");
 
         p_suite->add(time::suite());
+        p_suite->add(time_span::suite());
 
         return p_suite;
     }

@@ -160,7 +160,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\bobura.model.train_info.time_span.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\bobura.model.train_info.TimeConcept.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\bobura.model.train_info.TimeSpanConcept.h"
 				>
 			</File>
 			<File

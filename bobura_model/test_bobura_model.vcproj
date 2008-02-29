@@ -433,6 +433,10 @@
 				RelativePath=".\test\test_bobura.model.train_info.time.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.train_info.time_span.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headers"
@@ -481,6 +485,10 @@
 			</File>
 			<File
 				RelativePath=".\test\test_bobura.model.train_info.time.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.train_info.time_span.h"
 				>
 			</File>
 		</Filter>
