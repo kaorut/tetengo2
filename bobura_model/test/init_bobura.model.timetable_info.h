@@ -18,6 +18,7 @@ namespace test_bobura { namespace model { namespace timetable_info
 
     boost::unit_test::test_suite* suite();
 
+
 }}}
 
 #endif

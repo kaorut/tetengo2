@@ -386,6 +386,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\init_bobura.model.train_info.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\precompiled\precompiled.test.cpp"
 				>
 				<FileConfiguration
@@ -445,6 +449,10 @@
 			</File>
 			<File
 				RelativePath=".\test\init_bobura.model.timetable_info.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\init_bobura.model.train_info.h"
 				>
 			</File>
 			<File

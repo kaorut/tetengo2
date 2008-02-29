@@ -18,6 +18,7 @@ namespace test_bobura { namespace model
 
     boost::unit_test::test_suite* suite();
 
+
 }}
 
 #endif
