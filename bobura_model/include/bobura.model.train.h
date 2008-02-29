@@ -24,22 +24,14 @@ namespace bobura { namespace model
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
-        \tparam Meterage  A meterage type. It must conform to
-                        boost::EqualityComparableConcept<Meterage> and
-                        boost::ComparableConcept<Meterage>.
     */
-    template <typename Station, typename Meterage>
-    class train :
-        private boost::equality_comparable<
-            train<Station, Meterage>
-        >
+    template <typename Station>
+    class train : private boost::equality_comparable<train<Station> >
     {
     private:
         // concept checks
 
         BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
-        BOOST_CLASS_REQUIRE(Meterage, boost, EqualityComparableConcept);
-        BOOST_CLASS_REQUIRE(Meterage, boost, ComparableConcept);
 
 
     public:
@@ -48,25 +40,13 @@ namespace bobura { namespace model
         //! The station type.
         typedef Station station_type;
 
-        //! The meterage type.
-        typedef Meterage meterage_type;
-
 
         // constructors and destructor
 
         /*!
             \brief Creates a train.
-
-            \param station A station.
-            \param meterage  Meterage.
         */
-        train(
-            const station_type& station,
-            const meterage_type   meterage
-        )
-        :
-        m_station(station),
-        m_meterage(meterage)
+        train()
         {}
 
         /*!
@@ -75,15 +55,12 @@ namespace bobura { namespace model
             \param another Another train object.
         */
         train(const train& another)
-        :
-        m_station(another.m_station),
-        m_meterage(another.m_meterage)
         {}
 
         /*!
             \brief Destroys the train.
         */
-        virtual ~train()
+        ~train()
         throw ()
         {}
 
@@ -98,8 +75,6 @@ namespace bobura { namespace model
         void swap(train& another)
         throw ()
         {
-            m_station.swap(another.m_station);
-            std::swap(m_meterage, another.m_meterage);
         }
 
         /*!
@@ -109,9 +84,7 @@ namespace bobura { namespace model
 
             \return this object.
         */
-        train& operator=(
-            const train& another
-        )
+        train& operator=(const train& another)
         {
             train(another).swap(*this);
             return *this;
@@ -129,53 +102,12 @@ namespace bobura { namespace model
         bool operator==(const train& another)
         const
         {
-            return m_station == another.m_station &&
-                   m_meterage == another.m_meterage;
-        }
-
-        /*!
-            \brief Returns the station.
-
-            \return The station.
-        */
-        const station_type& station()
-        const
-        {
-            return m_station;
-        }
-
-        /*!
-            \brief Returns the meterage.
-
-            \return The meterage.
-        */
-        meterage_type meterage()
-        const
-        {
-            return m_meterage;
-        }
-
-        /*!
-            \brief Checks this station is located before another.
-
-            \param another Another sation_and_meterage object.
-
-            \retval true  When this->meterage() <= another.meterage().
-            \retval false Otherwise.
-        */
-        bool before(const train& another)
-        const
-        {
-            return m_meterage <= another.m_meterage;
+            return true;
         }
 
 
     private:
         // variables
-
-        station_type m_station;
-
-        meterage_type m_meterage;
 
 
     };
@@ -190,25 +122,18 @@ namespace std
 
         \tparam Station A station type. It must conform to
                         bobura::model::StationConcept<Station>.
-        \tparam Meterage  A meterage type. It must conform to
-                        boost::EqualityComparableConcept<Meterage> and
-                        boost::ComparableConcept<Meterage>.
 
         \param train1 A train object #1.
         \param train2 A train object #2.
     */
-    template <typename Station, typename Meterage>
+    template <typename Station>
     void swap(
-        bobura::model::train<Station, Meterage>&
-        train1,
-        bobura::model::train<Station, Meterage>&
-        train2
+        bobura::model::train<Station>& train1,
+        bobura::model::train<Station>& train2
     )
     throw ()
     {
         boost::function_requires<bobura::model::StationConcept<Station> >();
-        boost::function_requires<boost::EqualityComparableConcept<Meterage> >();
-        boost::function_requires<boost::ComparableConcept<Meterage> >();
 
         train1.swap(train2);
     }

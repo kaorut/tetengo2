@@ -6,15 +6,15 @@
     $Id$
 */
 
-#if !defined(BOBURA_MODEL_TIMETABLENINFO_TIMECONCEPT_H)
-#define BOBURA_MODEL_TIMETABLENINFO_TIMECONCEPT_H
+#if !defined(BOBURA_MODEL_TRAININFO_TIMECONCEPT_H)
+#define BOBURA_MODEL_TRAININFO_TIMECONCEPT_H
 
 #include <algorithm>
 
 #include <boost/concept_check.hpp>
 
 
-namespace bobura { namespace model { namespace timetable_info
+namespace bobura { namespace model { namespace train_info
 {
     /*!
         \brief The concept check class template for a time.
@@ -57,16 +57,9 @@ namespace bobura { namespace model { namespace timetable_info
         */
         void const_constraints(const Time& time)
         {
-            const typename Time::station_type& station =
-                time.station();
-            boost::ignore_unused_variable_warning(station);
-
-            const typename Time::meterage_type& meterage =
-                time.meterage();
-            boost::ignore_unused_variable_warning(meterage);
-
-            const bool before = time.before(time);
-            boost::ignore_unused_variable_warning(before);
+            //const typename Time::station_type& station =
+            //    time.station();
+            //boost::ignore_unused_variable_warning(station);
         }
 
 

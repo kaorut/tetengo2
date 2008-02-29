@@ -29,12 +29,6 @@ namespace test_bobura { namespace model
 
         static void operator_equal();
 
-        static void station();
-
-        static void meterage();
-
-        static void before();
-
 
     };
 

@@ -57,16 +57,9 @@ namespace bobura { namespace model
         */
         void const_constraints(const Train& train)
         {
-            const typename Train::station_type& station =
-                train.station();
-            boost::ignore_unused_variable_warning(station);
-
-            const typename Train::meterage_type& meterage =
-                train.meterage();
-            boost::ignore_unused_variable_warning(meterage);
-
-            const bool before = train.before(train);
-            boost::ignore_unused_variable_warning(before);
+            //const typename Train::station_type& station =
+            //    train.station();
+            //boost::ignore_unused_variable_warning(station);
         }
 
 

@@ -1,18 +1,18 @@
 /*! \file
-    \brief Test of class bobura::model::timetable_info::time.
+    \brief Test of class bobura::model::train_info::time.
 
     Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
 
-#if !defined(TESTBOBURA_MODEL_TIMETABLEINFO_TIME_H)
-#define TESTBOBURA_MODEL_TIMETABLEINFO_TIME_H
+#if !defined(TESTBOBURA_MODEL_TRAININFO_TIME_H)
+#define TESTBOBURA_MODEL_TRAININFO_TIME_H
 
 #include <boost/test/unit_test.hpp>
 
 
-namespace test_bobura { namespace model { namespace timetable_info
+namespace test_bobura { namespace model { namespace train_info
 {
     class time
     {
@@ -28,12 +28,6 @@ namespace test_bobura { namespace model { namespace timetable_info
         static void operator_assign();
 
         static void operator_equal();
-
-        static void station();
-
-        static void meterage();
-
-        static void before();
 
 
     };
