@@ -33,6 +33,8 @@ namespace test_bobura { namespace model
 
         static void insert_station_location();
 
+        static void erase_station_locations();
+
 
     };
 

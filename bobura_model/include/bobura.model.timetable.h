@@ -136,7 +136,7 @@ namespace bobura { namespace model
             After the insertion, the station locations must be sequenced in
             ascending order.
 
-            \param position         The position where the station location is
+            \param position         A position where a station location is
                                     inserted.
             \param station_location A station location.
 
@@ -158,6 +158,22 @@ namespace bobura { namespace model
             }
 
             m_station_locations.insert(position, station_location);
+        }
+
+        /*!
+            \brief Erases the station locations.
+
+            \param begin A begin position where the station locations are
+                         removed.
+            \param end   A end position where the station locations are
+                         removed.
+        */
+        void erase_station_locations(
+            const typename station_locations_type::const_iterator begin,
+            const typename station_locations_type::const_iterator end
+        )
+        {
+            m_station_locations.erase(begin, end);
         }
 
 

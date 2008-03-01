@@ -41,6 +41,15 @@ namespace bobura { namespace model
             Timetable& assigned = m_timetable = m_timetable;
             boost::ignore_unused_variable_warning(assigned);
 
+            m_timetable.insert_station_location(
+                m_timetable.station_locations().begin(), m_station_location
+            );
+
+            m_timetable.erase_station_locations(
+                m_timetable.station_locations().begin(),
+                m_timetable.station_locations().end()
+            );
+
             const_constraints(m_timetable);
         }
 
@@ -53,6 +62,10 @@ namespace bobura { namespace model
         {
             const bool equality = timetable == timetable;
             boost::ignore_unused_variable_warning(equality);
+
+            typename Timetable::station_locations_type station_locations =
+                m_timetable.station_locations();
+            boost::ignore_unused_variable_warning(station_locations);
         }
 
 
@@ -60,6 +73,8 @@ namespace bobura { namespace model
         // variables
 
         Timetable m_timetable;
+
+        typename Timetable::station_location_type m_station_location;
 
 
     };
