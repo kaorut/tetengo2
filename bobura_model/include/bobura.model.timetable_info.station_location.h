@@ -14,6 +14,8 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
+#include <tetengo2.SizeConcept.h>
+
 #include "bobura.model.StationConcept.h"
 
 
@@ -25,8 +27,7 @@ namespace bobura { namespace model { namespace timetable_info
         \tparam Station  A station type. It must conform to
                          bobura::model::StationConcept<Station>.
         \tparam Meterage A meterage type. It must conform to
-                         boost::EqualityComparableConcept<Meterage> and
-                         boost::ComparableConcept<Meterage>.
+                         tetengo2::SizeConcept<Meterage>.
     */
     template <typename Station, typename Meterage>
     class station_location :
@@ -36,8 +37,7 @@ namespace bobura { namespace model { namespace timetable_info
         // concept checks
 
         BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
-        BOOST_CLASS_REQUIRE(Meterage, boost, EqualityComparableConcept);
-        BOOST_CLASS_REQUIRE(Meterage, boost, ComparableConcept);
+        BOOST_CLASS_REQUIRE(Meterage, tetengo2, SizeConcept);
 
 
     public:
@@ -187,8 +187,7 @@ namespace std
         \tparam Station  A station type. It must conform to
                          bobura::model::StationConcept<Station>.
         \tparam Meterage A meterage type. It must conform to
-                         boost::EqualityComparableConcept<Meterage> and
-                         boost::ComparableConcept<Meterage>.
+                         tetengo2::SizeConcept<Meterage>.
 
         \param station_location1 A station_location object #1.
         \param station_location2 A station_location object #2.
@@ -203,10 +202,7 @@ namespace std
     throw ()
     {
         boost::function_requires<bobura::model::StationConcept<Station> >();
-        boost::function_requires<
-            boost::EqualityComparableConcept<Meterage>
-        >();
-        boost::function_requires<boost::ComparableConcept<Meterage> >();
+        boost::function_requires<tetengo2::SizeConcept<Meterage> >();
 
         station_location1.swap(station_location2);
     }
