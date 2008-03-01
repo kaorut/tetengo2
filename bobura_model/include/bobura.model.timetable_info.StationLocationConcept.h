@@ -57,6 +57,9 @@ namespace bobura { namespace model { namespace timetable_info
         */
         void const_constraints(const StationLocation& station_location)
         {
+            const bool equality = station_location == station_location;
+            boost::ignore_unused_variable_warning(equality);
+
             const typename StationLocation::station_type& station =
                 station_location.station();
             boost::ignore_unused_variable_warning(station);

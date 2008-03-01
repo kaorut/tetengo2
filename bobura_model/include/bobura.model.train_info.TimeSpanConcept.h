@@ -37,14 +37,12 @@ namespace bobura { namespace model { namespace train_info
         */
         void constraints()
         {
-            typedef typename TimeSpan::station_type station_type;
-            typedef typename TimeSpan::meterage_type meterage_type;
+            typedef typename TimeSpan::size_type size_type;
 
             m_time_span.swap(m_time_span);
             std::swap(m_time_span, m_time_span);
 
-            TimeSpan& time span =
-                m_time_span = m_time_span;
+            TimeSpan& time span = m_time_span = m_time_span;
             boost::ignore_unused_variable_warning(time span);
 
             const_constraints(m_time_span);
@@ -57,6 +55,9 @@ namespace bobura { namespace model { namespace train_info
         */
         void const_constraints(const TimeSpan& time_span)
         {
+            const bool equality = time_span == time_span;
+            boost::ignore_unused_variable_warning(equality);
+
             //const typename TimeSpan::station_type& station =
             //    time span.station();
             //boost::ignore_unused_variable_warning(station);

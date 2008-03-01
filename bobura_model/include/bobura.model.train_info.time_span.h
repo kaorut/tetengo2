@@ -14,39 +14,80 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
+#include <tetengo2.SizeConcept.h>
+
 #include "bobura.model.StationConcept.h"
 
 
 namespace bobura { namespace model { namespace train_info
 {
     /*!
-        \brief The class for a station location.
+        \brief The class for a time span.
 
-        \tparam Station A station type. It must conform to
-                        bobura::model::StationConcept<Station>.
+        \tparam Size A size type. It must conform to
+                     tetengo2::SizeConcept<Size>.
     */
-    template <typename Station>
-    class time_span : private boost::equality_comparable<time_span<Station> >
+    template <typename Size>
+    class time_span : private boost::equality_comparable<time_span<Size> >
     {
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
+        BOOST_CLASS_REQUIRE(Size, tetengo2, SizeConcept);
 
 
     public:
         // types
 
-        //! The station type.
-        typedef Station station_type;
+        //! The size type.
+        typedef Size size_type;
+
+        //! The time unit tag type.
+        struct hour {};
+
+        //! The time unit tag type.
+        struct minute {};
+
+        //! The time unit tag type.
+        struct second {};
 
 
         // constructors and destructor
 
         /*!
             \brief Creates a time_span.
+
+            \tparam TimeUnit A time unit type. It must be
+                             time_span::hour, time_span::minute or
+                             time_span::second.
+            
+            \param span      A time span.
+            \param time_unit The time unit tag of a time span.
         */
-        time_span()
+        template <typename TimeUnit>
+        time_span(const size_type span, const TimeUnit& time_unit_tag)
+        :
+        m_seconds(calculate_seconds(span, time_unit_tag))
+        {}
+
+        /*!
+            \brief Creates a time_span.
+
+            \param hours   An hour span.
+            \param minutes A minute span.
+            \param seconds A second span.
+        */
+        time_span(
+            const size_type hours,
+            const size_type minutes,
+            const size_type seconds
+        )
+        :
+        m_seconds(
+            calculate_seconds(hours, hour()) +
+            calculate_seconds(minutes, minute()) +
+            calculate_seconds(seconds, second())
+        )
         {}
 
         /*!
@@ -55,6 +96,8 @@ namespace bobura { namespace model { namespace train_info
             \param another Another time_span object.
         */
         time_span(const time_span& another)
+        :
+        m_seconds(another.m_seconds)
         {}
 
         /*!
@@ -75,6 +118,7 @@ namespace bobura { namespace model { namespace train_info
         void swap(time_span& another)
         throw ()
         {
+            std::swap(m_seconds, another.m_seconds);
         }
 
         /*!
@@ -102,12 +146,56 @@ namespace bobura { namespace model { namespace train_info
         bool operator==(const time_span& another)
         const
         {
-            return true;
+            return m_seconds == another.m_seconds;
+        }
+
+        size_type seconds()
+        const
+        {
+            return m_seconds;
         }
 
 
     private:
         // variables
+
+        size_type m_seconds;
+
+
+        // functions
+
+        template <typename TimeUnit>
+        static size_type calculate_seconds(
+            const size_type span,
+            const TimeUnit& time_unit_tag
+        );
+
+        template <>
+        static size_type calculate_seconds(
+            const size_type span,
+            const hour&     time_unit_tag
+        )
+        {
+            return span * 60 * 60;
+        }
+
+        template <>
+        static size_type calculate_seconds(
+            const size_type span,
+            const minute&   time_unit_tag
+        )
+        {
+            return span * 60;
+        }
+
+        template <>
+        static size_type calculate_seconds(
+            const size_type span,
+            const second&   time_unit_tag
+        )
+        {
+            return span;
+        }
 
 
     };
@@ -120,20 +208,20 @@ namespace std
     /*!
         \brief Swaps two time_span objects.
 
-        \tparam Station A station type. It must conform to
-                        bobura::model::StationConcept<Station>.
+        \tparam Size A size type. It must conform to
+                     tetengo2::SizeConcept<Size>.
 
         \param time_span1 A time_span object #1.
         \param time_span2 A time_span object #2.
     */
-    template <typename Station>
+    template <typename Size>
     void swap(
-        bobura::model::train_info::time_span<Station>& time_span1,
-        bobura::model::train_info::time_span<Station>& time_span2
+        bobura::model::train_info::time_span<Size>& time_span1,
+        bobura::model::train_info::time_span<Size>& time_span2
     )
     throw ()
     {
-        boost::function_requires<bobura::model::StationConcept<Station> >();
+        boost::function_requires<tetengo2::SizeConcept<Size> >();
 
         time_span1.swap(time_span2);
     }
