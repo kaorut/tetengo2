@@ -36,6 +36,8 @@
 #include <boost/scoped_ptr.hpp>
 #include <boost/signal.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
 
 
 // Windows headers

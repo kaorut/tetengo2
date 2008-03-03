@@ -74,11 +74,15 @@ if ($ARGV[1] ne 'NOINC')
 
 foreach $value (sort(keys(%occurrences)))
 {
-	my($header) = $headers{$value} eq '' ?
+	my($headers2) = $headers{$value} eq '' ?
 		'< UNKNOWN OPERATION >' : $headers{$value};
-	printf("%-48s %s\n", $value, $header);
+	printf("%-48s %s\n", $value, $headers2);
 	
-	$used_headers{$header} = '*';
+	my($header);
+	foreach $header (split(/\,/, $headers2))
+	{
+		$used_headers{$header} = '*';
+	}
 }
 
 if ($ARGV[1] ne 'NOINC')

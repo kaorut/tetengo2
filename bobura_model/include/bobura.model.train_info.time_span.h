@@ -15,6 +15,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
 
 #include <tetengo2.SizeConcept.h>
 
