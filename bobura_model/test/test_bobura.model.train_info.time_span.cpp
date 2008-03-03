@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <stdexcept>
 
 //#include <boost/test/unit_test.hpp>
 
@@ -33,6 +34,7 @@ namespace test_bobura { namespace model { namespace train_info
         p_suite->add(BOOST_TEST_CASE(swap));
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
+        p_suite->add(BOOST_TEST_CASE(seconds));
 
         return p_suite;
     }
@@ -87,6 +89,12 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time_span.seconds(), 120U);
         }
         {
+            BOOST_CHECK_THROW(
+                time_span_type(60, time_span_type::minute()),
+                std::length_error
+            );
+        }
+        {
             time_span_type time_span(0, time_span_type::second());
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 0U);
@@ -100,6 +108,12 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type time_span(2, time_span_type::second());
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 2U);
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_span_type(60, time_span_type::second()),
+                std::length_error
+            );
         }
         {
             time_span_type time_span(0, 0, 0);
@@ -117,14 +131,38 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time_span.seconds(), 60U);
         }
         {
+            time_span_type time_span(0, 59, 0);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 3540U);
+        }
+        {
             time_span_type time_span(0, 0, 1);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 1U);
         }
         {
+            time_span_type time_span(0, 0, 59);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 59U);
+        }
+        {
             time_span_type time_span(1, 1, 1);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 3661U);
+        }
+        {
+            time_span_type time_span(1, 59, 59);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 7199U);
+        }
+        {
+            BOOST_CHECK_THROW(time_span_type(0, 60, 0), std::length_error);
+        }
+        {
+            BOOST_CHECK_THROW(time_span_type(0, 0, 60), std::length_error);
+        }
+        {
+            BOOST_CHECK_THROW(time_span_type(0, 60, 60), std::length_error);
         }
     }
 
@@ -191,6 +229,25 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type time_span2(2, time_span_type::second());
 
             BOOST_CHECK(time_span1 != time_span2);
+        }
+    }
+
+    void time_span::seconds()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time_span<std::size_t> time_span_type;
+
+        {
+            time_span_type time_span(1, time_span_type::second());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 1U);
+        }
+        {
+            time_span_type time_span(2, time_span_type::second());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 2U);
         }
     }
 

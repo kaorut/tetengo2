@@ -10,9 +10,11 @@
 #define BOBURA_MODEL_TRAININFO_TIMESPAN_H
 
 //#include <algorithm>
+#include <stdexcept>
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+#include <boost/tuple/tuple.hpp>
 
 #include <tetengo2.SizeConcept.h>
 
@@ -57,6 +59,8 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Creates a time_span.
 
+            When time_unit_tag is minute or second, it must be span <= 59.
+
             \tparam TimeUnit A time unit type. It must be
                              time_span::hour, time_span::minute or
                              time_span::second.
@@ -74,8 +78,11 @@ namespace bobura { namespace model { namespace train_info
             \brief Creates a time_span.
 
             \param hours   An hour span.
-            \param minutes A minute span.
-            \param seconds A second span.
+            \param minutes A minute span. It must be that minutes <= 59.
+            \param seconds A second span. It must be that seconds <= 59.
+
+            \throw std::length_error When the minutes and/or seconds are
+                                     invalid.
         */
         time_span(
             const size_type hours,
@@ -149,10 +156,28 @@ namespace bobura { namespace model { namespace train_info
             return m_seconds == another.m_seconds;
         }
 
+        /*!
+            \brief Returns the seconds.
+
+            \return The seconds.
+        */
         size_type seconds()
         const
         {
             return m_seconds;
+        }
+
+        /*!
+            \brief Returns the hours, minutes and seconds.
+
+            \return The hours, minutes and seconds, which are stored in a
+                    boost::tuple object in this order.
+        */
+        const boost::tuple<size_type, size_type, size_type>
+        hours_minutes_seconds()
+        const
+        {
+            return boost::make_tuple(0U, 0U, 0U);
         }
 
 
@@ -185,6 +210,13 @@ namespace bobura { namespace model { namespace train_info
             const minute&   time_unit_tag
         )
         {
+            if (span >= 60)
+            {
+                throw std::length_error(
+                    "60 or larger is specified for the minutes."
+                );
+            }
+
             return span * 60;
         }
 
@@ -194,6 +226,13 @@ namespace bobura { namespace model { namespace train_info
             const second&   time_unit_tag
         )
         {
+            if (span >= 60)
+            {
+                throw std::length_error(
+                    "60 or larger is specified for the seconds."
+                );
+            }
+
             return span;
         }
 

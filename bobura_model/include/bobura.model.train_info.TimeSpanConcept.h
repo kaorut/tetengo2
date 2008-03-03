@@ -58,9 +58,8 @@ namespace bobura { namespace model { namespace train_info
             const bool equality = time_span == time_span;
             boost::ignore_unused_variable_warning(equality);
 
-            //const typename TimeSpan::station_type& station =
-            //    time span.station();
-            //boost::ignore_unused_variable_warning(station);
+            const typename TimeSpan::size_type& seconds = time span.seconds();
+            boost::ignore_unused_variable_warning(seconds);
         }
 
 
