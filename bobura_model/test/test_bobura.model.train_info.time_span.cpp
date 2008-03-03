@@ -13,6 +13,8 @@
 #include <stdexcept>
 
 //#include <boost/test/unit_test.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
 
 #include "bobura.model.train_info.time_span.h"
 
@@ -35,6 +37,7 @@ namespace test_bobura { namespace model { namespace train_info
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
         p_suite->add(BOOST_TEST_CASE(seconds));
+        p_suite->add(BOOST_TEST_CASE(hours_minutes_seconds));
 
         return p_suite;
     }
@@ -240,6 +243,11 @@ namespace test_bobura { namespace model { namespace train_info
             bobura::model::train_info::time_span<std::size_t> time_span_type;
 
         {
+            time_span_type time_span(0, time_span_type::second());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 0U);
+        }
+        {
             time_span_type time_span(1, time_span_type::second());
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 1U);
@@ -248,6 +256,39 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type time_span(2, time_span_type::second());
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 2U);
+        }
+    }
+
+    void time_span::hours_minutes_seconds()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time_span<std::size_t> time_span_type;
+
+        {
+            time_span_type time_span(0, 0, 0);
+
+            BOOST_CHECK(
+                time_span.hours_minutes_seconds() ==
+                boost::make_tuple(0U, 0U, 0U)
+            );
+        }
+        {
+            time_span_type time_span(1, 1, 1);
+
+            BOOST_CHECK(
+                time_span.hours_minutes_seconds() ==
+                boost::make_tuple(1U, 1U, 1U)
+            );
+        }
+        {
+            time_span_type time_span(1, 2, 3);
+
+            BOOST_CHECK(
+                time_span.hours_minutes_seconds() ==
+                boost::make_tuple(1U, 2U, 3U)
+            );
         }
     }
 

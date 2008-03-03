@@ -60,6 +60,10 @@ namespace bobura { namespace model { namespace train_info
 
             const typename TimeSpan::size_type& seconds = time span.seconds();
             boost::ignore_unused_variable_warning(seconds);
+
+            const typename TimeSpan::size_type& hours_minutes_seconds =
+                time span.hours_minutes_seconds();
+            boost::ignore_unused_variable_warning(hours_minutes_seconds);
         }
 
 

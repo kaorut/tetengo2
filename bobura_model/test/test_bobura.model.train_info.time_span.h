@@ -31,6 +31,8 @@ namespace test_bobura { namespace model { namespace train_info
 
         static void seconds();
 
+        static void hours_minutes_seconds();
+
 
     };
 

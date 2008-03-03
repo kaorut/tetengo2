@@ -177,7 +177,12 @@ namespace bobura { namespace model { namespace train_info
         hours_minutes_seconds()
         const
         {
-            return boost::make_tuple(0U, 0U, 0U);
+            const size_type hours = m_seconds / (60 * 60);
+            const size_type minutes = m_seconds / 60 - hours * 60;
+            const size_type seconds =
+                m_seconds - hours * 60 * 60 - minutes * 60;
+
+            return boost::make_tuple(hours, minutes, seconds);
         }
 
 

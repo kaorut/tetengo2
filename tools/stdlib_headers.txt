@@ -12,7 +12,6 @@ NULL                                             cstddef
 assert                                           cassert
 boost::AssignableConcept                         boost/concept_check.hpp
 boost::BidirectionalIteratorConcept              boost/concept_check.hpp
-boost::ComparableConcept                         boost/concept_check.hpp
 boost::CopyConstructibleConcept                  boost/concept_check.hpp
 boost::DefaultConstructibleConcept               boost/concept_check.hpp
 boost::EqualityComparableConcept                 boost/concept_check.hpp
@@ -22,6 +21,7 @@ boost::bind                                      boost/bind.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::function_requires                         boost/concept_check.hpp
 boost::ignore_unused_variable_warning            boost/concept_check.hpp
+boost::make_tuple                                boost/tuple/tuple.hpp
 boost::noncopyable                               boost/noncopyable.hpp
 boost::program_options::notify                   boost/program_options.hpp
 boost::program_options::option_description       boost/program_options.hpp
@@ -37,11 +37,13 @@ boost::scoped_array                              boost/scoped_array.hpp
 boost::scoped_ptr                                boost/scoped_ptr.hpp
 boost::signal                                    boost/signal.hpp
 boost::signals::trackable                        boost/signal.hpp
+boost::tuple                                     boost/tuple/tuple.hpp
 boost::unit_test::test_suite                     boost/test/unit_test.hpp
 std::advance                                     iterator
 std::auto_ptr                                    memory
 std::exception                                   exception
 std::invalid_argument                            stdexcept
+std::length_error                                stdexcept
 std::make_pair                                   utility
 std::ostringstream                               sstream
 std::pair                                        utility

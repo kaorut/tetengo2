@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TRAININFO_TIME_H
 
 //#include <algorithm>
+//std::swap // dummy
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
