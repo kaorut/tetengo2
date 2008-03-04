@@ -27,7 +27,13 @@ namespace test_bobura { namespace model { namespace train_info
 
         static void operator_assign();
 
+        static void operator_plus_assign();
+
+        static void operator_minus_assign();
+
         static void operator_equal();
+
+        static void operator_less_than();
 
         static void seconds();
 

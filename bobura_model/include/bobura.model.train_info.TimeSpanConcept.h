@@ -42,8 +42,14 @@ namespace bobura { namespace model { namespace train_info
             m_time_span.swap(m_time_span);
             std::swap(m_time_span, m_time_span);
 
-            TimeSpan& time span = m_time_span = m_time_span;
-            boost::ignore_unused_variable_warning(time span);
+            TimeSpan& assigned = m_time_span = m_time_span;
+            boost::ignore_unused_variable_warning(assigned);
+
+            TimeSpan& plus_assigned = m_time_span += m_time_span;
+            boost::ignore_unused_variable_warning(plus_assigned);
+
+            TimeSpan& minus_assigned = m_time_span -= m_time_span;
+            boost::ignore_unused_variable_warning(minus_assigned);
 
             const_constraints(m_time_span);
         }
@@ -57,6 +63,24 @@ namespace bobura { namespace model { namespace train_info
         {
             const bool equality = time_span == time_span;
             boost::ignore_unused_variable_warning(equality);
+
+            const bool less_than = time_span < time_span;
+            boost::ignore_unused_variable_warning(less_than1);
+
+            const bool less_than_or_equal = time_span <= time_span;
+            boost::ignore_unused_variable_warning(less_than_or_equal);
+
+            const bool greater_than = time_span < time_span;
+            boost::ignore_unused_variable_warning(greater_than);
+
+            const bool greater_than_or_equal = time_span >= time_span;
+            boost::ignore_unused_variable_warning(greater_than_or_equal);
+
+            const TimeSpan plused = time_span + time_span;
+            boost::ignore_unused_variable_warning(plused);
+
+            const TimeSpan minused = time_span - time_span;
+            boost::ignore_unused_variable_warning(minused);
 
             const typename TimeSpan::difference_type& seconds =
                 time span.seconds();

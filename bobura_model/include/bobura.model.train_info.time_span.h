@@ -32,7 +32,8 @@ namespace bobura { namespace model { namespace train_info
     */
     template <typename Difference>
     class time_span :
-        private boost::equality_comparable<time_span<Difference> >
+        private boost::totally_ordered<time_span<Difference> >,
+        private boost::additive<time_span<Difference> >
     {
     private:
         // concept checks
@@ -151,8 +152,41 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is equal to anther
-                   time_span object.
+            \brief Adds another time_span object.
+
+            \param another Another time_span object.
+
+            \return this object.
+        */
+        time_span& operator+=(const time_span& another)
+        {
+            time_span temp(*this);
+
+            temp.m_seconds += another.m_seconds;
+            
+            temp.swap(*this);
+            return *this;
+        }
+
+        /*!
+            \brief Subtracts another time_span object.
+
+            \param another Another time_span object.
+
+            \return this object.
+        */
+        time_span& operator-=(const time_span& another)
+        {
+            time_span temp(*this);
+
+            temp.m_seconds -= another.m_seconds;
+            
+            temp.swap(*this);
+            return *this;
+        }
+
+        /*!
+            \brief Checks whether this is equal to anther time_span object.
 
             \param another Another time_span object.
 
@@ -163,6 +197,20 @@ namespace bobura { namespace model { namespace train_info
         const
         {
             return m_seconds == another.m_seconds;
+        }
+
+        /*!
+            \brief Checks whether this is less than anther time_span object.
+
+            \param another Another time_span object.
+
+            \retval true  When this is less than another.
+            \retval false Otherwise.
+        */
+        bool operator<(const time_span& another)
+        const
+        {
+            return m_seconds < another.m_seconds;
         }
 
         /*!
