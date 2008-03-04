@@ -17,7 +17,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 
-#include <tetengo2.SizeConcept.h>
+#include <tetengo2.DifferenceConcept.h>
 
 #include "bobura.model.StationConcept.h"
 
@@ -36,7 +36,7 @@ namespace bobura { namespace model { namespace train_info
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Size, tetengo2, SizeConcept);
+        BOOST_CLASS_REQUIRE(Size, tetengo2, DifferenceConcept);
 
 
     public:
@@ -266,7 +266,7 @@ namespace std
     )
     throw ()
     {
-        boost::function_requires<tetengo2::SizeConcept<Size> >();
+        boost::function_requires<tetengo2::DifferenceConcept<Size> >();
 
         time_span1.swap(time_span2);
     }
