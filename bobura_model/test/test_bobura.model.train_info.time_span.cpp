@@ -78,6 +78,24 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
+            time_span_type time_span(-1, time_span_type::hour());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -3600);
+
+            time_span_type copy_of_time_span(time_span);
+            
+            BOOST_CHECK(time_span == copy_of_time_span);
+        }
+        {
+            time_span_type time_span(-2, time_span_type::hour());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -7200);
+
+            time_span_type copy_of_time_span(time_span);
+            
+            BOOST_CHECK(time_span == copy_of_time_span);
+        }
+        {
             time_span_type time_span(0, time_span_type::minute());
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 0);
@@ -93,8 +111,24 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time_span.seconds(), 120);
         }
         {
+            time_span_type time_span(-1, time_span_type::minute());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -60);
+        }
+        {
+            time_span_type time_span(-2, time_span_type::minute());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -120);
+        }
+        {
             BOOST_CHECK_THROW(
                 time_span_type(60, time_span_type::minute()),
+                std::length_error
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_span_type(-60, time_span_type::minute()),
                 std::length_error
             );
         }
@@ -114,8 +148,24 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time_span.seconds(), 2);
         }
         {
+            time_span_type time_span(-1, time_span_type::second());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -1);
+        }
+        {
+            time_span_type time_span(-2, time_span_type::second());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -2);
+        }
+        {
             BOOST_CHECK_THROW(
                 time_span_type(60, time_span_type::second()),
+                std::length_error
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_span_type(-60, time_span_type::second()),
                 std::length_error
             );
         }
@@ -130,6 +180,11 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time_span.seconds(), 3600);
         }
         {
+            time_span_type time_span(-1, 0, 0);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -3600);
+        }
+        {
             time_span_type time_span(0, 1, 0);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 60);
@@ -138,6 +193,16 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type time_span(0, 59, 0);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 3540);
+        }
+        {
+            time_span_type time_span(0, -1, 0);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -60);
+        }
+        {
+            time_span_type time_span(0, -59, 0);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -3540);
         }
         {
             time_span_type time_span(0, 0, 1);
@@ -150,6 +215,16 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time_span.seconds(), 59);
         }
         {
+            time_span_type time_span(0, 0, -1);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -1);
+        }
+        {
+            time_span_type time_span(0, 0, -59);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -59);
+        }
+        {
             time_span_type time_span(1, 1, 1);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 3661);
@@ -160,6 +235,16 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time_span.seconds(), 7199);
         }
         {
+            time_span_type time_span(-1, -1, -1);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -3661);
+        }
+        {
+            time_span_type time_span(-1, -59, -59);
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -7199);
+        }
+        {
             BOOST_CHECK_THROW(time_span_type(0, 60, 0), std::length_error);
         }
         {
@@ -167,6 +252,36 @@ namespace test_bobura { namespace model { namespace train_info
         }
         {
             BOOST_CHECK_THROW(time_span_type(0, 60, 60), std::length_error);
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_span_type(-1, 1, 1), std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_span_type(-1, -1, 1), std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_span_type(1, -1, 1), std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_span_type(1, -1, -1), std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_span_type(1, 1, -1), std::invalid_argument
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_span_type(-1, 1, -1), std::invalid_argument
+            );
         }
     }
 
@@ -262,6 +377,16 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 2);
         }
+        {
+            time_span_type time_span(-1, time_span_type::second());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -1);
+        }
+        {
+            time_span_type time_span(-2, time_span_type::second());
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), -2);
+        }
     }
 
     void time_span::hours_minutes_seconds()
@@ -294,6 +419,22 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK(
                 time_span.hours_minutes_seconds() ==
                 boost::make_tuple(1, 2, 3)
+            );
+        }
+        {
+            time_span_type time_span(-1, -1, -1);
+
+            BOOST_CHECK(
+                time_span.hours_minutes_seconds() ==
+                boost::make_tuple(-1, -1, -1)
+            );
+        }
+        {
+            time_span_type time_span(-1, -2, -3);
+
+            BOOST_CHECK(
+                time_span.hours_minutes_seconds() ==
+                boost::make_tuple(-1, -2, -3)
             );
         }
     }
