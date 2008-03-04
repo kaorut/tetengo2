@@ -15,6 +15,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+#include <boost/utility.hpp>
 
 #include "bobura.model.timetable_info.StationLocationConcept.h"
 
@@ -194,7 +195,7 @@ namespace bobura { namespace model
         {
             if (
                 position != m_station_locations.begin() &&
-                !previous_iterator(position)->before(station_location)
+                !boost::prior(position)->before(station_location)
             )
             {
                 return false;
@@ -209,20 +210,6 @@ namespace bobura { namespace model
             }
 
             return true;
-       }
-
-        template <typename BidirectionalIterator>
-        static const BidirectionalIterator previous_iterator(
-            const BidirectionalIterator iterator
-        )
-        {
-            boost::function_requires<
-                boost::BidirectionalIteratorConcept<BidirectionalIterator>
-            >();
-
-            typename BidirectionalIterator previous = iterator;
-            std::advance(previous, -1);
-            return previous;
         }
 
 
