@@ -32,7 +32,7 @@ namespace bobura { namespace model { namespace train_info
                          bobura::model::train_info::TimeSpanConcept<TimeSpan>.
     */
     template <typename Size, typename TimeSpan>
-    class time : private boost::equality_comparable<time<Size, TimeSpan> >
+    class time : private boost::totally_ordered<time<Size, TimeSpan> >
     {
     private:
         // concept checks
@@ -150,6 +150,20 @@ namespace bobura { namespace model { namespace train_info
         const
         {
             return m_seconds_from_midnight == another.m_seconds_from_midnight;
+        }
+
+        /*!
+            \brief Checks whether this is less than anther time object.
+
+            \param another Another time object.
+
+            \retval true  When this is less than another.
+            \retval false Otherwise.
+        */
+        bool operator<(const time& another)
+        const
+        {
+            return m_seconds_from_midnight < another.m_seconds_from_midnight;
         }
 
         static size_type seconds_of_whole_day()

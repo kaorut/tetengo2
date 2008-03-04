@@ -209,5 +209,45 @@ namespace test_bobura { namespace model { namespace train_info
         }
     }
 
+    void time::operator_less_than()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+
+        {
+            const time_type time1(1);
+            const time_type time2(1);
+
+            BOOST_CHECK(!(time1 < time2));
+            BOOST_CHECK(time1 <= time2);
+            BOOST_CHECK(!(time1 > time2));
+            BOOST_CHECK(time1 >= time2);
+        }
+        {
+            const time_type time1(1);
+            const time_type time2(2);
+
+            BOOST_CHECK(time1 < time2);
+            BOOST_CHECK(time1 <= time2);
+            BOOST_CHECK(!(time1 > time2));
+            BOOST_CHECK(!(time1 >= time2));
+        }
+        {
+            const time_type time1(2);
+            const time_type time2(1);
+
+            BOOST_CHECK(!(time1 < time2));
+            BOOST_CHECK(!(time1 <= time2));
+            BOOST_CHECK(time1 > time2);
+            BOOST_CHECK(time1 >= time2);
+        }
+    }
+
 
 }}}

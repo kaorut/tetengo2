@@ -29,6 +29,8 @@ namespace test_bobura { namespace model { namespace train_info
 
         static void operator_equal();
 
+        static void operator_less_than();
+
 
     };
 
