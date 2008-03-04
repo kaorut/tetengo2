@@ -69,8 +69,8 @@ namespace bobura { namespace model { namespace train_info
                              time_span::hour, time_span::minute or
                              time_span::second.
             
-            \param span      A time span.
-            \param time_unit The time unit tag of a time span.
+            \param span          A time span.
+            \param time_unit_tag The time unit tag of a time span.
 
             \throw std::length_error When the span is invalid.
         */

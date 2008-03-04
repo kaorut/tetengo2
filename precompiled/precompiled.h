@@ -15,7 +15,6 @@
 #include <cstddef>
 #include <exception>
 #include <functional>
-#include <iterator>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -37,6 +36,7 @@
 #include <boost/signal.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
+#include <boost/utility.hpp>
 
 
 // Windows headers

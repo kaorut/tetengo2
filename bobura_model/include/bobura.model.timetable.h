@@ -9,7 +9,6 @@
 #if !defined(BOBURA_MODEL_TIMETABLE_H)
 #define BOBURA_MODEL_TIMETABLE_H
 
-#include <iterator>
 #include <stdexcept>
 #include <vector>
 

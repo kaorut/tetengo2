@@ -26,6 +26,10 @@
     \brief The namespace for timetable information.
 */
 
+/*! \namespace bobura::model::train_info
+    \brief The namespace for train information.
+*/
+
 /*! \namespace tetengo2
     \brief The root namespace for Tetengo2.
 */
