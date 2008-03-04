@@ -58,7 +58,7 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 0);
 
-            time_span_type copy_of_time_span(time_span);
+            const time_span_type copy_of_time_span(time_span);
             
             BOOST_CHECK(time_span == copy_of_time_span);
         }
@@ -67,7 +67,7 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 3600);
 
-            time_span_type copy_of_time_span(time_span);
+            const time_span_type copy_of_time_span(time_span);
             
             BOOST_CHECK(time_span == copy_of_time_span);
         }
@@ -76,7 +76,7 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 7200);
 
-            time_span_type copy_of_time_span(time_span);
+            const time_span_type copy_of_time_span(time_span);
             
             BOOST_CHECK(time_span == copy_of_time_span);
         }
@@ -85,7 +85,7 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK_EQUAL(time_span.seconds(), -3600);
 
-            time_span_type copy_of_time_span(time_span);
+            const time_span_type copy_of_time_span(time_span);
             
             BOOST_CHECK(time_span == copy_of_time_span);
         }
@@ -94,7 +94,7 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK_EQUAL(time_span.seconds(), -7200);
 
-            time_span_type copy_of_time_span(time_span);
+            const time_span_type copy_of_time_span(time_span);
             
             BOOST_CHECK(time_span == copy_of_time_span);
         }
