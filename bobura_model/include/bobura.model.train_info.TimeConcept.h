@@ -37,15 +37,14 @@ namespace bobura { namespace model { namespace train_info
         */
         void constraints()
         {
-            typedef typename Time::station_type station_type;
-            typedef typename Time::meterage_type meterage_type;
+            typedef typename Time::time_span_type time_span_type;
+            typedef typename Time::size_type size_type;
 
             m_time.swap(m_time);
             std::swap(m_time, m_time);
 
-            Time& time =
-                m_time = m_time;
-            boost::ignore_unused_variable_warning(time);
+            Time& assigned = m_time = m_time;
+            boost::ignore_unused_variable_warning(assigned);
 
             const_constraints(m_time);
         }
