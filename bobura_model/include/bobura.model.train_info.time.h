@@ -26,21 +26,21 @@ namespace bobura { namespace model { namespace train_info
     /*!
         \brief The class for a station location.
 
-        \tparam TimeSpan A time span type. It must conform to
-                         bobura::model::train_info::TimeSpanConcept<TimeSpan>.
         \tparam Size     A size type. It must conform to
                          tetengo2::SizeConcept<Size>.
+        \tparam TimeSpan A time span type. It must conform to
+                         bobura::model::train_info::TimeSpanConcept<TimeSpan>.
     */
-    template <typename TimeSpan, typename Size>
-    class time : private boost::equality_comparable<time<TimeSpan, Size> >
+    template <typename Size, typename TimeSpan>
+    class time : private boost::equality_comparable<time<Size, TimeSpan> >
     {
     private:
         // concept checks
 
+        BOOST_CLASS_REQUIRE(Size, tetengo2, SizeConcept);
         BOOST_CLASS_REQUIRE(
             TimeSpan, bobura::model::train_info, TimeSpanConcept
         );
-        BOOST_CLASS_REQUIRE(Size, tetengo2, SizeConcept);
 
 
     public:
@@ -215,25 +215,25 @@ namespace std
     /*!
         \brief Swaps two time objects.
 
-        \tparam TimeSpan A time span type. It must conform to
-                         bobura::model::train_info::TimeSpanConcept<TimeSpan>.
         \tparam Size     A size type. It must conform to
                          tetengo2::SizeConcept<Size>.
+        \tparam TimeSpan A time span type. It must conform to
+                         bobura::model::train_info::TimeSpanConcept<TimeSpan>.
 
         \param time1 A time object #1.
         \param time2 A time object #2.
     */
     template <typename TimeSpan, typename Size>
     void swap(
-        bobura::model::train_info::time<TimeSpan, Size>& time1,
-        bobura::model::train_info::time<TimeSpan, Size>& time2
+        bobura::model::train_info::time<Size, TimeSpan>& time1,
+        bobura::model::train_info::time<Size, TimeSpan>& time2
     )
     throw ()
     {
+        boost::function_requires<tetengo2::SizeConcept<Size> >();
         boost::function_requires<
             bobura::model::train_info::TimeSpanConcept<TimeSpan>
         >();
-        boost::function_requires<tetengo2::SizeConcept<Size> >();
 
         time1.swap(time2);
     }

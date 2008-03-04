@@ -42,8 +42,8 @@ namespace test_bobura { namespace model { namespace train_info
 
         typedef
             bobura::model::train_info::time<
-                bobura::model::train_info::time_span<std::ptrdiff_t>,
-                std::size_t
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
             >
             time_type;
 
@@ -138,8 +138,8 @@ namespace test_bobura { namespace model { namespace train_info
 
         typedef
             bobura::model::train_info::time<
-                bobura::model::train_info::time_span<std::ptrdiff_t>,
-                std::size_t
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
             >
             time_type;
 
