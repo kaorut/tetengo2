@@ -32,7 +32,9 @@ namespace bobura { namespace model { namespace train_info
                          bobura::model::train_info::TimeSpanConcept<TimeSpan>.
     */
     template <typename Size, typename TimeSpan>
-    class time : private boost::totally_ordered<time<Size, TimeSpan> >
+    class time :
+        private boost::totally_ordered<time<Size, TimeSpan> >,
+        private boost::additive<time<Size, TimeSpan>, TimeSpan>
     {
     private:
         // concept checks
@@ -135,6 +137,68 @@ namespace bobura { namespace model { namespace train_info
         time& operator=(const time& another)
         {
             time(another).swap(*this);
+            return *this;
+        }
+
+        /*!
+            \brief Adds a time span.
+
+            After this operation, seconds_from_midnight() must be that
+            seconds_from_midnight() < seconds_of_whole_day().
+            When time_span is too large or too small, the result is
+            seconds_from_midnight() % seconds_from_midnight().
+
+            \param time_span A time span.
+
+            \return this object.
+        */
+        time& operator+=(const time_span_type& time_span)
+        {
+            time_span_type::difference_type seconds =
+                m_seconds_from_midnight;
+            while (seconds < -time_span.seconds())
+                seconds += seconds_of_whole_day();
+            seconds += time_span.seconds();
+            seconds %= seconds_of_whole_day();
+            assert(
+                0 <= seconds &&
+                seconds < static_cast<time_span_type::difference_type>(
+                    seconds_of_whole_day()
+                )
+            );
+
+            time(seconds).swap(*this);
+            return *this;
+        }
+
+        /*!
+            \brief Subtracts a time span.
+
+            After this operation, seconds_from_midnight() must be that
+            seconds_from_midnight() < seconds_of_whole_day().
+            When time_span is too large or too small, the result is
+            seconds_from_midnight() % seconds_from_midnight().
+
+            \param time_span A time span.
+
+            \return this object.
+        */
+        time& operator-=(const time_span_type& time_span)
+        {
+            time_span_type::difference_type seconds =
+                m_seconds_from_midnight;
+            while (seconds < time_span.seconds())
+                seconds += seconds_of_whole_day();
+            seconds -= time_span.seconds();
+            seconds %= seconds_of_whole_day();
+            assert(
+                0 <= seconds &&
+                seconds < static_cast<time_span_type::difference_type>(
+                    seconds_of_whole_day()
+                )
+            );
+
+            time(seconds).swap(*this);
             return *this;
         }
 

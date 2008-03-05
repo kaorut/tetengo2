@@ -31,7 +31,10 @@ namespace test_bobura { namespace model { namespace train_info
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(swap));
         p_suite->add(BOOST_TEST_CASE(operator_assign));
+        p_suite->add(BOOST_TEST_CASE(operator_plus_assign));
+        p_suite->add(BOOST_TEST_CASE(operator_minus_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
+        p_suite->add(BOOST_TEST_CASE(operator_less_than));
 
         return p_suite;
     }
@@ -181,6 +184,132 @@ namespace test_bobura { namespace model { namespace train_info
             time1 = time2;
 
             BOOST_CHECK(time1 == time2);
+        }
+    }
+
+    void time::operator_plus_assign()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time_span<std::ptrdiff_t>
+            time_span_type;
+        typedef
+            bobura::model::train_info::time<std::size_t, time_span_type>
+            time_type;
+
+        {
+            time_type time(0);
+            const time_span_type time_span(0, time_span_type::second());
+
+            time += time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+        {
+            time_type time(0);
+            const time_span_type time_span(1, time_span_type::second());
+
+            time += time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 1U);
+        }
+        {
+            time_type time(0);
+            const time_span_type time_span(-1, time_span_type::second());
+
+            time += time_span;
+
+            BOOST_CHECK_EQUAL(
+                time.seconds_from_midnight(), 24U * 60U * 60U - 1U
+            );
+        }
+        {
+            time_type time(24 * 60 * 60 - 1);
+            const time_span_type time_span(1, time_span_type::second());
+
+            time += time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+        {
+            time_type time(0);
+            const time_span_type time_span(24, 0, 0);
+
+            time += time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+        {
+            time_type time(0);
+            const time_span_type time_span(-24, 0, 0);
+
+            time += time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+    }
+
+    void time::operator_minus_assign()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time_span<std::ptrdiff_t>
+            time_span_type;
+        typedef
+            bobura::model::train_info::time<std::size_t, time_span_type>
+            time_type;
+
+        {
+            time_type time(0);
+            const time_span_type time_span(0, time_span_type::second());
+
+            time -= time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+        {
+            time_type time(0);
+            const time_span_type time_span(-1, time_span_type::second());
+
+            time -= time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 1U);
+        }
+        {
+            time_type time(0);
+            const time_span_type time_span(1, time_span_type::second());
+
+            time -= time_span;
+
+            BOOST_CHECK_EQUAL(
+                time.seconds_from_midnight(), 24U * 60U * 60U - 1U
+            );
+        }
+        {
+            time_type time(24 * 60 * 60 - 1);
+            const time_span_type time_span(-1, time_span_type::second());
+
+            time -= time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+        {
+            time_type time(0);
+            const time_span_type time_span(24, 0, 0);
+
+            time -= time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+        {
+            time_type time(0);
+            const time_span_type time_span(-24, 0, 0);
+
+            time -= time_span;
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
         }
     }
 

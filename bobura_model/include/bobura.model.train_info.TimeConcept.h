@@ -46,6 +46,12 @@ namespace bobura { namespace model { namespace train_info
             Time& assigned = m_time = m_time;
             boost::ignore_unused_variable_warning(assigned);
 
+            Time& plus_assigned = m_time += m_time_span;
+            boost::ignore_unused_variable_warning(plus_assigned);
+
+            Time& minus_assigned = m_time -= m_time_span;
+            boost::ignore_unused_variable_warning(minus_assigned);
+
             const_constraints(m_time);
         }
 
@@ -56,20 +62,26 @@ namespace bobura { namespace model { namespace train_info
         */
         void const_constraints(const Time& time)
         {
-            const bool equality = time_span == time_span;
+            const bool equality = time == time;
             boost::ignore_unused_variable_warning(equality);
 
-            const bool less_than = time_span < time_span;
+            const bool less_than = time < time;
             boost::ignore_unused_variable_warning(less_than);
 
-            const bool less_than_or_equal = time_span <= time_span;
+            const bool less_than_or_equal = time <= time;
             boost::ignore_unused_variable_warning(less_than_or_equal);
 
-            const bool greater_than = time_span > time_span;
+            const bool greater_than = time > time;
             boost::ignore_unused_variable_warning(greater_than);
 
-            const bool greater_than_or_equal = time_span >= time_span;
+            const bool greater_than_or_equal = time >= time;
             boost::ignore_unused_variable_warning(greater_than_or_equal);
+
+            const bool plused = time + m_time_span;
+            boost::ignore_unused_variable_warning(plused);
+
+            const bool minused = time - m_time_span;
+            boost::ignore_unused_variable_warning(minused);
 
             //const typename Time::station_type& station =
             //    time.station();
@@ -81,6 +93,8 @@ namespace bobura { namespace model { namespace train_info
         // variables
 
         Time m_time;
+
+        const typename Time::time_span_type m_time_span;
 
 
     };
