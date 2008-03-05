@@ -8,6 +8,10 @@
 
 #include "precompiled.test.h"
 
+#include <algorithm>
+#include <cstddef>
+#include <stdexcept>
+
 //#include <boost/test/unit_test.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
