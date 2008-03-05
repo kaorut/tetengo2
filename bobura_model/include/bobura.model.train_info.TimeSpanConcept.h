@@ -12,6 +12,8 @@
 #include <algorithm>
 
 #include <boost/concept_check.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
 
 
 namespace bobura { namespace model { namespace train_info

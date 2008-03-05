@@ -12,6 +12,8 @@
 #include <algorithm>
 
 #include <boost/concept_check.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
 
 
 namespace bobura { namespace model { namespace train_info
@@ -52,6 +54,10 @@ namespace bobura { namespace model { namespace train_info
             Time& minus_assigned = m_time -= m_time_span;
             boost::ignore_unused_variable_warning(minus_assigned);
 
+            const typename Time::size_type& seconds_of_whole_day =
+                typename Time::seconds_of_whole_day();
+            boost::ignore_unused_variable_warning(seconds_of_whole_day);
+
             const_constraints(m_time);
         }
 
@@ -77,15 +83,25 @@ namespace bobura { namespace model { namespace train_info
             const bool greater_than_or_equal = time >= time;
             boost::ignore_unused_variable_warning(greater_than_or_equal);
 
-            const bool plused = time + m_time_span;
+            const Time plused = time + m_time_span;
             boost::ignore_unused_variable_warning(plused);
 
-            const bool minused = time - m_time_span;
+            const Time minused = time - m_time_span;
             boost::ignore_unused_variable_warning(minused);
 
-            //const typename Time::station_type& station =
-            //    time.station();
-            //boost::ignore_unused_variable_warning(station);
+            const typename Time::time_span_type minused2 = time - time;
+            boost::ignore_unused_variable_warning(minused2);
+
+            const typename Time::size_type& seconds_from_midnight =
+                time.seconds_from_midnight();
+            boost::ignore_unused_variable_warning(seconds_from_midnight);
+
+            const boost::tuple<
+                typename Time::size_type,
+                typename Time::size_type,
+                typename Time::size_type
+            > hours_minutes_seconds = time.hours_minutes_seconds();
+            boost::ignore_unused_variable_warning(hours_minutes_seconds);
         }
 
 

@@ -47,37 +47,17 @@ namespace bobura { namespace model { namespace train_info
         //! The difference type.
         typedef Difference difference_type;
 
-        //! The hour time unit tag type.
-        struct hour {};
-
-        //! The minute time unit tag type.
-        struct minute {};
-
-        //! The second time unit tag type.
-        struct second {};
-
 
         // constructors and destructor
 
         /*!
             \brief Creates a time_span.
 
-            When time_unit_tag is minute or second, it must be
-            -59 <= span <= 59.
-
-            \tparam TimeUnit A time unit type. It must be
-                             time_span::hour, time_span::minute or
-                             time_span::second.
-            
-            \param span          A time span.
-            \param time_unit_tag The time unit tag of a time span.
-
-            \throw std::length_error When the span is invalid.
+            \param seconds A second span.
         */
-        template <typename TimeUnit>
-        time_span(const difference_type span, const TimeUnit& time_unit_tag)
+        time_span(const difference_type seconds)
         :
-        m_seconds(calculate_seconds(span, time_unit_tag))
+        m_seconds(seconds)
         {}
 
         /*!
@@ -251,65 +231,6 @@ namespace bobura { namespace model { namespace train_info
 
         // functions
 
-        template <typename TimeUnit>
-        static difference_type calculate_seconds(
-            const difference_type span,
-            const TimeUnit&       time_unit_tag
-        );
-
-        template <>
-        static difference_type calculate_seconds(
-            const difference_type span,
-            const hour&           time_unit_tag
-        )
-        {
-            return span * 60 * 60;
-        }
-
-        template <>
-        static difference_type calculate_seconds(
-            const difference_type span,
-            const minute&         time_unit_tag
-        )
-        {
-            if (span > 59)
-            {
-                throw std::length_error(
-                    "60 or larger is specified for the minutes."
-                );
-            }
-            else if (span < -59)
-            {
-                throw std::length_error(
-                    "-60 or smaller is specified for the minutes."
-                );
-            }
-
-            return span * 60;
-        }
-
-        template <>
-        static difference_type calculate_seconds(
-            const difference_type span,
-            const second&         time_unit_tag
-        )
-        {
-            if (span > 59)
-            {
-                throw std::length_error(
-                    "60 or larger is specified for the seconds."
-                );
-            }
-            else if (span < -59)
-            {
-                throw std::length_error(
-                    "-60 or smaller is specified for the seconds."
-                );
-            }
-
-            return span;
-        }
-
         static difference_type calculate_seconds(
             const difference_type hours,
             const difference_type minutes,
@@ -326,10 +247,32 @@ namespace bobura { namespace model { namespace train_info
                     "are different."
                 );
             }
+            else if (minutes > 59)
+            {
+                throw std::length_error(
+                    "60 or larger is specified for the minutes."
+                );
+            }
+            else if (minutes < -59)
+            {
+                throw std::length_error(
+                    "-60 or smaller is specified for the minutes."
+                );
+            }
+            else if (seconds > 59)
+            {
+                throw std::length_error(
+                    "60 or larger is specified for the seconds."
+                );
+            }
+            else if (seconds < -59)
+            {
+                throw std::length_error(
+                    "-60 or smaller is specified for the seconds."
+                );
+            }
 
-            return calculate_seconds(hours, hour()) +
-                calculate_seconds(minutes, minute()) +
-                calculate_seconds(seconds, second());
+            return hours * 60 * 60 + minutes * 60 + seconds;
         }
 
 

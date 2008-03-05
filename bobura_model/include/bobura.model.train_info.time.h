@@ -15,6 +15,8 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
 
 #include <tetengo2.SizeConcept.h>
 
@@ -203,6 +205,27 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
+            \brief Subtracts times.
+
+            The result is always 0 or positive. A smaller minus a larger
+            is calculated over the midnight.
+
+            \param another Another time object.
+
+            \return The time span.
+        */
+        const time_span_type operator-(const time& another)
+        const
+        {
+            time_span_type::difference_type seconds = m_seconds_from_midnight;
+            seconds -= another.m_seconds_from_midnight;
+            while (seconds < 0)
+                seconds += seconds_of_whole_day();
+
+            return time_span_type(seconds);
+        }
+
+        /*!
             \brief Checks whether this is equal to anther time object.
 
             \param another Another time object.
@@ -230,15 +253,46 @@ namespace bobura { namespace model { namespace train_info
             return m_seconds_from_midnight < another.m_seconds_from_midnight;
         }
 
+        /*!
+            \brief Returns the seconds of a whole day.
+
+            The value is 24 * 60 * 60 (= 86400).
+
+            \return The seconds of a whole way.
+        */
         static size_type seconds_of_whole_day()
         {
             return 24 * 60 * 60;
         }
 
+        /*!
+            \brief Returns the seconds from the midnight.
+
+            \return The seconds from the midnight.
+        */
         size_type seconds_from_midnight()
         const
         {
             return m_seconds_from_midnight;
+        }
+
+        /*!
+            \brief Returns the hours, minutes and seconds.
+
+            \return The hours, minutes and seconds, which are stored in a
+                    boost::tuple object in this order.
+        */
+        const boost::tuple<size_type, size_type, size_type>
+        hours_minutes_seconds()
+        const
+        {
+            const size_type hours = m_seconds_from_midnight / (60 * 60);
+            const size_type minutes =
+                m_seconds_from_midnight / 60 - hours * 60;
+            const size_type seconds =
+                m_seconds_from_midnight - hours * 60 * 60 - minutes * 60;
+
+            return boost::make_tuple(hours, minutes, seconds);
         }
 
 

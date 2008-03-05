@@ -54,7 +54,7 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type;
 
         {
-            const time_span_type time_span(0, time_span_type::hour());
+            const time_span_type time_span(0);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 0);
 
@@ -63,114 +63,40 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
-            const time_span_type time_span(1, time_span_type::hour());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), 3600);
-
-            const time_span_type copy_of_time_span(time_span);
-            
-            BOOST_CHECK(time_span == copy_of_time_span);
-        }
-        {
-            const time_span_type time_span(2, time_span_type::hour());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), 7200);
-
-            const time_span_type copy_of_time_span(time_span);
-            
-            BOOST_CHECK(time_span == copy_of_time_span);
-        }
-        {
-            const time_span_type time_span(-1, time_span_type::hour());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), -3600);
-
-            const time_span_type copy_of_time_span(time_span);
-            
-            BOOST_CHECK(time_span == copy_of_time_span);
-        }
-        {
-            const time_span_type time_span(-2, time_span_type::hour());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), -7200);
-
-            const time_span_type copy_of_time_span(time_span);
-            
-            BOOST_CHECK(time_span == copy_of_time_span);
-        }
-        {
-            const time_span_type time_span(0, time_span_type::minute());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), 0);
-        }
-        {
-            const time_span_type time_span(1, time_span_type::minute());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), 60);
-        }
-        {
-            const time_span_type time_span(2, time_span_type::minute());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), 120);
-        }
-        {
-            const time_span_type time_span(-1, time_span_type::minute());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), -60);
-        }
-        {
-            const time_span_type time_span(-2, time_span_type::minute());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), -120);
-        }
-        {
-            BOOST_CHECK_THROW(
-                time_span_type(60, time_span_type::minute()),
-                std::length_error
-            );
-        }
-        {
-            BOOST_CHECK_THROW(
-                time_span_type(-60, time_span_type::minute()),
-                std::length_error
-            );
-        }
-        {
-            const time_span_type time_span(0, time_span_type::second());
-
-            BOOST_CHECK_EQUAL(time_span.seconds(), 0);
-        }
-        {
-            const time_span_type time_span(1, time_span_type::second());
+            const time_span_type time_span(1);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 1);
+
+            const time_span_type copy_of_time_span(time_span);
+            
+            BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
-            const time_span_type time_span(2, time_span_type::second());
+            const time_span_type time_span(2);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 2);
+
+            const time_span_type copy_of_time_span(time_span);
+            
+            BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
-            const time_span_type time_span(-1, time_span_type::second());
+            const time_span_type time_span(-1);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), -1);
+
+            const time_span_type copy_of_time_span(time_span);
+            
+            BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
-            const time_span_type time_span(-2, time_span_type::second());
+            const time_span_type time_span(-2);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), -2);
-        }
-        {
-            BOOST_CHECK_THROW(
-                time_span_type(60, time_span_type::second()),
-                std::length_error
-            );
-        }
-        {
-            BOOST_CHECK_THROW(
-                time_span_type(-60, time_span_type::second()),
-                std::length_error
-            );
+
+            const time_span_type copy_of_time_span(time_span);
+            
+            BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
             const time_span_type time_span(0, 0, 0);
@@ -297,8 +223,8 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type;
 
         {
-            time_span_type time_span1(1, time_span_type::second());
-            time_span_type time_span2(2, time_span_type::second());
+            time_span_type time_span1(1);
+            time_span_type time_span2(2);
 
             time_span1.swap(time_span2);
 
@@ -306,8 +232,8 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time_span2.seconds(), 1);
         }
         {
-            time_span_type time_span1(1, time_span_type::second());
-            time_span_type time_span2(2, time_span_type::second());
+            time_span_type time_span1(1);
+            time_span_type time_span2(2);
 
             std::swap(time_span1, time_span2);
 
@@ -325,8 +251,8 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type;
 
         {
-            time_span_type time_span1(1, time_span_type::second());
-            const time_span_type time_span2(2, time_span_type::second());
+            time_span_type time_span1(1);
+            const time_span_type time_span2(2);
 
             time_span1 = time_span2;
 
@@ -344,8 +270,8 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type;
 
         {
-            time_span_type time_span1(1, time_span_type::second());
-            const time_span_type time_span2(2, time_span_type::second());
+            time_span_type time_span1(1);
+            const time_span_type time_span2(2);
 
             time_span1 += time_span2;
 
@@ -374,8 +300,8 @@ namespace test_bobura { namespace model { namespace train_info
             );
         }
         {
-            const time_span_type time_span1(1, time_span_type::second());
-            const time_span_type time_span2(2, time_span_type::second());
+            const time_span_type time_span1(1);
+            const time_span_type time_span2(2);
 
             const time_span_type time_span3 = time_span1 + time_span2;
 
@@ -414,8 +340,8 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type;
 
         {
-            time_span_type time_span1(1, time_span_type::second());
-            const time_span_type time_span2(2, time_span_type::second());
+            time_span_type time_span1(1);
+            const time_span_type time_span2(2);
 
             time_span1 -= time_span2;
 
@@ -444,8 +370,8 @@ namespace test_bobura { namespace model { namespace train_info
             );
         }
         {
-            const time_span_type time_span1(1, time_span_type::second());
-            const time_span_type time_span2(2, time_span_type::second());
+            const time_span_type time_span1(1);
+            const time_span_type time_span2(2);
 
             const time_span_type time_span3 = time_span1 - time_span2;
 
@@ -484,14 +410,14 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type;
 
         {
-            const time_span_type time_span1(1, time_span_type::second());
-            const time_span_type time_span2(1, time_span_type::second());
+            const time_span_type time_span1(1);
+            const time_span_type time_span2(1);
 
             BOOST_CHECK(time_span1 == time_span2);
         }
         {
-            const time_span_type time_span1(1, time_span_type::second());
-            const time_span_type time_span2(2, time_span_type::second());
+            const time_span_type time_span1(1);
+            const time_span_type time_span2(2);
 
             BOOST_CHECK(time_span1 != time_span2);
         }
@@ -506,8 +432,8 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type;
 
         {
-            const time_span_type time_span1(0, time_span_type::second());
-            const time_span_type time_span2(0, time_span_type::second());
+            const time_span_type time_span1(0);
+            const time_span_type time_span2(0);
 
             BOOST_CHECK(!(time_span1 < time_span2));
             BOOST_CHECK(time_span1 <= time_span2);
@@ -515,8 +441,8 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK(time_span1 >= time_span2);
         }
         {
-            const time_span_type time_span1(0, time_span_type::second());
-            const time_span_type time_span2(1, time_span_type::second());
+            const time_span_type time_span1(0);
+            const time_span_type time_span2(1);
 
             BOOST_CHECK(time_span1 < time_span2);
             BOOST_CHECK(time_span1 <= time_span2);
@@ -524,8 +450,8 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK(!(time_span1 >= time_span2));
         }
         {
-            const time_span_type time_span1(1, time_span_type::second());
-            const time_span_type time_span2(0, time_span_type::second());
+            const time_span_type time_span1(1);
+            const time_span_type time_span2(0);
 
             BOOST_CHECK(!(time_span1 < time_span2));
             BOOST_CHECK(!(time_span1 <= time_span2));
@@ -597,27 +523,27 @@ namespace test_bobura { namespace model { namespace train_info
             time_span_type;
 
         {
-            const time_span_type time_span(0, time_span_type::second());
+            const time_span_type time_span(0);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 0);
         }
         {
-            const time_span_type time_span(1, time_span_type::second());
+            const time_span_type time_span(1);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 1);
         }
         {
-            const time_span_type time_span(2, time_span_type::second());
+            const time_span_type time_span(2);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 2);
         }
         {
-            const time_span_type time_span(-1, time_span_type::second());
+            const time_span_type time_span(-1);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), -1);
         }
         {
-            const time_span_type time_span(-2, time_span_type::second());
+            const time_span_type time_span(-2);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), -2);
         }

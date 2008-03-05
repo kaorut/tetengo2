@@ -9,6 +9,8 @@
 #include "precompiled.test.h"
 
 //#include <boost/test/unit_test.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
 
 #include "bobura.model.train_info.time_span.h"
 
@@ -33,8 +35,12 @@ namespace test_bobura { namespace model { namespace train_info
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_plus_assign));
         p_suite->add(BOOST_TEST_CASE(operator_minus_assign));
+        p_suite->add(BOOST_TEST_CASE(operator_minus));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
         p_suite->add(BOOST_TEST_CASE(operator_less_than));
+        p_suite->add(BOOST_TEST_CASE(seconds_of_whole_day));
+        p_suite->add(BOOST_TEST_CASE(seconds_from_midnight));
+        p_suite->add(BOOST_TEST_CASE(hours_minutes_seconds));
 
         return p_suite;
     }
@@ -200,7 +206,7 @@ namespace test_bobura { namespace model { namespace train_info
 
         {
             time_type time(0);
-            const time_span_type time_span(0, time_span_type::second());
+            const time_span_type time_span(0);
 
             time += time_span;
 
@@ -208,7 +214,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
         {
             time_type time(0);
-            const time_span_type time_span(1, time_span_type::second());
+            const time_span_type time_span(1);
 
             time += time_span;
 
@@ -216,7 +222,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
         {
             time_type time(0);
-            const time_span_type time_span(-1, time_span_type::second());
+            const time_span_type time_span(-1);
 
             time += time_span;
 
@@ -226,7 +232,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
         {
             time_type time(24 * 60 * 60 - 1);
-            const time_span_type time_span(1, time_span_type::second());
+            const time_span_type time_span(1);
 
             time += time_span;
 
@@ -263,7 +269,7 @@ namespace test_bobura { namespace model { namespace train_info
 
         {
             time_type time(0);
-            const time_span_type time_span(0, time_span_type::second());
+            const time_span_type time_span(0);
 
             time -= time_span;
 
@@ -271,7 +277,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
         {
             time_type time(0);
-            const time_span_type time_span(-1, time_span_type::second());
+            const time_span_type time_span(-1);
 
             time -= time_span;
 
@@ -279,7 +285,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
         {
             time_type time(0);
-            const time_span_type time_span(1, time_span_type::second());
+            const time_span_type time_span(1);
 
             time -= time_span;
 
@@ -289,7 +295,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
         {
             time_type time(24 * 60 * 60 - 1);
-            const time_span_type time_span(-1, time_span_type::second());
+            const time_span_type time_span(-1);
 
             time -= time_span;
 
@@ -310,6 +316,51 @@ namespace test_bobura { namespace model { namespace train_info
             time -= time_span;
 
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+    }
+
+    void time::operator_minus()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time_span<std::ptrdiff_t>
+            time_span_type;
+        typedef
+            bobura::model::train_info::time<std::size_t, time_span_type>
+            time_type;
+
+        {
+            const time_type time1(0);
+            const time_type time2(0);
+
+            const time_span_type time_span = time1 - time2;
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 0);
+        }
+        {
+            const time_type time1(1);
+            const time_type time2(0);
+
+            const time_span_type time_span = time1 - time2;
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 1);
+        }
+        {
+            const time_type time1(0);
+            const time_type time2(1);
+
+            const time_span_type time_span = time1 - time2;
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 24 * 60 * 60 - 1);
+        }
+        {
+            const time_type time1(1);
+            const time_type time2(24 * 60 * 60 - 1);
+
+            const time_span_type time_span = time1 - time2;
+
+            BOOST_CHECK_EQUAL(time_span.seconds(), 2);
         }
     }
 
@@ -375,6 +426,96 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK(!(time1 <= time2));
             BOOST_CHECK(time1 > time2);
             BOOST_CHECK(time1 >= time2);
+        }
+    }
+
+    void time::seconds_of_whole_day()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+
+        BOOST_CHECK_EQUAL(time_type::seconds_of_whole_day(), 24U * 60U * 60U);
+    }
+
+    void time::seconds_from_midnight()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+
+        {
+            const time_type time(0);
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+        {
+            const time_type time(1);
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 1U);
+        }
+        {
+            const time_type time(2);
+
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 2U);
+        }
+    }
+
+    void time::hours_minutes_seconds()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+
+        {
+            const time_type time(0, 0, 0);
+
+            BOOST_CHECK(
+                time.hours_minutes_seconds() == boost::make_tuple(0U, 0U, 0U)
+            );
+        }
+        {
+            const time_type time(0, 0, 1);
+
+            BOOST_CHECK(
+                time.hours_minutes_seconds() == boost::make_tuple(0U, 0U, 1U)
+            );
+        }
+        {
+            const time_type time(0, 1, 0);
+
+            BOOST_CHECK(
+                time.hours_minutes_seconds() == boost::make_tuple(0U, 1U, 0U)
+            );
+        }
+        {
+            const time_type time(1, 0, 0);
+
+            BOOST_CHECK(
+                time.hours_minutes_seconds() == boost::make_tuple(1U, 0U, 0U)
+            );
+        }
+        {
+            const time_type time(1, 2, 3);
+
+            BOOST_CHECK(
+                time.hours_minutes_seconds() == boost::make_tuple(1U, 2U, 3U)
+            );
         }
     }
 
