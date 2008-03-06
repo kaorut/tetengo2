@@ -68,7 +68,7 @@ namespace bobura { namespace model { namespace timetable_info
         {}
 
         /*!
-            \brief Creates a station_location.
+            \brief Copies a station_location.
 
             \param another Another station_location object.
         */

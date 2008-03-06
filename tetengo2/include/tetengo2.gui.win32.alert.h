@@ -78,7 +78,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param window_handle A window handle.
         */
-        alert(const window_handle_type window_handle = NULL)
+        explicit alert(const window_handle_type window_handle = NULL)
         throw ()
         :
         m_window_handle(window_handle)

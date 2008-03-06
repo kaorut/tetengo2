@@ -68,7 +68,7 @@ namespace bobura { namespace model { namespace train_info
 
             \param seconds_from_midnight Seconds from the midnight.
         */
-        time(const size_type seconds_from_midnight)
+        explicit time(const size_type seconds_from_midnight)
         :
         m_seconds_from_midnight(
             seconds_from_midnight % seconds_of_whole_day()
@@ -97,7 +97,7 @@ namespace bobura { namespace model { namespace train_info
         {}
 
         /*!
-            \brief Creates a time.
+            \brief Copies a time.
 
             \param another Another time object.
         */

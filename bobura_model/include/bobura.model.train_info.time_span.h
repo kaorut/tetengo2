@@ -53,7 +53,7 @@ namespace bobura { namespace model { namespace train_info
 
             \param seconds A second span.
         */
-        time_span(const difference_type seconds)
+        explicit time_span(const difference_type seconds)
         :
         m_seconds(seconds)
         {}
@@ -86,7 +86,7 @@ namespace bobura { namespace model { namespace train_info
         {}
 
         /*!
-            \brief Creates a time_span.
+            \brief Copies a time_span.
 
             \param another Another time_span object.
         */

@@ -50,7 +50,7 @@ namespace bobura { namespace message
             \param quit_message_loop A unary functor for quitting the message
                                      loop.
         */
-        main_window_window_observer(
+        explicit main_window_window_observer(
             const quit_message_loop_type& quit_message_loop
         )
         :

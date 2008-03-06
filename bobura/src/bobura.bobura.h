@@ -68,7 +68,7 @@ namespace bobura
 
             \param p_gui_factory An auto pointer to a GUI factory.
         */
-        bobura(std::auto_ptr<const gui_factory_type> p_gui_factory)
+        explicit bobura(std::auto_ptr<const gui_factory_type> p_gui_factory)
         :
         m_p_gui_factory(p_gui_factory)
         {}

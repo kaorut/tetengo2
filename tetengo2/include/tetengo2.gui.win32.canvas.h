@@ -108,7 +108,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When a canvas cannot be created.
         */
-        canvas(const window_handle_type window_handle)
+        explicit canvas(const window_handle_type window_handle)
         :
         m_window_handle(window_handle),
         m_paint_info(get_paint_info(window_handle)),

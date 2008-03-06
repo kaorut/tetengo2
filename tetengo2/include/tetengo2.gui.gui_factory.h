@@ -66,7 +66,7 @@ namespace tetengo2 { namespace gui
                                                initalization and finalization
                                                manager.
         */
-        gui_factory(
+        explicit gui_factory(
             std::auto_ptr<const gui_initializer_finalizer_type>
             p_gui_initializer_finalizer    
         )

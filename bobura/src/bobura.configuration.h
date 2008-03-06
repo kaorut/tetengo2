@@ -98,7 +98,7 @@ namespace bobura
 
             \param option_values The option values for the application.
         */
-        configuration(
+        explicit configuration(
             const boost::program_options::variables_map& option_values
         )
         :

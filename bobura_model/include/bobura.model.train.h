@@ -51,7 +51,7 @@ namespace bobura { namespace model
         {}
 
         /*!
-            \brief Creates a train.
+            \brief Copies a train.
 
             \param another Another train object.
         */
