@@ -41,6 +41,19 @@ namespace bobura { namespace model { namespace station_info
         typedef String string_type;
 
 
+        // static functions
+
+        /*!
+            \brief Returns the instance of the grade.
+
+            \return The instance of the local.
+        */
+        static const grade& instance()
+        {
+            return local<string_type>::instance();
+        }
+
+
         // constructors and destructor
 
         /*!
@@ -52,16 +65,6 @@ namespace bobura { namespace model { namespace station_info
 
 
         // functions
-
-        /*!
-            \brief Returns the instance of the grade.
-
-            \return The instance of the local.
-        */
-        static const grade& instance()
-        {
-            return local<string_type>::instance();
-        }
 
         /*!
             \brief Returns the name.
@@ -162,17 +165,7 @@ namespace bobura { namespace model { namespace station_info
     class local : public grade<String>
     {
     public:
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the local.
-        */
-        virtual ~local()
-        throw ()
-        {}
-
-
-        // functions
+        // static functions
 
         /*!
             \brief Returns the instance of the local.
@@ -185,6 +178,19 @@ namespace bobura { namespace model { namespace station_info
 
             return singleton;
         }
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the local.
+        */
+        virtual ~local()
+        throw ()
+        {}
+
+
+        // functions
 
         /*!
             \brief Returns the name.
@@ -217,17 +223,7 @@ namespace bobura { namespace model { namespace station_info
     class principal : public grade<String>
     {
     public:
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the principal.
-        */
-        virtual ~principal()
-        throw ()
-        {}
-
-
-        // functions
+        // static functions
 
         /*!
             \brief Returns the instance of the principal.
@@ -240,6 +236,19 @@ namespace bobura { namespace model { namespace station_info
 
             return singleton;
         }
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the principal.
+        */
+        virtual ~principal()
+        throw ()
+        {}
+
+
+        // functions
 
         /*!
             \brief Returns the name.
@@ -272,17 +281,7 @@ namespace bobura { namespace model { namespace station_info
     class local_terminal : public grade<String>
     {
     public:
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the local terminal.
-        */
-        virtual ~local_terminal()
-        throw ()
-        {}
-
-
-        // functions
+        // static functions
 
         /*!
             \brief Returns the instance of the local terminal.
@@ -295,6 +294,19 @@ namespace bobura { namespace model { namespace station_info
 
             return singleton;
         }
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the local terminal.
+        */
+        virtual ~local_terminal()
+        throw ()
+        {}
+
+
+        // functions
 
         /*!
             \brief Returns the name.
@@ -327,17 +339,7 @@ namespace bobura { namespace model { namespace station_info
     class principal_terminal : public grade<String>
     {
     public:
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the principal terminal.
-        */
-        virtual ~principal_terminal()
-        throw ()
-        {}
-
-
-        // functions
+        // static functions
 
         /*!
             \brief Returns the instance of the principal terminal.
@@ -350,6 +352,19 @@ namespace bobura { namespace model { namespace station_info
 
             return singleton;
         }
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Destroys the principal terminal.
+        */
+        virtual ~principal_terminal()
+        throw ()
+        {}
+
+
+        // functions
 
         /*!
             \brief Returns the name.

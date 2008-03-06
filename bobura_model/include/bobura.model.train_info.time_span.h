@@ -222,12 +222,7 @@ namespace bobura { namespace model { namespace train_info
 
 
     private:
-        // variables
-
-        difference_type m_seconds;
-
-
-        // functions
+        // static functions
 
         static difference_type calculate_seconds(
             const difference_type hours,
@@ -272,6 +267,11 @@ namespace bobura { namespace model { namespace train_info
 
             return hours * 60 * 60 + minutes * 60 + seconds;
         }
+
+
+        // variables
+
+        difference_type m_seconds;
 
 
     };

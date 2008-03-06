@@ -57,6 +57,21 @@ namespace bobura { namespace model { namespace train_info
         typedef Size size_type;
 
 
+        // static functions
+
+        /*!
+            \brief Returns the seconds of a whole day.
+
+            The value is 24 * 60 * 60 (= 86400).
+
+            \return The seconds of a whole way.
+        */
+        static size_type seconds_of_whole_day()
+        {
+            return 24 * 60 * 60;
+        }
+
+
         // constructors and destructor
 
         /*!
@@ -254,18 +269,6 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Returns the seconds of a whole day.
-
-            The value is 24 * 60 * 60 (= 86400).
-
-            \return The seconds of a whole way.
-        */
-        static size_type seconds_of_whole_day()
-        {
-            return 24 * 60 * 60;
-        }
-
-        /*!
             \brief Returns the seconds from the midnight.
 
             \return The seconds from the midnight.
@@ -297,12 +300,7 @@ namespace bobura { namespace model { namespace train_info
 
 
     private:
-        // variables
-
-        size_type m_seconds_from_midnight;
-
-
-        // functions
+        // static functions
 
         static size_type calculate_seconds_from_midnight(
             const size_type hours,
@@ -335,6 +333,11 @@ namespace bobura { namespace model { namespace train_info
 
             return seconds_from_midnight;
         }
+
+
+        // variables
+
+        size_type m_seconds_from_midnight;
 
 
     };

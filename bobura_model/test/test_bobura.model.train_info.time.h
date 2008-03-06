@@ -21,6 +21,8 @@ namespace test_bobura { namespace model { namespace train_info
 
         static boost::unit_test::test_suite* suite();
 
+        static void seconds_of_whole_day();
+
         static void construction();
 
         static void swap();
@@ -36,8 +38,6 @@ namespace test_bobura { namespace model { namespace train_info
         static void operator_equal();
 
         static void operator_less_than();
-
-        static void seconds_of_whole_day();
 
         static void seconds_from_midnight();
 

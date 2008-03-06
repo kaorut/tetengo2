@@ -34,6 +34,7 @@ namespace test_bobura { namespace model { namespace train_info
                 "test_bobura::model::train_info::time"
             );
 
+        p_suite->add(BOOST_TEST_CASE(seconds_of_whole_day));
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(swap));
         p_suite->add(BOOST_TEST_CASE(operator_assign));
@@ -42,11 +43,24 @@ namespace test_bobura { namespace model { namespace train_info
         p_suite->add(BOOST_TEST_CASE(operator_minus));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
         p_suite->add(BOOST_TEST_CASE(operator_less_than));
-        p_suite->add(BOOST_TEST_CASE(seconds_of_whole_day));
         p_suite->add(BOOST_TEST_CASE(seconds_from_midnight));
         p_suite->add(BOOST_TEST_CASE(hours_minutes_seconds));
 
         return p_suite;
+    }
+
+    void time::seconds_of_whole_day()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+
+        BOOST_CHECK_EQUAL(time_type::seconds_of_whole_day(), 24U * 60U * 60U);
     }
 
     void time::construction()
@@ -431,20 +445,6 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK(time1 > time2);
             BOOST_CHECK(time1 >= time2);
         }
-    }
-
-    void time::seconds_of_whole_day()
-    {
-        BOOST_CHECKPOINT("");
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-
-        BOOST_CHECK_EQUAL(time_type::seconds_of_whole_day(), 24U * 60U * 60U);
     }
 
     void time::seconds_from_midnight()
