@@ -28,9 +28,7 @@ namespace test_bobura { namespace model { namespace train_info
     boost::unit_test::test_suite* time_span::suite()
     {
         boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE(
-                "test_bobura::model::train_info::time_span"
-            );
+            BOOST_TEST_SUITE("test_bobura::model::train_info::time_span");
 
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(swap));

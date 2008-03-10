@@ -26,7 +26,7 @@
 namespace bobura { namespace model { namespace train_info
 {
     /*!
-        \brief The class for a station location.
+        \brief The class for a time.
 
         \tparam Size     A size type. It must conform to
                          tetengo2::SizeConcept<Size>.

@@ -430,6 +430,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\test_bobura.model.train_info.stop.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\test\test_bobura.model.train_info.time.cpp"
 				>
 			</File>
@@ -481,6 +485,10 @@
 			</File>
 			<File
 				RelativePath=".\test\test_bobura.model.train.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_bobura.model.train_info.stop.h"
 				>
 			</File>
 			<File

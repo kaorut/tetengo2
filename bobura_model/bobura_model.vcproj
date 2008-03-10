@@ -156,6 +156,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\bobura.model.train_info.stop.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\bobura.model.train_info.StopConcept.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\bobura.model.train_info.time.h"
 				>
 			</File>

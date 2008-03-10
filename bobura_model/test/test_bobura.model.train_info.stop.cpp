@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::model::train.
+    \brief Test of class bobura::model::train_info::stop.
 
     Copyright (C) 2007-2008 kaoru
 
@@ -10,19 +10,19 @@
 
 //#include <boost/test/unit_test.hpp>
 
-#include "bobura.model.train.h"
+#include "bobura.model.train_info.stop.h"
 
-#include "test_bobura.model.train.h"
+#include "test_bobura.model.train_info.stop.h"
 
 
-namespace test_bobura { namespace model
+namespace test_bobura { namespace model { namespace train_info
 {
     // functions
 
-    boost::unit_test::test_suite* train::suite()
+    boost::unit_test::test_suite* stop::suite()
     {
         boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_bobura::model::train");
+            BOOST_TEST_SUITE("test_bobura::model::train_info::stop");
 
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(swap));
@@ -32,25 +32,25 @@ namespace test_bobura { namespace model
         return p_suite;
     }
 
-    void train::construction()
+    void stop::construction()
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void train::swap()
+    void stop::swap()
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void train::operator_assign()
+    void stop::operator_assign()
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void train::operator_equal()
+    void stop::operator_equal()
     {
         BOOST_WARN("Not implemented yet.");
     }
 
 
-}}
+}}}

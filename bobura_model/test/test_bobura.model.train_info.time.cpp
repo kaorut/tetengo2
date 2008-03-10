@@ -30,9 +30,7 @@ namespace test_bobura { namespace model { namespace train_info
     boost::unit_test::test_suite* time::suite()
     {
         boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE(
-                "test_bobura::model::train_info::time"
-            );
+            BOOST_TEST_SUITE("test_bobura::model::train_info::time");
 
         p_suite->add(BOOST_TEST_CASE(seconds_of_whole_day));
         p_suite->add(BOOST_TEST_CASE(construction));
