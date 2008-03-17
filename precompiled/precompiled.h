@@ -15,6 +15,7 @@
 #include <cstddef>
 #include <exception>
 #include <functional>
+#include <limits>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -45,6 +46,7 @@
 #include <windows.h>
 #include <commctrl.h>
 #include <gdiplus.h>
-
+#undef min
+#undef max
 
 #endif

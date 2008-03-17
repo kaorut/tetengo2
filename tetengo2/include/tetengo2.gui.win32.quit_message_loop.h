@@ -11,6 +11,7 @@
 
 #include <functional>
 
+#define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
 

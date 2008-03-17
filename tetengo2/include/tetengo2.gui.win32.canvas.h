@@ -20,6 +20,8 @@
 #define OEMRESOURCE
 #include <windows.h>
 #include <gdiplus.h>
+#undef min
+#undef max
 
 #include "tetengo2.SizeConcept.h"
 #include "tetengo2.StringConcept.h"

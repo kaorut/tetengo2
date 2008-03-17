@@ -13,6 +13,7 @@
 #include <sstream>
 #include <stdexcept>
 
+#define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
 

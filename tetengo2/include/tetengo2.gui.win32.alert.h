@@ -17,6 +17,7 @@
 
 //#include <boost/concept_check.hpp>
 
+#define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
 #include <commctrl.h>

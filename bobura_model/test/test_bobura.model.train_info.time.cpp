@@ -33,6 +33,7 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_TEST_SUITE("test_bobura::model::train_info::time");
 
         p_suite->add(BOOST_TEST_CASE(seconds_of_whole_day));
+        p_suite->add(BOOST_TEST_CASE(uninitialized));
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(swap));
         p_suite->add(BOOST_TEST_CASE(operator_assign));
@@ -59,6 +60,24 @@ namespace test_bobura { namespace model { namespace train_info
             time_type;
 
         BOOST_CHECK_EQUAL(time_type::seconds_of_whole_day(), 24U * 60U * 60U);
+    }
+
+    void time::uninitialized()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+
+            const time_type time = time_type::uninitialized();
+
+            const time_type copy_of_time(time);
+
+            BOOST_CHECK(time == copy_of_time);
     }
 
     void time::construction()
@@ -207,6 +226,22 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK(time1 == time2);
         }
+        {
+            time_type time1 = time_type::uninitialized();
+            const time_type time2(2);
+
+            time1 = time2;
+
+            BOOST_CHECK(time1 == time2);
+        }
+        {
+            time_type time1(1);
+            const time_type time2 = time_type::uninitialized();
+
+            time1 = time2;
+
+            BOOST_CHECK(time1 == time2);
+        }
     }
 
     void time::operator_plus_assign()
@@ -269,6 +304,14 @@ namespace test_bobura { namespace model { namespace train_info
             time += time_span;
 
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
+        }
+        {
+            time_type time = time_type::uninitialized();
+            const time_span_type time_span(1);
+
+            time += time_span;
+
+            BOOST_CHECK(time == time_type::uninitialized());
         }
     }
 
@@ -333,6 +376,14 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
         }
+        {
+            time_type time = time_type::uninitialized();
+            const time_span_type time_span(1);
+
+            time -= time_span;
+
+            BOOST_CHECK(time == time_type::uninitialized());
+        }
     }
 
     void time::operator_minus()
@@ -377,6 +428,20 @@ namespace test_bobura { namespace model { namespace train_info
             const time_span_type time_span = time1 - time2;
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 2);
+        }
+        {
+            const time_type time2(1);
+
+            BOOST_CHECK_THROW(
+                time_type::uninitialized() - time2, std::logic_error
+            );
+        }
+        {
+            const time_type time1(1);
+
+            BOOST_CHECK_THROW(
+                time1 - time_type::uninitialized(), std::logic_error
+            );
         }
     }
 
@@ -471,6 +536,12 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 2U);
         }
+        {
+            BOOST_CHECK_THROW(
+                time_type::uninitialized().seconds_from_midnight(),
+                std::logic_error
+            );
+        }
     }
 
     void time::hours_minutes_seconds()
@@ -517,6 +588,12 @@ namespace test_bobura { namespace model { namespace train_info
 
             BOOST_CHECK(
                 time.hours_minutes_seconds() == boost::make_tuple(1U, 2U, 3U)
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                time_type::uninitialized().hours_minutes_seconds(),
+                std::logic_error
             );
         }
     }

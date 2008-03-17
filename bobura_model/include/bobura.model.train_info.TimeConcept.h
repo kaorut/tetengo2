@@ -58,6 +58,9 @@ namespace bobura { namespace model { namespace train_info
                 typename Time::seconds_of_whole_day();
             boost::ignore_unused_variable_warning(seconds_of_whole_day);
 
+            const Time& uninitialized = typename Time::uninitialized();
+            boost::ignore_unused_variable_warning(uninitialized);
+
             const_constraints(m_time);
         }
 

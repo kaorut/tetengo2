@@ -11,6 +11,7 @@
 
 //#include <algorithm>
 #include <cassert>
+#include <limits>
 #include <stdexcept>
 
 //#include <boost/concept_check.hpp>
@@ -69,6 +70,23 @@ namespace bobura { namespace model { namespace train_info
         static size_type seconds_of_whole_day()
         {
             return 24 * 60 * 60;
+        }
+
+        /*!
+            \brief Returns the uninitialized time.
+
+            The uninitialized time is not equal to any other time, and it is
+            larger than any other time. Addition and subtraction to the
+            uninitialized time always returns the uninitialized time itself.
+            The seconds (and also hours, minutes) cannot be obtained.
+
+            \return The uninitialized time.
+        */
+        static const time& uninitialized()
+        {
+            static const time singleton;
+
+            return singleton;
         }
 
 
@@ -165,12 +183,16 @@ namespace bobura { namespace model { namespace train_info
             When time_span is too large or too small, the result is
             seconds_from_midnight() % seconds_from_midnight().
 
+            When this is uninitialized, the result is also uninitialized.
+
             \param time_span A time span.
 
             \return this object.
         */
         time& operator+=(const time_span_type& time_span)
         {
+            if (*this == uninitialized()) return *this;
+
             time_span_type::difference_type seconds =
                 m_seconds_from_midnight;
             while (seconds < -time_span.seconds())
@@ -196,12 +218,16 @@ namespace bobura { namespace model { namespace train_info
             When time_span is too large or too small, the result is
             seconds_from_midnight() % seconds_from_midnight().
 
+            When this is uninitialized, the result is also uninitialized.
+
             \param time_span A time span.
 
             \return this object.
         */
         time& operator-=(const time_span_type& time_span)
         {
+            if (*this == uninitialized()) return *this;
+
             time_span_type::difference_type seconds =
                 m_seconds_from_midnight;
             while (seconds < time_span.seconds())
@@ -228,10 +254,15 @@ namespace bobura { namespace model { namespace train_info
             \param another Another time object.
 
             \return The time span.
+
+            \throw std::logic_error When this or another is uninitialized.
         */
         const time_span_type operator-(const time& another)
         const
         {
+            if (*this == uninitialized() || another == uninitialized())
+                throw std::logic_error("The time object is uninitialized.");
+
             time_span_type::difference_type seconds = m_seconds_from_midnight;
             seconds -= another.m_seconds_from_midnight;
             while (seconds < 0)
@@ -272,10 +303,15 @@ namespace bobura { namespace model { namespace train_info
             \brief Returns the seconds from the midnight.
 
             \return The seconds from the midnight.
+
+            \throw std::logic_error When this is uninitialized.
         */
         size_type seconds_from_midnight()
         const
         {
+            if (*this == uninitialized())
+                throw std::logic_error("The time object is uninitialized.");
+
             return m_seconds_from_midnight;
         }
 
@@ -284,11 +320,16 @@ namespace bobura { namespace model { namespace train_info
 
             \return The hours, minutes and seconds, which are stored in a
                     boost::tuple object in this order.
+
+            \throw std::logic_error When this is uninitialized.
         */
         const boost::tuple<size_type, size_type, size_type>
         hours_minutes_seconds()
         const
         {
+            if (*this == uninitialized())
+                throw std::logic_error("The time object is uninitialized.");
+
             const size_type hours = m_seconds_from_midnight / (60 * 60);
             const size_type minutes =
                 m_seconds_from_midnight / 60 - hours * 60;
@@ -333,6 +374,14 @@ namespace bobura { namespace model { namespace train_info
 
             return seconds_from_midnight;
         }
+
+
+        // constructors
+
+        time()
+        :
+        m_seconds_from_midnight(std::numeric_limits<size_type>::max())
+        {}
 
 
         // variables

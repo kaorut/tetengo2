@@ -23,6 +23,8 @@ namespace test_bobura { namespace model { namespace train_info
 
         static void seconds_of_whole_day();
 
+        static void uninitialized();
+
         static void construction();
 
         static void swap();

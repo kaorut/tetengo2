@@ -18,6 +18,8 @@
 #include <windows.h>
 #include <commctrl.h>
 #include <gdiplus.h>
+#undef min
+#undef max
 
 
 namespace tetengo2 { namespace gui { namespace win32

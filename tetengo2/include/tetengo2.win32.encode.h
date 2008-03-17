@@ -17,6 +17,7 @@
 #include <boost/concept_check.hpp>
 #include <boost/scoped_array.hpp>
 
+#define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
 

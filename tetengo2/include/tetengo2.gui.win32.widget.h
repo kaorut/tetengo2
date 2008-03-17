@@ -22,6 +22,7 @@
 #include <boost/scoped_array.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
+#define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
 
