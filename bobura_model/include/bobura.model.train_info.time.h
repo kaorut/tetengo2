@@ -115,7 +115,7 @@ namespace bobura { namespace model { namespace train_info
             \param minutes Minutes. It must be that 0 <= minutes <= 59.
             \param seconds Seconds. It must be that 0 <= seconds <= 59.
 
-            \throw std::length_error When hours, minutes and/or seconds
+            \throw std::out_of_range When hours, minutes and/or seconds
                                      are invalid.
         */
         time(
@@ -351,19 +351,19 @@ namespace bobura { namespace model { namespace train_info
         {
             if (hours > 23)
             {
-                throw std::length_error(
+                throw std::out_of_range(
                     "24 or greater is specified for the hours."
                 );
             }
             else if (minutes > 59)
             {
-                throw std::length_error(
+                throw std::out_of_range(
                     "60 or greater is specified for the minutes."
                 );
             }
             else if (seconds > 59)
             {
-                throw std::length_error(
+                throw std::out_of_range(
                     "60 or greater is specified for the minutes."
                 );
             }

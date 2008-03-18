@@ -146,7 +146,7 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 59U);
         }
         {
-            BOOST_CHECK_THROW(time_type(0, 0, 60), std::length_error);
+            BOOST_CHECK_THROW(time_type(0, 0, 60), std::out_of_range);
         }
         {
             const time_type time(0, 1, 0);
@@ -159,7 +159,7 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 3540U);
         }
         {
-            BOOST_CHECK_THROW(time_type(0, 60, 0), std::length_error);
+            BOOST_CHECK_THROW(time_type(0, 60, 0), std::out_of_range);
         }
         {
             const time_type time(1, 0, 0);
@@ -172,7 +172,7 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 82800U);
         }
         {
-            BOOST_CHECK_THROW(time_type(24, 0, 0), std::length_error);
+            BOOST_CHECK_THROW(time_type(24, 0, 0), std::out_of_range);
         }
     }
 
