@@ -38,6 +38,7 @@ namespace bobura { namespace model { namespace train_info
         void constraints()
         {
             typedef typename Stop::time_type time_type;
+            typedef typename Stop::string_type string_type;
 
             m_stop.swap(m_stop);
             std::swap(m_stop, m_stop);
