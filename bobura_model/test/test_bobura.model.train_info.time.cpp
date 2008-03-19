@@ -443,6 +443,12 @@ namespace test_bobura { namespace model { namespace train_info
                 time1 - time_type::uninitialized(), std::logic_error
             );
         }
+        {
+            BOOST_CHECK_THROW(
+                time_type::uninitialized() - time_type::uninitialized(),
+                std::logic_error
+            );
+        }
     }
 
     void time::operator_equal()
