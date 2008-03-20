@@ -132,6 +132,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\bobura.model.station_info.GradeNameConcept.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\bobura.model.station_info.NameConcept.h"
 				>
 			</File>

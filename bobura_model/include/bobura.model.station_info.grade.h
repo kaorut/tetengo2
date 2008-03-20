@@ -14,7 +14,7 @@
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-#include <tetengo2.StringConcept.h>
+#include "bobura.model.station_info.GradeNameConcept.h"
 
 
 namespace bobura { namespace model { namespace station_info
@@ -22,23 +22,25 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a station grade.
 
-        \tparam String A string type. It must conform to
-                       tetengo2::StringConcept<String>.
+        \tparam GradeName A grade name type. It must conform to
+                          bobura::model::station_info::GradeNameConcept<GradeName>.
     */
-    template <typename String>
+    template <typename GradeName>
     class grade : private boost::noncopyable
     {
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
+        BOOST_CLASS_REQUIRE(
+            GradeName, bobura::model::station_info, GradeNameConcept
+        );
 
 
     public:
         // types
 
-        //! The string type.
-        typedef String string_type;
+        //! The name type.
+        typedef GradeName name_type;
 
 
         // static functions
@@ -50,7 +52,7 @@ namespace bobura { namespace model { namespace station_info
         */
         static const grade& instance()
         {
-            return local<string_type>::instance();
+            return local<name_type>::instance();
         }
 
 
@@ -71,7 +73,7 @@ namespace bobura { namespace model { namespace station_info
 
             \return The name.
         */
-        virtual const string_type& name()
+        virtual const name_type& name()
         const = 0;
 
 
@@ -89,7 +91,7 @@ namespace bobura { namespace model { namespace station_info
 
     namespace
     {
-        template <typename String>
+        template <typename GradeName>
         struct grade_name;
 
         template <>
@@ -158,11 +160,11 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a local station grade.
 
-        \tparam String A string type. It must conform to
-                       tetengo2::StringConcept<String>.
+        \tparam GradeName A grade name type. It must conform to
+                          bobura::model::station_info::GradeNameConcept<GradeName>.
     */
-    template <typename String>
-    class local : public grade<String>
+    template <typename GradeName>
+    class local : public grade<GradeName>
     {
     public:
         // static functions
@@ -197,10 +199,10 @@ namespace bobura { namespace model { namespace station_info
 
             \return The name "local".
         */
-        virtual const string_type& name()
+        virtual const name_type& name()
         const
         {
-            return grade_name<string_type>::local();
+            return grade_name<name_type>::local();
         }
 
 
@@ -216,11 +218,11 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a principal station grade.
  
-        \tparam String A string type. It must conform to
-                       tetengo2::StringConcept<String>.
+        \tparam GradeName A grade name type. It must conform to
+                          bobura::model::station_info::GradeNameConcept<GradeName>.
    */
-    template <typename String>
-    class principal : public grade<String>
+    template <typename GradeName>
+    class principal : public grade<GradeName>
     {
     public:
         // static functions
@@ -255,10 +257,10 @@ namespace bobura { namespace model { namespace station_info
 
             \return The name "principal".
         */
-        virtual const string_type& name()
+        virtual const name_type& name()
         const
         {
-            return grade_name<string_type>::principal();
+            return grade_name<name_type>::principal();
         }
 
 
@@ -274,11 +276,11 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a local terminal station grade.
 
-        \tparam String A string type. It must conform to
-                       tetengo2::StringConcept<String>.
+        \tparam GradeName A grade name type. It must conform to
+                          bobura::model::station_info::GradeNameConcept<GradeName>.
     */
-    template <typename String>
-    class local_terminal : public grade<String>
+    template <typename GradeName>
+    class local_terminal : public grade<GradeName>
     {
     public:
         // static functions
@@ -313,10 +315,10 @@ namespace bobura { namespace model { namespace station_info
 
             \return The name "local terminal".
         */
-        virtual const string_type& name()
+        virtual const name_type& name()
         const
         {
-            return grade_name<string_type>::local_terminal();
+            return grade_name<name_type>::local_terminal();
         }
 
 
@@ -332,11 +334,11 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a principal terminal station grade.
 
-        \tparam String A string type. It must conform to
-                       tetengo2::StringConcept<String>.
+        \tparam GradeName A grade name type. It must conform to
+                          bobura::model::station_info::GradeNameConcept<GradeName>.
     */
-    template <typename String>
-    class principal_terminal : public grade<String>
+    template <typename GradeName>
+    class principal_terminal : public grade<GradeName>
     {
     public:
         // static functions
@@ -371,10 +373,10 @@ namespace bobura { namespace model { namespace station_info
 
             \return The name "principal terminal".
         */
-        virtual const string_type& name()
+        virtual const name_type& name()
         const
         {
-            return grade_name<string_type>::principal_terminal();
+            return grade_name<name_type>::principal_terminal();
         }
 
 
