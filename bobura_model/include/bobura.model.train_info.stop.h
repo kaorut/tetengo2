@@ -12,8 +12,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
-#include <tetengo2.StringConcept.h>
-
+#include "bobura.model.train_info.PlatformConcept.h"
 #include "bobura.model.train_info.TimeConcept.h"
 
 
@@ -22,19 +21,21 @@ namespace bobura { namespace model { namespace train_info
     /*!
         \brief The class for a train stop.
 
-        \tparam Time   A time type. It must conform to
-                       bobura::model::train_info::TimeConcept<Time>.
-        \tparam String A string type. It must conform to
-                       tetengo2::StringConcept<String>.
+        \tparam Time     A time type. It must conform to
+                         bobura::model::train_info::TimeConcept<Time>.
+        \tparam Platform A string type. It must conform to
+                         bobura::model::train_info::PlatformConcept<Platform>.
     */
-    template <typename Time, typename String>
-    class stop : private boost::equality_comparable<stop<Time, String> >
+    template <typename Time, typename Platform>
+    class stop : private boost::equality_comparable<stop<Time, Platform> >
     {
     private:
         // concept checks
 
         BOOST_CLASS_REQUIRE(Time, bobura::model::train_info, TimeConcept);
-        BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
+        BOOST_CLASS_REQUIRE(
+            Platform, bobura::model::train_info, PlatformConcept
+        );
 
 
     public:
@@ -43,8 +44,8 @@ namespace bobura { namespace model { namespace train_info
         //! The time type.
         typedef Time time_type;
 
-        //! The string type.
-        typedef String string_type;
+        //! The platform type.
+        typedef Platform platform_type;
 
 
         // constructors and destructor
@@ -125,25 +126,27 @@ namespace std
     /*!
         \brief Swaps two stop objects.
 
-        \tparam Time   A time type. It must conform to
-                       bobura::model::train_info::TimeConcept<Time>.
-        \tparam String A string type. It must conform to
-                       tetengo2::StringConcept<String>.
+        \tparam Time     A time type. It must conform to
+                         bobura::model::train_info::TimeConcept<Time>.
+        \tparam Platform A platform type. It must conform to
+                         bobura::model::train_info::PlatformConcept<Platform>.
 
         \param stop1 A stop object #1.
         \param stop2 A stop object #2.
     */
-    template <typename Time, typename String>
+    template <typename Time, typename Platform>
     void swap(
-        bobura::model::train_info::stop<Time, String>& stop1,
-        bobura::model::train_info::stop<Time, String>& stop2
+        bobura::model::train_info::stop<Time, Platform>& stop1,
+        bobura::model::train_info::stop<Time, Platform>& stop2
     )
     throw ()
     {
         boost::function_requires<
             bobura::model::train_info::TimeConcept<Time>
         >();
-        boost::function_requires<tetengo2::StringConcept<String> >();
+        boost::function_requires<
+            bobura::model::train_info::PlatformConcept<Platform>
+        >();
 
         stop1.swap(stop2);
     }

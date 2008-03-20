@@ -168,6 +168,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\bobura.model.train_info.PlatformConcept.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\bobura.model.train_info.stop.h"
 				>
 			</File>
