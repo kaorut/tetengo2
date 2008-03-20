@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::model::GradeNameConcept.
+    \brief The definition of bobura::model::station_info::GradeNameConcept.
 
     Copyright (C) 2007-2008 kaoru
 

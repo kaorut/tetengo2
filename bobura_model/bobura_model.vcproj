@@ -148,6 +148,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\bobura.model.timetable_info.MeterageConcept.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\bobura.model.timetable_info.station_location.h"
 				>
 			</File>

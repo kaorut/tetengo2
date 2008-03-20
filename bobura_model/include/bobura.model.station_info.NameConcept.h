@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::model::NameConcept.
+    \brief The definition of bobura::model::station_info::NameConcept.
 
     Copyright (C) 2007-2008 kaoru
 
