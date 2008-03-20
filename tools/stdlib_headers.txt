@@ -49,6 +49,7 @@ std::logic_error                                 stdexcept
 std::make_pair                                   utility
 std::numeric_limits                              limits
 std::ostringstream                               sstream
+std::out_of_range                                stdexcept
 std::pair                                        utility
 std::ptrdiff_t                                   cstddef
 std::runtime_error                               stdexcept
