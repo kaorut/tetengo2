@@ -16,9 +16,8 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
-#include <tetengo2.StringConcept.h>
-
 #include "bobura.model.station_info.GradeConcept.h"
+#include "bobura.model.station_info.NameConcept.h"
 
 
 namespace bobura { namespace model
@@ -26,27 +25,27 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a station.
 
-        \tparam String A string type. It must conform to
-                       tetengo2::StringConcept<String>.
-        \tparam Grade  A grade type. It must conform to
-                       bobura::model::station_info::GradeConcept<Grade>.
+        \tparam Name  A name type. It must conform to
+                      bobura::model::station_info::NameConcept<Name>.
+        \tparam Grade A grade type. It must conform to
+                      bobura::model::station_info::GradeConcept<Grade>.
     */
-    template <typename String, typename Grade>
+    template <typename Name, typename Grade>
     class station :
-        private boost::equality_comparable<station<String, Grade> >
+        private boost::equality_comparable<station<Name, Grade> >
     {
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
+        BOOST_CLASS_REQUIRE(Name, bobura::model::station_info, NameConcept);
         BOOST_CLASS_REQUIRE(Grade, bobura::model::station_info, GradeConcept);
 
 
     public:
         // types
 
-        //! The string type.
-        typedef String string_type;
+        //! The name type.
+        typedef Name name_type;
 
         //! The grade type.
         typedef Grade grade_type;
@@ -60,7 +59,7 @@ namespace bobura { namespace model
             \param name  A name.
             \param grade A grade.
         */
-        station(const string_type& name, const grade_type& grade)
+        station(const name_type& name, const grade_type& grade)
         :
         m_name(name),
         m_p_grade(&grade)
@@ -134,7 +133,7 @@ namespace bobura { namespace model
 
             \return The name.
         */
-        const string_type name()
+        const name_type name()
         const
         {
             return m_name;
@@ -156,7 +155,7 @@ namespace bobura { namespace model
     private:
         // variables
 
-        string_type m_name;
+        name_type m_name;
 
         const grade_type* m_p_grade;
 
@@ -171,22 +170,24 @@ namespace std
     /*!
         \brief Swaps two station objects.
 
-        \tparam String A string type. It must conform to
-                       tetengo2::StringConcept<String>.
-        \tparam Grade  A grade type. It must conform to
-                       bobura::model::station_info::GradeConcept<Grade>.
+        \tparam Name  A name type. It must conform to
+                      bobura::model::station_info::NameConcept<Name>.
+        \tparam Grade A grade type. It must conform to
+                      bobura::model::station_info::GradeConcept<Grade>.
 
         \param station1 A station object #1.
         \param station2 A station object #2.
     */
-    template <typename String, typename Grade>
+    template <typename Name, typename Grade>
     void swap(
-        bobura::model::station<String, Grade>& station1,
-        bobura::model::station<String, Grade>& station2
+        bobura::model::station<Name, Grade>& station1,
+        bobura::model::station<Name, Grade>& station2
     )
     throw ()
     {
-        boost::function_requires<tetengo2::StringConcept<String> >();
+        boost::function_requires<
+            bobura::model::station_info::NameConcept<Name>
+        >();
         boost::function_requires<
             bobura::model::station_info::GradeConcept<Grade>
         >();

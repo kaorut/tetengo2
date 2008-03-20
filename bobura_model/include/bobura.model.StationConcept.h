@@ -37,7 +37,7 @@ namespace bobura { namespace model
         */
         void constraints()
         {
-            typedef typename Station::string_type string_type;
+            typedef typename Station::name_type name_type;
             typedef typename Station::grade_type grade_type;
 
             m_station.swap(m_station);
@@ -59,7 +59,7 @@ namespace bobura { namespace model
             const bool equality = station == station;
             boost::ignore_unused_variable_warning(equality);
 
-            const typename Station::string_type name = station.name();
+            const typename Station::name_type name = station.name();
             boost::ignore_unused_variable_warning(name);
 
             const typename Station::grade_type& grade = station.grade();
