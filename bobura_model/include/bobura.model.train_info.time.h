@@ -19,9 +19,8 @@
 //#include <boost/tuple/tuple.hpp>
 //#include <boost/tuple/tuple_comparison.hpp>
 
-#include <tetengo2.SizeConcept.h>
-
 #include "bobura.model.train_info.TimeSpanConcept.h"
+#include "bobura.model.train_info.TimeTickConcept.h"
 
 
 namespace bobura { namespace model { namespace train_info
@@ -29,20 +28,22 @@ namespace bobura { namespace model { namespace train_info
     /*!
         \brief The class for a time.
 
-        \tparam Size     A size type. It must conform to
-                         tetengo2::SizeConcept<Size>.
+        \tparam TimeTick A time tick type. It must conform to
+                         bobura::model::train_info::TimeTickConcept<TimeTick>.
         \tparam TimeSpan A time span type. It must conform to
                          bobura::model::train_info::TimeSpanConcept<TimeSpan>.
     */
-    template <typename Size, typename TimeSpan>
+    template <typename TimeTick, typename TimeSpan>
     class time :
-        private boost::totally_ordered<time<Size, TimeSpan> >,
-        private boost::additive<time<Size, TimeSpan>, TimeSpan>
+        private boost::totally_ordered<time<TimeTick, TimeSpan> >,
+        private boost::additive<time<TimeTick, TimeSpan>, TimeSpan>
     {
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Size, tetengo2, SizeConcept);
+        BOOST_CLASS_REQUIRE(
+            TimeTick, bobura::model::train_info, TimeTickConcept
+        );
         BOOST_CLASS_REQUIRE(
             TimeSpan, bobura::model::train_info, TimeSpanConcept
         );
@@ -51,11 +52,11 @@ namespace bobura { namespace model { namespace train_info
     public:
         // types
 
+        //! The tick type.
+        typedef TimeTick tick_type;
+
         //! The time_span type.
         typedef TimeSpan time_span_type;
-
-        //! The size type.
-        typedef Size size_type;
 
 
         // static functions
@@ -67,7 +68,7 @@ namespace bobura { namespace model { namespace train_info
 
             \return The seconds of a whole way.
         */
-        static size_type seconds_of_whole_day()
+        static tick_type seconds_of_whole_day()
         {
             return 24 * 60 * 60;
         }
@@ -101,7 +102,7 @@ namespace bobura { namespace model { namespace train_info
 
             \param seconds_from_midnight Seconds from the midnight.
         */
-        explicit time(const size_type seconds_from_midnight)
+        explicit time(const tick_type seconds_from_midnight)
         :
         m_seconds_from_midnight(
             seconds_from_midnight % seconds_of_whole_day()
@@ -119,9 +120,9 @@ namespace bobura { namespace model { namespace train_info
                                      are invalid.
         */
         time(
-            const size_type hours,
-            const size_type minutes,
-            const size_type seconds
+            const tick_type hours,
+            const tick_type minutes,
+            const tick_type seconds
         )
         :
         m_seconds_from_midnight(
@@ -306,7 +307,7 @@ namespace bobura { namespace model { namespace train_info
 
             \throw std::logic_error When this is uninitialized.
         */
-        size_type seconds_from_midnight()
+        tick_type seconds_from_midnight()
         const
         {
             if (*this == uninitialized())
@@ -323,17 +324,17 @@ namespace bobura { namespace model { namespace train_info
 
             \throw std::logic_error When this is uninitialized.
         */
-        const boost::tuple<size_type, size_type, size_type>
+        const boost::tuple<tick_type, tick_type, tick_type>
         hours_minutes_seconds()
         const
         {
             if (*this == uninitialized())
                 throw std::logic_error("The time object is uninitialized.");
 
-            const size_type hours = m_seconds_from_midnight / (60 * 60);
-            const size_type minutes =
+            const tick_type hours = m_seconds_from_midnight / (60 * 60);
+            const tick_type minutes =
                 m_seconds_from_midnight / 60 - hours * 60;
-            const size_type seconds =
+            const tick_type seconds =
                 m_seconds_from_midnight - hours * 60 * 60 - minutes * 60;
 
             return boost::make_tuple(hours, minutes, seconds);
@@ -343,10 +344,10 @@ namespace bobura { namespace model { namespace train_info
     private:
         // static functions
 
-        static size_type calculate_seconds_from_midnight(
-            const size_type hours,
-            const size_type minutes,
-            const size_type seconds
+        static tick_type calculate_seconds_from_midnight(
+            const tick_type hours,
+            const tick_type minutes,
+            const tick_type seconds
         )
         {
             if (hours > 23)
@@ -368,7 +369,7 @@ namespace bobura { namespace model { namespace train_info
                 );
             }
 
-            const size_type seconds_from_midnight =
+            const tick_type seconds_from_midnight =
                 hours * 60 * 60 + minutes * 60 + seconds;
             assert(seconds_from_midnight < seconds_of_whole_day());
 
@@ -380,13 +381,13 @@ namespace bobura { namespace model { namespace train_info
 
         time()
         :
-        m_seconds_from_midnight(std::numeric_limits<size_type>::max())
+        m_seconds_from_midnight(std::numeric_limits<tick_type>::max())
         {}
 
 
         // variables
 
-        size_type m_seconds_from_midnight;
+        tick_type m_seconds_from_midnight;
 
 
     };
@@ -399,22 +400,24 @@ namespace std
     /*!
         \brief Swaps two time objects.
 
-        \tparam Size     A size type. It must conform to
-                         tetengo2::SizeConcept<Size>.
+        \tparam TimeTick A time tick type. It must conform to
+                         bobura::model::train_info::TimeTickConcept<TimeTick>.
         \tparam TimeSpan A time span type. It must conform to
                          bobura::model::train_info::TimeSpanConcept<TimeSpan>.
 
         \param time1 A time object #1.
         \param time2 A time object #2.
     */
-    template <typename TimeSpan, typename Size>
+    template <typename TimeSpan, typename TimeTick>
     void swap(
-        bobura::model::train_info::time<Size, TimeSpan>& time1,
-        bobura::model::train_info::time<Size, TimeSpan>& time2
+        bobura::model::train_info::time<TimeTick, TimeSpan>& time1,
+        bobura::model::train_info::time<TimeTick, TimeSpan>& time2
     )
     throw ()
     {
-        boost::function_requires<tetengo2::SizeConcept<Size> >();
+        boost::function_requires<
+            bobura::model::train_info::TimeTickConcept<TimeTick>
+        >();
         boost::function_requires<
             bobura::model::train_info::TimeSpanConcept<TimeSpan>
         >();

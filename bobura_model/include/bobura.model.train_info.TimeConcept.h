@@ -39,7 +39,7 @@ namespace bobura { namespace model { namespace train_info
         */
         void constraints()
         {
-            typedef typename Time::size_type size_type;
+            typedef typename Time::tick_type tick_type;
             typedef typename Time::time_span_type time_span_type;
 
             m_time.swap(m_time);
@@ -54,7 +54,7 @@ namespace bobura { namespace model { namespace train_info
             Time& minus_assigned = m_time -= m_time_span;
             boost::ignore_unused_variable_warning(minus_assigned);
 
-            const typename Time::size_type& seconds_of_whole_day =
+            const typename Time::tick_type& seconds_of_whole_day =
                 typename Time::seconds_of_whole_day();
             boost::ignore_unused_variable_warning(seconds_of_whole_day);
 
@@ -95,14 +95,14 @@ namespace bobura { namespace model { namespace train_info
             const typename Time::time_span_type minused2 = time - time;
             boost::ignore_unused_variable_warning(minused2);
 
-            const typename Time::size_type& seconds_from_midnight =
+            const typename Time::tick_type& seconds_from_midnight =
                 time.seconds_from_midnight();
             boost::ignore_unused_variable_warning(seconds_from_midnight);
 
             const boost::tuple<
-                typename Time::size_type,
-                typename Time::size_type,
-                typename Time::size_type
+                typename Time::tick_type,
+                typename Time::tick_type,
+                typename Time::tick_type
             > hours_minutes_seconds = time.hours_minutes_seconds();
             boost::ignore_unused_variable_warning(hours_minutes_seconds);
         }
