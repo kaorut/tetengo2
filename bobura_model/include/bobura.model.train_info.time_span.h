@@ -17,7 +17,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 
-#include <tetengo2.DifferenceConcept.h>
+#include "bobura.model.train_info.TimeSpanTickConcept.h"
 
 
 namespace bobura { namespace model { namespace train_info
@@ -25,25 +25,27 @@ namespace bobura { namespace model { namespace train_info
     /*!
         \brief The class for a time span.
 
-        \tparam Difference A difference type. It must conform to
-                           tetengo2::DifferenceConcept<Difference>.
+        \tparam TimeSpanTick A time span tick type. It must conform to
+                             bobura::model::train_info::TimeSpanTickConcept<TimeSpanTick>.
     */
-    template <typename Difference>
+    template <typename TimeSpanTick>
     class time_span :
-        private boost::totally_ordered<time_span<Difference> >,
-        private boost::additive<time_span<Difference> >
+        private boost::totally_ordered<time_span<TimeSpanTick> >,
+        private boost::additive<time_span<TimeSpanTick> >
     {
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Difference, tetengo2, DifferenceConcept);
+        BOOST_CLASS_REQUIRE(
+            TimeSpanTick, bobura::model::train_info, TimeSpanTickConcept
+        );
 
 
     public:
         // types
 
-        //! The difference type.
-        typedef Difference difference_type;
+        //! The tick type.
+        typedef TimeSpanTick tick_type;
 
 
         // constructors and destructor
@@ -53,7 +55,7 @@ namespace bobura { namespace model { namespace train_info
 
             \param seconds A second span.
         */
-        explicit time_span(const difference_type seconds)
+        explicit time_span(const tick_type seconds)
         :
         m_seconds(seconds)
         {}
@@ -77,9 +79,9 @@ namespace bobura { namespace model { namespace train_info
                                          different.
         */
         time_span(
-            const difference_type hours,
-            const difference_type minutes,
-            const difference_type seconds
+            const tick_type hours,
+            const tick_type minutes,
+            const tick_type seconds
         )
         :
         m_seconds(calculate_seconds(hours, minutes, seconds))
@@ -196,7 +198,7 @@ namespace bobura { namespace model { namespace train_info
 
             \return The seconds.
         */
-        difference_type seconds()
+        tick_type seconds()
         const
         {
             return m_seconds;
@@ -208,13 +210,13 @@ namespace bobura { namespace model { namespace train_info
             \return The hours, minutes and seconds, which are stored in a
                     boost::tuple object in this order.
         */
-        const boost::tuple<difference_type, difference_type, difference_type>
+        const boost::tuple<tick_type, tick_type, tick_type>
         hours_minutes_seconds()
         const
         {
-            const difference_type hours = m_seconds / (60 * 60);
-            const difference_type minutes = m_seconds / 60 - hours * 60;
-            const difference_type seconds =
+            const tick_type hours = m_seconds / (60 * 60);
+            const tick_type minutes = m_seconds / 60 - hours * 60;
+            const tick_type seconds =
                 m_seconds - hours * 60 * 60 - minutes * 60;
 
             return boost::make_tuple(hours, minutes, seconds);
@@ -224,10 +226,10 @@ namespace bobura { namespace model { namespace train_info
     private:
         // static functions
 
-        static difference_type calculate_seconds(
-            const difference_type hours,
-            const difference_type minutes,
-            const difference_type seconds
+        static tick_type calculate_seconds(
+            const tick_type hours,
+            const tick_type minutes,
+            const tick_type seconds
         )
         {
             if (
@@ -271,7 +273,7 @@ namespace bobura { namespace model { namespace train_info
 
         // variables
 
-        difference_type m_seconds;
+        tick_type m_seconds;
 
 
     };
@@ -284,20 +286,22 @@ namespace std
     /*!
         \brief Swaps two time_span objects.
 
-        \tparam Difference A difference type. It must conform to
-                           tetengo2::DifferenceConcept<Difference>.
+        \tparam TimeSpanTick A time span tick type. It must conform to
+                             bobura::model::train_info::TimeSpanTickConcept<TimeSpanTick>.
 
         \param time_span1 A time_span object #1.
         \param time_span2 A time_span object #2.
     */
-    template <typename Difference>
+    template <typename TimeSpanTick>
     void swap(
-        bobura::model::train_info::time_span<Difference>& time_span1,
-        bobura::model::train_info::time_span<Difference>& time_span2
+        bobura::model::train_info::time_span<TimeSpanTick>& time_span1,
+        bobura::model::train_info::time_span<TimeSpanTick>& time_span2
     )
     throw ()
     {
-        boost::function_requires<tetengo2::DifferenceConcept<Difference> >();
+        boost::function_requires<
+            bobura::model::train_info::TimeSpanTickConcept<TimeSpanTick>
+        >();
 
         time_span1.swap(time_span2);
     }

@@ -39,7 +39,7 @@ namespace bobura { namespace model { namespace train_info
         */
         void constraints()
         {
-            typedef typename TimeSpan::difference_type difference_type;
+            typedef typename TimeSpan::tick_type tick_type;
 
             m_time_span.swap(m_time_span);
             std::swap(m_time_span, m_time_span);
@@ -84,14 +84,14 @@ namespace bobura { namespace model { namespace train_info
             const TimeSpan minused = time_span - time_span;
             boost::ignore_unused_variable_warning(minused);
 
-            const typename TimeSpan::difference_type& seconds =
+            const typename TimeSpan::tick_type& seconds =
                 time_span.seconds();
             boost::ignore_unused_variable_warning(seconds);
 
             const boost::tuple<
-                typename TimeSpan::difference_type,
-                typename TimeSpan::difference_type,
-                typename TimeSpan::difference_type
+                typename TimeSpan::tick_type,
+                typename TimeSpan::tick_type,
+                typename TimeSpan::tick_type
             > hours_minutes_seconds = time_span.hours_minutes_seconds();
             boost::ignore_unused_variable_warning(hours_minutes_seconds);
         }
