@@ -48,6 +48,21 @@ namespace bobura { namespace model { namespace train_info
         typedef TimeSpanTick tick_type;
 
 
+        // static functions
+
+        /*!
+            \brief Returns the seconds of a whole day.
+
+            The value is 24 * 60 * 60 (= 86400).
+
+            \return The seconds of a whole way.
+        */
+        static tick_type seconds_of_whole_day()
+        {
+            return 24 * 60 * 60;
+        }
+
+
         // constructors and destructor
 
         /*!

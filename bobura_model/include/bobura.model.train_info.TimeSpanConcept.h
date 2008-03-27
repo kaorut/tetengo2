@@ -53,6 +53,10 @@ namespace bobura { namespace model { namespace train_info
             TimeSpan& minus_assigned = m_time_span -= m_time_span;
             boost::ignore_unused_variable_warning(minus_assigned);
 
+            const typename TimeSpan::tick_type& seconds_of_whole_day =
+                typename TimeSpan::seconds_of_whole_day();
+            boost::ignore_unused_variable_warning(seconds_of_whole_day);
+
             const_constraints(m_time_span);
         }
 

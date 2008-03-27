@@ -32,7 +32,6 @@ namespace test_bobura { namespace model { namespace train_info
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_bobura::model::train_info::time");
 
-        p_suite->add(BOOST_TEST_CASE(seconds_of_whole_day));
         p_suite->add(BOOST_TEST_CASE(uninitialized));
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(swap));
@@ -46,20 +45,6 @@ namespace test_bobura { namespace model { namespace train_info
         p_suite->add(BOOST_TEST_CASE(hours_minutes_seconds));
 
         return p_suite;
-    }
-
-    void time::seconds_of_whole_day()
-    {
-        BOOST_CHECKPOINT("");
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-
-        BOOST_CHECK_EQUAL(time_type::seconds_of_whole_day(), 24U * 60U * 60U);
     }
 
     void time::uninitialized()

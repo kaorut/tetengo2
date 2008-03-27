@@ -62,18 +62,6 @@ namespace bobura { namespace model { namespace train_info
         // static functions
 
         /*!
-            \brief Returns the seconds of a whole day.
-
-            The value is 24 * 60 * 60 (= 86400).
-
-            \return The seconds of a whole way.
-        */
-        static tick_type seconds_of_whole_day()
-        {
-            return 24 * 60 * 60;
-        }
-
-        /*!
             \brief Returns the uninitialized time.
 
             The uninitialized time is not equal to any other time, and it is
@@ -96,16 +84,18 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Creates a time.
 
-            When seconds_from_midnight is greater than seconds_of_whole_day(),
-            it is assumed that the result of
-            seconds_from_midnight % seconds_of_whole_day() is passed.
+            When seconds_from_midnight is greater than
+            time_span_type::seconds_of_whole_day(), it is assumed that the
+            result of
+            seconds_from_midnight % time_span_type::seconds_of_whole_day() is
+            passed.
 
             \param seconds_from_midnight Seconds from the midnight.
         */
         explicit time(const tick_type seconds_from_midnight)
         :
         m_seconds_from_midnight(
-            seconds_from_midnight % seconds_of_whole_day()
+            seconds_from_midnight % time_span_type::seconds_of_whole_day()
         )
         {}
 
@@ -196,14 +186,12 @@ namespace bobura { namespace model { namespace train_info
 
             time_span_type::tick_type seconds = m_seconds_from_midnight;
             while (seconds < -time_span.seconds())
-                seconds += seconds_of_whole_day();
+                seconds += time_span_type::seconds_of_whole_day();
             seconds += time_span.seconds();
-            seconds %= seconds_of_whole_day();
+            seconds %= time_span_type::seconds_of_whole_day();
             assert(
                 0 <= seconds &&
-                seconds < static_cast<time_span_type::tick_type>(
-                    seconds_of_whole_day()
-                )
+                seconds < time_span_type::seconds_of_whole_day()
             );
 
             time(seconds).swap(*this);
@@ -231,14 +219,12 @@ namespace bobura { namespace model { namespace train_info
             time_span_type::tick_type seconds =
                 m_seconds_from_midnight;
             while (seconds < time_span.seconds())
-                seconds += seconds_of_whole_day();
+                seconds += time_span_type::seconds_of_whole_day();
             seconds -= time_span.seconds();
-            seconds %= seconds_of_whole_day();
+            seconds %= time_span_type::seconds_of_whole_day();
             assert(
                 0 <= seconds &&
-                seconds < static_cast<time_span_type::tick_type>(
-                    seconds_of_whole_day()
-                )
+                seconds < time_span_type::seconds_of_whole_day()
             );
 
             time(seconds).swap(*this);
@@ -266,7 +252,7 @@ namespace bobura { namespace model { namespace train_info
             time_span_type::tick_type seconds = m_seconds_from_midnight;
             seconds -= another.m_seconds_from_midnight;
             while (seconds < 0)
-                seconds += seconds_of_whole_day();
+                seconds += time_span_type::seconds_of_whole_day();
 
             return time_span_type(seconds);
         }
@@ -370,7 +356,10 @@ namespace bobura { namespace model { namespace train_info
 
             const tick_type seconds_from_midnight =
                 hours * 60 * 60 + minutes * 60 + seconds;
-            assert(seconds_from_midnight < seconds_of_whole_day());
+            assert(
+                seconds_from_midnight <
+                static_cast<tick_type>(time_span_type::seconds_of_whole_day())
+            );
 
             return seconds_from_midnight;
         }

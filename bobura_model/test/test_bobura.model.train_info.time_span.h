@@ -21,6 +21,8 @@ namespace test_bobura { namespace model { namespace train_info
 
         static boost::unit_test::test_suite* suite();
 
+        static void seconds_of_whole_day();
+
         static void construction();
 
         static void swap();

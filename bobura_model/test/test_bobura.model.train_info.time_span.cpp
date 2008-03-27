@@ -30,6 +30,7 @@ namespace test_bobura { namespace model { namespace train_info
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_bobura::model::train_info::time_span");
 
+        p_suite->add(BOOST_TEST_CASE(seconds_of_whole_day));
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(swap));
         p_suite->add(BOOST_TEST_CASE(operator_assign));
@@ -41,6 +42,19 @@ namespace test_bobura { namespace model { namespace train_info
         p_suite->add(BOOST_TEST_CASE(hours_minutes_seconds));
 
         return p_suite;
+    }
+
+    void time_span::seconds_of_whole_day()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time_span<std::ptrdiff_t>
+            time_span_type;
+
+        BOOST_CHECK_EQUAL(
+            time_span_type::seconds_of_whole_day(), 24 * 60 * 60
+        );
     }
 
     void time_span::construction()

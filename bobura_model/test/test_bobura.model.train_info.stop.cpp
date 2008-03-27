@@ -40,6 +40,8 @@ namespace test_bobura { namespace model { namespace train_info
 
     void stop::construction()
     {
+        BOOST_CHECKPOINT("");
+
         typedef
             bobura::model::train_info::time<
                 std::size_t,
@@ -87,6 +89,8 @@ namespace test_bobura { namespace model { namespace train_info
 
     void stop::swap()
     {
+        BOOST_CHECKPOINT("");
+
         typedef
             bobura::model::train_info::time<
                 std::size_t,
@@ -127,6 +131,8 @@ namespace test_bobura { namespace model { namespace train_info
 
     void stop::operator_assign()
     {
+        BOOST_CHECKPOINT("");
+
         typedef
             bobura::model::train_info::time<
                 std::size_t,
@@ -149,6 +155,8 @@ namespace test_bobura { namespace model { namespace train_info
 
     void stop::operator_equal()
     {
+        BOOST_CHECKPOINT("");
+
         typedef
             bobura::model::train_info::time<
                 std::size_t,
