@@ -52,8 +52,20 @@ namespace bobura { namespace model { namespace train_info
 
         /*!
             \brief Creates a stop.
+
+            \param arrival   An arrival time.
+            \param departure A departure time.
+            \param platform  A platform.
         */
-        stop()
+        stop(
+            const time_type&     arrival,
+            const time_type&     departure,
+            const platform_type& platform
+        )
+        :
+        m_arrival(arrival),
+        m_departure(departure),
+        m_platform(platform)
         {}
 
         /*!
@@ -62,6 +74,10 @@ namespace bobura { namespace model { namespace train_info
             \param another Another stop object.
         */
         stop(const stop& another)
+        :
+        m_arrival(another.m_arrival),
+        m_departure(another.m_departure),
+        m_platform(another.m_platform)
         {}
 
         /*!
@@ -82,6 +98,9 @@ namespace bobura { namespace model { namespace train_info
         void swap(stop& another)
         throw ()
         {
+            m_arrival.swap(another.m_arrival);
+            m_departure.swap(another.m_departure);
+            m_platform.swap(another.m_platform);
         }
 
         /*!
@@ -108,12 +127,53 @@ namespace bobura { namespace model { namespace train_info
         bool operator==(const stop& another)
         const
         {
-            return true;
+            return m_arrival == another.m_arrival &&
+                m_departure == another.m_departure &&
+                m_platform == another.m_platform;
+        }
+
+        /*!
+            \brief Returns the arrival time.
+
+            \return The arrival time.
+        */
+        const time_type& arrival()
+        const
+        {
+            return m_arrival;
+        }
+
+        /*!
+            \brief Returns the departure time.
+
+            \return The departure time.
+        */
+        const time_type& departure()
+        const
+        {
+            return m_departure;
+        }
+
+        /*!
+            \brief Returns the platform.
+
+            \return The platform.
+        */
+        const platform_type& platform()
+        const
+        {
+            return m_platform;
         }
 
 
     private:
         // variables
+
+        time_type m_arrival;
+
+        time_type m_departure;
+
+        platform_type m_platform;
 
 
     };

@@ -58,6 +58,15 @@ namespace bobura { namespace model { namespace train_info
         {
             const bool equality = stop == stop;
             boost::ignore_unused_variable_warning(equality);
+
+            const typename Stop::time_type& arrival = stop.arrival();
+            boost::ignore_unused_variable_warning(arrival);
+
+            const typename Stop::time_type& departure = stop.departure();
+            boost::ignore_unused_variable_warning(departure);
+
+            const typename Stop::platform_type& platform = stop.platform();
+            boost::ignore_unused_variable_warning(platform);
         }
 
 

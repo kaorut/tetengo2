@@ -49,24 +49,146 @@ namespace test_bobura { namespace model { namespace train_info
         typedef
             bobura::model::train_info::stop<time_type, std::string>
             stop_type;
-        const stop_type stop;
+        
+        {
+            const stop_type stop(time_type(0), time_type(0), "");
 
-        BOOST_WARN("Not implemented yet.");
+            BOOST_CHECK(stop.arrival() == time_type(0));
+            BOOST_CHECK(stop.departure() == time_type(0));
+            BOOST_CHECK(stop.platform() == std::string(""));
+
+            const stop_type copy_of_stop(stop);
+
+            BOOST_CHECK(stop == copy_of_stop);
+        }
+        {
+            const stop_type stop(time_type(0), time_type(1), "1");
+
+            BOOST_CHECK(stop.arrival() == time_type(0));
+            BOOST_CHECK(stop.departure() == time_type(1));
+            BOOST_CHECK(stop.platform() == std::string("1"));
+
+            const stop_type copy_of_stop(stop);
+
+            BOOST_CHECK(stop == copy_of_stop);
+        }
+        {
+            const stop_type stop(time_type(1), time_type(2), "ZZZ");
+
+            BOOST_CHECK(stop.arrival() == time_type(1));
+            BOOST_CHECK(stop.departure() == time_type(2));
+            BOOST_CHECK(stop.platform() == std::string("ZZZ"));
+
+            const stop_type copy_of_stop(stop);
+
+            BOOST_CHECK(stop == copy_of_stop);
+        }
     }
 
     void stop::swap()
     {
-        BOOST_WARN("Not implemented yet.");
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        
+        {
+            stop_type stop1(time_type(1), time_type(2), "1");
+            stop_type stop2(time_type(3), time_type(4), "2");
+
+            stop1.swap(stop2);
+
+            BOOST_CHECK(stop1.arrival() == time_type(3));
+            BOOST_CHECK(stop1.departure() == time_type(4));
+            BOOST_CHECK(stop1.platform() == std::string("2"));
+            BOOST_CHECK(stop2.arrival() == time_type(1));
+            BOOST_CHECK(stop2.departure() == time_type(2));
+            BOOST_CHECK(stop2.platform() == std::string("1"));
+        }
+        {
+            stop_type stop1(time_type(1), time_type(2), "1");
+            stop_type stop2(time_type(3), time_type(4), "2");
+
+            std::swap(stop1, stop2);
+
+            BOOST_CHECK(stop1.arrival() == time_type(3));
+            BOOST_CHECK(stop1.departure() == time_type(4));
+            BOOST_CHECK(stop1.platform() == std::string("2"));
+            BOOST_CHECK(stop2.arrival() == time_type(1));
+            BOOST_CHECK(stop2.departure() == time_type(2));
+            BOOST_CHECK(stop2.platform() == std::string("1"));
+        }
     }
 
     void stop::operator_assign()
     {
-        BOOST_WARN("Not implemented yet.");
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        
+        {
+            stop_type stop1(time_type(1), time_type(2), "1");
+            const stop_type stop2(time_type(3), time_type(4), "2");
+
+            stop1 = stop2;
+
+            BOOST_CHECK(stop1 == stop2);
+        }
     }
 
     void stop::operator_equal()
     {
-        BOOST_WARN("Not implemented yet.");
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        
+        {
+            const stop_type stop1(time_type(1), time_type(2), "1");
+            const stop_type stop2(time_type(1), time_type(2), "1");
+
+            BOOST_CHECK(stop1 == stop2);
+        }
+        {
+            const stop_type stop1(time_type(1), time_type(2), "1");
+            const stop_type stop2(time_type(3), time_type(2), "1");
+
+            BOOST_CHECK(stop1 != stop2);
+        }
+        {
+            const stop_type stop1(time_type(1), time_type(2), "1");
+            const stop_type stop2(time_type(1), time_type(4), "1");
+
+            BOOST_CHECK(stop1 != stop2);
+        }
+        {
+            const stop_type stop1(time_type(1), time_type(2), "1");
+            const stop_type stop2(time_type(1), time_type(2), "2");
+
+            BOOST_CHECK(stop1 != stop2);
+        }
+        {
+            const stop_type stop1(time_type(1), time_type(2), "1");
+            const stop_type stop2(time_type(3), time_type(4), "2");
+
+            BOOST_CHECK(stop1 != stop2);
+        }
     }
 
 
