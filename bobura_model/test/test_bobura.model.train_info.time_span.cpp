@@ -186,13 +186,13 @@ namespace test_bobura { namespace model { namespace train_info
             BOOST_CHECK_EQUAL(time_span.seconds(), -7199);
         }
         {
-            BOOST_CHECK_THROW(time_span_type(0, 60, 0), std::length_error);
+            BOOST_CHECK_THROW(time_span_type(0, 60, 0), std::out_of_range);
         }
         {
-            BOOST_CHECK_THROW(time_span_type(0, 0, 60), std::length_error);
+            BOOST_CHECK_THROW(time_span_type(0, 0, 60), std::out_of_range);
         }
         {
-            BOOST_CHECK_THROW(time_span_type(0, 60, 60), std::length_error);
+            BOOST_CHECK_THROW(time_span_type(0, 60, 60), std::out_of_range);
         }
         {
             BOOST_CHECK_THROW(

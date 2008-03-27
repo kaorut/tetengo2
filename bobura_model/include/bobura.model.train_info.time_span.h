@@ -87,8 +87,8 @@ namespace bobura { namespace model { namespace train_info
             \param seconds A second span. It must be that
                            -59 <= seconds <= 59.
 
-            \throw std::length_error When the minutes and/or seconds are
-                                     invalid.
+            \throw std::out_of_range     When the minutes and/or seconds are
+                                         invalid.
             \throw std::invalid_argument The signs of the hours and the
                                          minutes and the seconds are
                                          different.
@@ -259,25 +259,25 @@ namespace bobura { namespace model { namespace train_info
             }
             else if (minutes > 59)
             {
-                throw std::length_error(
+                throw std::out_of_range(
                     "60 or larger is specified for the minutes."
                 );
             }
             else if (minutes < -59)
             {
-                throw std::length_error(
+                throw std::out_of_range(
                     "-60 or smaller is specified for the minutes."
                 );
             }
             else if (seconds > 59)
             {
-                throw std::length_error(
+                throw std::out_of_range(
                     "60 or larger is specified for the seconds."
                 );
             }
             else if (seconds < -59)
             {
-                throw std::length_error(
+                throw std::out_of_range(
                     "-60 or smaller is specified for the seconds."
                 );
             }
