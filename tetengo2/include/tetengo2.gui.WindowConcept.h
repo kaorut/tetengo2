@@ -34,14 +34,14 @@ namespace tetengo2 { namespace gui
         */
         void constraints()
         {
-            boost::function_requires<WidgetConcept<Window> >();
+            BOOST_CONCEPT_ASSERT((WidgetConcept<Window>));
 
             typedef
                 typename Window::window_observer_type window_observer_type;
 
-            boost::function_requires<
+            BOOST_CONCEPT_ASSERT((
                 boost::DefaultConstructibleConcept<Window>
-            >();
+            ));
 
             std::auto_ptr<window_observer_type> p_window_observer;
             m_p_window->add_window_observer(p_window_observer);

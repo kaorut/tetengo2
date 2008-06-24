@@ -403,12 +403,12 @@ namespace std
     )
     throw ()
     {
-        boost::function_requires<
+        BOOST_CONCEPT_ASSERT((
             bobura::model::train_info::TimeTickConcept<TimeTick>
-        >();
-        boost::function_requires<
+        ));
+        BOOST_CONCEPT_ASSERT((
             bobura::model::train_info::TimeSpanConcept<TimeSpan>
-        >();
+        ));
 
         time1.swap(time2);
     }

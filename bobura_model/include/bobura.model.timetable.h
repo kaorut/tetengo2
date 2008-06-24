@@ -235,11 +235,11 @@ namespace std
     )
     throw ()
     {
-        boost::function_requires<
+        BOOST_CONCEPT_ASSERT((
             bobura::model::timetable_info::StationLocationConcept<
                 StationLocation
             >
-        >();
+        ));
 
         timetable1.swap(timetable2);
     }

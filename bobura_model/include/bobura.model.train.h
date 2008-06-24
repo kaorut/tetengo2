@@ -134,7 +134,7 @@ namespace std
     )
     throw ()
     {
-        boost::function_requires<bobura::model::StationConcept<Station> >();
+        BOOST_CONCEPT_ASSERT((bobura::model::StationConcept<Station>));
 
         train1.swap(train2);
     }

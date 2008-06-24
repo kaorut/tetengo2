@@ -201,12 +201,10 @@ namespace std
     )
     throw ()
     {
-        boost::function_requires<
-            bobura::model::train_info::TimeConcept<Time>
-        >();
-        boost::function_requires<
+        BOOST_CONCEPT_ASSERT((bobura::model::train_info::TimeConcept<Time>));
+        BOOST_CONCEPT_ASSERT((
             bobura::model::train_info::PlatformConcept<Platform>
-        >();
+        ));
 
         stop1.swap(stop2);
     }

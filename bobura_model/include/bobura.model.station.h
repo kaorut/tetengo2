@@ -185,12 +185,12 @@ namespace std
     )
     throw ()
     {
-        boost::function_requires<
+        BOOST_CONCEPT_ASSERT((
             bobura::model::station_info::NameConcept<Name>
-        >();
-        boost::function_requires<
+        ));
+        BOOST_CONCEPT_ASSERT((
             bobura::model::station_info::GradeConcept<Grade>
-        >();
+        ));
 
         station1.swap(station2);
     }

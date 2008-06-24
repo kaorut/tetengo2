@@ -314,9 +314,9 @@ namespace std
     )
     throw ()
     {
-        boost::function_requires<
+        BOOST_CONCEPT_ASSERT((
             bobura::model::train_info::TimeSpanTickConcept<TimeSpanTick>
-        >();
+        ));
 
         time_span1.swap(time_span2);
     }

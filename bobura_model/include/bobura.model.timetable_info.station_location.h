@@ -202,10 +202,10 @@ namespace std
     )
     throw ()
     {
-        boost::function_requires<bobura::model::StationConcept<Station> >();
-        boost::function_requires<
+        BOOST_CONCEPT_ASSERT((bobura::model::StationConcept<Station>));
+        BOOST_CONCEPT_ASSERT((
             bobura::model::timetable_info::MeterageConcept<Meterage>
-        >();
+        ));
 
         station_location1.swap(station_location2);
     }

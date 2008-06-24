@@ -32,13 +32,9 @@ namespace tetengo2 { namespace gui
         */
         void constraints()
         {
-            boost::function_requires<
-                boost::CopyConstructibleConcept<Handle>
-            >();
-            boost::function_requires<boost::AssignableConcept<Handle> >();
-            boost::function_requires<
-                boost::EqualityComparableConcept<Handle>
-            >();
+            BOOST_CONCEPT_ASSERT((boost::CopyConstructibleConcept<Handle>));
+            BOOST_CONCEPT_ASSERT((boost::AssignableConcept<Handle>));
+            BOOST_CONCEPT_ASSERT((boost::EqualityComparableConcept<Handle>));
 
             const Handle handle = NULL;
             boost::ignore_unused_variable_warning(handle);
