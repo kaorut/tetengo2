@@ -46,11 +46,11 @@ namespace bobura
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(GuiFactory, tetengo2::gui, GuiFactoryConcept);
-        BOOST_CLASS_REQUIRE2(MessageLoop, int, boost, GeneratorConcept);
-        BOOST_CLASS_REQUIRE3(
-            QuitMessageLoop, void, int, boost, UnaryFunctionConcept
-        );
+        BOOST_CONCEPT_ASSERT((tetengo2::gui::GuiFactoryConcept<GuiFactory>));
+        BOOST_CONCEPT_ASSERT((boost::GeneratorConcept<MessageLoop, int>));
+        BOOST_CONCEPT_ASSERT((
+            boost::UnaryFunctionConcept<QuitMessageLoop, void, int>
+        ));
 
 
     public:

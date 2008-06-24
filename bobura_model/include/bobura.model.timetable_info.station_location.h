@@ -35,10 +35,10 @@ namespace bobura { namespace model { namespace timetable_info
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
-        BOOST_CLASS_REQUIRE(
-            Meterage, bobura::model::timetable_info, MeterageConcept
-        );
+        BOOST_CONCEPT_ASSERT((bobura::model::StationConcept<Station>));
+        BOOST_CONCEPT_ASSERT((
+            bobura::model::timetable_info::MeterageConcept<Meterage>
+        ));
 
 
     public:

@@ -36,9 +36,9 @@ namespace bobura { namespace model { namespace train_info
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(
-            TimeSpanTick, bobura::model::train_info, TimeSpanTickConcept
-        );
+        BOOST_CONCEPT_ASSERT((
+            bobura::model::train_info::TimeSpanTickConcept<TimeSpanTick>
+        ));
 
 
     public:

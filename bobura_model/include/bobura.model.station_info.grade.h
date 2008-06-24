@@ -31,9 +31,9 @@ namespace bobura { namespace model { namespace station_info
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(
-            GradeName, bobura::model::station_info, GradeNameConcept
-        );
+        BOOST_CONCEPT_ASSERT((
+            bobura::model::station_info::GradeNameConcept<GradeName>
+        ));
 
 
     public:

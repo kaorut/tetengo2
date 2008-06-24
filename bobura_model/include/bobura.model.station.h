@@ -37,8 +37,12 @@ namespace bobura { namespace model
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Name, bobura::model::station_info, NameConcept);
-        BOOST_CLASS_REQUIRE(Grade, bobura::model::station_info, GradeConcept);
+        BOOST_CONCEPT_ASSERT((
+            bobura::model::station_info::NameConcept<Name>
+        ));
+        BOOST_CONCEPT_ASSERT((
+            bobura::model::station_info::GradeConcept<Grade>
+        ));
 
 
     public:

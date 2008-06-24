@@ -42,9 +42,9 @@ namespace stub_tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(
-            WindowObserver, tetengo2::gui, WindowObserverConcept
-        );
+        BOOST_CONCEPT_ASSERT((
+            tetengo2::gui::WindowObserverConcept<WindowObserver>
+        ));
 
 
     public:

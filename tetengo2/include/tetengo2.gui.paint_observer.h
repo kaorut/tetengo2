@@ -31,7 +31,7 @@ namespace tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Canvas, tetengo2::gui, CanvasConcept);
+        BOOST_CONCEPT_ASSERT((tetengo2::gui::CanvasConcept<Canvas>));
 
 
     public:

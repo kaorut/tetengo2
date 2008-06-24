@@ -32,7 +32,7 @@ namespace stub_tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(WindowHandle, tetengo2::gui, HandleConcept);
+        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<WindowHandle>));
         struct concept_check_Encode
         {
             typedef std::wstring task_dialog_string_type;
@@ -40,13 +40,11 @@ namespace stub_tetengo2 { namespace gui
             typedef
                 Encode<task_dialog_string_type, exception_what_type>
                 encode_type;
-            BOOST_CLASS_REQUIRE3(
-                encode_type,
-                task_dialog_string_type,
-                exception_what_type,
-                boost,
-                UnaryFunctionConcept
-            );
+            BOOST_CONCEPT_ASSERT((
+                boost::UnaryFunctionConcept<
+                    encode_type, task_dialog_string_type, exception_what_type
+                >
+            ));
         };
 
 

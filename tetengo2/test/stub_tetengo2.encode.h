@@ -25,8 +25,8 @@ namespace stub_tetengo2
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Target, tetengo2, StringConcept);
-        BOOST_CLASS_REQUIRE(Source, tetengo2, StringConcept);
+        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Target>));
+        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Source>));
 
 
     public:

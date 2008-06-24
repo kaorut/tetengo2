@@ -32,7 +32,7 @@ namespace bobura { namespace model
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Station, bobura::model, StationConcept);
+        BOOST_CONCEPT_ASSERT((bobura::model::StationConcept<Station>));
 
 
     public:

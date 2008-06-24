@@ -32,10 +32,10 @@ namespace bobura { namespace model { namespace train_info
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Time, bobura::model::train_info, TimeConcept);
-        BOOST_CLASS_REQUIRE(
-            Platform, bobura::model::train_info, PlatformConcept
-        );
+        BOOST_CONCEPT_ASSERT((bobura::model::train_info::TimeConcept<Time>));
+        BOOST_CONCEPT_ASSERT((
+            bobura::model::train_info::PlatformConcept<Platform>
+        ));
 
 
     public:

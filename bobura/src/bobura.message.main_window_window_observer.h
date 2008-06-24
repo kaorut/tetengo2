@@ -30,9 +30,9 @@ namespace bobura { namespace message
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE3(
-            QuitMessageLoop, void, int, boost, UnaryFunctionConcept
-        );
+        BOOST_CONCEPT_ASSERT((
+            boost::UnaryFunctionConcept<QuitMessageLoop, void, int>
+        ));
 
 
     public:

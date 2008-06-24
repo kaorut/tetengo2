@@ -37,43 +37,35 @@ namespace stub_tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(Handle, tetengo2::gui, HandleConcept);
-        BOOST_CLASS_REQUIRE(Canvas, tetengo2::gui, CanvasConcept);
+        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<Handle>));
+        BOOST_CONCEPT_ASSERT((tetengo2::gui::CanvasConcept<Canvas>));
         struct concept_check_Alert
         {
             typedef std::exception exception_type;
-            BOOST_CLASS_REQUIRE3(
-                Alert,
-                void,
-                exception_type,
-                boost,
-                UnaryFunctionConcept
-            );
+            BOOST_CONCEPT_ASSERT((
+                boost::UnaryFunctionConcept<Alert, void, exception_type>
+            ));
         };
-        BOOST_CLASS_REQUIRE(String, tetengo2, StringConcept);
+        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<String>));
         struct concept_check_Encode
         {
             typedef std::wstring native_string_type;
             typedef Encode<String, std::wstring> encode_from_native_type;
             typedef Encode<std::wstring, String> encode_to_native_type;
-            BOOST_CLASS_REQUIRE3(
-                encode_from_native_type,
-                String,
-                native_string_type,
-                boost,
-                UnaryFunctionConcept
-            );
-            BOOST_CLASS_REQUIRE3(
-                encode_to_native_type,
-                native_string_type,
-                String,
-                boost,
-                UnaryFunctionConcept
-            );
+            BOOST_CONCEPT_ASSERT((
+                boost::UnaryFunctionConcept<
+                    encode_from_native_type, String, native_string_type
+                >
+            ));
+            BOOST_CONCEPT_ASSERT((
+                boost::UnaryFunctionConcept<
+                    encode_to_native_type, native_string_type, String
+                >
+            ));
         };
-        BOOST_CLASS_REQUIRE(
-            PaintObserver, tetengo2::gui, PaintObserverConcept
-        );
+        BOOST_CONCEPT_ASSERT((
+            tetengo2::gui::PaintObserverConcept<PaintObserver>
+        ));
 
 
     public:

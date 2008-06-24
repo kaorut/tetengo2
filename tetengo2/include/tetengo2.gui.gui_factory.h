@@ -39,12 +39,12 @@ namespace tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(
-            GuiInitializerFinalizer,
-            tetengo2::gui,
-            GuiInitializerFinalizerConcept
-        );
-        BOOST_CLASS_REQUIRE(Window, tetengo2::gui, WindowConcept);
+        BOOST_CONCEPT_ASSERT((
+            tetengo2::gui::GuiInitializerFinalizerConcept<
+                GuiInitializerFinalizer
+            >
+        ));
+        BOOST_CONCEPT_ASSERT((tetengo2::gui::WindowConcept<Window>));
 
 
     public:

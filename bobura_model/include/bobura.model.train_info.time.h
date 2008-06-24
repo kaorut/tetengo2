@@ -41,12 +41,12 @@ namespace bobura { namespace model { namespace train_info
     private:
         // concept checks
 
-        BOOST_CLASS_REQUIRE(
-            TimeTick, bobura::model::train_info, TimeTickConcept
-        );
-        BOOST_CLASS_REQUIRE(
-            TimeSpan, bobura::model::train_info, TimeSpanConcept
-        );
+        BOOST_CONCEPT_ASSERT((
+            bobura::model::train_info::TimeTickConcept<TimeTick>
+        ));
+        BOOST_CONCEPT_ASSERT((
+            bobura::model::train_info::TimeSpanConcept<TimeSpan>
+        ));
 
 
     public:
