@@ -41,7 +41,7 @@ namespace tetengo2 { namespace gui { namespace win32
                              tetengo2::StringConcept<String>.
         \tparam Encode       An encoding unary functor type. The type
                              Encode<std::wstring, String> must conform to
-                             boost::UnaryFunctionConcept<Encode, std::wstring, String>.
+                             boost::UnaryFunction<Encode, std::wstring, String>.
         \tparam WindowHandle A window handle type for the native interface. It
                              must conform to
                              tetengo2::gui::HandleConcept<WindowHandle>.
@@ -66,7 +66,7 @@ namespace tetengo2 { namespace gui { namespace win32
             typedef std::wstring native_string_type;
             typedef Encode<std::wstring, String> encode_to_native_type;
             BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunctionConcept<
+                boost::UnaryFunction<
                     encode_to_native_type, native_string_type, String
                 >
             ));

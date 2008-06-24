@@ -39,9 +39,7 @@ namespace tetengo2 { namespace gui
             typedef
                 typename Window::window_observer_type window_observer_type;
 
-            BOOST_CONCEPT_ASSERT((
-                boost::DefaultConstructibleConcept<Window>
-            ));
+            BOOST_CONCEPT_ASSERT((boost::DefaultConstructible<Window>));
 
             std::auto_ptr<window_observer_type> p_window_observer;
             m_p_window->add_window_observer(p_window_observer);

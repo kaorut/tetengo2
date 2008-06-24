@@ -42,7 +42,7 @@ namespace stub_tetengo2 { namespace gui
             typedef std::wstring native_string_type;
             typedef Encode<std::wstring, String> encode_to_native_type;
             BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunctionConcept<
+                boost::UnaryFunction<
                     encode_to_native_type, native_string_type, String
                 >
             ));

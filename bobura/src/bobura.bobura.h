@@ -30,11 +30,10 @@ namespace bobura
                                 specific GUI components. It must conform to
                                 tetengo2::gui::GuiFactoryConcept<GuiFactory>.
         \tparam MessageLoop     A generator type for the message loop. It must
-                                conform to
-                                boost::GeneratorConcept<MessageLoop, int>.
+                                conform to boost::Generator<MessageLoop, int>.
         \tparam QuitMessageLoop A unary functor type for quitting the message
                                 loop. It must conform to
-                                boost::UnaryFunctionConcept<QuitMessageLoop, void, int>.
+                                boost::UnaryFunction<QuitMessageLoop, void, int>.
     */
     template <
         typename GuiFactory,
@@ -47,9 +46,9 @@ namespace bobura
         // concept checks
 
         BOOST_CONCEPT_ASSERT((tetengo2::gui::GuiFactoryConcept<GuiFactory>));
-        BOOST_CONCEPT_ASSERT((boost::GeneratorConcept<MessageLoop, int>));
+        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
         BOOST_CONCEPT_ASSERT((
-            boost::UnaryFunctionConcept<QuitMessageLoop, void, int>
+            boost::UnaryFunction<QuitMessageLoop, void, int>
         ));
 
 

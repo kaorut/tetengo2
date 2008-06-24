@@ -35,7 +35,7 @@ namespace tetengo2 { namespace gui { namespace win32
                              tetengo2::gui::HandleConcept<WindowHandle>.
         \tparam Encode       An encoding unary functor type. The type
                              Encode<std::wstring, std::string> must conform to
-                             boost::UnaryFunctionConcept<Encode, std::wstring, std::string>.
+                             boost::UnaryFunction<Encode, std::wstring, std::string>.
     */
     template <
         typename WindowHandle,
@@ -56,7 +56,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 Encode<task_dialog_string_type, exception_what_type>
                 encode_type;
             BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunctionConcept<
+                boost::UnaryFunction<
                     encode_type, task_dialog_string_type, exception_what_type
                 >
             ));

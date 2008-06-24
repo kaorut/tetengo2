@@ -44,16 +44,16 @@ namespace tetengo2 { namespace gui { namespace win32
                                       tetengo2::gui::CanvasConcept<Canvas>.
         \tparam Alert                 An alerting unary functor type. It must
                                       conform to
-                                      boost::UnaryFunctionConcept<Alert, void, Handle, std::exception>.
+                                      boost::UnaryFunction<Alert, void, Handle, std::exception>.
         \tparam String                A string type. It must conform to
                                       tetengo2::StringConcept<String>.
         \tparam Encode                An encoding unary functor type. The 
                                       types Encode<String, std::wstring> and
                                       Encode<std::wstring, String> must
                                       conform to
-                                      boost::UnaryFunctionConcept<Encode, String, std::wstring>
+                                      boost::UnaryFunction<Encode, String, std::wstring>
                                       and
-                                      boost::UnaryFunctionConcept<Encode, std::wstring, String>.
+                                      boost::UnaryFunction<Encode, std::wstring, String>.
         \tparam PaintObserver         A paint observer type. It must conform
                                       to
                                       tetengo2::gui::PaintObserverConcept<PaintObserver>.
@@ -77,7 +77,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             typedef std::exception exception_type;
             BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunctionConcept<Alert, void, exception_type>
+                boost::UnaryFunction<Alert, void, exception_type>
             ));
         };
         BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<String>));
@@ -87,12 +87,12 @@ namespace tetengo2 { namespace gui { namespace win32
             typedef Encode<String, std::wstring> encode_from_native_type;
             typedef Encode<std::wstring, String> encode_to_native_type;
             BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunctionConcept<
+                boost::UnaryFunction<
                     encode_from_native_type, String, native_string_type
                 >
             ));
             BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunctionConcept<
+                boost::UnaryFunction<
                     encode_to_native_type, native_string_type, String
                 >
             ));

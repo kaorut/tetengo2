@@ -41,7 +41,7 @@ namespace stub_tetengo2 { namespace gui
                 Encode<task_dialog_string_type, exception_what_type>
                 encode_type;
             BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunctionConcept<
+                boost::UnaryFunction<
                     encode_type, task_dialog_string_type, exception_what_type
                 >
             ));
