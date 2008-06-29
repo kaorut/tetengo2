@@ -22,33 +22,30 @@ namespace bobura { namespace model { namespace station_info
     template <typename Grade>
     class GradeConcept
     {
+#if !defined(DOCUMENTATION)
     public:
-        // functions
+        // typedef checks
 
-        /*!
-            \brief Checks the constraints on a grade.
-        */
-        void constraints()
+        typedef typename Grade::name_type name_type;
+
+
+        // usage checks
+
+        BOOST_CONCEPT_USAGE(GradeConcept)
         {
-            typedef typename Grade::name_type name_type;
-
             const Grade& grade = Grade::instance();
 
             const_constraints(grade);
         }
 
-        /*!
-            \brief Checks the const constraints on a grade.
-
-            \param grade A constant object.
-        */
         void const_constraints(const Grade& grade)
         {
-            const typename Grade::name_type name = grade.name();
+            const name_type name = grade.name();
             boost::ignore_unused_variable_warning(name);
         }
 
-
+        
+#endif
     };
 
 

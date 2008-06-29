@@ -9,8 +9,6 @@
 #if !defined(BOBURA_MODEL_TRAINCONCEPT_H)
 #define BOBURA_MODEL_TRAINCONCEPT_H
 
-#include <algorithm>
-
 #include <boost/concept_check.hpp>
 
 
@@ -22,39 +20,27 @@ namespace bobura { namespace model
         \tparam Train A train type.
     */
     template <typename Train>
-    class TrainConcept
+    class TrainConcept :
+        private boost::CopyConstructible<Train>,
+        private boost::Assignable<Train>,
+        private boost::EqualityComparable<Train>
     {
+#if !defined(DOCUMENTATION)
     public:
-        // constructors and destructor
+        // typedef checks
 
-        TrainConcept();
+        typedef typename Train::station_type station_type;
+
+        typedef typename Train::meterage_type meterage_type;
 
 
-        // functions
+        // usage checks
 
-        /*!
-            \brief Checks the constraints on a train.
-        */
-        void constraints()
+        BOOST_CONCEPT_USAGE(TrainConcept)
         {
-            typedef typename Train::station_type station_type;
-            typedef typename Train::meterage_type meterage_type;
-
-            m_train.swap(m_train);
-            std::swap(m_train, m_train);
-
-            Train& train =
-                m_train = m_train;
-            boost::ignore_unused_variable_warning(train);
-
             const_constraints(m_train);
         }
 
-        /*!
-            \brief Checks the const constraints on a train.
-
-            \param train A constant object.
-        */
         void const_constraints(const Train& train)
         {
             //const typename Train::station_type& station =
@@ -62,13 +48,14 @@ namespace bobura { namespace model
             //boost::ignore_unused_variable_warning(station);
         }
 
-
+        
     private:
         // variables
 
         Train m_train;
 
 
+#endif
     };
 
 

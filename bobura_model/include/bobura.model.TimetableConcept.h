@@ -9,8 +9,6 @@
 #if !defined(BOBURA_MODEL_TIMETABLECONCEPT_H)
 #define BOBURA_MODEL_TIMETABLECONCEPT_H
 
-#include <algorithm>
-
 #include <boost/concept_check.hpp>
 
 
@@ -22,25 +20,26 @@ namespace bobura { namespace model
         \tparam Timetable A timetable type.
     */
     template <typename Timetable>
-    class TimetableConcept
+    class TimetableConcept :
+        private boost::CopyConstructible<StationLocation>,
+        private boost::Assignable<StationLocation>,
+        private boost::EqualityComparable<StationLocation>
     {
+#if !defined(DOCUMENTATION)
     public:
-        // functions
+        // typedef checks
 
-        /*!
-            \brief Checks the constraints on a timetable.
-        */
-        void constraints()
+        typedef
+            typename Timetable::station_location_type station_locatoin_type;
+
+        typedef
+            typename Timetable::station_locations_type station_lcoations_type;
+
+
+        // usage checks
+
+        BOOST_CONCEPT_USAGE(TimetableConcept)
         {
-            typedef typename Timetable::station_type station_type;
-            typedef typename Timetable::kilometer_type kilometer_type;
-
-            m_timetable.swap(m_timetable);
-            std::swap(m_timetable, m_timetable);
-
-            Timetable& assigned = m_timetable = m_timetable;
-            boost::ignore_unused_variable_warning(assigned);
-
             m_timetable.insert_station_location(
                 m_timetable.station_locations().begin(), m_station_location
             );
@@ -53,30 +52,23 @@ namespace bobura { namespace model
             const_constraints(m_timetable);
         }
 
-        /*!
-            \brief Checks the const constraints on a timetable.
-
-            \param timetable A constant object.
-        */
-        void const_constraints(const Timetable& timetable)
+        void const_constraints(const StationLocation& station_location)
         {
-            const bool equality = timetable == timetable;
-            boost::ignore_unused_variable_warning(equality);
-
-            typename Timetable::station_locations_type station_locations =
+            const station_locations_type& station_locations =
                 m_timetable.station_locations();
             boost::ignore_unused_variable_warning(station_locations);
         }
 
-
+        
     private:
         // variables
 
-        Timetable m_timetable;
+        TimeTable m_timetable;
 
-        typename Timetable::station_location_type m_station_location;
+        station_location_type m_station_location;
 
 
+#endif
     };
 
 

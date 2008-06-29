@@ -9,8 +9,6 @@
 #if !defined(BOBURA_MODEL_TRAININFO_STOPCONCEPT_H)
 #define BOBURA_MODEL_TRAININFO_STOPCONCEPT_H
 
-#include <algorithm>
-
 #include <boost/concept_check.hpp>
 
 
@@ -22,60 +20,47 @@ namespace bobura { namespace model { namespace train_info
         \tparam Stop A stop type.
     */
     template <typename Stop>
-    class StopConcept
+    class StopConcept :
+        private boost::CopyConstructible<Stop>,
+        private boost::Assignable<Stop>,
+        private boost::EqualityComparable<Stop>
     {
+#if !defined(DOCUMENTATION)
     public:
-        // constructors and destructor
+        // typedef checks
 
-        StopConcept();
+        typedef typename Stop::time_type time_type;
+
+        typedef typename Stop::platform_type platform_type;
 
 
-        // functions
+        // usage checks
 
-        /*!
-            \brief Checks the constraints on a stop.
-        */
-        void constraints()
+        BOOST_CONCEPT_USAGE(StopConcept)
         {
-            typedef typename Stop::time_type time_type;
-            typedef typename Stop::platform_type platform_type;
-
-            m_stop.swap(m_stop);
-            std::swap(m_stop, m_stop);
-
-            Stop& assigned = m_stop = m_stop;
-            boost::ignore_unused_variable_warning(assigned);
-
-            const_constraints(m_stop);
+            const_constraints(m_station_location);
         }
 
-        /*!
-            \brief Checks the const constraints on a stop.
-
-            \param stop A constant object.
-        */
         void const_constraints(const Stop& stop)
         {
-            const bool equality = stop == stop;
-            boost::ignore_unused_variable_warning(equality);
-
-            const typename Stop::time_type& arrival = stop.arrival();
+            const time_type& arrival = stop.arrival();
             boost::ignore_unused_variable_warning(arrival);
 
-            const typename Stop::time_type& departure = stop.departure();
+            const time_type& departure = stop.departure();
             boost::ignore_unused_variable_warning(departure);
 
-            const typename Stop::platform_type& platform = stop.platform();
+            const platform_type& platform = stop.platform();
             boost::ignore_unused_variable_warning(platform);
         }
 
-
+        
     private:
         // variables
 
         Stop m_stop;
 
 
+#endif
     };
 
 

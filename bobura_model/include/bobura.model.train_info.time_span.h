@@ -17,8 +17,6 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 
-#include "bobura.model.train_info.TimeSpanTickConcept.h"
-
 
 namespace bobura { namespace model { namespace train_info
 {
@@ -26,7 +24,7 @@ namespace bobura { namespace model { namespace train_info
         \brief The class for a time span.
 
         \tparam TimeSpanTick A time span tick type. It must conform to
-                             bobura::model::train_info::TimeSpanTickConcept<TimeSpanTick>.
+                             boost::SignedInteger<TimeSpanTick>.
     */
     template <typename TimeSpanTick>
     class time_span :
@@ -36,9 +34,7 @@ namespace bobura { namespace model { namespace train_info
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((
-            bobura::model::train_info::TimeSpanTickConcept<TimeSpanTick>
-        ));
+        BOOST_CONCEPT_ASSERT((boost::SignedInteger<TimeSpanTick>));
 
 
     public:
@@ -302,7 +298,7 @@ namespace std
         \brief Swaps two time_span objects.
 
         \tparam TimeSpanTick A time span tick type. It must conform to
-                             bobura::model::train_info::TimeSpanTickConcept<TimeSpanTick>.
+                             boost::SignedInteger<TimeSpanTick>.
 
         \param time_span1 A time_span object #1.
         \param time_span2 A time_span object #2.
@@ -314,9 +310,7 @@ namespace std
     )
     throw ()
     {
-        BOOST_CONCEPT_ASSERT((
-            bobura::model::train_info::TimeSpanTickConcept<TimeSpanTick>
-        ));
+        BOOST_CONCEPT_ASSERT((boost::SignedInteger<TimeSpanTick>));
 
         time_span1.swap(time_span2);
     }

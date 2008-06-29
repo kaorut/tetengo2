@@ -9,8 +9,6 @@
 #if !defined(BOBURA_MODEL_TRAININFO_TIMESPANCONCEPT_H)
 #define BOBURA_MODEL_TRAININFO_TIMESPANCONCEPT_H
 
-#include <algorithm>
-
 #include <boost/concept_check.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
@@ -24,29 +22,23 @@ namespace bobura { namespace model { namespace train_info
         \tparam TimeSpan A time span type.
     */
     template <typename TimeSpan>
-    class TimeSpanConcept
+    class TimeSpanConcept :
+        private boost::CopyConstructible<TimeSpan>,
+        private boost::Assignable<TimeSpan>,
+        private boost::EqualityComparable<TimeSpan>,
+        private boost::LessThanComparable<TimeSpan>
     {
+#if !defined(DOCUMENTATION)
     public:
-        // constructors and destructor
+        // typedef checks
 
-        TimeSpanConcept();
+        typedef typename TimeSpan::tick_type tick_type;
 
 
-        // functions
+        // usage checks
 
-        /*!
-            \brief Checks the constraints on a time span.
-        */
-        void constraints()
+        BOOST_CONCEPT_USAGE(TimeSpanConcept)
         {
-            typedef typename TimeSpan::tick_type tick_type;
-
-            m_time_span.swap(m_time_span);
-            std::swap(m_time_span, m_time_span);
-
-            TimeSpan& assigned = m_time_span = m_time_span;
-            boost::ignore_unused_variable_warning(assigned);
-
             TimeSpan& plus_assigned = m_time_span += m_time_span;
             boost::ignore_unused_variable_warning(plus_assigned);
 
@@ -60,19 +52,8 @@ namespace bobura { namespace model { namespace train_info
             const_constraints(m_time_span);
         }
 
-        /*!
-            \brief Checks the const constraints on a time_span.
-
-            \param time_span A constant object.
-        */
         void const_constraints(const TimeSpan& time_span)
         {
-            const bool equality = time_span == time_span;
-            boost::ignore_unused_variable_warning(equality);
-
-            const bool less_than = time_span < time_span;
-            boost::ignore_unused_variable_warning(less_than);
-
             const bool less_than_or_equal = time_span <= time_span;
             boost::ignore_unused_variable_warning(less_than_or_equal);
 
@@ -100,13 +81,14 @@ namespace bobura { namespace model { namespace train_info
             boost::ignore_unused_variable_warning(hours_minutes_seconds);
         }
 
-
+        
     private:
         // variables
 
         TimeSpan m_time_span;
 
 
+#endif
     };
 
 

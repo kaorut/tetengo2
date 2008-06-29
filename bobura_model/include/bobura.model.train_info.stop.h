@@ -12,7 +12,8 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
-#include "bobura.model.train_info.PlatformConcept.h"
+#include <tetengo2.StringConcept.h>
+
 #include "bobura.model.train_info.TimeConcept.h"
 
 
@@ -24,7 +25,7 @@ namespace bobura { namespace model { namespace train_info
         \tparam Time     A time type. It must conform to
                          bobura::model::train_info::TimeConcept<Time>.
         \tparam Platform A string type. It must conform to
-                         bobura::model::train_info::PlatformConcept<Platform>.
+                         tetengo2::StringConcept<Platform>.
     */
     template <typename Time, typename Platform>
     class stop : private boost::equality_comparable<stop<Time, Platform> >
@@ -33,9 +34,7 @@ namespace bobura { namespace model { namespace train_info
         // concept checks
 
         BOOST_CONCEPT_ASSERT((bobura::model::train_info::TimeConcept<Time>));
-        BOOST_CONCEPT_ASSERT((
-            bobura::model::train_info::PlatformConcept<Platform>
-        ));
+        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Platform>));
 
 
     public:
@@ -189,7 +188,7 @@ namespace std
         \tparam Time     A time type. It must conform to
                          bobura::model::train_info::TimeConcept<Time>.
         \tparam Platform A platform type. It must conform to
-                         bobura::model::train_info::PlatformConcept<Platform>.
+                         tetengo2::StringConcept<Platform>.
 
         \param stop1 A stop object #1.
         \param stop2 A stop object #2.
@@ -202,9 +201,7 @@ namespace std
     throw ()
     {
         BOOST_CONCEPT_ASSERT((bobura::model::train_info::TimeConcept<Time>));
-        BOOST_CONCEPT_ASSERT((
-            bobura::model::train_info::PlatformConcept<Platform>
-        ));
+        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Platform>));
 
         stop1.swap(stop2);
     }
