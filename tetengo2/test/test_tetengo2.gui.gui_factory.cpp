@@ -33,16 +33,20 @@ namespace
 
     typedef
         stub_tetengo2::gui::canvas<
-            int, std::size_t, std::wstring, stub_tetengo2::encode, int
+            const void*,
+            std::size_t,
+            std::wstring,
+            stub_tetengo2::encode,
+            const void*
         >
         canvas_type;
 
     typedef 
         stub_tetengo2::gui::window<
-            int,
+            const void*,
             canvas_type,
             stub_tetengo2::gui::alert<
-                int, stub_tetengo2::encode
+                const void*, stub_tetengo2::encode
             >,
             std::wstring,
             stub_tetengo2::encode,

@@ -11,6 +11,8 @@
 
 #include <memory>
 
+#include <boost/concept_check.hpp>
+
 
 namespace tetengo2 { namespace gui
 {
@@ -22,43 +24,41 @@ namespace tetengo2 { namespace gui
     template <typename GuiFactory>
     class GuiFactoryConcept
     {
+#if !defined(DOCUMENTATION)
     public:
-        // functions
+        // typedef checks
 
-        /*!
-            \brief Checks the constraints on a GUI object factory.
-        */
-        void constraints()
+        typedef
+            typename GuiFactory::gui_initializer_finalizer_type
+            gui_initializer_finalizer_type;
+
+        typedef typename GuiFactory::window_type window_type;
+
+
+        // usage checks
+
+        BOOST_CONCEPT_USAGE(GuiFactoryConcept)
         {
-            typedef
-                typename GuiFactory::gui_initializer_finalizer_type
-                gui_initializer_finalizer_type;
-            typedef typename GuiFactory::window_type window_type;
-
             std::auto_ptr<const gui_initializer_finalizer_type> p;
             const GuiFactory gui_factory(p);
 
-            const_constraints(*m_p_gui_factory);
+            const_constraints(m_gui_factory);
         }
 
-        /*!
-            \brief Checks the const constraints on a GUI object factory.
-
-            \param gui_factory A constant object.
-        */
         void const_constraints(const GuiFactory& gui_factory)
         {
-            const std::auto_ptr<typename GuiFactory::window_type> p_window =
+            const std::auto_ptr<window_type> p_window =
                 gui_factory.create_window();
         }
 
-
+        
     private:
         // variables
 
-        GuiFactory* m_p_gui_factory;
+        GuiFactory m_gui_factory;
 
 
+#endif
     };
 
 

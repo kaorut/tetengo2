@@ -23,7 +23,6 @@
 #undef min
 #undef max
 
-#include "tetengo2.SizeConcept.h"
 #include "tetengo2.StringConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
 
@@ -36,7 +35,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Handle       A handle type for the native interface. It must
                              conform to tetengo2::gui::HandleConcept<Handle>.
         \tparam Size         A size type. It must conform to
-                             tetengo2::SizeConcept<Size>.
+                             boost::UnsignedInteger<Size>.
         \tparam String       A string type. It must conform to
                              tetengo2::StringConcept<String>.
         \tparam Encode       An encoding unary functor type. The type
@@ -59,7 +58,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // concept checks
 
         BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<Handle>));
-        BOOST_CONCEPT_ASSERT((tetengo2::SizeConcept<Size>));
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<String>));
         struct concept_check_Encode
         {

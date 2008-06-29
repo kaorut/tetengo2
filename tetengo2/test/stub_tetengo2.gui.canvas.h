@@ -15,7 +15,6 @@
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.SizeConcept.h"
 #include "tetengo2.StringConcept.h"
 #include "tetengo2.gui.HandleConcept.h"
 
@@ -35,7 +34,7 @@ namespace stub_tetengo2 { namespace gui
         // concept checks
 
         BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<Handle>));
-        BOOST_CONCEPT_ASSERT((tetengo2::SizeConcept<Size>));
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<String>));
         struct concept_check_Encode
         {

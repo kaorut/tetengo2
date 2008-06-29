@@ -11,6 +11,8 @@
 
 #include <cstddef>
 
+#include <boost/concept_check.hpp>
+
 
 namespace tetengo2 { namespace gui
 {
@@ -22,27 +24,29 @@ namespace tetengo2 { namespace gui
     template <typename PaintObserver>
     class PaintObserverConcept
     {
+#if !defined(DOCUMENTATION)
     public:
-        // functions
+        // typedef checks
 
-        /*!
-            \brief Checks the constraints on a paint observer.
-        */
-        void constraints()
+        typedef typename PaintObserver::canvas_type canvas_type;
+
+
+        // usage checks
+
+        BOOST_CONCEPT_USAGE(PaintObserverConcept)
         {
-            typedef typename PaintObserver::canvas_type canvas_type;
-
-            canvas_type* p_canvas = NULL;
-            m_p_paint_observer->paint(p_canvas);
+            canvas_type* const p_canvas = NULL;
+            m_paint_observer.paint(p_canvas);
         }
 
-
+        
     private:
         // variables
 
-        PaintObserver* m_p_paint_observer;
+        PaintObserver m_paint_observer;
 
 
+#endif
     };
 
 

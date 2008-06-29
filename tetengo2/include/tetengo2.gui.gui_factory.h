@@ -15,7 +15,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
-#include "tetengo2.gui.GuiInitializerFinalizerConcept.h"
 #include "tetengo2.gui.WindowConcept.h"
 
 
@@ -25,8 +24,7 @@ namespace tetengo2 { namespace gui
         \brief The class template for a GUI object factory.
 
         \tparam GuiInitializerFinalizer A initalization and finalization
-                                        manager type. It must conform to
-                                        tetengo2::gui::GuiInitalizerFinalizerConcept<GuiInitializerFinalizer>.
+                                        manager type.
         \tparam Window                  A window type. It must conform to
                                         tetengo2::gui::WindowConcept<Window>.
     */
@@ -39,11 +37,6 @@ namespace tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((
-            tetengo2::gui::GuiInitializerFinalizerConcept<
-                GuiInitializerFinalizer
-            >
-        ));
         BOOST_CONCEPT_ASSERT((tetengo2::gui::WindowConcept<Window>));
 
 

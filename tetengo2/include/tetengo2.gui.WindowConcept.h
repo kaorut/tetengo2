@@ -24,34 +24,33 @@ namespace tetengo2 { namespace gui
         \tparam Window A window type.
     */
     template <typename Window>
-    class WindowConcept
+    class WindowConcept :
+        private boost::DefaultConstructible<Window>,
+        private WidgetConcept<Window>
     {
+#if !defined(DOCUMENTATION)
     public:
-        // functions
+        // typedef checks
 
-        /*!
-            \brief Checks the constraints on a window.
-        */
-        void constraints()
+        typedef typename Window::window_observer_type window_observer_type;
+
+
+        // usage checks
+
+        BOOST_CONCEPT_USAGE(WindowConcept)
         {
-            BOOST_CONCEPT_ASSERT((WidgetConcept<Window>));
-
-            typedef
-                typename Window::window_observer_type window_observer_type;
-
-            BOOST_CONCEPT_ASSERT((boost::DefaultConstructible<Window>));
-
             std::auto_ptr<window_observer_type> p_window_observer;
-            m_p_window->add_window_observer(p_window_observer);
+            m_window.add_window_observer(p_window_observer);
         }
 
-
+        
     private:
         // variables
 
-        Window* m_p_window;
+        Window m_window;
 
 
+#endif
     };
 
 

@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_WINDOWOBSERVERCONCEPT_H)
 #define TETENGO2_GUI_WINDOWOBSERVERCONCEPT_H
 
+#include <boost/concept_check.hpp>
+
 
 namespace tetengo2 { namespace gui
 {
@@ -20,24 +22,23 @@ namespace tetengo2 { namespace gui
     template <typename WindowObserver>
     class WindowObserverConcept
     {
+#if !defined(DOCUMENTATION)
     public:
-        // functions
+        // usage checks
 
-        /*!
-            \brief Checks the constraints on a window observer.
-        */
-        void constraints()
+        BOOST_CONCEPT_USAGE(WindowObserverConcept)
         {
-            m_p_window_observer->destroyed();
+            m_window_observer.destroyed();
         }
 
-
+        
     private:
         // variables
 
-        WindowObserver* m_p_window_observer;
+        WindowObserver m_window_observer;
 
 
+#endif
     };
 
 

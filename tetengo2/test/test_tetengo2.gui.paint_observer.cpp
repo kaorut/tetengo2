@@ -27,7 +27,11 @@ namespace
 
     typedef
         stub_tetengo2::gui::canvas<
-            int, std::size_t, std::wstring, stub_tetengo2::encode, int
+            const void*,
+            std::size_t,
+            std::wstring,
+            stub_tetengo2::encode,
+            const void*
         >
         canvas_type;
 
@@ -62,7 +66,7 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         paint_observer_type paint_observer;
-        canvas_type canvas(1);
+        canvas_type canvas(NULL);
 
         paint_observer.paint(&canvas);
     }

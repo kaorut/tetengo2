@@ -22,43 +22,44 @@ namespace tetengo2 { namespace gui
     template <typename Canvas>
     class CanvasConcept
     {
+#if !defined(DOCUMENTATION)
     public:
-        // functions
+        // typedef checks
 
-        /*!
-            \brief Checks the constraints on a canvas.
-        */
-        void constraints()
+        typedef typename Canvas::handle_type handle_type;
+
+        typedef typename Canvas::size_type size_type;
+
+        typedef typename Canvas::point_type point_type;
+
+        typedef typename Canvas::rectangle_type rectangle_type;
+
+        typedef typename Canvas::string_type string_type;
+
+
+        // usage checks
+
+        BOOST_CONCEPT_USAGE(CanvasConcept)
         {
-            typedef typename Canvas::handle_type handle_type;
-            typedef typename Canvas::size_type size_type;
-            typedef typename Canvas::point_type point_type;
-            typedef typename Canvas::rectangle_type rectangle_type;
-            typedef typename Canvas::string_type string_type;
+            m_canvas.draw_text(string_type(), point_type());
 
-            m_p_canvas->draw_text(string_type(), point_type());
-
-            const_constraints(*m_p_canvas);
+            const_constraints(m_canvas);
         }
 
-        /*!
-            \brief Checks the const constraints on a canvas.
-
-            \param canvas A constant object.
-        */
         void const_constraints(const Canvas& canvas)
         {
-            const typename Canvas::handle_type handle = canvas.handle();
+            const handle_type handle = canvas.handle();
             boost::ignore_unused_variable_warning(handle);
         }
 
-
+        
     private:
         // variables
 
-        Canvas* m_p_canvas;
+        Canvas m_canvas;
 
 
+#endif
     };
 
 

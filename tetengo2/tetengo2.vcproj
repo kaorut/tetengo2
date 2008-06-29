@@ -120,10 +120,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\tetengo2.DifferenceConcept.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\tetengo2.generator.h"
 				>
 			</File>
@@ -137,10 +133,6 @@
 			</File>
 			<File
 				RelativePath=".\include\tetengo2.gui.GuiFactoryConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.gui.GuiInitializerFinalizerConcept.h"
 				>
 			</File>
 			<File
@@ -201,10 +193,6 @@
 			</File>
 			<File
 				RelativePath=".\include\tetengo2.gui.WindowObserverConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.SizeConcept.h"
 				>
 			</File>
 			<File

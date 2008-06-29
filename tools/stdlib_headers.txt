@@ -10,6 +10,7 @@ BOOST_WARN                                       boost/test/unit_test.hpp
 NULL                                             cstddef
 assert                                           cassert
 boost::Assignable                                boost/concept_check.hpp
+boost::Convertible                               boost/concept_check.hpp
 boost::CopyConstructible                         boost/concept_check.hpp
 boost::DefaultConstructible                      boost/concept_check.hpp
 boost::EqualityComparable                        boost/concept_check.hpp
@@ -43,6 +44,7 @@ boost::totally_ordered                           boost/operators.hpp
 boost::tuple                                     boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::unit_test::test_suite                     boost/test/unit_test.hpp
 std::auto_ptr                                    memory
+std::basic_string                                string
 std::exception                                   exception
 std::invalid_argument                            stdexcept
 std::logic_error                                 stdexcept

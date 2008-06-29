@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_HANDLECONCEPT_H)
 #define TETENGO2_GUI_HANDLECONCEPT_H
 
-#include <cstddef>
-
 #include <boost/concept_check.hpp>
 
 
@@ -22,25 +20,21 @@ namespace tetengo2 { namespace gui
         \tparam Handle A handle type.
     */
     template <typename Handle>
-    class HandleConcept
+    class HandleConcept :
+        private boost::CopyConstructible<Handle>,
+        private boost::Convertible<Handle, const void*>,
+        private boost::Assignable<Handle>,
+        private boost::EqualityComparable<Handle>
     {
+#if !defined(DOCUMENTATION)
     public:
-        // functions
+        // usage checks
 
-        /*!
-            \brief Checks the constraints on a handle.
-        */
-        void constraints()
-        {
-            BOOST_CONCEPT_ASSERT((boost::CopyConstructible<Handle>));
-            BOOST_CONCEPT_ASSERT((boost::Assignable<Handle>));
-            BOOST_CONCEPT_ASSERT((boost::EqualityComparable<Handle>));
-
-            const Handle handle = NULL;
-            boost::ignore_unused_variable_warning(handle);
-        }
+        BOOST_CONCEPT_USAGE(HandleConcept)
+        {}
 
 
+#endif
     };
 
 

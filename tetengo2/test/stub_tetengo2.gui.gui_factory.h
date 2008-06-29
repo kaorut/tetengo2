@@ -28,14 +28,20 @@ namespace stub_tetengo2 { namespace gui
     namespace
     {
         typedef
-            canvas<int, std::size_t, std::wstring, stub_tetengo2::encode,int>
+            canvas<
+                const void*,
+                std::size_t,
+                std::wstring,
+                stub_tetengo2::encode,
+                const void*
+            >
             canvas_type;
 
-        typedef alert<int, stub_tetengo2::encode> alert_type;
+        typedef alert<const void*, stub_tetengo2::encode> alert_type;
 
         typedef
             window<
-                int,
+                const void*,
                 canvas_type,
                 alert_type,
                 std::wstring,

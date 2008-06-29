@@ -11,6 +11,8 @@
 
 #include <string>
 
+#include <boost/concept_check.hpp>
+
 
 namespace tetengo2
 {
@@ -22,48 +24,34 @@ namespace tetengo2
     template <typename String>
     class StringConcept
     {
+#if !defined(DOCUMENTATION)
     public:
-        // functions
+        // usage checks
 
-        /*!
-            \brief Checks the constraints on a string.
-        */
-        void constraints()
+        BOOST_CONCEPT_USAGE(StringConcept)
         {
             m_string.error_type_must_be_a_string_type();
         }
 
-
+       
     private:
         // variables
 
         String m_string;
 
 
+#endif
     };
 
 #if !defined(DOCUMENTATION)
     // A specialized template.
-    template <>
-    class StringConcept<std::string>
+    template <typename Char, typename CharTraits, typename Allocator>
+    class StringConcept<std::basic_string<Char, CharTraits, Allocator> >
     {
     public:
-        // functions
+        // usage checks
 
-        void constraints()
-        {}
-
-
-    };
-
-    // A specialized template.
-    template <>
-    class StringConcept<std::wstring>
-    {
-    public:
-        // functions
-
-        void constraints()
+        BOOST_CONCEPT_USAGE(StringConcept)
         {}
 
 
