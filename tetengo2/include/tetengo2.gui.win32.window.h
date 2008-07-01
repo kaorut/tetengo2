@@ -33,7 +33,7 @@ namespace tetengo2 { namespace gui { namespace win32
                                       It must conform to
                                       concept_tetengo2::gui::Handle<Handle>.
         \tparam Canvas                A canvas type. It must conform to
-                                      tetengo2::gui::CanvasConcept<Canvas>.
+                                      concept_tetengo2::gui::Canvas<Canvas>.
         \tparam Alert                 An alerting unary functor type. It must
                                       conform to
                                       boost::UnaryFunction<Alert, void, Handle, std::exception>.

@@ -15,7 +15,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
-#include "bobura.model.StationConcept.h"
+#include "concept_bobura.model.Station.h"
 
 
 namespace bobura { namespace model
@@ -24,7 +24,7 @@ namespace bobura { namespace model
         \brief The class for a train.
 
         \tparam Station A station type. It must conform to
-                        bobura::model::StationConcept<Station>.
+                        concept_bobura::model::Station<Station>.
     */
     template <typename Station>
     class train : private boost::equality_comparable<train<Station> >
@@ -32,7 +32,7 @@ namespace bobura { namespace model
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((bobura::model::StationConcept<Station>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::Station<Station>));
 
 
     public:
@@ -122,7 +122,7 @@ namespace std
         \brief Swaps two train objects.
 
         \tparam Station A station type. It must conform to
-                        bobura::model::StationConcept<Station>.
+                        concept_bobura::model::Station<Station>.
 
         \param train1 A train object #1.
         \param train2 A train object #2.
@@ -134,7 +134,7 @@ namespace std
     )
     throw ()
     {
-        BOOST_CONCEPT_ASSERT((bobura::model::StationConcept<Station>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::Station<Station>));
 
         train1.swap(train2);
     }
