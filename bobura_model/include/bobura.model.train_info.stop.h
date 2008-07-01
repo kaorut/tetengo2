@@ -14,7 +14,7 @@
 
 #include <tetengo2.StringConcept.h>
 
-#include "bobura.model.train_info.TimeConcept.h"
+#include "concept_bobura.model.train_info.Time.h"
 
 
 namespace bobura { namespace model { namespace train_info
@@ -23,7 +23,7 @@ namespace bobura { namespace model { namespace train_info
         \brief The class for a train stop.
 
         \tparam Time     A time type. It must conform to
-                         bobura::model::train_info::TimeConcept<Time>.
+                         concept_bobura::model::train_info::Time<Time>.
         \tparam Platform A string type. It must conform to
                          tetengo2::StringConcept<Platform>.
     */
@@ -33,7 +33,7 @@ namespace bobura { namespace model { namespace train_info
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((bobura::model::train_info::TimeConcept<Time>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Time<Time>));
         BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Platform>));
 
 
@@ -186,7 +186,7 @@ namespace std
         \brief Swaps two stop objects.
 
         \tparam Time     A time type. It must conform to
-                         bobura::model::train_info::TimeConcept<Time>.
+                         concept_bobura::model::train_info::Time<Time>.
         \tparam Platform A platform type. It must conform to
                          tetengo2::StringConcept<Platform>.
 
@@ -200,7 +200,7 @@ namespace std
     )
     throw ()
     {
-        BOOST_CONCEPT_ASSERT((bobura::model::train_info::TimeConcept<Time>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Time<Time>));
         BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Platform>));
 
         stop1.swap(stop2);

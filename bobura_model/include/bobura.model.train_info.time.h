@@ -19,7 +19,7 @@
 //#include <boost/tuple/tuple.hpp>
 //#include <boost/tuple/tuple_comparison.hpp>
 
-#include "bobura.model.train_info.TimeSpanConcept.h"
+#include "concept_bobura.model.train_info.TimeSpan.h"
 
 
 namespace bobura { namespace model { namespace train_info
@@ -30,7 +30,7 @@ namespace bobura { namespace model { namespace train_info
         \tparam TimeTick A time tick type. It must conform to
                          boost::UnsignedInteger<TimeTick>.
         \tparam TimeSpan A time span type. It must conform to
-                         bobura::model::train_info::TimeSpanConcept<TimeSpan>.
+                         concept_bobura::model::train_info::TimeSpan<TimeSpan>.
     */
     template <typename TimeTick, typename TimeSpan>
     class time :
@@ -42,7 +42,7 @@ namespace bobura { namespace model { namespace train_info
 
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<TimeTick>));
         BOOST_CONCEPT_ASSERT((
-            bobura::model::train_info::TimeSpanConcept<TimeSpan>
+            concept_bobura::model::train_info::TimeSpan<TimeSpan>
         ));
 
 
@@ -388,7 +388,7 @@ namespace std
         \tparam TimeTick A time tick type. It must conform to
                          boost::UnsignedInteger<TimeTick>.
         \tparam TimeSpan A time span type. It must conform to
-                         bobura::model::train_info::TimeSpanConcept<TimeSpan>.
+                         concept_bobura::model::train_info::TimeSpan<TimeSpan>.
 
         \param time1 A time object #1.
         \param time2 A time object #2.
@@ -402,7 +402,7 @@ namespace std
     {
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<TimeTick>));
         BOOST_CONCEPT_ASSERT((
-            bobura::model::train_info::TimeSpanConcept<TimeSpan>
+            concept_bobura::model::train_info::TimeSpan<TimeSpan>
         ));
 
         time1.swap(time2);

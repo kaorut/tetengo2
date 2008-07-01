@@ -14,7 +14,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
-#include "bobura.model.StationConcept.h"
+#include "concept_bobura.model.Station.h"
 
 
 namespace bobura { namespace model { namespace timetable_info
@@ -23,7 +23,7 @@ namespace bobura { namespace model { namespace timetable_info
         \brief The class for a station location.
 
         \tparam Station  A station type. It must conform to
-                         bobura::model::StationConcept<Station>.
+                         concept_bobura::model::Station<Station>.
         \tparam Meterage A meterage type. It must conform to
                          boost::UnsignedInteger<Meterage>.
     */
@@ -34,7 +34,7 @@ namespace bobura { namespace model { namespace timetable_info
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((bobura::model::StationConcept<Station>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::Station<Station>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Meterage>));
 
 
@@ -183,7 +183,7 @@ namespace std
         \brief Swaps two station_location objects.
 
         \tparam Station  A station type. It must conform to
-                         bobura::model::StationConcept<Station>.
+                         concept_bobura::model::Station<Station>.
         \tparam Meterage A meterage type. It must conform to
                          boost::UnsignedInteger<Meterage>.
 
@@ -199,7 +199,7 @@ namespace std
     )
     throw ()
     {
-        BOOST_CONCEPT_ASSERT((bobura::model::StationConcept<Station>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::Station<Station>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Meterage>));
 
         station_location1.swap(station_location2);

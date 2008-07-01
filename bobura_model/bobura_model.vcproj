@@ -128,23 +128,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\bobura.model.StationConcept.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\bobura.model.timetable.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\bobura.model.timetable_info.station_location.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.timetable_info.StationLocationConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.TimetableConcept.h"
 				>
 			</File>
 			<File
@@ -156,10 +144,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\bobura.model.train_info.StopConcept.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\bobura.model.train_info.time.h"
 				>
 			</File>
@@ -168,19 +152,35 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\bobura.model.train_info.TimeConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.train_info.TimeSpanConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.TrainConcept.h"
+				RelativePath=".\include\concept_bobura.model.Station.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\concept_bobura.model.station_info.Grade.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_bobura.model.Timetable.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_bobura.model.timetable_info.StationLocation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_bobura.model.Train.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_bobura.model.train_info.Stop.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_bobura.model.train_info.Time.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_bobura.model.train_info.TimeSpan.h"
 				>
 			</File>
 		</Filter>

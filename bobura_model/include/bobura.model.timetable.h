@@ -16,7 +16,7 @@
 #include <boost/operators.hpp>
 #include <boost/utility.hpp>
 
-#include "bobura.model.timetable_info.StationLocationConcept.h"
+#include "concept_bobura.model.timetable_info.StationLocation.h"
 
 
 namespace bobura { namespace model
@@ -25,7 +25,7 @@ namespace bobura { namespace model
         \brief The class template for a timetable.
 
         \tparam StationLocation A station location type. It must conform to
-                                bobura::model::timetable_info::StationLocationConcept<StationLocation>.
+                                concept_bobura::model::timetable_info::StationLocation<StationLocation>.
     */
     template <typename StationLocation>
     class timetable :
@@ -35,7 +35,7 @@ namespace bobura { namespace model
         // concept checks
 
         BOOST_CONCEPT_ASSERT((
-            bobura::model::timetable_info::StationLocationConcept<
+            concept_bobura::model::timetable_info::StationLocation<
                 StationLocation
             >
         ));
@@ -223,7 +223,7 @@ namespace std
         \brief Swaps two timetable objects.
 
         \tparam StationLocation A station location type. It must conform to
-                                bobura::model::timetable_info::StationLocationConcept<StationLocation>.
+                                concept_bobura::model::timetable_info::StationLocation<StationLocation>.
 
         \param timetable1 A timetable object #1.
         \param timetable2 A timetable object #2.
@@ -236,7 +236,7 @@ namespace std
     throw ()
     {
         BOOST_CONCEPT_ASSERT((
-            bobura::model::timetable_info::StationLocationConcept<
+            concept_bobura::model::timetable_info::StationLocation<
                 StationLocation
             >
         ));
