@@ -45,3 +45,51 @@
 /*! \namespace tetengo2::gui::win32
     \brief The namespace for GUI specific to Win32 platforms.
 */
+
+/*! \namespace concept_bobura
+    \brief The namespace for concept check classes for the namespace bobura.
+*/
+
+/*! \namespace concept_bobura::message
+    \brief The namespace for concept check classes for the namespace
+           bobura::message.
+*/
+
+/*! \namespace concept_bobura::model
+    \brief The namespace for concept check classes for the namespace
+           bobura::model.
+*/
+
+/*! \namespace concept_bobura::model::station_info
+    \brief The namespace for concept check classes for the namespace
+           bobura::model::station_info.
+*/
+
+/*! \namespace concept_bobura::model::timetable_info
+    \brief The namespace for concept check classes for the namespace
+           bobura::model::timetable_info.
+*/
+
+/*! \namespace concept_bobura::model::train_info
+    \brief The namespace for concept check classes for the namespace
+           bobura::model::train_info.
+*/
+
+/*! \namespace concept_tetengo2
+    \brief The namespace for concept check classes for the namespace tetengo2.
+*/
+
+/*! \namespace concept_tetengo2::win32
+    \brief The namespace for concept check classes for the namespace
+           tetengo2::win32.
+*/
+
+/*! \namespace concept_tetengo2::gui
+    \brief The namespace for concept check classes for the namespace
+           tetengo2::gui.
+*/
+
+/*! \namespace concept_tetengo2::gui::win32
+    \brief The namespace for concept check classes for the namespace
+           tetengo2::gui::win32.
+*/
