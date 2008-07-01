@@ -18,7 +18,7 @@
 
 #include <tetengo2.StringConcept.h>
 
-#include "bobura.model.station_info.GradeConcept.h"
+#include "concept_bobura.model.station_info.Grade.h"
 
 
 namespace bobura { namespace model
@@ -29,7 +29,7 @@ namespace bobura { namespace model
         \tparam Name  A name type. It must conform to
                       tetengo2::StringConcept<Name>.
         \tparam Grade A grade type. It must conform to
-                      bobura::model::station_info::GradeConcept<Grade>.
+                      concept_bobura::model::station_info::Grade<Grade>.
     */
     template <typename Name, typename Grade>
     class station :
@@ -40,7 +40,7 @@ namespace bobura { namespace model
 
         BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Name>));
         BOOST_CONCEPT_ASSERT((
-            bobura::model::station_info::GradeConcept<Grade>
+            concept_bobura::model::station_info::Grade<Grade>
         ));
 
 
@@ -176,7 +176,7 @@ namespace std
         \tparam Name  A name type. It must conform to
                       tetengo2::StringConcept<Name>.
         \tparam Grade A grade type. It must conform to
-                      bobura::model::station_info::GradeConcept<Grade>.
+                      concept_bobura::model::station_info::Grade<Grade>.
 
         \param station1 A station object #1.
         \param station2 A station object #2.
@@ -190,7 +190,7 @@ namespace std
     {
         BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Name>));
         BOOST_CONCEPT_ASSERT((
-            bobura::model::station_info::GradeConcept<Grade>
+            concept_bobura::model::station_info::Grade<Grade>
         ));
 
         station1.swap(station2);

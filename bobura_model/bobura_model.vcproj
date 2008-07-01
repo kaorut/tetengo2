@@ -128,10 +128,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\bobura.model.station_info.GradeConcept.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\bobura.model.StationConcept.h"
 				>
 			</File>
@@ -181,6 +177,10 @@
 			</File>
 			<File
 				RelativePath=".\include\bobura.model.TrainConcept.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_bobura.model.station_info.Grade.h"
 				>
 			</File>
 		</Filter>
