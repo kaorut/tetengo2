@@ -22,7 +22,7 @@
 #include <windows.h>
 #include <commctrl.h>
 
-#include "tetengo2.gui.HandleConcept.h"
+#include "concept_tetengo2.gui.Handle.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -32,7 +32,7 @@ namespace tetengo2 { namespace gui { namespace win32
                platforms.
 
         \tparam WindowHandle A window handle type. It must conform to
-                             tetengo2::gui::HandleConcept<WindowHandle>.
+                             concept_tetengo2::gui::Handle<WindowHandle>.
         \tparam Encode       An encoding unary functor type. The type
                              Encode<std::wstring, std::string> must conform to
                              boost::UnaryFunction<Encode, std::wstring, std::string>.
@@ -47,7 +47,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<WindowHandle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
         struct concept_check_Encode
         {
             typedef std::wstring task_dialog_string_type;

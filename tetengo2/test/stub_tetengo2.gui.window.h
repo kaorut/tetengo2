@@ -13,7 +13,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "tetengo2.gui.WindowObserverConcept.h"
+#include "concept_tetengo2.gui.WindowObserver.h"
 
 #include "stub_tetengo2.gui.widget.h"
 
@@ -43,7 +43,7 @@ namespace stub_tetengo2 { namespace gui
         // concept checks
 
         BOOST_CONCEPT_ASSERT((
-            tetengo2::gui::WindowObserverConcept<WindowObserver>
+            concept_tetengo2::gui::WindowObserver<WindowObserver>
         ));
 
 

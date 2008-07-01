@@ -26,10 +26,10 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "tetengo2.StringConcept.h"
-#include "tetengo2.gui.CanvasConcept.h"
-#include "tetengo2.gui.HandleConcept.h"
-#include "tetengo2.gui.PaintObserverConcept.h"
+#include "concept_tetengo2.String.h"
+#include "concept_tetengo2.gui.Canvas.h"
+#include "concept_tetengo2.gui.Handle.h"
+#include "concept_tetengo2.gui.PaintObserver.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -39,14 +39,14 @@ namespace tetengo2 { namespace gui { namespace win32
 
         \tparam Handle                A handle type to the native interface.
                                       It must conform to
-                                      tetengo2::gui::HandleConcept<Handle>.
+                                      concept_tetengo2::gui::Handle<Handle>.
         \tparam Canvas                A canvas type. It must conform to
-                                      tetengo2::gui::CanvasConcept<Canvas>.
+                                      concept_tetengo2::gui::Canvas<Canvas>.
         \tparam Alert                 An alerting unary functor type. It must
                                       conform to
                                       boost::UnaryFunction<Alert, void, Handle, std::exception>.
         \tparam String                A string type. It must conform to
-                                      tetengo2::StringConcept<String>.
+                                      concept_tetengo2::String<String>.
         \tparam Encode                An encoding unary functor type. The 
                                       types Encode<String, std::wstring> and
                                       Encode<std::wstring, String> must
@@ -56,7 +56,7 @@ namespace tetengo2 { namespace gui { namespace win32
                                       boost::UnaryFunction<Encode, std::wstring, String>.
         \tparam PaintObserver         A paint observer type. It must conform
                                       to
-                                      tetengo2::gui::PaintObserverConcept<PaintObserver>.
+                                      concept_tetengo2::gui::PaintObserver<PaintObserver>.
     */
     template <
         typename Handle,
@@ -71,8 +71,8 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<Handle>));
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::CanvasConcept<Canvas>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Canvas<Canvas>));
         struct concept_check_Alert
         {
             typedef std::exception exception_type;
@@ -80,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 boost::UnaryFunction<Alert, void, exception_type>
             ));
         };
-        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<String>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         struct concept_check_Encode
         {
             typedef std::wstring native_string_type;
@@ -98,7 +98,7 @@ namespace tetengo2 { namespace gui { namespace win32
             ));
         };
         BOOST_CONCEPT_ASSERT((
-            tetengo2::gui::PaintObserverConcept<PaintObserver>
+            concept_tetengo2::gui::PaintObserver<PaintObserver>
         ));
 
 

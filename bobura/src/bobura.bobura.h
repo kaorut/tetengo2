@@ -15,7 +15,7 @@
 //#include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
-#include <tetengo2.gui.GuiFactoryConcept.h>
+#include <concept_tetengo2.gui.GuiFactory.h>
 
 #include "bobura.message.main_window_paint_observer.h"
 #include "bobura.message.main_window_window_observer.h"
@@ -28,7 +28,7 @@ namespace bobura
 
         \tparam GuiFactory      An abstract factory type to create platform
                                 specific GUI components. It must conform to
-                                tetengo2::gui::GuiFactoryConcept<GuiFactory>.
+                                concept_tetengo2::gui::GuiFactory<GuiFactory>.
         \tparam MessageLoop     A generator type for the message loop. It must
                                 conform to boost::Generator<MessageLoop, int>.
         \tparam QuitMessageLoop A unary functor type for quitting the message
@@ -45,7 +45,7 @@ namespace bobura
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::GuiFactoryConcept<GuiFactory>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::GuiFactory<GuiFactory>));
         BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
         BOOST_CONCEPT_ASSERT((
             boost::UnaryFunction<QuitMessageLoop, void, int>

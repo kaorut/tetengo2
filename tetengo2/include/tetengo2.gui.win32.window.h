@@ -20,7 +20,7 @@
 //#include <boost/signal.hpp>
 //#include <boost/ptr_container/ptr_vector.hpp>
 
-#include "tetengo2.gui.WindowObserverConcept.h"
+#include "concept_tetengo2.gui.WindowObserver.h"
 #include "tetengo2.gui.win32.widget.h"
 
 
@@ -31,14 +31,14 @@ namespace tetengo2 { namespace gui { namespace win32
  
         \tparam Handle                A handle type to the native interface.
                                       It must conform to
-                                      tetengo2::gui::HandleConcept<Handle>.
+                                      concept_tetengo2::gui::Handle<Handle>.
         \tparam Canvas                A canvas type. It must conform to
                                       tetengo2::gui::CanvasConcept<Canvas>.
         \tparam Alert                 An alerting unary functor type. It must
                                       conform to
                                       boost::UnaryFunction<Alert, void, Handle, std::exception>.
         \tparam String                A string type. It must conform to
-                                      tetengo2::StringConcept<String>.
+                                      concept_tetengo2::String<String>.
         \tparam Encode                An encoding unary functor type. The
                                       types Encode<String, std::wstring> and
                                       Encode<std::wstring, String> must
@@ -48,10 +48,10 @@ namespace tetengo2 { namespace gui { namespace win32
                                       boost::UnaryFunction<Encode, std::wstring, String>.
         \tparam PaintObserver         A paint observer type. It must conform
                                       to
-                                      tetengo2::gui::PaintObserverConcept<PaintObserver>.
+                                      concept_tetengo2::gui::PaintObserver<PaintObserver>.
         \tparam WindowObserver        A window observer type. It must conform
                                       to
-                                      tetengo2::gui::WindowObserverConcept<WindowObserver>.
+                                      concept_tetengo2::gui::WindowObserver<WindowObserver>.
    */
     template <
         typename Handle,
@@ -76,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // concept checks
 
         BOOST_CONCEPT_ASSERT((
-            tetengo2::gui::WindowObserverConcept<WindowObserver>
+            concept_tetengo2::gui::WindowObserver<WindowObserver>
         ));
 
 

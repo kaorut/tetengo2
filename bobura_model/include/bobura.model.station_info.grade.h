@@ -14,7 +14,7 @@
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-#include <tetengo2.StringConcept.h>
+#include <concept_tetengo2.String.h>
 
 
 namespace bobura { namespace model { namespace station_info
@@ -23,7 +23,7 @@ namespace bobura { namespace model { namespace station_info
         \brief The class for a station grade.
 
         \tparam GradeName A grade name type. It must conform to
-                          tetengo2::StringConcept<GradeName>.
+                          concept_tetengo2::String<GradeName>.
     */
     template <typename GradeName>
     class grade : private boost::noncopyable
@@ -31,7 +31,7 @@ namespace bobura { namespace model { namespace station_info
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<GradeName>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<GradeName>));
 
 
     public:
@@ -159,7 +159,7 @@ namespace bobura { namespace model { namespace station_info
         \brief The class for a local station grade.
 
         \tparam GradeName A grade name type. It must conform to
-                          tetengo2::StringConcept<GradeName>.
+                          concept_tetengo2::String<GradeName>.
     */
     template <typename GradeName>
     class local : public grade<GradeName>
@@ -217,7 +217,7 @@ namespace bobura { namespace model { namespace station_info
         \brief The class for a principal station grade.
  
         \tparam GradeName A grade name type. It must conform to
-                          tetengo2::StringConcept<GradeName>.
+                          concept_tetengo2::String<GradeName>.
    */
     template <typename GradeName>
     class principal : public grade<GradeName>
@@ -275,7 +275,7 @@ namespace bobura { namespace model { namespace station_info
         \brief The class for a local terminal station grade.
 
         \tparam GradeName A grade name type. It must conform to
-                          tetengo2::StringConcept<GradeName>.
+                          concept_tetengo2::String<GradeName>.
     */
     template <typename GradeName>
     class local_terminal : public grade<GradeName>
@@ -333,7 +333,7 @@ namespace bobura { namespace model { namespace station_info
         \brief The class for a principal terminal station grade.
 
         \tparam GradeName A grade name type. It must conform to
-                          tetengo2::StringConcept<GradeName>.
+                          concept_tetengo2::String<GradeName>.
     */
     template <typename GradeName>
     class principal_terminal : public grade<GradeName>

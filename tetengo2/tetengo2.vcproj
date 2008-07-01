@@ -120,11 +120,39 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\tetengo2.generator.h"
+				RelativePath=".\include\concept_tetengo2.gui.Canvas.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\tetengo2.gui.CanvasConcept.h"
+				RelativePath=".\include\concept_tetengo2.gui.GuiFactory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_tetengo2.gui.Handle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_tetengo2.gui.PaintObserver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_tetengo2.gui.Widget.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_tetengo2.gui.Window.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_tetengo2.gui.WindowObserver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_tetengo2.String.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.generator.h"
 				>
 			</File>
 			<File
@@ -132,23 +160,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\tetengo2.gui.GuiFactoryConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.gui.HandleConcept.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\tetengo2.gui.paint_observer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.gui.PaintObserverConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.gui.WidgetConcept.h"
 				>
 			</File>
 			<File
@@ -185,18 +197,6 @@
 			</File>
 			<File
 				RelativePath=".\include\tetengo2.gui.window_observer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.gui.WindowConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.gui.WindowObserverConcept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\tetengo2.StringConcept.h"
 				>
 			</File>
 			<File

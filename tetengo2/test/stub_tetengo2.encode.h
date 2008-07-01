@@ -13,7 +13,7 @@
 
 #include <boost/concept_check.hpp>
 
-#include "tetengo2.StringConcept.h"
+#include "concept_tetengo2.String.h"
 
 
 namespace stub_tetengo2
@@ -25,8 +25,8 @@ namespace stub_tetengo2
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Target>));
-        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Source>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Target>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Source>));
 
 
     public:

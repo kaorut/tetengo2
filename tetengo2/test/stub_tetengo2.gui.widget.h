@@ -16,10 +16,10 @@
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.StringConcept.h"
-#include "tetengo2.gui.CanvasConcept.h"
-#include "tetengo2.gui.HandleConcept.h"
-#include "tetengo2.gui.PaintObserverConcept.h"
+#include "concept_tetengo2.String.h"
+#include "concept_tetengo2.gui.Canvas.h"
+#include "concept_tetengo2.gui.Handle.h"
+#include "concept_tetengo2.gui.PaintObserver.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -37,8 +37,8 @@ namespace stub_tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<Handle>));
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::CanvasConcept<Canvas>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Canvas<Canvas>));
         struct concept_check_Alert
         {
             typedef std::exception exception_type;
@@ -46,7 +46,7 @@ namespace stub_tetengo2 { namespace gui
                 boost::UnaryFunction<Alert, void, exception_type>
             ));
         };
-        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<String>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         struct concept_check_Encode
         {
             typedef std::wstring native_string_type;
@@ -64,7 +64,7 @@ namespace stub_tetengo2 { namespace gui
             ));
         };
         BOOST_CONCEPT_ASSERT((
-            tetengo2::gui::PaintObserverConcept<PaintObserver>
+            concept_tetengo2::gui::PaintObserver<PaintObserver>
         ));
 
 

@@ -23,8 +23,8 @@
 #undef min
 #undef max
 
-#include "tetengo2.StringConcept.h"
-#include "tetengo2.gui.HandleConcept.h"
+#include "concept_tetengo2.gui.Handle.h"
+#include "concept_tetengo2.String.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -33,17 +33,17 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The class template for a canvas for Win32 platforms.
 
         \tparam Handle       A handle type for the native interface. It must
-                             conform to tetengo2::gui::HandleConcept<Handle>.
+                             conform to concept_tetengo2::gui::Handle<Handle>.
         \tparam Size         A size type. It must conform to
                              boost::UnsignedInteger<Size>.
         \tparam String       A string type. It must conform to
-                             tetengo2::StringConcept<String>.
+                             concept_tetengo2::String<String>.
         \tparam Encode       An encoding unary functor type. The type
                              Encode<std::wstring, String> must conform to
                              boost::UnaryFunction<Encode, std::wstring, String>.
         \tparam WindowHandle A window handle type for the native interface. It
                              must conform to
-                             tetengo2::gui::HandleConcept<WindowHandle>.
+                             concept_tetengo2::gui::Handle<WindowHandle>.
     */
     template <
         typename Handle,
@@ -57,9 +57,9 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<Handle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
-        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<String>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         struct concept_check_Encode
         {
             typedef std::wstring native_string_type;
@@ -70,7 +70,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 >
             ));
         };
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<WindowHandle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
 
 
     public:

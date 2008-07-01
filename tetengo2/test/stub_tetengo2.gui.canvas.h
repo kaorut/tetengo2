@@ -15,8 +15,8 @@
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.StringConcept.h"
-#include "tetengo2.gui.HandleConcept.h"
+#include "concept_tetengo2.String.h"
+#include "concept_tetengo2.gui.Handle.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -33,9 +33,9 @@ namespace stub_tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<Handle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
-        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<String>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         struct concept_check_Encode
         {
             typedef std::wstring native_string_type;
@@ -46,7 +46,7 @@ namespace stub_tetengo2 { namespace gui
                 >
             ));
         };
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<WindowHandle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
 
 
     public:

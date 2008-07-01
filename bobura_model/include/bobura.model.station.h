@@ -16,7 +16,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
-#include <tetengo2.StringConcept.h>
+#include <concept_tetengo2.String.h>
 
 #include "concept_bobura.model.station_info.Grade.h"
 
@@ -27,7 +27,7 @@ namespace bobura { namespace model
         \brief The class template for a station.
 
         \tparam Name  A name type. It must conform to
-                      tetengo2::StringConcept<Name>.
+                      concept_tetengo2::String<Name>.
         \tparam Grade A grade type. It must conform to
                       concept_bobura::model::station_info::Grade<Grade>.
     */
@@ -38,7 +38,7 @@ namespace bobura { namespace model
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Name>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Name>));
         BOOST_CONCEPT_ASSERT((
             concept_bobura::model::station_info::Grade<Grade>
         ));
@@ -174,7 +174,7 @@ namespace std
         \brief Swaps two station objects.
 
         \tparam Name  A name type. It must conform to
-                      tetengo2::StringConcept<Name>.
+                      concept_tetengo2::String<Name>.
         \tparam Grade A grade type. It must conform to
                       concept_bobura::model::station_info::Grade<Grade>.
 
@@ -188,7 +188,7 @@ namespace std
     )
     throw ()
     {
-        BOOST_CONCEPT_ASSERT((tetengo2::StringConcept<Name>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Name>));
         BOOST_CONCEPT_ASSERT((
             concept_bobura::model::station_info::Grade<Grade>
         ));

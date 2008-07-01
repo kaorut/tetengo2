@@ -17,7 +17,7 @@
 
 #include <boost/concept_check.hpp>
 
-#include "tetengo2.gui.HandleConcept.h"
+#include "concept_tetengo2.gui.Handle.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -32,7 +32,7 @@ namespace stub_tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((tetengo2::gui::HandleConcept<WindowHandle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
         struct concept_check_Encode
         {
             typedef std::wstring task_dialog_string_type;
