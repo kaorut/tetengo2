@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include "precompiled.test.h"
-
 //#include <boost/test/unit_test.hpp>
 
 #include "bobura.model.train.h"

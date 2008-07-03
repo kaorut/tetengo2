@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include "precompiled.test.h"
-
 //#include <cstddef>
 //#include <string>
 //#include <memory>

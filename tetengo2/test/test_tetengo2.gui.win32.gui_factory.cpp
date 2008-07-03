@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include "precompiled.test.h"
-
 //#include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.win32.gui_factory.h"

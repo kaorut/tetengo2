@@ -19,6 +19,12 @@
 
 #define OEMRESOURCE
 #include <windows.h>
+#if !defined(min)
+#   define min(a, b) ((a) < (b) ? (a) : (b))
+#endif
+#if !defined(max)
+#   define max(a, b) ((a) > (b) ? (a) : (b))
+#endif
 #include <gdiplus.h>
 #undef min
 #undef max

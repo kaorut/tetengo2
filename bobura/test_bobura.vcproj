@@ -63,6 +63,7 @@
 				DebugInformationFormat="4"
 				CompileAs="0"
 				DisableSpecificWarnings="4100;4127;4510;4512;4610;4701;4819"
+				ForcedIncludeFiles="precompiled.test.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -152,6 +153,7 @@
 				DebugInformationFormat="3"
 				CompileAs="0"
 				DisableSpecificWarnings="4100;4103;4127;4510;4512;4610;4701;4819"
+				ForcedIncludeFiles="precompiled.test.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -235,6 +237,7 @@
 				DebugInformationFormat="0"
 				CompileAs="0"
 				DisableSpecificWarnings="4100;4127;4510;4512;4610;4701;4819"
+				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -319,6 +322,7 @@
 				DebugInformationFormat="0"
 				CompileAs="0"
 				DisableSpecificWarnings="4100;4103;4127;4510;4512;4610;4701;4819"
+				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

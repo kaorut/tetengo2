@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include "precompiled.h"
-
 //#include <exception>
 
 #include <boost/program_options.hpp>
