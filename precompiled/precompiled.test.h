@@ -46,10 +46,10 @@
 #define OEMRESOURCE
 #include <windows.h>
 #include <commctrl.h>
-#if !defined(min)
+#if !defined(min) && !defined(DOCUMENTATION)
 #   define min(a, b) ((a) < (b) ? (a) : (b))
 #endif
-#if !defined(max)
+#if !defined(max) && !defined(DOCUMENTATION)
 #   define max(a, b) ((a) > (b) ? (a) : (b))
 #endif
 #include <gdiplus.h>
