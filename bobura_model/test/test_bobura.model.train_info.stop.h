@@ -29,6 +29,12 @@ namespace test_bobura { namespace model { namespace train_info
 
         static void operator_equal();
 
+        static void arrival();
+
+        static void departure();
+
+        static void platform();
+
 
     };
 

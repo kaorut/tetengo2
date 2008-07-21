@@ -33,6 +33,9 @@ namespace test_bobura { namespace model { namespace train_info
         p_suite->add(BOOST_TEST_CASE(swap));
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
+        p_suite->add(BOOST_TEST_CASE(arrival));
+        p_suite->add(BOOST_TEST_CASE(departure));
+        p_suite->add(BOOST_TEST_CASE(platform));
 
         return p_suite;
     }
@@ -195,6 +198,84 @@ namespace test_bobura { namespace model { namespace train_info
             const stop_type stop2(time_type(3), time_type(4), "2");
 
             BOOST_CHECK(stop1 != stop2);
+        }
+    }
+
+    void stop::arrival()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        
+        {
+            const stop_type stop(time_type(1), time_type(2), "1");
+
+            BOOST_CHECK(stop.arrival() == time_type(1));
+        }
+        {
+            const stop_type stop(time_type(3), time_type(4), "2");
+
+            BOOST_CHECK(stop.arrival() == time_type(3));
+        }
+    }
+
+    void stop::departure()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        
+        {
+            const stop_type stop(time_type(1), time_type(2), "1");
+
+            BOOST_CHECK(stop.departure() == time_type(2));
+        }
+        {
+            const stop_type stop(time_type(3), time_type(4), "2");
+
+            BOOST_CHECK(stop.departure() == time_type(4));
+        }
+    }
+
+    void stop::platform()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        
+        {
+            const stop_type stop(time_type(1), time_type(2), "1");
+
+            BOOST_CHECK_EQUAL(stop.platform(), "1");
+        }
+        {
+            const stop_type stop(time_type(3), time_type(4), "2");
+
+            BOOST_CHECK_EQUAL(stop.platform(), "2");
         }
     }
 
