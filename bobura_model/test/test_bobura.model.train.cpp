@@ -6,6 +6,10 @@
     $Id$
 */
 
+#include <algorithm>
+#include <cstddef>
+#include <string>
+
 //#include <boost/test/unit_test.hpp>
 
 #include "bobura.model.train_info.stop.h"
