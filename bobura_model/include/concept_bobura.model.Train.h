@@ -29,9 +29,9 @@ namespace concept_bobura { namespace model
     public:
         // typedef checks
 
-        typedef typename Type::station_type station_type;
+        typedef typename Type::stop_type stop_type;
 
-        typedef typename Type::meterage_type meterage_type;
+        typedef typename Type::stops_type stops_type;
 
 
         // usage checks

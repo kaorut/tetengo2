@@ -10,12 +10,13 @@
 #define BOBURA_MODEL_TRAIN_H
 
 //#include <algorithm>
+#include <vector>
 //std::swap // dummy
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
-#include "concept_bobura.model.Station.h"
+#include "concept_bobura.model.train_info.Stop.h"
 
 
 namespace bobura { namespace model
@@ -23,23 +24,26 @@ namespace bobura { namespace model
     /*!
         \brief The class for a train.
 
-        \tparam Station A station type. It must conform to
-                        concept_bobura::model::Station<Station>.
+        \tparam Stop A stop type. It must conform to
+                        concept_bobura::model::train_info::Stop<Stop>.
     */
-    template <typename Station>
-    class train : private boost::equality_comparable<train<Station> >
+    template <typename Stop>
+    class train : private boost::equality_comparable<train<Stop> >
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::Station<Station>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Stop<Stop>));
 
 
     public:
         // types
 
-        //! The station type.
-        typedef Station station_type;
+        //! The stop type.
+        typedef Stop stop_type;
+
+        //! The stops type.
+        typedef std::vector<stop_type> stops_type;
 
 
         // constructors and destructor
@@ -48,6 +52,22 @@ namespace bobura { namespace model
             \brief Creates a train.
         */
         train()
+        :
+        m_stops()
+        {}
+
+        /*!
+            \brief Creates a train.
+
+            \tparam InputIterator An input iterator for stops.
+
+            \param stop_first The first iterator of the stops.
+            \param stop_last  The last iterator of the stops.
+        */
+        template <typename InputIterator>
+        train(InputIterator stop_first, InputIterator stop_last)
+        :
+        m_stops(stop_first, stop_last)
         {}
 
         /*!
@@ -56,6 +76,8 @@ namespace bobura { namespace model
             \param another Another train object.
         */
         train(const train& another)
+        :
+        m_stops(another.m_stops)
         {}
 
         /*!
@@ -76,6 +98,7 @@ namespace bobura { namespace model
         void swap(train& another)
         throw ()
         {
+            m_stops.swap(another.m_stops);
         }
 
         /*!
@@ -103,12 +126,25 @@ namespace bobura { namespace model
         bool operator==(const train& another)
         const
         {
-            return true;
+            return m_stops == another.m_stops;
+        }
+
+        /*!
+            \brief Returns the stops.
+
+            \return The stops.
+        */
+        const stops_type& stops()
+        const
+        {
+            return m_stops;
         }
 
 
     private:
         // variables
+
+        stops_type m_stops;
 
 
     };
@@ -121,20 +157,20 @@ namespace std
     /*!
         \brief Swaps two train objects.
 
-        \tparam Station A station type. It must conform to
-                        concept_bobura::model::Station<Station>.
+        \tparam Stop A stop type. It must conform to
+                        concept_bobura::model::train_info::Stop<Stop>.
 
         \param train1 A train object #1.
         \param train2 A train object #2.
     */
-    template <typename Station>
+    template <typename Stop>
     void swap(
-        bobura::model::train<Station>& train1,
-        bobura::model::train<Station>& train2
+        bobura::model::train<Stop>& train1,
+        bobura::model::train<Stop>& train2
     )
     throw ()
     {
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::Station<Station>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Stop<Stop>));
 
         train1.swap(train2);
     }
