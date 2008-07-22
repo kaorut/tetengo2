@@ -54,6 +54,12 @@ namespace bobura { namespace model
         //! The station locations type.
         typedef std::vector<station_location_type> station_locations_type;
 
+        //! The train type.
+        typedef Train train_type;
+
+        //! The trains type.
+        typedef std::vector<train_type> trains_type;
+
 
         // constructors and destructor
 
@@ -62,7 +68,8 @@ namespace bobura { namespace model
         */
         timetable()
         :
-        m_station_locations()
+        m_station_locations(),
+        m_trains()
         {}
 
         /*!
@@ -72,7 +79,8 @@ namespace bobura { namespace model
         */
         timetable(const timetable& another)
         :
-        m_station_locations(another.m_station_locations)
+        m_station_locations(another.m_station_locations),
+        m_trains(another.m_trains)
         {}
 
         /*!
@@ -94,6 +102,7 @@ namespace bobura { namespace model
         throw ()
         {
             m_station_locations.swap(another.m_station_locations);
+            m_trains.swap(another.m_trains);
         }
 
         /*!
@@ -120,7 +129,8 @@ namespace bobura { namespace model
         bool operator==(const timetable& another)
         const
         {
-            return m_station_locations == another.m_station_locations;
+            return m_station_locations == another.m_station_locations &&
+                m_trains == another.m_trains;
         }
 
         /*!
@@ -167,17 +177,54 @@ namespace bobura { namespace model
         /*!
             \brief Erases the station locations.
 
-            \param begin A begin position where the station locations are
-                         removed.
-            \param end   A end position where the station locations are
-                         removed.
+            \param first A first iterator among the erased station locations.
+            \param last  A last iterator among the erased station locations.
         */
         void erase_station_locations(
-            const typename station_locations_type::const_iterator begin,
-            const typename station_locations_type::const_iterator end
+            const typename station_locations_type::const_iterator first,
+            const typename station_locations_type::const_iterator last
         )
         {
-            m_station_locations.erase(begin, end);
+            m_station_locations.erase(first, last);
+        }
+
+        /*!
+            \brief Returns the trains.
+
+            \return The trains
+        */
+        const trains_type& trains()
+        const
+        {
+            return m_trains;
+        }
+
+        /*!
+            \brief Inserts a train.
+
+            \param position  A position where a train is inserted.
+            \param train     A train.
+        */
+        void insert_train(
+            const typename trains_type::const_iterator position,
+            const train_type&                          train
+        )
+        {
+            m_trains.insert(position, train);
+        }
+
+        /*!
+            \brief Erases the trains.
+
+            \param first A first iterator among the erased trains.
+            \param last  A last iterator among the erased trains.
+        */
+        void erase_trains(
+            const typename trains_type::const_iterator first,
+            const typename trains_type::const_iterator last
+        )
+        {
+            m_trains.erase(first, last);
         }
 
 
@@ -185,6 +232,8 @@ namespace bobura { namespace model
         // variables
 
         station_locations_type m_station_locations;
+
+        trains_type m_trains;
 
 
         // functions

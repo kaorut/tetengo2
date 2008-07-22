@@ -816,21 +816,232 @@ namespace test_bobura { namespace model
         {
             const timetable_type timetable;
 
-            const timetable_type::station_locations_type& station_locations =
-                timetable.station_locations();
+            const timetable_type::trains_type& trains = timetable.trains();
 
-            BOOST_CHECK(station_locations.empty());
+            BOOST_CHECK(trains.empty());
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train(
+                timetable.trains().end(), train_type("1", "x")
+            );
+
+            const timetable_type::trains_type& trains = timetable.trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 1U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train(
+                timetable.trains().end(), train_type("1", "x")
+            );
+            timetable.insert_train(
+                timetable.trains().end(), train_type("2", "y")
+            );
+
+            const timetable_type::trains_type& trains = timetable.trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 2U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "2");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
         }
     }
 
     void timetable::insert_train()
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_CHECKPOINT("");
+
+        typedef bobura::model::station_info::grade<std::wstring> grade_type;
+        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef
+            bobura::model::timetable_info::station_location<
+                station_type, std::size_t
+            >
+            station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
+
+        {
+            timetable_type timetable;
+            timetable.insert_train(
+                timetable.trains().end(), train_type("1", "x")
+            );
+
+            const timetable_type::trains_type& trains = timetable.trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 1U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train(
+                timetable.trains().end(), train_type("1", "x")
+            );
+            timetable.insert_train(
+                timetable.trains().end(), train_type("2", "y")
+            );
+
+            const timetable_type::trains_type& trains = timetable.trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 2U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "2");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train(
+                timetable.trains().end(), train_type("2", "y")
+            );
+            timetable.insert_train(
+                timetable.trains().end(), train_type("4", "w")
+            );
+            timetable.insert_train(
+                timetable.trains().begin(), train_type("1", "x")
+            );
+            timetable.insert_train(
+                timetable.trains().begin() + 2, train_type("3", "z")
+            );
+
+            const timetable_type::trains_type& trains = timetable.trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 4U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "2");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+            BOOST_CHECK_EQUAL(trains[2].number(), "3");
+            BOOST_CHECK_EQUAL(trains[2].note(),  "z");
+            BOOST_CHECK_EQUAL(trains[3].number(), "4");
+            BOOST_CHECK_EQUAL(trains[3].note(),  "w");
+        }
     }
 
     void timetable::erase_trains()
     {
-        BOOST_WARN("Not implemented yet.");
+        typedef bobura::model::station_info::grade<std::wstring> grade_type;
+        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef
+            bobura::model::timetable_info::station_location<
+                station_type, std::size_t
+            >
+            station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
+
+        {
+            timetable_type timetable;
+            timetable.insert_train(
+                timetable.trains().end(), train_type("1", "x")
+            );
+            timetable.insert_train(
+                timetable.trains().end(), train_type("2", "y")
+            );
+
+            timetable.erase_trains(
+                timetable.trains().begin(), timetable.trains().end()
+            );
+
+            const timetable_type::trains_type& trains = timetable.trains();
+
+            BOOST_CHECK(trains.empty());
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train(
+                timetable.trains().end(), train_type("1", "x")
+            );
+            timetable.insert_train(
+                timetable.trains().end(), train_type("2", "y")
+            );
+
+            timetable.erase_trains(
+                timetable.trains().begin(), timetable.trains().begin() + 1
+            );
+
+            const timetable_type::trains_type& trains = timetable.trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 1U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "2");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "y");
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train(
+                timetable.trains().end(), train_type("1", "x")
+            );
+            timetable.insert_train(
+                timetable.trains().end(), train_type("2", "y")
+            );
+
+            timetable.erase_trains(
+                timetable.trains().begin(), timetable.trains().begin()
+            );
+
+            const timetable_type::trains_type& trains = timetable.trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 2U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "2");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+        }
+        {
+            timetable_type timetable;
+            timetable.insert_train(
+                timetable.trains().end(), train_type("1", "x")
+            );
+            timetable.insert_train(
+                timetable.trains().end(), train_type("2", "y")
+            );
+            timetable.insert_train(
+                timetable.trains().end(), train_type("3", "z")
+            );
+
+            timetable.erase_trains(
+                timetable.trains().begin() + 1, timetable.trains().begin() + 2
+            );
+
+            const timetable_type::trains_type& trains = timetable.trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 2U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "3");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "z");
+        }
     }
 
 
