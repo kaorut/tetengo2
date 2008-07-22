@@ -83,8 +83,8 @@ namespace bobura { namespace model
 
             \param number     A number.
             \param note       A note.
-            \param stop_first The first iterator to stops.
-            \param stop_last  The last iterator to stops.
+            \param stop_first The first iterator among stops.
+            \param stop_last  The last iterator among stops.
         */
         template <typename InputIterator>
         train(

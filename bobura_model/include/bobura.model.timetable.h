@@ -73,6 +73,26 @@ namespace bobura { namespace model
         {}
 
         /*!
+            \brief Creates a timetalble.
+
+            \tparam InputIterator An input iterator for station locations.
+
+            \param station_location_first The first iterator among station
+                                          locations.
+            \param station_location_last  The last iterator among station
+                                          locations.
+        */
+        template <typename InputIterator>
+        timetable(
+            InputIterator station_location_first,
+            InputIterator station_location_last
+        )
+        :
+        m_station_locations(station_location_first, station_location_last),
+        m_trains()
+        {}
+
+        /*!
             \brief Copies a timetable.
 
             \param another Another timetable object.
