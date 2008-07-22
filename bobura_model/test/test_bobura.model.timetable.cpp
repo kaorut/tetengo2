@@ -545,8 +545,7 @@ namespace test_bobura { namespace model
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"A", grade_type::instance()),
-                    1
+                    station_type(L"A", grade_type::instance()), 1
                 )
             );
 
@@ -564,15 +563,13 @@ namespace test_bobura { namespace model
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"A", grade_type::instance()),
-                    1
+                    station_type(L"A", grade_type::instance()), 1
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"B", grade_type::instance()),
-                    2
+                    station_type(L"B", grade_type::instance()), 2
                 )
             );
 
@@ -594,16 +591,14 @@ namespace test_bobura { namespace model
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"B", grade_type::instance()),
-                    2
+                    station_type(L"B", grade_type::instance()), 2
                 )
             );
             BOOST_CHECK_THROW(
                 timetable.insert_station_location(
                     timetable.station_locations().end(),
                     station_location_type(
-                        station_type(L"A", grade_type::instance()),
-                        1
+                        station_type(L"A", grade_type::instance()), 1
                     )
                 ),
                 std::invalid_argument
@@ -623,29 +618,25 @@ namespace test_bobura { namespace model
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"B", grade_type::instance()),
-                    2
+                    station_type(L"B", grade_type::instance()), 2
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"D", grade_type::instance()),
-                    4
+                    station_type(L"D", grade_type::instance()), 4
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().begin(),
                 station_location_type(
-                    station_type(L"A", grade_type::instance()),
-                    1
+                    station_type(L"A", grade_type::instance()), 1
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().begin() + 2,
                 station_location_type(
-                    station_type(L"C", grade_type::instance()),
-                    3
+                    station_type(L"C", grade_type::instance()), 3
                 )
             );
 
@@ -669,6 +660,90 @@ namespace test_bobura { namespace model
                 station_locations[3].station().name() == std::wstring(L"D")
             );
             BOOST_CHECK_EQUAL(station_locations[3].meterage(), 4U);
+        }
+        {
+            timetable_type timetable;
+
+            timetable.insert_train(
+                timetable.trains().end(), train_type("1", "x")
+            );
+
+            timetable.insert_station_location(
+                timetable.station_locations().end(),
+                station_location_type(
+                    station_type(L"A", grade_type::instance()), 1
+                )
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.trains()[0].stops().size(),
+                timetable.station_locations().size()
+            );
+            BOOST_CHECK(
+                timetable.trains()[0].stops()[0].arrival() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(
+                timetable.trains()[0].stops()[0].departure() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(timetable.trains()[0].stops()[0].platform().empty());
+
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+
+            timetable.insert_train(
+                timetable.trains().end(),
+                train_type("2", "y", stops.begin(), stops.begin() + 1)
+            );
+
+            timetable.insert_station_location(
+                timetable.station_locations().end(),
+                station_location_type(
+                    station_type(L"C", grade_type::instance()), 3
+                )
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.trains()[1].stops().size(),
+                timetable.station_locations().size()
+            );
+            BOOST_CHECK(
+                timetable.trains()[1].stops()[1].arrival() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(
+                timetable.trains()[1].stops()[1].departure() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(timetable.trains()[1].stops()[1].platform().empty());
+
+            timetable.insert_train(
+                timetable.trains().end(),
+                train_type("3", "z", stops.begin(), stops.end())
+            );
+
+            timetable.insert_station_location(
+                timetable.station_locations().begin() + 1,
+                station_location_type(
+                    station_type(L"B", grade_type::instance()), 2
+                )
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.trains()[2].stops().size(),
+                timetable.station_locations().size()
+            );
+            BOOST_CHECK(
+                timetable.trains()[2].stops()[1].arrival() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(
+                timetable.trains()[2].stops()[1].departure() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(timetable.trains()[2].stops()[1].platform().empty());
         }
     }
 
@@ -835,6 +910,78 @@ namespace test_bobura { namespace model
                 timetable.station_locations()[1].meterage(), 3U
             );
         }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", grade_type::instance()), 1
+                )
+            );
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"B", grade_type::instance()), 2
+                )
+            );
+
+            timetable_type timetable(
+                station_locations.begin(), station_locations.end()
+            );
+
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+
+            timetable.insert_train(
+                timetable.trains().end(),
+                train_type("1", "x", stops.begin(), stops.end())
+            );
+
+            timetable.erase_station_locations(
+                timetable.station_locations().begin(),
+                timetable.station_locations().end()
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.trains()[0].stops().size(),
+                timetable.station_locations().size()
+            );
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", grade_type::instance()), 1
+                )
+            );
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"B", grade_type::instance()), 2
+                )
+            );
+
+            timetable_type timetable(
+                station_locations.begin(), station_locations.end()
+            );
+
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+
+            timetable.insert_train(
+                timetable.trains().end(),
+                train_type("1", "x", stops.begin(), stops.end())
+            );
+
+            timetable.erase_station_locations(
+                timetable.station_locations().begin(),
+                timetable.station_locations().begin() + 1
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.trains()[0].stops().size(),
+                timetable.station_locations().size()
+            );
+        }
     }
 
     void timetable::trains()
@@ -984,6 +1131,39 @@ namespace test_bobura { namespace model
             BOOST_CHECK_EQUAL(trains[2].note(),  "z");
             BOOST_CHECK_EQUAL(trains[3].number(), "4");
             BOOST_CHECK_EQUAL(trains[3].note(),  "w");
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", grade_type::instance()), 1
+                )
+            );
+
+            timetable_type timetable(
+                station_locations.begin(), station_locations.end()
+            );
+
+            BOOST_CHECK_THROW(
+                timetable.insert_train(
+                    timetable.trains().end(), train_type("1", "x")
+                ),
+                std::invalid_argument
+            );
+        }
+        {
+            timetable_type timetable;
+
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+
+            BOOST_CHECK_THROW(
+                timetable.insert_train(
+                    timetable.trains().end(),
+                    train_type("1", "x", stops.begin(), stops.end())
+                ),
+                std::invalid_argument
+            );
         }
     }
 

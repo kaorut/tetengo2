@@ -9,9 +9,11 @@
 #if !defined(BOBURA_MODEL_TIMETABLE_H)
 #define BOBURA_MODEL_TIMETABLE_H
 
+#include <algorithm>
 #include <stdexcept>
 #include <vector>
 
+#include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 #include <boost/utility.hpp>
@@ -170,6 +172,11 @@ namespace bobura { namespace model
             After the insertion, the station locations must be sequenced in
             ascending order.
 
+            It also inserts a stop to the every train with uninitialized
+            arrival and departure time and an empty platform, so that the
+            count of the station locations coincides with the one of the every
+            train stop.
+
             \param position         A position where a station location is
                                     inserted.
             \param station_location A station location.
@@ -191,11 +198,26 @@ namespace bobura { namespace model
                 );
             }
 
+            const typename train_type::stops_type::difference_type offset =
+                std::distance<station_locations_type::const_iterator>(
+                    m_station_locations.begin(), position
+                );
+
             m_station_locations.insert(position, station_location);
+
+            std::for_each(
+                m_trains.begin(),
+                m_trains.end(),
+                boost::bind(insert_train_stop, _1, offset)
+            );
         }
 
         /*!
             \brief Erases the station locations.
+
+            It also erases stops from the every train, so that the count of
+            the station locations coincides with the one of the every train
+            stop.
 
             \param first A first iterator among the erased station locations.
             \param last  A last iterator among the erased station locations.
@@ -205,7 +227,24 @@ namespace bobura { namespace model
             const typename station_locations_type::const_iterator last
         )
         {
+            const typename train_type::stops_type::difference_type
+            first_offset =
+                std::distance<station_locations_type::const_iterator>(
+                    m_station_locations.begin(), first
+                );
+            const typename train_type::stops_type::difference_type
+            last_offset =
+                std::distance<station_locations_type::const_iterator>(
+                    m_station_locations.begin(), last
+                );
+
             m_station_locations.erase(first, last);
+
+            std::for_each(
+                m_trains.begin(),
+                m_trains.end(),
+                boost::bind(erase_train_stops, _1, first_offset, last_offset)
+            );
         }
 
         /*!
@@ -222,14 +261,29 @@ namespace bobura { namespace model
         /*!
             \brief Inserts a train.
 
+            The count of train stops must coincide with the one of the station
+            locations.
+
             \param position A position where a train is inserted.
             \param train    A train.
+
+            \throw std::invalid_argument When the count of the stops of a
+                                         train does not coincide with the one
+                                         of the station locations.
         */
         void insert_train(
             const typename trains_type::const_iterator position,
             const train_type&                          train
         )
         {
+            if (train.stops().size() != m_station_locations.size())
+            {
+                throw std::invalid_argument(
+                    "The count of the train stops does not coincide with the "
+                    "one of the station locations."
+                );
+            }
+
             m_trains.insert(position, train);
         }
 
@@ -249,6 +303,36 @@ namespace bobura { namespace model
 
 
     private:
+        // static functions
+
+        static void insert_train_stop(
+            train_type&                                            train,
+            const typename train_type::stops_type::difference_type offset
+        )
+        {
+            train.insert_stop(
+                train.stops().begin() + offset,
+                train_type::stop_type(
+                    train_type::stop_type::time_type::uninitialized(),
+                    train_type::stop_type::time_type::uninitialized(),
+                    train_type::stop_type::platform_type()
+                )
+            );
+        }
+
+        static void erase_train_stops(
+            train_type&                                            train,
+            const typename train_type::stops_type::difference_type first_offset,
+            const typename train_type::stops_type::difference_type last_offset
+        )
+        {
+            train.erase_stops(
+                train.stops().begin() + first_offset,
+                train.stops().begin() + last_offset
+            );
+        }
+
+
         // variables
 
         station_locations_type m_station_locations;
