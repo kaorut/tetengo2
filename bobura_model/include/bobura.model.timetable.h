@@ -16,6 +16,7 @@
 #include <boost/operators.hpp>
 #include <boost/utility.hpp>
 
+#include "concept_bobura.model.Train.h"
 #include "concept_bobura.model.timetable_info.StationLocation.h"
 
 
@@ -26,10 +27,12 @@ namespace bobura { namespace model
 
         \tparam StationLocation A station location type. It must conform to
                                 concept_bobura::model::timetable_info::StationLocation<StationLocation>.
+        \tparam Train           A train type. It must conform to
+                                concept_bobura::model::Train<Train>.
     */
-    template <typename StationLocation>
+    template <typename StationLocation, typename Train>
     class timetable :
-        private boost::equality_comparable<timetable<StationLocation> >
+        private boost::equality_comparable<timetable<StationLocation, Train> >
     {
     private:
         // concept checks
@@ -39,6 +42,7 @@ namespace bobura { namespace model
                 StationLocation
             >
         ));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::Train<Train>));
 
 
     public:
@@ -224,14 +228,16 @@ namespace std
 
         \tparam StationLocation A station location type. It must conform to
                                 concept_bobura::model::timetable_info::StationLocation<StationLocation>.
+        \tparam Train           A train type. It must conform to
+                                concept_bobura::model::Train<Train>.
 
         \param timetable1 A timetable object #1.
         \param timetable2 A timetable object #2.
     */
-    template <typename StationLocation>
+    template <typename StationLocation, typename Train>
     void swap(
-        bobura::model::timetable<StationLocation>& timetable1,
-        bobura::model::timetable<StationLocation>& timetable2
+        bobura::model::timetable<StationLocation, Train>& timetable1,
+        bobura::model::timetable<StationLocation, Train>& timetable2
     )
     throw ()
     {
@@ -240,6 +246,7 @@ namespace std
                 StationLocation
             >
         ));
+        BOOST_CONCEPT_ASSERT((concept_bobura::model::Train<Train>));
 
         timetable1.swap(timetable2);
     }

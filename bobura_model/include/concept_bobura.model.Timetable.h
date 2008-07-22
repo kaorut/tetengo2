@@ -35,6 +35,12 @@ namespace concept_bobura { namespace model
         typedef
             typename Type::station_locations_type station_lcoations_type;
 
+        typedef
+            typename Type::train_type train_type;
+
+        typedef
+            typename Type::trains_type trains_type;
+
 
         // usage checks
 
@@ -48,6 +54,10 @@ namespace concept_bobura { namespace model
                 m_station_locations.begin(), m_station_locations.end()
             );
 
+            m_object.insert_train(m_trains.begin(), m_train);
+
+            m_object.erase_trains(m_trains.begin(), m_trains.end());
+
             const_constraints(m_object);
         }
 
@@ -56,6 +66,9 @@ namespace concept_bobura { namespace model
             const station_locations_type& station_locations =
                 object.station_locations();
             boost::ignore_unused_variable_warning(station_locations);
+
+            const trains_type& trains = object.trains();
+            boost::ignore_unused_variable_warning(trains);
         }
 
         
@@ -67,6 +80,10 @@ namespace concept_bobura { namespace model
         station_location_type m_station_location;
 
         station_locations_type m_station_locations;
+
+        train_type m_train;
+
+        trains_type m_trains;
 
 
 #endif

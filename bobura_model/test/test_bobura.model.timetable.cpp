@@ -14,9 +14,14 @@
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.model.station.h"
-#include "bobura.model.timetable.h"
+#include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.timetable_info.station_location.h"
+#include "bobura.model.train_info.stop.h"
+#include "bobura.model.train_info.time.h"
+#include "bobura.model.train_info.time_span.h"
+
+#include "bobura.model.timetable.h"
 
 #include "test_bobura.model.timetable.h"
 
@@ -37,6 +42,9 @@ namespace test_bobura { namespace model
         p_suite->add(BOOST_TEST_CASE(station_locations));
         p_suite->add(BOOST_TEST_CASE(insert_station_location));
         p_suite->add(BOOST_TEST_CASE(erase_station_locations));
+        p_suite->add(BOOST_TEST_CASE(trains));
+        p_suite->add(BOOST_TEST_CASE(insert_train));
+        p_suite->add(BOOST_TEST_CASE(erase_trains));
 
         return p_suite;
     }
@@ -52,12 +60,26 @@ namespace test_bobura { namespace model
                 station_type, std::size_t
             >
             station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
 
         {
-            bobura::model::timetable<station_location_type> timetable;
+            const timetable_type timetable;
 
-            bobura::model::timetable<station_location_type>
-            copy_of_timetable(timetable);
+            timetable_type copy_of_timetable(timetable);
 
             BOOST_CHECK(timetable == copy_of_timetable);
         }
@@ -74,9 +96,24 @@ namespace test_bobura { namespace model
                 station_type, std::size_t
             >
             station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
 
         {
-            bobura::model::timetable<station_location_type> timetable1;
+            timetable_type timetable1;
             timetable1.insert_station_location(
                 timetable1.station_locations().end(),
                 station_location_type(
@@ -85,7 +122,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            bobura::model::timetable<station_location_type> timetable2;
+            timetable_type timetable2;
             timetable2.insert_station_location(
                 timetable2.station_locations().end(),
                 station_location_type(
@@ -112,7 +149,7 @@ namespace test_bobura { namespace model
             );
         }
         {
-            bobura::model::timetable<station_location_type> timetable1;
+            timetable_type timetable1;
             timetable1.insert_station_location(
                 timetable1.station_locations().end(),
                 station_location_type(
@@ -121,7 +158,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            bobura::model::timetable<station_location_type> timetable2;
+            timetable_type timetable2;
             timetable2.insert_station_location(
                 timetable2.station_locations().end(),
                 station_location_type(
@@ -160,8 +197,23 @@ namespace test_bobura { namespace model
                 station_type, std::size_t
             >
             station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
 
-        bobura::model::timetable<station_location_type> timetable1;
+        timetable_type timetable1;
         timetable1.insert_station_location(
             timetable1.station_locations().end(),
             station_location_type(
@@ -170,7 +222,7 @@ namespace test_bobura { namespace model
             )
         );
 
-        bobura::model::timetable<station_location_type> timetable2;
+        timetable_type timetable2;
         timetable2.insert_station_location(
             timetable2.station_locations().end(),
             station_location_type(
@@ -195,16 +247,31 @@ namespace test_bobura { namespace model
                 station_type, std::size_t
             >
             station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
 
         {
-            bobura::model::timetable<station_location_type> timetable1;
+            const timetable_type timetable1;
 
-            bobura::model::timetable<station_location_type> timetable2;
+            const timetable_type timetable2;
 
             BOOST_CHECK(timetable1 == timetable2);
         }
         {
-            bobura::model::timetable<station_location_type> timetable1;
+            timetable_type timetable1;
             timetable1.insert_station_location(
                 timetable1.station_locations().end(),
                 station_location_type(
@@ -213,7 +280,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            bobura::model::timetable<station_location_type> timetable2;
+            timetable_type timetable2;
             timetable2.insert_station_location(
                 timetable2.station_locations().end(),
                 station_location_type(
@@ -225,7 +292,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK(timetable1 == timetable2);
         }
         {
-            bobura::model::timetable<station_location_type> timetable1;
+            timetable_type timetable1;
             timetable1.insert_station_location(
                 timetable1.station_locations().end(),
                 station_location_type(
@@ -234,7 +301,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            bobura::model::timetable<station_location_type> timetable2;
+            timetable_type timetable2;
             timetable2.insert_station_location(
                 timetable2.station_locations().end(),
                 station_location_type(
@@ -246,7 +313,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK(timetable1 != timetable2);
         }
         {
-            bobura::model::timetable<station_location_type> timetable1;
+            timetable_type timetable1;
             timetable1.insert_station_location(
                 timetable1.station_locations().end(),
                 station_location_type(
@@ -255,7 +322,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            bobura::model::timetable<station_location_type> timetable2;
+            timetable_type timetable2;
             timetable2.insert_station_location(
                 timetable2.station_locations().end(),
                 station_location_type(
@@ -274,7 +341,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK(timetable1 != timetable2);
         }
         {
-            bobura::model::timetable<station_location_type> timetable1;
+            timetable_type timetable1;
             timetable1.insert_station_location(
                 timetable1.station_locations().end(),
                 station_location_type(
@@ -290,7 +357,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            bobura::model::timetable<station_location_type> timetable2;
+            timetable_type timetable2;
             timetable2.insert_station_location(
                 timetable2.station_locations().end(),
                 station_location_type(
@@ -321,19 +388,32 @@ namespace test_bobura { namespace model
                 station_type, std::size_t
             >
             station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
 
         {
-            bobura::model::timetable<station_location_type> timetable;
+            const timetable_type timetable;
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK(station_locations.empty());
         }
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -342,9 +422,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
@@ -354,7 +432,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
         }
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -370,9 +448,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 2U);
@@ -398,9 +474,24 @@ namespace test_bobura { namespace model
                 station_type, std::size_t
             >
             station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
 
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -409,9 +500,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
@@ -421,7 +510,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
         }
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -437,9 +526,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 2U);
@@ -453,7 +540,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
         }
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -472,9 +559,7 @@ namespace test_bobura { namespace model
                 std::invalid_argument
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
@@ -484,7 +569,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 2U);
         }
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -514,9 +599,7 @@ namespace test_bobura { namespace model
                 )
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 4U);
@@ -550,9 +633,24 @@ namespace test_bobura { namespace model
                 station_type, std::size_t
             >
             station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
 
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -573,15 +671,13 @@ namespace test_bobura { namespace model
                 timetable.station_locations().end()
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK(station_locations.empty());
         }
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -602,9 +698,7 @@ namespace test_bobura { namespace model
                 timetable.station_locations().begin() + 1
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
@@ -614,7 +708,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 2U);
         }
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -635,9 +729,7 @@ namespace test_bobura { namespace model
                 timetable.station_locations().begin()
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 2U);
@@ -651,7 +743,7 @@ namespace test_bobura { namespace model
             BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
         }
         {
-            bobura::model::timetable<station_location_type> timetable;
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -679,9 +771,7 @@ namespace test_bobura { namespace model
                 timetable.station_locations().begin() + 2
             );
 
-            const bobura::model::timetable<
-                station_location_type
-            >::station_locations_type& station_locations =
+            const timetable_type::station_locations_type& station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 2U);
@@ -694,6 +784,53 @@ namespace test_bobura { namespace model
             );
             BOOST_CHECK_EQUAL(station_locations[1].meterage(), 3U);
         }
+    }
+
+    void timetable::trains()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef bobura::model::station_info::grade<std::wstring> grade_type;
+        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef
+            bobura::model::timetable_info::station_location<
+                station_type, std::size_t
+            >
+            station_location_type;
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        typedef
+            bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
+
+        {
+            const timetable_type timetable;
+
+            const timetable_type::station_locations_type& station_locations =
+                timetable.station_locations();
+
+            BOOST_CHECK(station_locations.empty());
+        }
+    }
+
+    void timetable::insert_train()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void timetable::erase_trains()
+    {
+        BOOST_WARN("Not implemented yet.");
     }
 
 

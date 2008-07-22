@@ -38,6 +38,12 @@ namespace test_bobura { namespace model
 
         static void erase_station_locations();
 
+        static void trains();
+
+        static void insert_train();
+
+        static void erase_trains();
+
 
     };
 
