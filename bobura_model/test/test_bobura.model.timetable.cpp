@@ -83,6 +83,20 @@ namespace test_bobura { namespace model
 
             BOOST_CHECK(timetable == copy_of_timetable);
         }
+        {
+            timetable_type timetable;
+            timetable.insert_station_location(
+                timetable.station_locations().end(),
+                station_location_type(
+                    station_type(L"A", grade_type::instance()),
+                    1
+                )
+            );
+
+            timetable_type copy_of_timetable(timetable);
+
+            BOOST_CHECK(timetable == copy_of_timetable);
+        }
     }
 
     void timetable::swap()
