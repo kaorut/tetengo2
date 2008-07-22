@@ -10,7 +10,7 @@
 #include <cstddef>
 #include <string>
 
-//#include <boost/test/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 
 #include "bobura.model.train_info.stop.h"
 #include "bobura.model.train_info.time.h"

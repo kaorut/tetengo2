@@ -9,7 +9,10 @@
 #if !defined(TESTBOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H)
 #define TESTBOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H
 
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp> forward declaration
+namespace boost { namespace unit_test {
+    class test_suite;
+}}
 
 
 namespace test_bobura { namespace model { namespace timetable_info

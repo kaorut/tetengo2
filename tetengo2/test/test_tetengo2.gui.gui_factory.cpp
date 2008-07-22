@@ -10,7 +10,7 @@
 //#include <string>
 //#include <memory>
 
-//#include <boost/test/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.gui_factory.h"
 

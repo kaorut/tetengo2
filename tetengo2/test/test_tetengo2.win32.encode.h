@@ -9,7 +9,10 @@
 #if !defined(TESTTETENGO2_WIN32_ENCODE_H)
 #define TESTTETENGO2_WIN32_ENCODE_H
 
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp> forward declaration
+namespace boost { namespace unit_test {
+    class test_suite;
+}}
 
 
 namespace test_tetengo2 { namespace win32

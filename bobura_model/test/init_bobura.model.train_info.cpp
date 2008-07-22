@@ -6,7 +6,7 @@
     $Id$
 */
 
-//#include <boost/test/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 
 #include "init_bobura.model.train_info.h"
 #include "test_bobura.model.train_info.stop.h"

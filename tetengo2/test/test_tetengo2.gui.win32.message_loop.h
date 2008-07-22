@@ -9,7 +9,10 @@
 #if !defined(TESTTETENGO2_GUI_WIN32_MESSAGELOOP_H)
 #define TESTTETENGO2_GUI_WIN32_MESSAGELOOP_H
 
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp> forward declaration
+namespace boost { namespace unit_test {
+    class test_suite;
+}}
 
 
 namespace test_tetengo2 { namespace gui { namespace win32

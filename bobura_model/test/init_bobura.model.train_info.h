@@ -9,7 +9,10 @@
 #if !defined(INITBOBURA_MODEL_TRAININFO_H)
 #define INITBOBURA_MODEL_TRAININFO_H
 
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp> forward declaration
+namespace boost { namespace unit_test {
+    class test_suite;
+}}
 
 
 namespace test_bobura { namespace model { namespace train_info

@@ -9,7 +9,10 @@
 #if !defined(TESTBOBURA_MODEL_STATIONINFO_GRADE_H)
 #define TESTBOBURA_MODEL_STATIONINFO_GRADE_H
 
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp> forward declaration
+namespace boost { namespace unit_test {
+    class test_suite;
+}}
 
 
 namespace test_bobura { namespace model { namespace station_info

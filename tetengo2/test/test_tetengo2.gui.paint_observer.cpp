@@ -9,7 +9,7 @@
 #include <cstddef>
 //#include <string>
 
-//#include <boost/test/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.paint_observer.h"
 

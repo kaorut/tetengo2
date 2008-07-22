@@ -9,7 +9,10 @@
 #if !defined(INITTETENGO2_H)
 #define INITTETENGO2_H
 
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp> forward declaration
+namespace boost { namespace unit_test {
+    class test_suite;
+}}
 
 
 namespace test_tetengo2
