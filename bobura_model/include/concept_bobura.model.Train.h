@@ -29,6 +29,10 @@ namespace concept_bobura { namespace model
     public:
         // typedef checks
 
+        typedef typename Type::number_type number_type;
+
+        typedef typename Type::note_type note_type;
+
         typedef typename Type::stop_type stop_type;
 
         typedef typename Type::stops_type stops_type;
@@ -43,9 +47,14 @@ namespace concept_bobura { namespace model
 
         void const_constraints(const Type& object)
         {
-            //const typename Type::station_type& station =
-            //    object.station();
-            //boost::ignore_unused_variable_warning(station);
+            const number_type& number = object.number();
+            boost::ignore_unused_variable_warning(number);
+
+            const note_type& note = object.note();
+            boost::ignore_unused_variable_warning(note);
+
+            const stops_type& stops = object.stops();
+            boost::ignore_unused_variable_warning(stops);
         }
 
         

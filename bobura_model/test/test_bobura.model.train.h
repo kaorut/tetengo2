@@ -29,6 +29,12 @@ namespace test_bobura { namespace model
 
         static void operator_equal();
 
+        static void number();
+
+        static void stops();
+
+        static void note();
+
 
     };
 

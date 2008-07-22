@@ -16,6 +16,8 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
+#include <concept_tetengo2.String.h>
+
 #include "concept_bobura.model.train_info.Stop.h"
 
 
@@ -24,20 +26,33 @@ namespace bobura { namespace model
     /*!
         \brief The class for a train.
 
-        \tparam Stop A stop type. It must conform to
-                        concept_bobura::model::train_info::Stop<Stop>.
+        \tparam Number A number type. It must conform to
+                       concept_tetengo2::String<Number>.
+        \tparam Note   A note type. It must conform to
+                       concept_tetengo2::String<Note>.
+        \tparam Stop   A stop type. It must conform to
+                       concept_bobura::model::train_info::Stop<Stop>.
     */
-    template <typename Stop>
-    class train : private boost::equality_comparable<train<Stop> >
+    template <typename Number, typename Note, typename Stop>
+    class train :
+        private boost::equality_comparable<train<Number, Note, Stop> >
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Number>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Note>));
         BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Stop<Stop>));
 
 
     public:
         // types
+
+        //! The number type.
+        typedef Number number_type;
+
+        //! The note type.
+        typedef Note note_type;
 
         //! The stop type.
         typedef Stop stop_type;
@@ -50,9 +65,14 @@ namespace bobura { namespace model
 
         /*!
             \brief Creates a train.
+
+            \param number A number.
+            \param note   A note.
         */
-        train()
+        train(const number_type& number, const note_type& note)
         :
+        m_number(number),
+        m_note(note),
         m_stops()
         {}
 
@@ -61,12 +81,21 @@ namespace bobura { namespace model
 
             \tparam InputIterator An input iterator for stops.
 
-            \param stop_first The first iterator of the stops.
-            \param stop_last  The last iterator of the stops.
+            \param number     A number.
+            \param note       A note.
+            \param stop_first The first iterator to stops.
+            \param stop_last  The last iterator to stops.
         */
         template <typename InputIterator>
-        train(InputIterator stop_first, InputIterator stop_last)
+        train(
+            const number_type& number,
+            const note_type&   note,
+            InputIterator      stop_first,
+            InputIterator      stop_last
+        )
         :
+        m_number(number),
+        m_note(note),
         m_stops(stop_first, stop_last)
         {}
 
@@ -77,6 +106,8 @@ namespace bobura { namespace model
         */
         train(const train& another)
         :
+        m_number(another.m_number),
+        m_note(another.m_note),
         m_stops(another.m_stops)
         {}
 
@@ -98,6 +129,8 @@ namespace bobura { namespace model
         void swap(train& another)
         throw ()
         {
+            m_number.swap(another.m_number);
+            m_note.swap(another.m_note);
             m_stops.swap(another.m_stops);
         }
 
@@ -126,7 +159,31 @@ namespace bobura { namespace model
         bool operator==(const train& another)
         const
         {
-            return m_stops == another.m_stops;
+            return m_number == another.m_number &&
+                m_note == another.m_note &&
+                m_stops == another.m_stops;
+        }
+
+        /*!
+            \brief Returns the number.
+
+            \return The number.
+        */
+        const number_type& number()
+        const
+        {
+            return m_number;
+        }
+
+        /*!
+            \brief Returns the note.
+
+            \return The note.
+        */
+        const note_type& note()
+        const
+        {
+            return m_note;
         }
 
         /*!
@@ -144,6 +201,10 @@ namespace bobura { namespace model
     private:
         // variables
 
+        number_type m_number;
+
+        note_type m_note;
+
         stops_type m_stops;
 
 
@@ -157,19 +218,25 @@ namespace std
     /*!
         \brief Swaps two train objects.
 
-        \tparam Stop A stop type. It must conform to
-                        concept_bobura::model::train_info::Stop<Stop>.
+        \tparam Number A number type. It must conform to
+                       concept_tetengo2::String<Number>.
+        \tparam Note   A note type. It must conform to
+                       concept_tetengo2::String<Note>.
+        \tparam Stop   A stop type. It must conform to
+                       concept_bobura::model::train_info::Stop<Stop>.
 
         \param train1 A train object #1.
         \param train2 A train object #2.
     */
-    template <typename Stop>
+    template <typename Number, typename Note, typename Stop>
     void swap(
-        bobura::model::train<Stop>& train1,
-        bobura::model::train<Stop>& train2
+        bobura::model::train<Number, Note, Stop>& train1,
+        bobura::model::train<Number, Note, Stop>& train2
     )
     throw ()
     {
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Number>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Note>));
         BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Stop<Stop>));
 
         train1.swap(train2);
