@@ -42,6 +42,10 @@ namespace concept_bobura { namespace model
 
         BOOST_CONCEPT_USAGE(Train)
         {
+            m_object.insert_stop(m_stops.begin(), m_stop);
+
+            m_object.erase_stops(m_stops.begin(), m_stops.end());
+
             const_constraints(m_object);
         }
 
@@ -62,6 +66,10 @@ namespace concept_bobura { namespace model
         // variables
 
         Type m_object;
+
+        stop_type m_stop;
+
+        stops_type m_stops;
 
 
 #endif

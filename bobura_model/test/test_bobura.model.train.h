@@ -34,9 +34,13 @@ namespace test_bobura { namespace model
 
         static void number();
 
+        static void note();
+
         static void stops();
 
-        static void note();
+        static void insert_stop();
+
+        static void erase_stops();
 
 
     };

@@ -197,6 +197,34 @@ namespace bobura { namespace model
             return m_stops;
         }
 
+        /*!
+            \brief Inserts a stop.
+
+            \param position A position where a stop is inserted.
+            \param stop     A stop.
+        */
+        void insert_stop(
+            const typename stops_type::const_iterator position,
+            const stop_type&                          stop
+        )
+        {
+            m_stops.insert(position, stop);
+        }
+
+        /*!
+            \brief Erases the stops.
+
+            \param first A first iterator among the erased stops.
+            \param last  A last iterator among the erased stops.
+        */
+        void erase_stops(
+            const typename stops_type::const_iterator first,
+            const typename stops_type::const_iterator last
+        )
+        {
+            m_stops.erase(first, last);
+        }
+
 
     private:
         // variables

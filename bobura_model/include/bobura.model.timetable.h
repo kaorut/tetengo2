@@ -202,8 +202,8 @@ namespace bobura { namespace model
         /*!
             \brief Inserts a train.
 
-            \param position  A position where a train is inserted.
-            \param train     A train.
+            \param position A position where a train is inserted.
+            \param train    A train.
         */
         void insert_train(
             const typename trains_type::const_iterator position,

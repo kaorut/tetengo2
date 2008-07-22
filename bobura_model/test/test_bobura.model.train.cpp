@@ -35,8 +35,10 @@ namespace test_bobura { namespace model
         p_suite->add(BOOST_TEST_CASE(operator_assign));
         p_suite->add(BOOST_TEST_CASE(operator_equal));
         p_suite->add(BOOST_TEST_CASE(number));
-        p_suite->add(BOOST_TEST_CASE(stops));
         p_suite->add(BOOST_TEST_CASE(note));
+        p_suite->add(BOOST_TEST_CASE(stops));
+        p_suite->add(BOOST_TEST_CASE(insert_stop));
+        p_suite->add(BOOST_TEST_CASE(erase_stops));
 
         return p_suite;
     }
@@ -330,6 +332,161 @@ namespace test_bobura { namespace model
             const train_type train("1", "x", stops.begin(), stops.end());
 
             BOOST_CHECK(train.stops() == stops);
+        }
+    }
+
+    void train::insert_stop()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+
+            train_type train("1", "x");
+            train.insert_stop(train.stops().end(), stops[0]);
+
+            BOOST_CHECK(train.stops() == stops);
+        }
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+
+            train_type train("1", "x");
+            train.insert_stop(train.stops().end(), stops[0]);
+            train.insert_stop(train.stops().end(), stops[1]);
+
+            BOOST_CHECK(train.stops() == stops);
+        }
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+
+            train_type train(
+                "1", "x", stops.begin(), stops.begin() + 1
+            );
+            train.insert_stop(train.stops().end(), stops[1]);
+
+            BOOST_CHECK(train.stops() == stops);
+        }
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+
+            train_type train("1", "x", stops.begin() + 1, stops.end());
+            train.insert_stop(train.stops().begin(), stops[0]);
+
+            BOOST_CHECK(train.stops() == stops);
+        }
+    }
+
+    void train::erase_stops()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            bobura::model::train_info::time<
+                std::size_t,
+                bobura::model::train_info::time_span<std::ptrdiff_t>
+            >
+            time_type;
+        typedef
+            bobura::model::train_info::stop<time_type, std::string>
+            stop_type;
+        typedef
+            bobura::model::train<std::string, std::string, stop_type>
+            train_type;
+        
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+
+            train_type train("1", "x", stops.begin(), stops.end());
+
+            train.erase_stops(train.stops().begin(), train.stops().end());
+
+            BOOST_CHECK(train.stops().empty());
+        }
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+
+            train_type train("1", "x");
+            train.insert_stop(train.stops().end(), stops[0]);
+            train.insert_stop(train.stops().end(), stops[1]);
+
+            train.erase_stops(train.stops().begin(), train.stops().end());
+
+            BOOST_CHECK(train.stops().empty());
+        }
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+
+            train_type train(
+                "1", "x", stops.begin(), stops.begin() + 1
+            );
+            train.insert_stop(train.stops().end(), stops[1]);
+
+            train.erase_stops(train.stops().begin(), train.stops().end());
+
+            BOOST_CHECK(train.stops().empty());
+        }
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+
+            train_type train("1", "x", stops.begin(), stops.end());
+
+            train.erase_stops(train.stops().begin(), train.stops().begin());
+
+            BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+            BOOST_CHECK(train.stops()[0].arrival() == time_type(0));
+            BOOST_CHECK(train.stops()[0].departure() == time_type(0));
+            BOOST_CHECK_EQUAL(train.stops()[0].platform(), "");
+            BOOST_CHECK(train.stops()[1].arrival() == time_type(1));
+            BOOST_CHECK(train.stops()[1].departure() == time_type(2));
+            BOOST_CHECK_EQUAL(train.stops()[1].platform(), "a");
+        }
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+
+            train_type train("1", "x", stops.begin(), stops.end());
+
+            train.erase_stops(
+                train.stops().begin() + 1, train.stops().begin() + 2
+            );
+
+            BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+            BOOST_CHECK(train.stops()[0].arrival() == time_type(0));
+            BOOST_CHECK(train.stops()[0].departure() == time_type(0));
+            BOOST_CHECK_EQUAL(train.stops()[0].platform(), "");
+            BOOST_CHECK(train.stops()[1].arrival() == time_type(3));
+            BOOST_CHECK(train.stops()[1].departure() == time_type(4));
+            BOOST_CHECK_EQUAL(train.stops()[1].platform(), "b");
         }
     }
 
