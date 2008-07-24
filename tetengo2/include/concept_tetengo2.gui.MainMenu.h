@@ -9,7 +9,7 @@
 #if !defined(CONCEPTTETENGO2_GUI_MAINMENU_H)
 #define CONCEPTTETENGO2_GUI_MAINMENU_H
 
-//#include <boost/concept_check.hpp>
+#include <boost/concept_check.hpp>
 
 
 namespace concept_tetengo2 { namespace gui
