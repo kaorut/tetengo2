@@ -516,6 +516,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\stub_tetengo2.gui.main_menu.h"
+				>
+			</File>
+			<File
 				RelativePath=".\test\stub_tetengo2.gui.message_loop.h"
 				>
 			</File>

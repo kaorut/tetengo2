@@ -20,6 +20,7 @@
 //#include <boost/signal.hpp>
 //#include <boost/ptr_container/ptr_vector.hpp>
 
+#include "concept_tetengo2.gui.MainMenu.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
 #include "tetengo2.gui.win32.widget.h"
 
@@ -46,6 +47,8 @@ namespace tetengo2 { namespace gui { namespace win32
                                       boost::UnaryFunction<Encode, String, std::wstring>
                                       and
                                       boost::UnaryFunction<Encode, std::wstring, String>.
+        \tparam MainMenu              A main menu type. It must conform to
+                                      concept_tetengo2::gui::MainMenu<MainMenu>.
         \tparam PaintObserver         A paint observer type. It must conform
                                       to
                                       concept_tetengo2::gui::PaintObserver<PaintObserver>.
@@ -59,6 +62,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Alert,
         typename String,
         template <typename Target, typename Source> class Encode,
+        typename MainMenu,
         typename PaintObserver,
         typename WindowObserver
     >
@@ -75,6 +79,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
         ));
@@ -82,6 +87,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
     public:
         // types
+
+        //! The main menu type.
+        typedef MainMenu main_menu_type;
 
         //! The window observer type.
         typedef WindowObserver window_observer_type;
@@ -118,6 +126,27 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_handle;
+        }
+
+        /*!
+            \brief Sets a main menu.
+
+            When p_main_menu is NULL, the currently associated main menu is
+            destroyed.
+
+            \param p_main_menu An auto pointer to a main menu.
+        */
+        void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
+        {
+            ::SetMenu(m_handle, NULL);
+            
+            m_p_main_menu = p_main_menu;
+            
+            if (m_p_main_menu.get() != NULL)
+            {
+                ::SetMenu(m_handle, m_p_main_menu->handle());
+                ::DrawMenuBar(m_handle);
+            }
         }
 
         /*!
@@ -255,6 +284,8 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         const handle_type m_handle;
+
+        std::auto_ptr<main_menu_type> m_p_main_menu;
 
         boost::ptr_vector<window_observer_type> m_window_observers;
 

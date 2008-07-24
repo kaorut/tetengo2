@@ -32,6 +32,8 @@ namespace concept_tetengo2 { namespace gui
     public:
         // typedef checks
 
+        typedef typename Type::main_menu_type main_menu_type;
+
         typedef typename Type::window_observer_type window_observer_type;
 
 
@@ -39,6 +41,9 @@ namespace concept_tetengo2 { namespace gui
 
         BOOST_CONCEPT_USAGE(Window)
         {
+            std::auto_ptr<main_menu_type> p_main_menu;
+            m_object.set_main_menu(p_main_menu);
+
             std::auto_ptr<window_observer_type> p_window_observer;
             m_object.add_window_observer(p_window_observer);
         }

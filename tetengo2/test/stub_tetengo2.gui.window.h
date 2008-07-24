@@ -13,6 +13,7 @@
 
 //#include <boost/concept_check.hpp>
 
+#include "concept_tetengo2.gui.MainMenu.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
 
 #include "stub_tetengo2.gui.widget.h"
@@ -26,6 +27,7 @@ namespace stub_tetengo2 { namespace gui
         typename Alert,
         typename String,
         template <typename Target, typename Source> class Encode,
+        typename MainMenu,
         typename PaintObserver,
         typename WindowObserver
     >
@@ -42,6 +44,7 @@ namespace stub_tetengo2 { namespace gui
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
         ));
@@ -49,6 +52,8 @@ namespace stub_tetengo2 { namespace gui
 
     public:
         // types
+
+        typedef MainMenu main_menu_type;
 
         typedef WindowObserver window_observer_type;
 
@@ -70,6 +75,9 @@ namespace stub_tetengo2 { namespace gui
         {
             return 0;
         }
+
+        void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
+        {}
 
         void add_window_observer(
             std::auto_ptr<window_observer_type> p_window_observer

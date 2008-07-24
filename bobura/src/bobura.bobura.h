@@ -96,6 +96,11 @@ namespace bobura
 
             set_message_observers(p_main_window.get());
             p_main_window->set_text(L"ぼうぶら テストプログラム");
+
+            p_main_window->set_main_menu(
+                std::auto_ptr<main_menu_type>(new main_menu_type())
+            );
+
             p_main_window->set_visible(true);
 
             return message_loop_type()();
@@ -108,6 +113,8 @@ namespace bobura
         typedef typename gui_factory_type::window_type window_type;
 
         typedef typename window_type::canvas_type canvas_type;
+
+        typedef typename window_type::main_menu_type main_menu_type;
 
         typedef
             typename window_type::window_observer_type

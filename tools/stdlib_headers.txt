@@ -45,7 +45,9 @@ boost::tuple                                     boost/tuple/tuple.hpp,boost/tup
 boost::unit_test::test_suite                     boost/test/unit_test.hpp
 std::auto_ptr                                    memory
 std::basic_string                                string
+std::distance                                    iterator
 std::exception                                   exception
+std::for_each                                    algorithm
 std::invalid_argument                            stdexcept
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
