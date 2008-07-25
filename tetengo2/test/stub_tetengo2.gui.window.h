@@ -76,6 +76,18 @@ namespace stub_tetengo2 { namespace gui
             return 0;
         }
 
+        bool has_main_menu()
+        const
+        {
+            return false;
+        }
+
+        main_menu_type& main_menu()
+        {
+            static main_menu_type dummy;
+            return dummy;
+        }
+
         void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
         {}
 

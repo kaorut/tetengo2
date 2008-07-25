@@ -48,7 +48,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 std::wstring,
                 tetengo2::win32::encode,
                 tetengo2::gui::win32::main_menu<
-                    ::HMENU, tetengo2::gui::menu_item<std::wstring>
+                    ::HMENU,
+                    tetengo2::gui::menu_item<std::wstring>,
+                    tetengo2::gui::win32::menu_item_list
                 >,
                 tetengo2::gui::paint_observer<canvas_type>,
                 tetengo2::gui::window_observer

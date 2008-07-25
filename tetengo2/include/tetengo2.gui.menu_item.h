@@ -55,7 +55,7 @@ namespace tetengo2 { namespace gui
 
             \return The text.
         */
-        virtual const string_type text()
+        virtual const string_type& text()
         const
         {
             return m_text;
@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui
         }
 
 
-protected:
+    //protected:
         // constructors
 
         /*!

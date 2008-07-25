@@ -100,6 +100,36 @@ namespace bobura
             p_main_window->set_main_menu(
                 std::auto_ptr<main_menu_type>(new main_menu_type())
             );
+            p_main_window->main_menu().insert(
+                p_main_window->main_menu().menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"ファイル(&F)")
+                )
+            );
+            p_main_window->main_menu().insert(
+                p_main_window->main_menu().menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"編集(&E)")
+                )
+            );
+            p_main_window->main_menu().insert(
+                p_main_window->main_menu().menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"表示(&V)")
+                )
+            );
+            p_main_window->main_menu().insert(
+                p_main_window->main_menu().menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"ツール(&T)")
+                )
+            );
+            p_main_window->main_menu().insert(
+                p_main_window->main_menu().menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"ヘルプ(&H)")
+                )
+            );
 
             p_main_window->set_visible(true);
 

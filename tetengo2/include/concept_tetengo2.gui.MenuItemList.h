@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of concept_tetengo2::gui::Menu.
+    \brief The definition of concept_tetengo2::gui::MenuItemList.
 
     Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
 
-#if !defined(CONCEPTTETENGO2_GUI_MENU_H)
-#define CONCEPTTETENGO2_GUI_MENU_H
+#if !defined(CONCEPTTETENGO2_GUI_MENUITEMLIST_H)
+#define CONCEPTTETENGO2_GUI_MENUITEMLIST_H
 
 #include <memory>
 
@@ -17,35 +17,34 @@
 namespace concept_tetengo2 { namespace gui
 {
     /*!
-        \brief The concept check class template for a menu.
+        \brief The concept check class template for a menu item list.
 
         \tparam Type A type.
     */
     template <typename Type>
-    class Menu
+    class MenuItemList
     {
 #if !defined(DOCUMENTATION)
     public:
         // typedef checks
 
-        typedef typename Type::handle_type handle_type;
+        typedef typename Type::menu_handle_type menu_handle_type;
 
         typedef typename Type::menu_item_type menu_item_type;
 
-        typedef typename Type::menu_item_iterator menu_item_iterator;
+        typedef typename Type::iterator iterator;
 
-        typedef
-            typename Type::const_menu_item_iterator const_menu_item_iterator;
+        typedef typename Type::const_iterator const_iterator;
 
 
         // usage checks
 
-        BOOST_CONCEPT_USAGE(Menu)
+        BOOST_CONCEPT_USAGE(MenuItemList)
         {
-            const menu_item_iterator first = m_object.menu_item_begin();
+            const iterator first = m_object.begin();
             boost::ignore_unused_variable_warning(first);
 
-            const menu_item_iterator last = m_object.menu_item_end();
+            const iterator last = m_object.end();
             boost::ignore_unused_variable_warning(last);
 
             m_object.insert(first, std::auto_ptr<menu_item_type>());
@@ -57,14 +56,12 @@ namespace concept_tetengo2 { namespace gui
 
         void const_constraints(const Type& object)
         {
-            const handle_type handle = object.handle();
-            boost::ignore_unused_variable_warning(handle);
-
-            const const_menu_item_iterator first = m_object.menu_item_begin();
+            const const_iterator first = m_object.begin();
             boost::ignore_unused_variable_warning(first);
 
-            const const_menu_item_iterator last = m_object.menu_item_end();
+            const const_iterator last = m_object.end();
             boost::ignore_unused_variable_warning(last);
+
         }
 
         
@@ -72,6 +69,8 @@ namespace concept_tetengo2 { namespace gui
         // variables
 
         Type m_object;
+
+        menu_item_type m_menu_item;
 
 
 #endif

@@ -140,6 +140,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\concept_tetengo2.gui.MenuItemList.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\concept_tetengo2.gui.PaintObserver.h"
 				>
 			</File>
@@ -197,6 +201,10 @@
 			</File>
 			<File
 				RelativePath=".\include\tetengo2.gui.win32.main_menu.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.win32.menu_item_list.h"
 				>
 			</File>
 			<File

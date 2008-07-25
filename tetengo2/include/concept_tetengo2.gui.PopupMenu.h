@@ -9,8 +9,6 @@
 #if !defined(CONCEPTTETENGO2_GUI_POPUPMENU_H)
 #define CONCEPTTETENGO2_GUI_POPUPMENU_H
 
-//#include <boost/concept_check.hpp>
-
 #include "concept_tetengo2.gui.Menu.h"
 #include "concept_tetengo2.gui.MenuItem.h"
 

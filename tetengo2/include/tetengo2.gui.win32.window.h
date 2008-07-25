@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_WINDOW_H)
 #define TETENGO2_GUI_WIN32_WINDOW_H
 
+#include <cassert>
 //#include <cstddef>
 //#include <exception>
 //#include <memory>
@@ -126,6 +127,32 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_handle;
+        }
+
+        /*!
+            \brief Returns true when the window has a main menu.
+
+            \retval true When the window has a main menu.
+        */
+        bool has_main_menu()
+        const
+        {
+            return m_p_main_menu.get() != NULL;
+        }
+
+        /*!
+            \brief Returns the main menu.
+
+            When the window does not have a main menu, the result is
+            undefined.
+
+            \return The main menu.
+        */
+        main_menu_type& main_menu()
+        {
+            assert(has_main_menu());
+
+            return *m_p_main_menu;
         }
 
         /*!

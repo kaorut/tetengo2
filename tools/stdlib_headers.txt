@@ -12,7 +12,6 @@ assert                                           cassert
 boost::Assignable                                boost/concept_check.hpp
 boost::Convertible                               boost/concept_check.hpp
 boost::CopyConstructible                         boost/concept_check.hpp
-boost::DefaultConstructible                      boost/concept_check.hpp
 boost::EqualityComparable                        boost/concept_check.hpp
 boost::Generator                                 boost/concept_check.hpp
 boost::LessThanComparable                        boost/concept_check.hpp
@@ -45,12 +44,14 @@ boost::tuple                                     boost/tuple/tuple.hpp,boost/tup
 boost::unit_test::test_suite                     boost/test/unit_test.hpp
 std::auto_ptr                                    memory
 std::basic_string                                string
+std::copy                                        algorithm
 std::distance                                    iterator
 std::exception                                   exception
 std::for_each                                    algorithm
 std::invalid_argument                            stdexcept
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
+std::memset                                      cstring
 std::numeric_limits                              limits
 std::ostringstream                               sstream
 std::out_of_range                                stdexcept
