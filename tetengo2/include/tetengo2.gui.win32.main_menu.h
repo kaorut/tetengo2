@@ -9,9 +9,13 @@
 #if !defined(TETENGO2_GUI_WIN32_MAINMENU_H)
 #define TETENGO2_GUI_WIN32_MAINMENU_H
 
+#include <cstddef>
+#include <stdexcept>
+
 //#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.gui.Handle.h"
+#include "concept_tetengo2.gui.MenuItem.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -19,16 +23,19 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a main menu for Win32 platforms.
 
-        \tparam Handle A handle type to the native interface. It must conform
-                       to concept_tetengo2::gui::Handle<Handle>.
+        \tparam Handle   A handle type to the native interface. It must
+                         conform to concept_tetengo2::gui::Handle<Handle>.
+        \tparam MenuItem A menu item type. It musto conform to
+                         concept_tetengo2::gui::MenuItem<MenuItem>.
    */
-    template <typename Handle>
+    template <typename Handle, typename MenuItem>
     class main_menu
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
 
 
     public:
@@ -36,6 +43,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The handle type.
         typedef Handle handle_type;
+
+        //! The menu item type.
+        typedef MenuItem menu_item_type;
 
 
         // constructors and destructor
@@ -46,12 +56,15 @@ namespace tetengo2 { namespace gui { namespace win32
         main_menu()
         :
         m_handle(::CreateMenu())
-        {}
+        {
+            if (m_handle == NULL)
+                throw std::runtime_error("Can't create a main menu.");
+        }
 
         /*!
             \brief Destroys the main menu.
         */
-        virtual ~main_menu()
+        ~main_menu()
         throw ()
         {
             ::DestroyMenu(m_handle);
@@ -65,7 +78,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The handle.
         */
-        virtual handle_type handle()
+        handle_type handle()
         const
         {
             return m_handle;

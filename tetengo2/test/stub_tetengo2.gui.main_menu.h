@@ -14,23 +14,27 @@
 //#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.gui.Handle.h"
+#include "concept_tetengo2.gui.MenuItem.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Handle>
+    template <typename Handle, typename MenuItem>
     class main_menu
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
 
 
     public:
         // types
 
         typedef Handle handle_type;
+
+        typedef MenuItem menu_item_type;
 
 
         // constructors and destructor

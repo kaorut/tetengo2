@@ -20,6 +20,7 @@
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
 #include "stub_tetengo2.gui.main_menu.h"
 #include "stub_tetengo2.gui.window.h"
+#include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
 
@@ -47,7 +48,9 @@ namespace
             stub_tetengo2::gui::alert<const void*, stub_tetengo2::encode>,
             std::wstring,
             stub_tetengo2::encode,
-            stub_tetengo2::gui::main_menu<const void*>,
+            stub_tetengo2::gui::main_menu<
+                const void*, tetengo2::gui::menu_item<std::wstring>
+            >,
             tetengo2::gui::paint_observer<canvas_type>,
             tetengo2::gui::window_observer
         >

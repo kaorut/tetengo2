@@ -20,7 +20,7 @@
 //#include <boost/signal.hpp>
 //#include <boost/ptr_container/ptr_vector.hpp>
 
-#include "concept_tetengo2.gui.MainMenu.h"
+#include "concept_tetengo2.gui.Menu.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
 #include "tetengo2.gui.win32.widget.h"
 
@@ -48,7 +48,7 @@ namespace tetengo2 { namespace gui { namespace win32
                                       and
                                       boost::UnaryFunction<Encode, std::wstring, String>.
         \tparam MainMenu              A main menu type. It must conform to
-                                      concept_tetengo2::gui::MainMenu<MainMenu>.
+                                      concept_tetengo2::gui::Menu<MainMenu>.
         \tparam PaintObserver         A paint observer type. It must conform
                                       to
                                       concept_tetengo2::gui::PaintObserver<PaintObserver>.
@@ -79,7 +79,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
         ));

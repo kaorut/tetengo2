@@ -24,9 +24,7 @@ namespace concept_tetengo2 { namespace gui
         \tparam Type A type.
     */
     template <typename Type>
-    class Window :
-        private boost::DefaultConstructible<Type>,
-        private Widget<Type>
+    class Window : private Widget<Type>
     {
 #if !defined(DOCUMENTATION)
     public:

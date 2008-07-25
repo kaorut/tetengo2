@@ -13,6 +13,7 @@
 //#include <string>
 
 #include "tetengo2.gui.gui_factory.h"
+#include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
 #include "tetengo2.gui.win32.alert.h"
@@ -46,7 +47,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 alert_type,
                 std::wstring,
                 tetengo2::win32::encode,
-                tetengo2::gui::win32::main_menu<::HMENU>,
+                tetengo2::gui::win32::main_menu<
+                    ::HMENU, tetengo2::gui::menu_item<std::wstring>
+                >,
                 tetengo2::gui::paint_observer<canvas_type>,
                 tetengo2::gui::window_observer
             >

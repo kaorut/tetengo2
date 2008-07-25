@@ -40,6 +40,27 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName).$(PlatformName)"
+			IntermediateDirectory="$(ProjectDir)obj\$(ConfigurationName).$(PlatformName)"
+			ConfigurationType="10"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="Debug|x64"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName).$(PlatformName)"
 			IntermediateDirectory="$(ProjectDir)obj\$(ConfigurationName).$(PlatformName)"
@@ -56,27 +77,6 @@
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName).$(PlatformName)"
-			IntermediateDirectory="$(ProjectDir)obj\$(ConfigurationName).$(PlatformName)"
-			ConfigurationType="10"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -132,11 +132,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\concept_tetengo2.gui.MainMenu.h"
+				RelativePath=".\include\concept_tetengo2.gui.Menu.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_tetengo2.gui.MenuItem.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\concept_tetengo2.gui.PaintObserver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\concept_tetengo2.gui.PopupMenu.h"
 				>
 			</File>
 			<File
@@ -161,6 +169,10 @@
 			</File>
 			<File
 				RelativePath=".\include\tetengo2.gui.gui_factory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.menu_item.h"
 				>
 			</File>
 			<File
