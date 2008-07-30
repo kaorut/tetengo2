@@ -170,6 +170,15 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
+        // static functions
+
+        static ::UINT get_and_increment_menu_id()
+        {
+            static ::UINT menu_id = 40001;
+            return menu_id++;
+        }
+
+
         // variables
 
         const menu_handle_type m_menu_handle;
@@ -198,8 +207,9 @@ namespace tetengo2 { namespace gui { namespace win32
             std::memset(&menu_item_info, 0, sizeof(::MENUITEMINFO));
 
             menu_item_info.cbSize = sizeof(::MENUITEMINFO);
-            menu_item_info.fMask = MIIM_STRING;
+            menu_item_info.fMask = MIIM_STRING | MIIM_ID;
             menu_item_info.dwTypeData = p_text.get();
+            menu_item_info.wID = get_and_increment_menu_id();
 
             ::InsertMenuItem(
                 m_menu_handle,

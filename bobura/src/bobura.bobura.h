@@ -164,10 +164,16 @@ namespace bobura
             p_main_menu->insert(
                 p_main_menu->menu_item_end(),
                 std::auto_ptr<main_menu_type::menu_item_type>(
-                    m_p_gui_factory->create_menu_command(L"ƒtƒ@ƒCƒ‹(&F)", L"")
+                    m_p_gui_factory->create_menu_command(L"&File", L"")
                 )
             );
 
+            p_main_menu->insert(
+                p_main_menu->menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    m_p_gui_factory->create_menu_command(L"&Help", L"")
+                )
+            );
             p_window->set_main_menu(p_main_menu);
 
         }
