@@ -26,6 +26,10 @@ namespace test_tetengo2 { namespace gui
 
         static void construction();
 
+        static void is_command();
+
+        static void is_popup();
+
         static void command();
 
         static void set_command();

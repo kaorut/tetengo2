@@ -31,6 +31,21 @@ namespace
         {}
 
 
+        // functions
+
+        virtual bool is_command()
+        const
+        {
+            return false;
+        }
+
+        virtual bool is_popup()
+        const
+        {
+            return false;
+        }
+
+
     };
 
 

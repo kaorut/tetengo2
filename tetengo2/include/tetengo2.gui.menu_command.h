@@ -66,6 +66,22 @@ namespace tetengo2 { namespace gui
 
         // functions
 
+        // The document will be derived from
+        // tetengo2::gui::menu_item::is_command.
+        virtual bool is_command()
+        const
+        {
+            return true;
+        }
+
+        // The document will be derived from
+        // tetengo2::gui::menu_item::is_popup.
+        virtual bool is_popup()
+        const
+        {
+            return false;
+        }
+
         /*!
             \brief Returns the command.
 

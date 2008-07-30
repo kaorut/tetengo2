@@ -70,8 +70,6 @@ namespace concept_tetengo2 { namespace gui
 
         Type m_object;
 
-        menu_item_type m_menu_item;
-
 
 #endif
     };

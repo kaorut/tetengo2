@@ -33,13 +33,19 @@ namespace concept_tetengo2 { namespace gui
 
         BOOST_CONCEPT_USAGE(MenuItem)
         {
-            m_object.set_text(string_type());
+            m_p_object->set_text(string_type());
 
-            const_constraints(m_object);
+            const_constraints(*m_p_object);
         }
 
         void const_constraints(const Type& object)
         {
+            const bool is_command = object.is_command();
+            boost::ignore_unused_variable_warning(is_command);
+
+            const bool is_popup = object.is_popup();
+            boost::ignore_unused_variable_warning(is_popup);
+
             const string_type text = object.text();
             boost::ignore_unused_variable_warning(text);
         }
@@ -48,7 +54,7 @@ namespace concept_tetengo2 { namespace gui
     private:
         // variables
 
-        Type m_object;
+        Type* m_p_object;
 
 
 #endif
