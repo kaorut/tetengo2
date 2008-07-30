@@ -79,12 +79,9 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         main_menu()
         :
-        m_handle(::CreateMenu()),
+        m_handle(create_menu()),
         m_menu_items(m_handle)
-        {
-            if (m_handle == NULL)
-                throw std::runtime_error("Can't create a main menu.");
-        }
+        {}
 
         /*!
             \brief Destroys the main menu.
@@ -179,6 +176,19 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
+        // static functions
+
+        handle_type create_menu()
+        {
+            const handle_type handle = ::CreateMenu();
+
+            if (handle == NULL)
+                throw std::runtime_error("Can't create a main menu.");
+
+            return handle;
+        }
+
+
         // variables
 
         const handle_type m_handle;
