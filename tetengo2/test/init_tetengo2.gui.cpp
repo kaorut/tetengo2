@@ -13,6 +13,7 @@
 #include "init_tetengo2.gui.win32.h"
 #endif
 #include "test_tetengo2.gui.gui_factory.h"
+#include "test_tetengo2.gui.menu_item.h"
 #include "test_tetengo2.gui.paint_observer.h"
 #include "test_tetengo2.gui.window_observer.h"
 
@@ -31,6 +32,7 @@ namespace test_tetengo2 { namespace gui
 #endif
 
         p_suite->add(gui_factory::suite());
+        p_suite->add(menu_item::suite());
         p_suite->add(paint_observer::suite());
         p_suite->add(window_observer::suite());
 
