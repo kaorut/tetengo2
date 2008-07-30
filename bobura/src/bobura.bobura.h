@@ -164,31 +164,7 @@ namespace bobura
             p_main_menu->insert(
                 p_main_menu->menu_item_end(),
                 std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"ファイル(&F)")
-                )
-            );
-            p_main_menu->insert(
-                p_main_menu->menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"編集(&E)")
-                )
-            );
-            p_main_menu->insert(
-                p_main_menu->menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"表示(&V)")
-                )
-            );
-            p_main_menu->insert(
-                p_main_menu->menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"ツール(&T)")
-                )
-            );
-            p_main_menu->insert(
-                p_main_menu->menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"ヘルプ(&H)")
+                    m_p_gui_factory->create_menu_command(L"ファイル(&F)", L"")
                 )
             );
 

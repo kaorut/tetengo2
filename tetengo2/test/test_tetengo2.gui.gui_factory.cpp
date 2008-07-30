@@ -21,6 +21,7 @@
 #include "stub_tetengo2.gui.main_menu.h"
 #include "stub_tetengo2.gui.menu_item_list.h"
 #include "stub_tetengo2.gui.window.h"
+#include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
@@ -58,10 +59,16 @@ namespace
             tetengo2::gui::window_observer
         >
         window_type;
-    
+
+    typedef
+        tetengo2::gui::menu_command<std::wstring, std::wstring>
+        menu_command_type;
+
     typedef
         tetengo2::gui::gui_factory<
-            stub_tetengo2::gui::gui_initializer_finalizer, window_type
+            stub_tetengo2::gui::gui_initializer_finalizer,
+            window_type,
+            menu_command_type
         >
         gui_factory_type;
 

@@ -13,6 +13,7 @@
 //#include <string>
 
 #include "tetengo2.gui.gui_factory.h"
+#include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
@@ -57,6 +58,8 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             window_type;
 
+        typedef menu_command<std::wstring, std::wstring> menu_command_type;
+
 
     }
 
@@ -64,7 +67,8 @@ namespace tetengo2 { namespace gui { namespace win32
     typedef
         tetengo2::gui::gui_factory<
             tetengo2::gui::win32::gui_initializer_finalizer,
-            window_type
+            window_type,
+            menu_command_type
         >
         gui_factory;
 

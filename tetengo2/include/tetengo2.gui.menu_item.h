@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui
         }
 
 
-    //protected:
+    protected:
         // constructors
 
         /*!

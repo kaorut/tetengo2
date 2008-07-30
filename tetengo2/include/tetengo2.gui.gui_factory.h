@@ -15,6 +15,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
+#include "concept_tetengo2.gui.MenuCommand.h"
 #include "concept_tetengo2.gui.Window.h"
 
 
@@ -27,10 +28,13 @@ namespace tetengo2 { namespace gui
                                         manager type.
         \tparam Window                  A window type. It must conform to
                                         concept_tetengo2::gui::Window<Window>.
+        \tparam MenuCommand             A menu command type It must conform to
+                                        concept_tetengo2::gui::MenuCommand<MenuCommand>.
     */
     template <
         typename GuiInitializerFinalizer,
-        typename Window
+        typename Window,
+        typename MenuCommand
     >
     class gui_factory : private boost::noncopyable
     {
@@ -38,6 +42,9 @@ namespace tetengo2 { namespace gui
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::MenuCommand<MenuCommand>
+        ));
 
 
     public:
@@ -48,6 +55,9 @@ namespace tetengo2 { namespace gui
 
         //! The window type
         typedef Window window_type;
+
+        //! The menu command type
+        typedef MenuCommand menu_command_type;
 
 
         // constructors and destructor
@@ -86,6 +96,22 @@ namespace tetengo2 { namespace gui
         const
         {
             return std::auto_ptr<window_type>(new window_type());
+        }
+
+        /*!
+            \brief Creates a menu command.
+
+            \return An auto pointer to a menu command.
+        */
+        std::auto_ptr<menu_command_type> create_menu_command(
+            const typename menu_command_type::string_type&  text,
+            const typename menu_command_type::command_type& command
+        )
+        const
+        {
+            return std::auto_ptr<menu_command_type>(
+                new menu_command_type(text, command)
+            );
         }
 
 
