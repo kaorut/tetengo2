@@ -93,43 +93,7 @@ namespace bobura
             const boost::scoped_ptr<window_type> p_main_window(
                 m_p_gui_factory->create_window()
             );
-
-            set_message_observers(p_main_window.get());
-            p_main_window->set_text(L"ぼうぶら テストプログラム");
-
-            p_main_window->set_main_menu(
-                std::auto_ptr<main_menu_type>(new main_menu_type())
-            );
-            p_main_window->main_menu().insert(
-                p_main_window->main_menu().menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"ファイル(&F)")
-                )
-            );
-            p_main_window->main_menu().insert(
-                p_main_window->main_menu().menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"編集(&E)")
-                )
-            );
-            p_main_window->main_menu().insert(
-                p_main_window->main_menu().menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"表示(&V)")
-                )
-            );
-            p_main_window->main_menu().insert(
-                p_main_window->main_menu().menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"ツール(&T)")
-                )
-            );
-            p_main_window->main_menu().insert(
-                p_main_window->main_menu().menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    new main_menu_type::menu_item_type(L"ヘルプ(&H)")
-                )
-            );
+            initialize_window(p_main_window.get());
 
             p_main_window->set_visible(true);
 
@@ -166,6 +130,14 @@ namespace bobura
 
         // functions
 
+        void initialize_window(window_type* const p_window)
+        const
+        {
+            set_message_observers(p_window);
+            set_menus(p_window);
+            p_window->set_text(L"ぼうぶら テストプログラム");
+        }
+
         void set_message_observers(window_type* const p_window)
         const
         {
@@ -182,6 +154,46 @@ namespace bobura
                     new message::main_window_paint_observer<canvas_type>()
                 )
             );
+        }
+
+        void set_menus(window_type* const p_window)
+        const
+        {
+            std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
+
+            p_main_menu->insert(
+                p_main_menu->menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"ファイル(&F)")
+                )
+            );
+            p_main_menu->insert(
+                p_main_menu->menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"編集(&E)")
+                )
+            );
+            p_main_menu->insert(
+                p_main_menu->menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"表示(&V)")
+                )
+            );
+            p_main_menu->insert(
+                p_main_menu->menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"ツール(&T)")
+                )
+            );
+            p_main_menu->insert(
+                p_main_menu->menu_item_end(),
+                std::auto_ptr<main_menu_type::menu_item_type>(
+                    new main_menu_type::menu_item_type(L"ヘルプ(&H)")
+                )
+            );
+
+            p_window->set_main_menu(p_main_menu);
+
         }
 
 

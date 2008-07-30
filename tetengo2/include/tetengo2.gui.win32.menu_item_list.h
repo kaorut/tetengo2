@@ -203,7 +203,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             ::InsertMenuItem(
                 m_menu_handle,
-                std::distance(m_menu_items.begin(), offset),
+                static_cast<::UINT>(
+                    std::distance(m_menu_items.begin(), offset)
+                ),
                 TRUE,
                 &menu_item_info
             );
