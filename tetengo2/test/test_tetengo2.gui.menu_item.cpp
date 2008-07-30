@@ -44,7 +44,7 @@ namespace test_tetengo2 { namespace gui
     boost::unit_test::test_suite* menu_item::suite()
     {
         boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::gui::win32::menu_item");
+            BOOST_TEST_SUITE("test_tetengo2::gui::menu_item");
 
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(text));
