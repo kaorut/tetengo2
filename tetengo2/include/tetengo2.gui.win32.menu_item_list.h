@@ -243,6 +243,8 @@ namespace tetengo2 { namespace gui { namespace win32
         )
         const
         {
+            assert(menu_item.handle() != NULL);
+
             const boost::scoped_array< ::WCHAR> p_text(
                 new ::WCHAR[menu_item.text().length() + 1]
             );

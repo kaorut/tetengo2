@@ -169,7 +169,16 @@ namespace bobura
 
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
-                    m_p_gui_factory->create_popup_menu(L"&File")
+                    m_p_gui_factory->create_popup_menu(L"ファイル(&F)")
+                );
+
+                p_popup_menu->insert(
+                    p_popup_menu->menu_item_end(),
+                    std::auto_ptr<menu_item_type>(
+                        m_p_gui_factory->create_menu_command(
+                            L"終了(&Q)\tAlt+F4", L"Quit"
+                        )
+                    )
                 );
 
                 p_main_menu->insert(
@@ -179,7 +188,16 @@ namespace bobura
             }
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
-                    m_p_gui_factory->create_popup_menu(L"&Help")
+                    m_p_gui_factory->create_popup_menu(L"ヘルプ(&H)")
+                );
+
+                p_popup_menu->insert(
+                    p_popup_menu->menu_item_end(),
+                    std::auto_ptr<menu_item_type>(
+                        m_p_gui_factory->create_menu_command(
+                            L"バージョン情報(&A)...", L"About"
+                        )
+                    )
                 );
 
                 p_main_menu->insert(

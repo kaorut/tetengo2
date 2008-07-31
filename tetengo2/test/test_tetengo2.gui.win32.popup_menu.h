@@ -30,6 +30,16 @@ namespace test_tetengo2 { namespace gui
 
         static void is_popup();
 
+        static void handle();
+
+        static void menu_item_begin();
+
+        static void menu_item_end();
+
+        static void insert();
+
+        static void erase();
+
 
     };
 

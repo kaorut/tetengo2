@@ -25,6 +25,11 @@ namespace test_tetengo2 { namespace gui
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(is_command));
         p_suite->add(BOOST_TEST_CASE(is_popup));
+        p_suite->add(BOOST_TEST_CASE(handle));
+        p_suite->add(BOOST_TEST_CASE(menu_item_begin));
+        p_suite->add(BOOST_TEST_CASE(menu_item_end));
+        p_suite->add(BOOST_TEST_CASE(insert));
+        p_suite->add(BOOST_TEST_CASE(erase));
 
         return p_suite;
     }
@@ -40,6 +45,31 @@ namespace test_tetengo2 { namespace gui
     }
 
     void popup_menu::is_popup()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void popup_menu::handle()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void popup_menu::menu_item_begin()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void popup_menu::menu_item_end()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void popup_menu::insert()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void popup_menu::erase()
     {
         BOOST_WARN("Not implemented yet.");
     }
