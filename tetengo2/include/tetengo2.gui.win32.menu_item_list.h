@@ -16,10 +16,10 @@
 #include <iterator>
 #include <memory>
 #include <stdexcept>
+#include <vector>
 
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/scoped_array.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX
@@ -154,12 +154,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            if      (p_menu_item->is_command())
-                insert_native_menu_command(offset, *p_menu_item);
-            else if (p_menu_item->is_popup())
-                insert_native_popup_menu(offset, *p_menu_item);
-            else
-                ;
+            insert_native_menu_item(offset, *p_menu_item);
 
             m_menu_items.insert(offset, p_menu_item);
         }
@@ -197,29 +192,35 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        void insert_native_menu_command(
+        void insert_native_menu_item(
             const_iterator  offset,
             menu_item_type& menu_item
         )
         const
         {
-            const boost::scoped_array< ::WCHAR> p_text(
-                new ::WCHAR[menu_item.text().length() + 1]
-            );
-            std::copy(
-                menu_item.text().begin(),
-                menu_item.text().end(),
-                p_text.get()
-            );
-            p_text[menu_item.text().length()] = L'\0';
+            std::vector< ::WCHAR> duplicated_text =
+                duplicate_text(menu_item.text());
 
             ::MENUITEMINFOW menu_item_info;
             std::memset(&menu_item_info, 0, sizeof(::MENUITEMINFO));
-
             menu_item_info.cbSize = sizeof(::MENUITEMINFO);
-            menu_item_info.fMask = MIIM_STRING | MIIM_ID;
-            menu_item_info.dwTypeData = p_text.get();
-            menu_item_info.wID = get_and_increment_menu_id();
+
+            if      (menu_item.is_command())
+            {
+                set_menu_item_info_for_command(
+                    menu_item_info, duplicated_text
+                );
+            }
+            else if (menu_item.is_popup())
+            {
+                set_menu_item_info_for_popup(
+                    menu_item, menu_item_info, duplicated_text
+                );
+            }
+            else
+            {
+
+            }
 
             const ::BOOL result = ::InsertMenuItem(
                 m_menu_handle,
@@ -237,46 +238,42 @@ namespace tetengo2 { namespace gui { namespace win32
             }
         }
 
-        void insert_native_popup_menu(
-            const_iterator  offset,
-            menu_item_type& menu_item
+        const std::vector< ::WCHAR> duplicate_text(
+            const typename menu_item_type::string_type& text
         )
         const
         {
-            assert(menu_item.handle() != NULL);
-
-            const boost::scoped_array< ::WCHAR> p_text(
-                new ::WCHAR[menu_item.text().length() + 1]
-            );
+            std::vector< ::WCHAR> duplicated;
+            duplicated.reserve(text.length() + 1);
             std::copy(
-                menu_item.text().begin(),
-                menu_item.text().end(),
-                p_text.get()
+                text.begin(), text.end(), std::back_inserter(duplicated)
             );
-            p_text[menu_item.text().length()] = L'\0';
+            duplicated.push_back(L'\0');
 
-            ::MENUITEMINFOW menu_item_info;
-            std::memset(&menu_item_info, 0, sizeof(::MENUITEMINFO));
+            return duplicated;
+        }
 
-            menu_item_info.cbSize = sizeof(::MENUITEMINFO);
+        void set_menu_item_info_for_command(
+            ::MENUITEMINFOW&       menu_item_info,
+            std::vector< ::WCHAR>& duplicated_text
+        )
+        const
+        {
+            menu_item_info.fMask = MIIM_STRING | MIIM_ID;
+            menu_item_info.dwTypeData = &duplicated_text[0];
+            menu_item_info.wID = get_and_increment_menu_id();
+        }
+
+        void set_menu_item_info_for_popup(
+            menu_item_type&        menu_item,
+            ::MENUITEMINFOW&       menu_item_info,
+            std::vector< ::WCHAR>& duplicated_text
+        )
+        const
+        {
             menu_item_info.fMask = MIIM_STRING | MIIM_SUBMENU;
-            menu_item_info.dwTypeData = p_text.get();
+            menu_item_info.dwTypeData = &duplicated_text[0];
             menu_item_info.hSubMenu = menu_item.handle();
-
-            const ::BOOL result = ::InsertMenuItem(
-                m_menu_handle,
-                static_cast< ::UINT>(
-                    std::distance(m_menu_items.begin(), offset)
-                ),
-                TRUE,
-                &menu_item_info
-            );
-            if (result == 0)
-            {
-                throw std::runtime_error(
-                    "Can't insert a native menu command."
-                );
-            }
         }
 
         void erase_native_menus(const_iterator first, const_iterator last)
