@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of stub_tetengo2::gui::win32::menu_item_list.
+    \brief The definition of stub_tetengo2::gui::menu_item_list.
 
     Copyright (C) 2007-2008 kaoru
 

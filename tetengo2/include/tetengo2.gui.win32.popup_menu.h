@@ -1,56 +1,53 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::main_menu.
+    \brief The definition of tetengo2::gui::popup_menu.
 
     Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_MAINMENU_H)
-#define TETENGO2_GUI_WIN32_MAINMENU_H
-
-//#include <cstddef>
-//#include <memory>
-//#include <stdexcept>
+#if !defined(TETENGO2_GUI_WIN32_POPUPMENU_H)
+#define TETENGO2_GUI_WIN32_POPUPMENU_H
 
 //#include <boost/concept_check.hpp>
-//#include <boost/noncopyable.hpp>
 
+#include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MenuItem.h"
 #include "concept_tetengo2.gui.MenuItemList.h"
+#include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.win32.menu_item_list.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The class template for a main menu for Win32 platforms.
+        \brief The class template for a popup menu.
 
+        \tparam String       A string type. It must conform to
+                             concept_tetengo2::String<String>.
         \tparam Handle       A handle type to the native interface. It must
                              conform to concept_tetengo2::gui::Handle<Handle>.
-        \tparam MenuItem     A menu item type. It must conform to
-                             concept_tetengo2::gui::MenuItem<MenuItem>.
         \tparam MenuItemList A menu item list type. The type
                              MenuItemList<Handle, MenuItem, PopupMenu> must
                              conform to
                              concept_tetengo2::gui::MenuItemList<MenuItemList<Handle, MenuItem, PopupMenu> >.
    */
     template <
+        typename String,
         typename Handle,
-        typename MenuItem,
         template <typename MenuHandle, typename MenuItem> class MenuItemList
     >
-    class main_menu : private boost::noncopyable
+    class popup_menu : public menu_item<String>
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuItemList<
-                MenuItemList<Handle, MenuItem>
+                MenuItemList<Handle, menu_item<String> >
             >
         ));
 
@@ -62,7 +59,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef Handle handle_type;
 
         //! The menu item type.
-        typedef MenuItem menu_item_type;
+        typedef menu_item<string_type> menu_item_type;
 
         //! The menu items type.
         typedef MenuItemList<handle_type, menu_item_type> menu_items_type;
@@ -78,18 +75,21 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \brief Creates a main menu.
+            \brief Creates a popup menu.
+
+            \param text A text.
         */
-        main_menu()
+        popup_menu(const string_type& text)
         :
+        menu_item(text),
         m_handle(create_menu()),
         m_menu_items(m_handle)
         {}
 
         /*!
-            \brief Destroys the main menu.
+            \brief Destroys the popup menu.
         */
-        ~main_menu()
+        virtual ~popup_menu()
         throw ()
         {
             ::DestroyMenu(m_handle);
@@ -97,6 +97,22 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
+
+        // The document will be derived from
+        // tetengo2::gui::menu_item::is_command.
+        virtual bool is_command()
+        const
+        {
+            return false;
+        }
+
+        // The document will be derived from
+        // tetengo2::gui::menu_item::is_popup.
+        virtual bool is_popup()
+        const
+        {
+            return true;
+        }
 
         /*!
             \brief Returns the handle.
@@ -183,7 +199,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         handle_type create_menu()
         {
-            const handle_type handle = ::CreateMenu();
+            const handle_type handle = ::CreatePopupMenu();
 
             if (handle == NULL)
                 throw std::runtime_error("Can't create a main menu.");

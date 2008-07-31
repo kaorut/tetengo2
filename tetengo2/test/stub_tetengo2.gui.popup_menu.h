@@ -1,41 +1,44 @@
 /*! \file
-    \brief The definition of stub_tetengo2::gui::main_menu.
+    \brief The definition of stub_tetengo2::gui::popup_menu.
 
     Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
 
-#if !defined(STUBTETENGO2_GUI_MAINMENU_H)
-#define STUBTETENGO2_GUI_MAINMENU_H
+#if !defined(STUBTETENGO2_GUI_POPUPMENU_H)
+#define STUBTETENGO2_GUI_POPUPMENU_H
 
 #include <cstddef>
 #include <memory>
 
 //#include <boost/concept_check.hpp>
 
+#include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MenuItem.h"
 #include "concept_tetengo2.gui.MenuItemList.h"
+#include "tetengo2.gui.menu_item.h"
+#include "tetengo2.gui.win32.menu_item_list.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
     template <
+        typename String,
         typename Handle,
-        typename MenuItem,
         template <typename MenuHandle, typename MenuItem> class MenuItemList
     >
-    class main_menu
+    class popup_menu : public tetengo2::gui::menu_item<String>
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuItemList<
-                MenuItemList<Handle, MenuItem>
+                MenuItemList<Handle, menu_item<String> >
             >
         ));
 
@@ -43,29 +46,48 @@ namespace stub_tetengo2 { namespace gui
     public:
         // types
 
+        //! The handle type.
         typedef Handle handle_type;
 
-        typedef MenuItem menu_item_type;
+        //! The menu item type.
+        typedef menu_item<string_type> menu_item_type;
 
+        //! The menu items type.
         typedef MenuItemList<handle_type, menu_item_type> menu_items_type;
 
+        //! The menu item iterator type.
         typedef typename menu_items_type::iterator menu_item_iterator;
 
+        //! The const menu item iterator type.
         typedef
             typename menu_items_type::const_iterator const_menu_item_iterator;
 
 
         // constructors and destructor
 
-        main_menu()
+        popup_menu(const string_type& text)
+        :
+        menu_item(text)
         {}
 
-        virtual ~main_menu()
+        virtual ~popup_menu()
         throw ()
         {}
 
 
         // functions
+
+        virtual bool is_command()
+        const
+        {
+            return false;
+        }
+
+        virtual bool is_popup()
+        const
+        {
+            return false;
+        }
 
         handle_type handle()
         const

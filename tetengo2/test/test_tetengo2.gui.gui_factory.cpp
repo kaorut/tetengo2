@@ -20,6 +20,7 @@
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
 #include "stub_tetengo2.gui.main_menu.h"
 #include "stub_tetengo2.gui.menu_item_list.h"
+#include "stub_tetengo2.gui.popup_menu.h"
 #include "stub_tetengo2.gui.window.h"
 #include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_item.h"
@@ -43,6 +44,14 @@ namespace
         >
         canvas_type;
 
+    typedef
+        stub_tetengo2::gui::main_menu<
+            const void*,
+            tetengo2::gui::menu_item<std::wstring>,
+            stub_tetengo2::gui::menu_item_list
+        >
+        main_menu_type;
+
     typedef 
         stub_tetengo2::gui::window<
             const void*,
@@ -50,11 +59,7 @@ namespace
             stub_tetengo2::gui::alert<const void*, stub_tetengo2::encode>,
             std::wstring,
             stub_tetengo2::encode,
-            stub_tetengo2::gui::main_menu<
-                const void*,
-                tetengo2::gui::menu_item<std::wstring>,
-                stub_tetengo2::gui::menu_item_list
-            >,
+            main_menu_type,
             tetengo2::gui::paint_observer<canvas_type>,
             tetengo2::gui::window_observer
         >
@@ -65,10 +70,20 @@ namespace
         menu_command_type;
 
     typedef
+        stub_tetengo2::gui::popup_menu<
+            std::wstring,
+            const void*,
+            stub_tetengo2::gui::menu_item_list
+        >
+        popup_menu_type;
+
+    typedef
         tetengo2::gui::gui_factory<
             stub_tetengo2::gui::gui_initializer_finalizer,
             window_type,
-            menu_command_type
+            main_menu_type,
+            menu_command_type,
+            popup_menu_type
         >
         gui_factory_type;
 

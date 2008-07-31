@@ -13,7 +13,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.Menu.h"
+#include "concept_tetengo2.gui.MainMenu.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
 
 #include "stub_tetengo2.gui.widget.h"
@@ -44,7 +44,7 @@ namespace stub_tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<MainMenu>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
         ));

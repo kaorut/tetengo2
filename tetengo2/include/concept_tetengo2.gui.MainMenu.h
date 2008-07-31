@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of concept_tetengo2::gui::Menu.
+    \brief The definition of concept_tetengo2::gui::MainMenu.
 
     Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
 
-#if !defined(CONCEPTTETENGO2_GUI_MENU_H)
-#define CONCEPTTETENGO2_GUI_MENU_H
+#if !defined(CONCEPTTETENGO2_GUI_MAINMENU_H)
+#define CONCEPTTETENGO2_GUI_MAINMENU_H
 
 #include <memory>
 
@@ -17,12 +17,12 @@
 namespace concept_tetengo2 { namespace gui
 {
     /*!
-        \brief The concept check class template for a menu.
+        \brief The concept check class template for a main menu.
 
         \tparam Type A type.
     */
     template <typename Type>
-    class Menu
+    class MainMenu
     {
 #if !defined(DOCUMENTATION)
     public:
@@ -40,7 +40,7 @@ namespace concept_tetengo2 { namespace gui
 
         // usage checks
 
-        BOOST_CONCEPT_USAGE(Menu)
+        BOOST_CONCEPT_USAGE(MainMenu)
         {
             const menu_item_iterator first = m_object.menu_item_begin();
             boost::ignore_unused_variable_warning(first);

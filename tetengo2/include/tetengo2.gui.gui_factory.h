@@ -15,7 +15,9 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
+#include "concept_tetengo2.gui.MainMenu.h"
 #include "concept_tetengo2.gui.MenuCommand.h"
+#include "concept_tetengo2.gui.PopupMenu.h"
 #include "concept_tetengo2.gui.Window.h"
 
 
@@ -28,13 +30,19 @@ namespace tetengo2 { namespace gui
                                         manager type.
         \tparam Window                  A window type. It must conform to
                                         concept_tetengo2::gui::Window<Window>.
+        \tparam MainMenu                A main menu type It must conform to
+                                        concept_tetengo2::gui::MainMenu<MainMenu>.
         \tparam MenuCommand             A menu command type It must conform to
                                         concept_tetengo2::gui::MenuCommand<MenuCommand>.
+        \tparam PopupMenu               A popup menu type It must conform to
+                                        concept_tetengo2::gui::PopupMenu<PopupMenu>.
     */
     template <
         typename GuiInitializerFinalizer,
         typename Window,
-        typename MenuCommand
+        typename MainMenu,
+        typename MenuCommand,
+        typename PopupMenu
     >
     class gui_factory : private boost::noncopyable
     {
@@ -42,9 +50,11 @@ namespace tetengo2 { namespace gui
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuCommand<MenuCommand>
         ));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::PopupMenu<PopupMenu>));
 
 
     public:
@@ -53,11 +63,17 @@ namespace tetengo2 { namespace gui
         //! The GUI initialization and finalization manager type.
         typedef GuiInitializerFinalizer gui_initializer_finalizer_type;
 
-        //! The window type
+        //! The window type.
         typedef Window window_type;
 
-        //! The menu command type
+        //! The main menu type.
+        typedef MainMenu main_menu_type;
+
+        //! The menu command type.
         typedef MenuCommand menu_command_type;
+
+        //! The popup menu type.
+        typedef PopupMenu popup_menu_type;
 
 
         // constructors and destructor
@@ -99,7 +115,21 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
+            \brief Creates a main menu.
+
+            \return An auto pointer to a main menu.
+        */
+        std::auto_ptr<main_menu_type> create_main_menu()
+        const
+        {
+            return std::auto_ptr<main_menu_type>(new main_menu_type());
+        }
+
+        /*!
             \brief Creates a menu command.
+
+            \param text    A text.
+            \param command A command.
 
             \return An auto pointer to a menu command.
         */
@@ -112,6 +142,21 @@ namespace tetengo2 { namespace gui
             return std::auto_ptr<menu_command_type>(
                 new menu_command_type(text, command)
             );
+        }
+
+        /*!
+            \brief Creates a popup menu.
+
+            \param text A text.
+
+            \return An auto pointer to a popup menu.
+        */
+        std::auto_ptr<popup_menu_type> create_popup_menu(
+            const typename menu_command_type::string_type& text
+        )
+        const
+        {
+            return std::auto_ptr<popup_menu_type>(new popup_menu_type(text));
         }
 
 

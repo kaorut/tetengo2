@@ -21,7 +21,7 @@
 //#include <boost/signal.hpp>
 //#include <boost/ptr_container/ptr_vector.hpp>
 
-#include "concept_tetengo2.gui.Menu.h"
+#include "concept_tetengo2.gui.MainMenu.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
 #include "tetengo2.gui.win32.widget.h"
 
@@ -49,7 +49,7 @@ namespace tetengo2 { namespace gui { namespace win32
                                       and
                                       boost::UnaryFunction<Encode, std::wstring, String>.
         \tparam MainMenu              A main menu type. It must conform to
-                                      concept_tetengo2::gui::Menu<MainMenu>.
+                                      concept_tetengo2::gui::MainMenu<MainMenu>.
         \tparam PaintObserver         A paint observer type. It must conform
                                       to
                                       concept_tetengo2::gui::PaintObserver<PaintObserver>.
@@ -80,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<MainMenu>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
         ));
@@ -106,6 +106,7 @@ namespace tetengo2 { namespace gui { namespace win32
         window()
         :
         m_handle(create_window()),
+        m_p_main_menu(),
         m_window_observers(),
         m_window_destroyed_handler()
         {
@@ -165,14 +166,17 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
         {
-            ::SetMenu(m_handle, NULL);
+            if (::SetMenu(m_handle, NULL) == 0)
+                throw std::runtime_error("Can't unset the main menu.");
             
             m_p_main_menu = p_main_menu;
             
             if (m_p_main_menu.get() != NULL)
             {
-                ::SetMenu(m_handle, m_p_main_menu->handle());
-                ::DrawMenuBar(m_handle);
+                if (::SetMenu(m_handle, m_p_main_menu->handle()) == 0)
+                    throw std::runtime_error("Can't set a main menu.");
+                if (::DrawMenuBar(m_handle) == 0)
+                    throw std::runtime_error("Can't draw the main menu.");
             }
         }
 
@@ -237,7 +241,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const handle_type handle = ::CreateWindowExW(
                 0,
-                reinterpret_cast<::LPCWSTR>(atom),
+                reinterpret_cast< ::LPCWSTR>(atom),
                 L"tetengo2 main widget",
                 WS_OVERLAPPEDWINDOW,
                 CW_USEDEFAULT,

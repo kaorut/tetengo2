@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_WIN32_MENUITEMLIST_H
 
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 #include <cstring>
 #include <iterator>
@@ -27,6 +28,7 @@
 
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MenuItem.h"
+#include "tetengo2.gui.win32.popup_menu.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -152,7 +154,12 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            insert_native_menu_item(offset, *p_menu_item);
+            if      (p_menu_item->is_command())
+                insert_native_menu_command(offset, *p_menu_item);
+            else if (p_menu_item->is_popup())
+                insert_native_popup_menu(offset, *p_menu_item);
+            else
+                ;
 
             m_menu_items.insert(offset, p_menu_item);
         }
@@ -165,6 +172,8 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void erase(iterator first, iterator last)
         {
+            erase_native_menus(first, last);
+
             m_menu_items.erase(first, last);
         }
 
@@ -188,12 +197,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        void insert_native_menu_item(
-            iterator        offset,
+        void insert_native_menu_command(
+            const_iterator  offset,
             menu_item_type& menu_item
         )
+        const
         {
-            const boost::scoped_array<::WCHAR> p_text(
+            const boost::scoped_array< ::WCHAR> p_text(
                 new ::WCHAR[menu_item.text().length() + 1]
             );
             std::copy(
@@ -211,16 +221,82 @@ namespace tetengo2 { namespace gui { namespace win32
             menu_item_info.dwTypeData = p_text.get();
             menu_item_info.wID = get_and_increment_menu_id();
 
-            ::InsertMenuItem(
+            const ::BOOL result = ::InsertMenuItem(
                 m_menu_handle,
-                static_cast<::UINT>(
+                static_cast< ::UINT>(
                     std::distance(m_menu_items.begin(), offset)
                 ),
                 TRUE,
                 &menu_item_info
             );
-
+            if (result == 0)
+            {
+                throw std::runtime_error(
+                    "Can't insert a native menu command."
+                );
+            }
         }
+
+        void insert_native_popup_menu(
+            const_iterator  offset,
+            menu_item_type& menu_item
+        )
+        const
+        {
+            const boost::scoped_array< ::WCHAR> p_text(
+                new ::WCHAR[menu_item.text().length() + 1]
+            );
+            std::copy(
+                menu_item.text().begin(),
+                menu_item.text().end(),
+                p_text.get()
+            );
+            p_text[menu_item.text().length()] = L'\0';
+
+            ::MENUITEMINFOW menu_item_info;
+            std::memset(&menu_item_info, 0, sizeof(::MENUITEMINFO));
+
+            menu_item_info.cbSize = sizeof(::MENUITEMINFO);
+            menu_item_info.fMask = MIIM_STRING | MIIM_SUBMENU;
+            menu_item_info.dwTypeData = p_text.get();
+            menu_item_info.hSubMenu = NULL; // menu_item.handle();
+
+            const ::BOOL result = ::InsertMenuItem(
+                m_menu_handle,
+                static_cast< ::UINT>(
+                    std::distance(m_menu_items.begin(), offset)
+                ),
+                TRUE,
+                &menu_item_info
+            );
+            if (result == 0)
+            {
+                throw std::runtime_error(
+                    "Can't insert a native menu command."
+                );
+            }
+        }
+
+        void erase_native_menus(const_iterator first, const_iterator last)
+        const
+        {
+            for (const_iterator i = first; i != last; ++i)
+                erase_native_menu(i);
+        }
+
+        void erase_native_menu(const_iterator offset)
+        const
+        {
+            ::RemoveMenu(
+                m_menu_handle,
+                static_cast< ::UINT>(
+                    std::distance(m_menu_items.begin(), offset)
+                ),
+                MF_BYPOSITION
+            );
+        }
+
+
     };
 
 

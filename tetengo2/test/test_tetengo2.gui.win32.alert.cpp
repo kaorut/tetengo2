@@ -22,7 +22,7 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::win32::alert<::HWND, stub_tetengo2::encode>
+        tetengo2::gui::win32::alert< ::HWND, stub_tetengo2::encode>
         alert_type;
 
 }

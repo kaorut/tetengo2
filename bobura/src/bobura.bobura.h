@@ -118,6 +118,10 @@ namespace bobura
             typename window_type::paint_observer_type
             paint_observer_type;
 
+        typedef typename main_menu_type::menu_item_type menu_item_type;
+
+        typedef typename gui_factory_type::popup_menu_type popup_menu_type;
+
         typedef MessageLoop message_loop_type;
 
         typedef QuitMessageLoop quit_message_loop_type;
@@ -159,21 +163,31 @@ namespace bobura
         void set_menus(window_type* const p_window)
         const
         {
-            std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
-
-            p_main_menu->insert(
-                p_main_menu->menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    m_p_gui_factory->create_menu_command(L"&File", L"")
-                )
+            std::auto_ptr<main_menu_type> p_main_menu(
+                m_p_gui_factory->create_main_menu()
             );
 
-            p_main_menu->insert(
-                p_main_menu->menu_item_end(),
-                std::auto_ptr<main_menu_type::menu_item_type>(
-                    m_p_gui_factory->create_menu_command(L"&Help", L"")
-                )
-            );
+            {
+                std::auto_ptr<popup_menu_type> p_popup_menu(
+                    m_p_gui_factory->create_popup_menu(L"&File")
+                );
+
+                p_main_menu->insert(
+                    p_main_menu->menu_item_end(),
+                    std::auto_ptr<menu_item_type>(p_popup_menu)
+                );
+            }
+            {
+                std::auto_ptr<popup_menu_type> p_popup_menu(
+                    m_p_gui_factory->create_popup_menu(L"&Help")
+                );
+
+                p_main_menu->insert(
+                    p_main_menu->menu_item_end(),
+                    std::auto_ptr<menu_item_type>(p_popup_menu)
+                );
+            }
+
             p_window->set_main_menu(p_main_menu);
 
         }
