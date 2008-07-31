@@ -24,30 +24,30 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a popup menu.
 
-        \tparam String       A string type. It must conform to
-                             concept_tetengo2::String<String>.
         \tparam Handle       A handle type to the native interface. It must
                              conform to concept_tetengo2::gui::Handle<Handle>.
+        \tparam String       A string type. It must conform to
+                             concept_tetengo2::String<String>.
         \tparam MenuItemList A menu item list type. The type
                              MenuItemList<Handle, MenuItem, PopupMenu> must
                              conform to
                              concept_tetengo2::gui::MenuItemList<MenuItemList<Handle, MenuItem, PopupMenu> >.
    */
     template <
-        typename String,
         typename Handle,
+        typename String,
         template <typename MenuHandle, typename MenuItem> class MenuItemList
     >
-    class popup_menu : public menu_item<String>
+    class popup_menu : public menu_item<Handle, String>
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuItemList<
-                MenuItemList<Handle, menu_item<String> >
+                MenuItemList<Handle, menu_item<Handle, String> >
             >
         ));
 
@@ -55,11 +55,8 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The handle type.
-        typedef Handle handle_type;
-
         //! The menu item type.
-        typedef menu_item<string_type> menu_item_type;
+        typedef menu_item<handle_type, string_type> menu_item_type;
 
         //! The menu items type.
         typedef MenuItemList<handle_type, menu_item_type> menu_items_type;
@@ -119,7 +116,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The handle.
         */
-        handle_type handle()
+        virtual handle_type handle()
         const
         {
             return m_handle;

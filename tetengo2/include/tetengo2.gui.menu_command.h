@@ -12,6 +12,7 @@
 //#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.String.h"
+#include "concept_tetengo2.gui.Handle.h"
 #include "tetengo2.gui.menu_item.h"
 
 
@@ -20,17 +21,20 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for a menu command.
 
+        \tparam Handle  A handle type. It must conform to
+                        concept_tetengo2::gui::Handle<Handle>.
         \tparam String  A string type. It must conform to
                         concept_tetengo2::String<String>.
         \tparam Command A command type. It must conform to
                         concept_tetengo2::String<String>.
    */
-    template <typename String, typename Command>
-    class menu_command : public menu_item<String>
+    template <typename Handle, typename String, typename Command>
+    class menu_command : public menu_item<Handle, String>
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Command>));
 
@@ -80,6 +84,14 @@ namespace tetengo2 { namespace gui
         const
         {
             return false;
+        }
+
+        // The document will be derived from
+        // tetengo2::gui::menu_item::handle.
+        virtual handle_type handle()
+        const
+        {
+            return NULL;
         }
 
         /*!

@@ -28,8 +28,6 @@ namespace concept_tetengo2 { namespace gui
     public:
         // typedef checks
 
-        typedef typename Type::handle_type handle_type;
-
         typedef typename Type::menu_item_type menu_item_type;
 
         typedef typename Type::menu_item_iterator menu_item_iterator;
@@ -58,9 +56,6 @@ namespace concept_tetengo2 { namespace gui
 
         void const_constraints(const Type& object)
         {
-            const handle_type handle = object.handle();
-            boost::ignore_unused_variable_warning(handle);
-
             const const_menu_item_iterator first = m_object.menu_item_begin();
             boost::ignore_unused_variable_warning(first);
 

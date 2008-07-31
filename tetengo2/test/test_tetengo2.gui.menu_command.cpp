@@ -36,7 +36,9 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<std::wstring, std::wstring>
+            tetengo2::gui::menu_command<
+                const void*, std::wstring, std::wstring
+            >
             menu_command_type;
 
         {
@@ -66,7 +68,9 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<std::wstring, std::wstring>
+            tetengo2::gui::menu_command<
+                const void*, std::wstring, std::wstring
+            >
             menu_command_type;
 
         {
@@ -81,7 +85,9 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<std::wstring, std::wstring>
+            tetengo2::gui::menu_command<
+                const void*, std::wstring, std::wstring
+            >
             menu_command_type;
 
         {
@@ -96,7 +102,9 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<std::wstring, std::wstring>
+            tetengo2::gui::menu_command<
+                const void*, std::wstring, std::wstring
+            >
             menu_command_type;
 
         {
@@ -116,7 +124,9 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<std::wstring, std::wstring>
+            tetengo2::gui::menu_command<
+                const void*, std::wstring, std::wstring
+            >
             menu_command_type;
 
         {

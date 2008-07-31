@@ -26,6 +26,8 @@ namespace concept_tetengo2 { namespace gui
     public:
         // typedef checks
 
+        typedef typename Type::handle_type handle_type;
+
         typedef typename Type::string_type string_type;
 
 
@@ -45,6 +47,9 @@ namespace concept_tetengo2 { namespace gui
 
             const bool is_popup = object.is_popup();
             boost::ignore_unused_variable_warning(is_popup);
+
+            const handle_type handle = object.handle();
+            boost::ignore_unused_variable_warning(handle);
 
             const string_type text = object.text();
             boost::ignore_unused_variable_warning(text);

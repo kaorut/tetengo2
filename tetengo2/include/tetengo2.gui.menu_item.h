@@ -10,8 +10,10 @@
 #define TETENGO2_GUI_MENUITEM_H
 
 //#include <boost/concept_check.hpp>
+#include <boost/noncopyable.hpp>
 
 #include "concept_tetengo2.String.h"
+#include "concept_tetengo2.gui.Handle.h"
 
 
 namespace tetengo2 { namespace gui
@@ -19,20 +21,26 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The base class template for a menu item.
 
+        \tparam Handle A handle type. It must conform to
+                       concept_tetengo2::gui::Handle<Handle>.
         \tparam String A string type. It must conform to
                        concept_tetengo2::String<String>.
    */
-    template <typename String>
-    class menu_item
+    template <typename Handle, typename String>
+    class menu_item : boost::noncopyable
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
 
 
     public:
         // types
+
+        //! The handle type
+        typedef Handle handle_type;
 
         //! The string type
         typedef String string_type;
@@ -66,6 +74,17 @@ namespace tetengo2 { namespace gui
             \retval false Otherwise.
         */
         virtual bool is_popup()
+        const = 0;
+
+        /*!
+            \brief Returns the handle.
+
+            If the value of is_popup() is false, this function may return
+            NULL.
+
+            \return The handle.
+        */
+        virtual handle_type handle()
         const = 0;
 
         /*!

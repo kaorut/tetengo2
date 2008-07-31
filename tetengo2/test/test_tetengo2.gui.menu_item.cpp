@@ -15,8 +15,8 @@
 
 namespace
 {
-    template <typename String>
-    class menu_item_driver : public tetengo2::gui::menu_item<String>
+    template <typename Handle, typename String>
+    class menu_item_driver : public tetengo2::gui::menu_item<Handle, String>
     {
     public:
         // constructors and destructor
@@ -43,6 +43,12 @@ namespace
         const
         {
             return false;
+        }
+
+        virtual handle_type handle()
+        const
+        {
+            return NULL;
         }
 
 
@@ -73,12 +79,12 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         {
-            const menu_item_driver<std::wstring> menu_item(L"");
+            const menu_item_driver<const void*, std::wstring> menu_item(L"");
 
             BOOST_CHECK(menu_item.text() == L"");
         }
         {
-            const menu_item_driver<std::wstring> menu_item(L"a");
+            const menu_item_driver<const void*, std::wstring> menu_item(L"a");
 
             BOOST_CHECK(menu_item.text() == L"a");
         }
@@ -89,12 +95,12 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         {
-            const menu_item_driver<std::wstring> menu_item(L"");
+            const menu_item_driver<const void*, std::wstring> menu_item(L"");
 
             BOOST_CHECK(menu_item.text() == L"");
         }
         {
-            const menu_item_driver<std::wstring> menu_item(L"a");
+            const menu_item_driver<const void*, std::wstring> menu_item(L"a");
 
             BOOST_CHECK(menu_item.text() == L"a");
         }
@@ -105,21 +111,21 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         {
-            menu_item_driver<std::wstring> menu_item(L"");
+            menu_item_driver<const void*, std::wstring> menu_item(L"");
 
             menu_item.set_text(L"x");
 
             BOOST_CHECK(menu_item.text() == L"x");
         }
         {
-            menu_item_driver<std::wstring> menu_item(L"a");
+            menu_item_driver<const void*, std::wstring> menu_item(L"a");
 
             menu_item.set_text(L"x");
 
             BOOST_CHECK(menu_item.text() == L"x");
         }
         {
-            menu_item_driver<std::wstring> menu_item(L"a");
+            menu_item_driver<const void*, std::wstring> menu_item(L"a");
 
             menu_item.set_text(L"");
 

@@ -259,7 +259,7 @@ namespace tetengo2 { namespace gui { namespace win32
             menu_item_info.cbSize = sizeof(::MENUITEMINFO);
             menu_item_info.fMask = MIIM_STRING | MIIM_SUBMENU;
             menu_item_info.dwTypeData = p_text.get();
-            menu_item_info.hSubMenu = NULL; // menu_item.handle();
+            menu_item_info.hSubMenu = menu_item.handle();
 
             const ::BOOL result = ::InsertMenuItem(
                 m_menu_handle,

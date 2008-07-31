@@ -47,7 +47,7 @@ namespace stub_tetengo2 { namespace gui
         typedef
             stub_tetengo2::gui::main_menu<
                 const void*,
-                tetengo2::gui::menu_item<std::wstring>,
+                tetengo2::gui::menu_item<const void*, std::wstring>,
                 stub_tetengo2::gui::menu_item_list
             >
             main_menu_type;
@@ -66,13 +66,15 @@ namespace stub_tetengo2 { namespace gui
             window_type;
 
         typedef
-            tetengo2::gui::menu_command<std::wstring, std::wstring>
+            tetengo2::gui::menu_command<
+                const void*, std::wstring, std::wstring
+            >
             menu_command_type;
 
         typedef
             stub_tetengo2::gui::popup_menu<
-                std::wstring,
                 const void*,
+                std::wstring,
                 stub_tetengo2::gui::menu_item_list
             >
             popup_menu_type;
