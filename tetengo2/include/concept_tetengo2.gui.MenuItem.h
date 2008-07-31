@@ -48,6 +48,9 @@ namespace concept_tetengo2 { namespace gui
             const bool is_popup = object.is_popup();
             boost::ignore_unused_variable_warning(is_popup);
 
+            const bool is_separator = object.is_separator();
+            boost::ignore_unused_variable_warning(is_separator);
+
             const handle_type handle = object.handle();
             boost::ignore_unused_variable_warning(handle);
 

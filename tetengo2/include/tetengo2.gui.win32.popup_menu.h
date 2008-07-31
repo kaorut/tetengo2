@@ -111,6 +111,14 @@ namespace tetengo2 { namespace gui { namespace win32
             return true;
         }
 
+        // The document will be derived from
+        // tetengo2::gui::menu_item::is_separator.
+        virtual bool is_separator()
+        const
+        {
+            return false;
+        }
+
         /*!
             \brief Returns the handle.
 

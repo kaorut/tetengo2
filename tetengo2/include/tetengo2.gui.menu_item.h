@@ -77,6 +77,15 @@ namespace tetengo2 { namespace gui
         const = 0;
 
         /*!
+            \brief Returns whether the menu item is a menu separator.
+
+            \retval true  The menu item is a menu separator.
+            \retval false Otherwise.
+        */
+        virtual bool is_separator()
+        const = 0;
+
+        /*!
             \brief Returns the handle.
 
             If the value of is_popup() is false, this function may return

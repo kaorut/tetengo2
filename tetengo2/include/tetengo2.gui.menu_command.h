@@ -87,6 +87,14 @@ namespace tetengo2 { namespace gui
         }
 
         // The document will be derived from
+        // tetengo2::gui::menu_item::is_separator.
+        virtual bool is_separator()
+        const
+        {
+            return false;
+        }
+
+        // The document will be derived from
         // tetengo2::gui::menu_item::handle.
         virtual handle_type handle()
         const

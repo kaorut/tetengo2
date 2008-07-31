@@ -45,6 +45,12 @@ namespace
             return false;
         }
 
+        virtual bool is_separator()
+        const
+        {
+            return false;
+        }
+
         virtual handle_type handle()
         const
         {

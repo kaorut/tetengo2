@@ -25,6 +25,7 @@ namespace test_tetengo2 { namespace gui
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(is_command));
         p_suite->add(BOOST_TEST_CASE(is_popup));
+        p_suite->add(BOOST_TEST_CASE(is_separator));
         p_suite->add(BOOST_TEST_CASE(handle));
         p_suite->add(BOOST_TEST_CASE(menu_item_begin));
         p_suite->add(BOOST_TEST_CASE(menu_item_end));
@@ -45,6 +46,11 @@ namespace test_tetengo2 { namespace gui
     }
 
     void popup_menu::is_popup()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void popup_menu::is_separator()
     {
         BOOST_WARN("Not implemented yet.");
     }

@@ -25,6 +25,7 @@ namespace test_tetengo2 { namespace gui
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(is_command));
         p_suite->add(BOOST_TEST_CASE(is_popup));
+        p_suite->add(BOOST_TEST_CASE(is_separator));
         p_suite->add(BOOST_TEST_CASE(handle));
         p_suite->add(BOOST_TEST_CASE(command));
         p_suite->add(BOOST_TEST_CASE(set_command));
@@ -95,6 +96,23 @@ namespace test_tetengo2 { namespace gui
             const menu_command_type menu_command(L"", L"");
 
             BOOST_CHECK(!menu_command.is_popup());
+        }
+    }
+
+    void menu_command::is_separator()
+    {
+        BOOST_CHECKPOINT("");
+
+        typedef
+            tetengo2::gui::menu_command<
+                const void*, std::wstring, std::wstring
+            >
+            menu_command_type;
+
+        {
+            const menu_command_type menu_command(L"", L"");
+
+            BOOST_CHECK(!menu_command.is_separator());
         }
     }
 
