@@ -207,7 +207,6 @@ namespace bobura
             }
 
             p_window->set_main_menu(p_main_menu);
-
         }
 
 
