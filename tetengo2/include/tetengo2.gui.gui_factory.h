@@ -18,6 +18,7 @@
 #include "concept_tetengo2.gui.MainMenu.h"
 #include "concept_tetengo2.gui.MenuCommand.h"
 #include "concept_tetengo2.gui.PopupMenu.h"
+#include "concept_tetengo2.gui.MenuSeparator.h"
 #include "concept_tetengo2.gui.Window.h"
 
 
@@ -36,13 +37,17 @@ namespace tetengo2 { namespace gui
                                         concept_tetengo2::gui::MenuCommand<MenuCommand>.
         \tparam PopupMenu               A popup menu type It must conform to
                                         concept_tetengo2::gui::PopupMenu<PopupMenu>.
+        \tparam MenuSeparator           A menu separator type It must conform
+                                        to
+                                        concept_tetengo2::gui::MenuSeparator<MenuSeparator>.
     */
     template <
         typename GuiInitializerFinalizer,
         typename Window,
         typename MainMenu,
         typename MenuCommand,
-        typename PopupMenu
+        typename PopupMenu,
+        typename MenuSeparator
     >
     class gui_factory : private boost::noncopyable
     {
@@ -55,6 +60,9 @@ namespace tetengo2 { namespace gui
             concept_tetengo2::gui::MenuCommand<MenuCommand>
         ));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::PopupMenu<PopupMenu>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::MenuSeparator<MenuSeparator>
+        ));
 
 
     public:
@@ -74,6 +82,9 @@ namespace tetengo2 { namespace gui
 
         //! The popup menu type.
         typedef PopupMenu popup_menu_type;
+
+        //! The menu separator type.
+        typedef MenuSeparator menu_separator_type;
 
 
         // constructors and destructor
@@ -157,6 +168,19 @@ namespace tetengo2 { namespace gui
         const
         {
             return std::auto_ptr<popup_menu_type>(new popup_menu_type(text));
+        }
+
+        /*!
+            \brief Creates a menu separator.
+
+            \return An auto pointer to a menu separator.
+        */
+        std::auto_ptr<menu_separator_type> create_menu_separator()
+        const
+        {
+            return std::auto_ptr<menu_separator_type>(
+                new menu_separator_type()
+            );
         }
 
 

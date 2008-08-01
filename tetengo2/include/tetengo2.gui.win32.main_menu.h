@@ -16,8 +16,6 @@
 //#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
 
-#include "concept_tetengo2.gui.Handle.h"
-#include "concept_tetengo2.gui.MenuItem.h"
 #include "concept_tetengo2.gui.MenuItemList.h"
 #include "tetengo2.gui.win32.menu_item_list.h"
 
@@ -92,7 +90,7 @@ namespace tetengo2 { namespace gui { namespace win32
         ~main_menu()
         throw ()
         {
-            if (::IsMenu(m_handle))
+            if (::IsMenu(m_handle) != 0)
                 ::DestroyMenu(m_handle);
         }
 

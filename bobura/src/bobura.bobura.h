@@ -120,6 +120,9 @@ namespace bobura
 
         typedef typename main_menu_type::menu_item_type menu_item_type;
 
+        typedef
+            typename gui_factory_type::menu_command_type menu_command_type;
+
         typedef typename gui_factory_type::popup_menu_type popup_menu_type;
 
         typedef MessageLoop message_loop_type;
@@ -172,13 +175,55 @@ namespace bobura
                     m_p_gui_factory->create_popup_menu(L"ファイル(&F)")
                 );
 
-                p_popup_menu->insert(
-                    p_popup_menu->menu_item_end(),
-                    std::auto_ptr<menu_item_type>(
-                        m_p_gui_factory->create_menu_command(
-                            L"終了(&Q)\tAlt+F4", L"Quit"
-                        )
-                    )
+                append_menu_command(
+                    *p_popup_menu, L"新規作成(&N)\tCtrl+N", L"New"
+                );
+                append_menu_command(
+                    *p_popup_menu, L"開く(&O)...\tCtrl+O", L"Open"
+                );
+                append_menu_command(
+                    *p_popup_menu, L"上書き保存(&S)\tCtrl+S", L"Save"
+                );
+                append_menu_command(
+                    *p_popup_menu, L"名前を付けて保存(&A)...", L"SaveAs"
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu, L"終了(&X)", L"Exit"
+                );
+
+                p_main_menu->insert(
+                    p_main_menu->menu_item_end(),
+                    std::auto_ptr<menu_item_type>(p_popup_menu)
+                );
+            }
+            {
+                std::auto_ptr<popup_menu_type> p_popup_menu(
+                    m_p_gui_factory->create_popup_menu(L"編集(&E)")
+                );
+
+                append_menu_command(
+                    *p_popup_menu, L"元に戻す(&U)\tCtrl+Z", L"Undo"
+                );
+                append_menu_command(
+                    *p_popup_menu, L"やり直し(&R)\tCtrl+Y", L"Redo"
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu, L"切り取り(&T)\tCtrl+X", L"Cut"
+                );
+                append_menu_command(
+                    *p_popup_menu, L"コピー(&C)\tCtrl+C", L"Copy"
+                );
+                append_menu_command(
+                    *p_popup_menu, L"貼り付け(&P)\tCtrl+V", L"Paste"
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu, L"検索(&F)...\tCtrl+F", L"Find"
+                );
+                append_menu_command(
+                    *p_popup_menu, L"置換(&R)...\tCtrl+H", L"Replace"
                 );
 
                 p_main_menu->insert(
@@ -209,6 +254,31 @@ namespace bobura
             p_window->set_main_menu(p_main_menu);
         }
 
+        void append_menu_command(
+            popup_menu_type&                                popup_menu,
+            const typename menu_item_type::string_type&     text,
+            const typename menu_command_type::command_type& command
+        )
+        const
+        {
+            std::auto_ptr<menu_item_type> p_menu_command(
+                m_p_gui_factory->create_menu_command(text, command)
+            );
+            popup_menu.insert(
+                popup_menu.menu_item_end(), p_menu_command
+            );
+        }
+
+        void append_menu_separator(popup_menu_type& popup_menu)
+        const
+        {
+            std::auto_ptr<menu_item_type> p_menu_separator(
+                m_p_gui_factory->create_menu_separator()
+            );
+            popup_menu.insert(
+                popup_menu.menu_item_end(), p_menu_separator
+            );
+        }
 
     };
 

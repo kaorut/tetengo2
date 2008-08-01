@@ -14,7 +14,7 @@
 
 #include "tetengo2.gui.gui_factory.h"
 #include "tetengo2.gui.menu_command.h"
-#include "tetengo2.gui.menu_item.h"
+#include "tetengo2.gui.menu_separator.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
 #include "tetengo2.gui.win32.alert.h"
@@ -75,6 +75,8 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             popup_menu_type;
 
+        typedef menu_separator<::HMENU, std::wstring> menu_separator_type;
+
 
     }
 
@@ -85,7 +87,8 @@ namespace tetengo2 { namespace gui { namespace win32
             window_type,
             main_menu_type,
             menu_command_type,
-            popup_menu_type
+            popup_menu_type,
+            menu_separator_type
         >
         gui_factory;
 

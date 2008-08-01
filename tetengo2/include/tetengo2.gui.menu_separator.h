@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu_command.
+    \brief The definition of tetengo2::gui::menu_separator.
 
     Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MENUCOMMAND_H)
-#define TETENGO2_GUI_MENUCOMMAND_H
+#if !defined(TETENGO2_GUI_MENUSEPARATOR_H)
+#define TETENGO2_GUI_MENUSEPARATOR_H
 
 //#include <cstddef>
 
@@ -19,53 +19,40 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for a menu command.
+        \brief The class template for a menu separator.
 
-        The handle is NULL.
+        The handle is NULL. The text is empty.
 
         \tparam Handle  A handle type. It must conform to
                         concept_tetengo2::gui::Handle<Handle>.
         \tparam String  A string type. It must conform to
                         concept_tetengo2::String<String>.
-        \tparam Command A command type. It must conform to
-                        concept_tetengo2::String<String>.
    */
-    template <typename Handle, typename String, typename Command>
-    class menu_command : public menu_item<Handle, String>
+    template <typename Handle, typename String>
+    class menu_separator : public menu_item<Handle, String>
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Command>));
 
 
     public:
-        // types
-
-        //! The command type
-        typedef Command command_type;
-
-
         // constructors and destructor
 
         /*!
-            \brief Creates a menu command.
-
-            \param text    A text.
-            \param command A command.
+            \brief Creates a menu separator.
         */
-        menu_command(const string_type& text, const command_type& command)
+        menu_separator()
         :
-        menu_item(text),
-        m_command(command)
+        menu_item(string_type())
         {}
 
         /*!
-            \brief Destroys the menu command.
+            \brief Destroys the menu separator.
         */
-        virtual ~menu_command()
+        virtual ~menu_separator()
         throw ()
         {}
 
@@ -77,7 +64,7 @@ namespace tetengo2 { namespace gui
         virtual bool is_command()
         const
         {
-            return true;
+            return false;
         }
 
         // The document will be derived from
@@ -93,7 +80,7 @@ namespace tetengo2 { namespace gui
         virtual bool is_separator()
         const
         {
-            return false;
+            return true;
         }
 
         // The document will be derived from
@@ -103,33 +90,6 @@ namespace tetengo2 { namespace gui
         {
             return NULL;
         }
-
-        /*!
-            \brief Returns the command.
-
-            \return The command.
-        */
-        const command_type& command()
-        const
-        {
-            return m_command;
-        }
-
-        /*!
-            \brief Sets the command.
-
-            \param command A command.
-        */
-        void set_command(const command_type& command)
-        {
-            m_command = command;
-        }
-
-
-    private:
-        // variables
-
-        command_type m_command;
 
 
     };

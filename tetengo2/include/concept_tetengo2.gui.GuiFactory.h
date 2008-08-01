@@ -40,6 +40,8 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::popup_menu_type popup_menu_type;
 
+        typedef typename Type::menu_separator_type menu_separator_type;
+
 
         // usage checks
 
@@ -71,6 +73,10 @@ namespace concept_tetengo2 { namespace gui
             const std::auto_ptr<popup_menu_type> p_popup_menu =
                 object.create_popup_menu(popup_menu_type::string_type());
             boost::ignore_unused_variable_warning(p_popup_menu);
+
+            const std::auto_ptr<menu_separator_type> p_menu_separator =
+                object.create_menu_separator();
+            boost::ignore_unused_variable_warning(p_menu_separator);
         }
 
         

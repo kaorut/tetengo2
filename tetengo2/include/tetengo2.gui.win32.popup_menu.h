@@ -9,11 +9,12 @@
 #if !defined(TETENGO2_GUI_WIN32_POPUPMENU_H)
 #define TETENGO2_GUI_WIN32_POPUPMENU_H
 
+//#include <cstddef>
+//#include <memory>
+//#include <stdexcept>
+
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.String.h"
-#include "concept_tetengo2.gui.Handle.h"
-#include "concept_tetengo2.gui.MenuItem.h"
 #include "concept_tetengo2.gui.MenuItemList.h"
 #include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.win32.menu_item_list.h"
@@ -89,7 +90,7 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual ~popup_menu()
         throw ()
         {
-            if (::IsMenu(m_handle))
+            if (::IsMenu(m_handle) != 0)
                 ::DestroyMenu(m_handle);
         }
 

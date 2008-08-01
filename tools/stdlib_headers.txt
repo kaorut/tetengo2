@@ -43,6 +43,7 @@ boost::totally_ordered                           boost/operators.hpp
 boost::tuple                                     boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::unit_test::test_suite                     boost/test/unit_test.hpp
 std::auto_ptr                                    memory
+std::back_inserter                               iterator
 std::basic_string                                string
 std::copy                                        algorithm
 std::distance                                    iterator

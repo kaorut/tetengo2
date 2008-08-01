@@ -23,7 +23,7 @@
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "stub_tetengo2.gui.window.h"
 #include "tetengo2.gui.menu_command.h"
-#include "tetengo2.gui.menu_item.h"
+#include "tetengo2.gui.menu_separator.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
 
@@ -70,6 +70,10 @@ namespace
         menu_command_type;
 
     typedef
+        tetengo2::gui::menu_separator<const void*, std::wstring>
+        menu_separator_type;
+
+    typedef
         stub_tetengo2::gui::popup_menu<
             const void*,
             std::wstring,
@@ -83,7 +87,8 @@ namespace
             window_type,
             main_menu_type,
             menu_command_type,
-            popup_menu_type
+            popup_menu_type,
+            menu_separator_type
         >
         gui_factory_type;
 

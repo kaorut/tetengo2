@@ -14,21 +14,19 @@
 #include <cstddef>
 #include <cstring>
 #include <iterator>
-#include <memory>
+//#include <memory>
 #include <stdexcept>
 #include <vector>
 
 //#include <boost/concept_check.hpp>
-#include <boost/noncopyable.hpp>
+//#include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MenuItem.h"
-#include "tetengo2.gui.win32.popup_menu.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -88,7 +86,9 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         ~menu_item_list()
         throw ()
-        {}
+        {
+            assert(::IsMenu(m_menu_handle) == 0);
+        }
 
 
         // functions
@@ -217,9 +217,15 @@ namespace tetengo2 { namespace gui { namespace win32
                     menu_item, menu_item_info, duplicated_text
                 );
             }
+            else if (menu_item.is_separator())
+            {
+                set_menu_item_info_for_separator(menu_item, menu_item_info);
+            }
             else
             {
-
+                set_menu_item_info_for_unknown(
+                    menu_item, menu_item_info, duplicated_text
+                );
             }
 
             const ::BOOL result = ::InsertMenuItem(
@@ -274,6 +280,28 @@ namespace tetengo2 { namespace gui { namespace win32
             menu_item_info.fMask = MIIM_STRING | MIIM_SUBMENU;
             menu_item_info.dwTypeData = &duplicated_text[0];
             menu_item_info.hSubMenu = menu_item.handle();
+        }
+
+        void set_menu_item_info_for_separator(
+            menu_item_type&  menu_item,
+            ::MENUITEMINFOW& menu_item_info
+        )
+        const
+        {
+            menu_item_info.fMask = MIIM_FTYPE;
+            menu_item_info.fType = MFT_SEPARATOR;
+        }
+
+        void set_menu_item_info_for_unknown(
+            menu_item_type&        menu_item,
+            ::MENUITEMINFOW&       menu_item_info,
+            std::vector< ::WCHAR>& duplicated_text
+        )
+        const
+        {
+            menu_item_info.fMask = MIIM_STRING | MIIM_STATE;
+            menu_item_info.dwTypeData = &duplicated_text[0];
+            menu_item_info.fState = MFS_DISABLED;
         }
 
         void erase_native_menus(const_iterator first, const_iterator last)

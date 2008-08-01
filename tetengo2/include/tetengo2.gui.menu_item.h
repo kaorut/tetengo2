@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_MENUITEM_H)
 #define TETENGO2_GUI_MENUITEM_H
 
+#include <cstddef>
+
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 

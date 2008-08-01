@@ -434,6 +434,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\test_tetengo2.gui.menu_separator.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\test\test_tetengo2.gui.paint_observer.cpp"
 				>
 			</File>
@@ -577,6 +581,10 @@
 			</File>
 			<File
 				RelativePath=".\test\test_tetengo2.gui.menu_item.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\test_tetengo2.gui.menu_separator.h"
 				>
 			</File>
 			<File
