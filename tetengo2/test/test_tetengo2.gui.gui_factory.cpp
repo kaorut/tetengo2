@@ -46,7 +46,6 @@ namespace
 
     typedef
         stub_tetengo2::gui::main_menu<
-            const void*,
             tetengo2::gui::menu_item<unsigned int, const void*, std::wstring>,
             stub_tetengo2::gui::menu_item_list
         >

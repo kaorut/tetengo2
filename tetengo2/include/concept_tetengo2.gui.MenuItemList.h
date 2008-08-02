@@ -28,9 +28,9 @@ namespace concept_tetengo2 { namespace gui
     public:
         // typedef checks
 
-        typedef typename Type::menu_handle_type menu_handle_type;
-
         typedef typename Type::menu_item_type menu_item_type;
+
+        typedef typename Type::menu_handle_type menu_handle_type;
 
         typedef typename Type::iterator iterator;
 

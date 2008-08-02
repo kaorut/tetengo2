@@ -44,7 +44,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
         typedef
             tetengo2::gui::win32::main_menu<
-                ::HMENU,
                 tetengo2::gui::menu_item< ::UINT, ::HMENU, std::wstring>,
                 tetengo2::gui::win32::menu_item_list
             >

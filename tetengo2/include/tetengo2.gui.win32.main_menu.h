@@ -25,8 +25,6 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a main menu for Win32 platforms.
 
-        \tparam Handle       A handle type to the native interface. It must
-                             conform to concept_tetengo2::gui::Handle<Handle>.
         \tparam MenuItem     A menu item type. It must conform to
                              concept_tetengo2::gui::MenuItem<MenuItem>.
         \tparam MenuItemList A menu item list type. The type
@@ -35,35 +33,31 @@ namespace tetengo2 { namespace gui { namespace win32
                              concept_tetengo2::gui::MenuItemList<MenuItemList<Handle, MenuItem, PopupMenu> >.
    */
     template <
-        typename Handle,
         typename MenuItem,
-        template <typename MenuHandle, typename MenuItem> class MenuItemList
+        template <typename MenuItem> class MenuItemList
     >
     class main_menu : private boost::noncopyable
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuItemList<
-                MenuItemList<Handle, MenuItem>
-            >
+            concept_tetengo2::gui::MenuItemList<MenuItemList<MenuItem> >
         ));
 
 
     public:
         // types
 
-        //! The handle type.
-        typedef Handle handle_type;
-
         //! The menu item type.
         typedef MenuItem menu_item_type;
 
+        //! The handle type.
+        typedef typename menu_item_type::handle_type handle_type;
+
         //! The menu items type.
-        typedef MenuItemList<handle_type, menu_item_type> menu_items_type;
+        typedef MenuItemList<menu_item_type> menu_items_type;
 
         //! The menu item iterator type.
         typedef typename menu_items_type::iterator menu_item_iterator;

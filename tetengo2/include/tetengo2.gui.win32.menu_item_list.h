@@ -34,29 +34,26 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a menu item list for Win32 platforms.
 
-        \tparam MenuHandle A menu handle type. It must conform to
-                           concept_tetengo2::gui::Handle<MenuHandle>.
-        \tparam MenuItem   A menu item type. It must conform to
-                           concept_tetengo2::gui::MenuItem<MenuItem>.
+        \tparam MenuItem A menu item type. It must conform to
+                         concept_tetengo2::gui::MenuItem<MenuItem>.
    */
-    template <typename MenuHandle, typename MenuItem>
+    template <typename MenuItem>
     class menu_item_list : private boost::noncopyable
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<MenuHandle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
 
 
     public:
         // types
 
-        //! The menu handle type.
-        typedef MenuHandle menu_handle_type;
-
         //! The menu item type.
         typedef MenuItem menu_item_type;
+
+        //! The menu handle type.
+        typedef typename menu_item_type::handle_type menu_handle_type;
 
         //! The menu items type.
         typedef boost::ptr_vector<menu_item_type> menu_items_type;

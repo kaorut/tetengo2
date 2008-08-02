@@ -14,7 +14,6 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MenuItem.h"
 #include "concept_tetengo2.gui.MenuItemList.h"
 
@@ -22,32 +21,28 @@
 namespace stub_tetengo2 { namespace gui
 {
     template <
-        typename Handle,
         typename MenuItem,
-        template <typename MenuHandle, typename MenuItem> class MenuItemList
+        template <typename MenuItem> class MenuItemList
     >
     class main_menu
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuItemList<
-                MenuItemList<Handle, MenuItem>
-            >
+            concept_tetengo2::gui::MenuItemList<MenuItemList<MenuItem> >
         ));
 
 
     public:
         // types
 
-        typedef Handle handle_type;
-
         typedef MenuItem menu_item_type;
 
-        typedef MenuItemList<handle_type, menu_item_type> menu_items_type;
+        typedef typename menu_item_type::handle_type handle_type;
+
+        typedef MenuItemList<menu_item_type> menu_items_type;
 
         typedef typename menu_items_type::iterator menu_item_iterator;
 
