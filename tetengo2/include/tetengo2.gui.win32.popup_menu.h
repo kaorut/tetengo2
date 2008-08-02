@@ -25,6 +25,8 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a popup menu.
 
+        \tparam Id           A ID type to the native interface. It must
+                             conform to boost::UnsignedInteger<Id>.
         \tparam Handle       A handle type to the native interface. It must
                              conform to concept_tetengo2::gui::Handle<Handle>.
         \tparam String       A string type. It must conform to
@@ -35,20 +37,22 @@ namespace tetengo2 { namespace gui { namespace win32
                              concept_tetengo2::gui::MenuItemList<MenuItemList<Handle, MenuItem, PopupMenu> >.
    */
     template <
+        typename Id,
         typename Handle,
         typename String,
         template <typename MenuHandle, typename MenuItem> class MenuItemList
     >
-    class popup_menu : public menu_item<Handle, String>
+    class popup_menu : public menu_item<Id, Handle, String>
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuItemList<
-                MenuItemList<Handle, menu_item<Handle, String> >
+                MenuItemList<Handle, menu_item<Id, Handle, String> >
             >
         ));
 
@@ -57,7 +61,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // types
 
         //! The menu item type.
-        typedef menu_item<handle_type, string_type> menu_item_type;
+        typedef menu_item<id_type, handle_type, string_type> menu_item_type;
 
         //! The menu items type.
         typedef MenuItemList<handle_type, menu_item_type> menu_items_type;

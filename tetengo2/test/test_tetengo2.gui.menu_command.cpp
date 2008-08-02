@@ -42,7 +42,7 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                const void*, std::wstring, std::wstring
+                unsigned int, const void*, std::wstring, std::wstring
             >
             menu_command_type;
 
@@ -74,7 +74,7 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                const void*, std::wstring, std::wstring
+                unsigned int, const void*, std::wstring, std::wstring
             >
             menu_command_type;
 
@@ -91,7 +91,7 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                const void*, std::wstring, std::wstring
+                unsigned int, const void*, std::wstring, std::wstring
             >
             menu_command_type;
 
@@ -108,7 +108,7 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                const void*, std::wstring, std::wstring
+                unsigned int, const void*, std::wstring, std::wstring
             >
             menu_command_type;
 
@@ -125,7 +125,7 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                const void*, std::wstring, std::wstring
+                unsigned int, const void*, std::wstring, std::wstring
             >
             menu_command_type;
 
@@ -142,7 +142,7 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                const void*, std::wstring, std::wstring
+                unsigned int, const void*, std::wstring, std::wstring
             >
             menu_command_type;
 
@@ -164,7 +164,7 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                const void*, std::wstring, std::wstring
+                unsigned int, const void*, std::wstring, std::wstring
             >
             menu_command_type;
 

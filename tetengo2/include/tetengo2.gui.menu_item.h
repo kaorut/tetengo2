@@ -23,23 +23,29 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The base class template for a menu item.
 
+        \tparam Id     A ID type. It must conform to
+                       boost::UnsignedInteger<Id>.
         \tparam Handle A handle type. It must conform to
                        concept_tetengo2::gui::Handle<Handle>.
         \tparam String A string type. It must conform to
                        concept_tetengo2::String<String>.
    */
-    template <typename Handle, typename String>
+    template <typename Id, typename Handle, typename String>
     class menu_item : boost::noncopyable
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
 
 
     public:
         // types
+
+        //! The ID type.
+        typedef Id id_type;
 
         //! The handle type
         typedef Handle handle_type;
@@ -88,6 +94,17 @@ namespace tetengo2 { namespace gui
         const = 0;
 
         /*!
+            \brief Returns the ID.
+
+            \return The ID.
+        */
+        id_type id()
+        const
+        {
+            return m_id;
+        }
+
+        /*!
             \brief Returns the handle.
 
             If the value of is_popup() is false, this function may return
@@ -103,7 +120,7 @@ namespace tetengo2 { namespace gui
 
             \return The text.
         */
-        virtual const string_type& text()
+        const string_type& text()
         const
         {
             return m_text;
@@ -114,7 +131,7 @@ namespace tetengo2 { namespace gui
 
             \param text A text.
         */
-        virtual void set_text(const string_type& text)
+        void set_text(const string_type& text)
         {
             m_text = text;
         }
@@ -130,12 +147,25 @@ namespace tetengo2 { namespace gui
         */
         menu_item(const string_type& text)
         :
+        m_id(get_and_increment_id()),
         m_text(text)
         {}
 
 
     private:
+        // static functions
+
+        static id_type get_and_increment_id()
+        {
+            static id_type id = 40001;
+
+            return id++;
+        }
+
+
         // variables
+
+        id_type m_id;
 
         string_type m_text;
 

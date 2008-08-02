@@ -18,8 +18,9 @@
 
 namespace
 {
-    template <typename Handle, typename String>
-    class menu_item_driver : public tetengo2::gui::menu_item<Handle, String>
+    template <typename Id, typename Handle, typename String>
+    class menu_item_driver :
+        public tetengo2::gui::menu_item<Id, Handle, String>
     {
     public:
         // constructors and destructor
@@ -77,6 +78,7 @@ namespace test_tetengo2 { namespace gui
             BOOST_TEST_SUITE("test_tetengo2::gui::menu_item");
 
         p_suite->add(BOOST_TEST_CASE(construction));
+        p_suite->add(BOOST_TEST_CASE(id));
         p_suite->add(BOOST_TEST_CASE(text));
         p_suite->add(BOOST_TEST_CASE(set_text));
 
@@ -88,14 +90,30 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         {
-            const menu_item_driver<const void*, std::wstring> menu_item(L"");
+            const menu_item_driver<unsigned int, const void*, std::wstring>
+            menu_item(L"");
 
             BOOST_CHECK(menu_item.text() == L"");
         }
         {
-            const menu_item_driver<const void*, std::wstring> menu_item(L"a");
+            const menu_item_driver<unsigned int, const void*, std::wstring>
+            menu_item(L"a");
 
             BOOST_CHECK(menu_item.text() == L"a");
+        }
+    }
+
+    void menu_item::id()
+    {
+        BOOST_CHECKPOINT("");
+
+        {
+            const menu_item_driver<unsigned int, const void*, std::wstring>
+            menu_item1(L"");
+            const menu_item_driver<unsigned int, const void*, std::wstring>
+            menu_item2(L"");
+
+            BOOST_CHECK(menu_item1.id() != menu_item2.id());
         }
     }
 
@@ -104,12 +122,14 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         {
-            const menu_item_driver<const void*, std::wstring> menu_item(L"");
+            const menu_item_driver<unsigned int, const void*, std::wstring>
+            menu_item(L"");
 
             BOOST_CHECK(menu_item.text() == L"");
         }
         {
-            const menu_item_driver<const void*, std::wstring> menu_item(L"a");
+            const menu_item_driver<unsigned int, const void*, std::wstring>
+            menu_item(L"a");
 
             BOOST_CHECK(menu_item.text() == L"a");
         }
@@ -120,21 +140,24 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         {
-            menu_item_driver<const void*, std::wstring> menu_item(L"");
+            menu_item_driver<unsigned int, const void*, std::wstring>
+            menu_item(L"");
 
             menu_item.set_text(L"x");
 
             BOOST_CHECK(menu_item.text() == L"x");
         }
         {
-            menu_item_driver<const void*, std::wstring> menu_item(L"a");
+            menu_item_driver<unsigned int, const void*, std::wstring>
+            menu_item(L"a");
 
             menu_item.set_text(L"x");
 
             BOOST_CHECK(menu_item.text() == L"x");
         }
         {
-            menu_item_driver<const void*, std::wstring> menu_item(L"a");
+            menu_item_driver<unsigned int, const void*, std::wstring>
+            menu_item(L"a");
 
             menu_item.set_text(L"");
 

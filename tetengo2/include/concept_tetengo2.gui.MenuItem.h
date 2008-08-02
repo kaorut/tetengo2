@@ -26,6 +26,8 @@ namespace concept_tetengo2 { namespace gui
     public:
         // typedef checks
 
+        typedef typename Type::id_type id_type;
+
         typedef typename Type::handle_type handle_type;
 
         typedef typename Type::string_type string_type;
@@ -50,6 +52,9 @@ namespace concept_tetengo2 { namespace gui
 
             const bool is_separator = object.is_separator();
             boost::ignore_unused_variable_warning(is_separator);
+
+            const id_type id = object.id();
+            boost::ignore_unused_variable_warning(id);
 
             const handle_type handle = object.handle();
             boost::ignore_unused_variable_warning(handle);

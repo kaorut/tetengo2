@@ -28,6 +28,8 @@ namespace test_tetengo2 { namespace gui
 
         static void construction();
 
+        static void id();
+
         static void text();
 
         static void set_text();

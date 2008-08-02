@@ -23,17 +23,20 @@ namespace tetengo2 { namespace gui
 
         The handle is NULL. The text is empty.
 
+        \tparam Id      A ID type. It must conform to
+                        boost::UnsignedInteger<Id>.
         \tparam Handle  A handle type. It must conform to
                         concept_tetengo2::gui::Handle<Handle>.
         \tparam String  A string type. It must conform to
                         concept_tetengo2::String<String>.
    */
-    template <typename Handle, typename String>
-    class menu_separator : public menu_item<Handle, String>
+    template <typename Id, typename Handle, typename String>
+    class menu_separator : public menu_item<Id, Handle, String>
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
 

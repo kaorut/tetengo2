@@ -25,20 +25,22 @@
 namespace stub_tetengo2 { namespace gui
 {
     template <
+        typename Id,
         typename Handle,
         typename String,
         template <typename MenuHandle, typename MenuItem> class MenuItemList
     >
-    class popup_menu : public tetengo2::gui::menu_item<Handle, String>
+    class popup_menu : public tetengo2::gui::menu_item<Id, Handle, String>
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuItemList<
-                MenuItemList<Handle, menu_item<Handle, String> >
+                MenuItemList<Handle, menu_item<Id, Handle, String> >
             >
         ));
 
@@ -47,7 +49,7 @@ namespace stub_tetengo2 { namespace gui
         // types
 
         //! The menu item type.
-        typedef menu_item<handle_type, string_type> menu_item_type;
+        typedef menu_item<id_type, handle_type, string_type> menu_item_type;
 
         //! The menu items type.
         typedef MenuItemList<handle_type, menu_item_type> menu_items_type;
