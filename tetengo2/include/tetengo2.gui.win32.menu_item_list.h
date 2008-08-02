@@ -171,15 +171,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // static functions
-
-        static ::UINT get_and_increment_menu_id()
-        {
-            static ::UINT menu_id = 40001;
-            return menu_id++;
-        }
-
-
         // variables
 
         const menu_handle_type m_menu_handle;
@@ -205,7 +196,7 @@ namespace tetengo2 { namespace gui { namespace win32
             if      (menu_item.is_command())
             {
                 set_menu_item_info_for_command(
-                    menu_item_info, duplicated_text
+                    menu_item, menu_item_info, duplicated_text
                 );
             }
             else if (menu_item.is_popup())
@@ -257,25 +248,26 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         void set_menu_item_info_for_command(
+            menu_item_type&        menu_item,
             ::MENUITEMINFOW&       menu_item_info,
-            std::vector< ::WCHAR>& duplicated_text
+            std::vector< ::WCHAR>& text
         )
         const
         {
             menu_item_info.fMask = MIIM_STRING | MIIM_ID;
-            menu_item_info.dwTypeData = &duplicated_text[0];
-            menu_item_info.wID = get_and_increment_menu_id();
+            menu_item_info.dwTypeData = &text[0];
+            menu_item_info.wID = menu_item.id();
         }
 
         void set_menu_item_info_for_popup(
             menu_item_type&        menu_item,
             ::MENUITEMINFOW&       menu_item_info,
-            std::vector< ::WCHAR>& duplicated_text
+            std::vector< ::WCHAR>& text
         )
         const
         {
             menu_item_info.fMask = MIIM_STRING | MIIM_SUBMENU;
-            menu_item_info.dwTypeData = &duplicated_text[0];
+            menu_item_info.dwTypeData = &text[0];
             menu_item_info.hSubMenu = menu_item.handle();
         }
 
@@ -292,12 +284,12 @@ namespace tetengo2 { namespace gui { namespace win32
         void set_menu_item_info_for_unknown(
             menu_item_type&        menu_item,
             ::MENUITEMINFOW&       menu_item_info,
-            std::vector< ::WCHAR>& duplicated_text
+            std::vector< ::WCHAR>& text
         )
         const
         {
             menu_item_info.fMask = MIIM_STRING | MIIM_STATE;
-            menu_item_info.dwTypeData = &duplicated_text[0];
+            menu_item_info.dwTypeData = &text[0];
             menu_item_info.fState = MFS_DISABLED;
         }
 
