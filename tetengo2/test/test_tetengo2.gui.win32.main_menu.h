@@ -36,6 +36,8 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
         static void erase();
 
+        static void find();
+
 
     };
 

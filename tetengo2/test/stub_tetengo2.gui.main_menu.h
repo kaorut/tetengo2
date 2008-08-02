@@ -40,6 +40,8 @@ namespace stub_tetengo2 { namespace gui
 
         typedef MenuItem menu_item_type;
 
+        typedef typename menu_item_type::id_type menu_item_id_type;
+
         typedef typename menu_item_type::handle_type handle_type;
 
         typedef MenuItemList<menu_item_type> menu_items_type;
@@ -98,6 +100,17 @@ namespace stub_tetengo2 { namespace gui
 
         void erase(menu_item_iterator first, menu_item_iterator last)
         {}
+
+        const menu_item_type* find(const menu_item_id_type id)
+        const
+        {
+            return NULL;
+        }
+
+        menu_item_type* find(const menu_item_id_type id)
+        {
+            return NULL;
+        }
 
 
     };

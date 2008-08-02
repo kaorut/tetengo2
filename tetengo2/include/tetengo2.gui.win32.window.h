@@ -213,15 +213,33 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             switch (uMsg)
             {
+            case WM_COMMAND:
+                {
+                    const ::WORD source = HIWORD(wParam);
+                    const ::WORD id = LOWORD(wParam);
+                    if (source == 0)
+                    {
+                        if (!has_main_menu()) break;
+
+                        const typename main_menu_type::menu_item_type* const
+                        p_found = main_menu().find(id);
+                        if (p_found == NULL) break;
+
+                        ::MessageBoxW(
+                            handle(), p_found->text().c_str(), L"メニュー", 0
+                        );
+
+                        return 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             case WM_DESTROY:
                 {
                     m_window_destroyed_handler();
                     return 0;
-                }
-            case WM_LBUTTONUP:
-                // if (condition)
-                {
-                    throw std::runtime_error("マウスがクリックされた。");
                 }
             }
             return this->widget::window_procedure(uMsg, wParam, lParam);

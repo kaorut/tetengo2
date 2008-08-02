@@ -204,6 +204,72 @@ namespace tetengo2 { namespace gui { namespace win32
             m_menu_items.erase(first, last);
         }
 
+        /*!
+            \brief Find the menu item with the specified id.
+
+            If the menu item does not exist, it returns NULL.
+
+            \param id An id.
+
+            \return The pointer to the menu item.
+        */
+        const menu_item_type* find(const id_type id)
+        const
+        {
+            for (
+                const_menu_item_iterator i = menu_item_begin();
+                i != menu_item_end();
+                ++i
+            )
+            {
+                if (i->id() == id) return &*i;
+
+                if (i->is_popup())
+                {
+                    assert(dynamic_cast<const popup_menu*>(&*i) != NULL);
+
+                    const popup_menu& popup =
+                        static_cast<const popup_menu&>(*i);
+                    const menu_item_type* const p_found = popup.find(id);
+                    if (p_found != NULL) return p_found;
+                }
+            }
+
+            return NULL;
+        }
+
+        /*!
+            \brief Find the menu item with the specified id.
+
+            If the menu item does not exist, it returns NULL.
+
+            \param id An id.
+
+            \return The pointer to the menu item.
+        */
+        menu_item_type* find(const id_type id)
+        {
+            for (
+                menu_item_iterator i = menu_item_begin();
+                i != menu_item_end();
+                ++i
+            )
+            {
+                if (i->id() == id) return &*i;
+
+                if (i->is_popup())
+                {
+                    assert(dynamic_cast<popup_menu*>(&*i) != NULL);
+
+                    popup_menu& popup = static_cast<popup_menu&>(*i);
+                    menu_item_type* const p_found = popup.find(id);
+                    if (p_found != NULL) return p_found;
+                }
+            }
+
+            return NULL;
+        }
+
 
     private:
         // static functions

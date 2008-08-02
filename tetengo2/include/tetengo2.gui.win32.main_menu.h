@@ -9,15 +9,18 @@
 #if !defined(TETENGO2_GUI_WIN32_MAINMENU_H)
 #define TETENGO2_GUI_WIN32_MAINMENU_H
 
+#include <cassert>
 //#include <cstddef>
 //#include <memory>
 //#include <stdexcept>
 
+#include <boost/cast.hpp>
 //#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
 
 #include "concept_tetengo2.gui.MenuItemList.h"
 #include "tetengo2.gui.win32.menu_item_list.h"
+#include "tetengo2.gui.win32.popup_menu.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -52,6 +55,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The menu item type.
         typedef MenuItem menu_item_type;
+
+        //! The menu item id type.
+        typedef typename menu_item_type::id_type menu_item_id_type;
 
         //! The handle type.
         typedef typename menu_item_type::handle_type handle_type;
@@ -170,8 +176,87 @@ namespace tetengo2 { namespace gui { namespace win32
             m_menu_items.erase(first, last);
         }
 
+        /*!
+            \brief Find the menu item with the specified id.
+
+            If the menu item does not exist, it returns NULL.
+
+            \param id An id.
+
+            \return The pointer to the menu item.
+        */
+        const menu_item_type* find(const menu_item_id_type id)
+        const
+        {
+            for (
+                const_menu_item_iterator i = menu_item_begin();
+                i != menu_item_end();
+                ++i
+            )
+            {
+                if (i->id() == id) return &*i;
+
+                if (i->is_popup())
+                {
+                    assert(dynamic_cast<const popup_menu_type*>(&*i) != NULL);
+
+                    const popup_menu_type& popup =
+                        static_cast<const popup_menu_type&>(*i);
+                    const menu_item_type* const p_found = popup.find(id);
+                    if (p_found != NULL) return p_found;
+                }
+            }
+
+            return NULL;
+        }
+
+        /*!
+            \brief Find the menu item with the specified id.
+
+            If the menu item does not exist, it returns NULL.
+
+            \param id An id.
+
+            \return The pointer to the menu item.
+        */
+        menu_item_type* find(const menu_item_id_type id)
+        {
+            for (
+                menu_item_iterator i = menu_item_begin();
+                i != menu_item_end();
+                ++i
+            )
+            {
+                if (i->id() == id) return &*i;
+
+                if (i->is_popup())
+                {
+                    assert(dynamic_cast<popup_menu_type*>(&*i) != NULL);
+
+                    popup_menu_type& popup =
+                        static_cast<popup_menu_type&>(*i);
+                    menu_item_type* const p_found = popup.find(id);
+                    if (p_found != NULL) return p_found;
+                }
+            }
+
+            return NULL;
+        }
+
 
     private:
+        // types
+
+        typedef
+            popup_menu<
+                menu_item_id_type,
+                handle_type,
+                typename menu_item_type::string_type,
+                MenuItemList
+            >
+            popup_menu_type;
+
+
         // static functions
 
         handle_type create_menu()
