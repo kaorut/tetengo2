@@ -53,7 +53,7 @@ namespace concept_tetengo2 { namespace gui
 
             m_object.erase(first, last);
 
-            menu_item_type* const p_found = m_object.find(0);
+            menu_item_type* const p_found = m_object.find_by_id(0);
             boost::ignore_unused_variable_warning(p_found);
 
             const_constraints(m_object);
@@ -67,7 +67,7 @@ namespace concept_tetengo2 { namespace gui
             const const_menu_item_iterator last = m_object.menu_item_end();
             boost::ignore_unused_variable_warning(last);
 
-            const menu_item_type* const p_found = m_object.find(0);
+            const menu_item_type* const p_found = m_object.find_by_id(0);
             boost::ignore_unused_variable_warning(p_found);
         }
 

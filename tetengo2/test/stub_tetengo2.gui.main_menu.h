@@ -101,13 +101,13 @@ namespace stub_tetengo2 { namespace gui
         void erase(menu_item_iterator first, menu_item_iterator last)
         {}
 
-        const menu_item_type* find(const menu_item_id_type id)
+        const menu_item_type* find_by_id(const menu_item_id_type id)
         const
         {
             return NULL;
         }
 
-        menu_item_type* find(const menu_item_id_type id)
+        menu_item_type* find_by_id(const menu_item_id_type id)
         {
             return NULL;
         }

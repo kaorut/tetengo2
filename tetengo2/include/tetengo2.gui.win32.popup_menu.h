@@ -205,7 +205,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Find the menu item with the specified id.
+            \brief Find the menu item by the specified id.
 
             If the menu item does not exist, it returns NULL.
 
@@ -213,7 +213,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The pointer to the menu item.
         */
-        const menu_item_type* find(const id_type id)
+        const menu_item_type* find_by_id(const id_type id)
         const
         {
             for (
@@ -227,10 +227,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 if (i->is_popup())
                 {
                     assert(dynamic_cast<const popup_menu*>(&*i) != NULL);
-
-                    const popup_menu& popup =
-                        static_cast<const popup_menu&>(*i);
-                    const menu_item_type* const p_found = popup.find(id);
+                    const menu_item_type* const p_found =
+                        static_cast<const popup_menu&>(*i).find_by_id(id);
                     if (p_found != NULL) return p_found;
                 }
             }
@@ -239,7 +237,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Find the menu item with the specified id.
+            \brief Find the menu item by the specified id.
 
             If the menu item does not exist, it returns NULL.
 
@@ -247,7 +245,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The pointer to the menu item.
         */
-        menu_item_type* find(const id_type id)
+        menu_item_type* find_by_id(const id_type id)
         {
             for (
                 menu_item_iterator i = menu_item_begin();
@@ -260,9 +258,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 if (i->is_popup())
                 {
                     assert(dynamic_cast<popup_menu*>(&*i) != NULL);
-
-                    popup_menu& popup = static_cast<popup_menu&>(*i);
-                    menu_item_type* const p_found = popup.find(id);
+                    menu_item_type* const p_found =
+                        static_cast<popup_menu&>(*i).find_by_id(id);
                     if (p_found != NULL) return p_found;
                 }
             }
