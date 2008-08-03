@@ -21,6 +21,7 @@
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "tetengo2.gui.win32.main_menu.h"
+#include "tetengo2.gui.win32.menu_item_list.h"
 #include "tetengo2.gui.win32.popup_menu.h"
 #include "tetengo2.gui.win32.window.h"
 #include "tetengo2.win32.encode.h"
@@ -43,9 +44,13 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
 
         typedef
+            tetengo2::gui::menu_item< ::UINT, ::HMENU, std::wstring>
+            menu_item_type;
+
+        typedef
             tetengo2::gui::win32::main_menu<
-                tetengo2::gui::menu_item< ::UINT, ::HMENU, std::wstring>,
-                tetengo2::gui::win32::menu_item_list
+                menu_item_type,
+                tetengo2::gui::win32::menu_item_list<menu_item_type>
             >
             main_menu_type;
 
@@ -71,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::UINT,
                 ::HMENU,
                 std::wstring,
-                tetengo2::gui::win32::menu_item_list
+                tetengo2::gui::win32::menu_item_list<menu_item_type>
             >
             popup_menu_type;
 

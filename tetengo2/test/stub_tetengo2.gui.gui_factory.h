@@ -45,11 +45,13 @@ namespace stub_tetengo2 { namespace gui
         typedef alert<const void*, stub_tetengo2::encode> alert_type;
 
         typedef
+            tetengo2::gui::menu_item<unsigned int, const void*, std::wstring>
+            menu_item_type;
+
+        typedef
             stub_tetengo2::gui::main_menu<
-                tetengo2::gui::menu_item<
-                    unsigned int, const void*, std::wstring
-                >,
-                stub_tetengo2::gui::menu_item_list
+                menu_item_type,
+                stub_tetengo2::gui::menu_item_list<menu_item_type>
             >
             main_menu_type;
 
@@ -77,7 +79,7 @@ namespace stub_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
-                stub_tetengo2::gui::menu_item_list
+                stub_tetengo2::gui::menu_item_list<menu_item_type>
             >
             popup_menu_type;
 

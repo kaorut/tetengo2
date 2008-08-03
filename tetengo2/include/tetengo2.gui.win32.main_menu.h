@@ -19,7 +19,6 @@
 //#include <boost/noncopyable.hpp>
 
 #include "concept_tetengo2.gui.MenuItemList.h"
-#include "tetengo2.gui.win32.menu_item_list.h"
 #include "tetengo2.gui.win32.popup_menu.h"
 
 
@@ -30,15 +29,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
         \tparam MenuItem     A menu item type. It must conform to
                              concept_tetengo2::gui::MenuItem<MenuItem>.
-        \tparam MenuItemList A menu item list type. The type
-                             MenuItemList<Handle, MenuItem, PopupMenu> must
-                             conform to
-                             concept_tetengo2::gui::MenuItemList<MenuItemList<Handle, MenuItem, PopupMenu> >.
+        \tparam MenuItemList A menu item list type. It must conform to
+                             concept_tetengo2::gui::MenuItemList<MenuItemList>.
    */
-    template <
-        typename MenuItem,
-        template <typename MenuItem> class MenuItemList
-    >
+    template <typename MenuItem, typename MenuItemList>
     class main_menu : private boost::noncopyable
     {
     private:
@@ -46,7 +40,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuItemList<MenuItemList<MenuItem> >
+            concept_tetengo2::gui::MenuItemList<MenuItemList>
         ));
 
 
@@ -63,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef typename menu_item_type::handle_type handle_type;
 
         //! The menu items type.
-        typedef MenuItemList<menu_item_type> menu_items_type;
+        typedef MenuItemList menu_items_type;
 
         //! The menu item iterator type.
         typedef typename menu_items_type::iterator menu_item_iterator;
@@ -241,18 +235,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // types
-
-        typedef
-            popup_menu<
-                menu_item_id_type,
-                handle_type,
-                typename menu_item_type::string_type,
-                MenuItemList
-            >
-            popup_menu_type;
-
-
         // static functions
 
         handle_type create_menu()

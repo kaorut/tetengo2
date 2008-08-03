@@ -17,7 +17,6 @@
 
 #include "concept_tetengo2.gui.MenuItemList.h"
 #include "tetengo2.gui.menu_item.h"
-#include "tetengo2.gui.win32.menu_item_list.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -31,16 +30,14 @@ namespace tetengo2 { namespace gui { namespace win32
                              conform to concept_tetengo2::gui::Handle<Handle>.
         \tparam String       A string type. It must conform to
                              concept_tetengo2::String<String>.
-        \tparam MenuItemList A menu item list type. The type
-                             MenuItemList<Handle, MenuItem, PopupMenu> must
-                             conform to
-                             concept_tetengo2::gui::MenuItemList<MenuItemList<Handle, MenuItem, PopupMenu> >.
+        \tparam MenuItemList A menu item list type. It must conform to
+                             concept_tetengo2::gui::MenuItemList<MenuItemList>.
    */
     template <
         typename Id,
         typename Handle,
         typename String,
-        template <typename MenuItem> class MenuItemList
+        typename MenuItemList
     >
     class popup_menu : public menu_item<Id, Handle, String>
     {
@@ -51,9 +48,7 @@ namespace tetengo2 { namespace gui { namespace win32
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuItemList<
-                MenuItemList<menu_item<Id, Handle, String> >
-            >
+            concept_tetengo2::gui::MenuItemList<MenuItemList>
         ));
 
 
@@ -64,7 +59,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef menu_item<id_type, handle_type, string_type> menu_item_type;
 
         //! The menu items type.
-        typedef MenuItemList<menu_item_type> menu_items_type;
+        typedef MenuItemList menu_items_type;
 
         //! The menu item iterator type.
         typedef typename menu_items_type::iterator menu_item_iterator;

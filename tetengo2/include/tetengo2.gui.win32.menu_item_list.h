@@ -52,6 +52,9 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The menu item type.
         typedef MenuItem menu_item_type;
 
+        //! The menu id_type.
+        typedef typename menu_item_type::id_type menu_id_type;
+
         //! The menu handle type.
         typedef typename menu_item_type::handle_type menu_handle_type;
 

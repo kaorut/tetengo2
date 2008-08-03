@@ -20,10 +20,7 @@
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <
-        typename MenuItem,
-        template <typename MenuItem> class MenuItemList
-    >
+    template <typename MenuItem, typename MenuItemList>
     class main_menu
     {
     private:
@@ -31,7 +28,7 @@ namespace stub_tetengo2 { namespace gui
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuItemList<MenuItemList<MenuItem> >
+            concept_tetengo2::gui::MenuItemList<MenuItemList>
         ));
 
 
@@ -44,7 +41,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename menu_item_type::handle_type handle_type;
 
-        typedef MenuItemList<menu_item_type> menu_items_type;
+        typedef MenuItemList menu_items_type;
 
         typedef typename menu_items_type::iterator menu_item_iterator;
 
