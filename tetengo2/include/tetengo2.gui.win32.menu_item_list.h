@@ -18,6 +18,7 @@
 #include <stdexcept>
 #include <vector>
 
+#include <boost/mem_fn.hpp>
 //#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -189,8 +190,12 @@ namespace tetengo2 { namespace gui { namespace win32
         const menu_item_type* find_by_id(const menu_id_type id)
         const
         {
-            return find_impl_by_id<const PopupMenu, const menu_item_type>(
-                begin(), end(), id
+            return find_impl<const PopupMenu, const menu_item_type>(
+                begin(),
+                end(),
+                id,
+                boost::mem_fn(&menu_item_type::id),
+                boost::mem_fn(&PopupMenu::find_by_id)
             );
         }
 
@@ -209,8 +214,12 @@ namespace tetengo2 { namespace gui { namespace win32
         template <typename PopupMenu>
         menu_item_type* find_by_id(const menu_id_type id)
         {
-            return find_impl_by_id<PopupMenu, menu_item_type>(
-                begin(), end(), id
+            return find_impl<PopupMenu, menu_item_type>(
+                begin(),
+                end(),
+                id,
+                boost::mem_fn(&menu_item_type::id),
+                boost::mem_fn(&PopupMenu::find_by_id)
             );
         }
 
@@ -222,27 +231,39 @@ namespace tetengo2 { namespace gui { namespace win32
             typename PopupMenu,
             typename MenuItem,
             typename InputIterator,
-            typename Target
+            typename Target,
+            typename GetTarget,
+            typename RecursiveFind
         >
-        static MenuItem* find_impl_by_id(
+        static MenuItem* find_impl(
             InputIterator      first,
             InputIterator      last,
-            const Target       target
+            const Target       target,
+            GetTarget          get_target,
+            RecursiveFind      recursive_find
         )
         {
             BOOST_CONCEPT_ASSERT((
                 concept_tetengo2::gui::PopupMenu<PopupMenu>
             ));
+            BOOST_CONCEPT_ASSERT((
+                boost::UnaryFunction<GetTarget, Target, MenuItem&>
+            ));
+            BOOST_CONCEPT_ASSERT((
+                boost::BinaryFunction<
+                    RecursiveFind, MenuItem*, PopupMenu, Target
+                >
+            ));
 
             for (InputIterator i = first; i != last; ++i)
             {
-                if (i->id() == target) return &*i;
+                if (get_target(*i) == target) return &*i;
 
                 if (i->is_popup())
                 {
                     assert(dynamic_cast<PopupMenu*>(&*i) != NULL);
                     MenuItem* const p_found =
-                        static_cast<PopupMenu&>(*i).find_by_id(target);
+                        recursive_find(static_cast<PopupMenu&>(*i), target);
                     if (p_found != NULL) return p_found;
                 }
             }
