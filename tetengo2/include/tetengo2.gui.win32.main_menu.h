@@ -9,12 +9,10 @@
 #if !defined(TETENGO2_GUI_WIN32_MAINMENU_H)
 #define TETENGO2_GUI_WIN32_MAINMENU_H
 
-#include <cassert>
 //#include <cstddef>
 //#include <memory>
 //#include <stdexcept>
 
-#include <boost/cast.hpp>
 //#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
 
@@ -182,24 +180,7 @@ namespace tetengo2 { namespace gui { namespace win32
         const menu_item_type* find_by_id(const menu_item_id_type id)
         const
         {
-            for (
-                const_menu_item_iterator i = menu_item_begin();
-                i != menu_item_end();
-                ++i
-            )
-            {
-                if (i->id() == id) return &*i;
-
-                if (i->is_popup())
-                {
-                    assert(dynamic_cast<const popup_menu_type*>(&*i) != NULL);
-                    const menu_item_type* const p_found =
-                        static_cast<const popup_menu_type&>(*i).find_by_id(id);
-                    if (p_found != NULL) return p_found;
-                }
-            }
-
-            return NULL;
+            return m_menu_items.find_by_id<popup_menu_type>(id);
         }
 
         /*!
@@ -213,24 +194,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         menu_item_type* find_by_id(const menu_item_id_type id)
         {
-            for (
-                menu_item_iterator i = menu_item_begin();
-                i != menu_item_end();
-                ++i
-            )
-            {
-                if (i->id() == id) return &*i;
-
-                if (i->is_popup())
-                {
-                    assert(dynamic_cast<popup_menu_type*>(&*i) != NULL);
-                    menu_item_type* const p_found =
-                        static_cast<popup_menu_type&>(*i).find_by_id(id);
-                    if (p_found != NULL) return p_found;
-                }
-            }
-
-            return NULL;
+            return m_menu_items.find_by_id<popup_menu_type>(id);
         }
 
 

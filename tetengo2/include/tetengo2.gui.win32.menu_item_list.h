@@ -27,6 +27,7 @@
 #include <windows.h>
 
 #include "concept_tetengo2.gui.MenuItem.h"
+#include "concept_tetengo2.gui.PopupMenu.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -172,8 +173,84 @@ namespace tetengo2 { namespace gui { namespace win32
             m_menu_items.erase(first, last);
         }
 
+        /*!
+            \brief Find the menu item by the specified id.
+
+            If the menu item does not exist, it returns NULL.
+
+            \tparam PopupMenu A popup menu type. It must conform to
+                              concept_tetengo2::gui::PopupMenu<PopupMenu>.
+
+            \param id An id.
+
+            \return The pointer to the menu item.
+        */
+        template <typename PopupMenu>
+        const menu_item_type* find_by_id(const menu_id_type id)
+        const
+        {
+            return find_impl_by_id<const PopupMenu, const menu_item_type>(
+                begin(), end(), id
+            );
+        }
+
+        /*!
+            \brief Find the menu item by the specified id.
+
+            If the menu item does not exist, it returns NULL.
+
+            \tparam PopupMenu A popup menu type. It must conform to
+                              concept_tetengo2::gui::PopupMenu<PopupMenu>.
+
+            \param id An id.
+
+            \return The pointer to the menu item.
+        */
+        template <typename PopupMenu>
+        menu_item_type* find_by_id(const menu_id_type id)
+        {
+            return find_impl_by_id<PopupMenu, menu_item_type>(
+                begin(), end(), id
+            );
+        }
+
 
     private:
+        // static functions
+
+        template <
+            typename PopupMenu,
+            typename MenuItem,
+            typename InputIterator,
+            typename Target
+        >
+        static MenuItem* find_impl_by_id(
+            InputIterator      first,
+            InputIterator      last,
+            const Target       target
+        )
+        {
+            BOOST_CONCEPT_ASSERT((
+                concept_tetengo2::gui::PopupMenu<PopupMenu>
+            ));
+
+            for (InputIterator i = first; i != last; ++i)
+            {
+                if (i->id() == target) return &*i;
+
+                if (i->is_popup())
+                {
+                    assert(dynamic_cast<PopupMenu*>(&*i) != NULL);
+                    MenuItem* const p_found =
+                        static_cast<PopupMenu&>(*i).find_by_id(target);
+                    if (p_found != NULL) return p_found;
+                }
+            }
+
+            return NULL;
+        }
+
+
         // variables
 
         const menu_handle_type m_menu_handle;
