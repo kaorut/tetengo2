@@ -27,7 +27,6 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "concept_tetengo2.gui.MenuItem.h"
 #include "concept_tetengo2.gui.PopupMenu.h"
 
 

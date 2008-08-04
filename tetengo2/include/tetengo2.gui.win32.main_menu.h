@@ -16,7 +16,6 @@
 //#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
 
-#include "concept_tetengo2.gui.MenuItemList.h"
 #include "tetengo2.gui.win32.popup_menu.h"
 
 
