@@ -14,12 +14,106 @@
 #include <boost/concept_check.hpp>
 
 
+namespace
+{
+    template <typename MenuItemType>
+    struct popup_menu : public MenuItemType
+    {
+        typedef typename MenuItemType::id_type id_type;
+
+        typedef typename MenuItemType::handle_type handle_type;
+
+        typedef MenuItemType menu_item_type;
+
+        typedef int menu_items_type;
+
+        typedef void* menu_item_iterator;
+
+        typedef const void* const_menu_item_iterator;
+
+        virtual ~popup_menu()
+        throw ()
+        {}
+
+        virtual bool is_command()
+        const
+        {
+            return false;
+        }
+
+        virtual bool is_popup()
+        const
+        {
+            return false;
+        }
+
+        virtual bool is_separator()
+        const
+        {
+            return false;
+        }
+
+        virtual handle_type handle()
+        const
+        {
+            return NULL;
+        }
+
+        const_menu_item_iterator menu_item_begin()
+        const
+        {
+            return NULL;
+        }
+
+        menu_item_iterator menu_item_begin()
+        {
+            return NULL;
+        }
+
+        const_menu_item_iterator menu_item_end()
+        const
+        {
+            return NULL;
+        }
+
+        menu_item_iterator menu_item_end()
+        {
+            return NULL;
+        }
+
+        void insert(
+            menu_item_iterator            offset,
+            std::auto_ptr<menu_item_type> p_menu_item
+        )
+        {}
+
+        void erase(menu_item_iterator first, menu_item_iterator last)
+        {}
+
+        const menu_item_type* find_by_id(const id_type id)
+        const
+        {
+            return NULL;
+        }
+
+        menu_item_type* find_by_id(const id_type id)
+        {
+            return NULL;
+        }
+
+
+    };
+
+
+}
+
+
 namespace concept_tetengo2 { namespace gui
 {
     /*!
         \brief The concept check class template for a menu item list.
 
-        \tparam Type A type.
+        \tparam Type      A type.
     */
     template <typename Type>
     class MenuItemList
@@ -29,6 +123,8 @@ namespace concept_tetengo2 { namespace gui
         // typedef checks
 
         typedef typename Type::menu_item_type menu_item_type;
+
+        typedef typename Type::menu_id_type menu_id_type;
 
         typedef typename Type::menu_handle_type menu_handle_type;
 
@@ -51,17 +147,24 @@ namespace concept_tetengo2 { namespace gui
 
             m_object.erase(first, last);
 
+            menu_item_type* const p_found =
+                m_object.find_by_id<popup_menu<menu_item_type> >(0);
+            boost::ignore_unused_variable_warning(p_found);
+
             const_constraints(m_object);
         }
 
         void const_constraints(const Type& object)
         {
-            const const_iterator first = m_object.begin();
+            const const_iterator first = object.begin();
             boost::ignore_unused_variable_warning(first);
 
-            const const_iterator last = m_object.end();
+            const const_iterator last = object.end();
             boost::ignore_unused_variable_warning(last);
 
+            const menu_item_type* const p_found =
+                m_object.find_by_id<popup_menu<menu_item_type> >(0);
+            boost::ignore_unused_variable_warning(p_found);
         }
 
         

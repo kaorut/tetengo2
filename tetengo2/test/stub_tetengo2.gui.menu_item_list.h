@@ -33,6 +33,8 @@ namespace stub_tetengo2 { namespace gui
 
         typedef MenuItem menu_item_type;
 
+        typedef typename menu_item_type::id_type menu_id_type;
+
         typedef typename menu_item_type::handle_type menu_handle_type;
 
         typedef void* iterator;
@@ -82,6 +84,20 @@ namespace stub_tetengo2 { namespace gui
 
         void erase(iterator first, iterator last)
         {}
+
+        template <typename PopupMenu>
+        menu_item_type* find_by_id(const menu_id_type id)
+        {
+            return NULL;
+        }
+
+        template <typename PopupMenu>
+        const menu_item_type* find_by_id(const menu_id_type id)
+        const
+        {
+            return NULL;
+        }
+
 
 
     };
