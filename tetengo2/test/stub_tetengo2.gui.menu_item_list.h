@@ -98,6 +98,18 @@ namespace stub_tetengo2 { namespace gui
             return NULL;
         }
 
+        template <typename PopupMenu>
+        menu_item_type* find_by_handle(const menu_handle_type handle)
+        {
+            return NULL;
+        }
+
+        template <typename PopupMenu>
+        const menu_item_type* find_by_handle(const menu_handle_type handle)
+        const
+        {
+            return NULL;
+        }
 
 
     };

@@ -142,7 +142,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Insers a menu item.
+            \brief Inserts a menu item.
 
             \param offset      An offset where a menu item is inserted.
             \param p_menu_item An auto pointer to a menu item. It must not be
@@ -168,7 +168,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Find the menu item by the specified id.
+            \brief Finds a menu item by the specified id.
 
             If the menu item does not exist, it returns NULL.
 
@@ -183,7 +183,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Find the menu item by the specified id.
+            \brief Finds a menu item by the specified id.
 
             If the menu item does not exist, it returns NULL.
 
@@ -194,6 +194,35 @@ namespace tetengo2 { namespace gui { namespace win32
         menu_item_type* find_by_id(const menu_item_id_type id)
         {
             return m_menu_items.find_by_id<popup_menu_type>(id);
+        }
+
+        /*!
+            \brief Finds a menu item by the specified handle.
+
+            If the menu item does not exist, it returns NULL.
+
+            \param handle A handle.
+
+            \return The pointer to the menu item.
+        */
+        const menu_item_type* find_by_handle(const handle_type handle)
+        const
+        {
+            return m_menu_items.find_by_handle<popup_menu_type>(handle);
+        }
+
+        /*!
+            \brief Finds a menu item by the specified handle.
+
+            If the menu item does not exist, it returns NULL.
+
+            \param handle A handle.
+
+            \return The pointer to the menu item.
+        */
+        menu_item_type* find_by_handle(const handle_type handle)
+        {
+            return m_menu_items.find_by_handle<popup_menu_type>(handle);
         }
 
 

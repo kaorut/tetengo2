@@ -109,6 +109,17 @@ namespace stub_tetengo2 { namespace gui
             return NULL;
         }
 
+        const menu_item_type* find_by_handle(const handle_type handle)
+        const
+        {
+            return NULL;
+        }
+
+        menu_item_type* find_by_handle(const handle_type handle)
+        {
+            return NULL;
+        }
+
 
     };
 

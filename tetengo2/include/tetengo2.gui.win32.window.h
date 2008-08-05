@@ -231,10 +231,21 @@ namespace tetengo2 { namespace gui { namespace win32
 
                         return 0;
                     }
-                    else
-                    {
-                        break;
-                    }
+
+                    break;
+                }
+            case WM_INITMENUPOPUP:
+                {
+                    if (!has_main_menu()) break;
+
+                    const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
+                    const typename main_menu_type::menu_item_type* const
+                    p_found = main_menu().find_by_handle(handle);
+                    if (p_found == NULL) break;
+
+                    
+
+                    break;
                 }
             case WM_DESTROY:
                 {

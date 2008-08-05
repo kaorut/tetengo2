@@ -53,22 +53,30 @@ namespace concept_tetengo2 { namespace gui
 
             m_object.erase(first, last);
 
-            menu_item_type* const p_found = m_object.find_by_id(0);
-            boost::ignore_unused_variable_warning(p_found);
+            menu_item_type* const p_found_by_id = m_object.find_by_id(0);
+            boost::ignore_unused_variable_warning(p_found_by_id);
+
+            menu_item_type* const p_found_by_handle =
+                m_object.find_by_handle(NULL);
+            boost::ignore_unused_variable_warning(p_found_by_handle);
 
             const_constraints(m_object);
         }
 
         void const_constraints(const Type& object)
         {
-            const const_menu_item_iterator first = m_object.menu_item_begin();
+            const const_menu_item_iterator first = object.menu_item_begin();
             boost::ignore_unused_variable_warning(first);
 
-            const const_menu_item_iterator last = m_object.menu_item_end();
+            const const_menu_item_iterator last = object.menu_item_end();
             boost::ignore_unused_variable_warning(last);
 
-            const menu_item_type* const p_found = m_object.find_by_id(0);
-            boost::ignore_unused_variable_warning(p_found);
+            const menu_item_type* const p_found_by_id = object.find_by_id(0);
+            boost::ignore_unused_variable_warning(p_found_by_id);
+
+            const menu_item_type* const p_found_by_handle =
+                object.find_by_handle(NULL);
+            boost::ignore_unused_variable_warning(p_found_by_handle);
         }
 
         

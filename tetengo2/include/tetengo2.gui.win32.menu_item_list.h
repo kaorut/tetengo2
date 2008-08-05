@@ -137,7 +137,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Insers a menu item.
+            \brief Inserts a menu item.
 
             \param offset      An offset where a menu item is inserted.
             \param p_menu_item An auto pointer to a menu item. It must not be
@@ -174,7 +174,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Find the menu item by the specified id.
+            \brief Finds a menu item by the specified id.
 
             If the menu item does not exist, it returns NULL.
 
@@ -193,13 +193,13 @@ namespace tetengo2 { namespace gui { namespace win32
                 begin(),
                 end(),
                 id,
-                boost::mem_fn(&menu_item_type::id),
-                boost::mem_fn(&PopupMenu::find_by_id)
+                std::mem_fun_ref(&menu_item_type::id),
+                std::mem_fun_ref(&PopupMenu::find_by_id)
             );
         }
 
         /*!
-            \brief Find the menu item by the specified id.
+            \brief Finds a menu item by the specified id.
 
             If the menu item does not exist, it returns NULL.
 
@@ -217,8 +217,65 @@ namespace tetengo2 { namespace gui { namespace win32
                 begin(),
                 end(),
                 id,
-                boost::mem_fn(&menu_item_type::id),
-                boost::mem_fn(&PopupMenu::find_by_id)
+                std::mem_fun_ref(&menu_item_type::id),
+                std::mem_fun_ref(&PopupMenu::find_by_id)
+            );
+        }
+
+        /*!
+            \brief Finds a menu item by the specified handle.
+
+            If the menu item does not exist, it returns NULL.
+
+            \tparam PopupMenu A popup menu type. It must conform to
+                              concept_tetengo2::gui::PopupMenu<PopupMenu>.
+
+            \param handle A handle.
+
+            \return The pointer to the menu item.
+        */
+        template <typename PopupMenu>
+        const menu_item_type* find_by_handle(const menu_handle_type handle)
+        const
+        {
+            BOOST_CONCEPT_ASSERT((
+                concept_tetengo2::gui::PopupMenu<PopupMenu>
+            ));
+
+            return find_impl<const PopupMenu, const menu_item_type>(
+                begin(),
+                end(),
+                handle,
+                std::mem_fun_ref(&menu_item_type::handle),
+                std::mem_fun_ref(&PopupMenu::find_by_handle)
+            );
+        }
+
+        /*!
+            \brief Finds a menu item by the specified handle.
+
+            If the menu item does not exist, it returns NULL.
+
+            \tparam PopupMenu A popup menu type. It must conform to
+                              concept_tetengo2::gui::PopupMenu<PopupMenu>.
+
+            \param handle A handle.
+
+            \return The pointer to the menu item.
+        */
+        template <typename PopupMenu>
+        menu_item_type* find_by_handle(const menu_handle_type handle)
+        {
+            BOOST_CONCEPT_ASSERT((
+                concept_tetengo2::gui::PopupMenu<PopupMenu>
+            ));
+
+            return find_impl<PopupMenu, menu_item_type>(
+                begin(),
+                end(),
+                handle,
+                std::mem_fun_ref(&menu_item_type::handle),
+                std::mem_fun_ref(&PopupMenu::find_by_handle)
             );
         }
 
@@ -234,7 +291,50 @@ namespace tetengo2 { namespace gui { namespace win32
             typename GetTarget,
             typename RecursiveFind
         >
-        static MenuItem* find_impl(
+        const MenuItem* find_impl(
+            InputIterator      first,
+            InputIterator      last,
+            const Target       target,
+            GetTarget          get_target,
+            RecursiveFind      recursive_find
+        )
+        const
+        {
+            BOOST_CONCEPT_ASSERT((
+                boost::UnaryFunction<GetTarget, Target, const MenuItem&>
+            ));
+            BOOST_CONCEPT_ASSERT((
+                boost::BinaryFunction<
+                    RecursiveFind, const MenuItem*, PopupMenu, Target
+                >
+            ));
+
+            for (InputIterator i = first; i != last; ++i)
+            {
+                if (get_target(*i) == target) return &*i;
+
+                if (i->is_popup())
+                {
+                    assert(dynamic_cast<const PopupMenu*>(&*i) != NULL);
+                    const MenuItem* const p_found = recursive_find(
+                        static_cast<const PopupMenu&>(*i), target
+                    );
+                    if (p_found != NULL) return p_found;
+                }
+            }
+
+            return NULL;
+        }
+
+        template <
+            typename PopupMenu,
+            typename MenuItem,
+            typename InputIterator,
+            typename Target,
+            typename GetTarget,
+            typename RecursiveFind
+        >
+        MenuItem* find_impl(
             InputIterator      first,
             InputIterator      last,
             const Target       target,
@@ -242,9 +342,6 @@ namespace tetengo2 { namespace gui { namespace win32
             RecursiveFind      recursive_find
         )
         {
-            BOOST_CONCEPT_ASSERT((
-                concept_tetengo2::gui::PopupMenu<PopupMenu>
-            ));
             BOOST_CONCEPT_ASSERT((
                 boost::UnaryFunction<GetTarget, Target, MenuItem&>
             ));

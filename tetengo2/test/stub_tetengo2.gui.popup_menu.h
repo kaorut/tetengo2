@@ -46,16 +46,12 @@ namespace stub_tetengo2 { namespace gui
     public:
         // types
 
-        //! The menu item type.
         typedef menu_item<id_type, handle_type, string_type> menu_item_type;
 
-        //! The menu items type.
         typedef MenuItemList menu_items_type;
 
-        //! The menu item iterator type.
         typedef typename menu_items_type::iterator menu_item_iterator;
 
-        //! The const menu item iterator type.
         typedef
             typename menu_items_type::const_iterator const_menu_item_iterator;
 
@@ -136,6 +132,17 @@ namespace stub_tetengo2 { namespace gui
         }
 
         menu_item_type* find_by_id(const id_type id)
+        {
+            return NULL;
+        }
+
+        const menu_item_type* find_by_handle(const handle_type handle)
+        const
+        {
+            return NULL;
+        }
+
+        menu_item_type* find_by_handle(const handle_type handle)
         {
             return NULL;
         }

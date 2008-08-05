@@ -102,6 +102,17 @@ namespace
             return NULL;
         }
 
+        const menu_item_type* find_by_handle(const handle_type handle)
+        const
+        {
+            return NULL;
+        }
+
+        menu_item_type* find_by_handle(const handle_type handle)
+        {
+            return NULL;
+        }
+
 
     };
 
@@ -148,9 +159,13 @@ namespace concept_tetengo2 { namespace gui
 
             m_object.erase(first, last);
 
-            menu_item_type* const p_found =
+            menu_item_type* const p_found_by_id =
                 m_object.find_by_id<popup_menu<menu_item_type> >(0);
-            boost::ignore_unused_variable_warning(p_found);
+            boost::ignore_unused_variable_warning(p_found_by_id);
+
+            menu_item_type* const p_found_by_handle =
+                m_object.find_by_handle<popup_menu<menu_item_type> >(NULL);
+            boost::ignore_unused_variable_warning(p_found_by_handle);
 
             const_constraints(m_object);
         }
@@ -163,9 +178,13 @@ namespace concept_tetengo2 { namespace gui
             const const_iterator last = object.end();
             boost::ignore_unused_variable_warning(last);
 
-            const menu_item_type* const p_found =
+            const menu_item_type* const p_found_by_id =
                 m_object.find_by_id<popup_menu<menu_item_type> >(0);
-            boost::ignore_unused_variable_warning(p_found);
+            boost::ignore_unused_variable_warning(p_found_by_id);
+
+            const menu_item_type* const p_found_by_handle =
+                m_object.find_by_handle<popup_menu<menu_item_type> >(NULL);
+            boost::ignore_unused_variable_warning(p_found_by_handle);
         }
 
         
