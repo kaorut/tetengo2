@@ -148,6 +148,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\concept_tetengo2.gui.MenuObserver.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\concept_tetengo2.gui.MenuSeparator.h"
 				>
 			</File>
@@ -189,6 +193,10 @@
 			</File>
 			<File
 				RelativePath=".\include\tetengo2.gui.menu_item.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\tetengo2.gui.menu_observer.h"
 				>
 			</File>
 			<File

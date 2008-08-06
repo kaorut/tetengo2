@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.menu_command.h"
+#include "tetengo2.gui.menu_observer.h"
 
 #include "test_tetengo2.gui.menu_command.h"
 
@@ -30,8 +31,6 @@ namespace test_tetengo2 { namespace gui
         p_suite->add(BOOST_TEST_CASE(is_popup));
         p_suite->add(BOOST_TEST_CASE(is_separator));
         p_suite->add(BOOST_TEST_CASE(handle));
-        p_suite->add(BOOST_TEST_CASE(command));
-        p_suite->add(BOOST_TEST_CASE(set_command));
 
         return p_suite;
     }
@@ -42,29 +41,22 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                unsigned int, const void*, std::wstring, std::wstring
+                unsigned int,
+                const void*,
+                std::wstring,
+                tetengo2::gui::menu_observer
             >
             menu_command_type;
 
         {
-            const menu_command_type menu_command(L"", L"");
+            const menu_command_type menu_command(L"");
 
-            BOOST_CHECK(menu_command.command() == L"");
+            BOOST_CHECK(menu_command.text() == L"");
         }
         {
-            const menu_command_type menu_command(L"", L"a");
+            const menu_command_type menu_command(L"a");
 
-            BOOST_CHECK(menu_command.command() == L"a");
-        }
-        {
-            const menu_command_type menu_command(L"a", L"");
-
-            BOOST_CHECK(menu_command.command() == L"");
-        }
-        {
-            const menu_command_type menu_command(L"a", L"a");
-
-            BOOST_CHECK(menu_command.command() == L"a");
+            BOOST_CHECK(menu_command.text() == L"a");
         }
     }
 
@@ -74,12 +66,15 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                unsigned int, const void*, std::wstring, std::wstring
+                unsigned int,
+                const void*,
+                std::wstring,
+                tetengo2::gui::menu_observer
             >
             menu_command_type;
 
         {
-            const menu_command_type menu_command(L"", L"");
+            const menu_command_type menu_command(L"");
 
             BOOST_CHECK(menu_command.is_command());
         }
@@ -91,12 +86,15 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                unsigned int, const void*, std::wstring, std::wstring
+                unsigned int,
+                const void*,
+                std::wstring,
+                tetengo2::gui::menu_observer
             >
             menu_command_type;
 
         {
-            const menu_command_type menu_command(L"", L"");
+            const menu_command_type menu_command(L"");
 
             BOOST_CHECK(!menu_command.is_popup());
         }
@@ -108,12 +106,15 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                unsigned int, const void*, std::wstring, std::wstring
+                unsigned int,
+                const void*,
+                std::wstring,
+                tetengo2::gui::menu_observer
             >
             menu_command_type;
 
         {
-            const menu_command_type menu_command(L"", L"");
+            const menu_command_type menu_command(L"");
 
             BOOST_CHECK(!menu_command.is_separator());
         }
@@ -125,69 +126,17 @@ namespace test_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_command<
-                unsigned int, const void*, std::wstring, std::wstring
+                unsigned int,
+                const void*,
+                std::wstring,
+                tetengo2::gui::menu_observer
             >
             menu_command_type;
 
         {
-            const menu_command_type menu_command(L"", L"");
+            const menu_command_type menu_command(L"");
 
             BOOST_CHECK(menu_command.handle() == NULL);
-        }
-    }
-
-    void menu_command::command()
-    {
-        BOOST_CHECKPOINT("");
-
-        typedef
-            tetengo2::gui::menu_command<
-                unsigned int, const void*, std::wstring, std::wstring
-            >
-            menu_command_type;
-
-        {
-            const menu_command_type menu_command(L"", L"");
-
-            BOOST_CHECK(menu_command.command() == L"");
-        }
-        {
-            const menu_command_type menu_command(L"", L"a");
-
-            BOOST_CHECK(menu_command.command() == L"a");
-        }
-    }
-
-    void menu_command::set_command()
-    {
-        BOOST_CHECKPOINT("");
-
-        typedef
-            tetengo2::gui::menu_command<
-                unsigned int, const void*, std::wstring, std::wstring
-            >
-            menu_command_type;
-
-        {
-            menu_command_type menu_command(L"", L"");
-
-            menu_command.set_command(L"x");
-
-            BOOST_CHECK(menu_command.command() == L"x");
-        }
-        {
-            menu_command_type menu_command(L"", L"a");
-
-            menu_command.set_command(L"x");
-
-            BOOST_CHECK(menu_command.command() == L"x");
-        }
-        {
-            menu_command_type menu_command(L"", L"a");
-
-            menu_command.set_command(L"");
-
-            BOOST_CHECK(menu_command.command() == L"");
         }
     }
 

@@ -139,19 +139,17 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Creates a menu command.
 
-            \param text    A text.
-            \param command A command.
+            \param text A text.
 
             \return An auto pointer to a menu command.
         */
         std::auto_ptr<menu_command_type> create_menu_command(
-            const typename menu_command_type::string_type&  text,
-            const typename menu_command_type::command_type& command
+            const typename menu_command_type::string_type& text
         )
         const
         {
             return std::auto_ptr<menu_command_type>(
-                new menu_command_type(text, command)
+                new menu_command_type(text)
             );
         }
 

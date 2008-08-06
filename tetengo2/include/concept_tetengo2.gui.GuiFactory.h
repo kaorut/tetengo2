@@ -64,10 +64,7 @@ namespace concept_tetengo2 { namespace gui
             boost::ignore_unused_variable_warning(p_main_menu);
 
             const std::auto_ptr<menu_command_type> p_menu_command =
-                object.create_menu_command(
-                    menu_command_type::string_type(),
-                    menu_command_type::command_type()
-                );
+                object.create_menu_command(menu_command_type::string_type());
             boost::ignore_unused_variable_warning(p_menu_command);
 
             const std::auto_ptr<popup_menu_type> p_popup_menu =

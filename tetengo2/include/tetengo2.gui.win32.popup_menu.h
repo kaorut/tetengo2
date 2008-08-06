@@ -32,14 +32,17 @@ namespace tetengo2 { namespace gui { namespace win32
                              concept_tetengo2::String<String>.
         \tparam MenuItemList A menu item list type. It must conform to
                              concept_tetengo2::gui::MenuItemList<MenuItemList>.
+        \tparam MenuObserver A menu observer type. It must conform to
+                             concept_tetengo2::gui::MenuObserver<MenuObserver>.
    */
     template <
         typename Id,
         typename Handle,
         typename String,
-        typename MenuItemList
+        typename MenuItemList,
+        typename MenuObserver
     >
-    class popup_menu : public menu_item<Id, Handle, String>
+    class popup_menu : public menu_item<Id, Handle, String, MenuObserver>
     {
     private:
         // concept checks
@@ -50,13 +53,18 @@ namespace tetengo2 { namespace gui { namespace win32
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuItemList<MenuItemList>
         ));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::MenuObserver<MenuObserver>
+        ));
 
 
     public:
         // types
 
         //! The menu item type.
-        typedef menu_item<id_type, handle_type, string_type> menu_item_type;
+        typedef
+            menu_item<id_type, handle_type, string_type, menu_observer_type>
+            menu_item_type;
 
         //! The menu items type.
         typedef MenuItemList menu_items_type;

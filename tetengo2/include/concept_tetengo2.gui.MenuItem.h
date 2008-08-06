@@ -9,6 +9,8 @@
 #if !defined(CONCEPTTETENGO2_GUI_MENUITEM_H)
 #define CONCEPTTETENGO2_GUI_MENUITEM_H
 
+#include <memory>
+
 #include <boost/concept_check.hpp>
 
 
@@ -32,12 +34,19 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::string_type string_type;
 
+        typedef typename Type::menu_observer_type menu_observer_type;
+
 
         // usage checks
 
         BOOST_CONCEPT_USAGE(MenuItem)
         {
             m_p_object->set_text(string_type());
+
+            m_p_object->select();
+
+            std::auto_ptr<menu_observer_type> p_menu_observer;
+            m_p_object->add_menu_observer(p_menu_observer);
 
             const_constraints(*m_p_object);
         }

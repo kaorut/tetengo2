@@ -34,6 +34,10 @@ namespace test_tetengo2 { namespace gui
 
         static void set_text();
 
+        static void select();
+
+        static void add_menu_observer();
+
 
     };
 

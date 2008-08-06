@@ -23,6 +23,7 @@
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "stub_tetengo2.gui.window.h"
 #include "tetengo2.gui.menu_command.h"
+#include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
@@ -45,7 +46,12 @@ namespace
         canvas_type;
 
     typedef
-        tetengo2::gui::menu_item<unsigned int, const void*, std::wstring>
+        tetengo2::gui::menu_item<
+            unsigned int,
+            const void*,
+            std::wstring,
+            tetengo2::gui::menu_observer
+        >
         menu_item_type;
 
     typedef
@@ -70,7 +76,10 @@ namespace
 
     typedef
         tetengo2::gui::menu_command<
-            unsigned int, const void*, std::wstring, std::wstring
+            unsigned int,
+            const void*,
+            std::wstring,
+            tetengo2::gui::menu_observer
         >
         menu_command_type;
 
@@ -79,12 +88,18 @@ namespace
             unsigned int,
             const void*,
             std::wstring,
-            stub_tetengo2::gui::menu_item_list<menu_item_type>
+            stub_tetengo2::gui::menu_item_list<menu_item_type>,
+            tetengo2::gui::menu_observer
         >
         popup_menu_type;
 
     typedef
-        tetengo2::gui::menu_separator<unsigned int, const void*, std::wstring>
+        tetengo2::gui::menu_separator<
+            unsigned int,
+            const void*,
+            std::wstring,
+            tetengo2::gui::menu_observer
+        >
         menu_separator_type;
 
     typedef

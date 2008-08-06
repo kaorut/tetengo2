@@ -10,6 +10,7 @@
 #define BOBURA_BOBURA_H
 
 //#include <memory>
+#include <string>
 
 //#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
@@ -17,6 +18,7 @@
 
 #include <concept_tetengo2.gui.GuiFactory.h>
 
+#include "bobura.message.main_window_menu_observer.h"
 #include "bobura.message.main_window_paint_observer.h"
 #include "bobura.message.main_window_window_observer.h"
 
@@ -119,6 +121,9 @@ namespace bobura
             paint_observer_type;
 
         typedef typename main_menu_type::menu_item_type menu_item_type;
+
+        typedef
+            typename menu_item_type::menu_observer_type menu_observer_type;
 
         typedef
             typename gui_factory_type::menu_command_type menu_command_type;
@@ -236,13 +241,8 @@ namespace bobura
                     m_p_gui_factory->create_popup_menu(L"ヘルプ(&H)")
                 );
 
-                p_popup_menu->insert(
-                    p_popup_menu->menu_item_end(),
-                    std::auto_ptr<menu_item_type>(
-                        m_p_gui_factory->create_menu_command(
-                            L"バージョン情報(&A)...", L"About"
-                        )
-                    )
+                append_menu_command(
+                    *p_popup_menu, L"バージョン情報(&A)...", L"About"
                 );
 
                 p_main_menu->insert(
@@ -255,15 +255,21 @@ namespace bobura
         }
 
         void append_menu_command(
-            popup_menu_type&                                popup_menu,
-            const typename menu_item_type::string_type&     text,
-            const typename menu_command_type::command_type& command
+            popup_menu_type&                            popup_menu,
+            const typename menu_item_type::string_type& text,
+            const std::wstring&                         command
         )
         const
         {
             std::auto_ptr<menu_item_type> p_menu_command(
-                m_p_gui_factory->create_menu_command(text, command)
+                m_p_gui_factory->create_menu_command(text)
             );
+
+            std::auto_ptr<menu_observer_type> p_menu_observer(
+                new message::main_window_menu_observer<std::wstring>(command)
+            );
+            p_menu_command->add_menu_observer(p_menu_observer);
+
             popup_menu.insert(
                 popup_menu.menu_item_end(), p_menu_command
             );

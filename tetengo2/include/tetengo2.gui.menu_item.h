@@ -10,12 +10,17 @@
 #define TETENGO2_GUI_MENUITEM_H
 
 #include <cstddef>
+#include <memory>
 
+#include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/signal.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Handle.h"
+#include "concept_tetengo2.gui.MenuObserver.h"
 
 
 namespace tetengo2 { namespace gui
@@ -23,14 +28,21 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The base class template for a menu item.
 
-        \tparam Id     A ID type. It must conform to
-                       boost::UnsignedInteger<Id>.
-        \tparam Handle A handle type. It must conform to
-                       concept_tetengo2::gui::Handle<Handle>.
-        \tparam String A string type. It must conform to
-                       concept_tetengo2::String<String>.
+        \tparam Id           A ID type. It must conform to
+                             boost::UnsignedInteger<Id>.
+        \tparam Handle       A handle type. It must conform to
+                             concept_tetengo2::gui::Handle<Handle>.
+        \tparam String       A string type. It must conform to
+                             concept_tetengo2::String<String>.
+        \tparam MenuObserver A menu observer type. It must conform to
+                             concept_tetengo2::gui::MenuObserver<MenuObserver>.
    */
-    template <typename Id, typename Handle, typename String>
+    template <
+        typename Id,
+        typename Handle,
+        typename String,
+        typename MenuObserver
+    >
     class menu_item : boost::noncopyable
     {
     private:
@@ -39,6 +51,9 @@ namespace tetengo2 { namespace gui
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::MenuObserver<MenuObserver>
+        ));
 
 
     public:
@@ -47,11 +62,14 @@ namespace tetengo2 { namespace gui
         //! The ID type.
         typedef Id id_type;
 
-        //! The handle type
+        //! The handle type.
         typedef Handle handle_type;
 
-        //! The string type
+        //! The string type.
         typedef String string_type;
+
+        //! The menu observer type.
+        typedef MenuObserver menu_observer_type;
 
 
         // constructors and destructor
@@ -136,6 +154,33 @@ namespace tetengo2 { namespace gui
             m_text = text;
         }
 
+        /*!
+            \brief Selects this menu item.
+        */
+        void select()
+        {
+            m_menu_selected_handler();
+        }
+
+        /*!
+            \brief Adds a menu observer.
+
+            \param p_menu_observer An auto pointer to a menu observer.
+        */
+        void add_menu_observer(
+            std::auto_ptr<menu_observer_type> p_menu_observer
+        )
+        {
+            m_menu_selected_handler.connect(
+                boost::bind(
+                    &typename menu_observer_type::selected,
+                    p_menu_observer.get()
+                )
+            );
+
+            m_menu_observers.push_back(p_menu_observer);
+        }
+
 
     protected:
         // constructors
@@ -148,7 +193,9 @@ namespace tetengo2 { namespace gui
         menu_item(const string_type& text)
         :
         m_id(get_and_increment_id()),
-        m_text(text)
+        m_text(text),
+        m_menu_observers(),
+        m_menu_selected_handler()
         {}
 
 
@@ -168,6 +215,10 @@ namespace tetengo2 { namespace gui
         id_type m_id;
 
         string_type m_text;
+
+        boost::ptr_vector<menu_observer_type> m_menu_observers;
+
+        boost::signal<void ()> m_menu_selected_handler;
 
 
     };

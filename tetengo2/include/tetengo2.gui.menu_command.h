@@ -23,17 +23,22 @@ namespace tetengo2 { namespace gui
 
         The handle is NULL.
 
-        \tparam Id      A ID type. It must conform to
-                        boost::UnsignedInteger<Id>.
-        \tparam Handle  A handle type. It must conform to
-                        concept_tetengo2::gui::Handle<Handle>.
-        \tparam String  A string type. It must conform to
-                        concept_tetengo2::String<String>.
-        \tparam Command A command type. It must conform to
-                        concept_tetengo2::String<String>.
+        \tparam Id           A ID type. It must conform to
+                             boost::UnsignedInteger<Id>.
+        \tparam Handle       A handle type. It must conform to
+                             concept_tetengo2::gui::Handle<Handle>.
+        \tparam String       A string type. It must conform to
+                             concept_tetengo2::String<String>.
+        \tparam MenuObserver A menu observer type. It must conform to
+                             concept_tetengo2::gui::MenuObserver<MenuObserver>.
    */
-    template <typename Id, typename Handle, typename String, typename Command>
-    class menu_command : public menu_item<Id, Handle, String>
+    template <
+        typename Id,
+        typename Handle,
+        typename String,
+        typename MenuObserver
+    >
+    class menu_command : public menu_item<Id, Handle, String, MenuObserver>
     {
     private:
         // concept checks
@@ -41,28 +46,22 @@ namespace tetengo2 { namespace gui
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Command>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::MenuObserver<MenuObserver>
+        ));
 
 
     public:
-        // types
-
-        //! The command type
-        typedef Command command_type;
-
-
         // constructors and destructor
 
         /*!
             \brief Creates a menu command.
 
-            \param text    A text.
-            \param command A command.
+            \param text A text.
         */
-        menu_command(const string_type& text, const command_type& command)
+        explicit menu_command(const string_type& text)
         :
-        menu_item(text),
-        m_command(command)
+        menu_item(text)
         {}
 
         /*!
@@ -106,33 +105,6 @@ namespace tetengo2 { namespace gui
         {
             return NULL;
         }
-
-        /*!
-            \brief Returns the command.
-
-            \return The command.
-        */
-        const command_type& command()
-        const
-        {
-            return m_command;
-        }
-
-        /*!
-            \brief Sets the command.
-
-            \param command A command.
-        */
-        void set_command(const command_type& command)
-        {
-            m_command = command;
-        }
-
-
-    private:
-        // variables
-
-        command_type m_command;
 
 
     };

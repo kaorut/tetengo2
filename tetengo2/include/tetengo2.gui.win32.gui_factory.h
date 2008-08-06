@@ -14,6 +14,7 @@
 
 #include "tetengo2.gui.gui_factory.h"
 #include "tetengo2.gui.menu_command.h"
+#include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
@@ -43,7 +44,12 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
 
         typedef
-            tetengo2::gui::menu_item< ::UINT, ::HMENU, std::wstring>
+            tetengo2::gui::menu_item<
+                ::UINT,
+                ::HMENU,
+                std::wstring,
+                tetengo2::gui::menu_observer
+            >
             menu_item_type;
 
         typedef
@@ -67,7 +73,12 @@ namespace tetengo2 { namespace gui { namespace win32
             window_type;
 
         typedef
-            menu_command< ::UINT, ::HMENU, std::wstring, std::wstring>
+            menu_command<
+                ::UINT,
+                ::HMENU,
+                std::wstring,
+                tetengo2::gui::menu_observer
+            >
             menu_command_type;
 
         typedef
@@ -75,12 +86,15 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::UINT,
                 ::HMENU,
                 std::wstring,
-                tetengo2::gui::win32::menu_item_list<menu_item_type>
+                tetengo2::gui::win32::menu_item_list<menu_item_type>,
+                tetengo2::gui::menu_observer
             >
             popup_menu_type;
 
         typedef
-            menu_separator< ::UINT, ::HMENU, std::wstring>
+            menu_separator<
+                ::UINT, ::HMENU, std::wstring, tetengo2::gui::menu_observer
+            >
             menu_separator_type;
 
 

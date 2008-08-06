@@ -1,13 +1,13 @@
 /*! \file
-    \brief Test of class tetengo2::gui::win32::menu_command.
+    \brief Test of class tetengo2::gui::menu_observer.
 
     Copyright (C) 2007-2008 kaoru
 
     $Id$
 */
 
-#if !defined(TESTTETENGO2_GUI_MENUCOMMAND_H)
-#define TESTTETENGO2_GUI_MENUCOMMAND_H
+#if !defined(TESTTETENGO2_GUI_MENUOBSERVER_H)
+#define TESTTETENGO2_GUI_MENUOBSERVER_H
 
 //#include <boost/test/unit_test.hpp> forward declaration
 namespace boost { namespace unit_test {
@@ -17,7 +17,7 @@ namespace boost { namespace unit_test {
 
 namespace test_tetengo2 { namespace gui
 {
-    class menu_command
+    class menu_observer
     {
     public:
         // static functions
@@ -26,13 +26,7 @@ namespace test_tetengo2 { namespace gui
 
         static void construction();
 
-        static void is_command();
-
-        static void is_popup();
-
-        static void is_separator();
-
-        static void handle();
+        static void selected();
 
 
     };
