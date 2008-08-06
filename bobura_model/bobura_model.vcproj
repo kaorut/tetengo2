@@ -40,6 +40,27 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName).$(PlatformName)"
+			IntermediateDirectory="$(ProjectDir)obj\$(ConfigurationName).$(PlatformName)"
+			ConfigurationType="10"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="Debug|x64"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName).$(PlatformName)"
 			IntermediateDirectory="$(ProjectDir)obj\$(ConfigurationName).$(PlatformName)"
@@ -56,27 +77,6 @@
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName).$(PlatformName)"
-			IntermediateDirectory="$(ProjectDir)obj\$(ConfigurationName).$(PlatformName)"
-			ConfigurationType="10"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -119,70 +119,78 @@
 			Filter="h"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\include\bobura.model.station.h"
+			<Filter
+				Name="bobura::model"
 				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.station_info.grade.h"
+				<File
+					RelativePath=".\include\bobura.model.station.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\bobura.model.station_info.grade.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\bobura.model.timetable.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\bobura.model.timetable_info.station_location.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\bobura.model.train.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\bobura.model.train_info.stop.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\bobura.model.train_info.time.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\bobura.model.train_info.time_span.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="concept_bobura::model"
 				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.timetable.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.timetable_info.station_location.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.train.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.train_info.stop.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.train_info.time.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\bobura.model.train_info.time_span.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\concept_bobura.model.Station.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\concept_bobura.model.station_info.Grade.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\concept_bobura.model.Timetable.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\concept_bobura.model.timetable_info.StationLocation.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\concept_bobura.model.Train.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\concept_bobura.model.train_info.Stop.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\concept_bobura.model.train_info.Time.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\concept_bobura.model.train_info.TimeSpan.h"
-				>
-			</File>
+				<File
+					RelativePath=".\include\concept_bobura.model.Station.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_bobura.model.station_info.Grade.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_bobura.model.Timetable.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_bobura.model.timetable_info.StationLocation.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_bobura.model.Train.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_bobura.model.train_info.Stop.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_bobura.model.train_info.Time.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_bobura.model.train_info.TimeSpan.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resources"

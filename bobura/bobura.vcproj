@@ -414,29 +414,37 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\src\bobura.bobura.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\bobura.configuration.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\bobura.message.main_window_menu_observer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\bobura.message.main_window_paint_observer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\bobura.message.main_window_window_observer.h"
-				>
-			</File>
-			<File
 				RelativePath="..\precompiled\precompiled.h"
 				>
 			</File>
+			<Filter
+				Name="bobura"
+				>
+				<File
+					RelativePath=".\src\bobura.bobura.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\bobura.configuration.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="bobura::message"
+				>
+				<File
+					RelativePath=".\src\bobura.message.main_window_menu_observer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\bobura.message.main_window_paint_observer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\bobura.message.main_window_window_observer.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resources"
