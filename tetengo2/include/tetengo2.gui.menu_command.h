@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_MENUCOMMAND_H
 
 //#include <cstddef>
+//#include <string>
 
 //#include <boost/concept_check.hpp>
 
