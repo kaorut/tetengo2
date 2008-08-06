@@ -29,6 +29,7 @@ namespace test_tetengo2 { namespace gui { namespace win32
         p_suite->add(BOOST_TEST_CASE(insert));
         p_suite->add(BOOST_TEST_CASE(erase));
         p_suite->add(BOOST_TEST_CASE(find_by_id));
+        p_suite->add(BOOST_TEST_CASE(find_by_handle));
 
         return p_suite;
     }
@@ -64,6 +65,11 @@ namespace test_tetengo2 { namespace gui { namespace win32
     }
 
     void main_menu::find_by_id()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void main_menu::find_by_handle()
     {
         BOOST_WARN("Not implemented yet.");
     }

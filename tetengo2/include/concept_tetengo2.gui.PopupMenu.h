@@ -9,6 +9,7 @@
 #if !defined(CONCEPTTETENGO2_GUI_POPUPMENU_H)
 #define CONCEPTTETENGO2_GUI_POPUPMENU_H
 
+#include <cstddef>
 #include <memory>
 
 //#include <boost/concept_check.hpp>

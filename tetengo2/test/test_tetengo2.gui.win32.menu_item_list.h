@@ -34,6 +34,10 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
         static void erase();
 
+        static void find_by_id();
+
+        static void find_by_handle();
+
 
     };
 

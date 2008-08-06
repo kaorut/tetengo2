@@ -193,8 +193,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 begin(),
                 end(),
                 id,
-                std::mem_fun_ref(&menu_item_type::id),
-                std::mem_fun_ref(&PopupMenu::find_by_id)
+                boost::mem_fn(&menu_item_type::id),
+                call_find_by_id_const<PopupMenu>
             );
         }
 
@@ -217,8 +217,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 begin(),
                 end(),
                 id,
-                std::mem_fun_ref(&menu_item_type::id),
-                std::mem_fun_ref(&PopupMenu::find_by_id)
+                boost::mem_fn(&menu_item_type::id),
+                call_find_by_id<PopupMenu>
             );
         }
 
@@ -246,8 +246,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 begin(),
                 end(),
                 handle,
-                std::mem_fun_ref(&menu_item_type::handle),
-                std::mem_fun_ref(&PopupMenu::find_by_handle)
+                boost::mem_fn(&menu_item_type::handle),
+                call_find_by_handle_const<PopupMenu>
             );
         }
 
@@ -274,8 +274,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 begin(),
                 end(),
                 handle,
-                std::mem_fun_ref(&menu_item_type::handle),
-                std::mem_fun_ref(&PopupMenu::find_by_handle)
+                boost::mem_fn(&menu_item_type::handle),
+                call_find_by_handle<PopupMenu>
             );
         }
 
@@ -283,47 +283,40 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // static functions
 
-        template <
-            typename PopupMenu,
-            typename MenuItem,
-            typename InputIterator,
-            typename Target,
-            typename GetTarget,
-            typename RecursiveFind
-        >
-        const MenuItem* find_impl(
-            InputIterator      first,
-            InputIterator      last,
-            const Target       target,
-            GetTarget          get_target,
-            RecursiveFind      recursive_find
+        template <typename PopupMenu>
+        static const menu_item_type* call_find_by_id_const(
+            const PopupMenu&   popup_menu,
+            const menu_id_type id
         )
-        const
         {
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<GetTarget, Target, const MenuItem&>
-            ));
-            BOOST_CONCEPT_ASSERT((
-                boost::BinaryFunction<
-                    RecursiveFind, const MenuItem*, PopupMenu, Target
-                >
-            ));
+            return popup_menu.find_by_id(id);
+        }
 
-            for (InputIterator i = first; i != last; ++i)
-            {
-                if (get_target(*i) == target) return &*i;
+        template <typename PopupMenu>
+        static menu_item_type* call_find_by_id(
+            PopupMenu&         popup_menu,
+            const menu_id_type id
+        )
+        {
+            return popup_menu.find_by_id(id);
+        }
 
-                if (i->is_popup())
-                {
-                    assert(dynamic_cast<const PopupMenu*>(&*i) != NULL);
-                    const MenuItem* const p_found = recursive_find(
-                        static_cast<const PopupMenu&>(*i), target
-                    );
-                    if (p_found != NULL) return p_found;
-                }
-            }
+        template <typename PopupMenu>
+        static const menu_item_type* call_find_by_handle_const(
+            const PopupMenu&       popup_menu,
+            const menu_handle_type handle
+        )
+        {
+            return popup_menu.find_by_handle(handle);
+        }
 
-            return NULL;
+        template <typename PopupMenu>
+        static menu_item_type* call_find_by_handle(
+            PopupMenu&             popup_menu,
+            const menu_handle_type handle
+        )
+        {
+            return popup_menu.find_by_handle(handle);
         }
 
         template <
@@ -334,7 +327,7 @@ namespace tetengo2 { namespace gui { namespace win32
             typename GetTarget,
             typename RecursiveFind
         >
-        MenuItem* find_impl(
+        static MenuItem* find_impl(
             InputIterator      first,
             InputIterator      last,
             const Target       target,
