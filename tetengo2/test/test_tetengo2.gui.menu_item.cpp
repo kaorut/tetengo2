@@ -12,8 +12,11 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.menu_observer.h"
+
+#include "tetengo2.gui.menu_item.h"
+
+#include "stub_tetengo2.encode.h"
 
 #include "test_tetengo2.gui.menu_item.h"
 
@@ -24,10 +27,13 @@ namespace
         typename Id,
         typename Handle,
         typename String,
+        template <typename Target, typename Source> class Encode,
         typename MenuObserver
     >
     class menu_item_driver :
-        public tetengo2::gui::menu_item<Id, Handle, String, MenuObserver>
+        public tetengo2::gui::menu_item<
+            Id, Handle, String, Encode, MenuObserver
+        >
     {
     public:
         // constructors and destructor
@@ -102,6 +108,7 @@ namespace test_tetengo2 { namespace gui
             unsigned int,
             const void*,
             std::wstring,
+            stub_tetengo2::encode,
             tetengo2::gui::menu_observer
         >
         menu_item_driver_type;
@@ -126,6 +133,7 @@ namespace test_tetengo2 { namespace gui
             unsigned int,
             const void*,
             std::wstring,
+            stub_tetengo2::encode,
             tetengo2::gui::menu_observer
         >
         menu_item_driver_type;
@@ -146,6 +154,7 @@ namespace test_tetengo2 { namespace gui
             unsigned int,
             const void*,
             std::wstring,
+            stub_tetengo2::encode,
             tetengo2::gui::menu_observer
         >
         menu_item_driver_type;
@@ -170,6 +179,7 @@ namespace test_tetengo2 { namespace gui
             unsigned int,
             const void*,
             std::wstring,
+            stub_tetengo2::encode,
             tetengo2::gui::menu_observer
         >
         menu_item_driver_type;
@@ -205,6 +215,7 @@ namespace test_tetengo2 { namespace gui
             unsigned int,
             const void*,
             std::wstring,
+            stub_tetengo2::encode,
             tetengo2::gui::menu_observer
         >
         menu_item_driver_type;
@@ -246,6 +257,7 @@ namespace test_tetengo2 { namespace gui
             unsigned int,
             const void*,
             std::wstring,
+            stub_tetengo2::encode,
             tetengo2::gui::menu_observer
         >
         menu_item_driver_type;

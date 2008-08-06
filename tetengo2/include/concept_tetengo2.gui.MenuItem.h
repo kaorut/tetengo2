@@ -34,6 +34,11 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::string_type string_type;
 
+        typedef
+            typename Type::encode_from_native_type encode_from_native_type;
+
+        typedef typename Type::encode_to_native_type encode_to_native_type;
+
         typedef typename Type::menu_observer_type menu_observer_type;
 
 

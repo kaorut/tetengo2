@@ -50,6 +50,7 @@ namespace stub_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_item_type;
@@ -79,6 +80,7 @@ namespace stub_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_command_type;
@@ -88,6 +90,7 @@ namespace stub_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 stub_tetengo2::gui::menu_item_list<menu_item_type>,
                 tetengo2::gui::menu_observer
             >
@@ -98,6 +101,7 @@ namespace stub_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_separator_type;

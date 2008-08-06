@@ -16,6 +16,7 @@
 #include <iterator>
 //#include <memory>
 #include <stdexcept>
+#include <string>
 #include <vector>
 
 #include <boost/mem_fn.hpp>
@@ -281,6 +282,15 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
+        // types
+
+        typedef typename menu_item_type::string_type string_type;
+
+        typedef
+            typename menu_item_type::encode_to_native_type
+            encode_to_native_type;
+
+
         // static functions
 
         template <typename PopupMenu>
@@ -422,15 +432,17 @@ namespace tetengo2 { namespace gui { namespace win32
             }
         }
 
-        const std::vector< ::WCHAR> duplicate_text(
-            const typename menu_item_type::string_type& text
-        )
+        const std::vector< ::WCHAR> duplicate_text(const string_type& text)
         const
         {
+            const std::wstring native_string = encode_to_native_type()(text);
+
             std::vector< ::WCHAR> duplicated;
-            duplicated.reserve(text.length() + 1);
+            duplicated.reserve(native_string.length() + 1);
             std::copy(
-                text.begin(), text.end(), std::back_inserter(duplicated)
+                native_string.begin(),
+                native_string.end(),
+                std::back_inserter(duplicated)
             );
             duplicated.push_back(L'\0');
 

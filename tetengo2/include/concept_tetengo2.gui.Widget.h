@@ -39,8 +39,7 @@ namespace concept_tetengo2 { namespace gui
         typedef
             typename Type::encode_from_native_type encode_from_native_type;
 
-        typedef
-            typename Type::encode_to_native_type encode_to_native_type;
+        typedef typename Type::encode_to_native_type encode_to_native_type;
 
         typedef typename Type::paint_observer_type paint_observer_type;
 

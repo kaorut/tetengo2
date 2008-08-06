@@ -15,6 +15,8 @@
 
 #include "tetengo2.gui.menu_separator.h"
 
+#include "stub_tetengo2.encode.h"
+
 #include "test_tetengo2.gui.menu_separator.h"
 
 
@@ -45,6 +47,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_separator_type;
@@ -65,6 +68,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_separator_type;
@@ -85,6 +89,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_separator_type;
@@ -105,6 +110,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_separator_type;
@@ -125,6 +131,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_separator_type;

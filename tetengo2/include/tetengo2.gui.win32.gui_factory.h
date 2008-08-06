@@ -48,6 +48,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::UINT,
                 ::HMENU,
                 std::wstring,
+                tetengo2::win32::encode,
                 tetengo2::gui::menu_observer
             >
             menu_item_type;
@@ -77,6 +78,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::UINT,
                 ::HMENU,
                 std::wstring,
+                tetengo2::win32::encode,
                 tetengo2::gui::menu_observer
             >
             menu_command_type;
@@ -86,6 +88,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::UINT,
                 ::HMENU,
                 std::wstring,
+                tetengo2::win32::encode,
                 tetengo2::gui::win32::menu_item_list<menu_item_type>,
                 tetengo2::gui::menu_observer
             >
@@ -93,7 +96,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         typedef
             menu_separator<
-                ::UINT, ::HMENU, std::wstring, tetengo2::gui::menu_observer
+                ::UINT,
+                ::HMENU,
+                std::wstring,
+                tetengo2::win32::encode,
+                tetengo2::gui::menu_observer
             >
             menu_separator_type;
 

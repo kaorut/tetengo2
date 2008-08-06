@@ -11,8 +11,10 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.menu_command.h"
+#include "stub_tetengo2.encode.h"
 #include "tetengo2.gui.menu_observer.h"
+
+#include "tetengo2.gui.menu_command.h"
 
 #include "test_tetengo2.gui.menu_command.h"
 
@@ -44,6 +46,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_command_type;
@@ -69,6 +72,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_command_type;
@@ -89,6 +93,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_command_type;
@@ -109,6 +114,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_command_type;
@@ -129,6 +135,7 @@ namespace test_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 std::wstring,
+                stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
             menu_command_type;
