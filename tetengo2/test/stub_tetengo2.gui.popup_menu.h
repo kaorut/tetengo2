@@ -30,8 +30,8 @@ namespace stub_tetengo2 { namespace gui
         typename Handle,
         typename String,
         template <typename Target, typename Source> class Encode,
-        typename MenuItemList,
-        typename MenuObserver
+        typename MenuObserver,
+        typename MenuItemList
     >
     class popup_menu :
         public tetengo2::gui::menu_item<
@@ -65,10 +65,10 @@ namespace stub_tetengo2 { namespace gui
             ));
         };
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuItemList<MenuItemList>
+            concept_tetengo2::gui::MenuObserver<MenuObserver>
         ));
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuObserver<MenuObserver>
+            concept_tetengo2::gui::MenuItemList<MenuItemList>
         ));
 
 

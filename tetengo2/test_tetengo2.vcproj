@@ -667,6 +667,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\stub_tetengo2.gui.menu_item.h"
+					>
+				</File>
+				<File
 					RelativePath=".\test\stub_tetengo2.gui.menu_item_list.h"
 					>
 				</File>

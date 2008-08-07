@@ -91,8 +91,8 @@ namespace stub_tetengo2 { namespace gui
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
-                stub_tetengo2::gui::menu_item_list<menu_item_type>,
-                tetengo2::gui::menu_observer
+                tetengo2::gui::menu_observer,
+                stub_tetengo2::gui::menu_item_list<menu_item_type>
             >
             popup_menu_type;
 

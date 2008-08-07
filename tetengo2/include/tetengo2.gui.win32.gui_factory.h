@@ -89,8 +89,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::HMENU,
                 std::wstring,
                 tetengo2::win32::encode,
-                tetengo2::gui::win32::menu_item_list<menu_item_type>,
-                tetengo2::gui::menu_observer
+                tetengo2::gui::menu_observer,
+                tetengo2::gui::win32::menu_item_list<menu_item_type>
             >
             popup_menu_type;
 

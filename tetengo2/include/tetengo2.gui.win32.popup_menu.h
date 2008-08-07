@@ -37,18 +37,18 @@ namespace tetengo2 { namespace gui { namespace win32
                              boost::UnaryFunction<Encode, String, std::wstring>
                              and
                              boost::UnaryFunction<Encode, std::wstring, String>.
-        \tparam MenuItemList A menu item list type. It must conform to
-                             concept_tetengo2::gui::MenuItemList<MenuItemList>.
         \tparam MenuObserver A menu observer type. It must conform to
                              concept_tetengo2::gui::MenuObserver<MenuObserver>.
+        \tparam MenuItemList A menu item list type. It must conform to
+                             concept_tetengo2::gui::MenuItemList<MenuItemList>.
    */
     template <
         typename Id,
         typename Handle,
         typename String,
         template <typename Target, typename Source> class Encode,
-        typename MenuItemList,
-        typename MenuObserver
+        typename MenuObserver,
+        typename MenuItemList
     >
     class popup_menu :
         public menu_item<Id, Handle, String, Encode, MenuObserver>
@@ -76,10 +76,10 @@ namespace tetengo2 { namespace gui { namespace win32
             ));
         };
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuItemList<MenuItemList>
+            concept_tetengo2::gui::MenuObserver<MenuObserver>
         ));
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuObserver<MenuObserver>
+            concept_tetengo2::gui::MenuItemList<MenuItemList>
         ));
 
 
