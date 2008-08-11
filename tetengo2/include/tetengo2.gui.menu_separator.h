@@ -61,7 +61,6 @@ namespace tetengo2 { namespace gui
         typedef typename MenuItem::menu_observer_type menu_observer_type;
 
 
-
         // constructors and destructor
 
         /*!

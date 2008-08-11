@@ -14,7 +14,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "tetengo2.gui.menu_item.h"
+#include "concept_tetengo2.gui.MenuItem.h"
 
 
 namespace tetengo2 { namespace gui
@@ -24,59 +24,43 @@ namespace tetengo2 { namespace gui
 
         The handle is NULL.
 
-        \tparam Id           A ID type. It must conform to
-                             boost::UnsignedInteger<Id>.
-        \tparam Handle       A handle type. It must conform to
-                             concept_tetengo2::gui::Handle<Handle>.
-        \tparam String       A string type. It must conform to
-                             concept_tetengo2::String<String>.
-        \tparam Encode       An encoding unary functor type. The types
-                             Encode<String, std::wstring> and
-                             Encode<std::wstring, String> must conform to
-                             boost::UnaryFunction<Encode, String, std::wstring>
-                             and
-                             boost::UnaryFunction<Encode, std::wstring, String>.
-        \tparam MenuObserver A menu observer type. It must conform to
-                             concept_tetengo2::gui::MenuObserver<MenuObserver>.
+        \tparam MenuItem A menu item type. It must conform to
+                         concept_tetengo2::gui::MenuItem<MenuItem>
    */
-    template <
-        typename Id,
-        typename Handle,
-        typename String,
-        template <typename Target, typename Source> class Encode,
-        typename MenuObserver
-    >
-    class menu_command :
-        public menu_item<Id, Handle, String, Encode, MenuObserver>
+    template <typename MenuItem>
+    class menu_command : public MenuItem
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring native_string_type;
-            typedef Encode<String, std::wstring> encode_from_native_type;
-            typedef Encode<std::wstring, String> encode_to_native_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_from_native_type, String, native_string_type
-                >
-            ));
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_native_type, native_string_type, String
-                >
-            ));
-        };
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuObserver<MenuObserver>
-        ));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
 
 
     public:
+        // types
+
+        //! The ID type.
+        typedef typename MenuItem::id_type id_type;
+
+        //! The handle type.
+        typedef typename MenuItem::handle_type handle_type;
+
+        //! The string type.
+        typedef typename MenuItem::string_type string_type;
+
+        //! The unary functor type for encoding from the native.
+        typedef
+            typename MenuItem::encode_from_native_type
+            encode_from_native_type;
+
+        //! The unary functor type for encoding to the native.
+        typedef
+            typename MenuItem::encode_to_native_type encode_to_native_type;
+
+        //! The menu observer type.
+        typedef typename MenuItem::menu_observer_type menu_observer_type;
+
+
         // constructors and destructor
 
         /*!
@@ -99,32 +83,50 @@ namespace tetengo2 { namespace gui
 
         // functions
 
-        // The document will be derived from
-        // tetengo2::gui::menu_item::is_command.
+        /*!
+            \brief Returns whether the menu item is a menu command.
+
+            \retval true  The menu item is a menu command.
+            \retval false Otherwise.
+        */
         virtual bool is_command()
         const
         {
             return true;
         }
 
-        // The document will be derived from
-        // tetengo2::gui::menu_item::is_popup.
+        /*!
+            \brief Returns whether the menu item is a popup menu.
+
+            \retval true  The menu item is a popup menu.
+            \retval false Otherwise.
+        */
         virtual bool is_popup()
         const
         {
             return false;
         }
 
-        // The document will be derived from
-        // tetengo2::gui::menu_item::is_separator.
+        /*!
+            \brief Returns whether the menu item is a menu separator.
+
+            \retval true  The menu item is a menu separator.
+            \retval false Otherwise.
+        */
         virtual bool is_separator()
         const
         {
             return false;
         }
 
-        // The document will be derived from
-        // tetengo2::gui::menu_item::handle.
+        /*!
+            \brief Returns the handle.
+
+            If the value of is_popup() is false, this function may return
+            NULL.
+
+            \return The handle.
+        */
         virtual handle_type handle()
         const
         {

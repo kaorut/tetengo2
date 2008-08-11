@@ -75,15 +75,7 @@ namespace stub_tetengo2 { namespace gui
             >
             window_type;
 
-        typedef
-            tetengo2::gui::menu_command<
-                unsigned int,
-                const void*,
-                std::wstring,
-                stub_tetengo2::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_command_type;
+        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
         typedef
             stub_tetengo2::gui::popup_menu<

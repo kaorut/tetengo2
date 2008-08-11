@@ -73,15 +73,7 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             window_type;
 
-        typedef
-            menu_command<
-                ::UINT,
-                ::HMENU,
-                std::wstring,
-                tetengo2::win32::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_command_type;
+        typedef menu_command<menu_item_type> menu_command_type;
 
         typedef
             popup_menu<

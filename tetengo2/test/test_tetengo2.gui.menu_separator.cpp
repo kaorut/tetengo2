@@ -11,12 +11,11 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "stub_tetengo2.encode.h"
 #include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.menu_observer.h"
 
 #include "tetengo2.gui.menu_separator.h"
-
-#include "stub_tetengo2.encode.h"
 
 #include "test_tetengo2.gui.menu_separator.h"
 

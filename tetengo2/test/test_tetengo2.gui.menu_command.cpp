@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "stub_tetengo2.encode.h"
+#include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.menu_observer.h"
 
 #include "tetengo2.gui.menu_command.h"
@@ -42,14 +43,15 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_command_type;
+            menu_item_type;
+        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
         {
             const menu_command_type menu_command(L"");
@@ -68,14 +70,15 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_command_type;
+            menu_item_type;
+        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
         {
             const menu_command_type menu_command(L"");
@@ -89,14 +92,15 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_command_type;
+            menu_item_type;
+        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
         {
             const menu_command_type menu_command(L"");
@@ -110,14 +114,15 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_command_type;
+            menu_item_type;
+        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
         {
             const menu_command_type menu_command(L"");
@@ -131,14 +136,15 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_command<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_command_type;
+            menu_item_type;
+        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
         {
             const menu_command_type menu_command(L"");
