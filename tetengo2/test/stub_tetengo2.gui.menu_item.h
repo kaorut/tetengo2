@@ -9,6 +9,8 @@
 #if !defined(STUBTETENGO2_GUI_MENUITEM_H)
 #define STUBTETENGO2_GUI_MENUITEM_H
 
+#include <memory>
+
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
