@@ -11,6 +11,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.menu_observer.h"
 
 #include "tetengo2.gui.menu_separator.h"
@@ -43,14 +44,16 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_separator<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_separator_type;
+            menu_item_type;
+        typedef
+            tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
         {
             const menu_separator_type menu_separator;
@@ -64,14 +67,16 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_separator<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_separator_type;
+            menu_item_type;
+        typedef
+            tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
         {
             const menu_separator_type menu_separator;
@@ -85,14 +90,16 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_separator<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_separator_type;
+            menu_item_type;
+        typedef
+            tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
         {
             const menu_separator_type menu_separator;
@@ -106,14 +113,16 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_separator<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_separator_type;
+            menu_item_type;
+        typedef
+            tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
         {
             const menu_separator_type menu_separator;
@@ -127,14 +136,16 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_separator<
+            tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_separator_type;
+            menu_item_type;
+        typedef
+            tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
         {
             const menu_separator_type menu_separator;

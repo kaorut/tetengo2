@@ -96,15 +96,7 @@ namespace
         >
         popup_menu_type;
 
-    typedef
-        tetengo2::gui::menu_separator<
-            unsigned int,
-            const void*,
-            std::wstring,
-            stub_tetengo2::encode,
-            tetengo2::gui::menu_observer
-        >
-        menu_separator_type;
+    typedef tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
     typedef
         tetengo2::gui::gui_factory<

@@ -94,15 +94,7 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             popup_menu_type;
 
-        typedef
-            menu_separator<
-                ::UINT,
-                ::HMENU,
-                std::wstring,
-                tetengo2::win32::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_separator_type;
+        typedef menu_separator<menu_item_type> menu_separator_type;
 
 
     }
