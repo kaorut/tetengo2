@@ -100,6 +100,7 @@ namespace stub_tetengo2 { namespace gui
 
     protected:
         // constructors
+
         menu_item(const string_type& text)
         {}
 
