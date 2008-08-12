@@ -11,13 +11,12 @@
 
 //#include <cstddef>
 //#include <memory>
-//#include <stdexcept>
-//#include <string>
+#include <stdexcept>
 
 //#include <boost/concept_check.hpp>
 
+#include "concept_tetengo2.gui.MenuItem.h"
 #include "concept_tetengo2.gui.MenuItemList.h"
-#include "tetengo2.gui.menu_item.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -25,59 +24,18 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a popup menu.
 
-        \tparam Id           A ID type to the native interface. It must
-                             conform to boost::UnsignedInteger<Id>.
-        \tparam Handle       A handle type to the native interface. It must
-                             conform to concept_tetengo2::gui::Handle<Handle>.
-        \tparam String       A string type. It must conform to
-                             concept_tetengo2::String<String>.
-        \tparam Encode       An encoding unary functor type. The types
-                             Encode<String, std::wstring> and
-                             Encode<std::wstring, String> must conform to
-                             boost::UnaryFunction<Encode, String, std::wstring>
-                             and
-                             boost::UnaryFunction<Encode, std::wstring, String>.
-        \tparam MenuObserver A menu observer type. It must conform to
-                             concept_tetengo2::gui::MenuObserver<MenuObserver>.
+        \tparam MenuItem     A menu item type. It must conform to
+                             concept_tetengo2::gui::MenuItem<MenuItem>
         \tparam MenuItemList A menu item list type. It must conform to
                              concept_tetengo2::gui::MenuItemList<MenuItemList>.
    */
-    template <
-        typename Id,
-        typename Handle,
-        typename String,
-        template <typename Target, typename Source> class Encode,
-        typename MenuObserver,
-        typename MenuItemList
-    >
-    class popup_menu :
-        public menu_item<Id, Handle, String, Encode, MenuObserver>
+    template <typename MenuItem, typename MenuItemList>
+    class popup_menu : public MenuItem
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring native_string_type;
-            typedef Encode<String, std::wstring> encode_from_native_type;
-            typedef Encode<std::wstring, String> encode_to_native_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_from_native_type, String, native_string_type
-                >
-            ));
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_native_type, native_string_type, String
-                >
-            ));
-        };
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuObserver<MenuObserver>
-        ));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuItemList<MenuItemList>
         ));
@@ -86,12 +44,29 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The menu item type.
+        //! The ID type.
+        typedef typename MenuItem::id_type id_type;
+
+        //! The handle type.
+        typedef typename MenuItem::handle_type handle_type;
+
+        //! The string type.
+        typedef typename MenuItem::string_type string_type;
+
+        //! The unary functor type for encoding from the native.
         typedef
-            menu_item<
-                id_type, handle_type, string_type, Encode, menu_observer_type
-            >
-            menu_item_type;
+            typename MenuItem::encode_from_native_type
+            encode_from_native_type;
+
+        //! The unary functor type for encoding to the native.
+        typedef
+            typename MenuItem::encode_to_native_type encode_to_native_type;
+
+        //! The menu observer type.
+        typedef typename MenuItem::menu_observer_type menu_observer_type;
+
+        //! The menu item type.
+        typedef MenuItem menu_item_type;
 
         //! The menu items type.
         typedef MenuItemList menu_items_type;

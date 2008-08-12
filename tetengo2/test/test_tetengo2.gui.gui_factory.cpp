@@ -23,6 +23,7 @@
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "stub_tetengo2.gui.window.h"
 #include "tetengo2.gui.menu_command.h"
+#include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
 #include "tetengo2.gui.paint_observer.h"
@@ -79,11 +80,7 @@ namespace
 
     typedef
         stub_tetengo2::gui::popup_menu<
-            unsigned int,
-            const void*,
-            std::wstring,
-            stub_tetengo2::encode,
-            tetengo2::gui::menu_observer,
+            menu_item_type,
             stub_tetengo2::gui::menu_item_list<menu_item_type>
         >
         popup_menu_type;

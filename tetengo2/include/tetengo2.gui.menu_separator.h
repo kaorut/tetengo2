@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_MENUSEPARATOR_H
 
 #include <cstddef>
-#include <string>
 
 //#include <boost/concept_check.hpp>
 
