@@ -12,22 +12,21 @@
 //#include <cstddef>
 //#include <string>
 
-#include "tetengo2.gui.gui_factory.h"
-#include "tetengo2.gui.menu_command.h"
-#include "tetengo2.gui.menu_item.h"
-#include "tetengo2.gui.menu_observer.h"
-#include "tetengo2.gui.menu_separator.h"
-#include "tetengo2.gui.paint_observer.h"
-#include "tetengo2.gui.window_observer.h"
-
 #include "stub_tetengo2.gui.alert.h"
 #include "stub_tetengo2.gui.canvas.h"
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
 #include "stub_tetengo2.gui.main_menu.h"
+#include "stub_tetengo2.gui.menu_item.h"
 #include "stub_tetengo2.gui.menu_item_list.h"
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "stub_tetengo2.gui.window.h"
 #include "stub_tetengo2.encode.h"
+#include "tetengo2.gui.gui_factory.h"
+#include "tetengo2.gui.menu_command.h"
+#include "tetengo2.gui.menu_observer.h"
+#include "tetengo2.gui.menu_separator.h"
+#include "tetengo2.gui.paint_observer.h"
+#include "tetengo2.gui.window_observer.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -47,7 +46,7 @@ namespace stub_tetengo2 { namespace gui
         typedef alert<const void*, stub_tetengo2::encode> alert_type;
 
         typedef
-            tetengo2::gui::menu_item<
+            stub_tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,

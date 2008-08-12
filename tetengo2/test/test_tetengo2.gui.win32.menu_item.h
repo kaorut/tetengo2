@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TESTTETENGO2_GUI_MENUITEM_H)
-#define TESTTETENGO2_GUI_MENUITEM_H
+#if !defined(TESTTETENGO2_GUI_WIN32_MENUITEM_H)
+#define TESTTETENGO2_GUI_WIN32_MENUITEM_H
 
 #include <boost/noncopyable.hpp>
 
@@ -17,7 +17,7 @@ namespace boost { namespace unit_test {
 }}
 
 
-namespace test_tetengo2 { namespace gui
+namespace test_tetengo2 { namespace gui { namespace win32
 {
     class menu_item : private boost::noncopyable
     {
@@ -42,6 +42,6 @@ namespace test_tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 #endif

@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu_item.
+    \brief The definition of tetengo2::gui::win32::menu_item.
 
     Copyright (C) 2007-2008 kaoru
 
@@ -24,7 +24,7 @@
 #include "concept_tetengo2.gui.MenuObserver.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
         \brief The base class template for a menu item.
@@ -254,6 +254,6 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 #endif

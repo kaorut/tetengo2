@@ -14,7 +14,6 @@
 #endif
 #include "test_tetengo2.gui.gui_factory.h"
 #include "test_tetengo2.gui.menu_command.h"
-#include "test_tetengo2.gui.menu_item.h"
 #include "test_tetengo2.gui.menu_observer.h"
 #include "test_tetengo2.gui.menu_separator.h"
 #include "test_tetengo2.gui.paint_observer.h"
@@ -36,7 +35,6 @@ namespace test_tetengo2 { namespace gui
 
         p_suite->add(gui_factory::suite());
         p_suite->add(menu_command::suite());
-        p_suite->add(menu_item::suite());
         p_suite->add(menu_observer::suite());
         p_suite->add(menu_separator::suite());
         p_suite->add(paint_observer::suite());

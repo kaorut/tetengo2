@@ -14,7 +14,6 @@
 
 #include "tetengo2.gui.gui_factory.h"
 #include "tetengo2.gui.menu_command.h"
-#include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
 #include "tetengo2.gui.paint_observer.h"
@@ -23,6 +22,7 @@
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "tetengo2.gui.win32.main_menu.h"
+#include "tetengo2.gui.win32.menu_item.h"
 #include "tetengo2.gui.win32.menu_item_list.h"
 #include "tetengo2.gui.win32.window.h"
 #include "tetengo2.win32.encode.h"
@@ -45,7 +45,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
 
         typedef
-            tetengo2::gui::menu_item<
+            tetengo2::gui::win32::menu_item<
                 ::UINT,
                 ::HMENU,
                 std::wstring,

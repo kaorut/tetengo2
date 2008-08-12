@@ -14,6 +14,7 @@
 #include "test_tetengo2.gui.win32.gui_factory.h"
 #include "test_tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "test_tetengo2.gui.win32.main_menu.h"
+#include "test_tetengo2.gui.win32.menu_item.h"
 #include "test_tetengo2.gui.win32.menu_item_list.h"
 #include "test_tetengo2.gui.win32.message_loop.h"
 #include "test_tetengo2.gui.win32.popup_menu.h"
@@ -36,6 +37,7 @@ namespace test_tetengo2 { namespace gui { namespace win32
         p_suite->add(gui_factory::suite());
         p_suite->add(gui_initializer_finalizer::suite());
         p_suite->add(main_menu::suite());
+        p_suite->add(menu_item::suite());
         p_suite->add(menu_item_list::suite());
         p_suite->add(message_loop::suite());
         p_suite->add(popup_menu::suite());

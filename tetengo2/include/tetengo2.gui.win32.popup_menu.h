@@ -106,24 +106,36 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        // The document will be derived from
-        // tetengo2::gui::menu_item::is_command.
+        /*!
+            \brief Returns whether the menu item is a menu command.
+
+            \retval true  The menu item is a menu command.
+            \retval false Otherwise.
+        */
         virtual bool is_command()
         const
         {
             return false;
         }
 
-        // The document will be derived from
-        // tetengo2::gui::menu_item::is_popup.
+        /*!
+            \brief Returns whether the menu item is a popup menu.
+
+            \retval true  The menu item is a popup menu.
+            \retval false Otherwise.
+        */
         virtual bool is_popup()
         const
         {
             return true;
         }
 
-        // The document will be derived from
-        // tetengo2::gui::menu_item::is_separator.
+        /*!
+            \brief Returns whether the menu item is a menu separator.
+
+            \retval true  The menu item is a menu separator.
+            \retval false Otherwise.
+        */
         virtual bool is_separator()
         const
         {

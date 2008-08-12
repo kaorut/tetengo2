@@ -143,10 +143,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\tetengo2.gui.menu_item.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\tetengo2.gui.menu_observer.h"
 					>
 				</File>
@@ -176,6 +172,10 @@
 				</File>
 				<File
 					RelativePath=".\include\tetengo2.gui.win32.main_menu.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\tetengo2.gui.win32.menu_item.h"
 					>
 				</File>
 				<File

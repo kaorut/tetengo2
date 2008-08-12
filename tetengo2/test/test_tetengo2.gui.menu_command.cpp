@@ -12,8 +12,8 @@
 #include <boost/test/unit_test.hpp>
 
 #include "stub_tetengo2.encode.h"
-#include "tetengo2.gui.menu_item.h"
 #include "tetengo2.gui.menu_observer.h"
+#include "tetengo2.gui.win32.menu_item.h"
 
 #include "tetengo2.gui.menu_command.h"
 
@@ -43,7 +43,7 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_item<
+            tetengo2::gui::win32::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
@@ -70,7 +70,7 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_item<
+            tetengo2::gui::win32::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
@@ -92,7 +92,7 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_item<
+            tetengo2::gui::win32::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
@@ -114,7 +114,7 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_item<
+            tetengo2::gui::win32::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
@@ -136,7 +136,7 @@ namespace test_tetengo2 { namespace gui
         BOOST_CHECKPOINT("");
 
         typedef
-            tetengo2::gui::menu_item<
+            tetengo2::gui::win32::menu_item<
                 unsigned int,
                 const void*,
                 std::wstring,
