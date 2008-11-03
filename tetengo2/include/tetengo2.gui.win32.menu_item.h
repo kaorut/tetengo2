@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MENUITEM_H)
-#define TETENGO2_GUI_MENUITEM_H
+#if !defined(TETENGO2_GUI_WIN32_MENUITEM_H)
+#define TETENGO2_GUI_WIN32_MENUITEM_H
 
 #include <cstddef>
 #include <memory>
