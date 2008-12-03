@@ -23,7 +23,7 @@ namespace bobura { namespace message
         \brief The class template for a menu observer of the main window.
         
         \tparam Command A command type. It must conform to
-                        concept_tetengo2::StringConcept<Command>.
+                        concept_tetengo2::String<Command>.
     */
     template <typename Command>
     class main_window_menu_observer : public tetengo2::gui::menu_observer
