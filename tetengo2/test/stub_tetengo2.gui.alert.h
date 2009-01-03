@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of stub_tetengo2::gui::alert.
 
-    Copyright (C) 2007-2008 kaoru
+    Copyright (C) 2007-2009 kaoru
 
     $Id$
 */

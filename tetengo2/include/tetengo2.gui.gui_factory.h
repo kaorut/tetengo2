@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::gui_factory.
 
-    Copyright (C) 2007-2008 kaoru
+    Copyright (C) 2007-2009 kaoru
 
     $Id$
 */

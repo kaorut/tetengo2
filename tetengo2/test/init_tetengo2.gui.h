@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of namespace tetengo2::gui.
 
-    Copyright (C) 2007-2008 kaoru
+    Copyright (C) 2007-2009 kaoru
 
     $Id$
 */

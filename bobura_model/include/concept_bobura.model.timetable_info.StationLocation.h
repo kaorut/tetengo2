@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of concept_bobura::model::timetable_info::StationLocation.
 
-    Copyright (C) 2007-2008 kaoru
+    Copyright (C) 2007-2009 kaoru
 
     $Id$
 */

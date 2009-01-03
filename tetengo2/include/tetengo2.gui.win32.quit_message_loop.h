@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::win32::quit_message_loop.
 
-    Copyright (C) 2007-2008 kaoru
+    Copyright (C) 2007-2009 kaoru
 
     $Id$
 */

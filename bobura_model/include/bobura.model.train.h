@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of bobura::model::train.
 
-    Copyright (C) 2007-2008 kaoru
+    Copyright (C) 2007-2009 kaoru
 
     $Id$
 */

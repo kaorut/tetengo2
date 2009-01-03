@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of concept_tetengo2::gui::PopupMenu.
 
-    Copyright (C) 2007-2008 kaoru
+    Copyright (C) 2007-2009 kaoru
 
     $Id$
 */

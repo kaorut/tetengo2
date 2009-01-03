@@ -2,7 +2,7 @@
 
 # Standard library usage checker.
 # $Id$
-# Copyright (C) 2007-2008 kaoru
+# Copyright (C) 2007-2009 kaoru
 
 LANG=C
 SOLUTIONDIR=`dirname $0`/..
