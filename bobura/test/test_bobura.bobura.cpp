@@ -86,4 +86,5 @@ namespace test_bobura
         BOOST_CHECK_EQUAL(bobura.run(), 0);
     }
 
+
 }
