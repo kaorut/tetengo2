@@ -199,6 +199,15 @@ namespace tetengo2 { namespace gui { namespace win32
             m_window_observers.push_back(p_window_observer);
         }
 
+        /*!
+            \brief Closes the window.
+        */
+        void close()
+        const
+        {
+            ::PostMessage(m_handle, WM_CLOSE, 0, 0);
+        }
+
 
     protected:
         // functions

@@ -441,6 +441,10 @@
 				Name="test_bobura::command"
 				>
 				<File
+					RelativePath=".\test\test_bobura.command.exit.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_bobura.command.nop.cpp"
 					>
 				</File>
@@ -510,6 +514,10 @@
 			<Filter
 				Name="test_bobura::command"
 				>
+				<File
+					RelativePath=".\test\test_bobura.command.exit.h"
+					>
+				</File>
 				<File
 					RelativePath=".\test\test_bobura.command.nop.h"
 					>

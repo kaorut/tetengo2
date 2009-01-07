@@ -96,6 +96,10 @@ namespace stub_tetengo2 { namespace gui
         )
         {}
 
+        void close()
+        const
+        {}
+
 
     };
 

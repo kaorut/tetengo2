@@ -17,6 +17,7 @@
 
 #include <concept_tetengo2.gui.GuiFactory.h>
 
+#include "bobura.command.exit.h"
 #include "bobura.command.nop.h"
 #include "bobura.message.main_window_menu_observer.h"
 #include "bobura.message.main_window_paint_observer.h"
@@ -206,7 +207,8 @@ namespace bobura
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
-                    *p_popup_menu, L"èIóπ(&X)", command::nop()
+                    *p_popup_menu, L"èIóπ(&X)",
+                    command::exit<window_type>(p_window)
                 );
 
                 p_main_menu->insert(

@@ -22,7 +22,6 @@ namespace bobura { namespace message
         \tparam QuitMessageLoop A unary functor type for quitting the message
                                 loop. It must conform to
                                boost::UnaryFunction<QuitMessageLoop, void, int>
-
     */
     template <typename QuitMessageLoop>
     class main_window_window_observer : public tetengo2::gui::window_observer

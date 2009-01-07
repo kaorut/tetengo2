@@ -24,8 +24,11 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(handle));
+        p_suite->add(BOOST_TEST_CASE(has_main_menu));
+        p_suite->add(BOOST_TEST_CASE(main_menu));
         p_suite->add(BOOST_TEST_CASE(set_main_menu));
         p_suite->add(BOOST_TEST_CASE(add_window_observer));
+        p_suite->add(BOOST_TEST_CASE(close));
 
         return p_suite;
     }
@@ -40,12 +43,27 @@ namespace test_tetengo2 { namespace gui { namespace win32
         BOOST_WARN("Not implemented yet.");
     }
 
+    void window::has_main_menu()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void window::main_menu()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     void window::set_main_menu()
     {
         BOOST_WARN("Not implemented yet.");
     }
 
     void window::add_window_observer()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void window::close()
     {
         BOOST_WARN("Not implemented yet.");
     }
