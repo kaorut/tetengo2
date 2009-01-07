@@ -9,7 +9,7 @@
 #if !defined(BOBURA_COMMAND_EXIT_H)
 #define BOBURA_COMMAND_EXIT_H
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 
 #include <concept_tetengo2.gui.Window.h>
 

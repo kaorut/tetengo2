@@ -9,7 +9,7 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOWMENUOBSERVER_H)
 #define BOBURA_MESSAGE_MAINWINDOWMENUOBSERVER_H
 
-//#include <boost/concept_check.hpp>
+#include <boost/concept_check.hpp>
 
 #include <windows.h>
 
