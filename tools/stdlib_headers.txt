@@ -22,6 +22,7 @@ boost::UnsignedInteger                           boost/concept_check.hpp
 boost::additive                                  boost/operators.hpp
 boost::bind                                      boost/bind.hpp
 boost::equality_comparable                       boost/operators.hpp
+boost::function                                  boost/function.hpp
 boost::ignore_unused_variable_warning            boost/concept_check.hpp
 boost::make_tuple                                boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::mem_fn                                    boost/mem_fn.hpp

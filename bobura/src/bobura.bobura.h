@@ -10,7 +10,6 @@
 #define BOBURA_BOBURA_H
 
 //#include <memory>
-#include <string>
 
 //#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
@@ -18,6 +17,7 @@
 
 #include <concept_tetengo2.gui.GuiFactory.h>
 
+#include "bobura.command.nop.h"
 #include "bobura.message.main_window_menu_observer.h"
 #include "bobura.message.main_window_paint_observer.h"
 #include "bobura.message.main_window_window_observer.h"
@@ -36,11 +36,14 @@ namespace bobura
         \tparam QuitMessageLoop A unary functor type for quitting the message
                                 loop. It must conform to
                                 boost::UnaryFunction<QuitMessageLoop, void, int>.
+        \tparam Command         A command type. It must conform to
+                                boost::Generator<Command, void>.
     */
     template <
         typename GuiFactory,
         typename MessageLoop,
-        typename QuitMessageLoop
+        typename QuitMessageLoop,
+        typename Command
     >
     class bobura : private boost::noncopyable
     {
@@ -60,6 +63,15 @@ namespace bobura
         //! The abstract factory type to create platform specific GUI
         //! components.
         typedef GuiFactory gui_factory_type;
+
+        //! The message loop type.
+        typedef MessageLoop message_loop_type;
+
+        //! The quit message loop type.
+        typedef QuitMessageLoop quit_message_loop_type;
+
+        //! The command type.
+        typedef Command command_type;
 
 
         // constructors and destructor
@@ -181,20 +193,20 @@ namespace bobura
                 );
 
                 append_menu_command(
-                    *p_popup_menu, L"新規作成(&N)\tCtrl+N", L"New"
+                    *p_popup_menu, L"新規作成(&N)\tCtrl+N", command::nop()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"開く(&O)...\tCtrl+O", L"Open"
+                    *p_popup_menu, L"開く(&O)...\tCtrl+O", command::nop()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"上書き保存(&S)\tCtrl+S", L"Save"
+                    *p_popup_menu, L"上書き保存(&S)\tCtrl+S", command::nop()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"名前を付けて保存(&A)...", L"SaveAs"
+                    *p_popup_menu, L"名前を付けて保存(&A)...", command::nop()
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
-                    *p_popup_menu, L"終了(&X)", L"Exit"
+                    *p_popup_menu, L"終了(&X)", command::nop()
                 );
 
                 p_main_menu->insert(
@@ -208,27 +220,27 @@ namespace bobura
                 );
 
                 append_menu_command(
-                    *p_popup_menu, L"元に戻す(&U)\tCtrl+Z", L"Undo"
+                    *p_popup_menu, L"元に戻す(&U)\tCtrl+Z", command::nop()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"やり直し(&R)\tCtrl+Y", L"Redo"
-                );
-                append_menu_separator(*p_popup_menu);
-                append_menu_command(
-                    *p_popup_menu, L"切り取り(&T)\tCtrl+X", L"Cut"
-                );
-                append_menu_command(
-                    *p_popup_menu, L"コピー(&C)\tCtrl+C", L"Copy"
-                );
-                append_menu_command(
-                    *p_popup_menu, L"貼り付け(&P)\tCtrl+V", L"Paste"
+                    *p_popup_menu, L"やり直し(&R)\tCtrl+Y", command::nop()
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
-                    *p_popup_menu, L"検索(&F)...\tCtrl+F", L"Find"
+                    *p_popup_menu, L"切り取り(&T)\tCtrl+X", command::nop()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"置換(&R)...\tCtrl+H", L"Replace"
+                    *p_popup_menu, L"コピー(&C)\tCtrl+C", command::nop()
+                );
+                append_menu_command(
+                    *p_popup_menu, L"貼り付け(&P)\tCtrl+V", command::nop()
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu, L"検索(&F)...\tCtrl+F", command::nop()
+                );
+                append_menu_command(
+                    *p_popup_menu, L"置換(&R)...\tCtrl+H", command::nop()
                 );
 
                 p_main_menu->insert(
@@ -242,7 +254,7 @@ namespace bobura
                 );
 
                 append_menu_command(
-                    *p_popup_menu, L"バージョン情報(&A)...", L"About"
+                    *p_popup_menu, L"バージョン情報(&A)...", command::nop()
                 );
 
                 p_main_menu->insert(
@@ -257,7 +269,7 @@ namespace bobura
         void append_menu_command(
             popup_menu_type&                            popup_menu,
             const typename menu_item_type::string_type& text,
-            const std::wstring&                         command
+            const command_type&                         command
         )
         const
         {
@@ -266,7 +278,7 @@ namespace bobura
             );
 
             std::auto_ptr<menu_observer_type> p_menu_observer(
-                new message::main_window_menu_observer<std::wstring>(command)
+                new message::main_window_menu_observer<command_type>(command)
             );
             p_menu_command->add_menu_observer(p_menu_observer);
 

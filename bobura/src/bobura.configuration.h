@@ -11,6 +11,7 @@
 
 //#include <memory>
 
+#include <boost/function.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 
@@ -60,7 +61,8 @@ namespace bobura
             bobura<
                 gui_factory_type,
                 message_loop_type,
-                quit_message_loop_type
+                quit_message_loop_type,
+                boost::function<void ()>
             >
             bobura_type;
 

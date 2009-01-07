@@ -13,7 +13,6 @@
 
 #include <windows.h>
 
-#include <concept_tetengo2.String.h>
 #include <tetengo2.gui.menu_observer.h>
 
 
@@ -23,7 +22,7 @@ namespace bobura { namespace message
         \brief The class template for a menu observer of the main window.
         
         \tparam Command A command type. It must conform to
-                        concept_tetengo2::String<Command>.
+                        boost::Generator<Command, void>.
     */
     template <typename Command>
     class main_window_menu_observer : public tetengo2::gui::menu_observer
@@ -31,7 +30,7 @@ namespace bobura { namespace message
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Command>));
+        BOOST_CONCEPT_ASSERT((boost::Generator<Command, void>));
 
 
     public:
@@ -67,10 +66,7 @@ namespace bobura { namespace message
         // tetengo2::gui::menu_observer::selected.
         virtual void selected()
         {
-            command_type message(L"Menu Selected: ");
-            message += m_command;
-            message.push_back(L'\n');
-            ::OutputDebugStringW(message.c_str());
+            m_command();
         }
 
 

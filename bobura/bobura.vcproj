@@ -430,6 +430,14 @@
 				</File>
 			</Filter>
 			<Filter
+				Name="bobura::command"
+				>
+				<File
+					RelativePath=".\src\bobura.command.nop.h"
+					>
+				</File>
+			</Filter>
+			<Filter
 				Name="bobura::message"
 				>
 				<File

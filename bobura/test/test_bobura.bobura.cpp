@@ -6,8 +6,9 @@
     $Id$
 */
 
-#include <memory>
+//#include <memory>
 
+#include <boost/function.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.bobura.h"
@@ -33,7 +34,8 @@ namespace
         bobura::bobura<
             gui_factory_type,
             stub_tetengo2::gui::message_loop,
-            stub_tetengo2::gui::quit_message_loop
+            stub_tetengo2::gui::quit_message_loop,
+            boost::function<void ()>
         >
         bobura_type;
 

@@ -30,6 +30,7 @@
 
 #include <boost/bind.hpp>
 #include <boost/concept_check.hpp>
+#include <boost/function.hpp>
 #include <boost/mem_fn.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
