@@ -17,6 +17,7 @@
 
 #include <concept_tetengo2.gui.GuiFactory.h>
 
+#include "bobura.command.about.h"
 #include "bobura.command.exit.h"
 #include "bobura.command.nop.h"
 #include "bobura.message.main_window_menu_observer.h"
@@ -256,7 +257,8 @@ namespace bobura
                 );
 
                 append_menu_command(
-                    *p_popup_menu, L"バージョン情報(&A)...", command::nop()
+                    *p_popup_menu, L"バージョン情報(&A)...",
+                    command::about<window_type>(p_window)
                 );
 
                 p_main_menu->insert(

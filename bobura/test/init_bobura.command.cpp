@@ -9,6 +9,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "init_bobura.command.h"
+#include "test_bobura.command.about.h"
 #include "test_bobura.command.exit.h"
 #include "test_bobura.command.nop.h"
 
@@ -22,6 +23,7 @@ namespace test_bobura { namespace command
         boost::unit_test::test_suite* const p_suite =
             BOOST_TEST_SUITE("test_bobura::command");
 
+        p_suite->add(about::suite());
         p_suite->add(exit::suite());
         p_suite->add(nop::suite());
 

@@ -433,6 +433,10 @@
 				Name="bobura::command"
 				>
 				<File
+					RelativePath=".\src\bobura.command.about.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\bobura.command.exit.h"
 					>
 				</File>
