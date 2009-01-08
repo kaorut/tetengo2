@@ -203,7 +203,6 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Closes the window.
         */
         void close()
-        const
         {
             ::PostMessage(m_handle, WM_CLOSE, 0, 0);
         }

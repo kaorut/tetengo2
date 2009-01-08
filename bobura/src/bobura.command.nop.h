@@ -9,6 +9,8 @@
 #if !defined(BOBURA_COMMAND_NOP_H)
 #define BOBURA_COMMAND_NOP_H
 
+#include <algorithm>
+
 
 namespace bobura { namespace command
 {
@@ -27,6 +29,14 @@ namespace bobura { namespace command
         {}
 
         /*!
+            \brief Copies an nop command.
+
+            \param another Another nop command object.
+        */
+        nop(const nop& another)
+        {}
+
+        /*!
             \brief Destroys the no-operation command.
         */
         virtual ~nop()
@@ -35,6 +45,28 @@ namespace bobura { namespace command
 
 
         // functions
+
+        /*!
+            \brief Swaps the members with another nop command object.
+
+            \param another Another nop command object.
+        */
+        void swap(nop& another)
+        throw ()
+        {}
+
+        /*!
+            \brief Assigns another nop command object.
+
+            \param another Another nop command object.
+
+            \return this object.
+        */
+        nop& operator=(const nop& another)
+        {
+            nop(another).swap(*this);
+            return *this;
+        }
 
         /*!
             \brief Executes the command.
