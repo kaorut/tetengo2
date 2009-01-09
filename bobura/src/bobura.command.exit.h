@@ -10,6 +10,7 @@
 #define BOBURA_COMMAND_EXIT_H
 
 #include <algorithm>
+#include <cassert>
 
 //#include <boost/concept_check.hpp>
 
@@ -50,7 +51,9 @@ namespace bobura { namespace command
         explicit exit(window_type* const p_window)
         :
         m_p_window(p_window)
-        {}
+        {
+            assert(p_window != NULL);
+        }
 
         /*!
             \brief Copies an exit command.
@@ -65,7 +68,7 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the exit command.
         */
-        virtual ~exit()
+        ~exit()
         throw ()
         {}
 
@@ -115,5 +118,31 @@ namespace bobura { namespace command
 
 
 }}
+
+namespace std
+{
+    /*!
+        \brief Swaps two exit objects.
+
+        \tparam Window A window type. It must conform to
+                       concept_tetengo2::gui::Window<Window>.
+
+        \param exit1 An exit object #1.
+        \param exit2 An exit object #2.
+    */
+    template <typename Window>
+    void swap(
+        bobura::command::exit<Window>& exit1,
+        bobura::command::exit<Window>& exit2
+    )
+    throw ()
+    {
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
+
+        exit1.swap(exit2);
+    }
+
+
+}
 
 #endif

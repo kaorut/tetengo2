@@ -10,6 +10,7 @@
 #define BOBURA_COMMAND_ABOUT_H
 
 #include <algorithm>
+#include <cassert>
 
 //#include <boost/concept_check.hpp>
 
@@ -50,7 +51,9 @@ namespace bobura { namespace command
         explicit about(window_type* const p_window)
         :
         m_p_window(p_window)
-        {}
+        {
+            assert(p_window != NULL);
+        }
 
         /*!
             \brief Copies an about command.
@@ -65,7 +68,7 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the about command.
         */
-        virtual ~about()
+        ~about()
         throw ()
         {}
 
@@ -115,5 +118,31 @@ namespace bobura { namespace command
 
 
 }}
+
+namespace std
+{
+    /*!
+        \brief Swaps two about objects.
+
+        \tparam Window A window type. It must conform to
+                       concept_tetengo2::gui::Window<Window>.
+
+        \param about1 An about object #1.
+        \param about2 An about object #2.
+    */
+    template <typename Window>
+    void swap(
+        bobura::command::about<Window>& about1,
+        bobura::command::about<Window>& about2
+    )
+    throw ()
+    {
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
+
+        about1.swap(about2);
+    }
+
+
+}
 
 #endif

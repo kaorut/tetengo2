@@ -39,7 +39,7 @@ namespace bobura { namespace command
         /*!
             \brief Destroys the no-operation command.
         */
-        virtual ~nop()
+        ~nop()
         throw ()
         {}
 
@@ -80,5 +80,23 @@ namespace bobura { namespace command
 
 
 }}
+
+namespace std
+{
+    /*!
+        \brief Swaps two nop objects.
+
+        \param nop1 A nop object #1.
+        \param nop2 A nop object #2.
+    */
+    template <typename Name, typename Grade>
+    void swap(bobura::command::nop& nop1, bobura::command::nop& nop2)
+    throw ()
+    {
+        nop1.swap(nop2);
+    }
+
+
+}
 
 #endif
