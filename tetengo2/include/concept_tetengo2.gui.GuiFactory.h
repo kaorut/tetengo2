@@ -56,7 +56,7 @@ namespace concept_tetengo2 { namespace gui
         void const_constraints(const Type& object)
         {
             const std::auto_ptr<window_type> p_window =
-                object.create_window(window_type::style_frame, NULL);
+                object.create_window(typename window_type::style_frame, NULL);
             boost::ignore_unused_variable_warning(p_window);
 
             const std::auto_ptr<main_menu_type> p_main_menu =
@@ -64,11 +64,15 @@ namespace concept_tetengo2 { namespace gui
             boost::ignore_unused_variable_warning(p_main_menu);
 
             const std::auto_ptr<menu_command_type> p_menu_command =
-                object.create_menu_command(menu_command_type::string_type());
+                object.create_menu_command(
+                    typename menu_command_type::string_type()
+                );
             boost::ignore_unused_variable_warning(p_menu_command);
 
             const std::auto_ptr<popup_menu_type> p_popup_menu =
-                object.create_popup_menu(popup_menu_type::string_type());
+                object.create_popup_menu(
+                    typename popup_menu_type::string_type()
+                );
             boost::ignore_unused_variable_warning(p_popup_menu);
 
             const std::auto_ptr<menu_separator_type> p_menu_separator =

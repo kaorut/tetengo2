@@ -107,7 +107,9 @@ namespace bobura
         const
         {
             const boost::scoped_ptr<window_type> p_main_window(
-                m_p_gui_factory->create_window(window_type::style_frame, NULL)
+                m_p_gui_factory->create_window(
+                    typename window_type::style_frame, NULL
+                )
             );
             initialize_window(p_main_window.get());
 

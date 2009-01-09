@@ -200,7 +200,7 @@ namespace bobura { namespace model
             }
 
             const typename train_type::stops_type::difference_type offset =
-                std::distance<station_locations_type::const_iterator>(
+                std::distance<typename station_locations_type::const_iterator>(
                     m_station_locations.begin(), position
                 );
 
@@ -230,12 +230,12 @@ namespace bobura { namespace model
         {
             const typename train_type::stops_type::difference_type
             first_offset =
-                std::distance<station_locations_type::const_iterator>(
+                std::distance<typename station_locations_type::const_iterator>(
                     m_station_locations.begin(), first
                 );
             const typename train_type::stops_type::difference_type
             last_offset =
-                std::distance<station_locations_type::const_iterator>(
+                std::distance<typename station_locations_type::const_iterator>(
                     m_station_locations.begin(), last
                 );
 
@@ -313,10 +313,10 @@ namespace bobura { namespace model
         {
             train.insert_stop(
                 train.stops().begin() + offset,
-                train_type::stop_type(
-                    train_type::stop_type::time_type::uninitialized(),
-                    train_type::stop_type::time_type::uninitialized(),
-                    train_type::stop_type::platform_type()
+                typename train_type::stop_type(
+                    typename train_type::stop_type::time_type::uninitialized(),
+                    typename train_type::stop_type::time_type::uninitialized(),
+                    typename train_type::stop_type::platform_type()
                 )
             );
         }

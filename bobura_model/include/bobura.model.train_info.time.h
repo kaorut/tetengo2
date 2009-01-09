@@ -181,7 +181,8 @@ namespace bobura { namespace model { namespace train_info
         {
             if (*this == uninitialized()) return *this;
 
-            time_span_type::tick_type seconds = m_seconds_from_midnight;
+            typename time_span_type::tick_type seconds =
+                m_seconds_from_midnight;
             while (seconds < -time_span.seconds())
                 seconds += time_span_type::seconds_of_whole_day();
             seconds += time_span.seconds();
@@ -213,7 +214,7 @@ namespace bobura { namespace model { namespace train_info
         {
             if (*this == uninitialized()) return *this;
 
-            time_span_type::tick_type seconds =
+            typename time_span_type::tick_type seconds =
                 m_seconds_from_midnight;
             while (seconds < time_span.seconds())
                 seconds += time_span_type::seconds_of_whole_day();
@@ -246,7 +247,8 @@ namespace bobura { namespace model { namespace train_info
             if (*this == uninitialized() || another == uninitialized())
                 throw std::logic_error("The time object is uninitialized.");
 
-            time_span_type::tick_type seconds = m_seconds_from_midnight;
+            typename time_span_type::tick_type seconds =
+                m_seconds_from_midnight;
             seconds -= another.m_seconds_from_midnight;
             while (seconds < 0)
                 seconds += time_span_type::seconds_of_whole_day();

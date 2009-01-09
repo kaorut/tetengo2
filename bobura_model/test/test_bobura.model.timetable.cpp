@@ -450,8 +450,8 @@ namespace test_bobura { namespace model
         {
             const timetable_type timetable;
 
-            const timetable_type::station_locations_type& station_locations =
-                timetable.station_locations();
+            const timetable_type::station_locations_type&
+            station_locations = timetable.station_locations();
 
             BOOST_CHECK(station_locations.empty());
         }
@@ -549,7 +549,8 @@ namespace test_bobura { namespace model
                 )
             );
 
-            const timetable_type::station_locations_type& station_locations =
+            const timetable_type::station_locations_type&
+            station_locations =
                 timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
@@ -573,8 +574,8 @@ namespace test_bobura { namespace model
                 )
             );
 
-            const timetable_type::station_locations_type& station_locations =
-                timetable.station_locations();
+            const timetable_type::station_locations_type&
+            station_locations = timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 2U);
             BOOST_CHECK(
@@ -604,8 +605,8 @@ namespace test_bobura { namespace model
                 std::invalid_argument
             );
 
-            const timetable_type::station_locations_type& station_locations =
-                timetable.station_locations();
+            const timetable_type::station_locations_type&
+            station_locations = timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
             BOOST_CHECK(
@@ -640,8 +641,8 @@ namespace test_bobura { namespace model
                 )
             );
 
-            const timetable_type::station_locations_type& station_locations =
-                timetable.station_locations();
+            const timetable_type::station_locations_type&
+            station_locations = timetable.station_locations();
 
             BOOST_CHECK_EQUAL(station_locations.size(), 4U);
             BOOST_CHECK(
@@ -1014,7 +1015,8 @@ namespace test_bobura { namespace model
         {
             const timetable_type timetable;
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK(trains.empty());
         }
@@ -1024,7 +1026,8 @@ namespace test_bobura { namespace model
                 timetable.trains().end(), train_type("1", "x")
             );
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -1039,7 +1042,8 @@ namespace test_bobura { namespace model
                 timetable.trains().end(), train_type("2", "y")
             );
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -1082,7 +1086,8 @@ namespace test_bobura { namespace model
                 timetable.trains().end(), train_type("1", "x")
             );
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -1097,7 +1102,8 @@ namespace test_bobura { namespace model
                 timetable.trains().end(), train_type("2", "y")
             );
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -1120,7 +1126,8 @@ namespace test_bobura { namespace model
                 timetable.trains().begin() + 2, train_type("3", "z")
             );
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 4U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -1205,7 +1212,8 @@ namespace test_bobura { namespace model
                 timetable.trains().begin(), timetable.trains().end()
             );
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK(trains.empty());
         }
@@ -1222,7 +1230,8 @@ namespace test_bobura { namespace model
                 timetable.trains().begin(), timetable.trains().begin() + 1
             );
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
             BOOST_CHECK_EQUAL(trains[0].number(), "2");
@@ -1241,7 +1250,8 @@ namespace test_bobura { namespace model
                 timetable.trains().begin(), timetable.trains().begin()
             );
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -1265,7 +1275,8 @@ namespace test_bobura { namespace model
                 timetable.trains().begin() + 1, timetable.trains().begin() + 2
             );
 
-            const timetable_type::trains_type& trains = timetable.trains();
+            const timetable_type::trains_type& trains =
+                timetable.trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");

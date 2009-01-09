@@ -126,9 +126,8 @@ namespace tetengo2 { namespace win32
                 );
             }
 
-            const boost::scoped_array<target_type::value_type> converted(
-                new target_type::value_type[length]
-            );
+            const boost::scoped_array<typename target_type::value_type>
+            converted(new target_type::value_type[length]);
             ::MultiByteToWideChar(
                 CP_ACP,
                 MB_PRECOMPOSED,
@@ -195,9 +194,8 @@ namespace tetengo2 { namespace win32
                 );
             }
             
-            const boost::scoped_array<target_type::value_type> converted(
-                new target_type::value_type[length]
-            );
+            const boost::scoped_array<typename target_type::value_type>
+            converted(new target_type::value_type[length]);
             ::WideCharToMultiByte(
                 CP_ACP,
                 WC_NO_BEST_FIT_CHARS | WC_COMPOSITECHECK | WC_DEFAULTCHAR,

@@ -39,7 +39,7 @@ namespace bobura
         //! The binary functor type of the alert.
         typedef
             tetengo2::gui::win32::alert<
-                gui_factory_type::window_type::handle_type,
+                typename gui_factory_type::window_type::handle_type,
                 tetengo2::win32::encode
             >
             alert_type;
