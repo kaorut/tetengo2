@@ -141,7 +141,7 @@ namespace test_tetengo2 { namespace gui
         );
 
         const std::auto_ptr<window_type> p_window =
-            gui_factory.create_window();
+            gui_factory.create_window(window_type::style_frame, NULL);
         BOOST_CHECK(p_window.get() != NULL);
     }
 

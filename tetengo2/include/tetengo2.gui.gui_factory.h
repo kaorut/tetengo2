@@ -117,12 +117,21 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Creates a window.
 
+            \param style    A window style.
+            \param p_parent A pointer to a parent window. Specify NULL when
+                            this window is on the top level.
+
             \return An auto pointer to a window.
         */
-        std::auto_ptr<window_type> create_window()
+        std::auto_ptr<window_type> create_window(
+            const typename window_type::style_type style,
+            const window_type* const               p_parent
+        )
         const
         {
-            return std::auto_ptr<window_type>(new window_type());
+            return std::auto_ptr<window_type>(
+                new window_type(style, p_parent)
+            );
         }
 
         /*!

@@ -95,17 +95,29 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The window observer type.
         typedef WindowObserver window_observer_type;
 
+        //! The style type;
+        enum style_type
+        {
+            style_flat,     //!< A flat window_style.
+            style_frame,    //!< A frame window style.
+            style_dialog,   //!< A dialog box style.
+        };
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a window.
 
+            \param style    A window style.
+            \param p_parent A pointer to a parent window. Specify NULL when
+                            this window is on the top level.
+
             \throw std::runtime_error When a window cannot be created.
         */
-        window()
+        window(const style_type style, const window* const p_parent)
         :
-        m_handle(create_window()),
+        m_handle(create_window(style, p_parent)),
         m_p_main_menu(),
         m_window_observers(),
         m_window_destroyed_handler()
@@ -204,7 +216,9 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void close()
         {
-            ::PostMessage(m_handle, WM_CLOSE, 0, 0);
+            const ::BOOL result = ::PostMessageW(m_handle, WM_CLOSE, 0, 0);
+            if (result == 0)
+                throw std::runtime_error("Can't close the window.");
         }
 
 
@@ -262,7 +276,10 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // static functions
 
-        static handle_type create_window()
+        static handle_type create_window(
+            const style_type    style,
+            const window* const p_parent
+        )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
             if (instance_handle == NULL)
@@ -271,15 +288,15 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::ATOM atom = register_window_class(instance_handle);
 
             const handle_type handle = ::CreateWindowExW(
-                0,
+                create_window_exstyle(style),
                 reinterpret_cast< ::LPCWSTR>(atom),
-                L"tetengo2 main widget",
-                WS_OVERLAPPEDWINDOW,
+                L"tetengo2::gui::win32::window",
+                create_window_style(style),
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
-                HWND_DESKTOP,
+                p_parent == NULL ? HWND_DESKTOP : p_parent->handle(),
                 NULL,
                 instance_handle,
                 NULL
@@ -333,13 +350,39 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::GetSysColorBrush(COLOR_3DFACE)
             );
             window_class.lpszMenuName = NULL;
-            window_class.lpszClassName = L"tetengo2::gui::win32::widget";
+            window_class.lpszClassName = L"tetengo2::gui::win32::window";
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
             if (atom == NULL)
                 throw std::runtime_error("Can't register a window class!");
 
             return atom;
+        }
+
+        static ::DWORD create_window_exstyle(const style_type style)
+        {
+            switch (style)
+            {
+            case style_frame:
+                return WS_EX_ACCEPTFILES | WS_EX_APPWINDOW;
+            case style_dialog:
+                return WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME;
+            default:
+                throw std::invalid_argument("Invalid style.");
+            }
+        }
+
+        static ::DWORD create_window_style(const style_type style)
+        {
+            switch (style)
+            {
+            case style_frame:
+                return WS_OVERLAPPEDWINDOW;
+            case style_dialog:
+                return WS_BORDER | WS_CAPTION | WS_SYSMENU;
+            default:
+                throw std::invalid_argument("Invalid style.");
+            }
         }
 
 

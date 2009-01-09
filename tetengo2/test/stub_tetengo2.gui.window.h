@@ -57,10 +57,17 @@ namespace stub_tetengo2 { namespace gui
 
         typedef WindowObserver window_observer_type;
 
+        enum style_type
+        {
+            style_flat,
+            style_frame,
+            style_dialog,
+        };
+
 
         // constructors and destructor
 
-        window()
+        window(const style_type style, const window* const p_parent)
         {}
 
         virtual ~window()
