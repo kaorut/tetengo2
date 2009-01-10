@@ -16,7 +16,7 @@
 //#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
 
-#include "tetengo2.gui.win32.popup_menu.h"
+#include "concept_tetengo2.gui.PopupMenu.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -24,28 +24,26 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a main menu for Win32 platforms.
 
-        \tparam MenuItem     A menu item type. It must conform to
-                             concept_tetengo2::gui::MenuItem<MenuItem>.
-        \tparam MenuItemList A menu item list type. It must conform to
-                             concept_tetengo2::gui::MenuItemList<MenuItemList>.
+        \tparam PopupMenu A popup menu type. It must conform to
+                          concept_tetengo2::gui::PopupMenu<PopupMenu>.
    */
-    template <typename MenuItem, typename MenuItemList>
+    template <typename PopupMenu>
     class main_menu : private boost::noncopyable
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuItemList<MenuItemList>
-        ));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::PopupMenu<PopupMenu>));
 
 
     public:
         // types
 
+        //! The popup menu type.
+        typedef PopupMenu popup_menu_type;
+
         //! The menu item type.
-        typedef MenuItem menu_item_type;
+        typedef typename popup_menu_type::menu_item_type menu_item_type;
 
         //! The menu item id type.
         typedef typename menu_item_type::id_type menu_item_id_type;
@@ -54,7 +52,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef typename menu_item_type::handle_type handle_type;
 
         //! The menu items type.
-        typedef MenuItemList menu_items_type;
+        typedef typename popup_menu_type::menu_items_type menu_items_type;
 
         //! The menu item iterator type.
         typedef typename menu_items_type::iterator menu_item_iterator;

@@ -9,7 +9,9 @@
 #if !defined(BOBURA_CONFIGURATION_H)
 #define BOBURA_CONFIGURATION_H
 
+#include <cstddef>
 //#include <memory>
+#include <string>
 
 #include <boost/function.hpp>
 //#include <boost/noncopyable.hpp>
@@ -34,7 +36,9 @@ namespace bobura
 
         //! The type list type to create platform specific GUI
         //! components.
-        typedef tetengo2::gui::win32::gui_type_list gui_type_list_type;
+        typedef
+            tetengo2::gui::win32::gui_type_list<std::size_t, std::wstring>
+            gui_type_list_type;
 
         //! The binary functor type of the alert.
         typedef

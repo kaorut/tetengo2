@@ -57,11 +57,13 @@ namespace
         menu_item_type;
 
     typedef
-        stub_tetengo2::gui::main_menu<
+        stub_tetengo2::gui::popup_menu<
             menu_item_type,
             stub_tetengo2::gui::menu_item_list<menu_item_type>
         >
-        main_menu_type;
+        popup_menu_type;
+
+    typedef stub_tetengo2::gui::main_menu<popup_menu_type> main_menu_type;
 
     typedef 
         stub_tetengo2::gui::window<
@@ -77,13 +79,6 @@ namespace
         window_type;
 
     typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
-
-    typedef
-        stub_tetengo2::gui::popup_menu<
-            menu_item_type,
-            stub_tetengo2::gui::menu_item_list<menu_item_type>
-        >
-        popup_menu_type;
 
     typedef tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 

@@ -29,6 +29,8 @@ namespace concept_tetengo2 { namespace gui
     public:
         // typedef checks
 
+        typedef typename Type::popup_menu_type popup_menu_type;
+
         typedef typename Type::menu_item_type menu_item_type;
 
         typedef typename Type::menu_item_id_type menu_item_id_type;

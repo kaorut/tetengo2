@@ -9,10 +9,9 @@
 #if !defined(TETENGO2_GUI_WIN32_GUITYPELIST_H)
 #define TETENGO2_GUI_WIN32_GUITYPELIST_H
 
-//#include <cstddef>
-//#include <string>
+#include <boost/concept_check.hpp>
 
-#include "tetengo2.gui.gui_type_list.h"
+#include "concept_tetengo2.String.h"
 #include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
@@ -24,19 +23,43 @@
 #include "tetengo2.gui.win32.main_menu.h"
 #include "tetengo2.gui.win32.menu_item.h"
 #include "tetengo2.gui.win32.menu_item_list.h"
+#include "tetengo2.gui.win32.popup_menu.h"
 #include "tetengo2.gui.win32.window.h"
 #include "tetengo2.win32.encode.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
 {
-    namespace
+    /*!
+        \brief The class template for a GUI type list for Win32 platforms.
+
+        \tparam Size   A size type. It must conform to
+                       boost::UnsignedInteger<Size>.
+        \tparam String A string type. It must conform to
+                       concept_tetengo2::String<String>.
+    */
+    template <typename Size, typename String>
+    class gui_type_list
     {
+    private:
+        // concept checks
+
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
+
+
+    public:
+        // types
+
+        typedef
+            tetengo2::gui::win32::gui_initializer_finalizer
+            gui_initializer_finalizer_type;
+
         typedef
             canvas<
                 const Gdiplus::Graphics*,
-                std::size_t,
-                std::wstring,
+                Size,
+                String,
                 tetengo2::win32::encode,
                 ::HWND
             >
@@ -48,25 +71,28 @@ namespace tetengo2 { namespace gui { namespace win32
             tetengo2::gui::win32::menu_item<
                 ::UINT,
                 ::HMENU,
-                std::wstring,
+                String,
                 tetengo2::win32::encode,
                 tetengo2::gui::menu_observer
             >
             menu_item_type;
 
         typedef
-            tetengo2::gui::win32::main_menu<
+            popup_menu<
                 menu_item_type,
                 tetengo2::gui::win32::menu_item_list<menu_item_type>
             >
-            main_menu_type;
+            popup_menu_type;
+
+        typedef
+            tetengo2::gui::win32::main_menu<popup_menu_type> main_menu_type;
 
         typedef
             window<
                 ::HWND,
                 canvas_type,
                 alert_type,
-                std::wstring,
+                String,
                 tetengo2::win32::encode,
                 main_menu_type,
                 tetengo2::gui::paint_observer<canvas_type>,
@@ -76,29 +102,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
         typedef menu_command<menu_item_type> menu_command_type;
 
-        typedef
-            popup_menu<
-                menu_item_type,
-                tetengo2::gui::win32::menu_item_list<menu_item_type>
-            >
-            popup_menu_type;
-
         typedef menu_separator<menu_item_type> menu_separator_type;
 
 
-    }
-
-    //! The GUI type list type for Win32 platforms.
-    typedef
-        tetengo2::gui::gui_type_list<
-            tetengo2::gui::win32::gui_initializer_finalizer,
-            window_type,
-            main_menu_type,
-            menu_command_type,
-            popup_menu_type,
-            menu_separator_type
-        >
-        gui_type_list;
+    };
 
 
 }}}

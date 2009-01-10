@@ -14,34 +14,32 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.MenuItem.h"
-#include "concept_tetengo2.gui.MenuItemList.h"
+#include "concept_tetengo2.gui.PopupMenu.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename MenuItem, typename MenuItemList>
+    template <typename PopupMenu>
     class main_menu
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuItemList<MenuItemList>
-        ));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::PopupMenu<PopupMenu>));
 
 
     public:
         // types
 
-        typedef MenuItem menu_item_type;
+        typedef PopupMenu popup_menu_type;
+
+        typedef typename popup_menu_type::menu_item_type menu_item_type;
 
         typedef typename menu_item_type::id_type menu_item_id_type;
 
         typedef typename menu_item_type::handle_type handle_type;
 
-        typedef MenuItemList menu_items_type;
+        typedef typename popup_menu_type::menu_items_type menu_items_type;
 
         typedef typename menu_items_type::iterator menu_item_iterator;
 
