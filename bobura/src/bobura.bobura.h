@@ -15,7 +15,7 @@
 //#include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
-#include <concept_tetengo2.gui.GuiFactory.h>
+#include <concept_tetengo2.gui.GuiTypeList.h>
 
 #include "bobura.command.about.h"
 #include "bobura.command.exit.h"
@@ -30,9 +30,9 @@ namespace bobura
     /*!
         \brief The class template for a bobura application.
 
-        \tparam GuiFactory      An abstract factory type to create platform
-                                specific GUI components. It must conform to
-                                concept_tetengo2::gui::GuiFactory<GuiFactory>.
+        \tparam GuiTypeList     A type list type to create platform specific
+                                GUI components. It must conform to
+                                concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
         \tparam MessageLoop     A generator type for the message loop. It must
                                 conform to boost::Generator<MessageLoop, int>.
         \tparam QuitMessageLoop A unary functor type for quitting the message
@@ -42,7 +42,7 @@ namespace bobura
                                 boost::Generator<Command, void>.
     */
     template <
-        typename GuiFactory,
+        typename GuiTypeList,
         typename MessageLoop,
         typename QuitMessageLoop,
         typename Command
@@ -52,7 +52,7 @@ namespace bobura
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::GuiFactory<GuiFactory>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::GuiTypeList<GuiTypeList>));
         BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
         BOOST_CONCEPT_ASSERT((
             boost::UnaryFunction<QuitMessageLoop, void, int>
@@ -62,9 +62,9 @@ namespace bobura
     public:
         // types
 
-        //! The abstract factory type to create platform specific GUI
+        //! The type list type to create platform specific GUI
         //! components.
-        typedef GuiFactory gui_factory_type;
+        typedef GuiTypeList gui_type_list_type;
 
         //! The message loop type.
         typedef MessageLoop message_loop_type;
@@ -80,12 +80,10 @@ namespace bobura
 
         /*!
             \brief Creates a bobura application.
-
-            \param p_gui_factory An auto pointer to a GUI factory.
         */
-        explicit bobura(std::auto_ptr<const gui_factory_type> p_gui_factory)
+        bobura()
         :
-        m_p_gui_factory(p_gui_factory)
+        m_gui_initializer_finalizer()
         {}
 
         /*!
@@ -107,9 +105,7 @@ namespace bobura
         const
         {
             const boost::scoped_ptr<window_type> p_main_window(
-                m_p_gui_factory->create_window(
-                    typename window_type::style_frame, NULL
-                )
+                new window_type(typename window_type::style_frame, NULL)
             );
             initialize_window(p_main_window.get());
 
@@ -122,7 +118,11 @@ namespace bobura
     private:
         //types
 
-        typedef typename gui_factory_type::window_type window_type;
+        typedef
+            typename gui_type_list_type::gui_initializer_finalizer_type
+            gui_initializer_finalizer_type;
+
+        typedef typename gui_type_list_type::window_type window_type;
 
         typedef typename window_type::canvas_type canvas_type;
 
@@ -142,9 +142,13 @@ namespace bobura
             typename menu_item_type::menu_observer_type menu_observer_type;
 
         typedef
-            typename gui_factory_type::menu_command_type menu_command_type;
+            typename gui_type_list_type::menu_command_type menu_command_type;
 
-        typedef typename gui_factory_type::popup_menu_type popup_menu_type;
+        typedef typename gui_type_list_type::popup_menu_type popup_menu_type;
+
+        typedef
+            typename gui_type_list_type::menu_separator_type
+            menu_separator_type;
 
         typedef MessageLoop message_loop_type;
 
@@ -153,7 +157,7 @@ namespace bobura
 
         // variables
 
-        const boost::scoped_ptr<const gui_factory_type> m_p_gui_factory;
+        const gui_initializer_finalizer_type m_gui_initializer_finalizer;
 
 
         // functions
@@ -187,13 +191,11 @@ namespace bobura
         void set_menus(window_type* const p_window)
         const
         {
-            std::auto_ptr<main_menu_type> p_main_menu(
-                m_p_gui_factory->create_main_menu()
-            );
+            std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
 
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
-                    m_p_gui_factory->create_popup_menu(L"ファイル(&F)")
+                    new popup_menu_type(L"ファイル(&F)")
                 );
 
                 append_menu_command(
@@ -221,7 +223,7 @@ namespace bobura
             }
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
-                    m_p_gui_factory->create_popup_menu(L"編集(&E)")
+                    new popup_menu_type(L"編集(&E)")
                 );
 
                 append_menu_command(
@@ -255,7 +257,7 @@ namespace bobura
             }
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
-                    m_p_gui_factory->create_popup_menu(L"ヘルプ(&H)")
+                    new popup_menu_type(L"ヘルプ(&H)")
                 );
 
                 append_menu_command(
@@ -280,7 +282,7 @@ namespace bobura
         const
         {
             std::auto_ptr<menu_item_type> p_menu_command(
-                m_p_gui_factory->create_menu_command(text)
+                new menu_command_type(text)
             );
 
             std::auto_ptr<menu_observer_type> p_menu_observer(
@@ -297,7 +299,7 @@ namespace bobura
         const
         {
             std::auto_ptr<menu_item_type> p_menu_separator(
-                m_p_gui_factory->create_menu_separator()
+                new menu_separator_type()
             );
             popup_menu.insert(
                 popup_menu.menu_item_end(), p_menu_separator

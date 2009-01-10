@@ -15,7 +15,7 @@
 //#include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 
-#include <tetengo2.gui.win32.gui_factory.h>
+#include <tetengo2.gui.win32.gui_type_list.h>
 #include <tetengo2.gui.win32.message_loop.h>
 #include <tetengo2.gui.win32.quit_message_loop.h>
 
@@ -32,21 +32,21 @@ namespace bobura
     public:
         // types
 
-        //! The abstract factory type to create platform specific GUI
+        //! The type list type to create platform specific GUI
         //! components.
-        typedef tetengo2::gui::win32::gui_factory gui_factory_type;
+        typedef tetengo2::gui::win32::gui_type_list gui_type_list_type;
 
         //! The binary functor type of the alert.
         typedef
             tetengo2::gui::win32::alert<
-                typename gui_factory_type::window_type::handle_type,
+                typename gui_type_list_type::window_type::handle_type,
                 tetengo2::win32::encode
             >
             alert_type;
 
         //! The GUI initialization and finalization manager type.
         typedef
-            gui_factory_type::gui_initializer_finalizer_type
+            gui_type_list_type::gui_initializer_finalizer_type
             gui_initializer_finalizer_type;
 
         //! The generator type for the message loop.
@@ -59,7 +59,7 @@ namespace bobura
         //! The Bobura application type.
         typedef
             bobura<
-                gui_factory_type,
+                gui_type_list_type,
                 message_loop_type,
                 quit_message_loop_type,
                 boost::function<void ()>
@@ -125,19 +125,7 @@ namespace bobura
         std::auto_ptr<bobura_type> create_bobura()
         const
         {
-            return std::auto_ptr<bobura_type>(
-                new bobura_type(
-                    std::auto_ptr<const gui_factory_type>(
-                        new gui_factory_type(
-                            std::auto_ptr<
-                                const gui_initializer_finalizer_type
-                            >(
-                                new gui_initializer_finalizer_type()
-                            )
-                        )
-                    )
-                )
-            );
+            return std::auto_ptr<bobura_type>(new bobura_type());
         }
 
 

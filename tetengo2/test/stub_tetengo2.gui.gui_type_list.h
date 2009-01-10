@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of stub_tetengo2::gui::gui_factory.
+    \brief The definition of stub_tetengo2::gui::gui_type_list.
 
     Copyright (C) 2007-2009 kaoru
 
     $Id$
 */
 
-#if !defined(STUBTETENGO2_GUI_GUIFACTORY_H)
-#define STUBTETENGO2_GUI_GUIFACTORY_H
+#if !defined(STUBTETENGO2_GUI_GUITYPELIST_H)
+#define STUBTETENGO2_GUI_GUITYPELIST_H
 
 //#include <cstddef>
 //#include <string>
@@ -21,7 +21,7 @@
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "stub_tetengo2.gui.window.h"
 #include "stub_tetengo2.encode.h"
-#include "tetengo2.gui.gui_factory.h"
+#include "tetengo2.gui.gui_type_list.h"
 #include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
@@ -91,7 +91,7 @@ namespace stub_tetengo2 { namespace gui
     }
 
     typedef
-        tetengo2::gui::gui_factory<
+        tetengo2::gui::gui_type_list<
             stub_tetengo2::gui::gui_initializer_finalizer,
             window_type,
             main_menu_type,
@@ -99,7 +99,7 @@ namespace stub_tetengo2 { namespace gui
             popup_menu_type,
             menu_separator_type
         >
-        gui_factory;
+        gui_type_list;
 
 
 }}

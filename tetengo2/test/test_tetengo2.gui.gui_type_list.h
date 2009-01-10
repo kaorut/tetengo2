@@ -1,13 +1,13 @@
 /*! \file
-    \brief Test of class tetengo2::gui::win32::gui_factory.
+    \brief Test of class tetengo2::gui::gui_type_list.
 
     Copyright (C) 2007-2009 kaoru
 
     $Id$
 */
 
-#if !defined(TESTTETENGO2_GUI_WIN32_GUIFACTORY_H)
-#define TESTTETENGO2_GUI_WIN32_GUIFACTORY_H
+#if !defined(TESTTETENGO2_GUI_GUITYPELIST_H)
+#define TESTTETENGO2_GUI_GUITYPELIST_H
 
 //#include <boost/test/unit_test.hpp> forward declaration
 namespace boost { namespace unit_test {
@@ -15,9 +15,9 @@ namespace boost { namespace unit_test {
 }}
 
 
-namespace test_tetengo2 { namespace gui { namespace win32
+namespace test_tetengo2 { namespace gui
 {
-    class gui_factory
+    class gui_type_list
     {
     public:
         // static functions
@@ -28,6 +28,6 @@ namespace test_tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
 
 #endif

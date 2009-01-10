@@ -13,7 +13,7 @@
 
 #include "bobura.bobura.h"
 
-#include <stub_tetengo2.gui.gui_factory.h>
+#include <stub_tetengo2.gui.gui_type_list.h>
 #include <stub_tetengo2.gui.message_loop.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
 
@@ -24,15 +24,15 @@ namespace
 {
     // types
 
-    typedef stub_tetengo2::gui::gui_factory gui_factory_type;
+    typedef stub_tetengo2::gui::gui_type_list gui_type_list_type;
 
     typedef
-        gui_factory_type::gui_initializer_finalizer_type
+        gui_type_list_type::gui_initializer_finalizer_type
         gui_initializer_finalizer_type;
 
     typedef
         bobura::bobura<
-            gui_factory_type,
+            gui_type_list_type,
             stub_tetengo2::gui::message_loop,
             stub_tetengo2::gui::quit_message_loop,
             boost::function<void ()>
@@ -60,30 +60,14 @@ namespace test_bobura
     {
         BOOST_CHECKPOINT("");
 
-        const bobura_type bobura(
-            std::auto_ptr<const gui_factory_type>(
-                new gui_factory_type(
-                    std::auto_ptr<const gui_initializer_finalizer_type>(
-                        new gui_initializer_finalizer_type()
-                    )
-                )
-            )
-        );
+        const bobura_type bobura;
     }
 
     void bobura::run()
     {
         BOOST_CHECKPOINT("");
 
-        const bobura_type bobura(
-            std::auto_ptr<const gui_factory_type>(
-                new gui_factory_type(
-                    std::auto_ptr<const gui_initializer_finalizer_type>(
-                        new gui_initializer_finalizer_type()
-                    )
-                )
-            )
-        );
+        const bobura_type bobura;
 
         BOOST_CHECK_EQUAL(bobura.run(), 0);
     }

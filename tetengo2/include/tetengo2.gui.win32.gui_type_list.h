@@ -1,18 +1,18 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::gui_factory.
+    \brief The definition of tetengo2::gui::win32::gui_type_list.
 
     Copyright (C) 2007-2009 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_GUIFACTORY_H)
-#define TETENGO2_GUI_WIN32_GUIFACTORY_H
+#if !defined(TETENGO2_GUI_WIN32_GUITYPELIST_H)
+#define TETENGO2_GUI_WIN32_GUITYPELIST_H
 
 //#include <cstddef>
 //#include <string>
 
-#include "tetengo2.gui.gui_factory.h"
+#include "tetengo2.gui.gui_type_list.h"
 #include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
@@ -88,9 +88,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
     }
 
-    //! The GUI object factory type for Win32 platforms.
+    //! The GUI type list type for Win32 platforms.
     typedef
-        tetengo2::gui::gui_factory<
+        tetengo2::gui::gui_type_list<
             tetengo2::gui::win32::gui_initializer_finalizer,
             window_type,
             main_menu_type,
@@ -98,7 +98,7 @@ namespace tetengo2 { namespace gui { namespace win32
             popup_menu_type,
             menu_separator_type
         >
-        gui_factory;
+        gui_type_list;
 
 
 }}}

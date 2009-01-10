@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::gui_factory.
+    \brief Test of class tetengo2::gui::gui_type_list.
 
     Copyright (C) 2007-2009 kaoru
 
@@ -12,7 +12,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.gui_factory.h"
+#include "tetengo2.gui.gui_type_list.h"
 
 #include "stub_tetengo2.encode.h"
 #include "stub_tetengo2.gui.alert.h"
@@ -29,7 +29,7 @@
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
 
-#include "test_tetengo2.gui.gui_factory.h"
+#include "test_tetengo2.gui.gui_type_list.h"
 
 
 namespace
@@ -88,7 +88,7 @@ namespace
     typedef tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
     typedef
-        tetengo2::gui::gui_factory<
+        tetengo2::gui::gui_type_list<
             stub_tetengo2::gui::gui_initializer_finalizer,
             window_type,
             main_menu_type,
@@ -96,7 +96,7 @@ namespace
             popup_menu_type,
             menu_separator_type
         >
-        gui_factory_type;
+        gui_type_list_type;
 
 }
 
@@ -104,45 +104,12 @@ namespace test_tetengo2 { namespace gui
 {
     // functions
 
-    boost::unit_test::test_suite* gui_factory::suite()
+    boost::unit_test::test_suite* gui_type_list::suite()
     {
         boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::gui::gui_factory");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(create_window));
+            BOOST_TEST_SUITE("test_tetengo2::gui::gui_type_list");
 
         return p_suite;
-    }
-
-    void gui_factory::construction()
-    {
-        BOOST_CHECKPOINT("");
-
-        const gui_factory_type gui_factory(
-            std::auto_ptr<
-                const stub_tetengo2::gui::gui_initializer_finalizer
-            >(
-                new stub_tetengo2::gui::gui_initializer_finalizer()
-            )
-        );
-    }
-
-    void gui_factory::create_window()
-    {
-        BOOST_CHECKPOINT("");
-
-        const gui_factory_type gui_factory(
-            std::auto_ptr<
-                const stub_tetengo2::gui::gui_initializer_finalizer
-            >(
-                new stub_tetengo2::gui::gui_initializer_finalizer()
-            )
-        );
-
-        const std::auto_ptr<window_type> p_window =
-            gui_factory.create_window(window_type::style_frame, NULL);
-        BOOST_CHECK(p_window.get() != NULL);
     }
 
 
