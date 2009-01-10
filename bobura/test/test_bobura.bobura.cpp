@@ -6,7 +6,9 @@
     $Id$
 */
 
+#include <cstddef>
 //#include <memory>
+#include <string>
 
 #include <boost/function.hpp>
 #include <boost/test/unit_test.hpp>
@@ -24,7 +26,9 @@ namespace
 {
     // types
 
-    typedef stub_tetengo2::gui::gui_type_list gui_type_list_type;
+    typedef
+        stub_tetengo2::gui::gui_type_list<std::size_t, std::wstring>
+        gui_type_list_type;
 
     typedef
         gui_type_list_type::gui_initializer_finalizer_type

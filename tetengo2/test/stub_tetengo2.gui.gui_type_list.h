@@ -9,9 +9,9 @@
 #if !defined(STUBTETENGO2_GUI_GUITYPELIST_H)
 #define STUBTETENGO2_GUI_GUITYPELIST_H
 
-//#include <cstddef>
-//#include <string>
+#include <boost/concept_check.hpp>
 
+#include "concept_tetengo2.String.h"
 #include "stub_tetengo2.gui.alert.h"
 #include "stub_tetengo2.gui.canvas.h"
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
@@ -31,13 +31,28 @@
 
 namespace stub_tetengo2 { namespace gui
 {
-    namespace
+    template <typename Size, typename String>
+    class gui_type_list
     {
+    private:
+        // concept checks
+
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
+
+
+    public:
+        // types
+
+        typedef
+            stub_tetengo2::gui::gui_initializer_finalizer
+            gui_initializer_finalizer_type;
+
         typedef
             canvas<
                 const void*,
-                std::size_t,
-                std::wstring,
+                Size,
+                String,
                 stub_tetengo2::encode,
                 const void*
             >
@@ -49,7 +64,7 @@ namespace stub_tetengo2 { namespace gui
             stub_tetengo2::gui::menu_item<
                 unsigned int,
                 const void*,
-                std::wstring,
+                String,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
@@ -67,7 +82,7 @@ namespace stub_tetengo2 { namespace gui
                 const void*,
                 canvas_type,
                 alert_type,
-                std::wstring,
+                String,
                 stub_tetengo2::encode,
                 main_menu_type,
                 tetengo2::gui::paint_observer<canvas_type>,
@@ -88,18 +103,7 @@ namespace stub_tetengo2 { namespace gui
             tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
 
-    }
-
-    typedef
-        tetengo2::gui::gui_type_list<
-            stub_tetengo2::gui::gui_initializer_finalizer,
-            window_type,
-            main_menu_type,
-            menu_command_type,
-            popup_menu_type,
-            menu_separator_type
-        >
-        gui_type_list;
+    };
 
 
 }}
