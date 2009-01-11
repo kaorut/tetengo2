@@ -46,6 +46,7 @@ namespace stub_tetengo2 { namespace gui
             stub_tetengo2::gui::gui_initializer_finalizer
             gui_initializer_finalizer_type;
 
+    private:
         typedef
             canvas<
                 const void*,
@@ -68,6 +69,7 @@ namespace stub_tetengo2 { namespace gui
             >
             menu_item_type;
 
+    public:
         typedef
             stub_tetengo2::gui::popup_menu<
                 menu_item_type,

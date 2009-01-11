@@ -12,7 +12,6 @@
 #if defined(_WIN32)
 #include "init_tetengo2.gui.win32.h"
 #endif
-#include "test_tetengo2.gui.gui_type_list.h"
 #include "test_tetengo2.gui.menu_command.h"
 #include "test_tetengo2.gui.menu_observer.h"
 #include "test_tetengo2.gui.menu_separator.h"
@@ -33,7 +32,6 @@ namespace test_tetengo2 { namespace gui
         p_suite->add(win32::suite());
 #endif
 
-        p_suite->add(gui_type_list::suite());
         p_suite->add(menu_command::suite());
         p_suite->add(menu_observer::suite());
         p_suite->add(menu_separator::suite());

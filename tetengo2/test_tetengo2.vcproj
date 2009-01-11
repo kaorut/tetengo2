@@ -441,10 +441,6 @@
 				Name="test_tetengo2::gui"
 				>
 				<File
-					RelativePath=".\test\test_tetengo2.gui.gui_type_list.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\test\test_tetengo2.gui.menu_command.cpp"
 					>
 				</File>
@@ -562,10 +558,6 @@
 			<Filter
 				Name="test_tetengo2::gui"
 				>
-				<File
-					RelativePath=".\test\test_tetengo2.gui.gui_type_list.h"
-					>
-				</File>
 				<File
 					RelativePath=".\test\test_tetengo2.gui.menu_command.h"
 					>
