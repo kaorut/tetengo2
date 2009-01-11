@@ -12,6 +12,7 @@
 #include "init_bobura.command.h"
 #include "init_bobura.message.h"
 #include "test_bobura.bobura.h"
+#include "test_bobura.settings.h"
 #include "test_bobura.type_list.h"
 
 
@@ -28,6 +29,7 @@ namespace test_bobura
         p_suite->add(message::suite());
 
         p_suite->add(bobura::suite());
+        p_suite->add(settings::suite());
         p_suite->add(type_list::suite());
 
         return p_suite;

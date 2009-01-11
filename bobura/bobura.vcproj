@@ -425,6 +425,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\bobura.settings.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\bobura.type_list.h"
 					>
 				</File>

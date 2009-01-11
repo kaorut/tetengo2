@@ -13,8 +13,6 @@
 //#include <string>
 
 #include <boost/function.hpp>
-//#include <boost/noncopyable.hpp>
-#include <boost/program_options.hpp>
 
 #include <tetengo2.gui.win32.gui_type_list.h>
 
@@ -26,7 +24,7 @@ namespace bobura
     /*!
         \brief The class for a type list of bobura.
     */
-    class type_list : private boost::noncopyable
+    class type_list
     {
     public:
         // types
@@ -50,70 +48,10 @@ namespace bobura
             bobura_type;
 
 
-        // static functions
-
-        /*!
-            \brief Returns the option description of the application.
-
-            \return The options description.
-        */
-        static const boost::program_options::options_description& options()
-        {
-            static const boost::program_options::options_description&
-            singleton = make_options();
-
-            return singleton;
-        }
-
-
-        // constructors and destructor
-
-        /*!
-            \brief Creates a type list.
-
-            \param option_values The option values for the application.
-        */
-        explicit type_list(
-            const boost::program_options::variables_map& option_values
-        )
-        :
-        m_option_values(option_values)
-        {}
-
-        /*!
-            \brief Destroys the type_list.
-        */
-        ~type_list()
-        throw ()
-        {}
-
-
     private:
-        // variables
+        // forbidden operations
 
-        const boost::program_options::variables_map m_option_values;
-
-
-        // functions
-
-        static const boost::program_options::options_description
-        make_options()
-        {
-            boost::program_options::options_description options(
-                "bobura"
-            );
-            
-            options.add_options()
-            ("help,h", "help")
-            (
-                "geometry,g",
-                boost::program_options::value<int>()->default_value(640),
-                "geometry"
-            )
-            ;
-
-            return options;
-        }
+        type_list();
 
 
     };

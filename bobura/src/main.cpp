@@ -10,6 +10,7 @@
 
 //#include <boost/program_options.hpp>
 
+#include "bobura.settings.h"
 #include "bobura.type_list.h"
 
 
@@ -30,7 +31,7 @@ namespace
         boost::program_options::store(parsed_options, option_values);
         boost::program_options::notify(option_values);
 
-        bobura::type_list config(option_values);
+        bobura::settings settings(option_values);
 
         return bobura::type_list::bobura_type().run();
     }
@@ -61,7 +62,7 @@ throw ()
         return ::run_application(
             boost::program_options::wcommand_line_parser(
                 boost::program_options::split_winmain(lpCmdLine)
-            ).options(bobura::type_list::options()).run()
+            ).options(bobura::settings::options()).run()
         );
     }
     catch (const std::exception& e)

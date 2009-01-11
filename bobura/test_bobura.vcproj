@@ -433,6 +433,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\test_bobura.settings.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_bobura.type_list.cpp"
 					>
 				</File>
@@ -508,6 +512,10 @@
 				>
 				<File
 					RelativePath=".\test\test_bobura.bobura.h"
+					>
+				</File>
+				<File
+					RelativePath=".\test\test_bobura.settings.h"
 					>
 				</File>
 				<File
