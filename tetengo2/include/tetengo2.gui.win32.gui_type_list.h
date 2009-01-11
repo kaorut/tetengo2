@@ -9,9 +9,8 @@
 #if !defined(TETENGO2_GUI_WIN32_GUITYPELIST_H)
 #define TETENGO2_GUI_WIN32_GUITYPELIST_H
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.String.h"
 #include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
@@ -51,10 +50,12 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
+        //! The GUI initialization and finalization manager type.
         typedef
             tetengo2::gui::win32::gui_initializer_finalizer
             gui_initializer_finalizer_type;
 
+    private:
         typedef
             canvas<
                 const Gdiplus::Graphics*,
@@ -77,6 +78,8 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             menu_item_type;
 
+    public:
+        //! The popup menu type.
         typedef
             popup_menu<
                 menu_item_type,
@@ -84,9 +87,11 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             popup_menu_type;
 
+        //! The main menu type.
         typedef
             tetengo2::gui::win32::main_menu<popup_menu_type> main_menu_type;
 
+        //! The window type.
         typedef
             window<
                 ::HWND,
@@ -100,8 +105,10 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             window_type;
 
+        //! The menu command type.
         typedef menu_command<menu_item_type> menu_command_type;
 
+        //! The menu separator type.
         typedef menu_separator<menu_item_type> menu_separator_type;
 
 

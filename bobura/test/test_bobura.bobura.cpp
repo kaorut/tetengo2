@@ -6,9 +6,8 @@
     $Id$
 */
 
-#include <cstddef>
-//#include <memory>
-#include <string>
+//#include <cstddef>
+//#include <string>
 
 #include <boost/function.hpp>
 #include <boost/test/unit_test.hpp>

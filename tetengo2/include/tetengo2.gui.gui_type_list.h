@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_GUITYPELIST_H)
 #define TETENGO2_GUI_GUITYPELIST_H
 
-//#include <memory>
-
 //#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.gui.MainMenu.h"

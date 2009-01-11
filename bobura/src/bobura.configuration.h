@@ -9,9 +9,9 @@
 #if !defined(BOBURA_CONFIGURATION_H)
 #define BOBURA_CONFIGURATION_H
 
-#include <cstddef>
+//#include <cstddef>
 //#include <memory>
-#include <string>
+//#include <string>
 
 #include <boost/function.hpp>
 //#include <boost/noncopyable.hpp>

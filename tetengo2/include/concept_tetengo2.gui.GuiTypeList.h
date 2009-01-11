@@ -9,8 +9,6 @@
 #if !defined(CONCEPTTETENGO2_GUI_GUITYPELIST_H)
 #define CONCEPTTETENGO2_GUI_GUITYPELIST_H
 
-#include <memory>
-
 #include <boost/concept_check.hpp>
 
 

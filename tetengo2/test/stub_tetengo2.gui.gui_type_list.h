@@ -9,9 +9,8 @@
 #if !defined(STUBTETENGO2_GUI_GUITYPELIST_H)
 #define STUBTETENGO2_GUI_GUITYPELIST_H
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.String.h"
 #include "stub_tetengo2.gui.alert.h"
 #include "stub_tetengo2.gui.canvas.h"
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"

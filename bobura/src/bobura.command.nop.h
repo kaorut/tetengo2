@@ -10,6 +10,7 @@
 #define BOBURA_COMMAND_NOP_H
 
 #include <algorithm>
+//std::swap // dummy
 
 
 namespace bobura { namespace command
