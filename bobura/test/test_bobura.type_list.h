@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TESTBOBURA_CONFIGURATION_H)
-#define TESTBOBURA_CONFIGURATION_H
+#if !defined(TESTBOBURA_TYPELIST_H)
+#define TESTBOBURA_TYPELIST_H
 
 //#include <boost/test/unit_test.hpp> forward declaration
 namespace boost { namespace unit_test {

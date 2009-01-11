@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(BOBURA_CONFIGURATION_H)
-#define BOBURA_CONFIGURATION_H
+#if !defined(BOBURA_TYPELIST_H)
+#define BOBURA_TYPELIST_H
 
 //#include <cstddef>
 //#include <string>
