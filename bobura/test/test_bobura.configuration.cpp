@@ -28,7 +28,6 @@ namespace test_bobura
 
         p_suite->add(BOOST_TEST_CASE(options));
         p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(create_bobura));
 
         return p_suite;
     }
@@ -58,19 +57,6 @@ namespace test_bobura
 
         const boost::program_options::variables_map variables_map;
         const bobura::configuration configuration(variables_map);
-    }
-
-    void configuration::create_bobura()
-    {
-        BOOST_CHECKPOINT("");
-
-        const boost::program_options::variables_map variables_map;
-        const bobura::configuration configuration(variables_map);
-
-        const boost::scoped_ptr<bobura::configuration::bobura_type> p_bobura(
-            configuration.create_bobura()
-        );
-        BOOST_CHECK(p_bobura.get() != NULL);
     }
 
 

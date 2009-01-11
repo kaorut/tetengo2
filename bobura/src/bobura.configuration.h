@@ -89,20 +89,6 @@ namespace bobura
         {}
 
 
-        // functions
-
-        /*!
-            \brief Creates a Bobura application.
-
-            \return An auto pointer to a Bobura application.
-        */
-        std::auto_ptr<bobura_type> create_bobura()
-        const
-        {
-            return std::auto_ptr<bobura_type>(new bobura_type());
-        }
-
-
     private:
         // variables
 

@@ -30,7 +30,9 @@ namespace
         boost::program_options::store(parsed_options, option_values);
         boost::program_options::notify(option_values);
 
-        return bobura::configuration(option_values).create_bobura()->run();
+        bobura::configuration config(option_values);
+
+        return bobura::configuration::bobura_type().run();
     }
 
 

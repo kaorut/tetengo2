@@ -28,8 +28,6 @@ namespace test_bobura
 
         static void construction();
 
-        static void create_bobura();
-
 
     };
 
