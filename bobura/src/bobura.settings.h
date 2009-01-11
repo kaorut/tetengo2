@@ -9,36 +9,37 @@
 #if !defined(BOBURA_SETTINGS_H)
 #define BOBURA_SETTINGS_H
 
+#include <vector>
+
+//#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 
-#include <tetengo2.gui.win32.gui_type_list.h>
-
-#include "bobura.bobura.h"
+#include <concept_tetengo2.String.h>
 
 
 namespace bobura
 {
     /*!
-        \brief The class for settings of bobura.
+        \brief The class template for settings of bobura.
+
+        \tparam String A string type. It must conform to
+                       concept_tetengo2::String<String>.
     */
+    template <typename String>
     class settings : private boost::noncopyable
     {
+    private:
+        // concept checks
+
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
+
+
     public:
-        // static functions
+        // types
 
-        /*!
-            \brief Returns the option description of the application.
-
-            \return The options description.
-        */
-        static const boost::program_options::options_description& options()
-        {
-            static const boost::program_options::options_description&
-            singleton = make_options();
-
-            return singleton;
-        }
+        //! The string type.
+        typedef String string_type;
 
 
         // constructors and destructor
@@ -46,13 +47,29 @@ namespace bobura
         /*!
             \brief Creates settings.
 
-            \param option_values The option values for the application.
+            \tparam CommandLineArgumentInputIterator A input iterator type for
+                                                     a command line arguments.
+
+            \param command_line_argument_first The first iterator for a
+                                               command line arguments.
+            \param command_line_argument_last  The last iterator for a command
+                                               line arguments.
         */
-        explicit settings(
-            const boost::program_options::variables_map& option_values
+        template <typename CommandLineArgumentInputIterator>
+        settings(
+            CommandLineArgumentInputIterator command_line_argument_first,
+            CommandLineArgumentInputIterator command_line_argument_last
         )
         :
-        m_option_values(option_values)
+        m_options(make_options()),
+        m_option_values(
+            make_option_values(
+                m_options,
+                std::vector<string_type>(
+                    command_line_argument_first, command_line_argument_last
+                )
+            )
+        )
         {}
 
         /*!
@@ -65,6 +82,8 @@ namespace bobura
 
     private:
         // variables
+
+        const boost::program_options::options_description m_options;
 
         const boost::program_options::variables_map m_option_values;
 
@@ -88,6 +107,23 @@ namespace bobura
             ;
 
             return options;
+        }
+
+        static const boost::program_options::variables_map make_option_values(
+            const boost::program_options::options_description& options,
+            const std::vector<string_type>&                    command_line_arguments
+        )
+        {
+            const boost::program_options::wparsed_options& parsed_options =
+                boost::program_options::wcommand_line_parser(
+                    command_line_arguments
+                ).options(options).run();
+
+            boost::program_options::variables_map option_values;
+            boost::program_options::store(parsed_options, option_values);
+            boost::program_options::notify(option_values);
+
+            return option_values;
         }
 
 

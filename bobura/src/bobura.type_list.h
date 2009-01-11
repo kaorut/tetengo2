@@ -17,6 +17,7 @@
 #include <tetengo2.gui.win32.gui_type_list.h>
 
 #include "bobura.bobura.h"
+#include "bobura.settings.h"
 
 
 namespace bobura
@@ -29,9 +30,15 @@ namespace bobura
     public:
         // types
 
+        //! The size type.
+        typedef std::size_t size_type;
+
+        //! The string type.
+        typedef std::wstring string_type;
+
         //! The type list type to create platform specific GUI components.
         typedef
-            tetengo2::gui::win32::gui_type_list<std::size_t, std::wstring>
+            tetengo2::gui::win32::gui_type_list<size_type, string_type>
             gui_type_list_type;
 
         //! The GUI initialization and finalization manager type.
@@ -41,6 +48,9 @@ namespace bobura
 
         //! The binary functor type of the alert.
         typedef gui_type_list_type::alert_type alert_type;
+
+        //! The settings type.
+        typedef settings<string_type> settings_type;
 
         //! The Bobura application type.
         typedef

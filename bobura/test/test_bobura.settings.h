@@ -24,8 +24,6 @@ namespace test_bobura
 
         static boost::unit_test::test_suite* suite();
 
-        static void options();
-
         static void construction();
 
 

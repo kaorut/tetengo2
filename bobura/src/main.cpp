@@ -7,10 +7,11 @@
 */
 
 //#include <exception>
+//#include <string>
+//#include <vector>
 
 //#include <boost/program_options.hpp>
 
-#include "bobura.settings.h"
 #include "bobura.type_list.h"
 
 
@@ -19,19 +20,25 @@ namespace
     /*!
         \brief Creates the application and runs it.
 
-        \param parsed_options The parsed command line options.
+        \tparam CommandLineArgumentInputIterator A input iterator type for a
+                                                 command line arguments.
+
+        \param command_line_argument_first The first iterator for a command
+                                           line arguments.
+        \param command_line_argument_last  The last iterator for a command
+                                           line arguments.
 
         \return The exit status code.
     */
+    template <typename CommandLineArgumentInputIterator>
     int run_application(
-        const boost::program_options::wparsed_options& parsed_options
+        CommandLineArgumentInputIterator command_line_argument_first,
+        CommandLineArgumentInputIterator command_line_argument_last
     )
     {
-        boost::program_options::variables_map option_values;
-        boost::program_options::store(parsed_options, option_values);
-        boost::program_options::notify(option_values);
-
-        bobura::settings settings(option_values);
+        const bobura::type_list::settings_type settings(
+            command_line_argument_first, command_line_argument_last
+        );
 
         return bobura::type_list::bobura_type().run();
     }
@@ -59,10 +66,10 @@ throw ()
 {
     try
     {
+        const std::vector<std::wstring> command_line_arguments =
+            boost::program_options::split_winmain(lpCmdLine);
         return ::run_application(
-            boost::program_options::wcommand_line_parser(
-                boost::program_options::split_winmain(lpCmdLine)
-            ).options(bobura::settings::options()).run()
+            command_line_arguments.begin(), command_line_arguments.end()
         );
     }
     catch (const std::exception& e)
