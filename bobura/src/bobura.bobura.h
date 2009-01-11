@@ -33,30 +33,16 @@ namespace bobura
         \tparam GuiTypeList     A type list type to create platform specific
                                 GUI components. It must conform to
                                 concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
-        \tparam MessageLoop     A generator type for the message loop. It must
-                                conform to boost::Generator<MessageLoop, int>.
-        \tparam QuitMessageLoop A unary functor type for quitting the message
-                                loop. It must conform to
-                                boost::UnaryFunction<QuitMessageLoop, void, int>.
         \tparam Command         A command type. It must conform to
                                 boost::Generator<Command, void>.
     */
-    template <
-        typename GuiTypeList,
-        typename MessageLoop,
-        typename QuitMessageLoop,
-        typename Command
-    >
+    template <typename GuiTypeList, typename Command>
     class bobura : private boost::noncopyable
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::GuiTypeList<GuiTypeList>));
-        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
-        BOOST_CONCEPT_ASSERT((
-            boost::UnaryFunction<QuitMessageLoop, void, int>
-        ));
 
 
     public:
@@ -67,10 +53,13 @@ namespace bobura
         typedef GuiTypeList gui_type_list_type;
 
         //! The message loop type.
-        typedef MessageLoop message_loop_type;
+        typedef
+            typename gui_type_list_type::message_loop_type message_loop_type;
 
-        //! The quit message loop type.
-        typedef QuitMessageLoop quit_message_loop_type;
+        //! The quit-message-loop type.
+        typedef
+            typename gui_type_list_type::quit_message_loop_type
+            quit_message_loop_type;
 
         //! The command type.
         typedef Command command_type;
@@ -147,10 +136,6 @@ namespace bobura
         typedef
             typename gui_type_list_type::menu_separator_type
             menu_separator_type;
-
-        typedef MessageLoop message_loop_type;
-
-        typedef QuitMessageLoop quit_message_loop_type;
 
 
         // variables

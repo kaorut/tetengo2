@@ -45,21 +45,9 @@ namespace bobura
         //! The binary functor type of the alert.
         typedef gui_type_list_type::alert_type alert_type;
 
-        //! The generator type for the message loop.
-        typedef gui_type_list_type::message_loop_type message_loop_type;
-
-        //! The unary functor type for quitting the message loop.
-        typedef
-            gui_type_list_type::quit_message_loop_type quit_message_loop_type;
-
         //! The Bobura application type.
         typedef
-            bobura<
-                gui_type_list_type,
-                message_loop_type,
-                quit_message_loop_type,
-                boost::function<void ()>
-            >
+            bobura<gui_type_list_type, boost::function<void ()> >
             bobura_type;
 
 

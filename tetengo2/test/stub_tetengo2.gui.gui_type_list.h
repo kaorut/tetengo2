@@ -50,9 +50,9 @@ namespace stub_tetengo2 { namespace gui
 
         typedef message_loop message_loop_type;
 
-        typedef alert<const void*, stub_tetengo2::encode> alert_type;
-
         typedef quit_message_loop quit_message_loop_type;
+
+        typedef alert<const void*, stub_tetengo2::encode> alert_type;
 
     private:
         typedef
