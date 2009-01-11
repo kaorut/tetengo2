@@ -104,6 +104,12 @@ namespace stub_tetengo2 { namespace gui
             tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
 
+    private:
+        // forbidden operations
+
+        gui_type_list();
+
+
     };
 
 

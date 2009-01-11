@@ -78,16 +78,6 @@ namespace bobura
             return singleton;
         }
 
-        /*!
-            \brief Returns a unary functor for an alert.
-
-            \return A unary functor for an alert.
-        */
-        static const alert_type alert()
-        {
-            return alert_type();
-        }
-
 
         // constructors and destructor
 

@@ -27,7 +27,6 @@ namespace test_bobura
             BOOST_TEST_SUITE("test_bobura::cofiguration");
 
         p_suite->add(BOOST_TEST_CASE(options));
-        p_suite->add(BOOST_TEST_CASE(alert));
         p_suite->add(BOOST_TEST_CASE(construction));
         p_suite->add(BOOST_TEST_CASE(create_bobura));
 
@@ -51,14 +50,6 @@ namespace test_bobura
                 options.find_nothrow("h", true);
             BOOST_CHECK(p_option != NULL);
         }
-    }
-
-    void configuration::alert()
-    {
-        BOOST_CHECKPOINT("");
-
-        const bobura::configuration::alert_type alert =
-            bobura::configuration::alert();
     }
 
     void configuration::construction()

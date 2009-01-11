@@ -121,6 +121,12 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef menu_separator<menu_item_type> menu_separator_type;
 
 
+    private:
+        // forbidden operations
+
+        gui_type_list();
+
+
     };
 
 
