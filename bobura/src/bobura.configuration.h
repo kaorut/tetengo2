@@ -10,7 +10,6 @@
 #define BOBURA_CONFIGURATION_H
 
 //#include <cstddef>
-//#include <memory>
 //#include <string>
 
 #include <boost/function.hpp>

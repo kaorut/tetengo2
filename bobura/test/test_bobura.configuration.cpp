@@ -9,7 +9,6 @@
 #include <cstddef>
 
 #include <boost/program_options.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.configuration.h"
