@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::configuration.
+    \brief Test of class bobura::type_list.
 
     Copyright (C) 2007-2009 kaoru
 
@@ -17,7 +17,7 @@ namespace boost { namespace unit_test {
 
 namespace test_bobura
 {
-    class configuration
+    class type_list
     {
     public:
         // static functions

@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::configuration.
+    \brief The definition of bobura::type_list.
 
     Copyright (C) 2007-2009 kaoru
 
@@ -24,9 +24,9 @@
 namespace bobura
 {
     /*!
-        \brief The class for a configuration of bobura.
+        \brief The class for a type list of bobura.
     */
-    class configuration : private boost::noncopyable
+    class type_list : private boost::noncopyable
     {
     public:
         // types
@@ -69,11 +69,11 @@ namespace bobura
         // constructors and destructor
 
         /*!
-            \brief Creates a configuration.
+            \brief Creates a type list.
 
             \param option_values The option values for the application.
         */
-        explicit configuration(
+        explicit type_list(
             const boost::program_options::variables_map& option_values
         )
         :
@@ -81,9 +81,9 @@ namespace bobura
         {}
 
         /*!
-            \brief Destroys the configuration.
+            \brief Destroys the type_list.
         */
-        ~configuration()
+        ~type_list()
         throw ()
         {}
 
