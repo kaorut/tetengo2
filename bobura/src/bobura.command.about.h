@@ -10,7 +10,6 @@
 #define BOBURA_COMMAND_ABOUT_H
 
 #include <algorithm>
-#include <cassert>
 #include <cstddef>
 
 //#include <boost/concept_check.hpp>
