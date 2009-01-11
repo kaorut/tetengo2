@@ -30,6 +30,12 @@ namespace concept_tetengo2 { namespace gui
             typename Type::gui_initializer_finalizer_type
             gui_initializer_finalizer_type;
 
+        typedef typename Type::message_loop_type message_loop_type;
+
+        typedef typename Type::quit_message_loop_type quit_message_loop_type;
+
+        typedef typename Type::alert_type alert_type;
+
         typedef typename Type::window_type window_type;
 
         typedef typename Type::main_menu_type main_menu_type;

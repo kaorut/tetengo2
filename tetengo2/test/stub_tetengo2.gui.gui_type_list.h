@@ -17,7 +17,9 @@
 #include "stub_tetengo2.gui.main_menu.h"
 #include "stub_tetengo2.gui.menu_item.h"
 #include "stub_tetengo2.gui.menu_item_list.h"
+#include "stub_tetengo2.gui.message_loop.h"
 #include "stub_tetengo2.gui.popup_menu.h"
+#include "stub_tetengo2.gui.quit_message_loop.h"
 #include "stub_tetengo2.gui.window.h"
 #include "stub_tetengo2.encode.h"
 #include "tetengo2.gui.menu_command.h"
@@ -46,6 +48,12 @@ namespace stub_tetengo2 { namespace gui
             stub_tetengo2::gui::gui_initializer_finalizer
             gui_initializer_finalizer_type;
 
+        typedef message_loop message_loop_type;
+
+        typedef alert<const void*, stub_tetengo2::encode> alert_type;
+
+        typedef quit_message_loop quit_message_loop_type;
+
     private:
         typedef
             canvas<
@@ -56,8 +64,6 @@ namespace stub_tetengo2 { namespace gui
                 const void*
             >
             canvas_type;
-
-        typedef alert<const void*, stub_tetengo2::encode> alert_type;
 
         typedef
             stub_tetengo2::gui::menu_item<

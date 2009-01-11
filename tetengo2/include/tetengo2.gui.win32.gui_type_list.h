@@ -22,7 +22,9 @@
 #include "tetengo2.gui.win32.main_menu.h"
 #include "tetengo2.gui.win32.menu_item.h"
 #include "tetengo2.gui.win32.menu_item_list.h"
+#include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.popup_menu.h"
+#include "tetengo2.gui.win32.quit_message_loop.h"
 #include "tetengo2.gui.win32.window.h"
 #include "tetengo2.win32.encode.h"
 
@@ -55,6 +57,15 @@ namespace tetengo2 { namespace gui { namespace win32
             tetengo2::gui::win32::gui_initializer_finalizer
             gui_initializer_finalizer_type;
 
+        //! The message loop type.
+        typedef message_loop message_loop_type;
+
+        //! The quit-message-loop type.
+        typedef quit_message_loop quit_message_loop_type;
+
+        //! The alert dialog type.
+        typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
+
     private:
         typedef
             canvas<
@@ -65,8 +76,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::HWND
             >
             canvas_type;
-
-        typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
 
         typedef
             tetengo2::gui::win32::menu_item<

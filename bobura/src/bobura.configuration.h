@@ -18,8 +18,6 @@
 #include <boost/program_options.hpp>
 
 #include <tetengo2.gui.win32.gui_type_list.h>
-#include <tetengo2.gui.win32.message_loop.h>
-#include <tetengo2.gui.win32.quit_message_loop.h>
 
 #include "bobura.bobura.h"
 
@@ -34,31 +32,25 @@ namespace bobura
     public:
         // types
 
-        //! The type list type to create platform specific GUI
-        //! components.
+        //! The type list type to create platform specific GUI components.
         typedef
             tetengo2::gui::win32::gui_type_list<std::size_t, std::wstring>
             gui_type_list_type;
-
-        //! The binary functor type of the alert.
-        typedef
-            tetengo2::gui::win32::alert<
-                typename gui_type_list_type::window_type::handle_type,
-                tetengo2::win32::encode
-            >
-            alert_type;
 
         //! The GUI initialization and finalization manager type.
         typedef
             gui_type_list_type::gui_initializer_finalizer_type
             gui_initializer_finalizer_type;
 
+        //! The binary functor type of the alert.
+        typedef gui_type_list_type::alert_type alert_type;
+
         //! The generator type for the message loop.
-        typedef tetengo2::gui::win32::message_loop message_loop_type;
+        typedef gui_type_list_type::message_loop_type message_loop_type;
 
         //! The unary functor type for quitting the message loop.
         typedef
-            tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
+            gui_type_list_type::quit_message_loop_type quit_message_loop_type;
 
         //! The Bobura application type.
         typedef
