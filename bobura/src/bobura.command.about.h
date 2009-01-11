@@ -47,14 +47,12 @@ namespace bobura { namespace command
         /*!
             \brief Creates an about command.
 
-            \param p_window A pointer to a window.
+            \param window A window.
         */
-        explicit about(window_type* const p_window)
+        explicit about(window_type& window)
         :
-        m_p_window(p_window)
-        {
-            assert(p_window != NULL);
-        }
+        m_p_window(&window)
+        {}
 
         /*!
             \brief Copies an about command.
@@ -112,7 +110,7 @@ namespace bobura { namespace command
     private:
         // variables
 
-        window_type* const m_p_window;
+        window_type* m_p_window;
 
 
     };

@@ -14,7 +14,6 @@
 
 //#include <boost/concept_check.hpp>
 //#include <boost/noncopyable.hpp>
-#include <boost/scoped_ptr.hpp>
 
 #include <concept_tetengo2.gui.GuiTypeList.h>
 
@@ -105,12 +104,10 @@ namespace bobura
         int run()
         const
         {
-            const boost::scoped_ptr<window_type> p_main_window(
-                new window_type(typename window_type::style_frame, NULL)
-            );
-            initialize_window(p_main_window.get());
+            window_type main_window(typename window_type::style_frame, NULL);
+            initialize_window(main_window);
 
-            p_main_window->set_visible(true);
+            main_window.set_visible(true);
 
             return message_loop_type()();
         }
@@ -163,18 +160,18 @@ namespace bobura
 
         // functions
 
-        void initialize_window(window_type* const p_window)
+        void initialize_window(window_type& window)
         const
         {
-            set_message_observers(p_window);
-            set_menus(p_window);
-            p_window->set_text(L"ぼうぶら テストプログラム");
+            set_message_observers(window);
+            set_menus(window);
+            window.set_text(L"ぼうぶら テストプログラム");
         }
 
-        void set_message_observers(window_type* const p_window)
+        void set_message_observers(window_type& window)
         const
         {
-            p_window->add_window_observer(
+            window.add_window_observer(
                 std::auto_ptr<window_observer_type> (
                     new message::main_window_window_observer<
                         quit_message_loop_type
@@ -182,14 +179,14 @@ namespace bobura
                 )
             );
 
-            p_window->add_paint_observer(
+            window.add_paint_observer(
                 std::auto_ptr<paint_observer_type> (
                     new message::main_window_paint_observer<canvas_type>()
                 )
             );
         }
 
-        void set_menus(window_type* const p_window)
+        void set_menus(window_type& window)
         const
         {
             std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
@@ -214,7 +211,7 @@ namespace bobura
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
                     *p_popup_menu, L"終了(&X)",
-                    command::exit<window_type>(p_window)
+                    command::exit<window_type>(window)
                 );
 
                 p_main_menu->insert(
@@ -263,7 +260,7 @@ namespace bobura
 
                 append_menu_command(
                     *p_popup_menu, L"バージョン情報(&A)...",
-                    command::about<window_type>(p_window)
+                    command::about<window_type>(window)
                 );
 
                 p_main_menu->insert(
@@ -272,7 +269,7 @@ namespace bobura
                 );
             }
 
-            p_window->set_main_menu(p_main_menu);
+            window.set_main_menu(p_main_menu);
         }
 
         void append_menu_command(
