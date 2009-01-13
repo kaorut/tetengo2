@@ -17,19 +17,6 @@
 
 namespace
 {
-    /*!
-        \brief Creates the application and runs it.
-
-        \tparam CommandLineArgumentInputIterator A input iterator type for a
-                                                 command line arguments.
-
-        \param command_line_argument_first The first iterator for a command
-                                           line arguments.
-        \param command_line_argument_last  The last iterator for a command
-                                           line arguments.
-
-        \return The exit status code.
-    */
     template <typename CommandLineArgumentInputIterator>
     int run_application(
         CommandLineArgumentInputIterator command_line_argument_first,
@@ -40,11 +27,12 @@ namespace
             command_line_argument_first, command_line_argument_last
         );
 
-        return bobura::type_list::bobura_type().run();
+        return bobura::type_list::bobura_type(settings).run();
     }
 
 
 }
+
 
 /*!
     \brief The entry point of the application.

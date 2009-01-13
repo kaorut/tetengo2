@@ -54,7 +54,9 @@ namespace bobura
 
         //! The Bobura application type.
         typedef
-            bobura<gui_type_list_type, boost::function<void ()> >
+            bobura<
+                settings_type, gui_type_list_type, boost::function<void ()>
+            >
             bobura_type;
 
 

@@ -24,29 +24,40 @@
 #include "bobura.message.main_window_paint_observer.h"
 #include "bobura.message.main_window_window_observer.h"
 
+#include "concept_bobura.Settings.h"
+
 
 namespace bobura
 {
     /*!
         \brief The class template for a bobura application.
 
-        \tparam GuiTypeList     A type list type to create platform specific
-                                GUI components. It must conform to
-                                concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
-        \tparam Command         A command type. It must conform to
-                                boost::Generator<Command, void>.
+        \tparam Settings    Settings type. It must conform to
+                            concept_bobura::Settings<Settings>.
+        \tparam GuiTypeList A type list type to create platform specific GUI
+                            components. It must conform to
+                            concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
+        \tparam Command     A command type. It must conform to
+                            boost::Generator<Command, void>.
     */
-    template <typename GuiTypeList, typename Command>
+    template <typename Settings, typename GuiTypeList, typename Command>
     class bobura : private boost::noncopyable
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::GuiTypeList<GuiTypeList>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::Settings<Settings>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::GuiTypeList<GuiTypeList>
+        ));
+        BOOST_CONCEPT_ASSERT((boost::Generator<Command, void>));
 
 
     public:
         // types
+
+        //! The settings type.
+        typedef Settings settings_type;
 
         //! The type list type to create platform specific GUI
         //! components.
@@ -69,10 +80,13 @@ namespace bobura
 
         /*!
             \brief Creates a bobura application.
+
+            \param settings Settings of the bobura.
         */
-        bobura()
+        bobura(const settings_type& settings)
         :
-        m_gui_initializer_finalizer()
+        m_gui_initializer_finalizer(),
+        m_settings(settings)
         {}
 
         /*!
@@ -141,6 +155,8 @@ namespace bobura
         // variables
 
         const gui_initializer_finalizer_type m_gui_initializer_finalizer;
+
+        const settings_type& m_settings;
 
 
         // functions

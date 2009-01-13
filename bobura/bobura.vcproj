@@ -465,6 +465,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="concept_bobura"
+				>
+				<File
+					RelativePath=".\src\concept_bobura.Settings.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resources"

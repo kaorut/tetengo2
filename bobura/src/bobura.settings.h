@@ -45,6 +45,15 @@ namespace bobura
         // constructors and destructor
 
         /*!
+            \brief Creates empty settings.
+        */
+        settings()
+        :
+        m_options(make_options()),
+        m_option_values()
+        {}
+
+        /*!
             \brief Creates settings.
 
             \tparam CommandLineArgumentInputIterator A input iterator type for

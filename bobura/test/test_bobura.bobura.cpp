@@ -13,6 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.bobura.h"
+#include "bobura.settings.h"
 
 #include <stub_tetengo2.gui.gui_type_list.h>
 #include <stub_tetengo2.gui.message_loop.h>
@@ -33,8 +34,12 @@ namespace
         gui_type_list_type::gui_initializer_finalizer_type
         gui_initializer_finalizer_type;
 
+    typedef bobura::settings<std::wstring> settings_type;
+
     typedef
-        bobura::bobura<gui_type_list_type, boost::function<void ()> >
+        bobura::bobura<
+            settings_type, gui_type_list_type, boost::function<void ()>
+        >
         bobura_type;
 
 }
@@ -58,14 +63,16 @@ namespace test_bobura
     {
         BOOST_CHECKPOINT("");
 
-        const bobura_type bobura;
+        const settings_type settings;
+        const bobura_type bobura(settings);
     }
 
     void bobura::run()
     {
         BOOST_CHECKPOINT("");
 
-        const bobura_type bobura;
+        const settings_type settings;
+        const bobura_type bobura(settings);
 
         BOOST_CHECK_EQUAL(bobura.run(), 0);
     }
