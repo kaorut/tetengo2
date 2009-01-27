@@ -10,6 +10,10 @@
     \brief The root namespace for Bobura.
 */
 
+/*! \namespace bobura::command
+    \brief The namespace for commands.
+*/
+
 /*! \namespace bobura::message
     \brief The namespace for message observers.
 */
@@ -48,11 +52,6 @@
 
 /*! \namespace concept_bobura
     \brief The namespace for concept check classes for the namespace bobura.
-*/
-
-/*! \namespace concept_bobura::message
-    \brief The namespace for concept check classes for the namespace
-           bobura::message.
 */
 
 /*! \namespace concept_bobura::model

@@ -16,6 +16,12 @@ Bobura is some sortware about railways.
 
 Tetengo2 is a kind of GUI toolkit.
 
+\section requirements Requirements
+
+\arg Visual C++ 2008 SP1 or later
+\arg Boost 1.37.0 or later
+\arg Doxygen 1.5.8 or later
+
 
 Copyright (C) 2007-2009 kaoru
 
