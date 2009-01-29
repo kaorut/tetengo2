@@ -224,10 +224,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const ::BOOL result = ::MoveWindow(
                 this->handle(),
-                position.first,
-                position.second,
-                dimension.first,
-                dimension.second,
+                static_cast<int>(position.first),
+                static_cast<int>(position.second),
+                static_cast<int>(dimension.first),
+                static_cast<int>(dimension.second),
                 this->visible() ? TRUE : FALSE
             );
             if (result == 0)
@@ -266,10 +266,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const ::BOOL result = ::MoveWindow(
                 this->handle(),
-                position.first,
-                position.second,
-                dimension.first,
-                dimension.second,
+                static_cast<int>(position.first),
+                static_cast<int>(position.second),
+                static_cast<int>(dimension.first),
+                static_cast<int>(dimension.second),
                 this->visible() ? TRUE : FALSE
             );
             if (result == 0)
