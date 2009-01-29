@@ -106,6 +106,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::HWND,
                 canvas_type,
                 alert_type,
+                Size,
                 String,
                 tetengo2::win32::encode,
                 main_menu_type,

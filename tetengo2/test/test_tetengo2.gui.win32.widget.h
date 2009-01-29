@@ -34,6 +34,14 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
         static void visible();
 
+        static void set_position();
+
+        static void position();
+
+        static void set_dimension();
+
+        static void dimension();
+
         static void set_text();
 
         static void text();

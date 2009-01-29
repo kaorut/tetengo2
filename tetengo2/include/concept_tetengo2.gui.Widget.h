@@ -10,6 +10,7 @@
 #define CONCEPTTETENGO2_GUI_WIDGET_H
 
 #include <memory>
+#include <utility>
 
 #include <boost/concept_check.hpp>
 
@@ -34,6 +35,12 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::alert_type alert_type;
 
+        typedef typename Type::size_type size_type;
+
+        typedef typename Type::position_type position_type;
+
+        typedef typename Type::dimension_type dimension_type;
+
         typedef typename Type::string_type string_type;
 
         typedef
@@ -52,6 +59,10 @@ namespace concept_tetengo2 { namespace gui
 
             m_object.set_visible(bool());
             
+            m_object.set_position(std::make_pair(size_type(), size_type()));
+
+            m_object.set_dimension(std::make_pair(size_type(), size_type()));
+
             m_object.set_text(string_type());
 
             std::auto_ptr<paint_observer_type> p_paint_observer;
@@ -70,6 +81,12 @@ namespace concept_tetengo2 { namespace gui
 
             const bool visible = object.visible();
             boost::ignore_unused_variable_warning(visible);
+
+            const position_type& position = object.position();
+            boost::ignore_unused_variable_warning(position);
+
+            const dimension_type& dimension = object.dimension();
+            boost::ignore_unused_variable_warning(dimension);
 
             const string_type text = object.text();
             boost::ignore_unused_variable_warning(text);

@@ -90,6 +90,7 @@ namespace stub_tetengo2 { namespace gui
                 const void*,
                 canvas_type,
                 alert_type,
+                Size,
                 String,
                 stub_tetengo2::encode,
                 main_menu_type,

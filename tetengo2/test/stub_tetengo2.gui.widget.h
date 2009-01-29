@@ -11,7 +11,9 @@
 
 #include <exception>
 #include <memory>
+#include <stdexcept>
 #include <string>
+#include <utility>
 
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
@@ -28,6 +30,7 @@ namespace stub_tetengo2 { namespace gui
         typename Handle,
         typename Canvas,
         typename Alert,
+        typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
         typename PaintObserver
@@ -46,6 +49,7 @@ namespace stub_tetengo2 { namespace gui
                 boost::UnaryFunction<Alert, void, exception_type>
             ));
         };
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         struct concept_check_Encode
         {
@@ -77,6 +81,12 @@ namespace stub_tetengo2 { namespace gui
 
         typedef Alert alert_type;
 
+        typedef Size size_type;
+
+        typedef std::pair<size_type, size_type> position_type;
+
+        typedef std::pair<size_type, size_type> dimension_type;
+
         typedef String string_type;
 
         typedef Encode<String, String> encode_from_native_type;
@@ -92,6 +102,8 @@ namespace stub_tetengo2 { namespace gui
         :
         m_enabled(false),
         m_visible(false),
+        m_position(std::make_pair(0, 0)),
+        m_dimension(std::make_pair(100, 100)),
         m_text()
         {}
 
@@ -127,6 +139,31 @@ namespace stub_tetengo2 { namespace gui
             return m_visible;
         }
 
+        virtual void set_position(const position_type& position)
+        {
+            m_position = position;
+        }
+
+        virtual const position_type& position()
+        const
+        {
+            return m_position;
+        }
+
+        virtual void set_dimension(const dimension_type& dimension)
+        {
+            if (dimension.first == 0 || dimension.second == 0)
+                throw std::invalid_argument("Dimension has zero value.");
+
+            m_dimension = dimension;
+        }
+
+        virtual const dimension_type& dimension()
+        const
+        {
+            return m_dimension;
+        }
+
         virtual void set_text(const string_type& text)
         {
             m_text = text;
@@ -150,6 +187,10 @@ namespace stub_tetengo2 { namespace gui
         bool m_enabled;
 
         bool m_visible;
+
+        position_type m_position;
+
+        dimension_type m_dimension;
 
         string_type m_text;
 

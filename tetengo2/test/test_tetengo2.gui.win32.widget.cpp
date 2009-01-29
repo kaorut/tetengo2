@@ -27,6 +27,10 @@ namespace test_tetengo2 { namespace gui { namespace win32
         p_suite->add(BOOST_TEST_CASE(enabled));
         p_suite->add(BOOST_TEST_CASE(set_visible));
         p_suite->add(BOOST_TEST_CASE(visible));
+        p_suite->add(BOOST_TEST_CASE(set_position));
+        p_suite->add(BOOST_TEST_CASE(position));
+        p_suite->add(BOOST_TEST_CASE(set_dimension));
+        p_suite->add(BOOST_TEST_CASE(dimension));
         p_suite->add(BOOST_TEST_CASE(set_text));
         p_suite->add(BOOST_TEST_CASE(text));
         p_suite->add(BOOST_TEST_CASE(add_paint_observer));
@@ -58,6 +62,26 @@ namespace test_tetengo2 { namespace gui { namespace win32
     }
 
     void widget::visible()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void widget::set_position()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void widget::position()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void widget::set_dimension()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    void widget::dimension()
     {
         BOOST_WARN("Not implemented yet.");
     }

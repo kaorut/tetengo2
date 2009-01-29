@@ -25,6 +25,7 @@ namespace stub_tetengo2 { namespace gui
         typename Handle,
         typename Canvas,
         typename Alert,
+        typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
         typename MainMenu,
@@ -36,6 +37,7 @@ namespace stub_tetengo2 { namespace gui
             Handle,
             Canvas,
             Alert,
+            Size,
             String,
             Encode,
             PaintObserver

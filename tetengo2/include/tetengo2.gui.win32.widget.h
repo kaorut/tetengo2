@@ -9,11 +9,13 @@
 #if !defined(TETENGO2_GUI_WIN32_WIDGET_H)
 #define TETENGO2_GUI_WIN32_WIDGET_H
 
+#include <cassert>
 //#include <cstddef>
 #include <exception>
 #include <memory>
 #include <stdexcept>
 //#include <string>
+#include <utility>
 
 #include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
@@ -45,6 +47,8 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Alert                 An alerting unary functor type. It must
                                       conform to
                                       boost::UnaryFunction<Alert, void, Handle, std::exception>.
+        \tparam Size                  A size type. It must conform to
+                                      boost::UnsignedInteger<Size>.
         \tparam String                A string type. It must conform to
                                       concept_tetengo2::String<String>.
         \tparam Encode                An encoding unary functor type. The 
@@ -62,6 +66,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Handle,
         typename Canvas,
         typename Alert,
+        typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
         typename PaintObserver
@@ -80,6 +85,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 boost::UnaryFunction<Alert, void, exception_type>
             ));
         };
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         struct concept_check_Encode
         {
@@ -114,7 +120,16 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The alerting unary functor type.
         typedef Alert alert_type;
 
-        //! The string type
+        //! The size type.
+        typedef Size size_type;
+
+        //! The position type.
+        typedef std::pair<size_type, size_type> position_type;
+
+        //! The dimension type.
+        typedef std::pair<size_type, size_type> dimension_type;
+
+        //! The string type.
         typedef String string_type;
 
         //! The unary functor type for encoding from the native.
@@ -196,6 +211,89 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return ::IsWindowVisible(this->handle()) == TRUE;
+        }
+
+        /*!
+            \brief Sets the position.
+
+            \param position A position.
+        */
+        virtual void set_position(const position_type& position)
+        {
+            const dimension_type dimension = this->dimension();
+
+            const ::BOOL result = ::MoveWindow(
+                this->handle(),
+                position.first,
+                position.second,
+                dimension.first,
+                dimension.second,
+                this->visible() ? TRUE : FALSE
+            );
+            if (result == 0)
+                throw std::runtime_error("Can't move window.");
+        }
+
+        /*!
+            \brief Returns the position.
+
+            \return The position.
+        */
+        virtual const position_type position()
+        const
+        {
+            ::RECT rectangle = {0, 0, 0, 0};
+            if (::GetWindowRect(this->handle(), &rectangle) == 0)
+                throw std::runtime_error("Can't get window rectangle.");
+
+            return std::make_pair(rectangle.left, rectangle.top);
+        }
+
+        /*!
+            \brief Sets the dimension.
+
+            \param dimension A dimension.
+
+            \throw std::invalid_argument When either dimension.first or
+                                         dimension.second is equal to 0.
+        */
+        virtual void set_dimension(const dimension_type& dimension)
+        {
+            if (dimension.first == 0 || dimension.second == 0)
+                throw std::invalid_argument("Dimension has zero value.");
+
+            const position_type position = this->position();
+
+            const ::BOOL result = ::MoveWindow(
+                this->handle(),
+                position.first,
+                position.second,
+                dimension.first,
+                dimension.second,
+                this->visible() ? TRUE : FALSE
+            );
+            if (result == 0)
+                throw std::runtime_error("Can't move window.");
+        }
+
+        /*!
+            \brief Returns the dimension.
+
+            \return The dimension.
+        */
+        virtual const dimension_type dimension()
+        const
+        {
+            ::RECT rectangle = {0, 0, 0, 0};
+            if (::GetWindowRect(this->handle(), &rectangle) == 0)
+                throw std::runtime_error("Can't get window rectangle.");
+
+            assert(rectangle.right - rectangle.left > 0);
+            assert(rectangle.bottom - rectangle.top > 0);
+            return std::make_pair(
+                rectangle.right - rectangle.left,
+                rectangle.bottom - rectangle.top
+            );
         }
 
         /*!

@@ -39,6 +39,8 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Alert                 An alerting unary functor type. It must
                                       conform to
                                       boost::UnaryFunction<Alert, void, Handle, std::exception>.
+        \tparam Size                  A size type. It must conform to
+                                      boost::UnsignedInteger<Size>.
         \tparam String                A string type. It must conform to
                                       concept_tetengo2::String<String>.
         \tparam Encode                An encoding unary functor type. The
@@ -61,6 +63,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Handle,
         typename Canvas,
         typename Alert,
+        typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
         typename MainMenu,
@@ -72,6 +75,7 @@ namespace tetengo2 { namespace gui { namespace win32
             Handle,
             Canvas,
             Alert,
+            Size,
             String,
             Encode,
             PaintObserver
@@ -311,10 +315,10 @@ namespace tetengo2 { namespace gui { namespace win32
                 window_class_name().c_str(),
                 window_class_name().c_str(),
                 create_window_style(style),
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
+                style == style_frame ? CW_USEDEFAULT : 0,
+                style == style_frame ? CW_USEDEFAULT : 0,
+                style == style_frame ? CW_USEDEFAULT : 128,
+                style == style_frame ? CW_USEDEFAULT : 128,
                 p_parent == NULL ? HWND_DESKTOP : p_parent->handle(),
                 NULL,
                 instance_handle,

@@ -10,6 +10,8 @@
 #define BOBURA_COMMAND_ABOUT_H
 
 #include <algorithm>
+//#include <memory>
+//#include <utility>
 
 //#include <boost/concept_check.hpp>
 
@@ -121,22 +123,29 @@ namespace bobura { namespace command
         {
             m_p_window->set_enabled(false);
 
-            window_type window(
+            window_type dialog(
                 typename window_type::style_dialog, m_p_window
             );
 
-            //::MoveWindow((::HWND)window.handle(), 0, 0, 300, 300, FALSE);
+            const typename window_type::position_type& window_position =
+                m_p_window->position();
+            dialog.set_dimension(std::make_pair(384, 256));
+            dialog.set_position(
+                std::make_pair(
+                    window_position.first + 64, window_position.second + 64
+                )
+            );
 
-            window.set_visible(true);
-            window.activate();
-
-            window.add_window_observer(
+            dialog.add_window_observer(
                 std::auto_ptr<window_observer_type> (
                     new message::main_window_window_observer<
                         quit_message_loop_type
                     >(quit_message_loop_type())
                 )
             );
+
+            dialog.set_visible(true);
+            dialog.activate();
 
             message_loop_type()();
 
