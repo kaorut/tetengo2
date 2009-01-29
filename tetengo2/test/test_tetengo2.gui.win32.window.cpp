@@ -43,6 +43,11 @@ namespace test_tetengo2 { namespace gui { namespace win32
         BOOST_WARN("Not implemented yet.");
     }
 
+    void window::activate()
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     void window::has_main_menu()
     {
         BOOST_WARN("Not implemented yet.");

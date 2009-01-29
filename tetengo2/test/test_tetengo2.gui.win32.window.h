@@ -28,6 +28,8 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
         static void handle();
 
+        static void activate();
+
         static void has_main_menu();
 
         static void main_menu();

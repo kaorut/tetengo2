@@ -39,6 +39,8 @@ namespace concept_tetengo2 { namespace gui
 
         BOOST_CONCEPT_USAGE(Window)
         {
+            m_object.activate();
+
             std::auto_ptr<main_menu_type> p_main_menu;
             m_object.set_main_menu(p_main_menu);
 

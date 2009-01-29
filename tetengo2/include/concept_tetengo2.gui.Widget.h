@@ -48,6 +48,8 @@ namespace concept_tetengo2 { namespace gui
 
         BOOST_CONCEPT_USAGE(Widget)
         {
+            m_object.set_enabled(bool());
+
             m_object.set_visible(bool());
             
             m_object.set_text(string_type());
@@ -62,6 +64,9 @@ namespace concept_tetengo2 { namespace gui
         {
             const handle_type handle = object.handle();
             boost::ignore_unused_variable_warning(handle);
+
+            const bool enabled = object.enabled();
+            boost::ignore_unused_variable_warning(enabled);
 
             const bool visible = object.visible();
             boost::ignore_unused_variable_warning(visible);

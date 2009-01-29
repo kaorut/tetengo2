@@ -261,7 +261,9 @@ namespace bobura
 
                 append_menu_command(
                     *p_popup_menu, L"ƒo[ƒWƒ‡ƒ“î•ñ(&A)...",
-                    command::about<window_type>(window)
+                    command::about<
+                        window_type, message_loop_type, quit_message_loop_type
+                    >(window)
                 );
 
                 p_main_menu->insert(

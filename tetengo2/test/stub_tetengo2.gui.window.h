@@ -83,6 +83,9 @@ namespace stub_tetengo2 { namespace gui
             return 0;
         }
 
+        void activate()
+        {}
+
         bool has_main_menu()
         const
         {

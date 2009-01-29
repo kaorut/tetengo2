@@ -90,6 +90,7 @@ namespace stub_tetengo2 { namespace gui
 
         widget()
         :
+        m_enabled(false),
         m_visible(false),
         m_text()
         {}
@@ -103,6 +104,17 @@ namespace stub_tetengo2 { namespace gui
 
         virtual handle_type handle()
         const = 0;
+
+        virtual void set_enabled(const bool enabled)
+        {
+            m_enabled = enabled;
+        }
+
+        virtual bool enabled()
+        const
+        {
+            return m_enabled;
+        }
 
         virtual void set_visible(const bool visible)
         {
@@ -134,6 +146,8 @@ namespace stub_tetengo2 { namespace gui
 
     private:
         // variables
+
+        bool m_enabled;
 
         bool m_visible;
 

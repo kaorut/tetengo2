@@ -15,22 +15,34 @@
 
 #include <concept_tetengo2.gui.Window.h>
 
+#include "bobura.message.main_window_window_observer.h"
+
 
 namespace bobura { namespace command
 {
     /*!
         \brief The class template for an about command.
 
-        \tparam Window A window type. It must conform to
-                       concept_tetengo2::gui::Window<Window>.
+        \tparam Window          A window type. It must conform to
+                                concept_tetengo2::gui::Window<Window>.
+        \tparam MessageLoop     A generator type for a message loop. It must
+                                conform to
+                                boost::Generator<MessageLoop, int>.
+        \tparam QuitMessageLoop A unary functor type for quitting the message
+                                loop. It must conform to
+                                boost::UnaryFunction<QuitMessageLoop, void, int>
     */
-    template <typename Window>
+    template <typename Window, typename MessageLoop, typename QuitMessageLoop>
     class about
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
+        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
+        BOOST_CONCEPT_ASSERT((
+            boost::UnaryFunction<QuitMessageLoop, void, int>
+        ));
 
 
     public:
@@ -38,6 +50,12 @@ namespace bobura { namespace command
 
         //! The window type.
         typedef Window window_type;
+
+        //! The message loop type.
+        typedef MessageLoop message_loop_type;
+
+        //! The quit message loop type.
+        typedef QuitMessageLoop quit_message_loop_type;
 
 
         // constructors and destructor
@@ -101,11 +119,40 @@ namespace bobura { namespace command
         */
         void operator()()
         {
-            m_p_window->set_text(L"‚ ‚Î‚¤‚Æ");
+            m_p_window->set_enabled(false);
+
+            window_type window(
+                typename window_type::style_dialog, m_p_window
+            );
+
+            //::MoveWindow((::HWND)window.handle(), 0, 0, 300, 300, FALSE);
+
+            window.set_visible(true);
+            window.activate();
+
+            window.add_window_observer(
+                std::auto_ptr<window_observer_type> (
+                    new message::main_window_window_observer<
+                        quit_message_loop_type
+                    >(quit_message_loop_type())
+                )
+            );
+
+            message_loop_type()();
+
+            m_p_window->set_enabled(true);
+            m_p_window->activate();
         }
 
 
     private:
+        // types
+
+        typedef
+            typename window_type::window_observer_type
+            window_observer_type;
+
+
         // variables
 
         window_type* m_p_window;
@@ -121,20 +168,30 @@ namespace std
     /*!
         \brief Swaps two about objects.
 
-        \tparam Window A window type. It must conform to
-                       concept_tetengo2::gui::Window<Window>.
+        \tparam Window          A window type. It must conform to
+                                concept_tetengo2::gui::Window<Window>.
+        \tparam MessageLoop     A generator type for a message loop. It must
+                                conform to
+                                boost::Generator<MessageLoop, int>.
+        \tparam QuitMessageLoop A unary functor type for quitting the message
+                                loop. It must conform to
+                                boost::UnaryFunction<QuitMessageLoop, void, int>
 
         \param about1 An about object #1.
         \param about2 An about object #2.
     */
-    template <typename Window>
+    template <typename Window, typename MessageLoop, typename QuitMessageLoop>
     void swap(
-        bobura::command::about<Window>& about1,
-        bobura::command::about<Window>& about2
+        bobura::command::about<Window, MessageLoop, QuitMessageLoop>& about1,
+        bobura::command::about<Window, MessageLoop, QuitMessageLoop>& about2
     )
     throw ()
     {
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
+        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
+        BOOST_CONCEPT_ASSERT((
+            boost::UnaryFunction<QuitMessageLoop, void, int>
+        ));
 
         about1.swap(about2);
     }

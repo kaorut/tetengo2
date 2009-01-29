@@ -143,9 +143,20 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Activates the window.
+        */
+        void activate()
+        {
+            if (::SetForegroundWindow(this->handle()) == 0)
+                throw std::runtime_error("Can't be active.");
+
+        }
+
+        /*!
             \brief Returns true when the window has a main menu.
 
-            \retval true When the window has a main menu.
+            \retval true  When the window has a main menu.
+            \retval false Otherwise.
         */
         bool has_main_menu()
         const
@@ -276,6 +287,13 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // static functions
 
+        static const string_type& window_class_name()
+        {
+            static const string_type singleton =
+                L"tetengo2::gui::win32::window";
+            return singleton;
+        }
+
         static handle_type create_window(
             const style_type    style,
             const window* const p_parent
@@ -285,12 +303,13 @@ namespace tetengo2 { namespace gui { namespace win32
             if (instance_handle == NULL)
                 throw std::runtime_error("Can't get the instance handle!");
 
-            const ::ATOM atom = register_window_class(instance_handle);
+            if (!window_class_is_registered(instance_handle))
+                register_window_class(instance_handle);
 
             const handle_type handle = ::CreateWindowExW(
                 create_window_exstyle(style),
-                reinterpret_cast< ::LPCWSTR>(atom),
-                L"tetengo2::gui::win32::window",
+                window_class_name().c_str(),
+                window_class_name().c_str(),
                 create_window_style(style),
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
@@ -307,7 +326,19 @@ namespace tetengo2 { namespace gui { namespace win32
             return handle;
         }
 
-        static ::ATOM register_window_class(const ::HINSTANCE instance_handle)
+        static bool window_class_is_registered(
+            const ::HINSTANCE instance_handle
+        )
+        {
+            ::WNDCLASSEXW window_class;
+            const ::BOOL result = ::GetClassInfoExW(
+                instance_handle, window_class_name().c_str(), &window_class
+            );
+
+            return result != 0;
+        }
+
+        static void register_window_class(const ::HINSTANCE instance_handle)
         {
             ::WNDCLASSEXW window_class;
             window_class.cbSize = sizeof(::WNDCLASSEXW);
@@ -350,13 +381,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::GetSysColorBrush(COLOR_3DFACE)
             );
             window_class.lpszMenuName = NULL;
-            window_class.lpszClassName = L"tetengo2::gui::win32::window";
+            window_class.lpszClassName = window_class_name().c_str();
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
             if (atom == NULL)
                 throw std::runtime_error("Can't register a window class!");
-
-            return atom;
         }
 
         static ::DWORD create_window_exstyle(const style_type style)
@@ -379,7 +408,7 @@ namespace tetengo2 { namespace gui { namespace win32
             case style_frame:
                 return WS_OVERLAPPEDWINDOW;
             case style_dialog:
-                return WS_BORDER | WS_CAPTION | WS_SYSMENU;
+                return WS_POPUPWINDOW | WS_CAPTION;
             default:
                 throw std::invalid_argument("Invalid style.");
             }

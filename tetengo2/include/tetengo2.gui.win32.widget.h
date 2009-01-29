@@ -157,6 +157,27 @@ namespace tetengo2 { namespace gui { namespace win32
         const = 0;
 
         /*!
+            \brief Sets the enabled status.
+
+            \param enabled A enabled status.
+        */
+        virtual void set_enabled(const bool enabled)
+        {
+            ::EnableWindow(this->handle(), enabled ? TRUE : FALSE);
+        }
+
+        /*!
+            \brief Returns the enabled status.
+
+            \return The enabled status.
+        */
+        virtual bool enabled()
+        const
+        {
+            return ::IsWindowEnabled(this->handle()) == TRUE;
+        }
+
+        /*!
             \brief Sets the visible status.
 
             \param visible A visible status.
