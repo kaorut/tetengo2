@@ -11,15 +11,17 @@
 
 #include <cassert>
 //#include <cstddef>
-//#include <exception>
 //#include <memory>
 //#include <stdexcept>
-//#include <string>
 
 //#include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
-//#include <boost/signal.hpp>
-//#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/signal.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+
+#define NOMINMAX
+#define OEMRESOURCE
+#include <windows.h>
 
 #include "concept_tetengo2.gui.MainMenu.h"
 #include "concept_tetengo2.gui.Widget.h"
