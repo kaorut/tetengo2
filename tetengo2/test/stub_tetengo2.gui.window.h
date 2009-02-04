@@ -14,40 +14,19 @@
 //#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.gui.MainMenu.h"
+#include "concept_tetengo2.gui.Widget.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
-
-#include "stub_tetengo2.gui.widget.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <
-        typename Handle,
-        typename Canvas,
-        typename Alert,
-        typename Difference,
-        typename Size,
-        typename String,
-        template <typename Target, typename Source> class Encode,
-        typename MainMenu,
-        typename PaintObserver,
-        typename WindowObserver
-    >
-    class window :
-        public widget<
-            Handle,
-            Canvas,
-            Alert,
-            Difference,
-            Size,
-            String,
-            Encode,
-            PaintObserver
-        >
+    template <typename Widget, typename MainMenu, typename WindowObserver>
+    class window : public Widget
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
@@ -56,6 +35,35 @@ namespace stub_tetengo2 { namespace gui
 
     public:
         // types
+
+        typedef Widget widget_type;
+
+        typedef typename widget_type::handle_type handle_type;
+
+        typedef typename widget_type::canvas_type canvas_type;
+
+        typedef typename widget_type::alert_type alert_type;
+
+        typedef typename widget_type::difference_type difference_type;
+
+        typedef typename widget_type::size_type size_type;
+
+        typedef typename widget_type::position_type position_type;
+
+        typedef typename widget_type::dimension_type dimension_type;
+
+        typedef typename widget_type::string_type string_type;
+
+        typedef
+            typename widget_type::encode_from_native_type
+            encode_from_native_type;
+
+        typedef
+            typename widget_type::encode_to_native_type
+            encode_to_native_type;
+
+        typedef
+            typename widget_type::paint_observer_type paint_observer_type;
 
         typedef MainMenu main_menu_type;
 

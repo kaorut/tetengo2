@@ -22,7 +22,6 @@
 #include "bobura.command.nop.h"
 #include "bobura.message.main_window_menu_observer.h"
 #include "bobura.message.main_window_paint_observer.h"
-#include "bobura.message.main_window_window_observer.h"
 
 #include "concept_bobura.Settings.h"
 

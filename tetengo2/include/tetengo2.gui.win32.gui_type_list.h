@@ -25,6 +25,7 @@
 #include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.popup_menu.h"
 #include "tetengo2.gui.win32.quit_message_loop.h"
+#include "tetengo2.gui.win32.widget.h"
 #include "tetengo2.gui.win32.window.h"
 #include "tetengo2.win32.encode.h"
 
@@ -91,6 +92,20 @@ namespace tetengo2 { namespace gui { namespace win32
             menu_item_type;
 
     public:
+        //! The widget type.
+        typedef
+            widget<
+                ::HWND,
+                canvas_type,
+                alert_type,
+                Difference,
+                Size,
+                String,
+                tetengo2::win32::encode,
+                tetengo2::gui::paint_observer<canvas_type>
+            >
+            widget_type;
+
         //! The popup menu type.
         typedef
             popup_menu<
@@ -106,16 +121,7 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The window type.
         typedef
             window<
-                ::HWND,
-                canvas_type,
-                alert_type,
-                Difference,
-                Size,
-                String,
-                tetengo2::win32::encode,
-                main_menu_type,
-                tetengo2::gui::paint_observer<canvas_type>,
-                tetengo2::gui::window_observer
+                widget_type, main_menu_type, tetengo2::gui::window_observer
             >
             window_type;
 

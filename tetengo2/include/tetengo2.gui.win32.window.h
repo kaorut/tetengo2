@@ -22,8 +22,8 @@
 //#include <boost/ptr_container/ptr_vector.hpp>
 
 #include "concept_tetengo2.gui.MainMenu.h"
+#include "concept_tetengo2.gui.Widget.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
-#include "tetengo2.gui.win32.widget.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -31,63 +31,21 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a window for Win32 platforms.
  
-        \tparam Handle                A handle type to the native interface.
-                                      It must conform to
-                                      concept_tetengo2::gui::Handle<Handle>.
-        \tparam Canvas                A canvas type. It must conform to
-                                      concept_tetengo2::gui::Canvas<Canvas>.
-        \tparam Alert                 An alerting unary functor type. It must
-                                      conform to
-                                      boost::UnaryFunction<Alert, void, Handle, std::exception>.
-        \tparam Difference            A difference type. It must conform to
-                                      boost::SignedInteger<Difference>.
-        \tparam Size                  A size type. It must conform to
-                                      boost::UnsignedInteger<Size>.
-        \tparam String                A string type. It must conform to
-                                      concept_tetengo2::String<String>.
-        \tparam Encode                An encoding unary functor type. The
-                                      types Encode<String, std::wstring> and
-                                      Encode<std::wstring, String> must
-                                      conform to
-                                      boost::UnaryFunction<Encode, String, std::wstring>
-                                      and
-                                      boost::UnaryFunction<Encode, std::wstring, String>.
+        \tparam Widget                A widget type. It must conform to
+                                      concept_tetengo2::gui::Widget<Widget>.
         \tparam MainMenu              A main menu type. It must conform to
                                       concept_tetengo2::gui::MainMenu<MainMenu>.
-        \tparam PaintObserver         A paint observer type. It must conform
-                                      to
-                                      concept_tetengo2::gui::PaintObserver<PaintObserver>.
         \tparam WindowObserver        A window observer type. It must conform
                                       to
                                       concept_tetengo2::gui::WindowObserver<WindowObserver>.
    */
-    template <
-        typename Handle,
-        typename Canvas,
-        typename Alert,
-        typename Difference,
-        typename Size,
-        typename String,
-        template <typename Target, typename Source> class Encode,
-        typename MainMenu,
-        typename PaintObserver,
-        typename WindowObserver
-    >
-    class window :
-        public widget<
-            Handle,
-            Canvas,
-            Alert,
-            Difference,
-            Size,
-            String,
-            Encode,
-            PaintObserver
-        >
+    template <typename Widget, typename MainMenu, typename WindowObserver>
+    class window : public Widget
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
@@ -96,6 +54,47 @@ namespace tetengo2 { namespace gui { namespace win32
 
     public:
         // types
+
+        //! The widget type.
+        typedef Widget widget_type;
+
+        //! The handle type.
+        typedef typename widget_type::handle_type handle_type;
+
+        //! The canvas type.
+        typedef typename widget_type::canvas_type canvas_type;
+
+        //! The alerting unary functor type.
+        typedef typename widget_type::alert_type alert_type;
+
+        //! The difference type.
+        typedef typename widget_type::difference_type difference_type;
+
+        //! The size type.
+        typedef typename widget_type::size_type size_type;
+
+        //! The position type.
+        typedef typename widget_type::position_type position_type;
+
+        //! The dimension type.
+        typedef typename widget_type::dimension_type dimension_type;
+
+        //! The string type.
+        typedef typename widget_type::string_type string_type;
+
+        //! The unary functor type for encoding from the native.
+        typedef
+            typename widget_type::encode_from_native_type
+            encode_from_native_type;
+
+        //! The unary functor type for encoding to the native.
+        typedef
+            typename widget_type::encode_to_native_type
+            encode_to_native_type;
+
+        //! The paint observer type.
+        typedef
+            typename widget_type::paint_observer_type paint_observer_type;
 
         //! The main menu type.
         typedef MainMenu main_menu_type;
@@ -143,7 +142,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        // The document will be derived from tetengo2::gui::win32::widget.
+        /*!
+            \brief Returns the handle.
+            
+            \return The handle.
+        */
         virtual handle_type handle()
         const
         {
@@ -244,8 +247,15 @@ namespace tetengo2 { namespace gui { namespace win32
     protected:
         // functions
 
-        // The document will be derived from
-        // tetengo2::gui::win32::widget::window_procedure.
+        /*!
+            \brief Dispatches the window messages.
+
+            \param uMsg   A message.
+            \param wParam A word-sized parameter.
+            \param lParam A long-sized parameter.
+
+            \return The result code.
+        */
         virtual ::LRESULT window_procedure(
             const ::UINT   uMsg,
             const ::WPARAM wParam,

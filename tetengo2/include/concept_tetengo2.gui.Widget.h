@@ -100,7 +100,7 @@ namespace concept_tetengo2 { namespace gui
     private:
         // variables
 
-        Type m_object;
+        Type& m_object;
 
 
 #endif

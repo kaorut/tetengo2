@@ -20,6 +20,7 @@
 #include "stub_tetengo2.gui.message_loop.h"
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "stub_tetengo2.gui.quit_message_loop.h"
+#include "stub_tetengo2.gui.widget.h"
 #include "stub_tetengo2.gui.window.h"
 #include "stub_tetengo2.encode.h"
 #include "tetengo2.gui.menu_command.h"
@@ -78,6 +79,19 @@ namespace stub_tetengo2 { namespace gui
 
     public:
         typedef
+            widget<
+                const void*,
+                canvas_type,
+                alert_type,
+                Difference,
+                Size,
+                String,
+                stub_tetengo2::encode,
+                tetengo2::gui::paint_observer<canvas_type>
+            >
+            widget_type;
+
+        typedef
             stub_tetengo2::gui::popup_menu<
                 menu_item_type,
                 stub_tetengo2::gui::menu_item_list<menu_item_type>
@@ -88,16 +102,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef
             window<
-                const void*,
-                canvas_type,
-                alert_type,
-                Difference,
-                Size,
-                String,
-                stub_tetengo2::encode,
-                main_menu_type,
-                tetengo2::gui::paint_observer<canvas_type>,
-                tetengo2::gui::window_observer
+                widget_type, main_menu_type, tetengo2::gui::window_observer
             >
             window_type;
 
