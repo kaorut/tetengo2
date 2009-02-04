@@ -327,6 +327,9 @@ namespace tetengo2 { namespace gui { namespace win32
             if (handle == NULL)
                 throw std::runtime_error("Can't create a window!");
 
+            if (style == style_dialog)
+                delete_system_menu_items(handle);
+
             return handle;
         }
 
@@ -416,6 +419,21 @@ namespace tetengo2 { namespace gui { namespace win32
             default:
                 throw std::invalid_argument("Invalid style.");
             }
+        }
+
+        static void delete_system_menu_items(const ::HWND window_handle)
+        {
+            const ::HMENU menu_handle = ::GetSystemMenu(window_handle, FALSE);
+            if (menu_handle == NULL) return;
+
+            if (::DeleteMenu(menu_handle, SC_SIZE, MF_BYCOMMAND) == 0)
+                throw std::runtime_error("Can't delete system menu item.");
+            if (::DeleteMenu(menu_handle, SC_MAXIMIZE, MF_BYCOMMAND) == 0)
+                throw std::runtime_error("Can't delete system menu item.");
+            if (::DeleteMenu(menu_handle, SC_MINIMIZE, MF_BYCOMMAND) == 0)
+                throw std::runtime_error("Can't delete system menu item.");
+            if (::DeleteMenu(menu_handle, SC_RESTORE, MF_BYCOMMAND) == 0)
+                throw std::runtime_error("Can't delete system menu item.");
         }
 
 
