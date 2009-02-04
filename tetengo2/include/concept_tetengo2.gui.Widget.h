@@ -35,6 +35,8 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::alert_type alert_type;
 
+        typedef typename Type::difference_type difference_type;
+
         typedef typename Type::size_type size_type;
 
         typedef typename Type::position_type position_type;
@@ -59,7 +61,9 @@ namespace concept_tetengo2 { namespace gui
 
             m_object.set_visible(bool());
             
-            m_object.set_position(std::make_pair(size_type(), size_type()));
+            m_object.set_position(
+                std::make_pair(difference_type(), difference_type())
+            );
 
             m_object.set_dimension(std::make_pair(size_type(), size_type()));
 

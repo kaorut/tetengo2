@@ -47,6 +47,8 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Alert                 An alerting unary functor type. It must
                                       conform to
                                       boost::UnaryFunction<Alert, void, Handle, std::exception>.
+        \tparam Difference            A difference type. It must conform to
+                                      boost::SignedInteger<Difference>.
         \tparam Size                  A size type. It must conform to
                                       boost::UnsignedInteger<Size>.
         \tparam String                A string type. It must conform to
@@ -66,6 +68,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Handle,
         typename Canvas,
         typename Alert,
+        typename Difference,
         typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
@@ -85,6 +88,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 boost::UnaryFunction<Alert, void, exception_type>
             ));
         };
+        BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         struct concept_check_Encode
@@ -120,11 +124,14 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The alerting unary functor type.
         typedef Alert alert_type;
 
+        //! The difference type.
+        typedef Difference difference_type;
+
         //! The size type.
         typedef Size size_type;
 
         //! The position type.
-        typedef std::pair<size_type, size_type> position_type;
+        typedef std::pair<difference_type, difference_type> position_type;
 
         //! The dimension type.
         typedef std::pair<size_type, size_type> dimension_type;

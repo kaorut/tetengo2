@@ -30,6 +30,7 @@ namespace stub_tetengo2 { namespace gui
         typename Handle,
         typename Canvas,
         typename Alert,
+        typename Difference,
         typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
@@ -49,6 +50,7 @@ namespace stub_tetengo2 { namespace gui
                 boost::UnaryFunction<Alert, void, exception_type>
             ));
         };
+        BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         struct concept_check_Encode
@@ -81,9 +83,11 @@ namespace stub_tetengo2 { namespace gui
 
         typedef Alert alert_type;
 
+        typedef Difference difference_type;
+
         typedef Size size_type;
 
-        typedef std::pair<size_type, size_type> position_type;
+        typedef std::pair<difference_type, difference_type> position_type;
 
         typedef std::pair<size_type, size_type> dimension_type;
 

@@ -39,6 +39,8 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Alert                 An alerting unary functor type. It must
                                       conform to
                                       boost::UnaryFunction<Alert, void, Handle, std::exception>.
+        \tparam Difference            A difference type. It must conform to
+                                      boost::SignedInteger<Difference>.
         \tparam Size                  A size type. It must conform to
                                       boost::UnsignedInteger<Size>.
         \tparam String                A string type. It must conform to
@@ -63,6 +65,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Handle,
         typename Canvas,
         typename Alert,
+        typename Difference,
         typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
@@ -75,6 +78,7 @@ namespace tetengo2 { namespace gui { namespace win32
             Handle,
             Canvas,
             Alert,
+            Difference,
             Size,
             String,
             Encode,

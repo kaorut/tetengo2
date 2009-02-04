@@ -31,12 +31,13 @@
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Size, typename String>
+    template <typename Difference, typename Size, typename String>
     class gui_type_list
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
 
@@ -90,6 +91,7 @@ namespace stub_tetengo2 { namespace gui
                 const void*,
                 canvas_type,
                 alert_type,
+                Difference,
                 Size,
                 String,
                 stub_tetengo2::encode,

@@ -34,17 +34,20 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a GUI type list for Win32 platforms.
 
-        \tparam Size   A size type. It must conform to
-                       boost::UnsignedInteger<Size>.
-        \tparam String A string type. It must conform to
-                       concept_tetengo2::String<String>.
+        \tparam Difference A difference type. It must conform to
+                           boost::SignedInteger<Difference>.
+        \tparam Size       A size type. It must conform to
+                           boost::UnsignedInteger<Size>.
+        \tparam String     A string type. It must conform to
+                           concept_tetengo2::String<String>.
     */
-    template <typename Size, typename String>
+    template <typename Difference, typename Size, typename String>
     class gui_type_list
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
 
@@ -106,6 +109,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::HWND,
                 canvas_type,
                 alert_type,
+                Difference,
                 Size,
                 String,
                 tetengo2::win32::encode,

@@ -30,6 +30,9 @@ namespace bobura
     public:
         // types
 
+        //! The difference type.
+        typedef std::ptrdiff_t difference_type;
+
         //! The size type.
         typedef std::size_t size_type;
 
@@ -38,7 +41,9 @@ namespace bobura
 
         //! The type list type to create platform specific GUI components.
         typedef
-            tetengo2::gui::win32::gui_type_list<size_type, string_type>
+            tetengo2::gui::win32::gui_type_list<
+                difference_type, size_type, string_type
+            >
             gui_type_list_type;
 
         //! The GUI initialization and finalization manager type.

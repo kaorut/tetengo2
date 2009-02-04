@@ -27,7 +27,9 @@ namespace
     // types
 
     typedef
-        stub_tetengo2::gui::gui_type_list<std::size_t, std::wstring>
+        stub_tetengo2::gui::gui_type_list<
+            std::ptrdiff_t, std::size_t, std::wstring
+        >
         gui_type_list_type;
 
     typedef
