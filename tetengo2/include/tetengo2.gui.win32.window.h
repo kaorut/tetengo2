@@ -300,7 +300,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     return 0;
                 }
             }
-            return this->widget::window_procedure(uMsg, wParam, lParam);
+            return this->widget_type::window_procedure(uMsg, wParam, lParam);
         }
 
 

@@ -34,7 +34,7 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::window_observer_type window_observer_type;
 
-        typedef typename Type::style_type style_type;
+        typename Type::style_type m_style;
 
 
         // usage checks

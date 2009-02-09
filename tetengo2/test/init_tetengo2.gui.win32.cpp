@@ -11,6 +11,7 @@
 #include "init_tetengo2.gui.win32.h"
 #include "test_tetengo2.gui.win32.alert.h"
 #include "test_tetengo2.gui.win32.canvas.h"
+#include "test_tetengo2.gui.win32.dialog.h"
 #include "test_tetengo2.gui.win32.gui_type_list.h"
 #include "test_tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "test_tetengo2.gui.win32.main_menu.h"
@@ -34,6 +35,7 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
         p_suite->add(alert::suite());
         p_suite->add(canvas::suite());
+        p_suite->add(dialog::suite());
         p_suite->add(gui_type_list::suite());
         p_suite->add(gui_initializer_finalizer::suite());
         p_suite->add(main_menu::suite());

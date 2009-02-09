@@ -13,6 +13,7 @@
 
 #include "stub_tetengo2.gui.alert.h"
 #include "stub_tetengo2.gui.canvas.h"
+#include "stub_tetengo2.gui.dialog.h"
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
 #include "stub_tetengo2.gui.main_menu.h"
 #include "stub_tetengo2.gui.menu_item.h"
@@ -110,6 +111,8 @@ namespace stub_tetengo2 { namespace gui
 
         typedef
             tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
+
+        typedef dialog<window_type> dialog_type;
 
 
     private:

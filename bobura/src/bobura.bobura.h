@@ -124,6 +124,8 @@ namespace bobura
 
         typedef typename gui_type_list_type::window_type window_type;
 
+        typedef typename gui_type_list_type::dialog_type dialog_type;
+
         typedef typename window_type::canvas_type canvas_type;
 
         typedef typename window_type::main_menu_type main_menu_type;
@@ -261,7 +263,10 @@ namespace bobura
                 append_menu_command(
                     *p_popup_menu, L"ƒo[ƒWƒ‡ƒ“î•ñ(&A)...",
                     command::about<
-                        window_type, message_loop_type, quit_message_loop_type
+                        dialog_type,
+                        window_type,
+                        message_loop_type,
+                        quit_message_loop_type
                     >(window)
                 );
 

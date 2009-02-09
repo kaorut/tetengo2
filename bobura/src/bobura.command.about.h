@@ -15,7 +15,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include <concept_tetengo2.gui.Window.h>
+#include <concept_tetengo2.gui.Dialog.h>
 
 #include "bobura.message.main_window_window_observer.h"
 
@@ -25,6 +25,8 @@ namespace bobura { namespace command
     /*!
         \brief The class template for an about command.
 
+        \tparam Dialog          A dialog type. It must conform to
+                                concept_tetengo2::gui::Dialog<Dialog>.
         \tparam Window          A window type. It must conform to
                                 concept_tetengo2::gui::Window<Window>.
         \tparam MessageLoop     A generator type for a message loop. It must
@@ -34,12 +36,18 @@ namespace bobura { namespace command
                                 loop. It must conform to
                                 boost::UnaryFunction<QuitMessageLoop, void, int>
     */
-    template <typename Window, typename MessageLoop, typename QuitMessageLoop>
+    template <
+        typename Dialog,
+        typename Window,
+        typename MessageLoop,
+        typename QuitMessageLoop
+    >
     class about
     {
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
         BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
         BOOST_CONCEPT_ASSERT((
@@ -49,6 +57,9 @@ namespace bobura { namespace command
 
     public:
         // types
+
+        //! The dialog type.
+        typedef Dialog dialog_type;
 
         //! The window type.
         typedef Window window_type;
@@ -123,9 +134,7 @@ namespace bobura { namespace command
         {
             m_p_window->set_enabled(false);
 
-            window_type dialog(
-                typename window_type::style_dialog, m_p_window
-            );
+            dialog_type dialog(m_p_window);
 
             const typename window_type::position_type& window_position =
                 m_p_window->position();
@@ -177,6 +186,8 @@ namespace std
     /*!
         \brief Swaps two about objects.
 
+        \tparam Dialog          A dialog type. It must conform to
+                                concept_tetengo2::gui::Dialog<Dialog>.
         \tparam Window          A window type. It must conform to
                                 concept_tetengo2::gui::Window<Window>.
         \tparam MessageLoop     A generator type for a message loop. It must
@@ -189,13 +200,23 @@ namespace std
         \param about1 An about object #1.
         \param about2 An about object #2.
     */
-    template <typename Window, typename MessageLoop, typename QuitMessageLoop>
+    template <
+        typename Dialog,
+        typename Window,
+        typename MessageLoop,
+        typename QuitMessageLoop
+    >
     void swap(
-        bobura::command::about<Window, MessageLoop, QuitMessageLoop>& about1,
-        bobura::command::about<Window, MessageLoop, QuitMessageLoop>& about2
+        bobura::command::about<
+            Dialog, Window, MessageLoop, QuitMessageLoop
+        >& about1,
+        bobura::command::about<
+            Dialog, Window, MessageLoop, QuitMessageLoop
+        >& about2
     )
     throw ()
     {
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
         BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
         BOOST_CONCEPT_ASSERT((

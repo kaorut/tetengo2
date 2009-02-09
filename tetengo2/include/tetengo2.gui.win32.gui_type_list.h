@@ -18,6 +18,7 @@
 #include "tetengo2.gui.window_observer.h"
 #include "tetengo2.gui.win32.alert.h"
 #include "tetengo2.gui.win32.canvas.h"
+#include "tetengo2.gui.win32.dialog.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "tetengo2.gui.win32.main_menu.h"
 #include "tetengo2.gui.win32.menu_item.h"
@@ -130,6 +131,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The menu separator type.
         typedef menu_separator<menu_item_type> menu_separator_type;
+
+        //! The dialog type.
+        typedef dialog<window_type> dialog_type;
 
 
     private:
