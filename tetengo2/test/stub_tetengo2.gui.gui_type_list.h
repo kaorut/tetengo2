@@ -112,7 +112,9 @@ namespace stub_tetengo2 { namespace gui
         typedef
             tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
 
-        typedef dialog<window_type> dialog_type;
+        typedef
+            dialog<window_type, message_loop_type, quit_message_loop_type>
+            dialog_type;
 
 
     private:

@@ -152,15 +152,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \brief Creates a widget.
-        */
-        widget()
-        :
-        m_paint_observers(),
-        m_paint_paint_handler()
-        {}
-
-        /*!
             \brief Destroys the widget.
         */
         virtual ~widget()
@@ -177,6 +168,37 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         virtual handle_type handle()
         const = 0;
+
+        /*!
+            \brief Returns whether the widget has a parent.
+            
+            \retval true  The widget has a parent.
+            \retval false Otherwise.
+        */
+        virtual bool has_parent()
+        const
+        {
+            return ::GetParent(this->handle()) != NULL;
+        }
+
+        /*!
+            \brief Returns the parent.
+
+            \return The parent.
+
+            \throw std::runtime_error When the widget has no parent.
+        */
+        virtual const widget& parent()
+        const
+        {
+            if (!has_parent())
+                throw std::runtime_error("Has no parent.");
+
+            const widget* const p_parent =
+                p_widget_from(::GetParent(this->handle()));
+            assert(p_parent != NULL);
+            return *p_parent;
+        }
 
         /*!
             \brief Sets the enabled status.
@@ -412,6 +434,29 @@ namespace tetengo2 { namespace gui { namespace win32
             if (::GetLastError() > 0 || set_window_pos_result == 0)
                 throw std::runtime_error("Can't set the pointer to this!");
         }
+
+
+        // constructors
+
+        /*!
+            \brief Creates a widget.
+        */
+        widget()
+        :
+        m_paint_observers(),
+        m_paint_paint_handler()
+        {}
+
+        /*!
+            \brief Creates a widget.
+
+            \param parent A parent.
+        */
+        widget(const widget& parent)
+        :
+        m_paint_observers(),
+        m_paint_paint_handler()
+        {}
 
 
         // functions

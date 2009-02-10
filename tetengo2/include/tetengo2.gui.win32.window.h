@@ -104,7 +104,7 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The window observer type.
         typedef WindowObserver window_observer_type;
 
-        //! The style type;
+        //! The style type.
         enum style_type
         {
             style_flat,     //!< A flat window_style.
@@ -116,17 +116,16 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \brief Creates a window.
+            \brief Creates a top level window.
 
-            \param style    A window style.
-            \param p_parent A pointer to a parent window. Specify NULL when
-                            this window is on the top level.
+            \param style    A style.
 
             \throw std::runtime_error When a window cannot be created.
         */
-        window(const style_type style, const window* const p_parent)
+        window(const style_type style = style_frame)
         :
-        m_handle(create_window(style, p_parent)),
+        widget_type(),
+        m_handle(create_window(style, NULL)),
         m_p_main_menu(),
         m_window_observers(),
         m_window_destroyed_handler()
@@ -247,6 +246,28 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     protected:
+        // constructors
+
+        /*!
+            \brief Creates a owned window.
+
+            \param parent A parent window.
+            \param style  A style.
+
+            \throw std::runtime_error When a window cannot be created.
+        */
+        window(const window& parent, const style_type style = style_frame)
+        :
+        widget_type(parent),
+        m_handle(create_window(style, &parent)),
+        m_p_main_menu(),
+        m_window_observers(),
+        m_window_destroyed_handler()
+        {
+            widget::associate_to_native_window_system(this);
+        }
+
+
         // functions
 
         /*!

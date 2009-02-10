@@ -26,16 +26,26 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a modal dialog.
  
-        \tparam Window A widget type. It must conform to
-                       concept_tetengo2::gui::Window<Window>.
+        \tparam Window          A widget type. It must conform to
+                                concept_tetengo2::gui::Window<Window>.
+        \tparam MessageLoop     A generator type for a message loop. It must
+                                conform to
+                                boost::Generator<MessageLoop, int>.
+        \tparam QuitMessageLoop A unary functor type for quitting the message
+                                loop. It must conform to
+                                boost::UnaryFunction<QuitMessageLoop, void, int>
    */
-    template <typename Window>
+    template <typename Window, typename MessageLoop, typename QuitMessageLoop>
     class dialog : public Window
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
+        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
+        BOOST_CONCEPT_ASSERT((
+            boost::UnaryFunction<QuitMessageLoop, void, int>
+        ));
 
 
     public:
@@ -89,20 +99,32 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             typename window_type::window_observer_type window_observer_type;
 
+        //! The style type.
+        typedef typename window_type::style_type style_type;
+
+        //! The message loop type.
+        typedef MessageLoop message_loop_type;
+
+        //! The quit message loop type.
+        typedef QuitMessageLoop quit_message_loop_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a dialog.
 
-            \param p_parent A pointer to a parent window. Specify NULL when
-                            this dialog is on the top level.
+            \param parent A parent window.
+            \param style  A style.
 
             \throw std::runtime_error When a dialog cannot be created.
         */
-        dialog(const window_type* const p_parent)
+        dialog(
+            const window_type& parent,
+            const style_type   style = style_dialog
+        )
         :
-        window_type(style_dialog, p_parent)
+        window_type(parent, style)
         {}
 
         /*!

@@ -106,7 +106,7 @@ namespace bobura
         int run()
         const
         {
-            window_type main_window(typename window_type::style_frame, NULL);
+            window_type main_window;
             initialize_window(main_window);
 
             main_window.set_visible(true);

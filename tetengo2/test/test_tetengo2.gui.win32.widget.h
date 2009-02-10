@@ -26,6 +26,10 @@ namespace test_tetengo2 { namespace gui { namespace win32
 
         static void construction();
 
+        static void has_parent();
+
+        static void parent();
+
         static void set_enabled();
 
         static void enabled();

@@ -102,15 +102,6 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        widget()
-        :
-        m_enabled(false),
-        m_visible(false),
-        m_position(std::make_pair(0, 0)),
-        m_dimension(std::make_pair(100, 100)),
-        m_text()
-        {}
-
         virtual ~widget()
         throw ()
         {}
@@ -124,6 +115,21 @@ namespace stub_tetengo2 { namespace gui
         virtual void set_enabled(const bool enabled)
         {
             m_enabled = enabled;
+        }
+
+        virtual bool has_parent()
+        const
+        {
+            return m_p_parent != NULL;
+        }
+
+        virtual const widget& parent()
+        const
+        {
+            if (!has_parent())
+                throw std::runtime_error("Has no parent.");
+
+            return *m_p_parent;
         }
 
         virtual bool enabled()
@@ -185,8 +191,34 @@ namespace stub_tetengo2 { namespace gui
         {}
 
 
+    protected:
+        // constructors
+
+        widget()
+        :
+        m_p_parent(NULL),
+        m_enabled(false),
+        m_visible(false),
+        m_position(std::make_pair(0, 0)),
+        m_dimension(std::make_pair(100, 100)),
+        m_text()
+        {}
+
+        widget(const widget& parent)
+        :
+        m_p_parent(&parent),
+        m_enabled(false),
+        m_visible(false),
+        m_position(std::make_pair(0, 0)),
+        m_dimension(std::make_pair(100, 100)),
+        m_text()
+        {}
+
+
     private:
         // variables
+
+        const widget* const m_p_parent;
 
         bool m_enabled;
 

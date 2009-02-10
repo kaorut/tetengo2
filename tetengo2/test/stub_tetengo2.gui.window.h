@@ -79,7 +79,9 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        window(const style_type style, const window* const p_parent)
+        window(const style_type style = style_frame)
+        :
+        widget_type()
         {}
 
         virtual ~window()
@@ -120,6 +122,15 @@ namespace stub_tetengo2 { namespace gui
 
         void close()
         const
+        {}
+
+
+    protected:
+        // constructors
+
+        window(const window& parent, const style_type style = style_frame)
+        :
+        widget_type(parent)
         {}
 
 

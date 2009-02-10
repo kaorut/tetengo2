@@ -26,6 +26,13 @@ namespace concept_tetengo2 { namespace gui
     {
 #if !defined(DOCUMENTATION)
     public:
+        // typedef checks
+
+        typedef typename Type::message_loop_type message_loop_type;
+
+        typedef typename Type::quit_message_loop_type quit_message_loop_type;
+
+
         // usage checks
 
         BOOST_CONCEPT_USAGE(Dialog)

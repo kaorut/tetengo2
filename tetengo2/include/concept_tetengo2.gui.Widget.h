@@ -80,6 +80,11 @@ namespace concept_tetengo2 { namespace gui
             const handle_type handle = object.handle();
             boost::ignore_unused_variable_warning(handle);
 
+            const bool has_parent = object.has_parent();
+            boost::ignore_unused_variable_warning(has_parent);
+
+            object.parent().handle();
+
             const bool enabled = object.enabled();
             boost::ignore_unused_variable_warning(enabled);
 

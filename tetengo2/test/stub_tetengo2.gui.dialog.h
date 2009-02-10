@@ -16,13 +16,17 @@
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Window>
+    template <typename Window, typename MessageLoop, typename QuitMessageLoop>
     class dialog : public Window
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
+        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
+        BOOST_CONCEPT_ASSERT((
+            boost::UnaryFunction<QuitMessageLoop, void, int>
+        ));
 
 
     public:
@@ -64,12 +68,19 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename window_type::style_type style_type;
 
+        typedef MessageLoop message_loop_type;
+
+        typedef QuitMessageLoop quit_message_loop_type;
+
 
         // constructors and destructor
 
-        dialog(const window_type* const p_parent)
+        dialog(
+            const window_type& parent,
+            const style_type   style = style_dialog
+        )
         :
-        window_type(style_dialog, p_parent)
+        window_type(parent, style)
         {}
 
         virtual ~dialog()

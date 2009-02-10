@@ -134,7 +134,7 @@ namespace bobura { namespace command
         {
             m_p_window->set_enabled(false);
 
-            dialog_type dialog(m_p_window);
+            dialog_type dialog(*m_p_window);
 
             const typename window_type::position_type& window_position =
                 m_p_window->position();

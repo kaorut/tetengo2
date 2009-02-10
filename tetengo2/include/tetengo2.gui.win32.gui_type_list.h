@@ -133,7 +133,9 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef menu_separator<menu_item_type> menu_separator_type;
 
         //! The dialog type.
-        typedef dialog<window_type> dialog_type;
+        typedef
+            dialog<window_type, message_loop_type, quit_message_loop_type>
+            dialog_type;
 
 
     private:
