@@ -9,7 +9,8 @@
 #if !defined(TETENGO2_GUI_WIN32_DIALOG_H)
 #define TETENGO2_GUI_WIN32_DIALOG_H
 
-#include <cstddef>
+#include <cassert>
+//#include <memory>
 #include <stdexcept>
 
 //#include <boost/concept_check.hpp>

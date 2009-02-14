@@ -9,7 +9,6 @@
 #if !defined(BOBURA_BOBURA_H)
 #define BOBURA_BOBURA_H
 
-//#include <cstddef>
 //#include <memory>
 
 //#include <boost/concept_check.hpp>

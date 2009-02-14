@@ -9,6 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_WIDGET_H)
 #define STUBTETENGO2_GUI_WIDGET_H
 
+#include <cstddef>
 #include <exception>
 #include <memory>
 #include <stdexcept>

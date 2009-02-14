@@ -533,6 +533,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
+        /*!
+            \brief Checks wether the window is destroyed.
+
+            \throw std::runtime_error When the window is already destroyed.
+        */
         void check_destroyed()
         const
         {
