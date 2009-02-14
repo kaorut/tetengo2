@@ -26,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a modal dialog.
  
-        \tparam Window          A widget type. It must conform to
+        \tparam Window          A window type. It must conform to
                                 concept_tetengo2::gui::Window<Window>.
         \tparam MessageLoop     A generator type for a message loop. It must
                                 conform to
@@ -151,7 +151,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         /*!
-            \brief Dispatches the dialog messages.
+            \brief Dispatches the window messages.
 
             \param uMsg   A message.
             \param wParam A word-sized parameter.
