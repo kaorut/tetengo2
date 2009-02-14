@@ -22,13 +22,14 @@
 #include "bobura.command.nop.h"
 #include "bobura.message.main_window_menu_observer.h"
 #include "bobura.message.main_window_paint_observer.h"
+#include "bobura.message.main_window_window_observer.h"
 
 #include "concept_bobura.Settings.h"
 
 
 namespace bobura
 {
-    /*!
+   /*!
         \brief The class template for a bobura application.
 
         \tparam Settings    Settings type. It must conform to
@@ -174,7 +175,7 @@ namespace bobura
         const
         {
             window.add_window_observer(
-                std::auto_ptr<window_observer_type> (
+                std::auto_ptr<window_observer_type>(
                     new message::main_window_window_observer<
                         quit_message_loop_type
                     >(quit_message_loop_type())
@@ -182,7 +183,7 @@ namespace bobura
             );
 
             window.add_paint_observer(
-                std::auto_ptr<paint_observer_type> (
+                std::auto_ptr<paint_observer_type>(
                     new message::main_window_paint_observer<canvas_type>()
                 )
             );
@@ -262,12 +263,7 @@ namespace bobura
 
                 append_menu_command(
                     *p_popup_menu, L"ÉoÅ[ÉWÉáÉìèÓïÒ(&A)...",
-                    command::about<
-                        dialog_type,
-                        window_type,
-                        message_loop_type,
-                        quit_message_loop_type
-                    >(window)
+                    command::about<dialog_type>(window)
                 );
 
                 p_main_menu->insert(

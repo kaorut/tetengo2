@@ -188,6 +188,24 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget has no parent.
         */
+        virtual widget& parent()
+        {
+            if (!has_parent())
+                throw std::runtime_error("Has no parent.");
+
+            widget* const p_parent =
+                p_widget_from(::GetParent(this->handle()));
+            assert(p_parent != NULL);
+            return *p_parent;
+        }
+
+        /*!
+            \brief Returns the parent.
+
+            \return The parent.
+
+            \throw std::runtime_error When the widget has no parent.
+        */
         virtual const widget& parent()
         const
         {
@@ -365,7 +383,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param p_paint_observer An auto pointer to a paint observer.
         */
-        void add_paint_observer(
+        virtual void add_paint_observer(
             std::auto_ptr<paint_observer_type> p_paint_observer
         )
         {

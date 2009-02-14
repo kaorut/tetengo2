@@ -95,7 +95,7 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The main menu type.
         typedef typename window_type::main_menu_type main_menu_type;
 
-        //! The dialog observer type.
+        //! The window observer type.
         typedef
             typename window_type::window_observer_type window_observer_type;
 
@@ -141,9 +141,24 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Shows the dialog as modal.
         */
         virtual void do_modal()
-        const
         {
+            assert(this->has_parent());
+            window_type& parent = dynamic_cast<window_type&>(this->parent());
 
+            parent.set_enabled(false);
+
+            this->add_window_observer(
+                std::auto_ptr<window_observer_type> (
+                    new dialog_window_observer_type()
+                )
+            );
+            this->set_visible(true);
+            this->activate();
+
+            message_loop_type()();
+
+            parent.set_enabled(true);
+            parent.activate();
         }
 
 
@@ -175,6 +190,18 @@ namespace tetengo2 { namespace gui { namespace win32
             //}
             return this->window_type::window_procedure(uMsg, wParam, lParam);
         }
+
+
+    private:
+        // types
+
+        struct dialog_window_observer_type : public window_observer_type
+        {
+            virtual void destroyed()
+            {
+                quit_message_loop_type()(0);
+            }
+        };
 
 
     };

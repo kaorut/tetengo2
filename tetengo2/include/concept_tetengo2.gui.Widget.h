@@ -57,6 +57,8 @@ namespace concept_tetengo2 { namespace gui
 
         BOOST_CONCEPT_USAGE(Widget)
         {
+            m_object.parent().handle();
+
             m_object.set_enabled(bool());
 
             m_object.set_visible(bool());

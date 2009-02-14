@@ -61,6 +61,9 @@ namespace concept_tetengo2 { namespace gui
         {
             const bool has_main_menu = object.has_main_menu();
             boost::ignore_unused_variable_warning(has_main_menu);
+
+            const main_menu_type& main_menu = m_object.main_menu();
+            boost::ignore_unused_variable_warning(main_menu);
         }
 
         

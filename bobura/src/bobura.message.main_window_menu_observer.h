@@ -11,8 +11,6 @@
 
 #include <boost/concept_check.hpp>
 
-#include <windows.h>
-
 #include <tetengo2.gui.menu_observer.h>
 
 
