@@ -139,9 +139,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Shows the dialog as modal.
+
+            \throw std::runtime_error When the dialog is already destroyed.
         */
         virtual void do_modal()
         {
+            check_destroyed();
+
             assert(this->has_parent());
             window_type& parent = dynamic_cast<window_type&>(this->parent());
 
@@ -180,14 +184,6 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::LPARAM lParam
         )
         {
-            //switch (uMsg)
-            //{
-            //case WM_DESTROY:
-            //    {
-            //        m_window_destroyed_handler();
-            //        return 0;
-            //    }
-            //}
             return this->window_type::window_procedure(uMsg, wParam, lParam);
         }
 

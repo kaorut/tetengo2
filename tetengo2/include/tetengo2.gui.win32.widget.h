@@ -174,10 +174,14 @@ namespace tetengo2 { namespace gui { namespace win32
             
             \retval true  The widget has a parent.
             \retval false Otherwise.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual bool has_parent()
         const
         {
+            check_destroyed();
+
             return ::GetParent(this->handle()) != NULL;
         }
 
@@ -186,10 +190,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The parent.
 
+            \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the widget has no parent.
         */
         virtual widget& parent()
         {
+            check_destroyed();
+
             if (!has_parent())
                 throw std::runtime_error("Has no parent.");
 
@@ -204,11 +211,14 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The parent.
 
+            \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the widget has no parent.
         */
         virtual const widget& parent()
         const
         {
+            check_destroyed();
+
             if (!has_parent())
                 throw std::runtime_error("Has no parent.");
 
@@ -222,9 +232,13 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Sets the enabled status.
 
             \param enabled A enabled status.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual void set_enabled(const bool enabled)
         {
+            check_destroyed();
+
             ::EnableWindow(this->handle(), enabled ? TRUE : FALSE);
         }
 
@@ -232,10 +246,14 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the enabled status.
 
             \return The enabled status.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual bool enabled()
         const
         {
+            check_destroyed();
+
             return ::IsWindowEnabled(this->handle()) == TRUE;
         }
 
@@ -243,9 +261,13 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Sets the visible status.
 
             \param visible A visible status.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual void set_visible(const bool visible)
         {
+            check_destroyed();
+
             ::ShowWindow(this->handle(), visible ? SW_SHOW : SW_HIDE);
         }
 
@@ -253,10 +275,14 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the visible status.
 
             \return The visible status.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual bool visible()
         const
         {
+            check_destroyed();
+
             return ::IsWindowVisible(this->handle()) == TRUE;
         }
 
@@ -264,9 +290,13 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Sets the position.
 
             \param position A position.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual void set_position(const position_type& position)
         {
+            check_destroyed();
+
             const dimension_type dimension = this->dimension();
 
             const ::BOOL result = ::MoveWindow(
@@ -285,10 +315,14 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the position.
 
             \return The position.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual const position_type position()
         const
         {
+            check_destroyed();
+
             ::RECT rectangle = {0, 0, 0, 0};
             if (::GetWindowRect(this->handle(), &rectangle) == 0)
                 throw std::runtime_error("Can't get window rectangle.");
@@ -301,11 +335,14 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param dimension A dimension.
 
+            \throw std::runtime_error When the widget is already destroyed.
             \throw std::invalid_argument When either dimension.first or
                                          dimension.second is equal to 0.
         */
         virtual void set_dimension(const dimension_type& dimension)
         {
+            check_destroyed();
+
             if (dimension.first == 0 || dimension.second == 0)
                 throw std::invalid_argument("Dimension has zero value.");
 
@@ -327,10 +364,14 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the dimension.
 
             \return The dimension.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual const dimension_type dimension()
         const
         {
+            check_destroyed();
+
             ::RECT rectangle = {0, 0, 0, 0};
             if (::GetWindowRect(this->handle(), &rectangle) == 0)
                 throw std::runtime_error("Can't get window rectangle.");
@@ -348,10 +389,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param text A text.
 
+            \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the text cannot be set.
         */
         virtual void set_text(const string_type& text)
         {
+            check_destroyed();
+
             const ::BOOL result = ::SetWindowTextW(
                 this->handle(), encode_to_native_type()(text).c_str()
             );
@@ -363,10 +407,14 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Retuns the text.
 
             \return The text.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual const string_type text()
         const
         {
+            check_destroyed();
+
             const int length = ::GetWindowTextLengthW(this->handle());
             if (length == 0) return string_type();
 
@@ -382,11 +430,15 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Adds a paint observer.
 
             \param p_paint_observer An auto pointer to a paint observer.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
         virtual void add_paint_observer(
             std::auto_ptr<paint_observer_type> p_paint_observer
         )
         {
+            check_destroyed();
+
             m_paint_paint_handler.connect(
                 boost::bind(
                     &typename paint_observer_type::paint,
@@ -461,6 +513,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         widget()
         :
+        m_destroyed(false),
         m_paint_observers(),
         m_paint_paint_handler()
         {}
@@ -472,12 +525,20 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         widget(const widget& parent)
         :
+        m_destroyed(false),
         m_paint_observers(),
         m_paint_paint_handler()
         {}
 
 
         // functions
+
+        void check_destroyed()
+        const
+        {
+            if (m_destroyed)
+                throw std::runtime_error("This window is destroyed.");
+        }
 
         /*!
             \brief Dispatches the window messages.
@@ -497,10 +558,16 @@ namespace tetengo2 { namespace gui { namespace win32
             switch (uMsg)
             {
             case WM_PAINT:
-                if (!m_paint_observers.empty())
                 {
+                    if (m_paint_observers.empty()) break;
+
                     canvas_type canvas(this->handle());
                     m_paint_paint_handler(&canvas);
+                    return 0;
+                }
+            case WM_DESTROY:
+                {
+                    m_destroyed = true;
                     return 0;
                 }
             }
@@ -555,6 +622,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // variables
+
+        bool m_destroyed;
 
         boost::ptr_vector<paint_observer_type> m_paint_observers;
 

@@ -156,9 +156,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Activates the window.
+
+            \throw std::runtime_error When the window is already destroyed.
         */
         virtual void activate()
         {
+            check_destroyed();
+
             if (::SetForegroundWindow(this->handle()) == 0)
                 throw std::runtime_error("Can't be active.");
 
@@ -169,10 +173,14 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \retval true  When the window has a main menu.
             \retval false Otherwise.
+
+            \throw std::runtime_error When the window is already destroyed.
         */
         virtual bool has_main_menu()
         const
         {
+            check_destroyed();
+
             return m_p_main_menu.get() != NULL;
         }
 
@@ -183,9 +191,13 @@ namespace tetengo2 { namespace gui { namespace win32
             undefined.
 
             \return The main menu.
+
+            \throw std::runtime_error When the window is already destroyed.
         */
         virtual main_menu_type& main_menu()
         {
+            check_destroyed();
+
             assert(has_main_menu());
 
             return *m_p_main_menu;
@@ -198,10 +210,14 @@ namespace tetengo2 { namespace gui { namespace win32
             undefined.
 
             \return The main menu.
+
+            \throw std::runtime_error When the window is already destroyed.
         */
         virtual const main_menu_type& main_menu()
         const
         {
+            check_destroyed();
+
             assert(has_main_menu());
 
             return *m_p_main_menu;
@@ -214,9 +230,13 @@ namespace tetengo2 { namespace gui { namespace win32
             destroyed.
 
             \param p_main_menu An auto pointer to a main menu.
+
+            \throw std::runtime_error When the window is already destroyed.
         */
         virtual void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
         {
+            check_destroyed();
+
             if (::SetMenu(m_handle, NULL) == 0)
                 throw std::runtime_error("Can't unset the main menu.");
             
@@ -235,11 +255,15 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Adds a window observer.
 
             \param p_window_observer An auto pointer to a window observer.
+
+            \throw std::runtime_error When the window is already destroyed.
         */
         virtual void add_window_observer(
             std::auto_ptr<window_observer_type> p_window_observer
         )
         {
+            check_destroyed();
+
             m_window_destroyed_handler.connect(
                 boost::bind(
                     &typename window_observer_type::destroyed,
@@ -252,9 +276,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Closes the window.
+
+            \throw std::runtime_error When the window is already destroyed.
         */
         virtual void close()
         {
+            check_destroyed();
+
             const ::BOOL result = ::PostMessageW(m_handle, WM_CLOSE, 0, 0);
             if (result == 0)
                 throw std::runtime_error("Can't close the window.");
@@ -333,8 +361,10 @@ namespace tetengo2 { namespace gui { namespace win32
                 }
             case WM_DESTROY:
                 {
+                    if (m_window_observers.empty()) break;
+
                     m_window_destroyed_handler();
-                    return 0;
+                    break;
                 }
             }
             return this->widget_type::window_procedure(uMsg, wParam, lParam);
