@@ -269,6 +269,8 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             ::ShowWindow(this->handle(), visible ? SW_SHOW : SW_HIDE);
+            if (visible)
+                ::UpdateWindow(this->handle());
         }
 
         /*!

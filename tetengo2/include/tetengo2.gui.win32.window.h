@@ -163,9 +163,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             check_destroyed();
 
-            if (::SetForegroundWindow(this->handle()) == 0)
-                throw std::runtime_error("Can't be active.");
-
+            ::BringWindowToTop(this->handle());
         }
 
         /*!
