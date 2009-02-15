@@ -450,6 +450,18 @@ namespace tetengo2 { namespace gui { namespace win32
             m_paint_observers.push_back(p_paint_observer);
         }
 
+        /*!
+            \brief Returns wether the widget is destroyed.
+
+            \retval true  When the widget is destroyed.
+            \retfal false Otherwise.
+        */
+        virtual bool destroyed()
+        const
+        {
+            return m_destroyed;
+        }
+
 
     protected:
         // static functions

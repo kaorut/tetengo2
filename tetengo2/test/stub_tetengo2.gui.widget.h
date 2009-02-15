@@ -186,10 +186,16 @@ namespace stub_tetengo2 { namespace gui
             return m_text;
         }
 
-        void add_paint_observer(
+        virtual void add_paint_observer(
             std::auto_ptr<paint_observer_type> p_paint_observer
         )
         {}
+
+        virtual bool destroyed()
+        const
+        {
+            return false;
+        }
 
 
     protected:

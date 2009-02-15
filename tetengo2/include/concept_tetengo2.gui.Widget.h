@@ -101,6 +101,9 @@ namespace concept_tetengo2 { namespace gui
 
             const string_type text = object.text();
             boost::ignore_unused_variable_warning(text);
+
+            const bool destroyed = object.destroyed();
+            boost::ignore_unused_variable_warning(destroyed);
         }
 
         
