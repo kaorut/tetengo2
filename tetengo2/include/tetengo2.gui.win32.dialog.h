@@ -14,6 +14,7 @@
 #include <stdexcept>
 
 //#include <boost/concept_check.hpp>
+#include <boost/scope_exit.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -151,6 +152,11 @@ namespace tetengo2 { namespace gui { namespace win32
             window_type& parent = dynamic_cast<window_type&>(this->parent());
 
             parent.set_enabled(false);
+            BOOST_SCOPE_EXIT((&parent))
+            {
+                parent.set_enabled(true);
+                parent.activate();
+            } BOOST_SCOPE_EXIT_END
 
             this->add_window_observer(
                 std::auto_ptr<window_observer_type> (
@@ -161,9 +167,6 @@ namespace tetengo2 { namespace gui { namespace win32
             this->activate();
 
             message_loop_type()();
-
-            parent.set_enabled(true);
-            parent.activate();
         }
 
 
