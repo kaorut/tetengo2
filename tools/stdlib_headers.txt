@@ -4,6 +4,8 @@ BOOST_CHECK_EQUAL                                boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
 BOOST_CONCEPT_ASSERT                             boost/concept_check.hpp
 BOOST_CONCEPT_USAGE                              boost/concept_check.hpp
+BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
+BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
 BOOST_TEST_CASE                                  boost/test/unit_test.hpp
 BOOST_TEST_SUITE                                 boost/test/unit_test.hpp
 BOOST_WARN                                       boost/test/unit_test.hpp
@@ -29,7 +31,6 @@ boost::mem_fn                                    boost/mem_fn.hpp
 boost::noncopyable                               boost/noncopyable.hpp
 boost::prior                                     boost/utility.hpp
 boost::program_options::notify                   boost/program_options.hpp
-boost::program_options::option_description       boost/program_options.hpp
 boost::program_options::options_description      boost/program_options.hpp
 boost::program_options::split_winmain            boost/program_options.hpp
 boost::program_options::store                    boost/program_options.hpp
@@ -39,7 +40,6 @@ boost::program_options::wcommand_line_parser     boost/program_options.hpp
 boost::program_options::wparsed_options          boost/program_options.hpp
 boost::ptr_vector                                boost/ptr_container/ptr_vector.hpp
 boost::scoped_array                              boost/scoped_array.hpp
-boost::scoped_ptr                                boost/scoped_ptr.hpp
 boost::signal                                    boost/signal.hpp
 boost::signals::trackable                        boost/signal.hpp
 boost::totally_ordered                           boost/operators.hpp
