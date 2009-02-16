@@ -150,7 +150,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
             assert(this->has_parent());
             window_type& parent = dynamic_cast<window_type&>(this->parent());
-
             parent.set_enabled(false);
             BOOST_SCOPE_EXIT((&parent))
             {
@@ -164,7 +163,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 )
             );
             this->set_visible(true);
-            this->activate();
 
             message_loop_type()();
         }

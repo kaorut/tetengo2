@@ -456,7 +456,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns wether the widget is destroyed.
 
             \retval true  When the widget is destroyed.
-            \retfal false Otherwise.
+            \retval false Otherwise.
         */
         virtual bool destroyed()
         const
