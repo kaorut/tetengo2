@@ -1,8 +1,0 @@
-# start_vc.js Settings
-# Copyright (C) 2007-2009 kaoru
-# $Id$
-
-# Boost Paths
-BOOST_INCLUDE = X:\path\to\boost
-BOOST_LIB32   = X:\path\to\boost\lib32
-BOOST_LIB64   = X:\path\to\boost\lib64
