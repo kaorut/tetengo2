@@ -1,0 +1,8 @@
+# start_vc.js Settings
+# Copyright (C) 2007-2009 kaoru
+
+	# comment1
+   # comment2
+    BOOST_INCLUDE=D:\boost\boost_1_38_0
+BOOST_LIB32    =	D:\boost\boost_1_38_0\lib
+BOOST_LIB64=D:\boost\boost_1_38_0\lib64
