@@ -3,6 +3,6 @@
 # $Id$
 
 # Boost Paths
-BOOST_INCLUDE = D:\boost\boost_1_38_0
-BOOST_LIB32   = D:\boost\boost_1_38_0\lib
-BOOST_LIB64   = D:\boost\boost_1_38_0\lib64
+BOOST_INCLUDE = X:\path\to\boost
+BOOST_LIB32   = X:\path\to\boost\lib32
+BOOST_LIB64   = X:\path\to\boost\lib64
