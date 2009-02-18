@@ -108,6 +108,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)"
 			/>
 		</Configuration>
 		<Configuration
@@ -200,6 +201,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)"
 			/>
 		</Configuration>
 		<Configuration
@@ -286,6 +288,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)"
 			/>
 		</Configuration>
 		<Configuration
@@ -372,6 +375,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)"
 			/>
 		</Configuration>
 	</Configurations>

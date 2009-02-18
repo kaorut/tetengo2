@@ -16,5 +16,14 @@
 // Set to 1 when you are using Visual C++ Express Edition.
 #define USE_VISUAL_CPP_EXPRESS_EDITION 0
 
+// Set the Boost version.
+#define BOOST_VERSION "1_38"
+
+// Set the path where the 32-bit version of Boost DLLs exist.
+#define BOOST_LIB32 "X:\\path\\to\\boost\\lib32"
+
+// Set the path where the 64-bit version of Boost DLLs exist.
+#define BOOST_LIB64 "X:\\path\\to\\boost\\lib64"
+
 
 #endif
