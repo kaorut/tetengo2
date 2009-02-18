@@ -57,7 +57,6 @@ list_projects()
         $SOLUTIONDIR/tetengo2 \
         -maxdepth 1 \
         -type f \
-        -name '*.js' -or \
         -name '*.vcproj'
 }
 
@@ -68,5 +67,6 @@ list_tools()
         -maxdepth 1 \
         -type f \
         -name '*.sh' -or \
+        -name '*.js' -or \
         -name '*.pl'
 }

@@ -36,7 +36,6 @@ done
 set_prop_for_ordinal $SOLUTIONDIR/bobura_config.h-original
 set_prop_for_ordinal $SOLUTIONDIR/Doxyfile
 set_prop_for_ordinal $SOLUTIONDIR/Doxyfile.test
-set_prop_for_ordinal $SOLUTIONDIR/start_vc_config.txt-original
 set_prop_for_ordinal $SOLUTIONDIR/tools/stdlib_headers.txt
 
 for f in ` \
