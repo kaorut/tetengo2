@@ -1,6 +1,9 @@
 /*
 	Visual C++ Launcher for Bobura
+	
 	Copyright (C) 2007-2009 kaoru
+	
+	$Id$
 */
 
 function trim(string)
@@ -69,5 +72,4 @@ var shell = WScript.CreateObject("WScript.Shell");
 var environment = shell.Environment("Process");
 var settings = readSettings();
 setEnvironment(environment, settings);
-shell.Run("cmd");
-//shell.Run("bobura.sln");
+shell.Run("bobura.sln");
