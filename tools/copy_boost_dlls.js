@@ -93,12 +93,11 @@ function copyFile(sourceDirectory, destinationDirectory, fileName)
 	var filesystem = WScript.CreateObject("Scripting.FileSystemObject");
 	
 	var sourceFile = filesystem.BuildPath(sourceDirectory, fileName);
-	
 	WScript.Echo(
 		"Copying \"" + sourceFile + "\" to \"" + destinationDirectory +
 		"\" ..."
 	);
-	filesystem.CopyFile(sourceFile, destinationDirectory + "\\");
+	filesystem.CopyFile(sourceFile, destinationDirectory);
 }
 
 
@@ -119,10 +118,21 @@ var sourceAndVersion = getSourceAndVersion();
 var destination = getDestination(solutionDirectory, releaseOrDebug);
 
 var sourceDirectory = sourceAndVersion[0][platform];
+if (sourceDirectory == null || sourceDirectory.length == 0)
+{
+	WScript.Echo("The Boost source directory is unknown.");
+	WScript.Quit(1);
+}
 var destinationDirectory = destination + "." + platform;
+var version = sourceAndVersion[1];
+if (version == null || version.length == 0)
+{
+	WScript.Echo("The Boost version is unknown.");
+	WScript.Quit(1);
+}
 
 var dllNames =
-	getDllNames(sourceAndVersion[1], releaseOrDebug.toLowerCase() == "debug");
+	getDllNames(version, releaseOrDebug.toLowerCase() == "debug");
 for (var i = 0; i < dllNames.length; ++i)
 	copyFile(sourceDirectory, destinationDirectory, dllNames[i]);
 
