@@ -46,7 +46,7 @@
 				Optimization="0"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
-				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK"
 				StringPooling="true"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 				WarnAsError="true"
 				DebugInformationFormat="4"
 				CompileAs="0"
-				DisableSpecificWarnings="4100;4127;4503;4510;4512;4610;4701;4819"
+				DisableSpecificWarnings="4100;4127;4251;4275;4503;4510;4512;4610;4701;4819"
 				ForcedIncludeFiles="precompiled.h"
 			/>
 			<Tool
@@ -140,7 +140,7 @@
 				Optimization="0"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
-				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK"
 				StringPooling="true"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -155,7 +155,7 @@
 				WarnAsError="true"
 				DebugInformationFormat="3"
 				CompileAs="0"
-				DisableSpecificWarnings="4100;4103;4127;4503;4510;4512;4610;4701;4819"
+				DisableSpecificWarnings="4100;4103;4127;4251;4275;4503;4510;4512;4610;4701;4819"
 				ForcedIncludeFiles="precompiled.h"
 			/>
 			<Tool
@@ -230,7 +230,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
-				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
 				SmallerTypeCheck="false"
@@ -242,7 +242,7 @@
 				WarnAsError="true"
 				DebugInformationFormat="0"
 				CompileAs="0"
-				DisableSpecificWarnings="4100;4127;4503;4510;4512;4610;4701;4819"
+				DisableSpecificWarnings="4100;4127;4251;4275;4503;4510;4512;4610;4701;4819"
 				ForcedIncludeFiles=""
 			/>
 			<Tool
@@ -318,7 +318,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
-				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
 				SmallerTypeCheck="false"
@@ -329,7 +329,7 @@
 				WarnAsError="true"
 				DebugInformationFormat="0"
 				CompileAs="0"
-				DisableSpecificWarnings="4100;4103;4127;4503;4510;4512;4610;4701;4819"
+				DisableSpecificWarnings="4100;4103;4127;4251;4275;4503;4510;4512;4610;4701;4819"
 				ForcedIncludeFiles=""
 			/>
 			<Tool
