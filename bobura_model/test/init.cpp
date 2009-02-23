@@ -6,6 +6,7 @@
     $Id$
 */
 
+#define BOOST_TEST_MODULE test_bobura_model
 #include <boost/test/unit_test.hpp>
 
 #include "init_bobura.model.h"

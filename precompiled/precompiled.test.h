@@ -39,7 +39,7 @@
 #include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/signal.hpp>
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 #include <boost/utility.hpp>

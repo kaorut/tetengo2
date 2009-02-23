@@ -6,6 +6,7 @@
     $Id$
 */
 
+#define BOOST_TEST_MODULE test_tetengo2
 #include <boost/test/unit_test.hpp>
 
 #include "init_tetengo2.h"
