@@ -7,6 +7,7 @@ BOOST_CONCEPT_USAGE                              boost/concept_check.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
 BOOST_TEST_CASE                                  boost/test/unit_test.hpp
+BOOST_TEST_MODULE                                boost/test/unit_test.hpp
 BOOST_TEST_SUITE                                 boost/test/unit_test.hpp
 BOOST_WARN                                       boost/test/unit_test.hpp
 NULL                                             cstddef
