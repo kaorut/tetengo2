@@ -56,14 +56,14 @@
 				EnableEnhancedInstructionSet="2"
 				DisableLanguageExtensions="false"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.test.h"
+				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
 				DebugInformationFormat="4"
 				CompileAs="0"
 				DisableSpecificWarnings="4100;4127;4251;4275;4503;4510;4512;4610;4701;4819"
-				ForcedIncludeFiles="precompiled.test.h"
+				ForcedIncludeFiles="precompiled.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -146,14 +146,14 @@
 				EnableFunctionLevelLinking="true"
 				DisableLanguageExtensions="false"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.test.h"
+				PrecompiledHeaderThrough="precompiled.h"
 				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
 				DebugInformationFormat="3"
 				CompileAs="0"
 				DisableSpecificWarnings="4100;4103;4127;4251;4275;4503;4510;4512;4610;4701;4819"
-				ForcedIncludeFiles="precompiled.test.h"
+				ForcedIncludeFiles="precompiled.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -382,7 +382,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\precompiled\precompiled.test.cpp"
+				RelativePath="..\precompiled\precompiled.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -520,7 +520,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\precompiled\precompiled.test.h"
+				RelativePath="..\precompiled\precompiled.h"
 				>
 			</File>
 			<Filter
