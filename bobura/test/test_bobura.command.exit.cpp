@@ -10,35 +10,23 @@
 
 #include "bobura.command.exit.h"
 
-#include "test_bobura.command.exit.h"
 
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(command)
+BOOST_AUTO_TEST_SUITE(exit)
+    // test cases
 
-namespace test_bobura { namespace command
-{
-    // functions
-
-    boost::unit_test::test_suite* exit::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE(
-                "test_bobura::command::exit"
-            );
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(operator_paren));
-
-        return p_suite;
-    }
-
-    void exit::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void exit::operator_paren()
+    BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
 
-}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

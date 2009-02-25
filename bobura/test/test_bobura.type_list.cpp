@@ -10,20 +10,11 @@
 
 #include "bobura.type_list.h"
 
-#include "test_bobura.type_list.h"
+
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(type_list)
+    // test cases
 
 
-namespace test_bobura
-{
-    // functions
-
-    boost::unit_test::test_suite* type_list::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_bobura::type_list");
-
-        return p_suite;
-    }
-
-
-}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

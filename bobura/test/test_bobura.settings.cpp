@@ -13,24 +13,12 @@
 
 #include "bobura.settings.h"
 
-#include "test_bobura.settings.h"
 
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(settings)
+    // test cases
 
-namespace test_bobura
-{
-    // functions
-
-    boost::unit_test::test_suite* settings::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_bobura::settings");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-
-        return p_suite;
-    }
-
-    void settings::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_CHECKPOINT("");
 
@@ -41,4 +29,5 @@ namespace test_bobura
     }
 
 
-}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

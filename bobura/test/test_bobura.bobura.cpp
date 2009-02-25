@@ -19,8 +19,6 @@
 #include <stub_tetengo2.gui.message_loop.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
 
-#include "test_bobura.bobura.h"
-
 
 namespace
 {
@@ -46,22 +44,11 @@ namespace
 
 }
 
-namespace test_bobura
-{
-    // functions
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(bobura)
+    // test cases
 
-    boost::unit_test::test_suite* bobura::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_bobura::bobura");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(run));
-
-        return p_suite;
-    }
-
-    void bobura::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_CHECKPOINT("");
 
@@ -69,7 +56,7 @@ namespace test_bobura
         const bobura_type bobura(settings);
     }
 
-    void bobura::run()
+    BOOST_AUTO_TEST_CASE(run)
     {
         BOOST_CHECKPOINT("");
 
@@ -80,4 +67,5 @@ namespace test_bobura
     }
 
 
-}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

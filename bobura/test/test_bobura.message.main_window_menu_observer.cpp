@@ -10,35 +10,23 @@
 
 #include "bobura.message.main_window_menu_observer.h"
 
-#include "test_bobura.message.main_window_menu_observer.h"
 
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(message)
+BOOST_AUTO_TEST_SUITE(main_window_menu_observer)
+    // test cases
 
-namespace test_bobura { namespace message
-{
-    // functions
-
-    boost::unit_test::test_suite* main_window_menu_observer::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE(
-                "test_bobura::message::main_window_menu_observer"
-            );
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(selected));
-
-        return p_suite;
-    }
-
-    void main_window_menu_observer::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void main_window_menu_observer::selected()
+    BOOST_AUTO_TEST_CASE(selected)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
 
-}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

@@ -10,35 +10,23 @@
 
 #include "bobura.command.about.h"
 
-#include "test_bobura.command.about.h"
 
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(command)
+BOOST_AUTO_TEST_SUITE(about)
+    // test cases
 
-namespace test_bobura { namespace command
-{
-    // functions
-
-    boost::unit_test::test_suite* about::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE(
-                "test_bobura::command::about"
-            );
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(operator_paren));
-
-        return p_suite;
-    }
-
-    void about::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void about::operator_paren()
+    BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
 
-}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
