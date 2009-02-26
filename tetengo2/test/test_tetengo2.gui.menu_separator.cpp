@@ -17,28 +17,13 @@
 
 #include "tetengo2.gui.menu_separator.h"
 
-#include "test_tetengo2.gui.menu_separator.h"
 
+BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(menu_separator)
+    // test cases
 
-namespace test_tetengo2 { namespace gui
-{
-    // functions
-
-    boost::unit_test::test_suite* menu_separator::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::gui::menu_separator");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(is_command));
-        p_suite->add(BOOST_TEST_CASE(is_popup));
-        p_suite->add(BOOST_TEST_CASE(is_separator));
-        p_suite->add(BOOST_TEST_CASE(handle));
-
-        return p_suite;
-    }
-
-    void menu_separator::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_CHECKPOINT("");
 
@@ -61,7 +46,7 @@ namespace test_tetengo2 { namespace gui
         }
     }
 
-    void menu_separator::is_command()
+    BOOST_AUTO_TEST_CASE(is_command)
     {
         BOOST_CHECKPOINT("");
 
@@ -84,7 +69,7 @@ namespace test_tetengo2 { namespace gui
         }
     }
 
-    void menu_separator::is_popup()
+    BOOST_AUTO_TEST_CASE(is_popup)
     {
         BOOST_CHECKPOINT("");
 
@@ -107,7 +92,7 @@ namespace test_tetengo2 { namespace gui
         }
     }
 
-    void menu_separator::is_separator()
+    BOOST_AUTO_TEST_CASE(is_separator)
     {
         BOOST_CHECKPOINT("");
 
@@ -130,7 +115,7 @@ namespace test_tetengo2 { namespace gui
         }
     }
 
-    void menu_separator::handle()
+    BOOST_AUTO_TEST_CASE(handle)
     {
         BOOST_CHECKPOINT("");
 
@@ -153,4 +138,6 @@ namespace test_tetengo2 { namespace gui
         }
     }
 
-}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

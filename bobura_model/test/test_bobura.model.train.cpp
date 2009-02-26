@@ -18,32 +18,13 @@
 
 #include "bobura.model.train.h"
 
-#include "test_bobura.model.train.h"
 
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(model)
+BOOST_AUTO_TEST_SUITE(train)
+    // test cases
 
-namespace test_bobura { namespace model
-{
-    // functions
-
-    boost::unit_test::test_suite* train::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_bobura::model::train");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(swap));
-        p_suite->add(BOOST_TEST_CASE(operator_assign));
-        p_suite->add(BOOST_TEST_CASE(operator_equal));
-        p_suite->add(BOOST_TEST_CASE(number));
-        p_suite->add(BOOST_TEST_CASE(note));
-        p_suite->add(BOOST_TEST_CASE(stops));
-        p_suite->add(BOOST_TEST_CASE(insert_stop));
-        p_suite->add(BOOST_TEST_CASE(erase_stops));
-
-        return p_suite;
-    }
-
-    void train::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_CHECKPOINT("");
 
@@ -96,7 +77,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void train::swap()
+    BOOST_AUTO_TEST_CASE(swap)
     {
         BOOST_CHECKPOINT("");
 
@@ -145,7 +126,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void train::operator_assign()
+    BOOST_AUTO_TEST_CASE(operator_assign)
     {
         BOOST_CHECKPOINT("");
 
@@ -178,7 +159,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void train::operator_equal()
+    BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_CHECKPOINT("");
 
@@ -259,7 +240,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void train::number()
+    BOOST_AUTO_TEST_CASE(number)
     {
         BOOST_CHECKPOINT("");
 
@@ -283,7 +264,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void train::note()
+    BOOST_AUTO_TEST_CASE(note)
     {
         BOOST_CHECKPOINT("");
 
@@ -307,7 +288,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void train::stops()
+    BOOST_AUTO_TEST_CASE(stops)
     {
         BOOST_CHECKPOINT("");
 
@@ -335,7 +316,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void train::insert_stop()
+    BOOST_AUTO_TEST_CASE(insert_stop)
     {
         BOOST_CHECKPOINT("");
 
@@ -396,7 +377,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void train::erase_stops()
+    BOOST_AUTO_TEST_CASE(erase_stops)
     {
         BOOST_CHECKPOINT("");
 
@@ -491,4 +472,6 @@ namespace test_bobura { namespace model
     }
 
 
-}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

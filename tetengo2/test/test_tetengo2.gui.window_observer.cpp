@@ -10,32 +10,20 @@
 
 #include "tetengo2.gui.window_observer.h"
 
-#include "test_tetengo2.gui.window_observer.h"
 
+BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(window_observer)
+    // test cases
 
-namespace test_tetengo2 { namespace gui
-{
-    // functions
-
-    boost::unit_test::test_suite* window_observer::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::gui::window_observer");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(destroyed));
-
-        return p_suite;
-    }
-
-    void window_observer::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_CHECKPOINT("");
 
         tetengo2::gui::window_observer();
     }
 
-    void window_observer::destroyed()
+    BOOST_AUTO_TEST_CASE(destroyed)
     {
         BOOST_CHECKPOINT("");
 
@@ -45,4 +33,6 @@ namespace test_tetengo2 { namespace gui
     }
 
 
-}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

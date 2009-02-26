@@ -15,28 +15,13 @@
 
 #include "bobura.model.station.h"
 
-#include "test_bobura.model.station.h"
 
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(model)
+BOOST_AUTO_TEST_SUITE(station)
+    // test cases
 
-namespace test_bobura { namespace model
-{
-    // functions
-
-    boost::unit_test::test_suite* station::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_bobura::model::station");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(swap));
-        p_suite->add(BOOST_TEST_CASE(operator_assign));
-        p_suite->add(BOOST_TEST_CASE(name));
-        p_suite->add(BOOST_TEST_CASE(grade));
-
-        return p_suite;
-    }
-
-    void station::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_CHECKPOINT("");
 
@@ -125,7 +110,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void station::swap()
+    BOOST_AUTO_TEST_CASE(swap)
     {
         BOOST_CHECKPOINT("");
 
@@ -155,7 +140,7 @@ namespace test_bobura { namespace model
         BOOST_CHECK_EQUAL(&station2.grade(), &principal_type::instance());
     }
 
-    void station::operator_assign()
+    BOOST_AUTO_TEST_CASE(operator_assign)
     {
         BOOST_CHECKPOINT("");
 
@@ -175,7 +160,7 @@ namespace test_bobura { namespace model
         BOOST_CHECK(station1 == station2);
     }
 
-    void station::operator_equal()
+    BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_CHECKPOINT("");
 
@@ -215,7 +200,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void station::name()
+    BOOST_AUTO_TEST_CASE(name)
     {
         BOOST_CHECKPOINT("");
 
@@ -251,7 +236,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void station::grade()
+    BOOST_AUTO_TEST_CASE(grade)
     {
         BOOST_CHECKPOINT("");
 
@@ -308,4 +293,6 @@ namespace test_bobura { namespace model
     }
 
 
-}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

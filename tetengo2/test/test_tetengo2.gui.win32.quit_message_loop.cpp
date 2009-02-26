@@ -10,27 +10,20 @@
 
 #include "tetengo2.gui.win32.quit_message_loop.h"
 
-#include "test_tetengo2.gui.win32.quit_message_loop.h"
 
+BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(win32)
+BOOST_AUTO_TEST_SUITE(quit_message_loop)
+    // test cases
 
-namespace test_tetengo2 { namespace gui { namespace win32
-{
-    // functions
-
-    boost::unit_test::test_suite* quit_message_loop::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::gui::win32::quit_message_loop");
-
-        p_suite->add(BOOST_TEST_CASE(operator_paren));
-
-        return p_suite;
-    }
-
-    void quit_message_loop::operator_paren()
+    BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
 
-}}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

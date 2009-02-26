@@ -10,20 +10,11 @@
 
 #include "tetengo2.generator.h"
 
-#include "test_tetengo2.generator.h"
+
+BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(generator)
+    // test cases
 
 
-namespace test_tetengo2
-{
-    // functions
-
-    boost::unit_test::test_suite* generator::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::tetengo2");
-
-        return p_suite;
-    }
-
-
-}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

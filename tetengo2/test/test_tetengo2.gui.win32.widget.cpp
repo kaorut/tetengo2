@@ -10,129 +10,105 @@
 
 #include "tetengo2.gui.win32.widget.h"
 
-#include "test_tetengo2.gui.win32.widget.h"
 
+BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(win32)
+BOOST_AUTO_TEST_SUITE(widget)
+    // test cases
 
-namespace test_tetengo2 { namespace gui { namespace win32
-{
-    // functions
-
-    boost::unit_test::test_suite* widget::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::gui::win32::widget");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(has_parent));
-        p_suite->add(BOOST_TEST_CASE(parent));
-        p_suite->add(BOOST_TEST_CASE(set_enabled));
-        p_suite->add(BOOST_TEST_CASE(enabled));
-        p_suite->add(BOOST_TEST_CASE(set_visible));
-        p_suite->add(BOOST_TEST_CASE(visible));
-        p_suite->add(BOOST_TEST_CASE(set_position));
-        p_suite->add(BOOST_TEST_CASE(position));
-        p_suite->add(BOOST_TEST_CASE(set_dimension));
-        p_suite->add(BOOST_TEST_CASE(dimension));
-        p_suite->add(BOOST_TEST_CASE(set_text));
-        p_suite->add(BOOST_TEST_CASE(text));
-        p_suite->add(BOOST_TEST_CASE(add_paint_observer));
-        p_suite->add(BOOST_TEST_CASE(destroyed));
-        p_suite->add(BOOST_TEST_CASE(p_static_window_procedure));
-        p_suite->add(BOOST_TEST_CASE(associate_to_native_window_system));
-        p_suite->add(BOOST_TEST_CASE(window_procedure));
-
-        return p_suite;
-    }
-
-    void widget::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::has_parent()
+    BOOST_AUTO_TEST_CASE(has_parent)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::parent()
+    BOOST_AUTO_TEST_CASE(parent)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::set_enabled()
+    BOOST_AUTO_TEST_CASE(set_enabled)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::enabled()
+    BOOST_AUTO_TEST_CASE(enabled)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::set_visible()
+    BOOST_AUTO_TEST_CASE(set_visible)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::visible()
+    BOOST_AUTO_TEST_CASE(visible)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::set_position()
+    BOOST_AUTO_TEST_CASE(set_position)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::position()
+    BOOST_AUTO_TEST_CASE(position)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::set_dimension()
+    BOOST_AUTO_TEST_CASE(set_dimension)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::dimension()
+    BOOST_AUTO_TEST_CASE(dimension)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::set_text()
+    BOOST_AUTO_TEST_CASE(set_text)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::text()
+    BOOST_AUTO_TEST_CASE(text)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::add_paint_observer()
+    BOOST_AUTO_TEST_CASE(add_paint_observer)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::destroyed()
+    BOOST_AUTO_TEST_CASE(destroyed)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::p_static_window_procedure()
+    BOOST_AUTO_TEST_CASE(p_static_window_procedure)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::associate_to_native_window_system()
+    BOOST_AUTO_TEST_CASE(associate_to_native_window_system)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void widget::window_procedure()
+    BOOST_AUTO_TEST_CASE(window_procedure)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
 
-}}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

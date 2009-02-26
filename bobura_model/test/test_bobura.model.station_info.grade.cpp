@@ -12,25 +12,14 @@
 
 #include "bobura.model.station_info.grade.h"
 
-#include "test_bobura.model.station_info.grade.h"
 
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(model)
+BOOST_AUTO_TEST_SUITE(station_info)
+BOOST_AUTO_TEST_SUITE(grade)
+    // test cases
 
-namespace test_bobura { namespace model { namespace station_info
-{
-    // functions
-
-    boost::unit_test::test_suite* grade::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_bobura::model::station_info::grade");
-
-        p_suite->add(BOOST_TEST_CASE(instance));
-        p_suite->add(BOOST_TEST_CASE(name));
-
-        return p_suite;
-    }
-
-    void grade::instance()
+    BOOST_AUTO_TEST_CASE(instance)
     {
         BOOST_CHECKPOINT("");
 
@@ -51,7 +40,7 @@ namespace test_bobura { namespace model { namespace station_info
         >::instance();
     }
 
-    void grade::name()
+    BOOST_AUTO_TEST_CASE(name)
     {
         BOOST_CHECKPOINT("");
 
@@ -109,4 +98,7 @@ namespace test_bobura { namespace model { namespace station_info
     }
 
 
-}}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

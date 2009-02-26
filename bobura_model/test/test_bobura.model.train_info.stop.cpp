@@ -17,30 +17,14 @@
 
 #include "bobura.model.train_info.stop.h"
 
-#include "test_bobura.model.train_info.stop.h"
 
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(model)
+BOOST_AUTO_TEST_SUITE(train_info)
+BOOST_AUTO_TEST_SUITE(stop)
+    // test cases
 
-namespace test_bobura { namespace model { namespace train_info
-{
-    // functions
-
-    boost::unit_test::test_suite* stop::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_bobura::model::train_info::stop");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(swap));
-        p_suite->add(BOOST_TEST_CASE(operator_assign));
-        p_suite->add(BOOST_TEST_CASE(operator_equal));
-        p_suite->add(BOOST_TEST_CASE(arrival));
-        p_suite->add(BOOST_TEST_CASE(departure));
-        p_suite->add(BOOST_TEST_CASE(platform));
-
-        return p_suite;
-    }
-
-    void stop::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_CHECKPOINT("");
 
@@ -89,7 +73,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
     }
 
-    void stop::swap()
+    BOOST_AUTO_TEST_CASE(swap)
     {
         BOOST_CHECKPOINT("");
 
@@ -131,7 +115,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
     }
 
-    void stop::operator_assign()
+    BOOST_AUTO_TEST_CASE(operator_assign)
     {
         BOOST_CHECKPOINT("");
 
@@ -155,7 +139,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
     }
 
-    void stop::operator_equal()
+    BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_CHECKPOINT("");
 
@@ -201,7 +185,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
     }
 
-    void stop::arrival()
+    BOOST_AUTO_TEST_CASE(arrival)
     {
         BOOST_CHECKPOINT("");
 
@@ -227,7 +211,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
     }
 
-    void stop::departure()
+    BOOST_AUTO_TEST_CASE(departure)
     {
         BOOST_CHECKPOINT("");
 
@@ -253,7 +237,7 @@ namespace test_bobura { namespace model { namespace train_info
         }
     }
 
-    void stop::platform()
+    BOOST_AUTO_TEST_CASE(platform)
     {
         BOOST_CHECKPOINT("");
 
@@ -280,4 +264,7 @@ namespace test_bobura { namespace model { namespace train_info
     }
 
 
-}}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

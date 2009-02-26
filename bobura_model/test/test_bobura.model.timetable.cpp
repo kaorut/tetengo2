@@ -23,33 +23,13 @@
 
 #include "bobura.model.timetable.h"
 
-#include "test_bobura.model.timetable.h"
 
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(model)
+BOOST_AUTO_TEST_SUITE(timetable)
+    // test cases
 
-namespace test_bobura { namespace model
-{
-    // functions
-
-    boost::unit_test::test_suite* timetable::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_bobura::model::timetable");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(swap));
-        p_suite->add(BOOST_TEST_CASE(operator_assign));
-        p_suite->add(BOOST_TEST_CASE(operator_equal));
-        p_suite->add(BOOST_TEST_CASE(station_locations));
-        p_suite->add(BOOST_TEST_CASE(insert_station_location));
-        p_suite->add(BOOST_TEST_CASE(erase_station_locations));
-        p_suite->add(BOOST_TEST_CASE(trains));
-        p_suite->add(BOOST_TEST_CASE(insert_train));
-        p_suite->add(BOOST_TEST_CASE(erase_trains));
-
-        return p_suite;
-    }
-
-    void timetable::construction()
+   BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_CHECKPOINT("");
 
@@ -128,7 +108,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void timetable::swap()
+    BOOST_AUTO_TEST_CASE(swap)
     {
         BOOST_CHECKPOINT("");
 
@@ -213,7 +193,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void timetable::operator_assign()
+    BOOST_AUTO_TEST_CASE(operator_assign)
     {
         BOOST_CHECKPOINT("");
 
@@ -269,7 +249,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void timetable::operator_equal()
+    BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_CHECKPOINT("");
 
@@ -420,7 +400,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void timetable::station_locations()
+    BOOST_AUTO_TEST_CASE(station_locations)
     {
         BOOST_CHECKPOINT("");
 
@@ -490,7 +470,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void timetable::insert_station_location()
+    BOOST_AUTO_TEST_CASE(insert_station_location)
     {
         BOOST_CHECKPOINT("");
 
@@ -748,7 +728,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void timetable::erase_station_locations()
+    BOOST_AUTO_TEST_CASE(erase_station_locations)
     {
         BOOST_CHECKPOINT("");
 
@@ -985,7 +965,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void timetable::trains()
+    BOOST_AUTO_TEST_CASE(trains)
     {
         BOOST_CHECKPOINT("");
 
@@ -1053,7 +1033,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void timetable::insert_train()
+    BOOST_AUTO_TEST_CASE(insert_train)
     {
         BOOST_CHECKPOINT("");
 
@@ -1174,7 +1154,7 @@ namespace test_bobura { namespace model
         }
     }
 
-    void timetable::erase_trains()
+    BOOST_AUTO_TEST_CASE(erase_trains)
     {
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
         typedef bobura::model::station<std::wstring, grade_type> station_type;
@@ -1287,4 +1267,6 @@ namespace test_bobura { namespace model
     }
 
 
-}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

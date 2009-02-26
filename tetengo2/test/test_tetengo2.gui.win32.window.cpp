@@ -10,68 +10,55 @@
 
 #include "tetengo2.gui.win32.window.h"
 
-#include "test_tetengo2.gui.win32.window.h"
 
+BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(win32)
+BOOST_AUTO_TEST_SUITE(window)
+    // test cases
 
-namespace test_tetengo2 { namespace gui { namespace win32
-{
-    // functions
-
-    boost::unit_test::test_suite* window::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::gui::win32::window");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(handle));
-        p_suite->add(BOOST_TEST_CASE(has_main_menu));
-        p_suite->add(BOOST_TEST_CASE(main_menu));
-        p_suite->add(BOOST_TEST_CASE(set_main_menu));
-        p_suite->add(BOOST_TEST_CASE(add_window_observer));
-        p_suite->add(BOOST_TEST_CASE(close));
-
-        return p_suite;
-    }
-
-    void window::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void window::handle()
+    BOOST_AUTO_TEST_CASE(handle)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void window::activate()
+    BOOST_AUTO_TEST_CASE(activate)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void window::has_main_menu()
+    BOOST_AUTO_TEST_CASE(has_main_menu)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void window::main_menu()
+    BOOST_AUTO_TEST_CASE(main_menu)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void window::set_main_menu()
+    BOOST_AUTO_TEST_CASE(set_main_menu)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void window::add_window_observer()
+    BOOST_AUTO_TEST_CASE(add_window_observer)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void window::close()
+    BOOST_AUTO_TEST_CASE(close)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
 
-}}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

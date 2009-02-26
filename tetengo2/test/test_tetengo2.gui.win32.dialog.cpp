@@ -10,33 +10,25 @@
 
 #include "tetengo2.gui.win32.dialog.h"
 
-#include "test_tetengo2.gui.win32.dialog.h"
 
+BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(win32)
+BOOST_AUTO_TEST_SUITE(dialog)
+    // test cases
 
-namespace test_tetengo2 { namespace gui { namespace win32
-{
-    // functions
-
-    boost::unit_test::test_suite* dialog::suite()
-    {
-        boost::unit_test::test_suite* const p_suite =
-            BOOST_TEST_SUITE("test_tetengo2::gui::win32::dialog");
-
-        p_suite->add(BOOST_TEST_CASE(construction));
-        p_suite->add(BOOST_TEST_CASE(do_modal));
-
-        return p_suite;
-    }
-
-    void dialog::construction()
+    BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    void dialog::do_modal()
+    BOOST_AUTO_TEST_CASE(do_modal)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
 
-}}}
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
