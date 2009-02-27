@@ -429,6 +429,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\bobura.main_window.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\bobura.settings.h"
 					>
 				</File>
@@ -472,6 +476,10 @@
 			<Filter
 				Name="concept_bobura"
 				>
+				<File
+					RelativePath=".\src\concept_bobura.MainWindow.h"
+					>
+				</File>
 				<File
 					RelativePath=".\src\concept_bobura.Settings.h"
 					>

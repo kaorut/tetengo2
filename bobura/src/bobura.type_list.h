@@ -17,6 +17,7 @@
 #include <tetengo2.gui.win32.gui_type_list.h>
 
 #include "bobura.bobura.h"
+#include "bobura.main_window.h"
 #include "bobura.settings.h"
 
 
@@ -57,11 +58,14 @@ namespace bobura
         //! The settings type.
         typedef settings<string_type> settings_type;
 
+        //! The main window type.
+        typedef
+            main_window<gui_type_list_type, boost::function<void ()> >
+            main_window_type;
+
         //! The Bobura application type.
         typedef
-            bobura<
-                settings_type, gui_type_list_type, boost::function<void ()>
-            >
+            bobura<settings_type, main_window_type, gui_type_list_type>
             bobura_type;
 
 

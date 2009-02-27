@@ -13,6 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.bobura.h"
+#include "bobura.main_window.h"
 #include "bobura.settings.h"
 
 #include <stub_tetengo2.gui.gui_type_list.h>
@@ -37,12 +38,15 @@ namespace
     typedef bobura::settings<std::wstring> settings_type;
 
     typedef
-        bobura::bobura<
-            settings_type, gui_type_list_type, boost::function<void ()>
-        >
+        bobura::main_window<gui_type_list_type, boost::function<void ()> >
+        main_window_type;
+
+    typedef
+        bobura::bobura<settings_type, main_window_type, gui_type_list_type>
         bobura_type;
 
 }
+
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(bobura)
