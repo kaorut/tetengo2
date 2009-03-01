@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of concept_bobura::model::MainWindow.
+    \brief The definition of concept_bobura::MainWindow.
 
     Copyright (C) 2007-2009 kaoru
 
@@ -26,6 +26,11 @@ namespace concept_bobura
     {
 #if !defined(DOCUMENTATION)
     public:
+        // typedef checks
+
+        typedef typename Type::command_type_list_type command_type_list_type;
+
+
         // usage checks
 
         BOOST_CONCEPT_USAGE(MainWindow)

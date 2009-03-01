@@ -54,6 +54,16 @@
     \brief The namespace for concept check classes for the namespace bobura.
 */
 
+/*! \namespace concept_bobura::command
+    \brief The namespace for concept check classes for the namespace
+           bobura::command.
+*/
+
+/*! \namespace concept_bobura::message
+    \brief The namespace for concept check classes for the namespace
+           bobura::message.
+*/
+
 /*! \namespace concept_bobura::model
     \brief The namespace for concept check classes for the namespace
            bobura::model.

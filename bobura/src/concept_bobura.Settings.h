@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of concept_bobura::model::Settings.
+    \brief The definition of concept_bobura::Settings.
 
     Copyright (C) 2007-2009 kaoru
 

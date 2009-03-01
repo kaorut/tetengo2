@@ -6,15 +6,15 @@
     $Id$
 */
 
-#include <cstddef>
-#include <string>
+//#include <cstddef>
+//#include <string>
 
-#include <boost/function.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <stub_tetengo2.gui.gui_type_list.h>
 
 #include "bobura.main_window.h"
+#include "bobura.command.command_type_list.h"
 
 
 namespace
@@ -28,7 +28,13 @@ namespace
         gui_type_list_type;
 
     typedef
-        bobura::main_window<gui_type_list_type, boost::function<void ()> >
+        bobura::command::command_type_list<
+            gui_type_list_type::window_type, gui_type_list_type::dialog_type
+        >
+        command_type_list_type;
+
+    typedef
+        bobura::main_window<gui_type_list_type, command_type_list_type>
         main_window_type;
 
 

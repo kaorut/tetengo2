@@ -429,6 +429,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\test_bobura.command.command_type_list.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_bobura.command.exit.cpp"
 					>
 				</File>

@@ -449,6 +449,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\bobura.command.command_type_list.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\bobura.command.exit.h"
 					>
 				</File>
@@ -484,6 +488,18 @@
 					RelativePath=".\src\concept_bobura.Settings.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="concept_bobura::command"
+				>
+				<File
+					RelativePath=".\src\concept_bobura.command.CommandTypeList.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="concept_bobura::message"
+				>
 			</Filter>
 		</Filter>
 		<Filter

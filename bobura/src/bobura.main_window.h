@@ -15,12 +15,10 @@
 
 #include <concept_tetengo2.gui.GuiTypeList.h>
 
-#include "bobura.command.about.h"
-#include "bobura.command.exit.h"
-#include "bobura.command.nop.h"
 #include "bobura.message.main_window_menu_observer.h"
 #include "bobura.message.main_window_paint_observer.h"
 #include "bobura.message.main_window_window_observer.h"
+#include "concept_bobura.command.CommandTypeList.h"
 
 
 namespace bobura
@@ -28,12 +26,12 @@ namespace bobura
     /*!
         \brief The class template for the main window.
 
-        \tparam GuiTypeList A GUI type list type. It must conform to
-                            concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
-        \tparam Command     A command type. It must conform to
-                            boost::Generator<Command, void>.
+        \tparam GuiTypeList     A GUI type list type. It must conform to
+                                concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
+        \tparam CommandTypeList A command type list type. It must conform to
+                                concept_bobura::command::CommandTypeList<CommandTypeList>.
     */
-    template <typename GuiTypeList, typename Command>
+    template <typename GuiTypeList, typename CommandTypeList>
     class main_window : public GuiTypeList::window_type
     {
     private:
@@ -42,7 +40,9 @@ namespace bobura
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::GuiTypeList<GuiTypeList>
         ));
-        BOOST_CONCEPT_ASSERT((boost::Generator<Command, void>));
+        BOOST_CONCEPT_ASSERT((
+            concept_bobura::command::CommandTypeList<CommandTypeList>
+        ));
 
 
     public:
@@ -105,8 +105,8 @@ namespace bobura
         //! The style type.
         typedef typename window_type::style_type style_type;
 
-        //! The command type.
-        typedef Command command_type;
+        //! The command type list type.
+        typedef CommandTypeList command_type_list_type;
 
 
         // constructors and destructor
@@ -150,6 +150,8 @@ namespace bobura
 
         typedef typename gui_type_list_type::dialog_type dialog_type;
 
+        typedef typename command_type_list_type::command_type command_type;
+
 
         // static functions
 
@@ -187,21 +189,30 @@ namespace bobura
                 );
 
                 append_menu_command(
-                    *p_popup_menu, L"新規作成(&N)\tCtrl+N", command::nop()
+                    *p_popup_menu,
+                    L"新規作成(&N)\tCtrl+N",
+                    typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"開く(&O)...\tCtrl+O", command::nop()
+                    *p_popup_menu,
+                    L"開く(&O)...\tCtrl+O",
+                    typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"上書き保存(&S)\tCtrl+S", command::nop()
+                    *p_popup_menu,
+                    L"上書き保存(&S)\tCtrl+S",
+                    typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"名前を付けて保存(&A)...", command::nop()
+                    *p_popup_menu,
+                    L"名前を付けて保存(&A)...",
+                    typename command_type_list_type::nop_type()
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
-                    *p_popup_menu, L"終了(&X)",
-                    command::exit<window_type>(window)
+                    *p_popup_menu,
+                    L"終了(&X)",
+                    typename command_type_list_type::exit_type(window)
                 );
 
                 p_main_menu->insert(
@@ -215,27 +226,41 @@ namespace bobura
                 );
 
                 append_menu_command(
-                    *p_popup_menu, L"元に戻す(&U)\tCtrl+Z", command::nop()
+                    *p_popup_menu,
+                    L"元に戻す(&U)\tCtrl+Z",
+                    typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"やり直し(&R)\tCtrl+Y", command::nop()
-                );
-                append_menu_separator(*p_popup_menu);
-                append_menu_command(
-                    *p_popup_menu, L"切り取り(&T)\tCtrl+X", command::nop()
-                );
-                append_menu_command(
-                    *p_popup_menu, L"コピー(&C)\tCtrl+C", command::nop()
-                );
-                append_menu_command(
-                    *p_popup_menu, L"貼り付け(&P)\tCtrl+V", command::nop()
+                    *p_popup_menu,
+                    L"やり直し(&R)\tCtrl+Y",
+                    typename command_type_list_type::nop_type()
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
-                    *p_popup_menu, L"検索(&F)...\tCtrl+F", command::nop()
+                    *p_popup_menu,
+                    L"切り取り(&T)\tCtrl+X",
+                    typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
-                    *p_popup_menu, L"置換(&R)...\tCtrl+H", command::nop()
+                    *p_popup_menu,
+                    L"コピー(&C)\tCtrl+C",
+                    typename command_type_list_type::nop_type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    L"貼り付け(&P)\tCtrl+V",
+                    typename command_type_list_type::nop_type()
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu,
+                    L"検索(&F)...\tCtrl+F",
+                    typename command_type_list_type::nop_type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    L"置換(&R)...\tCtrl+H",
+                    typename command_type_list_type::nop_type()
                 );
 
                 p_main_menu->insert(
@@ -249,8 +274,9 @@ namespace bobura
                 );
 
                 append_menu_command(
-                    *p_popup_menu, L"バージョン情報(&A)...",
-                    command::about<dialog_type>(window)
+                    *p_popup_menu,
+                    L"バージョン情報(&A)...",
+                    typename command_type_list_type::about_type(window)
                 );
 
                 p_main_menu->insert(
