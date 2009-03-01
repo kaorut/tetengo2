@@ -20,7 +20,7 @@
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for a type list of bobura.
+        \brief The class template for a command type list.
 
         \tparam Window A window type. It must conform to
                        concept_tetengo2::gui::Window<Window>.

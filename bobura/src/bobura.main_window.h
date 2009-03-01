@@ -15,10 +15,8 @@
 
 #include <concept_tetengo2.gui.GuiTypeList.h>
 
-#include "bobura.message.main_window_menu_observer.h"
-#include "bobura.message.main_window_paint_observer.h"
-#include "bobura.message.main_window_window_observer.h"
 #include "concept_bobura.command.CommandTypeList.h"
+#include "concept_bobura.message.MessageTypeList.h"
 
 
 namespace bobura
@@ -30,8 +28,14 @@ namespace bobura
                                 concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
         \tparam CommandTypeList A command type list type. It must conform to
                                 concept_bobura::command::CommandTypeList<CommandTypeList>.
+        \tparam MessageTypeList A message type list type. It must conform to
+                                concept_bobura::message::MessageTypeList<MessageTypeList>.
     */
-    template <typename GuiTypeList, typename CommandTypeList>
+    template <
+        typename GuiTypeList,
+        typename CommandTypeList,
+        typename MessageTypeList
+    >
     class main_window : public GuiTypeList::window_type
     {
     private:
@@ -42,6 +46,9 @@ namespace bobura
         ));
         BOOST_CONCEPT_ASSERT((
             concept_bobura::command::CommandTypeList<CommandTypeList>
+        ));
+        BOOST_CONCEPT_ASSERT((
+            concept_bobura::message::MessageTypeList<MessageTypeList>
         ));
 
 
@@ -108,6 +115,9 @@ namespace bobura
         //! The command type list type.
         typedef CommandTypeList command_type_list_type;
 
+        //! The message type list type.
+        typedef MessageTypeList message_type_list_type;
+
 
         // constructors and destructor
 
@@ -148,8 +158,6 @@ namespace bobura
             typename gui_type_list_type::menu_separator_type
             menu_separator_type;
 
-        typedef typename gui_type_list_type::dialog_type dialog_type;
-
         typedef typename command_type_list_type::command_type command_type;
 
 
@@ -166,15 +174,15 @@ namespace bobura
         {
             window.add_window_observer(
                 std::auto_ptr<window_observer_type>(
-                    new message::main_window_window_observer<
-                        quit_message_loop_type
-                    >(quit_message_loop_type())
+                    new typename message_type_list_type::main_window_window_observer_type(
+                        quit_message_loop_type()
+                    )
                 )
             );
 
             window.add_paint_observer(
                 std::auto_ptr<paint_observer_type>(
-                    new message::main_window_paint_observer<canvas_type>()
+                    new typename message_type_list_type::main_window_paint_observer_type()
                 )
             );
         }
@@ -299,7 +307,9 @@ namespace bobura
             );
 
             std::auto_ptr<menu_observer_type> p_menu_observer(
-                new message::main_window_menu_observer<command_type>(command)
+                new typename message_type_list_type::main_window_menu_observer_type(
+                    command
+                )
             );
             p_menu_command->add_menu_observer(p_menu_observer);
 

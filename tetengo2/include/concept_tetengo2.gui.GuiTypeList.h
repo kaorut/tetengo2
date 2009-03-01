@@ -36,6 +36,8 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::alert_type alert_type;
 
+        typedef typename Type::canvas_type canvas_type;
+
         typedef typename Type::widget_type widget_type;
 
         typedef typename Type::main_menu_type main_menu_type;

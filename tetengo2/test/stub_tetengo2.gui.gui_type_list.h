@@ -57,7 +57,6 @@ namespace stub_tetengo2 { namespace gui
 
         typedef alert<const void*, stub_tetengo2::encode> alert_type;
 
-    private:
         typedef
             canvas<
                 const void*,
@@ -68,6 +67,7 @@ namespace stub_tetengo2 { namespace gui
             >
             canvas_type;
 
+    private:
         typedef
             stub_tetengo2::gui::menu_item<
                 unsigned int,

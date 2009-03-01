@@ -456,6 +456,10 @@
 					RelativePath=".\test\test_bobura.message.main_window_window_observer.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\test\test_bobura.message.message_type_list.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

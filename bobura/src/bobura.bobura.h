@@ -57,15 +57,6 @@ namespace bobura
         //! components.
         typedef GuiTypeList gui_type_list_type;
 
-        //! The message loop type.
-        typedef
-            typename gui_type_list_type::message_loop_type message_loop_type;
-
-        //! The quit-message-loop type.
-        typedef
-            typename gui_type_list_type::quit_message_loop_type
-            quit_message_loop_type;
-
 
         // constructors and destructor
 
@@ -107,6 +98,13 @@ namespace bobura
 
     private:
         //types
+
+        typedef
+            typename gui_type_list_type::message_loop_type message_loop_type;
+
+        typedef
+            typename gui_type_list_type::quit_message_loop_type
+            quit_message_loop_type;
 
         typedef
             typename gui_type_list_type::gui_initializer_finalizer_type

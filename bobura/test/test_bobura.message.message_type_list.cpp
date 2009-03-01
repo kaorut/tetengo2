@@ -1,0 +1,22 @@
+/*! \file
+    \brief Test of class bobura::message::message_type_list.
+
+    Copyright (C) 2007-2009 kaoru
+
+    $Id$
+*/
+
+#include <boost/test/unit_test.hpp>
+
+#include "bobura.message.message_type_list.h"
+
+
+BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(message)
+BOOST_AUTO_TEST_SUITE(message_type_list)
+    // test cases
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

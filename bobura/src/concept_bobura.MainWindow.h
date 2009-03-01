@@ -30,6 +30,8 @@ namespace concept_bobura
 
         typedef typename Type::command_type_list_type command_type_list_type;
 
+        typedef typename Type::message_type_list_type message_type_list_type;
+
 
         // usage checks
 

@@ -476,6 +476,10 @@
 					RelativePath=".\src\bobura.message.main_window_window_observer.h"
 					>
 				</File>
+				<File
+					RelativePath=".\src\bobura.message.message_type_list.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="concept_bobura"
@@ -500,6 +504,10 @@
 			<Filter
 				Name="concept_bobura::message"
 				>
+				<File
+					RelativePath=".\src\concept_bobura.message.MessageTypeList.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

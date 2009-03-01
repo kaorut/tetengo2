@@ -71,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The alert dialog type.
         typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
 
-    private:
+        //! The canvas type.
         typedef
             canvas<
                 const Gdiplus::Graphics*,
@@ -82,6 +82,7 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             canvas_type;
 
+    private:
         typedef
             tetengo2::gui::win32::menu_item<
                 ::UINT,
