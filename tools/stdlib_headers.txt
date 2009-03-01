@@ -1,3 +1,6 @@
+BOOST_AUTO_TEST_CASE                             boost/test/unit_test.hpp
+BOOST_AUTO_TEST_SUITE                            boost/test/unit_test.hpp
+BOOST_AUTO_TEST_SUITE_END                        boost/test/unit_test.hpp
 BOOST_CHECK                                      boost/test/unit_test.hpp
 BOOST_CHECKPOINT                                 boost/test/unit_test.hpp
 BOOST_CHECK_EQUAL                                boost/test/unit_test.hpp
@@ -6,9 +9,7 @@ BOOST_CONCEPT_ASSERT                             boost/concept_check.hpp
 BOOST_CONCEPT_USAGE                              boost/concept_check.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
-BOOST_TEST_CASE                                  boost/test/unit_test.hpp
 BOOST_TEST_MODULE                                boost/test/unit_test.hpp
-BOOST_TEST_SUITE                                 boost/test/unit_test.hpp
 BOOST_WARN                                       boost/test/unit_test.hpp
 NULL                                             cstddef
 assert                                           cassert
@@ -45,7 +46,6 @@ boost::signal                                    boost/signal.hpp
 boost::signals::trackable                        boost/signal.hpp
 boost::totally_ordered                           boost/operators.hpp
 boost::tuple                                     boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
-boost::unit_test::test_suite                     boost/test/unit_test.hpp
 std::auto_ptr                                    memory
 std::back_inserter                               iterator
 std::basic_string                                string

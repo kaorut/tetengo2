@@ -9,6 +9,10 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
+//#include <memory>
+
+//#include <boost/concept_check.hpp>
+
 #include <concept_tetengo2.gui.GuiTypeList.h>
 
 #include "bobura.command.about.h"
