@@ -58,7 +58,7 @@ namespace bobura
         //! The GUI type list type.
         typedef GuiTypeList gui_type_list_type;
 
-        //! The window_type.
+        //! The window type.
         typedef typename gui_type_list_type::window_type window_type;
 
         //! The widget type.
