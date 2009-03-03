@@ -10,11 +10,10 @@
 #define BOBURA_COMMAND_ABOUT_H
 
 #include <algorithm>
-//#include <utility>
 
 //#include <boost/concept_check.hpp>
 
-#include <concept_tetengo2.gui.Dialog.h>
+#include "concept_bobura.AboutDialog.h"
 
 
 namespace bobura { namespace command
@@ -22,26 +21,26 @@ namespace bobura { namespace command
     /*!
         \brief The class template for an about command.
 
-        \tparam Dialog A dialog type. It must conform to
-                       concept_tetengo2::gui::Dialog<Dialog>.
+        \tparam AboutDialog An about dialog type. It must conform to
+                            concept_bobura::AboutDialog<AboutDialog>.
     */
-    template <typename Dialog>
+    template <typename AboutDialog>
     class about
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::AboutDialog<AboutDialog>));
 
 
     public:
         // types
 
-        //! The dialog type.
-        typedef Dialog dialog_type;
+        //! The about dialog type.
+        typedef AboutDialog about_dialog_type;
 
         //! The window type.
-        typedef typename dialog_type::window_type window_type;
+        typedef typename about_dialog_type::window_type window_type;
 
 
         // constructors and destructor
@@ -105,18 +104,7 @@ namespace bobura { namespace command
         */
         void operator()()
         {
-            dialog_type dialog(*m_p_window);
-
-            const typename window_type::position_type& window_position =
-                m_p_window->position();
-            dialog.set_dimension(std::make_pair(384, 256));
-            dialog.set_position(
-                std::make_pair(
-                    window_position.first + 64, window_position.second + 64
-                )
-            );
-
-            dialog.do_modal();
+            about_dialog_type(*m_p_window).do_modal();
         }
 
 
@@ -136,20 +124,20 @@ namespace std
     /*!
         \brief Swaps two about objects.
 
-        \tparam Dialog A dialog type. It must conform to
-                       concept_tetengo2::gui::Dialog<Dialog>.
+        \tparam AboutDialog An about dialog type. It must conform to
+                            concept_bobura::AboutDialog<AboutDialog>.
 
         \param about1 An about object #1.
         \param about2 An about object #2.
     */
-    template <typename Dialog>
+    template <typename AboutDialog>
     void swap(
-        bobura::command::about<Dialog>& about1,
-        bobura::command::about<Dialog>& about2
+        bobura::command::about<AboutDialog>& about1,
+        bobura::command::about<AboutDialog>& about2
     )
     throw ()
     {
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::AboutDialog<AboutDialog>));
 
         about1.swap(about2);
     }

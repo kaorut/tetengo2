@@ -14,8 +14,6 @@
 #include <stub_tetengo2.gui.gui_type_list.h>
 
 #include "bobura.about_dialog.h"
-#include "bobura.command.command_type_list.h"
-#include "bobura.message.message_type_list.h"
 
 
 namespace
@@ -29,23 +27,7 @@ namespace
         gui_type_list_type;
 
     typedef
-        bobura::command::command_type_list<
-            gui_type_list_type::window_type, gui_type_list_type::dialog_type
-        >
-        command_type_list_type;
-
-    typedef
-        bobura::message::message_type_list<
-            command_type_list_type::command_type,
-            gui_type_list_type::canvas_type,
-            gui_type_list_type::quit_message_loop_type
-        >
-        message_type_list_type;
-
-    typedef
-        bobura::about_dialog<
-            gui_type_list_type, command_type_list_type, message_type_list_type
-        >
+        bobura::about_dialog<gui_type_list_type::dialog_type>
         about_dialog_type;
 
 
@@ -60,7 +42,8 @@ BOOST_AUTO_TEST_SUITE(about_dialog)
     {
         BOOST_CHECKPOINT("");
 
-        const about_dialog_type about_dialog;
+        const about_dialog_type::window_type window;
+        const about_dialog_type about_dialog(window);
     }
 
 

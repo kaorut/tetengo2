@@ -22,19 +22,19 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a command type list.
 
-        \tparam Window A window type. It must conform to
-                       concept_tetengo2::gui::Window<Window>.
-        \tparam Dialog A dialog type. It must conform to
-                       concept_tetengo2::gui::Dialog<Dialog>.
+        \tparam Window      A window type. It must conform to
+                            concept_tetengo2::gui::Window<Window>.
+        \tparam AboutDialog An about dialog type. It must conform to
+                            concept_bobura::AboutDialog<AboutDialog>.
     */
-    template <typename Window, typename Dialog>
+    template <typename Window, typename AboutDialog>
     class command_type_list
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
+        BOOST_CONCEPT_ASSERT((concept_bobura::AboutDialog<AboutDialog>));
 
 
     public:
@@ -44,7 +44,7 @@ namespace bobura { namespace command
         typedef boost::function<void ()> command_type;
 
         //! The about command type.
-        typedef about<Dialog> about_type;
+        typedef about<AboutDialog> about_type;
 
         //! The exit command type.
         typedef exit<Window> exit_type;

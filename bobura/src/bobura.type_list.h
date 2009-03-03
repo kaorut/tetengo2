@@ -14,6 +14,7 @@
 
 #include <tetengo2.gui.win32.gui_type_list.h>
 
+#include "bobura.about_dialog.h"
 #include "bobura.bobura.h"
 #include "bobura.main_window.h"
 #include "bobura.settings.h"
@@ -58,20 +59,24 @@ namespace bobura
         //! The settings type.
         typedef settings<string_type> settings_type;
 
+        //! The about dialog type.
+        typedef
+            about_dialog<typename gui_type_list_type::dialog_type>
+            about_dialog_type;
+
         //! The command type list type.
         typedef
             command::command_type_list<
-                gui_type_list_type::window_type,
-                gui_type_list_type::dialog_type
+                typename gui_type_list_type::window_type, about_dialog_type
             >
             command_type_list_type;
 
         //! The message type list type.
         typedef
             message::message_type_list<
-                command_type_list_type::command_type,
-                gui_type_list_type::canvas_type,
-                gui_type_list_type::quit_message_loop_type
+                typename command_type_list_type::command_type,
+                typename gui_type_list_type::canvas_type,
+                typename gui_type_list_type::quit_message_loop_type
             >
             message_type_list_type;
 
