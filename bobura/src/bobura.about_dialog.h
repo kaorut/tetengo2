@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of bobura::main_window.
+    \brief The definition of bobura::about_dialog.
 
     Copyright (C) 2007-2009 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_MAINWINDOW_H)
-#define BOBURA_MAINWINDOW_H
+#if !defined(BOBURA_ABOUTDIALOG_H)
+#define BOBURA_ABOUTDIALOG_H
 
 //#include <memory>
 
@@ -22,7 +22,7 @@
 namespace bobura
 {
     /*!
-        \brief The class template for the main window.
+        \brief The class template for the about dialog.
 
         \tparam GuiTypeList     A GUI type list type. It must conform to
                                 concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
@@ -36,7 +36,7 @@ namespace bobura
         typename CommandTypeList,
         typename MessageTypeList
     >
-    class main_window : public GuiTypeList::window_type
+    class about_dialog : public GuiTypeList::window_type
     {
     private:
         // concept checks
@@ -122,17 +122,17 @@ namespace bobura
         // constructors and destructor
 
         /*!
-            \brief Creates a main window.
+            \brief Creates an about dialog.
         */
-        main_window()
+        about_dialog()
         {
             initialize_window(*this);
         }
 
         /*!
-            \brief Destroys the main window.
+            \brief Destroys the about dialog.
         */
-        virtual ~main_window()
+        virtual ~about_dialog()
         throw ()
         {}
 

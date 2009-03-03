@@ -405,6 +405,10 @@
 				Name="test_bobura"
 				>
 				<File
+					RelativePath=".\test\test_bobura.about_dialog.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_bobura.bobura.cpp"
 					>
 				</File>
