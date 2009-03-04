@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="test_bobura_model"
-	ProjectGUID="{87764DDF-EDE6-45B6-B5D3-C3D0B8A6D717}"
-	RootNamespace="test_bobura_model"
+	Name="bobura.test"
+	ProjectGUID="{AC976B25-4AEC-4A30-BCF5-F953ED0BC64A}"
+	RootNamespace="test_bobura"
 	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_TEST_DYN_LINK"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -76,6 +76,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib gdiplus.lib"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
 				LinkTimeCodeGeneration="0"
@@ -132,7 +133,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_TEST_DYN_LINK"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
@@ -159,6 +160,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib gdiplus.lib"
 				GenerateDebugInformation="false"
 				GenerateMapFile="false"
 				OptimizeReferences="2"
@@ -219,7 +221,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_TEST_DYN_LINK"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -249,6 +251,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib gdiplus.lib"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
 				LinkTimeCodeGeneration="0"
@@ -306,7 +309,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)precompiled&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)src&quot;;&quot;$(SolutionDir)tetengo2\include&quot;;&quot;$(SolutionDir)tetengo2\test&quot;;&quot;$(SolutionDir)precompiled&quot;"
 				PreprocessorDefinitions="_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_TEST_DYN_LINK"
 				StringPooling="true"
 				BasicRuntimeChecks="0"
@@ -332,6 +335,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib gdiplus.lib"
 				GenerateDebugInformation="false"
 				GenerateMapFile="false"
 				OptimizeReferences="2"
@@ -398,38 +402,66 @@
 				</FileConfiguration>
 			</File>
 			<Filter
-				Name="test_bobura::model"
+				Name="test_bobura"
 				>
 				<File
-					RelativePath=".\test\test_bobura.model.station.cpp"
+					RelativePath=".\test\test_bobura.about_dialog.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\test\test_bobura.model.station_info.grade.cpp"
+					RelativePath=".\test\test_bobura.bobura.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\test\test_bobura.model.timetable.cpp"
+					RelativePath=".\test\test_bobura.main_window.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\test\test_bobura.model.timetable_info.station_location.cpp"
+					RelativePath=".\test\test_bobura.settings.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\test\test_bobura.model.train.cpp"
+					RelativePath=".\test\test_bobura.type_list.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="test_bobura::command"
+				>
+				<File
+					RelativePath=".\test\test_bobura.command.about.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\test\test_bobura.model.train_info.stop.cpp"
+					RelativePath=".\test\test_bobura.command.command_type_list.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\test\test_bobura.model.train_info.time.cpp"
+					RelativePath=".\test\test_bobura.command.exit.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\test\test_bobura.model.train_info.time_span.cpp"
+					RelativePath=".\test\test_bobura.command.nop.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="test_bobura::message"
+				>
+				<File
+					RelativePath=".\test\test_bobura.message.main_window_menu_observer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test\test_bobura.message.main_window_paint_observer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test\test_bobura.message.main_window_window_observer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test\test_bobura.message.message_type_list.cpp"
 					>
 				</File>
 			</Filter>
@@ -448,6 +480,10 @@
 			Name="Resources"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\res\win32\COMCTL32.DLL.manifest"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
