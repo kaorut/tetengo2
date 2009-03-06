@@ -89,6 +89,13 @@ namespace stub_tetengo2 { namespace gui
         // constructors
 
         container()
+        :
+        widget_type()
+        {}
+
+        container(const widget_type& parent)
+        :
+        widget_type(parent)
         {}
 
 

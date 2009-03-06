@@ -132,6 +132,37 @@ namespace tetengo2 { namespace gui { namespace win32
         container()
         {}
 
+        /*!
+            \brief Creates a container.
+
+            \param parent A parent.
+        */
+        container(const widget_type& parent)
+        :
+        widget_type(parent)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Dispatches the window messages.
+
+            \param uMsg   A message.
+            \param wParam A word-sized parameter.
+            \param lParam A long-sized parameter.
+
+            \return The result code.
+        */
+        virtual ::LRESULT window_procedure(
+            const ::UINT   uMsg,
+            const ::WPARAM wParam,
+            const ::LPARAM lParam
+        )
+        {
+            return this->widget_type::window_procedure(uMsg, wParam, lParam);
+        }
+
 
     };
 
