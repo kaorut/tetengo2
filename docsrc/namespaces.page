@@ -88,17 +88,7 @@
     \brief The namespace for concept check classes for the namespace tetengo2.
 */
 
-/*! \namespace concept_tetengo2::win32
-    \brief The namespace for concept check classes for the namespace
-           tetengo2::win32.
-*/
-
 /*! \namespace concept_tetengo2::gui
     \brief The namespace for concept check classes for the namespace
            tetengo2::gui.
-*/
-
-/*! \namespace concept_tetengo2::gui::win32
-    \brief The namespace for concept check classes for the namespace
-           tetengo2::gui::win32.
 */
