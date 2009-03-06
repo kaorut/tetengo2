@@ -13,6 +13,7 @@
 
 #include "stub_tetengo2.gui.alert.h"
 #include "stub_tetengo2.gui.canvas.h"
+#include "stub_tetengo2.gui.container.h"
 #include "stub_tetengo2.gui.dialog.h"
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
 #include "stub_tetengo2.gui.main_menu.h"
@@ -47,9 +48,7 @@ namespace stub_tetengo2 { namespace gui
     public:
         // types
 
-        typedef
-            stub_tetengo2::gui::gui_initializer_finalizer
-            gui_initializer_finalizer_type;
+        typedef gui_initializer_finalizer gui_initializer_finalizer_type;
 
         typedef message_loop message_loop_type;
 
@@ -69,7 +68,7 @@ namespace stub_tetengo2 { namespace gui
 
     private:
         typedef
-            stub_tetengo2::gui::menu_item<
+            menu_item<
                 unsigned int,
                 const void*,
                 String,
@@ -93,17 +92,16 @@ namespace stub_tetengo2 { namespace gui
             widget_type;
 
         typedef
-            stub_tetengo2::gui::popup_menu<
-                menu_item_type,
-                stub_tetengo2::gui::menu_item_list<menu_item_type>
-            >
+            popup_menu<menu_item_type, menu_item_list<menu_item_type> >
             popup_menu_type;
 
-        typedef stub_tetengo2::gui::main_menu<popup_menu_type> main_menu_type;
+        typedef main_menu<popup_menu_type> main_menu_type;
+
+        typedef container<widget_type> container_type;
 
         typedef
             window<
-                widget_type, main_menu_type, tetengo2::gui::window_observer
+                container_type, main_menu_type, tetengo2::gui::window_observer
             >
             window_type;
 

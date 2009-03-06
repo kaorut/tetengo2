@@ -45,7 +45,7 @@ namespace concept_tetengo2 { namespace gui
 
         void const_constraints(const Type& object)
         {
-            const const_widgets_type widgets = m_object.children();
+            const const_widgets_type widgets = object.children();
             boost::ignore_unused_variable_warning(widgets);
 
 

@@ -23,8 +23,8 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "concept_tetengo2.gui.Container.h"
 #include "concept_tetengo2.gui.MainMenu.h"
-#include "concept_tetengo2.gui.Widget.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
 
 
@@ -33,21 +33,20 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a window for Win32 platforms.
  
-        \tparam Widget                A widget type. It must conform to
-                                      concept_tetengo2::gui::Widget<Widget>.
-        \tparam MainMenu              A main menu type. It must conform to
-                                      concept_tetengo2::gui::MainMenu<MainMenu>.
-        \tparam WindowObserver        A window observer type. It must conform
-                                      to
-                                      concept_tetengo2::gui::WindowObserver<WindowObserver>.
+        \tparam Container      A container type. It must conform to
+                               concept_tetengo2::gui::Container<Container>.
+        \tparam MainMenu       A main menu type. It must conform to
+                               concept_tetengo2::gui::MainMenu<MainMenu>.
+        \tparam WindowObserver A window observer type. It must conform to
+                               concept_tetengo2::gui::WindowObserver<WindowObserver>.
    */
-    template <typename Widget, typename MainMenu, typename WindowObserver>
-    class window : public Widget
+    template <typename Container, typename MainMenu, typename WindowObserver>
+    class window : public Container
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Container<Container>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
@@ -57,46 +56,56 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
+        //! The container type.
+        typedef Container container_type;
+
         //! The widget type.
-        typedef Widget widget_type;
+        typedef typename container_type::widget_type widget_type;
 
         //! The handle type.
-        typedef typename widget_type::handle_type handle_type;
+        typedef typename container_type::handle_type handle_type;
 
         //! The canvas type.
-        typedef typename widget_type::canvas_type canvas_type;
+        typedef typename container_type::canvas_type canvas_type;
 
         //! The alerting unary functor type.
-        typedef typename widget_type::alert_type alert_type;
+        typedef typename container_type::alert_type alert_type;
 
         //! The difference type.
-        typedef typename widget_type::difference_type difference_type;
+        typedef typename container_type::difference_type difference_type;
 
         //! The size type.
-        typedef typename widget_type::size_type size_type;
+        typedef typename container_type::size_type size_type;
 
         //! The position type.
-        typedef typename widget_type::position_type position_type;
+        typedef typename container_type::position_type position_type;
 
         //! The dimension type.
-        typedef typename widget_type::dimension_type dimension_type;
+        typedef typename container_type::dimension_type dimension_type;
 
         //! The string type.
-        typedef typename widget_type::string_type string_type;
+        typedef typename container_type::string_type string_type;
 
         //! The unary functor type for encoding from the native.
         typedef
-            typename widget_type::encode_from_native_type
+            typename container_type::encode_from_native_type
             encode_from_native_type;
 
         //! The unary functor type for encoding to the native.
         typedef
-            typename widget_type::encode_to_native_type
+            typename container_type::encode_to_native_type
             encode_to_native_type;
 
         //! The paint observer type.
         typedef
-            typename widget_type::paint_observer_type paint_observer_type;
+            typename container_type::paint_observer_type paint_observer_type;
+
+        //! The widgets type.
+        typedef typename container_type::widgets_type widgets_type;
+
+        //! The constant widgets type.
+        typedef
+            typename container_type::const_widgets_type const_widgets_type;
 
         //! The main menu type.
         typedef MainMenu main_menu_type;
@@ -124,13 +133,13 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         window(const style_type style = style_frame)
         :
-        widget_type(),
+        container_type(),
         m_handle(create_window(style, NULL)),
         m_p_main_menu(),
         m_window_observers(),
         m_window_destroyed_handler()
         {
-            widget::associate_to_native_window_system(this);
+            widget_type::associate_to_native_window_system(this);
         }
 
         /*!
@@ -300,13 +309,13 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         window(const window& parent, const style_type style = style_frame)
         :
-        widget_type(parent),
+        container_type(parent),
         m_handle(create_window(style, &parent)),
         m_p_main_menu(),
         m_window_observers(),
         m_window_destroyed_handler()
         {
-            widget::associate_to_native_window_system(this);
+            container::associate_to_native_window_system(this);
         }
 
 
@@ -365,7 +374,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     break;
                 }
             }
-            return this->widget_type::window_procedure(uMsg, wParam, lParam);
+            return this->container_type::window_procedure(uMsg, wParam, lParam);
         }
 
 
@@ -431,9 +440,9 @@ namespace tetengo2 { namespace gui { namespace win32
             ::WNDCLASSEXW window_class;
             window_class.cbSize = sizeof(::WNDCLASSEXW);
             window_class.style = 0;
-            window_class.lpfnWndProc = widget::p_static_window_procedure();
+            window_class.lpfnWndProc = widget_type::p_static_window_procedure();
             window_class.cbClsExtra = 0;
-            window_class.cbWndExtra = sizeof(widget*);
+            window_class.cbWndExtra = sizeof(widget_type*);
             window_class.hInstance = instance_handle;
             window_class.hIcon = reinterpret_cast< ::HICON>(
                 ::LoadImageW(
