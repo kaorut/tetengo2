@@ -80,6 +80,13 @@ namespace bobura
         typedef
             typename dialog_type::paint_observer_type paint_observer_type;
 
+        //! The widgets type.
+        typedef typename dialog_type::widgets_type widgets_type;
+
+        //! The constant widgets type.
+        typedef
+            typename dialog_type::const_widgets_type const_widgets_type;
+
         //! The main menu type.
         typedef typename dialog_type::main_menu_type main_menu_type;
 
