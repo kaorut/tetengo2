@@ -519,6 +519,27 @@ namespace tetengo2 { namespace gui { namespace win32
                 throw std::runtime_error("Can't set the pointer to this!");
         }
 
+        /*!
+            \brief Returns the pointer to the widget.
+
+            \param window_handle A window handle.
+
+            \return The pointer to the widget.
+        */
+        static widget* p_widget_from(const ::HWND window_handle)
+        {
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(push)
+#    pragma warning(disable: 4312)
+#endif
+            return reinterpret_cast<widget*>(
+                ::GetWindowLongPtrW(window_handle, GWLP_USERDATA)
+            );
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(pop)
+#endif
+        }
+
 
         // constructors
 
@@ -623,20 +644,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 (alert_type(hWnd))();
                 return 0;
             }
-        }
-
-        static widget* p_widget_from(const ::HWND window_handle)
-        {
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(push)
-#    pragma warning(disable: 4312)
-#endif
-            return reinterpret_cast<widget*>(
-                ::GetWindowLongPtrW(window_handle, GWLP_USERDATA)
-            );
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(pop)
-#endif
         }
 
 

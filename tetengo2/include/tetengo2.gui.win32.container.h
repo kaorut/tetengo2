@@ -106,9 +106,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The children.
         */
-        const widgets_type children()
+        widgets_type children()
         {
-            return widgets_type();
+            return children_impl<widget_type>();
         }
 
         /*!
@@ -119,7 +119,7 @@ namespace tetengo2 { namespace gui { namespace win32
         const const_widgets_type children()
         const
         {
-            return const_widgets_type();
+            return children_impl<const widget_type>();
         }
 
 
@@ -161,6 +161,42 @@ namespace tetengo2 { namespace gui { namespace win32
         )
         {
             return this->widget_type::window_procedure(uMsg, wParam, lParam);
+        }
+
+
+    private:
+        // static functions
+
+        template <typename Child>
+        static ::BOOL CALLBACK enum_child_proc(
+            const ::HWND   hWnd,
+            const ::LPARAM lParam
+        )
+        {
+            std::vector<Child*>* const p_children =
+                reinterpret_cast<std::vector<Child*>*>(lParam);
+
+            p_children->push_back(p_widget_from(hWnd));
+
+            return TRUE;
+        }
+
+
+        // functions
+
+        template <typename Child>
+        const std::vector<Child*> children_impl()
+        const
+        {
+            std::vector<Child*> children;
+
+            ::EnumChildWindows(
+                this->handle(),
+                enum_child_proc<Child>,
+                reinterpret_cast< ::LPARAM>(&children)
+            );
+
+            return children;
         }
 
 
