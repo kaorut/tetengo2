@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <utility>
+#include <vector>
 
 #include <boost/concept_check.hpp>
 
@@ -50,6 +51,8 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::encode_to_native_type encode_to_native_type;
 
+        typedef typename Type::child_type child_type;
+
         typedef typename Type::paint_observer_type paint_observer_type;
 
 
@@ -70,6 +73,9 @@ namespace concept_tetengo2 { namespace gui
             m_object.set_dimension(std::make_pair(size_type(), size_type()));
 
             m_object.set_text(string_type());
+
+            const std::vector<child_type*> children = m_object.children();
+            boost::ignore_unused_variable_warning(children);
 
             std::auto_ptr<paint_observer_type> p_paint_observer;
             m_object.add_paint_observer(p_paint_observer);
@@ -101,6 +107,9 @@ namespace concept_tetengo2 { namespace gui
 
             const string_type text = object.text();
             boost::ignore_unused_variable_warning(text);
+
+            const std::vector<const child_type*> children = object.children();
+            boost::ignore_unused_variable_warning(children);
 
             const bool destroyed = object.destroyed();
             boost::ignore_unused_variable_warning(destroyed);

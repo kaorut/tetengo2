@@ -159,10 +159,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\tetengo2.gui.win32.container.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\tetengo2.gui.win32.dialog.h"
 					>
 				</File>
@@ -224,10 +220,6 @@
 				>
 				<File
 					RelativePath=".\include\concept_tetengo2.gui.Canvas.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\concept_tetengo2.gui.Container.h"
 					>
 				</File>
 				<File

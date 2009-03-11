@@ -13,7 +13,6 @@
 
 #include "stub_tetengo2.gui.alert.h"
 #include "stub_tetengo2.gui.canvas.h"
-#include "stub_tetengo2.gui.container.h"
 #include "stub_tetengo2.gui.dialog.h"
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
 #include "stub_tetengo2.gui.main_menu.h"
@@ -97,11 +96,9 @@ namespace stub_tetengo2 { namespace gui
 
         typedef main_menu<popup_menu_type> main_menu_type;
 
-        typedef container<widget_type> container_type;
-
         typedef
             window<
-                container_type, main_menu_type, tetengo2::gui::window_observer
+                widget_type, main_menu_type, tetengo2::gui::window_observer
             >
             window_type;
 

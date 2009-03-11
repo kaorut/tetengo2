@@ -82,6 +82,11 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN("Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(children)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(add_paint_observer)
     {
         BOOST_WARN("Not implemented yet.");

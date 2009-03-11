@@ -18,7 +18,6 @@
 #include "tetengo2.gui.window_observer.h"
 #include "tetengo2.gui.win32.alert.h"
 #include "tetengo2.gui.win32.canvas.h"
-#include "tetengo2.gui.win32.container.h"
 #include "tetengo2.gui.win32.dialog.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "tetengo2.gui.win32.main_menu.h"
@@ -121,13 +120,10 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             tetengo2::gui::win32::main_menu<popup_menu_type> main_menu_type;
 
-        //! The container type.
-        typedef container<widget_type> container_type;
-
         //! The window type.
         typedef
             window<
-                container_type, main_menu_type, tetengo2::gui::window_observer
+                widget_type, main_menu_type, tetengo2::gui::window_observer
             >
             window_type;
 

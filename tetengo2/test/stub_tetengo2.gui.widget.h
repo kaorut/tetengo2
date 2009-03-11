@@ -15,6 +15,7 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
@@ -97,6 +98,8 @@ namespace stub_tetengo2 { namespace gui
         typedef Encode<String, String> encode_from_native_type;
 
         typedef Encode<String, String> encode_to_native_type;
+
+        typedef widget child_type;
 
         typedef PaintObserver paint_observer_type;
 
@@ -184,6 +187,17 @@ namespace stub_tetengo2 { namespace gui
         const
         {
             return m_text;
+        }
+
+        const std::vector<child_type*> children()
+        {
+            return std::vector<child_type*>();
+        }
+
+        const std::vector<const child_type*> children()
+        const
+        {
+            return std::vector<const child_type*>();
         }
 
         virtual void add_paint_observer(

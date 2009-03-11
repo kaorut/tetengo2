@@ -16,6 +16,7 @@
 #include <stdexcept>
 //#include <string>
 #include <utility>
+#include <vector>
 
 #include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
@@ -144,6 +145,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The unary functor type for encoding to the native.
         typedef Encode<std::wstring, String> encode_to_native_type;
+
+        //! The child type.
+        typedef widget child_type;
 
         //! The paint observer type.
         typedef PaintObserver paint_observer_type;
@@ -429,6 +433,27 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Returns the children.
+
+            \return The children.
+        */
+        const std::vector<child_type*> children()
+        {
+            return children_impl<child_type>();
+        }
+
+        /*!
+            \brief Returns the constant children.
+
+            \return The children.
+        */
+        const std::vector<const child_type*> children()
+        const
+        {
+            return children_impl<const child_type>();
+        }
+
+        /*!
             \brief Adds a paint observer.
 
             \param p_paint_observer An auto pointer to a paint observer.
@@ -646,6 +671,20 @@ namespace tetengo2 { namespace gui { namespace win32
             }
         }
 
+        template <typename Child>
+        static ::BOOL CALLBACK enum_child_proc(
+            const ::HWND   hWnd,
+            const ::LPARAM lParam
+        )
+        {
+            std::vector<Child*>* const p_children =
+                reinterpret_cast<std::vector<Child*>*>(lParam);
+
+            p_children->push_back(p_widget_from(hWnd));
+
+            return TRUE;
+        }
+
 
         // variables
 
@@ -654,6 +693,24 @@ namespace tetengo2 { namespace gui { namespace win32
         boost::ptr_vector<paint_observer_type> m_paint_observers;
 
         boost::signal<void (canvas_type*)> m_paint_paint_handler;
+
+
+        // functions
+
+        template <typename Child>
+        const std::vector<Child*> children_impl()
+        const
+        {
+            std::vector<Child*> children;
+
+            ::EnumChildWindows(
+                this->handle(),
+                enum_child_proc<Child>,
+                reinterpret_cast< ::LPARAM>(&children)
+            );
+
+            return children;
+        }
 
 
     };

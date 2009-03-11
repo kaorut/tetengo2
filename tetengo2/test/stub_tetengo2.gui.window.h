@@ -13,20 +13,20 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.Container.h"
 #include "concept_tetengo2.gui.MainMenu.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
+#include "concept_tetengo2.gui.Widget.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Container, typename MainMenu, typename WindowObserver>
-    class window : public Container
+    template <typename Widget, typename MainMenu, typename WindowObserver>
+    class window : public Widget
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Container<Container>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
@@ -36,41 +36,36 @@ namespace stub_tetengo2 { namespace gui
     public:
         // types
 
-        typedef Container container_type;
+        typedef Widget widget_type;
 
-        typedef typename container_type::widget_type widget_type;
+        typedef typename widget_type::handle_type handle_type;
 
-        typedef typename container_type::handle_type handle_type;
+        typedef typename widget_type::canvas_type canvas_type;
 
-        typedef typename container_type::canvas_type canvas_type;
+        typedef typename widget_type::alert_type alert_type;
 
-        typedef typename container_type::alert_type alert_type;
+        typedef typename widget_type::difference_type difference_type;
 
-        typedef typename container_type::difference_type difference_type;
+        typedef typename widget_type::size_type size_type;
 
-        typedef typename container_type::size_type size_type;
+        typedef typename widget_type::position_type position_type;
 
-        typedef typename container_type::position_type position_type;
+        typedef typename widget_type::dimension_type dimension_type;
 
-        typedef typename container_type::dimension_type dimension_type;
-
-        typedef typename container_type::string_type string_type;
+        typedef typename widget_type::string_type string_type;
 
         typedef
-            typename container_type::encode_from_native_type
+            typename widget_type::encode_from_native_type
             encode_from_native_type;
 
         typedef
-            typename container_type::encode_to_native_type
+            typename widget_type::encode_to_native_type
             encode_to_native_type;
 
-        typedef
-            typename container_type::paint_observer_type paint_observer_type;
-
-        typedef typename container_type::widgets_type widgets_type;
+        typedef typename widget_type::child_type child_type;
 
         typedef
-            typename container_type::const_widgets_type const_widgets_type;
+            typename widget_type::paint_observer_type paint_observer_type;
 
         typedef MainMenu main_menu_type;
 
@@ -88,7 +83,7 @@ namespace stub_tetengo2 { namespace gui
 
         window(const style_type style = style_frame)
         :
-        container_type()
+        widget_type()
         {}
 
         virtual ~window()
@@ -137,7 +132,7 @@ namespace stub_tetengo2 { namespace gui
 
         window(const window& parent, const style_type style = style_frame)
         :
-        container_type(parent)
+        widget_type(parent)
         {}
 
 
