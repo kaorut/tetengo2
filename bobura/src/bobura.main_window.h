@@ -102,13 +102,6 @@ namespace bobura
         typedef
             typename window_type::paint_observer_type paint_observer_type;
 
-        //! The widgets type.
-        typedef typename window_type::widgets_type widgets_type;
-
-        //! The constant widgets type.
-        typedef
-            typename window_type::const_widgets_type const_widgets_type;
-
         //! The main menu type.
         typedef typename window_type::main_menu_type main_menu_type;
 
