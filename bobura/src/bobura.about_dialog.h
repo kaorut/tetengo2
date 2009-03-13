@@ -9,11 +9,13 @@
 #if !defined(BOBURA_ABOUTDIALOG_H)
 #define BOBURA_ABOUTDIALOG_H
 
+//#include <memory>
 //#include <utility>
 
 //#include <boost/concept_check.hpp>
 
 #include <concept_tetengo2.gui.Dialog.h>
+#include <concept_tetengo2.gui.Button.h>
 
 
 namespace bobura
@@ -21,16 +23,19 @@ namespace bobura
     /*!
         \brief The class template for the about dialog.
 
-        \tparam Dialog A Dialog type list type. It must conform to
+        \tparam Dialog A dialog type. It must conform to
+                       concept_tetengo2::gui::Dialog<Dialog>.
+        \tparam Button A button type. It must conform to
                        concept_tetengo2::gui::Dialog<Dialog>.
     */
-    template <typename Dialog>
+    template <typename Dialog, typename Button>
     class about_dialog : public Dialog
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Button<Button>));
 
 
     public:
@@ -98,6 +103,9 @@ namespace bobura
             typename dialog_type::quit_message_loop_type
             quit_message_loop_type;
 
+        //! The button type.
+        typedef Button button_type;
+
 
         // constructors and destructor
 
@@ -108,7 +116,8 @@ namespace bobura
         */
         explicit about_dialog(const window_type& parent)
         :
-        dialog_type(parent, style_dialog)
+        dialog_type(parent, style_dialog),
+        m_p_ok_button()
         {
             initialize_dialog(*this, parent);
         }
@@ -125,7 +134,7 @@ namespace bobura
         // static functions
 
         static void initialize_dialog(
-            dialog_type&       dialog,
+            about_dialog&      dialog,
             const window_type& parent
         )
         {
@@ -136,7 +145,17 @@ namespace bobura
                     parent_position.first + 64, parent_position.second + 64
                 )
             );
+
+            dialog.m_p_ok_button.reset(new button_type(dialog));
+            dialog.m_p_ok_button->set_text(L"OK");
+            dialog.m_p_ok_button->set_dimension(std::make_pair(128, 32));
+            dialog.m_p_ok_button->set_position(std::make_pair(240, 192));
         }
+
+
+        // variables
+
+        std::auto_ptr<button_type> m_p_ok_button;
 
 
     };

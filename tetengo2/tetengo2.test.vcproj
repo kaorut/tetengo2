@@ -437,6 +437,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\test_tetengo2.gui.win32.button.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_tetengo2.gui.win32.canvas.cpp"
 					>
 				</File>
@@ -512,6 +516,10 @@
 				>
 				<File
 					RelativePath=".\test\stub_tetengo2.gui.alert.h"
+					>
+				</File>
+				<File
+					RelativePath=".\test\stub_tetengo2.gui.button.h"
 					>
 				</File>
 				<File

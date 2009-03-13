@@ -61,7 +61,10 @@ namespace bobura
 
         //! The about dialog type.
         typedef
-            about_dialog<typename gui_type_list_type::dialog_type>
+            about_dialog<
+                typename gui_type_list_type::dialog_type,
+                typename gui_type_list_type::button_type
+            >
             about_dialog_type;
 
         //! The command type list type.

@@ -52,6 +52,8 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::dialog_type dialog_type;
 
+        typedef typename Type::button_type button_type;
+
 
         // usage checks
 

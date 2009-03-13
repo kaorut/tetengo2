@@ -27,7 +27,10 @@ namespace
         gui_type_list_type;
 
     typedef
-        bobura::about_dialog<gui_type_list_type::dialog_type>
+        bobura::about_dialog<
+            typename gui_type_list_type::dialog_type,
+            typename gui_type_list_type::button_type
+        >
         about_dialog_type;
 
 

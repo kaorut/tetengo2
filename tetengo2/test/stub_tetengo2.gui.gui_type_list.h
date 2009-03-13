@@ -12,6 +12,7 @@
 //#include <boost/concept_check.hpp>
 
 #include "stub_tetengo2.gui.alert.h"
+#include "stub_tetengo2.gui.button.h"
 #include "stub_tetengo2.gui.canvas.h"
 #include "stub_tetengo2.gui.dialog.h"
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
@@ -110,6 +111,8 @@ namespace stub_tetengo2 { namespace gui
         typedef
             dialog<window_type, message_loop_type, quit_message_loop_type>
             dialog_type;
+
+        typedef button<widget_type> button_type;
 
 
     private:

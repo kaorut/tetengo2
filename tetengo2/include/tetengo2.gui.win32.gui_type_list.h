@@ -17,6 +17,7 @@
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
 #include "tetengo2.gui.win32.alert.h"
+#include "tetengo2.gui.win32.button.h"
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.dialog.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
@@ -137,6 +138,9 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             dialog<window_type, message_loop_type, quit_message_loop_type>
             dialog_type;
+
+        //! The button type.
+        typedef button<widget_type> button_type;
 
 
     private:

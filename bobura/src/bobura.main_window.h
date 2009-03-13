@@ -26,9 +26,9 @@ namespace bobura
 
         \tparam GuiTypeList     A GUI type list type. It must conform to
                                 concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
-        \tparam CommandTypeList A command type list type. It must conform to
+        \tparam CommandTypeList A command type. It must conform to
                                 concept_bobura::command::CommandTypeList<CommandTypeList>.
-        \tparam MessageTypeList A message type list type. It must conform to
+        \tparam MessageTypeList A message type. It must conform to
                                 concept_bobura::message::MessageTypeList<MessageTypeList>.
     */
     template <
@@ -163,7 +163,7 @@ namespace bobura
 
         // static functions
 
-        static void initialize_window(window_type& window)
+        static void initialize_window(main_window& window)
         {
             set_message_observers(window);
             set_menus(window);

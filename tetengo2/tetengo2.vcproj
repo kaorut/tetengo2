@@ -155,6 +155,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\tetengo2.gui.win32.button.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\tetengo2.gui.win32.canvas.h"
 					>
 				</File>
@@ -218,6 +222,10 @@
 			<Filter
 				Name="concept_tetengo2::gui"
 				>
+				<File
+					RelativePath=".\include\concept_tetengo2.gui.Button.h"
+					>
+				</File>
 				<File
 					RelativePath=".\include\concept_tetengo2.gui.Canvas.h"
 					>
