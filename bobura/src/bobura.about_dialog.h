@@ -139,7 +139,7 @@ namespace bobura
         )
         {
             const position_type& parent_position = parent.position();
-            dialog.set_dimension(std::make_pair(384, 256));
+            dialog.set_client_dimension(std::make_pair(384, 256));
             dialog.set_position(
                 std::make_pair(
                     parent_position.first + 64, parent_position.second + 64
@@ -149,7 +149,7 @@ namespace bobura
             dialog.m_p_ok_button.reset(new button_type(dialog));
             dialog.m_p_ok_button->set_text(L"OK");
             dialog.m_p_ok_button->set_dimension(std::make_pair(128, 32));
-            dialog.m_p_ok_button->set_position(std::make_pair(240, 192));
+            dialog.m_p_ok_button->set_position(std::make_pair(240, 208));
         }
 
 

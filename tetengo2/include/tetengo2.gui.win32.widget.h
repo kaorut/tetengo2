@@ -391,6 +391,87 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Sets the client dimension.
+
+            \param client_dimension A client dimension.
+
+            \throw std::runtime_error When the widget is already destroyed.
+            \throw std::invalid_argument When either client_dimension.first or
+                                         client_dimension.second is equal to
+                                         0.
+        */
+        virtual void set_client_dimension(
+            const dimension_type& client_dimension
+        )
+        {
+            check_destroyed();
+
+            if (client_dimension.first == 0 || client_dimension.second == 0)
+            {
+                throw std::invalid_argument(
+                    "Client dimension has zero value."
+                );
+            }
+
+            const position_type position = this->position();
+            const ::LONG_PTR window_style =
+                ::GetWindowLongPtrW(this->handle(), GWL_STYLE);
+            const ::LONG_PTR extended_window_style =
+                ::GetWindowLongPtrW(this->handle(), GWL_EXSTYLE);
+            ::RECT rectangle = {
+                position.first,
+                position.second,
+                position.first + client_dimension.first,
+                position.second + client_dimension.second
+            };
+            if (
+                ::AdjustWindowRectEx(
+                    &rectangle, window_style, FALSE, extended_window_style
+                ) == 0
+            )
+            {
+                throw std::runtime_error("Can't adjust window rectangle.");
+            }
+
+            assert(rectangle.right - rectangle.left > 0);
+            assert(rectangle.bottom - rectangle.top > 0);
+            const ::BOOL result = ::MoveWindow(
+                this->handle(),
+                rectangle.left,
+                rectangle.top,
+                rectangle.right - rectangle.left,
+                rectangle.bottom - rectangle.top,
+                this->visible() ? TRUE : FALSE
+            );
+            if (result == 0)
+                throw std::runtime_error("Can't move window.");
+        }
+
+        /*!
+            \brief Returns the client dimension.
+
+            \return The client dimension.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        virtual const dimension_type client_dimension()
+        const
+        {
+            check_destroyed();
+
+            ::RECT rectangle = {0, 0, 0, 0};
+            if (::GetClientRect(this->handle(), &rectangle) == 0)
+                throw std::runtime_error("Can't get client rectangle.");
+
+            assert(rectangle.right - rectangle.left > 0);
+            assert(rectangle.bottom - rectangle.top > 0);
+            return std::make_pair(
+                rectangle.right - rectangle.left,
+                rectangle.bottom - rectangle.top
+            );
+        }
+
+        /*!
             \brief Sets the text.
 
             \param text A text.

@@ -72,6 +72,10 @@ namespace concept_tetengo2 { namespace gui
 
             m_object.set_dimension(std::make_pair(size_type(), size_type()));
 
+            m_object.set_client_dimension(
+                std::make_pair(size_type(), size_type())
+            );
+
             m_object.set_text(string_type());
 
             const std::vector<child_type*> children = m_object.children();
@@ -99,11 +103,14 @@ namespace concept_tetengo2 { namespace gui
             const bool visible = object.visible();
             boost::ignore_unused_variable_warning(visible);
 
-            const position_type& position = object.position();
+            const position_type position = object.position();
             boost::ignore_unused_variable_warning(position);
 
-            const dimension_type& dimension = object.dimension();
+            const dimension_type dimension = object.dimension();
             boost::ignore_unused_variable_warning(dimension);
+
+            const dimension_type client_dimension = object.client_dimension();
+            boost::ignore_unused_variable_warning(client_dimension);
 
             const string_type text = object.text();
             boost::ignore_unused_variable_warning(text);

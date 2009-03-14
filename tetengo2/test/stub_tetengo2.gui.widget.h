@@ -178,6 +178,26 @@ namespace stub_tetengo2 { namespace gui
             return m_dimension;
         }
 
+        virtual void set_client_dimension(
+            const dimension_type& client_dimension
+        )
+        {
+            if (client_dimension.first == 0 || client_dimension.second == 0)
+            {
+                throw std::invalid_argument(
+                    "Client dimension has zero value."
+                );
+            }
+
+            m_client_dimension = client_dimension;
+        }
+
+        virtual const dimension_type& client_dimension()
+        const
+        {
+            return m_client_dimension;
+        }
+
         virtual void set_text(const string_type& text)
         {
             m_text = text;
@@ -222,6 +242,7 @@ namespace stub_tetengo2 { namespace gui
         m_visible(false),
         m_position(std::make_pair(0, 0)),
         m_dimension(std::make_pair(100, 100)),
+        m_client_dimension(std::make_pair(80, 80)),
         m_text()
         {}
 
@@ -232,6 +253,7 @@ namespace stub_tetengo2 { namespace gui
         m_visible(false),
         m_position(std::make_pair(0, 0)),
         m_dimension(std::make_pair(100, 100)),
+        m_client_dimension(std::make_pair(80, 80)),
         m_text()
         {}
 
@@ -248,6 +270,8 @@ namespace stub_tetengo2 { namespace gui
         position_type m_position;
 
         dimension_type m_dimension;
+
+        dimension_type m_client_dimension;
 
         string_type m_text;
 

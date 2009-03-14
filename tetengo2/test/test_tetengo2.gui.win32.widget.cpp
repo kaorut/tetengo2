@@ -72,6 +72,16 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN("Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(set_client_dimension)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(client_dimension)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(set_text)
     {
         BOOST_WARN("Not implemented yet.");
