@@ -712,7 +712,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 {
                     if (m_paint_observers.empty()) break;
 
-                    canvas_type canvas(this->handle());
+                    canvas_type canvas(this->handle(), true);
                     m_paint_paint_handler(&canvas);
                     return 0;
                 }

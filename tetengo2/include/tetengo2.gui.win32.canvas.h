@@ -12,6 +12,7 @@
 //#include <cstddef>
 #include <stdexcept>
 //#include <string>
+#include <memory>
 #include <utility>
 
 //#include <boost/concept_check.hpp>
@@ -110,14 +111,24 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates a canvas.
 
             \param window_handle A window handle.
+            \param on_paint      Whether this constructor is called in the
+                                 window repaint procedure.
 
             \throw std::runtime_error When a canvas cannot be created.
         */
-        explicit canvas(const window_handle_type window_handle)
+        canvas(
+            const window_handle_type window_handle,
+            const bool               on_paint
+        )
         :
         m_window_handle(window_handle),
-        m_paint_info(get_paint_info(window_handle)),
-        m_graphics(m_paint_info.hdc)
+        m_on_paint(on_paint),
+        m_p_paint_info(
+            on_paint ?
+            create_paint_info(window_handle) : std::auto_ptr< ::PAINTSTRUCT>()
+        ),
+        m_device_context(on_paint ? NULL : get_device_context(window_handle)),
+        m_graphics(on_paint ? m_p_paint_info->hdc : m_device_context)
         {
             m_graphics.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
             m_graphics.SetTextRenderingHint(
@@ -131,7 +142,10 @@ namespace tetengo2 { namespace gui { namespace win32
         ~canvas()
         throw ()
         {
-            ::EndPaint(m_window_handle, &m_paint_info);
+            if (m_on_paint)
+                ::EndPaint(m_window_handle, m_p_paint_info.get());
+            else
+                ::ReleaseDC(m_window_handle, m_device_context);
         }
 
 
@@ -183,16 +197,27 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // static functions
 
-        static const ::PAINTSTRUCT get_paint_info(
+        static std::auto_ptr< ::PAINTSTRUCT> create_paint_info(
             const window_handle_type window_handle
         )
         {
-            ::PAINTSTRUCT paint_info;
+            std::auto_ptr< ::PAINTSTRUCT> p_paint_info(new ::PAINTSTRUCT());
 
-            if (::BeginPaint(window_handle, &paint_info) == NULL)
+            if (::BeginPaint(window_handle, p_paint_info.get()) == NULL)
                 throw std::runtime_error("Can't begin paint!");
 
-            return paint_info;
+            return p_paint_info;
+        }
+
+        static ::HDC get_device_context(
+            const window_handle_type window_handle
+        )
+        {
+            const ::HDC device_context = ::GetDC(window_handle);
+            if (device_context == NULL)
+                throw std::runtime_error("Can't get device context!");
+
+            return device_context;
         }
 
 
@@ -200,7 +225,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         const window_handle_type m_window_handle;
 
-        ::PAINTSTRUCT m_paint_info;
+        const bool m_on_paint;
+
+        const std::auto_ptr< ::PAINTSTRUCT> m_p_paint_info;
+
+        const ::HDC m_device_context;
 
         Gdiplus::Graphics m_graphics;
 

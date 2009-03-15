@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_SUITE(paint_observer)
         BOOST_CHECKPOINT("");
 
         paint_observer_type paint_observer;
-        canvas_type canvas(NULL);
+        canvas_type canvas(NULL, true);
 
         paint_observer.paint(&canvas);
     }

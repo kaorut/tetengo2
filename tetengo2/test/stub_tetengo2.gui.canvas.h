@@ -69,7 +69,10 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        canvas(const window_handle_type window_handle)
+        canvas(
+            const window_handle_type window_handle,
+            const bool               on_paint
+        )
         {}
 
         ~canvas()
