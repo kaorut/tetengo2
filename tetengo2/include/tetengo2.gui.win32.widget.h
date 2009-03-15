@@ -419,14 +419,19 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::LONG_PTR extended_window_style =
                 ::GetWindowLongPtrW(this->handle(), GWL_EXSTYLE);
             ::RECT rectangle = {
-                position.first,
-                position.second,
-                position.first + client_dimension.first,
-                position.second + client_dimension.second
+                static_cast< ::LONG>(position.first),
+                static_cast< ::LONG>(position.second),
+                static_cast< ::LONG>(position.first + client_dimension.first),
+                static_cast< ::LONG>(
+                    position.second + client_dimension.second
+                )
             };
             if (
                 ::AdjustWindowRectEx(
-                    &rectangle, window_style, FALSE, extended_window_style
+                    &rectangle,
+                    static_cast< ::DWORD>(window_style),
+                    FALSE,
+                    static_cast< ::DWORD>(extended_window_style)
                 ) == 0
             )
             {
