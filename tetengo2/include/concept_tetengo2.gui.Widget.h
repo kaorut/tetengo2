@@ -66,6 +66,11 @@ namespace concept_tetengo2 { namespace gui
 
             m_object.set_visible(bool());
             
+            const std::auto_ptr<canvas_type> p_canvas(
+                m_object.create_canvas()
+            );
+            boost::ignore_unused_variable_warning(p_canvas);
+
             m_object.set_position(
                 std::make_pair(difference_type(), difference_type())
             );
@@ -102,6 +107,11 @@ namespace concept_tetengo2 { namespace gui
 
             const bool visible = object.visible();
             boost::ignore_unused_variable_warning(visible);
+
+            const std::auto_ptr<const canvas_type> p_canvas(
+                object.create_canvas()
+            );
+            boost::ignore_unused_variable_warning(p_canvas);
 
             const position_type position = object.position();
             boost::ignore_unused_variable_warning(position);

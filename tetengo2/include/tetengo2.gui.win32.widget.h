@@ -293,6 +293,39 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Creates a canvas.
+
+            \return The auto pointer to a canvas.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        virtual std::auto_ptr<canvas_type> create_canvas()
+        {
+            check_destroyed();
+
+            return std::auto_ptr<canvas_type>(
+                new canvas_type(this->handle(), false)
+            );
+        }
+
+        /*!
+            \brief Creates a canvas.
+
+            \return The auto pointer to a canvas.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        virtual std::auto_ptr<const canvas_type> create_canvas()
+        const
+        {
+            check_destroyed();
+
+            return std::auto_ptr<const canvas_type>(
+                new canvas_type(this->handle(), false)
+            );
+        }
+
+        /*!
             \brief Sets the position.
 
             \param position A position.
