@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_WIN32_FONT_H
 
 //#include <boost/concept_check.hpp>
+#include <boost/operators.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -29,7 +30,7 @@ namespace tetengo2 { namespace gui { namespace win32
                        boost::UnsignedInteger<Size>.
    */
     template <typename String, typename Size>
-    class font
+    class font : public boost::equality_comparable<font<String, Size> >
     {
     private:
         // concept checks
@@ -60,6 +61,14 @@ namespace tetengo2 { namespace gui { namespace win32
         {}
 
         /*!
+            \brief Copies a font.
+
+            \param another Another font object.
+        */
+        font(const font& another)
+        {}
+
+        /*!
             \brief Destroys the font.
         */
         virtual ~font()
@@ -69,10 +78,77 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
+        /*!
+            \brief Swaps the members with another font object.
+
+            \param another Another font object.
+        */
+        void swap(font& another)
+        throw ()
+        {
+
+        }
+
+        /*!
+            \brief Assigns another font object.
+
+            \param another Another font object.
+
+            \return this object.
+        */
+        font& operator=(const font& another)
+        {
+            font(another).swap(*this);
+            return *this;
+        }
+
+        /*!
+            \brief Checks whether this is equal to anther font object.
+
+            \param another Another font object.
+
+            \retval true  When this is equal to another.
+            \retval false Otherwise.
+        */
+        bool operator==(const font& another)
+        const
+        {
+            return true;
+        }
+
 
     };
 
 
 }}}
+
+namespace std
+{
+    /*!
+        \brief Swaps two font objects.
+
+        \tparam String A string type. It must conform to
+                       concept_tetengo2::String<String>.
+        \tparam Size   A size type. It must conform to
+                       boost::UnsignedInteger<Size>.
+
+        \param font1 A font object #1.
+        \param font2 A font object #2.
+    */
+    template <typename String, typename Size>
+    void swap(
+        tetengo2::gui::win32::font<String, Size>& font1,
+        tetengo2::gui::win32::font<String, Size>& font2
+    )
+    throw ()
+    {
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
+
+        font1.swap(font2);
+    }
+
+
+}
 
 #endif

@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_FONT_H
 
 //#include <boost/concept_check.hpp>
+#include <boost/operators.hpp>
 
 #include "concept_tetengo2.String.h"
 
@@ -17,7 +18,7 @@
 namespace stub_tetengo2 { namespace gui
 {
     template <typename String, typename Size>
-    class font
+    class font : public boost::equality_comparable<font<String, Size> >
     {
     private:
         // concept checks
@@ -39,6 +40,9 @@ namespace stub_tetengo2 { namespace gui
         font(const string_type& family, const size_type size)
         {}
 
+        font(const font& another)
+        {}
+
         virtual ~font()
         throw ()
         {}
@@ -46,10 +50,45 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
+        void swap(font& another)
+        {}
+
+        font& operator=(const font& another)
+        {
+            font(another).swap(*this);
+            return *this;
+        }
+
+        bool operator==(const font& another)
+        const
+        {
+            return true;
+        }
+
 
     };
 
 
 }}
+
+
+namespace std
+{
+    template <typename String, typename Size>
+    void swap(
+        stub_tetengo2::gui::font<String, Size>& font1,
+        stub_tetengo2::gui::font<String, Size>& font2
+    )
+    throw ()
+    {
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
+        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
+
+        font1.swap(font2);
+    }
+
+    
+}
+
 
 #endif

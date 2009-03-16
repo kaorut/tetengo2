@@ -9,9 +9,7 @@
 #if !defined(CONCEPTTETENGO2_GUI_FONT_H)
 #define CONCEPTTETENGO2_GUI_FONT_H
 
-//#include <boost/concept_check.hpp>
-
-#include "concept_tetengo2.gui.Widget.h"
+#include <boost/concept_check.hpp>
 
 
 namespace concept_tetengo2 { namespace gui
@@ -22,7 +20,10 @@ namespace concept_tetengo2 { namespace gui
         \tparam Type A type.
     */
     template <typename Type>
-    class Font //: private Widget<Type>
+    class Font :
+        private boost::CopyConstructible<Type>,
+        private boost::Assignable<Type>,
+        private boost::EqualityComparable<Type>
     {
 #if !defined(DOCUMENTATION)
     public:
