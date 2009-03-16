@@ -16,6 +16,7 @@
 #include <boost/noncopyable.hpp>
 
 #include "concept_tetengo2.String.h"
+#include "concept_tetengo2.gui.Font.h"
 #include "concept_tetengo2.gui.Handle.h"
 
 
@@ -26,7 +27,8 @@ namespace stub_tetengo2 { namespace gui
         typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
-        typename WindowHandle
+        typename WindowHandle,
+        typename Font
     >
     class canvas : private boost::noncopyable
     {
@@ -47,6 +49,7 @@ namespace stub_tetengo2 { namespace gui
             ));
         };
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
 
 
     public:
@@ -65,6 +68,8 @@ namespace stub_tetengo2 { namespace gui
         typedef Encode<String, String> encode_to_native_type;
 
         typedef WindowHandle window_handle_type;
+
+        typedef Font font_type;
 
 
         // constructors and destructor

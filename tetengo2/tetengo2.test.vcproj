@@ -449,6 +449,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\test_tetengo2.gui.win32.font.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_tetengo2.gui.win32.gui_initializer_finalizer.cpp"
 					>
 				</File>
@@ -528,6 +532,10 @@
 				</File>
 				<File
 					RelativePath=".\test\stub_tetengo2.gui.dialog.h"
+					>
+				</File>
+				<File
+					RelativePath=".\test\stub_tetengo2.gui.font.h"
 					>
 				</File>
 				<File

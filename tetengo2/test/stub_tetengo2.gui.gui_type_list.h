@@ -15,6 +15,7 @@
 #include "stub_tetengo2.gui.button.h"
 #include "stub_tetengo2.gui.canvas.h"
 #include "stub_tetengo2.gui.dialog.h"
+#include "stub_tetengo2.gui.font.h"
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
 #include "stub_tetengo2.gui.main_menu.h"
 #include "stub_tetengo2.gui.menu_item.h"
@@ -56,13 +57,16 @@ namespace stub_tetengo2 { namespace gui
 
         typedef alert<const void*, stub_tetengo2::encode> alert_type;
 
+        typedef font<String, Size> font_type;
+
         typedef
             canvas<
                 const void*,
                 Size,
                 String,
                 stub_tetengo2::encode,
-                const void*
+                const void*,
+                font_type
             >
             canvas_type;
 

@@ -20,6 +20,7 @@
 #include "tetengo2.gui.win32.button.h"
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.dialog.h"
+#include "tetengo2.gui.win32.font.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "tetengo2.gui.win32.main_menu.h"
 #include "tetengo2.gui.win32.menu_item.h"
@@ -72,6 +73,9 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The alert dialog type.
         typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
 
+        //! The font type.
+        typedef font<String, Size> font_type;
+
         //! The canvas type.
         typedef
             canvas<
@@ -79,7 +83,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 Size,
                 String,
                 tetengo2::win32::encode,
-                ::HWND
+                ::HWND,
+                font_type
             >
             canvas_type;
 

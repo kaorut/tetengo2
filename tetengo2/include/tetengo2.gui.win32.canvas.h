@@ -30,8 +30,9 @@
 #undef min
 #undef max
 
-#include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.String.h"
+#include "concept_tetengo2.gui.Font.h"
+#include "concept_tetengo2.gui.Handle.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -51,13 +52,16 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam WindowHandle A window handle type for the native interface. It
                              must conform to
                              concept_tetengo2::gui::Handle<WindowHandle>.
+        \tparam Font         A font type. It must conform to
+                             concept_tetengo2::gui::Font<Font>.
     */
     template <
         typename Handle,
         typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
-        typename WindowHandle
+        typename WindowHandle,
+        typename Font
     >
     class canvas : private boost::noncopyable
     {
@@ -78,6 +82,7 @@ namespace tetengo2 { namespace gui { namespace win32
             ));
         };
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
 
 
     public:
@@ -103,6 +108,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The window handle type for the native interface.
         typedef WindowHandle window_handle_type;
+
+        //! The font type.
+        typedef Font font_type;
 
 
         // constructors and destructor

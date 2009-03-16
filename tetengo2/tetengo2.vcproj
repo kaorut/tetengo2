@@ -167,6 +167,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\tetengo2.gui.win32.font.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\tetengo2.gui.win32.gui_initializer_finalizer.h"
 					>
 				</File>
@@ -232,6 +236,10 @@
 				</File>
 				<File
 					RelativePath=".\include\concept_tetengo2.gui.Dialog.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_tetengo2.gui.Font.h"
 					>
 				</File>
 				<File
