@@ -9,8 +9,6 @@
 #if !defined(STUBTETENGO2_GUI_BUTTON_H)
 #define STUBTETENGO2_GUI_BUTTON_H
 
-//#include <memory>
-
 //#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.gui.Widget.h"

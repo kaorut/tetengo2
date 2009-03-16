@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_WIN32_FONT_H)
 #define TETENGO2_GUI_WIN32_FONT_H
 
+#include <algorithm>
+
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
@@ -54,10 +56,28 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a font.
 
-            \param family A family.
-            \param size   A size.
+            \param family    A family.
+            \param size      A size.
+            \param bold      Whether this font is bold.
+            \param italic    Whether this font is italic.
+            \param underline Whether this font is underlined.
+            \param strikeout Whether this font is striked out.
         */
-        font(const string_type& family, const size_type size)
+        font(
+            const string_type& family,
+            const size_type    size,
+            const bool         bold,
+            const bool         italic,
+            const bool         underline,
+            const bool         strikeout
+        )
+        :
+        m_family(family),
+        m_size(size),
+        m_bold(bold),
+        m_italic(italic),
+        m_underline(underline),
+        m_strikeout(strikeout)
         {}
 
         /*!
@@ -66,6 +86,13 @@ namespace tetengo2 { namespace gui { namespace win32
             \param another Another font object.
         */
         font(const font& another)
+        :
+        m_family(another.m_family),
+        m_size(another.m_size),
+        m_bold(another.m_bold),
+        m_italic(another.m_italic),
+        m_underline(another.m_underline),
+        m_strikeout(another.m_strikeout)
         {}
 
         /*!
@@ -86,7 +113,12 @@ namespace tetengo2 { namespace gui { namespace win32
         void swap(font& another)
         throw ()
         {
-
+            m_family.swap(another.m_family);
+            std::swap(m_size, another.m_size);
+            std::swap(m_bold, another.m_bold);
+            std::swap(m_italic, another.m_italic);
+            std::swap(m_underline, another.m_underline);
+            std::swap(m_strikeout, another.m_strikeout);
         }
 
         /*!
@@ -115,6 +147,92 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             return true;
         }
+
+        /*!
+            \brief Returns the family.
+
+            \return The family.
+        */
+        const string_type& family()
+        const
+        {
+            return m_family;
+        }
+
+        /*!
+            \brief Returns the size.
+
+            \return The size.
+        */
+        size_type size()
+        const
+        {
+            return m_size;
+        }
+
+        /*!
+            \brief Returns whether this font is bold.
+
+            \retval true  This font is bold.
+            \retval false Otherwise.
+        */
+        bool bold()
+        const
+        {
+            return m_bold;
+        }
+
+        /*!
+            \brief Returns whether this font is italic.
+
+            \retval true  This font is italic.
+            \retval false Otherwise.
+        */
+        bool italic()
+        const
+        {
+            return m_italic;
+        }
+
+        /*!
+            \brief Returns whether this font is underlined.
+
+            \retval true  This font is underlined.
+            \retval false Otherwise.
+        */
+        bool underline()
+        const
+        {
+            return m_underline;
+        }
+
+        /*!
+            \brief Returns whether this font is striked out.
+
+            \retval true  This font is striked out.
+            \retval false Otherwise.
+        */
+        bool strikeout()
+        const
+        {
+            return m_strikeout;
+        }
+
+
+    private:
+        // variables
+
+        string_type m_family;
+
+        size_type m_size;
+
+        bool m_bold;
+
+        bool m_italic;
+
+        bool m_underline;
+
+        bool m_strikeout;
 
 
     };

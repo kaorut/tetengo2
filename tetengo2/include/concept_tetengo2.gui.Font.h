@@ -27,10 +27,46 @@ namespace concept_tetengo2 { namespace gui
     {
 #if !defined(DOCUMENTATION)
     public:
+        // typedef checks
+
+        typedef typename Type::string_type string_type;
+
+        typedef typename Type::size_type size_type;
+
+
         // usage checks
 
         BOOST_CONCEPT_USAGE(Font)
-        {}
+        {
+            const_constraints(m_object);
+        }
+
+        void const_constraints(const Type& object)
+        {
+            const string_type& family = object.family();
+            boost::ignore_unused_variable_warning(family);
+
+            const size_type size = object.size();
+            boost::ignore_unused_variable_warning(size);
+
+            const bool bold = object.bold();
+            boost::ignore_unused_variable_warning(bold);
+
+            const bool italic = object.italic();
+            boost::ignore_unused_variable_warning(italic);
+
+            const bool underline = object.underline();
+            boost::ignore_unused_variable_warning(underline);
+
+            const bool strikeout = object.strikeout();
+            boost::ignore_unused_variable_warning(strikeout);
+        }
+
+
+    private:
+        // variables
+
+        Type m_object;
 
         
 #endif
