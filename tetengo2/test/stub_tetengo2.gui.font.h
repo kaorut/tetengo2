@@ -74,6 +74,7 @@ namespace stub_tetengo2 { namespace gui
         // functions
 
         void swap(font& another)
+        throw ()
         {
             m_family.swap(another.m_family);
             std::swap(m_size, another.m_size);
@@ -130,7 +131,6 @@ namespace stub_tetengo2 { namespace gui
         {
             return m_strikeout;
         }
-
 
 
     private:
