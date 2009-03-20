@@ -172,6 +172,27 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Returns the font.
+
+            \return The font.
+        */
+        const font_type& font()
+        const
+        {
+            return m_font;
+        }
+
+        /*!
+            \brief Sets a font.
+
+            \param font A font.
+        */
+        void set_font(const font_type& font)
+        {
+            m_font = font;
+        }
+
+        /*!
             \brief Draws a text.
 
             \param text  A text to draw.
@@ -185,12 +206,16 @@ namespace tetengo2 { namespace gui { namespace win32
             const Gdiplus::FontFamily font_family(
                 m_font.family().c_str(), &font_collection
             );
+            if (!font_family.IsAvailable())
+                throw std::runtime_error("Font family is not available.");
             const Gdiplus::Font font(
                 &font_family,
                 static_cast<Gdiplus::REAL>(m_font.size()),
-                0,
+                get_font_style(),
                 Gdiplus::UnitPixel
             );
+            if (!font.IsAvailable())
+                throw std::runtime_error("Font is not available.");
             const Gdiplus::SolidBrush brush(
                 Gdiplus::Color(128, 255, 0, 0)
             );
@@ -235,6 +260,22 @@ namespace tetengo2 { namespace gui { namespace win32
                 throw std::runtime_error("Can't get device context!");
 
             return device_context;
+        }
+
+        ::INT get_font_style()
+        {
+            ::INT style = Gdiplus::FontStyleRegular;
+
+            if (m_font.bold())
+                style |= Gdiplus::FontStyleBold;
+            if (m_font.italic())
+                style |= Gdiplus::FontStyleItalic;
+            if (m_font.underline())
+                style |= Gdiplus::FontStyleUnderline;
+            if (m_font.strikeout())
+                style |= Gdiplus::FontStyleStrikeout;
+
+            return style;
         }
 
 

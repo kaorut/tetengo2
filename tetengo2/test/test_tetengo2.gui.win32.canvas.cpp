@@ -27,6 +27,16 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_WARN("Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(font)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(set_font)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(draw_text)
     {
         BOOST_WARN("Not implemented yet.");

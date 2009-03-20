@@ -47,6 +47,8 @@ namespace concept_tetengo2 { namespace gui
 
         BOOST_CONCEPT_USAGE(Canvas)
         {
+            m_object.set_font(m_font);
+
             m_object.draw_text(string_type(), point_type());
 
             const_constraints(m_object);
@@ -56,6 +58,9 @@ namespace concept_tetengo2 { namespace gui
         {
             const handle_type handle = object.handle();
             boost::ignore_unused_variable_warning(handle);
+
+            const font_type& font = object.font();
+            boost::ignore_unused_variable_warning(font);
         }
 
         
@@ -63,6 +68,8 @@ namespace concept_tetengo2 { namespace gui
         // variables
 
         Type m_object;
+
+        const font_type m_font;
 
 
 #endif

@@ -78,6 +78,8 @@ namespace stub_tetengo2 { namespace gui
             const window_handle_type window_handle,
             const bool               on_paint
         )
+        :
+        m_font(font_type::dialog_font())
         {}
 
         ~canvas()
@@ -93,8 +95,25 @@ namespace stub_tetengo2 { namespace gui
             return 0;
         }
 
+        const font_type& font()
+        const
+        {
+            return m_font;
+        }
+
+        void set_font(const font_type& font)
+        {
+            m_font = font;
+        }
+
         void draw_text(const string_type& text, const point_type& point)
         {}
+
+
+    private:
+        // variables
+
+        font_type m_font;
 
 
     };
