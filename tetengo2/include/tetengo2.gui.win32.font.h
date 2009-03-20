@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_WIN32_FONT_H
 
 #include <algorithm>
+#include <cassert>
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
@@ -49,6 +50,20 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The size type.
         typedef Size size_type;
+
+
+        // static functions
+
+        /*!
+            \brief Returns the dialog font.
+
+            \return The dialog font.
+        */
+        static const font& dialog_font()
+        {
+            static const font singleton(make_dialog_font());
+            return singleton;
+        }
 
 
         // constructors and destructor
@@ -220,6 +235,48 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
+        // static functions
+
+        static const font make_dialog_font()
+        {
+            const ::LOGFONTW log_font = get_message_font();
+
+            assert(log_font.lfHeight < 0);
+            return font(
+                log_font.lfFaceName,
+                -log_font.lfHeight,
+                log_font.lfWeight >= FW_BOLD,
+                log_font.lfItalic != 0,
+                log_font.lfUnderline != 0,
+                log_font.lfStrikeOut != 0
+            );
+        }
+
+        static const ::LOGFONTW get_message_font()
+        {
+            ::NONCLIENTMETRICSW metrics;
+            get_nonclient_metrics(metrics);
+
+            return metrics.lfMessageFont;
+        }
+
+        static void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
+        {
+            metrics.cbSize = sizeof(::NONCLIENTMETRICSW);
+            if (
+                ::SystemParametersInfoW(
+                    SPI_GETNONCLIENTMETRICS,
+                    sizeof(::NONCLIENTMETRICSW),
+                    &metrics,
+                    0
+                ) == 0
+            )
+            {
+                throw std::runtime_error("Can't get non-client metrics.");
+            }
+        }
+
+
         // variables
 
         string_type m_family;

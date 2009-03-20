@@ -17,6 +17,11 @@ BOOST_AUTO_TEST_SUITE(win32)
 BOOST_AUTO_TEST_SUITE(font)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(dialog_font)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_WARN("Not implemented yet.");

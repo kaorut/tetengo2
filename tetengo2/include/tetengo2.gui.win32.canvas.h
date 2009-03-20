@@ -136,7 +136,8 @@ namespace tetengo2 { namespace gui { namespace win32
             create_paint_info(window_handle) : std::auto_ptr< ::PAINTSTRUCT>()
         ),
         m_device_context(on_paint ? NULL : get_device_context(window_handle)),
-        m_graphics(on_paint ? m_p_paint_info->hdc : m_device_context)
+        m_graphics(on_paint ? m_p_paint_info->hdc : m_device_context),
+        m_font(font_type::dialog_font())
         {
             m_graphics.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
             m_graphics.SetTextRenderingHint(
@@ -180,8 +181,16 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void draw_text(const string_type& text, const point_type& point)
         {
-            const Gdiplus::FontFamily font_family(L"MS PMincho");
-            const Gdiplus::Font font(&font_family, 48);
+            const Gdiplus::InstalledFontCollection font_collection;
+            const Gdiplus::FontFamily font_family(
+                m_font.family().c_str(), &font_collection
+            );
+            const Gdiplus::Font font(
+                &font_family,
+                static_cast<Gdiplus::REAL>(m_font.size()),
+                0,
+                Gdiplus::UnitPixel
+            );
             const Gdiplus::SolidBrush brush(
                 Gdiplus::Color(128, 255, 0, 0)
             );
@@ -240,6 +249,8 @@ namespace tetengo2 { namespace gui { namespace win32
         const ::HDC m_device_context;
 
         Gdiplus::Graphics m_graphics;
+
+        font_type m_font;
 
 
     };

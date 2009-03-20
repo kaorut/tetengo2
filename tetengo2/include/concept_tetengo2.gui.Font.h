@@ -38,6 +38,9 @@ namespace concept_tetengo2 { namespace gui
 
         BOOST_CONCEPT_USAGE(Font)
         {
+            const Type& dialog_font = Type::dialog_font();
+            boost::ignore_unused_variable_warning(dialog_font);
+
             const_constraints(m_object);
         }
 

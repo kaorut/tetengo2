@@ -51,10 +51,17 @@ namespace bobura { namespace message
             \param p_canvas The pointer to the canvas.
         */
         virtual void paint(canvas_type* p_canvas)
-        {
-            p_canvas->draw_text(L"‚±‚ñ‚É‚¿‚ÍA¢ŠEI", std::make_pair(64, 32));
-            p_canvas->draw_text(L"Hello, world!", std::make_pair(96, 64));
+        { 
+            const font_type& dialog_font = font_type::dialog_font();
+
+            p_canvas->draw_text(dialog_font.family(), std::make_pair(32, 32));
         }
+
+
+    private:
+        // types
+
+        typedef typename canvas_type::font_type font_type;
 
 
     };

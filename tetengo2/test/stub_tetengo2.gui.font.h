@@ -37,6 +37,17 @@ namespace stub_tetengo2 { namespace gui
         typedef Size size_type;
 
 
+        // static functions
+
+        static const font& dialog_font()
+        {
+            static const font singleton(
+                L"font", 12, false, false, false, false
+            );
+            return singleton;
+        }
+
+
         // constructors and destructor
 
         font(
