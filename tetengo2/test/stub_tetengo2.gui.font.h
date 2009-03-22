@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_FONT_H
 
 #include <algorithm>
+#include <vector>
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
@@ -36,6 +37,8 @@ namespace stub_tetengo2 { namespace gui
 
         typedef Size size_type;
 
+        typedef std::vector<string_type> families_type;
+
 
         // static functions
 
@@ -44,6 +47,12 @@ namespace stub_tetengo2 { namespace gui
             static const font singleton(
                 L"font", 12, false, false, false, false
             );
+            return singleton;
+        }
+
+        static const families_type& installed_families()
+        {
+            static const families_type singleton;
             return singleton;
         }
 

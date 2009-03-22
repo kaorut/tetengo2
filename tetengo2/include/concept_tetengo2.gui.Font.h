@@ -33,6 +33,8 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::size_type size_type;
 
+        typedef typename Type::families_type families_type;
+
 
         // usage checks
 
@@ -40,6 +42,10 @@ namespace concept_tetengo2 { namespace gui
         {
             const Type& dialog_font = Type::dialog_font();
             boost::ignore_unused_variable_warning(dialog_font);
+
+            const families_type& installed_families =
+                Type::installed_families();
+            boost::ignore_unused_variable_warning(installed_families);
 
             const_constraints(m_object);
         }

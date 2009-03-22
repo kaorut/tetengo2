@@ -11,13 +11,24 @@
 
 #include <algorithm>
 #include <cassert>
+#include <vector>
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+#include <boost/scoped_array.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
+#if !defined(min) && !defined(DOCUMENTATION)
+#   define min(a, b) ((a) < (b) ? (a) : (b))
+#endif
+#if !defined(max) && !defined(DOCUMENTATION)
+#   define max(a, b) ((a) > (b) ? (a) : (b))
+#endif
+#include <gdiplus.h>
+#undef min
+#undef max
 
 #include "concept_tetengo2.String.h"
 
@@ -51,6 +62,9 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The size type.
         typedef Size size_type;
 
+        //! The families type.
+        typedef std::vector<string_type> families_type;
+
 
         // static functions
 
@@ -62,6 +76,17 @@ namespace tetengo2 { namespace gui { namespace win32
         static const font& dialog_font()
         {
             static const font singleton(make_dialog_font());
+            return singleton;
+        }
+
+        /*!
+            \brief Returns the installed font families.
+
+            \return The installed font families.
+        */
+        static const families_type& installed_families()
+        {
+            static const families_type singleton(make_installed_families());
             return singleton;
         }
 
@@ -274,6 +299,31 @@ namespace tetengo2 { namespace gui { namespace win32
             {
                 throw std::runtime_error("Can't get non-client metrics.");
             }
+        }
+
+        static const families_type make_installed_families()
+        {
+            families_type families;
+
+            const Gdiplus::InstalledFontCollection font_collection;
+            const ::INT count = font_collection.GetFamilyCount();
+            const boost::scoped_array<Gdiplus::FontFamily> p_families(
+                new Gdiplus::FontFamily[count]
+            );
+            ::INT actual_count = 0;
+
+            const Gdiplus::Status status =
+                font_collection.GetFamilies(
+                    count, p_families.get(), &actual_count
+                );
+            if (status != Gdiplus::Ok)
+            {
+                throw std::runtime_error(
+                    "Can't get installed font families."
+                );
+            }
+
+            return families;
         }
 
 

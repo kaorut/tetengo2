@@ -22,6 +22,11 @@ BOOST_AUTO_TEST_SUITE(font)
         BOOST_WARN("Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(installed_families)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_WARN("Not implemented yet.");
