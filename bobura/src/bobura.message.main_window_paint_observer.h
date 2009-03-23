@@ -57,7 +57,7 @@ namespace bobura { namespace message
             p_canvas->draw_text(dialog_font.family(), std::make_pair(32, 32));
 
             p_canvas->set_font(
-                font_type(L"‚l‚r ‚o–¾’©", 64, false, true, true, false)
+                font_type(L"‚Ý‚©‚¿‚á‚ñ", 64, false, true, true, false)
             );
 
             p_canvas->draw_text(L"‚ ‚¢‚¤‚¦‚¨", std::make_pair(32, 64));

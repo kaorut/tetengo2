@@ -13,7 +13,6 @@
 #include <cassert>
 #include <vector>
 
-#include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
@@ -97,6 +96,9 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a font.
 
+            When family is not installed, the family of the dialog font is set
+            instead.
+
             \param family    A family.
             \param size      A size.
             \param bold      Whether this font is bold.
@@ -113,7 +115,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const bool         strikeout
         )
         :
-        m_family(family),
+        m_family(select_family(family)),
         m_size(size),
         m_bold(bold),
         m_italic(italic),
@@ -268,6 +270,13 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::LOGFONTW log_font = get_message_font();
 
             assert(log_font.lfHeight < 0);
+            assert(
+                std::find(
+                    installed_families().begin(),
+                    installed_families().end(),
+                    log_font.lfFaceName
+                ) != installed_families().end()
+            );
             return font(
                 log_font.lfFaceName,
                 -log_font.lfHeight,
@@ -336,6 +345,21 @@ namespace tetengo2 { namespace gui { namespace win32
             return families;
         }
 
+        const string_type select_family(const string_type& family)
+        {
+            if (
+                std::find(
+                    installed_families().begin(),
+                    installed_families().end(),
+                    family
+                ) == installed_families().end()
+            )
+            {
+                return dialog_font().family();
+            }
+        
+            return family;
+        }
 
         // variables
 
