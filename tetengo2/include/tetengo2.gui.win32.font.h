@@ -13,6 +13,7 @@
 #include <cassert>
 #include <vector>
 
+#include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
@@ -303,8 +304,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
         static const families_type make_installed_families()
         {
-            families_type families;
-
             const Gdiplus::InstalledFontCollection font_collection;
             const ::INT count = font_collection.GetFamilyCount();
             const boost::scoped_array<Gdiplus::FontFamily> p_families(
@@ -323,6 +322,17 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
+            families_type families;
+            families.reserve(actual_count);
+            for (::INT i = 0; i < actual_count; ++i)
+            {
+                wchar_t family_name[LF_FACESIZE];
+                const Gdiplus::Status family_name_status =
+                    p_families[i].GetFamilyName(family_name);
+                if (family_name_status != Gdiplus::Ok)
+                    throw std::runtime_error("Can't get font family name.");
+                families.push_back(family_name);
+            }
             return families;
         }
 
