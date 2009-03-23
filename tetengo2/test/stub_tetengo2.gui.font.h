@@ -45,7 +45,7 @@ namespace stub_tetengo2 { namespace gui
         static const font& dialog_font()
         {
             static const font singleton(
-                L"font", 12, false, false, false, false
+                L"MS UI Gothic", 12, false, false, false, false
             );
             return singleton;
         }

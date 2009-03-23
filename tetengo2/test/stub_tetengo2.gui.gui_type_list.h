@@ -91,6 +91,7 @@ namespace stub_tetengo2 { namespace gui
                 Size,
                 String,
                 stub_tetengo2::encode,
+                font_type,
                 tetengo2::gui::paint_observer<canvas_type>
             >
             widget_type;

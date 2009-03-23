@@ -22,6 +22,7 @@
 
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Canvas.h"
+#include "concept_tetengo2.gui.Font.h"
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.PaintObserver.h"
 
@@ -36,6 +37,7 @@ namespace stub_tetengo2 { namespace gui
         typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
+        typename Font,
         typename PaintObserver
     >
     class widget : private boost::noncopyable
@@ -71,6 +73,7 @@ namespace stub_tetengo2 { namespace gui
                 >
             ));
         };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::PaintObserver<PaintObserver>
         ));
@@ -98,6 +101,8 @@ namespace stub_tetengo2 { namespace gui
         typedef Encode<String, String> encode_from_native_type;
 
         typedef Encode<String, String> encode_to_native_type;
+
+        typedef Font font_type;
 
         typedef widget child_type;
 
@@ -222,6 +227,15 @@ namespace stub_tetengo2 { namespace gui
         const
         {
             return m_text;
+        }
+
+        virtual void set_font(const font_type& font)
+        {}
+
+        virtual const font_type font()
+        const
+        {
+            return font_type(L"MS UI Gothic", 12, false, false, false, false);
         }
 
         const std::vector<child_type*> children()

@@ -51,6 +51,8 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::encode_to_native_type encode_to_native_type;
 
+        typedef typename Type::font_type font_type;
+
         typedef typename Type::child_type child_type;
 
         typedef typename Type::paint_observer_type paint_observer_type;
@@ -82,6 +84,8 @@ namespace concept_tetengo2 { namespace gui
             );
 
             m_object.set_text(string_type());
+
+            m_object.set_font(m_font);
 
             const std::vector<child_type*> children = m_object.children();
             boost::ignore_unused_variable_warning(children);
@@ -125,6 +129,9 @@ namespace concept_tetengo2 { namespace gui
             const string_type text = object.text();
             boost::ignore_unused_variable_warning(text);
 
+            const font_type font = object.font();
+            boost::ignore_unused_variable_warning(font);
+
             const std::vector<const child_type*> children = object.children();
             boost::ignore_unused_variable_warning(children);
 
@@ -137,6 +144,8 @@ namespace concept_tetengo2 { namespace gui
         // variables
 
         Type& m_object;
+
+        font_type m_font;
 
 
 #endif

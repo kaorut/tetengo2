@@ -110,6 +110,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 Size,
                 String,
                 tetengo2::win32::encode,
+                font_type,
                 tetengo2::gui::paint_observer<canvas_type>
             >
             widget_type;

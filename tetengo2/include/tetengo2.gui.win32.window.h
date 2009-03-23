@@ -93,6 +93,9 @@ namespace tetengo2 { namespace gui { namespace win32
             typename widget_type::encode_to_native_type
             encode_to_native_type;
 
+        //! The font type.
+        typedef typename widget_type::font_type font_type;
+
         //! The child type.
         typedef typename widget_type::child_type child_type;
 

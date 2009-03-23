@@ -58,6 +58,8 @@ namespace stub_tetengo2 { namespace gui
             typename window_type::encode_to_native_type
             encode_to_native_type;
 
+        typedef typename window_type::font_type font_type;
+
         typedef typename window_type::child_type child_type;
 
         typedef

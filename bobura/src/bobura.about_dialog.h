@@ -81,6 +81,12 @@ namespace bobura
             typename dialog_type::encode_to_native_type
             encode_to_native_type;
 
+        //! The font type.
+        typedef typename dialog_type::font_type font_type;
+
+        //! The child type.
+        typedef typename dialog_type::child_type child_type;
+
         //! The paint observer type.
         typedef
             typename dialog_type::paint_observer_type paint_observer_type;

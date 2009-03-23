@@ -97,6 +97,16 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN("Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(set_font)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(font)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(children)
     {
         BOOST_WARN("Not implemented yet.");

@@ -31,6 +31,7 @@
 
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Canvas.h"
+#include "concept_tetengo2.gui.Font.h"
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.PaintObserver.h"
 
@@ -61,6 +62,8 @@ namespace tetengo2 { namespace gui { namespace win32
                                       boost::UnaryFunction<Encode, String, std::wstring>
                                       and
                                       boost::UnaryFunction<Encode, std::wstring, String>.
+        \tparam Font                  A font type. It must conform to
+                                      concept_tetengo2::gui::Font<Font>.
         \tparam PaintObserver         A paint observer type. It must conform
                                       to
                                       concept_tetengo2::gui::PaintObserver<PaintObserver>.
@@ -73,6 +76,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Size,
         typename String,
         template <typename Target, typename Source> class Encode,
+        typename Font,
         typename PaintObserver
     >
     class widget : private boost::noncopyable
@@ -108,6 +112,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 >
             ));
         };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::PaintObserver<PaintObserver>
         ));
@@ -145,6 +150,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The unary functor type for encoding to the native.
         typedef Encode<std::wstring, String> encode_to_native_type;
+
+        //! The font type.
+        typedef Font font_type;
 
         //! The child type.
         typedef widget child_type;
@@ -549,6 +557,34 @@ namespace tetengo2 { namespace gui { namespace win32
             ::GetWindowTextW(this->handle(), p_text.get(), length + 1);
 
             return encode_from_native_type()(p_text.get());
+        }
+
+        /*!
+            \brief Sets the font.
+
+            \param font a font.
+
+            \throw std::runtime_error When the widget is already destroyed.
+            \throw std::runtime_error When the font cannot be set.
+        */
+        virtual void set_font(const font_type& font)
+        {
+            check_destroyed();
+        }
+
+        /*!
+            \brief Retuns the font.
+
+            \return The font.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        virtual const font_type font()
+        const
+        {
+            check_destroyed();
+            
+            return font_type(L"MS UI Gothic", 12, false, false, false, false);
         }
 
         /*!
