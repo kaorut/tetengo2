@@ -100,7 +100,7 @@ namespace tetengo2 { namespace gui { namespace win32
         widget_type(parent),
         m_handle(create_window(parent))
         {
-            associate_to_native_window_system(this);
+            initialize(this);
         }
 
         /*!

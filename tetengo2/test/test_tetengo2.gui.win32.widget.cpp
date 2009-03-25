@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN("Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(associate_to_native_window_system)
+    BOOST_AUTO_TEST_CASE(initialize)
     {
         BOOST_WARN("Not implemented yet.");
     }

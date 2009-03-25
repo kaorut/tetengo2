@@ -135,7 +135,7 @@ namespace tetengo2 { namespace gui { namespace win32
         m_window_observers(),
         m_window_destroyed_handler()
         {
-            associate_to_native_window_system(this);
+            initialize(this);
         }
 
         /*!
@@ -311,7 +311,7 @@ namespace tetengo2 { namespace gui { namespace win32
         m_window_observers(),
         m_window_destroyed_handler()
         {
-            associate_to_native_window_system(this);
+            initialize(this);
         }
 
 

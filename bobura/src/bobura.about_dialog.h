@@ -153,9 +153,12 @@ namespace bobura
             );
 
             dialog.m_p_ok_button.reset(new button_type(dialog));
-            dialog.m_p_ok_button->set_text(L"OK");
+            dialog.m_p_ok_button->set_text(L"—¹‰ðƒ{ƒ^ƒ“‚Ì—\’è’n");
             dialog.m_p_ok_button->set_dimension(std::make_pair(128, 32));
             dialog.m_p_ok_button->set_position(std::make_pair(240, 208));
+
+            const font_type font = dialog.m_p_ok_button->font();
+            font;
         }
 
 

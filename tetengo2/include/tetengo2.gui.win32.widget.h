@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_WIDGET_H)
 #define TETENGO2_GUI_WIN32_WIDGET_H
 
+#include <algorithm>
 #include <cassert>
 //#include <cstddef>
 #include <exception>
@@ -570,6 +571,52 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual void set_font(const font_type& font)
         {
             check_destroyed();
+
+            const ::HFONT previous_font_handle =
+                reinterpret_cast< ::HFONT>(
+                    ::SendMessageW(this->handle(), WM_GETFONT, 0, 0)
+                );
+
+            ::LOGFONTW log_font = {
+                -static_cast< ::LONG>(font.size()),
+                0,
+                0,
+                0,
+                font.bold() ? FW_BOLD : FW_NORMAL,
+                font.italic() ? TRUE : FALSE,
+                font.underline() ? TRUE : FALSE,
+                font.strikeout() ? TRUE : FALSE,
+                DEFAULT_CHARSET,
+                OUT_DEFAULT_PRECIS,
+                CLIP_DEFAULT_PRECIS,
+                DEFAULT_QUALITY,
+                DEFAULT_PITCH | FF_DONTCARE,
+                L""
+            };
+            assert(font.family().size() < LF_FACESIZE);
+            std::copy(
+                font.family().begin(),
+                font.family().end(),
+                log_font.lfFaceName
+            );
+            log_font.lfFaceName[font.family().size()] = L'\0';
+            const ::HFONT font_handle = ::CreateFontIndirectW(&log_font);
+            if (font_handle == NULL)
+                throw std::runtime_error("Can't create font.");
+            ::SendMessageW(
+                this->handle(),
+                WM_SETFONT,
+                reinterpret_cast< ::WPARAM>(font_handle),
+                MAKELPARAM(TRUE, 0)
+            );
+
+            if (
+                previous_font_handle != NULL &&
+                ::DeleteObject(previous_font_handle) == 0
+            )
+            {
+                throw std::runtime_error("Can't delete previous font.");
+            }
         }
 
         /*!
@@ -583,8 +630,32 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             check_destroyed();
+
+            ::HFONT font_handle =
+                reinterpret_cast< ::HFONT>(
+                    ::SendMessageW(this->handle(), WM_GETFONT, 0, 0)
+                );
+            if (font_handle == NULL)
+            {
+                font_handle =
+                    reinterpret_cast< ::HFONT>(::GetStockObject(SYSTEM_FONT));
+            }
+
+            ::LOGFONTW log_font;
+            const int byte_count =
+                ::GetObjectW(font_handle, sizeof(::LOGFONTW), &log_font);
+            if (byte_count == 0)
+                throw std::runtime_error("Can't get log font.");
             
-            return font_type(L"MS UI Gothic", 12, false, false, false, false);
+            return font_type(
+                log_font.lfFaceName,
+                log_font.lfHeight < 0 ?
+                    -log_font.lfHeight : log_font.lfHeight,
+                log_font.lfWeight >= FW_BOLD,
+                log_font.lfItalic != FALSE,
+                log_font.lfUnderline != FALSE,
+                log_font.lfStrikeOut != FALSE
+            );
         }
 
         /*!
@@ -659,44 +730,16 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Associates the widget instance pointer with the native
-                   window system.
+            \brief Initializes the widget.
             
             \param p_widget A pointer to a widget.
 
-            \throw std::runtime_error When the widget instance pointer cannot
-                                      be associated with the native window
-                                      system.
+            \throw std::runtime_error When the widget cannot be initalized.
         */
-        static void associate_to_native_window_system(
-            const widget* const p_widget
-        )
+        static void initialize(widget* const p_widget)
         {
-            ::SetLastError(0);
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(push)
-#    pragma warning(disable: 4244)
-#endif
-            ::SetWindowLongPtrW(
-                p_widget->handle(),
-                GWLP_USERDATA, 
-                reinterpret_cast< ::LONG_PTR>(p_widget)
-            );
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(pop)
-#endif
-            const BOOL set_window_pos_result = ::SetWindowPos(
-                p_widget->handle(),
-                NULL,
-                0,
-                0,
-                0,
-                0,
-                SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED
-            );
-
-            if (::GetLastError() > 0 || set_window_pos_result == 0)
-                throw std::runtime_error("Can't set the pointer to this!");
+            associate_to_native_window_system(p_widget);
+            p_widget->set_font(font_type::dialog_font());
         }
 
         /*!
@@ -787,6 +830,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 }
             case WM_DESTROY:
                 {
+                    delete_current_font();
                     m_destroyed = true;
                     return 0;
                 }
@@ -797,6 +841,37 @@ namespace tetengo2 { namespace gui { namespace win32
 
     private:
         // static functions
+
+        static void associate_to_native_window_system(
+            const widget* const p_widget
+        )
+        {
+            ::SetLastError(0);
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(push)
+#    pragma warning(disable: 4244)
+#endif
+            ::SetWindowLongPtrW(
+                p_widget->handle(),
+                GWLP_USERDATA, 
+                reinterpret_cast< ::LONG_PTR>(p_widget)
+            );
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(pop)
+#endif
+            const BOOL set_window_pos_result = ::SetWindowPos(
+                p_widget->handle(),
+                NULL,
+                0,
+                0,
+                0,
+                0,
+                SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED
+            );
+
+            if (::GetLastError() > 0 || set_window_pos_result == 0)
+                throw std::runtime_error("Can't set the pointer to this!");
+        }
 
         static ::LRESULT CALLBACK static_window_procedure(
             const ::HWND   hWnd,
@@ -851,6 +926,21 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
+
+        void delete_current_font()
+        {
+            const ::HFONT font_handle =
+                reinterpret_cast< ::HFONT>(
+                    ::SendMessageW(this->handle(), WM_GETFONT, 0, 0)
+                );
+
+            ::SendMessageW(
+                this->handle(), WM_SETFONT, NULL, MAKELPARAM(0, 0)
+            );
+
+            if (font_handle != NULL && ::DeleteObject(font_handle) == 0)
+                throw std::runtime_error("Can't delete previous font.");
+        }
 
         template <typename Child>
         const std::vector<Child*> children_impl()
