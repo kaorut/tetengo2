@@ -297,11 +297,19 @@ namespace tetengo2 { namespace gui { namespace win32
 
         static void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
         {
-            metrics.cbSize = sizeof(::NONCLIENTMETRICSW);
+            ::OSVERSIONINFOW os_version_info;
+            os_version_info.dwOSVersionInfoSize = sizeof(::OSVERSIONINFOW);
+            if (::GetVersionEx(&os_version_info) == 0)
+                throw std::runtime_error("Can't get Windows version.");
+
+            const ::UINT metrics_size = os_version_info.dwMajorVersion >= 6 ?
+                sizeof(::NONCLIENTMETRICSW) :
+                sizeof(::NONCLIENTMETRICSW) - sizeof(int);
+            metrics.cbSize = metrics_size;
             if (
                 ::SystemParametersInfoW(
                     SPI_GETNONCLIENTMETRICS,
-                    sizeof(::NONCLIENTMETRICSW),
+                    metrics_size,
                     &metrics,
                     0
                 ) == 0
