@@ -29,6 +29,7 @@
 // Boost library headers
 
 #include <boost/bind.hpp>
+#include <boost/cast.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/function.hpp>
 #include <boost/mem_fn.hpp>
