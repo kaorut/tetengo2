@@ -52,6 +52,7 @@ std::basic_string                                string
 std::copy                                        algorithm
 std::distance                                    iterator
 std::exception                                   exception
+std::find                                        algorithm
 std::for_each                                    algorithm
 std::invalid_argument                            stdexcept
 std::logic_error                                 stdexcept

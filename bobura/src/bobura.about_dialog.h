@@ -26,7 +26,7 @@ namespace bobura
         \tparam Dialog A dialog type. It must conform to
                        concept_tetengo2::gui::Dialog<Dialog>.
         \tparam Button A button type. It must conform to
-                       concept_tetengo2::gui::Dialog<Dialog>.
+                       concept_tetengo2::gui::Button<Button>.
     */
     template <typename Dialog, typename Button>
     class about_dialog : public Dialog

@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <stdexcept>
 #include <vector>
 
 //#include <boost/concept_check.hpp>
