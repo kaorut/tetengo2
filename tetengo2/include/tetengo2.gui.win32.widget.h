@@ -806,20 +806,39 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Dispatches the window messages.
 
-            \param uMsg   A message.
-            \param wParam A word-sized parameter.
-            \param lParam A long-sized parameter.
+            \param uMsg                       A message.
+            \param wParam                     A word-sized parameter.
+            \param lParam                     A long-sized parameter.
+            \param p_default_window_procedure A pointer to a default window
+                                              procedure.
 
             \return The result code.
         */
         virtual ::LRESULT window_procedure(
-            const ::UINT   uMsg,
-            const ::WPARAM wParam,
-            const ::LPARAM lParam
+            const ::UINT    uMsg,
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam,
+            const ::WNDPROC p_default_window_procedure
         )
         {
             switch (uMsg)
             {
+            case WM_USER:
+                {
+                    return 0;
+                }
+            case WM_COMMAND:
+                {
+                    if (lParam == 0) break;
+
+                    ::PostMessageW(
+                        reinterpret_cast< ::HWND>(lParam),
+                        WM_USER,
+                        wParam,
+                        reinterpret_cast< ::LPARAM>(this->handle())
+                    );
+                    break;
+                }
             case WM_PAINT:
                 {
                     if (m_paint_observers.empty()) break;
@@ -835,7 +854,9 @@ namespace tetengo2 { namespace gui { namespace win32
                     return 0;
                 }
             }
-            return ::DefWindowProcW(this->handle(), uMsg, wParam, lParam);
+            return p_default_window_procedure(
+                this->handle(), uMsg, wParam, lParam
+            );
         }
 
 
@@ -885,9 +906,15 @@ namespace tetengo2 { namespace gui { namespace win32
             {
                 widget* const p_widget = p_widget_from(hWnd);
                 if (p_widget != NULL)
-                    return p_widget->window_procedure(uMsg, wParam, lParam);
+                {
+                    return p_widget->window_procedure(
+                        uMsg, wParam, lParam, ::DefWindowProcW
+                    );
+                }
                 else
+                {
                     return ::DefWindowProcW(hWnd, uMsg, wParam, lParam);
+                }
             }
             catch (const std::exception& e)
             {

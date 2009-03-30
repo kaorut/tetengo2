@@ -9,9 +9,12 @@
 #if !defined(TETENGO2_GUI_WIN32_BUTTON_H)
 #define TETENGO2_GUI_WIN32_BUTTON_H
 
+#include <cassert>
+#include <exception>
 //#include <cstddef>
 //#include <stdexcept>
 
+#include <boost/cast.hpp>
 //#include <boost/concept_check.hpp>
 
 #define NOMINMAX
@@ -98,7 +101,8 @@ namespace tetengo2 { namespace gui { namespace win32
         button(const widget_type& parent)
         :
         widget_type(parent),
-        m_handle(create_window(parent))
+        m_handle(create_window(parent)),
+        m_p_original_window_procedure(replace_window_procedure(m_handle))
         {
             initialize(this);
         }
@@ -131,19 +135,24 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Dispatches the button messages.
 
-            \param uMsg   A message.
-            \param wParam A word-sized parameter.
-            \param lParam A long-sized parameter.
+            \param uMsg                       A message.
+            \param wParam                     A word-sized parameter.
+            \param lParam                     A long-sized parameter.
+            \param p_default_window_procedure A pointer to a default window
+                                              procedure.
 
             \return The result code.
         */
         virtual ::LRESULT window_procedure(
-            const ::UINT   uMsg,
-            const ::WPARAM wParam,
-            const ::LPARAM lParam
+            const ::UINT    uMsg,
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam,
+            const ::WNDPROC p_default_window_procedure
         )
         {
-            return this->widget_type::window_procedure(uMsg, wParam, lParam);
+            return this->widget_type::window_procedure(
+                uMsg, wParam, lParam, m_p_original_window_procedure
+            );
         }
 
 
@@ -172,10 +181,62 @@ namespace tetengo2 { namespace gui { namespace win32
             return handle;
         }
 
+        static ::WNDPROC replace_window_procedure(const ::HWND handle)
+        {
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(push)
+#    pragma warning(disable: 4244)
+#endif
+            const ::LONG_PTR result = 
+                ::SetWindowLongPtrW(
+                    handle,
+                    GWLP_WNDPROC,
+                    reinterpret_cast< ::LONG_PTR>(static_window_procedure)
+                );
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(pop)
+#endif
+            if (result == 0)
+                throw std::runtime_error("Can't replace window procedure.");
+
+            return reinterpret_cast< ::WNDPROC>(result);
+        }
+
+        static ::LRESULT CALLBACK static_window_procedure(
+            const ::HWND   hWnd,
+            const ::UINT   uMsg,
+            const ::WPARAM wParam,
+            const ::LPARAM lParam
+        )
+        throw ()
+        {
+            try
+            {
+                button* const p_button =
+                    boost::polymorphic_downcast<button*>(p_widget_from(hWnd));
+                assert(p_button != NULL);
+                return p_button->window_procedure(
+                    uMsg, wParam, lParam, ::DefWindowProcW
+                );
+            }
+            catch (const std::exception& e)
+            {
+                (alert_type(hWnd))(e);
+                return 0;
+            }
+            catch (...)
+            {
+                (alert_type(hWnd))();
+                return 0;
+            }
+        }
+
 
         // variables
 
         const handle_type m_handle;
+
+        const ::WNDPROC m_p_original_window_procedure;
 
 
     };

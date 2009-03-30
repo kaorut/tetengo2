@@ -31,6 +31,7 @@ boost::ignore_unused_variable_warning            boost/concept_check.hpp
 boost::make_tuple                                boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::mem_fn                                    boost/mem_fn.hpp
 boost::noncopyable                               boost/noncopyable.hpp
+boost::polymorphic_downcast                      boost/cast.hpp
 boost::prior                                     boost/utility.hpp
 boost::program_options::notify                   boost/program_options.hpp
 boost::program_options::options_description      boost/program_options.hpp

@@ -180,19 +180,24 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Dispatches the window messages.
 
-            \param uMsg   A message.
-            \param wParam A word-sized parameter.
-            \param lParam A long-sized parameter.
+            \param uMsg                       A message.
+            \param wParam                     A word-sized parameter.
+            \param lParam                     A long-sized parameter.
+            \param p_default_window_procedure A pointer to a default window
+                                              procedure.
 
             \return The result code.
         */
         virtual ::LRESULT window_procedure(
-            const ::UINT   uMsg,
-            const ::WPARAM wParam,
-            const ::LPARAM lParam
+            const ::UINT    uMsg,
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam,
+            const ::WNDPROC p_default_window_procedure
         )
         {
-            return this->window_type::window_procedure(uMsg, wParam, lParam);
+            return this->window_type::window_procedure(
+                uMsg, wParam, lParam, p_default_window_procedure
+            );
         }
 
 
