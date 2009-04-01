@@ -717,6 +717,15 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     protected:
+        // types
+
+        //! The custom message type.
+        enum message_type
+        {
+            message_command = WM_APP,   //!< A command message.
+        };
+
+
         // static functions
 
         /*!
@@ -823,7 +832,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             switch (uMsg)
             {
-            case WM_USER:
+            case message_command:
                 {
                     return 0;
                 }
@@ -833,7 +842,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
                     ::PostMessageW(
                         reinterpret_cast< ::HWND>(lParam),
-                        WM_USER,
+                        message_command,
                         wParam,
                         reinterpret_cast< ::LPARAM>(this->handle())
                     );

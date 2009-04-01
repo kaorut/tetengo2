@@ -165,7 +165,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 0,
                 L"Button",
                 L"tetengo2::gui::win32::button",
-                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON,
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON,
                 0,
                 0,
                 64,
@@ -191,7 +191,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::SetWindowLongPtrW(
                     handle,
                     GWLP_WNDPROC,
-                    reinterpret_cast< ::LONG_PTR>(static_window_procedure)
+                    reinterpret_cast< ::LONG_PTR>(
+                        widget_type::p_static_window_procedure()
+                    )
                 );
 #if defined(_WIN32) && !defined(_WIN64)
 #    pragma warning(pop)
@@ -200,35 +202,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 throw std::runtime_error("Can't replace window procedure.");
 
             return reinterpret_cast< ::WNDPROC>(result);
-        }
-
-        static ::LRESULT CALLBACK static_window_procedure(
-            const ::HWND   hWnd,
-            const ::UINT   uMsg,
-            const ::WPARAM wParam,
-            const ::LPARAM lParam
-        )
-        throw ()
-        {
-            try
-            {
-                button* const p_button =
-                    boost::polymorphic_downcast<button*>(p_widget_from(hWnd));
-                assert(p_button != NULL);
-                return p_button->window_procedure(
-                    uMsg, wParam, lParam, ::DefWindowProcW
-                );
-            }
-            catch (const std::exception& e)
-            {
-                (alert_type(hWnd))(e);
-                return 0;
-            }
-            catch (...)
-            {
-                (alert_type(hWnd))();
-                return 0;
-            }
         }
 
 
