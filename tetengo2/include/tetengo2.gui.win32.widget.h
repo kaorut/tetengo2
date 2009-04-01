@@ -848,6 +848,12 @@ namespace tetengo2 { namespace gui { namespace win32
                     );
                     break;
                 }
+            case WM_KEYDOWN:
+                {
+                    return p_default_window_procedure(
+                        this->handle(), uMsg, wParam, lParam
+                    );
+                }
             case WM_PAINT:
                 {
                     if (m_paint_observers.empty()) break;

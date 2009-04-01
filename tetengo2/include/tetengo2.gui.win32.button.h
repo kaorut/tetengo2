@@ -165,7 +165,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 0,
                 L"Button",
                 L"tetengo2::gui::win32::button",
-                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON,
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON,
                 0,
                 0,
                 64,
