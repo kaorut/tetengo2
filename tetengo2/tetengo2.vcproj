@@ -147,6 +147,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\tetengo2.gui.mouse_observer.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\tetengo2.gui.paint_observer.h"
 					>
 				</File>
@@ -272,6 +276,10 @@
 				</File>
 				<File
 					RelativePath=".\include\concept_tetengo2.gui.MenuSeparator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_tetengo2.gui.MouseObserver.h"
 					>
 				</File>
 				<File

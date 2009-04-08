@@ -29,6 +29,7 @@
 #include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
+#include "tetengo2.gui.mouse_observer.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
 
@@ -117,7 +118,8 @@ namespace stub_tetengo2 { namespace gui
             dialog<window_type, message_loop_type, quit_message_loop_type>
             dialog_type;
 
-        typedef button<widget_type> button_type;
+        typedef
+            button<widget_type, tetengo2::gui::mouse_observer> button_type;
 
 
     private:

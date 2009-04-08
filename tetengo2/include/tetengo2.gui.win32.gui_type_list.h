@@ -14,6 +14,7 @@
 #include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.menu_separator.h"
+#include "tetengo2.gui.mouse_observer.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
 #include "tetengo2.gui.win32.alert.h"
@@ -146,7 +147,8 @@ namespace tetengo2 { namespace gui { namespace win32
             dialog_type;
 
         //! The button type.
-        typedef button<widget_type> button_type;
+        typedef
+            button<widget_type, tetengo2::gui::mouse_observer> button_type;
 
 
     private:

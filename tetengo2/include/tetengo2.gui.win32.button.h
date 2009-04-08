@@ -10,14 +10,19 @@
 #define TETENGO2_GUI_WIN32_BUTTON_H
 
 //#include <cstddef>
+//#include <memory>
 //#include <stdexcept>
 
+//#include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
+#include <boost/signal.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "concept_tetengo2.gui.MouseObserver.h"
 #include "concept_tetengo2.gui.Widget.h"
 
 
@@ -26,16 +31,21 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a button for Win32 platforms.
  
-        \tparam Widget A widget type. It must conform to
-                       concept_tetengo2::gui::Widget<Widget>.
+        \tparam Widget        A widget type. It must conform to
+                              concept_tetengo2::gui::Widget<Widget>.
+        \tparam MouseObserver A mouse observer type. It must conform to
+                              concept_tetengo2::gui::MouseObserver<MouseObserver>.
    */
-    template <typename Widget>
+    template <typename Widget, typename MouseObserver>
     class button : public Widget
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::MouseObserver<MouseObserver>
+        ));
 
 
     public:
@@ -85,6 +95,9 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             typename widget_type::paint_observer_type paint_observer_type;
 
+        //! The mouse observer type.
+        typedef MouseObserver mouse_observer_type;
+
 
         // constructors and destructor
 
@@ -99,7 +112,9 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         widget_type(parent),
         m_handle(create_window(parent)),
-        m_p_original_window_procedure(replace_window_procedure(m_handle))
+        m_p_original_window_procedure(replace_window_procedure(m_handle)),
+        m_mouse_observers(),
+        m_mouse_clicked_handler()
         {
             initialize(this);
         }
@@ -123,6 +138,29 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_handle;
+        }
+
+        /*!
+            \brief Adds a mouse observer.
+
+            \param p_mouse_observer An auto pointer to a mouse observer.
+
+            \throw std::runtime_error When the button is already destroyed.
+        */
+        virtual void add_mouse_observer(
+            std::auto_ptr<mouse_observer_type> p_mouse_observer
+        )
+        {
+            check_destroyed();
+
+            m_mouse_clicked_handler.connect(
+                boost::bind(
+                    &typename mouse_observer_type::clicked,
+                    p_mouse_observer.get()
+                )
+            );
+
+            m_mouse_observers.push_back(p_mouse_observer);
         }
 
 
@@ -214,6 +252,10 @@ namespace tetengo2 { namespace gui { namespace win32
         const handle_type m_handle;
 
         const ::WNDPROC m_p_original_window_procedure;
+
+        boost::ptr_vector<mouse_observer_type> m_mouse_observers;
+
+        boost::signal<void ()> m_mouse_clicked_handler;
 
 
     };

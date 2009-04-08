@@ -9,20 +9,26 @@
 #if !defined(STUBTETENGO2_GUI_BUTTON_H)
 #define STUBTETENGO2_GUI_BUTTON_H
 
+#include <memory>
+
 //#include <boost/concept_check.hpp>
 
+#include "concept_tetengo2.gui.MouseObserver.h"
 #include "concept_tetengo2.gui.Widget.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Widget>
+    template <typename Widget, typename MouseObserver>
     class button : public Widget
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::MouseObserver<MouseObserver>
+        ));
 
 
     public:
@@ -59,6 +65,8 @@ namespace stub_tetengo2 { namespace gui
         typedef
             typename widget_type::paint_observer_type paint_observer_type;
 
+        typedef MouseObserver mouse_observer_type;
+
 
         // constructors and destructor
 
@@ -79,6 +87,11 @@ namespace stub_tetengo2 { namespace gui
         {
             return 0;
         }
+
+        virtual void add_mouse_observer(
+            std::auto_ptr<mouse_observer_type> p_mouse_observer
+        )
+        {}
 
 
     };

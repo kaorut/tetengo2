@@ -429,6 +429,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\test_tetengo2.gui.mouse_observer.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_tetengo2.gui.paint_observer.cpp"
 					>
 				</File>
