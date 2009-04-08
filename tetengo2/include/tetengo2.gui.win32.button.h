@@ -150,6 +150,13 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::WNDPROC p_default_window_procedure
         )
         {
+            switch (uMsg)
+            {
+            case message_command:
+                {
+                    break;
+                }
+            }
             return this->widget_type::window_procedure(
                 uMsg, wParam, lParam, m_p_original_window_procedure
             );

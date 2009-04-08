@@ -832,10 +832,6 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             switch (uMsg)
             {
-            case message_command:
-                {
-                    return 0;
-                }
             case WM_COMMAND:
                 {
                     if (lParam == 0) break;
@@ -847,12 +843,6 @@ namespace tetengo2 { namespace gui { namespace win32
                         reinterpret_cast< ::LPARAM>(this->handle())
                     );
                     break;
-                }
-            case WM_KEYDOWN:
-                {
-                    return p_default_window_procedure(
-                        this->handle(), uMsg, wParam, lParam
-                    );
                 }
             case WM_PAINT:
                 {
