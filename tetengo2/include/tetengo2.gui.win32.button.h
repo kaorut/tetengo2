@@ -9,12 +9,9 @@
 #if !defined(TETENGO2_GUI_WIN32_BUTTON_H)
 #define TETENGO2_GUI_WIN32_BUTTON_H
 
-#include <cassert>
-#include <exception>
 //#include <cstddef>
 //#include <stdexcept>
 
-#include <boost/cast.hpp>
 //#include <boost/concept_check.hpp>
 
 #define NOMINMAX
