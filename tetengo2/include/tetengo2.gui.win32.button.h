@@ -189,6 +189,7 @@ namespace tetengo2 { namespace gui { namespace win32
             {
             case message_command:
                 {
+                    m_mouse_clicked_handler();
                     break;
                 }
             }
