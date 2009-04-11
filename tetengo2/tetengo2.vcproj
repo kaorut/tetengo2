@@ -171,6 +171,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\tetengo2.gui.win32.dialog_message_loop.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\tetengo2.gui.win32.font.h"
 					>
 				</File>

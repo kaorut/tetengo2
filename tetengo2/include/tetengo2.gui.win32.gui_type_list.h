@@ -21,6 +21,7 @@
 #include "tetengo2.gui.win32.button.h"
 #include "tetengo2.gui.win32.canvas.h"
 #include "tetengo2.gui.win32.dialog.h"
+#include "tetengo2.gui.win32.dialog_message_loop.h"
 #include "tetengo2.gui.win32.font.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "tetengo2.gui.win32.main_menu.h"
@@ -142,9 +143,16 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The menu separator type.
         typedef menu_separator<menu_item_type> menu_separator_type;
 
+        //! The dialog message loop type.
+        typedef dialog_message_loop dialog_message_loop_type;
+
         //! The dialog type.
         typedef
-            dialog<window_type, message_loop_type, quit_message_loop_type>
+            dialog<
+                window_type,
+                dialog_message_loop_type,
+                quit_message_loop_type
+            >
             dialog_type;
 
         //! The button type.
