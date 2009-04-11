@@ -112,7 +112,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 String,
                 tetengo2::win32::encode,
                 font_type,
-                tetengo2::gui::paint_observer<canvas_type>
+                tetengo2::gui::paint_observer<canvas_type>,
+                tetengo2::gui::mouse_observer
             >
             widget_type;
 
@@ -147,8 +148,7 @@ namespace tetengo2 { namespace gui { namespace win32
             dialog_type;
 
         //! The button type.
-        typedef
-            button<widget_type, tetengo2::gui::mouse_observer> button_type;
+        typedef button<widget_type> button_type;
 
 
     private:

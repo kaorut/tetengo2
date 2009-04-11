@@ -66,8 +66,9 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename widget_type::child_type child_type;
 
-        typedef
-            typename widget_type::paint_observer_type paint_observer_type;
+        typedef typename widget_type::paint_observer_type paint_observer_type;
+
+        typedef typename widget_type::mouse_observer_type mouse_observer_type;
 
         typedef MainMenu main_menu_type;
 

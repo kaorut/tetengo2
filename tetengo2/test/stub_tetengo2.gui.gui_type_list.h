@@ -93,7 +93,8 @@ namespace stub_tetengo2 { namespace gui
                 String,
                 stub_tetengo2::encode,
                 font_type,
-                tetengo2::gui::paint_observer<canvas_type>
+                tetengo2::gui::paint_observer<canvas_type>,
+                tetengo2::gui::mouse_observer
             >
             widget_type;
 
@@ -118,8 +119,7 @@ namespace stub_tetengo2 { namespace gui
             dialog<window_type, message_loop_type, quit_message_loop_type>
             dialog_type;
 
-        typedef
-            button<widget_type, tetengo2::gui::mouse_observer> button_type;
+        typedef button<widget_type> button_type;
 
 
     private:

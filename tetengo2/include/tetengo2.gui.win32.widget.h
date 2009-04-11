@@ -34,6 +34,7 @@
 #include "concept_tetengo2.gui.Canvas.h"
 #include "concept_tetengo2.gui.Font.h"
 #include "concept_tetengo2.gui.Handle.h"
+#include "concept_tetengo2.gui.MouseObserver.h"
 #include "concept_tetengo2.gui.PaintObserver.h"
 
 
@@ -68,6 +69,9 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam PaintObserver         A paint observer type. It must conform
                                       to
                                       concept_tetengo2::gui::PaintObserver<PaintObserver>.
+        \tparam MouseObserver         A mouse observer type. It must conform
+                                      to
+                                      concept_tetengo2::gui::MouseObserver<MouseObserver>.
     */
     template <
         typename Handle,
@@ -78,7 +82,8 @@ namespace tetengo2 { namespace gui { namespace win32
         typename String,
         template <typename Target, typename Source> class Encode,
         typename Font,
-        typename PaintObserver
+        typename PaintObserver,
+        typename MouseObserver
     >
     class widget : private boost::noncopyable
     {
@@ -116,6 +121,9 @@ namespace tetengo2 { namespace gui { namespace win32
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::PaintObserver<PaintObserver>
+        ));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::MouseObserver<MouseObserver>
         ));
 
 
@@ -160,6 +168,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The paint observer type.
         typedef PaintObserver paint_observer_type;
+
+        //! The mouse observer type.
+        typedef MouseObserver mouse_observer_type;
 
 
         // constructors and destructor
@@ -704,6 +715,29 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Adds a mouse observer.
+
+            \param p_mouse_observer An auto pointer to a mouse observer.
+
+            \throw std::runtime_error When the button is already destroyed.
+        */
+        virtual void add_mouse_observer(
+            std::auto_ptr<mouse_observer_type> p_mouse_observer
+        )
+        {
+            check_destroyed();
+
+            m_mouse_clicked_handler.connect(
+                boost::bind(
+                    &typename mouse_observer_type::clicked,
+                    p_mouse_observer.get()
+                )
+            );
+
+            m_mouse_observers.push_back(p_mouse_observer);
+        }
+
+        /*!
             \brief Returns wether the widget is destroyed.
 
             \retval true  When the widget is destroyed.
@@ -775,7 +809,9 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         m_destroyed(false),
         m_paint_observers(),
-        m_paint_paint_handler()
+        m_paint_paint_handler(),
+        m_mouse_observers(),
+        m_mouse_clicked_handler()
         {}
 
         /*!
@@ -787,7 +823,9 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         m_destroyed(false),
         m_paint_observers(),
-        m_paint_paint_handler()
+        m_paint_paint_handler(),
+        m_mouse_observers(),
+        m_mouse_clicked_handler()
         {}
 
 
@@ -870,6 +908,16 @@ namespace tetengo2 { namespace gui { namespace win32
                 wParam,
                 lParam
             );
+        }
+
+        /*!
+            \brief Returns the event handler for a mouse click.
+
+            \return The event handler for a mouse click.
+        */
+        boost::signal<void ()>& mouse_clicked_handler()
+        {
+            return m_mouse_clicked_handler;
         }
 
 
@@ -957,6 +1005,10 @@ namespace tetengo2 { namespace gui { namespace win32
         boost::ptr_vector<paint_observer_type> m_paint_observers;
 
         boost::signal<void (canvas_type*)> m_paint_paint_handler;
+
+        boost::ptr_vector<mouse_observer_type> m_mouse_observers;
+
+        boost::signal<void ()> m_mouse_clicked_handler;
 
 
         // functions

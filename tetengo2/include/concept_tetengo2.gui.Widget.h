@@ -57,6 +57,8 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::paint_observer_type paint_observer_type;
 
+        typedef typename Type::mouse_observer_type mouse_observer_type;
+
 
         // usage checks
 
@@ -92,6 +94,9 @@ namespace concept_tetengo2 { namespace gui
 
             std::auto_ptr<paint_observer_type> p_paint_observer;
             m_object.add_paint_observer(p_paint_observer);
+
+            std::auto_ptr<mouse_observer_type> p_mouse_observer;
+            m_object.add_mouse_observer(p_mouse_observer);
 
             const_constraints(m_object);
         }

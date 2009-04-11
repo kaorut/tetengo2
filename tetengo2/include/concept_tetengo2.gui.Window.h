@@ -30,6 +30,8 @@ namespace concept_tetengo2 { namespace gui
     public:
         // typedef checks
 
+        typedef typename Type::widget_type widget_type;
+
         typedef typename Type::main_menu_type main_menu_type;
 
         typedef typename Type::window_observer_type window_observer_type;

@@ -24,6 +24,7 @@
 #include "concept_tetengo2.gui.Canvas.h"
 #include "concept_tetengo2.gui.Font.h"
 #include "concept_tetengo2.gui.Handle.h"
+#include "concept_tetengo2.gui.MouseObserver.h"
 #include "concept_tetengo2.gui.PaintObserver.h"
 
 
@@ -38,7 +39,8 @@ namespace stub_tetengo2 { namespace gui
         typename String,
         template <typename Target, typename Source> class Encode,
         typename Font,
-        typename PaintObserver
+        typename PaintObserver,
+        typename MouseObserver
     >
     class widget : private boost::noncopyable
     {
@@ -77,6 +79,10 @@ namespace stub_tetengo2 { namespace gui
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::PaintObserver<PaintObserver>
         ));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::MouseObserver<MouseObserver>
+        ));
+
 
 
     public:
@@ -107,6 +113,8 @@ namespace stub_tetengo2 { namespace gui
         typedef widget child_type;
 
         typedef PaintObserver paint_observer_type;
+
+        typedef MouseObserver mouse_observer_type;
 
 
         // constructors and destructor
@@ -251,6 +259,11 @@ namespace stub_tetengo2 { namespace gui
 
         virtual void add_paint_observer(
             std::auto_ptr<paint_observer_type> p_paint_observer
+        )
+        {}
+
+        virtual void add_mouse_observer(
+            std::auto_ptr<mouse_observer_type> p_mouse_observer
         )
         {}
 

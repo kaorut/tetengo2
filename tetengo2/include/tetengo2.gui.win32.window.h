@@ -100,8 +100,10 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef typename widget_type::child_type child_type;
 
         //! The paint observer type.
-        typedef
-            typename widget_type::paint_observer_type paint_observer_type;
+        typedef typename widget_type::paint_observer_type paint_observer_type;
+
+        //! The mouse observer type.
+        typedef typename widget_type::mouse_observer_type mouse_observer_type;
 
         //! The main menu type.
         typedef MainMenu main_menu_type;
