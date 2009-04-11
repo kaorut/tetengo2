@@ -443,7 +443,7 @@ namespace tetengo2 { namespace gui { namespace win32
             window_class.style = 0;
             window_class.lpfnWndProc = widget_type::p_static_window_procedure();
             window_class.cbClsExtra = 0;
-            window_class.cbWndExtra = sizeof(widget_type*);
+            window_class.cbWndExtra = 0;
             window_class.hInstance = instance_handle;
             window_class.hIcon = reinterpret_cast< ::HICON>(
                 ::LoadImageW(

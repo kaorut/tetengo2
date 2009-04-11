@@ -760,16 +760,9 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         static widget* p_widget_from(const ::HWND window_handle)
         {
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(push)
-#    pragma warning(disable: 4312)
-#endif
             return reinterpret_cast<widget*>(
-                ::GetWindowLongPtrW(window_handle, GWLP_USERDATA)
+                ::GetPropW(window_handle, property_key_for_cpp_instance())
             );
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(pop)
-#endif
         }
 
 
@@ -858,6 +851,17 @@ namespace tetengo2 { namespace gui { namespace win32
                     m_destroyed = true;
                     break;
                 }
+            case WM_NCDESTROY:
+                {
+                    const widget* const p_widget =
+                        reinterpret_cast<const widget*>(
+                            ::RemovePropW(
+                                this->handle(),
+                                property_key_for_cpp_instance()
+                            )
+                        );
+                    assert(p_widget == this);
+                }
             }
             return ::CallWindowProcW(
                 p_default_window_procedure,
@@ -872,35 +876,27 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // static functions
 
-        static void associate_to_native_window_system(
-            const widget* const p_widget
-        )
+        static ::LPCWSTR property_key_for_cpp_instance()
         {
-            ::SetLastError(0);
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(push)
-#    pragma warning(disable: 4244)
-#endif
-            ::SetWindowLongPtrW(
-                p_widget->handle(),
-                GWLP_USERDATA, 
-                reinterpret_cast< ::LONG_PTR>(p_widget)
-            );
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(pop)
-#endif
-            const BOOL set_window_pos_result = ::SetWindowPos(
-                p_widget->handle(),
-                NULL,
-                0,
-                0,
-                0,
-                0,
-                SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED
-            );
+            static const std::wstring singleton(L"C++ Instance");
+            return singleton.c_str();
+        }
 
-            if (::GetLastError() > 0 || set_window_pos_result == 0)
-                throw std::runtime_error("Can't set the pointer to this!");
+        static void associate_to_native_window_system(widget* const p_widget)
+        {
+            assert(
+                ::GetPropW(
+                    p_widget->handle(), property_key_for_cpp_instance()
+                ) == NULL
+            );
+            const ::BOOL result =
+                ::SetPropW(
+                    p_widget->handle(),
+                    property_key_for_cpp_instance(),
+                    reinterpret_cast< ::HANDLE>(p_widget)
+                );
+            if (result == 0)
+                throw std::runtime_error("Can't set C++ instance.");
         }
 
         static ::LRESULT CALLBACK static_window_procedure(
