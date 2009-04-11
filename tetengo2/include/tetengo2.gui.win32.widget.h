@@ -856,11 +856,15 @@ namespace tetengo2 { namespace gui { namespace win32
                 {
                     delete_current_font();
                     m_destroyed = true;
-                    return 0;
+                    break;
                 }
             }
-            return p_default_window_procedure(
-                this->handle(), uMsg, wParam, lParam
+            return ::CallWindowProcW(
+                p_default_window_procedure,
+                this->handle(),
+                uMsg,
+                wParam,
+                lParam
             );
         }
 
@@ -918,7 +922,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 }
                 else
                 {
-                    return ::DefWindowProcW(hWnd, uMsg, wParam, lParam);
+                    return ::CallWindowProcW(
+                        ::DefWindowProcW, hWnd, uMsg, wParam, lParam
+                    );
                 }
             }
             catch (const std::exception& e)
