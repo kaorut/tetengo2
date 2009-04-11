@@ -117,6 +117,11 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN("Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(add_mouse_observer)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(destroyed)
     {
         BOOST_WARN("Not implemented yet.");
@@ -132,7 +137,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN("Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(p_widget_from)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(check_destroyed)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(window_procedure)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(mouse_clicked_handler)
     {
         BOOST_WARN("Not implemented yet.");
     }
