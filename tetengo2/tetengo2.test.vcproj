@@ -437,6 +437,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\test_tetengo2.gui.win32.abstract_window.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_tetengo2.gui.win32.alert.cpp"
 					>
 				</File>
@@ -526,6 +530,10 @@
 			<Filter
 				Name="stub_tetengo2::gui"
 				>
+				<File
+					RelativePath=".\test\stub_tetengo2.gui.abstract_window.h"
+					>
+				</File>
 				<File
 					RelativePath=".\test\stub_tetengo2.gui.alert.h"
 					>
