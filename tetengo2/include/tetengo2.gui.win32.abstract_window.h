@@ -111,14 +111,6 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The abstract_window observer type.
         typedef WindowObserver window_observer_type;
 
-        //! The style type.
-        enum style_type
-        {
-            style_flat,     //!< A flat window_style.
-            style_frame,    //!< A frame abstract_window style.
-            style_dialog,   //!< A dialog box style.
-        };
-
 
         // constructors and destructor
 
@@ -131,17 +123,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
-
-        /*!
-            \brief Returns the handle.
-            
-            \return The handle.
-        */
-        virtual handle_type handle()
-        const
-        {
-            return m_handle;
-        }
 
         /*!
             \brief Activates the abstract window.
@@ -229,16 +210,16 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             check_destroyed();
 
-            if (::SetMenu(m_handle, NULL) == 0)
+            if (::SetMenu(this->handle(), NULL) == 0)
                 throw std::runtime_error("Can't unset the main menu.");
             
             m_p_main_menu = p_main_menu;
             
             if (m_p_main_menu.get() != NULL)
             {
-                if (::SetMenu(m_handle, m_p_main_menu->handle()) == 0)
+                if (::SetMenu(this->handle(), m_p_main_menu->handle()) == 0)
                     throw std::runtime_error("Can't set a main menu.");
-                if (::DrawMenuBar(m_handle) == 0)
+                if (::DrawMenuBar(this->handle()) == 0)
                     throw std::runtime_error("Can't draw the main menu.");
             }
         }
@@ -277,7 +258,8 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             check_destroyed();
 
-            const ::BOOL result = ::PostMessageW(m_handle, WM_CLOSE, 0, 0);
+            const ::BOOL result =
+                ::PostMessageW(this->handle(), WM_CLOSE, 0, 0);
             if (result == 0)
                 throw std::runtime_error("Can't close the abstract window.");
         }
@@ -288,41 +270,27 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates an abstract window.
-
-            \param style    A style.
-
-            \throw std::runtime_error When an abstract window cannot be
-                                      created.
         */
-        abstract_window(const style_type style)
+        abstract_window()
         :
         widget_type(),
-        m_handle(create_window(style, NULL)),
         m_p_main_menu(),
         m_window_observers(),
         m_window_destroyed_handler()
-        {
-            initialize(this);
-        }
+        {}
 
         /*!
-            \brief Creates a owned abstract_window.
+            \brief Creates an abstract window.
 
-            \param parent A parent abstract_window.
-            \param style  A style.
-
-            \throw std::runtime_error When an abstract window cannot be created.
+            \param parent A parent window.
         */
-        abstract_window(const abstract_window& parent, const style_type style = style_frame)
+        abstract_window(const abstract_window& parent)
         :
         widget_type(parent),
-        m_handle(create_window(style, &parent)),
         m_p_main_menu(),
         m_window_observers(),
         m_window_destroyed_handler()
-        {
-            initialize(this);
-        }
+        {}
 
 
         // functions
@@ -390,157 +358,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // static functions
-
-        static const string_type& window_class_name()
-        {
-            static const string_type singleton =
-                L"tetengo2::gui::win32::abstract_window";
-            return singleton;
-        }
-
-        static handle_type create_window(
-            const style_type    style,
-            const abstract_window* const p_parent
-        )
-        {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
-            if (instance_handle == NULL)
-                throw std::runtime_error("Can't get the instance handle!");
-
-            if (!window_class_is_registered(instance_handle))
-                register_window_class(instance_handle);
-
-            const handle_type handle = ::CreateWindowExW(
-                create_window_exstyle(style),
-                window_class_name().c_str(),
-                window_class_name().c_str(),
-                create_window_style(style),
-                style == style_frame ? CW_USEDEFAULT : 0,
-                style == style_frame ? CW_USEDEFAULT : 0,
-                style == style_frame ? CW_USEDEFAULT : 128,
-                style == style_frame ? CW_USEDEFAULT : 128,
-                p_parent == NULL ? HWND_DESKTOP : p_parent->handle(),
-                NULL,
-                instance_handle,
-                NULL
-            );
-            if (handle == NULL)
-                throw std::runtime_error("Can't create an abstract window!");
-
-            if (style == style_dialog)
-                delete_system_menu_items(handle);
-
-            return handle;
-        }
-
-        static bool window_class_is_registered(
-            const ::HINSTANCE instance_handle
-        )
-        {
-            ::WNDCLASSEXW window_class;
-            const ::BOOL result = ::GetClassInfoExW(
-                instance_handle, window_class_name().c_str(), &window_class
-            );
-
-            return result != 0;
-        }
-
-        static void register_window_class(const ::HINSTANCE instance_handle)
-        {
-            ::WNDCLASSEXW window_class;
-            window_class.cbSize = sizeof(::WNDCLASSEXW);
-            window_class.style = 0;
-            window_class.lpfnWndProc = widget_type::p_static_window_procedure();
-            window_class.cbClsExtra = 0;
-            window_class.cbWndExtra = 0;
-            window_class.hInstance = instance_handle;
-            window_class.hIcon = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OIC_WINLOGO),
-                    IMAGE_ICON,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hIconSm = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OIC_WINLOGO),
-                    IMAGE_ICON,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hCursor = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OCR_NORMAL),
-                    IMAGE_CURSOR,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(
-                ::GetSysColorBrush(COLOR_3DFACE)
-            );
-            window_class.lpszMenuName = NULL;
-            window_class.lpszClassName = window_class_name().c_str();
-
-            const ::ATOM atom = ::RegisterClassExW(&window_class);
-            if (atom == NULL)
-                throw std::runtime_error("Can't register an abstract window class!");
-        }
-
-        static ::DWORD create_window_exstyle(const style_type style)
-        {
-            switch (style)
-            {
-            case style_frame:
-                return WS_EX_ACCEPTFILES | WS_EX_APPWINDOW;
-            case style_dialog:
-                return WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME;
-            default:
-                throw std::invalid_argument("Invalid style.");
-            }
-        }
-
-        static ::DWORD create_window_style(const style_type style)
-        {
-            switch (style)
-            {
-            case style_frame:
-                return WS_OVERLAPPEDWINDOW;
-            case style_dialog:
-                return WS_POPUPWINDOW | WS_CAPTION;
-            default:
-                throw std::invalid_argument("Invalid style.");
-            }
-        }
-
-        static void delete_system_menu_items(const ::HWND window_handle)
-        {
-            const ::HMENU menu_handle = ::GetSystemMenu(window_handle, FALSE);
-            if (menu_handle == NULL) return;
-
-            if (::DeleteMenu(menu_handle, SC_SIZE, MF_BYCOMMAND) == 0)
-                throw std::runtime_error("Can't delete system menu item.");
-            if (::DeleteMenu(menu_handle, SC_MAXIMIZE, MF_BYCOMMAND) == 0)
-                throw std::runtime_error("Can't delete system menu item.");
-            if (::DeleteMenu(menu_handle, SC_MINIMIZE, MF_BYCOMMAND) == 0)
-                throw std::runtime_error("Can't delete system menu item.");
-            if (::DeleteMenu(menu_handle, SC_RESTORE, MF_BYCOMMAND) == 0)
-                throw std::runtime_error("Can't delete system menu item.");
-        }
-
-
         // variables
-
-        const handle_type m_handle;
 
         std::auto_ptr<main_menu_type> m_p_main_menu;
 

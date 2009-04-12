@@ -9,70 +9,71 @@
 #if !defined(STUBTETENGO2_GUI_WINDOW_H)
 #define STUBTETENGO2_GUI_WINDOW_H
 
-//#include <memory>
-
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.MainMenu.h"
-#include "concept_tetengo2.gui.WindowObserver.h"
-#include "concept_tetengo2.gui.Widget.h"
+#include "concept_tetengo2.gui.AbstractWindow.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Widget, typename MainMenu, typename WindowObserver>
-    class window : public Widget
+    template <typename AbstractWindow>
+    class window : public AbstractWindow
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::WindowObserver<WindowObserver>
+            concept_tetengo2::gui::AbstractWindow<AbstractWindow>
         ));
 
 
     public:
         // types
 
-        typedef Widget widget_type;
+        typedef AbstractWindow abstract_window_type;
 
-        typedef typename widget_type::handle_type handle_type;
+        typedef typename abstract_window_type::handle_type handle_type;
 
-        typedef typename widget_type::canvas_type canvas_type;
+        typedef typename abstract_window_type::canvas_type canvas_type;
 
-        typedef typename widget_type::alert_type alert_type;
-
-        typedef typename widget_type::difference_type difference_type;
-
-        typedef typename widget_type::size_type size_type;
-
-        typedef typename widget_type::position_type position_type;
-
-        typedef typename widget_type::dimension_type dimension_type;
-
-        typedef typename widget_type::string_type string_type;
+        typedef typename abstract_window_type::alert_type alert_type;
 
         typedef
-            typename widget_type::encode_from_native_type
+            typename abstract_window_type::difference_type difference_type;
+
+        typedef typename abstract_window_type::size_type size_type;
+
+        typedef typename abstract_window_type::position_type position_type;
+
+        typedef typename abstract_window_type::dimension_type dimension_type;
+
+        typedef typename abstract_window_type::string_type string_type;
+
+        typedef
+            typename abstract_window_type::encode_from_native_type
             encode_from_native_type;
 
         typedef
-            typename widget_type::encode_to_native_type
+            typename abstract_window_type::encode_to_native_type
             encode_to_native_type;
 
-        typedef typename widget_type::font_type font_type;
+        typedef typename abstract_window_type::font_type font_type;
 
-        typedef typename widget_type::child_type child_type;
+        typedef typename abstract_window_type::child_type child_type;
 
-        typedef typename widget_type::paint_observer_type paint_observer_type;
+        typedef
+            typename abstract_window_type::paint_observer_type
+            paint_observer_type;
 
-        typedef typename widget_type::mouse_observer_type mouse_observer_type;
+        typedef
+            typename abstract_window_type::mouse_observer_type
+            mouse_observer_type;
 
-        typedef MainMenu main_menu_type;
+        typedef typename abstract_window_type::main_menu_type main_menu_type;
 
-        typedef WindowObserver window_observer_type;
+        typedef
+            typename abstract_window_type::window_observer_type
+            window_observer_type;
 
         enum style_type
         {
@@ -86,7 +87,7 @@ namespace stub_tetengo2 { namespace gui
 
         window(const style_type style = style_frame)
         :
-        widget_type()
+        abstract_window_type()
         {}
 
         virtual ~window()
@@ -102,40 +103,13 @@ namespace stub_tetengo2 { namespace gui
             return 0;
         }
 
-        virtual void activate()
-        {}
-
-        virtual bool has_main_menu()
-        const
-        {
-            return false;
-        }
-
-        virtual main_menu_type& main_menu()
-        {
-            static main_menu_type dummy;
-            return dummy;
-        }
-
-        virtual void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
-        {}
-
-        virtual void add_window_observer(
-            std::auto_ptr<window_observer_type> p_window_observer
-        )
-        {}
-
-        virtual void close()
-        const
-        {}
-
 
     protected:
         // constructors
 
         window(const window& parent, const style_type style = style_frame)
         :
-        widget_type(parent)
+        abstract_window_type(parent)
         {}
 
 

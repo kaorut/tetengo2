@@ -17,6 +17,7 @@
 #include "tetengo2.gui.mouse_observer.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
+#include "tetengo2.gui.win32.abstract_window.h"
 #include "tetengo2.gui.win32.alert.h"
 #include "tetengo2.gui.win32.button.h"
 #include "tetengo2.gui.win32.canvas.h"
@@ -130,12 +131,15 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             tetengo2::gui::win32::main_menu<popup_menu_type> main_menu_type;
 
-        //! The window type.
+        //! The abstract window type.
         typedef
-            window<
+            abstract_window<
                 widget_type, main_menu_type, tetengo2::gui::window_observer
             >
-            window_type;
+            abstract_window_type;
+
+        //! The window type.
+        typedef window<abstract_window_type> window_type;
 
         //! The menu command type.
         typedef menu_command<menu_item_type> menu_command_type;

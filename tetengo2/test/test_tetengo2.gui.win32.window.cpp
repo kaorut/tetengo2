@@ -27,36 +27,6 @@ BOOST_AUTO_TEST_SUITE(window)
         BOOST_WARN("Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(activate)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(has_main_menu)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(main_menu)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(set_main_menu)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(add_window_observer)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(close)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

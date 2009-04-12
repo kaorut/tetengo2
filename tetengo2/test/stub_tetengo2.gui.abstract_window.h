@@ -74,13 +74,6 @@ namespace stub_tetengo2 { namespace gui
 
         typedef WindowObserver window_observer_type;
 
-        enum style_type
-        {
-            style_flat,
-            style_frame,
-            style_dialog,
-        };
-
 
         // constructors and destructor
 
@@ -90,12 +83,6 @@ namespace stub_tetengo2 { namespace gui
 
 
         // functions
-
-        virtual handle_type handle()
-        const
-        {
-            return 0;
-        }
 
         virtual void activate()
         {}
@@ -128,12 +115,12 @@ namespace stub_tetengo2 { namespace gui
     protected:
         // constructors
 
-        abstract_window(const style_type style)
+        abstract_window()
         :
         widget_type()
         {}
 
-        abstract_window(const abstract_window& parent, const style_type style)
+        abstract_window(const abstract_window& parent)
         :
         widget_type(parent)
         {}

@@ -22,11 +22,6 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         BOOST_WARN("Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(handle)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
     BOOST_AUTO_TEST_CASE(activate)
     {
         BOOST_WARN("Not implemented yet.");
