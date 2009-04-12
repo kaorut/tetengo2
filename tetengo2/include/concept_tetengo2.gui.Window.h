@@ -13,7 +13,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.Widget.h"
+#include "concept_tetengo2.gui.AbstractWindow.h"
 
 
 namespace concept_tetengo2 { namespace gui
@@ -24,17 +24,13 @@ namespace concept_tetengo2 { namespace gui
         \tparam Type A type.
     */
     template <typename Type>
-    class Window : private Widget<Type>
+    class Window : private AbstractWindow<Type>
     {
 #if !defined(DOCUMENTATION)
     public:
         // typedef checks
 
-        typedef typename Type::widget_type widget_type;
-
-        typedef typename Type::main_menu_type main_menu_type;
-
-        typedef typename Type::window_observer_type window_observer_type;
+        typedef typename Type::abstract_window_type abstract_window_type;
 
         typedef typename Type::style_type style_type;
 
@@ -42,37 +38,7 @@ namespace concept_tetengo2 { namespace gui
         // usage checks
 
         BOOST_CONCEPT_USAGE(Window)
-        {
-            m_object.activate();
-
-            main_menu_type& main_menu = m_object.main_menu();
-            boost::ignore_unused_variable_warning(main_menu);
-
-            std::auto_ptr<main_menu_type> p_main_menu;
-            m_object.set_main_menu(p_main_menu);
-
-            std::auto_ptr<window_observer_type> p_window_observer;
-            m_object.add_window_observer(p_window_observer);
-
-            m_object.close();
-
-            const_constraints(m_object);
-        }
-
-        void const_constraints(const Type& object)
-        {
-            const bool has_main_menu = object.has_main_menu();
-            boost::ignore_unused_variable_warning(has_main_menu);
-
-            const main_menu_type& main_menu = m_object.main_menu();
-            boost::ignore_unused_variable_warning(main_menu);
-        }
-
-        
-    private:
-        // variables
-
-        Type m_object;
+        {}
 
 
 #endif

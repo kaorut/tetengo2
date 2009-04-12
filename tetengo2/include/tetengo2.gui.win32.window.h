@@ -164,7 +164,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When a window cannot be created.
         */
-        window(const window& parent, const style_type style = style_frame)
+        window(
+            const abstract_window_type& parent,
+            const style_type            style = style_frame
+        )
         :
         abstract_window_type(parent),
         m_handle(create_window(style, &parent))
@@ -210,8 +213,8 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         static handle_type create_window(
-            const style_type    style,
-            const window* const p_parent
+            const style_type                  style,
+            const abstract_window_type* const p_parent
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
