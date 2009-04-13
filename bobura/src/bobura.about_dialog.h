@@ -101,9 +101,6 @@ namespace bobura
         typedef
             typename dialog_type::window_observer_type window_observer_type;
 
-        //! The style type.
-        typedef typename dialog_type::style_type style_type;
-
         //! The message loop type.
         typedef typename dialog_type::message_loop_type message_loop_type;
 
@@ -125,7 +122,7 @@ namespace bobura
         */
         explicit about_dialog(const abstract_window_type& parent)
         :
-        dialog_type(parent, style_dialog),
+        dialog_type(parent),
         m_p_ok_button(),
         m_p_another_button()
         {

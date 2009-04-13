@@ -266,6 +266,27 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     protected:
+        // static functions
+
+        /*!
+            \brief Returns whether the window class is registered.
+
+            \retval true  When the window class is registered.
+            \retval false Otherwise.
+        */
+        static bool window_class_is_registered(
+            const string_type& window_class_name,
+            const ::HINSTANCE  instance_handle
+        )
+        {
+            ::WNDCLASSEXW window_class;
+            const ::BOOL result = ::GetClassInfoExW(
+                instance_handle, window_class_name.c_str(), &window_class
+            );
+
+            return result != 0;
+        }
+
         // constructors
 
         /*!

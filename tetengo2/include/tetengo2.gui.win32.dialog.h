@@ -121,14 +121,6 @@ namespace tetengo2 { namespace gui { namespace win32
             typename abstract_window_type::window_observer_type
             window_observer_type;
 
-        //! The style type.
-        enum style_type
-        {
-            style_flat,     //!< A flat window_style.
-            style_frame,    //!< A frame window style.
-            style_dialog,   //!< A dialog box style.
-        };
-
         //! The message loop type.
         typedef MessageLoop message_loop_type;
 
@@ -142,17 +134,13 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates a dialog.
 
             \param parent A parent window.
-            \param style  A style.
 
             \throw std::runtime_error When a dialog cannot be created.
         */
-        dialog(
-            const abstract_window_type& parent,
-            const style_type            style = style_dialog
-        )
+        dialog(const abstract_window_type& parent)
         :
         abstract_window_type(parent),
-        m_handle(create_window(style, &parent))
+        m_handle(create_window(&parent))
         {
             initialize(this);
         }
@@ -252,12 +240,11 @@ namespace tetengo2 { namespace gui { namespace win32
         static const string_type& window_class_name()
         {
             static const string_type singleton =
-                L"tetengo2::gui::win32::window";
+                L"tetengo2::gui::win32::dialog";
             return singleton;
         }
 
         static handle_type create_window(
-            const style_type                  style,
             const abstract_window_type* const p_parent
         )
         {
@@ -265,18 +252,24 @@ namespace tetengo2 { namespace gui { namespace win32
             if (instance_handle == NULL)
                 throw std::runtime_error("Can't get the instance handle!");
 
-            if (!window_class_is_registered(instance_handle))
+            if (
+                !window_class_is_registered(
+                    window_class_name(), instance_handle
+                )
+            )
+            {
                 register_window_class(instance_handle);
+            }
 
             const handle_type handle = ::CreateWindowExW(
-                create_window_exstyle(style),
+                WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME,
                 window_class_name().c_str(),
                 window_class_name().c_str(),
-                create_window_style(style),
-                style == style_frame ? CW_USEDEFAULT : 0,
-                style == style_frame ? CW_USEDEFAULT : 0,
-                style == style_frame ? CW_USEDEFAULT : 128,
-                style == style_frame ? CW_USEDEFAULT : 128,
+                WS_POPUPWINDOW | WS_CAPTION,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
                 p_parent == NULL ? HWND_DESKTOP : p_parent->handle(),
                 NULL,
                 instance_handle,
@@ -285,22 +278,9 @@ namespace tetengo2 { namespace gui { namespace win32
             if (handle == NULL)
                 throw std::runtime_error("Can't create a window!");
 
-            if (style == style_dialog)
-                delete_system_menu_items(handle);
+            delete_system_menu_items(handle);
 
             return handle;
-        }
-
-        static bool window_class_is_registered(
-            const ::HINSTANCE instance_handle
-        )
-        {
-            ::WNDCLASSEXW window_class;
-            const ::BOOL result = ::GetClassInfoExW(
-                instance_handle, window_class_name().c_str(), &window_class
-            );
-
-            return result != 0;
         }
 
         static void register_window_class(const ::HINSTANCE instance_handle)
@@ -312,26 +292,8 @@ namespace tetengo2 { namespace gui { namespace win32
             window_class.cbClsExtra = 0;
             window_class.cbWndExtra = 0;
             window_class.hInstance = instance_handle;
-            window_class.hIcon = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OIC_WINLOGO),
-                    IMAGE_ICON,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hIconSm = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OIC_WINLOGO),
-                    IMAGE_ICON,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
+            window_class.hIcon = NULL;
+            window_class.hIconSm = NULL;
             window_class.hCursor = reinterpret_cast< ::HICON>(
                 ::LoadImageW(
                     0,
@@ -351,32 +313,6 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::ATOM atom = ::RegisterClassExW(&window_class);
             if (atom == NULL)
                 throw std::runtime_error("Can't register a window class!");
-        }
-
-        static ::DWORD create_window_exstyle(const style_type style)
-        {
-            switch (style)
-            {
-            case style_frame:
-                return WS_EX_ACCEPTFILES | WS_EX_APPWINDOW;
-            case style_dialog:
-                return WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME;
-            default:
-                throw std::invalid_argument("Invalid style.");
-            }
-        }
-
-        static ::DWORD create_window_style(const style_type style)
-        {
-            switch (style)
-            {
-            case style_frame:
-                return WS_OVERLAPPEDWINDOW;
-            case style_dialog:
-                return WS_POPUPWINDOW | WS_CAPTION;
-            default:
-                throw std::invalid_argument("Invalid style.");
-            }
         }
 
         static void delete_system_menu_items(const ::HWND window_handle)

@@ -83,13 +83,6 @@ namespace stub_tetengo2 { namespace gui
             typename abstract_window_type::window_observer_type
             window_observer_type;
 
-        enum style_type
-        {
-            style_flat,
-            style_frame,
-            style_dialog,
-        };
-
         typedef MessageLoop message_loop_type;
 
         typedef QuitMessageLoop quit_message_loop_type;
@@ -97,10 +90,7 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        dialog(
-            const abstract_window_type& parent,
-            const style_type            style = style_dialog
-        )
+        dialog(const abstract_window_type& parent)
         :
         abstract_window_type(parent)
         {}

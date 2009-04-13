@@ -117,9 +117,6 @@ namespace bobura
         typedef
             typename window_type::window_observer_type window_observer_type;
 
-        //! The style type.
-        typedef typename window_type::style_type style_type;
-
         //! The command type list type.
         typedef CommandTypeList command_type_list_type;
 

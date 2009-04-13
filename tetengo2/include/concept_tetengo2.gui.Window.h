@@ -32,8 +32,6 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::abstract_window_type abstract_window_type;
 
-        typedef typename Type::style_type style_type;
-
 
         // usage checks
 
