@@ -39,8 +39,10 @@ namespace bobura { namespace command
         //! The about dialog type.
         typedef AboutDialog about_dialog_type;
 
-        //! The window type.
-        typedef typename about_dialog_type::window_type window_type;
+        //! The abstract_window type.
+        typedef
+            typename about_dialog_type::abstract_window_type
+            abstract_window_type;
 
 
         // constructors and destructor
@@ -48,11 +50,11 @@ namespace bobura { namespace command
         /*!
             \brief Creates an about command.
 
-            \param window A window.
+            \param parent A parent window.
         */
-        explicit about(window_type& window)
+        explicit about(abstract_window_type& parent)
         :
-        m_p_window(&window)
+        m_p_parent(&parent)
         {}
 
         /*!
@@ -62,7 +64,7 @@ namespace bobura { namespace command
         */
         about(const about& another)
         :
-        m_p_window(another.m_p_window)
+        m_p_parent(another.m_p_parent)
         {}
 
         /*!
@@ -83,7 +85,7 @@ namespace bobura { namespace command
         void swap(about& another)
         throw ()
         {
-            std::swap(m_p_window, another.m_p_window);
+            std::swap(m_p_parent, another.m_p_parent);
         }
 
         /*!
@@ -104,14 +106,14 @@ namespace bobura { namespace command
         */
         void operator()()
         {
-            about_dialog_type(*m_p_window).do_modal();
+            about_dialog_type(*m_p_parent).do_modal();
         }
 
 
     private:
         // variables
 
-        window_type* m_p_window;
+        abstract_window_type* m_p_parent;
 
 
     };

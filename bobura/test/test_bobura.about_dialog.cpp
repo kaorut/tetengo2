@@ -26,6 +26,8 @@ namespace
         >
         gui_type_list_type;
 
+    typedef gui_type_list_type::window_type window_type;
+
     typedef
         bobura::about_dialog<
             typename gui_type_list_type::dialog_type,
@@ -45,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(about_dialog)
     {
         BOOST_CHECKPOINT("");
 
-        const about_dialog_type::window_type window;
+        const window_type window;
         const about_dialog_type about_dialog(window);
     }
 

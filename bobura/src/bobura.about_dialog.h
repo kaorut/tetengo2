@@ -44,8 +44,9 @@ namespace bobura
         //! The dialog type.
         typedef Dialog dialog_type;
 
-        //! The window type.
-        typedef typename dialog_type::window_type window_type;
+        //! The abstract window type.
+        typedef
+            typename dialog_type::abstract_window_type abstract_window_type;
 
         //! The handle type.
         typedef typename dialog_type::handle_type handle_type;
@@ -120,7 +121,7 @@ namespace bobura
 
             \param parent A parent window.
         */
-        explicit about_dialog(const window_type& parent)
+        explicit about_dialog(const abstract_window_type& parent)
         :
         dialog_type(parent, style_dialog),
         m_p_ok_button(),
@@ -141,8 +142,8 @@ namespace bobura
         // static functions
 
         static void initialize_dialog(
-            about_dialog&      dialog,
-            const window_type& parent
+            about_dialog&               dialog,
+            const abstract_window_type& parent
         )
         {
             const position_type& parent_position = parent.position();

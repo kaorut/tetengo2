@@ -153,7 +153,7 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The dialog type.
         typedef
             dialog<
-                window_type,
+                abstract_window_type,
                 dialog_message_loop_type,
                 quit_message_loop_type
             >

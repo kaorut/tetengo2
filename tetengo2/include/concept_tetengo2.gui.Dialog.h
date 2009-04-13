@@ -11,7 +11,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.Window.h"
+#include "concept_tetengo2.gui.AbstractWindow.h"
 
 
 namespace concept_tetengo2 { namespace gui
@@ -22,13 +22,13 @@ namespace concept_tetengo2 { namespace gui
         \tparam Type A type.
     */
     template <typename Type>
-    class Dialog : private Window<Type>
+    class Dialog : private AbstractWindow<Type>
     {
 #if !defined(DOCUMENTATION)
     public:
         // typedef checks
 
-        typedef typename Type::window_type window_type;
+        typedef typename Type::abstract_window_type abstract_window_type;
 
         typedef typename Type::message_loop_type message_loop_type;
 
