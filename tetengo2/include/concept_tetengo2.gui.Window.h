@@ -9,8 +9,6 @@
 #if !defined(CONCEPTTETENGO2_GUI_WINDOW_H)
 #define CONCEPTTETENGO2_GUI_WINDOW_H
 
-//#include <memory>
-
 //#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.gui.AbstractWindow.h"

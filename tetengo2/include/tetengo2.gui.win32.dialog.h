@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_WIN32_DIALOG_H
 
 #include <cassert>
+#include <cstddef>
 //#include <memory>
 #include <stdexcept>
 

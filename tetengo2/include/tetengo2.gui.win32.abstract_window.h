@@ -12,9 +12,9 @@
 #include <cassert>
 //#include <cstddef>
 //#include <memory>
-//#include <stdexcept>
+#include <stdexcept>
 
-//#include <boost/bind.hpp>
+#include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/signal.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -270,6 +270,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Returns whether the window class is registered.
+
+            \param window_class_name A window class name.
+            \param instance_handle   An instance handle.
 
             \retval true  When the window class is registered.
             \retval false Otherwise.
