@@ -153,12 +153,16 @@ namespace bobura
                 )
             );
 
-            dialog.m_p_ok_button.reset(new button_type(dialog));
+            dialog.m_p_ok_button.reset(
+                new button_type(dialog, button_type::style_default)
+            );
             dialog.m_p_ok_button->set_text(L"OK");
             dialog.m_p_ok_button->set_dimension(std::make_pair(128, 32));
             dialog.m_p_ok_button->set_position(std::make_pair(240, 208));
 
-            dialog.m_p_another_button.reset(new button_type(dialog));
+            dialog.m_p_another_button.reset(
+                new button_type(dialog, button_type::style_normal)
+            );
             dialog.m_p_another_button->set_text(L"‚à‚¤‚Ð‚Æ‚Â");
             dialog.m_p_another_button->set_dimension(std::make_pair(128, 32));
             dialog.m_p_another_button->set_position(std::make_pair(108, 208));

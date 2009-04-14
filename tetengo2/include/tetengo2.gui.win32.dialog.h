@@ -14,6 +14,7 @@
 //#include <memory>
 #include <stdexcept>
 
+#include <boost/cast.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/scope_exit.hpp>
 
@@ -218,6 +219,28 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::WNDPROC p_default_window_procedure
         )
         {
+            switch (uMsg)
+            {
+            case WM_COMMAND:
+                {
+                    const ::WORD hi_wparam = HIWORD(wParam);
+                    const ::WORD lo_wparam = LOWORD(wParam);
+                    if (lParam == 0 && hi_wparam == 0)
+                    {
+                        if (lo_wparam == IDOK)
+                        {
+                            ::DestroyWindow(this->handle());
+                            return 0;
+                        }
+                        else if (lo_wparam == IDCANCEL)
+                        {
+                            ::DestroyWindow(this->handle());
+                            return 0;
+                        }
+                    }
+                    break;
+                }
+            }
             return this->abstract_window_type::window_procedure(
                 uMsg, wParam, lParam, p_default_window_procedure
             );
@@ -277,7 +300,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 NULL
             );
             if (handle == NULL)
-                throw std::runtime_error("Can't create a window!");
+                throw std::runtime_error("Can't create a dialog!");
 
             delete_system_menu_items(handle);
 
@@ -289,9 +312,9 @@ namespace tetengo2 { namespace gui { namespace win32
             ::WNDCLASSEXW window_class;
             window_class.cbSize = sizeof(::WNDCLASSEXW);
             window_class.style = 0;
-            window_class.lpfnWndProc = abstract_window_type::p_static_window_procedure();
+            window_class.lpfnWndProc = static_window_procedure;
             window_class.cbClsExtra = 0;
-            window_class.cbWndExtra = 0;
+            window_class.cbWndExtra = DLGWINDOWEXTRA;
             window_class.hInstance = instance_handle;
             window_class.hIcon = NULL;
             window_class.hIconSm = NULL;
@@ -329,6 +352,43 @@ namespace tetengo2 { namespace gui { namespace win32
                 throw std::runtime_error("Can't delete system menu item.");
             if (::DeleteMenu(menu_handle, SC_RESTORE, MF_BYCOMMAND) == 0)
                 throw std::runtime_error("Can't delete system menu item.");
+        }
+
+        static ::LRESULT CALLBACK static_window_procedure(
+            const ::HWND   hWnd,
+            const ::UINT   uMsg,
+            const ::WPARAM wParam,
+            const ::LPARAM lParam
+        )
+        throw ()
+        {
+            try
+            {
+                dialog* const p_dialog =
+                    boost::polymorphic_downcast<dialog*>(p_widget_from(hWnd));
+                if (p_dialog != NULL)
+                {
+                    return p_dialog->window_procedure(
+                        uMsg, wParam, lParam, ::DefDlgProcW
+                    );
+                }
+                else
+                {
+                    return ::CallWindowProcW(
+                        ::DefDlgProcW, hWnd, uMsg, wParam, lParam
+                    );
+                }
+            }
+            catch (const std::exception& e)
+            {
+                (alert_type(hWnd))(e);
+                return 0;
+            }
+            catch (...)
+            {
+                (alert_type(hWnd))();
+                return 0;
+            }
         }
 
 

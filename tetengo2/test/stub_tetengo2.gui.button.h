@@ -59,11 +59,22 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename widget_type::mouse_observer_type mouse_observer_type;
 
+        enum style_type
+        {
+            style_normal,
+            style_default,
+            style_cancel
+        };
+
 
         // constructors and destructor
 
-        button(const widget_type& parent)
+        button(
+            const widget_type& parent,
+            const style_type   style = style_normal
+        )
         :
+        m_style(style),
         widget_type(parent)
         {}
 
@@ -79,6 +90,18 @@ namespace stub_tetengo2 { namespace gui
         {
             return 0;
         }
+
+        virtual style_type style()
+        const
+        {
+            return m_style;
+        }
+
+
+    private:
+        // variables
+
+        const style_type m_style;
 
 
     };

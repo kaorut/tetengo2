@@ -87,6 +87,14 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The mouse observer type.
         typedef typename widget_type::mouse_observer_type mouse_observer_type;
 
+        //! The style type.
+        enum style_type
+        {
+            style_normal,   //!< A normal button.
+            style_default,  //!< A default button.
+            style_cancel    //!< A cancel button.
+        };
+
 
         // constructors and destructor
 
@@ -94,13 +102,18 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates a button.
 
             \param parent A parent widget.
+            \param style  A style.
 
             \throw std::runtime_error When a button cannot be created.
         */
-        button(const widget_type& parent)
+        button(
+            const widget_type& parent,
+            const style_type   style = style_normal
+        )
         :
         widget_type(parent),
-        m_handle(create_window(parent)),
+        m_handle(create_window(parent, style)),
+        m_style(style),
         m_p_original_window_procedure(replace_window_procedure(m_handle))
         {
             initialize(this);
@@ -125,6 +138,17 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_handle;
+        }
+
+        /*!
+            \brief Returns the style.
+
+            \return The style.
+        */
+        virtual style_type style()
+        const
+        {
+            return m_style;
         }
 
 
@@ -166,13 +190,20 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // static functions
 
-        static handle_type create_window(const widget_type& parent)
+        static handle_type create_window(
+            const widget_type& parent,
+            const style_type   style
+        )
         {
+            const ::DWORD create_window_style =
+                style == style_default ?
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON;
             const handle_type handle = ::CreateWindowExW(
                 0,
                 L"Button",
                 L"tetengo2::gui::win32::button",
-                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON,
+                create_window_style,
                 0,
                 0,
                 64,
@@ -184,6 +215,11 @@ namespace tetengo2 { namespace gui { namespace win32
             );
             if (handle == NULL)
                 throw std::runtime_error("Can't create a button!");
+
+            if (style == style_default)
+                ::SetWindowLong(handle, GWL_ID, IDOK);
+            else if (style == style_cancel)
+                ::SetWindowLong(handle, GWL_ID, IDCANCEL);
 
             return handle;
         }
@@ -215,6 +251,8 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         const handle_type m_handle;
+
+        const style_type m_style;
 
         const ::WNDPROC m_p_original_window_procedure;
 

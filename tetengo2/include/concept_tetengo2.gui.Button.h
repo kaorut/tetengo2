@@ -30,11 +30,27 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::widget_type widget_type;
 
+        typedef typename Type::style_type style_type;
+
 
         // usage checks
 
         BOOST_CONCEPT_USAGE(Button)
-        {}
+        {
+            const_constraints(m_object);
+        }
+
+        void const_constraints(const Type& object)
+        {
+            const style_type style = object.style();
+            boost::ignore_unused_variable_warning(style);
+        }
+
+
+    private:
+        // variables
+
+        Type m_object;
 
 
 #endif

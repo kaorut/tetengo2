@@ -237,7 +237,7 @@ namespace tetengo2 { namespace gui { namespace win32
             ::WNDCLASSEXW window_class;
             window_class.cbSize = sizeof(::WNDCLASSEXW);
             window_class.style = 0;
-            window_class.lpfnWndProc = abstract_window_type::p_static_window_procedure();
+            window_class.lpfnWndProc = p_static_window_procedure();
             window_class.cbClsExtra = 0;
             window_class.cbWndExtra = 0;
             window_class.hInstance = instance_handle;

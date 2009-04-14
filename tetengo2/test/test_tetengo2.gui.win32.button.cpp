@@ -27,7 +27,13 @@ BOOST_AUTO_TEST_SUITE(button)
         BOOST_WARN("Not implemented yet.");
     }
 
-BOOST_AUTO_TEST_SUITE_END()
+    BOOST_AUTO_TEST_CASE(style)
+    {
+        BOOST_WARN("Not implemented yet.");
+    }
+
+
+    BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

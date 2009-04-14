@@ -59,6 +59,16 @@ namespace tetengo2 { namespace gui { namespace win32
                     throw std::runtime_error(error_text.str());
                 }
 
+                if (
+                    ::IsDialogMessageW(message.hwnd, &message) != 0 ||
+                    ::IsDialogMessageW(
+                        ::GetAncestor(message.hwnd, GA_ROOT), &message
+                    ) != 0
+                )
+                {
+                    continue;
+                }
+
                 ::TranslateMessage(&message);
                 ::DispatchMessageW(&message);
             }
