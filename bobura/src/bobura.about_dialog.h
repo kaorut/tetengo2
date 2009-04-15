@@ -161,7 +161,7 @@ namespace bobura
             dialog.m_p_ok_button->set_position(std::make_pair(240, 208));
 
             dialog.m_p_another_button.reset(
-                new button_type(dialog, button_type::style_normal)
+                new button_type(dialog, button_type::style_cancel)
             );
             dialog.m_p_another_button->set_text(L"‚à‚¤‚Ğ‚Æ‚Â");
             dialog.m_p_another_button->set_dimension(std::make_pair(128, 32));

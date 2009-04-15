@@ -168,6 +168,17 @@ namespace tetengo2 { namespace gui { namespace win32
             return m_handle;
         }
 
+        // The document will be derived from
+        // tetengo2::gui::win32::abstract_window::close.
+        virtual void close()
+        {
+            check_destroyed();
+
+            const ::BOOL result = ::DestroyWindow(this->handle());
+            if (result == 0)
+                throw std::runtime_error("Can't destroy the dialog.");
+        }
+
         /*!
             \brief Shows the dialog as modal.
 
@@ -225,18 +236,15 @@ namespace tetengo2 { namespace gui { namespace win32
                 {
                     const ::WORD hi_wparam = HIWORD(wParam);
                     const ::WORD lo_wparam = LOWORD(wParam);
-                    if (lParam == 0 && hi_wparam == 0)
+                    if (
+                        hi_wparam == 0 &&
+                        (lo_wparam == IDOK || lo_wparam == IDCANCEL)
+                    )
                     {
-                        if (lo_wparam == IDOK)
-                        {
-                            ::DestroyWindow(this->handle());
-                            return 0;
-                        }
-                        else if (lo_wparam == IDCANCEL)
-                        {
-                            ::DestroyWindow(this->handle());
-                            return 0;
-                        }
+                        const ::HWND handle =
+                            ::GetDlgItem(this->handle(), lo_wparam);
+                        if (handle != NULL)
+                            p_widget_from(handle);
                     }
                     break;
                 }

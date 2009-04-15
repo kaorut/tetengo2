@@ -199,6 +199,14 @@ namespace tetengo2 { namespace gui { namespace win32
                 style == style_default ?
                 WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
                 WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON;
+            const ::HMENU id =
+                style == style_default ?
+                reinterpret_cast< ::HMENU>(IDOK) :
+                (
+                    style == style_cancel ?
+                    reinterpret_cast< ::HMENU>(IDCANCEL) :
+                    NULL
+                );
             const handle_type handle = ::CreateWindowExW(
                 0,
                 L"Button",
@@ -209,17 +217,12 @@ namespace tetengo2 { namespace gui { namespace win32
                 64,
                 64,
                 parent.handle(),
-                NULL,
+                id,
                 ::GetModuleHandle(NULL),
                 NULL
             );
             if (handle == NULL)
                 throw std::runtime_error("Can't create a button!");
-
-            if (style == style_default)
-                ::SetWindowLong(handle, GWL_ID, IDOK);
-            else if (style == style_cancel)
-                ::SetWindowLong(handle, GWL_ID, IDCANCEL);
 
             return handle;
         }
