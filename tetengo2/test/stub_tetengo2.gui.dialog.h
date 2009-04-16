@@ -87,6 +87,13 @@ namespace stub_tetengo2 { namespace gui
 
         typedef QuitMessageLoop quit_message_loop_type;
 
+        enum result_type
+        {
+            result_undecided,
+            result_accepted,
+            result_canceled,
+        };
+
 
         // constructors and destructor
 
@@ -108,8 +115,19 @@ namespace stub_tetengo2 { namespace gui
             return 0;
         }
 
-        void do_modal()
+        virtual void set_result(const result_type result)
         {}
+
+        virtual result_type result()
+        const
+        {
+            return result_undecided;
+        }
+
+        virtual result_type do_modal()
+        {
+            return result_canceled;
+        }
 
 
     };

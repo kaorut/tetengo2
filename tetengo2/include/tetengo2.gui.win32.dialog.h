@@ -129,6 +129,14 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The quit message loop type.
         typedef QuitMessageLoop quit_message_loop_type;
 
+        //! The result type.
+        enum result_type
+        {
+            result_undecided,   //!< The result is not decided yet.
+            result_accepted,    //!< The settings are accepted.
+            result_canceled,    //!< The settings are canceled.
+        };
+
 
         // constructors and destructor
 
@@ -142,7 +150,8 @@ namespace tetengo2 { namespace gui { namespace win32
         dialog(abstract_window_type& parent)
         :
         abstract_window_type(parent),
-        m_handle(create_window(&parent))
+        m_handle(create_window(&parent)),
+        m_result(result_undecided)
         {
             initialize(this);
         }
@@ -180,11 +189,38 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Shows the dialog as modal.
+            \brief Sets the result.
+
+            \param result A result.
 
             \throw std::runtime_error When the dialog is already destroyed.
         */
-        virtual void do_modal()
+        virtual void set_result(const result_type result)
+        {
+            check_destroyed();
+
+            m_result = result;
+        }
+
+        /*!
+            \brief Returns the result.
+
+            \return The result.
+        */
+        virtual result_type result()
+        const
+        {
+            return m_result;
+        }
+
+        /*!
+            \brief Shows the dialog as modal.
+
+            \return The result.
+
+            \throw std::runtime_error When the dialog is already destroyed.
+        */
+        virtual result_type do_modal()
         {
             check_destroyed();
 
@@ -206,6 +242,8 @@ namespace tetengo2 { namespace gui { namespace win32
             this->set_visible(true);
 
             message_loop_type()();
+
+            return this->result();
         }
 
 
@@ -252,6 +290,10 @@ namespace tetengo2 { namespace gui { namespace win32
                         }
                         else
                         {
+                            this->set_result(
+                                lo_wparam == IDOK ?
+                                result_accepted : result_canceled
+                            );
                             this->close();
                         }
                         return 0;
@@ -413,6 +455,8 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         const handle_type m_handle;
+
+        result_type m_result;
 
 
     };
