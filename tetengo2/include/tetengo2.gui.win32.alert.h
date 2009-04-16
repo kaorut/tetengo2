@@ -120,9 +120,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // static function
 
-        static ::HWND actual_parent_window_handle(const ::HWND window_handle)
+        static window_handle_type actual_parent_window_handle(
+            const window_handle_type window_handle
+        )
         {
-            const ::HWND actual_parent_handle =
+            const window_handle_type actual_parent_handle =
                 ::GetAncestor(window_handle, GA_ROOT);
 
             if (
