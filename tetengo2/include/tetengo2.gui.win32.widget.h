@@ -253,6 +253,47 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Returns the root ancestor.
+
+            \return The root ancestor.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        virtual widget& root_ancestor()
+        {
+            check_destroyed();
+
+            const ::HWND root_ancestor_handle =
+                ::GetAncestor(this->handle(), GA_ROOT);
+            assert(root_ancestor_handle != NULL);
+            widget* const p_root_ancestor =
+                p_widget_from(root_ancestor_handle);
+            assert(p_root_ancestor != NULL);
+            return *p_root_ancestor;
+        }
+
+        /*!
+            \brief Returns the root ancestor.
+
+            \return The root ancestor.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        virtual const widget& root_ancestor()
+        const
+        {
+            check_destroyed();
+
+            const ::HWND root_ancestor_handle =
+                ::GetAncestor(this->handle(), GA_ROOT);
+            assert(root_ancestor_handle != NULL);
+            const widget* const p_root_ancestor =
+                p_widget_from(root_ancestor_handle);
+            assert(p_root_ancestor != NULL);
+            return *p_root_ancestor;
+        }
+
+        /*!
             \brief Sets the enabled status.
 
             \param enabled A enabled status.
@@ -691,6 +732,14 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Clicks the widget.
+        */
+        void click()
+        {
+            m_mouse_clicked_handler();
+        }
+
+        /*!
             \brief Adds a paint observer.
 
             \param p_paint_observer An auto pointer to a paint observer.
@@ -819,7 +868,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param parent A parent.
         */
-        widget(const widget& parent)
+        widget(widget& parent)
         :
         m_destroyed(false),
         m_paint_observers(),

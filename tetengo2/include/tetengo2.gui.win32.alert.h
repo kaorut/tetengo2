@@ -16,6 +16,7 @@
 #include <string>
 
 //#include <boost/concept_check.hpp>
+#include <boost/scope_exit.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -80,7 +81,7 @@ namespace tetengo2 { namespace gui { namespace win32
         explicit alert(const window_handle_type window_handle = NULL)
         throw ()
         :
-        m_window_handle(window_handle)
+        m_window_handle(actual_parent_window_handle(window_handle))
         {}
 
 
@@ -117,6 +118,26 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef Encode<std::wstring, std::string> encode_type;
 
 
+        // static function
+
+        static ::HWND actual_parent_window_handle(const ::HWND window_handle)
+        {
+            const ::HWND actual_parent_handle =
+                ::GetAncestor(window_handle, GA_ROOT);
+
+            if (
+                actual_parent_handle == NULL ||
+                ::IsWindow(actual_parent_handle) == 0 ||
+                ::IsWindowVisible(actual_parent_handle) == 0 ||
+                ::IsWindowEnabled(actual_parent_handle) == 0
+            )
+            {
+                return HWND_DESKTOP;
+            }
+
+            return actual_parent_handle;
+        }
+
         // variables
 
         const window_handle_type m_window_handle;
@@ -131,23 +152,13 @@ namespace tetengo2 { namespace gui { namespace win32
         )
         const
         {
-            struct library_loader_class
+            const ::HINSTANCE handle = ::LoadLibraryW(L"COMCTL32.DLL");
+            BOOST_SCOPE_EXIT((&handle))
             {
-                const ::HINSTANCE m_handle;
-
-                library_loader_class()
-                :
-                m_handle(::LoadLibraryW(L"COMCTL32.DLL"))
-                { }
-
-                ~library_loader_class()
-                throw ()
-                {
-                    if (m_handle != NULL)
-                        ::FreeLibrary(m_handle);
-                }
-            } library_loader;
-            if (library_loader.m_handle == NULL)
+                if (handle != NULL)
+                    ::FreeLibrary(handle);
+            } BOOST_SCOPE_EXIT_END
+            if (handle == NULL)
             {
                 show_message_box(caption, text1, text2);
                 return;
@@ -164,7 +175,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 int*
             ); 
             task_dialog p_task_dialog = reinterpret_cast<task_dialog>(
-                ::GetProcAddress(library_loader.m_handle, "TaskDialog")
+                ::GetProcAddress(handle, "TaskDialog")
             );
             if (p_task_dialog == NULL)
             {

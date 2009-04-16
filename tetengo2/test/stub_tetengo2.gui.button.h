@@ -69,10 +69,7 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        button(
-            const widget_type& parent,
-            const style_type   style = style_normal
-        )
+        button(widget_type& parent, const style_type style = style_normal)
         :
         m_style(style),
         widget_type(parent)

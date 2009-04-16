@@ -66,6 +66,8 @@ namespace concept_tetengo2 { namespace gui
         {
             m_object.parent().handle();
 
+            m_object.root_ancestor().handle();
+
             m_object.set_enabled(bool());
 
             m_object.set_visible(bool());
@@ -92,6 +94,8 @@ namespace concept_tetengo2 { namespace gui
             const std::vector<child_type*> children = m_object.children();
             boost::ignore_unused_variable_warning(children);
 
+            m_object.click();
+
             std::auto_ptr<paint_observer_type> p_paint_observer;
             m_object.add_paint_observer(p_paint_observer);
 
@@ -110,6 +114,8 @@ namespace concept_tetengo2 { namespace gui
             boost::ignore_unused_variable_warning(has_parent);
 
             object.parent().handle();
+
+            m_object.root_ancestor().handle();
 
             const bool enabled = object.enabled();
             boost::ignore_unused_variable_warning(enabled);

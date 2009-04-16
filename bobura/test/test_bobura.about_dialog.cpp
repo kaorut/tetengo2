@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(about_dialog)
     {
         BOOST_CHECKPOINT("");
 
-        const window_type window;
+        window_type window;
         const about_dialog_type about_dialog(window);
     }
 

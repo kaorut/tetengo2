@@ -140,7 +140,32 @@ namespace stub_tetengo2 { namespace gui
             return m_p_parent != NULL;
         }
 
+        virtual widget& parent()
+        {
+            if (!has_parent())
+                throw std::runtime_error("Has no parent.");
+
+            return *m_p_parent;
+        }
+
         virtual const widget& parent()
+        const
+        {
+            if (!has_parent())
+                throw std::runtime_error("Has no parent.");
+
+            return *m_p_parent;
+        }
+
+        virtual widget& root_ancestor()
+        {
+            if (!has_parent())
+                throw std::runtime_error("Has no parent.");
+
+            return *m_p_parent;
+        }
+
+        virtual const widget& root_ancestor()
         const
         {
             if (!has_parent())
@@ -257,6 +282,9 @@ namespace stub_tetengo2 { namespace gui
             return std::vector<const child_type*>();
         }
 
+        void click()
+        {}
+
         virtual void add_paint_observer(
             std::auto_ptr<paint_observer_type> p_paint_observer
         )
@@ -288,7 +316,7 @@ namespace stub_tetengo2 { namespace gui
         m_text()
         {}
 
-        widget(const widget& parent)
+        widget(widget& parent)
         :
         m_p_parent(&parent),
         m_enabled(false),
@@ -303,7 +331,7 @@ namespace stub_tetengo2 { namespace gui
     private:
         // variables
 
-        const widget* const m_p_parent;
+        widget* const m_p_parent;
 
         bool m_enabled;
 

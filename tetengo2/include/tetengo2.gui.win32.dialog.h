@@ -139,7 +139,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When a dialog cannot be created.
         */
-        dialog(const abstract_window_type& parent)
+        dialog(abstract_window_type& parent)
         :
         abstract_window_type(parent),
         m_handle(create_window(&parent))
@@ -242,9 +242,19 @@ namespace tetengo2 { namespace gui { namespace win32
                     )
                     {
                         const ::HWND handle =
-                            ::GetDlgItem(this->handle(), lo_wparam);
+                            reinterpret_cast< ::HWND>(lParam);
+                        assert(
+                            handle == ::GetDlgItem(this->handle(), lo_wparam)
+                        );
                         if (handle != NULL)
-                            p_widget_from(handle);
+                        {
+                            p_widget_from(handle)->click();
+                        }
+                        else
+                        {
+                            this->close();
+                        }
+                        return 0;
                     }
                     break;
                 }

@@ -101,15 +101,16 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a button.
 
+            The window cannot have plural buttons with style_default. And so
+            is style_cancel. When creating a second button with style_default
+            or style_cancel, std::runtime_error is thrown.
+
             \param parent A parent widget.
             \param style  A style.
 
             \throw std::runtime_error When a button cannot be created.
         */
-        button(
-            const widget_type& parent,
-            const style_type   style = style_normal
-        )
+        button(widget_type& parent, const style_type style = style_normal)
         :
         widget_type(parent),
         m_handle(create_window(parent, style)),
@@ -199,14 +200,33 @@ namespace tetengo2 { namespace gui { namespace win32
                 style == style_default ?
                 WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
                 WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON;
-            const ::HMENU id =
-                style == style_default ?
-                reinterpret_cast< ::HMENU>(IDOK) :
-                (
-                    style == style_cancel ?
-                    reinterpret_cast< ::HMENU>(IDCANCEL) :
+            ::HMENU id = NULL;
+            if (style == style_default)
+            {
+                if (
+                    ::GetDlgItem(parent.root_ancestor().handle(), IDOK) !=
                     NULL
-                );
+                )
+                {
+                    throw std::runtime_error(
+                        "Default button already exists."
+                    );
+                }
+                id = reinterpret_cast< ::HMENU>(IDOK);
+            }
+            else if (style == style_cancel)
+            {
+                if (
+                    ::GetDlgItem(parent.root_ancestor().handle(), IDCANCEL) !=
+                    NULL
+                )
+                {
+                    throw std::runtime_error(
+                        "Cancel button already exists."
+                    );
+                }
+                id = reinterpret_cast< ::HMENU>(IDCANCEL);
+            }
             const handle_type handle = ::CreateWindowExW(
                 0,
                 L"Button",

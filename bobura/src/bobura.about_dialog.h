@@ -120,7 +120,7 @@ namespace bobura
 
             \param parent A parent window.
         */
-        explicit about_dialog(const abstract_window_type& parent)
+        explicit about_dialog(abstract_window_type& parent)
         :
         dialog_type(parent),
         m_p_ok_button(),
@@ -157,15 +157,15 @@ namespace bobura
                 new button_type(dialog, button_type::style_default)
             );
             dialog.m_p_ok_button->set_text(L"OK");
-            dialog.m_p_ok_button->set_dimension(std::make_pair(128, 32));
-            dialog.m_p_ok_button->set_position(std::make_pair(240, 208));
+            dialog.m_p_ok_button->set_dimension(std::make_pair(80, 20));
+            dialog.m_p_ok_button->set_position(std::make_pair(208, 228));
 
             dialog.m_p_another_button.reset(
                 new button_type(dialog, button_type::style_cancel)
             );
-            dialog.m_p_another_button->set_text(L"‚à‚¤‚Ð‚Æ‚Â");
-            dialog.m_p_another_button->set_dimension(std::make_pair(128, 32));
-            dialog.m_p_another_button->set_position(std::make_pair(108, 208));
+            dialog.m_p_another_button->set_text(L"ƒLƒƒƒ“ƒZƒ‹");
+            dialog.m_p_another_button->set_dimension(std::make_pair(80, 20));
+            dialog.m_p_another_button->set_position(std::make_pair(296, 228));
         }
 
 

@@ -120,7 +120,7 @@ namespace stub_tetengo2 { namespace gui
         widget_type()
         {}
 
-        abstract_window(const abstract_window& parent)
+        abstract_window(abstract_window& parent)
         :
         widget_type(parent)
         {}

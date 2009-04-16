@@ -90,7 +90,7 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        dialog(const abstract_window_type& parent)
+        dialog(abstract_window_type& parent)
         :
         abstract_window_type(parent)
         {}
