@@ -19,7 +19,6 @@
 #include "bobura.main_window.h"
 #include "bobura.settings.h"
 #include "bobura.command.command_type_list.h"
-#include "bobura.message.about_dialog_observers.h"
 #include "bobura.message.message_type_list.h"
 
 

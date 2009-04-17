@@ -174,7 +174,7 @@ namespace bobura
             dialog.m_p_ok_button->set_position(std::make_pair(280, 216));
             dialog.m_p_ok_button->add_mouse_observer(
                 std::auto_ptr<mouse_observer_type>(
-                    new about_dialog_ok_button_mouse_observer_type()
+                    new about_dialog_ok_button_mouse_observer_type(&dialog)
                 )
             );
         }

@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MESSAGE_ABOUTDIALOGOBSERVERS_H)
 #define BOBURA_MESSAGE_ABOUTDIALOGOBSERVERS_H
 
+#include <cassert>
+
 //#include <boost/concept_check.hpp>
 
 #include <tetengo2.gui.mouse_observer.h>
@@ -46,9 +48,17 @@ namespace bobura { namespace message
         /*!
             \brief Creates a mouse observer of the OK button in the about
                    dialog.
+            
+            \param p_dialog A pointer to a dialog.
         */
-        about_dialog_ok_button_mouse_observer()
-        {}
+        explicit about_dialog_ok_button_mouse_observer(
+            dialog_type* const p_dialog
+        )
+        :
+        m_p_dialog(p_dialog)
+        {
+            assert(m_p_dialog != NULL);
+        }
 
         /*!
             \brief Destroys the mouse observer of the OK button in the about
@@ -65,45 +75,15 @@ namespace bobura { namespace message
         // tetengo2::gui::mouse_observer::clicked.
         virtual void clicked()
         {
-
+            m_p_dialog->set_result(dialog_type::result_accepted);
+            m_p_dialog->close();
         }
 
 
     private:
         // variables
 
-
-    };
-
-
-    /*!
-        \brief The class template for a message type list of the about dialog.
-
-        \tparam Dialog A dialog type. It must conform to
-                       concept_tetengo2::gui::Dialog<Dialog>.
-    */
-    template <typename Dialog>
-    class about_dialog_message_type_list
-    {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
-
-
-    public:
-        // types
-
-        //! The about dialog OK button mouse observer type.
-        typedef
-            about_dialog_ok_button_mouse_observer<Dialog>
-            about_dialog_ok_button_mouse_observer_type;
-
-
-    private:
-        // forbidden operations
-
-        about_dialog_message_type_list();
+        dialog_type* const m_p_dialog;
 
 
     };

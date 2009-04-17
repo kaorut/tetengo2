@@ -18,7 +18,7 @@
 namespace bobura { namespace message
 {
     /*!
-        \brief The class template for a message type list of.
+        \brief The class template for a message type list of the main window.
 
         \tparam Command         A command type. It must conform to
                                 boost::Generator<Command, void>.
@@ -64,6 +64,39 @@ namespace bobura { namespace message
         // forbidden operations
 
         message_type_list();
+
+
+    };
+
+
+    /*!
+        \brief The class template for a message type list of the about dialog.
+
+        \tparam Dialog A dialog type. It must conform to
+                       concept_tetengo2::gui::Dialog<Dialog>.
+    */
+    template <typename Dialog>
+    class about_dialog_message_type_list
+    {
+    private:
+        // concept checks
+
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
+
+
+    public:
+        // types
+
+        //! The about dialog OK button mouse observer type.
+        typedef
+            about_dialog_ok_button_mouse_observer<Dialog>
+            about_dialog_ok_button_mouse_observer_type;
+
+
+    private:
+        // forbidden operations
+
+        about_dialog_message_type_list();
 
 
     };

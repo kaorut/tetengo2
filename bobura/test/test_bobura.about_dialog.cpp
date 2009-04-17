@@ -14,7 +14,7 @@
 #include <stub_tetengo2.gui.gui_type_list.h>
 
 #include "bobura.about_dialog.h"
-#include "bobura.message.about_dialog_observers.h"
+#include "bobura.message.message_type_list.h"
 
 
 namespace
