@@ -40,9 +40,9 @@ namespace bobura
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Button<Button>));
-        BOOST_CONCEPT_ASSERT((
-            concept_bobura::message::MessageTypeList<MessageTypeList>
-        ));
+        //BOOST_CONCEPT_ASSERT((
+        //    concept_bobura::message::MessageTypeList<MessageTypeList>
+        //));
 
 
     public:
@@ -122,6 +122,10 @@ namespace bobura
         //! The message type list type.
         typedef MessageTypeList message_type_list_type;
 
+        //! The OK button mouse observer type.
+        typedef
+            typename message_type_list_type::about_dialog_ok_button_mouse_observer_type
+            about_dialog_ok_button_mouse_observer_type;
 
         // constructors and destructor
 
@@ -169,6 +173,11 @@ namespace bobura
             dialog.m_p_ok_button->set_text(L"OK");
             dialog.m_p_ok_button->set_dimension(std::make_pair(80, 20));
             dialog.m_p_ok_button->set_position(std::make_pair(208, 228));
+            dialog.m_p_ok_button->add_mouse_observer(
+                std::auto_ptr<mouse_observer_type>(
+                    new about_dialog_ok_button_mouse_observer_type()
+                )
+            );
 
             dialog.m_p_another_button.reset(
                 new button_type(dialog, button_type::style_cancel)

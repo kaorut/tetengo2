@@ -47,7 +47,7 @@ namespace bobura { namespace message
             \brief Creates a mouse observer of the OK button in the about
                    dialog.
         */
-        explicit about_dialog_ok_button_mouse_observer()
+        about_dialog_ok_button_mouse_observer()
         {}
 
         /*!
@@ -71,6 +71,39 @@ namespace bobura { namespace message
 
     private:
         // variables
+
+
+    };
+
+
+    /*!
+        \brief The class template for a message type list of the about dialog.
+
+        \tparam Dialog A dialog type. It must conform to
+                       concept_tetengo2::gui::Dialog<Dialog>.
+    */
+    template <typename Dialog>
+    class about_dialog_message_type_list
+    {
+    private:
+        // concept checks
+
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
+
+
+    public:
+        // types
+
+        //! The about dialog OK button mouse observer type.
+        typedef
+            about_dialog_ok_button_mouse_observer<Dialog>
+            about_dialog_ok_button_mouse_observer_type;
+
+
+    private:
+        // forbidden operations
+
+        about_dialog_message_type_list();
 
 
     };

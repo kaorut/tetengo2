@@ -19,6 +19,7 @@
 #include "bobura.main_window.h"
 #include "bobura.settings.h"
 #include "bobura.command.command_type_list.h"
+#include "bobura.message.about_dialog_observers.h"
 #include "bobura.message.message_type_list.h"
 
 
@@ -59,11 +60,20 @@ namespace bobura
         //! The settings type.
         typedef settings<string_type> settings_type;
 
+        //! The about dialog message type list type.
+        typedef
+            message::about_dialog_message_type_list<
+                typename gui_type_list_type::dialog_type
+            >
+            about_dialog_message_type_list_type;
+
+
         //! The about dialog type.
         typedef
             about_dialog<
                 typename gui_type_list_type::dialog_type,
-                typename gui_type_list_type::button_type
+                typename gui_type_list_type::button_type,
+                about_dialog_message_type_list_type
             >
             about_dialog_type;
 
@@ -79,8 +89,7 @@ namespace bobura
             message::message_type_list<
                 typename command_type_list_type::command_type,
                 typename gui_type_list_type::canvas_type,
-                typename gui_type_list_type::quit_message_loop_type,
-                about_dialog_type
+                typename gui_type_list_type::quit_message_loop_type
             >
             message_type_list_type;
 
