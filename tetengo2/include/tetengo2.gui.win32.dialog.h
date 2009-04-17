@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <cstddef>
+#include <exception>
 //#include <memory>
 #include <stdexcept>
 
@@ -177,8 +178,12 @@ namespace tetengo2 { namespace gui { namespace win32
             return m_handle;
         }
 
-        // The document will be derived from
-        // tetengo2::gui::win32::abstract_window::close.
+        /*!
+            \brief Closes the abstract window.
+
+            \throw std::runtime_error When the abstract window is already
+                                      destroyed.
+        */
         virtual void close()
         {
             check_destroyed();
