@@ -17,18 +17,22 @@
 #include <concept_tetengo2.gui.Dialog.h>
 #include <concept_tetengo2.gui.Button.h>
 
+#include "concept_bobura.message.MessageTypeList.h"
+
 
 namespace bobura
 {
     /*!
         \brief The class template for the about dialog.
 
-        \tparam Dialog A dialog type. It must conform to
-                       concept_tetengo2::gui::Dialog<Dialog>.
-        \tparam Button A button type. It must conform to
-                       concept_tetengo2::gui::Button<Button>.
+        \tparam Dialog          A dialog type. It must conform to
+                                concept_tetengo2::gui::Dialog<Dialog>.
+        \tparam Button          A button type. It must conform to
+                                concept_tetengo2::gui::Button<Button>.
+        \tparam MessageTypeList A message type. It must conform to
+                                concept_bobura::message::MessageTypeList<MessageTypeList>.
     */
-    template <typename Dialog, typename Button>
+    template <typename Dialog, typename Button, typename MessageTypeList>
     class about_dialog : public Dialog
     {
     private:
@@ -36,6 +40,9 @@ namespace bobura
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Button<Button>));
+        BOOST_CONCEPT_ASSERT((
+            concept_bobura::message::MessageTypeList<MessageTypeList>
+        ));
 
 
     public:
@@ -111,6 +118,9 @@ namespace bobura
 
         //! The button type.
         typedef Button button_type;
+
+        //! The message type list type.
+        typedef MessageTypeList message_type_list_type;
 
 
         // constructors and destructor

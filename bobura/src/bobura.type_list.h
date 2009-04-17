@@ -79,7 +79,8 @@ namespace bobura
             message::message_type_list<
                 typename command_type_list_type::command_type,
                 typename gui_type_list_type::canvas_type,
-                typename gui_type_list_type::quit_message_loop_type
+                typename gui_type_list_type::quit_message_loop_type,
+                about_dialog_type
             >
             message_type_list_type;
 

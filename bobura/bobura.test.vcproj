@@ -449,6 +449,10 @@
 				Name="test_bobura::message"
 				>
 				<File
+					RelativePath=".\test\test_bobura.message.about_dialog_observers.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_bobura.message.main_window_observers.cpp"
 					>
 				</File>

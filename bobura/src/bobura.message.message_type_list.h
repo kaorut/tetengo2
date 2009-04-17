@@ -11,6 +11,7 @@
 
 //#include <boost/concept_check.hpp>
 
+#include "bobura.message.about_dialog_observers.h"
 #include "bobura.message.main_window_observers.h"
 
 
@@ -26,9 +27,16 @@ namespace bobura { namespace message
                                 concept_tetengo2::gui::Canvas<Canvas>.
         \tparam QuitMessageLoop A unary functor type for quitting the message
                                 loop. It must conform to
-                                boost::UnaryFunction<QuitMessageLoop, void, int>
+                                boost::UnaryFunction<QuitMessageLoop, void, int>.
+        \tparam Dialog          A dialog type. It must conform to
+                                concept_tetengo2::gui::Dialog<Dialog>.
     */
-    template <typename Command, typename Canvas, typename QuitMessageLoop>
+    template <
+        typename Command,
+        typename Canvas,
+        typename QuitMessageLoop,
+        typename Dialog
+    >
     class message_type_list
     {
     private:
@@ -39,6 +47,7 @@ namespace bobura { namespace message
         BOOST_CONCEPT_ASSERT((
             boost::UnaryFunction<QuitMessageLoop, void, int>
         ));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
 
 
     public:
@@ -57,6 +66,11 @@ namespace bobura { namespace message
         typedef
             main_window_window_observer<QuitMessageLoop>
             main_window_window_observer_type;
+
+        //! The about dialog OK button mouse observer type.
+        typedef
+            about_dialog_ok_button_mouse_observer<Dialog>
+            about_dialog_ok_button_mouse_observer_type;
 
 
     private:

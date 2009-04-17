@@ -38,6 +38,10 @@ namespace concept_bobura { namespace message
             typename Type::main_window_window_observer_type
             main_window_window_observer_type;
 
+        typedef
+            typename Type::about_dialog_ok_button_mouse_observer_type
+            about_dialog_ok_button_mouse_observer_type;
+
 
         // usage checks
 

@@ -469,6 +469,10 @@
 				Name="bobura::message"
 				>
 				<File
+					RelativePath=".\src\bobura.message.about_dialog_observers.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\bobura.message.main_window_observers.h"
 					>
 				</File>
