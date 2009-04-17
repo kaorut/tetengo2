@@ -137,8 +137,7 @@ namespace bobura
         explicit about_dialog(abstract_window_type& parent)
         :
         dialog_type(parent),
-        m_p_ok_button(),
-        m_p_another_button()
+        m_p_ok_button()
         {
             initialize_dialog(*this, parent);
         }
@@ -171,28 +170,19 @@ namespace bobura
                 new button_type(dialog, button_type::style_default)
             );
             dialog.m_p_ok_button->set_text(L"OK");
-            dialog.m_p_ok_button->set_dimension(std::make_pair(80, 20));
-            dialog.m_p_ok_button->set_position(std::make_pair(208, 228));
+            dialog.m_p_ok_button->set_dimension(std::make_pair(88, 24));
+            dialog.m_p_ok_button->set_position(std::make_pair(280, 216));
             dialog.m_p_ok_button->add_mouse_observer(
                 std::auto_ptr<mouse_observer_type>(
                     new about_dialog_ok_button_mouse_observer_type()
                 )
             );
-
-            dialog.m_p_another_button.reset(
-                new button_type(dialog, button_type::style_cancel)
-            );
-            dialog.m_p_another_button->set_text(L"ƒLƒƒƒ“ƒZƒ‹");
-            dialog.m_p_another_button->set_dimension(std::make_pair(80, 20));
-            dialog.m_p_another_button->set_position(std::make_pair(296, 228));
         }
 
 
         // variables
 
         std::auto_ptr<button_type> m_p_ok_button;
-
-        std::auto_ptr<button_type> m_p_another_button;
 
 
     };
