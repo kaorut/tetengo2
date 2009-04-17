@@ -11,9 +11,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "bobura.message.main_window_menu_observer.h"
-#include "bobura.message.main_window_paint_observer.h"
-#include "bobura.message.main_window_window_observer.h"
+#include "bobura.message.main_window_observers.h"
 
 
 namespace bobura { namespace message

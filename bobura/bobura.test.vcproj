@@ -449,15 +449,7 @@
 				Name="test_bobura::message"
 				>
 				<File
-					RelativePath=".\test\test_bobura.message.main_window_menu_observer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\test\test_bobura.message.main_window_paint_observer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\test\test_bobura.message.main_window_window_observer.cpp"
+					RelativePath=".\test\test_bobura.message.main_window_observers.cpp"
 					>
 				</File>
 				<File
