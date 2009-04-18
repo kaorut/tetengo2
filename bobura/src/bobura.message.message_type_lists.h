@@ -30,7 +30,7 @@ namespace bobura { namespace message
                                 boost::UnaryFunction<QuitMessageLoop, void, int>.
     */
     template <typename Command, typename Canvas, typename QuitMessageLoop>
-    class message_type_list
+    class main_window_message_type_list
     {
     private:
         // concept checks
@@ -63,7 +63,7 @@ namespace bobura { namespace message
     private:
         // forbidden operations
 
-        message_type_list();
+        main_window_message_type_list();
 
 
     };

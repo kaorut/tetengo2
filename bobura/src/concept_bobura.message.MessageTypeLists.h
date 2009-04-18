@@ -20,7 +20,7 @@ namespace concept_bobura { namespace message
         \tparam Type A type.
     */
     template <typename Type>
-    class MessageTypeList
+    class MainWindowMessageTypeList
     {
 #if !defined(DOCUMENTATION)
     public:
@@ -41,7 +41,35 @@ namespace concept_bobura { namespace message
 
         // usage checks
 
-        BOOST_CONCEPT_USAGE(MessageTypeList)
+        BOOST_CONCEPT_USAGE(MainWindowMessageTypeList)
+        {}
+
+        
+#endif
+    };
+
+
+    /*!
+        \brief The concept check class template for a command type list of the
+               about dialog.
+
+        \tparam Type A type.
+    */
+    template <typename Type>
+    class AboutDialogMessageTypeList
+    {
+#if !defined(DOCUMENTATION)
+    public:
+        // typedef checks
+
+        typedef
+            typename Type::about_dialog_ok_button_mouse_observer_type
+            about_dialog_ok_button_mouse_observer_type;
+
+
+        // usage checks
+
+        BOOST_CONCEPT_USAGE(AboutDialogMessageTypeList)
         {}
 
         

@@ -19,7 +19,7 @@
 #include "bobura.main_window.h"
 #include "bobura.settings.h"
 #include "bobura.command.command_type_list.h"
-#include "bobura.message.message_type_list.h"
+#include "bobura.message.message_type_lists.h"
 
 
 namespace bobura
@@ -85,19 +85,19 @@ namespace bobura
 
         //! The message type list type.
         typedef
-            message::message_type_list<
+            message::main_window_message_type_list<
                 typename command_type_list_type::command_type,
                 typename gui_type_list_type::canvas_type,
                 typename gui_type_list_type::quit_message_loop_type
             >
-            message_type_list_type;
+            main_window_message_type_list_type;
 
         //! The main window type.
         typedef
             main_window<
                 gui_type_list_type,
                 command_type_list_type,
-                message_type_list_type
+                main_window_message_type_list_type
             >
             main_window_type;
 

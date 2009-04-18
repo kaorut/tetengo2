@@ -8,15 +8,23 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.message.message_type_list.h"
+#include "bobura.message.message_type_lists.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
-BOOST_AUTO_TEST_SUITE(message_type_list)
+
+BOOST_AUTO_TEST_SUITE(main_window_message_type_list)
     // test cases
 
 
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(about_dialog_message_type_list)
+    // test cases
+
+
+BOOST_AUTO_TEST_SUITE_END()
+
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

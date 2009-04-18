@@ -17,7 +17,7 @@
 #include <concept_tetengo2.gui.Dialog.h>
 #include <concept_tetengo2.gui.Button.h>
 
-#include "concept_bobura.message.MessageTypeList.h"
+#include "concept_bobura.message.MessageTypeLists.h"
 
 
 namespace bobura
@@ -25,14 +25,18 @@ namespace bobura
     /*!
         \brief The class template for the about dialog.
 
-        \tparam Dialog          A dialog type. It must conform to
-                                concept_tetengo2::gui::Dialog<Dialog>.
-        \tparam Button          A button type. It must conform to
-                                concept_tetengo2::gui::Button<Button>.
-        \tparam MessageTypeList A message type. It must conform to
-                                concept_bobura::message::MessageTypeList<MessageTypeList>.
+        \tparam Dialog                     A dialog type. It must conform to
+                                           concept_tetengo2::gui::Dialog<Dialog>.
+        \tparam Button                     A button type. It must conform to
+                                           concept_tetengo2::gui::Button<Button>.
+        \tparam AboutDialogMessageTypeList A message type. It must conform to
+                                           concept_bobura::message::AboutDialogMessageTypeList<AboutDialogMessageTypeList>.
     */
-    template <typename Dialog, typename Button, typename MessageTypeList>
+    template <
+        typename Dialog,
+        typename Button,
+        typename AboutDialogMessageTypeList
+    >
     class about_dialog : public Dialog
     {
     private:
@@ -40,9 +44,11 @@ namespace bobura
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Button<Button>));
-        //BOOST_CONCEPT_ASSERT((
-        //    concept_bobura::message::MessageTypeList<MessageTypeList>
-        //));
+        BOOST_CONCEPT_ASSERT((
+            concept_bobura::message::AboutDialogMessageTypeList<
+                AboutDialogMessageTypeList
+            >
+        ));
 
 
     public:
@@ -120,12 +126,14 @@ namespace bobura
         typedef Button button_type;
 
         //! The message type list type.
-        typedef MessageTypeList message_type_list_type;
+        typedef
+            AboutDialogMessageTypeList about_dialog_message_type_list_type;
 
         //! The OK button mouse observer type.
         typedef
-            typename message_type_list_type::about_dialog_ok_button_mouse_observer_type
+            typename about_dialog_message_type_list_type::about_dialog_ok_button_mouse_observer_type
             about_dialog_ok_button_mouse_observer_type;
+
 
         // constructors and destructor
 
