@@ -217,7 +217,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns whether this font is bold.
 
-            \retval true  This font is bold.
+            \retval true  When this font is bold.
             \retval false Otherwise.
         */
         bool bold()
@@ -229,7 +229,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns whether this font is italic.
 
-            \retval true  This font is italic.
+            \retval true  When this font is italic.
             \retval false Otherwise.
         */
         bool italic()
@@ -241,7 +241,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns whether this font is underlined.
 
-            \retval true  This font is underlined.
+            \retval true  When this font is underlined.
             \retval false Otherwise.
         */
         bool underline()
@@ -253,7 +253,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns whether this font is striked out.
 
-            \retval true  This font is striked out.
+            \retval true  When this font is striked out.
             \retval false Otherwise.
         */
         bool strikeout()

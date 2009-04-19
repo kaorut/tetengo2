@@ -196,7 +196,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns whether the widget has a parent.
             
-            \retval true  The widget has a parent.
+            \retval true  When the widget has a parent.
             \retval false Otherwise.
 
             \throw std::runtime_error When the widget is already destroyed.

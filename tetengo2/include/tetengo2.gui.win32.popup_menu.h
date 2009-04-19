@@ -109,7 +109,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns whether the menu item is a menu command.
 
-            \retval true  The menu item is a menu command.
+            \retval true  When the menu item is a menu command.
             \retval false Otherwise.
         */
         virtual bool is_command()
@@ -121,7 +121,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns whether the menu item is a popup menu.
 
-            \retval true  The menu item is a popup menu.
+            \retval true  When the menu item is a popup menu.
             \retval false Otherwise.
         */
         virtual bool is_popup()
@@ -133,7 +133,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns whether the menu item is a menu separator.
 
-            \retval true  The menu item is a menu separator.
+            \retval true  When the menu item is a menu separator.
             \retval false Otherwise.
         */
         virtual bool is_separator()
