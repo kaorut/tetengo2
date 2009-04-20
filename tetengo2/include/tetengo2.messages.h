@@ -12,6 +12,7 @@
 #include <locale>
 #include <string>
 
+
 namespace tetengo2
 {
     /*!
@@ -20,17 +21,26 @@ namespace tetengo2
         It is a customized locale facet for messages.
 
         \tparam String A string type.
+        \tparam Path   A path type.
     */
-    template <typename String>
+    template <typename String, typename Path>
     class messages : public std::messages<typename String::value_type>
     {
     public:
+        // types
+
+        //! The path type.
+        typedef Path path_type;
+
+
         // constructors and destructor
 
         /*!
             \brief Creates messages.
+
+            \param path A path where message catalogs are stored.
         */
-        messages()
+        messages(const path_type& path)
         {}
 
         virtual ~messages()
