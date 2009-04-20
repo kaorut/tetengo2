@@ -18,6 +18,7 @@
 #include <functional>
 #include <iterator>
 #include <limits>
+#include <locale>
 #include <memory>
 #include <sstream>
 #include <stdexcept>

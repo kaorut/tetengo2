@@ -39,7 +39,7 @@ namespace
 
     \param hInstance     Not used.
     \param hPrevInstance Not used.
-    \param lpCmdLine     The command line arguments.
+    \param lpCmdLine     Not used.
     \param nCmdShow      Not used.
 
     \return The exit status code.
@@ -55,7 +55,7 @@ throw ()
     try
     {
         const std::vector<std::wstring> command_line_arguments =
-            boost::program_options::split_winmain(lpCmdLine);
+            boost::program_options::split_winmain(::GetCommandLineW());
         return ::run_application(
             command_line_arguments.begin(), command_line_arguments.end()
         );

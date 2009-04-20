@@ -10,6 +10,7 @@
 #define BOBURA_MESSAGE_ABOUTDIALOGOBSERVERS_H
 
 #include <cassert>
+#include <cstddef>
 
 //#include <boost/concept_check.hpp>
 

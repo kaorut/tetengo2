@@ -56,9 +56,11 @@ std::exception                                   exception
 std::find                                        algorithm
 std::for_each                                    algorithm
 std::invalid_argument                            stdexcept
+std::locale                                      locale
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
 std::memset                                      cstring
+std::messages                                    locale
 std::numeric_limits                              limits
 std::ostringstream                               sstream
 std::out_of_range                                stdexcept
