@@ -11,6 +11,7 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/scope_exit.hpp>
 
 #include "tetengo2.messages.h"
 
@@ -23,39 +24,40 @@ namespace
         tetengo2::messages<std::wstring, boost::filesystem::wpath>
         messages_type;
 
-    struct set_locale_to_ja
+#if defined(_WIN32)
+    const std::locale locale_en("English");
+
+    const std::locale locale_ja("Japanese_Japan");
+#else
+    const std::locale locale_en("en");
+
+    const std::locale locale_ja("ja_JP");
+#endif
+
+    struct set_global_locale
     {
         const std::locale m_initial_locale;
 
-        set_locale_to_ja()
+        set_global_locale(const std::locale& locale)
         :
-        m_initial_locale(std::locale::global(std::locale("")))
+        m_initial_locale(
+            std::locale::global(
+                std::locale(
+                    locale,
+                    new messages_type(boost::filesystem::wpath(L""))
+                )
+            )
+        )
         {}
 
-        ~set_locale_to_ja()
+        ~set_global_locale()
         {
             std::locale::global(m_initial_locale);
         }
 
     };
 
-    struct set_locale_to_en
-    {
-        const std::locale m_initial_locale;
-
-        set_locale_to_en()
-        :
-        m_initial_locale(std::locale::global(std::locale("")))
-        {}
-
-        ~set_locale_to_en()
-        {
-            std::locale::global(m_initial_locale);
-        }
-
-    };
-
-};
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -69,19 +71,94 @@ BOOST_AUTO_TEST_SUITE(messages)
         const messages_type messages(boost::filesystem::wpath(L""));
     }
 
-    BOOST_FIXTURE_TEST_CASE(do_open, set_locale_to_en)
+    BOOST_AUTO_TEST_CASE(do_open)
     {
         BOOST_CHECKPOINT("");
+
+        {
+            const set_global_locale locale(locale_en);
+            const std::messages<wchar_t>& messages =
+                std::use_facet<std::messages<wchar_t> >(std::locale());
+            BOOST_CHECK(
+                dynamic_cast<const messages_type*>(&messages) != NULL
+            );
+
+            {
+                const std::messages_base::catalog catalog_id =
+                    messages.open("", std::locale());
+                BOOST_SCOPE_EXIT((&messages)(catalog_id))
+                {
+                    messages.close(catalog_id);
+                } BOOST_SCOPE_EXIT_END
+
+                BOOST_CHECK_GE(catalog_id, 0);
+            }
+        }
+        {
+            const set_global_locale locale(locale_ja);
+            const std::messages<wchar_t>& messages =
+                std::use_facet<std::messages<wchar_t> >(std::locale());
+            BOOST_CHECK(
+                dynamic_cast<const messages_type*>(&messages) != NULL
+            );
+
+            const std::messages_base::catalog catalog_id =
+                messages.open("", std::locale());
+            BOOST_SCOPE_EXIT((&messages)(catalog_id))
+            {
+                messages.close(catalog_id);
+            } BOOST_SCOPE_EXIT_END
+        }
     }
 
-    BOOST_FIXTURE_TEST_CASE(do_get, set_locale_to_en)
+    BOOST_AUTO_TEST_CASE(do_get)
     {
         BOOST_CHECKPOINT("");
+
+        {
+            const set_global_locale locale(locale_en);
+            const std::messages<wchar_t>& messages =
+                std::use_facet<std::messages<wchar_t> >(std::locale());
+            BOOST_CHECK(
+                dynamic_cast<const messages_type*>(&messages) != NULL
+            );
+
+
+        }
+        {
+            const set_global_locale locale(locale_ja);
+            const std::messages<wchar_t>& messages =
+                std::use_facet<std::messages<wchar_t> >(std::locale());
+            BOOST_CHECK(
+                dynamic_cast<const messages_type*>(&messages) != NULL
+            );
+
+
+        }
     }
 
-    BOOST_FIXTURE_TEST_CASE(do_close, set_locale_to_en)
+    BOOST_AUTO_TEST_CASE(do_close)
     {
         BOOST_CHECKPOINT("");
+
+        {
+            const set_global_locale locale(locale_en);
+            const std::messages<wchar_t>& messages =
+                std::use_facet<std::messages<wchar_t> >(std::locale());
+            BOOST_CHECK(
+                dynamic_cast<const messages_type*>(&messages) != NULL
+            );
+
+        }
+        {
+            const set_global_locale locale(locale_ja);
+            const std::messages<wchar_t>& messages =
+                std::use_facet<std::messages<wchar_t> >(std::locale());
+            BOOST_CHECK(
+                dynamic_cast<const messages_type*>(&messages) != NULL
+            );
+
+        }
     }
 
 

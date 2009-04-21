@@ -155,7 +155,7 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             const ::HINSTANCE handle = ::LoadLibraryW(L"COMCTL32.DLL");
-            BOOST_SCOPE_EXIT((&handle))
+            BOOST_SCOPE_EXIT((handle))
             {
                 if (handle != NULL)
                     ::FreeLibrary(handle);

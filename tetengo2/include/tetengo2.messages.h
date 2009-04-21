@@ -54,10 +54,10 @@ namespace tetengo2
         /*!
             \brief Opens a message catalog.
 
-            \param catalog_name A catalog name.
-            \param locale       A locale.
+            \param catalog_name Not used.
+            \param locale       Not used.
 
-            \return The catalog value.
+            \return The catalog ID. When failed, the value is less than 0.
         */
         virtual catalog do_open(
             const std::string& catalog_name,
