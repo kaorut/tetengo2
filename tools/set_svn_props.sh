@@ -28,6 +28,7 @@ for f in ` \
     list_sources $SOLUTIONDIR; \
     list_test_sources $SOLUTIONDIR; \
     list_precompiled_sources $SOLUTIONDIR; \
+    list_message_catalogs $SOLUTIONDIR; \
     list_document_sources $SOLUTIONDIR \
 `;
 do

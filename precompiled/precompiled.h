@@ -16,6 +16,7 @@
 #include <cstring>
 #include <exception>
 #include <functional>
+#include <ios>
 #include <iterator>
 #include <limits>
 #include <locale>
@@ -32,6 +33,7 @@
 #include <boost/bind.hpp>
 #include <boost/cast.hpp>
 #include <boost/concept_check.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/function.hpp>
 #include <boost/mem_fn.hpp>
 #include <boost/noncopyable.hpp>

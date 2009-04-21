@@ -39,6 +39,15 @@ list_precompiled_sources()
         -name '*.cpp'
 }
 
+list_message_catalogs()
+{
+    find \
+        $SOLUTIONDIR/tetengo2/res.test/messages \
+        -maxdepth 1 \
+        -type f \
+        -name '*.txt'
+}
+
 list_document_sources()
 {
     find \

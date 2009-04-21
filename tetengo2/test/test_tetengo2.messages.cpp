@@ -6,7 +6,9 @@
     $Id$
 */
 
+#include <ios>
 #include <locale>
+#include <stdexcept>
 #include <string>
 
 #include <boost/filesystem.hpp>
@@ -44,7 +46,7 @@ namespace
             std::locale::global(
                 std::locale(
                     locale,
-                    new messages_type(boost::filesystem::wpath(L""))
+                    new messages_type(boost::filesystem::wpath(L"messages"))
                 )
             )
         )
@@ -68,7 +70,12 @@ BOOST_AUTO_TEST_SUITE(messages)
     {
         BOOST_CHECKPOINT("");
 
-        const messages_type messages(boost::filesystem::wpath(L""));
+        const messages_type messages(boost::filesystem::wpath(L"messages"));
+
+        BOOST_CHECK_THROW(
+            messages_type(boost::filesystem::wpath(L"")),
+            std::ios_base::failure
+        );
     }
 
     BOOST_AUTO_TEST_CASE(do_open)
@@ -92,6 +99,10 @@ BOOST_AUTO_TEST_SUITE(messages)
                 } BOOST_SCOPE_EXIT_END
 
                 BOOST_CHECK_GE(catalog_id, 0);
+
+                BOOST_CHECK_THROW(
+                    messages.open("", std::locale()), std::runtime_error
+                );
             }
         }
         {

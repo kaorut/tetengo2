@@ -4,6 +4,7 @@ BOOST_AUTO_TEST_SUITE_END                        boost/test/unit_test.hpp
 BOOST_CHECK                                      boost/test/unit_test.hpp
 BOOST_CHECKPOINT                                 boost/test/unit_test.hpp
 BOOST_CHECK_EQUAL                                boost/test/unit_test.hpp
+BOOST_CHECK_GE                                   boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
 BOOST_CONCEPT_ASSERT                             boost/concept_check.hpp
 BOOST_CONCEPT_USAGE                              boost/concept_check.hpp
@@ -26,6 +27,8 @@ boost::UnsignedInteger                           boost/concept_check.hpp
 boost::additive                                  boost/operators.hpp
 boost::bind                                      boost/bind.hpp
 boost::equality_comparable                       boost/operators.hpp
+boost::filesystem::exists                        boost/filesystem.hpp
+boost::filesystem::wpath                         boost/filesystem.hpp
 boost::function                                  boost/function.hpp
 boost::ignore_unused_variable_warning            boost/concept_check.hpp
 boost::make_tuple                                boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
@@ -56,11 +59,14 @@ std::exception                                   exception
 std::find                                        algorithm
 std::for_each                                    algorithm
 std::invalid_argument                            stdexcept
+std::ios_base::failure                           ios
 std::locale                                      locale
+std::locale::global                              locale
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
 std::memset                                      cstring
 std::messages                                    locale
+std::messages_base::catalog                      locale
 std::numeric_limits                              limits
 std::ostringstream                               sstream
 std::out_of_range                                stdexcept
@@ -71,5 +77,6 @@ std::size_t                                      cstddef
 std::string                                      string
 std::swap                                        algorithm
 std::unary_function                              functional
+std::use_facet                                   locale
 std::vector                                      vector
 std::wstring                                     string
