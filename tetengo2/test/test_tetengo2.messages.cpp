@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <cstddef>
 #include <ios>
 #include <locale>
 #include <stdexcept>
