@@ -16,15 +16,18 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/scope_exit.hpp>
 
-#include "tetengo2.messages.h"
+#include "tetengo2.win32.encode.h"
 
+#include "tetengo2.messages.h"
 
 namespace
 {
     // types
 
     typedef
-        tetengo2::messages<std::wstring, boost::filesystem::wpath>
+        tetengo2::messages<
+            std::wstring, boost::filesystem::wpath, tetengo2::win32::encode
+        >
         messages_type;
 
 #if defined(_WIN32)
@@ -47,7 +50,9 @@ namespace
             std::locale::global(
                 std::locale(
                     locale,
-                    new messages_type(boost::filesystem::wpath(L"messages"))
+                    new messages_type(
+                        boost::filesystem::wpath(L"messages"), locale
+                    )
                 )
             )
         )
@@ -71,10 +76,20 @@ BOOST_AUTO_TEST_SUITE(messages)
     {
         BOOST_CHECKPOINT("");
 
-        const messages_type messages(boost::filesystem::wpath(L"messages"));
+        const messages_type messages(
+            boost::filesystem::wpath(L"messages"), std::locale()
+        );
 
         BOOST_CHECK_THROW(
-            messages_type(boost::filesystem::wpath(L"")),
+            messages_type(boost::filesystem::wpath(L""), std::locale()),
+            std::ios_base::failure
+        );
+
+        BOOST_CHECK_THROW(
+            messages_type(
+                boost::filesystem::wpath(L"messages") / L"English.txt",
+                std::locale()
+            ),
             std::ios_base::failure
         );
     }
