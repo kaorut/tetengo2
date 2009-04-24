@@ -27,7 +27,11 @@ boost::UnsignedInteger                           boost/concept_check.hpp
 boost::additive                                  boost/operators.hpp
 boost::bind                                      boost/bind.hpp
 boost::equality_comparable                       boost/operators.hpp
+boost::filesystem::basic_directory_entry         boost/filesystem.hpp
+boost::filesystem::basic_directory_iterator      boost/filesystem.hpp
+boost::filesystem::basic_path                    boost/filesystem.hpp
 boost::filesystem::exists                        boost/filesystem.hpp
+boost::filesystem::is_directory                  boost/filesystem.hpp
 boost::filesystem::wpath                         boost/filesystem.hpp
 boost::function                                  boost/function.hpp
 boost::ignore_unused_variable_warning            boost/concept_check.hpp
@@ -50,6 +54,7 @@ boost::signal                                    boost/signal.hpp
 boost::signals::trackable                        boost/signal.hpp
 boost::totally_ordered                           boost/operators.hpp
 boost::tuple                                     boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
+boost::unordered_map                             boost/unordered_map.hpp
 std::auto_ptr                                    memory
 std::back_inserter                               iterator
 std::basic_string                                string
@@ -57,7 +62,9 @@ std::copy                                        algorithm
 std::distance                                    iterator
 std::exception                                   exception
 std::find                                        algorithm
+std::find_if                                     algorithm
 std::for_each                                    algorithm
+std::greater                                     functional
 std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
 std::locale                                      locale
@@ -74,8 +81,10 @@ std::pair                                        utility
 std::ptrdiff_t                                   cstddef
 std::runtime_error                               stdexcept
 std::size_t                                      cstddef
+std::sort                                        algorithm
 std::string                                      string
 std::swap                                        algorithm
+std::transform                                   algorithm
 std::unary_function                              functional
 std::use_facet                                   locale
 std::vector                                      vector

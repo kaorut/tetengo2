@@ -235,6 +235,10 @@
 				Name="concept_tetengo2"
 				>
 				<File
+					RelativePath=".\include\concept_tetengo2.Path.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\concept_tetengo2.String.h"
 					>
 				</File>

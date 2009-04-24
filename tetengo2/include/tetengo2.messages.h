@@ -10,19 +10,21 @@
 #define TETENGO2_MESSAGES_H
 
 #include <algorithm>
+#include <functional>
 #include <ios>
 #include <iterator>
 #include <locale>
 #include <stdexcept>
-#include <string>
+//#include <string>
 #include <vector>
 
 #include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
-#include <boost/filesystem.hpp>
+//#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/unordered_map.hpp>
 
+#include "concept_tetengo2.Path.h"
 #include "concept_tetengo2.String.h"
 
 
@@ -35,7 +37,8 @@ namespace tetengo2
 
         \tparam String A string type. It must conform to
                        concept_tetengo2::String<String>.
-        \tparam Path   A path type.
+        \tparam Path   A path type. It must conform to
+                       concept_tetengo2::Path<Path>.
         \tparam Encode An encoding unary functor type. The types
                        Encode<String, std::wstring> and
                        Encode<std::wstring, String> must conform to
@@ -55,6 +58,7 @@ namespace tetengo2
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Path<Path>));
         struct concept_check_Encode
         {
             typedef Encode<std::string, String> encode_to_stdstring_type;
