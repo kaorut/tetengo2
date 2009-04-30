@@ -22,6 +22,7 @@
 //#include <boost/concept_check.hpp>
 //#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/unordered_map.hpp>
 
 #include "concept_tetengo2.Path.h"
@@ -128,9 +129,10 @@ namespace tetengo2
                 );
             }
 
-            m_open = true;
+            if (!m_message_catalog) return -1;
 
-            return fixed_catalog_id();
+            m_open = true;
+            return 1;
         }
         
         /*!
@@ -154,15 +156,17 @@ namespace tetengo2
         )
         const
         {
-            if (!m_open || catalog_id != fixed_catalog_id())
-            {
-                throw std::runtime_error(
-                    "The message catalog is not open or the catalog ID is"
-                    "invalid."
-                );
-            }
+            if (catalog_id < 0)
+                return default_message;
+            
+            if (!m_open)
+                throw std::runtime_error("The message catalog is not open.");
 
-            return default_message;
+            const typename message_catalog_type::const_iterator found =
+                m_message_catalog->find(default_message);
+
+            return found != m_message_catalog->end() ?
+                found->second : default_message;
         }
 
         /*!
@@ -173,7 +177,7 @@ namespace tetengo2
         virtual void do_close(const catalog catalog_id)
         const
         {
-            if (!m_open || catalog_id != fixed_catalog_id())
+            if (!m_open || catalog_id < 0)
             {
                 throw std::runtime_error(
                     "The message catalog is not open or the catalog ID is"
@@ -232,22 +236,24 @@ namespace tetengo2
 
         // static functions
 
-        static const message_catalog_type load_message_catalog(
+        static const boost::optional<message_catalog_type>
+        load_message_catalog(
             const path_type&   path,
             const std::locale& locale
         )
         {
-            const path_type catalog_file = select_catalog_file(path, locale);
-            if (catalog_file.empty())
-                return message_catalog_type();
+            const boost::optional<path_type> catalog_file =
+                select_catalog_file(path, locale);
+            if (!catalog_file)
+                return boost::optional<message_catalog_type>();
 
             message_catalog_type message_catalog;
 
             
-            return message_catalog;
+            return boost::optional<message_catalog_type>(message_catalog);
         }
 
-        static const path_type select_catalog_file(
+        static const boost::optional<path_type> select_catalog_file(
             const path_type&   path,
             const std::locale& locale
         )
@@ -279,12 +285,7 @@ namespace tetengo2
             if (found != catalog_files.end())
                 return *found;
 
-            return path_type();
-        }
-
-        static catalog fixed_catalog_id()
-        {
-            return 0;
+            return boost::optional<path_type>();
         }
 
 
@@ -292,7 +293,7 @@ namespace tetengo2
 
         mutable bool m_open;
 
-        const message_catalog_type m_message_catalog;
+        const boost::optional<message_catalog_type> m_message_catalog;
         
 
 

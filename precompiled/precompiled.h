@@ -38,6 +38,7 @@
 #include <boost/mem_fn.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
+#include <boost/optional.hpp>
 #include <boost/program_options.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/scope_exit.hpp>
@@ -45,6 +46,7 @@
 #include <boost/signal.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
+#include <boost/unordered_map.hpp>
 #include <boost/utility.hpp>
 
 
