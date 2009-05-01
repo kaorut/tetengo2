@@ -11,11 +11,13 @@
 
 #include <algorithm>
 #include <functional>
+#include <fstream>
 #include <ios>
 #include <iterator>
 #include <locale>
 #include <stdexcept>
 //#include <string>
+#include <utility>
 #include <vector>
 
 #include <boost/bind.hpp>
@@ -23,7 +25,9 @@
 //#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+#include <boost/tokenizer.hpp>
 #include <boost/unordered_map.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "concept_tetengo2.Path.h"
 #include "concept_tetengo2.String.h"
@@ -62,10 +66,16 @@ namespace tetengo2
         BOOST_CONCEPT_ASSERT((concept_tetengo2::Path<Path>));
         struct concept_check_Encode
         {
+            typedef Encode<String, std::string> encode_from_stdstring_type;
+            BOOST_CONCEPT_ASSERT((
+                boost::UnaryFunction<
+                    encode_from_stdstring_type, String, std::string
+                >
+            ));
             typedef Encode<std::string, String> encode_to_stdstring_type;
             BOOST_CONCEPT_ASSERT((
                 boost::UnaryFunction<
-                    encode_to_stdstring_type, String, std::string
+                    encode_from_stdstring_type, std::string, String
                 >
             ));
         };
@@ -77,8 +87,11 @@ namespace tetengo2
         //! The path type.
         typedef Path path_type;
 
+        //! The unary functor type for encoding from the std::string.
+        typedef Encode<string_type, std::string> encode_from_stdstring_type;
+
         //! The unary functor type for encoding to the std::string.
-        typedef Encode<std::string, String> encode_to_stdstring_type;
+        typedef Encode<std::string, string_type> encode_to_stdstring_type;
 
 
         // constructors and destructor
@@ -232,6 +245,17 @@ namespace tetengo2
 
         };
 
+        typedef
+            boost::escaped_list_separator<typename string_type::value_type>
+            separator_type;
+
+        typedef
+            boost::tokenizer<
+                separator_type,
+                typename string_type::const_iterator,
+                string_type
+            >
+            tokenizer_type;
 
 
         // static functions
@@ -248,7 +272,7 @@ namespace tetengo2
                 return boost::optional<message_catalog_type>();
 
             message_catalog_type message_catalog;
-
+            read_message_catalog(*catalog_file, message_catalog);
             
             return boost::optional<message_catalog_type>(message_catalog);
         }
@@ -286,6 +310,52 @@ namespace tetengo2
                 return *found;
 
             return boost::optional<path_type>();
+        }
+
+        static void read_message_catalog(
+            const path_type&      catalog_file,
+            message_catalog_type& message_catalog
+        )
+        {
+            std::ifstream stream(catalog_file.external_file_string().c_str());
+            while (stream.good())
+            {
+                std::string line;
+                std::getline(stream, line);
+                boost::trim(line);
+                const string_type encoded_line =
+                    encode_from_stdstring_type()(line);
+
+                if (is_comment(encoded_line)) continue;
+
+                const std::pair<string_type, string_type> parsed =
+                    parse_line(encoded_line);
+                if (!parsed.first.empty())
+                    message_catalog.insert(parsed);
+            }
+        }
+
+        static bool is_comment(const string_type& line)
+        {
+            return line.empty() || line[0] == L'#';
+        }
+
+        static const std::pair<string_type, string_type> parse_line(
+            const string_type& line
+        )
+        {
+            const tokenizer_type tokenizer(
+                line, separator_type(L"\\", L"=", L"\"'")
+            );
+            std::vector<string_type> tokens;
+            std::copy(
+                tokenizer.begin(), tokenizer.end(), std::back_inserter(tokens)
+            );
+
+            if (tokens.size() < 2)
+                return std::make_pair(L"", L"");
+
+            return std::make_pair(tokens[0], tokens[1]);
         }
 
 

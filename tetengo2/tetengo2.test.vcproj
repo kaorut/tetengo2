@@ -105,7 +105,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /s /i /y $(ProjectDir)res.test\messages $(OutDir)\messages&#x0D;&#x0A;cd $(OutDir)&#x0D;&#x0A;if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /y /i $(ProjectDir)res.test\messages $(OutDir)\messages&#x0D;&#x0A;cd $(OutDir)&#x0D;&#x0A;if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -195,7 +195,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /s /i /y $(ProjectDir)res.test\messages $(OutDir)\messages&#x0D;&#x0A;cd $(OutDir)&#x0D;&#x0A;if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /y /i $(ProjectDir)res.test\messages $(OutDir)\messages&#x0D;&#x0A;cd $(OutDir)&#x0D;&#x0A;if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -280,7 +280,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /s /i /y $(ProjectDir)res.test\messages $(OutDir)\messages&#x0D;&#x0A;cd $(OutDir)&#x0D;&#x0A;if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /y /i $(ProjectDir)res.test\messages $(OutDir)\messages&#x0D;&#x0A;cd $(OutDir)&#x0D;&#x0A;if &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -365,7 +365,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Testing $(ProjectName) ($(ConfigurationName)/$(PlatformName))..."
-				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /s /i /y $(ProjectDir)res.test\messages $(OutDir)\messages&#x0D;&#x0A;cd $(OutDir)&#x0D;&#x0A;if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
+				CommandLine="cscript $(SolutionDir)\tools\copy_boost_dlls.js $(SolutionDir) $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /y /i $(ProjectDir)res.test\messages $(OutDir)\messages&#x0D;&#x0A;cd $(OutDir)&#x0D;&#x0A;if not &quot;%PROCESSOR_ARCHITECTURE%&quot; == &quot;x86&quot; (&#x0D;&#x0A;&quot;$(TargetDir)\$(TargetFileName)&quot; --result_code=no --report_level=no&#x0D;&#x0A;) else (&#x0D;&#x0A;echo Skipping...&#x0D;&#x0A;)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

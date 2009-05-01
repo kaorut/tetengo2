@@ -28,6 +28,7 @@ boost::UnsignedInteger                           boost/concept_check.hpp
 boost::additive                                  boost/operators.hpp
 boost::bind                                      boost/bind.hpp
 boost::equality_comparable                       boost/operators.hpp
+boost::escaped_list_separator                    boost/tokenizer.hpp
 boost::filesystem::basic_directory_entry         boost/filesystem.hpp
 boost::filesystem::basic_directory_iterator      boost/filesystem.hpp
 boost::filesystem::basic_path                    boost/filesystem.hpp
@@ -54,7 +55,9 @@ boost::ptr_vector                                boost/ptr_container/ptr_vector.
 boost::scoped_array                              boost/scoped_array.hpp
 boost::signal                                    boost/signal.hpp
 boost::signals::trackable                        boost/signal.hpp
+boost::tokenizer                                 boost/tokenizer.hpp
 boost::totally_ordered                           boost/operators.hpp
+boost::trim                                      boost/algorithm/string.hpp
 boost::tuple                                     boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::unordered_map                             boost/unordered_map.hpp
 std::auto_ptr                                    memory
@@ -66,7 +69,9 @@ std::exception                                   exception
 std::find                                        algorithm
 std::find_if                                     algorithm
 std::for_each                                    algorithm
+std::getline                                     fstream
 std::greater                                     functional
+std::ifstream                                    fstream
 std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
 std::locale                                      locale

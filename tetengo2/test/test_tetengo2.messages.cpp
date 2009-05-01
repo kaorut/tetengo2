@@ -196,9 +196,9 @@ BOOST_AUTO_TEST_SUITE(messages)
                 messages.close(catalog_id);
             } BOOST_SCOPE_EXIT_END
 
-            //BOOST_CHECK(
-            //    messages.get(catalog_id, 0, 0, L"Language") == L"Japanese"
-            //);
+            BOOST_CHECK(
+                messages.get(catalog_id, 0, 0, L"Language") == L"Japanese"
+            );
         }
         {
             const set_global_locale global_locale(locale_zh);
@@ -211,9 +211,9 @@ BOOST_AUTO_TEST_SUITE(messages)
             const std::messages_base::catalog catalog_id =
                 messages.open("", std::locale());
 
-            //BOOST_CHECK(
-            //    messages.get(catalog_id, 0, 0, L"Language") == L"Language"
-            //);
+            BOOST_CHECK(
+                messages.get(catalog_id, 0, 0, L"Language") == L"Language"
+            );
         }
     }
 
