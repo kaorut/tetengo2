@@ -170,6 +170,14 @@ BOOST_AUTO_TEST_SUITE(messages)
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
 
+            BOOST_CHECK_THROW(
+                messages.get(0, 0, 0, L"Language"), std::runtime_error
+            );
+
+            BOOST_CHECK(
+                messages.get(-1, 0, 0, L"Language") == L"Language"
+            );
+
             const std::messages_base::catalog catalog_id =
                 messages.open("", std::locale());
             BOOST_SCOPE_EXIT((&messages)(catalog_id))
@@ -187,6 +195,14 @@ BOOST_AUTO_TEST_SUITE(messages)
                 std::use_facet<std::messages<wchar_t> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
+            );
+
+            BOOST_CHECK_THROW(
+                messages.get(0, 0, 0, L"Language"), std::runtime_error
+            );
+
+            BOOST_CHECK(
+                messages.get(-1, 0, 0, L"Language") == L"Language"
             );
 
             const std::messages_base::catalog catalog_id =
@@ -229,6 +245,20 @@ BOOST_AUTO_TEST_SUITE(messages)
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
 
+            BOOST_CHECK_THROW(messages.close(0), std::runtime_error);
+
+            BOOST_CHECK_THROW(messages.close(-1), std::runtime_error);
+
+            const std::messages_base::catalog catalog_id =
+                messages.open("", std::locale());
+            BOOST_SCOPE_EXIT((&messages)(catalog_id))
+            {
+                messages.close(catalog_id);
+
+                BOOST_CHECK_THROW(
+                    messages.close(catalog_id), std::runtime_error
+                );
+            } BOOST_SCOPE_EXIT_END
         }
         {
             const set_global_locale global_locale(locale_ja);
@@ -238,6 +268,32 @@ BOOST_AUTO_TEST_SUITE(messages)
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
 
+            BOOST_CHECK_THROW(messages.close(0), std::runtime_error);
+
+            BOOST_CHECK_THROW(messages.close(-1), std::runtime_error);
+
+            const std::messages_base::catalog catalog_id =
+                messages.open("", std::locale());
+            BOOST_SCOPE_EXIT((&messages)(catalog_id))
+            {
+                messages.close(catalog_id);
+
+                BOOST_CHECK_THROW(
+                    messages.close(catalog_id), std::runtime_error
+                );
+            } BOOST_SCOPE_EXIT_END
+        }
+        {
+            const set_global_locale global_locale(locale_zh);
+            const std::messages<wchar_t>& messages =
+                std::use_facet<std::messages<wchar_t> >(std::locale());
+            BOOST_CHECK(
+                dynamic_cast<const messages_type*>(&messages) != NULL
+            );
+
+            const std::messages_base::catalog catalog_id =
+                messages.open("", std::locale());
+            BOOST_CHECK_THROW(messages.close(catalog_id), std::runtime_error);
         }
     }
 

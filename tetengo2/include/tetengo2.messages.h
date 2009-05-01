@@ -158,8 +158,7 @@ namespace tetengo2
 
             \return The localized message.
 
-            \throw std::runtime_error The message catalog is not open or the
-                                      catalog ID is invalid.
+            \throw std::runtime_error The message catalog is not open.
         */
         virtual string_type do_get(
             const catalog      catalog_id,
@@ -186,6 +185,9 @@ namespace tetengo2
             \brief Closes the message catalog.
 
             \param catalog_id A catalog ID. It must be 0.
+
+            \throw std::runtime_error The message catalog is not open or the
+                                      catalog ID is invalid.
         */
         virtual void do_close(const catalog catalog_id)
         const
