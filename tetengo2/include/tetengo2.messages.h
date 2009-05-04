@@ -45,10 +45,10 @@ namespace tetengo2
         \tparam Path   A path type. It must conform to
                        concept_tetengo2::Path<Path>.
         \tparam Encode An encoding unary functor type. The types
-                       Encode<String, std::wstring> and
-                       Encode<std::wstring, String> must conform to
-                       boost::UnaryFunction<Encode, String, std::wstring> and
-                       boost::UnaryFunction<Encode, std::wstring, String>.
+                       Encode<String, std::string> and
+                       Encode<std::string, String> must conform to
+                       boost::UnaryFunction<Encode, String, std::string> and
+                       boost::UnaryFunction<Encode, std::string, String>.
     */
     template <
         typename String,
@@ -75,7 +75,7 @@ namespace tetengo2
             typedef Encode<std::string, String> encode_to_stdstring_type;
             BOOST_CONCEPT_ASSERT((
                 boost::UnaryFunction<
-                    encode_from_stdstring_type, std::string, String
+                    encode_to_stdstring_type, std::string, String
                 >
             ));
         };
@@ -111,6 +111,9 @@ namespace tetengo2
         m_message_catalog(load_message_catalog(path, locale))
         {}
 
+        /*!
+            \brief Destroys messages.
+        */
         virtual ~messages()
         throw ()
         {}
