@@ -24,14 +24,36 @@ namespace concept_tetengo2
     {
 #if !defined(DOCUMENTATION)
     public:
+        // typedef checks
+
+        typedef typename Type::input_string_type input_string_type;
+
+        typedef typename Type::string_type string_type;
+
+        typedef
+            typename Type::encode_from_stdstring_type
+            encode_from_stdstring_type;
+
+        typedef typename Type::entry_type entry_type;
+
+
         // usage checks
 
         BOOST_CONCEPT_USAGE(MessageCatalogParser)
         {
+            const entry_type entry = m_object.next();
+            boost::ignore_unused_variable_warning(entry);
 
+            const_constraints(m_object);
         }
 
-       
+        void const_constraints(const Type& object)
+        {
+            const bool has_next_entry = object.has_next();
+            boost::ignore_unused_variable_warning(has_next_entry);
+        }
+
+
     private:
         // variables
 
