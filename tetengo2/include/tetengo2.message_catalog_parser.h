@@ -10,9 +10,11 @@
 #define TETENGO2_MESSAGECATALOGPARSER_H
 
 #include <algorithm>
+#include <iterator>
 #include <stdexcept>
-#include <string>
+//#include <string>
 #include <utility>
+#include <vector>
 
 //#include <boost/concept_check.hpp>
 #include <boost/optional.hpp>
@@ -30,13 +32,16 @@ namespace tetengo2
 
         It is a customized locale facet for message_catalog_parser.
 
-        \tparam String A string type. It must conform to
-                       concept_tetengo2::String<String>.
-        \tparam Encode An encoding unary functor type. The types
-                       Encode<String, std::string> must conform to
-                       boost::UnaryFunction<Encode, String, std::string>.
+        \tparam InputStream An input stream type. It must conform to
+                            concept_tetengo2::InputStream<InputStream>.
+        \tparam String      A string type. It must conform to
+                            concept_tetengo2::String<String>.
+        \tparam Encode      An encoding unary functor type. The types
+                            Encode<String, std::string> must conform to
+                            boost::UnaryFunction<Encode, String, std::string>.
     */
     template <
+        typename InputStream,
         typename String,
         template <typename Target, typename Source> class Encode
     >
@@ -60,8 +65,13 @@ namespace tetengo2
     public:
         // types
 
+        //! The input stream type.
+        typedef InputStream input_stream_type;
+
         //! The input string_type.
-        typedef std::string input_string_type;
+        typedef
+            std::basic_string<typename input_stream_type::char_type>
+            input_string_type;
 
         //! The string type.
         typedef String string_type;
@@ -78,16 +88,11 @@ namespace tetengo2
         /*!
             \brief Creates a message catalog parser.
 
-            \tparam InputIterator An input iterator type.
-
-            \param first An iterator to a first element.
-            \param last  An iterator to the next to a last element.
+            \param input_stream An input stream.
         */
-        template <typename InputIterator>
-        message_catalog_parser(InputIterator first, InputIterator last)
+        explicit message_catalog_parser(input_stream_type& input_stream)
         :
-        m_line_tokenizer(first, last, separator_type("\\", "\r\n", "\"'")),
-        m_line_token_iterator(m_line_tokenizer.begin()),
+        m_input_stream(input_stream),
         m_preread_entry()
         {}
 
@@ -153,9 +158,7 @@ namespace tetengo2
 
         // variables
 
-        const tokenizer_type m_line_tokenizer;
-
-        mutable typename tokenizer_type::iterator m_line_token_iterator;
+        mutable input_stream_type& m_input_stream;
 
         mutable boost::optional<entry_type> m_preread_entry;
 
@@ -167,10 +170,10 @@ namespace tetengo2
         {
             if (m_preread_entry) return true;
 
-            while (m_line_token_iterator != m_line_tokenizer.end())
+            while (m_input_stream.good())
             {
-                input_string_type line = *m_line_token_iterator;
-                ++m_line_token_iterator;
+                input_string_type line;
+                std::getline(m_input_stream, line);
                 remove_comment(line);
 
                 const entry_type entry = parse(line);
@@ -196,15 +199,13 @@ namespace tetengo2
         const entry_type parse(const input_string_type& line)
         const
         {
-            const tokenizer_type key_value_tokenizer(
+            const tokenizer_type tokenizer(
                 line, separator_type("\\", "=", "\"'")
             );
             std::vector<input_string_type> tokens;
             tokens.reserve(2);
             std::copy(
-                key_value_tokenizer.begin(),
-                key_value_tokenizer.end(),
-                std::back_inserter(tokens)
+                tokenizer.begin(), tokenizer.end(), std::back_inserter(tokens)
             );
 
             if (tokens.size() < 2)

@@ -69,11 +69,13 @@ std::exception                                   exception
 std::find                                        algorithm
 std::find_if                                     algorithm
 std::for_each                                    algorithm
-std::getline                                     fstream
+std::getline                                     string
 std::greater                                     functional
 std::ifstream                                    fstream
 std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
+std::istream                                     istream
+std::istringstream                               sstream
 std::locale                                      locale
 std::locale::global                              locale
 std::logic_error                                 stdexcept
