@@ -49,7 +49,11 @@ namespace
         "Key5'='Value5\n"
         "#Key6=Value6\n"
         "Key7=#Value7\n"
-        "Key\\#8=Value8\n"
+        "Key\\#8=Value\\#8\n"
+        "Key\\t9=Value\\n9\n"
+        "Key10=\\\n"
+        "Value\\\n"
+        "10\n"
     );
 
 
@@ -136,7 +140,15 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
 
             const entry_type entry8 = parser.next();
             BOOST_CHECK(entry8.first == L"Key#8");
-            BOOST_CHECK(entry8.second == L"Value8");
+            BOOST_CHECK(entry8.second == L"Value#8");
+
+            const entry_type entry9 = parser.next();
+            BOOST_CHECK(entry9.first == L"Key\t9");
+            BOOST_CHECK(entry9.second == L"Value\n9");
+
+            const entry_type entry10 = parser.next();
+            BOOST_CHECK(entry10.first == L"Key10");
+            BOOST_CHECK(entry10.second == L"Value10");
 
             BOOST_CHECK_THROW(parser.next(), std::runtime_error);
         }

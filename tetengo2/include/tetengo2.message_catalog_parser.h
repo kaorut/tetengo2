@@ -173,11 +173,7 @@ namespace tetengo2
 
             while (m_input_stream.good())
             {
-                input_string_type line;
-                std::getline(m_input_stream, line);
-                remove_comment(line);
-
-                const entry_type entry = parse(line);
+                const entry_type entry = parse(get_line());
                 if (!entry.first.empty())
                 {
                     m_preread_entry = entry;
@@ -186,6 +182,30 @@ namespace tetengo2
             }
 
             return false;
+        }
+
+        const input_string_type get_line()
+        const
+        {
+            input_string_type line;
+            for (;;)
+            {
+                input_string_type got_line;
+                std::getline(m_input_stream, got_line);
+                if (got_line.empty()) break;
+                if (got_line[got_line.length() - 1] != '\\')
+                {
+                    line.append(got_line);
+                    break;
+                }
+
+                line.append(got_line.begin(), got_line.end() - 1);
+            }
+
+            remove_comment(line);
+            replace_special_characters(line);
+
+            return line;
         }
 
         void remove_comment(input_string_type& line)
@@ -207,6 +227,13 @@ namespace tetengo2
             }
 
             boost::replace_all(line, "\\#", "#");
+        }
+
+        void replace_special_characters(input_string_type& line)
+        const
+        {
+            boost::replace_all(line, "\\t", "\t");
+            boost::replace_all(line, "\\n", "\n");
         }
 
         const entry_type parse(const input_string_type& line)
