@@ -21,6 +21,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/tokenizer.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "concept_tetengo2.String.h"
 
@@ -190,10 +191,22 @@ namespace tetengo2
         void remove_comment(input_string_type& line)
         const
         {
-            const typename input_string_type::size_type position =
-                line.find('#');
-            if (position != input_string_type::npos)
-                line.substr(position);
+            typename input_string_type::size_type position = 0;
+            for (;;)
+            {
+                position = line.find('#', position);
+                if (position == input_string_type::npos) break;
+
+                if (position == 0 || line[position - 1] != '\\')
+                {
+                    line = line.substr(0, position);
+                    break;
+                }
+
+                ++position;
+            }
+
+            boost::replace_all(line, "\\#", "#");
         }
 
         const entry_type parse(const input_string_type& line)
