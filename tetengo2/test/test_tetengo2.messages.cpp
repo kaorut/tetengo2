@@ -8,6 +8,7 @@
 
 #include <cstddef>
 #include <ios>
+#include <istream>
 #include <locale>
 #include <stdexcept>
 #include <string>
@@ -18,6 +19,8 @@
 
 #include "tetengo2.win32.encode.h"
 
+#include "tetengo2.message_catalog_parser.h"
+
 #include "tetengo2.messages.h"
 
 namespace
@@ -25,24 +28,18 @@ namespace
     // types
 
     typedef
+        tetengo2::message_catalog_parser<
+            std::istream, std::wstring, tetengo2::win32::encode
+        >
+        message_catalog_parser_type;
+
+    typedef
         tetengo2::messages<
-            std::wstring, boost::filesystem::wpath, tetengo2::win32::encode
+            boost::filesystem::wpath,
+            message_catalog_parser_type,
+            tetengo2::win32::encode
         >
         messages_type;
-
-#if defined(_WIN32)
-    const std::locale locale_en("English");
-
-    const std::locale locale_ja("Japanese_Japan");
-
-    const std::locale locale_zh("Chinese");
-#else
-    const std::locale locale_en("en");
-
-    const std::locale locale_ja("ja_JP");
-
-    const std::locale locale_zh("zh");
-#endif
 
     struct set_global_locale
     {
@@ -68,6 +65,23 @@ namespace
         }
 
     };
+
+
+    // data
+
+#if defined(_WIN32)
+    const std::locale locale_en("English");
+
+    const std::locale locale_ja("Japanese_Japan");
+
+    const std::locale locale_zh("Chinese");
+#else
+    const std::locale locale_en("en");
+
+    const std::locale locale_ja("ja_JP");
+
+    const std::locale locale_zh("zh");
+#endif
 
 }
 

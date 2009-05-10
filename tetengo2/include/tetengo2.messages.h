@@ -17,7 +17,6 @@
 #include <locale>
 #include <stdexcept>
 //#include <string>
-#include <utility>
 #include <vector>
 
 #include <boost/bind.hpp>
@@ -25,12 +24,10 @@
 //#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/tokenizer.hpp>
 #include <boost/unordered_map.hpp>
-#include <boost/algorithm/string.hpp>
 
+#include "concept_tetengo2.MessageCatalogParser.h"
 #include "concept_tetengo2.Path.h"
-#include "concept_tetengo2.String.h"
 
 
 namespace tetengo2
@@ -40,42 +37,44 @@ namespace tetengo2
 
         It is a customized locale facet for a messages facet.
 
-        \tparam String A string type. It must conform to
-                       concept_tetengo2::String<String>.
-        \tparam Path   A path type. It must conform to
-                       concept_tetengo2::Path<Path>.
-        \tparam Encode An encoding unary functor type. The types
-                       Encode<String, std::string> and
-                       Encode<std::string, String> must conform to
-                       boost::UnaryFunction<Encode, String, std::string> and
-                       boost::UnaryFunction<Encode, std::string, String>.
+        \tparam Path                 A path type. It must conform to
+                                     concept_tetengo2::Path<Path>.
+        \tparam MessageCatalogParser A message catalog parser type. It must
+                                     conform to
+                                     concept_tetengo2::MessageCatalogParser<MessageCatalogParser>.
+        \tparam Encode               An encoding unary functor type. The 
+                                     Encode<std::wstring, typename Path::string_type>
+                                     must conform to
+                                     boost::UnaryFunction<Encode, std::string, typename Path::string_type>.
     */
     template <
-        typename String,
         typename Path,
+        typename MessageCatalogParser,
         template <typename Target, typename Source> class Encode
     >
     class messages :
-        public std::messages<typename String::value_type>,
+        public std::messages<
+            typename MessageCatalogParser::string_type::value_type
+        >,
         private boost::noncopyable
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::Path<Path>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::MessageCatalogParser<MessageCatalogParser>
+        ));
         struct concept_check_Encode
         {
-            typedef Encode<String, std::string> encode_from_stdstring_type;
+            typedef
+                Encode<std::string, typename Path::string_type>
+                encode_to_std_string_type;
             BOOST_CONCEPT_ASSERT((
                 boost::UnaryFunction<
-                    encode_from_stdstring_type, String, std::string
-                >
-            ));
-            typedef Encode<std::string, String> encode_to_stdstring_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_stdstring_type, std::string, String
+                    encode_to_std_string_type,
+                    std::string,
+                    typename Path::string_type
                 >
             ));
         };
@@ -87,11 +86,13 @@ namespace tetengo2
         //! The path type.
         typedef Path path_type;
 
-        //! The unary functor type for encoding from the std::string.
-        typedef Encode<string_type, std::string> encode_from_stdstring_type;
+        //! The message catalog parser type.
+        typedef MessageCatalogParser message_catalog_parser_type;
 
-        //! The unary functor type for encoding to the std::string.
-        typedef Encode<std::string, string_type> encode_to_stdstring_type;
+        //! The unary functor type for encoding to std::string.
+        typedef
+            Encode<std::string, typename Path::string_type>
+            encode_to_std_string_type;
 
 
         // constructors and destructor
@@ -237,7 +238,7 @@ namespace tetengo2
                 try
                 {
                     const std::string locale_name =
-                        encode_to_stdstring_type()(path.stem());
+                        encode_to_std_string_type()(path.stem());
                     catalog_locale = std::locale(locale_name.c_str());
                 }
                 catch (const std::runtime_error&)
@@ -249,18 +250,6 @@ namespace tetengo2
             }
 
         };
-
-        typedef
-            boost::escaped_list_separator<typename string_type::value_type>
-            separator_type;
-
-        typedef
-            boost::tokenizer<
-                separator_type,
-                typename string_type::const_iterator,
-                string_type
-            >
-            tokenizer_type;
 
 
         // static functions
@@ -322,45 +311,13 @@ namespace tetengo2
             message_catalog_type& message_catalog
         )
         {
-            std::ifstream stream(catalog_file.external_file_string().c_str());
-            while (stream.good())
-            {
-                std::string line;
-                std::getline(stream, line);
-                boost::trim(line);
-                const string_type encoded_line =
-                    encode_from_stdstring_type()(line);
-
-                if (is_comment(encoded_line)) continue;
-
-                const std::pair<string_type, string_type> parsed =
-                    parse_line(encoded_line);
-                if (!parsed.first.empty())
-                    message_catalog.insert(parsed);
-            }
-        }
-
-        static bool is_comment(const string_type& line)
-        {
-            return line.empty() || line[0] == L'#';
-        }
-
-        static const std::pair<string_type, string_type> parse_line(
-            const string_type& line
-        )
-        {
-            const tokenizer_type tokenizer(
-                line, separator_type(L"\\", L"=", L"\"'")
-            );
-            std::vector<string_type> tokens;
-            std::copy(
-                tokenizer.begin(), tokenizer.end(), std::back_inserter(tokens)
+            std::ifstream input_stream(
+                catalog_file.external_file_string().c_str()
             );
 
-            if (tokens.size() < 2)
-                return std::make_pair(L"", L"");
-
-            return std::make_pair(tokens[0], tokens[1]);
+            message_catalog_parser_type parser(input_stream);
+            while (parser.has_next())
+                message_catalog.insert(parser.next());
         }
 
 

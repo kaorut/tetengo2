@@ -26,13 +26,13 @@ namespace concept_tetengo2
     public:
         // typedef checks
 
+        typedef typename Type::input_stream_type input_stream_type;
+
         typedef typename Type::input_string_type input_string_type;
 
         typedef typename Type::string_type string_type;
 
-        typedef
-            typename Type::encode_from_stdstring_type
-            encode_from_stdstring_type;
+        typedef typename Type::encode_type encode_type;
 
         typedef typename Type::entry_type entry_type;
 
