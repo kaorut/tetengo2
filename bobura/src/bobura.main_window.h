@@ -64,61 +64,66 @@ namespace bobura
         //! The window type.
         typedef typename gui_type_list_type::window_type window_type;
 
-        //! The widget type.
-        typedef typename window_type::widget_type widget_type;
-
-        //! The handle type.
-        typedef typename window_type::handle_type handle_type;
-
-        //! The canvas type.
-        typedef typename window_type::canvas_type canvas_type;
-
-        //! The alerting unary functor type.
-        typedef typename window_type::alert_type alert_type;
-
-        //! The difference type.
-        typedef typename window_type::difference_type difference_type;
-
-        //! The size type.
-        typedef typename window_type::size_type size_type;
-
-        //! The position type.
-        typedef typename window_type::position_type position_type;
-
-        //! The dimension type.
-        typedef typename window_type::dimension_type dimension_type;
-
-        //! The string type.
-        typedef typename window_type::string_type string_type;
-
-        //! The unary functor type for encoding from the native.
+        //! \copydoc tetengo2::gui::win32::window::abstract_window_type.
         typedef
-            typename window_type::encode_from_native_type
+            typename window_type::abstract_window_type abstract_window_type;
+
+        //! \copydoc tetengo2::gui::win32::abstract_window::widget_type.
+        typedef typename abstract_window_type::widget_type widget_type;
+
+        //! \copydoc tetengo2::gui::win32::widget::handle_type
+        typedef typename widget_type::handle_type handle_type;
+
+        //! \copydoc tetengo2::gui::win32::widget::canvas_type
+        typedef typename widget_type::canvas_type canvas_type;
+
+        //! \copydoc tetengo2::gui::win32::widget::alert_type
+        typedef typename widget_type::alert_type alert_type;
+
+        //! \copydoc tetengo2::gui::win32::widget::difference_type
+        typedef typename widget_type::difference_type difference_type;
+
+        //! \copydoc tetengo2::gui::win32::widget::size_type
+        typedef typename widget_type::size_type size_type;
+
+        //! \copydoc tetengo2::gui::win32::widget::position_type
+        typedef typename widget_type::position_type position_type;
+
+        //! \copydoc tetengo2::gui::win32::widget::dimension_type
+        typedef typename widget_type::dimension_type dimension_type;
+
+        //! \copydoc tetengo2::gui::win32::widget::string_type
+        typedef typename widget_type::string_type string_type;
+
+        //! \copydoc tetengo2::gui::win32::widget::encode_from_native_type
+        typedef
+            typename widget_type::encode_from_native_type
             encode_from_native_type;
 
-        //! The unary functor type for encoding to the native.
+        //! \copydoc tetengo2::gui::win32::widget::encode_to_native_type
         typedef
-            typename window_type::encode_to_native_type
+            typename widget_type::encode_to_native_type
             encode_to_native_type;
 
-        //! The font type.
+        //! \copydoc tetengo2::gui::win32::widget::font_type
         typedef typename widget_type::font_type font_type;
 
-        //! The child type.
-        typedef typename window_type::child_type child_type;
+        //! \copydoc tetengo2::gui::win32::widget::child_type
+        typedef typename widget_type::child_type child_type;
 
-        //! The paint observer type.
-        typedef typename window_type::paint_observer_type paint_observer_type;
+        //! \copydoc tetengo2::gui::win32::widget::paint_observer_type
+        typedef typename widget_type::paint_observer_type paint_observer_type;
 
-        //! The mouse observer type.
-        typedef typename window_type::mouse_observer_type mouse_observer_type;
+        //! \copydoc tetengo2::gui::win32::widget::mouse_observer_type
+        typedef typename widget_type::mouse_observer_type mouse_observer_type;
 
-        //! The main menu type.
-        typedef typename window_type::main_menu_type main_menu_type;
+        //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type.
+        typedef typename abstract_window_type::main_menu_type main_menu_type;
 
-        //! The window observer type.
+        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_type.
         typedef
-            typename window_type::window_observer_type window_observer_type;
+            typename abstract_window_type::window_observer_type
+            window_observer_type;
 
         //! The command type list type.
         typedef CommandTypeList command_type_list_type;
