@@ -38,26 +38,32 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        //! The ID type.
-        typedef typename MenuItem::id_type id_type;
+        //! The menu item type.
+        typedef MenuItem menu_item_type;
 
-        //! The handle type.
-        typedef typename MenuItem::handle_type handle_type;
+        //! \copydoc tetengo2::gui::win32::menu_item::id_type
+        typedef typename menu_item_type::id_type id_type;
 
-        //! The string type.
-        typedef typename MenuItem::string_type string_type;
+        //! \copydoc tetengo2::gui::win32::menu_item::handle_type
+        typedef typename menu_item_type::handle_type handle_type;
 
-        //! The unary functor type for encoding from the native.
+        //! \copydoc tetengo2::gui::win32::menu_item::string_type
+        typedef typename menu_item_type::string_type string_type;
+
+        //! \copydoc tetengo2::gui::win32::menu_item::encode_from_native_type
         typedef
-            typename MenuItem::encode_from_native_type
+            typename menu_item_type::encode_from_native_type
             encode_from_native_type;
 
-        //! The unary functor type for encoding to the native.
+        //! \copydoc tetengo2::gui::win32::menu_item::encode_to_native_type
         typedef
-            typename MenuItem::encode_to_native_type encode_to_native_type;
+            typename menu_item_type::encode_to_native_type
+            encode_to_native_type;
 
-        //! The menu observer type.
-        typedef typename MenuItem::menu_observer_type menu_observer_type;
+        //! \copydoc tetengo2::gui::win32::menu_item::menu_observer_type
+        typedef
+            typename menu_item_type::menu_observer_type
+            menu_observer_type;
 
 
         // constructors and destructor
@@ -80,50 +86,28 @@ namespace tetengo2 { namespace gui
 
         // functions
 
-        /*!
-            \brief Returns whether the menu item is a menu command.
-
-            \retval true  When the menu item is a menu command.
-            \retval false Otherwise.
-        */
+        //! \copydoc tetengo2::gui::win32::menu_item::is_command
         virtual bool is_command()
         const
         {
             return false;
         }
 
-        /*!
-            \brief Returns whether the menu item is a popup menu.
-
-            \retval true  When the menu item is a popup menu.
-            \retval false Otherwise.
-        */
+        //! \copydoc tetengo2::gui::win32::menu_item::is_popup
         virtual bool is_popup()
         const
         {
             return false;
         }
 
-        /*!
-            \brief Returns whether the menu item is a menu separator.
-
-            \retval true  When the menu item is a menu separator.
-            \retval false Otherwise.
-        */
+        //! \copydoc tetengo2::gui::win32::menu_item::is_separator
         virtual bool is_separator()
         const
         {
             return true;
         }
 
-        /*!
-            \brief Returns the handle.
-
-            If the value of is_popup() is false, this function may return
-            NULL.
-
-            \return The handle.
-        */
+        //! \copydoc tetengo2::gui::win32::menu_item::handle
         virtual handle_type handle()
         const
         {
