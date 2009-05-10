@@ -64,8 +64,7 @@ namespace bobura { namespace message
 
         // functions
 
-        // The document will be derived from
-        // tetengo2::gui::menu_observer::selected.
+        //! \copydoc tetengo2::gui::menu_observer::selected.
         virtual void selected()
         {
             m_command();
@@ -188,8 +187,7 @@ namespace bobura { namespace message
 
         // functions
 
-        // The document will be derived from
-        // tetengo2::gui::window_observer::destroyed.
+        //! \copydoc tetengo2::gui::window_observer::destroyed.
         virtual void destroyed()
         {
             m_quit_message_loop(0);

@@ -72,8 +72,7 @@ namespace bobura { namespace message
 
         // functions
 
-        // The document will be derived from
-        // tetengo2::gui::mouse_observer::clicked.
+        //! \copydoc tetengo2::gui::mouse_observer::clicked.
         virtual void clicked()
         {
             m_p_dialog->set_result(dialog_type::result_accepted);
