@@ -36,9 +36,9 @@
 namespace tetengo2
 {
     /*!
-        \brief The class template for messages.
+        \brief The class template for a messages facet.
 
-        It is a customized locale facet for messages.
+        It is a customized locale facet for a messages facet.
 
         \tparam String A string type. It must conform to
                        concept_tetengo2::String<String>.
@@ -97,10 +97,10 @@ namespace tetengo2
         // constructors and destructor
 
         /*!
-            \brief Creates messages.
+            \brief Creates a messages facet.
 
             \param path   A path where message catalogs are stored.
-            \param locale A locale for the messages.
+            \param locale A locale for the messages facet.
 
             \throw std::ios_base::failure When the path does not exist or is
                                           not a directory.
@@ -112,7 +112,7 @@ namespace tetengo2
         {}
 
         /*!
-            \brief Destroys messages.
+            \brief Destroys the messages facet.
         */
         virtual ~messages()
         throw ()

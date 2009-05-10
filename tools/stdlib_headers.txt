@@ -52,6 +52,7 @@ boost::program_options::variables_map            boost/program_options.hpp
 boost::program_options::wcommand_line_parser     boost/program_options.hpp
 boost::program_options::wparsed_options          boost/program_options.hpp
 boost::ptr_vector                                boost/ptr_container/ptr_vector.hpp
+boost::replace_all                               boost/algorithm/string.hpp
 boost::scoped_array                              boost/scoped_array.hpp
 boost::signal                                    boost/signal.hpp
 boost::signals::trackable                        boost/signal.hpp
