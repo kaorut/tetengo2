@@ -35,8 +35,6 @@ namespace concept_tetengo2
 
         typedef typename Type::string_type string_type;
 
-        typedef typename Type::byte_type byte_type;
-
 
         // usage checks
 

@@ -6,6 +6,7 @@ BOOST_CHECKPOINT                                 boost/test/unit_test.hpp
 BOOST_CHECK_EQUAL                                boost/test/unit_test.hpp
 BOOST_CHECK_GE                                   boost/test/unit_test.hpp
 BOOST_CHECK_LT                                   boost/test/unit_test.hpp
+BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
 BOOST_CONCEPT_ASSERT                             boost/concept_check.hpp
 BOOST_CONCEPT_USAGE                              boost/concept_check.hpp
@@ -58,7 +59,6 @@ boost::signal                                    boost/signal.hpp
 boost::signals::trackable                        boost/signal.hpp
 boost::tokenizer                                 boost/tokenizer.hpp
 boost::totally_ordered                           boost/operators.hpp
-boost::trim                                      boost/algorithm/string.hpp
 boost::tuple                                     boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::unordered_map                             boost/unordered_map.hpp
 std::auto_ptr                                    memory
@@ -72,6 +72,7 @@ std::find_if                                     algorithm
 std::for_each                                    algorithm
 std::getline                                     string
 std::greater                                     functional
+std::has_facet                                   locale
 std::ifstream                                    fstream
 std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios

@@ -155,7 +155,7 @@ namespace tetengo2
         /*!
             \brief Returns the localized message.
 
-            \param catalog_id      A catalog ID. It must be 0.
+            \param catalog_id      A catalog ID.
             \param set             Not used.
             \param message         Not used.
             \param default_message A default message. Also, used as a key.
@@ -188,21 +188,17 @@ namespace tetengo2
         /*!
             \brief Closes the message catalog.
 
-            \param catalog_id A catalog ID. It must be 0.
+            \param catalog_id A catalog ID.
 
-            \throw std::runtime_error The message catalog is not open or the
-                                      catalog ID is invalid.
+            \throw std::runtime_error The message catalog is not open.
         */
         virtual void do_close(const catalog catalog_id)
         const
         {
-            if (!m_open || catalog_id < 0)
-            {
-                throw std::runtime_error(
-                    "The message catalog is not open or the catalog ID is"
-                    "invalid."
-                );
-            }
+            if (catalog_id < 0) return;
+
+            if (!m_open)
+                throw std::runtime_error("The message catalog is not open.");
 
             m_open = false;
         }

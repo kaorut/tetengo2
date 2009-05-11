@@ -409,6 +409,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\test_tetengo2.message_catalog.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_tetengo2.message_catalog_parser.cpp"
 					>
 				</File>

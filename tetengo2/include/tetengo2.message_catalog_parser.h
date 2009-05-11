@@ -29,9 +29,7 @@
 namespace tetengo2
 {
     /*!
-        \brief The class template for message_catalog_parser.
-
-        It is a customized locale facet for message_catalog_parser.
+        \brief The class template for a message catalog parser.
 
         \tparam InputStream An input stream type. It must conform to
                             concept_tetengo2::InputStream<InputStream>.
@@ -100,7 +98,7 @@ namespace tetengo2
         /*!
             \brief Destroys a message catalog parser.
         */
-        virtual ~message_catalog_parser()
+        ~message_catalog_parser()
         throw ()
         {}
 

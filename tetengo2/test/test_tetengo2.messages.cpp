@@ -14,12 +14,11 @@
 #include <string>
 
 #include <boost/filesystem.hpp>
-#include <boost/test/unit_test.hpp>
 #include <boost/scope_exit.hpp>
-
-#include "tetengo2.win32.encode.h"
+#include <boost/test/unit_test.hpp>
 
 #include "tetengo2.message_catalog_parser.h"
+#include "tetengo2.win32.encode.h"
 
 #include "tetengo2.messages.h"
 
@@ -45,7 +44,7 @@ namespace
     {
         const std::locale m_initial_locale;
 
-        set_global_locale(const std::locale& locale)
+        explicit set_global_locale(const std::locale& locale)
         :
         m_initial_locale(
             std::locale::global(
@@ -261,7 +260,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
             BOOST_CHECK_THROW(messages.close(0), std::runtime_error);
 
-            BOOST_CHECK_THROW(messages.close(-1), std::runtime_error);
+            BOOST_CHECK_NO_THROW(messages.close(-1));
 
             const std::messages_base::catalog catalog_id =
                 messages.open("", std::locale());
@@ -284,7 +283,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
             BOOST_CHECK_THROW(messages.close(0), std::runtime_error);
 
-            BOOST_CHECK_THROW(messages.close(-1), std::runtime_error);
+            BOOST_CHECK_NO_THROW(messages.close(-1));
 
             const std::messages_base::catalog catalog_id =
                 messages.open("", std::locale());
@@ -307,7 +306,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
             const std::messages_base::catalog catalog_id =
                 messages.open("", std::locale());
-            BOOST_CHECK_THROW(messages.close(catalog_id), std::runtime_error);
+            BOOST_CHECK_NO_THROW(messages.close(catalog_id));
         }
     }
 
