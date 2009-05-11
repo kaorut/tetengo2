@@ -243,6 +243,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\concept_tetengo2.Messages.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\concept_tetengo2.Path.h"
 					>
 				</File>
