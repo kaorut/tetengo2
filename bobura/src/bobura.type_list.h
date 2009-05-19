@@ -10,8 +10,13 @@
 #define BOBURA_TYPELIST_H
 
 //#include <cstddef>
+#include <istream>
 //#include <string>
 
+#include <boost/filesystem.hpp>
+
+#include <tetengo2.messages.h>
+#include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.gui.win32.gui_type_list.h>
 
 #include "bobura.about_dialog.h"
@@ -40,6 +45,24 @@ namespace bobura
 
         //! The string type.
         typedef std::wstring string_type;
+
+        //! The message catalog parser type.
+        typedef
+            tetengo2::message_catalog_parser<
+                std::istream,
+                string_type,
+                tetengo2::win32::encode
+            >
+            message_catalog_parser_type;
+
+        //! The messages facet type.
+        typedef
+            tetengo2::messages<
+                boost::filesystem::wpath,
+                message_catalog_parser_type,
+                tetengo2::win32::encode
+            >
+            messages_type;
 
         //! The type list type to create platform specific GUI components.
         typedef

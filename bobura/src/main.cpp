@@ -7,16 +7,57 @@
 */
 
 //#include <exception>
+#include <locale>
 //#include <string>
 //#include <vector>
 
 //#include <boost/program_options.hpp>
+#include <boost/scoped_array.hpp>
+
+#define NOMINMAX
+#define OEMRESOURCE
+#include <windows.h>
 
 #include "bobura.type_list.h"
 
 
 namespace
 {
+    const std::string locale_info(const ::LCID id, const ::LCTYPE type)
+    {
+        const int length = ::GetLocaleInfoA(id, type, NULL, 0);
+        if (length == 0)
+            throw std::runtime_error("Can't get locale info.");
+
+        boost::scoped_array<char> p_info(new char[length]);
+        ::GetLocaleInfoA(id, type, p_info.get(), length);
+
+        return std::string(p_info.get());
+    }
+
+    const std::string ui_locale_name()
+    {
+        const ::LANGID language_id = ::GetUserDefaultLangID();
+        const ::LCID locale_id = MAKELCID(language_id, SORT_DEFAULT);
+
+        return locale_info(locale_id, LOCALE_SENGLANGUAGE) +
+            "_" +
+            locale_info(locale_id, LOCALE_SENGCOUNTRY);
+    }
+
+    void set_locale()
+    {
+        const std::locale global_locale(
+            std::locale(""),
+            new bobura::type_list::messages_type(
+                L".",
+                std::locale(ui_locale_name().c_str())
+            )
+        );
+
+        std::locale::global(global_locale);
+    }
+
     template <typename CommandLineArgumentInputIterator>
     int run_application(
         CommandLineArgumentInputIterator command_line_argument_first,
@@ -54,6 +95,8 @@ throw ()
 {
     try
     {
+        set_locale();
+
         const std::vector<std::wstring> command_line_arguments =
             boost::program_options::split_winmain(::GetCommandLineW());
         return ::run_application(
