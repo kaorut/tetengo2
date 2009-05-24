@@ -230,19 +230,18 @@ namespace tetengo2
             bool operator()(const path_type& path)
             const
             {
-                std::locale catalog_locale;
+                if (path.extension() != L".txt") return false;
+
+                const std::string locale_name =
+                    encode_to_std_string_type()(path.stem());
                 try
                 {
-                    const std::string locale_name =
-                        encode_to_std_string_type()(path.stem());
-                    catalog_locale = std::locale(locale_name.c_str());
+                    return std::locale(locale_name.c_str()) == m_locale;
                 }
                 catch (const std::runtime_error&)
                 {
                     return false;
                 }
-
-                return catalog_locale == m_locale;
             }
 
         };
