@@ -51,7 +51,7 @@ namespace
                 std::locale(
                     locale,
                     new messages_type(
-                        boost::filesystem::wpath(L"messages"), locale
+                        boost::filesystem::wpath(L"messages.test"), locale
                     )
                 )
             )

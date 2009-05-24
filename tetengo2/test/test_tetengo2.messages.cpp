@@ -51,7 +51,7 @@ namespace
                 std::locale(
                     locale,
                     new messages_type(
-                        boost::filesystem::wpath(L"messages"), locale
+                        boost::filesystem::wpath(L"messages.test"), locale
                     )
                 )
             )
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_SUITE(messages)
         BOOST_CHECKPOINT("");
 
         const messages_type messages(
-            boost::filesystem::wpath(L"messages"), std::locale()
+            boost::filesystem::wpath(L"messages.test"), std::locale()
         );
 
         BOOST_CHECK_THROW(
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
         BOOST_CHECK_THROW(
             messages_type(
-                boost::filesystem::wpath(L"messages") / L"English.txt",
+                boost::filesystem::wpath(L"messages.test") / L"English.txt",
                 std::locale()
             ),
             std::ios_base::failure
