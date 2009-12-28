@@ -1,0 +1,6 @@
+*.ncb
+*/obj
+*/obj.test
+bin
+bobura_config.h
+doc
