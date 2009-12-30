@@ -1,4 +1,6 @@
 *.ncb
+*.suo
+*.user
 */obj
 */obj.test
 bin
