@@ -1,0 +1,41 @@
+dnl configure the Autoconf Archive
+
+AC_INIT([autoconf-archive], m4_esyscmd([build-aux/git-version-gen .tarball-version]), [autoconf-archive-maintainers@nongnu.org])
+AC_CONFIG_AUX_DIR([build-aux])
+AM_INIT_AUTOMAKE([-Wall gnu dist-bzip2 dist-xz])
+AC_CONFIG_SRCDIR([autoconf-archive.texi])
+AC_COPYRIGHT([dnl
+Compilation Copyright 2001-2009 by Peter Simons <simons@cryp.to>
+
+This compilation is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This compilation is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.])
+
+AC_MSG_NOTICE([Autoconf Archive version $VERSION])
+
+AC_MSG_CHECKING([for available macros])
+M4SOURCE=""
+for n in ${srcdir}/m4/*.m4 ; do
+  M4SOURCE="${M4SOURCE} ${n}"
+done
+AC_SUBST([M4SOURCE])
+AC_MSG_RESULT([done])
+
+AC_MSG_CHECKING([for available Texinfo documentation])
+TEXIFILE=""
+for n in ${srcdir}/doc/*.texi ; do
+  TEXIFILE="${TEXIFILE} ${n}"
+done
+AC_SUBST([TEXIFILE])
+AC_MSG_RESULT([done])
+
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT
+
+dnl Responsibility shifts to the user after this point.

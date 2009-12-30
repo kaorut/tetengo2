@@ -3,7 +3,7 @@
 # Copyright (C) 2007-2009 kaoru
 # $Id$
 
-aclocal -I m4 && \
+aclocal -I autoconf-archive/m4 && \
 autoheader && \
 automake --add-missing --copy --gnu && \
 autoconf

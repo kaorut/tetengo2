@@ -18,6 +18,7 @@ AC_PROG_CC
 AC_PROG_CPP
 
 #### Checks for libraries ####
+AX_BOOST_BASE([1.41]) 
 
 #### Checks for header files ####
 
