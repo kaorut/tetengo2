@@ -3,6 +3,15 @@
 *.user
 */obj
 */obj.test
+aclocal.m4
+autom4te.cache
 bin
 bobura_config.h
+config.*
+configure
 doc
+install-sh
+Makefile
+Makefile.in
+missing
+stamp-h1
