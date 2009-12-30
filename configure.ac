@@ -19,14 +19,19 @@ AC_PROG_CPP
 
 #### Checks for libraries ####
 AX_BOOST_BASE([1.41]) 
+AX_BOOST_FILESYSTEM
+AX_BOOST_PROGRAM_OPTIONS
+AX_BOOST_SIGNALS
+AX_BOOST_SYSTEM
+AX_BOOST_UNIT_TEST_FRAMEWORK
 
 #### Checks for header files ####
+AC_CXX_HAVE_STD
+AC_CXX_HAVE_STL
+AC_HEADER_STDC
 
 #### Checks for typedefs, structures, and compiler characteristics ####
-AC_HEADER_STDBOOL
-AC_HEADER_STDC
-AC_TYPE_SIZE_T
-AC_CHECK_TYPES([ptrdiff_t])
+AC_CXX_TEMPLATES
 
 #### Checks for library functions ####
 
