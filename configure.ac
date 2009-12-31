@@ -16,6 +16,17 @@ AC_CONFIG_FILES([
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
+AC_ARG_WITH(
+    doxygen, [
+  --with-doxygen=DIR  Specify the directory of Doxygen.
+                      If set, ``$DIR/doxygen'' is used. Otherwise, ``doxygen''
+                      is used.
+],
+    DOXYGEN=$withval/doxygen
+)
+AC_CHECK_PROG(DOXYGEN, doxygen, doxygen)
+test -z $DOXYGEN && \
+    AC_MSG_WARN([You cannot generate documentation for lack of Doxygen.])
 
 #### Checks for libraries ####
 AX_BOOST_BASE([1.41]) 
