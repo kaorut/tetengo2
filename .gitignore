@@ -1,14 +1,17 @@
 *.ncb
+*.o
 *.suo
 *.user
 */obj
 */obj.test
+.deps
 aclocal.m4
 autom4te.cache
 bin
 bobura_config.h
 config.*
 configure
+depcomp
 doc
 install-sh
 Makefile

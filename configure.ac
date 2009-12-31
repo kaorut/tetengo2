@@ -10,6 +10,9 @@ AC_CONFIG_SRCDIR([bobura_config.h-original])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
     Makefile
+    tetengo2/Makefile
+    tetengo2/include/Makefile
+    tetengo2/test/Makefile
 ])
 
 #### Checks for programs ####

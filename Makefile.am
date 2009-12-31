@@ -2,10 +2,7 @@
 # Copyright (C) 2007-2009 kaoru
 # $Id$
 
-#### Subdirectories ####
-
-
-#### Documentation ####
+SUBDIRS = tetengo2
 
 doc-all: doc doc-test
 
