@@ -6,6 +6,8 @@
     $Id$
 */
 
+#if defined(_MSC_VER)
+
 #include <cstddef>
 #include <string>
 
@@ -142,3 +144,5 @@ BOOST_AUTO_TEST_SUITE(menu_command)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+
+#endif

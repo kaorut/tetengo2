@@ -6,6 +6,8 @@
     $Id$
 */
 
+#if defined(_MSC_VER)
+
 #include <istream>
 #include <locale>
 #include <string>
@@ -140,3 +142,5 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+
+#endif

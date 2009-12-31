@@ -6,6 +6,8 @@
     $Id$
 */
 
+#if defined(_MSC_VER)
+
 #include <cstddef>
 #include <ios>
 #include <istream>
@@ -313,3 +315,5 @@ BOOST_AUTO_TEST_SUITE(messages)
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+
+#endif

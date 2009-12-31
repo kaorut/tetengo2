@@ -32,9 +32,9 @@ namespace stub_tetengo2
     public:
         // types
 
-        typedef result_type target_type;
+        typedef Target target_type;
 
-        typedef argument_type source_type;
+        typedef Source source_type;
 
 
         // functions

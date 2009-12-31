@@ -203,7 +203,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             m_menu_selected_handler.connect(
                 boost::bind(
-                    &typename menu_observer_type::selected,
+                    &menu_observer_type::selected,
                     p_menu_observer.get()
                 )
             );

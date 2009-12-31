@@ -83,6 +83,19 @@ namespace tetengo2
     public:
         // types
 
+        //! The base type.
+        typedef
+            std::messages<
+                typename MessageCatalogParser::string_type::value_type
+            >
+            base_type;
+
+        //! The catalog type.
+        typedef typename base_type::catalog catalog;
+
+        //! The string_type.
+        typedef typename base_type::string_type string_type;
+
         //! The path type.
         typedef Path path_type;
 
@@ -289,7 +302,7 @@ namespace tetengo2
                 std::greater<path_type>()
             );
 
-            const std::vector<path_type>::const_iterator found =
+            const typename std::vector<path_type>::const_iterator found =
                 std::find_if(
                     catalog_files.begin(),
                     catalog_files.end(),

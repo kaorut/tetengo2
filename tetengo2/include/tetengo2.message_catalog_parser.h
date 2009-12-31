@@ -10,16 +10,16 @@
 #define TETENGO2_MESSAGECATALOGPARSER_H
 
 #include <algorithm>
+#include <cstddef>
 #include <iterator>
+#include <memory>
 #include <stdexcept>
 //#include <string>
 #include <utility>
 #include <vector>
 
 //#include <boost/concept_check.hpp>
-#include <boost/optional.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/scope_exit.hpp>
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
 
@@ -92,7 +92,7 @@ namespace tetengo2
         explicit message_catalog_parser(input_stream_type& input_stream)
         :
         m_input_stream(input_stream),
-        m_preread_entry()
+        m_p_preread_entry()
         {}
 
         /*!
@@ -129,11 +129,9 @@ namespace tetengo2
             if (!has_next())
                 throw std::runtime_error("No next entry.");
 
-            BOOST_SCOPE_EXIT((&m_preread_entry))
-            {
-                m_preread_entry = boost::optional<entry_type>();
-            } BOOST_SCOPE_EXIT_END
-            return *m_preread_entry;
+            const std::auto_ptr<entry_type> p_entry = m_p_preread_entry;
+            m_p_preread_entry.reset();
+            return *p_entry;
         }
 
 
@@ -159,7 +157,7 @@ namespace tetengo2
 
         mutable input_stream_type& m_input_stream;
 
-        mutable boost::optional<entry_type> m_preread_entry;
+        mutable std::auto_ptr<entry_type> m_p_preread_entry;
 
 
         // functions
@@ -167,14 +165,14 @@ namespace tetengo2
         bool preread()
         const
         {
-            if (m_preread_entry) return true;
+            if (m_p_preread_entry.get() != NULL) return true;
 
             while (m_input_stream.good())
             {
-                const entry_type entry = parse(get_line());
-                if (!entry.first.empty())
+                std::auto_ptr<entry_type> p_entry = parse(get_line());
+                if (p_entry.get() != NULL)
                 {
-                    m_preread_entry = entry;
+                    m_p_preread_entry = p_entry;
                     return true;
                 }
             }
@@ -234,7 +232,7 @@ namespace tetengo2
             boost::replace_all(line, "\\n", "\n");
         }
 
-        const entry_type parse(const input_string_type& line)
+        std::auto_ptr<entry_type> parse(const input_string_type& line)
         const
         {
             const tokenizer_type tokenizer(
@@ -247,10 +245,12 @@ namespace tetengo2
             );
 
             if (tokens.size() < 2)
-                return std::make_pair(L"", L"");
+                return std::auto_ptr<entry_type>();
 
-            return entry_type(
-                encode_type()(tokens[0]), encode_type()(tokens[1])
+            return std::auto_ptr<entry_type>(
+                new entry_type(
+                    encode_type()(tokens[0]), encode_type()(tokens[1])
+                )
             );
         }
 

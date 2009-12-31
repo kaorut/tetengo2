@@ -6,6 +6,8 @@
     $Id$
 */
 
+#if defined(_MSC_VER)
+
 #include <istream>
 #include <sstream>
 #include <stdexcept>
@@ -157,3 +159,5 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+
+#endif

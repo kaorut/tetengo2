@@ -73,7 +73,7 @@ namespace tetengo2 { namespace gui
         */
         menu_separator()
         :
-        menu_item(string_type())
+        menu_item_type(string_type())
         {}
 
         /*!
