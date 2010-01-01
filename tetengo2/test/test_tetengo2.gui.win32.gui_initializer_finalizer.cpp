@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::gui::win32::gui_initializer_finalizer.
 
-    Copyright (C) 2007-2009 kaoru
+    Copyright (C) 2007-2010 kaoru
 
     $Id$
 */

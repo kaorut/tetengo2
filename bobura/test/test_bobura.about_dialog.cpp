@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class bobura::about_dialog.
 
-    Copyright (C) 2007-2009 kaoru
+    Copyright (C) 2007-2010 kaoru
 
     $Id$
 */

@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class bobura::command::command_type_list.
 
-    Copyright (C) 2007-2009 kaoru
+    Copyright (C) 2007-2010 kaoru
 
     $Id$
 */

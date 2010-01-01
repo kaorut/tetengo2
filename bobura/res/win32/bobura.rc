@@ -84,7 +84,7 @@ BEGIN
             VALUE "FileDescription", "Some software about railways"
             VALUE "FileVersion", "0.0.0"
             VALUE "InternalName", "bobura"
-            VALUE "LegalCopyright", "Copyright (C) 2007-2009 kaoru"
+            VALUE "LegalCopyright", "Copyright (C) 2007-2010 kaoru"
             VALUE "OriginalFilename", "bobura.exe"
             VALUE "ProductName", "bobura"
             VALUE "ProductVersion", "0.0.0"

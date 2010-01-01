@@ -1,8 +1,7 @@
 #!/usr/bin/perl
-
 # Standard library usage extractor.
+# Copyright (C) 2007-2010 kaoru
 # $Id$
-# Copyright (C) 2007-2009 kaoru
 
 use strict;
 

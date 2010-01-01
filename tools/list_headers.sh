@@ -1,8 +1,7 @@
 #!/bin/sh
-
 # Standard library usage lister.
+# Copyright (C) 2007-2010 kaoru
 # $Id$
-# Copyright (C) 2007-2009 kaoru
 
 LANG=C
 SOLUTIONDIR=`dirname $0`/..
