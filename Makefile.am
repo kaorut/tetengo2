@@ -2,7 +2,7 @@
 # Copyright (C) 2007-2010 kaoru
 # $Id$
 
-SUBDIRS = tetengo2
+SUBDIRS = bobura_model tetengo2
 
 doc-all: doc doc-test
 
