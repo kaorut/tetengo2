@@ -3,7 +3,7 @@
 # $Id$
 
 #### General ####
-AC_PREREQ([2.64])
+AC_PREREQ([2.61])
 AC_INIT([bobura], [0.0.0], [kaorut@mc.pikara.ne.jp])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([bobura_config.h-original])
