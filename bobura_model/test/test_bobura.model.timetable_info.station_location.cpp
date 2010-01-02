@@ -27,14 +27,14 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_CHECKPOINT("");
 
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef bobura::model::station_info::local<std::wstring> local_type;
+        typedef bobura::model::station<std::wstring, local_type> station_type;
 
         {
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location(
-                station_type(L"", grade_type::instance()), 0
+                station_type(L"", local_type::instance()), 0
             );
 
             const bobura::model::timetable_info::station_location<
@@ -49,19 +49,19 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_CHECKPOINT("");
 
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef bobura::model::station_info::local<std::wstring> local_type;
+        typedef bobura::model::station<std::wstring, local_type> station_type;
 
         {
             bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location1(
-                station_type(L"A", grade_type::instance()), 1
+                station_type(L"A", local_type::instance()), 1
             );
             bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location2(
-                station_type(L"B", grade_type::instance()), 2
+                station_type(L"B", local_type::instance()), 2
             );
 
             station_location1.swap(station_location2);
@@ -75,12 +75,12 @@ BOOST_AUTO_TEST_SUITE(station_location)
             bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location1(
-                station_type(L"A", grade_type::instance()), 1
+                station_type(L"A", local_type::instance()), 1
             );
             bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location2(
-                station_type(L"B", grade_type::instance()), 2
+                station_type(L"B", local_type::instance()), 2
             );
 
             std::swap(station_location1, station_location2);
@@ -96,19 +96,19 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_CHECKPOINT("");
 
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef bobura::model::station_info::local<std::wstring> local_type;
+        typedef bobura::model::station<std::wstring, local_type> station_type;
 
         {
             bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location1(
-                station_type(L"A", grade_type::instance()), 1
+                station_type(L"A", local_type::instance()), 1
             );
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location2(
-                station_type(L"B", grade_type::instance()), 2
+                station_type(L"B", local_type::instance()), 2
             );
 
             station_location1 = station_location2;
@@ -121,19 +121,19 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_CHECKPOINT("");
 
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef bobura::model::station_info::local<std::wstring> local_type;
+        typedef bobura::model::station<std::wstring, local_type> station_type;
 
         {
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location1(
-                station_type(L"A", grade_type::instance()), 1
+                station_type(L"A", local_type::instance()), 1
             );
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location2(
-                station_type(L"A", grade_type::instance()), 1
+                station_type(L"A", local_type::instance()), 1
             );
 
             BOOST_CHECK(station_location1 == station_location2);
@@ -142,12 +142,12 @@ BOOST_AUTO_TEST_SUITE(station_location)
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location1(
-                station_type(L"A", grade_type::instance()), 1
+                station_type(L"A", local_type::instance()), 1
             );
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location2(
-                station_type(L"B", grade_type::instance()), 2
+                station_type(L"B", local_type::instance()), 2
             );
 
             BOOST_CHECK(station_location1 != station_location2);
@@ -158,10 +158,10 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_CHECKPOINT("");
 
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef bobura::model::station_info::local<std::wstring> local_type;
+        typedef bobura::model::station<std::wstring, local_type> station_type;
 
-        const station_type station(L"", grade_type::instance());
+        const station_type station(L"", local_type::instance());
         const bobura::model::timetable_info::station_location<
             station_type, std::size_t
         > station_location(station, 0);
@@ -173,14 +173,14 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_CHECKPOINT("");
 
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef bobura::model::station_info::local<std::wstring> local_type;
+        typedef bobura::model::station<std::wstring, local_type> station_type;
 
         {
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location(
-                station_type(L"", grade_type::instance()), 0
+                station_type(L"", local_type::instance()), 0
             );
 
             BOOST_CHECK_EQUAL(station_location.meterage(), 0U);
@@ -189,7 +189,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location(
-                station_type(L"", grade_type::instance()), 1
+                station_type(L"", local_type::instance()), 1
             );
 
             BOOST_CHECK_EQUAL(station_location.meterage(), 1U);
@@ -198,7 +198,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location(
-                station_type(L"", grade_type::instance()), 2
+                station_type(L"", local_type::instance()), 2
             );
 
             BOOST_CHECK_EQUAL(station_location.meterage(), 2U);
@@ -209,33 +209,19 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_CHECKPOINT("");
 
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station<std::wstring, grade_type> station_type;
+        typedef bobura::model::station_info::local<std::wstring> local_type;
+        typedef bobura::model::station<std::wstring, local_type> station_type;
 
         {
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location1(
-                station_type(L"", grade_type::instance()), 1
+                station_type(L"", local_type::instance()), 1
             );
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location2(
-                station_type(L"", grade_type::instance()), 1
-            );
-
-            BOOST_CHECK(station_location1.before(station_location2));
-        }
-        {
-            const bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            > station_location1(
-                station_type(L"", grade_type::instance()), 1
-            );
-            const bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            > station_location2(
-                station_type(L"", grade_type::instance()), 2
+                station_type(L"", local_type::instance()), 1
             );
 
             BOOST_CHECK(station_location1.before(station_location2));
@@ -244,12 +230,26 @@ BOOST_AUTO_TEST_SUITE(station_location)
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location1(
-                station_type(L"", grade_type::instance()), 2
+                station_type(L"", local_type::instance()), 1
             );
             const bobura::model::timetable_info::station_location<
                 station_type, std::size_t
             > station_location2(
-                station_type(L"", grade_type::instance()), 1
+                station_type(L"", local_type::instance()), 2
+            );
+
+            BOOST_CHECK(station_location1.before(station_location2));
+        }
+        {
+            const bobura::model::timetable_info::station_location<
+                station_type, std::size_t
+            > station_location1(
+                station_type(L"", local_type::instance()), 2
+            );
+            const bobura::model::timetable_info::station_location<
+                station_type, std::size_t
+            > station_location2(
+                station_type(L"", local_type::instance()), 1
             );
 
             BOOST_CHECK(!station_location1.before(station_location2));

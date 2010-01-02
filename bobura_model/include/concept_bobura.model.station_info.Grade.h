@@ -33,9 +33,10 @@ namespace concept_bobura { namespace model { namespace station_info
 
         BOOST_CONCEPT_USAGE(Grade)
         {
-            const Type& object = Type::instance();
+            //const Type& object = Type::instance();
 
-            const_constraints(object);
+            //const_constraints(object);
+            const_constraints(m_object);
         }
 
         void const_constraints(const Type& object)
@@ -45,6 +46,12 @@ namespace concept_bobura { namespace model { namespace station_info
         }
 
         
+    private:
+        // variables
+
+        Type& m_object;
+
+
 #endif
     };
 

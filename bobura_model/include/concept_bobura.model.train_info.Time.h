@@ -47,7 +47,7 @@ namespace concept_bobura { namespace model { namespace train_info
             Type& minus_assigned = m_object -= m_time_span;
             boost::ignore_unused_variable_warning(minus_assigned);
 
-            const Type& uninitialized = typename Type::uninitialized();
+            const Type& uninitialized = Type::uninitialized();
             boost::ignore_unused_variable_warning(uninitialized);
 
             const_constraints(m_object);

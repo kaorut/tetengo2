@@ -188,8 +188,9 @@ namespace bobura { namespace model
         */
         void insert_station_location(
             const typename station_locations_type::const_iterator
-                                         position,
-            const station_location_type& station_location
+            position,
+            const station_location_type&
+            station_location
         )
         {
             if (!can_insert_to(position, station_location))
@@ -204,7 +205,9 @@ namespace bobura { namespace model
                     m_station_locations.begin(), position
                 );
 
-            m_station_locations.insert(position, station_location);
+            m_station_locations.insert(
+                to_mutable(position, m_station_locations), station_location
+            );
 
             std::for_each(
                 m_trains.begin(),
@@ -239,7 +242,10 @@ namespace bobura { namespace model
                     m_station_locations.begin(), last
                 );
 
-            m_station_locations.erase(first, last);
+            m_station_locations.erase(
+                to_mutable(first, m_station_locations),
+                to_mutable(last, m_station_locations)
+            );
 
             std::for_each(
                 m_trains.begin(),
@@ -285,7 +291,7 @@ namespace bobura { namespace model
                 );
             }
 
-            m_trains.insert(position, train);
+            m_trains.insert(to_mutable(position, m_trains), train);
         }
 
         /*!
@@ -299,7 +305,9 @@ namespace bobura { namespace model
             const typename trains_type::const_iterator last
         )
         {
-            m_trains.erase(first, last);
+            m_trains.erase(
+                to_mutable(first, m_trains), to_mutable(last, m_trains)
+            );
         }
 
 
@@ -314,8 +322,8 @@ namespace bobura { namespace model
             train.insert_stop(
                 train.stops().begin() + offset,
                 typename train_type::stop_type(
-                    typename train_type::stop_type::time_type::uninitialized(),
-                    typename train_type::stop_type::time_type::uninitialized(),
+                    train_type::stop_type::time_type::uninitialized(),
+                    train_type::stop_type::time_type::uninitialized(),
                     typename train_type::stop_type::platform_type()
                 )
             );
@@ -367,6 +375,22 @@ namespace bobura { namespace model
             }
 
             return true;
+        }
+
+        template <typename Container>
+        typename Container::iterator to_mutable(
+            const typename Container::const_iterator const_iter,
+            Container&                               container
+        )
+        {
+            typename Container::iterator mutable_iter = container.begin();
+            std::advance(
+                mutable_iter,
+                std::distance<typename Container::const_iterator>(
+                    container.begin(), const_iter
+                )
+            );
+            return mutable_iter;
         }
 
 

@@ -46,7 +46,7 @@ namespace concept_bobura { namespace model { namespace train_info
             boost::ignore_unused_variable_warning(minus_assigned);
 
             const typename Type::tick_type& seconds_of_whole_day =
-                typename Type::seconds_of_whole_day();
+                Type::seconds_of_whole_day();
             boost::ignore_unused_variable_warning(seconds_of_whole_day);
 
             const_constraints(m_object);

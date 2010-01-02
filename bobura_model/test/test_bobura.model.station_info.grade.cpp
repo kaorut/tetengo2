@@ -23,7 +23,6 @@ BOOST_AUTO_TEST_SUITE(grade)
     {
         BOOST_CHECKPOINT("");
 
-        bobura::model::station_info::grade<std::string>::instance();
         bobura::model::station_info::local<std::string>::instance();
         bobura::model::station_info::principal<std::string>::instance();
         bobura::model::station_info::local_terminal<std::string>::instance();
@@ -31,7 +30,6 @@ BOOST_AUTO_TEST_SUITE(grade)
             std::string
         >::instance();
 
-        bobura::model::station_info::grade<std::wstring>::instance();
         bobura::model::station_info::local<std::wstring>::instance();
         bobura::model::station_info::principal<std::wstring>::instance();
         bobura::model::station_info::local_terminal<std::wstring>::instance();
@@ -44,11 +42,6 @@ BOOST_AUTO_TEST_SUITE(grade)
     {
         BOOST_CHECKPOINT("");
 
-        BOOST_CHECK(
-            bobura::model::station_info::grade<
-                std::string
-            >::instance().name() == std::string("local")
-        );
         BOOST_CHECK(
             bobura::model::station_info::local<
                 std::string
@@ -70,11 +63,6 @@ BOOST_AUTO_TEST_SUITE(grade)
             >::instance().name() == std::string("principal terminal")
         );
 
-        BOOST_CHECK(
-            bobura::model::station_info::grade<
-                std::wstring
-            >::instance().name() == std::wstring(L"local")
-        );
         BOOST_CHECK(
             bobura::model::station_info::local<
                 std::wstring

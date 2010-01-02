@@ -41,19 +41,6 @@ namespace bobura { namespace model { namespace station_info
         typedef GradeName name_type;
 
 
-        // static functions
-
-        /*!
-            \brief Returns the instance.
-
-            \return The instance of the local.
-        */
-        static const grade& instance()
-        {
-            return local<name_type>::instance();
-        }
-
-
         // constructors and destructor
 
         /*!
@@ -165,6 +152,15 @@ namespace bobura { namespace model { namespace station_info
     class local : public grade<GradeName>
     {
     public:
+        // types
+
+        //! The base type.
+        typedef grade<GradeName> base_type;
+
+        //! The name type.
+        typedef typename base_type::name_type name_type;
+
+
         // static functions
 
         /*!
@@ -223,6 +219,15 @@ namespace bobura { namespace model { namespace station_info
     class principal : public grade<GradeName>
     {
     public:
+        // types
+
+        //! The base type.
+        typedef grade<GradeName> base_type;
+
+        //! The name type.
+        typedef typename base_type::name_type name_type;
+
+
         // static functions
 
         /*!
@@ -281,6 +286,15 @@ namespace bobura { namespace model { namespace station_info
     class local_terminal : public grade<GradeName>
     {
     public:
+        // types
+
+        //! The base type.
+        typedef grade<GradeName> base_type;
+
+        //! The name type.
+        typedef typename base_type::name_type name_type;
+
+
         // static functions
 
         /*!
@@ -339,6 +353,15 @@ namespace bobura { namespace model { namespace station_info
     class principal_terminal : public grade<GradeName>
     {
     public:
+        // types
+
+        //! The base type.
+        typedef grade<GradeName> base_type;
+
+        //! The name type.
+        typedef typename base_type::name_type name_type;
+
+
         // static functions
 
         /*!
