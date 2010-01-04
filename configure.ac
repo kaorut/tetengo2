@@ -10,6 +10,9 @@ AC_CONFIG_SRCDIR([bobura_config.h-original])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
     Makefile
+    bobura/Makefile
+    bobura/src/Makefile
+    bobura/test/Makefile
     bobura_model/Makefile
     bobura_model/include/Makefile
     bobura_model/test/Makefile

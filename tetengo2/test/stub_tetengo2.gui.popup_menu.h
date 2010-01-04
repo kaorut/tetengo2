@@ -64,7 +64,7 @@ namespace stub_tetengo2 { namespace gui
 
         popup_menu(const string_type& text)
         :
-        menu_item(text)
+        menu_item_type(text)
         {}
 
         virtual ~popup_menu()

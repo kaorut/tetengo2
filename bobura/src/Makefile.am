@@ -1,0 +1,27 @@
+# Automake Settings
+# Copyright (C) 2007-2010 kaoru
+# $Id$
+
+extra_headers = \
+    bobura.about_dialog.h \
+    bobura.bobura.h \
+    bobura.command.about.h \
+    bobura.command.command_type_list.h \
+    bobura.command.exit.h \
+    bobura.command.nop.h \
+    bobura.main_window.h \
+    bobura.message.about_dialog_observers.h \
+    bobura.message.main_window_observers.h \
+    bobura.message.message_type_lists.h \
+    bobura.settings.h \
+    bobura.type_list.h \
+    concept_bobura.AboutDialog.h \
+    concept_bobura.MainWindow.h \
+    concept_bobura.Settings.h \
+    concept_bobura.command.CommandTypeList.h \
+    concept_bobura.message.MessageTypeLists.h
+
+extra_sources = \
+    main.cpp
+
+EXTRA_DIST = $(extra_headers) $(extra_sources)

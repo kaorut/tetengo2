@@ -75,7 +75,7 @@ namespace tetengo2 { namespace gui
         */
         explicit menu_command(const string_type& text)
         :
-        menu_item(text)
+        menu_item_type(text)
         {}
 
         /*!

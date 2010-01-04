@@ -91,6 +91,15 @@ namespace bobura { namespace message
         public tetengo2::gui::paint_observer<Canvas>
     {
     public:
+        // types
+
+        //! The base type.
+        typedef tetengo2::gui::paint_observer<Canvas> base_type;
+
+        //! \copydoc tetengo2::gui::paint_observer::canvas_type
+        typedef typename base_type::canvas_type canvas_type;
+
+
         // constructors and destructor
 
         /*!
@@ -120,11 +129,13 @@ namespace bobura { namespace message
 
             p_canvas->draw_text(dialog_font.family(), std::make_pair(32, 32));
 
+#if defined(_MSC_VER)
             p_canvas->set_font(
                 font_type(L"‚Ý‚©‚¿‚á‚ñ", 64, false, true, true, false)
             );
 
             p_canvas->draw_text(L"‚ ‚¢‚¤‚¦‚¨", std::make_pair(32, 64));
+#endif
         }
 
 

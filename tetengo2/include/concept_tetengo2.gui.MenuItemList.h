@@ -160,11 +160,19 @@ namespace concept_tetengo2 { namespace gui
             m_object.erase(first, last);
 
             menu_item_type* const p_found_by_id =
-                m_object.find_by_id<popup_menu<menu_item_type> >(0);
+#if defined(_MSC_VER)
+                m_object.find_by_id<popup_menu_type>(0);
+#else
+                m_object.find_by_id(0);
+#endif
             boost::ignore_unused_variable_warning(p_found_by_id);
 
             menu_item_type* const p_found_by_handle =
-                m_object.find_by_handle<popup_menu<menu_item_type> >(NULL);
+#if defined(_MSC_VER)
+                m_object.find_by_handle<popup_menu_type>(NULL);
+#else
+                m_object.find_by_handle(NULL);
+#endif
             boost::ignore_unused_variable_warning(p_found_by_handle);
 
             const_constraints(m_object);
@@ -179,16 +187,29 @@ namespace concept_tetengo2 { namespace gui
             boost::ignore_unused_variable_warning(last);
 
             const menu_item_type* const p_found_by_id =
-                m_object.find_by_id<popup_menu<menu_item_type> >(0);
+#if defined(_MSC_VER)
+                m_object.find_by_id<popup_menu_type>(0);
+#else
+                m_object.find_by_id(0);
+#endif
             boost::ignore_unused_variable_warning(p_found_by_id);
 
             const menu_item_type* const p_found_by_handle =
-                m_object.find_by_handle<popup_menu<menu_item_type> >(NULL);
+#if defined(_MSC_VER)
+                m_object.find_by_handle<popup_menu_type>(NULL);
+#else
+                m_object.find_by_handle(NULL);
+#endif
             boost::ignore_unused_variable_warning(p_found_by_handle);
         }
 
         
     private:
+        // types
+
+        typedef popup_menu<menu_item_type> popup_menu_type;
+
+
         // variables
 
         Type m_object;
