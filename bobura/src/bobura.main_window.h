@@ -180,7 +180,9 @@ namespace bobura
         {
             set_message_observers(window);
             set_menus(window);
+#if defined(_MSC_VER)
             window.set_text(L"ぼうぶら テストプログラム");
+#endif
         }
 
         static void set_message_observers(window_type& window)
@@ -204,6 +206,7 @@ namespace bobura
         {
             std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
 
+#if defined(_MSC_VER)
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
                     new popup_menu_type(L"ファイル(&F)")
@@ -305,6 +308,7 @@ namespace bobura
                     std::auto_ptr<menu_item_type>(p_popup_menu)
                 );
             }
+#endif
 
             window.set_main_menu(p_main_menu);
         }

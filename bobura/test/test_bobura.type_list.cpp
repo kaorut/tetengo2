@@ -6,6 +6,8 @@
     $Id$
 */
 
+#if defined(_MSC_VER)
+
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.type_list.h"
@@ -18,3 +20,5 @@ BOOST_AUTO_TEST_SUITE(type_list)
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+
+#endif
