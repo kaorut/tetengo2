@@ -101,6 +101,12 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The menu observer type.
         typedef MenuObserver menu_observer_type;
 
+        //! The menu item iterator type.
+        typedef menu_item* iterator;
+
+        //! The const menu item iterator type.
+        typedef const menu_item* const_iterator;
+
 
         // constructors and destructor
 
@@ -209,6 +215,134 @@ namespace tetengo2 { namespace gui { namespace win32
             );
 
             m_menu_observers.push_back(p_menu_observer);
+        }
+
+        /*!
+            \brief Returns the first immutable iterator to the children.
+
+            \return The first immutable iterator.
+        */
+        const_iterator begin()
+        const
+        {
+            return NULL;
+        }
+
+        /*!
+            \brief Returns the first mutable iterator to the children.
+
+            \return The first mutable iterator.
+        */
+        iterator begin()
+        {
+            return NULL;
+        }
+
+        /*!
+            \brief Returns the last immutable iterator to the children.
+
+            \return The last immutable iterator.
+        */
+        const_iterator end()
+        const
+        {
+            return NULL;
+        }
+
+        /*!
+            \brief Returns the last mutable iterator to the children.
+
+            \return The last mutable iterator.
+        */
+        iterator end()
+        {
+            return NULL;
+        }
+
+        /*!
+            \brief Finds a menu item among the children by the specified id.
+
+            If no menu is found, it returns end().
+
+            \param id An id.
+
+            \return The immutable iterator to the menu item.
+        */
+        const_iterator find_by_id_(const id_type id)
+        const
+        {
+            return end();
+        }
+
+        /*!
+            \brief Finds a menu item among the children by the specified id.
+
+            If no menu is found, it returns end().
+
+            \param id An id.
+
+            \return The mutable iterator to the menu item.
+        */
+        iterator find_by_id_(const id_type id)
+        {
+            return end();
+        }
+
+        /*!
+            \brief Finds a menu item among the children by the specified
+                   handle.
+
+            If no menu is found, it returns end().
+
+            \param handle A handle.
+
+            \return The immutable iterator to the menu item.
+        */
+        const_iterator find_by_handle_(const handle_type handle)
+        const
+        {
+            return end();
+        }
+
+        /*!
+            \brief Finds a menu item among the children by the specified
+                   handle.
+
+            If the menu item does not exist, it returns NULL.
+
+            If no menu is found, it returns end().
+
+            \return The mutable iterator to the menu item.
+        */
+        iterator find_by_handle_(const handle_type handle)
+        {
+            return end();
+        }
+
+        /*!
+            \brief Inserts a menu item as a child.
+
+            \param offset      An offset where a menu item is inserted.
+            \param p_menu_item An auto pointer to a menu item. It must not be
+                               NULL.
+        */
+        void insert_(
+            const iterator           offset,
+            std::auto_ptr<menu_item> p_menu_item
+        )
+        {
+
+        }
+
+        /*!
+            \brief Erases the menu items from the children.
+
+            \param first The first iterator to the erased items.
+            \param last  The last iterator to the eraed items.
+        */
+        void erase_(const iterator first, const iterator last)
+        {
+
         }
 
 

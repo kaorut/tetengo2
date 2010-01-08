@@ -73,6 +73,10 @@ namespace stub_tetengo2 { namespace gui
 
         typedef MenuObserver menu_observer_type;
 
+        typedef menu_item* iterator;
+
+        typedef const menu_item* const_iterator;
+
 
         // constructors and destructor
 
@@ -117,6 +121,59 @@ namespace stub_tetengo2 { namespace gui
         void add_menu_observer(
             std::auto_ptr<menu_observer_type> p_menu_observer
         )
+        {}
+
+        const_iterator begin()
+        const
+        {
+            return NULL;
+        }
+
+        iterator begin()
+        {
+            return NULL;
+        }
+
+        const_iterator end()
+        const
+        {
+            return NULL;
+        }
+
+        iterator end()
+        {
+            return NULL;
+        }
+
+        const_iterator find_by_id_(const id_type id)
+        const
+        {
+            return end();
+        }
+
+        iterator find_by_id_(const id_type id)
+        {
+            return end();
+        }
+
+        const_iterator find_by_handle_(const handle_type handle)
+        const
+        {
+            return end();
+        }
+
+        iterator find_by_handle_(const handle_type handle)
+        {
+            return end();
+        }
+
+        void insert_(
+            const iterator           offset,
+            std::auto_ptr<menu_item> p_menu_item
+        )
+        {}
+
+        void erase_(const iterator first, const iterator last)
         {}
 
 

@@ -41,6 +41,10 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::menu_observer_type menu_observer_type;
 
+        typedef typename Type::iterator iterator;
+
+        typedef typename Type::const_iterator const_iterator;
+
 
         // usage checks
 
@@ -52,6 +56,23 @@ namespace concept_tetengo2 { namespace gui
 
             std::auto_ptr<menu_observer_type> p_menu_observer;
             m_p_object->add_menu_observer(p_menu_observer);
+
+            const iterator first = m_p_object->begin();
+            boost::ignore_unused_variable_warning(first);
+
+            const iterator last = m_p_object->end();
+            boost::ignore_unused_variable_warning(last);
+
+            const iterator found_by_id = m_p_object->find_by_id_(0);
+            boost::ignore_unused_variable_warning(found_by_id);
+
+            const iterator found_by_handle = m_p_object->find_by_handle_(NULL);
+            boost::ignore_unused_variable_warning(found_by_handle);
+
+            //std::auto_ptr<Type> p;
+            //m_p_object->insert_(first, p);
+
+            m_p_object->erase_(first, last);
 
             const_constraints(*m_p_object);
         }
@@ -75,6 +96,19 @@ namespace concept_tetengo2 { namespace gui
 
             const string_type text = object.text();
             boost::ignore_unused_variable_warning(text);
+
+            const const_iterator first = object.begin();
+            boost::ignore_unused_variable_warning(first);
+
+            const const_iterator last = object.end();
+            boost::ignore_unused_variable_warning(last);
+
+            const const_iterator found_by_id = object.find_by_id_(0);
+            boost::ignore_unused_variable_warning(found_by_id);
+
+            const const_iterator found_by_handle =
+                object.find_by_handle_(NULL);
+            boost::ignore_unused_variable_warning(found_by_handle);
         }
 
         
