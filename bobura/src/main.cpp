@@ -6,8 +6,10 @@
     $Id$
 */
 
+//#include <cstddef>
 //#include <exception>
 #include <locale>
+//#include <stdexcept>
 //#include <string>
 //#include <vector>
 
@@ -16,7 +18,7 @@
 
 #define NOMINMAX
 #define OEMRESOURCE
-#include <windows.h>
+//#include <windows.h>
 
 #include "bobura.type_list.h"
 

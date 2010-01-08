@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TRAIN_H
 
 //#include <algorithm>
+#include <iterator>
 #include <vector>
 //std::swap // dummy
 

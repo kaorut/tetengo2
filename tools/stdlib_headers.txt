@@ -61,6 +61,7 @@ boost::tokenizer                                 boost/tokenizer.hpp
 boost::totally_ordered                           boost/operators.hpp
 boost::tuple                                     boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::unordered_map                             boost/unordered_map.hpp
+std::advance                                     iterator
 std::auto_ptr                                    memory
 std::back_inserter                               iterator
 std::basic_string                                string

@@ -13,7 +13,7 @@
 #include <istream>
 //#include <string>
 
-#include <boost/filesystem.hpp>
+//#include <boost/filesystem.hpp>
 
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog_parser.h>

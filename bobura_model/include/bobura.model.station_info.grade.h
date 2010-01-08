@@ -164,7 +164,7 @@ namespace bobura { namespace model { namespace station_info
         // static functions
 
         /*!
-            \copybrief grade::instance
+            \brief Returns the instance of the local.
 
             \return The instance of the local.
         */
@@ -231,7 +231,7 @@ namespace bobura { namespace model { namespace station_info
         // static functions
 
         /*!
-            \copybrief grade::instance
+            \brief Returns the instance of the principal.
 
             \return The instance of the principal.
         */
@@ -298,7 +298,7 @@ namespace bobura { namespace model { namespace station_info
         // static functions
 
         /*!
-            \copybrief grade::instance
+            \brief Returns the instance of the local terminal.
 
             \return The instance of the local terminal.
         */
@@ -365,7 +365,7 @@ namespace bobura { namespace model { namespace station_info
         // static functions
 
         /*!
-            \copybrief grade::instance
+            \brief Returns the instance of the principal terminal.
 
             \return The instance of the principal terminal.
         */
