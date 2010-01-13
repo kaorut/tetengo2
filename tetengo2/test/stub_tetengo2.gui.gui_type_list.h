@@ -99,11 +99,9 @@ namespace stub_tetengo2 { namespace gui
             >
             widget_type;
 
-        typedef
-            popup_menu<menu_item_type, menu_item_list<menu_item_type> >
-            popup_menu_type;
+        typedef main_menu<menu_item_type> main_menu_type;
 
-        typedef main_menu<popup_menu_type> main_menu_type;
+        typedef popup_menu<menu_item_type> popup_menu_type;
 
         typedef
             abstract_window<

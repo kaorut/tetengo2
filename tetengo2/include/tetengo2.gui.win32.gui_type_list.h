@@ -119,17 +119,12 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             widget_type;
 
-        //! The popup menu type.
-        typedef
-            popup_menu<
-                menu_item_type,
-                tetengo2::gui::win32::menu_item_list<menu_item_type>
-            >
-            popup_menu_type;
-
         //! The main menu type.
         typedef
-            tetengo2::gui::win32::main_menu<popup_menu_type> main_menu_type;
+            tetengo2::gui::win32::main_menu<menu_item_type> main_menu_type;
+
+        //! The popup menu type.
+        typedef popup_menu<menu_item_type> popup_menu_type;
 
         //! The abstract window type.
         typedef

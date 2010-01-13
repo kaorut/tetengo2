@@ -62,8 +62,13 @@ namespace tetengo2 { namespace gui
 
         //! \copydoc tetengo2::gui::win32::menu_item::menu_observer_type
         typedef
-            typename menu_item_type::menu_observer_type
-            menu_observer_type;
+            typename menu_item_type::menu_observer_type menu_observer_type;
+
+        //! \copydoc tetengo2::gui::win32::menu_item::iterator
+        typedef typename menu_item_type::iterator iterator;
+
+        //! \copydoc tetengo2::gui::win32::menu_item::const_iterator
+        typedef typename menu_item_type::const_iterator const_iterator;
 
 
         // constructors and destructor
@@ -73,7 +78,7 @@ namespace tetengo2 { namespace gui
         */
         menu_separator()
         :
-        menu_item_type(string_type())
+        menu_item_type(NULL, string_type())
         {}
 
         /*!
@@ -105,13 +110,6 @@ namespace tetengo2 { namespace gui
         const
         {
             return true;
-        }
-
-        //! \copydoc tetengo2::gui::win32::menu_item::handle
-        virtual handle_type handle()
-        const
-        {
-            return NULL;
         }
 
 

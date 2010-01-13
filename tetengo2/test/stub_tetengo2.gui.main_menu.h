@@ -14,42 +14,52 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.PopupMenu.h"
+#include "concept_tetengo2.gui.MenuItem.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename PopupMenu>
-    class main_menu
+    template <typename MenuItem>
+    class main_menu : public MenuItem
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::PopupMenu<PopupMenu>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
 
 
     public:
         // types
 
-        typedef PopupMenu popup_menu_type;
+        typedef MenuItem menu_item_type;
 
-        typedef typename popup_menu_type::menu_item_type menu_item_type;
-
-        typedef typename menu_item_type::id_type menu_item_id_type;
+        typedef typename menu_item_type::id_type id_type;
 
         typedef typename menu_item_type::handle_type handle_type;
 
-        typedef typename popup_menu_type::menu_items_type menu_items_type;
-
-        typedef typename menu_items_type::iterator menu_item_iterator;
+        typedef typename menu_item_type::string_type string_type;
 
         typedef
-            typename menu_items_type::const_iterator const_menu_item_iterator;
+            typename menu_item_type::encode_from_native_type
+            encode_from_native_type;
+
+        typedef
+            typename menu_item_type::encode_to_native_type
+            encode_to_native_type;
+
+        typedef
+            typename menu_item_type::menu_observer_type menu_observer_type;
+
+        typedef typename menu_item_type::iterator iterator;
+
+        typedef typename menu_item_type::const_iterator const_iterator;
 
 
         // constructors and destructor
 
         main_menu()
+        :
+        menu_item_type(NULL, L"")
         {}
 
         virtual ~main_menu()
@@ -59,63 +69,22 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        handle_type handle()
+        virtual bool is_command()
         const
         {
-            return NULL;
+            return false;
         }
 
-        const_menu_item_iterator menu_item_begin()
+        virtual bool is_popup()
         const
         {
-            return NULL;
+            return false;
         }
 
-        menu_item_iterator menu_item_begin()
-        {
-            return NULL;
-        }
-
-        const_menu_item_iterator menu_item_end()
+        virtual bool is_separator()
         const
         {
-            return NULL;
-        }
-
-        menu_item_iterator menu_item_end()
-        {
-            return NULL;
-        }
-
-        void insert(
-            menu_item_iterator            offset,
-            std::auto_ptr<menu_item_type> p_menu_item
-        )
-        {}
-
-        void erase(menu_item_iterator first, menu_item_iterator last)
-        {}
-
-        const menu_item_type* find_by_id(const menu_item_id_type id)
-        const
-        {
-            return NULL;
-        }
-
-        menu_item_type* find_by_id(const menu_item_id_type id)
-        {
-            return NULL;
-        }
-
-        const menu_item_type* find_by_handle(const handle_type handle)
-        const
-        {
-            return NULL;
-        }
-
-        menu_item_type* find_by_handle(const handle_type handle)
-        {
-            return NULL;
+            return false;
         }
 
 

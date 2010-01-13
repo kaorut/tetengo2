@@ -103,7 +103,10 @@ namespace stub_tetengo2 { namespace gui
         }
 
         virtual handle_type handle()
-        const = 0;
+        const
+        {
+            return NULL;
+        }
 
         const string_type& text()
         const
@@ -180,7 +183,7 @@ namespace stub_tetengo2 { namespace gui
     protected:
         // constructors
 
-        menu_item(const string_type& text)
+        menu_item(const handle_type handle, const string_type& text)
         {}
 
 

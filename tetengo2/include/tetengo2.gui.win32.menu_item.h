@@ -166,8 +166,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The handle.
         */
-        virtual handle_type handle()
-        const = 0;
+        handle_type handle()
+        const
+        {
+            return m_handle;
+        }
 
         /*!
             \brief Returns the text.
@@ -352,11 +355,13 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a menu item.
 
-            \param text A text.
+            \param handle A handle.
+            \param text   A text.
         */
-        menu_item(const string_type& text)
+        menu_item(const handle_type handle, const string_type& text)
         :
         m_id(get_and_increment_id()),
+        m_handle(handle),
         m_text(text),
         m_menu_observers(),
         m_menu_selected_handler()
@@ -377,6 +382,8 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         id_type m_id;
+
+        handle_type m_handle;
 
         string_type m_text;
 

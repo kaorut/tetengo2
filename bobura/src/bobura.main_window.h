@@ -206,7 +206,7 @@ namespace bobura
         {
             std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && 0
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
                     new popup_menu_type(L"ƒtƒ@ƒCƒ‹(&F)")

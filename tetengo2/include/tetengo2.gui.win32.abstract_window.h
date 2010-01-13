@@ -337,10 +337,10 @@ namespace tetengo2 { namespace gui { namespace win32
                     {
                         if (!has_main_menu()) break;
 
-                        typename main_menu_type::menu_item_type* const
-                        p_found = main_menu().find_by_id(id);
-                        if (p_found == NULL) break;
-                        p_found->select();
+                        const typename main_menu_type::iterator found =
+                            main_menu().find_by_id_(id);
+                        if (found == main_menu().end()) break;
+                        found->select();
                         return 0;
                     }
 
@@ -351,10 +351,10 @@ namespace tetengo2 { namespace gui { namespace win32
                     if (!has_main_menu()) break;
 
                     const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
-                    typename main_menu_type::menu_item_type* const
-                    p_found = main_menu().find_by_handle(handle);
-                    if (p_found == NULL) break;
-                    p_found->select();
+                    const typename main_menu_type::iterator
+                    found = main_menu().find_by_handle_(handle);
+                    if (found == main_menu().end()) break;
+                    found->select();
                     return 0;
                 }
             case WM_DESTROY:

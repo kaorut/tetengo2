@@ -25,68 +25,16 @@ namespace concept_tetengo2 { namespace gui
         \tparam Type A type.
     */
     template <typename Type>
-    class PopupMenu : private concept_tetengo2::gui::MenuItem<Type>
+    class PopupMenu : private MenuItem<Type>
     {
 #if !defined(DOCUMENTATION)
     public:
-        // typedef checks
-
-        typedef typename Type::menu_item_type menu_item_type;
-
-        typedef typename Type::menu_item_iterator menu_item_iterator;
-
-        typedef
-            typename Type::const_menu_item_iterator const_menu_item_iterator;
-
-
-
         // usage checks
 
         BOOST_CONCEPT_USAGE(PopupMenu)
-        {
-            const menu_item_iterator first = m_object.menu_item_begin();
-            boost::ignore_unused_variable_warning(first);
-
-            const menu_item_iterator last = m_object.menu_item_end();
-            boost::ignore_unused_variable_warning(last);
-
-            m_object.insert(first, std::auto_ptr<menu_item_type>());
-
-            m_object.erase(first, last);
-
-            menu_item_type* const p_found_by_id = m_object.find_by_id(0);
-            boost::ignore_unused_variable_warning(p_found_by_id);
-
-            menu_item_type* const p_found_by_handle =
-                m_object.find_by_handle(NULL);
-            boost::ignore_unused_variable_warning(p_found_by_handle);
-
-            const_constraints(m_object);
-        }
-
-        void const_constraints(const Type& object)
-        {
-            const const_menu_item_iterator first = object.menu_item_begin();
-            boost::ignore_unused_variable_warning(first);
-
-            const const_menu_item_iterator last = object.menu_item_end();
-            boost::ignore_unused_variable_warning(last);
-
-            const menu_item_type* const p_found_by_id = object.find_by_id(0);
-            boost::ignore_unused_variable_warning(p_found_by_id);
-
-            const menu_item_type* const p_found_by_handle =
-                object.find_by_handle(NULL);
-            boost::ignore_unused_variable_warning(p_found_by_handle);
-        }
+        {}
 
         
-    private:
-        // variables
-
-        Type m_object;
-
-
 #endif
     };
 
