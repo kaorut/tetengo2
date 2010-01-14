@@ -206,7 +206,7 @@ namespace bobura
         {
             std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
 
-#if defined(_MSC_VER) && 0
+#if defined(_MSC_VER)
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
                     new popup_menu_type(L"ƒtƒ@ƒCƒ‹(&F)")
@@ -240,7 +240,7 @@ namespace bobura
                 );
 
                 p_main_menu->insert(
-                    p_main_menu->menu_item_end(),
+                    p_main_menu->end(),
                     std::auto_ptr<menu_item_type>(p_popup_menu)
                 );
             }
@@ -288,7 +288,7 @@ namespace bobura
                 );
 
                 p_main_menu->insert(
-                    p_main_menu->menu_item_end(),
+                    p_main_menu->end(),
                     std::auto_ptr<menu_item_type>(p_popup_menu)
                 );
             }
@@ -304,7 +304,7 @@ namespace bobura
                 );
 
                 p_main_menu->insert(
-                    p_main_menu->menu_item_end(),
+                    p_main_menu->end(),
                     std::auto_ptr<menu_item_type>(p_popup_menu)
                 );
             }
@@ -330,9 +330,7 @@ namespace bobura
             );
             p_menu_command->add_menu_observer(p_menu_observer);
 
-            popup_menu.insert(
-                popup_menu.menu_item_end(), p_menu_command
-            );
+            popup_menu.insert(popup_menu.end(), p_menu_command);
         }
 
         static void append_menu_separator(popup_menu_type& popup_menu)
@@ -340,9 +338,7 @@ namespace bobura
             std::auto_ptr<menu_item_type> p_menu_separator(
                 new menu_separator_type()
             );
-            popup_menu.insert(
-                popup_menu.menu_item_end(), p_menu_separator
-            );
+            popup_menu.insert(popup_menu.end(), p_menu_separator);
         }
 
 
