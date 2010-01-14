@@ -29,115 +29,115 @@ BOOST_AUTO_TEST_SUITE(menu_command)
     {
         BOOST_CHECKPOINT("");
 
-        typedef
-            tetengo2::gui::win32::menu_item<
-                unsigned int,
-                const void*,
-                std::wstring,
-                stub_tetengo2::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_item_type;
-        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
+        //typedef
+        //    tetengo2::gui::win32::menu_item<
+        //        unsigned int,
+        //        const void*,
+        //        std::wstring,
+        //        stub_tetengo2::encode,
+        //        tetengo2::gui::menu_observer
+        //    >
+        //    menu_item_type;
+        //typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
-        {
-            const menu_command_type menu_command(L"");
+        //{
+        //    const menu_command_type menu_command(L"");
 
-            BOOST_CHECK(menu_command.text() == L"");
-        }
-        {
-            const menu_command_type menu_command(L"a");
+        //    BOOST_CHECK(menu_command.text() == L"");
+        //}
+        //{
+        //    const menu_command_type menu_command(L"a");
 
-            BOOST_CHECK(menu_command.text() == L"a");
-        }
+        //    BOOST_CHECK(menu_command.text() == L"a");
+        //}
     }
 
     BOOST_AUTO_TEST_CASE(is_command)
     {
         BOOST_CHECKPOINT("");
 
-        typedef
-            tetengo2::gui::win32::menu_item<
-                unsigned int,
-                const void*,
-                std::wstring,
-                stub_tetengo2::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_item_type;
-        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
+        //typedef
+        //    tetengo2::gui::win32::menu_item<
+        //        unsigned int,
+        //        const void*,
+        //        std::wstring,
+        //        stub_tetengo2::encode,
+        //        tetengo2::gui::menu_observer
+        //    >
+        //    menu_item_type;
+        //typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
-        {
-            const menu_command_type menu_command(L"");
+        //{
+        //    const menu_command_type menu_command(L"");
 
-            BOOST_CHECK(menu_command.is_command());
-        }
+        //    BOOST_CHECK(menu_command.is_command());
+        //}
     }
 
     BOOST_AUTO_TEST_CASE(is_popup)
     {
         BOOST_CHECKPOINT("");
 
-        typedef
-            tetengo2::gui::win32::menu_item<
-                unsigned int,
-                const void*,
-                std::wstring,
-                stub_tetengo2::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_item_type;
-        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
+        //typedef
+        //    tetengo2::gui::win32::menu_item<
+        //        unsigned int,
+        //        const void*,
+        //        std::wstring,
+        //        stub_tetengo2::encode,
+        //        tetengo2::gui::menu_observer
+        //    >
+        //    menu_item_type;
+        //typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
-        {
-            const menu_command_type menu_command(L"");
+        //{
+        //    const menu_command_type menu_command(L"");
 
-            BOOST_CHECK(!menu_command.is_popup());
-        }
+        //    BOOST_CHECK(!menu_command.is_popup());
+        //}
     }
 
     BOOST_AUTO_TEST_CASE(is_separator)
     {
         BOOST_CHECKPOINT("");
 
-        typedef
-            tetengo2::gui::win32::menu_item<
-                unsigned int,
-                const void*,
-                std::wstring,
-                stub_tetengo2::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_item_type;
-        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
+        //typedef
+        //    tetengo2::gui::win32::menu_item<
+        //        unsigned int,
+        //        const void*,
+        //        std::wstring,
+        //        stub_tetengo2::encode,
+        //        tetengo2::gui::menu_observer
+        //    >
+        //    menu_item_type;
+        //typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
-        {
-            const menu_command_type menu_command(L"");
+        //{
+        //    const menu_command_type menu_command(L"");
 
-            BOOST_CHECK(!menu_command.is_separator());
-        }
+        //    BOOST_CHECK(!menu_command.is_separator());
+        //}
     }
 
     BOOST_AUTO_TEST_CASE(handle)
     {
         BOOST_CHECKPOINT("");
 
-        typedef
-            tetengo2::gui::win32::menu_item<
-                unsigned int,
-                const void*,
-                std::wstring,
-                stub_tetengo2::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_item_type;
-        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
+        //typedef
+        //    tetengo2::gui::win32::menu_item<
+        //        unsigned int,
+        //        const void*,
+        //        std::wstring,
+        //        stub_tetengo2::encode,
+        //        tetengo2::gui::menu_observer
+        //    >
+        //    menu_item_type;
+        //typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
 
-        {
-            const menu_command_type menu_command(L"");
+        //{
+        //    const menu_command_type menu_command(L"");
 
-            BOOST_CHECK(menu_command.handle() == NULL);
-        }
+        //    BOOST_CHECK(menu_command.handle() == NULL);
+        //}
     }
 
 

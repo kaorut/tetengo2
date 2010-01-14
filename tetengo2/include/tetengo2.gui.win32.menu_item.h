@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_MENUITEM_H)
 #define TETENGO2_GUI_WIN32_MENUITEM_H
 
+#include <algorithm>
 #include <cstddef>
 #include <memory>
 //#include <string>
@@ -280,7 +281,9 @@ namespace tetengo2 { namespace gui { namespace win32
         const_iterator find_by_id(const id_type id)
         const
         {
-            return end();
+            return find_impl(
+                begin(), end(), id, boost::mem_fn(&menu_item::id)
+            );
         }
 
         /*!
@@ -294,7 +297,9 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         iterator find_by_id(const id_type id)
         {
-            return end();
+            return find_impl(
+                begin(), end(), id, boost::mem_fn(&menu_item::id)
+            );
         }
 
         /*!
@@ -310,7 +315,9 @@ namespace tetengo2 { namespace gui { namespace win32
         const_iterator find_by_handle(const handle_type handle)
         const
         {
-            return end();
+            return find_impl(
+                begin(), end(), handle, boost::mem_fn(&menu_item::handle)
+            );
         }
 
         /*!
@@ -325,7 +332,9 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         iterator find_by_handle(const handle_type handle)
         {
-            return end();
+            return find_impl(
+                begin(), end(), handle, boost::mem_fn(&menu_item::handle)
+            );
         }
 
         /*!
@@ -360,7 +369,9 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void erase(const iterator first, const iterator last)
         {
+            erase_native_menus(first, last);
 
+            m_children.erase(first, last);
         }
 
 
@@ -392,6 +403,47 @@ namespace tetengo2 { namespace gui { namespace win32
             static id_type id = 40001;
 
             return id++;
+        }
+
+
+        // static functions
+
+        template <
+            typename ForwardIterator,
+            typename Target,
+            typename GetTarget
+        >
+        static ForwardIterator find_impl(
+            const ForwardIterator first,
+            const ForwardIterator last,
+            const Target          target,
+            const GetTarget       get_target
+        )
+        {
+            const ForwardIterator found = std::find_if(
+                first,
+                last,
+                boost::bind(
+                    std::equal_to<Target>(),
+                    boost::bind(get_target, _1),
+                    target
+                )
+            );
+            if (found != last) return found;
+
+            for (ForwardIterator i = first; i != last; ++i)
+            {
+                const ForwardIterator found_recursive = find_impl(
+                    i->begin(),
+                    i->end(),
+                    target,
+                    get_target
+                );
+                //if (found_recursive != i->end()) return 
+            }
+
+
+            return last;
         }
 
 
