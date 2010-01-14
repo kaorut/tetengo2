@@ -13,6 +13,7 @@ config.*
 configure
 depcomp
 doc
+doc.test
 install-sh
 Makefile
 Makefile.in
