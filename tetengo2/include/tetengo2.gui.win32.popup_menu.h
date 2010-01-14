@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIN32_POPUPMENU_H
 
 //#include <cstddef>
-//#include <memory>
 #include <stdexcept>
 
 //#include <boost/concept_check.hpp>

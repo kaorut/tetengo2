@@ -311,9 +311,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Finds a menu item among the children by the specified
                    handle.
 
-            If the menu item does not exist, it returns NULL.
-
             If no menu is found, it returns end().
+
+            \param handle A handle.
 
             \return The mutable iterator to the menu item.
         */

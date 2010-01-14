@@ -9,6 +9,9 @@
 #if !defined(TETENGO2_GUI_WIN32_MAINMENU_H)
 #define TETENGO2_GUI_WIN32_MAINMENU_H
 
+//#include <cstddef>
+#include <stdexcept>
+
 //#include <boost/concept_check.hpp>
 
 #define NOMINMAX
