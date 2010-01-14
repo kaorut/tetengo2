@@ -338,7 +338,7 @@ namespace tetengo2 { namespace gui { namespace win32
                         if (!has_main_menu()) break;
 
                         const typename main_menu_type::iterator found =
-                            main_menu().find_by_id_(id);
+                            main_menu().find_by_id(id);
                         if (found == main_menu().end()) break;
                         found->select();
                         return 0;
@@ -352,7 +352,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
                     const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
                     const typename main_menu_type::iterator
-                    found = main_menu().find_by_handle_(handle);
+                    found = main_menu().find_by_handle(handle);
                     if (found == main_menu().end()) break;
                     found->select();
                     return 0;

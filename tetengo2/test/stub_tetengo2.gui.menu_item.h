@@ -149,35 +149,35 @@ namespace stub_tetengo2 { namespace gui
             return NULL;
         }
 
-        const_iterator find_by_id_(const id_type id)
+        const_iterator find_by_id(const id_type id)
         const
         {
             return end();
         }
 
-        iterator find_by_id_(const id_type id)
+        iterator find_by_id(const id_type id)
         {
             return end();
         }
 
-        const_iterator find_by_handle_(const handle_type handle)
+        const_iterator find_by_handle(const handle_type handle)
         const
         {
             return end();
         }
 
-        iterator find_by_handle_(const handle_type handle)
+        iterator find_by_handle(const handle_type handle)
         {
             return end();
         }
 
-        void insert_(
+        void insert(
             const iterator           offset,
             std::auto_ptr<menu_item> p_menu_item
         )
         {}
 
-        void erase_(const iterator first, const iterator last)
+        void erase(const iterator first, const iterator last)
         {}
 
 

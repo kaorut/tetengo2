@@ -271,7 +271,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The immutable iterator to the menu item.
         */
-        const_iterator find_by_id_(const id_type id)
+        const_iterator find_by_id(const id_type id)
         const
         {
             return end();
@@ -286,7 +286,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The mutable iterator to the menu item.
         */
-        iterator find_by_id_(const id_type id)
+        iterator find_by_id(const id_type id)
         {
             return end();
         }
@@ -301,7 +301,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The immutable iterator to the menu item.
         */
-        const_iterator find_by_handle_(const handle_type handle)
+        const_iterator find_by_handle(const handle_type handle)
         const
         {
             return end();
@@ -317,7 +317,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The mutable iterator to the menu item.
         */
-        iterator find_by_handle_(const handle_type handle)
+        iterator find_by_handle(const handle_type handle)
         {
             return end();
         }
@@ -329,7 +329,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \param p_menu_item An auto pointer to a menu item. It must not be
                                NULL.
         */
-        void insert_(
+        void insert(
             const iterator           offset,
             std::auto_ptr<menu_item> p_menu_item
         )
@@ -343,7 +343,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \param first The first iterator to the erased items.
             \param last  The last iterator to the eraed items.
         */
-        void erase_(const iterator first, const iterator last)
+        void erase(const iterator first, const iterator last)
         {
 
         }
