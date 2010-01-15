@@ -278,10 +278,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The immutable iterator to the menu item.
         */
-        const_iterator find_by_id(const id_type id)
+        const menu_item* find_by_id(const id_type id)
         const
         {
-            return find_impl(
+            return find_impl<const menu_item>(
                 begin(), end(), id, boost::mem_fn(&menu_item::id)
             );
         }
@@ -295,9 +295,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The mutable iterator to the menu item.
         */
-        iterator find_by_id(const id_type id)
+        menu_item* find_by_id(const id_type id)
         {
-            return find_impl(
+            return find_impl<menu_item>(
                 begin(), end(), id, boost::mem_fn(&menu_item::id)
             );
         }
@@ -312,10 +312,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The immutable iterator to the menu item.
         */
-        const_iterator find_by_handle(const handle_type handle)
+        const menu_item* find_by_handle(const handle_type handle)
         const
         {
-            return find_impl(
+            return find_impl<const menu_item>(
                 begin(), end(), handle, boost::mem_fn(&menu_item::handle)
             );
         }
@@ -330,9 +330,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The mutable iterator to the menu item.
         */
-        iterator find_by_handle(const handle_type handle)
+        menu_item* find_by_handle(const handle_type handle)
         {
-            return find_impl(
+            return find_impl<menu_item>(
                 begin(), end(), handle, boost::mem_fn(&menu_item::handle)
             );
         }
@@ -409,11 +409,12 @@ namespace tetengo2 { namespace gui { namespace win32
         // static functions
 
         template <
+            typename MenuItem,
             typename ForwardIterator,
             typename Target,
             typename GetTarget
         >
-        static ForwardIterator find_impl(
+        static MenuItem* find_impl(
             const ForwardIterator first,
             const ForwardIterator last,
             const Target          target,
@@ -429,21 +430,20 @@ namespace tetengo2 { namespace gui { namespace win32
                     target
                 )
             );
-            if (found != last) return found;
+            if (found != last) return &*found;
 
             for (ForwardIterator i = first; i != last; ++i)
             {
-                const ForwardIterator found_recursive = find_impl(
+                MenuItem* const p_found = find_impl<MenuItem>(
                     i->begin(),
                     i->end(),
                     target,
                     get_target
                 );
-                //if (found_recursive != i->end()) return 
+                if (p_found != NULL) return p_found;
             }
 
-
-            return last;
+            return NULL;
         }
 
 
