@@ -26,6 +26,11 @@ namespace concept_tetengo2 { namespace gui
     {
 #if !defined(DOCUMENTATION)
     public:
+        // typedef checks
+
+        typedef typename Type::base_type base_type;
+
+
         // usage checks
 
         BOOST_CONCEPT_USAGE(MainMenu)

@@ -21,7 +21,22 @@ namespace concept_tetengo2 { namespace gui
     */
     template <typename Type>
     class MenuSeparator : private MenuItem<Type>
-    {};
+    {
+#if !defined(DOCUMENTATION)
+    public:
+        // typedef checks
+
+        typedef typename Type::base_type base_type;
+
+
+        // usage checks
+
+        BOOST_CONCEPT_USAGE(MenuSeparator)
+        {}
+
+        
+#endif
+    };
 
 
 }}

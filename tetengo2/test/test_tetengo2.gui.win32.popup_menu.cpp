@@ -37,42 +37,6 @@ BOOST_AUTO_TEST_SUITE(popup_menu)
         BOOST_WARN("Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(handle)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(menu_item_begin)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(menu_item_end)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(insert)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(erase)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(find_by_id)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(find_by_handle)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

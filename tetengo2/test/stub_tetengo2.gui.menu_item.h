@@ -106,14 +106,13 @@ namespace stub_tetengo2 { namespace gui
         virtual handle_type handle()
         const
         {
-            return NULL;
+            return m_handle;
         }
 
         const string_type& text()
         const
         {
-            static const string_type dummy;
-            return dummy;
+            return m_text;
         }
 
         void set_text(const string_type& text)
@@ -130,23 +129,23 @@ namespace stub_tetengo2 { namespace gui
         const_iterator begin()
         const
         {
-            return NULL;
+            return const_iterator();
         }
 
         iterator begin()
         {
-            return NULL;
+            return iterator();
         }
 
         const_iterator end()
         const
         {
-            return NULL;
+            return const_iterator();
         }
 
         iterator end()
         {
-            return NULL;
+            return iterator();
         }
 
         const menu_item* find_by_id(const id_type id)
@@ -185,7 +184,18 @@ namespace stub_tetengo2 { namespace gui
         // constructors
 
         menu_item(const handle_type handle, const string_type& text)
+        :
+        m_handle(handle),
+        m_text(text)
         {}
+
+
+    private:
+        // variables
+
+        const handle_type m_handle;
+
+        const string_type m_text;
 
 
     };
