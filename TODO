@@ -19,6 +19,12 @@ Depends on  : 00000001
 Description : Create tetengo2::gui::menu_recursive_iterator.
 ------------------------------------------------------------------------------
 Nunmber     : 00000006
+Added on    : 2010.01.17
+Depends on  : 00000001
+Description : Remove tetengo2::gui::win32::menu::is_command, is_popup and
+              is_separator.
+------------------------------------------------------------------------------
+Nunmber     : 00000007
 Added on    : 2010.mm.yy
 Depends on  : (none)
 Description : 
