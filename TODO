@@ -24,6 +24,11 @@ Depends on  : (none)
 Description : Rename the executable test program file.
 ------------------------------------------------------------------------------
 Nunmber     : 00000005
+Added on    : 2010.01.17
+Depends on  : (none)
+Description : Rename the typedefs for base classes base_type.
+------------------------------------------------------------------------------
+Nunmber     : 00000006
 Added on    : 2010.mm.yy
 Depends on  : (none)
 Description : 
