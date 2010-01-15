@@ -54,19 +54,19 @@ extra_sources = \
     test_tetengo2.gui.win32.window.cpp \
     test_tetengo2.win32.encode.cpp
 
-check_PROGRAMS = test
+check_PROGRAMS = tetengo2.test
 EXTRA_DIST = $(extra_headers) $(extra_sources)
 
-TESTS = test
+TESTS = tetengo2.test
 
-test_CXXFLAGS = \
+tetengo2_test_CPPFLAGS = \
     $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/tetengo2/include
-test_LDFLAGS = $(BOOST_LDFLAGS)
-test_LDADD = \
+tetengo2_test_LDFLAGS = $(BOOST_LDFLAGS)
+tetengo2_test_LDADD = \
     $(BOOST_FILESYSTEM_LIB) \
     $(BOOST_PROGRAM_OPTIONS_LIB) \
     $(BOOST_SIGNALS_LIB) \
     $(BOOST_SYSTEM_LIB) \
     $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
-test_SOURCES = $(headers) $(sources)
+tetengo2_test_SOURCES = $(headers) $(sources)

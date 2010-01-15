@@ -19,20 +19,20 @@ sources = \
 
 extra_sources =
 
-check_PROGRAMS = test
+check_PROGRAMS = bobura_model.test
 EXTRA_DIST = $(extra_headers) $(extra_sources)
 
-TESTS = test
+TESTS = bobura_model.test
 
-test_CXXFLAGS = \
+bobura_model_test_CPPFLAGS = \
     $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/bobura_model/include \
     -I$(top_srcdir)/tetengo2/include
-test_LDFLAGS = $(BOOST_LDFLAGS)
-test_LDADD = \
+bobura_model_test_LDFLAGS = $(BOOST_LDFLAGS)
+bobura_model_test_LDADD = \
     $(BOOST_FILESYSTEM_LIB) \
     $(BOOST_PROGRAM_OPTIONS_LIB) \
     $(BOOST_SIGNALS_LIB) \
     $(BOOST_SYSTEM_LIB) \
     $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
-test_SOURCES = $(headers) $(sources)
+bobura_model_test_SOURCES = $(headers) $(sources)

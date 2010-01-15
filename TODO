@@ -18,11 +18,6 @@ Added on    : 2010.01.17
 Depends on  : 00000001
 Description : Create tetengo2::gui::menu_recursive_iterator.
 ------------------------------------------------------------------------------
-Nunmber     : 00000004
-Added on    : 2010.01.17
-Depends on  : (none)
-Description : Rename the executable test program file.
-------------------------------------------------------------------------------
 Nunmber     : 00000005
 Added on    : 2010.01.17
 Depends on  : (none)

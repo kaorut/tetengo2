@@ -19,5 +19,5 @@ Makefile
 Makefile.in
 missing
 stamp-h1
-test
-test.exe
+*.test
+*.test.exe
