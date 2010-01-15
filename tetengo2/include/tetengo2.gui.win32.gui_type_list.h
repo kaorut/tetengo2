@@ -27,7 +27,6 @@
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "tetengo2.gui.win32.main_menu.h"
 #include "tetengo2.gui.win32.menu_item.h"
-#include "tetengo2.gui.win32.menu_item_list.h"
 #include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.popup_menu.h"
 #include "tetengo2.gui.win32.quit_message_loop.h"
