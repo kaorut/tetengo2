@@ -4,6 +4,8 @@
 
 SUBDIRS = bobura bobura_model tetengo2
 
+EXTRA_DIST = bobura.sln bobura_config.h-original TODO Doxyfile Doxyfile.test
+
 doc-all: doc doc-test
 
 .PHONY: doc
