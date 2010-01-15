@@ -58,72 +58,62 @@ namespace bobura
     public:
         // types
 
-        //! The GUI type list type.
-        typedef GuiTypeList gui_type_list_type;
-
-        //! The window type.
-        typedef typename gui_type_list_type::window_type window_type;
-
-        //! \copydoc tetengo2::gui::win32::window::abstract_window_type.
-        typedef
-            typename window_type::abstract_window_type abstract_window_type;
-
-        //! \copydoc tetengo2::gui::win32::abstract_window::widget_type.
-        typedef typename abstract_window_type::widget_type widget_type;
+        //! The base type.
+        typedef typename GuiTypeList::window_type base_type;
 
         //! \copydoc tetengo2::gui::win32::widget::handle_type
-        typedef typename widget_type::handle_type handle_type;
+        typedef typename base_type::handle_type handle_type;
 
         //! \copydoc tetengo2::gui::win32::widget::canvas_type
-        typedef typename widget_type::canvas_type canvas_type;
+        typedef typename base_type::canvas_type canvas_type;
 
         //! \copydoc tetengo2::gui::win32::widget::alert_type
-        typedef typename widget_type::alert_type alert_type;
+        typedef typename base_type::alert_type alert_type;
 
         //! \copydoc tetengo2::gui::win32::widget::difference_type
-        typedef typename widget_type::difference_type difference_type;
+        typedef typename base_type::difference_type difference_type;
 
         //! \copydoc tetengo2::gui::win32::widget::size_type
-        typedef typename widget_type::size_type size_type;
+        typedef typename base_type::size_type size_type;
 
         //! \copydoc tetengo2::gui::win32::widget::position_type
-        typedef typename widget_type::position_type position_type;
+        typedef typename base_type::position_type position_type;
 
         //! \copydoc tetengo2::gui::win32::widget::dimension_type
-        typedef typename widget_type::dimension_type dimension_type;
+        typedef typename base_type::dimension_type dimension_type;
 
         //! \copydoc tetengo2::gui::win32::widget::string_type
-        typedef typename widget_type::string_type string_type;
+        typedef typename base_type::string_type string_type;
 
         //! \copydoc tetengo2::gui::win32::widget::encode_from_native_type
         typedef
-            typename widget_type::encode_from_native_type
+            typename base_type::encode_from_native_type
             encode_from_native_type;
 
         //! \copydoc tetengo2::gui::win32::widget::encode_to_native_type
         typedef
-            typename widget_type::encode_to_native_type
-            encode_to_native_type;
+            typename base_type::encode_to_native_type encode_to_native_type;
 
         //! \copydoc tetengo2::gui::win32::widget::font_type
-        typedef typename widget_type::font_type font_type;
+        typedef typename base_type::font_type font_type;
 
         //! \copydoc tetengo2::gui::win32::widget::child_type
-        typedef typename widget_type::child_type child_type;
+        typedef typename base_type::child_type child_type;
 
         //! \copydoc tetengo2::gui::win32::widget::paint_observer_type
-        typedef typename widget_type::paint_observer_type paint_observer_type;
+        typedef typename base_type::paint_observer_type paint_observer_type;
 
         //! \copydoc tetengo2::gui::win32::widget::mouse_observer_type
-        typedef typename widget_type::mouse_observer_type mouse_observer_type;
+        typedef typename base_type::mouse_observer_type mouse_observer_type;
 
         //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type.
-        typedef typename abstract_window_type::main_menu_type main_menu_type;
+        typedef typename base_type::main_menu_type main_menu_type;
 
         //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_type.
-        typedef
-            typename abstract_window_type::window_observer_type
-            window_observer_type;
+        typedef typename base_type::window_observer_type window_observer_type;
+
+        //! The GUI type list type.
+        typedef GuiTypeList gui_type_list_type;
 
         //! The command type list type.
         typedef CommandTypeList command_type_list_type;
@@ -157,7 +147,7 @@ namespace bobura
             typename gui_type_list_type::quit_message_loop_type
             quit_message_loop_type;
 
-        typedef typename main_menu_type::menu_item_type menu_item_type;
+        typedef typename main_menu_type::base_type menu_item_type;
 
         typedef
             typename menu_item_type::menu_observer_type menu_observer_type;
@@ -185,7 +175,7 @@ namespace bobura
 #endif
         }
 
-        static void set_message_observers(window_type& window)
+        static void set_message_observers(main_window& window)
         {
             window.add_window_observer(
                 std::auto_ptr<window_observer_type>(
@@ -202,7 +192,7 @@ namespace bobura
             );
         }
 
-        static void set_menus(window_type& window)
+        static void set_menus(main_window& window)
         {
             std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
 

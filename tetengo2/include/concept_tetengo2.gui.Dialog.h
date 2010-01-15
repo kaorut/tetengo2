@@ -28,7 +28,7 @@ namespace concept_tetengo2 { namespace gui
     public:
         // typedef checks
 
-        typedef typename Type::abstract_window_type abstract_window_type;
+        typedef typename Type::base_type base_type;
 
         typedef typename Type::message_loop_type message_loop_type;
 

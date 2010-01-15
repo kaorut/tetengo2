@@ -30,35 +30,33 @@ namespace stub_tetengo2 { namespace gui
     public:
         // types
 
-        typedef MenuItem menu_item_type;
+        typedef MenuItem base_type;
 
-        typedef typename menu_item_type::id_type id_type;
+        typedef typename base_type::id_type id_type;
 
-        typedef typename menu_item_type::handle_type handle_type;
+        typedef typename base_type::handle_type handle_type;
 
-        typedef typename menu_item_type::string_type string_type;
+        typedef typename base_type::string_type string_type;
 
         typedef
-            typename menu_item_type::encode_from_native_type
+            typename base_type::encode_from_native_type
             encode_from_native_type;
 
         typedef
-            typename menu_item_type::encode_to_native_type
-            encode_to_native_type;
+            typename base_type::encode_to_native_type encode_to_native_type;
 
-        typedef
-            typename menu_item_type::menu_observer_type menu_observer_type;
+        typedef typename base_type::menu_observer_type menu_observer_type;
 
-        typedef typename menu_item_type::iterator iterator;
+        typedef typename base_type::iterator iterator;
 
-        typedef typename menu_item_type::const_iterator const_iterator;
+        typedef typename base_type::const_iterator const_iterator;
 
 
         // constructors and destructor
 
         popup_menu(const string_type& text)
         :
-        menu_item_type(NULL, text)
+        base_type(NULL, text)
         {}
 
         virtual ~popup_menu()

@@ -41,54 +41,54 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The widget type.
-        typedef Widget widget_type;
+        //! The base type.
+        typedef Widget base_type;
 
         //! \copydoc tetengo2::gui::win32::widget::handle_type
-        typedef typename widget_type::handle_type handle_type;
+        typedef typename base_type::handle_type handle_type;
 
         //! \copydoc tetengo2::gui::win32::widget::canvas_type
-        typedef typename widget_type::canvas_type canvas_type;
+        typedef typename base_type::canvas_type canvas_type;
 
         //! \copydoc tetengo2::gui::win32::widget::alert_type
-        typedef typename widget_type::alert_type alert_type;
+        typedef typename base_type::alert_type alert_type;
 
         //! \copydoc tetengo2::gui::win32::widget::difference_type
-        typedef typename widget_type::difference_type difference_type;
+        typedef typename base_type::difference_type difference_type;
 
         //! \copydoc tetengo2::gui::win32::widget::size_type
-        typedef typename widget_type::size_type size_type;
+        typedef typename base_type::size_type size_type;
 
         //! \copydoc tetengo2::gui::win32::widget::position_type
-        typedef typename widget_type::position_type position_type;
+        typedef typename base_type::position_type position_type;
 
         //! \copydoc tetengo2::gui::win32::widget::dimension_type
-        typedef typename widget_type::dimension_type dimension_type;
+        typedef typename base_type::dimension_type dimension_type;
 
         //! \copydoc tetengo2::gui::win32::widget::string_type
-        typedef typename widget_type::string_type string_type;
+        typedef typename base_type::string_type string_type;
 
         //! \copydoc tetengo2::gui::win32::widget::encode_from_native_type
         typedef
-            typename widget_type::encode_from_native_type
+            typename base_type::encode_from_native_type
             encode_from_native_type;
 
         //! \copydoc tetengo2::gui::win32::widget::encode_to_native_type
         typedef
-            typename widget_type::encode_to_native_type
+            typename base_type::encode_to_native_type
             encode_to_native_type;
 
         //! \copydoc tetengo2::gui::win32::widget::font_type
-        typedef typename widget_type::font_type font_type;
+        typedef typename base_type::font_type font_type;
 
         //! \copydoc tetengo2::gui::win32::widget::child_type
-        typedef typename widget_type::child_type child_type;
+        typedef typename base_type::child_type child_type;
 
         //! \copydoc tetengo2::gui::win32::widget::paint_observer_type
-        typedef typename widget_type::paint_observer_type paint_observer_type;
+        typedef typename base_type::paint_observer_type paint_observer_type;
 
         //! \copydoc tetengo2::gui::win32::widget::mouse_observer_type
-        typedef typename widget_type::mouse_observer_type mouse_observer_type;
+        typedef typename base_type::mouse_observer_type mouse_observer_type;
 
         //! The style type.
         enum style_type
@@ -113,9 +113,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When a button cannot be created.
         */
-        button(widget_type& parent, const style_type style = style_normal)
+        button(base_type& parent, const style_type style = style_normal)
         :
-        widget_type(parent),
+        base_type(parent),
         m_handle(create_window(parent, style)),
         m_style(style),
         m_p_original_window_procedure(replace_window_procedure(m_handle))
@@ -171,7 +171,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     break;
                 }
             }
-            return this->widget_type::window_procedure(
+            return this->base_type::window_procedure(
                 uMsg, wParam, lParam, m_p_original_window_procedure
             );
         }
@@ -181,8 +181,8 @@ namespace tetengo2 { namespace gui { namespace win32
         // static functions
 
         static handle_type create_window(
-            const widget_type& parent,
-            const style_type   style
+            const base_type& parent,
+            const style_type style
         )
         {
             const ::DWORD create_window_style =
@@ -247,7 +247,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     handle,
                     GWLP_WNDPROC,
                     reinterpret_cast< ::LONG_PTR>(
-                        widget_type::p_static_window_procedure()
+                        base_type::p_static_window_procedure()
                     )
                 );
 #if defined(_WIN32) && !defined(_WIN64)

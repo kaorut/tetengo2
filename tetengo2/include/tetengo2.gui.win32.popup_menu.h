@@ -37,37 +37,35 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The menu item type.
-        typedef MenuItem menu_item_type;
+        //! The base type.
+        typedef MenuItem base_type;
 
         //! \copydoc tetengo2::gui::win32::menu_item::id_type
-        typedef typename menu_item_type::id_type id_type;
+        typedef typename base_type::id_type id_type;
 
         //! \copydoc tetengo2::gui::win32::menu_item::handle_type
-        typedef typename menu_item_type::handle_type handle_type;
+        typedef typename base_type::handle_type handle_type;
 
         //! \copydoc tetengo2::gui::win32::menu_item::string_type
-        typedef typename menu_item_type::string_type string_type;
+        typedef typename base_type::string_type string_type;
 
         //! \copydoc tetengo2::gui::win32::menu_item::encode_from_native_type
         typedef
-            typename menu_item_type::encode_from_native_type
+            typename base_type::encode_from_native_type
             encode_from_native_type;
 
         //! \copydoc tetengo2::gui::win32::menu_item::encode_to_native_type
         typedef
-            typename menu_item_type::encode_to_native_type
-            encode_to_native_type;
+            typename base_type::encode_to_native_type encode_to_native_type;
 
         //! \copydoc tetengo2::gui::win32::menu_item::menu_observer_type
-        typedef
-            typename menu_item_type::menu_observer_type menu_observer_type;
+        typedef typename base_type::menu_observer_type menu_observer_type;
 
         //! \copydoc tetengo2::gui::win32::menu_item::iterator
-        typedef typename menu_item_type::iterator iterator;
+        typedef typename base_type::iterator iterator;
 
         //! \copydoc tetengo2::gui::win32::menu_item::const_iterator
-        typedef typename menu_item_type::const_iterator const_iterator;
+        typedef typename base_type::const_iterator const_iterator;
 
 
         // constructors and destructor
@@ -79,7 +77,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         popup_menu(const string_type& text)
         :
-        menu_item(create_menu(), text)
+        base_type(create_menu(), text)
         {}
 
         /*!
