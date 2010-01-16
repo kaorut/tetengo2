@@ -24,6 +24,11 @@ Depends on  : (none)
 Description : Remove const from the return value types.
 ------------------------------------------------------------------------------
 Nunmber     : 00000008
+Added on    : 2010.01.16
+Depends on  : (none)
+Description : Create tetengo2::string_literal.
+------------------------------------------------------------------------------
+Nunmber     : 00000009
 Added on    : 2010.mm.yy
 Depends on  : (none)
 Description : 
