@@ -82,15 +82,6 @@ namespace concept_tetengo2 { namespace gui
 
         void const_constraints(const Type& object)
         {
-            const bool is_command = object.is_command();
-            boost::ignore_unused_variable_warning(is_command);
-
-            const bool is_popup = object.is_popup();
-            boost::ignore_unused_variable_warning(is_popup);
-
-            const bool is_separator = object.is_separator();
-            boost::ignore_unused_variable_warning(is_separator);
-
             const id_type id = object.id();
             boost::ignore_unused_variable_warning(id);
 

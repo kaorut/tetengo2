@@ -22,22 +22,6 @@ BOOST_AUTO_TEST_SUITE(menu_command)
         BOOST_WARN("Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(is_command)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(is_popup)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(is_separator)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
-
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

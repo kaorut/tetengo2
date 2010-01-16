@@ -133,33 +133,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         /*!
-            \brief Returns whether the menu is a menu command.
-
-            \retval true  When the menu is a menu command.
-            \retval false Otherwise.
-        */
-        virtual bool is_command()
-        const = 0;
-
-        /*!
-            \brief Returns whether the menu is a popup menu.
-
-            \retval true  When the menu is a popup menu.
-            \retval false Otherwise.
-        */
-        virtual bool is_popup()
-        const = 0;
-
-        /*!
-            \brief Returns whether the menu is a menu separator.
-
-            \retval true  When the menu is a menu separator.
-            \retval false Otherwise.
-        */
-        virtual bool is_separator()
-        const = 0;
-
-        /*!
             \brief Returns the ID.
 
             \return The ID.
@@ -173,10 +146,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns the handle.
 
-            If the value of is_popup() is false, this function may return
-            NULL.
-
-            \return The handle.
+            \return The handle. It may be NULL.
         */
         handle_type handle()
         const
@@ -374,6 +344,34 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     protected:
+        // static functions
+
+        /*!
+            \brief Duplicates a text.
+
+            \param text A text.
+
+            \return A duplicated vector of the characters.
+        */
+        static std::vector< ::WCHAR> duplicate_text(
+            const string_type& text
+        )
+        {
+            const std::wstring native_string = encode_to_native_type()(text);
+
+            std::vector< ::WCHAR> duplicated;
+            duplicated.reserve(native_string.length() + 1);
+            std::copy(
+                native_string.begin(),
+                native_string.end(),
+                std::back_inserter(duplicated)
+            );
+            duplicated.push_back(L'\0');
+
+            return duplicated;
+        }
+
+
         // constructors
 
         /*!
@@ -391,6 +389,17 @@ namespace tetengo2 { namespace gui { namespace win32
         m_menu_selected_handler(),
         m_children()
         {}
+
+
+        // functions
+
+        /*!
+            \brief Sets the Win32 menu information.
+
+            \param menu_info A menu information.
+        */
+        virtual void set_menu_info(::MENUITEMINFOW& menu_info)
+        const = 0;
 
 
     private:
@@ -465,21 +474,10 @@ namespace tetengo2 { namespace gui { namespace win32
         void insert_native_menu(const const_iterator offset, menu& menu)
         const
         {
-            std::vector< ::WCHAR> duplicated_text =
-                duplicate_text(menu.text());
-
             ::MENUITEMINFOW menu_info;
             std::memset(&menu_info, 0, sizeof(::MENUITEMINFO));
             menu_info.cbSize = sizeof(::MENUITEMINFO);
-
-            if      (menu.is_command())
-                set_menu_info_for_command(menu, menu_info, duplicated_text);
-            else if (menu.is_popup())
-                set_menu_info_for_popup(menu, menu_info, duplicated_text);
-            else if (menu.is_separator())
-                set_menu_info_for_separator(menu, menu_info);
-            else
-                set_menu_info_for_unknown(menu, menu_info, duplicated_text);
+            menu.set_menu_info(menu_info);
 
             const ::BOOL result = ::InsertMenuItem(
                 m_handle,
@@ -495,69 +493,6 @@ namespace tetengo2 { namespace gui { namespace win32
                     "Can't insert a native menu command."
                 );
             }
-        }
-
-        const std::vector< ::WCHAR> duplicate_text(const string_type& text)
-        const
-        {
-            const std::wstring native_string = encode_to_native_type()(text);
-
-            std::vector< ::WCHAR> duplicated;
-            duplicated.reserve(native_string.length() + 1);
-            std::copy(
-                native_string.begin(),
-                native_string.end(),
-                std::back_inserter(duplicated)
-            );
-            duplicated.push_back(L'\0');
-
-            return duplicated;
-        }
-
-        void set_menu_info_for_command(
-            menu&                  menu,
-            ::MENUITEMINFOW&       menu_info,
-            std::vector< ::WCHAR>& text
-        )
-        const
-        {
-            menu_info.fMask = MIIM_STRING | MIIM_ID;
-            menu_info.dwTypeData = &text[0];
-            menu_info.wID = menu.id();
-        }
-
-        void set_menu_info_for_popup(
-            menu&                  menu,
-            ::MENUITEMINFOW&       menu_info,
-            std::vector< ::WCHAR>& text
-        )
-        const
-        {
-            menu_info.fMask = MIIM_STRING | MIIM_SUBMENU;
-            menu_info.dwTypeData = &text[0];
-            menu_info.hSubMenu = menu.handle();
-        }
-
-        void set_menu_info_for_separator(
-            menu&            menu,
-            ::MENUITEMINFOW& menu_info
-        )
-        const
-        {
-            menu_info.fMask = MIIM_FTYPE;
-            menu_info.fType = MFT_SEPARATOR;
-        }
-
-        void set_menu_info_for_unknown(
-            menu&                  menu,
-            ::MENUITEMINFOW&       menu_info,
-            std::vector< ::WCHAR>& text
-        )
-        const
-        {
-            menu_info.fMask = MIIM_STRING | MIIM_STATE;
-            menu_info.dwTypeData = &text[0];
-            menu_info.fState = MFS_DISABLED;
         }
 
         void erase_native_menus(const_iterator first, const_iterator last)

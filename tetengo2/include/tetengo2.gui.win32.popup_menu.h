@@ -14,6 +14,10 @@
 
 //#include <boost/concept_check.hpp>
 
+#define NOMINMAX
+#define OEMRESOURCE
+#include <windows.h>
+
 #include "concept_tetengo2.gui.Menu.h"
 
 
@@ -91,27 +95,19 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
 
+    protected:
         // functions
 
-        //! \copydoc tetengo2::gui::win32::menu::is_command
-        virtual bool is_command()
+        //! \copydoc tetengo2::gui::win32::menu::set_menu_info
+        virtual void set_menu_info(::MENUITEMINFOW& menu_info)
         const
         {
-            return false;
-        }
+            std::vector< ::WCHAR> duplicated_text = duplicate_text(text());
 
-        //! \copydoc tetengo2::gui::win32::menu::is_popup
-        virtual bool is_popup()
-        const
-        {
-            return true;
-        }
-
-        //! \copydoc tetengo2::gui::win32::menu::is_separator
-        virtual bool is_separator()
-        const
-        {
-            return false;
+            menu_info.fMask = MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
+            menu_info.dwTypeData = &duplicated_text[0];
+            menu_info.wID = id();
+            menu_info.hSubMenu = handle();
         }
 
 

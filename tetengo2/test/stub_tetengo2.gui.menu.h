@@ -88,15 +88,6 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual bool is_command()
-        const = 0;
-
-        virtual bool is_popup()
-        const = 0;
-
-        virtual bool is_separator()
-        const = 0;
-
         id_type id()
         const
         {
