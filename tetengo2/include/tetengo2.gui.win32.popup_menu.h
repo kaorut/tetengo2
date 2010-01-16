@@ -11,6 +11,7 @@
 
 //#include <cstddef>
 #include <stdexcept>
+#include <vector>
 
 //#include <boost/concept_check.hpp>
 

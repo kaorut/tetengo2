@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_MENUCOMMAND_H)
 #define TETENGO2_GUI_WIN32_MENUCOMMAND_H
 
-#include <cstddef>
+//#include <cstddef>
 #include <vector>
 
 //#include <boost/concept_check.hpp>

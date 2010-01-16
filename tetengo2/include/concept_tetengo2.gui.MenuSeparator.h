@@ -9,6 +9,8 @@
 #if !defined(CONCEPTTETENGO2_GUI_MENUSEPARATOR_H)
 #define CONCEPTTETENGO2_GUI_MENUSEPARATOR_H
 
+#include <boost/concept_check.hpp>
+
 #include "concept_tetengo2.gui.Menu.h"
 
 
