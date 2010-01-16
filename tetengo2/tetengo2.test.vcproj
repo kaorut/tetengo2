@@ -429,15 +429,7 @@
 				Name="test_tetengo2::gui"
 				>
 				<File
-					RelativePath=".\test\test_tetengo2.gui.menu_command.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\test\test_tetengo2.gui.menu_observer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\test\test_tetengo2.gui.menu_separator.cpp"
 					>
 				</File>
 				<File
@@ -490,6 +482,14 @@
 				</File>
 				<File
 					RelativePath=".\test\test_tetengo2.gui.win32.menu.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test\test_tetengo2.gui.win32.menu_command.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test\test_tetengo2.gui.win32.menu_separator.cpp"
 					>
 				</File>
 				<File
@@ -576,6 +576,14 @@
 				</File>
 				<File
 					RelativePath=".\test\stub_tetengo2.gui.menu.h"
+					>
+				</File>
+				<File
+					RelativePath=".\test\stub_tetengo2.gui.menu_command.h"
+					>
+				</File>
+				<File
+					RelativePath=".\test\stub_tetengo2.gui.menu_separator.h"
 					>
 				</File>
 				<File

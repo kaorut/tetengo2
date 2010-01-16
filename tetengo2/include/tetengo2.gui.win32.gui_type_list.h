@@ -11,9 +11,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_observer.h"
-#include "tetengo2.gui.menu_separator.h"
 #include "tetengo2.gui.mouse_observer.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
@@ -27,6 +25,8 @@
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "tetengo2.gui.win32.main_menu.h"
 #include "tetengo2.gui.win32.menu.h"
+#include "tetengo2.gui.win32.menu_command.h"
+#include "tetengo2.gui.win32.menu_separator.h"
 #include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.popup_menu.h"
 #include "tetengo2.gui.win32.quit_message_loop.h"

@@ -147,15 +147,7 @@
 				Name="tetengo2::gui"
 				>
 				<File
-					RelativePath=".\include\tetengo2.gui.menu_command.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\tetengo2.gui.menu_observer.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\tetengo2.gui.menu_separator.h"
 					>
 				</File>
 				<File
@@ -208,6 +200,14 @@
 				</File>
 				<File
 					RelativePath=".\include\tetengo2.gui.win32.menu.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\tetengo2.gui.win32.menu_command.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\tetengo2.gui.win32.menu_separator.h"
 					>
 				</File>
 				<File

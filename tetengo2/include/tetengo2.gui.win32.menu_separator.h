@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu_command.
+    \brief The definition of tetengo2::gui::win32::menu_separator.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MENUCOMMAND_H)
-#define TETENGO2_GUI_MENUCOMMAND_H
+#if !defined(TETENGO2_GUI_WIN32_MENUSEPARATOR_H)
+#define TETENGO2_GUI_WIN32_MENUSEPARATOR_H
 
 #include <cstddef>
 
@@ -16,18 +16,18 @@
 #include "concept_tetengo2.gui.Menu.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The class template for a menu command.
+        \brief The class template for a menu separator.
 
-        The handle is NULL.
+        The handle is NULL. The text is empty.
 
         \tparam Menu A menu type. It must conform to
                      concept_tetengo2::gui::Menu<Menu>
    */
     template <typename Menu>
-    class menu_command : public Menu
+    class menu_separator : public Menu
     {
     private:
         // concept checks
@@ -57,10 +57,12 @@ namespace tetengo2 { namespace gui
 
         //! \copydoc tetengo2::gui::win32::menu::encode_to_native_type
         typedef
-            typename base_type::encode_to_native_type encode_to_native_type;
+            typename base_type::encode_to_native_type
+            encode_to_native_type;
 
         //! \copydoc tetengo2::gui::win32::menu::menu_observer_type
-        typedef typename base_type::menu_observer_type menu_observer_type;
+        typedef
+            typename base_type::menu_observer_type menu_observer_type;
 
         //! \copydoc tetengo2::gui::win32::menu::iterator
         typedef typename base_type::iterator iterator;
@@ -72,19 +74,17 @@ namespace tetengo2 { namespace gui
         // constructors and destructor
 
         /*!
-            \brief Creates a menu command.
-
-            \param text A text.
+            \brief Creates a menu separator.
         */
-        explicit menu_command(const string_type& text)
+        menu_separator()
         :
-        base_type(NULL, text)
+        base_type(NULL, string_type())
         {}
 
         /*!
-            \brief Destroys the menu command.
+            \brief Destroys the menu separator.
         */
-        virtual ~menu_command()
+        virtual ~menu_separator()
         throw ()
         {}
 
@@ -95,7 +95,7 @@ namespace tetengo2 { namespace gui
         virtual bool is_command()
         const
         {
-            return true;
+            return false;
         }
 
         //! \copydoc tetengo2::gui::win32::menu::is_popup
@@ -109,13 +109,13 @@ namespace tetengo2 { namespace gui
         virtual bool is_separator()
         const
         {
-            return false;
+            return true;
         }
 
 
     };
 
 
-}}
+}}}
 
 #endif

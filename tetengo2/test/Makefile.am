@@ -14,6 +14,8 @@ headers = \
     stub_tetengo2.gui.gui_type_list.h \
     stub_tetengo2.gui.main_menu.h \
     stub_tetengo2.gui.menu.h \
+    stub_tetengo2.gui.menu_command.h \
+    stub_tetengo2.gui.menu_separator.h \
     stub_tetengo2.gui.message_loop.h \
     stub_tetengo2.gui.popup_menu.h \
     stub_tetengo2.gui.quit_message_loop.h \
@@ -25,9 +27,7 @@ extra_headers =
 sources = \
     master.cpp \
     test_tetengo2.generator.cpp \
-    test_tetengo2.gui.menu_command.cpp \
     test_tetengo2.gui.menu_observer.cpp \
-    test_tetengo2.gui.menu_separator.cpp \
     test_tetengo2.gui.mouse_observer.cpp \
     test_tetengo2.gui.paint_observer.cpp \
     test_tetengo2.gui.window_observer.cpp \
@@ -47,6 +47,8 @@ extra_sources = \
     test_tetengo2.gui.win32.gui_type_list.cpp \
     test_tetengo2.gui.win32.main_menu.cpp \
     test_tetengo2.gui.win32.menu.cpp \
+    test_tetengo2.gui.win32.menu_command.cpp \
+    test_tetengo2.gui.win32.menu_separator.cpp \
     test_tetengo2.gui.win32.message_loop.cpp \
     test_tetengo2.gui.win32.popup_menu.cpp \
     test_tetengo2.gui.win32.quit_message_loop.cpp \

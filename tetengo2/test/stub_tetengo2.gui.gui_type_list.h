@@ -20,15 +20,15 @@
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
 #include "stub_tetengo2.gui.main_menu.h"
 #include "stub_tetengo2.gui.menu.h"
+#include "stub_tetengo2.gui.menu_command.h"
+#include "stub_tetengo2.gui.menu_separator.h"
 #include "stub_tetengo2.gui.message_loop.h"
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "stub_tetengo2.gui.quit_message_loop.h"
 #include "stub_tetengo2.gui.widget.h"
 #include "stub_tetengo2.gui.window.h"
 #include "stub_tetengo2.encode.h"
-#include "tetengo2.gui.menu_command.h"
 #include "tetengo2.gui.menu_observer.h"
-#include "tetengo2.gui.menu_separator.h"
 #include "tetengo2.gui.mouse_observer.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
@@ -110,9 +110,10 @@ namespace stub_tetengo2 { namespace gui
 
         typedef window<abstract_window_type> window_type;
 
-        typedef tetengo2::gui::menu_command<menu_type> menu_command_type;
+        typedef stub_tetengo2::gui::menu_command<menu_type> menu_command_type;
 
-        typedef tetengo2::gui::menu_separator<menu_type> menu_separator_type;
+        typedef
+            stub_tetengo2::gui::menu_separator<menu_type> menu_separator_type;
 
         typedef
             dialog<
