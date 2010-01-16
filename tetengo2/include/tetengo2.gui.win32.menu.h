@@ -166,16 +166,6 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Sets the text.
-
-            \param text A text.
-        */
-        void set_text(const string_type& text)
-        {
-            m_text = text;
-        }
-
-        /*!
             \brief Selects this menu.
         */
         void select()

@@ -37,11 +37,6 @@ BOOST_AUTO_TEST_SUITE(menu)
         BOOST_WARN("Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(set_text)
-    {
-        BOOST_WARN("Not implemented yet.");
-    }
-
     BOOST_AUTO_TEST_CASE(select)
     {
         BOOST_WARN("Not implemented yet.");

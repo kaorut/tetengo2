@@ -106,9 +106,6 @@ namespace stub_tetengo2 { namespace gui
             return m_text;
         }
 
-        void set_text(const string_type& text)
-        {}
-
         void select()
         {}
 

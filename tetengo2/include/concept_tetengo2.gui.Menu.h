@@ -51,8 +51,6 @@ namespace concept_tetengo2 { namespace gui
 
         BOOST_CONCEPT_USAGE(Menu)
         {
-            m_p_object->set_text(string_type());
-
             m_p_object->select();
 
             std::auto_ptr<menu_observer_type> p_menu_observer;
