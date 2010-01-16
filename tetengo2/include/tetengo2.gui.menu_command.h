@@ -13,7 +13,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.MenuItem.h"
+#include "concept_tetengo2.gui.Menu.h"
 
 
 namespace tetengo2 { namespace gui
@@ -23,49 +23,49 @@ namespace tetengo2 { namespace gui
 
         The handle is NULL.
 
-        \tparam MenuItem A menu item type. It must conform to
-                         concept_tetengo2::gui::MenuItem<MenuItem>
+        \tparam Menu A menu type. It must conform to
+                     concept_tetengo2::gui::Menu<Menu>
    */
-    template <typename MenuItem>
-    class menu_command : public MenuItem
+    template <typename Menu>
+    class menu_command : public Menu
     {
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MenuItem<MenuItem>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<Menu>));
 
 
     public:
         // types
 
         //! The base type.
-        typedef MenuItem base_type;
+        typedef Menu base_type;
 
-        //! \copydoc tetengo2::gui::win32::menu_item::id_type
+        //! \copydoc tetengo2::gui::win32::menu::id_type
         typedef typename base_type::id_type id_type;
 
-        //! \copydoc tetengo2::gui::win32::menu_item::handle_type
+        //! \copydoc tetengo2::gui::win32::menu::handle_type
         typedef typename base_type::handle_type handle_type;
 
-        //! \copydoc tetengo2::gui::win32::menu_item::string_type
+        //! \copydoc tetengo2::gui::win32::menu::string_type
         typedef typename base_type::string_type string_type;
 
-        //! \copydoc tetengo2::gui::win32::menu_item::encode_from_native_type
+        //! \copydoc tetengo2::gui::win32::menu::encode_from_native_type
         typedef
             typename base_type::encode_from_native_type
             encode_from_native_type;
 
-        //! \copydoc tetengo2::gui::win32::menu_item::encode_to_native_type
+        //! \copydoc tetengo2::gui::win32::menu::encode_to_native_type
         typedef
             typename base_type::encode_to_native_type encode_to_native_type;
 
-        //! \copydoc tetengo2::gui::win32::menu_item::menu_observer_type
+        //! \copydoc tetengo2::gui::win32::menu::menu_observer_type
         typedef typename base_type::menu_observer_type menu_observer_type;
 
-        //! \copydoc tetengo2::gui::win32::menu_item::iterator
+        //! \copydoc tetengo2::gui::win32::menu::iterator
         typedef typename base_type::iterator iterator;
 
-        //! \copydoc tetengo2::gui::win32::menu_item::const_iterator
+        //! \copydoc tetengo2::gui::win32::menu::const_iterator
         typedef typename base_type::const_iterator const_iterator;
 
 
@@ -91,21 +91,21 @@ namespace tetengo2 { namespace gui
 
         // functions
 
-        //! \copydoc tetengo2::gui::win32::menu_item::is_command
+        //! \copydoc tetengo2::gui::win32::menu::is_command
         virtual bool is_command()
         const
         {
             return true;
         }
 
-        //! \copydoc tetengo2::gui::win32::menu_item::is_popup
+        //! \copydoc tetengo2::gui::win32::menu::is_popup
         virtual bool is_popup()
         const
         {
             return false;
         }
 
-        //! \copydoc tetengo2::gui::win32::menu_item::is_separator
+        //! \copydoc tetengo2::gui::win32::menu::is_separator
         virtual bool is_separator()
         const
         {

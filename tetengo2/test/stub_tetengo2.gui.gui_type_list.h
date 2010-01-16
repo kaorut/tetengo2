@@ -19,7 +19,7 @@
 #include "stub_tetengo2.gui.font.h"
 #include "stub_tetengo2.gui.gui_initializer_finalizer.h"
 #include "stub_tetengo2.gui.main_menu.h"
-#include "stub_tetengo2.gui.menu_item.h"
+#include "stub_tetengo2.gui.menu.h"
 #include "stub_tetengo2.gui.message_loop.h"
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "stub_tetengo2.gui.quit_message_loop.h"
@@ -73,14 +73,14 @@ namespace stub_tetengo2 { namespace gui
 
     private:
         typedef
-            menu_item<
+            menu<
                 unsigned int,
                 const void*,
                 String,
                 stub_tetengo2::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_item_type;
+            menu_type;
 
     public:
         typedef
@@ -98,9 +98,9 @@ namespace stub_tetengo2 { namespace gui
             >
             widget_type;
 
-        typedef main_menu<menu_item_type> main_menu_type;
+        typedef main_menu<menu_type> main_menu_type;
 
-        typedef popup_menu<menu_item_type> popup_menu_type;
+        typedef popup_menu<menu_type> popup_menu_type;
 
         typedef
             abstract_window<
@@ -110,10 +110,9 @@ namespace stub_tetengo2 { namespace gui
 
         typedef window<abstract_window_type> window_type;
 
-        typedef tetengo2::gui::menu_command<menu_item_type> menu_command_type;
+        typedef tetengo2::gui::menu_command<menu_type> menu_command_type;
 
-        typedef
-            tetengo2::gui::menu_separator<menu_item_type> menu_separator_type;
+        typedef tetengo2::gui::menu_separator<menu_type> menu_separator_type;
 
         typedef
             dialog<

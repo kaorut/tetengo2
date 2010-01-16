@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::menu_item.
+    \brief The definition of tetengo2::gui::win32::menu.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_MENUITEM_H)
-#define TETENGO2_GUI_WIN32_MENUITEM_H
+#if !defined(TETENGO2_GUI_WIN32_MENU_H)
+#define TETENGO2_GUI_WIN32_MENU_H
 
 #include <algorithm>
 #include <cstddef>
@@ -38,7 +38,7 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The base class template for a menu item.
+        \brief The base class template for a menu.
 
         \tparam Id           A ID type. It must conform to
                              boost::UnsignedInteger<Id>.
@@ -62,7 +62,7 @@ namespace tetengo2 { namespace gui { namespace win32
         template <typename Target, typename Source> class Encode,
         typename MenuObserver
     >
-    class menu_item : boost::noncopyable
+    class menu : boost::noncopyable
     {
     private:
         // concept checks
@@ -112,21 +112,20 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The menu observer type.
         typedef MenuObserver menu_observer_type;
 
-        //! The menu item iterator type.
-        typedef typename boost::ptr_vector<menu_item>::iterator iterator;
+        //! The menu iterator type.
+        typedef typename boost::ptr_vector<menu>::iterator iterator;
 
-        //! The const menu item iterator type.
+        //! The const menu iterator type.
         typedef
-            typename boost::ptr_vector<menu_item>::const_iterator
-            const_iterator;
+            typename boost::ptr_vector<menu>::const_iterator const_iterator;
 
 
         // constructors and destructor
 
         /*!
-            \brief Destroys the menu item.
+            \brief Destroys the menu.
         */
-        virtual ~menu_item()
+        virtual ~menu()
         throw ()
         {}
 
@@ -134,27 +133,27 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         /*!
-            \brief Returns whether the menu item is a menu command.
+            \brief Returns whether the menu is a menu command.
 
-            \retval true  When the menu item is a menu command.
+            \retval true  When the menu is a menu command.
             \retval false Otherwise.
         */
         virtual bool is_command()
         const = 0;
 
         /*!
-            \brief Returns whether the menu item is a popup menu.
+            \brief Returns whether the menu is a popup menu.
 
-            \retval true  When the menu item is a popup menu.
+            \retval true  When the menu is a popup menu.
             \retval false Otherwise.
         */
         virtual bool is_popup()
         const = 0;
 
         /*!
-            \brief Returns whether the menu item is a menu separator.
+            \brief Returns whether the menu is a menu separator.
 
-            \retval true  When the menu item is a menu separator.
+            \retval true  When the menu is a menu separator.
             \retval false Otherwise.
         */
         virtual bool is_separator()
@@ -207,7 +206,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Selects this menu item.
+            \brief Selects this menu.
         */
         void select()
         {
@@ -276,89 +275,87 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Finds a menu item among the children by the specified id.
+            \brief Finds a menu among the children by the specified id.
 
             If no menu is found, it returns end().
 
             \param id An id.
 
-            \return The immutable iterator to the menu item.
+            \return The immutable iterator to the menu.
         */
-        const menu_item* find_by_id(const id_type id)
+        const menu* find_by_id(const id_type id)
         const
         {
-            return find_impl<const menu_item>(
-                begin(), end(), id, boost::mem_fn(&menu_item::id)
+            return find_impl<const menu>(
+                begin(), end(), id, boost::mem_fn(&menu::id)
             );
         }
 
         /*!
-            \brief Finds a menu item among the children by the specified id.
+            \brief Finds a menu among the children by the specified id.
 
             If no menu is found, it returns end().
 
             \param id An id.
 
-            \return The mutable iterator to the menu item.
+            \return The mutable iterator to the menu.
         */
-        menu_item* find_by_id(const id_type id)
+        menu* find_by_id(const id_type id)
         {
-            return find_impl<menu_item>(
-                begin(), end(), id, boost::mem_fn(&menu_item::id)
+            return find_impl<menu>(
+                begin(), end(), id, boost::mem_fn(&menu::id)
             );
         }
 
         /*!
-            \brief Finds a menu item among the children by the specified
-                   handle.
+            \brief Finds a menu among the children by the specified handle.
 
             If no menu is found, it returns end().
 
             \param handle A handle.
 
-            \return The immutable iterator to the menu item.
+            \return The immutable iterator to the menu.
         */
-        const menu_item* find_by_handle(const handle_type handle)
+        const menu* find_by_handle(const handle_type handle)
         const
         {
-            return find_impl<const menu_item>(
-                begin(), end(), handle, boost::mem_fn(&menu_item::handle)
+            return find_impl<const menu>(
+                begin(), end(), handle, boost::mem_fn(&menu::handle)
             );
         }
 
         /*!
-            \brief Finds a menu item among the children by the specified
-                   handle.
+            \brief Finds a menu among the children by the specified handle.
 
             If no menu is found, it returns end().
 
             \param handle A handle.
 
-            \return The mutable iterator to the menu item.
+            \return The mutable iterator to the menu.
         */
-        menu_item* find_by_handle(const handle_type handle)
+        menu* find_by_handle(const handle_type handle)
         {
-            return find_impl<menu_item>(
-                begin(), end(), handle, boost::mem_fn(&menu_item::handle)
+            return find_impl<menu>(
+                begin(), end(), handle, boost::mem_fn(&menu::handle)
             );
         }
 
         /*!
-            \brief Inserts a menu item as a child.
+            \brief Inserts a menu as a child.
 
-            \param offset      An offset where a menu item is inserted.
-            \param p_menu_item An auto pointer to a menu item. It must not be
+            \param offset      An offset where a menu is inserted.
+            \param p_menu_item An auto pointer to a menu. It must not be
                                NULL.
         */
         void insert(
-            const iterator           offset,
-            std::auto_ptr<menu_item> p_menu_item
+            const iterator      offset,
+            std::auto_ptr<menu> p_menu_item
         )
         {
             if (p_menu_item.get() == NULL)
             {
                 throw std::invalid_argument(
-                    "The auto pointer to a menu item is NULL."
+                    "The auto pointer to a menu is NULL."
                 );
             }
 
@@ -385,12 +382,12 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors
 
         /*!
-            \brief Creates a menu item.
+            \brief Creates a menu.
 
             \param handle A handle.
             \param text   A text.
         */
-        menu_item(const handle_type handle, const string_type& text)
+        menu(const handle_type handle, const string_type& text)
         :
         m_id(get_and_increment_id()),
         m_handle(handle),
@@ -415,12 +412,12 @@ namespace tetengo2 { namespace gui { namespace win32
         // static functions
 
         template <
-            typename MenuItem,
+            typename Menu,
             typename ForwardIterator,
             typename Target,
             typename GetTarget
         >
-        static MenuItem* find_impl(
+        static Menu* find_impl(
             const ForwardIterator first,
             const ForwardIterator last,
             const Target          target,
@@ -440,7 +437,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             for (ForwardIterator i = first; i != last; ++i)
             {
-                MenuItem* const p_found = find_impl<MenuItem>(
+                Menu* const p_found = find_impl<Menu>(
                     i->begin(),
                     i->end(),
                     target,
@@ -465,44 +462,44 @@ namespace tetengo2 { namespace gui { namespace win32
 
         boost::signal<void ()> m_menu_selected_handler;
 
-        boost::ptr_vector<menu_item> m_children;
+        boost::ptr_vector<menu> m_children;
 
 
         // functions
 
         void insert_native_menu_item(
             const_iterator offset,
-            menu_item&     menu_item
+            menu&          menu
         )
         const
         {
             std::vector< ::WCHAR> duplicated_text =
-                duplicate_text(menu_item.text());
+                duplicate_text(menu.text());
 
             ::MENUITEMINFOW menu_item_info;
             std::memset(&menu_item_info, 0, sizeof(::MENUITEMINFO));
             menu_item_info.cbSize = sizeof(::MENUITEMINFO);
 
-            if      (menu_item.is_command())
+            if      (menu.is_command())
             {
                 set_menu_item_info_for_command(
-                    menu_item, menu_item_info, duplicated_text
+                    menu, menu_item_info, duplicated_text
                 );
             }
-            else if (menu_item.is_popup())
+            else if (menu.is_popup())
             {
                 set_menu_item_info_for_popup(
-                    menu_item, menu_item_info, duplicated_text
+                    menu, menu_item_info, duplicated_text
                 );
             }
-            else if (menu_item.is_separator())
+            else if (menu.is_separator())
             {
-                set_menu_item_info_for_separator(menu_item, menu_item_info);
+                set_menu_item_info_for_separator(menu, menu_item_info);
             }
             else
             {
                 set_menu_item_info_for_unknown(
-                    menu_item, menu_item_info, duplicated_text
+                    menu, menu_item_info, duplicated_text
                 );
             }
 
@@ -540,7 +537,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         void set_menu_item_info_for_command(
-            menu_item&             menu_item,
+            menu&                  menu,
             ::MENUITEMINFOW&       menu_item_info,
             std::vector< ::WCHAR>& text
         )
@@ -548,11 +545,11 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             menu_item_info.fMask = MIIM_STRING | MIIM_ID;
             menu_item_info.dwTypeData = &text[0];
-            menu_item_info.wID = menu_item.id();
+            menu_item_info.wID = menu.id();
         }
 
         void set_menu_item_info_for_popup(
-            menu_item&             menu_item,
+            menu&                  menu,
             ::MENUITEMINFOW&       menu_item_info,
             std::vector< ::WCHAR>& text
         )
@@ -560,11 +557,11 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             menu_item_info.fMask = MIIM_STRING | MIIM_SUBMENU;
             menu_item_info.dwTypeData = &text[0];
-            menu_item_info.hSubMenu = menu_item.handle();
+            menu_item_info.hSubMenu = menu.handle();
         }
 
         void set_menu_item_info_for_separator(
-            menu_item&       menu_item,
+            menu&            menu,
             ::MENUITEMINFOW& menu_item_info
         )
         const
@@ -574,7 +571,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         void set_menu_item_info_for_unknown(
-            menu_item&             menu_item,
+            menu&                  menu,
             ::MENUITEMINFOW&       menu_item_info,
             std::vector< ::WCHAR>& text
         )

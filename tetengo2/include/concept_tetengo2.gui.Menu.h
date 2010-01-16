@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of concept_tetengo2::gui::MenuItem.
+    \brief The definition of concept_tetengo2::gui::Menu.
 
     Copyright (C) 2007-2010 kaoru
 
@@ -18,12 +18,12 @@
 namespace concept_tetengo2 { namespace gui
 {
     /*!
-        \brief The concept check class template for a menu item.
+        \brief The concept check class template for a menu.
 
         \tparam Type A type.
     */
     template <typename Type>
-    class MenuItem
+    class Menu
     {
 #if !defined(DOCUMENTATION)
     public:
@@ -49,7 +49,7 @@ namespace concept_tetengo2 { namespace gui
 
         // usage checks
 
-        BOOST_CONCEPT_USAGE(MenuItem)
+        BOOST_CONCEPT_USAGE(Menu)
         {
             m_p_object->set_text(string_type());
 
@@ -64,11 +64,13 @@ namespace concept_tetengo2 { namespace gui
             const iterator last = m_p_object->end();
             boost::ignore_unused_variable_warning(last);
 
-            //Type* const found_by_id = m_p_object->find_by_id(0);
-            //boost::ignore_unused_variable_warning(found_by_id);
+            Type* const found_by_id =
+                static_cast<Type*>(m_p_object->find_by_id(0));
+            boost::ignore_unused_variable_warning(found_by_id);
 
-            //Type* const found_by_handle = m_p_object->find_by_handle(NULL);
-            //boost::ignore_unused_variable_warning(found_by_handle);
+            Type* const found_by_handle =
+                static_cast<Type*>(m_p_object->find_by_handle(NULL));
+            boost::ignore_unused_variable_warning(found_by_handle);
 
             //std::auto_ptr<Type> p;
             //m_p_object->insert(first, p);
@@ -104,12 +106,13 @@ namespace concept_tetengo2 { namespace gui
             const const_iterator last = object.end();
             boost::ignore_unused_variable_warning(last);
 
-            //const Type* const found_by_id = object.find_by_id(0);
-            //boost::ignore_unused_variable_warning(found_by_id);
+            const Type* const found_by_id =
+                static_cast<const Type*>(object.find_by_id(0));
+            boost::ignore_unused_variable_warning(found_by_id);
 
-            //const Type* const found_by_handle =
-            //    object.find_by_handle(NULL);
-            //boost::ignore_unused_variable_warning(found_by_handle);
+            const Type* const found_by_handle =
+                static_cast<const Type*>(object.find_by_handle(NULL));
+            boost::ignore_unused_variable_warning(found_by_handle);
         }
 
         

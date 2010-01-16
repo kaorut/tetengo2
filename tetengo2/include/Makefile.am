@@ -16,8 +16,8 @@ headers = \
     concept_tetengo2.gui.GuiTypeList.h \
     concept_tetengo2.gui.Handle.h \
     concept_tetengo2.gui.MainMenu.h \
+    concept_tetengo2.gui.Menu.h \
     concept_tetengo2.gui.MenuCommand.h \
-    concept_tetengo2.gui.MenuItem.h \
     concept_tetengo2.gui.MenuObserver.h \
     concept_tetengo2.gui.MenuSeparator.h \
     concept_tetengo2.gui.MouseObserver.h \
@@ -48,7 +48,7 @@ extra_headers = \
     tetengo2.gui.win32.gui_initializer_finalizer.h \
     tetengo2.gui.win32.gui_type_list.h \
     tetengo2.gui.win32.main_menu.h \
-    tetengo2.gui.win32.menu_item.h \
+    tetengo2.gui.win32.menu.h \
     tetengo2.gui.win32.message_loop.h \
     tetengo2.gui.win32.popup_menu.h \
     tetengo2.gui.win32.quit_message_loop.h \

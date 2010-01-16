@@ -26,7 +26,7 @@
 #include "tetengo2.gui.win32.font.h"
 #include "tetengo2.gui.win32.gui_initializer_finalizer.h"
 #include "tetengo2.gui.win32.main_menu.h"
-#include "tetengo2.gui.win32.menu_item.h"
+#include "tetengo2.gui.win32.menu.h"
 #include "tetengo2.gui.win32.message_loop.h"
 #include "tetengo2.gui.win32.popup_menu.h"
 #include "tetengo2.gui.win32.quit_message_loop.h"
@@ -92,14 +92,14 @@ namespace tetengo2 { namespace gui { namespace win32
 
     private:
         typedef
-            tetengo2::gui::win32::menu_item<
+            tetengo2::gui::win32::menu<
                 ::UINT,
                 ::HMENU,
                 String,
                 tetengo2::win32::encode,
                 tetengo2::gui::menu_observer
             >
-            menu_item_type;
+            menu_type;
 
     public:
         //! The widget type.
@@ -119,11 +119,10 @@ namespace tetengo2 { namespace gui { namespace win32
             widget_type;
 
         //! The main menu type.
-        typedef
-            tetengo2::gui::win32::main_menu<menu_item_type> main_menu_type;
+        typedef tetengo2::gui::win32::main_menu<menu_type> main_menu_type;
 
         //! The popup menu type.
-        typedef popup_menu<menu_item_type> popup_menu_type;
+        typedef popup_menu<menu_type> popup_menu_type;
 
         //! The abstract window type.
         typedef
@@ -136,10 +135,10 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef window<abstract_window_type> window_type;
 
         //! The menu command type.
-        typedef menu_command<menu_item_type> menu_command_type;
+        typedef menu_command<menu_type> menu_command_type;
 
         //! The menu separator type.
-        typedef menu_separator<menu_item_type> menu_separator_type;
+        typedef menu_separator<menu_type> menu_separator_type;
 
         //! The dialog message loop type.
         typedef dialog_message_loop dialog_message_loop_type;

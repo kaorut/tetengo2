@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of stub_tetengo2::gui::menu_item.
+    \brief The definition of stub_tetengo2::gui::menu.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(STUBTETENGO2_GUI_MENUITEM_H)
-#define STUBTETENGO2_GUI_MENUITEM_H
+#if !defined(STUBTETENGO2_GUI_MENU_H)
+#define STUBTETENGO2_GUI_MENU_H
 
 #include <cstddef>
 #include <memory>
@@ -30,7 +30,7 @@ namespace stub_tetengo2 { namespace gui
         template <typename Target, typename Source> class Encode,
         typename MenuObserver
     >
-    class menu_item : boost::noncopyable
+    class menu : boost::noncopyable
     {
     private:
         // concept checks
@@ -74,14 +74,14 @@ namespace stub_tetengo2 { namespace gui
 
         typedef MenuObserver menu_observer_type;
 
-        typedef menu_item* iterator;
+        typedef menu* iterator;
 
-        typedef const menu_item* const_iterator;
+        typedef const menu* const_iterator;
 
 
         // constructors and destructor
 
-        virtual ~menu_item()
+        virtual ~menu()
         throw ()
         {}
 
@@ -148,31 +148,31 @@ namespace stub_tetengo2 { namespace gui
             return iterator();
         }
 
-        const menu_item* find_by_id(const id_type id)
+        const menu* find_by_id(const id_type id)
         const
         {
             return NULL;
         }
 
-        menu_item* find_by_id(const id_type id)
+        menu* find_by_id(const id_type id)
         {
             return NULL;
         }
 
-        const menu_item* find_by_handle(const handle_type handle)
+        const menu* find_by_handle(const handle_type handle)
         const
         {
             return NULL;
         }
 
-        menu_item* find_by_handle(const handle_type handle)
+        menu* find_by_handle(const handle_type handle)
         {
             return NULL;
         }
 
         void insert(
             const iterator           offset,
-            std::auto_ptr<menu_item> p_menu_item
+            std::auto_ptr<menu> p_menu_item
         )
         {}
 
@@ -183,7 +183,7 @@ namespace stub_tetengo2 { namespace gui
     protected:
         // constructors
 
-        menu_item(const handle_type handle, const string_type& text)
+        menu(const handle_type handle, const string_type& text)
         :
         m_handle(handle),
         m_text(text)

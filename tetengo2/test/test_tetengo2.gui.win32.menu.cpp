@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::win32::menu_item.
+    \brief Test of class tetengo2::gui::win32::menu.
 
     Copyright (C) 2007-2010 kaoru
 
@@ -8,13 +8,13 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.win32.menu_item.h"
+#include "tetengo2.gui.win32.menu.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(win32)
-BOOST_AUTO_TEST_SUITE(menu_item)
+BOOST_AUTO_TEST_SUITE(menu)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

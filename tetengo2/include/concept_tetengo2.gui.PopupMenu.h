@@ -11,7 +11,7 @@
 
 //#include <boost/concept_check.hpp>
 
-#include "concept_tetengo2.gui.MenuItem.h"
+#include "concept_tetengo2.gui.Menu.h"
 
 
 namespace concept_tetengo2 { namespace gui
@@ -22,7 +22,7 @@ namespace concept_tetengo2 { namespace gui
         \tparam Type A type.
     */
     template <typename Type>
-    class PopupMenu : private MenuItem<Type>
+    class PopupMenu : private Menu<Type>
     {
 #if !defined(DOCUMENTATION)
     public:

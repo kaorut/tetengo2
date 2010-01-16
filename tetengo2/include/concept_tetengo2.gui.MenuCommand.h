@@ -9,7 +9,7 @@
 #if !defined(CONCEPTTETENGO2_GUI_MENUCOMMAND_H)
 #define CONCEPTTETENGO2_GUI_MENUCOMMAND_H
 
-#include "concept_tetengo2.gui.MenuItem.h"
+#include "concept_tetengo2.gui.Menu.h"
 
 
 namespace concept_tetengo2 { namespace gui
@@ -20,7 +20,7 @@ namespace concept_tetengo2 { namespace gui
         \tparam Type A type.
     */
     template <typename Type>
-    class MenuCommand : private MenuItem<Type>
+    class MenuCommand : private Menu<Type>
     {
 #if !defined(DOCUMENTATION)
     public:
