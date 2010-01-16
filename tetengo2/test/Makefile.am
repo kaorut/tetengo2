@@ -30,6 +30,7 @@ sources = \
     test_tetengo2.gui.menu_observer.cpp \
     test_tetengo2.gui.mouse_observer.cpp \
     test_tetengo2.gui.paint_observer.cpp \
+    test_tetengo2.gui.recursive_menu_iterator.cpp \
     test_tetengo2.gui.window_observer.cpp \
     test_tetengo2.message_catalog.cpp \
     test_tetengo2.message_catalog_parser.cpp \

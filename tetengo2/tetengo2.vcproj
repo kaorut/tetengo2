@@ -159,6 +159,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\tetengo2.gui.recursive_menu_iterator.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\tetengo2.gui.win32.abstract_window.h"
 					>
 				</File>

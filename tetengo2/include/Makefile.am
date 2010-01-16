@@ -30,6 +30,7 @@ headers = \
     tetengo2.gui.menu_observer.h \
     tetengo2.gui.mouse_observer.h \
     tetengo2.gui.paint_observer.h \
+    tetengo2.gui.recursive_menu_iterator.h \
     tetengo2.gui.window_observer.h \
     tetengo2.message_catalog.h \
     tetengo2.message_catalog_parser.h \
