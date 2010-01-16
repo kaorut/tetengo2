@@ -170,10 +170,7 @@ namespace stub_tetengo2 { namespace gui
             return NULL;
         }
 
-        void insert(
-            const iterator           offset,
-            std::auto_ptr<menu> p_menu_item
-        )
+        void insert(const iterator offset, std::auto_ptr<menu> p_menu)
         {}
 
         void erase(const iterator first, const iterator last)

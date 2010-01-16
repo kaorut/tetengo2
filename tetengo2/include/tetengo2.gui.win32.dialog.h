@@ -337,7 +337,7 @@ namespace tetengo2 { namespace gui { namespace win32
             if (handle == NULL)
                 throw std::runtime_error("Can't create a dialog!");
 
-            delete_system_menu_items(handle);
+            delete_system_menus(handle);
 
             return handle;
         }
@@ -374,7 +374,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 throw std::runtime_error("Can't register a window class!");
         }
 
-        static void delete_system_menu_items(const ::HWND window_handle)
+        static void delete_system_menus(const ::HWND window_handle)
         {
             const ::HMENU menu_handle = ::GetSystemMenu(window_handle, FALSE);
             if (menu_handle == NULL) return;

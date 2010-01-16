@@ -147,10 +147,9 @@ namespace bobura
             typename gui_type_list_type::quit_message_loop_type
             quit_message_loop_type;
 
-        typedef typename main_menu_type::base_type menu_item_type;
+        typedef typename main_menu_type::base_type menu_type;
 
-        typedef
-            typename menu_item_type::menu_observer_type menu_observer_type;
+        typedef typename menu_type::menu_observer_type menu_observer_type;
 
         typedef
             typename gui_type_list_type::menu_command_type menu_command_type;
@@ -231,7 +230,7 @@ namespace bobura
 
                 p_main_menu->insert(
                     p_main_menu->end(),
-                    std::auto_ptr<menu_item_type>(p_popup_menu)
+                    std::auto_ptr<menu_type>(p_popup_menu)
                 );
             }
             {
@@ -279,7 +278,7 @@ namespace bobura
 
                 p_main_menu->insert(
                     p_main_menu->end(),
-                    std::auto_ptr<menu_item_type>(p_popup_menu)
+                    std::auto_ptr<menu_type>(p_popup_menu)
                 );
             }
             {
@@ -295,7 +294,7 @@ namespace bobura
 
                 p_main_menu->insert(
                     p_main_menu->end(),
-                    std::auto_ptr<menu_item_type>(p_popup_menu)
+                    std::auto_ptr<menu_type>(p_popup_menu)
                 );
             }
 #endif
@@ -304,12 +303,12 @@ namespace bobura
         }
 
         static void append_menu_command(
-            popup_menu_type&                            popup_menu,
-            const typename menu_item_type::string_type& text,
-            const command_type&                         command
+            popup_menu_type&                       popup_menu,
+            const typename menu_type::string_type& text,
+            const command_type&                    command
         )
         {
-            std::auto_ptr<menu_item_type> p_menu_command(
+            std::auto_ptr<menu_type> p_menu_command(
                 new menu_command_type(text)
             );
 
@@ -325,7 +324,7 @@ namespace bobura
 
         static void append_menu_separator(popup_menu_type& popup_menu)
         {
-            std::auto_ptr<menu_item_type> p_menu_separator(
+            std::auto_ptr<menu_type> p_menu_separator(
                 new menu_separator_type()
             );
             popup_menu.insert(popup_menu.end(), p_menu_separator);

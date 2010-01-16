@@ -224,8 +224,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             m_menu_selected_handler.connect(
                 boost::bind(
-                    &menu_observer_type::selected,
-                    p_menu_observer.get()
+                    &menu_observer_type::selected, p_menu_observer.get()
                 )
             );
 
@@ -343,25 +342,21 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Inserts a menu as a child.
 
-            \param offset      An offset where a menu is inserted.
-            \param p_menu_item An auto pointer to a menu. It must not be
-                               NULL.
+            \param offset An offset where a menu is inserted.
+            \param p_menu An auto pointer to a menu. It must not be NULL.
         */
-        void insert(
-            const iterator      offset,
-            std::auto_ptr<menu> p_menu_item
-        )
+        void insert(const iterator offset, std::auto_ptr<menu> p_menu)
         {
-            if (p_menu_item.get() == NULL)
+            if (p_menu.get() == NULL)
             {
                 throw std::invalid_argument(
                     "The auto pointer to a menu is NULL."
                 );
             }
 
-            insert_native_menu_item(offset, *p_menu_item);
+            insert_native_menu(offset, *p_menu);
 
-            m_children.insert(offset, p_menu_item);
+            m_children.insert(offset, p_menu);
         }
 
         /*!
@@ -467,41 +462,24 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        void insert_native_menu_item(
-            const_iterator offset,
-            menu&          menu
-        )
+        void insert_native_menu(const const_iterator offset, menu& menu)
         const
         {
             std::vector< ::WCHAR> duplicated_text =
                 duplicate_text(menu.text());
 
-            ::MENUITEMINFOW menu_item_info;
-            std::memset(&menu_item_info, 0, sizeof(::MENUITEMINFO));
-            menu_item_info.cbSize = sizeof(::MENUITEMINFO);
+            ::MENUITEMINFOW menu_info;
+            std::memset(&menu_info, 0, sizeof(::MENUITEMINFO));
+            menu_info.cbSize = sizeof(::MENUITEMINFO);
 
             if      (menu.is_command())
-            {
-                set_menu_item_info_for_command(
-                    menu, menu_item_info, duplicated_text
-                );
-            }
+                set_menu_info_for_command(menu, menu_info, duplicated_text);
             else if (menu.is_popup())
-            {
-                set_menu_item_info_for_popup(
-                    menu, menu_item_info, duplicated_text
-                );
-            }
+                set_menu_info_for_popup(menu, menu_info, duplicated_text);
             else if (menu.is_separator())
-            {
-                set_menu_item_info_for_separator(menu, menu_item_info);
-            }
+                set_menu_info_for_separator(menu, menu_info);
             else
-            {
-                set_menu_item_info_for_unknown(
-                    menu, menu_item_info, duplicated_text
-                );
-            }
+                set_menu_info_for_unknown(menu, menu_info, duplicated_text);
 
             const ::BOOL result = ::InsertMenuItem(
                 m_handle,
@@ -509,7 +487,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     std::distance(m_children.begin(), offset)
                 ),
                 TRUE,
-                &menu_item_info
+                &menu_info
             );
             if (result == 0)
             {
@@ -536,50 +514,50 @@ namespace tetengo2 { namespace gui { namespace win32
             return duplicated;
         }
 
-        void set_menu_item_info_for_command(
+        void set_menu_info_for_command(
             menu&                  menu,
-            ::MENUITEMINFOW&       menu_item_info,
+            ::MENUITEMINFOW&       menu_info,
             std::vector< ::WCHAR>& text
         )
         const
         {
-            menu_item_info.fMask = MIIM_STRING | MIIM_ID;
-            menu_item_info.dwTypeData = &text[0];
-            menu_item_info.wID = menu.id();
+            menu_info.fMask = MIIM_STRING | MIIM_ID;
+            menu_info.dwTypeData = &text[0];
+            menu_info.wID = menu.id();
         }
 
-        void set_menu_item_info_for_popup(
+        void set_menu_info_for_popup(
             menu&                  menu,
-            ::MENUITEMINFOW&       menu_item_info,
+            ::MENUITEMINFOW&       menu_info,
             std::vector< ::WCHAR>& text
         )
         const
         {
-            menu_item_info.fMask = MIIM_STRING | MIIM_SUBMENU;
-            menu_item_info.dwTypeData = &text[0];
-            menu_item_info.hSubMenu = menu.handle();
+            menu_info.fMask = MIIM_STRING | MIIM_SUBMENU;
+            menu_info.dwTypeData = &text[0];
+            menu_info.hSubMenu = menu.handle();
         }
 
-        void set_menu_item_info_for_separator(
+        void set_menu_info_for_separator(
             menu&            menu,
-            ::MENUITEMINFOW& menu_item_info
+            ::MENUITEMINFOW& menu_info
         )
         const
         {
-            menu_item_info.fMask = MIIM_FTYPE;
-            menu_item_info.fType = MFT_SEPARATOR;
+            menu_info.fMask = MIIM_FTYPE;
+            menu_info.fType = MFT_SEPARATOR;
         }
 
-        void set_menu_item_info_for_unknown(
+        void set_menu_info_for_unknown(
             menu&                  menu,
-            ::MENUITEMINFOW&       menu_item_info,
+            ::MENUITEMINFOW&       menu_info,
             std::vector< ::WCHAR>& text
         )
         const
         {
-            menu_item_info.fMask = MIIM_STRING | MIIM_STATE;
-            menu_item_info.dwTypeData = &text[0];
-            menu_item_info.fState = MFS_DISABLED;
+            menu_info.fMask = MIIM_STRING | MIIM_STATE;
+            menu_info.dwTypeData = &text[0];
+            menu_info.fState = MFS_DISABLED;
         }
 
         void erase_native_menus(const_iterator first, const_iterator last)
