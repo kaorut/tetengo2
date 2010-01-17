@@ -18,6 +18,11 @@ Depends on  : (none)
 Description : Create tetengo2::string_literal.
 ------------------------------------------------------------------------------
 Nunmber     : 00000009
+Added on    : 2010.01.17
+Depends on  : (none)
+Description : Remove tetengo2::gui::win32::menu::find_by_*().
+------------------------------------------------------------------------------
+Nunmber     : 00000010
 Added on    : 2010.mm.yy
 Depends on  : (none)
 Description : 
