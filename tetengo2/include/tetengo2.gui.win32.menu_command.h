@@ -98,11 +98,12 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         //! \copydoc tetengo2::gui::win32::menu::set_menu_info
-        virtual void set_menu_info(::MENUITEMINFOW& menu_info)
+        virtual void set_menu_info(
+            ::MENUITEMINFOW&       menu_info,
+            std::vector< ::WCHAR>& duplicated_text
+        )
         const
         {
-            std::vector< ::WCHAR> duplicated_text = duplicate_text(text());
-
             menu_info.fMask = MIIM_STRING | MIIM_ID;
             menu_info.dwTypeData = &duplicated_text[0];
             menu_info.wID = id();

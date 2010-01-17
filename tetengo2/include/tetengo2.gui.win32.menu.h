@@ -334,34 +334,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     protected:
-        // static functions
-
-        /*!
-            \brief Duplicates a text.
-
-            \param text A text.
-
-            \return A duplicated vector of the characters.
-        */
-        static std::vector< ::WCHAR> duplicate_text(
-            const string_type& text
-        )
-        {
-            const std::wstring native_string = encode_to_native_type()(text);
-
-            std::vector< ::WCHAR> duplicated;
-            duplicated.reserve(native_string.length() + 1);
-            std::copy(
-                native_string.begin(),
-                native_string.end(),
-                std::back_inserter(duplicated)
-            );
-            duplicated.push_back(L'\0');
-
-            return duplicated;
-        }
-
-
         // constructors
 
         /*!
@@ -386,9 +358,13 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Sets the Win32 menu information.
 
-            \param menu_info A menu information.
+            \param menu_info       A menu information.
+            \param duplicated_text A duplicated text.
         */
-        virtual void set_menu_info(::MENUITEMINFOW& menu_info)
+        virtual void set_menu_info(
+            ::MENUITEMINFOW&       menu_info,
+            std::vector< ::WCHAR>& duplicated_text
+        )
         const = 0;
 
 
@@ -400,6 +376,24 @@ namespace tetengo2 { namespace gui { namespace win32
             static id_type id = 40001;
 
             return id++;
+        }
+
+        static std::vector< ::WCHAR> duplicate_text(
+            const string_type& text
+        )
+        {
+            const std::wstring native_string = encode_to_native_type()(text);
+
+            std::vector< ::WCHAR> duplicated;
+            duplicated.reserve(native_string.length() + 1);
+            std::copy(
+                native_string.begin(),
+                native_string.end(),
+                std::back_inserter(duplicated)
+            );
+            duplicated.push_back(L'\0');
+
+            return duplicated;
         }
 
 
@@ -467,7 +461,9 @@ namespace tetengo2 { namespace gui { namespace win32
             ::MENUITEMINFOW menu_info;
             std::memset(&menu_info, 0, sizeof(::MENUITEMINFO));
             menu_info.cbSize = sizeof(::MENUITEMINFO);
-            menu.set_menu_info(menu_info);
+            std::vector< ::WCHAR> duplicated_text =
+                duplicate_text(menu.text());
+            menu.set_menu_info(menu_info, duplicated_text);
 
             const ::BOOL result = ::InsertMenuItem(
                 m_handle,

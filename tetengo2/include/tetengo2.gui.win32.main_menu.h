@@ -98,7 +98,10 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         //! \copydoc tetengo2::gui::win32::menu::set_menu_info
-        virtual void set_menu_info(::MENUITEMINFOW& menu_info)
+        virtual void set_menu_info(
+            ::MENUITEMINFOW&       menu_info,
+            std::vector< ::WCHAR>& duplicated_text
+        )
         const
         {
             assert(false);
