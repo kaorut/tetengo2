@@ -9,8 +9,10 @@
 #if !defined(TETENGO2_GUI_WIN32_ABSTRACTWINDOW_H)
 #define TETENGO2_GUI_WIN32_ABSTRACTWINDOW_H
 
+#include <algorithm>
 #include <cassert>
 //#include <cstddef>
+#include <functional>
 //#include <memory>
 #include <stdexcept>
 
@@ -336,10 +338,23 @@ namespace tetengo2 { namespace gui { namespace win32
                     {
                         if (!has_main_menu()) break;
 
-                        typename main_menu_type::base_type* const p_found =
-                            main_menu().find_by_id(id);
-                        if (p_found == NULL) break;
-                        p_found->select();
+                        const typename main_menu_type::recursive_iterator
+                        found = std::find_if(
+                            main_menu().recursive_begin(),
+                            main_menu().recursive_end(),
+                            boost::bind(
+                                std::equal_to<
+                                    typename main_menu_type::id_type
+                                >(),
+                                boost::bind(
+                                    &main_menu_type::base_type::id, _1
+                                ),
+                                id
+                            )
+                        );
+                        if (found == main_menu().recursive_end()) break;
+                        found->select();
+
                         return 0;
                     }
 
@@ -347,13 +362,27 @@ namespace tetengo2 { namespace gui { namespace win32
                 }
             case WM_INITMENUPOPUP:
                 {
+                    const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
+
                     if (!has_main_menu()) break;
 
-                    const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
-                    typename main_menu_type::base_type* const p_found =
-                        main_menu().find_by_handle(handle);
-                    if (p_found == NULL) break;
-                    p_found->select();
+                    const typename main_menu_type::recursive_iterator
+                    found = std::find_if(
+                        main_menu().recursive_begin(),
+                        main_menu().recursive_end(),
+                        boost::bind(
+                            std::equal_to<
+                                typename main_menu_type::handle_type
+                            >(),
+                            boost::bind(
+                                &main_menu_type::base_type::handle, _1
+                            ),
+                            handle
+                        )
+                    );
+                    if (found == main_menu().recursive_end()) break;
+                    found->select();
+
                     return 0;
                 }
             case WM_DESTROY:

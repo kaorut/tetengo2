@@ -57,12 +57,12 @@ BOOST_AUTO_TEST_SUITE(menu)
         BOOST_WARN("Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(find_by_id)
+    BOOST_AUTO_TEST_CASE(recursive_begin)
     {
         BOOST_WARN("Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(find_by_handle)
+    BOOST_AUTO_TEST_CASE(recursive_end)
     {
         BOOST_WARN("Not implemented yet.");
     }

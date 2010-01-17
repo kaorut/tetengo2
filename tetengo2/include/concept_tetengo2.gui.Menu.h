@@ -9,7 +9,6 @@
 #if !defined(CONCEPTTETENGO2_GUI_MENUITEM_H)
 #define CONCEPTTETENGO2_GUI_MENUITEM_H
 
-#include <cstddef>
 #include <memory>
 
 #include <boost/concept_check.hpp>
@@ -46,6 +45,11 @@ namespace concept_tetengo2 { namespace gui
 
         typedef typename Type::const_iterator const_iterator;
 
+        typedef typename Type::recursive_iterator recursive_iterator;
+
+        typedef
+            typename Type::const_recursive_iterator const_recursive_iterator;
+
 
         // usage checks
 
@@ -62,13 +66,13 @@ namespace concept_tetengo2 { namespace gui
             const iterator last = m_p_object->end();
             boost::ignore_unused_variable_warning(last);
 
-            Type* const found_by_id =
-                static_cast<Type*>(m_p_object->find_by_id(0));
-            boost::ignore_unused_variable_warning(found_by_id);
+            const recursive_iterator recursive_first =
+                m_p_object->recursive_begin();
+            boost::ignore_unused_variable_warning(recursive_first);
 
-            Type* const found_by_handle =
-                static_cast<Type*>(m_p_object->find_by_handle(NULL));
-            boost::ignore_unused_variable_warning(found_by_handle);
+            const recursive_iterator recursive_last =
+                m_p_object->recursive_end();
+            boost::ignore_unused_variable_warning(recursive_last);
 
             //std::auto_ptr<Type> p;
             //m_p_object->insert(first, p);
@@ -95,13 +99,13 @@ namespace concept_tetengo2 { namespace gui
             const const_iterator last = object.end();
             boost::ignore_unused_variable_warning(last);
 
-            const Type* const found_by_id =
-                static_cast<const Type*>(object.find_by_id(0));
-            boost::ignore_unused_variable_warning(found_by_id);
+            const const_recursive_iterator recursive_first =
+                object.recursive_begin();
+            boost::ignore_unused_variable_warning(recursive_first);
 
-            const Type* const found_by_handle =
-                static_cast<const Type*>(object.find_by_handle(NULL));
-            boost::ignore_unused_variable_warning(found_by_handle);
+            const const_recursive_iterator recursive_last =
+                object.recursive_end();
+            boost::ignore_unused_variable_warning(recursive_last);
         }
 
         

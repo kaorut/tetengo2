@@ -98,7 +98,7 @@ namespace tetengo2 { namespace gui
         throw ()
         {
             std::swap(m_p_menu, another.m_p_menu);
-            m_parents.swap(another.m_parents);
+            std::swap(m_parents, another.m_parents);
         }
 
         /*!
@@ -153,7 +153,7 @@ namespace tetengo2 { namespace gui
                 std::distance(m_p_menu->begin(), m_p_menu->end())
             )
             {
-                const difference_type index = m_parents.top().second;
+                const menu_difference_type index = m_parents.top().second;
                 m_parents.push(parent_and_index_type(m_p_menu, 0));
                 m_p_menu = &*boost::next(m_p_menu->begin(), index);
                 return;
@@ -177,9 +177,10 @@ namespace tetengo2 { namespace gui
 
         typedef
             typename menu_type::const_iterator::difference_type
-            difference_type;
+            menu_difference_type;
 
-        typedef std::pair<menu_type*, difference_type> parent_and_index_type;
+        typedef
+            std::pair<menu_type*, menu_difference_type> parent_and_index_type;
 
 
         // variables

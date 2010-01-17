@@ -75,6 +75,14 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::menu::const_iterator
         typedef typename base_type::const_iterator const_iterator;
 
+        //! \copydoc tetengo2::gui::win32::menu::recursive_iterator
+        typedef typename base_type::recursive_iterator recursive_iterator;
+
+        //! \copydoc tetengo2::gui::win32::menu::const_recursive_iterator
+        typedef
+            typename base_type::const_recursive_iterator
+            const_recursive_iterator;
+
 
         // constructors and destructor
 

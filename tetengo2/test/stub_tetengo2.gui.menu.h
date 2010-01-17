@@ -9,7 +9,6 @@
 #if !defined(STUBTETENGO2_GUI_MENU_H)
 #define STUBTETENGO2_GUI_MENU_H
 
-#include <cstddef>
 #include <memory>
 //#include <string>
 
@@ -20,6 +19,7 @@
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MenuObserver.h"
+#include "tetengo2.gui.recursive_menu_iterator.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -80,6 +80,13 @@ namespace stub_tetengo2 { namespace gui
         typedef
             typename boost::ptr_vector<menu>::const_iterator const_iterator;
 
+        typedef
+            tetengo2::gui::recursive_menu_iterator<menu> recursive_iterator;
+
+        typedef
+            tetengo2::gui::recursive_menu_iterator<const menu>
+            const_recursive_iterator;
+
 
         // constructors and destructor
 
@@ -138,26 +145,26 @@ namespace stub_tetengo2 { namespace gui
             return m_children.end();
         }
 
-        const menu* find_by_id(const id_type id)
+        const_recursive_iterator recursive_begin()
         const
         {
-            return NULL;
+            return const_recursive_iterator(this);
         }
 
-        menu* find_by_id(const id_type id)
+        recursive_iterator recursive_begin()
         {
-            return NULL;
+            return recursive_iterator(this);
         }
 
-        const menu* find_by_handle(const handle_type handle)
+        const_recursive_iterator recursive_end()
         const
         {
-            return NULL;
+            return const_recursive_iterator();
         }
 
-        menu* find_by_handle(const handle_type handle)
+        recursive_iterator recursive_end()
         {
-            return NULL;
+            return recursive_iterator();
         }
 
         void insert(const iterator offset, std::auto_ptr<menu> p_menu)

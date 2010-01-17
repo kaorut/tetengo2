@@ -12,7 +12,6 @@
 //#include <algorithm>
 //#include <cstddef>
 #include <cstring>
-#include <functional>
 //#include <iterator>
 #include <memory>
 #include <stdexcept>
@@ -21,7 +20,6 @@
 
 #include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
-#include <boost/mem_fn.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -113,12 +111,18 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The menu observer type.
         typedef MenuObserver menu_observer_type;
 
-        //! The menu iterator type.
+        //! The iterator type.
         typedef typename boost::ptr_vector<menu>::iterator iterator;
 
-        //! The const menu iterator type.
+        //! The const iterator type.
         typedef
             typename boost::ptr_vector<menu>::const_iterator const_iterator;
+
+        //! The recursive iterator type.
+        typedef recursive_menu_iterator<menu> recursive_iterator;
+
+        //! The const recursive iterator type.
+        typedef recursive_menu_iterator<const menu> const_recursive_iterator;
 
 
         // constructors and destructor
@@ -235,69 +239,53 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Finds a menu among the children by the specified id.
+            \brief Returns the recursive first immutable iterator to this menu
+                   and the children.
 
-            If no menu is found, it returns end().
+            The first iterator points to this menu.
 
-            \param id An id.
-
-            \return The immutable iterator to the menu.
+            \return The recursive first immutable iterator.
         */
-        const menu* find_by_id(const id_type id)
+        const_recursive_iterator recursive_begin()
         const
         {
-            return find_impl<const menu>(
-                begin(), end(), id, boost::mem_fn(&menu::id)
-            );
+            return const_recursive_iterator(this);
         }
 
         /*!
-            \brief Finds a menu among the children by the specified id.
+            \brief Returns the recursive first mutable iterator to this menu
+                   and the children.
 
-            If no menu is found, it returns end().
+            The first iterator points to this menu.
 
-            \param id An id.
-
-            \return The mutable iterator to the menu.
+            \return The recursive first mutable iterator.
         */
-        menu* find_by_id(const id_type id)
+        recursive_iterator recursive_begin()
         {
-            return find_impl<menu>(
-                begin(), end(), id, boost::mem_fn(&menu::id)
-            );
+            return recursive_iterator(this);
         }
 
         /*!
-            \brief Finds a menu among the children by the specified handle.
+            \brief Returns the recursive last immutable iterator to this menu
+                   and the children.
 
-            If no menu is found, it returns end().
-
-            \param handle A handle.
-
-            \return The immutable iterator to the menu.
+            \return The recursive last immutable iterator.
         */
-        const menu* find_by_handle(const handle_type handle)
+        const_recursive_iterator recursive_end()
         const
         {
-            return find_impl<const menu>(
-                begin(), end(), handle, boost::mem_fn(&menu::handle)
-            );
+            return const_recursive_iterator();
         }
 
         /*!
-            \brief Finds a menu among the children by the specified handle.
+            \brief Returns the recursive last mutable iterator to this menu
+                   and the children.
 
-            If no menu is found, it returns end().
-
-            \param handle A handle.
-
-            \return The mutable iterator to the menu.
+            \return The recursive last mutable iterator.
         */
-        menu* find_by_handle(const handle_type handle)
+        recursive_iterator recursive_end()
         {
-            return find_impl<menu>(
-                begin(), end(), handle, boost::mem_fn(&menu::handle)
-            );
+            return recursive_iterator();
         }
 
         /*!
@@ -395,47 +383,6 @@ namespace tetengo2 { namespace gui { namespace win32
             duplicated.push_back(L'\0');
 
             return duplicated;
-        }
-
-
-        // static functions
-
-        template <
-            typename Menu,
-            typename ForwardIterator,
-            typename Target,
-            typename GetTarget
-        >
-        static Menu* find_impl(
-            const ForwardIterator first,
-            const ForwardIterator last,
-            const Target          target,
-            const GetTarget       get_target
-        )
-        {
-            const ForwardIterator found = std::find_if(
-                first,
-                last,
-                boost::bind(
-                    std::equal_to<Target>(),
-                    boost::bind(get_target, _1),
-                    target
-                )
-            );
-            if (found != last) return &*found;
-
-            for (ForwardIterator i = first; i != last; ++i)
-            {
-                Menu* const p_found = find_impl<Menu>(
-                    i->begin(),
-                    i->end(),
-                    target,
-                    get_target
-                );
-                if (p_found != NULL) return p_found;
-            }
-
-            return NULL;
         }
 
 
