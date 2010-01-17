@@ -9,11 +9,11 @@
 #if !defined(TETENGO2_GUI_WIN32_MENU_H)
 #define TETENGO2_GUI_WIN32_MENU_H
 
-#include <algorithm>
-#include <cstddef>
+//#include <algorithm>
+//#include <cstddef>
 #include <cstring>
 #include <functional>
-#include <iterator>
+//#include <iterator>
 #include <memory>
 #include <stdexcept>
 //#include <string>
@@ -33,6 +33,7 @@
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MenuObserver.h"
+#include "tetengo2.gui.recursive_menu_iterator.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32

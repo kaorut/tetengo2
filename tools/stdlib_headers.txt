@@ -35,10 +35,13 @@ boost::filesystem::basic_path                    boost/filesystem.hpp
 boost::filesystem::exists                        boost/filesystem.hpp
 boost::filesystem::is_directory                  boost/filesystem.hpp
 boost::filesystem::wpath                         boost/filesystem.hpp
+boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
 boost::function                                  boost/function.hpp
 boost::ignore_unused_variable_warning            boost/concept_check.hpp
+boost::iterator_facade                           boost/iterator/iterator_facade.hpp
 boost::make_tuple                                boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::mem_fn                                    boost/mem_fn.hpp
+boost::next                                      boost/next_prior.hpp
 boost::noncopyable                               boost/noncopyable.hpp
 boost::optional                                  boost/optional.hpp
 boost::polymorphic_downcast                      boost/cast.hpp
@@ -94,6 +97,7 @@ std::ptrdiff_t                                   cstddef
 std::runtime_error                               stdexcept
 std::size_t                                      cstddef
 std::sort                                        algorithm
+std::stack                                       stack
 std::string                                      string
 std::swap                                        algorithm
 std::transform                                   algorithm

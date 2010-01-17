@@ -15,6 +15,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Handle.h"
@@ -74,9 +75,10 @@ namespace stub_tetengo2 { namespace gui
 
         typedef MenuObserver menu_observer_type;
 
-        typedef menu* iterator;
+        typedef typename boost::ptr_vector<menu>::iterator iterator;
 
-        typedef const menu* const_iterator;
+        typedef
+            typename boost::ptr_vector<menu>::const_iterator const_iterator;
 
 
         // constructors and destructor
@@ -117,23 +119,23 @@ namespace stub_tetengo2 { namespace gui
         const_iterator begin()
         const
         {
-            return const_iterator();
+            return m_children.begin();
         }
 
         iterator begin()
         {
-            return iterator();
+            return m_children.begin();
         }
 
         const_iterator end()
         const
         {
-            return const_iterator();
+            return m_children.end();
         }
 
         iterator end()
         {
-            return iterator();
+            return m_children.end();
         }
 
         const menu* find_by_id(const id_type id)
@@ -159,10 +161,14 @@ namespace stub_tetengo2 { namespace gui
         }
 
         void insert(const iterator offset, std::auto_ptr<menu> p_menu)
-        {}
+        {
+            m_children.insert(offset, p_menu.release());
+        }
 
         void erase(const iterator first, const iterator last)
-        {}
+        {
+            m_children.erase(first, last);
+        }
 
 
     protected:
@@ -171,7 +177,8 @@ namespace stub_tetengo2 { namespace gui
         menu(const handle_type handle, const string_type& text)
         :
         m_handle(handle),
-        m_text(text)
+        m_text(text),
+        m_children()
         {}
 
 
@@ -181,6 +188,8 @@ namespace stub_tetengo2 { namespace gui
         const handle_type m_handle;
 
         const string_type m_text;
+
+        boost::ptr_vector<menu> m_children;
 
 
     };
