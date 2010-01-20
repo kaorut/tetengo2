@@ -9,8 +9,6 @@
 #if !defined(BOBURA_MODEL_STATIONINFO_GRADE_H)
 #define BOBURA_MODEL_STATIONINFO_GRADE_H
 
-//#include <string>
-
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
