@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_MESSAGES_H)
 #define TETENGO2_MESSAGES_H
 
-#include <algorithm>
+//#include <algorithm>
 #include <functional>
 #include <fstream>
 #include <ios>
@@ -28,6 +28,7 @@
 
 #include "concept_tetengo2.MessageCatalogParser.h"
 #include "concept_tetengo2.Path.h"
+#include "tetengo2.text.h"
 
 
 namespace tetengo2
@@ -104,7 +105,7 @@ namespace tetengo2
 
         //! The unary functor type for encoding to std::string.
         typedef
-            Encode<std::string, typename Path::string_type>
+            Encode<std::string, typename path_type::string_type>
             encode_to_std_string_type;
 
 
@@ -243,7 +244,13 @@ namespace tetengo2
             bool operator()(const path_type& path)
             const
             {
-                if (path.extension() != L".txt") return false;
+                if (
+                    path.extension() !=
+                    typename path_type::string_type(TETENGO2_TEXT(".txt"))
+                )
+                {
+                    return false;
+                }
 
                 const std::string locale_name =
                     encode_to_std_string_type()(path.stem());

@@ -12,7 +12,7 @@
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-//#include <concept_tetengo2.String.h>
+#include <concept_tetengo2.String.h>
 #include <tetengo2.text.h>
 
 
