@@ -13,6 +13,7 @@
 
 //#include <boost/concept_check.hpp>
 
+#include <tetengo2.text.h>
 #include <tetengo2.gui.menu_observer.h>
 #include <tetengo2.gui.paint_observer.h>
 #include <tetengo2.gui.window_observer.h>
@@ -131,10 +132,14 @@ namespace bobura { namespace message
 
 #if defined(_MSC_VER)
             p_canvas->set_font(
-                font_type(L"‚Ý‚©‚¿‚á‚ñ", 64, false, true, true, false)
+                font_type(
+                    TETENGO2_TEXT("‚Ý‚©‚¿‚á‚ñ"), 64, false, true, true, false
+                )
             );
 
-            p_canvas->draw_text(L"‚ ‚¢‚¤‚¦‚¨", std::make_pair(32, 64));
+            p_canvas->draw_text(
+                TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨"), std::make_pair(32, 64)
+            );
 #endif
         }
 

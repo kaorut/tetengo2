@@ -8,17 +8,19 @@
 
 //#include <cstddef>
 //#include <exception>
-#include <locale>
+//#include <locale>
 //#include <stdexcept>
 //#include <string>
 //#include <vector>
 
 //#include <boost/program_options.hpp>
-#include <boost/scoped_array.hpp>
+//#include <boost/scoped_array.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 //#include <windows.h>
+
+//#include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
 
@@ -52,7 +54,9 @@ namespace
         const std::locale global_locale(
             std::locale(""),
             new bobura::type_list::messages_type(
-                L".",
+                bobura::type_list::messages_type::string_type(
+                    TETENGO2_TEXT(".")
+                ),
                 std::locale(ui_locale_name().c_str())
             )
         );

@@ -27,14 +27,15 @@ headers = \
     concept_tetengo2.gui.Window.h \
     concept_tetengo2.gui.WindowObserver.h \
     tetengo2.generator.h \
+    tetengo2.message_catalog.h \
+    tetengo2.message_catalog_parser.h \
+    tetengo2.messages.h \
+    tetengo2.text.h \
     tetengo2.gui.menu_observer.h \
     tetengo2.gui.mouse_observer.h \
     tetengo2.gui.paint_observer.h \
     tetengo2.gui.recursive_menu_iterator.h \
-    tetengo2.gui.window_observer.h \
-    tetengo2.message_catalog.h \
-    tetengo2.message_catalog_parser.h \
-    tetengo2.messages.h
+    tetengo2.gui.window_observer.h
 
 extra_headers = \
     tetengo2.gui.win32.abstract_window.h \

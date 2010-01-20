@@ -16,6 +16,7 @@
 
 #include <concept_tetengo2.gui.Dialog.h>
 #include <concept_tetengo2.gui.Button.h>
+#include <tetengo2.text.h>
 
 #include "concept_bobura.message.MessageTypeLists.h"
 
@@ -174,7 +175,7 @@ namespace bobura
             dialog.m_p_ok_button.reset(
                 new button_type(dialog, button_type::style_default)
             );
-            dialog.m_p_ok_button->set_text(L"OK");
+            dialog.m_p_ok_button->set_text(TETENGO2_TEXT("OK"));
             dialog.m_p_ok_button->set_dimension(std::make_pair(88, 24));
             dialog.m_p_ok_button->set_position(std::make_pair(280, 216));
             dialog.m_p_ok_button->add_mouse_observer(
