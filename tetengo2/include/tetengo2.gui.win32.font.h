@@ -179,7 +179,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Checks whether this is equal to anther font object.
+            \brief Checks whether this is equal to another font object.
 
             \param another Another font object.
 
