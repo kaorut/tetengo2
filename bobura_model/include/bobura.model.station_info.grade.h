@@ -14,7 +14,8 @@
 #include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-#include <concept_tetengo2.String.h>
+//#include <concept_tetengo2.String.h>
+#include <tetengo2.text.h>
 
 
 namespace bobura { namespace model { namespace station_info
@@ -74,73 +75,6 @@ namespace bobura { namespace model { namespace station_info
 
     };
 
-    namespace
-    {
-        template <typename GradeName>
-        struct grade_name;
-
-        template <>
-        struct grade_name< ::std::string>
-        {
-            static const ::std::string& local()
-            {
-                static const ::std::string singleton = "local";
-                return singleton;
-            }
-
-            static const ::std::string& principal()
-            {
-                static const ::std::string singleton = "principal";
-                return singleton;
-            }
-
-            static const ::std::string& local_terminal()
-            {
-                static const ::std::string singleton = "local terminal";
-                return singleton;
-            }
-
-            static const ::std::string& principal_terminal()
-            {
-                static const ::std::string singleton = "principal terminal";
-                return singleton;
-            }
-
-
-        };
-
-        template <>
-        struct grade_name< ::std::wstring>
-        {
-            static const ::std::wstring& local()
-            {
-                static const ::std::wstring singleton = L"local";
-                return singleton;
-            }
-
-            static const ::std::wstring& principal()
-            {
-                static const ::std::wstring singleton = L"principal";
-                return singleton;
-            }
-
-            static const ::std::wstring& local_terminal()
-            {
-                static const ::std::wstring singleton = L"local terminal";
-                return singleton;
-            }
-
-            static const ::std::wstring& principal_terminal()
-            {
-                static const ::std::wstring singleton = L"principal terminal";
-                return singleton;
-            }
-
-
-        };
-
-
-    }
 
     /*!
         \brief The class for a local station grade.
@@ -196,7 +130,8 @@ namespace bobura { namespace model { namespace station_info
         virtual const name_type& name()
         const
         {
-            return grade_name<name_type>::local();
+            static const name_type singleton(TETENGO2_TEXT("local"));
+            return singleton;
         }
 
 
@@ -263,7 +198,8 @@ namespace bobura { namespace model { namespace station_info
         virtual const name_type& name()
         const
         {
-            return grade_name<name_type>::principal();
+            static const name_type singleton(TETENGO2_TEXT("principal"));
+            return singleton;
         }
 
 
@@ -330,7 +266,8 @@ namespace bobura { namespace model { namespace station_info
         virtual const name_type& name()
         const
         {
-            return grade_name<name_type>::local_terminal();
+            static const name_type singleton(TETENGO2_TEXT("local terminal"));
+            return singleton;
         }
 
 
@@ -397,7 +334,10 @@ namespace bobura { namespace model { namespace station_info
         virtual const name_type& name()
         const
         {
-            return grade_name<name_type>::principal_terminal();
+            static const name_type singleton(
+                TETENGO2_TEXT("principal terminal")
+            );
+            return singleton;
         }
 
 
