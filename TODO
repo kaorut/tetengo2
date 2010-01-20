@@ -8,27 +8,27 @@
 \verbatim
 ------------------------------------------------------------------------------
 Nunmber     : 00000007
-Added on    : 2010.01.16
+Added on    : 2010/01/16
 Depends on  : (none)
 Description : Remove const from the return value types.
 ------------------------------------------------------------------------------
 Nunmber     : 00000008
-Added on    : 2010.01.16
+Added on    : 2010/01/16
 Depends on  : (none)
 Description : Create tetengo2::string_literal.
 ------------------------------------------------------------------------------
 Nunmber     : 00000010
-Added on    : 2010.01.20
+Added on    : 2010/01/20
 Depends on  : (none)
 Description : Create tetengo2::assignable.
 ------------------------------------------------------------------------------
-\Nunmber     : 00000011
-Added on    : 2010.01.20
+Nunmber     : 00000011
+Added on    : 2010/01/20
 Depends on  : (none)
 Description : Upgrade Doxygen.
 ------------------------------------------------------------------------------
 Nunmber     : 00000012
-Added on    : 2010.mm.yy
+Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
 ------------------------------------------------------------------------------
