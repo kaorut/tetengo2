@@ -23,6 +23,11 @@ Depends on  : (none)
 Description : Create tetengo2::assignable.
 ------------------------------------------------------------------------------
 Number      : 00000013
+Added on    : 2010/01/21
+Depends on  : (none)
+Description : Create tetengo2::gui::win32::aggregating_menu.
+------------------------------------------------------------------------------
+Number      : 00000014
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
