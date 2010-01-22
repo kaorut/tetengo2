@@ -26,6 +26,7 @@
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MouseObserver.h"
 #include "concept_tetengo2.gui.PaintObserver.h"
+#include "tetengo2.text.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -268,7 +269,14 @@ namespace stub_tetengo2 { namespace gui
         virtual font_type font()
         const
         {
-            return font_type(L"MS UI Gothic", 12, false, false, false, false);
+            return font_type(
+                string_type(TETENGO2_TEXT("MS UI Gothic")),
+                12,
+                false,
+                false,
+                false,
+                false
+            );
         }
 
         std::vector<child_type*> children()

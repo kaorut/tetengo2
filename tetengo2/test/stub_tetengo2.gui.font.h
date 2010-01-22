@@ -16,6 +16,7 @@
 #include <boost/operators.hpp>
 
 #include "concept_tetengo2.String.h"
+#include "tetengo2.text.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -45,7 +46,12 @@ namespace stub_tetengo2 { namespace gui
         static const font& dialog_font()
         {
             static const font singleton(
-                L"MS UI Gothic", 12, false, false, false, false
+                string_type(TETENGO2_TEXT("MS UI Gothic")),
+                12,
+                false,
+                false,
+                false,
+                false
             );
             return singleton;
         }
