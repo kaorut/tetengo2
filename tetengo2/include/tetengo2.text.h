@@ -109,33 +109,11 @@ namespace tetengo2
         }
 
         /*!
-            \brief Returns a multibyte string.
-
-            \return A multibyte string.
-        */
-        operator std::string()
-        const
-        {
-            return m_multibyte;
-        }
-
-        /*!
             \brief Returns the wide value.
 
             \return The wide value.
         */
         operator wide_type()
-        const
-        {
-            return m_wide;
-        }
-
-        /*!
-            \brief Returns a wide string.
-
-            \return A wide string.
-        */
-        operator std::wstring()
         const
         {
             return m_wide;

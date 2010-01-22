@@ -133,12 +133,17 @@ namespace bobura { namespace message
 #if defined(_MSC_VER)
             p_canvas->set_font(
                 font_type(
-                    TETENGO2_TEXT("‚Ý‚©‚¿‚á‚ñ"), 64, false, true, true, false
+                    string_type(TETENGO2_TEXT("‚Ý‚©‚¿‚á‚ñ")),
+                    64,
+                    false,
+                    true,
+                    true,
+                    false
                 )
             );
 
             p_canvas->draw_text(
-                TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨"), std::make_pair(32, 64)
+                string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")), std::make_pair(32, 64)
             );
 #endif
         }
@@ -146,6 +151,8 @@ namespace bobura { namespace message
 
     private:
         // types
+
+        typedef typename canvas_type::string_type string_type;
 
         typedef typename canvas_type::font_type font_type;
 

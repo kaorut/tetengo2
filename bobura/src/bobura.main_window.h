@@ -172,7 +172,7 @@ namespace bobura
             set_menus(window);
 #if defined(_MSC_VER)
             window.set_text(
-                TETENGO2_TEXT("ぼうぶら テストプログラム")
+                string_type(TETENGO2_TEXT("ぼうぶら テストプログラム"))
             );
 #endif
         }
@@ -201,33 +201,35 @@ namespace bobura
 #if defined(_MSC_VER)
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
-                    new popup_menu_type(TETENGO2_TEXT("ファイル(&F)"))
+                    new popup_menu_type(
+                        string_type(TETENGO2_TEXT("ファイル(&F)"))
+                    )
                 );
 
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("新規作成(&N)\tCtrl+N"),
+                    string_type(TETENGO2_TEXT("新規作成(&N)\tCtrl+N")),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("開く(&O)...\tCtrl+O"),
+                    string_type(TETENGO2_TEXT("開く(&O)...\tCtrl+O")),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("上書き保存(&S)\tCtrl+S"),
+                    string_type(TETENGO2_TEXT("上書き保存(&S)\tCtrl+S")),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("名前を付けて保存(&A)..."),
+                    string_type(TETENGO2_TEXT("名前を付けて保存(&A)...")),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("終了(&X)"),
+                    string_type(TETENGO2_TEXT("終了(&X)")),
                     typename command_type_list_type::exit_type(window)
                 );
 
@@ -238,44 +240,46 @@ namespace bobura
             }
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
-                    new popup_menu_type(TETENGO2_TEXT("編集(&E)"))
+                    new popup_menu_type(
+                        string_type(TETENGO2_TEXT("編集(&E)"))
+                    )
                 );
 
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("元に戻す(&U)\tCtrl+Z"),
+                    string_type(TETENGO2_TEXT("元に戻す(&U)\tCtrl+Z")),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("やり直し(&R)\tCtrl+Y"),
-                    typename command_type_list_type::nop_type()
-                );
-                append_menu_separator(*p_popup_menu);
-                append_menu_command(
-                    *p_popup_menu,
-                    TETENGO2_TEXT("切り取り(&T)\tCtrl+X"),
-                    typename command_type_list_type::nop_type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    TETENGO2_TEXT("コピー(&C)\tCtrl+C"),
-                    typename command_type_list_type::nop_type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    TETENGO2_TEXT("貼り付け(&P)\tCtrl+V"),
+                    string_type(TETENGO2_TEXT("やり直し(&R)\tCtrl+Y")),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("検索(&F)...\tCtrl+F"),
+                    string_type(TETENGO2_TEXT("切り取り(&T)\tCtrl+X")),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("置換(&R)...\tCtrl+H"),
+                    string_type(TETENGO2_TEXT("コピー(&C)\tCtrl+C")),
+                    typename command_type_list_type::nop_type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    string_type(TETENGO2_TEXT("貼り付け(&P)\tCtrl+V")),
+                    typename command_type_list_type::nop_type()
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu,
+                    string_type(TETENGO2_TEXT("検索(&F)...\tCtrl+F")),
+                    typename command_type_list_type::nop_type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    string_type(TETENGO2_TEXT("置換(&R)...\tCtrl+H")),
                     typename command_type_list_type::nop_type()
                 );
 
@@ -286,12 +290,14 @@ namespace bobura
             }
             {
                 std::auto_ptr<popup_menu_type> p_popup_menu(
-                    new popup_menu_type(TETENGO2_TEXT("ヘルプ(&H)"))
+                    new popup_menu_type(
+                        string_type(TETENGO2_TEXT("ヘルプ(&H)"))
+                    )
                 );
 
                 append_menu_command(
                     *p_popup_menu,
-                    TETENGO2_TEXT("バージョン情報(&A)..."),
+                    string_type(TETENGO2_TEXT("バージョン情報(&A)...")),
                     typename command_type_list_type::about_type(window)
                 );
 
