@@ -22,11 +22,6 @@ Added on    : 2010/01/20
 Depends on  : (none)
 Description : Create tetengo2::assignable.
 ------------------------------------------------------------------------------
-Number      : 00000012
-Added on    : 2010/01/20
-Depends on  : (none)
-Description : Correct the Doxygen warnings due to the \copydoc commands.
-------------------------------------------------------------------------------
 Number      : 00000013
 Added on    : 2010/mm/yy
 Depends on  : (none)
