@@ -418,7 +418,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual const position_type position()
+        virtual position_type position()
         const
         {
             check_destroyed();
@@ -467,7 +467,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual const dimension_type dimension()
+        virtual dimension_type dimension()
         const
         {
             check_destroyed();
@@ -553,7 +553,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual const dimension_type client_dimension()
+        virtual dimension_type client_dimension()
         const
         {
             check_destroyed();
@@ -596,7 +596,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual const string_type text()
+        virtual string_type text()
         const
         {
             check_destroyed();
@@ -678,7 +678,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual const font_type font()
+        virtual font_type font()
         const
         {
             check_destroyed();
@@ -715,7 +715,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The children.
         */
-        const std::vector<child_type*> children()
+        std::vector<child_type*> children()
         {
             return children_impl<child_type>();
         }
@@ -725,7 +725,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The children.
         */
-        const std::vector<const child_type*> children()
+        std::vector<const child_type*> children()
         const
         {
             return children_impl<const child_type>();
@@ -1078,7 +1078,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         template <typename Child>
-        const std::vector<Child*> children_impl()
+        std::vector<Child*> children_impl()
         const
         {
             std::vector<Child*> children;

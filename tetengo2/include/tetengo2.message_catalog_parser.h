@@ -124,7 +124,7 @@ namespace tetengo2
 
             \throw std::runtime_error No next entry exists.
         */
-        const entry_type next()
+        entry_type next()
         {
             if (!has_next())
                 throw std::runtime_error("No next entry.");
@@ -180,7 +180,7 @@ namespace tetengo2
             return false;
         }
 
-        const input_string_type get_line()
+        input_string_type get_line()
         const
         {
             input_string_type line;

@@ -241,7 +241,7 @@ namespace bobura { namespace model { namespace train_info
 
             \throw std::logic_error When this or another is uninitialized.
         */
-        const time_span_type operator-(const time& another)
+        time_span_type operator-(const time& another)
         const
         {
             if (*this == uninitialized() || another == uninitialized())

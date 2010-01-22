@@ -266,7 +266,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // static functions
 
-        static const font make_dialog_font()
+        static font make_dialog_font()
         {
             const ::LOGFONTW log_font = get_message_font();
 
@@ -288,7 +288,7 @@ namespace tetengo2 { namespace gui { namespace win32
             );
         }
 
-        static const ::LOGFONTW get_message_font()
+        static ::LOGFONTW get_message_font()
         {
             ::NONCLIENTMETRICSW metrics;
             get_nonclient_metrics(metrics);
@@ -320,7 +320,7 @@ namespace tetengo2 { namespace gui { namespace win32
             }
         }
 
-        static const families_type make_installed_families()
+        static families_type make_installed_families()
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const ::INT count = font_collection.GetFamilyCount();
@@ -354,7 +354,7 @@ namespace tetengo2 { namespace gui { namespace win32
             return families;
         }
 
-        const string_type select_family(const string_type& family)
+        string_type select_family(const string_type& family)
         {
             if (
                 std::find(

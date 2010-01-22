@@ -136,7 +136,7 @@ namespace bobura { namespace model
 
             \return The name.
         */
-        const name_type name()
+        const name_type& name()
         const
         {
             return m_name;

@@ -77,7 +77,7 @@ namespace tetengo2
 
             \return The localized text.
         */
-        const string_type get(const string_type default_text)
+        string_type get(const string_type default_text)
         const
         {
             if (m_p_messages == NULL || m_catalog_id < 0)

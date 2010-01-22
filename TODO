@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000007
-Added on    : 2010/01/16
-Depends on  : (none)
-Description : Remove const from the return value types.
-------------------------------------------------------------------------------
 Number      : 00000008
 Added on    : 2010/01/16
 Depends on  : (none)

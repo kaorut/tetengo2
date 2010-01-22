@@ -67,7 +67,7 @@ namespace tetengo2 { namespace win32
 
             \throw std::invalid_argument When the string cannot be encoded.
         */
-        const target_type operator()(const source_type& string)
+        target_type operator()(const source_type& string)
         {
             return string;
         }
@@ -106,7 +106,7 @@ namespace tetengo2 { namespace win32
 
         // functions
 
-        const target_type operator()(const source_type& string)
+        target_type operator()(const source_type& string)
         const
         {
             if (string.empty()) return target_type();
@@ -172,7 +172,7 @@ namespace tetengo2 { namespace win32
 
         // functions
 
-        const target_type operator()(const source_type& string)
+        target_type operator()(const source_type& string)
         const
         {
             if (string.empty()) return target_type();

@@ -256,7 +256,7 @@ namespace stub_tetengo2 { namespace gui
             m_text = text;
         }
 
-        virtual const string_type text()
+        virtual string_type text()
         const
         {
             return m_text;
@@ -265,18 +265,18 @@ namespace stub_tetengo2 { namespace gui
         virtual void set_font(const font_type& font)
         {}
 
-        virtual const font_type font()
+        virtual font_type font()
         const
         {
             return font_type(L"MS UI Gothic", 12, false, false, false, false);
         }
 
-        const std::vector<child_type*> children()
+        std::vector<child_type*> children()
         {
             return std::vector<child_type*>();
         }
 
-        const std::vector<const child_type*> children()
+        std::vector<const child_type*> children()
         const
         {
             return std::vector<const child_type*>();

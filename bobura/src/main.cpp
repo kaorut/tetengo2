@@ -27,7 +27,7 @@
 
 namespace
 {
-    const std::string locale_info(const ::LCID id, const ::LCTYPE type)
+    std::string locale_info(const ::LCID id, const ::LCTYPE type)
     {
         const int length = ::GetLocaleInfoA(id, type, NULL, 0);
         if (length == 0)
@@ -39,7 +39,7 @@ namespace
         return std::string(p_info.get());
     }
 
-    const std::string ui_locale_name()
+    std::string ui_locale_name()
     {
         const ::LANGID language_id = ::GetUserDefaultLangID();
         const ::LCID locale_id = MAKELCID(language_id, SORT_DEFAULT);
