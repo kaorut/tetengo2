@@ -405,6 +405,10 @@
 				Name="test_tetengo2"
 				>
 				<File
+					RelativePath=".\test\test_tetengo2.assignable.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_tetengo2.generator.cpp"
 					>
 				</File>

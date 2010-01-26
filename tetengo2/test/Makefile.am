@@ -26,6 +26,7 @@ extra_headers =
 
 sources = \
     master.cpp \
+    test_tetengo2.assignable.cpp \
     test_tetengo2.generator.cpp \
     test_tetengo2.message_catalog.cpp \
     test_tetengo2.message_catalog_parser.cpp \

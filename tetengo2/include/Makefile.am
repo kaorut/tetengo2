@@ -26,6 +26,7 @@ headers = \
     concept_tetengo2.gui.Widget.h \
     concept_tetengo2.gui.Window.h \
     concept_tetengo2.gui.WindowObserver.h \
+    tetengo2.assignable.h \
     tetengo2.generator.h \
     tetengo2.message_catalog.h \
     tetengo2.message_catalog_parser.h \

@@ -123,6 +123,10 @@
 				Name="tetengo2"
 				>
 				<File
+					RelativePath=".\include\tetengo2.assignable.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\tetengo2.generator.h"
 					>
 				</File>
