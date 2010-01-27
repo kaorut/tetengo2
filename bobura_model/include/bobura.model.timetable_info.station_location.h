@@ -14,6 +14,8 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 
+#include <tetengo2.assignable.h>
+
 #include "concept_bobura.model.Station.h"
 
 
@@ -29,7 +31,10 @@ namespace bobura { namespace model { namespace timetable_info
     */
     template <typename Station, typename Meterage>
     class station_location :
-        private boost::equality_comparable<station_location<Station, Meterage> >
+        public tetengo2::assignable<station_location<Station, Meterage> >,
+        private boost::equality_comparable<
+            station_location<Station, Meterage>
+        >
     {
     private:
         // concept checks
@@ -107,8 +112,7 @@ namespace bobura { namespace model { namespace timetable_info
         */
         station_location& operator=(const station_location& another)
         {
-            station_location(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

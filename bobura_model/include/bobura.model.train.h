@@ -18,6 +18,7 @@
 #include <boost/operators.hpp>
 
 #include <concept_tetengo2.String.h>
+#include <tetengo2.assignable.h>
 
 #include "concept_bobura.model.train_info.Stop.h"
 
@@ -36,6 +37,7 @@ namespace bobura { namespace model
     */
     template <typename Number, typename Note, typename Stop>
     class train :
+        public tetengo2::assignable<train<Number, Note, Stop> >,
         private boost::equality_comparable<train<Number, Note, Stop> >
     {
     private:
@@ -144,8 +146,7 @@ namespace bobura { namespace model
         */
         train& operator=(const train& another)
         {
-            train(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

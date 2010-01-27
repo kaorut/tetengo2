@@ -13,6 +13,7 @@
 #include <boost/operators.hpp>
 
 #include <concept_tetengo2.String.h>
+#include <tetengo2.assignable.h>
 
 #include "concept_bobura.model.train_info.Time.h"
 
@@ -28,7 +29,9 @@ namespace bobura { namespace model { namespace train_info
                          concept_tetengo2::String<Platform>.
     */
     template <typename Time, typename Platform>
-    class stop : private boost::equality_comparable<stop<Time, Platform> >
+    class stop :
+        public tetengo2::assignable<stop<Time, Platform> >,
+        private boost::equality_comparable<stop<Time, Platform> >
     {
     private:
         // concept checks
@@ -111,8 +114,7 @@ namespace bobura { namespace model { namespace train_info
         */
         stop& operator=(const stop& another)
         {
-            stop(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

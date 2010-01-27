@@ -19,6 +19,8 @@
 #include <boost/operators.hpp>
 #include <boost/utility.hpp>
 
+#include <tetengo2.assignable.h>
+
 #include "concept_bobura.model.Train.h"
 #include "concept_bobura.model.timetable_info.StationLocation.h"
 
@@ -35,6 +37,7 @@ namespace bobura { namespace model
     */
     template <typename StationLocation, typename Train>
     class timetable :
+        public tetengo2::assignable<timetable<StationLocation, Train> >,
         private boost::equality_comparable<timetable<StationLocation, Train> >
     {
     private:
@@ -137,8 +140,7 @@ namespace bobura { namespace model
         */
         timetable& operator=(const timetable& another)
         {
-            timetable(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

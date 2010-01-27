@@ -32,6 +32,7 @@
 #undef max
 
 #include "concept_tetengo2.String.h"
+#include "tetengo2.assignable.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -45,7 +46,9 @@ namespace tetengo2 { namespace gui { namespace win32
                        boost::UnsignedInteger<Size>.
    */
     template <typename String, typename Size>
-    class font : public boost::equality_comparable<font<String, Size> >
+    class font :
+        public assignable<font<String, Size> >,
+        public boost::equality_comparable<font<String, Size> >
     {
     private:
         // concept checks
@@ -174,8 +177,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         font& operator=(const font& another)
         {
-            font(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

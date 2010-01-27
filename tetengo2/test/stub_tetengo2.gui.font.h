@@ -16,13 +16,16 @@
 #include <boost/operators.hpp>
 
 #include "concept_tetengo2.String.h"
+#include "tetengo2.assignable.h"
 #include "tetengo2.text.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
     template <typename String, typename Size>
-    class font : public boost::equality_comparable<font<String, Size> >
+    class font :
+        public tetengo2::assignable<font<String, Size> >,
+        public boost::equality_comparable<font<String, Size> >
     {
     private:
         // concept checks
@@ -112,8 +115,7 @@ namespace stub_tetengo2 { namespace gui
 
         font& operator=(const font& another)
         {
-            font(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         bool operator==(const font& another)

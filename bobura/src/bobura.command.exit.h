@@ -14,6 +14,7 @@
 //#include <boost/concept_check.hpp>
 
 #include <concept_tetengo2.gui.Window.h>
+#include <tetengo2.assignable.h>
 
 
 namespace bobura { namespace command
@@ -25,7 +26,7 @@ namespace bobura { namespace command
                        concept_tetengo2::gui::Window<Window>.
     */
     template <typename Window>
-    class exit
+    class exit : public tetengo2::assignable<exit<Window> >
     {
     private:
         // concept checks
@@ -92,8 +93,7 @@ namespace bobura { namespace command
         */
         exit& operator=(const exit& another)
         {
-            exit(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

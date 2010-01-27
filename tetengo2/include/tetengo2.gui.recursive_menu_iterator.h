@@ -20,6 +20,8 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 
+#include "tetengo2.assignable.h"
+
 
 namespace tetengo2 { namespace gui
 {
@@ -32,7 +34,8 @@ namespace tetengo2 { namespace gui
     class recursive_menu_iterator :
         public boost::iterator_facade<
             recursive_menu_iterator<Menu>, Menu, boost::forward_traversal_tag
-        >
+        >,
+        public assignable<recursive_menu_iterator<Menu> >
     {
     public:
         // types
@@ -112,8 +115,7 @@ namespace tetengo2 { namespace gui
             const recursive_menu_iterator& another
         )
         {
-            recursive_menu_iterator(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

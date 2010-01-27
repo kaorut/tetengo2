@@ -17,6 +17,8 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 
+#include <tetengo2.assignable.h>
+
 
 namespace bobura { namespace model { namespace train_info
 {
@@ -28,6 +30,7 @@ namespace bobura { namespace model { namespace train_info
     */
     template <typename TimeSpanTick>
     class time_span :
+        public tetengo2::assignable<time_span<TimeSpanTick> >,
         private boost::totally_ordered<time_span<TimeSpanTick> >,
         private boost::additive<time_span<TimeSpanTick> >
     {
@@ -138,8 +141,7 @@ namespace bobura { namespace model { namespace train_info
         */
         time_span& operator=(const time_span& another)
         {
-            time_span(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

@@ -13,6 +13,8 @@
 
 //#include <boost/concept_check.hpp>
 
+#include <tetengo2.assignable.h>
+
 #include "concept_bobura.AboutDialog.h"
 
 
@@ -25,7 +27,7 @@ namespace bobura { namespace command
                             concept_bobura::AboutDialog<AboutDialog>.
     */
     template <typename AboutDialog>
-    class about
+    class about : public tetengo2::assignable<about<AboutDialog> >
     {
     private:
         // concept checks
@@ -97,8 +99,7 @@ namespace bobura { namespace command
         */
         about& operator=(const about& another)
         {
-            about(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

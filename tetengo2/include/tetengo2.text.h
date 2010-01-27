@@ -11,6 +11,8 @@
 
 #include <algorithm>
 
+#include "tetengo2.assignable.h"
+
 
 namespace tetengo2
 {
@@ -21,7 +23,8 @@ namespace tetengo2
         \tparam Wide      A wide value type.
     */
     template <typename Multibyte, typename Wide>
-    class text_value_holder
+    class text_value_holder :
+        public assignable<text_value_holder<Multibyte, Wide> >
     {
     public:
         // types
@@ -92,8 +95,7 @@ namespace tetengo2
         */
         text_value_holder& operator=(const text_value_holder& another)
         {
-            text_value_holder(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!

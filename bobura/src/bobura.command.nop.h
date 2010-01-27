@@ -12,13 +12,15 @@
 #include <algorithm>
 //std::swap // dummy
 
+#include <tetengo2.assignable.h>
+
 
 namespace bobura { namespace command
 {
     /*!
         \brief The class for a no-operation command.
     */
-    class nop
+    class nop : public tetengo2::assignable<nop>
     {
     public:
         // constructors and destructor
@@ -65,8 +67,7 @@ namespace bobura { namespace command
         */
         nop& operator=(const nop& another)
         {
-            nop(another).swap(*this);
-            return *this;
+            return assign(another);
         }
 
         /*!
