@@ -10,7 +10,6 @@
 #define TETENGO2_TEXT_H //!< !! Include Guard !!
 
 #include <algorithm>
-#include <string>
 
 
 namespace tetengo2
