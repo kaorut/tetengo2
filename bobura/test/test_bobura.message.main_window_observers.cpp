@@ -19,12 +19,16 @@ BOOST_AUTO_TEST_SUITE(main_window_menu_observer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(selected)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
 
@@ -35,12 +39,16 @@ BOOST_AUTO_TEST_SUITE(main_window_paint_observer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(paint)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
 
@@ -51,12 +59,16 @@ BOOST_AUTO_TEST_SUITE(main_window_window_observer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(destroyed)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
 

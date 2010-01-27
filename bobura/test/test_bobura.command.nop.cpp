@@ -18,12 +18,16 @@ BOOST_AUTO_TEST_SUITE(nop)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
 

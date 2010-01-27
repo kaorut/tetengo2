@@ -19,147 +19,205 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(has_parent)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(parent)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(root_ancestor)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(set_enabled)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(enabled)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(set_visible)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(visible)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(create_canvas)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(set_position)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(position)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(set_dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(set_client_dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(client_dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(set_text)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(text)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(set_font)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(font)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(children)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(add_paint_observer)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(add_mouse_observer)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(destroyed)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(p_static_window_procedure)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(initialize)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(p_widget_from)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(check_destroyed)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(window_procedure)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(mouse_clicked_handler)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
 

@@ -17,12 +17,16 @@ BOOST_AUTO_TEST_SUITE(assignable)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(assign)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
 

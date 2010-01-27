@@ -19,62 +19,86 @@ BOOST_AUTO_TEST_SUITE(menu)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(id)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(handle)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(text)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(select)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(add_menu_observer)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(begin)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(end)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(recursive_begin)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(recursive_end)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(insert)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
     BOOST_AUTO_TEST_CASE(erase)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_WARN_MESSAGE(
+            false, "Not implemented yet."
+        );
     }
 
 BOOST_AUTO_TEST_SUITE_END()
