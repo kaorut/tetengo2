@@ -13,6 +13,11 @@ Depends on  : (none)
 Description : Create tetengo2::gui::win32::aggregating_menu.
 ------------------------------------------------------------------------------
 Number      : 00000014
+Added on    : 2010/01/27
+Depends on  : (none)
+Description : Copy the resource for the tests to the output directory.
+------------------------------------------------------------------------------
+Number      : 00000015
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
