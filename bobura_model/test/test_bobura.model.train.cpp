@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
     BOOST_AUTO_TEST_CASE(swap)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
     BOOST_AUTO_TEST_CASE(operator_assign)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -161,7 +161,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -242,7 +242,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
     BOOST_AUTO_TEST_CASE(number)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -266,7 +266,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
     BOOST_AUTO_TEST_CASE(note)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -290,7 +290,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
     BOOST_AUTO_TEST_CASE(stops)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -318,7 +318,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
     BOOST_AUTO_TEST_CASE(insert_stop)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -379,7 +379,7 @@ BOOST_AUTO_TEST_SUITE(train)
 
     BOOST_AUTO_TEST_CASE(erase_stops)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<

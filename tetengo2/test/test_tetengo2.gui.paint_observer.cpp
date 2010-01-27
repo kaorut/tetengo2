@@ -46,14 +46,14 @@ BOOST_AUTO_TEST_SUITE(paint_observer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         paint_observer_type();
     }
 
     BOOST_AUTO_TEST_CASE(paint)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         paint_observer_type paint_observer;
         canvas_type canvas(NULL, true);

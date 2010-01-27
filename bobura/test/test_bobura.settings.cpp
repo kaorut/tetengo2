@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_SUITE(settings)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         const std::vector<std::wstring> arguments;
         const bobura::settings<std::wstring> settings(

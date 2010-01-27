@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             const iterator_type iterator;
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
 
     BOOST_AUTO_TEST_CASE(operator_preincrement)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             const std::auto_ptr<menu_type> p_menu = create_menu();

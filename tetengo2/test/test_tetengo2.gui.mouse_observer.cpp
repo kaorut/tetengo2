@@ -18,14 +18,14 @@ BOOST_AUTO_TEST_SUITE(mouse_observer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         tetengo2::gui::mouse_observer();
     }
 
     BOOST_AUTO_TEST_CASE(clicked)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         tetengo2::gui::mouse_observer mouse_observer;
 

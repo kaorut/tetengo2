@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_SUITE(grade)
 
     BOOST_AUTO_TEST_CASE(instance)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         bobura::model::station_info::local<std::string>::instance();
         bobura::model::station_info::principal<std::string>::instance();
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_SUITE(grade)
 
     BOOST_AUTO_TEST_CASE(name)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         BOOST_CHECK(
             bobura::model::station_info::local<

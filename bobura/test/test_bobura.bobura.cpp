@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_SUITE(bobura)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         const settings_type settings;
         const bobura_type bobura(settings);
@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_SUITE(bobura)
 
     BOOST_AUTO_TEST_CASE(run)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         const settings_type settings;
         const bobura_type bobura(settings);

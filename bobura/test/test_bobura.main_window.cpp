@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         const main_window_type main_window;
     }

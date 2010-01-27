@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_SUITE(alert)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         alert_type(NULL);
 

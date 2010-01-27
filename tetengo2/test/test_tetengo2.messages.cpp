@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         const messages_type messages(
             boost::filesystem::wpath(L"messages.test"), std::locale()
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
     BOOST_AUTO_TEST_CASE(do_open)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             const set_global_locale global_locale(locale_en);
@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
     BOOST_AUTO_TEST_CASE(do_get)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             const set_global_locale global_locale(locale_en);
@@ -250,7 +250,7 @@ BOOST_AUTO_TEST_SUITE(messages)
 
     BOOST_AUTO_TEST_CASE(do_close)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             const set_global_locale global_locale(locale_en);

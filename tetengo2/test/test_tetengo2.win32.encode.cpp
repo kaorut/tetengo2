@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_SUITE(encode)
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             const std::string converted =

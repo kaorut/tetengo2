@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_SUITE(station)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
         typedef bobura::model::station_info::local<std::wstring> local_type;
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(station)
 
     BOOST_AUTO_TEST_CASE(swap)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
         typedef bobura::model::station_info::local<std::wstring> local_type;
@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_SUITE(station)
 
     BOOST_AUTO_TEST_CASE(operator_assign)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
         typedef bobura::model::station_info::local<std::wstring> local_type;
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_SUITE(station)
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
         typedef bobura::model::station_info::local<std::wstring> local_type;
@@ -210,7 +210,7 @@ BOOST_AUTO_TEST_SUITE(station)
 
     BOOST_AUTO_TEST_CASE(name)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
         typedef bobura::model::station_info::local<std::wstring> local_type;
@@ -247,7 +247,7 @@ BOOST_AUTO_TEST_SUITE(station)
 
     BOOST_AUTO_TEST_CASE(grade)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::grade<std::wstring> grade_type;
         typedef bobura::model::station_info::local<std::wstring> local_type;

@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(about_dialog)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         window_type window;
         const about_dialog_type about_dialog(window);

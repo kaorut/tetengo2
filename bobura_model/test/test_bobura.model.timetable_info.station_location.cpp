@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
 
     BOOST_AUTO_TEST_CASE(swap)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
 
     BOOST_AUTO_TEST_CASE(operator_assign)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
 
     BOOST_AUTO_TEST_CASE(station)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
 
     BOOST_AUTO_TEST_CASE(meterage)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -207,7 +207,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
 
     BOOST_AUTO_TEST_CASE(before)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;

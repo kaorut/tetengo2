@@ -18,14 +18,14 @@ BOOST_AUTO_TEST_SUITE(menu_observer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         tetengo2::gui::menu_observer();
     }
 
     BOOST_AUTO_TEST_CASE(selected)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         tetengo2::gui::menu_observer menu_observer;
 

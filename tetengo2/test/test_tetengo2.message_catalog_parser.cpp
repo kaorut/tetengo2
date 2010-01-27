@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             std::istringstream input_stream(catalog0);
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
 
     BOOST_AUTO_TEST_CASE(has_next)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             std::istringstream input_stream(catalog0);
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
 
     BOOST_AUTO_TEST_CASE(next)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             std::istringstream input_stream(catalog1);

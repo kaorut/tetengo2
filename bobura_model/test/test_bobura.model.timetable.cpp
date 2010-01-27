@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
    BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
     BOOST_AUTO_TEST_CASE(swap)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -195,7 +195,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
     BOOST_AUTO_TEST_CASE(operator_assign)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -251,7 +251,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -402,7 +402,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
     BOOST_AUTO_TEST_CASE(station_locations)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -472,7 +472,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
     BOOST_AUTO_TEST_CASE(insert_station_location)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -730,7 +730,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
     BOOST_AUTO_TEST_CASE(erase_station_locations)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -967,7 +967,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
     BOOST_AUTO_TEST_CASE(trains)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
@@ -1035,7 +1035,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
     BOOST_AUTO_TEST_CASE(insert_train)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;

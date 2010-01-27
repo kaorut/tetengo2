@@ -18,14 +18,14 @@ BOOST_AUTO_TEST_SUITE(window_observer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         tetengo2::gui::window_observer();
     }
 
     BOOST_AUTO_TEST_CASE(destroyed)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         tetengo2::gui::window_observer window_observer;
 

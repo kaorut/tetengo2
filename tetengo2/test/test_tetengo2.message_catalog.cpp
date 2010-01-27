@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             const set_global_locale global_locale(locale_en);
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
 
     BOOST_AUTO_TEST_CASE(get)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         {
             const set_global_locale global_locale(locale_en);

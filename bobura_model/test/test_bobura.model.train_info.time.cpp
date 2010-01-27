@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(uninitialized)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(swap)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(operator_assign)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(operator_plus_assign)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time_span<std::ptrdiff_t>
@@ -280,7 +280,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(operator_minus_assign)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time_span<std::ptrdiff_t>
@@ -351,7 +351,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(operator_minus)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time_span<std::ptrdiff_t>
@@ -416,7 +416,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -441,7 +441,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(operator_less_than)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -481,7 +481,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(seconds_from_midnight)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
@@ -515,7 +515,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
     BOOST_AUTO_TEST_CASE(hours_minutes_seconds)
     {
-        BOOST_CHECKPOINT("");
+        BOOST_TEST_PASSPOINT();
 
         typedef
             bobura::model::train_info::time<
