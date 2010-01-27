@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_SUITE(gui_initializer_finalizer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 

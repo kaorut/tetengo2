@@ -19,12 +19,12 @@ BOOST_AUTO_TEST_SUITE(about_dialog_ok_button_mouse_observer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(clicked)
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 

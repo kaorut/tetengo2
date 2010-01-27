@@ -19,12 +19,12 @@ BOOST_AUTO_TEST_SUITE(dialog)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(do_modal)
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 

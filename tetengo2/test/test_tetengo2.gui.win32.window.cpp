@@ -19,12 +19,12 @@ BOOST_AUTO_TEST_SUITE(window)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(handle)
     {
-        BOOST_WARN("Not implemented yet.");
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 
