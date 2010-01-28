@@ -4,6 +4,7 @@
 
 headers = \
     stub_tetengo2.encode.h \
+    stub_tetengo2.gui.abstract_popup_menu.h \
     stub_tetengo2.gui.abstract_window.h \
     stub_tetengo2.gui.alert.h \
     stub_tetengo2.gui.button.h \
@@ -39,6 +40,7 @@ sources = \
     test_tetengo2.gui.window_observer.cpp
 
 extra_sources = \
+    test_tetengo2.gui.win32.abstract_popup_menu.cpp \
     test_tetengo2.gui.win32.abstract_window.cpp \
     test_tetengo2.gui.win32.alert.cpp \
     test_tetengo2.gui.win32.button.cpp \

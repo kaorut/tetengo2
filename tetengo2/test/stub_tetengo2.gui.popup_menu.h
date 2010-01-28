@@ -51,6 +51,12 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename base_type::const_iterator const_iterator;
 
+        typedef typename base_type::recursive_iterator recursive_iterator;
+
+        typedef
+            typename base_type::const_recursive_iterator
+            const_recursive_iterator;
+
 
         // constructors and destructor
 

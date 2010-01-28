@@ -91,7 +91,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         menu_separator()
         :
-        base_type(NULL, string_type())
+        base_type(string_type())
         {}
 
         /*!

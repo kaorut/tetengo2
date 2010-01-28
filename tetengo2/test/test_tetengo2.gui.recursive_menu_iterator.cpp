@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "stub_tetengo2.encode.h"
+#include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "stub_tetengo2.gui.menu.h"
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "tetengo2.gui.menu_observer.h"
@@ -33,7 +34,13 @@ namespace
         >
         menu_type;
 
-    typedef stub_tetengo2::gui::popup_menu<menu_type> popup_menu_type;
+    typedef
+        stub_tetengo2::gui::abstract_popup_menu<menu_type>
+        abstract_popup_menu_type;
+
+    typedef
+        stub_tetengo2::gui::popup_menu<abstract_popup_menu_type>
+        popup_menu_type;
 
     typedef tetengo2::gui::recursive_menu_iterator<menu_type> iterator_type;
 

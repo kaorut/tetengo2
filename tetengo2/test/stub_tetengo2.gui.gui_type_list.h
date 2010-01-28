@@ -11,6 +11,7 @@
 
 //#include <boost/concept_check.hpp>
 
+#include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "stub_tetengo2.gui.abstract_window.h"
 #include "stub_tetengo2.gui.alert.h"
 #include "stub_tetengo2.gui.button.h"
@@ -71,18 +72,6 @@ namespace stub_tetengo2 { namespace gui
             >
             canvas_type;
 
-    private:
-        typedef
-            menu<
-                unsigned int,
-                const void*,
-                String,
-                stub_tetengo2::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_type;
-
-    public:
         typedef
             widget<
                 const void*,
@@ -98,9 +87,23 @@ namespace stub_tetengo2 { namespace gui
             >
             widget_type;
 
-        typedef main_menu<menu_type> main_menu_type;
+    private:
+        typedef
+            menu<
+                unsigned int,
+                const void*,
+                String,
+                stub_tetengo2::encode,
+                tetengo2::gui::menu_observer
+            >
+            menu_type;
 
-        typedef popup_menu<menu_type> popup_menu_type;
+        typedef abstract_popup_menu<menu_type> abstract_popup_menu_type;
+
+    public:
+        typedef main_menu<abstract_popup_menu_type> main_menu_type;
+
+        typedef popup_menu<abstract_popup_menu_type> popup_menu_type;
 
         typedef
             abstract_window<

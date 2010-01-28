@@ -148,7 +148,7 @@ namespace bobura
             typename gui_type_list_type::quit_message_loop_type
             quit_message_loop_type;
 
-        typedef typename main_menu_type::base_type menu_type;
+        typedef typename main_menu_type::base_type::base_type menu_type;
 
         typedef typename menu_type::menu_observer_type menu_observer_type;
 
@@ -200,7 +200,7 @@ namespace bobura
 
 #if defined(_MSC_VER)
             {
-                std::auto_ptr<popup_menu_type> p_popup_menu(
+                std::auto_ptr<menu_type> p_popup_menu(
                     new popup_menu_type(
                         string_type(TETENGO2_TEXT("ファイル(&F)"))
                     )
@@ -233,13 +233,10 @@ namespace bobura
                     typename command_type_list_type::exit_type(window)
                 );
 
-                p_main_menu->insert(
-                    p_main_menu->end(),
-                    std::auto_ptr<menu_type>(p_popup_menu)
-                );
+                p_main_menu->insert(p_main_menu->end(), p_popup_menu);
             }
             {
-                std::auto_ptr<popup_menu_type> p_popup_menu(
+                std::auto_ptr<menu_type> p_popup_menu(
                     new popup_menu_type(
                         string_type(TETENGO2_TEXT("編集(&E)"))
                     )
@@ -283,13 +280,10 @@ namespace bobura
                     typename command_type_list_type::nop_type()
                 );
 
-                p_main_menu->insert(
-                    p_main_menu->end(),
-                    std::auto_ptr<menu_type>(p_popup_menu)
-                );
+                p_main_menu->insert(p_main_menu->end(), p_popup_menu);
             }
             {
-                std::auto_ptr<popup_menu_type> p_popup_menu(
+                std::auto_ptr<menu_type> p_popup_menu(
                     new popup_menu_type(
                         string_type(TETENGO2_TEXT("ヘルプ(&H)"))
                     )
@@ -301,10 +295,7 @@ namespace bobura
                     typename command_type_list_type::about_type(window)
                 );
 
-                p_main_menu->insert(
-                    p_main_menu->end(),
-                    std::auto_ptr<menu_type>(p_popup_menu)
-                );
+                p_main_menu->insert(p_main_menu->end(), p_popup_menu);
             }
 #endif
 
@@ -312,7 +303,7 @@ namespace bobura
         }
 
         static void append_menu_command(
-            popup_menu_type&                       popup_menu,
+            menu_type&                             popup_menu,
             const typename menu_type::string_type& text,
             const command_type&                    command
         )
@@ -331,7 +322,7 @@ namespace bobura
             popup_menu.insert(popup_menu.end(), p_menu_command);
         }
 
-        static void append_menu_separator(popup_menu_type& popup_menu)
+        static void append_menu_separator(menu_type& popup_menu)
         {
             std::auto_ptr<menu_type> p_menu_separator(
                 new menu_separator_type()

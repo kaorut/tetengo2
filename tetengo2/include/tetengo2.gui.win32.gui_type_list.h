@@ -15,6 +15,7 @@
 #include "tetengo2.gui.mouse_observer.h"
 #include "tetengo2.gui.paint_observer.h"
 #include "tetengo2.gui.window_observer.h"
+#include "tetengo2.gui.win32.abstract_popup_menu.h"
 #include "tetengo2.gui.win32.abstract_window.h"
 #include "tetengo2.gui.win32.alert.h"
 #include "tetengo2.gui.win32.button.h"
@@ -90,18 +91,6 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             canvas_type;
 
-    private:
-        typedef
-            tetengo2::gui::win32::menu<
-                ::UINT,
-                ::HMENU,
-                String,
-                tetengo2::win32::encode,
-                tetengo2::gui::menu_observer
-            >
-            menu_type;
-
-    public:
         //! The widget type.
         typedef
             widget<
@@ -118,11 +107,29 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             widget_type;
 
+    private:
+        typedef
+            tetengo2::gui::win32::menu<
+                ::UINT,
+                ::HMENU,
+                String,
+                tetengo2::win32::encode,
+                tetengo2::gui::menu_observer
+            >
+            menu_type;
+
+        typedef
+            tetengo2::gui::win32::abstract_popup_menu<menu_type>
+            abstract_popup_menu_type;
+
+    public:
         //! The main menu type.
-        typedef tetengo2::gui::win32::main_menu<menu_type> main_menu_type;
+        typedef
+            tetengo2::gui::win32::main_menu<abstract_popup_menu_type>
+            main_menu_type;
 
         //! The popup menu type.
-        typedef popup_menu<menu_type> popup_menu_type;
+        typedef popup_menu<abstract_popup_menu_type> popup_menu_type;
 
         //! The abstract window type.
         typedef

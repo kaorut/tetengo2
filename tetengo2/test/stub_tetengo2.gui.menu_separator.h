@@ -66,7 +66,7 @@ namespace stub_tetengo2 { namespace gui
 
         menu_separator()
         :
-        base_type(NULL, string_type())
+        base_type(string_type())
         {}
 
         virtual ~menu_separator()

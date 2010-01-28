@@ -39,6 +39,7 @@ headers = \
     tetengo2.gui.window_observer.h
 
 extra_headers = \
+    tetengo2.gui.win32.abstract_popup_menu.h \
     tetengo2.gui.win32.abstract_window.h \
     tetengo2.gui.win32.alert.h \
     tetengo2.gui.win32.button.h \

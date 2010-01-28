@@ -453,6 +453,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\test_tetengo2.gui.win32.abstract_popup_menu.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_tetengo2.gui.win32.abstract_window.cpp"
 					>
 				</File>
@@ -550,6 +554,10 @@
 			<Filter
 				Name="stub_tetengo2::gui"
 				>
+				<File
+					RelativePath=".\test\stub_tetengo2.gui.abstract_popup_menu.h"
+					>
+				</File>
 				<File
 					RelativePath=".\test\stub_tetengo2.gui.abstract_window.h"
 					>

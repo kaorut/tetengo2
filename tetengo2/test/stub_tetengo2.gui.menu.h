@@ -106,7 +106,7 @@ namespace stub_tetengo2 { namespace gui
         virtual handle_type handle()
         const
         {
-            return m_handle;
+            return NULL;
         }
 
         const string_type& text()
@@ -123,80 +123,76 @@ namespace stub_tetengo2 { namespace gui
         )
         {}
 
-        const_iterator begin()
+        virtual const_iterator begin()
         const
         {
-            return m_children.begin();
+            return const_iterator();
         }
 
-        iterator begin()
+        virtual iterator begin()
         {
-            return m_children.begin();
+            return iterator();
         }
 
-        const_iterator end()
+        virtual const_iterator end()
         const
         {
-            return m_children.end();
+            return const_iterator();
         }
 
-        iterator end()
+        virtual iterator end()
         {
-            return m_children.end();
+            return iterator();
         }
 
-        const_recursive_iterator recursive_begin()
-        const
-        {
-            return const_recursive_iterator(this);
-        }
-
-        recursive_iterator recursive_begin()
-        {
-            return recursive_iterator(this);
-        }
-
-        const_recursive_iterator recursive_end()
+        virtual const_recursive_iterator recursive_begin()
         const
         {
             return const_recursive_iterator();
         }
 
-        recursive_iterator recursive_end()
+        virtual recursive_iterator recursive_begin()
         {
             return recursive_iterator();
         }
 
-        void insert(const iterator offset, std::auto_ptr<menu> p_menu)
+        virtual const_recursive_iterator recursive_end()
+        const
         {
-            m_children.insert(offset, p_menu.release());
+            return const_recursive_iterator();
         }
 
-        void erase(const iterator first, const iterator last)
+        virtual recursive_iterator recursive_end()
         {
-            m_children.erase(first, last);
+            return recursive_iterator();
+        }
+
+        virtual void insert(const iterator offset, std::auto_ptr<menu> p_menu)
+        {
+            assert(false);
+            throw std::logic_error("Can't insert any menus.");
+        }
+
+        virtual void erase(const iterator first, const iterator last)
+        {
+            assert(false);
+            throw std::logic_error("Can't erase any menus.");
         }
 
 
     protected:
         // constructors
 
-        menu(const handle_type handle, const string_type& text)
+        menu(const string_type& text)
         :
-        m_handle(handle),
-        m_text(text),
-        m_children()
+        m_text(text)
         {}
 
 
     private:
         // variables
 
-        const handle_type m_handle;
-
         const string_type m_text;
-
-        boost::ptr_vector<menu> m_children;
 
 
     };

@@ -56,7 +56,7 @@ namespace stub_tetengo2 { namespace gui
 
         explicit menu_command(const string_type& text)
         :
-        base_type(NULL, text)
+        base_type(text)
         {}
 
         virtual ~menu_command()

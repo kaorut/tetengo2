@@ -375,7 +375,8 @@ namespace tetengo2 { namespace gui { namespace win32
                                 typename main_menu_type::handle_type
                             >(),
                             boost::bind(
-                                &main_menu_type::base_type::handle, _1
+                                &main_menu_type::base_type::base_type::handle,
+                                _1
                             ),
                             handle
                         )

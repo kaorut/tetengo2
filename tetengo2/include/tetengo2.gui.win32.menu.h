@@ -132,10 +132,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         virtual ~menu()
         throw ()
-        {
-            if (::IsMenu(m_handle) != 0)
-                ::DestroyMenu(m_handle);
-        }
+        {}
 
 
         // functions
@@ -154,12 +151,12 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns the handle.
 
-            \return The handle. It may be NULL.
+            \return Always NULL.
         */
-        handle_type handle()
+        virtual handle_type handle()
         const
         {
-            return m_handle;
+            return NULL;
         }
 
         /*!
@@ -204,10 +201,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The first immutable iterator.
         */
-        const_iterator begin()
+        virtual const_iterator begin()
         const
         {
-            return m_children.begin();
+            return empty_children().begin();
         }
 
         /*!
@@ -215,9 +212,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The first mutable iterator.
         */
-        iterator begin()
+        virtual iterator begin()
         {
-            return m_children.begin();
+            return empty_children().begin();
         }
 
         /*!
@@ -225,10 +222,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The last immutable iterator.
         */
-        const_iterator end()
+        virtual const_iterator end()
         const
         {
-            return m_children.end();
+            return empty_children().end();
         }
 
         /*!
@@ -236,9 +233,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The last mutable iterator.
         */
-        iterator end()
+        virtual iterator end()
         {
-            return m_children.end();
+            return empty_children().end();
         }
 
         /*!
@@ -249,10 +246,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The recursive first immutable iterator.
         */
-        const_recursive_iterator recursive_begin()
+        virtual const_recursive_iterator recursive_begin()
         const
         {
-            return const_recursive_iterator(this);
+            return const_recursive_iterator();
         }
 
         /*!
@@ -263,9 +260,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The recursive first mutable iterator.
         */
-        recursive_iterator recursive_begin()
+        virtual recursive_iterator recursive_begin()
         {
-            return recursive_iterator(this);
+            return recursive_iterator();
         }
 
         /*!
@@ -274,7 +271,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The recursive last immutable iterator.
         */
-        const_recursive_iterator recursive_end()
+        virtual const_recursive_iterator recursive_end()
         const
         {
             return const_recursive_iterator();
@@ -286,7 +283,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The recursive last mutable iterator.
         */
-        recursive_iterator recursive_end()
+        virtual recursive_iterator recursive_end()
         {
             return recursive_iterator();
         }
@@ -296,32 +293,27 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param offset An offset where a menu is inserted.
             \param p_menu An auto pointer to a menu. It must not be NULL.
+
+            \throw std::logic_error Always.
         */
-        void insert(const iterator offset, std::auto_ptr<menu> p_menu)
+        virtual void insert(const iterator offset, std::auto_ptr<menu> p_menu)
         {
-            if (p_menu.get() == NULL)
-            {
-                throw std::invalid_argument(
-                    "The auto pointer to a menu is NULL."
-                );
-            }
-
-            insert_native_menu(offset, *p_menu);
-
-            m_children.insert(offset, p_menu);
+            assert(false);
+            throw std::logic_error("Can't insert any menus.");
         }
 
         /*!
-            \brief Erases the menu items from the children.
+            \brief Erases the menus from the children.
 
-            \param first The first iterator to the erased items.
-            \param last  The last iterator to the eraed items.
+            \param first The first iterator to the erased menus.
+            \param last  The last iterator to the eraed menus.
+
+            \throw std::logic_error Always.
         */
-        void erase(const iterator first, const iterator last)
+        virtual void erase(const iterator first, const iterator last)
         {
-            erase_native_menus(first, last);
-
-            m_children.erase(first, last);
+            assert(false);
+            throw std::logic_error("Can't erase any menus.");
         }
 
 
@@ -331,22 +323,20 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a menu.
 
-            \param handle A handle.
-            \param text   A text.
+            \param text A text.
         */
-        menu(const handle_type handle, const string_type& text)
+        menu(const string_type& text)
         :
         m_id(get_and_increment_id()),
-        m_handle(handle),
         m_text(text),
         m_menu_observers(),
-        m_menu_selected_handler(),
-        m_children()
+        m_menu_selected_handler()
         {}
 
 
         // functions
 
+    public:
         /*!
             \brief Sets the Win32 menu information.
 
@@ -370,22 +360,11 @@ namespace tetengo2 { namespace gui { namespace win32
             return id++;
         }
 
-        static std::vector< ::WCHAR> duplicate_text(
-            const string_type& text
-        )
+        static boost::ptr_vector<menu>& empty_children()
         {
-            const std::wstring native_string = encode_to_native_type()(text);
-
-            std::vector< ::WCHAR> duplicated;
-            duplicated.reserve(native_string.length() + 1);
-            std::copy(
-                native_string.begin(),
-                native_string.end(),
-                std::back_inserter(duplicated)
-            );
-            duplicated.push_back(L'\0');
-
-            return duplicated;
+            static boost::ptr_vector<menu> singleton;
+            assert(singleton.empty());
+            return singleton;
         }
 
 
@@ -393,63 +372,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         id_type m_id;
 
-        handle_type m_handle;
-
         string_type m_text;
 
         boost::ptr_vector<menu_observer_type> m_menu_observers;
 
         boost::signal<void ()> m_menu_selected_handler;
-
-        boost::ptr_vector<menu> m_children;
-
-
-        // functions
-
-        void insert_native_menu(const const_iterator offset, menu& menu)
-        const
-        {
-            ::MENUITEMINFOW menu_info;
-            std::memset(&menu_info, 0, sizeof(::MENUITEMINFO));
-            menu_info.cbSize = sizeof(::MENUITEMINFO);
-            std::vector< ::WCHAR> duplicated_text =
-                duplicate_text(menu.text());
-            menu.set_menu_info(menu_info, duplicated_text);
-
-            const ::BOOL result = ::InsertMenuItem(
-                m_handle,
-                static_cast< ::UINT>(
-                    std::distance(m_children.begin(), offset)
-                ),
-                TRUE,
-                &menu_info
-            );
-            if (result == 0)
-            {
-                throw std::runtime_error(
-                    "Can't insert a native menu command."
-                );
-            }
-        }
-
-        void erase_native_menus(const_iterator first, const_iterator last)
-        const
-        {
-            for (const_iterator i = first; i != last; ++i)
-                erase_native_menu(i);
-        }
-
-        void erase_native_menu(const_iterator offset)
-        const
-        {
-            ::RemoveMenu(
-                m_handle,
-                static_cast< ::UINT>(
-                    std::distance(m_children.begin(), offset)
-                ),
-                MF_BYPOSITION
-            );
-        }
 
 
     };
