@@ -98,10 +98,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         virtual ~popup_menu()
         throw ()
-        {
-            if (::IsMenu(handle()) != 0)
-                ::DestroyMenu(handle());
-        }
+        {}
 
 
     protected:

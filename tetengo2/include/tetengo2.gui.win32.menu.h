@@ -132,7 +132,10 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         virtual ~menu()
         throw ()
-        {}
+        {
+            if (::IsMenu(m_handle) != 0)
+                ::DestroyMenu(m_handle);
+        }
 
 
         // functions

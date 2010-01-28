@@ -97,10 +97,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         virtual ~main_menu()
         throw ()
-        {
-            if (::IsMenu(handle()) != 0)
-                ::DestroyMenu(handle());
-        }
+        {}
 
 
     protected:
