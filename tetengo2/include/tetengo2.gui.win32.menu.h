@@ -316,6 +316,18 @@ namespace tetengo2 { namespace gui { namespace win32
             throw std::logic_error("Can't erase any menus.");
         }
 
+        /*!
+            \brief Sets the Win32 menu information.
+
+            \param menu_info       A menu information.
+            \param duplicated_text A duplicated text.
+        */
+        virtual void set_menu_info(
+            ::MENUITEMINFOW&       menu_info,
+            std::vector< ::WCHAR>& duplicated_text
+        )
+        const = 0;
+
 
     protected:
         // constructors
@@ -332,22 +344,6 @@ namespace tetengo2 { namespace gui { namespace win32
         m_menu_observers(),
         m_menu_selected_handler()
         {}
-
-
-        // functions
-
-    public:
-        /*!
-            \brief Sets the Win32 menu information.
-
-            \param menu_info       A menu information.
-            \param duplicated_text A duplicated text.
-        */
-        virtual void set_menu_info(
-            ::MENUITEMINFOW&       menu_info,
-            std::vector< ::WCHAR>& duplicated_text
-        )
-        const = 0;
 
 
     private:

@@ -102,7 +102,6 @@ namespace tetengo2 { namespace gui { namespace win32
         {}
 
 
-    protected:
         // functions
 
         //! \copydoc tetengo2::gui::win32::menu::set_menu_info
