@@ -18,6 +18,11 @@ Depends on  : (none)
 Description : Copy the resource for the tests to the output directory.
 ------------------------------------------------------------------------------
 Number      : 00000015
+Added on    : 2010/01/29
+Depends on  : (none)
+Description : Improve the tool scripts.
+------------------------------------------------------------------------------
+Number      : 00000016
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
