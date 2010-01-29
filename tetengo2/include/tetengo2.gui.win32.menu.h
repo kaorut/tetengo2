@@ -9,10 +9,8 @@
 #if !defined(TETENGO2_GUI_WIN32_MENU_H)
 #define TETENGO2_GUI_WIN32_MENU_H
 
-//#include <algorithm>
+#include <cassert>
 //#include <cstddef>
-#include <cstring>
-//#include <iterator>
 #include <memory>
 #include <stdexcept>
 //#include <string>

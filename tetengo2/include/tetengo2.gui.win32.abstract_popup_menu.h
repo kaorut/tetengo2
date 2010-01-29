@@ -15,13 +15,10 @@
 //#include <iterator>
 #include <memory>
 #include <stdexcept>
-//#include <string>
+#include <string>
 #include <vector>
 
-#include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
-#include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX

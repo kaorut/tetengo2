@@ -9,7 +9,10 @@
 #if !defined(STUBTETENGO2_GUI_MENU_H)
 #define STUBTETENGO2_GUI_MENU_H
 
+#include <cassert>
+#include <cstddef>
 #include <memory>
+#include <stdexcept>
 //#include <string>
 
 //#include <boost/concept_check.hpp>

@@ -10,10 +10,8 @@
 #define STUBTETENGO2_GUI_ABSTRACTPOPUPMENU_H
 
 #include <memory>
-//#include <string>
 
 //#include <boost/concept_check.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #include "concept_tetengo2.gui.Menu.h"

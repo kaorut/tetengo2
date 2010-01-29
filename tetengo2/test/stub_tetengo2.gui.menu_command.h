@@ -9,8 +9,6 @@
 #if !defined(STUBTETENGO2_GUI_MENUCOMMAND_H)
 #define STUBTETENGO2_GUI_MENUCOMMAND_H
 
-#include <cstddef>
-
 //#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.gui.Menu.h"
