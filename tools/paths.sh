@@ -25,7 +25,7 @@ list_test_sources()
         -type f \
         -name '*.h' -or \
         -name '*.cpp';
-    list_sources $1
+#    list_sources $1
 }
 
 list_precompiled_sources()

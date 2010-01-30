@@ -10,4 +10,6 @@ SOLUTIONDIR=`dirname $0`/..
 for f in `list_sources $SOLUTIONDIR; list_test_sources $SOLUTIONDIR`;
 do
     echo '['$f']';
+    ./check_includes.pl $SOLUTIONDIR $f stdlib_headers.txt;
+    echo '';
 done
