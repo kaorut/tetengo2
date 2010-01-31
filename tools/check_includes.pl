@@ -84,12 +84,7 @@ my(@special_header_directories) = (
 	}
 	while (my($key, $value) = each(%stdlib_header_usage))
 	{
-		print 'USING: '.$key.' in ';
-		foreach my $include (split(/\,/, $value))
-		{
-			print '<'.$include.'>, ';
-		}
-		print "\n";
+		printf("%-48s %s\n", $key, $value);
 	}
 }
 
