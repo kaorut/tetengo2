@@ -9,7 +9,7 @@
 #if !defined(BOBURA_MODEL_TRAININFO_TIME_H)
 #define BOBURA_MODEL_TRAININFO_TIME_H
 
-//#include <algorithm>
+#include <algorithm>
 #include <cassert>
 #include <limits>
 #include <stdexcept>

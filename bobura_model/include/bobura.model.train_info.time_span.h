@@ -9,7 +9,7 @@
 #if !defined(BOBURA_MODEL_TRAININFO_TIMESPAN_H)
 #define BOBURA_MODEL_TRAININFO_TIMESPAN_H
 
-//#include <algorithm>
+#include <algorithm>
 #include <stdexcept>
 
 #include <boost/concept_check.hpp>
