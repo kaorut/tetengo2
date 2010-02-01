@@ -9,10 +9,10 @@
 #if defined(_MSC_VER)
 
 #include <istream>
-#include <locale>
-#include <string>
+//#include <locale>
+//#include <string>
 
-#include <boost/filesystem.hpp>
+//#include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.message_catalog_parser.h"

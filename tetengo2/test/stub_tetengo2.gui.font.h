@@ -9,7 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_FONT_H)
 #define STUBTETENGO2_GUI_FONT_H
 
-#include <algorithm>
+//#include <algorithm>
 #include <vector>
 
 //#include <boost/concept_check.hpp>

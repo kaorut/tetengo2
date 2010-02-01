@@ -11,7 +11,7 @@
 
 #include <functional>
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.String.h"
 

@@ -9,7 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_POPUPMENU_H)
 #define STUBTETENGO2_GUI_POPUPMENU_H
 
-//#include <cstddef>
+#include <cstddef>
 
 //#include <boost/concept_check.hpp>
 

@@ -6,13 +6,13 @@
     $Id$
 */
 
-#include <algorithm>
+//#include <algorithm>
 #include <cstddef>
-#include <stdexcept>
+//#include <stdexcept>
 
 #include <boost/test/unit_test.hpp>
-#include <boost/tuple/tuple.hpp>
-#include <boost/tuple/tuple_comparison.hpp>
+//#include <boost/tuple/tuple.hpp>
+//#include <boost/tuple/tuple_comparison.hpp>
 
 #include "bobura.model.train_info.time_span.h"
 

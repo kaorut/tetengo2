@@ -9,10 +9,10 @@
 #if !defined(STUBTETENGO2_GUI_CANVAS_H)
 #define STUBTETENGO2_GUI_CANVAS_H
 
-#include <string>
+//#include <string>
 #include <utility>
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
 #include "concept_tetengo2.String.h"

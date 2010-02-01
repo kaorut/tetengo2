@@ -8,14 +8,14 @@
 
 #if defined(_MSC_VER)
 
-#include <cstddef>
-#include <ios>
+//#include <cstddef>
+//#include <ios>
 #include <istream>
-#include <locale>
-#include <stdexcept>
-#include <string>
+//#include <locale>
+//#include <stdexcept>
+//#include <string>
 
-#include <boost/filesystem.hpp>
+//#include <boost/filesystem.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 
