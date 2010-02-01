@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_WIN32_BUTTON_H)
 #define TETENGO2_GUI_WIN32_BUTTON_H
 
-//#include <cstddef>
-//#include <stdexcept>
+#include <cstddef>
+#include <stdexcept>
 
 //#include <boost/concept_check.hpp>
 

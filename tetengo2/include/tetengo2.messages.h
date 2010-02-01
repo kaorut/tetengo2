@@ -16,7 +16,7 @@
 #include <iterator>
 #include <locale>
 #include <stdexcept>
-//#include <string>
+#include <string>
 #include <vector>
 
 #include <boost/bind.hpp>

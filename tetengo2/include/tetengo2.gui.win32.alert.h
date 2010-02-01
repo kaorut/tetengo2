@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_ALERT_H)
 #define TETENGO2_GUI_WIN32_ALERT_H
 
-//#include <cstddef>
+#include <cstddef>
 #include <exception>
 #include <functional>
 #include <stdexcept>
