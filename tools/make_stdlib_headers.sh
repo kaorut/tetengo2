@@ -9,5 +9,9 @@ SOLUTIONDIR=`dirname $0`/..
 
 for f in `list_sources $SOLUTIONDIR; list_test_sources $SOLUTIONDIR`;
 do
-    ./check_includes.pl $SOLUTIONDIR $f stdlib_headers.txt | egrep -v '^[A-Z]+\:';
+     "$SOLUTIONDIR/tools/check_includes.pl" \
+         "$SOLUTIONDIR" \
+         "$f" \
+         "$SOLUTIONDIR/tools/stdlib_headers.txt" | \
+         grep -v '^[A-Z]\+\:';
 done | sort | uniq

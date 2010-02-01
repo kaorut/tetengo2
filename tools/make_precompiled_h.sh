@@ -24,4 +24,4 @@ echo '// sources'
 list "list_sources $SOLUTIONDIR"
 echo ''
 echo '// test sources'
-list "list_test_sources $SOLUTIONDIR"
+list "list_sources $SOLUTIONDIR && list_test_sources $SOLUTIONDIR"
