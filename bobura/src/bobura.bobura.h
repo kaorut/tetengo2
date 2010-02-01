@@ -10,7 +10,7 @@
 #define BOBURA_BOBURA_H
 
 //#include <boost/concept_check.hpp>
-//#include <boost/noncopyable.hpp>
+#include <boost/noncopyable.hpp>
 
 #include <concept_tetengo2.gui.GuiTypeList.h>
 

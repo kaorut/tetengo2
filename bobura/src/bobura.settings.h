@@ -12,7 +12,7 @@
 #include <vector>
 
 //#include <boost/concept_check.hpp>
-//#include <boost/noncopyable.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 
 #include <concept_tetengo2.String.h>
