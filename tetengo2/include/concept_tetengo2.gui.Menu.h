@@ -19,9 +19,10 @@ namespace concept_tetengo2 { namespace gui
     /*!
         \brief The concept check class template for a menu.
 
-        \tparam Type A type.
+        \tparam Type     A type.
+        \tparam BaseType A base type.
     */
-    template <typename Type>
+    template <typename Type, typename BaseType = Type>
     class Menu
     {
 #if !defined(DOCUMENTATION)
@@ -74,8 +75,8 @@ namespace concept_tetengo2 { namespace gui
                 m_p_object->recursive_end();
             boost::ignore_unused_variable_warning(recursive_last);
 
-            //std::auto_ptr<Type> p;
-            //m_p_object->insert(first, p);
+            std::auto_ptr<BaseType> p;
+            m_p_object->insert(first, p);
 
             m_p_object->erase(first, last);
 

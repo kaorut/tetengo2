@@ -27,7 +27,11 @@ namespace stub_tetengo2 { namespace gui
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<MainMenu>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::Menu<
+                MainMenu, typename MainMenu::base_type::base_type
+            >
+        ));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
         ));

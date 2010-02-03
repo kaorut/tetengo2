@@ -36,7 +36,9 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<Menu>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::Menu<Menu, typename Menu::base_type>
+        ));
 
 
     public:
