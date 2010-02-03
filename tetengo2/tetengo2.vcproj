@@ -307,23 +307,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\concept_tetengo2.gui.MainMenu.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\concept_tetengo2.gui.Menu.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\concept_tetengo2.gui.MenuCommand.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\concept_tetengo2.gui.MenuObserver.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\concept_tetengo2.gui.MenuSeparator.h"
 					>
 				</File>
 				<File
@@ -332,10 +320,6 @@
 				</File>
 				<File
 					RelativePath=".\include\concept_tetengo2.gui.PaintObserver.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\concept_tetengo2.gui.PopupMenu.h"
 					>
 				</File>
 				<File

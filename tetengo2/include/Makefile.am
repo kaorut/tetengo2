@@ -15,14 +15,10 @@ headers = \
     concept_tetengo2.gui.Font.h \
     concept_tetengo2.gui.GuiTypeList.h \
     concept_tetengo2.gui.Handle.h \
-    concept_tetengo2.gui.MainMenu.h \
     concept_tetengo2.gui.Menu.h \
-    concept_tetengo2.gui.MenuCommand.h \
     concept_tetengo2.gui.MenuObserver.h \
-    concept_tetengo2.gui.MenuSeparator.h \
     concept_tetengo2.gui.MouseObserver.h \
     concept_tetengo2.gui.PaintObserver.h \
-    concept_tetengo2.gui.PopupMenu.h \
     concept_tetengo2.gui.Widget.h \
     concept_tetengo2.gui.Window.h \
     concept_tetengo2.gui.WindowObserver.h \

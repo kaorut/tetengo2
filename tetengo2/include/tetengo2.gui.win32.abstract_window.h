@@ -25,7 +25,7 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "concept_tetengo2.gui.MainMenu.h"
+#include "concept_tetengo2.gui.Menu.h"
 #include "concept_tetengo2.gui.WindowObserver.h"
 #include "concept_tetengo2.gui.Widget.h"
 
@@ -38,8 +38,9 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Widget         A widget type. It must conform to
                                concept_tetengo2::gui::Widget<Widget>.
         \tparam MainMenu       A main menu type. It must conform to
-                               concept_tetengo2::gui::MainMenu<MainMenu>.
-        \tparam WindowObserver A abstract_window observer type. It must conform to
+                               concept_tetengo2::gui::Menu<Menu>.
+        \tparam WindowObserver A abstract_window observer type. It must
+                               conform to
                                concept_tetengo2::gui::WindowObserver<WindowObserver>.
    */
     template <typename Widget, typename MainMenu, typename WindowObserver>
@@ -49,7 +50,7 @@ namespace tetengo2 { namespace gui { namespace win32
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::MainMenu<MainMenu>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<MainMenu>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::WindowObserver<WindowObserver>
         ));
