@@ -6,8 +6,6 @@
     $Id$
 */
 
-#if defined(_MSC_VER)
-
 #include <istream>
 #include <sstream>
 //#include <stdexcept>
@@ -15,7 +13,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.win32.encode.h"
+#include "stub_tetengo2.encode.h"
 
 #include "tetengo2.message_catalog_parser.h"
 
@@ -26,7 +24,7 @@ namespace
 
     typedef
         tetengo2::message_catalog_parser<
-            std::istream, std::wstring, tetengo2::win32::encode
+            std::istream, std::string, stub_tetengo2::encode
         >
         message_catalog_parser_type;
 
@@ -111,8 +109,8 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             message_catalog_parser_type parser(input_stream);
 
             const entry_type entry = parser.next();
-            BOOST_CHECK(entry.first == L"Key1");
-            BOOST_CHECK(entry.second == L"Value1");
+            BOOST_CHECK(entry.first == "Key1");
+            BOOST_CHECK(entry.second == "Value1");
 
             BOOST_CHECK_THROW(parser.next(), std::runtime_error);
         }
@@ -121,36 +119,36 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             message_catalog_parser_type parser(input_stream);
 
             const entry_type entry1 = parser.next();
-            BOOST_CHECK(entry1.first == L"Key=1");
-            BOOST_CHECK(entry1.second == L"Value1");
+            BOOST_CHECK(entry1.first == "Key=1");
+            BOOST_CHECK(entry1.second == "Value1");
 
             const entry_type entry2 = parser.next();
-            BOOST_CHECK(entry2.first == L"Key=2");
-            BOOST_CHECK(entry2.second == L"Value2");
+            BOOST_CHECK(entry2.first == "Key=2");
+            BOOST_CHECK(entry2.second == "Value2");
 
             const entry_type entry3 = parser.next();
-            BOOST_CHECK(entry3.first == L"Key3");
-            BOOST_CHECK(entry3.second == L"Value3");
+            BOOST_CHECK(entry3.first == "Key3");
+            BOOST_CHECK(entry3.second == "Value3");
 
             const entry_type entry4 = parser.next();
-            BOOST_CHECK(entry4.first == L"Key4");
-            BOOST_CHECK(entry4.second == L"Value\"4\"");
+            BOOST_CHECK(entry4.first == "Key4");
+            BOOST_CHECK(entry4.second == "Value\"4\"");
 
             const entry_type entry7 = parser.next();
-            BOOST_CHECK(entry7.first == L"Key7");
-            BOOST_CHECK(entry7.second == L"");
+            BOOST_CHECK(entry7.first == "Key7");
+            BOOST_CHECK(entry7.second == "");
 
             const entry_type entry8 = parser.next();
-            BOOST_CHECK(entry8.first == L"Key#8");
-            BOOST_CHECK(entry8.second == L"Value#8");
+            BOOST_CHECK(entry8.first == "Key#8");
+            BOOST_CHECK(entry8.second == "Value#8");
 
             const entry_type entry9 = parser.next();
-            BOOST_CHECK(entry9.first == L"Key\t9");
-            BOOST_CHECK(entry9.second == L"Value\n9");
+            BOOST_CHECK(entry9.first == "Key\t9");
+            BOOST_CHECK(entry9.second == "Value\n9");
 
             const entry_type entry10 = parser.next();
-            BOOST_CHECK(entry10.first == L"Key10");
-            BOOST_CHECK(entry10.second == L"Value10");
+            BOOST_CHECK(entry10.first == "Key10");
+            BOOST_CHECK(entry10.second == "Value10");
 
             BOOST_CHECK_THROW(parser.next(), std::runtime_error);
         }
@@ -159,5 +157,3 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
-
-#endif

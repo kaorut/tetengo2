@@ -41,7 +41,7 @@ namespace stub_tetengo2
 
         target_type operator()(const source_type& string)
         {
-            return target_type();
+            return string;
         }
 
 
