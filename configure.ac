@@ -19,6 +19,7 @@ AC_CONFIG_FILES([
     tetengo2/Makefile
     tetengo2/include/Makefile
     tetengo2/test/Makefile
+    tetengo2/res.test/Makefile
 ])
 
 #### Checks for programs ####
