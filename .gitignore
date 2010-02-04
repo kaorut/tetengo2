@@ -19,5 +19,6 @@ Makefile
 Makefile.in
 missing
 stamp-h1
-*.test
-*.test.exe
+bobura.test*
+bobura_model.test*
+tetengo2.test*
