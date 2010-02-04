@@ -66,6 +66,8 @@ EXTRA_DIST = $(extra_headers) $(extra_sources)
 
 TESTS = tetengo2.test
 
+tetengo2_test_DEPENDENCIES = \
+    messages.test
 tetengo2_test_CPPFLAGS = \
     $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/tetengo2/include
@@ -77,3 +79,10 @@ tetengo2_test_LDADD = \
     $(BOOST_SYSTEM_LIB) \
     $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 tetengo2_test_SOURCES = $(headers) $(sources)
+
+messages.test:
+	cp -r $(top_srcdir)/tetengo2/res.test/messages.test .
+
+clean-local:
+	-rm -rf messages.test
+
