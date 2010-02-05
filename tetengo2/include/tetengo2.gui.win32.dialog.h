@@ -140,7 +140,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When a dialog cannot be created.
         */
-        dialog(base_type& parent)
+        explicit dialog(base_type& parent)
         :
         base_type(parent),
         m_handle(create_window(&parent)),

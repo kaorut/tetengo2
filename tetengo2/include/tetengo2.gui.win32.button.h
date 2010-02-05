@@ -113,7 +113,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When a button cannot be created.
         */
-        button(base_type& parent, const style_type style = style_normal)
+        explicit button(
+            base_type&       parent,
+            const style_type style = style_normal
+        )
         :
         base_type(parent),
         m_handle(create_window(parent, style)),

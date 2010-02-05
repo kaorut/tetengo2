@@ -314,7 +314,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param parent A parent window.
         */
-        abstract_window(abstract_window& parent)
+        explicit abstract_window(abstract_window& parent)
         :
         base_type(parent),
         m_p_main_menu(),

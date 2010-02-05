@@ -50,7 +50,7 @@ namespace tetengo2
         /*!
             \brief Creates a message catalog.
         */
-        explicit message_catalog()
+        message_catalog()
         :
         m_p_messages(get_messages(std::locale())),
         m_catalog_id(open_messages(m_p_messages, std::locale()))

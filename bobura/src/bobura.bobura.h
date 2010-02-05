@@ -65,7 +65,7 @@ namespace bobura
 
             \param settings Settings of the bobura.
         */
-        bobura(const settings_type& settings)
+        explicit bobura(const settings_type& settings)
         :
         m_gui_initializer_finalizer(),
         m_settings(settings)

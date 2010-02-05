@@ -90,7 +90,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param text A text.
         */
-        popup_menu(const string_type& text)
+        explicit popup_menu(const string_type& text)
         :
         base_type(create_menu(), text)
         {}

@@ -868,7 +868,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param parent A parent.
         */
-        widget(widget& parent)
+        explicit widget(widget& parent)
         :
         m_destroyed(false),
         m_paint_observers(),

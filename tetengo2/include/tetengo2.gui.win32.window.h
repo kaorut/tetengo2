@@ -120,7 +120,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When a window cannot be created.
         */
-        window(const base_type& parent)
+        explicit window(const base_type& parent)
         :
         base_type(parent),
         m_handle(create_window(&parent))

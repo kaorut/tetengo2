@@ -335,7 +335,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param text A text.
         */
-        menu(const string_type& text)
+        explicit menu(const string_type& text)
         :
         m_id(get_and_increment_id()),
         m_text(text),
