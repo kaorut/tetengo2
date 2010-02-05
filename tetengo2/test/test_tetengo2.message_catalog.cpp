@@ -100,7 +100,9 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
         BOOST_TEST_PASSPOINT();
 
 #if defined(__CYGWIN__)
-        BOOST_WARN_MESSAGE(false, "g++ on Cygwin support no locale.");
+        BOOST_WARN_MESSAGE(
+            false, "g++ on Cygwin supports no locale."
+        );
 #else
         {
             const set_global_locale global_locale(locale_en);
@@ -125,7 +127,9 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
         BOOST_TEST_PASSPOINT();
 
 #if defined(__CYGWIN__)
-        BOOST_WARN_MESSAGE(false, "g++ on Cygwin support no locale.");
+        BOOST_WARN_MESSAGE(
+            false, "g++ on Cygwin supports no locale."
+        );
 #else
         {
             const set_global_locale global_locale(locale_en);
