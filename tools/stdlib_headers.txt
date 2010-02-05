@@ -34,6 +34,7 @@ boost::filesystem::basic_directory_iterator      boost/filesystem.hpp
 boost::filesystem::basic_path                    boost/filesystem.hpp
 boost::filesystem::exists                        boost/filesystem.hpp
 boost::filesystem::is_directory                  boost/filesystem.hpp
+boost::filesystem::path                          boost/filesystem.hpp
 boost::filesystem::wpath                         boost/filesystem.hpp
 boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
 boost::function                                  boost/function.hpp
@@ -61,7 +62,6 @@ boost::signals::trackable                        boost/signal.hpp
 boost::tokenizer                                 boost/tokenizer.hpp
 boost::totally_ordered                           boost/operators.hpp
 boost::tuple                                     boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
-boost::unordered_map                             boost/unordered_map.hpp
 std::advance                                     iterator
 std::auto_ptr                                    memory
 std::back_inserter                               iterator
@@ -85,6 +85,7 @@ std::locale                                      locale
 std::locale::global                              locale
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
+std::map                                         map
 std::memset                                      cstring
 std::messages                                    locale
 std::messages_base::catalog                      locale
