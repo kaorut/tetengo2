@@ -6,8 +6,6 @@
     $Id$
 */
 
-#if defined(_MSC_VER)
-
 //#include <cstddef>
 //#include <ios>
 #include <istream>
@@ -19,10 +17,11 @@
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "stub_tetengo2.encode.h"
 #include "tetengo2.message_catalog_parser.h"
-#include "tetengo2.win32.encode.h"
 
 #include "tetengo2.messages.h"
+
 
 namespace
 {
@@ -30,15 +29,15 @@ namespace
 
     typedef
         tetengo2::message_catalog_parser<
-            std::istream, std::wstring, tetengo2::win32::encode
+            std::istream, std::string, stub_tetengo2::encode
         >
         message_catalog_parser_type;
 
     typedef
         tetengo2::messages<
-            boost::filesystem::wpath,
+            boost::filesystem::path,
             message_catalog_parser_type,
-            tetengo2::win32::encode
+            stub_tetengo2::encode
         >
         messages_type;
 
@@ -53,7 +52,7 @@ namespace
                 std::locale(
                     locale,
                     new messages_type(
-                        boost::filesystem::wpath(L"messages.test"), locale
+                        boost::filesystem::path("messages.test"), locale
                     )
                 )
             )
@@ -76,6 +75,12 @@ namespace
     const std::locale locale_ja("Japanese_Japan");
 
     const std::locale locale_zh("Chinese");
+#elif defined(__CYGWIN__)
+    const std::locale locale_en("C");
+
+    const std::locale locale_ja("C");
+
+    const std::locale locale_zh("C");
 #else
     const std::locale locale_en("en");
 
@@ -83,6 +88,7 @@ namespace
 
     const std::locale locale_zh("zh");
 #endif
+
 
 }
 
@@ -95,32 +101,39 @@ BOOST_AUTO_TEST_SUITE(messages)
     {
         BOOST_TEST_PASSPOINT();
 
+#if defined(__CYGWIN__)
+        BOOST_WARN_MESSAGE(false, "g++ on Cygwin support no locale.");
+#else
         const messages_type messages(
-            boost::filesystem::wpath(L"messages.test"), std::locale()
+            boost::filesystem::path("messages.test"), std::locale()
         );
 
         BOOST_CHECK_THROW(
-            messages_type(boost::filesystem::wpath(L""), std::locale()),
+            messages_type(boost::filesystem::path(""), std::locale()),
             std::ios_base::failure
         );
 
         BOOST_CHECK_THROW(
             messages_type(
-                boost::filesystem::wpath(L"messages.test") / L"English.txt",
+                boost::filesystem::path("messages.test") / "English.txt",
                 std::locale()
             ),
             std::ios_base::failure
         );
-    }
+#endif
+}
 
     BOOST_AUTO_TEST_CASE(do_open)
     {
         BOOST_TEST_PASSPOINT();
 
+#if defined(__CYGWIN__)
+        BOOST_WARN_MESSAGE(false, "g++ on Cygwin support no locale.");
+#else
         {
             const set_global_locale global_locale(locale_en);
-            const std::messages<wchar_t>& messages =
-                std::use_facet<std::messages<wchar_t> >(std::locale());
+            const std::messages<char>& messages =
+                std::use_facet<std::messages<char> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
@@ -140,8 +153,8 @@ BOOST_AUTO_TEST_SUITE(messages)
         }
         {
             const set_global_locale global_locale(locale_ja);
-            const std::messages<wchar_t>& messages =
-                std::use_facet<std::messages<wchar_t> >(std::locale());
+            const std::messages<char>& messages =
+                std::use_facet<std::messages<char> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
@@ -161,8 +174,8 @@ BOOST_AUTO_TEST_SUITE(messages)
         }
         {
             const set_global_locale global_locale(locale_zh);
-            const std::messages<wchar_t>& messages =
-                std::use_facet<std::messages<wchar_t> >(std::locale());
+            const std::messages<char>& messages =
+                std::use_facet<std::messages<char> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
@@ -171,26 +184,30 @@ BOOST_AUTO_TEST_SUITE(messages)
                 messages.open("", std::locale());
             BOOST_CHECK_LT(catalog_id, 0);
         }
+#endif
     }
 
     BOOST_AUTO_TEST_CASE(do_get)
     {
         BOOST_TEST_PASSPOINT();
 
+#if defined(__CYGWIN__)
+        BOOST_WARN_MESSAGE(false, "g++ on Cygwin support no locale.");
+#else
         {
             const set_global_locale global_locale(locale_en);
-            const std::messages<wchar_t>& messages =
-                std::use_facet<std::messages<wchar_t> >(std::locale());
+            const std::messages<char>& messages =
+                std::use_facet<std::messages<char> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
 
             BOOST_CHECK_THROW(
-                messages.get(0, 0, 0, L"Language"), std::runtime_error
+                messages.get(0, 0, 0, "Language"), std::runtime_error
             );
 
             BOOST_CHECK(
-                messages.get(-1, 0, 0, L"Language") == L"Language"
+                messages.get(-1, 0, 0, "Language") == "Language"
             );
 
             const std::messages_base::catalog catalog_id =
@@ -201,23 +218,23 @@ BOOST_AUTO_TEST_SUITE(messages)
             } BOOST_SCOPE_EXIT_END
 
             BOOST_CHECK(
-                messages.get(catalog_id, 0, 0, L"Language") == L"English"
+                messages.get(catalog_id, 0, 0, "Language") == "English"
             );
         }
         {
             const set_global_locale global_locale(locale_ja);
-            const std::messages<wchar_t>& messages =
-                std::use_facet<std::messages<wchar_t> >(std::locale());
+            const std::messages<char>& messages =
+                std::use_facet<std::messages<char> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
 
             BOOST_CHECK_THROW(
-                messages.get(0, 0, 0, L"Language"), std::runtime_error
+                messages.get(0, 0, 0, "Language"), std::runtime_error
             );
 
             BOOST_CHECK(
-                messages.get(-1, 0, 0, L"Language") == L"Language"
+                messages.get(-1, 0, 0, "Language") == "Language"
             );
 
             const std::messages_base::catalog catalog_id =
@@ -228,13 +245,13 @@ BOOST_AUTO_TEST_SUITE(messages)
             } BOOST_SCOPE_EXIT_END
 
             BOOST_CHECK(
-                messages.get(catalog_id, 0, 0, L"Language") == L"Japanese"
+                messages.get(catalog_id, 0, 0, "Language") == "Japanese"
             );
         }
         {
             const set_global_locale global_locale(locale_zh);
-            const std::messages<wchar_t>& messages =
-                std::use_facet<std::messages<wchar_t> >(std::locale());
+            const std::messages<char>& messages =
+                std::use_facet<std::messages<char> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
@@ -243,19 +260,23 @@ BOOST_AUTO_TEST_SUITE(messages)
                 messages.open("", std::locale());
 
             BOOST_CHECK(
-                messages.get(catalog_id, 0, 0, L"Language") == L"Language"
+                messages.get(catalog_id, 0, 0, "Language") == "Language"
             );
         }
+#endif
     }
 
     BOOST_AUTO_TEST_CASE(do_close)
     {
         BOOST_TEST_PASSPOINT();
 
+#if defined(__CYGWIN__)
+        BOOST_WARN_MESSAGE(false, "g++ on Cygwin support no locale.");
+#else
         {
             const set_global_locale global_locale(locale_en);
-            const std::messages<wchar_t>& messages =
-                std::use_facet<std::messages<wchar_t> >(std::locale());
+            const std::messages<char>& messages =
+                std::use_facet<std::messages<char> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
@@ -277,8 +298,8 @@ BOOST_AUTO_TEST_SUITE(messages)
         }
         {
             const set_global_locale global_locale(locale_ja);
-            const std::messages<wchar_t>& messages =
-                std::use_facet<std::messages<wchar_t> >(std::locale());
+            const std::messages<char>& messages =
+                std::use_facet<std::messages<char> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
@@ -300,8 +321,8 @@ BOOST_AUTO_TEST_SUITE(messages)
         }
         {
             const set_global_locale global_locale(locale_zh);
-            const std::messages<wchar_t>& messages =
-                std::use_facet<std::messages<wchar_t> >(std::locale());
+            const std::messages<char>& messages =
+                std::use_facet<std::messages<char> >(std::locale());
             BOOST_CHECK(
                 dynamic_cast<const messages_type*>(&messages) != NULL
             );
@@ -310,10 +331,9 @@ BOOST_AUTO_TEST_SUITE(messages)
                 messages.open("", std::locale());
             BOOST_CHECK_NO_THROW(messages.close(catalog_id));
         }
+#endif
     }
 
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
-
-#endif

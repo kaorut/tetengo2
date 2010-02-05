@@ -15,6 +15,7 @@
 #include <ios>
 #include <iterator>
 #include <locale>
+#include <map>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -24,7 +25,6 @@
 //#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/unordered_map.hpp>
 
 #include "concept_tetengo2.MessageCatalogParser.h"
 #include "concept_tetengo2.Path.h"
@@ -44,7 +44,7 @@ namespace tetengo2
                                      conform to
                                      concept_tetengo2::MessageCatalogParser<MessageCatalogParser>.
         \tparam Encode               An encoding unary functor type. The 
-                                     Encode<std::wstring, typename Path::string_type>
+                                     Encode<std::string, typename Path::string_type>
                                      must conform to
                                      boost::UnaryFunction<Encode, std::string, typename Path::string_type>.
     */
@@ -221,9 +221,7 @@ namespace tetengo2
     private:
         // types
 
-        typedef
-            boost::unordered_map<string_type, string_type>
-            message_catalog_type;
+        typedef std::map<string_type, string_type> message_catalog_type;
 
         typedef
             boost::filesystem::basic_directory_iterator<path_type>
