@@ -1,0 +1,10 @@
+# Mappings between locale names and catalog file names.
+
+# English
+English=English.txt
+en_US=English.txt
+
+# Japanese
+Japanese_Japan=Japanese.txt
+ja_JP.UTF-8=Japanese.txt
+
