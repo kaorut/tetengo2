@@ -82,6 +82,7 @@ std::ios_base::failure                           ios
 std::istream                                     istream
 std::istringstream                               sstream
 std::locale                                      locale
+std::locale::classic                             locale
 std::locale::global                              locale
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
