@@ -66,26 +66,48 @@ namespace
     };
 
 
+    // functions
+
+    bool locale_supported()
+    {
+        try
+        {
+            std::locale locale("");
+            return true;
+        }
+        catch (const std::runtime_error&)
+        {
+            return false;
+        }
+    }
+
+    std::locale make_locale(const std::string& name)
+    {
+        try
+        {
+            return std::locale(name.c_str());
+        }
+        catch (const std::runtime_error&)
+        {
+            return std::locale::classic();
+        }
+    }
+
+
     // data
 
 #if defined(_WIN32)
-    const std::locale locale_en("English");
+    const std::locale locale_en = make_locale("English");
 
-    const std::locale locale_ja("Japanese_Japan");
+    const std::locale locale_ja = make_locale("Japanese_Japan");
 
-    const std::locale locale_zh("Chinese");
-#elif defined(__CYGWIN__)
-    const std::locale locale_en("C");
-
-    const std::locale locale_ja("C");
-
-    const std::locale locale_zh("C");
+    const std::locale locale_zh = make_locale("Chinese");
 #else
-    const std::locale locale_en("en");
+    const std::locale locale_en = make_locale("en_US");
 
-    const std::locale locale_ja("ja_JP");
+    const std::locale locale_ja = make_locale("ja_JP.UTF-8");
 
-    const std::locale locale_zh("zh");
+    const std::locale locale_zh = make_locale("zh_CN");
 #endif
 
 }
@@ -99,60 +121,62 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
     {
         BOOST_TEST_PASSPOINT();
 
-#if defined(__CYGWIN__)
-        BOOST_WARN_MESSAGE(
-            false, "g++ on Cygwin supports no locale."
-        );
-#else
+        if (locale_supported())
         {
-            const set_global_locale global_locale(locale_en);
+            {
+                const set_global_locale global_locale(locale_en);
 
-            const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog;
+            }
+            {
+                const set_global_locale global_locale(locale_ja);
+
+                const message_catalog_type message_catalog;
+            }
+            {
+                const set_global_locale global_locale(locale_zh);
+
+                const message_catalog_type message_catalog;
+            }
         }
+        else
         {
-            const set_global_locale global_locale(locale_ja);
-
-            const message_catalog_type message_catalog;
+            BOOST_WARN_MESSAGE(false, "Locale not supported.");
         }
-        {
-            const set_global_locale global_locale(locale_zh);
-
-            const message_catalog_type message_catalog;
-        }
-#endif
     }
 
     BOOST_AUTO_TEST_CASE(get)
     {
         BOOST_TEST_PASSPOINT();
 
-#if defined(__CYGWIN__)
-        BOOST_WARN_MESSAGE(
-            false, "g++ on Cygwin supports no locale."
-        );
-#else
+        if (locale_supported())
         {
-            const set_global_locale global_locale(locale_en);
+            {
+                const set_global_locale global_locale(locale_en);
 
-            const message_catalog_type message_catalog;
+                const message_catalog_type message_catalog;
 
-            BOOST_CHECK(message_catalog.get("Language") == "English");
+                BOOST_CHECK(message_catalog.get("Language") == "English");
+            }
+            {
+                const set_global_locale global_locale(locale_ja);
+
+                const message_catalog_type message_catalog;
+
+                BOOST_CHECK(message_catalog.get("Language") == "Japanese");
+            }
+            {
+                const set_global_locale global_locale(locale_zh);
+
+                const message_catalog_type message_catalog;
+
+                BOOST_CHECK(message_catalog.get("Language") == "Language");
+            }
         }
+        else
         {
-            const set_global_locale global_locale(locale_ja);
-
-            const message_catalog_type message_catalog;
-
-            BOOST_CHECK(message_catalog.get("Language") == "Japanese");
+            BOOST_WARN_MESSAGE(false, "Locale not supported.");
         }
-        {
-            const set_global_locale global_locale(locale_zh);
-
-            const message_catalog_type message_catalog;
-
-            BOOST_CHECK(message_catalog.get("Language") == "Language");
-        }
-#endif
     }
 
 
