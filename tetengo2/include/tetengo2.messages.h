@@ -221,6 +221,10 @@ namespace tetengo2
     private:
         // types
 
+        typedef
+            std::map<string_type, typename path_type::string_type>
+            catalog_file_mappings_type;
+
         typedef std::map<string_type, string_type> message_catalog_type;
 
         typedef
@@ -237,21 +241,16 @@ namespace tetengo2
             const std::locale& m_locale;
 
             matches_locale_type(const std::locale& locale)
-            : m_locale(locale) {}
+            : m_locale(locale)
+            {}
 
-            bool operator()(const path_type& path)
+            bool operator()(
+                const typename catalog_file_mappings_type::value_type& mapping
+            )
             const
             {
-                if (
-                    path.extension() !=
-                    typename path_type::string_type(TETENGO2_TEXT(".txt"))
-                )
-                {
-                    return false;
-                }
-
                 const std::string locale_name =
-                    encode_to_std_string_type()(path.stem());
+                    encode_to_std_string_type()(mapping.first);
                 try
                 {
                     return std::locale(locale_name.c_str()) == m_locale;
@@ -266,6 +265,15 @@ namespace tetengo2
 
 
         // static functions
+
+        static const typename path_type::string_type&
+        catalog_file_mappings_filename()
+        {
+            static const typename path_type::string_type singleton(
+                TETENGO2_TEXT("_catalogs.txt")
+            );
+            return singleton;
+        }
 
         static const boost::optional<message_catalog_type>
         load_message_catalog(
@@ -307,16 +315,45 @@ namespace tetengo2
                 std::greater<path_type>()
             );
 
-            const typename std::vector<path_type>::const_iterator found =
+            const catalog_file_mappings_type catalog_file_mappings =
+                read_catalog_file_mappings(path);
+
+            const typename catalog_file_mappings_type::const_iterator found =
                 std::find_if(
-                    catalog_files.begin(),
-                    catalog_files.end(),
+                    catalog_file_mappings.begin(),
+                    catalog_file_mappings.end(),
                     matches_locale_type(locale)
                 );
-            if (found != catalog_files.end())
-                return *found;
+            if (found != catalog_file_mappings.end())
+                return path / found->second;
 
             return boost::optional<path_type>();
+        }
+
+        static catalog_file_mappings_type read_catalog_file_mappings(
+            const path_type& message_catalog_directory    
+        )
+        {
+            catalog_file_mappings_type mappings;
+
+            std::ifstream input_stream(
+                path_type(
+                    message_catalog_directory /
+                    catalog_file_mappings_filename()
+                ).external_file_string().c_str()
+            );
+            if (!input_stream.is_open())
+            {
+                throw std::ios_base::failure(
+                    "Can't open the message catalog file mappings."
+                );
+            }
+
+            message_catalog_parser_type parser(input_stream);
+            while (parser.has_next())
+                mappings.insert(parser.next());
+
+            return mappings;
         }
 
         static void read_message_catalog(
@@ -327,6 +364,12 @@ namespace tetengo2
             std::ifstream input_stream(
                 catalog_file.external_file_string().c_str()
             );
+            if (!input_stream.is_open())
+            {
+                throw std::ios_base::failure(
+                    "Can't open a message catalog."
+                );
+            }
 
             message_catalog_parser_type parser(input_stream);
             while (parser.has_next())
