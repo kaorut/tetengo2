@@ -7,16 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000014
-Added on    : 2010/01/27
-Depends on  : 00000016
-Description : Copy the resource for the tests to the output directory.
-------------------------------------------------------------------------------
-Number      : 00000016
-Added on    : 2010/02/07
-Depends on  : (none)
-Description : Modify tetengo2::messages to use locale_name_mappings.txt.
-------------------------------------------------------------------------------
 Number      : 00000017
 Added on    : 2010/mm/yy
 Depends on  : (none)
