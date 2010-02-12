@@ -8,6 +8,11 @@
 \verbatim
 ------------------------------------------------------------------------------
 Number      : 00000017
+Added on    : 2010/02/12
+Depends on  : (none)
+Description : Recreate tetengo2::encode.
+------------------------------------------------------------------------------
+Number      : 00000018
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
