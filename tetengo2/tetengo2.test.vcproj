@@ -537,6 +537,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="test_tetengo2::encoding"
+				>
+				<File
+					RelativePath=".\test\test_tetengo2.encoding.locale.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Headers"

@@ -15,7 +15,7 @@
 namespace concept_tetengo2
 {
     /*!
-        \brief The concept check class template for a messages facet.
+        \brief The concept check class template for an encoder.
 
         \tparam Type A type.
     */

@@ -4,6 +4,7 @@
 
 headers = \
     concept_tetengo2.Encoder.h \
+    concept_tetengo2.Encoding.h \
     concept_tetengo2.MessageCatalog.h \
     concept_tetengo2.MessageCatalogParser.h \
     concept_tetengo2.Messages.h \
@@ -30,6 +31,7 @@ headers = \
     tetengo2.message_catalog_parser.h \
     tetengo2.messages.h \
     tetengo2.text.h \
+    tetengo2.encoding.locale.h \
     tetengo2.gui.menu_observer.h \
     tetengo2.gui.mouse_observer.h \
     tetengo2.gui.paint_observer.h \

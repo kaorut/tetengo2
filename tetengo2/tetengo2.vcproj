@@ -263,6 +263,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\concept_tetengo2.Encoding.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\concept_tetengo2.MessageCatalog.h"
 					>
 				</File>
@@ -340,6 +344,14 @@
 				</File>
 				<File
 					RelativePath=".\include\concept_tetengo2.gui.WindowObserver.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="tetengo2::encoding"
+				>
+				<File
+					RelativePath=".\include\tetengo2.encoding.locale.h"
 					>
 				</File>
 			</Filter>
