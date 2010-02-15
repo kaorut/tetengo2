@@ -20,7 +20,9 @@ namespace concept_tetengo2
         \tparam Type A type.
     */
     template <typename Type>
-    class Encoding
+    class Encoding :
+        private boost::Assignable,
+        private boost::CopyConstructible
     {
 #if !defined(DOCUMENTATION)
     public:

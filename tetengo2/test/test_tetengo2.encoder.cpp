@@ -20,6 +20,16 @@ BOOST_AUTO_TEST_SUITE(encoder)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(swap)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_assign)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(encode)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
