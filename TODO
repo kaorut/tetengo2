@@ -19,6 +19,11 @@ Depends on  : (none)
 Description : Use BOOST_THROW_EXCEPTION.
 ------------------------------------------------------------------------------
 Number      : 00000019
+Added on    : 2010/02/15
+Depends on  : (none)
+Description : Create concept_tetengo2::Assignable.
+------------------------------------------------------------------------------
+Number      : 00000020
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
