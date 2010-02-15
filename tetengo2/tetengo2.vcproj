@@ -127,6 +127,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\tetengo2.encoder.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\tetengo2.generator.h"
 					>
 				</File>
@@ -254,6 +258,10 @@
 			<Filter
 				Name="concept_tetengo2"
 				>
+				<File
+					RelativePath=".\include\concept_tetengo2.Encoder.h"
+					>
+				</File>
 				<File
 					RelativePath=".\include\concept_tetengo2.MessageCatalog.h"
 					>

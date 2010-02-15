@@ -3,6 +3,7 @@
 # $Id$
 
 headers = \
+    concept_tetengo2.Encoder.h \
     concept_tetengo2.MessageCatalog.h \
     concept_tetengo2.MessageCatalogParser.h \
     concept_tetengo2.Messages.h \
@@ -23,6 +24,7 @@ headers = \
     concept_tetengo2.gui.Window.h \
     concept_tetengo2.gui.WindowObserver.h \
     tetengo2.assignable.h \
+    tetengo2.encoder.h \
     tetengo2.generator.h \
     tetengo2.message_catalog.h \
     tetengo2.message_catalog_parser.h \
