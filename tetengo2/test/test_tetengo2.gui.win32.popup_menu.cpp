@@ -19,9 +19,7 @@ BOOST_AUTO_TEST_SUITE(popup_menu)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 

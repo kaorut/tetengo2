@@ -17,23 +17,17 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(encode)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(decode)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 

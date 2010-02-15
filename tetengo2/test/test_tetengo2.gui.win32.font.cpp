@@ -19,86 +19,62 @@ BOOST_AUTO_TEST_SUITE(font)
 
     BOOST_AUTO_TEST_CASE(dialog_font)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(installed_families)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(swap)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(family)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(size)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(bold)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(italic)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(underline)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(strikeout)
     {
-        BOOST_WARN_MESSAGE(
-            false, "Not implemented yet."
-        );
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 BOOST_AUTO_TEST_SUITE_END()
