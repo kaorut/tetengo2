@@ -10,7 +10,8 @@
 Number      : 00000017
 Added on    : 2010/02/12
 Depends on  : (none)
-Description : Recreate tetengo2::encode.
+Description : Create tetengo2::encoder, tetengo2::encoding::locale and
+              tetengo2::encoding::win32::utf8.
 ------------------------------------------------------------------------------
 Number      : 00000018
 Added on    : 2010/02/12
