@@ -93,9 +93,9 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Swaps the members with another recursive menu iterator
-                   object.
+                  .
 
-            \param another Another recursive menu iterator object.
+            \param another Another recursive menu iterator.
         */
         void swap(recursive_menu_iterator& another)
         throw ()
@@ -105,9 +105,9 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Assigns another recursive menu iterator object.
+            \brief Assigns another recursive menu iterator.
 
-            \param another Another recursive menu iterator object.
+            \param another Another recursive menu iterator.
 
             \return this object.
         */

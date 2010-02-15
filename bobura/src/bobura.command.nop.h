@@ -34,7 +34,7 @@ namespace bobura { namespace command
         /*!
             \brief Copies an nop command.
 
-            \param another Another nop command object.
+            \param another Another nop command.
         */
         nop(const nop& another)
         {}
@@ -50,18 +50,18 @@ namespace bobura { namespace command
         // functions
 
         /*!
-            \brief Swaps the members with another nop command object.
+            \brief Swaps the members with another nop command.
 
-            \param another Another nop command object.
+            \param another Another nop command.
         */
         void swap(nop& another)
         throw ()
         {}
 
         /*!
-            \brief Assigns another nop command object.
+            \brief Assigns another nop command.
 
-            \param another Another nop command object.
+            \param another Another nop command.
 
             \return this object.
         */
@@ -88,8 +88,8 @@ namespace std
     /*!
         \brief Swaps two nop objects.
 
-        \param nop1 A nop object #1.
-        \param nop2 A nop object #2.
+        \param nop1 A nop #1.
+        \param nop2 A nop #2.
     */
     template <typename Name, typename Grade>
     void swap(bobura::command::nop& nop1, bobura::command::nop& nop2)

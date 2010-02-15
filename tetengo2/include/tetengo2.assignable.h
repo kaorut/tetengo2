@@ -30,13 +30,13 @@ namespace tetengo2
         // constructors and destructor
 
         /*!
-            \brief Creates an assignable object.
+            \brief Creates an assignable.
         */
         assignable()
         {}
 
         /*!
-            \brief Destroys the assignable object.
+            \brief Destroys the assignable.
         */
         ~assignable()
         throw ()
@@ -46,12 +46,12 @@ namespace tetengo2
         // functions
 
         /*!
-            \brief Assigns another object.
+            \brief Assigns another.
 
             The parameter another is passed by value to invoke the copy
             constructor.
 
-            \param another Another object.
+            \param another Another.
         */
         derived_type& assign(derived_type another)
         {

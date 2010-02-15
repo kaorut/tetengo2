@@ -105,7 +105,7 @@ namespace bobura { namespace model
         /*!
             \brief Copies a train.
 
-            \param another Another train object.
+            \param another Another train.
         */
         train(const train& another)
         :
@@ -125,9 +125,9 @@ namespace bobura { namespace model
         // functions
 
         /*!
-            \brief Swaps the members with another train object.
+            \brief Swaps the members with another train.
 
-            \param another Another train object.
+            \param another Another train.
         */
         void swap(train& another)
         throw ()
@@ -138,9 +138,9 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Assigns another train object.
+            \brief Assigns another train.
 
-            \param another Another train object.
+            \param another Another train.
 
             \return this object.
         */
@@ -151,9 +151,9 @@ namespace bobura { namespace model
 
         /*!
             \brief Checks whether this is equal to anther
-                   train object.
+                   train.
 
-            \param another Another train object.
+            \param another Another train.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
@@ -275,8 +275,8 @@ namespace std
         \tparam Stop   A stop type. It must conform to
                        concept_bobura::model::train_info::Stop<Stop>.
 
-        \param train1 A train object #1.
-        \param train2 A train object #2.
+        \param train1 A train #1.
+        \param train2 A train #2.
     */
     template <typename Number, typename Note, typename Stop>
     void swap(

@@ -73,7 +73,7 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Copies a stop.
 
-            \param another Another stop object.
+            \param another Another stop.
         */
         stop(const stop& another)
         :
@@ -93,9 +93,9 @@ namespace bobura { namespace model { namespace train_info
         // functions
 
         /*!
-            \brief Swaps the members with another stop object.
+            \brief Swaps the members with another stop.
 
-            \param another Another stop object.
+            \param another Another stop.
         */
         void swap(stop& another)
         throw ()
@@ -106,9 +106,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Assigns another stop object.
+            \brief Assigns another stop.
 
-            \param another Another stop object.
+            \param another Another stop.
 
             \return this object.
         */
@@ -118,9 +118,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is equal to anther stop object.
+            \brief Checks whether this is equal to anther stop.
 
-            \param another Another stop object.
+            \param another Another stop.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
@@ -192,8 +192,8 @@ namespace std
         \tparam Platform A platform type. It must conform to
                          concept_tetengo2::String<Platform>.
 
-        \param stop1 A stop object #1.
-        \param stop2 A stop object #2.
+        \param stop1 A stop #1.
+        \param stop2 A stop #2.
     */
     template <typename Time, typename Platform>
     void swap(

@@ -65,7 +65,7 @@ namespace bobura { namespace model { namespace train_info
         // constructors and destructor
 
         /*!
-            \brief Creates a time_span.
+            \brief Creates a time span.
 
             \param seconds A second span.
         */
@@ -75,7 +75,7 @@ namespace bobura { namespace model { namespace train_info
         {}
 
         /*!
-            \brief Creates a time_span.
+            \brief Creates a time span.
 
             The hours, the minutes and the seconds must be 0 or must have the
             same signs.
@@ -102,9 +102,9 @@ namespace bobura { namespace model { namespace train_info
         {}
 
         /*!
-            \brief Copies a time_span.
+            \brief Copies a time span.
 
-            \param another Another time_span object.
+            \param another Another time_span.
         */
         time_span(const time_span& another)
         :
@@ -122,9 +122,9 @@ namespace bobura { namespace model { namespace train_info
         // functions
 
         /*!
-            \brief Swaps the members with another time_span object.
+            \brief Swaps the members with another time_span.
 
-            \param another Another time_span object.
+            \param another Another time_span.
         */
         void swap(time_span& another)
         throw ()
@@ -133,9 +133,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Assigns another time_span object.
+            \brief Assigns another time_span.
 
-            \param another Another time_span object.
+            \param another Another time_span.
 
             \return this object.
         */
@@ -145,9 +145,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Adds another time_span object.
+            \brief Adds another time_span.
 
-            \param another Another time_span object.
+            \param another Another time_span.
 
             \return this object.
         */
@@ -162,9 +162,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Subtracts another time_span object.
+            \brief Subtracts another time_span.
 
-            \param another Another time_span object.
+            \param another Another time_span.
 
             \return this object.
         */
@@ -179,9 +179,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is equal to anther time_span object.
+            \brief Checks whether this is equal to anther time_span.
 
-            \param another Another time_span object.
+            \param another Another time_span.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
@@ -193,9 +193,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is less than anther time_span object.
+            \brief Checks whether this is less than anther time_span.
 
-            \param another Another time_span object.
+            \param another Another time_span.
 
             \retval true  When this is less than another.
             \retval false Otherwise.
@@ -302,8 +302,8 @@ namespace std
         \tparam TimeSpanTick A time span tick type. It must conform to
                              boost::SignedInteger<TimeSpanTick>.
 
-        \param time_span1 A time_span object #1.
-        \param time_span2 A time_span object #2.
+        \param time_span1 A time span #1.
+        \param time_span2 A time span #2.
     */
     template <typename TimeSpanTick>
     void swap(

@@ -73,7 +73,7 @@ namespace bobura { namespace model
         /*!
             \brief Copies a station.
 
-            \param another Another station object.
+            \param another Another station.
         */
         station(const station& another)
         :
@@ -94,9 +94,9 @@ namespace bobura { namespace model
         // functions
 
         /*!
-            \brief Swaps the members with another station object.
+            \brief Swaps the members with another station.
 
-            \param another Another station object.
+            \param another Another station.
         */
         void swap(station& another)
         throw ()
@@ -106,9 +106,9 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Assigns another station object.
+            \brief Assigns another station.
 
-            \param another Another station object.
+            \param another Another station.
 
             \return this object.
         */
@@ -118,9 +118,9 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Checks whether this is equal to anther station object.
+            \brief Checks whether this is equal to anther station.
 
-            \param another Another station object.
+            \param another Another station.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
@@ -179,8 +179,8 @@ namespace std
         \tparam Grade A grade type. It must conform to
                       concept_bobura::model::station_info::Grade<Grade>.
 
-        \param station1 A station object #1.
-        \param station2 A station object #2.
+        \param station1 A station #1.
+        \param station2 A station #2.
     */
     template <typename Name, typename Grade>
     void swap(

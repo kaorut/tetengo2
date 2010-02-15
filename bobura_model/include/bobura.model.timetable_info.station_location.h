@@ -56,7 +56,7 @@ namespace bobura { namespace model { namespace timetable_info
         // constructors and destructor
 
         /*!
-            \brief Creates a station_location.
+            \brief Creates a station location.
 
             \param station  A station.
             \param meterage A meterage.
@@ -71,9 +71,9 @@ namespace bobura { namespace model { namespace timetable_info
         {}
 
         /*!
-            \brief Copies a station_location.
+            \brief Copies a station location.
 
-            \param another Another station_location object.
+            \param another Another station_location.
         */
         station_location(const station_location& another)
         :
@@ -92,9 +92,9 @@ namespace bobura { namespace model { namespace timetable_info
         // functions
 
         /*!
-            \brief Swaps the members with another station_location object.
+            \brief Swaps the members with another station_location.
 
-            \param another Another station_location object.
+            \param another Another station_location.
         */
         void swap(station_location& another)
         throw ()
@@ -104,9 +104,9 @@ namespace bobura { namespace model { namespace timetable_info
         }
 
         /*!
-            \brief Assigns another station_location object.
+            \brief Assigns another station_location.
 
-            \param another Another station_location object.
+            \param another Another station_location.
 
             \return this object.
         */
@@ -117,9 +117,9 @@ namespace bobura { namespace model { namespace timetable_info
 
         /*!
             \brief Checks whether this is equal to anther
-                   station_location object.
+                   station_location.
 
-            \param another Another station_location object.
+            \param another Another station_location.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
@@ -156,7 +156,7 @@ namespace bobura { namespace model { namespace timetable_info
         /*!
             \brief Checks this station is located before another.
 
-            \param another Another sation_location object.
+            \param another Another sation_location.
 
             \retval true  When this->meterage() <= another.meterage().
             \retval false Otherwise.
@@ -191,8 +191,8 @@ namespace std
         \tparam Meterage A meterage type. It must conform to
                          boost::UnsignedInteger<Meterage>.
 
-        \param station_location1 A station_location object #1.
-        \param station_location2 A station_location object #2.
+        \param station_location1 A station location #1.
+        \param station_location2 A station location #2.
     */
     template <typename Station, typename Meterage>
     void swap(

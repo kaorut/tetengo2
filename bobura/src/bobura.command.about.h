@@ -62,7 +62,7 @@ namespace bobura { namespace command
         /*!
             \brief Copies an about command.
 
-            \param another Another about command object.
+            \param another Another about command.
         */
         about(const about& another)
         :
@@ -80,9 +80,9 @@ namespace bobura { namespace command
         // functions
 
         /*!
-            \brief Swaps the members with another about command object.
+            \brief Swaps the members with another about command.
 
-            \param another Another about command object.
+            \param another Another about command.
         */
         void swap(about& another)
         throw ()
@@ -91,9 +91,9 @@ namespace bobura { namespace command
         }
 
         /*!
-            \brief Assigns another about command object.
+            \brief Assigns another about command.
 
-            \param another Another about command object.
+            \param another Another about command.
 
             \return this object.
         */
@@ -130,8 +130,8 @@ namespace std
         \tparam AboutDialog An about dialog type. It must conform to
                             concept_bobura::AboutDialog<AboutDialog>.
 
-        \param about1 An about object #1.
-        \param about2 An about object #2.
+        \param about1 An about #1.
+        \param about2 An about #2.
     */
     template <typename AboutDialog>
     void swap(

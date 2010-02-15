@@ -56,7 +56,7 @@ namespace bobura { namespace command
         /*!
             \brief Copies an exit command.
 
-            \param another Another exit command object.
+            \param another Another exit command.
         */
         exit(const exit& another)
         :
@@ -74,9 +74,9 @@ namespace bobura { namespace command
         // functions
 
         /*!
-            \brief Swaps the members with another exit command object.
+            \brief Swaps the members with another exit command.
 
-            \param another Another exit command object.
+            \param another Another exit command.
         */
         void swap(exit& another)
         throw ()
@@ -85,9 +85,9 @@ namespace bobura { namespace command
         }
 
         /*!
-            \brief Assigns another exit command object.
+            \brief Assigns another exit command.
 
-            \param another Another exit command object.
+            \param another Another exit command.
 
             \return this object.
         */
@@ -124,8 +124,8 @@ namespace std
         \tparam Window A window type. It must conform to
                        concept_tetengo2::gui::Window<Window>.
 
-        \param exit1 An exit object #1.
-        \param exit2 An exit object #2.
+        \param exit1 An exit #1.
+        \param exit2 An exit #2.
     */
     template <typename Window>
     void swap(

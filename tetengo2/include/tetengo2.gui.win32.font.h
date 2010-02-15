@@ -130,7 +130,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Copies a font.
 
-            \param another Another font object.
+            \param another Another font.
         */
         font(const font& another)
         :
@@ -153,9 +153,9 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         /*!
-            \brief Swaps the members with another font object.
+            \brief Swaps the members with another font.
 
-            \param another Another font object.
+            \param another Another font.
         */
         void swap(font& another)
         throw ()
@@ -169,9 +169,9 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Assigns another font object.
+            \brief Assigns another font.
 
-            \param another Another font object.
+            \param another Another font.
 
             \return this object.
         */
@@ -181,9 +181,9 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Checks whether this is equal to another font object.
+            \brief Checks whether this is equal to another font.
 
-            \param another Another font object.
+            \param another Another font.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
@@ -402,8 +402,8 @@ namespace std
         \tparam Size   A size type. It must conform to
                        boost::UnsignedInteger<Size>.
 
-        \param font1 A font object #1.
-        \param font2 A font object #2.
+        \param font1 A font #1.
+        \param font2 A font #2.
     */
     template <typename String, typename Size>
     void swap(

@@ -101,7 +101,7 @@ namespace bobura { namespace model
         /*!
             \brief Copies a timetable.
 
-            \param another Another timetable object.
+            \param another Another timetable.
         */
         timetable(const timetable& another)
         :
@@ -120,9 +120,9 @@ namespace bobura { namespace model
         // functions
 
         /*!
-            \brief Swaps the members with another timetable object.
+            \brief Swaps the members with another timetable.
 
-            \param another Another timetable object.
+            \param another Another timetable.
         */
         void swap(timetable& another)
         throw ()
@@ -132,9 +132,9 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Assigns another timetable object.
+            \brief Assigns another timetable.
 
-            \param another Another timetable object.
+            \param another Another timetable.
 
             \return this object.
         */
@@ -144,9 +144,9 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Checks whether this is equal to anther timetable object.
+            \brief Checks whether this is equal to anther timetable.
 
-            \param another Another timetable object.
+            \param another Another timetable.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
@@ -411,8 +411,8 @@ namespace std
         \tparam Train           A train type. It must conform to
                                 concept_bobura::model::Train<Train>.
 
-        \param timetable1 A timetable object #1.
-        \param timetable2 A timetable object #2.
+        \param timetable1 A timetable #1.
+        \param timetable2 A timetable #2.
     */
     template <typename StationLocation, typename Train>
     void swap(

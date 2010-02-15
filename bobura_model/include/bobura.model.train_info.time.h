@@ -123,7 +123,7 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Copies a time.
 
-            \param another Another time object.
+            \param another Another time.
         */
         time(const time& another)
         :
@@ -141,9 +141,9 @@ namespace bobura { namespace model { namespace train_info
         // functions
 
         /*!
-            \brief Swaps the members with another time object.
+            \brief Swaps the members with another time.
 
-            \param another Another time object.
+            \param another Another time.
         */
         void swap(time& another)
         throw ()
@@ -154,9 +154,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Assigns another time object.
+            \brief Assigns another time.
 
-            \param another Another time object.
+            \param another Another time.
 
             \return this object.
         */
@@ -237,7 +237,7 @@ namespace bobura { namespace model { namespace train_info
             The result is always 0 or positive. A smaller minus a larger
             is calculated over the midnight.
 
-            \param another Another time object.
+            \param another Another time.
 
             \return The time span.
 
@@ -259,9 +259,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is equal to anther time object.
+            \brief Checks whether this is equal to anther time.
 
-            \param another Another time object.
+            \param another Another time.
 
             \retval true  When this is equal to another.
             \retval false Otherwise.
@@ -273,9 +273,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is less than anther time object.
+            \brief Checks whether this is less than anther time.
 
-            \param another Another time object.
+            \param another Another time.
 
             \retval true  When this is less than another.
             \retval false Otherwise.
@@ -394,8 +394,8 @@ namespace std
         \tparam TimeSpan A time span type. It must conform to
                          concept_bobura::model::train_info::TimeSpan<TimeSpan>.
 
-        \param time1 A time object #1.
-        \param time2 A time object #2.
+        \param time1 A time #1.
+        \param time2 A time #2.
     */
     template <typename TimeSpan, typename TimeTick>
     void swap(
