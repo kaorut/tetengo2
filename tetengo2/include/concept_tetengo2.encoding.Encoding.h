@@ -12,7 +12,7 @@
 #include <boost/concept_check.hpp>
 
 
-namespace concept_tetengo2
+namespace concept_tetengo2 { namespace encoding
 {
     /*!
         \brief The concept check class template for an encoding.
@@ -59,6 +59,7 @@ namespace concept_tetengo2
     };
 
 
-}
+}}
+
 
 #endif

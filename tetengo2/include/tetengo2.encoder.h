@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_ENCODER_H)
 #define TETENGO2_ENCODER_H
 
-#include "concept_tetengo2.Encoding.h"
+#include "concept_tetengo2.encoding.Encoding.h"
 #include "tetengo2.assignable.h"
 
 
@@ -30,8 +30,12 @@ namespace tetengo2
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoding<InternalEncoding>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoding<ExternalEncoding>));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::encoding::Encoding<InternalEncoding>
+        ));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::encoding::Encoding<ExternalEncoding>
+        ));
 
 
     public:
