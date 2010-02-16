@@ -541,6 +541,10 @@
 				Name="test_tetengo2::encoding"
 				>
 				<File
+					RelativePath=".\test\test_tetengo2.encoding.encoding.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_tetengo2.encoding.locale.cpp"
 					>
 				</File>

@@ -17,6 +17,7 @@
 
 #include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"
+#include "tetengo2.encoding.encoding.h"
 
 
 namespace tetengo2 { namespace encoding
@@ -28,7 +29,7 @@ namespace tetengo2 { namespace encoding
                        concept_tetengo2::String<String>.
     */
     template <typename String>
-    class locale : public assignable<locale<String> >
+    class locale : public encoding, public assignable<locale<String> >
     {
     private:
         // concept checks
@@ -41,9 +42,6 @@ namespace tetengo2 { namespace encoding
 
         //! The string type.
         typedef String string_type;
-
-        //! The pivot type.
-        typedef std::wstring pivot_type;
 
 
         // constructors and destructor

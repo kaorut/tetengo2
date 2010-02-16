@@ -347,6 +347,10 @@
 				Name="tetengo2::encoding"
 				>
 				<File
+					RelativePath=".\include\tetengo2.encoding.encoding.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\tetengo2.encoding.locale.h"
 					>
 				</File>

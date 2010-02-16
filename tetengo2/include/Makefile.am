@@ -31,6 +31,7 @@ headers = \
     tetengo2.message_catalog_parser.h \
     tetengo2.messages.h \
     tetengo2.text.h \
+    tetengo2.encoding.encoding.h \
     tetengo2.encoding.locale.h \
     tetengo2.gui.menu_observer.h \
     tetengo2.gui.mouse_observer.h \
