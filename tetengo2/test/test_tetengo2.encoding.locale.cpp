@@ -16,6 +16,11 @@
 
 namespace
 {
+    // types
+
+    typedef tetengo2::encoding::locale<std::string> encoding_type;
+
+
     // functions
 
     bool locale_supported()
@@ -67,21 +72,15 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        const tetengo2::encoding::locale<std::string> encoding(
-            std::locale::classic()
-        );
+        const encoding_type encoding(std::locale::classic());
     }
 
     BOOST_AUTO_TEST_CASE(swap)
     {
         if (locale_supported())
         {
-            tetengo2::encoding::locale<std::string> encoding1(
-                locale_en
-            );
-            tetengo2::encoding::locale<std::string> encoding2(
-                locale_ja
-            );
+            encoding_type encoding1(locale_en);
+            encoding_type encoding2(locale_ja);
 
             encoding1.swap(encoding2);
 
@@ -98,12 +97,8 @@ BOOST_AUTO_TEST_SUITE(locale)
     {
         if (locale_supported())
         {
-            tetengo2::encoding::locale<std::string> encoding1(
-                locale_en
-            );
-            const tetengo2::encoding::locale<std::string> encoding2(
-                locale_ja
-            );
+            encoding_type encoding1(locale_en);
+            const encoding_type encoding2(locale_ja);
 
             encoding1 = encoding2;
 
@@ -120,16 +115,12 @@ BOOST_AUTO_TEST_SUITE(locale)
         if (locale_supported())
         {
             {
-                const tetengo2::encoding::locale<std::string> encoding(
-                    locale_en
-                );
+                const encoding_type encoding(locale_en);
 
                 BOOST_CHECK(encoding.locale_based_on() == locale_en);
             }
             {
-                const tetengo2::encoding::locale<std::string> encoding(
-                    locale_ja
-                );
+                const encoding_type encoding(locale_ja);
 
                 BOOST_CHECK(encoding.locale_based_on() == locale_ja);
             }
@@ -142,7 +133,17 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(from_pivot)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const wchar_t pivot_chars[] =
+            { L'T', L'e', L't', L'e', L'n', L'g', L'o', L'2', L'\0' };
+        const char string_chars[] =
+            { 'T', 'e', 't', 'e', 'n', 'g', 'o', '2', '\0' };
+
+        const encoding_type encoding(std::locale::classic());
+
+        BOOST_CHECK(
+            encoding.from_pivot(encoding_type::pivot_type(pivot_chars)) ==
+            encoding_type::string_type(string_chars)
+        );
     }
 
     BOOST_AUTO_TEST_CASE(to_pivot)
