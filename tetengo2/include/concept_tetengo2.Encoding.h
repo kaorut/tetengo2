@@ -21,12 +21,14 @@ namespace concept_tetengo2
     */
     template <typename Type>
     class Encoding :
-        private boost::Assignable,
-        private boost::CopyConstructible
+        private boost::Assignable<Type>,
+        private boost::CopyConstructible<Type>
     {
 #if !defined(DOCUMENTATION)
     public:
         // typedef checks
+
+        typedef typename Type::string_type string_type;
 
         typedef typename Type::pivot_type pivot_type;
 
@@ -35,11 +37,15 @@ namespace concept_tetengo2
 
         BOOST_CONCEPT_USAGE(Encoding)
         {
+            m_object.swap(m_object);
+
             const_constraints(m_object);
         }
 
         void const_constraints(const Type& object)
         {
+            const string_type string = object.from_pivot(pivot_type());
+            const pivot_type pivot = object.to_pivot(string_type());
         }
 
 

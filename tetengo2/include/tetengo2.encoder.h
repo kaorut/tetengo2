@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_ENCODER_H)
 #define TETENGO2_ENCODER_H
 
+#include "concept_tetengo2.Encoding.h"
 #include "tetengo2.assignable.h"
 
 
@@ -17,8 +18,10 @@ namespace tetengo2
     /*!
         \brief The class template for an encoder.
 
-        \tparam InternalEncoding An internal encoding type.
-        \tparam ExternalEncoding An external encoding type.
+        \tparam InternalEncoding An internal encoding type. It must conform to
+                                 concept_tetengo2::Encoding<InternalEncoding>.
+        \tparam ExternalEncoding An external encoding type. It must conform to
+                                 concept_tetengo2::Encoding<ExternalEncoding>.
     */
     template <typename InternalEncoding, typename ExternalEncoding>
     class encoder :
@@ -26,6 +29,9 @@ namespace tetengo2
     {
     private:
         // concept checks
+
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoding<InternalEncoding>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoding<ExternalEncoding>));
 
 
     public:
