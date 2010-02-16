@@ -11,7 +11,6 @@
 
 #include <algorithm>
 #include <locale>
-#include <string>
 
 //#include <boost/concept_check.hpp>
 
@@ -97,6 +96,17 @@ namespace tetengo2 { namespace encoding
         locale& operator=(const locale& another)
         {
             return assign(another);
+        }
+
+        /*!
+            \brief Returns the locale based on.
+
+            \return The locale based on.
+        */
+        const std::locale& locale_based_on()
+        const
+        {
+            return m_locale;
         }
 
         /*!

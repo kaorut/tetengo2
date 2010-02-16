@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_ENCODING_ENCODING_H)
 #define TETENGO2_ENCODING_ENCODING_H
 
+#include <string>
+
 
 namespace tetengo2 { namespace encoding
 {
