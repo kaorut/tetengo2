@@ -38,9 +38,7 @@ namespace tetengo2 { namespace encoding
         // constructors
 
         /*!
-            \brief Creates an encoding based on a encoding.
-
-            \param encoding_based_on A encoding based on.
+            \brief Creates an encoding.
         */
         encoding()
         {}

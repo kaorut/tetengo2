@@ -92,8 +92,7 @@ namespace tetengo2 { namespace gui
         // functions
 
         /*!
-            \brief Swaps the members with another recursive menu iterator
-                  .
+            \brief Swaps the members with another recursive menu iterator.
 
             \param another Another recursive menu iterator.
         */
