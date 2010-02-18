@@ -6,10 +6,13 @@
     $Id$
 */
 
-#include <locale>
-#include <string>
+//#include <locale>
+#include <stdexcept>
+//#include <string>
 
 #include <boost/test/unit_test.hpp>
+
+#include "tetengo2.text.h"
 
 #include "tetengo2.encoding.locale.h"
 
@@ -133,17 +136,12 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(from_pivot)
     {
-        const wchar_t pivot_chars[] =
-            { L'T', L'e', L't', L'e', L'n', L'g', L'o', L'2', L'\0' };
-        const char string_chars[] =
-            { 'T', 'e', 't', 'e', 'n', 'g', 'o', '2', '\0' };
+        const encoding_type::pivot_type pivot(TETENGO2_TEXT("Tetengo2"));
+        const encoding_type::string_type string(TETENGO2_TEXT("Tetengo2"));
 
         const encoding_type encoding(std::locale::classic());
 
-        BOOST_CHECK(
-            encoding.from_pivot(encoding_type::pivot_type(pivot_chars)) ==
-            encoding_type::string_type(string_chars)
-        );
+        BOOST_CHECK(encoding.from_pivot(pivot) == string);
     }
 
     BOOST_AUTO_TEST_CASE(to_pivot)

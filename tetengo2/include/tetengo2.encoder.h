@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_ENCODER_H)
 #define TETENGO2_ENCODER_H
 
+//#include <boost/concept_check.hpp>
+
 #include "concept_tetengo2.encoding.Encoding.h"
 #include "tetengo2.assignable.h"
 
