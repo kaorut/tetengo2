@@ -123,6 +123,28 @@ namespace tetengo2
         }
 
         /*!
+            \brief Returns the internal encoding.
+
+            \return The internal encoding.
+        */
+        const internal_encoding_type& internal_encoding()
+        const
+        {
+            return m_internal_encoding;
+        }
+
+        /*!
+            \brief Returns the external encoding.
+
+            \return The external encoding.
+        */
+        const external_encoding_type& external_encoding()
+        const
+        {
+            return m_external_encoding;
+        }
+
+        /*!
             \brief Encodes a string.
 
             \param string A string
