@@ -9,13 +9,19 @@
 #if !defined(TETENGO2_ENCODING_LOCALE_H)
 #define TETENGO2_ENCODING_LOCALE_H
 
-#include <algorithm>
+//#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <cwchar>
 #include <locale>
+#include <stdexcept>
 
 //#include <boost/concept_check.hpp>
+#include <boost/scoped_array.hpp>
 
 #include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"
+#include "tetengo2.text.h"
 #include "tetengo2.encoding.encoding.h"
 
 
@@ -41,6 +47,9 @@ namespace tetengo2 { namespace encoding
 
         //! The string type.
         typedef String string_type;
+
+        //! The string character type.
+        typedef typename string_type::value_type string_char_type;
 
 
         // constructors and destructor
@@ -112,14 +121,57 @@ namespace tetengo2 { namespace encoding
         /*!
             \brief Translates a string from the pivot encoding.
 
-            \param string A string.
+            \param pivot A pivot string.
 
             \return A translated string.
         */
-        string_type from_pivot(const pivot_type& string)
+        string_type from_pivot(const pivot_type& pivot)
         const
         {
-            return string_type();
+            if (!std::has_facet<converter_type>(m_locale))
+                return string_type(pivot.begin(), pivot.end());
+
+            const converter_type& converter =
+                std::use_facet<converter_type>(m_locale);
+
+            const int string_max_length =
+                (pivot.length() + 1) * converter.max_length();
+
+            std::mbstate_t state = std::mbstate_t();
+            const pivot_char_type* p_pivot_next = NULL;
+            boost::scoped_array<string_char_type> p_string(
+                new string_char_type[string_max_length]
+            );
+            string_char_type* p_string_next = NULL;
+            const typename converter_type::result result =
+                converter.out(
+                    state,
+                    pivot.c_str(),
+                    pivot.c_str() + pivot.length(),
+                    p_pivot_next,
+                    p_string.get(),
+                    p_string.get() + string_max_length,
+                    p_string_next
+                );
+            if (result == converter_type::ok)
+            {
+                *p_string_next = TETENGO2_TEXT('\0');
+                return string_type(p_string.get());
+            }
+            else if (result == converter_type::noconv)
+            {
+                assert(
+                    pivot.length() + 1 ==
+                    static_cast<typename pivot_type::size_type>(
+                        string_max_length
+                    )
+                );
+                return string_type(pivot.begin(), pivot.end());
+            }
+            else
+            {
+                throw std::runtime_error("Can't convert pivot to string.");
+            }
         }
 
         /*!
@@ -127,7 +179,7 @@ namespace tetengo2 { namespace encoding
 
             \param string A string.
 
-            \return A translated string.
+            \return A translated pivot string.
         */
         pivot_type to_pivot(const string_type& string)
         const
@@ -137,6 +189,13 @@ namespace tetengo2 { namespace encoding
 
 
     private:
+        // type
+
+        typedef
+            std::codecvt<pivot_char_type, string_char_type, std::mbstate_t>
+            converter_type;
+
+
         // variables
 
         std::locale m_locale;

@@ -7,7 +7,7 @@
 */
 
 //#include <locale>
-#include <stdexcept>
+//#include <stdexcept>
 //#include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -21,7 +21,9 @@ namespace
 {
     // types
 
-    typedef tetengo2::encoding::locale<std::string> encoding_type;
+    typedef tetengo2::encoding::locale<std::string> multibyte_encoding_type;
+
+    typedef tetengo2::encoding::locale<std::wstring> wide_encoding_type;
 
 
     // functions
@@ -75,20 +77,36 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        const encoding_type encoding(std::locale::classic());
+        {
+            const multibyte_encoding_type encoding(std::locale::classic());
+        }
+        {
+            const wide_encoding_type encoding(std::locale::classic());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(swap)
     {
         if (locale_supported())
         {
-            encoding_type encoding1(locale_en);
-            encoding_type encoding2(locale_ja);
+            {
+                multibyte_encoding_type encoding1(locale_en);
+                multibyte_encoding_type encoding2(locale_ja);
 
-            encoding1.swap(encoding2);
+                encoding1.swap(encoding2);
 
-            BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
-            BOOST_CHECK(encoding2.locale_based_on() == locale_en);
+                BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
+                BOOST_CHECK(encoding2.locale_based_on() == locale_en);
+            }
+            {
+                wide_encoding_type encoding1(locale_en);
+                wide_encoding_type encoding2(locale_ja);
+
+                encoding1.swap(encoding2);
+
+                BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
+                BOOST_CHECK(encoding2.locale_based_on() == locale_en);
+            }
         }
         else
         {
@@ -100,12 +118,22 @@ BOOST_AUTO_TEST_SUITE(locale)
     {
         if (locale_supported())
         {
-            encoding_type encoding1(locale_en);
-            const encoding_type encoding2(locale_ja);
+            {
+                multibyte_encoding_type encoding1(locale_en);
+                const multibyte_encoding_type encoding2(locale_ja);
 
-            encoding1 = encoding2;
+                encoding1 = encoding2;
 
-            BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
+                BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
+            }
+            {
+                wide_encoding_type encoding1(locale_en);
+                const wide_encoding_type encoding2(locale_ja);
+
+                encoding1 = encoding2;
+
+                BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
+            }
         }
         else
         {
@@ -118,14 +146,28 @@ BOOST_AUTO_TEST_SUITE(locale)
         if (locale_supported())
         {
             {
-                const encoding_type encoding(locale_en);
+                {
+                    const multibyte_encoding_type encoding(locale_en);
 
-                BOOST_CHECK(encoding.locale_based_on() == locale_en);
+                    BOOST_CHECK(encoding.locale_based_on() == locale_en);
+                }
+                {
+                    const multibyte_encoding_type encoding(locale_ja);
+
+                    BOOST_CHECK(encoding.locale_based_on() == locale_ja);
+                }
             }
             {
-                const encoding_type encoding(locale_ja);
+                {
+                    const wide_encoding_type encoding(locale_en);
 
-                BOOST_CHECK(encoding.locale_based_on() == locale_ja);
+                    BOOST_CHECK(encoding.locale_based_on() == locale_en);
+                }
+                {
+                    const wide_encoding_type encoding(locale_ja);
+
+                    BOOST_CHECK(encoding.locale_based_on() == locale_ja);
+                }
             }
         }
         else
@@ -136,12 +178,30 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(from_pivot)
     {
-        const encoding_type::pivot_type pivot(TETENGO2_TEXT("Tetengo2"));
-        const encoding_type::string_type string(TETENGO2_TEXT("Tetengo2"));
+        {
+            const multibyte_encoding_type::pivot_type pivot(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const multibyte_encoding_type::string_type string(
+                TETENGO2_TEXT("Tetengo2")
+            );
 
-        const encoding_type encoding(std::locale::classic());
+            const multibyte_encoding_type encoding(std::locale::classic());
 
-        BOOST_CHECK(encoding.from_pivot(pivot) == string);
+            BOOST_CHECK(encoding.from_pivot(pivot) == string);
+        }
+        {
+            const wide_encoding_type::pivot_type pivot(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const wide_encoding_type::string_type string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+
+            const wide_encoding_type encoding(std::locale::classic());
+
+            BOOST_CHECK(encoding.from_pivot(pivot) == string);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(to_pivot)

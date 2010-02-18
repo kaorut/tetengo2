@@ -66,6 +66,7 @@ std::advance                                     iterator
 std::auto_ptr                                    memory
 std::back_inserter                               iterator
 std::basic_string                                string
+std::codecvt                                     locale
 std::copy                                        algorithm
 std::distance                                    iterator
 std::equal_to                                    functional
@@ -87,6 +88,7 @@ std::locale::global                              locale
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
 std::map                                         map
+std::mbstate_t                                   cwchar
 std::memset                                      cstring
 std::messages                                    locale
 std::messages_base::catalog                      locale

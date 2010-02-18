@@ -25,6 +25,9 @@ namespace tetengo2 { namespace encoding
         //! The pivot type.
         typedef std::wstring pivot_type;
 
+        //! The pivot character type.
+        typedef pivot_type::value_type pivot_char_type;
+
 
         // constructors and destructor
 
