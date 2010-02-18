@@ -285,6 +285,27 @@ namespace tetengo2 { namespace encoding
     };
 
 
+#if !defined(DOCUMENTATION)
+    // specialized templates
+
+    template <>
+    inline locale<encoding::pivot_type>::string_type
+    locale<encoding::pivot_type>::from_pivot(const pivot_type& pivot)
+    const
+    {
+        return pivot;
+    }
+
+    template <>
+    inline locale<encoding::pivot_type>::pivot_type
+    locale<encoding::pivot_type>::to_pivot(const string_type& string)
+    const
+    {
+        return string;
+    }
+#endif
+
+
 }}
 
 
