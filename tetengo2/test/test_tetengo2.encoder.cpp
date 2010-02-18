@@ -89,19 +89,31 @@ BOOST_AUTO_TEST_SUITE(encoder)
     {
         {
             const m_m_encoder_type encoder =
-                m_m_encoder_type(m_encoding_type(), m_encoding_type());
+                m_m_encoder_type(
+                    m_encoding_type(std::locale::classic()),
+                    m_encoding_type(std::locale::classic())
+                );
         }
         {
             const m_w_encoder_type encoder =
-                m_w_encoder_type(m_encoding_type(), w_encoding_type());
+                m_w_encoder_type(
+                    m_encoding_type(std::locale::classic()),
+                    w_encoding_type(std::locale::classic())
+                );
         }
         {
             const w_m_encoder_type encoder =
-                w_m_encoder_type(w_encoding_type(), m_encoding_type());
+                w_m_encoder_type(
+                    w_encoding_type(std::locale::classic()),
+                    m_encoding_type(std::locale::classic())
+                );
         }
         {
             const w_w_encoder_type encoder =
-                w_w_encoder_type(w_encoding_type(), w_encoding_type());
+                w_w_encoder_type(
+                    w_encoding_type(std::locale::classic()),
+                    w_encoding_type(std::locale::classic())
+                );
         }
     }
 
@@ -559,12 +571,138 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
     BOOST_AUTO_TEST_CASE(encode)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const m_m_encoder_type::internal_string_type internal_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const m_m_encoder_type::external_string_type external_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+
+            const m_m_encoder_type encoder =
+                m_m_encoder_type(
+                    m_encoding_type(std::locale::classic()),
+                    m_encoding_type(std::locale::classic())
+                );
+
+            BOOST_CHECK(encoder.encode(internal_string) == external_string);
+        }
+        {
+            const m_w_encoder_type::internal_string_type internal_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const m_w_encoder_type::external_string_type external_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+
+            const m_w_encoder_type encoder =
+                m_w_encoder_type(
+                    m_encoding_type(std::locale::classic()),
+                    w_encoding_type(std::locale::classic())
+                );
+
+            BOOST_CHECK(encoder.encode(internal_string) == external_string);
+        }
+        {
+            const w_m_encoder_type::internal_string_type internal_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const w_m_encoder_type::external_string_type external_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+
+            const w_m_encoder_type encoder =
+                w_m_encoder_type(
+                    w_encoding_type(std::locale::classic()),
+                    m_encoding_type(std::locale::classic())
+                );
+
+            BOOST_CHECK(encoder.encode(internal_string) == external_string);
+        }
+        {
+            const w_w_encoder_type::internal_string_type internal_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const w_w_encoder_type::external_string_type external_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+
+            const w_w_encoder_type encoder =
+                w_w_encoder_type(
+                    w_encoding_type(std::locale::classic()),
+                    w_encoding_type(std::locale::classic())
+                );
+
+            BOOST_CHECK(encoder.encode(internal_string) == external_string);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(decode)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const m_m_encoder_type::internal_string_type internal_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const m_m_encoder_type::external_string_type external_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+
+            const m_m_encoder_type encoder =
+                m_m_encoder_type(
+                    m_encoding_type(std::locale::classic()),
+                    m_encoding_type(std::locale::classic())
+                );
+
+            BOOST_CHECK(encoder.decode(external_string) == internal_string);
+        }
+        {
+            const m_w_encoder_type::internal_string_type internal_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const m_w_encoder_type::external_string_type external_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+
+            const m_w_encoder_type encoder =
+                m_w_encoder_type(
+                    m_encoding_type(std::locale::classic()),
+                    w_encoding_type(std::locale::classic())
+                );
+
+            BOOST_CHECK(encoder.decode(external_string) == internal_string);
+        }
+        {
+            const w_m_encoder_type::internal_string_type internal_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const w_m_encoder_type::external_string_type external_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+
+            const w_m_encoder_type encoder =
+                w_m_encoder_type(
+                    w_encoding_type(std::locale::classic()),
+                    m_encoding_type(std::locale::classic())
+                );
+
+            BOOST_CHECK(encoder.decode(external_string) == internal_string);
+        }
+        {
+            const w_w_encoder_type::internal_string_type internal_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+            const w_w_encoder_type::external_string_type external_string(
+                TETENGO2_TEXT("Tetengo2")
+            );
+
+            const w_w_encoder_type encoder =
+                w_w_encoder_type(
+                    w_encoding_type(std::locale::classic()),
+                    w_encoding_type(std::locale::classic())
+                );
+
+            BOOST_CHECK(encoder.decode(external_string) == internal_string);
+        }
     }
 
 
