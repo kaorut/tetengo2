@@ -13,6 +13,7 @@
 #include <cassert>
 #include <cstddef>
 #include <cwchar>
+#include <limits>
 #include <locale>
 #include <stdexcept>
 
@@ -137,41 +138,7 @@ namespace tetengo2 { namespace encoding
             const int string_max_length =
                 (pivot.length() + 1) * converter.max_length();
 
-            std::mbstate_t state = std::mbstate_t();
-            const pivot_char_type* p_pivot_next = NULL;
-            boost::scoped_array<string_char_type> p_string(
-                new string_char_type[string_max_length]
-            );
-            string_char_type* p_string_next = NULL;
-            const typename converter_type::result result =
-                converter.out(
-                    state,
-                    pivot.c_str(),
-                    pivot.c_str() + pivot.length(),
-                    p_pivot_next,
-                    p_string.get(),
-                    p_string.get() + string_max_length,
-                    p_string_next
-                );
-            if (result == converter_type::ok)
-            {
-                *p_string_next = TETENGO2_TEXT('\0');
-                return string_type(p_string.get());
-            }
-            else if (result == converter_type::noconv)
-            {
-                assert(
-                    pivot.length() + 1 ==
-                    static_cast<typename pivot_type::size_type>(
-                        string_max_length
-                    )
-                );
-                return string_type(pivot.begin(), pivot.end());
-            }
-            else
-            {
-                throw std::runtime_error("Can't convert pivot to string.");
-            }
+            return convert_from_pivot(converter, pivot, string_max_length);
         }
 
         /*!
@@ -184,7 +151,16 @@ namespace tetengo2 { namespace encoding
         pivot_type to_pivot(const string_type& string)
         const
         {
-            return pivot_type();
+            if (!std::has_facet<converter_type>(m_locale))
+                return pivot_type(string.begin(), string.end());
+
+            const converter_type& converter =
+                std::use_facet<converter_type>(m_locale);
+
+            const int pivot_max_length =
+                calc_pivot_max_length(converter, string);
+
+            return convert_to_pivot(converter, string, pivot_max_length);
         }
 
 
@@ -199,6 +175,111 @@ namespace tetengo2 { namespace encoding
         // variables
 
         std::locale m_locale;
+
+
+        // functions
+
+        string_type convert_from_pivot(
+            const converter_type&                 converter,
+            const pivot_type&                     pivot,
+            const typename string_type::size_type string_max_length
+        )
+        const
+        {
+            std::mbstate_t state = std::mbstate_t();
+
+            const pivot_char_type* p_pivot_next = NULL;
+
+            boost::scoped_array<string_char_type> p_string(
+                new string_char_type[string_max_length]
+            );
+            string_char_type* p_string_next = NULL;
+            
+            const typename converter_type::result result =
+                converter.out(
+                    state,
+                    pivot.c_str(),
+                    pivot.c_str() + pivot.length(),
+                    p_pivot_next,
+                    p_string.get(),
+                    p_string.get() + string_max_length,
+                    p_string_next
+                );
+            
+            if (result == converter_type::ok)
+            {
+                *p_string_next = TETENGO2_TEXT('\0');
+                return string_type(p_string.get());
+            }
+            else if (result == converter_type::noconv)
+            {
+                assert(pivot.length() + 1 == string_max_length);
+                return string_type(pivot.begin(), pivot.end());
+            }
+            else
+            {
+                throw std::runtime_error("Can't convert pivot to string.");
+            }
+        }
+
+        typename pivot_type::size_type calc_pivot_max_length(
+            const converter_type& converter,
+            const string_type&    string
+        )
+        const
+        {
+            std::mbstate_t state = std::mbstate_t();
+
+            return converter.length(
+                state,
+                string.c_str(),
+                string.c_str() + string.length(),
+                std::numeric_limits<std::size_t>::max()
+            ) + 1;
+        }
+
+        pivot_type convert_to_pivot(
+            const converter_type&                converter,
+            const string_type&                   string,
+            const typename pivot_type::size_type pivot_max_length
+        )
+        const
+        {
+            std::mbstate_t state = std::mbstate_t();
+
+            const string_char_type* p_string_next = NULL;
+
+            boost::scoped_array<pivot_char_type> p_pivot(
+                new pivot_char_type[pivot_max_length]
+            );
+            pivot_char_type* p_pivot_next = NULL;
+            
+            const typename converter_type::result result =
+                converter.in(
+                    state,
+                    string.c_str(),
+                    string.c_str() + string.length(),
+                    p_string_next,
+                    p_pivot.get(),
+                    p_pivot.get() + pivot_max_length,
+                    p_pivot_next
+                );
+            
+            if (result == converter_type::ok)
+            {
+                *p_pivot_next = TETENGO2_TEXT('\0');
+                return pivot_type(p_pivot.get());
+            }
+            else if (result == converter_type::noconv)
+            {
+                assert(string.length() + 1 == pivot_max_length);
+                return pivot_type(string.begin(), string.end());
+            }
+            else
+            {
+                throw std::runtime_error("Can't convert string to pivot.");
+            }
+        }
 
 
     };
