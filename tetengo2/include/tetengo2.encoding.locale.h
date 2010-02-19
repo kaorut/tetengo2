@@ -19,6 +19,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/type_traits.hpp>
 
 #include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"
@@ -129,6 +130,57 @@ namespace tetengo2 { namespace encoding
         string_type from_pivot(const pivot_type& pivot)
         const
         {
+            return from_pivot_impl(pivot, encodings_are_same_type());
+        }
+
+        /*!
+            \brief Translates a string to the pivot encoding.
+
+            \param string A string.
+
+            \return A translated pivot string.
+        */
+        pivot_type to_pivot(const string_type& string)
+        const
+        {
+            return to_pivot_impl(string, encodings_are_same_type());
+        }
+
+
+    private:
+        // type
+
+        typedef
+            std::codecvt<pivot_char_type, string_char_type, std::mbstate_t>
+            converter_type;
+
+        typedef
+            typename boost::is_same<pivot_type, string_type>::type
+            encodings_are_same_type;
+
+
+        // variables
+
+        std::locale m_locale;
+
+
+        // functions
+
+        string_type from_pivot_impl(
+            const pivot_type&       pivot,
+            const boost::true_type& encodings_are_same
+        )
+        const
+        {
+            return pivot;
+        }
+
+        string_type from_pivot_impl(
+            const pivot_type&        pivot,
+            const boost::false_type& encodings_are_same
+        )
+        const
+        {
             if (!std::has_facet<converter_type>(m_locale))
                 return string_type(pivot.begin(), pivot.end());
 
@@ -141,14 +193,19 @@ namespace tetengo2 { namespace encoding
             return convert_from_pivot(converter, pivot, string_max_length);
         }
 
-        /*!
-            \brief Translates a string to the pivot encoding.
+        pivot_type to_pivot_impl(
+            const string_type&      string,
+            const boost::true_type& encodings_are_same
+        )
+        const
+        {
+            return string;
+        }
 
-            \param string A string.
-
-            \return A translated pivot string.
-        */
-        pivot_type to_pivot(const string_type& string)
+        pivot_type to_pivot_impl(
+            const string_type&       string,
+            const boost::false_type& encodings_are_same
+        )
         const
         {
             if (!std::has_facet<converter_type>(m_locale))
@@ -162,22 +219,6 @@ namespace tetengo2 { namespace encoding
 
             return convert_to_pivot(converter, string, pivot_max_length);
         }
-
-
-    private:
-        // type
-
-        typedef
-            std::codecvt<pivot_char_type, string_char_type, std::mbstate_t>
-            converter_type;
-
-
-        // variables
-
-        std::locale m_locale;
-
-
-        // functions
 
         string_type convert_from_pivot(
             const converter_type&                 converter,
@@ -283,27 +324,6 @@ namespace tetengo2 { namespace encoding
 
 
     };
-
-
-#if !defined(DOCUMENTATION)
-    // specialized templates
-
-    template <>
-    inline locale<encoding::pivot_type>::string_type
-    locale<encoding::pivot_type>::from_pivot(const pivot_type& pivot)
-    const
-    {
-        return pivot;
-    }
-
-    template <>
-    inline locale<encoding::pivot_type>::pivot_type
-    locale<encoding::pivot_type>::to_pivot(const string_type& string)
-    const
-    {
-        return string;
-    }
-#endif
 
 
 }}

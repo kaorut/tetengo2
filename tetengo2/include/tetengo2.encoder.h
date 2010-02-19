@@ -10,6 +10,7 @@
 #define TETENGO2_ENCODER_H
 
 //#include <boost/concept_check.hpp>
+#include <boost/type_traits.hpp>
 
 #include "concept_tetengo2.encoding.Encoding.h"
 #include "tetengo2.assignable.h"
@@ -152,9 +153,7 @@ namespace tetengo2
         external_string_type encode(const internal_string_type& string)
         const
         {
-            return m_external_encoding.from_pivot(
-                m_internal_encoding.to_pivot(string)
-            );
+            return encode_impl(string, encodings_are_same_type());
         }
 
         /*!
@@ -167,18 +166,68 @@ namespace tetengo2
         internal_string_type decode(const external_string_type& string)
         const
         {
-            return m_internal_encoding.from_pivot(
-                m_external_encoding.to_pivot(string)
-            );
+            return decode_impl(string, encodings_are_same_type());
         }
 
 
     private:
+        // types
+
+        typedef
+            typename boost::is_same<
+                internal_encoding_type, external_encoding_type
+            >::type
+            encodings_are_same_type;
+
+
         // variables
 
         internal_encoding_type m_internal_encoding;
 
         external_encoding_type m_external_encoding;
+
+
+        // functions
+
+        external_string_type encode_impl(
+            const internal_string_type& string,
+            const boost::true_type&     encodings_are_same
+        )
+        const
+        {
+            return string;
+        }
+
+        external_string_type encode_impl(
+            const internal_string_type& string,
+            const boost::false_type&    encodings_are_same
+        )
+        const
+        {
+            return m_external_encoding.from_pivot(
+                m_internal_encoding.to_pivot(string)
+            );
+        }
+
+        internal_string_type decode_impl(
+            const external_string_type& string,
+            const boost::true_type&     encodings_are_same
+        )
+        const
+        {
+            return string;
+        }
+
+        internal_string_type decode_impl(
+            const external_string_type& string,
+            const boost::false_type&    encodings_are_same
+        )
+        const
+        {
+            return m_internal_encoding.from_pivot(
+                m_external_encoding.to_pivot(string)
+            );
+        }
 
 
     };
