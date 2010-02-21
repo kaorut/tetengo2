@@ -25,6 +25,7 @@
 //#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "concept_tetengo2.MessageCatalogParser.h"
 #include "concept_tetengo2.Path.h"
@@ -155,8 +156,8 @@ namespace tetengo2
         {
             if (m_open)
             {
-                throw std::runtime_error(
-                    "A message catalog is already open."
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("A message catalog is already open.")
                 );
             }
 
@@ -190,7 +191,11 @@ namespace tetengo2
                 return default_message;
             
             if (!m_open)
-                throw std::runtime_error("The message catalog is not open.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("The message catalog is not open.")
+                );
+            }
 
             const typename message_catalog_type::const_iterator found =
                 m_message_catalog->find(default_message);
@@ -212,7 +217,11 @@ namespace tetengo2
             if (catalog_id < 0) return;
 
             if (!m_open)
-                throw std::runtime_error("The message catalog is not open.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("The message catalog is not open.")
+                );
+            }
 
             m_open = false;
         }
@@ -298,9 +307,17 @@ namespace tetengo2
         )
         {
             if (!boost::filesystem::exists(path))
-                throw std::ios_base::failure("Path does not exist.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::ios_base::failure("Path does not exist.")
+                );
+            }
             if (!boost::filesystem::is_directory(path))
-                throw std::ios_base::failure("Path is not a directory.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::ios_base::failure("Path is not a directory.")
+                );
+            }
 
             std::vector<path_type> catalog_files;
             std::transform(
@@ -344,8 +361,10 @@ namespace tetengo2
             );
             if (!input_stream.is_open())
             {
-                throw std::ios_base::failure(
-                    "Can't open the message catalog file mappings."
+                BOOST_THROW_EXCEPTION(
+                    std::ios_base::failure(
+                        "Can't open the message catalog file mappings."
+                    )
                 );
             }
 
@@ -366,8 +385,8 @@ namespace tetengo2
             );
             if (!input_stream.is_open())
             {
-                throw std::ios_base::failure(
-                    "Can't open a message catalog."
+                BOOST_THROW_EXCEPTION(
+                    std::ios_base::failure("Can't open a message catalog.")
                 );
             }
 

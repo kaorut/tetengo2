@@ -13,6 +13,7 @@
 #include <stdexcept>
 
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #define OEMRESOURCE
 #include <windows.h>
@@ -70,7 +71,11 @@ namespace tetengo2 { namespace gui { namespace win32
             ::ULONG_PTR token = NULL;
 
             if (Gdiplus::GdiplusStartup(&token, &input, NULL) != Gdiplus::Ok)
-                throw std::runtime_error("Can't start up GDI+!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't start up GDI+!")
+                );
+            }
 
             return token;
         }
@@ -89,7 +94,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 ICC_STANDARD_CLASSES |
                 ICC_LINK_CLASS;
             if (::InitCommonControlsEx(&enabled_common_controls) == 0)
-                throw std::runtime_error("Can't initialize common controls!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't initialize common controls!")
+                );
+            }
         }
 
 

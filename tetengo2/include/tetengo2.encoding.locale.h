@@ -19,6 +19,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/type_traits.hpp>
 
 #include "concept_tetengo2.String.h"
@@ -259,7 +260,9 @@ namespace tetengo2 { namespace encoding
             }
             else
             {
-                throw std::runtime_error("Can't convert pivot to string.");
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't convert pivot to string.")
+                );
             }
         }
 
@@ -318,7 +321,9 @@ namespace tetengo2 { namespace encoding
             }
             else
             {
-                throw std::runtime_error("Can't convert string to pivot.");
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't convert string to pivot.")
+                );
             }
         }
 

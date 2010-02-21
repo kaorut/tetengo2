@@ -17,6 +17,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -208,7 +209,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 m_font.family().c_str(), &font_collection
             );
             if (!font_family.IsAvailable())
-                throw std::runtime_error("Font family is not available.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Font family is not available.")
+                );
+            }
             const Gdiplus::Font font(
                 &font_family,
                 static_cast<Gdiplus::REAL>(m_font.size()),
@@ -216,7 +221,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 Gdiplus::UnitPixel
             );
             if (!font.IsAvailable())
-                throw std::runtime_error("Font is not available.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Font is not available.")
+                );
+            }
             const Gdiplus::SolidBrush brush(
                 Gdiplus::Color(128, 255, 0, 0)
             );
@@ -233,7 +242,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 &brush
             );
             if (result != Gdiplus::Ok)
-                throw std::runtime_error("Can't draw text!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't draw text!")
+                );
+            }
         }
 
 
@@ -247,7 +260,11 @@ namespace tetengo2 { namespace gui { namespace win32
             std::auto_ptr< ::PAINTSTRUCT> p_paint_info(new ::PAINTSTRUCT());
 
             if (::BeginPaint(window_handle, p_paint_info.get()) == NULL)
-                throw std::runtime_error("Can't begin paint!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't begin paint!")
+                );
+            }
 
             return p_paint_info;
         }
@@ -258,7 +275,11 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             const ::HDC device_context = ::GetDC(window_handle);
             if (device_context == NULL)
-                throw std::runtime_error("Can't get device context!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get device context!")
+                );
+            }
 
             return device_context;
         }

@@ -24,6 +24,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX
@@ -222,7 +223,7 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             if (!has_parent())
-                throw std::runtime_error("Has no parent.");
+                BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
             widget* const p_parent =
                 p_widget_from(::GetParent(this->handle()));
@@ -244,7 +245,7 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             if (!has_parent())
-                throw std::runtime_error("Has no parent.");
+                BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
             const widget* const p_parent =
                 p_widget_from(::GetParent(this->handle()));
@@ -408,7 +409,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 this->visible() ? TRUE : FALSE
             );
             if (result == 0)
-                throw std::runtime_error("Can't move window.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't move window.")
+                );
+            }
         }
 
         /*!
@@ -425,7 +430,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
             ::RECT rectangle = {0, 0, 0, 0};
             if (::GetWindowRect(this->handle(), &rectangle) == 0)
-                throw std::runtime_error("Can't get window rectangle.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get window rectangle.")
+                );
+            }
 
             return std::make_pair(rectangle.left, rectangle.top);
         }
@@ -444,7 +453,11 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             if (dimension.first == 0 || dimension.second == 0)
-                throw std::invalid_argument("Dimension has zero value.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Dimension has zero value.")
+                );
+            }
 
             const position_type position = this->position();
 
@@ -457,7 +470,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 this->visible() ? TRUE : FALSE
             );
             if (result == 0)
-                throw std::runtime_error("Can't move window.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't move window.")
+                );
+            }
         }
 
         /*!
@@ -474,7 +491,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
             ::RECT rectangle = {0, 0, 0, 0};
             if (::GetWindowRect(this->handle(), &rectangle) == 0)
-                throw std::runtime_error("Can't get window rectangle.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get window rectangle.")
+                );
+            }
 
             assert(rectangle.right - rectangle.left > 0);
             assert(rectangle.bottom - rectangle.top > 0);
@@ -502,8 +523,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
             if (client_dimension.first == 0 || client_dimension.second == 0)
             {
-                throw std::invalid_argument(
-                    "Client dimension has zero value."
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Client dimension has zero value.")
                 );
             }
 
@@ -529,7 +550,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 ) == 0
             )
             {
-                throw std::runtime_error("Can't adjust window rectangle.");
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't adjust window rectangle.")
+                );
             }
 
             assert(rectangle.right - rectangle.left > 0);
@@ -543,7 +566,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 this->visible() ? TRUE : FALSE
             );
             if (result == 0)
-                throw std::runtime_error("Can't move window.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't move window.")
+                );
+            }
         }
 
         /*!
@@ -560,7 +587,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
             ::RECT rectangle = {0, 0, 0, 0};
             if (::GetClientRect(this->handle(), &rectangle) == 0)
-                throw std::runtime_error("Can't get client rectangle.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get client rectangle.")
+                );
+            }
 
             assert(rectangle.right - rectangle.left > 0);
             assert(rectangle.bottom - rectangle.top > 0);
@@ -586,7 +617,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 this->handle(), encode_to_native_type()(text).c_str()
             );
             if (result == 0)
-                throw std::runtime_error("Can't set text!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set text!")
+                );
+            }
         }
 
         /*!
@@ -654,7 +689,11 @@ namespace tetengo2 { namespace gui { namespace win32
             log_font.lfFaceName[font.family().size()] = L'\0';
             const ::HFONT font_handle = ::CreateFontIndirectW(&log_font);
             if (font_handle == NULL)
-                throw std::runtime_error("Can't create font.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create font.")
+                );
+            }
             ::SendMessageW(
                 this->handle(),
                 WM_SETFONT,
@@ -667,7 +706,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::DeleteObject(previous_font_handle) == 0
             )
             {
-                throw std::runtime_error("Can't delete previous font.");
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't delete previous font.")
+                );
             }
         }
 
@@ -697,7 +738,11 @@ namespace tetengo2 { namespace gui { namespace win32
             const int byte_count =
                 ::GetObjectW(font_handle, sizeof(::LOGFONTW), &log_font);
             if (byte_count == 0)
-                throw std::runtime_error("Can't get log font.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get log font.")
+                );
+            }
             
             return font_type(
                 log_font.lfFaceName,
@@ -889,7 +934,11 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             if (m_destroyed)
-                throw std::runtime_error("This window is destroyed.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("This window is destroyed.")
+                );
+            }
         }
 
         /*!
@@ -993,7 +1042,11 @@ namespace tetengo2 { namespace gui { namespace win32
                     reinterpret_cast< ::HANDLE>(p_widget)
                 );
             if (result == 0)
-                throw std::runtime_error("Can't set C++ instance.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set C++ instance.")
+                );
+            }
         }
 
         static ::LRESULT CALLBACK static_window_procedure(
@@ -1074,7 +1127,11 @@ namespace tetengo2 { namespace gui { namespace win32
             );
 
             if (font_handle != NULL && ::DeleteObject(font_handle) == 0)
-                throw std::runtime_error("Can't delete previous font.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't delete previous font.")
+                );
+            }
         }
 
         template <typename Child>

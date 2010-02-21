@@ -14,6 +14,7 @@
 
 #include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 
@@ -250,33 +251,43 @@ namespace bobura { namespace model { namespace train_info
                 !(hours <= 0 && minutes <= 0 && seconds <= 0)
             )
             {
-                throw std::invalid_argument(
-                    "The signs of the hours, the minutes and the seconds "
-                    "are different."
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "The signs of the hours, the minutes and the seconds "
+                        "are different."
+                    )
                 );
             }
             else if (minutes > 59)
             {
-                throw std::out_of_range(
-                    "60 or larger is specified for the minutes."
+                BOOST_THROW_EXCEPTION(
+                    std::out_of_range(
+                        "60 or larger is specified for the minutes."
+                    )
                 );
             }
             else if (minutes < -59)
             {
-                throw std::out_of_range(
-                    "-60 or smaller is specified for the minutes."
+                BOOST_THROW_EXCEPTION(
+                    std::out_of_range(
+                        "-60 or smaller is specified for the minutes."
+                    )
                 );
             }
             else if (seconds > 59)
             {
-                throw std::out_of_range(
-                    "60 or larger is specified for the seconds."
+                BOOST_THROW_EXCEPTION(
+                    std::out_of_range(
+                        "60 or larger is specified for the seconds."
+                    )
                 );
             }
             else if (seconds < -59)
             {
-                throw std::out_of_range(
-                    "-60 or smaller is specified for the seconds."
+                BOOST_THROW_EXCEPTION(
+                    std::out_of_range(
+                        "-60 or smaller is specified for the seconds."
+                    )
                 );
             }
 

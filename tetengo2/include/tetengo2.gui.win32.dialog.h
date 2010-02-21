@@ -18,6 +18,7 @@
 #include <boost/cast.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/scope_exit.hpp>
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -173,7 +174,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const ::BOOL result = ::DestroyWindow(this->handle());
             if (result == 0)
-                throw std::runtime_error("Can't destroy the dialog.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't destroy the dialog.")
+                );
+            }
         }
 
         /*!
@@ -309,7 +314,11 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
             if (instance_handle == NULL)
-                throw std::runtime_error("Can't get the instance handle!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get the instance handle!")
+                );
+            }
 
             if (
                 !window_class_is_registered(
@@ -335,7 +344,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 NULL
             );
             if (handle == NULL)
-                throw std::runtime_error("Can't create a dialog!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a dialog!")
+                );
+            }
 
             delete_system_menus(handle);
 
@@ -371,7 +384,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
             if (atom == NULL)
-                throw std::runtime_error("Can't register a window class!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't register a window class!")
+                );
+            }
         }
 
         static void delete_system_menus(const ::HWND window_handle)
@@ -380,13 +397,29 @@ namespace tetengo2 { namespace gui { namespace win32
             if (menu_handle == NULL) return;
 
             if (::DeleteMenu(menu_handle, SC_SIZE, MF_BYCOMMAND) == 0)
-                throw std::runtime_error("Can't delete system menu item.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't delete system menu item.")
+                );
+            }
             if (::DeleteMenu(menu_handle, SC_MAXIMIZE, MF_BYCOMMAND) == 0)
-                throw std::runtime_error("Can't delete system menu item.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't delete system menu item.")
+                );
+            }
             if (::DeleteMenu(menu_handle, SC_MINIMIZE, MF_BYCOMMAND) == 0)
-                throw std::runtime_error("Can't delete system menu item.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't delete system menu item.")
+                );
+            }
             if (::DeleteMenu(menu_handle, SC_RESTORE, MF_BYCOMMAND) == 0)
-                throw std::runtime_error("Can't delete system menu item.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't delete system menu item.")
+                );
+            }
         }
 
         static ::LRESULT CALLBACK static_window_procedure(

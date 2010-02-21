@@ -13,6 +13,7 @@
 #include <stdexcept>
 
 //#include <boost/concept_check.hpp>
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -200,8 +201,8 @@ namespace tetengo2 { namespace gui { namespace win32
                     NULL
                 )
                 {
-                    throw std::runtime_error(
-                        "Default button already exists."
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Default button already exists.")
                     );
                 }
                 id = reinterpret_cast< ::HMENU>(IDOK);
@@ -213,8 +214,8 @@ namespace tetengo2 { namespace gui { namespace win32
                     NULL
                 )
                 {
-                    throw std::runtime_error(
-                        "Cancel button already exists."
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Cancel button already exists.")
                     );
                 }
                 id = reinterpret_cast< ::HMENU>(IDCANCEL);
@@ -234,7 +235,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 NULL
             );
             if (handle == NULL)
-                throw std::runtime_error("Can't create a button!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a button!")
+                );
+            }
 
             return handle;
         }
@@ -257,7 +262,11 @@ namespace tetengo2 { namespace gui { namespace win32
 #    pragma warning(pop)
 #endif
             if (result == 0)
-                throw std::runtime_error("Can't replace window procedure.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't replace window procedure.")
+                );
+            }
 
             return reinterpret_cast< ::WNDPROC>(result);
         }

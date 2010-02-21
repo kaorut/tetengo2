@@ -13,6 +13,7 @@ BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
 BOOST_TEST_MODULE                                boost/test/unit_test.hpp
 BOOST_TEST_PASSPOINT                             boost/test/unit_test.hpp
+BOOST_THROW_EXCEPTION                            boost/throw_exception.hpp
 BOOST_WARN_MESSAGE                               boost/test/unit_test.hpp
 NULL                                             cstddef
 assert                                           cassert

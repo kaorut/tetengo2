@@ -13,6 +13,7 @@
 #include <stdexcept>
 
 //#include <boost/concept_check.hpp>
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -177,7 +178,11 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
             if (instance_handle == NULL)
-                throw std::runtime_error("Can't get the instance handle!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get the instance handle!")
+                );
+            }
 
             if (
                 !window_class_is_registered(
@@ -203,7 +208,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 NULL
             );
             if (handle == NULL)
-                throw std::runtime_error("Can't create a window!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a window!")
+                );
+            }
 
             return handle;
         }
@@ -255,7 +264,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
             if (atom == NULL)
-                throw std::runtime_error("Can't register a window class!");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't register a window class!")
+                );
+            }
         }
 
 

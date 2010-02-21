@@ -14,6 +14,7 @@
 #include <vector>
 
 //#include <boost/concept_check.hpp>
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -127,7 +128,11 @@ namespace tetengo2 { namespace gui { namespace win32
             const handle_type handle = ::CreatePopupMenu();
 
             if (handle == NULL)
-                throw std::runtime_error("Can't create a main menu.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a main menu.")
+                );
+            }
 
             return handle;
         }

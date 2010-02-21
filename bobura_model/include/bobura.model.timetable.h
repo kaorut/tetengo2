@@ -17,6 +17,7 @@
 #include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
 #include <tetengo2.assignable.h>
@@ -197,8 +198,10 @@ namespace bobura { namespace model
         {
             if (!can_insert_to(position, station_location))
             {
-                throw std::invalid_argument(
-                    "The insertion position is invalid."
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "The insertion position is invalid."
+                    )
                 );
             }
 
@@ -287,9 +290,11 @@ namespace bobura { namespace model
         {
             if (train.stops().size() != m_station_locations.size())
             {
-                throw std::invalid_argument(
-                    "The count of the train stops does not coincide with the "
-                    "one of the station locations."
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "The count of the train stops does not coincide with "
+                        "the one of the station locations."
+                    )
                 );
             }
 

@@ -16,6 +16,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+#include <boost/throw_exception.hpp>
 //#include <boost/tuple/tuple.hpp>
 //#include <boost/tuple/tuple_comparison.hpp>
 
@@ -247,7 +248,11 @@ namespace bobura { namespace model { namespace train_info
         const
         {
             if (*this == uninitialized() || another == uninitialized())
-                throw std::logic_error("The time object is uninitialized.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The time object is uninitialized.")
+                );
+            }
 
             typename time_span_type::tick_type seconds =
                 m_seconds_from_midnight;
@@ -297,7 +302,11 @@ namespace bobura { namespace model { namespace train_info
         const
         {
             if (*this == uninitialized())
-                throw std::logic_error("The time object is uninitialized.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The time object is uninitialized.")
+                );
+            }
 
             return m_seconds_from_midnight;
         }
@@ -315,7 +324,11 @@ namespace bobura { namespace model { namespace train_info
         const
         {
             if (*this == uninitialized())
-                throw std::logic_error("The time object is uninitialized.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The time object is uninitialized.")
+                );
+            }
 
             const tick_type hours = m_seconds_from_midnight / (60 * 60);
             const tick_type minutes =
@@ -338,20 +351,26 @@ namespace bobura { namespace model { namespace train_info
         {
             if (hours > 23)
             {
-                throw std::out_of_range(
-                    "24 or greater is specified for the hours."
+                BOOST_THROW_EXCEPTION(
+                    std::out_of_range(
+                        "24 or greater is specified for the hours."
+                    )
                 );
             }
             else if (minutes > 59)
             {
-                throw std::out_of_range(
-                    "60 or greater is specified for the minutes."
+                BOOST_THROW_EXCEPTION(
+                    std::out_of_range(
+                        "60 or greater is specified for the minutes."
+                    )
                 );
             }
             else if (seconds > 59)
             {
-                throw std::out_of_range(
-                    "60 or greater is specified for the minutes."
+                BOOST_THROW_EXCEPTION(
+                    std::out_of_range(
+                        "60 or greater is specified for the seconds."
+                    )
                 );
             }
 

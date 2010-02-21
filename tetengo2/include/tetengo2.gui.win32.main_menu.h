@@ -15,6 +15,7 @@
 #include <vector>
 
 //#include <boost/concept_check.hpp>
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -112,7 +113,9 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             assert(false);
-            throw std::logic_error("A main menu cannot be inserted.");
+            BOOST_THROW_EXCEPTION(
+                std::logic_error("A main menu cannot be inserted.")
+            );
         }
 
 
@@ -124,7 +127,11 @@ namespace tetengo2 { namespace gui { namespace win32
             const handle_type handle = ::CreateMenu();
 
             if (handle == NULL)
-                throw std::runtime_error("Can't create a main menu.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a main menu.")
+                );
+            }
 
             return handle;
         }

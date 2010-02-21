@@ -15,6 +15,7 @@
 
 //#include <boost/program_options.hpp>
 //#include <boost/scoped_array.hpp>
+//#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -31,7 +32,11 @@ namespace
     {
         const int length = ::GetLocaleInfoA(id, type, NULL, 0);
         if (length == 0)
-            throw std::runtime_error("Can't get locale info.");
+        {
+            BOOST_THROW_EXCEPTION(
+                std::runtime_error("Can't get locale info.")
+            );
+        }
 
         boost::scoped_array<char> p_info(new char[length]);
         ::GetLocaleInfoA(id, type, p_info.get(), length);

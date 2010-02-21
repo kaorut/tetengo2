@@ -20,6 +20,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX
@@ -297,7 +298,9 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual void insert(const iterator offset, std::auto_ptr<menu> p_menu)
         {
             assert(false);
-            throw std::logic_error("Can't insert any menus.");
+            BOOST_THROW_EXCEPTION(
+                std::logic_error("Can't insert any menus.")
+            );
         }
 
         /*!
@@ -311,7 +314,7 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual void erase(const iterator first, const iterator last)
         {
             assert(false);
-            throw std::logic_error("Can't erase any menus.");
+            BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
         }
 
         /*!

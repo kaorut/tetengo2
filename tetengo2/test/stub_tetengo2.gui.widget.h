@@ -19,6 +19,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Canvas.h"
@@ -144,7 +145,7 @@ namespace stub_tetengo2 { namespace gui
         virtual widget& parent()
         {
             if (!has_parent())
-                throw std::runtime_error("Has no parent.");
+                BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
             return *m_p_parent;
         }
@@ -153,7 +154,7 @@ namespace stub_tetengo2 { namespace gui
         const
         {
             if (!has_parent())
-                throw std::runtime_error("Has no parent.");
+                BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
             return *m_p_parent;
         }
@@ -161,7 +162,7 @@ namespace stub_tetengo2 { namespace gui
         virtual widget& root_ancestor()
         {
             if (!has_parent())
-                throw std::runtime_error("Has no parent.");
+                BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
             return *m_p_parent;
         }
@@ -170,7 +171,7 @@ namespace stub_tetengo2 { namespace gui
         const
         {
             if (!has_parent())
-                throw std::runtime_error("Has no parent.");
+                BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
             return *m_p_parent;
         }
@@ -221,7 +222,11 @@ namespace stub_tetengo2 { namespace gui
         virtual void set_dimension(const dimension_type& dimension)
         {
             if (dimension.first == 0 || dimension.second == 0)
-                throw std::invalid_argument("Dimension has zero value.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Dimension has zero value.")
+                );
+            }
 
             m_dimension = dimension;
         }
@@ -238,8 +243,8 @@ namespace stub_tetengo2 { namespace gui
         {
             if (client_dimension.first == 0 || client_dimension.second == 0)
             {
-                throw std::invalid_argument(
-                    "Client dimension has zero value."
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Client dimension has zero value.")
                 );
             }
 

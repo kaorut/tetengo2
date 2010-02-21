@@ -17,6 +17,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -303,7 +304,11 @@ namespace tetengo2 { namespace gui { namespace win32
             ::OSVERSIONINFOW os_version_info;
             os_version_info.dwOSVersionInfoSize = sizeof(::OSVERSIONINFOW);
             if (::GetVersionEx(&os_version_info) == 0)
-                throw std::runtime_error("Can't get Windows version.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get Windows version.")
+                );
+            }
 
             const ::UINT metrics_size = os_version_info.dwMajorVersion >= 6 ?
                 sizeof(::NONCLIENTMETRICSW) :
@@ -318,7 +323,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 ) == 0
             )
             {
-                throw std::runtime_error("Can't get non-client metrics.");
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get non-client metrics.")
+                );
             }
         }
 
@@ -337,8 +344,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             if (status != Gdiplus::Ok)
             {
-                throw std::runtime_error(
-                    "Can't get installed font families."
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get installed font families.")
                 );
             }
 
@@ -350,7 +357,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 const Gdiplus::Status family_name_status =
                     p_families[i].GetFamilyName(family_name);
                 if (family_name_status != Gdiplus::Ok)
-                    throw std::runtime_error("Can't get font family name.");
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't get font family name.")
+                    );
+                }
                 families.push_back(family_name);
             }
             return families;

@@ -16,6 +16,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -121,8 +122,10 @@ namespace tetengo2 { namespace win32
             );
             if (length == 0)
             {
-                throw std::invalid_argument(
-                    "Can't convert std::string to std::wstring!"
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "Can't convert std::string to std::wstring!"
+                    )
                 );
             }
 
@@ -189,8 +192,10 @@ namespace tetengo2 { namespace win32
             );
             if (length == 0)
             {
-                throw std::invalid_argument(
-                    "Can't convert std::wstring to std::string!"
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "Can't convert std::wstring to std::string!"
+                    )
                 );
             }
             

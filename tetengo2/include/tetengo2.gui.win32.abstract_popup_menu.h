@@ -19,6 +19,7 @@
 #include <vector>
 
 //#include <boost/concept_check.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX
@@ -219,8 +220,10 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             if (p_menu.get() == NULL)
             {
-                throw std::invalid_argument(
-                    "The auto pointer to a menu is NULL."
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "The auto pointer to a menu is NULL."
+                    )
                 );
             }
 
@@ -310,7 +313,11 @@ namespace tetengo2 { namespace gui { namespace win32
                 &menu_info
             );
             if (result == 0)
-                throw std::runtime_error("Can't insert a native menu.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't insert a native menu.")
+                );
+            }
         }
 
         void erase_native_menus(const_iterator first, const_iterator last)

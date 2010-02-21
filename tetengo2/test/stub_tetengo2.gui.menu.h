@@ -17,6 +17,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #include "concept_tetengo2.String.h"
@@ -173,13 +174,15 @@ namespace stub_tetengo2 { namespace gui
         virtual void insert(const iterator offset, std::auto_ptr<menu> p_menu)
         {
             assert(false);
-            throw std::logic_error("Can't insert any menus.");
+            BOOST_THROW_EXCEPTION(
+                std::logic_error("Can't insert any menus.")
+            );
         }
 
         virtual void erase(const iterator first, const iterator last)
         {
             assert(false);
-            throw std::logic_error("Can't erase any menus.");
+            BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
         }
 
 

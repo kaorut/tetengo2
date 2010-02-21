@@ -19,6 +19,7 @@
 #include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/signal.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX
@@ -217,16 +218,28 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             if (::SetMenu(this->handle(), NULL) == 0)
-                throw std::runtime_error("Can't unset the main menu.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't unset the main menu.")
+                );
+            }
             
             m_p_main_menu = p_main_menu;
             
             if (m_p_main_menu.get() != NULL)
             {
                 if (::SetMenu(this->handle(), m_p_main_menu->handle()) == 0)
-                    throw std::runtime_error("Can't set a main menu.");
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't set a main menu.")
+                    );
+                }
                 if (::DrawMenuBar(this->handle()) == 0)
-                    throw std::runtime_error("Can't draw the main menu.");
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't draw the main menu.")
+                    );
+                }
             }
         }
 
@@ -267,7 +280,11 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::BOOL result =
                 ::PostMessageW(this->handle(), WM_CLOSE, 0, 0);
             if (result == 0)
-                throw std::runtime_error("Can't close the abstract window.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't close the abstract window.")
+                );
+            }
         }
 
 

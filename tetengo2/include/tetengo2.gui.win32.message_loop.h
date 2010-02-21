@@ -13,6 +13,8 @@
 #include <sstream>
 #include <stdexcept>
 
+#include <boost/throw_exception.hpp>
+
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
@@ -55,7 +57,9 @@ namespace tetengo2 { namespace gui { namespace win32
                     error_text
                         << "Win32 Message Loop Error: "
                         << ::GetLastError();
-                    throw std::runtime_error(error_text.str());
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error(error_text.str())
+                    );
                 }
 
                 ::TranslateMessage(&message);
