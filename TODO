@@ -23,11 +23,6 @@ Added on    : 2010/02/23
 Depends on  : (none)
 Description : Create tetengo2::swappable and use boost::swap.
 ------------------------------------------------------------------------------
-Number      : 00000021
-Added on    : 2010/02/24
-Depends on  : (none)
-Description : Use the precompiled header for g++.
-------------------------------------------------------------------------------
 Number      : 00000022
 Added on    : 2010/mm/yy
 Depends on  : (none)
