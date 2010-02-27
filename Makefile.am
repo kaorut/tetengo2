@@ -2,7 +2,7 @@
 # Copyright (C) 2007-2010 kaoru
 # $Id$
 
-SUBDIRS = bobura bobura_model tetengo2
+SUBDIRS = precompiled bobura bobura_model tetengo2
 
 EXTRA_DIST = bobura.sln bobura_config.h-original TODO Doxyfile Doxyfile.test
 
