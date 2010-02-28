@@ -23,16 +23,30 @@ AC_CONFIG_FILES([
     tetengo2/res.test/Makefile
 ])
 
+AC_ARG_ENABLE(
+    precompilation,
+    AS_HELP_STRING(
+        [--enable-precompilation],
+        [enables precompilation.]
+    ),
+    PRECOMPILE_CPPFLAGS=" -I\$(top_srcdir)/precompiled -include precompiled.h"
+)
+AC_SUBST(PRECOMPILE_CPPFLAGS)
+
+
 #### Checks for programs ####
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
 AC_ARG_WITH(
-    doxygen, [
-  --with-doxygen=DIR  Specify the directory of Doxygen.
-                      If set, ``$DIR/doxygen'' is used. Otherwise, ``doxygen''
-                      is used.
-],
+    doxygen,
+    AS_HELP_STRING(
+        [--with-doxygen=DIR],
+        [
+            Specify the directory of Doxygen. If set, ``$DIR/doxygen'' is
+            used. Otherwise, ``doxygen'' is used.
+        ]
+    ),
     DOXYGEN=$withval/doxygen
 )
 AC_CHECK_PROG(DOXYGEN, doxygen, doxygen)

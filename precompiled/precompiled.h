@@ -6,8 +6,6 @@
     $Id$
 */
 
-#if defined(_MSC_VER)
-
 // The standard library headers
 
 #include <algorithm>
@@ -57,6 +55,8 @@
 #include <boost/unordered_map.hpp>
 #include <boost/utility.hpp>
 
+
+#if defined(_MSC_VER)
 
 // Windows headers
 

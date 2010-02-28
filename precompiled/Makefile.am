@@ -4,10 +4,10 @@
 
 EXTRA_DIST = precompiled.h precompiled.cpp
 
-all-local: precompiled.gch
+all-local: precompiled.h.gch
 
-precompiled.gch: precompiled.h
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(BOOST_CPPFLAGS) $<
+precompiled.h.gch: precompiled.h
+	test -z "$(PRECOMPILE_CPPFLAGS)" || $(CXX) $(CPPFLAGS) $(CXXFLAGS) $(BOOST_CPPFLAGS) $<
 
 clean-local:
-	-rm -f *.gch
+	-test -z "$(PRECOMPILE_CPPFLAGS)" || rm -f *.gch
