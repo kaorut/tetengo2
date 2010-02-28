@@ -29,6 +29,7 @@ EXTRA_DIST = $(extra_headers) $(extra_sources)
 TESTS = bobura.test
 
 bobura_test_CPPFLAGS = \
+    $(PRECOMPILE_CPPFLAGS) \
     $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/bobura/src \
     -I$(top_srcdir)/bobura_model/include \

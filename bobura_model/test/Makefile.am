@@ -25,6 +25,7 @@ EXTRA_DIST = $(extra_headers) $(extra_sources)
 TESTS = bobura_model.test
 
 bobura_model_test_CPPFLAGS = \
+    $(PRECOMPILE_CPPFLAGS) \
     $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/bobura_model/include \
     -I$(top_srcdir)/tetengo2/include

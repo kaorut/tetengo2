@@ -72,6 +72,7 @@ TESTS = tetengo2.test
 tetengo2_test_DEPENDENCIES = \
     messages.test
 tetengo2_test_CPPFLAGS = \
+    $(PRECOMPILE_CPPFLAGS) \
     $(BOOST_CPPFLAGS) \
     -I$(top_srcdir)/tetengo2/include
 tetengo2_test_LDFLAGS = $(BOOST_LDFLAGS)
