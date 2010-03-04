@@ -154,14 +154,16 @@ sub scan_source
 				$code_line =~ /(assert)/ ||
 				$code_line =~ /(NULL)/ ||
 				$code_line =~ /(boost::[a-zA-Z0-9_\:]*)/ ||
-				$code_line =~ /(BOOST_[A-Z0-9_]*)/
+				$code_line =~ /(BOOST_[A-Z0-9_]*)/ ||
+				$code_line =~ /[^a-zA-Z0-9_\:](::[A-Z][a-zA-Z0-9_\:]*)/ ||
+				$code_line =~ /(Gdiplus::[a-zA-Z0-9_\:]*)/
 			)
 			{
 				my($usage) = $1;
 				
 				if ($$r_stdlib_headers{$usage} eq '')
 				{
- 					$$r_stdlib_header_usage{$usage} = '<< UNKNOWN HEADER >>';
+					$$r_stdlib_header_usage{$usage} = '<< UNKNOWN HEADER >>';
 				}
 				else
 				{
@@ -282,6 +284,9 @@ sub is_std_or_boost_header
 	
 	return 1 if $header_name =~ /^[a-z0-9]+$/;
 	return 1 if $header_name =~ /^boost\/.+\.hpp$/;
+	return 1 if $header_name =~ /^windows\.h$/;
+	return 1 if $header_name =~ /^commctrl\.h$/;
+	return 1 if $header_name =~ /^gdiplus\.h$/;
 	
 	return 0;
 }

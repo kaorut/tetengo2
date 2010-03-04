@@ -60,6 +60,7 @@
 
 // Windows headers
 
+#define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
 #include <commctrl.h>

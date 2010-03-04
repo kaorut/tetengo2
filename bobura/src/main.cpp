@@ -17,8 +17,8 @@
 //#include <boost/scoped_array.hpp>
 //#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
+//#define NOMINMAX
+//#define OEMRESOURCE
 //#include <windows.h>
 
 //#include <tetengo2.text.h>

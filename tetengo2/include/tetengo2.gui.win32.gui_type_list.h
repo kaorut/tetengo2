@@ -9,6 +9,19 @@
 #if !defined(TETENGO2_GUI_WIN32_GUITYPELIST_H)
 #define TETENGO2_GUI_WIN32_GUITYPELIST_H
 
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
+//#if !defined(min) && !defined(DOCUMENTATION)
+//#   define min(a, b) ((a) < (b) ? (a) : (b))
+//#endif
+//#if !defined(max) && !defined(DOCUMENTATION)
+//#   define max(a, b) ((a) > (b) ? (a) : (b))
+//#endif
+//#include <gdiplus.h>
+//#undef min
+//#undef max
+
 //#include <boost/concept_check.hpp>
 
 #include "tetengo2.gui.menu_observer.h"
