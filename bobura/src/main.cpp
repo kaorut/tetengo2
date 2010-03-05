@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <cassert>
+//#include <cassert>
 //#include <cstddef>
 //#include <exception>
 //#include <locale>
@@ -14,7 +14,7 @@
 //#include <string>
 //#include <vector>
 
-#include <boost/filesystem.hpp>
+//#include <boost/filesystem.hpp>
 //#include <boost/program_options.hpp>
 //#include <boost/scoped_array.hpp>
 //#include <boost/throw_exception.hpp>
