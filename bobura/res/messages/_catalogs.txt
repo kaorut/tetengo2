@@ -1,0 +1,1 @@
+# Mappings between locale names and catalog file names.

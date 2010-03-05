@@ -108,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="cscript &quot;$(SolutionDir)\tools\copy_boost_dlls.js&quot; &quot;$(SolutionDir)&quot; $(ConfigurationName) $(PlatformName)"
+				CommandLine="cscript &quot;$(SolutionDir)\tools\copy_boost_dlls.js&quot; &quot;$(SolutionDir)&quot; $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /y /i &quot;$(ProjectDir)res\messages&quot; &quot;$(OutDir)\messages&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -201,7 +201,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="cscript &quot;$(SolutionDir)\tools\copy_boost_dlls.js&quot; &quot;$(SolutionDir)&quot; $(ConfigurationName) $(PlatformName)"
+				CommandLine="cscript &quot;$(SolutionDir)\tools\copy_boost_dlls.js&quot; &quot;$(SolutionDir)&quot; $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /y /i &quot;$(ProjectDir)res\messages&quot; &quot;$(OutDir)\messages&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -288,7 +288,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="cscript &quot;$(SolutionDir)\tools\copy_boost_dlls.js&quot; &quot;$(SolutionDir)&quot; $(ConfigurationName) $(PlatformName)"
+				CommandLine="cscript &quot;$(SolutionDir)\tools\copy_boost_dlls.js&quot; &quot;$(SolutionDir)&quot; $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /y /i &quot;$(ProjectDir)res\messages&quot; &quot;$(OutDir)\messages&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -375,7 +375,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="cscript &quot;$(SolutionDir)\tools\copy_boost_dlls.js&quot; &quot;$(SolutionDir)&quot; $(ConfigurationName) $(PlatformName)"
+				CommandLine="cscript &quot;$(SolutionDir)\tools\copy_boost_dlls.js&quot; &quot;$(SolutionDir)&quot; $(ConfigurationName) $(PlatformName)&#x0D;&#x0A;xcopy /y /i &quot;$(ProjectDir)res\messages&quot; &quot;$(OutDir)\messages&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

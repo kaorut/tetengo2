@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <cassert>
 //#include <cstddef>
 //#include <exception>
 //#include <locale>
@@ -13,6 +14,7 @@
 //#include <string>
 //#include <vector>
 
+#include <boost/filesystem.hpp>
 //#include <boost/program_options.hpp>
 //#include <boost/scoped_array.hpp>
 //#include <boost/throw_exception.hpp>
@@ -54,14 +56,13 @@ namespace
             locale_info(locale_id, LOCALE_SENGCOUNTRY);
     }
 
-    void set_locale()
+    template <typename Path>
+    void set_locale(const Path& base_path)
     {
         const std::locale global_locale(
             std::locale(""),
             new bobura::type_list::messages_type(
-                bobura::type_list::messages_type::string_type(
-                    TETENGO2_TEXT(".")
-                ),
+                base_path / TETENGO2_TEXT("messages"),
                 std::locale(ui_locale_name().c_str())
             )
         );
@@ -106,10 +107,14 @@ throw ()
 {
     try
     {
-        set_locale();
-
         const std::vector<std::wstring> command_line_arguments =
             boost::program_options::split_winmain(::GetCommandLineW());
+        assert(!command_line_arguments.empty());
+
+        set_locale(
+            boost::filesystem::wpath(command_line_arguments[0]).parent_path()
+        );
+
         return ::run_application(
             command_line_arguments.begin(), command_line_arguments.end()
         );
