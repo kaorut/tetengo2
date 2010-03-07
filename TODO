@@ -24,6 +24,11 @@ Depends on  : (none)
 Description : Create tetengo2::swappable and use boost::swap.
 ------------------------------------------------------------------------------
 Number      : 00000022
+Added on    : 2010/03/07
+Depends on  : (none)
+Description : Unify the ignored warnings among the build configurations.
+------------------------------------------------------------------------------
+Number      : 00000023
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
