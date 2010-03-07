@@ -188,7 +188,7 @@ namespace tetengo2 { namespace encoding
             const converter_type& converter =
                 std::use_facet<converter_type>(m_locale);
 
-            const int string_max_length =
+            const std::size_t string_max_length =
                 (pivot.length() + 1) * converter.max_length();
 
             return convert_from_pivot(converter, pivot, string_max_length);
@@ -215,7 +215,7 @@ namespace tetengo2 { namespace encoding
             const converter_type& converter =
                 std::use_facet<converter_type>(m_locale);
 
-            const int pivot_max_length =
+            const std::size_t pivot_max_length =
                 calc_pivot_max_length(converter, string);
 
             return convert_to_pivot(converter, string, pivot_max_length);

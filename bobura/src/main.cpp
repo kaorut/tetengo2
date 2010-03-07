@@ -18,6 +18,7 @@
 //#include <boost/program_options.hpp>
 //#include <boost/scoped_array.hpp>
 //#include <boost/throw_exception.hpp>
+//#include <boost/exception/exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
@@ -62,7 +63,10 @@ namespace
         const std::locale global_locale(
             std::locale(""),
             new bobura::type_list::messages_type(
-                base_path / TETENGO2_TEXT("messages"),
+                //base_path / TETENGO2_TEXT("messages"),
+                typename bobura::type_list::messages_type::string_type(
+                    TETENGO2_TEXT("messages")
+                ),
                 std::locale(ui_locale_name().c_str())
             )
         );
@@ -118,6 +122,11 @@ throw ()
         return ::run_application(
             command_line_arguments.begin(), command_line_arguments.end()
         );
+    }
+    catch (const boost::exception& e)
+    {
+        bobura::type_list::alert_type()(e);
+        return 1;
     }
     catch (const std::exception& e)
     {

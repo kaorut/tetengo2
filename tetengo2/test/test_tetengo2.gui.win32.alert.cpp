@@ -46,7 +46,12 @@ BOOST_AUTO_TEST_SUITE(alert)
         alert_type(reinterpret_cast< ::HWND>(0x123456));
     }
 
-    BOOST_AUTO_TEST_CASE(operator_paren)
+    BOOST_AUTO_TEST_CASE(operator_paren_boost_exception)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_paren_std_exception)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }

@@ -17,6 +17,7 @@
 
 #include <boost/cast.hpp>
 //#include <boost/concept_check.hpp>
+#include <boost/exception/exception.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -446,6 +447,11 @@ namespace tetengo2 { namespace gui { namespace win32
                         ::DefDlgProcW, hWnd, uMsg, wParam, lParam
                     );
                 }
+            }
+            catch (const boost::exception& e)
+            {
+                (alert_type(hWnd))(e);
+                return 0;
             }
             catch (const std::exception& e)
             {

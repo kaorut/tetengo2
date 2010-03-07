@@ -21,6 +21,7 @@
 
 #include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
+#include <boost/exception/exception.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 #include <boost/scoped_array.hpp>
@@ -1072,6 +1073,11 @@ namespace tetengo2 { namespace gui { namespace win32
                         ::DefWindowProcW, hWnd, uMsg, wParam, lParam
                     );
                 }
+            }
+            catch (const boost::exception& e)
+            {
+                (alert_type(hWnd))(e);
+                return 0;
             }
             catch (const std::exception& e)
             {

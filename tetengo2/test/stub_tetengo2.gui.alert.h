@@ -16,6 +16,7 @@
 #include <string>
 
 //#include <boost/concept_check.hpp>
+#include <boost/exception/exception.hpp>
 
 #include "concept_tetengo2.gui.Handle.h"
 
@@ -62,6 +63,11 @@ namespace stub_tetengo2 { namespace gui
 
 
         // functions
+
+        void operator()(const boost::exception& exception)
+        const
+        throw ()
+        {}
 
         void operator()(
             const std::exception& exception =

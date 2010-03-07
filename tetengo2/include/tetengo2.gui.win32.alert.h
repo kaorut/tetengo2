@@ -12,11 +12,15 @@
 #include <cstddef>
 #include <exception>
 #include <functional>
+#include <iomanip>
 #include <stdexcept>
+#include <sstream>
 #include <string>
 
 //#include <boost/concept_check.hpp>
 #include <boost/scope_exit.hpp>
+#include <boost/exception/all.hpp>
+#include <boost/exception/exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -92,6 +96,57 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param exception An exception.
         */
+        void operator()(const boost::exception& exception)
+        const
+        throw ()
+        {
+            try
+            {
+                const std::exception* const p_std_exception =
+                    dynamic_cast<const std::exception*>(&exception);
+                if (p_std_exception != NULL)
+                {
+                    const char* const* const p_file =
+                        boost::get_error_info<boost::throw_file>(
+                            exception
+                        );
+                    const int* const p_line =
+                        boost::get_error_info<boost::throw_line>(
+                            exception
+                        );
+                    const char* const* const p_function =
+                        boost::get_error_info<boost::throw_function>(
+                            exception
+                        );
+                    show_task_dialog(
+                        L"Alert",
+                        encode_type()(typeid(*p_std_exception).name()),
+                        encode_type()(p_std_exception->what()),
+                        p_file != NULL ? *p_file : "",
+                        p_line != NULL ? *p_line : 0,
+                        p_function != NULL ? *p_function : ""
+                    );
+                }
+                else
+                {
+                    show_task_dialog(
+                        L"Alert",
+                        encode_type()(typeid(exception).name()),
+                        encode_type()(
+                            boost::diagnostic_information(exception)
+                        )
+                    );
+                }
+            }
+            catch (...)
+            {}
+        }
+
+        /*!
+            \brief Alerts a fatal error.
+
+            \param exception An exception.
+        */
         void operator()(
             const std::exception& exception =
                 std::runtime_error("Unknown Error!")
@@ -140,6 +195,7 @@ namespace tetengo2 { namespace gui { namespace win32
             return actual_parent_handle;
         }
 
+
         // variables
 
         const window_handle_type m_window_handle;
@@ -148,6 +204,37 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         void show_task_dialog(
+            const std::wstring& caption,
+            const std::wstring& text1,
+            const std::wstring& text2,
+            const std::string&  source_file_name = "",
+            const int           source_file_line = 0,
+            const std::string&  source_function = ""
+        )
+        const
+        {
+#if defined(NDEBUG)
+            show_task_dialog_impl(caption, text1, text2);
+#else
+            std::stringstream stream;
+            stream <<
+                std::endl <<
+                std::endl <<
+                "in " <<
+                source_file_name <<
+                "(" <<
+                source_file_line <<
+                "):" <<
+                std::endl <<
+                source_function;
+
+            show_task_dialog_impl(
+                caption, text1, text2 + encode_type()(stream.str())
+            );
+#endif
+        }
+
+        void show_task_dialog_impl(
             const std::wstring& caption,
             const std::wstring& text1,
             const std::wstring& text2

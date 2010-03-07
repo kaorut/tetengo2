@@ -62,7 +62,7 @@
 				WarnAsError="true"
 				DebugInformationFormat="4"
 				CompileAs="0"
-				DisableSpecificWarnings="4100;4127;4251;4275;4373;4503;4510;4512;4610;4701;4819"
+				DisableSpecificWarnings="4100;4127;4251;4275;4373;4503;4510;4512;4610;4701;4819;4996"
 				ForcedIncludeFiles="precompiled.h"
 			/>
 			<Tool
@@ -151,7 +151,7 @@
 				WarnAsError="true"
 				DebugInformationFormat="3"
 				CompileAs="0"
-				DisableSpecificWarnings="4100;4103;4127;4251;4275;4373;4503;4510;4512;4610;4701;4819"
+				DisableSpecificWarnings="4100;4103;4127;4251;4275;4373;4503;4510;4512;4610;4701;4819;4996"
 				ForcedIncludeFiles="precompiled.h"
 			/>
 			<Tool
@@ -234,7 +234,7 @@
 				WarnAsError="true"
 				DebugInformationFormat="0"
 				CompileAs="0"
-				DisableSpecificWarnings="4100;4127;4251;4275;4373;4503;4510;4512;4610;4701;4819"
+				DisableSpecificWarnings="4100;4127;4251;4275;4373;4503;4510;4512;4610;4701;4819;4996"
 				ForcedIncludeFiles=""
 			/>
 			<Tool
@@ -318,7 +318,7 @@
 				WarnAsError="true"
 				DebugInformationFormat="0"
 				CompileAs="0"
-				DisableSpecificWarnings="4100;4103;4127;4251;4275;4373;4503;4510;4512;4610;4701;4819"
+				DisableSpecificWarnings="4100;4103;4127;4251;4275;4373;4503;4510;4512;4610;4701;4819;4996"
 				ForcedIncludeFiles=""
 			/>
 			<Tool

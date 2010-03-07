@@ -160,8 +160,10 @@ boost::UnaryFunction                             boost/concept_check.hpp
 boost::UnsignedInteger                           boost/concept_check.hpp
 boost::additive                                  boost/operators.hpp
 boost::bind                                      boost/bind.hpp
+boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::escaped_list_separator                    boost/tokenizer.hpp
+boost::exception                                 boost/exception/exception.hpp
 boost::false_type                                boost/type_traits.hpp
 boost::filesystem::basic_directory_entry         boost/filesystem.hpp
 boost::filesystem::basic_directory_iterator      boost/filesystem.hpp
@@ -172,6 +174,7 @@ boost::filesystem::path                          boost/filesystem.hpp
 boost::filesystem::wpath                         boost/filesystem.hpp
 boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
 boost::function                                  boost/function.hpp
+boost::get_error_info                            boost/exception/all.hpp
 boost::ignore_unused_variable_warning            boost/concept_check.hpp
 boost::is_same                                   boost/type_traits.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
@@ -194,6 +197,9 @@ boost::replace_all                               boost/algorithm/string.hpp
 boost::scoped_array                              boost/scoped_array.hpp
 boost::signal                                    boost/signal.hpp
 boost::signals::trackable                        boost/signal.hpp
+boost::throw_file                                boost/exception/all.hpp
+boost::throw_function                            boost/exception/all.hpp
+boost::throw_line                                boost/exception/all.hpp
 boost::tokenizer                                 boost/tokenizer.hpp
 boost::totally_ordered                           boost/operators.hpp
 boost::true_type                                 boost/type_traits.hpp
@@ -205,6 +211,7 @@ std::basic_string                                string
 std::codecvt                                     locale
 std::copy                                        algorithm
 std::distance                                    iterator
+std::endl                                        iomanip
 std::equal_to                                    functional
 std::exception                                   exception
 std::find                                        algorithm
@@ -238,6 +245,7 @@ std::size_t                                      cstddef
 std::sort                                        algorithm
 std::stack                                       stack
 std::string                                      string
+std::stringstream                                sstream
 std::swap                                        algorithm
 std::transform                                   algorithm
 std::unary_function                              functional
