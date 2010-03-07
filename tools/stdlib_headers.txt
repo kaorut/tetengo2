@@ -163,7 +163,7 @@ boost::bind                                      boost/bind.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::escaped_list_separator                    boost/tokenizer.hpp
-boost::exception                                 boost/exception/exception.hpp
+boost::exception                                 boost/exception/all.hpp
 boost::false_type                                boost/type_traits.hpp
 boost::filesystem::basic_directory_entry         boost/filesystem.hpp
 boost::filesystem::basic_directory_iterator      boost/filesystem.hpp

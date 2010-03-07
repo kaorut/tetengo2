@@ -21,11 +21,11 @@
 
 #include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
-#include <boost/exception/exception.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/exception/all.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX

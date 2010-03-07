@@ -13,6 +13,7 @@ do
     "$SOLUTIONDIR/tools/check_includes.pl" \
         "$SOLUTIONDIR" \
         "$f" \
-        "$SOLUTIONDIR/tools/stdlib_headers.txt";
+        "$SOLUTIONDIR/tools/stdlib_headers.txt" \
+        "$1";
     echo '';
 done

@@ -17,9 +17,9 @@
 
 #include <boost/cast.hpp>
 //#include <boost/concept_check.hpp>
-#include <boost/exception/exception.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/exception/all.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE

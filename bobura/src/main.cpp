@@ -18,7 +18,7 @@
 //#include <boost/program_options.hpp>
 //#include <boost/scoped_array.hpp>
 //#include <boost/throw_exception.hpp>
-//#include <boost/exception/exception.hpp>
+//#include <boost/exception/all.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE

@@ -16,7 +16,7 @@
 #include <string>
 
 //#include <boost/concept_check.hpp>
-#include <boost/exception/exception.hpp>
+#include <boost/exception/all.hpp>
 
 #include "concept_tetengo2.gui.Handle.h"
 

@@ -12,6 +12,7 @@ do
      "$SOLUTIONDIR/tools/check_includes.pl" \
          "$SOLUTIONDIR" \
          "$f" \
-         "$SOLUTIONDIR/tools/stdlib_headers.txt" | \
+         "$SOLUTIONDIR/tools/stdlib_headers.txt" \
+         "show_progress" | \
          grep -v '^[A-Z]\+\:';
 done | sort | uniq

@@ -9,7 +9,7 @@ use File::Basename;
 if (scalar(@ARGV) < 3)
 {
 	print "Usage: check_includes.pl ".
-		"solution_directory source_file stdlib_headers.txt\n";
+		"solution_directory source_file stdlib_headers.txt [show_progress]\n";
 	exit(0);
 }
 
@@ -26,6 +26,8 @@ my(@special_header_directories) = (
 	$ARGV[0].'/tetengo2/include',
 	$ARGV[0].'/tetengo2/test',
 );
+
+my($show_progress) = $ARGV[3] ne '';
 
 # main
 {
@@ -112,7 +114,7 @@ sub scan_source
 		$r_stdlib_header_usage
 	) = @_;
 	
-	print STDERR "Scanning: $file_name        \r";
+	print STDERR "Scanning: $file_name        \r" if $show_progress;
 	open(my $fh, $file_name) || die("Can't open $file_name");
 	while (<$fh>)
 	{
@@ -197,14 +199,14 @@ sub scan_source
 			}
 		}
 	}
-	print STDERR "Scanned: $file_name        \n";
+	print STDERR "Scanned: $file_name        \n" if $show_progress;
 }
 
 sub scan_subsource
 {
 	my($file_name, $r_directories, $r_includes) = @_;
 	
-	print STDERR "Scanning: $file_name        \r";
+	print STDERR "Scanning: $file_name        \r" if $show_progress;
 	my($fh);
 	my($opened) = 0;
 	foreach my $directory (@$r_directories)

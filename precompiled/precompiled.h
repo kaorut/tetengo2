@@ -12,14 +12,17 @@
 #include <cassert>
 #include <cstddef>
 #include <cstring>
+#include <cwchar>
 #include <exception>
 #include <fstream>
 #include <functional>
+#include <iomanip>
 #include <ios>
 #include <istream>
 #include <iterator>
 #include <limits>
 #include <locale>
+#include <map>
 #include <memory>
 #include <sstream>
 #include <stack>
@@ -35,11 +38,11 @@
 #include <boost/bind.hpp>
 #include <boost/cast.hpp>
 #include <boost/concept_check.hpp>
+#include <boost/exception/all.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/function.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/mem_fn.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
@@ -49,10 +52,11 @@
 #include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/signal.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
-#include <boost/unordered_map.hpp>
+#include <boost/type_traits.hpp>
 #include <boost/utility.hpp>
 
 

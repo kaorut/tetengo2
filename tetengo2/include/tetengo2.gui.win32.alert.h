@@ -20,7 +20,6 @@
 //#include <boost/concept_check.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/exception/all.hpp>
-#include <boost/exception/exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
