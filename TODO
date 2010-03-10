@@ -13,17 +13,17 @@ Depends on  : (none)
 Description : Create tetengo2::encoder, tetengo2::encoding::locale and
               tetengo2::encoding::win32::utf8.
 ------------------------------------------------------------------------------
-Number      : 00000019
-Added on    : 2010/02/15
-Depends on  : (none)
-Description : Create concept_tetengo2::Assignable.
-------------------------------------------------------------------------------
 Number      : 00000020
 Added on    : 2010/02/23
 Depends on  : (none)
 Description : Create tetengo2::swappable and use boost::swap.
 ------------------------------------------------------------------------------
 Number      : 00000023
+Added on    : 2010/03/11
+Depends on  : 00000017
+Description : Replace tetengo2::win32::encode to tetengo2::encoder.
+------------------------------------------------------------------------------
+Number      : 00000024
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 

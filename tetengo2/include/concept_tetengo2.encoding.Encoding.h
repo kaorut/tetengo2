@@ -11,6 +11,8 @@
 
 #include <boost/concept_check.hpp>
 
+#include "concept_tetengo2.Assignable.h"
+
 
 namespace concept_tetengo2 { namespace encoding
 {
@@ -20,9 +22,7 @@ namespace concept_tetengo2 { namespace encoding
         \tparam Type A type.
     */
     template <typename Type>
-    class Encoding :
-        private boost::Assignable<Type>,
-        private boost::CopyConstructible<Type>
+    class Encoding : private concept_tetengo2::Assignable<Type>
     {
 #if !defined(DOCUMENTATION)
     public:

@@ -21,12 +21,6 @@ namespace tetengo2
     class assignable
     {
     protected:
-        // types
-
-        //! The derived type.
-        typedef Derived derived_type;
-
-
         // constructors and destructor
 
         /*!
@@ -53,11 +47,11 @@ namespace tetengo2
 
             \param another Another.
         */
-        derived_type& assign(derived_type another)
+        Derived& assign(Derived another)
         {
-            derived_type* const self = static_cast<derived_type*>(this);
-            another.swap(*self);
-            return *self;
+            Derived* const p_self = static_cast<Derived*>(this);
+            another.swap(*p_self);
+            return *p_self;
         }
     };
 

@@ -11,6 +11,8 @@
 
 #include <boost/concept_check.hpp>
 
+#include <concept_tetengo2.Assignable.h>
+
 
 namespace concept_bobura { namespace model
 {
@@ -21,8 +23,7 @@ namespace concept_bobura { namespace model
     */
     template <typename Type>
     class Train :
-        private boost::CopyConstructible<Type>,
-        private boost::Assignable<Type>,
+        private concept_tetengo2::Assignable<Type>,
         private boost::EqualityComparable<Type>
     {
 #if !defined(DOCUMENTATION)
