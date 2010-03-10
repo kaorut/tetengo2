@@ -9,7 +9,7 @@
 #if !defined(CONCEPTTETENGO2_ENCODING_H)
 #define CONCEPTTETENGO2_ENCODING_H
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 
 #include "concept_tetengo2.Assignable.h"
 

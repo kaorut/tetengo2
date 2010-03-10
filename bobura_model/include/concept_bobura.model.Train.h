@@ -9,7 +9,7 @@
 #if !defined(CONCEPTBOBURA_MODEL_TRAIN_H)
 #define CONCEPTBOBURA_MODEL_TRAIN_H
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 
 #include <concept_tetengo2.Assignable.h>
 

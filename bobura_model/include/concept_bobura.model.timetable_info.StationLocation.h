@@ -9,7 +9,7 @@
 #if !defined(CONCEPTBOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H)
 #define CONCEPTBOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H
 
-#include <boost/concept_check.hpp>
+//#include <boost/concept_check.hpp>
 
 #include <concept_tetengo2.Assignable.h>
 
