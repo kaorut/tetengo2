@@ -429,6 +429,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\test\test_tetengo2.swappable.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\test_tetengo2.text.cpp"
 					>
 				</File>

@@ -33,6 +33,7 @@ sources = \
     test_tetengo2.message_catalog.cpp \
     test_tetengo2.message_catalog_parser.cpp \
     test_tetengo2.messages.cpp \
+    test_tetengo2.swappable.cpp \
     test_tetengo2.text.cpp \
     test_tetengo2.encoding.encoding.cpp \
     test_tetengo2.encoding.locale.cpp \

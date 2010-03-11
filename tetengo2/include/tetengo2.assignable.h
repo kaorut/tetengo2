@@ -53,6 +53,8 @@ namespace tetengo2
             another.swap(*p_self);
             return *p_self;
         }
+
+
     };
 
 

@@ -3,12 +3,14 @@
 # $Id$
 
 headers = \
+    concept_tetengo2.Assignable.h \
     concept_tetengo2.Encoder.h \
     concept_tetengo2.MessageCatalog.h \
     concept_tetengo2.MessageCatalogParser.h \
     concept_tetengo2.Messages.h \
     concept_tetengo2.Path.h \
     concept_tetengo2.String.h \
+    concept_tetengo2.Swappable.h \
     concept_tetengo2.encoding.Encoding.h \
     concept_tetengo2.gui.AbstractWindow.h \
     concept_tetengo2.gui.Button.h \
@@ -30,6 +32,7 @@ headers = \
     tetengo2.message_catalog.h \
     tetengo2.message_catalog_parser.h \
     tetengo2.messages.h \
+    tetengo2.swappable.h \
     tetengo2.text.h \
     tetengo2.encoding.encoding.h \
     tetengo2.encoding.locale.h \

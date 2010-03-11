@@ -15,7 +15,7 @@
 namespace concept_tetengo2
 {
     /*!
-        \brief The concept check class template for an assignable object.
+        \brief The concept check class template for an assignable.
 
         \tparam Type A type.
     */

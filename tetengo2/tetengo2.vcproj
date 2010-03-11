@@ -147,6 +147,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\tetengo2.swappable.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\tetengo2.text.h"
 					>
 				</File>
@@ -284,6 +288,10 @@
 				</File>
 				<File
 					RelativePath=".\include\concept_tetengo2.String.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\concept_tetengo2.Swappable.h"
 					>
 				</File>
 			</Filter>
