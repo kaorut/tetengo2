@@ -20,24 +20,20 @@ namespace tetengo2
     template <typename Derived>
     class swappable
     {
-    protected:
-        // constructors and destructor
+    private:
+        // friends
 
         /*!
-            \brief Creates a swappable.
-        */
-        swappable()
-        {}
+            \brief Swaps objects.
 
-        /*!
-            \brief Destroys the swappable.
+            \param object1 An object #1.
+            \param object2 An object #2.
         */
-        ~swappable()
+        friend void swap(Derived& object1, Derived& object2)
         throw ()
-        {}
-
-
-        // functions
+        {
+            object1.swap(object2);
+        }
 
 
     };

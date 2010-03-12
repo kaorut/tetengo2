@@ -11,6 +11,8 @@
 
 #include <boost/concept_check.hpp>
 
+#include "concept_tetengo2.Swappable.h"
+
 
 namespace concept_tetengo2
 {
@@ -22,7 +24,8 @@ namespace concept_tetengo2
     template <typename Type>
     class Assignable :
         private boost::Assignable<Type>,
-        private boost::CopyConstructible<Type>
+        private boost::CopyConstructible<Type>,
+        private concept_tetengo2::Swappable<Type>
     {
 #if !defined(DOCUMENTATION)
     public:

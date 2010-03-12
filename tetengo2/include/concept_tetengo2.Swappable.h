@@ -10,6 +10,7 @@
 #define CONCEPTTETENGO2_SWAPPABLEE_H
 
 #include <boost/concept_check.hpp>
+#include <boost/swap.hpp>
 
 
 namespace concept_tetengo2
@@ -31,14 +32,16 @@ namespace concept_tetengo2
 
         BOOST_CONCEPT_USAGE(Swappable)
         {
+            m_object.swap(m_object);
 
+            boost::swap(m_object, m_object);
         }
 
 
     private:
         // variables
 
-        derived_type m_object;
+        Type m_object;
 
 
 #endif

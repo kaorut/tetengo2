@@ -6,23 +6,53 @@
     $Id$
 */
 
+#include <boost/swap.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.swappable.h"
+
+
+namespace
+{
+    // types
+
+    struct test_class : private tetengo2::swappable<test_class>
+    {
+        int m_value;
+
+        test_class(const int value)
+        :
+        m_value(value)
+        {}
+
+        void swap(test_class& another)
+        throw ()
+        {
+            const int temp = m_value;
+            m_value = another.m_value;
+            another.m_value = temp;
+        }
+
+
+    };
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(swappable)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
     BOOST_AUTO_TEST_CASE(swap)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        test_class x(123);
+        test_class y(456);
+
+        boost::swap(x, y);
+
+        BOOST_CHECK_EQUAL(x.m_value, 456);
+        BOOST_CHECK_EQUAL(y.m_value, 123);
     }
 
 
