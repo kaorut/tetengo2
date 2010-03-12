@@ -52,6 +52,7 @@
 #include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/signal.hpp>
+#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
 #include <boost/tuple/tuple.hpp>

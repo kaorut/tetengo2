@@ -197,6 +197,7 @@ boost::replace_all                               boost/algorithm/string.hpp
 boost::scoped_array                              boost/scoped_array.hpp
 boost::signal                                    boost/signal.hpp
 boost::signals::trackable                        boost/signal.hpp
+boost::swap                                      boost/swap.hpp
 boost::throw_file                                boost/exception/all.hpp
 boost::throw_function                            boost/exception/all.hpp
 boost::throw_line                                boost/exception/all.hpp
