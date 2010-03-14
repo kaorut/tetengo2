@@ -13,7 +13,7 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
-#include <boost/swap.hpp>
+//#include <boost/swap.hpp>
 
 #include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"

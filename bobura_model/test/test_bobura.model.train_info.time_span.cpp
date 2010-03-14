@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <algorithm>
 #include <cstddef>
 //#include <stdexcept>
 
@@ -213,24 +212,13 @@ BOOST_AUTO_TEST_SUITE(time_span)
             bobura::model::train_info::time_span<std::ptrdiff_t>
             time_span_type;
 
-        {
-            time_span_type time_span1(1);
-            time_span_type time_span2(2);
+        time_span_type time_span1(1);
+        time_span_type time_span2(2);
 
-            time_span1.swap(time_span2);
+        time_span1.swap(time_span2);
 
-            BOOST_CHECK_EQUAL(time_span1.seconds(), 2);
-            BOOST_CHECK_EQUAL(time_span2.seconds(), 1);
-        }
-        {
-            time_span_type time_span1(1);
-            time_span_type time_span2(2);
-
-            std::swap(time_span1, time_span2);
-
-            BOOST_CHECK_EQUAL(time_span1.seconds(), 2);
-            BOOST_CHECK_EQUAL(time_span2.seconds(), 1);
-        }
+        BOOST_CHECK_EQUAL(time_span1.seconds(), 2);
+        BOOST_CHECK_EQUAL(time_span2.seconds(), 1);
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)

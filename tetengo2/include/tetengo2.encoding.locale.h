@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_ENCODING_LOCALE_H)
 #define TETENGO2_ENCODING_LOCALE_H
 
-//#include <algorithm>
 #include <cassert>
 #include <cstddef>
 #include <cwchar>
@@ -19,11 +18,13 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/scoped_array.hpp>
+//#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits.hpp>
 
 #include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"
+#include "tetengo2.swappable.h"
 #include "tetengo2.text.h"
 #include "tetengo2.encoding.encoding.h"
 
@@ -37,7 +38,10 @@ namespace tetengo2 { namespace encoding
                        concept_tetengo2::String<String>.
     */
     template <typename String>
-    class locale : public encoding, public assignable<locale<String> >
+    class locale :
+        public encoding,
+        public assignable<locale<String> >,
+        private swappable<locale<String> >
     {
     private:
         // concept checks
@@ -95,7 +99,7 @@ namespace tetengo2 { namespace encoding
         void swap(locale& another)
         throw ()
         {
-            std::swap(m_locale, another.m_locale);
+            boost::swap(m_locale, another.m_locale);
         }
 
         /*!

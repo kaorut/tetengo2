@@ -10,6 +10,7 @@
 #define TETENGO2_ENCODER_H
 
 //#include <boost/concept_check.hpp>
+//#include <boost/swap.hpp>
 #include <boost/type_traits.hpp>
 
 #include "concept_tetengo2.encoding.Encoding.h"
@@ -105,8 +106,8 @@ namespace tetengo2
         void swap(encoder& another)
         throw ()
         {
-            m_internal_encoding.swap(another.m_internal_encoding);
-            m_external_encoding.swap(another.m_external_encoding);
+            boost::swap(m_internal_encoding, another.m_internal_encoding);
+            boost::swap(m_external_encoding, another.m_external_encoding);
         }
 
         /*!

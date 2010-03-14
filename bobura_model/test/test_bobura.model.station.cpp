@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <algorithm>
 //#include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -135,13 +134,6 @@ BOOST_AUTO_TEST_SUITE(station)
         BOOST_CHECK_EQUAL(&station1.grade(), &principal_type::instance());
         BOOST_CHECK(station2.name() == std::wstring(L"A"));
         BOOST_CHECK_EQUAL(&station2.grade(), &local_type::instance());
-
-        std::swap(station1, station2);
-
-        BOOST_CHECK(station1.name() == std::wstring(L"A"));
-        BOOST_CHECK_EQUAL(&station1.grade(), &local_type::instance());
-        BOOST_CHECK(station2.name() == std::wstring(L"B"));
-        BOOST_CHECK_EQUAL(&station2.grade(), &principal_type::instance());
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)

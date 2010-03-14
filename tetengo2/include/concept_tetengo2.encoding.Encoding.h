@@ -13,7 +13,6 @@
 
 #include "concept_tetengo2.Assignable.h"
 
-
 namespace concept_tetengo2 { namespace encoding
 {
     /*!
@@ -37,8 +36,6 @@ namespace concept_tetengo2 { namespace encoding
 
         BOOST_CONCEPT_USAGE(Encoding)
         {
-            m_object.swap(m_object);
-
             const_constraints(m_object);
         }
 

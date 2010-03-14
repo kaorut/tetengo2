@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <algorithm>
 //#include <cstddef>
 //#include <stdexcept>
 //#include <string>
@@ -135,62 +134,32 @@ BOOST_AUTO_TEST_SUITE(timetable)
             bobura::model::timetable<station_location_type, train_type>
             timetable_type;
 
-        {
-            timetable_type::station_locations_type station_locations1;
-            station_locations1.push_back(
-                station_location_type(
-                    station_type(L"A", local_type::instance()), 1
-                )
-            );
+        timetable_type::station_locations_type station_locations1;
+        station_locations1.push_back(
+            station_location_type(
+                station_type(L"A", local_type::instance()), 1
+            )
+        );
 
-            timetable_type timetable1(
-                station_locations1.begin(), station_locations1.end()
-            );
+        timetable_type timetable1(
+            station_locations1.begin(), station_locations1.end()
+        );
 
-            timetable_type::station_locations_type station_locations2;
-            station_locations2.push_back(
-                station_location_type(
-                    station_type(L"B", local_type::instance()), 2
-                )
-            );
+        timetable_type::station_locations_type station_locations2;
+        station_locations2.push_back(
+            station_location_type(
+                station_type(L"B", local_type::instance()), 2
+            )
+        );
 
-            timetable_type timetable2(
-                station_locations2.begin(), station_locations2.end()
-            );
+        timetable_type timetable2(
+            station_locations2.begin(), station_locations2.end()
+        );
 
-            timetable1.swap(timetable2);
+        timetable1.swap(timetable2);
 
-            BOOST_CHECK(timetable1.station_locations() == station_locations2);
-            BOOST_CHECK(timetable2.station_locations() == station_locations1);
-        }
-        {
-            timetable_type::station_locations_type station_locations1;
-            station_locations1.push_back(
-                station_location_type(
-                    station_type(L"A", local_type::instance()), 1
-                )
-            );
-
-            timetable_type timetable1(
-                station_locations1.begin(), station_locations1.end()
-            );
-
-            timetable_type::station_locations_type station_locations2;
-            station_locations2.push_back(
-                station_location_type(
-                    station_type(L"B", local_type::instance()), 2
-                )
-            );
-
-            timetable_type timetable2(
-                station_locations2.begin(), station_locations2.end()
-            );
-
-            std::swap(timetable1, timetable2);
-
-            BOOST_CHECK(timetable1.station_locations() == station_locations2);
-            BOOST_CHECK(timetable2.station_locations() == station_locations1);
-        }
+        BOOST_CHECK(timetable1.station_locations() == station_locations2);
+        BOOST_CHECK(timetable2.station_locations() == station_locations1);
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)

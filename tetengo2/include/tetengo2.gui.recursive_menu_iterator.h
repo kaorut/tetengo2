@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_RECURSIVEMENUITERATOR_H)
 #define TETENGO2_GUI_RECURSIVEMENUITERATOR_H
 
-#include <algorithm>
 #include <cassert>
 #include <cstddef>
 #include <iterator>
@@ -17,6 +16,7 @@
 #include <utility>
 
 #include <boost/next_prior.hpp>
+#include <boost/swap.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 
@@ -99,8 +99,8 @@ namespace tetengo2 { namespace gui
         void swap(recursive_menu_iterator& another)
         throw ()
         {
-            std::swap(m_p_menu, another.m_p_menu);
-            std::swap(m_parents, another.m_parents);
+            boost::swap(m_p_menu, another.m_p_menu);
+            boost::swap(m_parents, another.m_parents);
         }
 
         /*!

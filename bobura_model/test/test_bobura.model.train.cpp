@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <algorithm>
 #include <cstddef>
 //#include <string>
 
@@ -94,36 +93,19 @@ BOOST_AUTO_TEST_SUITE(train)
             bobura::model::train<std::string, std::string, stop_type>
             train_type;
         
-        {
-            train_type::stops_type stops1;
-            stops1.push_back(stop_type(time_type(0), time_type(0), ""));
-            train_type train1("1", "x", stops1.begin(), stops1.end());
+        train_type::stops_type stops1;
+        stops1.push_back(stop_type(time_type(0), time_type(0), ""));
+        train_type train1("1", "x", stops1.begin(), stops1.end());
 
-            train_type::stops_type stops2;
-            stops2.push_back(stop_type(time_type(1), time_type(2), "a"));
-            stops2.push_back(stop_type(time_type(3), time_type(4), "b"));
-            train_type train2("2", "y", stops2.begin(), stops2.end());
+        train_type::stops_type stops2;
+        stops2.push_back(stop_type(time_type(1), time_type(2), "a"));
+        stops2.push_back(stop_type(time_type(3), time_type(4), "b"));
+        train_type train2("2", "y", stops2.begin(), stops2.end());
 
-            train1.swap(train2);
+        train1.swap(train2);
 
-            BOOST_CHECK(train1.stops() == stops2);
-            BOOST_CHECK(train2.stops() == stops1);
-        }
-        {
-            train_type::stops_type stops1;
-            stops1.push_back(stop_type(time_type(0), time_type(0), ""));
-            train_type train1("1", "x", stops1.begin(), stops1.end());
-
-            train_type::stops_type stops2;
-            stops2.push_back(stop_type(time_type(1), time_type(2), "a"));
-            stops2.push_back(stop_type(time_type(3), time_type(4), "b"));
-            train_type train2("2", "y", stops2.begin(), stops2.end());
-
-            std::swap(train1, train2);
-
-            BOOST_CHECK(train1.stops() == stops2);
-            BOOST_CHECK(train2.stops() == stops1);
-        }
+        BOOST_CHECK(train1.stops() == stops2);
+        BOOST_CHECK(train2.stops() == stops1);
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)

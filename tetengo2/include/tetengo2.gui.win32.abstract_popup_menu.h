@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_ABSTRACTPOPUPMENU_H)
 #define TETENGO2_GUI_WIN32_ABSTRACTPOPUPMENU_H
 
-//#include <algorithm>
+#include <algorithm>
 //#include <cstddef>
 #include <cstring>
 //#include <iterator>

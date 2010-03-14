@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <algorithm>
 #include <cstddef>
 //#include <stdexcept>
 
@@ -150,24 +149,13 @@ BOOST_AUTO_TEST_SUITE(time)
             >
             time_type;
 
-        {
-            time_type time1(1);
-            time_type time2(2);
+        time_type time1(1);
+        time_type time2(2);
 
-            time1.swap(time2);
+        time1.swap(time2);
 
-            BOOST_CHECK_EQUAL(time1.seconds_from_midnight(), 2U);
-            BOOST_CHECK_EQUAL(time2.seconds_from_midnight(), 1U);
-        }
-        {
-            time_type time1(1);
-            time_type time2(2);
-
-            std::swap(time1, time2);
-
-            BOOST_CHECK_EQUAL(time1.seconds_from_midnight(), 2U);
-            BOOST_CHECK_EQUAL(time2.seconds_from_midnight(), 1U);
-        }
+        BOOST_CHECK_EQUAL(time1.seconds_from_midnight(), 2U);
+        BOOST_CHECK_EQUAL(time2.seconds_from_midnight(), 1U);
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)

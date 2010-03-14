@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_TEXT_H)
 #define TETENGO2_TEXT_H //!< !! Include Guard !!
 
-#include <algorithm>
+#include <boost/swap.hpp>
 
 #include "tetengo2.assignable.h"
 
@@ -82,8 +82,8 @@ namespace tetengo2
         void swap(text_value_holder& another)
         throw ()
         {
-            std::swap(m_multibyte, another.m_multibyte);
-            std::swap(m_wide, another.m_wide);
+            boost::swap(m_multibyte, another.m_multibyte);
+            boost::swap(m_wide, another.m_wide);
         }
 
         /*!

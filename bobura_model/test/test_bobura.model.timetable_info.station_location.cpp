@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <algorithm>
 //#include <cstddef>
 //#include <string>
 
@@ -52,44 +51,23 @@ BOOST_AUTO_TEST_SUITE(station_location)
         typedef bobura::model::station_info::local<std::wstring> local_type;
         typedef bobura::model::station<std::wstring, local_type> station_type;
 
-        {
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            > station_location1(
-                station_type(L"A", local_type::instance()), 1
-            );
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            > station_location2(
-                station_type(L"B", local_type::instance()), 2
-            );
+        bobura::model::timetable_info::station_location<
+            station_type, std::size_t
+        > station_location1(
+            station_type(L"A", local_type::instance()), 1
+        );
+        bobura::model::timetable_info::station_location<
+            station_type, std::size_t
+        > station_location2(
+            station_type(L"B", local_type::instance()), 2
+        );
 
-            station_location1.swap(station_location2);
+        station_location1.swap(station_location2);
 
-            BOOST_CHECK(station_location1.station().name() == L"B");
-            BOOST_CHECK_EQUAL(station_location1.meterage(), 2U);
-            BOOST_CHECK(station_location2.station().name() == L"A");
-            BOOST_CHECK_EQUAL(station_location2.meterage(), 1U);
-        }
-        {
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            > station_location1(
-                station_type(L"A", local_type::instance()), 1
-            );
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            > station_location2(
-                station_type(L"B", local_type::instance()), 2
-            );
-
-            std::swap(station_location1, station_location2);
-
-            BOOST_CHECK(station_location1.station().name() == L"B");
-            BOOST_CHECK_EQUAL(station_location1.meterage(), 2U);
-            BOOST_CHECK(station_location2.station().name() == L"A");
-            BOOST_CHECK_EQUAL(station_location2.meterage(), 1U);
-        }
+        BOOST_CHECK(station_location1.station().name() == L"B");
+        BOOST_CHECK_EQUAL(station_location1.meterage(), 2U);
+        BOOST_CHECK(station_location2.station().name() == L"A");
+        BOOST_CHECK_EQUAL(station_location2.meterage(), 1U);
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)

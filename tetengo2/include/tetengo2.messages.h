@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_MESSAGES_H)
 #define TETENGO2_MESSAGES_H
 
-//#include <algorithm>
+#include <algorithm>
 #include <functional>
 #include <fstream>
 #include <ios>

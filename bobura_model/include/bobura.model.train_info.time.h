@@ -197,7 +197,8 @@ namespace bobura { namespace model { namespace train_info
                 seconds < time_span_type::seconds_of_whole_day()
             );
 
-            time(seconds).swap(*this);
+            time temp(seconds);
+            boost::swap(temp, *this);
             return *this;
         }
 
@@ -230,7 +231,8 @@ namespace bobura { namespace model { namespace train_info
                 seconds < time_span_type::seconds_of_whole_day()
             );
 
-            time(seconds).swap(*this);
+            time temp(seconds);
+            boost::swap(temp, *this);
             return *this;
         }
 

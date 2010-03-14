@@ -22,9 +22,7 @@ namespace concept_tetengo2
         \tparam Type A type.
     */
     template <typename Type>
-    class Encoder :
-        private concept_tetengo2::Assignable<Type>,
-        private boost::CopyConstructible<Type>
+    class Encoder : private concept_tetengo2::Assignable<Type>
     {
 #if !defined(DOCUMENTATION)
     public:
@@ -43,8 +41,6 @@ namespace concept_tetengo2
 
         BOOST_CONCEPT_USAGE(Encoder)
         {
-            m_object.swap(m_object);
-
             const_constraints(m_object);
         }
 

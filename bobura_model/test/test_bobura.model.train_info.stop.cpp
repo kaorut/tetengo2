@@ -6,7 +6,6 @@
     $Id$
 */
 
-#include <algorithm>
 #include <cstddef>
 //#include <string>
 
@@ -87,32 +86,17 @@ BOOST_AUTO_TEST_SUITE(stop)
             bobura::model::train_info::stop<time_type, std::string>
             stop_type;
         
-        {
-            stop_type stop1(time_type(1), time_type(2), "1");
-            stop_type stop2(time_type(3), time_type(4), "2");
+        stop_type stop1(time_type(1), time_type(2), "1");
+        stop_type stop2(time_type(3), time_type(4), "2");
 
-            stop1.swap(stop2);
+        stop1.swap(stop2);
 
-            BOOST_CHECK(stop1.arrival() == time_type(3));
-            BOOST_CHECK(stop1.departure() == time_type(4));
-            BOOST_CHECK(stop1.platform() == std::string("2"));
-            BOOST_CHECK(stop2.arrival() == time_type(1));
-            BOOST_CHECK(stop2.departure() == time_type(2));
-            BOOST_CHECK(stop2.platform() == std::string("1"));
-        }
-        {
-            stop_type stop1(time_type(1), time_type(2), "1");
-            stop_type stop2(time_type(3), time_type(4), "2");
-
-            std::swap(stop1, stop2);
-
-            BOOST_CHECK(stop1.arrival() == time_type(3));
-            BOOST_CHECK(stop1.departure() == time_type(4));
-            BOOST_CHECK(stop1.platform() == std::string("2"));
-            BOOST_CHECK(stop2.arrival() == time_type(1));
-            BOOST_CHECK(stop2.departure() == time_type(2));
-            BOOST_CHECK(stop2.platform() == std::string("1"));
-        }
+        BOOST_CHECK(stop1.arrival() == time_type(3));
+        BOOST_CHECK(stop1.departure() == time_type(4));
+        BOOST_CHECK(stop1.platform() == std::string("2"));
+        BOOST_CHECK(stop2.arrival() == time_type(1));
+        BOOST_CHECK(stop2.departure() == time_type(2));
+        BOOST_CHECK(stop2.platform() == std::string("1"));
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)
