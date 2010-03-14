@@ -6,7 +6,7 @@
     $Id$
 */
 
-//#include <algorithm>
+#include <algorithm>
 #include <cstddef>
 //#include <string>
 

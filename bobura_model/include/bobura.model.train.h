@@ -9,16 +9,16 @@
 #if !defined(BOBURA_MODEL_TRAIN_H)
 #define BOBURA_MODEL_TRAIN_H
 
-#include <algorithm>
 #include <iterator>
 #include <vector>
-//std::swap // dummy
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+//#include <boost/swap.hpp>
 
 #include <concept_tetengo2.String.h>
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 #include "concept_bobura.model.train_info.Stop.h"
 
@@ -38,6 +38,7 @@ namespace bobura { namespace model
     template <typename Number, typename Note, typename Stop>
     class train :
         public tetengo2::assignable<train<Number, Note, Stop> >,
+        private tetengo2::swappable<train<Number, Note, Stop> >,
         private boost::equality_comparable<train<Number, Note, Stop> >
     {
     private:
@@ -132,9 +133,9 @@ namespace bobura { namespace model
         void swap(train& another)
         throw ()
         {
-            m_number.swap(another.m_number);
-            m_note.swap(another.m_note);
-            m_stops.swap(another.m_stops);
+            boost::swap(m_number, another.m_number);
+            boost::swap(m_note, another.m_note);
+            boost::swap(m_stops, another.m_stops);
         }
 
         /*!
@@ -263,36 +264,5 @@ namespace bobura { namespace model
 
 }}
 
-namespace std
-{
-    /*!
-        \brief Swaps two train objects.
-
-        \tparam Number A number type. It must conform to
-                       concept_tetengo2::String<Number>.
-        \tparam Note   A note type. It must conform to
-                       concept_tetengo2::String<Note>.
-        \tparam Stop   A stop type. It must conform to
-                       concept_bobura::model::train_info::Stop<Stop>.
-
-        \param train1 A train #1.
-        \param train2 A train #2.
-    */
-    template <typename Number, typename Note, typename Stop>
-    void swap(
-        bobura::model::train<Number, Note, Stop>& train1,
-        bobura::model::train<Number, Note, Stop>& train2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Number>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Note>));
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Stop<Stop>));
-
-        train1.swap(train2);
-    }
-
-
-}
 
 #endif

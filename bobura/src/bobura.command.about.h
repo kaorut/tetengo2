@@ -9,11 +9,11 @@
 #if !defined(BOBURA_COMMAND_ABOUT_H)
 #define BOBURA_COMMAND_ABOUT_H
 
-#include <algorithm>
-
 //#include <boost/concept_check.hpp>
+#include <boost/swap.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 #include "concept_bobura.AboutDialog.h"
 
@@ -27,7 +27,9 @@ namespace bobura { namespace command
                             concept_bobura::AboutDialog<AboutDialog>.
     */
     template <typename AboutDialog>
-    class about : public tetengo2::assignable<about<AboutDialog> >
+    class about :
+        public tetengo2::assignable<about<AboutDialog> >,
+        private tetengo2::swappable<about<AboutDialog> >
     {
     private:
         // concept checks
@@ -87,7 +89,7 @@ namespace bobura { namespace command
         void swap(about& another)
         throw ()
         {
-            std::swap(m_p_parent, another.m_p_parent);
+            boost::swap(m_p_parent, another.m_p_parent);
         }
 
         /*!
@@ -122,30 +124,5 @@ namespace bobura { namespace command
 
 }}
 
-namespace std
-{
-    /*!
-        \brief Swaps two about objects.
-
-        \tparam AboutDialog An about dialog type. It must conform to
-                            concept_bobura::AboutDialog<AboutDialog>.
-
-        \param about1 An about #1.
-        \param about2 An about #2.
-    */
-    template <typename AboutDialog>
-    void swap(
-        bobura::command::about<AboutDialog>& about1,
-        bobura::command::about<AboutDialog>& about2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((concept_bobura::AboutDialog<AboutDialog>));
-
-        about1.swap(about2);
-    }
-
-
-}
 
 #endif

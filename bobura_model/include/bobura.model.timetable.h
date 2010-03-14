@@ -17,10 +17,12 @@
 #include <boost/bind.hpp>
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+//#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 #include "concept_bobura.model.Train.h"
 #include "concept_bobura.model.timetable_info.StationLocation.h"
@@ -39,6 +41,7 @@ namespace bobura { namespace model
     template <typename StationLocation, typename Train>
     class timetable :
         public tetengo2::assignable<timetable<StationLocation, Train> >,
+        private tetengo2::swappable<timetable<StationLocation, Train> >,
         private boost::equality_comparable<timetable<StationLocation, Train> >
     {
     private:
@@ -128,8 +131,8 @@ namespace bobura { namespace model
         void swap(timetable& another)
         throw ()
         {
-            m_station_locations.swap(another.m_station_locations);
-            m_trains.swap(another.m_trains);
+            boost::swap(m_station_locations, another.m_station_locations);
+            boost::swap(m_trains, another.m_trains);
         }
 
         /*!
@@ -405,39 +408,6 @@ namespace bobura { namespace model
 
 
 }}
-
-namespace std
-{
-    /*!
-        \brief Swaps two timetable objects.
-
-        \tparam StationLocation A station location type. It must conform to
-                                concept_bobura::model::timetable_info::StationLocation<StationLocation>.
-        \tparam Train           A train type. It must conform to
-                                concept_bobura::model::Train<Train>.
-
-        \param timetable1 A timetable #1.
-        \param timetable2 A timetable #2.
-    */
-    template <typename StationLocation, typename Train>
-    void swap(
-        bobura::model::timetable<StationLocation, Train>& timetable1,
-        bobura::model::timetable<StationLocation, Train>& timetable2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((
-            concept_bobura::model::timetable_info::StationLocation<
-                StationLocation
-            >
-        ));
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::Train<Train>));
-
-        timetable1.swap(timetable2);
-    }
-
-
-}
 
 
 #endif

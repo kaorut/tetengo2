@@ -9,16 +9,17 @@
 #if !defined(BOBURA_MODEL_TRAININFO_TIMESPAN_H)
 #define BOBURA_MODEL_TRAININFO_TIMESPAN_H
 
-#include <algorithm>
 #include <stdexcept>
 
 #include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 
 namespace bobura { namespace model { namespace train_info
@@ -32,6 +33,7 @@ namespace bobura { namespace model { namespace train_info
     template <typename TimeSpanTick>
     class time_span :
         public tetengo2::assignable<time_span<TimeSpanTick> >,
+        private tetengo2::swappable<time_span<TimeSpanTick> >,
         private boost::totally_ordered<time_span<TimeSpanTick> >,
         private boost::additive<time_span<TimeSpanTick> >
     {
@@ -130,7 +132,7 @@ namespace bobura { namespace model { namespace train_info
         void swap(time_span& another)
         throw ()
         {
-            std::swap(m_seconds, another.m_seconds);
+            boost::swap(m_seconds, another.m_seconds);
         }
 
         /*!
@@ -305,30 +307,5 @@ namespace bobura { namespace model { namespace train_info
 
 }}}
 
-namespace std
-{
-    /*!
-        \brief Swaps two time_span objects.
-
-        \tparam TimeSpanTick A time span tick type. It must conform to
-                             boost::SignedInteger<TimeSpanTick>.
-
-        \param time_span1 A time span #1.
-        \param time_span2 A time span #2.
-    */
-    template <typename TimeSpanTick>
-    void swap(
-        bobura::model::train_info::time_span<TimeSpanTick>& time_span1,
-        bobura::model::train_info::time_span<TimeSpanTick>& time_span2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((boost::SignedInteger<TimeSpanTick>));
-
-        time_span1.swap(time_span2);
-    }
-
-
-}
 
 #endif

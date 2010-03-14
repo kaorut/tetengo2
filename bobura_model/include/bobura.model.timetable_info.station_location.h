@@ -9,12 +9,12 @@
 #if !defined(BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H)
 #define BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H
 
-#include <algorithm>
-
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+//#include <boost/swap.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 #include "concept_bobura.model.Station.h"
 
@@ -32,6 +32,7 @@ namespace bobura { namespace model { namespace timetable_info
     template <typename Station, typename Meterage>
     class station_location :
         public tetengo2::assignable<station_location<Station, Meterage> >,
+        private tetengo2::swappable<station_location<Station, Meterage> >,
         private boost::equality_comparable<
             station_location<Station, Meterage>
         >
@@ -99,8 +100,8 @@ namespace bobura { namespace model { namespace timetable_info
         void swap(station_location& another)
         throw ()
         {
-            m_station.swap(another.m_station);
-            std::swap(m_meterage, another.m_meterage);
+            boost::swap(m_station, another.m_station);
+            boost::swap(m_meterage, another.m_meterage);
         }
 
         /*!
@@ -181,35 +182,5 @@ namespace bobura { namespace model { namespace timetable_info
 
 }}}
 
-namespace std
-{
-    /*!
-        \brief Swaps two station_location objects.
-
-        \tparam Station  A station type. It must conform to
-                         concept_bobura::model::Station<Station>.
-        \tparam Meterage A meterage type. It must conform to
-                         boost::UnsignedInteger<Meterage>.
-
-        \param station_location1 A station location #1.
-        \param station_location2 A station location #2.
-    */
-    template <typename Station, typename Meterage>
-    void swap(
-        bobura::model::timetable_info::station_location<Station, Meterage>&
-        station_location1,
-        bobura::model::timetable_info::station_location<Station, Meterage>&
-        station_location2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::Station<Station>));
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Meterage>));
-
-        station_location1.swap(station_location2);
-    }
-
-
-}
 
 #endif

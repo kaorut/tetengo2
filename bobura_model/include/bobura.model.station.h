@@ -9,15 +9,16 @@
 #if !defined(BOBURA_MODEL_STATION_H)
 #define BOBURA_MODEL_STATION_H
 
-#include <algorithm>
 #include <cassert>
 #include <cstddef>
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+#include <boost/swap.hpp>
 
 #include <concept_tetengo2.String.h>
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 #include "concept_bobura.model.station_info.Grade.h"
 
@@ -35,6 +36,7 @@ namespace bobura { namespace model
     template <typename Name, typename Grade>
     class station :
         public tetengo2::assignable<station<Name, Grade> >,
+        private tetengo2::swappable<station<Name, Grade> >,
         private boost::equality_comparable<station<Name, Grade> >
     {
     private:
@@ -101,8 +103,8 @@ namespace bobura { namespace model
         void swap(station& another)
         throw ()
         {
-            m_name.swap(another.m_name);
-            std::swap(m_p_grade, another.m_p_grade);
+            boost::swap(m_name, another.m_name);
+            boost::swap(m_p_grade, another.m_p_grade);
         }
 
         /*!
@@ -169,35 +171,5 @@ namespace bobura { namespace model
 
 }}
 
-namespace std
-{
-    /*!
-        \brief Swaps two station objects.
-
-        \tparam Name  A name type. It must conform to
-                      concept_tetengo2::String<Name>.
-        \tparam Grade A grade type. It must conform to
-                      concept_bobura::model::station_info::Grade<Grade>.
-
-        \param station1 A station #1.
-        \param station2 A station #2.
-    */
-    template <typename Name, typename Grade>
-    void swap(
-        bobura::model::station<Name, Grade>& station1,
-        bobura::model::station<Name, Grade>& station2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Name>));
-        BOOST_CONCEPT_ASSERT((
-            concept_bobura::model::station_info::Grade<Grade>
-        ));
-
-        station1.swap(station2);
-    }
-
-
-}
 
 #endif

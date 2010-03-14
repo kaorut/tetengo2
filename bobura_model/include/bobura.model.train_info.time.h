@@ -9,18 +9,19 @@
 #if !defined(BOBURA_MODEL_TRAININFO_TIME_H)
 #define BOBURA_MODEL_TRAININFO_TIME_H
 
-#include <algorithm>
 #include <cassert>
 #include <limits>
 #include <stdexcept>
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+//#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 //#include <boost/tuple/tuple.hpp>
 //#include <boost/tuple/tuple_comparison.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 #include "concept_bobura.model.train_info.TimeSpan.h"
 
@@ -38,6 +39,7 @@ namespace bobura { namespace model { namespace train_info
     template <typename TimeTick, typename TimeSpan>
     class time :
         public tetengo2::assignable<time<TimeTick, TimeSpan> >,
+        private tetengo2::swappable<time<TimeTick, TimeSpan> >,
         private boost::totally_ordered<time<TimeTick, TimeSpan> >,
         private boost::additive<time<TimeTick, TimeSpan>, TimeSpan>
     {
@@ -149,7 +151,7 @@ namespace bobura { namespace model { namespace train_info
         void swap(time& another)
         throw ()
         {
-            std::swap(
+            boost::swap(
                 m_seconds_from_midnight, another.m_seconds_from_midnight
             );
         }
@@ -403,35 +405,5 @@ namespace bobura { namespace model { namespace train_info
 
 }}}
 
-namespace std
-{
-    /*!
-        \brief Swaps two time objects.
-
-        \tparam TimeTick A time tick type. It must conform to
-                         boost::UnsignedInteger<TimeTick>.
-        \tparam TimeSpan A time span type. It must conform to
-                         concept_bobura::model::train_info::TimeSpan<TimeSpan>.
-
-        \param time1 A time #1.
-        \param time2 A time #2.
-    */
-    template <typename TimeSpan, typename TimeTick>
-    void swap(
-        bobura::model::train_info::time<TimeTick, TimeSpan>& time1,
-        bobura::model::train_info::time<TimeTick, TimeSpan>& time2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<TimeTick>));
-        BOOST_CONCEPT_ASSERT((
-            concept_bobura::model::train_info::TimeSpan<TimeSpan>
-        ));
-
-        time1.swap(time2);
-    }
-
-
-}
 
 #endif

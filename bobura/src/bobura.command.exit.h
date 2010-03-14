@@ -9,12 +9,12 @@
 #if !defined(BOBURA_COMMAND_EXIT_H)
 #define BOBURA_COMMAND_EXIT_H
 
-#include <algorithm>
-
 //#include <boost/concept_check.hpp>
+#include <boost/swap.hpp>
 
 #include <concept_tetengo2.gui.Window.h>
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 
 namespace bobura { namespace command
@@ -26,7 +26,9 @@ namespace bobura { namespace command
                        concept_tetengo2::gui::Window<Window>.
     */
     template <typename Window>
-    class exit : public tetengo2::assignable<exit<Window> >
+    class exit :
+        public tetengo2::assignable<exit<Window> >,
+        private tetengo2::swappable<exit<Window> >
     {
     private:
         // concept checks
@@ -81,7 +83,7 @@ namespace bobura { namespace command
         void swap(exit& another)
         throw ()
         {
-            std::swap(m_p_window, another.m_p_window);
+            boost::swap(m_p_window, another.m_p_window);
         }
 
         /*!
@@ -116,30 +118,5 @@ namespace bobura { namespace command
 
 }}
 
-namespace std
-{
-    /*!
-        \brief Swaps two exit objects.
-
-        \tparam Window A window type. It must conform to
-                       concept_tetengo2::gui::Window<Window>.
-
-        \param exit1 An exit #1.
-        \param exit2 An exit #2.
-    */
-    template <typename Window>
-    void swap(
-        bobura::command::exit<Window>& exit1,
-        bobura::command::exit<Window>& exit2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
-
-        exit1.swap(exit2);
-    }
-
-
-}
 
 #endif

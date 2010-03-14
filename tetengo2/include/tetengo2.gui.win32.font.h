@@ -17,6 +17,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
@@ -34,6 +35,7 @@
 
 #include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"
+#include "tetengo2.swappable.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -49,6 +51,7 @@ namespace tetengo2 { namespace gui { namespace win32
     template <typename String, typename Size>
     class font :
         public assignable<font<String, Size> >,
+        private swappable<font<String, Size> >,
         private boost::equality_comparable<font<String, Size> >
     {
     private:
@@ -161,12 +164,12 @@ namespace tetengo2 { namespace gui { namespace win32
         void swap(font& another)
         throw ()
         {
-            m_family.swap(another.m_family);
-            std::swap(m_size, another.m_size);
-            std::swap(m_bold, another.m_bold);
-            std::swap(m_italic, another.m_italic);
-            std::swap(m_underline, another.m_underline);
-            std::swap(m_strikeout, another.m_strikeout);
+            boost::swap(m_family, another.m_family);
+            boost::swap(m_size, another.m_size);
+            boost::swap(m_bold, another.m_bold);
+            boost::swap(m_italic, another.m_italic);
+            boost::swap(m_underline, another.m_underline);
+            boost::swap(m_strikeout, another.m_strikeout);
         }
 
         /*!
@@ -403,33 +406,5 @@ namespace tetengo2 { namespace gui { namespace win32
 
 }}}
 
-namespace std
-{
-    /*!
-        \brief Swaps two font objects.
-
-        \tparam String A string type. It must conform to
-                       concept_tetengo2::String<String>.
-        \tparam Size   A size type. It must conform to
-                       boost::UnsignedInteger<Size>.
-
-        \param font1 A font #1.
-        \param font2 A font #2.
-    */
-    template <typename String, typename Size>
-    void swap(
-        tetengo2::gui::win32::font<String, Size>& font1,
-        tetengo2::gui::win32::font<String, Size>& font2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
-
-        font1.swap(font2);
-    }
-
-
-}
 
 #endif

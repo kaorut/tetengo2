@@ -9,10 +9,8 @@
 #if !defined(BOBURA_COMMAND_NOP_H)
 #define BOBURA_COMMAND_NOP_H
 
-#include <algorithm>
-//std::swap // dummy
-
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 
 namespace bobura { namespace command
@@ -20,7 +18,9 @@ namespace bobura { namespace command
     /*!
         \brief The class for a no-operation command.
     */
-    class nop : public tetengo2::assignable<nop>
+    class nop :
+        public tetengo2::assignable<nop>,
+        private tetengo2::swappable<nop>
     {
     public:
         // constructors and destructor
@@ -83,22 +83,5 @@ namespace bobura { namespace command
 
 }}
 
-namespace std
-{
-    /*!
-        \brief Swaps two nop objects.
-
-        \param nop1 A nop #1.
-        \param nop2 A nop #2.
-    */
-    template <typename Name, typename Grade>
-    void swap(bobura::command::nop& nop1, bobura::command::nop& nop2)
-    throw ()
-    {
-        nop1.swap(nop2);
-    }
-
-
-}
 
 #endif

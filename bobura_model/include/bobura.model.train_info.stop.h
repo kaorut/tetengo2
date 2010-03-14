@@ -11,9 +11,11 @@
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
+//#include <boost/swap.hpp>
 
 #include <concept_tetengo2.String.h>
 #include <tetengo2.assignable.h>
+#include <tetengo2.swappable.h>
 
 #include "concept_bobura.model.train_info.Time.h"
 
@@ -31,6 +33,7 @@ namespace bobura { namespace model { namespace train_info
     template <typename Time, typename Platform>
     class stop :
         public tetengo2::assignable<stop<Time, Platform> >,
+        private tetengo2::swappable<stop<Time, Platform> >,
         private boost::equality_comparable<stop<Time, Platform> >
     {
     private:
@@ -100,9 +103,9 @@ namespace bobura { namespace model { namespace train_info
         void swap(stop& another)
         throw ()
         {
-            m_arrival.swap(another.m_arrival);
-            m_departure.swap(another.m_departure);
-            m_platform.swap(another.m_platform);
+            boost::swap(m_arrival, another.m_arrival);
+            boost::swap(m_departure, another.m_departure);
+            boost::swap(m_platform, another.m_platform);
         }
 
         /*!
@@ -182,33 +185,5 @@ namespace bobura { namespace model { namespace train_info
 
 }}}
 
-namespace std
-{
-    /*!
-        \brief Swaps two stop objects.
-
-        \tparam Time     A time type. It must conform to
-                         concept_bobura::model::train_info::Time<Time>.
-        \tparam Platform A platform type. It must conform to
-                         concept_tetengo2::String<Platform>.
-
-        \param stop1 A stop #1.
-        \param stop2 A stop #2.
-    */
-    template <typename Time, typename Platform>
-    void swap(
-        bobura::model::train_info::stop<Time, Platform>& stop1,
-        bobura::model::train_info::stop<Time, Platform>& stop2
-    )
-    throw ()
-    {
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Time<Time>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Platform>));
-
-        stop1.swap(stop2);
-    }
-
-
-}
 
 #endif
