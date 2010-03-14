@@ -19,6 +19,11 @@ Depends on  : 00000017
 Description : Replace tetengo2::win32::encode to tetengo2::encoder.
 ------------------------------------------------------------------------------
 Number      : 00000024
+Added on    : 2010/03/14
+Depends on  : (none)
+Description : Use free function operator==() instead of member function.
+------------------------------------------------------------------------------
+Number      : 00000025
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
