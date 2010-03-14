@@ -63,10 +63,7 @@ namespace
         const std::locale global_locale(
             std::locale(""),
             new bobura::type_list::messages_type(
-                //base_path / TETENGO2_TEXT("messages"),
-                typename bobura::type_list::messages_type::string_type(
-                    TETENGO2_TEXT("messages")
-                ),
+                base_path / TETENGO2_TEXT("messages"),
                 std::locale(ui_locale_name().c_str())
             )
         );
