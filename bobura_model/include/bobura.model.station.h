@@ -120,18 +120,18 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Checks whether this is equal to anther station.
+            \brief Checks whether one station is equal to anther.
 
+            \param one     One station.
             \param another Another station.
 
-            \retval true  When this is equal to another.
+            \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        bool operator==(const station& another)
-        const
+        friend bool operator==(const station& one, const station& another)
         {
-            return m_name == another.m_name &&
-                   m_p_grade == another.m_p_grade;
+            return one.m_name == another.m_name &&
+                   one.m_p_grade == another.m_p_grade;
         }
 
         /*!

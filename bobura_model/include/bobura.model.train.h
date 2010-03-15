@@ -151,20 +151,19 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Checks whether this is equal to anther
-                   train.
+            \brief Checks whether one train is equal to anther.
 
+            \param one     One train.
             \param another Another train.
 
-            \retval true  When this is equal to another.
+            \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        bool operator==(const train& another)
-        const
+        friend bool operator==(const train& one, const train& another)
         {
-            return m_number == another.m_number &&
-                m_note == another.m_note &&
-                m_stops == another.m_stops;
+            return one.m_number == another.m_number &&
+                one.m_note == another.m_note &&
+                one.m_stops == another.m_stops;
         }
 
         /*!

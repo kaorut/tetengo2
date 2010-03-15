@@ -74,7 +74,7 @@ namespace bobura { namespace model { namespace timetable_info
         /*!
             \brief Copies a station location.
 
-            \param another Another station_location.
+            \param another Another station location.
         */
         station_location(const station_location& another)
         :
@@ -83,7 +83,7 @@ namespace bobura { namespace model { namespace timetable_info
         {}
 
         /*!
-            \brief Destroys the station_location.
+            \brief Destroys the station location.
         */
         ~station_location()
         throw ()
@@ -93,9 +93,9 @@ namespace bobura { namespace model { namespace timetable_info
         // functions
 
         /*!
-            \brief Swaps the members with another station_location.
+            \brief Swaps the members with another station location.
 
-            \param another Another station_location.
+            \param another Another station location.
         */
         void swap(station_location& another)
         throw ()
@@ -105,9 +105,9 @@ namespace bobura { namespace model { namespace timetable_info
         }
 
         /*!
-            \brief Assigns another station_location.
+            \brief Assigns another station location.
 
-            \param another Another station_location.
+            \param another Another station location.
 
             \return this object.
         */
@@ -117,19 +117,21 @@ namespace bobura { namespace model { namespace timetable_info
         }
 
         /*!
-            \brief Checks whether this is equal to anther
-                   station_location.
+            \brief Checks whether one station location is equal to anther.
 
-            \param another Another station_location.
+            \param one     One station location.
+            \param another Another station location.
 
-            \retval true  When this is equal to another.
+            \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        bool operator==(const station_location& another)
-        const
+        friend bool operator==(
+            const station_location& one,
+            const station_location& another
+        )
         {
-            return m_station == another.m_station &&
-                   m_meterage == another.m_meterage;
+            return one.m_station == another.m_station &&
+                   one.m_meterage == another.m_meterage;
         }
 
         /*!

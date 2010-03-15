@@ -150,16 +150,16 @@ namespace bobura { namespace model
         /*!
             \brief Checks whether this is equal to anther timetable.
 
+            \param one     One timetable.
             \param another Another timetable.
 
-            \retval true  When this is equal to another.
+            \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        bool operator==(const timetable& another)
-        const
+        friend bool operator==(const timetable& one, const timetable& another)
         {
-            return m_station_locations == another.m_station_locations &&
-                m_trains == another.m_trains;
+            return one.m_station_locations == another.m_station_locations &&
+                one.m_trains == another.m_trains;
         }
 
         /*!

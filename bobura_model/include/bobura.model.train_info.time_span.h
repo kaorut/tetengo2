@@ -107,7 +107,7 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Copies a time span.
 
-            \param another Another time_span.
+            \param another Another time span.
         */
         time_span(const time_span& another)
         :
@@ -115,7 +115,7 @@ namespace bobura { namespace model { namespace train_info
         {}
 
         /*!
-            \brief Destroys the time_span.
+            \brief Destroys the time span.
         */
         ~time_span()
         throw ()
@@ -125,9 +125,9 @@ namespace bobura { namespace model { namespace train_info
         // functions
 
         /*!
-            \brief Swaps the members with another time_span.
+            \brief Swaps the members with another time span.
 
-            \param another Another time_span.
+            \param another Another time span.
         */
         void swap(time_span& another)
         throw ()
@@ -136,9 +136,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Assigns another time_span.
+            \brief Assigns another time span.
 
-            \param another Another time_span.
+            \param another Another time span.
 
             \return this object.
         */
@@ -148,9 +148,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Adds another time_span.
+            \brief Adds another time span.
 
-            \param another Another time_span.
+            \param another Another time span.
 
             \return this object.
         */
@@ -165,9 +165,9 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Subtracts another time_span.
+            \brief Subtracts another time span.
 
-            \param another Another time_span.
+            \param another Another time span.
 
             \return this object.
         */
@@ -182,23 +182,23 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is equal to anther time_span.
+            \brief Checks whether one time span is equal to anther.
 
-            \param another Another time_span.
+            \param one     One time span.
+            \param another Another time span.
 
-            \retval true  When this is equal to another.
+            \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        bool operator==(const time_span& another)
-        const
+        friend bool operator==(const time_span& one, const time_span& another)
         {
-            return m_seconds == another.m_seconds;
+            return one.m_seconds == another.m_seconds;
         }
 
         /*!
-            \brief Checks whether this is less than anther time_span.
+            \brief Checks whether this is less than anther time span.
 
-            \param another Another time_span.
+            \param another Another time span.
 
             \retval true  When this is less than another.
             \retval false Otherwise.

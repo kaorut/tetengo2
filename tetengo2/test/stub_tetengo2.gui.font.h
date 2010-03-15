@@ -120,10 +120,14 @@ namespace stub_tetengo2 { namespace gui
             return assign(another);
         }
 
-        bool operator==(const font& another)
-        const
+        friend bool operator==(const font& one, const font& another)
         {
-            return true;
+            return one.m_family == another.m_family &&
+                one.m_size == another.m_size &&
+                one.m_bold == another.m_bold &&
+                one.m_italic == another.m_italic &&
+                one.m_underline == another.m_underline &&
+                one.m_strikeout == another.m_strikeout;
         }
 
         const string_type& family()

@@ -121,19 +121,19 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is equal to anther stop.
+            \brief Checks whether one stop is equal to anther.
 
+            \param one     One stop.
             \param another Another stop.
 
-            \retval true  When this is equal to another.
+            \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        bool operator==(const stop& another)
-        const
+        friend bool operator==(const stop& one, const stop& another)
         {
-            return m_arrival == another.m_arrival &&
-                m_departure == another.m_departure &&
-                m_platform == another.m_platform;
+            return one.m_arrival == another.m_arrival &&
+                one.m_departure == another.m_departure &&
+                one.m_platform == another.m_platform;
         }
 
         /*!
