@@ -283,17 +283,18 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is less than anther time.
+            \brief Checks whether one time is less than anther.
 
+            \param one     One time.
             \param another Another time.
 
-            \retval true  When this is less than another.
+            \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        bool operator<(const time& another)
-        const
+        friend bool operator<(const time& one, const time& another)
         {
-            return m_seconds_from_midnight < another.m_seconds_from_midnight;
+            return one.m_seconds_from_midnight <
+                another.m_seconds_from_midnight;
         }
 
         /*!

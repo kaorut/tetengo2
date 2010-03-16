@@ -196,17 +196,17 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether this is less than anther time span.
+            \brief Checks whether one time span is less than anther.
 
+            \param one     One time span.
             \param another Another time span.
 
-            \retval true  When this is less than another.
+            \retval true  When the one is less than the other.
             \retval false Otherwise.
         */
-        bool operator<(const time_span& another)
-        const
+        friend bool operator<(const time_span& one, const time_span& another)
         {
-            return m_seconds < another.m_seconds;
+            return one.m_seconds < another.m_seconds;
         }
 
         /*!
