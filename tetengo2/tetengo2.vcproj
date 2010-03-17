@@ -366,6 +366,10 @@
 					RelativePath=".\include\tetengo2.encoding.locale.h"
 					>
 				</File>
+				<File
+					RelativePath=".\include\tetengo2.encoding.win32.utf8.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="concept_tetengo2::encoding"

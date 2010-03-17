@@ -32,7 +32,7 @@
 namespace tetengo2 { namespace encoding
 {
     /*!
-        \brief The class template for a encoding based on a locale.
+        \brief The class template for an encoding based on a locale.
 
         \tparam String A string type. It must conform to
                        concept_tetengo2::String<String>.

@@ -552,6 +552,10 @@
 					RelativePath=".\test\test_tetengo2.encoding.locale.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\test\test_tetengo2.encoding.win32.utf8.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -563,14 +567,6 @@
 				RelativePath="..\precompiled\precompiled.h"
 				>
 			</File>
-			<Filter
-				Name="stub_tetengo2"
-				>
-				<File
-					RelativePath=".\test\stub_tetengo2.encode.h"
-					>
-				</File>
-			</Filter>
 			<Filter
 				Name="stub_tetengo2::gui"
 				>
@@ -644,6 +640,22 @@
 				</File>
 				<File
 					RelativePath=".\test\stub_tetengo2.gui.window.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="stub_tetengo2::encoding"
+				>
+				<File
+					RelativePath=".\test\stub_tetengo2.encoding.utf8.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="stub_tetengo2"
+				>
+				<File
+					RelativePath=".\test\stub_tetengo2.encode.h"
 					>
 				</File>
 			</Filter>

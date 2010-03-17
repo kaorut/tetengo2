@@ -77,6 +77,8 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
+        BOOST_TEST_PASSPOINT();
+
         {
             const multibyte_encoding_type encoding(std::locale::classic());
         }
@@ -87,6 +89,8 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(swap)
     {
+        BOOST_TEST_PASSPOINT();
+
         if (locale_supported())
         {
             {
@@ -116,6 +120,8 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(operator_assign)
     {
+        BOOST_TEST_PASSPOINT();
+
         if (locale_supported())
         {
             {
@@ -143,6 +149,8 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(locale_based_on)
     {
+        BOOST_TEST_PASSPOINT();
+
         if (locale_supported())
         {
             {
@@ -178,6 +186,8 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(from_pivot)
     {
+        BOOST_TEST_PASSPOINT();
+
         {
             const multibyte_encoding_type::pivot_type pivot(
                 TETENGO2_TEXT("Tetengo2")
@@ -206,6 +216,8 @@ BOOST_AUTO_TEST_SUITE(locale)
 
     BOOST_AUTO_TEST_CASE(to_pivot)
     {
+        BOOST_TEST_PASSPOINT();
+
         {
             const multibyte_encoding_type::pivot_type pivot(
                 TETENGO2_TEXT("Tetengo2")

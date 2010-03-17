@@ -89,6 +89,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
+        BOOST_TEST_PASSPOINT();
+
         {
             const m_m_encoder_type encoder =
                 m_m_encoder_type(
@@ -121,6 +123,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
     BOOST_AUTO_TEST_CASE(swap)
     {
+        BOOST_TEST_PASSPOINT();
+
         if (locale_supported())
         {
             {
@@ -248,6 +252,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
     BOOST_AUTO_TEST_CASE(operator_assign)
     {
+        BOOST_TEST_PASSPOINT();
+
         if (locale_supported())
         {
             {
@@ -343,6 +349,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
     BOOST_AUTO_TEST_CASE(internal_encoding)
     {
+        BOOST_TEST_PASSPOINT();
+
         if (locale_supported())
         {
             {
@@ -458,6 +466,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
     BOOST_AUTO_TEST_CASE(external_encoding)
     {
+        BOOST_TEST_PASSPOINT();
+
         if (locale_supported())
         {
             {
@@ -573,6 +583,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
     BOOST_AUTO_TEST_CASE(encode)
     {
+        BOOST_TEST_PASSPOINT();
+
         {
             const m_m_encoder_type::internal_string_type internal_string(
                 TETENGO2_TEXT("Tetengo2")
@@ -641,6 +653,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
 
     BOOST_AUTO_TEST_CASE(decode)
     {
+        BOOST_TEST_PASSPOINT();
+
         {
             const m_m_encoder_type::internal_string_type internal_string(
                 TETENGO2_TEXT("Tetengo2")
