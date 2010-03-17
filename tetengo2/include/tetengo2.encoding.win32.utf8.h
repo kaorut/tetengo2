@@ -10,7 +10,6 @@
 #define TETENGO2_ENCODING_WIN32_UTF8_H
 
 //#include <boost/concept_check.hpp>
-//#include <boost/swap.hpp>
 #include <boost/type_traits.hpp>
 
 #include "concept_tetengo2.String.h"
