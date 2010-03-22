@@ -19,17 +19,29 @@ BOOST_AUTO_TEST_SUITE(utf8)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        tetengo2::encoding::win32::utf8 encoding;
     }
 
     BOOST_AUTO_TEST_CASE(swap)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        tetengo2::encoding::win32::utf8 encoding1;
+        tetengo2::encoding::win32::utf8 encoding2;
+
+        encoding1.swap(encoding2);
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        tetengo2::encoding::win32::utf8 encoding1;
+        const tetengo2::encoding::win32::utf8 encoding2;
+
+        encoding1 = encoding2;
     }
 
     BOOST_AUTO_TEST_CASE(from_pivot)
