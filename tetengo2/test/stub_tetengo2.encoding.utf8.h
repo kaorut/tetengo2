@@ -9,9 +9,8 @@
 #if !defined(STUBTETENGO2_ENCODING_UTF8_H)
 #define STUBTETENGO2_ENCODING_UTF8_H
 
-//#include <boost/concept_check.hpp>
+#include <string>
 
-#include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"
 #include "tetengo2.swappable.h"
 #include "tetengo2.encoding.encoding.h"
@@ -19,24 +18,18 @@
 
 namespace tetengo2 { namespace encoding
 {
-    template <typename String>
     class utf8 :
         public encoding,
-        public assignable<utf8<String> >,
-        private swappable<utf8<String> >
+        public assignable<utf8>,
+        private swappable<utf8>
     {
     private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-
-
     public:
         // types
 
-        typedef String string_type;
+        typedef std::string string_type;
 
-        typedef typename string_type::value_type string_char_type;
+        typedef string_type::value_type string_char_type;
 
 
         // constructors and destructor
