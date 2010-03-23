@@ -9,7 +9,7 @@
 #if !defined(STUBTETENGO2_ENCODING_UTF8_H)
 #define STUBTETENGO2_ENCODING_UTF8_H
 
-#include <string>
+//#include <string>
 
 #include "tetengo2.assignable.h"
 #include "tetengo2.swappable.h"
