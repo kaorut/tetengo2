@@ -7,12 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000017
-Added on    : 2010/02/12
-Depends on  : (none)
-Description : Create tetengo2::encoder, tetengo2::encoding::locale and
-              tetengo2::encoding::win32::utf8.
-------------------------------------------------------------------------------
 Number      : 00000023
 Added on    : 2010/03/11
 Depends on  : 00000017
