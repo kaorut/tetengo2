@@ -106,7 +106,7 @@ namespace tetengo2 { namespace encoding { namespace win32
                     CP_UTF8,
                     0,
                     pivot.c_str(),
-                    pivot.length(),
+                    static_cast<int>(pivot.length()),
                     NULL,
                     0,
                     0,
@@ -121,7 +121,7 @@ namespace tetengo2 { namespace encoding { namespace win32
                     CP_UTF8,
                     0,
                     pivot.c_str(),
-                    pivot.length(),
+                    static_cast<int>(pivot.length()),
                     p_string.get(),
                     string_length,
                     0,
@@ -147,7 +147,12 @@ namespace tetengo2 { namespace encoding { namespace win32
         {
             const int pivot_length =
                 ::MultiByteToWideChar(
-                    CP_UTF8, 0, string.c_str(), string.length(), NULL, 0
+                    CP_UTF8,
+                    0,
+                    string.c_str(),
+                    static_cast<int>(string.length()),
+                    NULL,
+                    0
                 );
             const boost::scoped_array<wchar_t> p_pivot(
                 new wchar_t[pivot_length + 1]
@@ -158,7 +163,7 @@ namespace tetengo2 { namespace encoding { namespace win32
                     CP_UTF8,
                     0,
                     string.c_str(),
-                    string.length(),
+                    static_cast<int>(string.length()),
                     p_pivot.get(),
                     pivot_length
                 );
