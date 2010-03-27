@@ -18,6 +18,13 @@ Depends on  : (none)
 Description : Use boost::mpl::map to describe type lists.
 ------------------------------------------------------------------------------
 Number      : 00000026
+Added on    : 2010/03/27
+Depends on  : (none)
+Description : Use boost::signal2::signal directly to implement event
+              observers.
+              Make event observer aggregating classes.
+------------------------------------------------------------------------------
+Number      : 00000027
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
