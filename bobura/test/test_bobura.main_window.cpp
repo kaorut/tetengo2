@@ -12,6 +12,8 @@
 #include <boost/test/unit_test.hpp>
 
 #include <stub_tetengo2.gui.gui_type_list.h>
+#include <tetengo2.encoder.h>
+#include <tetengo2.encoding.locale.h>
 
 #include "bobura.about_dialog.h"
 #include "bobura.main_window.h"
@@ -24,8 +26,15 @@ namespace
     // types
 
     typedef
+        tetengo2::encoder<
+            tetengo2::encoding::locale<std::wstring>,
+            tetengo2::encoding::locale<std::wstring>
+        >
+        ui_encoder_type;
+
+    typedef
         stub_tetengo2::gui::gui_type_list<
-            std::ptrdiff_t, std::size_t, std::wstring
+            std::ptrdiff_t, std::size_t, std::wstring, ui_encoder_type
         >
         gui_type_list_type;
 

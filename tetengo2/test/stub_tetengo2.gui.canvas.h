@@ -15,6 +15,7 @@
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Font.h"
 #include "concept_tetengo2.gui.Handle.h"
@@ -26,7 +27,7 @@ namespace stub_tetengo2 { namespace gui
         typename Handle,
         typename Size,
         typename String,
-        template <typename Target, typename Source> class Encode,
+        typename Encoder,
         typename WindowHandle,
         typename Font
     >
@@ -38,16 +39,7 @@ namespace stub_tetengo2 { namespace gui
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring native_string_type;
-            typedef Encode<std::wstring, String> encode_to_native_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_native_type, native_string_type, String
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
 
@@ -65,7 +57,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef String string_type;
 
-        typedef Encode<String, String> encode_to_native_type;
+        typedef Encoder encoder_type;
 
         typedef WindowHandle window_handle_type;
 

@@ -21,6 +21,8 @@
 #include <stub_tetengo2.gui.gui_type_list.h>
 #include <stub_tetengo2.gui.message_loop.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
+#include <tetengo2.encoder.h>
+#include <tetengo2.encoding.locale.h>
 
 
 namespace
@@ -28,8 +30,15 @@ namespace
     // types
 
     typedef
+        tetengo2::encoder<
+            tetengo2::encoding::locale<std::wstring>,
+            tetengo2::encoding::locale<std::wstring>
+        >
+        ui_encoder_type;
+
+    typedef
         stub_tetengo2::gui::gui_type_list<
-            std::ptrdiff_t, std::size_t, std::wstring
+            std::ptrdiff_t, std::size_t, std::wstring, ui_encoder_type
         >
         gui_type_list_type;
 

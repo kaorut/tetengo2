@@ -11,11 +11,12 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.paint_observer.h"
-
-#include "stub_tetengo2.encode.h"
 #include "stub_tetengo2.gui.canvas.h"
 #include "stub_tetengo2.gui.font.h"
+#include "tetengo2.encoder.h"
+#include "tetengo2.encoding.locale.h"
+
+#include "tetengo2.gui.paint_observer.h"
 
 
 namespace
@@ -23,11 +24,18 @@ namespace
     // types
 
     typedef
+        tetengo2::encoder<
+            tetengo2::encoding::locale<std::wstring>,
+            tetengo2::encoding::locale<std::wstring>
+        >
+        encoder_type;
+
+    typedef
         stub_tetengo2::gui::canvas<
             const void*,
             std::size_t,
             std::wstring,
-            stub_tetengo2::encode,
+            encoder_type,
             const void*,
             stub_tetengo2::gui::font<std::wstring, std::size_t>
         >

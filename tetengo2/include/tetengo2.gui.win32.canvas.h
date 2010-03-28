@@ -32,6 +32,7 @@
 #undef min
 #undef max
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Font.h"
 #include "concept_tetengo2.gui.Handle.h"
@@ -48,9 +49,8 @@ namespace tetengo2 { namespace gui { namespace win32
                              boost::UnsignedInteger<Size>.
         \tparam String       A string type. It must conform to
                              concept_tetengo2::String<String>.
-        \tparam Encode       An encoding unary functor type. The type
-                             Encode<std::wstring, String> must conform to
-                             boost::UnaryFunction<Encode, std::wstring, String>.
+        \tparam Encoder      An encoder type. It must conform to
+                             concept_tetengo2::Encoder<Encoder>.
         \tparam WindowHandle A window handle type for the native interface. It
                              must conform to
                              concept_tetengo2::gui::Handle<WindowHandle>.
@@ -61,7 +61,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Handle,
         typename Size,
         typename String,
-        template <typename Target, typename Source> class Encode,
+        typename Encoder,
         typename WindowHandle,
         typename Font
     >
@@ -73,16 +73,7 @@ namespace tetengo2 { namespace gui { namespace win32
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring native_string_type;
-            typedef Encode<std::wstring, String> encode_to_native_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_native_type, native_string_type, String
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
 
@@ -105,8 +96,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The string type.
         typedef String string_type;
 
-        //! The unary functor type for encoding to the native.
-        typedef Encode<std::wstring, String> encode_to_native_type;
+        //! The encoder type.
+        typedef Encoder encoder_type;
 
         //! The window handle type for the native interface.
         typedef WindowHandle window_handle_type;
@@ -121,6 +112,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates a canvas.
 
             \param window_handle A window handle.
+            \param encoder       An encoder.
             \param on_paint      Whether this constructor is called in the
                                  window repaint procedure.
 
@@ -128,10 +120,12 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         canvas(
             const window_handle_type window_handle,
+            const encoder_type&      encoder,
             const bool               on_paint
         )
         :
         m_window_handle(window_handle),
+        m_encoder(encoder),
         m_on_paint(on_paint),
         m_p_paint_info(
             on_paint ?
@@ -230,7 +224,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 Gdiplus::Color(128, 255, 0, 0)
             );
 
-            const std::wstring encoded_text = encode_to_native_type()(text);
+            const std::wstring encoded_text = m_encoder.encode(text);
             const Gdiplus::Status result = m_graphics.DrawString(
                 encoded_text.c_str(),
                 static_cast< ::INT>(encoded_text.length()),
@@ -304,6 +298,8 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         const window_handle_type m_window_handle;
+
+        const encoder_type m_encoder;
 
         const bool m_on_paint;
 

@@ -6,6 +6,9 @@
     $Id$
 */
 
+#if !defined(PRECOMPILED_H)
+#define PRECOMPILED_H
+
 // The standard library headers
 
 #include <algorithm>
@@ -78,5 +81,8 @@
 #include <gdiplus.h>
 #undef min
 #undef max
+
+#endif
+
 
 #endif

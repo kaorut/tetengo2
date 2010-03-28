@@ -11,6 +11,8 @@
 
 //#include <boost/concept_check.hpp>
 
+#include "concept_tetengo2.String.h"
+#include "concept_tetengo2.Encoder.h"
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "stub_tetengo2.gui.abstract_window.h"
 #include "stub_tetengo2.gui.alert.h"
@@ -37,7 +39,12 @@
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Difference, typename Size, typename String>
+    template <
+        typename Difference,
+        typename Size,
+        typename String,
+        typename UiEncoder
+    >
     class gui_type_list
     {
     private:
@@ -46,6 +53,7 @@ namespace stub_tetengo2 { namespace gui
         BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<UiEncoder>));
 
 
     public:
@@ -66,7 +74,7 @@ namespace stub_tetengo2 { namespace gui
                 const void*,
                 Size,
                 String,
-                stub_tetengo2::encode,
+                UiEncoder,
                 const void*,
                 font_type
             >

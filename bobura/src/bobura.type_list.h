@@ -15,8 +15,10 @@
 
 //#include <boost/filesystem.hpp>
 
+#include <tetengo2.encoder.h>
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog_parser.h>
+#include <tetengo2.encoding.locale.h>
 #include <tetengo2.gui.win32.gui_type_list.h>
 
 #include "bobura.about_dialog.h"
@@ -64,10 +66,18 @@ namespace bobura
             >
             messages_type;
 
+        //! The encoder for the user interface.
+        typedef
+            tetengo2::encoder<
+                tetengo2::encoding::locale<string_type>,
+                tetengo2::encoding::locale<std::wstring>
+            >
+            ui_encoder_type;
+
         //! The type list type to create platform specific GUI components.
         typedef
             tetengo2::gui::win32::gui_type_list<
-                difference_type, size_type, string_type
+                difference_type, size_type, string_type, ui_encoder_type
             >
             gui_type_list_type;
 

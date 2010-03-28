@@ -39,6 +39,11 @@
 #include "concept_tetengo2.gui.MouseObserver.h"
 #include "concept_tetengo2.gui.PaintObserver.h"
 
+// temp
+#include "tetengo2.encoder.h"
+#include "tetengo2.encoding.locale.h"
+// temp
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -155,6 +160,15 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The string type.
         typedef String string_type;
+
+        //! The encoder type.
+        //typedef Encoder encoder_type;
+        typedef
+            tetengo2::encoder<
+                tetengo2::encoding::locale<string_type>,
+                tetengo2::encoding::locale<std::wstring>
+            >
+            encoder_type;
 
         //! The unary functor type for encoding from the native.
         typedef Encode<String, std::wstring> encode_from_native_type;
@@ -367,7 +381,14 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             return std::auto_ptr<canvas_type>(
-                new canvas_type(this->handle(), false)
+                new canvas_type(
+                    this->handle(),
+                    encoder_type(
+                        tetengo2::encoding::locale<string_type>(std::locale()),
+                        tetengo2::encoding::locale<std::wstring>(std::locale())
+                    ),
+                    false
+                )
             );
         }
 
@@ -384,7 +405,14 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             return std::auto_ptr<const canvas_type>(
-                new canvas_type(this->handle(), false)
+                new canvas_type(
+                    this->handle(),
+                    encoder_type(
+                        tetengo2::encoding::locale<string_type>(std::locale()),
+                        tetengo2::encoding::locale<std::wstring>(std::locale())
+                    ),
+                    false
+                )
             );
         }
 
@@ -978,7 +1006,14 @@ namespace tetengo2 { namespace gui { namespace win32
                 {
                     if (m_paint_observers.empty()) break;
 
-                    canvas_type canvas(this->handle(), true);
+                    canvas_type canvas(
+                        this->handle(),
+                        encoder_type(
+                            tetengo2::encoding::locale<string_type>(std::locale()),
+                            tetengo2::encoding::locale<std::wstring>(std::locale())
+                        ),
+                        true
+                    );
                     m_paint_paint_handler(&canvas);
                     return 0;
                 }

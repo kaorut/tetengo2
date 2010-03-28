@@ -24,6 +24,8 @@
 //#undef min
 //#undef max
 
+#include "concept_tetengo2.String.h"
+#include "concept_tetengo2.Encoder.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.mouse_observer.h"
 #include "tetengo2.gui.paint_observer.h"
@@ -60,8 +62,15 @@ namespace tetengo2 { namespace gui { namespace win32
                            boost::UnsignedInteger<Size>.
         \tparam String     A string type. It must conform to
                            concept_tetengo2::String<String>.
+        \tparam UiEncoder  A encoder for the user interface type. It must
+                           conform to concept_tetengo2::Encoder<GuiEncoder>.
     */
-    template <typename Difference, typename Size, typename String>
+    template <
+        typename Difference,
+        typename Size,
+        typename String,
+        typename UiEncoder
+    >
     class gui_type_list
     {
     private:
@@ -70,6 +79,7 @@ namespace tetengo2 { namespace gui { namespace win32
         BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<UiEncoder>));
 
 
     public:
@@ -98,7 +108,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 const Gdiplus::Graphics*,
                 Size,
                 String,
-                tetengo2::win32::encode,
+                UiEncoder,
                 ::HWND,
                 font_type
             >
