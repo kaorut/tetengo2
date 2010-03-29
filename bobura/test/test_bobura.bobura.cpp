@@ -7,7 +7,7 @@
 */
 
 //#include <cstddef>
-#include <locale>
+//#include <locale>
 //#include <string>
 
 #include <boost/test/unit_test.hpp>
