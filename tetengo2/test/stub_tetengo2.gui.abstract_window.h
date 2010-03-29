@@ -58,12 +58,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename base_type::string_type string_type;
 
-        typedef
-            typename base_type::encode_from_native_type
-            encode_from_native_type;
-
-        typedef
-            typename base_type::encode_to_native_type encode_to_native_type;
+        typedef typename base_type::encoder_type encoder_type;
 
         typedef typename base_type::font_type font_type;
 
@@ -118,12 +113,12 @@ namespace stub_tetengo2 { namespace gui
     protected:
         // constructors
 
-        abstract_window()
+        explicit abstract_window(const encoder_type& encoder)
         :
-        base_type()
+        base_type(encoder)
         {}
 
-        abstract_window(abstract_window& parent)
+        explicit abstract_window(base_type& parent)
         :
         base_type(parent)
         {}

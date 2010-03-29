@@ -56,12 +56,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename base_type::string_type string_type;
 
-        typedef
-            typename base_type::encode_from_native_type
-            encode_from_native_type;
-
-        typedef
-            typename base_type::encode_to_native_type encode_to_native_type;
+        typedef typename base_type::encoder_type encoder_type;
 
         typedef typename base_type::font_type font_type;
 

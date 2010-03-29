@@ -66,12 +66,17 @@ namespace bobura
             >
             messages_type;
 
-        //! The encoder for the user interface.
+        //! The internal encoding type.
         typedef
-            tetengo2::encoder<
-                tetengo2::encoding::locale<string_type>,
-                tetengo2::encoding::locale<std::wstring>
-            >
+            tetengo2::encoding::locale<string_type> internal_encoding_type;
+
+        //! The encoding type for the user interface.
+        typedef
+            tetengo2::encoding::locale<std::wstring> ui_encoding_type;
+
+        //! The encoder type for the user interface.
+        typedef
+            tetengo2::encoder<internal_encoding_type, ui_encoding_type>
             ui_encoder_type;
 
         //! The type list type to create platform specific GUI components.

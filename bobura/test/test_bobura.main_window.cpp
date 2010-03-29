@@ -7,6 +7,7 @@
 */
 
 //#include <cstddef>
+#include <locale>
 #include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -25,12 +26,9 @@ namespace
 {
     // types
 
-    typedef
-        tetengo2::encoder<
-            tetengo2::encoding::locale<std::wstring>,
-            tetengo2::encoding::locale<std::wstring>
-        >
-        ui_encoder_type;
+    typedef tetengo2::encoding::locale<std::wstring> encoding_type;
+
+    typedef tetengo2::encoder<encoding_type, encoding_type> ui_encoder_type;
 
     typedef
         stub_tetengo2::gui::gui_type_list<
@@ -87,7 +85,10 @@ BOOST_AUTO_TEST_SUITE(main_window)
     {
         BOOST_TEST_PASSPOINT();
 
-        const main_window_type main_window;
+        const ui_encoder_type ui_encoder = ui_encoder_type(
+            encoding_type(std::locale()), encoding_type(std::locale())
+        );
+        const main_window_type main_window(ui_encoder);
     }
 
 

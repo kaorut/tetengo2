@@ -57,18 +57,26 @@ namespace bobura
         //! components.
         typedef GuiTypeList gui_type_list_type;
 
+        //! The encoder type for the user interface.
+        typedef typename gui_type_list_type::ui_encoder_type ui_encoder_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a bobura application.
 
-            \param settings Settings of the bobura.
+            \param settings   Settings of the bobura.
+            \param ui_encoder A encoder for the user interface.
         */
-        explicit bobura(const settings_type& settings)
+        bobura(
+            const settings_type&   settings,
+            const ui_encoder_type& ui_encoder
+        )
         :
         m_gui_initializer_finalizer(),
-        m_settings(settings)
+        m_settings(settings),
+        m_ui_encoder(ui_encoder)
         {}
 
         /*!
@@ -89,7 +97,7 @@ namespace bobura
         int run()
         const
         {
-            main_window_type main_window;
+            main_window_type main_window(m_ui_encoder);
             main_window.set_visible(true);
 
             return message_loop_type()();
@@ -116,6 +124,8 @@ namespace bobura
         const gui_initializer_finalizer_type m_gui_initializer_finalizer;
 
         const settings_type& m_settings;
+
+        const ui_encoder_type m_ui_encoder;
 
 
     };

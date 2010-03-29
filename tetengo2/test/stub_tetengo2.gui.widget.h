@@ -21,6 +21,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Canvas.h"
 #include "concept_tetengo2.gui.Font.h"
@@ -39,7 +40,7 @@ namespace stub_tetengo2 { namespace gui
         typename Difference,
         typename Size,
         typename String,
-        template <typename Target, typename Source> class Encode,
+        typename Encoder,
         typename Font,
         typename PaintObserver,
         typename MouseObserver
@@ -61,22 +62,7 @@ namespace stub_tetengo2 { namespace gui
         BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring native_string_type;
-            typedef Encode<String, std::wstring> encode_from_native_type;
-            typedef Encode<std::wstring, String> encode_to_native_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_from_native_type, String, native_string_type
-                >
-            ));
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_native_type, native_string_type, String
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::PaintObserver<PaintObserver>
@@ -106,9 +92,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef String string_type;
 
-        typedef Encode<String, String> encode_from_native_type;
-
-        typedef Encode<String, String> encode_to_native_type;
+        typedef Encoder encoder_type;
 
         typedef Font font_type;
 
@@ -318,9 +302,10 @@ namespace stub_tetengo2 { namespace gui
     protected:
         // constructors
 
-        widget()
+        explicit widget(const encoder_type& encoder)
         :
         m_p_parent(NULL),
+        m_encoder(encoder),
         m_enabled(false),
         m_visible(false),
         m_position(std::make_pair(0, 0)),
@@ -329,9 +314,10 @@ namespace stub_tetengo2 { namespace gui
         m_text()
         {}
 
-        widget(widget& parent)
+        explicit widget(widget& parent)
         :
         m_p_parent(&parent),
+        m_encoder(parent.m_encoder),
         m_enabled(false),
         m_visible(false),
         m_position(std::make_pair(0, 0)),
@@ -345,6 +331,8 @@ namespace stub_tetengo2 { namespace gui
         // variables
 
         widget* const m_p_parent;
+
+        const encoder_type m_encoder;
 
         bool m_enabled;
 

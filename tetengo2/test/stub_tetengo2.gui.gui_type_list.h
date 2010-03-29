@@ -67,6 +67,8 @@ namespace stub_tetengo2 { namespace gui
 
         typedef alert<const void*, stub_tetengo2::encode> alert_type;
 
+        typedef UiEncoder ui_encoder_type;
+
         typedef font<String, Size> font_type;
 
         typedef
@@ -74,7 +76,7 @@ namespace stub_tetengo2 { namespace gui
                 const void*,
                 Size,
                 String,
-                UiEncoder,
+                ui_encoder_type,
                 const void*,
                 font_type
             >
@@ -88,7 +90,7 @@ namespace stub_tetengo2 { namespace gui
                 Difference,
                 Size,
                 String,
-                stub_tetengo2::encode,
+                ui_encoder_type,
                 font_type,
                 tetengo2::gui::paint_observer<canvas_type>,
                 tetengo2::gui::mouse_observer

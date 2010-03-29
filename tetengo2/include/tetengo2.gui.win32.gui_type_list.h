@@ -99,6 +99,9 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The alert dialog type.
         typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
 
+        //! The encoder type for the user interface.
+        typedef UiEncoder ui_encoder_type;
+
         //! The font type.
         typedef font<String, Size> font_type;
 
@@ -108,7 +111,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 const Gdiplus::Graphics*,
                 Size,
                 String,
-                UiEncoder,
+                ui_encoder_type,
                 ::HWND,
                 font_type
             >
@@ -123,7 +126,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 Difference,
                 Size,
                 String,
-                tetengo2::win32::encode,
+                ui_encoder_type,
                 font_type,
                 tetengo2::gui::paint_observer<canvas_type>,
                 tetengo2::gui::mouse_observer

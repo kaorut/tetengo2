@@ -86,14 +86,8 @@ namespace bobura
         //! \copydoc tetengo2::gui::win32::widget::string_type
         typedef typename base_type::string_type string_type;
 
-        //! \copydoc tetengo2::gui::win32::widget::encode_from_native_type
-        typedef
-            typename base_type::encode_from_native_type
-            encode_from_native_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::encode_to_native_type
-        typedef
-            typename base_type::encode_to_native_type encode_to_native_type;
+        //! \copydoc tetengo2::gui::win32::widget::encoder_type
+        typedef typename base_type::encoder_type encoder_type;
 
         //! \copydoc tetengo2::gui::win32::widget::font_type
         typedef typename base_type::font_type font_type;
@@ -127,8 +121,12 @@ namespace bobura
 
         /*!
             \brief Creates a main window.
+
+            \param encoder An encoder
         */
-        main_window()
+        explicit main_window(const encoder_type& encoder)
+        :
+        base_type(encoder)
         {
             initialize_window(*this);
         }

@@ -71,14 +71,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::widget::string_type
         typedef typename base_type::string_type string_type;
 
-        //! \copydoc tetengo2::gui::win32::widget::encode_from_native_type
-        typedef
-            typename base_type::encode_from_native_type
-            encode_from_native_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::encode_to_native_type
-        typedef
-            typename base_type::encode_to_native_type encode_to_native_type;
+        //! \copydoc tetengo2::gui::win32::widget::encoder_type
+        typedef typename base_type::encoder_type encoder_type;
 
         //! \copydoc tetengo2::gui::win32::widget::font_type
         typedef typename base_type::font_type font_type;
@@ -104,11 +98,13 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a top level window.
 
+            \param encoder An encoder.
+
             \throw std::runtime_error When a window cannot be created.
         */
-        window()
+        explicit window(const encoder_type& encoder)
         :
-        base_type(),
+        base_type(encoder),
         m_handle(create_window(NULL))
         {
             initialize(this);

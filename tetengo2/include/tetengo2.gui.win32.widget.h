@@ -32,17 +32,13 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Canvas.h"
 #include "concept_tetengo2.gui.Font.h"
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MouseObserver.h"
 #include "concept_tetengo2.gui.PaintObserver.h"
-
-// temp
-#include "tetengo2.encoder.h"
-#include "tetengo2.encoding.locale.h"
-// temp
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -64,13 +60,8 @@ namespace tetengo2 { namespace gui { namespace win32
                                       boost::UnsignedInteger<Size>.
         \tparam String                A string type. It must conform to
                                       concept_tetengo2::String<String>.
-        \tparam Encode                An encoding unary functor type. The 
-                                      types Encode<String, std::wstring> and
-                                      Encode<std::wstring, String> must
-                                      conform to
-                                      boost::UnaryFunction<Encode, String, std::wstring>
-                                      and
-                                      boost::UnaryFunction<Encode, std::wstring, String>.
+        \tparam Encoder               An encoder type. It must conform to
+                                      concept_tetengo2::Encoder<Encoder>.
         \tparam Font                  A font type. It must conform to
                                       concept_tetengo2::gui::Font<Font>.
         \tparam PaintObserver         A paint observer type. It must conform
@@ -87,7 +78,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Difference,
         typename Size,
         typename String,
-        template <typename Target, typename Source> class Encode,
+        typename Encoder,
         typename Font,
         typename PaintObserver,
         typename MouseObserver
@@ -109,22 +100,7 @@ namespace tetengo2 { namespace gui { namespace win32
         BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring native_string_type;
-            typedef Encode<String, std::wstring> encode_from_native_type;
-            typedef Encode<std::wstring, String> encode_to_native_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_from_native_type, String, native_string_type
-                >
-            ));
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_native_type, native_string_type, String
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::PaintObserver<PaintObserver>
@@ -162,19 +138,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef String string_type;
 
         //! The encoder type.
-        //typedef Encoder encoder_type;
-        typedef
-            tetengo2::encoder<
-                tetengo2::encoding::locale<string_type>,
-                tetengo2::encoding::locale<std::wstring>
-            >
-            encoder_type;
-
-        //! The unary functor type for encoding from the native.
-        typedef Encode<String, std::wstring> encode_from_native_type;
-
-        //! The unary functor type for encoding to the native.
-        typedef Encode<std::wstring, String> encode_to_native_type;
+        typedef Encoder encoder_type;
 
         //! The font type.
         typedef Font font_type;
@@ -381,14 +345,7 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             return std::auto_ptr<canvas_type>(
-                new canvas_type(
-                    this->handle(),
-                    encoder_type(
-                        tetengo2::encoding::locale<string_type>(std::locale()),
-                        tetengo2::encoding::locale<std::wstring>(std::locale())
-                    ),
-                    false
-                )
+                new canvas_type(this->handle(), m_encoder, false)
             );
         }
 
@@ -405,14 +362,7 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             return std::auto_ptr<const canvas_type>(
-                new canvas_type(
-                    this->handle(),
-                    encoder_type(
-                        tetengo2::encoding::locale<string_type>(std::locale()),
-                        tetengo2::encoding::locale<std::wstring>(std::locale())
-                    ),
-                    false
-                )
+                new canvas_type(this->handle(), m_encoder, false)
             );
         }
 
@@ -643,7 +593,7 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             const ::BOOL result = ::SetWindowTextW(
-                this->handle(), encode_to_native_type()(text).c_str()
+                this->handle(), m_encoder.encode(text).c_str()
             );
             if (result == 0)
             {
@@ -673,7 +623,7 @@ namespace tetengo2 { namespace gui { namespace win32
             );
             ::GetWindowTextW(this->handle(), p_text.get(), length + 1);
 
-            return encode_from_native_type()(p_text.get());
+            return m_encoder.decode(p_text.get());
         }
 
         /*!
@@ -927,10 +877,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates a widget.
+
+            \param encoder An encoder.
         */
-        widget()
+        explicit widget(const encoder_type& encoder)
         :
         m_destroyed(false),
+        m_encoder(encoder),
         m_paint_observers(),
         m_paint_paint_handler(),
         m_mouse_observers(),
@@ -940,11 +893,12 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a widget.
 
-            \param parent A parent.
+            \param parent  A parent.
         */
         explicit widget(widget& parent)
         :
         m_destroyed(false),
+        m_encoder(parent.m_encoder),
         m_paint_observers(),
         m_paint_paint_handler(),
         m_mouse_observers(),
@@ -1006,14 +960,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 {
                     if (m_paint_observers.empty()) break;
 
-                    canvas_type canvas(
-                        this->handle(),
-                        encoder_type(
-                            tetengo2::encoding::locale<string_type>(std::locale()),
-                            tetengo2::encoding::locale<std::wstring>(std::locale())
-                        ),
-                        true
-                    );
+                    canvas_type canvas(this->handle(), m_encoder, true);
                     m_paint_paint_handler(&canvas);
                     return 0;
                 }
@@ -1144,6 +1091,8 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         bool m_destroyed;
+
+        const encoder_type m_encoder;
 
         boost::ptr_vector<paint_observer_type> m_paint_observers;
 
