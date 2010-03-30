@@ -139,7 +139,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 ::UINT,
                 ::HMENU,
                 String,
-                tetengo2::win32::encode,
+                ui_encoder_type,
                 tetengo2::gui::menu_observer
             >
             menu_type;

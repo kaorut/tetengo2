@@ -13,7 +13,6 @@
 //#include <cstddef>
 #include <memory>
 #include <stdexcept>
-//#include <string>
 #include <vector>
 
 #include <boost/bind.hpp>
@@ -27,6 +26,7 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MenuObserver.h"
@@ -44,12 +44,8 @@ namespace tetengo2 { namespace gui { namespace win32
                              concept_tetengo2::gui::Handle<Handle>.
         \tparam String       A string type. It must conform to
                              concept_tetengo2::String<String>.
-        \tparam Encode       An encoding unary functor type. The types
-                             Encode<String, std::wstring> and
-                             Encode<std::wstring, String> must conform to
-                             boost::UnaryFunction<Encode, String, std::wstring>
-                             and
-                             boost::UnaryFunction<Encode, std::wstring, String>.
+        \tparam Encoder      An encoder type. It must conform to
+                             concept_tetengo2::Encoder<Encoder>.
         \tparam MenuObserver A menu observer type. It must conform to
                              concept_tetengo2::gui::MenuObserver<MenuObserver>.
    */
@@ -57,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Id,
         typename Handle,
         typename String,
-        template <typename Target, typename Source> class Encode,
+        typename Encoder,
         typename MenuObserver
     >
     class menu : boost::noncopyable
@@ -68,22 +64,7 @@ namespace tetengo2 { namespace gui { namespace win32
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring native_string_type;
-            typedef Encode<String, std::wstring> encode_from_native_type;
-            typedef Encode<std::wstring, String> encode_to_native_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_from_native_type, String, native_string_type
-                >
-            ));
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_native_type, native_string_type, String
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuObserver<MenuObserver>
         ));
@@ -101,11 +82,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The string type.
         typedef String string_type;
 
-        //! The unary functor type for encoding from the native.
-        typedef Encode<String, std::wstring> encode_from_native_type;
-
-        //! The unary functor type for encoding to the native.
-        typedef Encode<std::wstring, String> encode_to_native_type;
+        //! The encoder type.
+        typedef Encoder encoder_type;
 
         //! The menu observer type.
         typedef MenuObserver menu_observer_type;
@@ -336,15 +314,31 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a menu.
 
-            \param text A text.
+            \param text    A text.
+            \param encoder An encoder.
         */
-        explicit menu(const string_type& text)
+        menu(const string_type& text, const encoder_type& encoder)
         :
         m_id(get_and_increment_id()),
         m_text(text),
+        m_encoder(encoder),
         m_menu_observers(),
         m_menu_selected_handler()
         {}
+
+
+        // functions
+
+        /*!
+            \brief Returns the encoder.
+
+            \return The encoder.
+        */
+        const encoder_type& encoder()
+        const
+        {
+            return m_encoder;
+        }
 
 
     private:
@@ -370,6 +364,8 @@ namespace tetengo2 { namespace gui { namespace win32
         id_type m_id;
 
         string_type m_text;
+
+        const encoder_type& m_encoder;
 
         boost::ptr_vector<menu_observer_type> m_menu_observers;
 

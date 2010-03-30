@@ -122,7 +122,7 @@ namespace bobura
         /*!
             \brief Creates a main window.
 
-            \param encoder An encoder
+            \param encoder An encoder.
         */
         explicit main_window(const encoder_type& encoder)
         :
@@ -194,40 +194,48 @@ namespace bobura
 
         static void set_menus(main_window& window)
         {
-            std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
+            std::auto_ptr<main_menu_type> p_main_menu(
+                new main_menu_type(window.encoder())
+            );
 
 #if defined(_MSC_VER)
             {
                 std::auto_ptr<menu_type> p_popup_menu(
                     new popup_menu_type(
-                        string_type(TETENGO2_TEXT("ファイル(&F)"))
+                        string_type(TETENGO2_TEXT("ファイル(&F)")),
+                        window.encoder()
                     )
                 );
 
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("新規作成(&N)\tCtrl+N")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("開く(&O)...\tCtrl+O")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("上書き保存(&S)\tCtrl+S")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("名前を付けて保存(&A)...")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
-                append_menu_separator(*p_popup_menu);
+                append_menu_separator(*p_popup_menu, window.encoder());
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("終了(&X)")),
+                    window.encoder(),
                     typename command_type_list_type::exit_type(window)
                 );
 
@@ -236,45 +244,53 @@ namespace bobura
             {
                 std::auto_ptr<menu_type> p_popup_menu(
                     new popup_menu_type(
-                        string_type(TETENGO2_TEXT("編集(&E)"))
+                        string_type(TETENGO2_TEXT("編集(&E)")),
+                        window.encoder()
                     )
                 );
 
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("元に戻す(&U)\tCtrl+Z")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("やり直し(&R)\tCtrl+Y")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
-                append_menu_separator(*p_popup_menu);
+                append_menu_separator(*p_popup_menu, window.encoder());
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("切り取り(&T)\tCtrl+X")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("コピー(&C)\tCtrl+C")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("貼り付け(&P)\tCtrl+V")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
-                append_menu_separator(*p_popup_menu);
+                append_menu_separator(*p_popup_menu, window.encoder());
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("検索(&F)...\tCtrl+F")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("置換(&R)...\tCtrl+H")),
+                    window.encoder(),
                     typename command_type_list_type::nop_type()
                 );
 
@@ -283,13 +299,15 @@ namespace bobura
             {
                 std::auto_ptr<menu_type> p_popup_menu(
                     new popup_menu_type(
-                        string_type(TETENGO2_TEXT("ヘルプ(&H)"))
+                        string_type(TETENGO2_TEXT("ヘルプ(&H)")),
+                        window.encoder()
                     )
                 );
 
                 append_menu_command(
                     *p_popup_menu,
                     string_type(TETENGO2_TEXT("バージョン情報(&A)...")),
+                    window.encoder(),
                     typename command_type_list_type::about_type(window)
                 );
 
@@ -301,13 +319,14 @@ namespace bobura
         }
 
         static void append_menu_command(
-            menu_type&                             popup_menu,
-            const typename menu_type::string_type& text,
-            const command_type&                    command
+            menu_type&                              popup_menu,
+            const typename menu_type::string_type&  text,
+            const typename menu_type::encoder_type& encoder,
+            const command_type&                     command
         )
         {
             std::auto_ptr<menu_type> p_menu_command(
-                new menu_command_type(text)
+                new menu_command_type(text, encoder)
             );
 
             std::auto_ptr<menu_observer_type> p_menu_observer(
@@ -320,10 +339,13 @@ namespace bobura
             popup_menu.insert(popup_menu.end(), p_menu_command);
         }
 
-        static void append_menu_separator(menu_type& popup_menu)
+        static void append_menu_separator(
+            menu_type&                              popup_menu,
+            const typename menu_type::encoder_type& encoder
+        )
         {
             std::auto_ptr<menu_type> p_menu_separator(
-                new menu_separator_type()
+                new menu_separator_type(encoder)
             );
             popup_menu.insert(popup_menu.end(), p_menu_separator);
         }

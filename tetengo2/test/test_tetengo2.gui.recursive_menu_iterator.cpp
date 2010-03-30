@@ -6,6 +6,7 @@
     $Id$
 */
 
+//#include <locale>
 //#include <memory>
 //#include <string>
 
@@ -15,6 +16,8 @@
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "stub_tetengo2.gui.menu.h"
 #include "stub_tetengo2.gui.popup_menu.h"
+#include "tetengo2.encoder.h"
+#include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.menu_observer.h"
 
 #include "tetengo2.gui.recursive_menu_iterator.h"
@@ -24,12 +27,16 @@ namespace
 {
     // types
 
+    typedef tetengo2::encoding::locale<std::wstring> encoding_type;
+
+    typedef tetengo2::encoder<encoding_type, encoding_type> encoder_type;
+
     typedef
         stub_tetengo2::gui::menu<
             unsigned int,
             const void*,
             std::string,
-            stub_tetengo2::encode,
+            encoder_type,
             tetengo2::gui::menu_observer
         >
         menu_type;
@@ -49,17 +56,24 @@ namespace
 
     std::auto_ptr<menu_type> create_menu()
     {
-        std::auto_ptr<menu_type> p_menu(new popup_menu_type("0"));
+        const encoder_type encoder = encoder_type(
+            encoding_type(std::locale()), encoding_type(std::locale())
+        );
+        std::auto_ptr<menu_type> p_menu(new popup_menu_type("0", encoder));
 
         p_menu->insert(
-            p_menu->end(), std::auto_ptr<menu_type>(new popup_menu_type("1"))
+            p_menu->end(), std::auto_ptr<menu_type>(
+                new popup_menu_type("1", encoder)
+            )
         );
         p_menu->begin()->insert(
             p_menu->begin()->end(),
-            std::auto_ptr<menu_type>(new popup_menu_type("2"))
+            std::auto_ptr<menu_type>(new popup_menu_type("2", encoder))
         );
         p_menu->insert(
-            p_menu->end(), std::auto_ptr<menu_type>(new popup_menu_type("3"))
+            p_menu->end(), std::auto_ptr<menu_type>(
+                new popup_menu_type("3", encoder)
+            )
         );
 
         return p_menu;

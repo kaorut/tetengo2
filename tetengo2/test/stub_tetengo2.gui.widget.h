@@ -326,6 +326,15 @@ namespace stub_tetengo2 { namespace gui
         {}
 
 
+        // funcitons
+
+        const encoder_type& encoder()
+        const
+        {
+            return m_encoder;
+        }
+
+
     private:
         // variables
 

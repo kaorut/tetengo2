@@ -58,14 +58,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::menu::string_type
         typedef typename base_type::string_type string_type;
 
-        //! \copydoc tetengo2::gui::win32::menu::encode_from_native_type
-        typedef
-            typename base_type::encode_from_native_type
-            encode_from_native_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::encode_to_native_type
-        typedef
-            typename base_type::encode_to_native_type encode_to_native_type;
+        //! \copydoc tetengo2::gui::win32::menu::encoder_type
+        typedef typename base_type::encoder_type encoder_type;
 
         //! \copydoc tetengo2::gui::win32::menu::menu_observer_type
         typedef typename base_type::menu_observer_type menu_observer_type;
@@ -89,10 +83,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates a main menu.
+
+            \param encoder An encoder.
         */
-        main_menu()
+        explicit main_menu(const encoder_type& encoder)
         :
-        base_type(create_menu(), string_type())
+        base_type(create_menu(), string_type(), encoder)
         {}
 
         /*!

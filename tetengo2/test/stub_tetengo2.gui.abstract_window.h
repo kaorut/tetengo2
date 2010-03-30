@@ -93,7 +93,7 @@ namespace stub_tetengo2 { namespace gui
 
         virtual main_menu_type& main_menu()
         {
-            static main_menu_type dummy;
+            static main_menu_type dummy(encoder());
             return dummy;
         }
 

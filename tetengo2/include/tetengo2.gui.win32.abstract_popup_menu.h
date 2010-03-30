@@ -62,14 +62,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::menu::string_type
         typedef typename base_type::string_type string_type;
 
-        //! \copydoc tetengo2::gui::win32::menu::encode_from_native_type
-        typedef
-            typename base_type::encode_from_native_type
-            encode_from_native_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::encode_to_native_type
-        typedef
-            typename base_type::encode_to_native_type encode_to_native_type;
+        //! \copydoc tetengo2::gui::win32::menu::encoder_type
+        typedef typename base_type::encoder_type encoder_type;
 
         //! \copydoc tetengo2::gui::win32::menu::menu_observer_type
         typedef typename base_type::menu_observer_type menu_observer_type;
@@ -252,25 +246,36 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a abstract_popup_menu.
 
-            \param handle A handle.
-            \param text   A text.
+            \param handle  A handle.
+            \param text    A text.
+            \param encoder An encoder.
         */
-        abstract_popup_menu(const handle_type handle, const string_type& text)
+        abstract_popup_menu(
+            const handle_type   handle,
+            const string_type&  text,
+            const encoder_type& encoder
+        )
         :
-        base_type(text),
+        base_type(text, encoder),
         m_handle(handle),
         m_children()
         {}
 
 
     private:
-        // static functions
+        // variables
 
-        static std::vector< ::WCHAR> duplicate_text(
-            const string_type& text
-        )
+        handle_type m_handle;
+
+        boost::ptr_vector<base_type> m_children;
+
+
+        // functions
+
+        std::vector< ::WCHAR> duplicate_text(const string_type& text)
+        const
         {
-            const std::wstring native_string = encode_to_native_type()(text);
+            const std::wstring native_string = encoder().encode(text);
 
             std::vector< ::WCHAR> duplicated;
             duplicated.reserve(native_string.length() + 1);
@@ -283,16 +288,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
             return duplicated;
         }
-
-
-        // variables
-
-        handle_type m_handle;
-
-        boost::ptr_vector<base_type> m_children;
-
-
-        // functions
 
         void insert_native_menu(const const_iterator offset, base_type& menu)
         const

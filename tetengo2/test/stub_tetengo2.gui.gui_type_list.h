@@ -103,7 +103,7 @@ namespace stub_tetengo2 { namespace gui
                 unsigned int,
                 const void*,
                 String,
-                stub_tetengo2::encode,
+                ui_encoder_type,
                 tetengo2::gui::menu_observer
             >
             menu_type;

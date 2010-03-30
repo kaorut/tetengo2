@@ -36,12 +36,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename base_type::string_type string_type;
 
-        typedef
-            typename base_type::encode_from_native_type
-            encode_from_native_type;
-
-        typedef
-            typename base_type::encode_to_native_type encode_to_native_type;
+        typedef typename base_type::encoder_type encoder_type;
 
         typedef typename base_type::menu_observer_type menu_observer_type;
 
@@ -52,9 +47,9 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        explicit menu_command(const string_type& text)
+        menu_command(const string_type& text, const encoder_type& encoder)
         :
-        base_type(text)
+        base_type(text, encoder)
         {}
 
         virtual ~menu_command()

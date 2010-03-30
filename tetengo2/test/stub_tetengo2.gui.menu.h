@@ -13,13 +13,13 @@
 //#include <cstddef>
 #include <memory>
 #include <stdexcept>
-//#include <string>
 
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.String.h"
 #include "concept_tetengo2.gui.Handle.h"
 #include "concept_tetengo2.gui.MenuObserver.h"
@@ -32,7 +32,7 @@ namespace stub_tetengo2 { namespace gui
         typename Id,
         typename Handle,
         typename String,
-        template <typename Target, typename Source> class Encode,
+        typename Encoder,
         typename MenuObserver
     >
     class menu : boost::noncopyable
@@ -43,22 +43,7 @@ namespace stub_tetengo2 { namespace gui
         BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring native_string_type;
-            typedef Encode<String, std::wstring> encode_from_native_type;
-            typedef Encode<std::wstring, String> encode_to_native_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_from_native_type, String, native_string_type
-                >
-            ));
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_native_type, native_string_type, String
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::gui::MenuObserver<MenuObserver>
         ));
@@ -73,9 +58,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef String string_type;
 
-        typedef Encode<String, std::wstring> encode_from_native_type;
-
-        typedef Encode<std::wstring, String> encode_to_native_type;
+        typedef Encoder encoder_type;
 
         typedef MenuObserver menu_observer_type;
 
@@ -189,16 +172,28 @@ namespace stub_tetengo2 { namespace gui
     protected:
         // constructors
 
-        menu(const string_type& text)
+        menu(const string_type& text, const encoder_type& encoder)
         :
-        m_text(text)
+        m_text(text),
+        m_encoder(encoder)
         {}
+
+
+        // functions
+
+        const encoder_type& encoder()
+        const
+        {
+            return m_encoder;
+        }
 
 
     private:
         // variables
 
         const string_type m_text;
+
+        const encoder_type& m_encoder;
 
 
     };

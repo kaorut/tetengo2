@@ -925,6 +925,17 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Returns the encoder.
+
+            \return The encoder.
+        */
+        const encoder_type& encoder()
+        const
+        {
+            return m_encoder;
+        }
+
+        /*!
             \brief Dispatches the window messages.
 
             \param uMsg                       A message.
