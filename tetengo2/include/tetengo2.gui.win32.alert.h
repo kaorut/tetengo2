@@ -26,6 +26,7 @@
 #include <windows.h>
 #include <commctrl.h>
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.gui.Handle.h"
 
 
@@ -35,15 +36,19 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The unary functor class template for an alert for Win32
                platforms.
 
-        \tparam WindowHandle A window handle type. It must conform to
-                             concept_tetengo2::gui::Handle<WindowHandle>.
-        \tparam Encode       An encoding unary functor type. The type
-                             Encode<std::wstring, std::string> must conform to
-                             boost::UnaryFunction<Encode, std::wstring, std::string>.
+        \tparam WindowHandle     A window handle type. It must conform to
+                                 concept_tetengo2::gui::Handle<WindowHandle>.
+        \tparam UiEncoder        An encoder type for the user interface. It
+                                 must
+                                 conform to concept_tetengo2::Encoder<UiEncoder>.
+        \tparam ExceptionEncoder An encoder type for the user interface. It
+                                 must
+                                 conform to concept_tetengo2::Encoder<ExceptionEncoder>.
     */
     template <
         typename WindowHandle,
-        template <typename Target, typename Source> class Encode
+        typename UiEncoder,
+        typename ExceptionEncoder
     >
     class alert :
         public std::unary_function<std::exception, void>
@@ -52,19 +57,8 @@ namespace tetengo2 { namespace gui { namespace win32
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring task_dialog_string_type;
-            typedef std::string exception_what_type;
-            typedef
-                Encode<task_dialog_string_type, exception_what_type>
-                encode_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_type, task_dialog_string_type, exception_what_type
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<UiEncoder>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<ExceptionEncoder>));
 
 
     public:
@@ -73,13 +67,21 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The window handle type.
         typedef WindowHandle window_handle_type;
 
+        //! The encoder type for the user interface.
+        typedef UiEncoder ui_encoder_type;
+
+        //! The encoder type for exceptions.
+        typedef ExceptionEncoder exception_encoder_type;
+
 
         // constructors
 
         /*!
             \brief Creates an alert.
 
-            \param window_handle A window handle.
+            \param window_handle     A window handle.
+            \param ui_encoder        An encoder for the user interface.
+            \param exception_encoder An encoder for exceptions.
         */
         explicit alert(const window_handle_type window_handle = NULL)
         throw ()
@@ -167,11 +169,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // types
-
-        typedef Encode<std::wstring, std::string> encode_type;
-
-
         // static function
 
         static window_handle_type actual_parent_window_handle(

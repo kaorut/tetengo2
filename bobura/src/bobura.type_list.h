@@ -74,15 +74,28 @@ namespace bobura
         typedef
             tetengo2::encoding::locale<std::wstring> ui_encoding_type;
 
+        //! The encoding type for exceptions.
+        typedef
+            tetengo2::encoding::locale<std::string> exception_encoding_type;
+
         //! The encoder type for the user interface.
         typedef
             tetengo2::encoder<internal_encoding_type, ui_encoding_type>
             ui_encoder_type;
 
+        //! The encoder type for exceptions.
+        typedef
+            tetengo2::encoder<internal_encoding_type, exception_encoding_type>
+            exception_encoder_type;
+
         //! The type list type to create platform specific GUI components.
         typedef
             tetengo2::gui::win32::gui_type_list<
-                difference_type, size_type, string_type, ui_encoder_type
+                difference_type,
+                size_type,
+                string_type,
+                ui_encoder_type,
+                exception_encoder_type
             >
             gui_type_list_type;
 

@@ -56,20 +56,24 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a GUI type list for Win32 platforms.
 
-        \tparam Difference A difference type. It must conform to
-                           boost::SignedInteger<Difference>.
-        \tparam Size       A size type. It must conform to
-                           boost::UnsignedInteger<Size>.
-        \tparam String     A string type. It must conform to
-                           concept_tetengo2::String<String>.
-        \tparam UiEncoder  A encoder for the user interface type. It must
-                           conform to concept_tetengo2::Encoder<GuiEncoder>.
+        \tparam Difference       A difference type. It must conform to
+                                 boost::SignedInteger<Difference>.
+        \tparam Size             A size type. It must conform to
+                                 boost::UnsignedInteger<Size>.
+        \tparam String           A string type. It must conform to
+                                 concept_tetengo2::String<String>.
+        \tparam UiEncoder        A encoder for the user interface type. It
+                                 must
+                                 conform to concept_tetengo2::Encoder<UiEncoder>.
+        \tparam ExceptionEncoder A encoder for exceptions. It must
+                                 conform to concept_tetengo2::Encoder<ExceptionEncoder>.
     */
     template <
         typename Difference,
         typename Size,
         typename String,
-        typename UiEncoder
+        typename UiEncoder,
+        typename ExceptionEncoder
     >
     class gui_type_list
     {
@@ -96,11 +100,16 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The quit-message-loop type.
         typedef quit_message_loop quit_message_loop_type;
 
-        //! The alert dialog type.
-        typedef alert< ::HWND, tetengo2::win32::encode> alert_type;
-
         //! The encoder type for the user interface.
         typedef UiEncoder ui_encoder_type;
+
+        //! The encoder type for exceptions.
+        typedef ExceptionEncoder exception_encoder_type;
+
+        //! The alert dialog type.
+        typedef
+            alert< ::HWND, ui_encoder_type, exception_encoder_type>
+            alert_type;
 
         //! The font type.
         typedef font<String, Size> font_type;

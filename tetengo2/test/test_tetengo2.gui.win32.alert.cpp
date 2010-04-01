@@ -16,15 +16,20 @@
 
 #include "tetengo2.gui.win32.alert.h"
 
-#include "stub_tetengo2.encode.h"
+#include "tetengo2.encoder.h"
+#include "tetengo2.encoding.locale.h"
 
 
 namespace
 {
     // types
 
+    typedef tetengo2::encoding::locale<std::wstring> encoding_type;
+
+    typedef tetengo2::encoder<encoding_type, encoding_type> encoder_type;
+
     typedef
-        tetengo2::gui::win32::alert< ::HWND, stub_tetengo2::encode>
+        tetengo2::gui::win32::alert< ::HWND, encoder_type, encoder_type>
         alert_type;
 
 
