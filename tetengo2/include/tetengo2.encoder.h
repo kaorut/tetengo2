@@ -68,9 +68,11 @@ namespace tetengo2
             \param internal_encoding An internal encoding.
             \param external_encoding An external encoding.
         */
-        encoder(
-            const internal_encoding_type& internal_encoding,
-            const external_encoding_type& external_encoding
+        explicit encoder(
+            const internal_encoding_type& internal_encoding =
+                internal_encoding_type(),
+            const external_encoding_type& external_encoding =
+                external_encoding_type()
         )
         :
         m_internal_encoding(internal_encoding),

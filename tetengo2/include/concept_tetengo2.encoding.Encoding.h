@@ -21,7 +21,9 @@ namespace concept_tetengo2 { namespace encoding
         \tparam Type A type.
     */
     template <typename Type>
-    class Encoding : private concept_tetengo2::Assignable<Type>
+    class Encoding :
+        private boost::DefaultConstructible<Type>,
+        private concept_tetengo2::Assignable<Type>
     {
 #if !defined(DOCUMENTATION)
     public:

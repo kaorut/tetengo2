@@ -80,8 +80,6 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates an alert.
 
             \param window_handle     A window handle.
-            \param ui_encoder        An encoder for the user interface.
-            \param exception_encoder An encoder for exceptions.
         */
         explicit alert(const window_handle_type window_handle = NULL)
         throw ()
@@ -121,8 +119,16 @@ namespace tetengo2 { namespace gui { namespace win32
                         );
                     show_task_dialog(
                         L"Alert",
-                        encode_type()(typeid(*p_std_exception).name()),
-                        encode_type()(p_std_exception->what()),
+                        ui_encoder().encode(
+                            exception_encoder().decode(
+                                typeid(*p_std_exception).name()
+                            )
+                        ),
+                        ui_encoder().encode(
+                            exception_encoder().decode(
+                                p_std_exception->what()
+                            )
+                        ),
                         p_file != NULL ? *p_file : "",
                         p_line != NULL ? *p_line : 0,
                         p_function != NULL ? *p_function : ""
@@ -132,9 +138,15 @@ namespace tetengo2 { namespace gui { namespace win32
                 {
                     show_task_dialog(
                         L"Alert",
-                        encode_type()(typeid(exception).name()),
-                        encode_type()(
-                            boost::diagnostic_information(exception)
+                        ui_encoder().encode(
+                            exception_encoder().decode(
+                                typeid(exception).name()
+                            )
+                        ),
+                        ui_encoder().encode(
+                            exception_encoder().decode(
+                                boost::diagnostic_information(exception)
+                            )
                         )
                     );
                 }
@@ -159,8 +171,12 @@ namespace tetengo2 { namespace gui { namespace win32
             {
                 show_task_dialog(
                     L"Alert",
-                    encode_type()(typeid(exception).name()),
-                    encode_type()(exception.what())
+                    ui_encoder().encode(
+                        exception_encoder().decode(typeid(exception).name())
+                    ),
+                    ui_encoder().encode(
+                        exception_encoder().decode(exception.what())
+                    )
                 );
             }
             catch (...)
@@ -189,6 +205,18 @@ namespace tetengo2 { namespace gui { namespace win32
             }
 
             return actual_parent_handle;
+        }
+
+        static const ui_encoder_type& ui_encoder()
+        {
+            static const ui_encoder_type singleton;
+            return singleton;
+        }
+
+        static const exception_encoder_type& exception_encoder()
+        {
+            static const exception_encoder_type singleton;
+            return singleton;
         }
 
 
@@ -225,7 +253,12 @@ namespace tetengo2 { namespace gui { namespace win32
                 source_function;
 
             show_task_dialog_impl(
-                caption, text1, text2 + encode_type()(stream.str())
+                caption,
+                text1,
+                text2 +
+                    ui_encoder().encode(
+                        exception_encoder().decode(stream.str())
+                    )
             );
 #endif
         }

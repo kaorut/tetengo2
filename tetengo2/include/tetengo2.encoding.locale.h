@@ -66,7 +66,7 @@ namespace tetengo2 { namespace encoding
 
             \param locale_based_on A locale based on.
         */
-        explicit locale(const std::locale& locale_based_on)
+        explicit locale(const std::locale& locale_based_on = std::locale())
         :
         m_locale(locale_based_on)
         {}
