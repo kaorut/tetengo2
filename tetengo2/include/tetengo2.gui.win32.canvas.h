@@ -112,7 +112,6 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates a canvas.
 
             \param window_handle A window handle.
-            \param encoder       An encoder.
             \param on_paint      Whether this constructor is called in the
                                  window repaint procedure.
 
@@ -120,12 +119,10 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         canvas(
             const window_handle_type window_handle,
-            const encoder_type&      encoder,
             const bool               on_paint
         )
         :
         m_window_handle(window_handle),
-        m_encoder(encoder),
         m_on_paint(on_paint),
         m_p_paint_info(
             on_paint ?
@@ -224,7 +221,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 Gdiplus::Color(128, 255, 0, 0)
             );
 
-            const std::wstring encoded_text = m_encoder.encode(text);
+            const std::wstring encoded_text = encoder().encode(text);
             const Gdiplus::Status result = m_graphics.DrawString(
                 encoded_text.c_str(),
                 static_cast< ::INT>(encoded_text.length()),
@@ -246,6 +243,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
     private:
         // static functions
+
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
 
         static std::auto_ptr< ::PAINTSTRUCT> create_paint_info(
             const window_handle_type window_handle
@@ -298,8 +301,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         const window_handle_type m_window_handle;
-
-        const encoder_type m_encoder;
 
         const bool m_on_paint;
 

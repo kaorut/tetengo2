@@ -248,15 +248,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param handle  A handle.
             \param text    A text.
-            \param encoder An encoder.
         */
-        abstract_popup_menu(
-            const handle_type   handle,
-            const string_type&  text,
-            const encoder_type& encoder
-        )
+        abstract_popup_menu(const handle_type handle, const string_type& text)
         :
-        base_type(text, encoder),
+        base_type(text),
         m_handle(handle),
         m_children()
         {}

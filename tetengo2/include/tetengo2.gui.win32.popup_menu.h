@@ -83,12 +83,11 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a popup menu.
 
-            \param text    A text.
-            \param encoder An encoder.
+            \param text A text.
         */
-        popup_menu(const string_type& text, const encoder_type& encoder)
+        explicit popup_menu(const string_type& text)
         :
-        base_type(create_menu(), text, encoder)
+        base_type(create_menu(), text)
         {}
 
         /*!

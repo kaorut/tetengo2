@@ -98,13 +98,11 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a top level window.
 
-            \param encoder An encoder.
-
             \throw std::runtime_error When a window cannot be created.
         */
-        explicit window(const encoder_type& encoder)
+        window()
         :
-        base_type(encoder),
+        base_type(),
         m_handle(create_window(NULL))
         {
             initialize(this);

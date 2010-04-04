@@ -80,12 +80,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates a menu separator.
-
-            \param encoder An encoder.
         */
-        explicit menu_separator(const encoder_type& encoder)
+        menu_separator()
         :
-        base_type(string_type(), encoder)
+        base_type(string_type())
         {}
 
         /*!

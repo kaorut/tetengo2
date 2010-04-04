@@ -309,36 +309,34 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     protected:
-        // constructors
-
-        /*!
-            \brief Creates a menu.
-
-            \param text    A text.
-            \param encoder An encoder.
-        */
-        menu(const string_type& text, const encoder_type& encoder)
-        :
-        m_id(get_and_increment_id()),
-        m_text(text),
-        m_encoder(encoder),
-        m_menu_observers(),
-        m_menu_selected_handler()
-        {}
-
-
-        // functions
+        // static functions
 
         /*!
             \brief Returns the encoder.
 
             \return The encoder.
         */
-        const encoder_type& encoder()
-        const
+        static const encoder_type& encoder()
         {
-            return m_encoder;
+            static const encoder_type singleton;
+            return singleton;
         }
+
+
+        // constructors
+
+        /*!
+            \brief Creates a menu.
+
+            \param text A text.
+        */
+        explicit menu(const string_type& text)
+        :
+        m_id(get_and_increment_id()),
+        m_text(text),
+        m_menu_observers(),
+        m_menu_selected_handler()
+        {}
 
 
     private:
@@ -364,8 +362,6 @@ namespace tetengo2 { namespace gui { namespace win32
         id_type m_id;
 
         string_type m_text;
-
-        const encoder_type& m_encoder;
 
         boost::ptr_vector<menu_observer_type> m_menu_observers;
 

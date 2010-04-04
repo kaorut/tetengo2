@@ -7,7 +7,6 @@
 */
 
 //#include <cstddef>
-//#include <locale>
 //#include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -99,10 +98,7 @@ BOOST_AUTO_TEST_SUITE(bobura)
         BOOST_TEST_PASSPOINT();
 
         const settings_type settings;
-        const ui_encoder_type ui_encoder = ui_encoder_type(
-            encoding_type(std::locale()), encoding_type(std::locale())
-        );
-        const bobura_type bobura(settings, ui_encoder);
+        const bobura_type bobura(settings);
     }
 
     BOOST_AUTO_TEST_CASE(run)
@@ -110,10 +106,7 @@ BOOST_AUTO_TEST_SUITE(bobura)
         BOOST_TEST_PASSPOINT();
 
         const settings_type settings;
-        const ui_encoder_type ui_encoder = ui_encoder_type(
-            encoding_type(std::locale()), encoding_type(std::locale())
-        );
-        const bobura_type bobura(settings, ui_encoder);
+        const bobura_type bobura(settings);
 
         BOOST_CHECK_EQUAL(bobura.run(), 0);
     }

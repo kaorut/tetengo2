@@ -47,9 +47,9 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        menu_command(const string_type& text, const encoder_type& encoder)
+        explicit menu_command(const string_type& text)
         :
-        base_type(text, encoder)
+        base_type(text)
         {}
 
         virtual ~menu_command()

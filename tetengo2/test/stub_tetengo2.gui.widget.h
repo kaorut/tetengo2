@@ -299,12 +299,20 @@ namespace stub_tetengo2 { namespace gui
 
 
     protected:
+        // static functions
+
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
+
+
         // constructors
 
-        explicit widget(const encoder_type& encoder)
+        explicit widget()
         :
         m_p_parent(NULL),
-        m_encoder(encoder),
         m_enabled(false),
         m_visible(false),
         m_position(std::make_pair(0, 0)),
@@ -316,7 +324,6 @@ namespace stub_tetengo2 { namespace gui
         explicit widget(widget& parent)
         :
         m_p_parent(&parent),
-        m_encoder(parent.m_encoder),
         m_enabled(false),
         m_visible(false),
         m_position(std::make_pair(0, 0)),
@@ -326,21 +333,10 @@ namespace stub_tetengo2 { namespace gui
         {}
 
 
-        // funcitons
-
-        const encoder_type& encoder()
-        const
-        {
-            return m_encoder;
-        }
-
-
     private:
         // variables
 
         widget* const m_p_parent;
-
-        const encoder_type m_encoder;
 
         bool m_enabled;
 

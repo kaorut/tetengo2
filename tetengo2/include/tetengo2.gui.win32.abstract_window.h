@@ -311,12 +311,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates an abstract window.
-
-            \param encoder An encoder.
         */
-        explicit abstract_window(const encoder_type& encoder)
+        abstract_window()
         :
-        base_type(encoder),
+        base_type(),
         m_p_main_menu(),
         m_window_observers(),
         m_window_destroyed_handler()

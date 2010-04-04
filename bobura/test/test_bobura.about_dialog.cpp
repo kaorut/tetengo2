@@ -7,7 +7,6 @@
 */
 
 //#include <cstddef>
-//#include <locale>
 //#include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -62,10 +61,7 @@ BOOST_AUTO_TEST_SUITE(about_dialog)
     {
         BOOST_TEST_PASSPOINT();
 
-        const ui_encoder_type ui_encoder = ui_encoder_type(
-            encoding_type(std::locale()), encoding_type(std::locale())
-        );
-        window_type window(ui_encoder);
+        window_type window;
         const about_dialog_type about_dialog(window);
     }
 

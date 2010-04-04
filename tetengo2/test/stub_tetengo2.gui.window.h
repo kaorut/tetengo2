@@ -65,9 +65,9 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        explicit window(const encoder_type& encoder)
+        window()
         :
-        base_type(encoder)
+        base_type()
         {}
 
         explicit window(const base_type& parent)

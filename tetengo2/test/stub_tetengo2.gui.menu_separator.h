@@ -57,9 +57,9 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        menu_separator(const encoder_type& encoder)
+        menu_separator()
         :
-        base_type(string_type(), encoder)
+        base_type(string_type())
         {}
 
         virtual ~menu_separator()

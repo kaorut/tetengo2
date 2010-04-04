@@ -83,12 +83,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates a main menu.
-
-            \param encoder An encoder.
         */
-        explicit main_menu(const encoder_type& encoder)
+        main_menu()
         :
-        base_type(create_menu(), string_type(), encoder)
+        base_type(create_menu(), string_type())
         {}
 
         /*!

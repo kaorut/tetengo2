@@ -170,30 +170,27 @@ namespace stub_tetengo2 { namespace gui
 
 
     protected:
+        // static functions
+
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
+
+
         // constructors
 
-        menu(const string_type& text, const encoder_type& encoder)
+        explicit menu(const string_type& text)
         :
-        m_text(text),
-        m_encoder(encoder)
+        m_text(text)
         {}
-
-
-        // functions
-
-        const encoder_type& encoder()
-        const
-        {
-            return m_encoder;
-        }
 
 
     private:
         // variables
 
         const string_type m_text;
-
-        const encoder_type& m_encoder;
 
 
     };

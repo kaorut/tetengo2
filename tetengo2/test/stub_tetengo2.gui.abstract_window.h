@@ -93,7 +93,7 @@ namespace stub_tetengo2 { namespace gui
 
         virtual main_menu_type& main_menu()
         {
-            static main_menu_type dummy(base_type::encoder());
+            static main_menu_type dummy;
             return dummy;
         }
 
@@ -113,9 +113,9 @@ namespace stub_tetengo2 { namespace gui
     protected:
         // constructors
 
-        explicit abstract_window(const encoder_type& encoder)
+        abstract_window()
         :
-        base_type(encoder)
+        base_type()
         {}
 
         explicit abstract_window(base_type& parent)

@@ -152,6 +152,7 @@ assert                                           cassert
 boost::Assignable                                boost/concept_check.hpp
 boost::Convertible                               boost/concept_check.hpp
 boost::CopyConstructible                         boost/concept_check.hpp
+boost::DefaultConstructible                      boost/concept_check.hpp
 boost::EqualityComparable                        boost/concept_check.hpp
 boost::Generator                                 boost/concept_check.hpp
 boost::LessThanComparable                        boost/concept_check.hpp
@@ -247,7 +248,6 @@ std::sort                                        algorithm
 std::stack                                       stack
 std::string                                      string
 std::stringstream                                sstream
-std::swap                                        algorithm
 std::transform                                   algorithm
 std::unary_function                              functional
 std::use_facet                                   locale

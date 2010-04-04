@@ -345,7 +345,7 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             return std::auto_ptr<canvas_type>(
-                new canvas_type(this->handle(), m_encoder, false)
+                new canvas_type(this->handle(), false)
             );
         }
 
@@ -362,7 +362,7 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             return std::auto_ptr<const canvas_type>(
-                new canvas_type(this->handle(), m_encoder, false)
+                new canvas_type(this->handle(), false)
             );
         }
 
@@ -593,7 +593,7 @@ namespace tetengo2 { namespace gui { namespace win32
             check_destroyed();
 
             const ::BOOL result = ::SetWindowTextW(
-                this->handle(), m_encoder.encode(text).c_str()
+                this->handle(), encoder().encode(text).c_str()
             );
             if (result == 0)
             {
@@ -623,7 +623,7 @@ namespace tetengo2 { namespace gui { namespace win32
             );
             ::GetWindowTextW(this->handle(), p_text.get(), length + 1);
 
-            return m_encoder.decode(p_text.get());
+            return encoder().decode(p_text.get());
         }
 
         /*!
@@ -836,6 +836,17 @@ namespace tetengo2 { namespace gui { namespace win32
         // static functions
 
         /*!
+            \brief Returns the encoder.
+
+            \return The encoder.
+        */
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
+
+        /*!
             \brief Returns the static window precedure.
             
             \return The pointer to the static window precedure.
@@ -877,13 +888,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates a widget.
-
-            \param encoder An encoder.
         */
-        explicit widget(const encoder_type& encoder)
+        widget()
         :
         m_destroyed(false),
-        m_encoder(encoder),
         m_paint_observers(),
         m_paint_paint_handler(),
         m_mouse_observers(),
@@ -898,7 +906,6 @@ namespace tetengo2 { namespace gui { namespace win32
         explicit widget(widget& parent)
         :
         m_destroyed(false),
-        m_encoder(parent.m_encoder),
         m_paint_observers(),
         m_paint_paint_handler(),
         m_mouse_observers(),
@@ -922,17 +929,6 @@ namespace tetengo2 { namespace gui { namespace win32
                     std::runtime_error("This window is destroyed.")
                 );
             }
-        }
-
-        /*!
-            \brief Returns the encoder.
-
-            \return The encoder.
-        */
-        const encoder_type& encoder()
-        const
-        {
-            return m_encoder;
         }
 
         /*!
@@ -971,7 +967,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 {
                     if (m_paint_observers.empty()) break;
 
-                    canvas_type canvas(this->handle(), m_encoder, true);
+                    canvas_type canvas(this->handle(), true);
                     m_paint_paint_handler(&canvas);
                     return 0;
                 }
@@ -1102,8 +1098,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         bool m_destroyed;
-
-        const encoder_type m_encoder;
 
         boost::ptr_vector<paint_observer_type> m_paint_observers;
 

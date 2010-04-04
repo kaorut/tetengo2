@@ -7,7 +7,6 @@
 */
 
 //#include <cstddef>
-//#include <locale>
 //#include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -85,10 +84,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
     {
         BOOST_TEST_PASSPOINT();
 
-        const ui_encoder_type ui_encoder = ui_encoder_type(
-            encoding_type(std::locale()), encoding_type(std::locale())
-        );
-        const main_window_type main_window(ui_encoder);
+        const main_window_type main_window;
     }
 
 

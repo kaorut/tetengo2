@@ -80,9 +80,8 @@ namespace
         const typename bobura::type_list::settings_type settings(
             command_line_argument_first, command_line_argument_last
         );
-        const typename bobura::type_list::ui_encoder_type ui_encoder;
 
-        return bobura::type_list::bobura_type(settings, ui_encoder).run();
+        return bobura::type_list::bobura_type(settings).run();
     }
 
 

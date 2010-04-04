@@ -57,9 +57,9 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        popup_menu(const string_type& text, const encoder_type& encoder)
+        explicit popup_menu(const string_type& text)
         :
-        base_type(NULL, text, encoder)
+        base_type(NULL, text)
         {}
 
         virtual ~popup_menu()

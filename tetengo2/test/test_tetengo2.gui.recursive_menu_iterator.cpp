@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <locale>
 //#include <memory>
 //#include <string>
 
@@ -56,24 +55,17 @@ namespace
 
     std::auto_ptr<menu_type> create_menu()
     {
-        const encoder_type encoder = encoder_type(
-            encoding_type(std::locale()), encoding_type(std::locale())
-        );
-        std::auto_ptr<menu_type> p_menu(new popup_menu_type("0", encoder));
+        std::auto_ptr<menu_type> p_menu(new popup_menu_type("0"));
 
         p_menu->insert(
-            p_menu->end(), std::auto_ptr<menu_type>(
-                new popup_menu_type("1", encoder)
-            )
+            p_menu->end(), std::auto_ptr<menu_type>(new popup_menu_type("1"))
         );
         p_menu->begin()->insert(
             p_menu->begin()->end(),
-            std::auto_ptr<menu_type>(new popup_menu_type("2", encoder))
+            std::auto_ptr<menu_type>(new popup_menu_type("2"))
         );
         p_menu->insert(
-            p_menu->end(), std::auto_ptr<menu_type>(
-                new popup_menu_type("3", encoder)
-            )
+            p_menu->end(), std::auto_ptr<menu_type>(new popup_menu_type("3"))
         );
 
         return p_menu;
