@@ -60,14 +60,14 @@ namespace bobura
         typedef
             tetengo2::encoding::locale<std::string> exception_encoding_type;
 
-        //! The encoding type for locale names.
-        typedef
-            tetengo2::encoding::locale<std::string> locale_name_encoding_type;
-
         //! The message catalog type for the message catalog.
         typedef
             tetengo2::encoding::locale<std::string>
             message_catalog_encoding_type;
+
+        //! The encoding type for locale names.
+        typedef
+            tetengo2::encoding::locale<std::string> locale_name_encoding_type;
 
         //! The encoder type for the user interface.
         typedef
@@ -79,13 +79,6 @@ namespace bobura
             tetengo2::encoder<internal_encoding_type, exception_encoding_type>
             exception_encoder_type;
 
-        //! The encoder type for locale names.
-        typedef
-            tetengo2::encoder<
-                internal_encoding_type, locale_name_encoding_type
-            >
-            locale_name_encoder_type;
-
         //! The encoder type for the message catalog.
         typedef
             tetengo2::encoder<
@@ -93,12 +86,17 @@ namespace bobura
             >
             message_catalog_encoder_type;
 
+        //! The encoder type for locale names.
+        typedef
+            tetengo2::encoder<
+                internal_encoding_type, locale_name_encoding_type
+            >
+            locale_name_encoder_type;
+
         //! The message catalog parser type.
         typedef
             tetengo2::message_catalog_parser<
-                std::istream,
-                string_type,
-                tetengo2::win32::encode
+                std::istream, string_type, message_catalog_encoder_type
             >
             message_catalog_parser_type;
 

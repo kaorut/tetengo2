@@ -32,7 +32,7 @@ namespace concept_tetengo2
 
         typedef typename Type::string_type string_type;
 
-        typedef typename Type::encode_type encode_type;
+        typedef typename Type::encoder_type encoder_type;
 
         typedef typename Type::entry_type entry_type;
 

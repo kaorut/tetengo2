@@ -24,6 +24,7 @@
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.String.h"
 
 
@@ -36,30 +37,17 @@ namespace tetengo2
                             concept_tetengo2::InputStream<InputStream>.
         \tparam String      A string type. It must conform to
                             concept_tetengo2::String<String>.
-        \tparam Encode      An encoding unary functor type. The types
-                            Encode<String, std::string> must conform to
-                            boost::UnaryFunction<Encode, String, std::string>.
+        \tparam Encoder     An encoder type. It must conform to
+                            concept_tetengo2::Encoder<Encoder>.
     */
-    template <
-        typename InputStream,
-        typename String,
-        template <typename Target, typename Source> class Encode
-    >
+    template <typename InputStream, typename String, typename Encoder>
     class message_catalog_parser : private boost::noncopyable
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        struct concept_check_Encode
-        {
-            typedef Encode<String, std::string> encode_from_stdstring_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_from_stdstring_type, String, std::string
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
 
 
     public:
@@ -76,8 +64,8 @@ namespace tetengo2
         //! The string type.
         typedef String string_type;
 
-        //! The unary functor type for encoding from the input string.
-        typedef Encode<string_type, input_string_type> encode_type;
+        //! The encoder type.
+        typedef Encoder encoder_type;
 
         //! The entry type.
         typedef std::pair<string_type, string_type> entry_type;
@@ -152,6 +140,15 @@ namespace tetengo2
                 input_string_type
             >
             tokenizer_type;
+
+
+        // static functions
+
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
 
 
         // variables
@@ -250,7 +247,7 @@ namespace tetengo2
 
             return std::auto_ptr<entry_type>(
                 new entry_type(
-                    encode_type()(tokens[0]), encode_type()(tokens[1])
+                    encoder().decode(tokens[0]), encoder().decode(tokens[1])
                 )
             );
         }

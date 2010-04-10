@@ -29,6 +29,15 @@ namespace
 
     typedef tetengo2::encoding::locale<std::string> internal_encoding_type;
 
+    typedef
+        tetengo2::encoding::locale<std::string> message_catalog_encoding_type;
+
+    typedef
+        tetengo2::encoder<
+            internal_encoding_type, message_catalog_encoding_type
+        >
+        message_catalog_encoder_type;
+
     typedef tetengo2::encoding::locale<std::string> locale_name_encoding_type;
 
     typedef
@@ -37,7 +46,7 @@ namespace
 
     typedef
         tetengo2::message_catalog_parser<
-            std::istream, std::string, stub_tetengo2::encode
+            std::istream, std::string, message_catalog_encoder_type
         >
         message_catalog_parser_type;
 
