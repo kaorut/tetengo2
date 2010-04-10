@@ -27,6 +27,7 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.MessageCatalogParser.h"
 #include "concept_tetengo2.Path.h"
 #include "tetengo2.text.h"
@@ -44,15 +45,14 @@ namespace tetengo2
         \tparam MessageCatalogParser A message catalog parser type. It must
                                      conform to
                                      concept_tetengo2::MessageCatalogParser<MessageCatalogParser>.
-        \tparam Encode               An encoding unary functor type. The 
-                                     Encode<std::string, typename Path::string_type>
-                                     must conform to
-                                     boost::UnaryFunction<Encode, std::string, typename Path::string_type>.
+        \tparam LocaleNameEncoder    An encoder type for locale names. It must
+                                     conform to
+                                     concept_tetengo2::Encoder<LocaleNameEncoder>.
     */
     template <
         typename Path,
         typename MessageCatalogParser,
-        template <typename Target, typename Source> class Encode
+        typename LocaleNameEncoder
     >
     class messages :
         public std::messages<
@@ -67,19 +67,7 @@ namespace tetengo2
         BOOST_CONCEPT_ASSERT((
             concept_tetengo2::MessageCatalogParser<MessageCatalogParser>
         ));
-        struct concept_check_Encode
-        {
-            typedef
-                Encode<std::string, typename Path::string_type>
-                encode_to_std_string_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_to_std_string_type,
-                    std::string,
-                    typename Path::string_type
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<LocaleNameEncoder>));
 
 
     public:
@@ -104,10 +92,8 @@ namespace tetengo2
         //! The message catalog parser type.
         typedef MessageCatalogParser message_catalog_parser_type;
 
-        //! The unary functor type for encoding to std::string.
-        typedef
-            Encode<std::string, typename path_type::string_type>
-            encode_to_std_string_type;
+        //! The encoder type for locale names.
+        typedef LocaleNameEncoder locale_name_encoder_type;
 
 
         // constructors and destructor
@@ -259,7 +245,7 @@ namespace tetengo2
             const
             {
                 const std::string locale_name =
-                    encode_to_std_string_type()(mapping.first);
+                    locale_name_encoder().encode(mapping.first);
                 try
                 {
                     return std::locale(locale_name.c_str()) == m_locale;
@@ -274,6 +260,12 @@ namespace tetengo2
 
 
         // static functions
+
+        static const locale_name_encoder_type& locale_name_encoder()
+        {
+            static const locale_name_encoder_type singleton;
+            return singleton;
+        }
 
         static const typename path_type::string_type&
         catalog_file_mappings_filename()

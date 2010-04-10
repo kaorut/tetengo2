@@ -48,6 +48,51 @@ namespace bobura
         //! The string type.
         typedef std::wstring string_type;
 
+        //! The internal encoding type.
+        typedef
+            tetengo2::encoding::locale<string_type> internal_encoding_type;
+
+        //! The encoding type for the user interface.
+        typedef
+            tetengo2::encoding::locale<std::wstring> ui_encoding_type;
+
+        //! The encoding type for exceptions.
+        typedef
+            tetengo2::encoding::locale<std::string> exception_encoding_type;
+
+        //! The encoding type for locale names.
+        typedef
+            tetengo2::encoding::locale<std::string> locale_name_encoding_type;
+
+        //! The message catalog type for the message catalog.
+        typedef
+            tetengo2::encoding::locale<std::string>
+            message_catalog_encoding_type;
+
+        //! The encoder type for the user interface.
+        typedef
+            tetengo2::encoder<internal_encoding_type, ui_encoding_type>
+            ui_encoder_type;
+
+        //! The encoder type for exceptions.
+        typedef
+            tetengo2::encoder<internal_encoding_type, exception_encoding_type>
+            exception_encoder_type;
+
+        //! The encoder type for locale names.
+        typedef
+            tetengo2::encoder<
+                internal_encoding_type, locale_name_encoding_type
+            >
+            locale_name_encoder_type;
+
+        //! The encoder type for the message catalog.
+        typedef
+            tetengo2::encoder<
+                internal_encoding_type, message_catalog_encoding_type
+            >
+            message_catalog_encoder_type;
+
         //! The message catalog parser type.
         typedef
             tetengo2::message_catalog_parser<
@@ -62,31 +107,9 @@ namespace bobura
             tetengo2::messages<
                 boost::filesystem::wpath,
                 message_catalog_parser_type,
-                tetengo2::win32::encode
+                locale_name_encoder_type
             >
             messages_type;
-
-        //! The internal encoding type.
-        typedef
-            tetengo2::encoding::locale<string_type> internal_encoding_type;
-
-        //! The encoding type for the user interface.
-        typedef
-            tetengo2::encoding::locale<std::wstring> ui_encoding_type;
-
-        //! The encoding type for exceptions.
-        typedef
-            tetengo2::encoding::locale<std::string> exception_encoding_type;
-
-        //! The encoder type for the user interface.
-        typedef
-            tetengo2::encoder<internal_encoding_type, ui_encoding_type>
-            ui_encoder_type;
-
-        //! The encoder type for exceptions.
-        typedef
-            tetengo2::encoder<internal_encoding_type, exception_encoding_type>
-            exception_encoder_type;
 
         //! The type list type to create platform specific GUI components.
         typedef

@@ -15,8 +15,10 @@
 #include <boost/test/unit_test.hpp>
 
 #include "stub_tetengo2.encode.h"
+#include "tetengo2.encoder.h"
 #include "tetengo2.message_catalog_parser.h"
 #include "tetengo2.messages.h"
+#include "tetengo2.encoding.locale.h"
 
 #include "tetengo2.message_catalog.h"
 
@@ -24,6 +26,14 @@
 namespace
 {
     // types
+
+    typedef tetengo2::encoding::locale<std::string> internal_encoding_type;
+
+    typedef tetengo2::encoding::locale<std::string> locale_name_encoding_type;
+
+    typedef
+        tetengo2::encoder<internal_encoding_type, locale_name_encoding_type>
+        locale_name_encoder_type;
 
     typedef
         tetengo2::message_catalog_parser<
@@ -35,7 +45,7 @@ namespace
         tetengo2::messages<
             boost::filesystem::path,
             message_catalog_parser_type,
-            stub_tetengo2::encode
+            locale_name_encoder_type
         >
         messages_type;
 

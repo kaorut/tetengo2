@@ -25,9 +25,13 @@ namespace
 {
     // types
 
+    typedef tetengo2::encoding::locale<std::wstring> internal_encoding_type;
+
     typedef tetengo2::encoding::locale<std::wstring> encoding_type;
 
-    typedef tetengo2::encoder<encoding_type, encoding_type> encoder_type;
+    typedef
+        tetengo2::encoder<internal_encoding_type, encoding_type>
+        encoder_type;
 
     typedef
         tetengo2::gui::win32::alert< ::HWND, encoder_type, encoder_type>
