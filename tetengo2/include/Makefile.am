@@ -36,6 +36,7 @@ headers = \
     tetengo2.swappable.h \
     tetengo2.text.h \
     tetengo2.encoding.encoding.h \
+    tetengo2.encoding.ascii.h \
     tetengo2.encoding.locale.h \
     tetengo2.gui.menu_observer.h \
     tetengo2.gui.mouse_observer.h \
