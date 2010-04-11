@@ -22,12 +22,7 @@ Description : Use boost::signal2::signal directly to implement event
 Number      : 00000027
 Added on    : 2010/04/02
 Depends on  : (none)
-Description : Improve the precompile header compile rule with Automake.
-------------------------------------------------------------------------------
-Number      : 00000028
-Added on    : 2010/04/11
-Depends on  : (none)
-Description : Create concept_teten2::InputStream.
+Description : Improve the precompiled header compile rule with Automake.
 ------------------------------------------------------------------------------
 Number      : 00000029
 Added on    : 2010/04/11
