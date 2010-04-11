@@ -30,6 +30,11 @@ Depends on  : (none)
 Description : Create concept_teten2::InputStream.
 ------------------------------------------------------------------------------
 Number      : 00000029
+Added on    : 2010/04/11
+Depends on  : (none)
+Description : Create tetengo2::encoding::ascii.
+------------------------------------------------------------------------------
+Number      : 00000030
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
