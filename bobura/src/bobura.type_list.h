@@ -19,6 +19,7 @@
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.encoding.locale.h>
+#include <tetengo2.encoding.win32.utf8.h>
 #include <tetengo2.gui.win32.gui_type_list.h>
 
 #include "bobura.about_dialog.h"
@@ -57,13 +58,10 @@ namespace bobura
             tetengo2::encoding::locale<std::wstring> ui_encoding_type;
 
         //! The encoding type for exceptions.
-        typedef
-            tetengo2::encoding::locale<std::string> exception_encoding_type;
+        typedef tetengo2::encoding::win32::utf8 exception_encoding_type;
 
         //! The message catalog type for the message catalog.
-        typedef
-            tetengo2::encoding::locale<std::string>
-            message_catalog_encoding_type;
+        typedef tetengo2::encoding::win32::utf8 message_catalog_encoding_type;
 
         //! The encoding type for locale names.
         typedef
