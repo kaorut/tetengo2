@@ -26,6 +26,7 @@
 #include <boost/algorithm/string.hpp>
 
 #include "concept_tetengo2.Encoder.h"
+#include "concept_tetengo2.IStream.h"
 #include "concept_tetengo2.String.h"
 #include "tetengo2.text.h"
 
@@ -36,7 +37,7 @@ namespace tetengo2
         \brief The class template for a message catalog parser.
 
         \tparam InputStream An input stream type. It must conform to
-                            concept_tetengo2::InputStream<InputStream>.
+                            concept_tetengo2::IStream<InputStream>.
         \tparam String      A string type. It must conform to
                             concept_tetengo2::String<String>.
         \tparam Encoder     An encoder type. It must conform to
@@ -48,6 +49,7 @@ namespace tetengo2
     private:
         // concept checks
 
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::IStream<InputStream>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
         BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
 

@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(CONCEPTTETENGO2_SWAPPABLEE_H)
-#define CONCEPTTETENGO2_SWAPPABLEE_H
+#if !defined(CONCEPTTETENGO2_SWAPPABLE_H)
+#define CONCEPTTETENGO2_SWAPPABLE_H
 
 #include <boost/concept_check.hpp>
 #include <boost/swap.hpp>

@@ -5,6 +5,7 @@
 headers = \
     concept_tetengo2.Assignable.h \
     concept_tetengo2.Encoder.h \
+    concept_tetengo2.IStream.h \
     concept_tetengo2.MessageCatalog.h \
     concept_tetengo2.MessageCatalogParser.h \
     concept_tetengo2.Messages.h \

@@ -267,6 +267,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\concept_tetengo2.IStream.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\concept_tetengo2.MessageCatalog.h"
 					>
 				</File>
