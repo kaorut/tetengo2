@@ -209,6 +209,7 @@ boost::tuple                                     boost/tuple/tuple.hpp,boost/tup
 std::advance                                     iterator
 std::auto_ptr                                    memory
 std::back_inserter                               iterator
+std::basic_ostringstream                         sstream
 std::basic_string                                string
 std::codecvt                                     locale
 std::copy                                        algorithm
@@ -247,7 +248,6 @@ std::size_t                                      cstddef
 std::sort                                        algorithm
 std::stack                                       stack
 std::string                                      string
-std::stringstream                                sstream
 std::transform                                   algorithm
 std::unary_function                              functional
 std::use_facet                                   locale

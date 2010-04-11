@@ -28,6 +28,7 @@
 
 #include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.gui.Handle.h"
+#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -118,35 +119,27 @@ namespace tetengo2 { namespace gui { namespace win32
                             exception
                         );
                     show_task_dialog(
-                        L"Alert",
-                        ui_encoder().encode(
-                            exception_encoder().decode(
-                                typeid(*p_std_exception).name()
-                            )
+                        string_type(TETENGO2_TEXT("Alert")),
+                        exception_encoder().decode(
+                            typeid(*p_std_exception).name()
                         ),
-                        ui_encoder().encode(
-                            exception_encoder().decode(
-                                p_std_exception->what()
-                            )
-                        ),
-                        p_file != NULL ? *p_file : "",
+                        exception_encoder().decode(p_std_exception->what()),
+                        p_file != NULL ?
+                            exception_encoder().decode(*p_file) :
+                            string_type(),
                         p_line != NULL ? *p_line : 0,
-                        p_function != NULL ? *p_function : ""
+                        p_function != NULL ?
+                            exception_encoder().decode(*p_function) :
+                            string_type()
                     );
                 }
                 else
                 {
                     show_task_dialog(
-                        L"Alert",
-                        ui_encoder().encode(
-                            exception_encoder().decode(
-                                typeid(exception).name()
-                            )
-                        ),
-                        ui_encoder().encode(
-                            exception_encoder().decode(
-                                boost::diagnostic_information(exception)
-                            )
+                        string_type(TETENGO2_TEXT("Alert")),
+                        exception_encoder().decode(typeid(exception).name()),
+                        exception_encoder().decode(
+                            boost::diagnostic_information(exception)
                         )
                     );
                 }
@@ -185,6 +178,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
+        // types
+
+        typedef typename ui_encoder_type::internal_string_type string_type;
+
+
         // static function
 
         static window_handle_type actual_parent_window_handle(
@@ -228,37 +226,34 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         void show_task_dialog(
-            const std::wstring& caption,
-            const std::wstring& text1,
-            const std::wstring& text2,
-            const std::string&  source_file_name = "",
+            const string_type& caption,
+            const string_type& text1,
+            const string_type& text2,
+            const string_type&  source_file_name = string_type(),
             const int           source_file_line = 0,
-            const std::string&  source_function = ""
+            const string_type&  source_function = string_type()
         )
         const
         {
 #if defined(NDEBUG)
             show_task_dialog_impl(caption, text1, text2);
 #else
-            std::stringstream stream;
+            std::basic_ostringstream<typename string_type::value_type> stream;
             stream <<
                 std::endl <<
                 std::endl <<
-                "in " <<
+                TETENGO2_TEXT("in ") <<
                 source_file_name <<
-                "(" <<
+                TETENGO2_TEXT("(") <<
                 source_file_line <<
-                "):" <<
+                TETENGO2_TEXT("):") <<
                 std::endl <<
                 source_function;
 
             show_task_dialog_impl(
-                caption,
-                text1,
-                text2 +
-                    ui_encoder().encode(
-                        exception_encoder().decode(stream.str())
-                    )
+                ui_encoder().encode(caption),
+                ui_encoder().encode(text1),
+                ui_encoder().encode(text2 + stream.str())
             );
 #endif
         }
