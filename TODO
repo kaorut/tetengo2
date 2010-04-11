@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000023
-Added on    : 2010/03/11
-Depends on  : 00000017
-Description : Replace tetengo2::win32::encode to tetengo2::encoder.
-------------------------------------------------------------------------------
 Number      : 00000025
 Added on    : 2010/03/25
 Depends on  : (none)
