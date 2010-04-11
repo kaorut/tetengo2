@@ -42,6 +42,14 @@
     \brief The namespace for Tetengo2 specific to Win32 platforms.
 */
 
+/*! \namespace tetengo2::encoding
+    \brief The namespace for encodings.
+*/
+
+/*! \namespace tetengo2::encoding::win32
+    \brief The namespace for encodings specific to Win32 platforms.
+*/
+
 /*! \namespace tetengo2::gui
     \brief The namespace for GUI.
 */
@@ -86,6 +94,11 @@
 
 /*! \namespace concept_tetengo2
     \brief The namespace for concept check classes for the namespace tetengo2.
+*/
+
+/*! \namespace concept_tetengo2::encoding
+    \brief The namespace for concept check classes for the namespace
+           tetengo2::encoding.
 */
 
 /*! \namespace concept_tetengo2::gui
