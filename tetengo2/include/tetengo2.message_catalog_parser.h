@@ -27,6 +27,7 @@
 
 #include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.String.h"
+#include "tetengo2.text.h"
 
 
 namespace tetengo2
@@ -190,7 +191,12 @@ namespace tetengo2
                 input_string_type got_line;
                 std::getline(m_input_stream, got_line);
                 if (got_line.empty()) break;
-                if (got_line[got_line.length() - 1] != '\\')
+                if (
+                    got_line[got_line.length() - 1] !=
+                    static_cast<typename input_stream_type::char_type>(
+                        TETENGO2_TEXT('\\')
+                    )
+                )
                 {
                     line.append(got_line);
                     break;
@@ -214,7 +220,13 @@ namespace tetengo2
                 position = line.find('#', position);
                 if (position == input_string_type::npos) break;
 
-                if (position == 0 || line[position - 1] != '\\')
+                if (
+                    position == 0 ||
+                    line[position - 1] !=
+                        static_cast<typename input_stream_type::char_type>(
+                            TETENGO2_TEXT('\\')
+                        )
+                )
                 {
                     line = line.substr(0, position);
                     break;
@@ -223,21 +235,37 @@ namespace tetengo2
                 ++position;
             }
 
-            boost::replace_all(line, "\\#", "#");
+            boost::replace_all(
+                line,
+                input_string_type(TETENGO2_TEXT("\\#")),
+                input_string_type(TETENGO2_TEXT("#"))
+            );
         }
 
         void replace_special_characters(input_string_type& line)
         const
         {
-            boost::replace_all(line, "\\t", "\t");
-            boost::replace_all(line, "\\n", "\n");
+            boost::replace_all(
+                line,
+                input_string_type(TETENGO2_TEXT("\\t")),
+                input_string_type(TETENGO2_TEXT("\t"))
+            );
+            boost::replace_all(
+                line,
+                input_string_type(TETENGO2_TEXT("\\n")),
+                input_string_type(TETENGO2_TEXT("\n"))
+            );
         }
 
         std::auto_ptr<entry_type> parse(const input_string_type& line)
         const
         {
             const tokenizer_type tokenizer(
-                line, separator_type("\\", "=", "\"'")
+                line, separator_type(
+                    input_string_type(TETENGO2_TEXT("\\")),
+                    input_string_type(TETENGO2_TEXT("=")),
+                    input_string_type(TETENGO2_TEXT("\"'"))
+                )
             );
             std::vector<input_string_type> tokens;
             tokens.reserve(2);
