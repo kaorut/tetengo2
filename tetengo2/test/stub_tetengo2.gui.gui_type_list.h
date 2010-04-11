@@ -30,7 +30,6 @@
 #include "stub_tetengo2.gui.quit_message_loop.h"
 #include "stub_tetengo2.gui.widget.h"
 #include "stub_tetengo2.gui.window.h"
-#include "stub_tetengo2.encode.h"
 #include "tetengo2.gui.menu_observer.h"
 #include "tetengo2.gui.mouse_observer.h"
 #include "tetengo2.gui.paint_observer.h"
@@ -43,7 +42,8 @@ namespace stub_tetengo2 { namespace gui
         typename Difference,
         typename Size,
         typename String,
-        typename UiEncoder
+        typename UiEncoder,
+        typename ExceptionEncoder
     >
     class gui_type_list
     {
@@ -65,9 +65,13 @@ namespace stub_tetengo2 { namespace gui
 
         typedef quit_message_loop quit_message_loop_type;
 
-        typedef alert<const void*, stub_tetengo2::encode> alert_type;
-
         typedef UiEncoder ui_encoder_type;
+
+        typedef ExceptionEncoder exception_encoder_type;
+
+        typedef
+            alert<const void*, ui_encoder_type, exception_encoder_type>
+            alert_type;
 
         typedef font<String, Size> font_type;
 

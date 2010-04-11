@@ -154,10 +154,6 @@
 					RelativePath=".\include\tetengo2.text.h"
 					>
 				</File>
-				<File
-					RelativePath=".\include\tetengo2.win32.encode.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="tetengo2::gui"

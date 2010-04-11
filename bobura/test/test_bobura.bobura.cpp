@@ -29,13 +29,27 @@ namespace
 {
     // types
 
-    typedef tetengo2::encoding::locale<std::wstring> encoding_type;
+    typedef tetengo2::encoding::locale<std::wstring> internal_encoding_type;
 
-    typedef tetengo2::encoder<encoding_type, encoding_type> ui_encoder_type;
+    typedef tetengo2::encoding::locale<std::wstring> ui_encoding_type;
+
+    typedef
+        tetengo2::encoder<internal_encoding_type, ui_encoding_type>
+        ui_encoder_type;
+
+    typedef tetengo2::encoding::locale<std::string> exception_encoding_type;
+
+    typedef
+        tetengo2::encoder<internal_encoding_type, exception_encoding_type>
+        exception_encoder_type;
 
     typedef
         stub_tetengo2::gui::gui_type_list<
-            std::ptrdiff_t, std::size_t, std::wstring, ui_encoder_type
+            std::ptrdiff_t,
+            std::size_t,
+            std::wstring,
+            ui_encoder_type,
+            exception_encoder_type
         >
         gui_type_list_type;
 

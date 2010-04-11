@@ -14,7 +14,6 @@
 //#include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "stub_tetengo2.encode.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.message_catalog_parser.h"
 #include "tetengo2.messages.h"

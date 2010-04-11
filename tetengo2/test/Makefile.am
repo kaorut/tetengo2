@@ -3,7 +3,6 @@
 # $Id$
 
 headers = \
-    stub_tetengo2.encode.h \
     stub_tetengo2.encoding.utf8.h \
     stub_tetengo2.gui.abstract_popup_menu.h \
     stub_tetengo2.gui.abstract_window.h \
@@ -64,8 +63,7 @@ extra_sources = \
     test_tetengo2.gui.win32.popup_menu.cpp \
     test_tetengo2.gui.win32.quit_message_loop.cpp \
     test_tetengo2.gui.win32.widget.cpp \
-    test_tetengo2.gui.win32.window.cpp \
-    test_tetengo2.win32.encode.cpp
+    test_tetengo2.gui.win32.window.cpp
 
 check_PROGRAMS = tetengo2.test
 EXTRA_DIST = $(extra_headers) $(extra_sources)

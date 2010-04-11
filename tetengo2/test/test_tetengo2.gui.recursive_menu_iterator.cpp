@@ -11,7 +11,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "stub_tetengo2.encode.h"
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "stub_tetengo2.gui.menu.h"
 #include "stub_tetengo2.gui.popup_menu.h"

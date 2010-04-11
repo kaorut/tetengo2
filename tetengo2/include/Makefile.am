@@ -62,8 +62,7 @@ extra_headers = \
     tetengo2.gui.win32.popup_menu.h \
     tetengo2.gui.win32.quit_message_loop.h \
     tetengo2.gui.win32.widget.h \
-    tetengo2.gui.win32.window.h \
-    tetengo2.win32.encode.h
+    tetengo2.gui.win32.window.h
 
 pkginclude_HEADERS = $(headers)
 EXTRA_DIST = $(extra_headers)

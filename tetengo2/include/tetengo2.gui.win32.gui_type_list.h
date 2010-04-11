@@ -48,7 +48,6 @@
 #include "tetengo2.gui.win32.quit_message_loop.h"
 #include "tetengo2.gui.win32.widget.h"
 #include "tetengo2.gui.win32.window.h"
-#include "tetengo2.win32.encode.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32

@@ -436,10 +436,6 @@
 					RelativePath=".\test\test_tetengo2.text.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\test\test_tetengo2.win32.encode.cpp"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="test_tetengo2::gui"
@@ -654,10 +650,6 @@
 			<Filter
 				Name="stub_tetengo2"
 				>
-				<File
-					RelativePath=".\test\stub_tetengo2.encode.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter

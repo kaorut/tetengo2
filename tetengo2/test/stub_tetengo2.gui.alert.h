@@ -13,11 +13,11 @@
 #include <exception>
 #include <functional>
 #include <stdexcept>
-#include <string>
 
 //#include <boost/concept_check.hpp>
 #include <boost/exception/all.hpp>
 
+#include "concept_tetengo2.Encoder.h"
 #include "concept_tetengo2.gui.Handle.h"
 
 
@@ -25,7 +25,8 @@ namespace stub_tetengo2 { namespace gui
 {
     template <
         typename WindowHandle,
-        template <typename Target, typename Source> class Encode
+        typename UiEncoder,
+        typename ExceptionEncoder
     >
     class alert :
         public std::unary_function<std::exception, void>
@@ -34,25 +35,18 @@ namespace stub_tetengo2 { namespace gui
         // concept checks
 
         BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
-        struct concept_check_Encode
-        {
-            typedef std::wstring task_dialog_string_type;
-            typedef std::string exception_what_type;
-            typedef
-                Encode<task_dialog_string_type, exception_what_type>
-                encode_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<
-                    encode_type, task_dialog_string_type, exception_what_type
-                >
-            ));
-        };
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<UiEncoder>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<ExceptionEncoder>));
 
 
     public:
         // types
 
         typedef WindowHandle window_handle_type;
+
+        typedef UiEncoder ui_encoder_type;
+
+        typedef ExceptionEncoder exception_encoder_type;
 
 
         // constructors
