@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <iterator>
+#include <locale>
 #include <memory>
 #include <stdexcept>
 //#include <string>
@@ -82,7 +83,9 @@ namespace tetengo2
         :
         m_input_stream(input_stream),
         m_p_preread_entry()
-        {}
+        {
+            m_input_stream.imbue(std::locale::classic());
+        }
 
         /*!
             \brief Destroys a message catalog parser.
