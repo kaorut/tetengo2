@@ -9,7 +9,10 @@
 #if !defined(TETENGO2_ENCODING_WIN32_UTF8_H)
 #define TETENGO2_ENCODING_WIN32_UTF8_H
 
+#include <stdexcept>
 //#include <string>
+
+#include <boost/iterator_adaptors.hpp>
 
 #include "tetengo2.assignable.h"
 #include "tetengo2.swappable.h"
@@ -93,7 +96,10 @@ namespace tetengo2 { namespace encoding
         string_type from_pivot(const pivot_type& pivot)
         const
         {
-            return string_type();
+            return string_type(
+                boost::make_transform_iterator(pivot.begin(), to_ascii),
+                boost::make_transform_iterator(pivot.end(), to_ascii)
+            );
         }
 
         /*!
@@ -106,7 +112,35 @@ namespace tetengo2 { namespace encoding
         pivot_type to_pivot(const string_type& string)
         const
         {
-            return pivot_type();
+            return pivot_type(
+                boost::make_transform_iterator(string.begin(), from_ascii),
+                boost::make_transform_iterator(string.end(), from_ascii)
+            );
+        }
+
+
+    private:
+        // static functions
+
+        static string_type::value_type to_ascii(
+            const pivot_type::value_type pivot_char
+        )
+        {
+            static const string_type::value_type question = 0x3F;
+
+            return 0 <= pivot_char && pivot_char <= 0x7F ?
+                static_cast<string_type::value_type>(pivot_char) :
+                question;
+        }
+
+        static pivot_type::value_type from_ascii(
+            const string_type::value_type ascii_char
+        )
+        {
+            if (ascii_char < 0 || 0x80 <= ascii_char)
+                throw std::invalid_argument("Not ASCII code.");
+
+            return ascii_char;
         }
 
 

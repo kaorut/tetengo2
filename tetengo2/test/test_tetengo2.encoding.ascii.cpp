@@ -6,6 +6,7 @@
     $Id$
 */
 
+//#include <stdexcept>
 //#include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -17,41 +18,29 @@ namespace
 {
     // variables
 
-    // four-character hiragana: "tetengo"
-    const wchar_t utf16_tetengo[] = {
-        0x3066,
-        0x3066,
-        0x3093,
-        0x3054,
-        0x0000
+    // "\n 0Aa~[DEL]"
+    const wchar_t utf16_ascii[] = {
+        0x000A, 0x0020, 0x0030, 0x0041, 0x0061, 0x007E, 0x007F, 0x0000
     };
 
-    // four-character hiragana: "tetengo"
-    const unsigned char utf8_tetengo[] = {
-        0xE3, 0x81, 0xA6,
-        0xE3, 0x81, 0xA6,
-        0xE3, 0x82, 0x93,
-        0xE3, 0x81, 0x94,
-        0x00
+    // "\n 0Aa~[DEL]"
+    const unsigned char ascii_ascii[] = {
+        0x0A, 0x20, 0x30, 0x41, 0x61, 0x7E, 0x7F, 0x00
     };
 
-    // four-character kanji: "mori o-gai shikaru"
-    // The codepoint of "shikaru" is U+20B9F.
-    const wchar_t utf16_moriogaishikaru[] = {
-        0x68EE,
-        0x9DD7,
-        0x5916,
-        0xD842, 0xDF9F,
-        0x0000
+    // Non-ASCII characters
+    const wchar_t utf16_nonascii[] = {
+        0x0080, 0x00FF, 0x0000
     };
 
-    // four-character kanji: "mori o-gai shikaru"
-    const unsigned char utf8_moriogaishikaru[] = {
-        0xE6, 0xA3, 0xAE,
-        0xE9, 0xB7, 0x97,
-        0xE5, 0xA4, 0x96,
-        0xF0, 0xA0, 0xAE, 0x9F,
-        0x00
+    // Non-ASCII characters
+    const unsigned char ascii_nonascii[] = {
+        0x3F, 0x3F, 0x00
+    };
+
+    // Non-ASCII characters
+    const unsigned char nonascii[] = {
+        0x80, 0xFF, 0x00
     };
 
 }
@@ -92,58 +81,55 @@ BOOST_AUTO_TEST_SUITE(ascii)
     {
         BOOST_TEST_PASSPOINT();
 
-        //{
-        //    const std::wstring pivot(utf16_tetengo);
-        //    const std::string string(
-        //        utf8_tetengo, utf8_tetengo + sizeof(utf8_tetengo) - 1
-        //    );
+        {
+            const std::wstring pivot(utf16_ascii);
+            const std::string string(
+                ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1
+            );
 
-        //    const tetengo2::encoding::ascii encoding;
-        //    const std::string result = encoding.from_pivot(pivot);
+            const tetengo2::encoding::ascii encoding;
+            const std::string result = encoding.from_pivot(pivot);
 
-        //    BOOST_CHECK(result == string);
-        //}
-        //{
-        //    const std::wstring pivot(utf16_moriogaishikaru);
-        //    const std::string string(
-        //        utf8_moriogaishikaru,
-        //        utf8_moriogaishikaru + sizeof(utf8_moriogaishikaru) - 1
-        //    );
+            BOOST_CHECK(result == string);
+        }
+        {
+            const std::wstring pivot(utf16_nonascii);
+            const std::string string(
+                ascii_nonascii, ascii_nonascii + sizeof(ascii_nonascii) - 1
+            );
 
-        //    const tetengo2::encoding::ascii encoding;
-        //    const std::string result = encoding.from_pivot(pivot);
+            const tetengo2::encoding::ascii encoding;
+            const std::string result = encoding.from_pivot(pivot);
 
-        //    BOOST_CHECK(result == string);
-        //}
+            BOOST_CHECK(result == string);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(to_pivot)
     {
         BOOST_TEST_PASSPOINT();
 
-        //{
-        //    const std::wstring pivot(utf16_tetengo);
-        //    const std::string string(
-        //        utf8_tetengo, utf8_tetengo + sizeof(utf8_tetengo) - 1
-        //    );
+        {
+            const std::wstring pivot(utf16_ascii);
+            const std::string string(
+                ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1
+            );
 
-        //    const tetengo2::encoding::ascii encoding;
-        //    const std::wstring result = encoding.to_pivot(string);
+            const tetengo2::encoding::ascii encoding;
+            const std::wstring result = encoding.to_pivot(string);
 
-        //    BOOST_CHECK(result == pivot);
-        //}
-        //{
-        //    const std::wstring pivot(utf16_moriogaishikaru);
-        //    const std::string string(
-        //        utf8_moriogaishikaru,
-        //        utf8_moriogaishikaru + sizeof(utf8_moriogaishikaru) - 1
-        //    );
+            BOOST_CHECK(result == pivot);
+        }
+        {
+            const std::string string(
+                nonascii, nonascii + sizeof(nonascii) - 1
+            );
 
-        //    const tetengo2::encoding::ascii encoding;
-        //    const std::wstring result = encoding.to_pivot(string);
-
-        //    BOOST_CHECK(result == pivot);
-        //}
+            const tetengo2::encoding::ascii encoding;
+            BOOST_CHECK_THROW(
+                encoding.to_pivot(string), std::invalid_argument
+            );
+        }
     }
 
 

@@ -179,6 +179,7 @@ boost::get_error_info                            boost/exception/all.hpp
 boost::ignore_unused_variable_warning            boost/concept_check.hpp
 boost::is_same                                   boost/type_traits.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
+boost::make_transform_iterator                   boost/iterator_adaptors.hpp
 boost::make_tuple                                boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::next                                      boost/next_prior.hpp
 boost::noncopyable                               boost/noncopyable.hpp
