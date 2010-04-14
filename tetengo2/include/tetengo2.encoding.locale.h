@@ -21,6 +21,7 @@
 //#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits.hpp>
+#include <boost/utility.hpp>
 
 #include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"
@@ -135,7 +136,7 @@ namespace tetengo2 { namespace encoding
         string_type from_pivot(const pivot_type& pivot)
         const
         {
-            return from_pivot_impl(pivot, encodings_are_same_type());
+            return from_pivot_impl(pivot);
         }
 
         /*!
@@ -148,7 +149,7 @@ namespace tetengo2 { namespace encoding
         pivot_type to_pivot(const string_type& string)
         const
         {
-            return to_pivot_impl(string, encodings_are_same_type());
+            return to_pivot_impl(string);
         }
 
 
@@ -159,10 +160,6 @@ namespace tetengo2 { namespace encoding
             std::codecvt<pivot_char_type, string_char_type, std::mbstate_t>
             converter_type;
 
-        typedef
-            typename boost::is_same<pivot_type, string_type>::type
-            encodings_are_same_type;
-
 
         // variables
 
@@ -171,18 +168,24 @@ namespace tetengo2 { namespace encoding
 
         // functions
 
+        template <typename Pivot>
         string_type from_pivot_impl(
-            const pivot_type&       pivot,
-            const boost::true_type& encodings_are_same
+            const Pivot& pivot,
+            const typename boost::enable_if<
+                boost::is_same<Pivot, string_type>
+            >::type* const = NULL
         )
         const
         {
             return pivot;
         }
 
+        template <typename Pivot>
         string_type from_pivot_impl(
-            const pivot_type&        pivot,
-            const boost::false_type& encodings_are_same
+            const Pivot& pivot,
+            const typename boost::disable_if<
+                boost::is_same<Pivot, string_type>
+            >::type* const = NULL
         )
         const
         {
@@ -198,18 +201,24 @@ namespace tetengo2 { namespace encoding
             return convert_from_pivot(converter, pivot, string_max_length);
         }
 
+        template <typename String>
         pivot_type to_pivot_impl(
-            const string_type&      string,
-            const boost::true_type& encodings_are_same
+            const String& string,
+            const typename boost::enable_if<
+                boost::is_same<pivot_type, String>
+            >::type* const = NULL
         )
         const
         {
             return string;
         }
 
+        template <typename String>
         pivot_type to_pivot_impl(
-            const string_type&       string,
-            const boost::false_type& encodings_are_same
+            const String& string,
+            const typename boost::disable_if<
+                boost::is_same<pivot_type, String>
+            >::type* const = NULL
         )
         const
         {
