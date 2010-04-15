@@ -9,12 +9,16 @@
 #if !defined(TETENGO2_ENCODER_H)
 #define TETENGO2_ENCODER_H
 
+//#include <cstddef>
+
 //#include <boost/concept_check.hpp>
 //#include <boost/swap.hpp>
-#include <boost/type_traits.hpp>
+//#include <boost/type_traits.hpp>
+//#include <boost/utility.hpp>
 
 #include "concept_tetengo2.encoding.Encoding.h"
 #include "tetengo2.assignable.h"
+#include "tetengo2.encoding.locale.h"
 
 
 namespace tetengo2
@@ -156,7 +160,9 @@ namespace tetengo2
         external_string_type encode(const internal_string_type& string)
         const
         {
-            return encode_impl(string, encodings_are_same_type());
+            return encode_impl(
+                string, m_internal_encoding, m_external_encoding
+            );
         }
 
         /*!
@@ -169,7 +175,9 @@ namespace tetengo2
         internal_string_type decode(const external_string_type& string)
         const
         {
-            return decode_impl(string, encodings_are_same_type());
+            return decode_impl(
+                string, m_internal_encoding, m_external_encoding
+            );
         }
 
 
@@ -183,54 +191,115 @@ namespace tetengo2
             encodings_are_same_type;
 
 
+        // static functions
+
+        template <typename InternalEncoding, typename ExternalEncoding>
+        static external_string_type encode_impl(
+            const internal_string_type& string,
+            const InternalEncoding&     internal_encoding,
+            const ExternalEncoding&     external_encoding,
+            const typename boost::enable_if<
+                boost::is_same<InternalEncoding, ExternalEncoding>
+            >::type* const = NULL
+        )
+        {
+            return string;
+        }
+
+        template <typename InternalEncoding, typename ExternalEncoding>
+        static external_string_type encode_impl(
+            const internal_string_type& string,
+            const InternalEncoding&     internal_encoding,
+            const ExternalEncoding&     external_encoding,
+            const typename boost::disable_if<
+                boost::is_same<InternalEncoding, ExternalEncoding>
+            >::type* const = NULL
+        )
+        {
+            return external_encoding.from_pivot(
+                internal_encoding.to_pivot(string)
+            );
+        }
+
+        template <typename String>
+        static external_string_type encode_impl(
+            const internal_string_type&     string,
+            const encoding::locale<String>& internal_encoding,
+            const encoding::locale<String>& external_encoding
+        )
+        {
+            if (
+                internal_encoding.locale_based_on() ==
+                external_encoding.locale_based_on()
+            )
+            {
+                return string;
+            }
+            else
+            {
+                return external_encoding.from_pivot(
+                    internal_encoding.to_pivot(string)
+                );
+            }
+        }
+
+
+        template <typename InternalEncoding, typename ExternalEncoding>
+        static internal_string_type decode_impl(
+            const external_string_type& string,
+            const InternalEncoding&     internal_encoding,
+            const ExternalEncoding&     external_encoding,
+            const typename boost::enable_if<
+                boost::is_same<InternalEncoding, ExternalEncoding>
+            >::type* const = NULL
+        )
+        {
+            return string;
+        }
+
+        template <typename InternalEncoding, typename ExternalEncoding>
+        static internal_string_type decode_impl(
+            const external_string_type& string,
+            const InternalEncoding&     internal_encoding,
+            const ExternalEncoding&     external_encoding,
+            const typename boost::disable_if<
+                boost::is_same<InternalEncoding, ExternalEncoding>
+            >::type* const = NULL
+        )
+        {
+            return internal_encoding.from_pivot(
+                external_encoding.to_pivot(string)
+            );
+        }
+
+        template <typename String>
+        static internal_string_type decode_impl(
+            const external_string_type&     string,
+            const encoding::locale<String>& internal_encoding,
+            const encoding::locale<String>& external_encoding
+        )
+        {
+            if (
+                internal_encoding.locale_based_on() ==
+                external_encoding.locale_based_on()
+            )
+            {
+                return string;
+            }
+            else
+            {
+                return internal_encoding.from_pivot(
+                    external_encoding.to_pivot(string)
+                );
+            }
+        }
+
+
         // variables
 
         internal_encoding_type m_internal_encoding;
 
         external_encoding_type m_external_encoding;
-
-
-        // functions
-
-        external_string_type encode_impl(
-            const internal_string_type& string,
-            const boost::true_type&     encodings_are_same
-        )
-        const
-        {
-            return string;
-        }
-
-        external_string_type encode_impl(
-            const internal_string_type& string,
-            const boost::false_type&    encodings_are_same
-        )
-        const
-        {
-            return m_external_encoding.from_pivot(
-                m_internal_encoding.to_pivot(string)
-            );
-        }
-
-        internal_string_type decode_impl(
-            const external_string_type& string,
-            const boost::true_type&     encodings_are_same
-        )
-        const
-        {
-            return string;
-        }
-
-        internal_string_type decode_impl(
-            const external_string_type& string,
-            const boost::false_type&    encodings_are_same
-        )
-        const
-        {
-            return m_internal_encoding.from_pivot(
-                m_external_encoding.to_pivot(string)
-            );
-        }
 
 
     };
