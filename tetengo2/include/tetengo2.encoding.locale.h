@@ -201,11 +201,11 @@ namespace tetengo2 { namespace encoding
             return convert_from_pivot(converter, pivot, string_max_length);
         }
 
-        template <typename String>
+        template <typename Str>
         pivot_type to_pivot_impl(
-            const String& string,
+            const Str& string,
             const typename boost::enable_if<
-                boost::is_same<pivot_type, String>
+                boost::is_same<pivot_type, Str>
             >::type* const = NULL
         )
         const
@@ -213,11 +213,11 @@ namespace tetengo2 { namespace encoding
             return string;
         }
 
-        template <typename String>
+        template <typename Str>
         pivot_type to_pivot_impl(
-            const String& string,
+            const Str& string,
             const typename boost::disable_if<
-                boost::is_same<pivot_type, String>
+                boost::is_same<pivot_type, Str>
             >::type* const = NULL
         )
         const

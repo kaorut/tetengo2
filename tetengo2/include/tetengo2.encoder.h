@@ -193,26 +193,26 @@ namespace tetengo2
 
         // static functions
 
-        template <typename InternalEncoding, typename ExternalEncoding>
+        template <typename InternEnc, typename ExternEnc>
         static external_string_type encode_impl(
             const internal_string_type& string,
-            const InternalEncoding&     internal_encoding,
-            const ExternalEncoding&     external_encoding,
+            const InternEnc&            internal_encoding,
+            const ExternEnc&            external_encoding,
             const typename boost::enable_if<
-                boost::is_same<InternalEncoding, ExternalEncoding>
+                boost::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
             return string;
         }
 
-        template <typename InternalEncoding, typename ExternalEncoding>
+        template <typename InternEnc, typename ExternEnc>
         static external_string_type encode_impl(
             const internal_string_type& string,
-            const InternalEncoding&     internal_encoding,
-            const ExternalEncoding&     external_encoding,
+            const InternEnc&            internal_encoding,
+            const ExternEnc&            external_encoding,
             const typename boost::disable_if<
-                boost::is_same<InternalEncoding, ExternalEncoding>
+                boost::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
@@ -221,11 +221,11 @@ namespace tetengo2
             );
         }
 
-        template <typename String>
+        template <typename Str>
         static external_string_type encode_impl(
-            const internal_string_type&     string,
-            const encoding::locale<String>& internal_encoding,
-            const encoding::locale<String>& external_encoding
+            const internal_string_type&  string,
+            const encoding::locale<Str>& internal_encoding,
+            const encoding::locale<Str>& external_encoding
         )
         {
             if (
@@ -244,26 +244,26 @@ namespace tetengo2
         }
 
 
-        template <typename InternalEncoding, typename ExternalEncoding>
+        template <typename InternEnc, typename ExternEnc>
         static internal_string_type decode_impl(
             const external_string_type& string,
-            const InternalEncoding&     internal_encoding,
-            const ExternalEncoding&     external_encoding,
+            const InternEnc&            internal_encoding,
+            const ExternEnc&            external_encoding,
             const typename boost::enable_if<
-                boost::is_same<InternalEncoding, ExternalEncoding>
+                boost::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
             return string;
         }
 
-        template <typename InternalEncoding, typename ExternalEncoding>
+        template <typename InternEnc, typename ExternEnc>
         static internal_string_type decode_impl(
             const external_string_type& string,
-            const InternalEncoding&     internal_encoding,
-            const ExternalEncoding&     external_encoding,
+            const InternEnc&            internal_encoding,
+            const ExternEnc&            external_encoding,
             const typename boost::disable_if<
-                boost::is_same<InternalEncoding, ExternalEncoding>
+                boost::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
@@ -272,11 +272,11 @@ namespace tetengo2
             );
         }
 
-        template <typename String>
+        template <typename Str>
         static internal_string_type decode_impl(
-            const external_string_type&     string,
-            const encoding::locale<String>& internal_encoding,
-            const encoding::locale<String>& external_encoding
+            const external_string_type&  string,
+            const encoding::locale<Str>& internal_encoding,
+            const encoding::locale<Str>& external_encoding
         )
         {
             if (
