@@ -12,13 +12,12 @@
 #include <cassert>
 #include <cstddef>
 #include <cwchar>
-#include <limits>
+#include <iterator>
 #include <locale>
 #include <stdexcept>
 #include <vector>
 
 //#include <boost/concept_check.hpp>
-#include <boost/scoped_array.hpp>
 //#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits.hpp>
