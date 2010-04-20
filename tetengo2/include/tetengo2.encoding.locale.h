@@ -326,11 +326,57 @@ namespace tetengo2 { namespace encoding
 
             const converter_type& converter =
                 std::use_facet<converter_type>(m_locale);
+            std::mbstate_t state = std::mbstate_t();
 
-            const std::size_t pivot_max_length =
-                calc_pivot_max_length(converter, string);
+            const string_char_type* p_string_first = string.c_str();
+            const string_char_type* const p_string_last =
+                p_string_first + string.length();
 
-            return convert_to_pivot(converter, string, pivot_max_length);
+            std::vector<pivot_char_type> pivot_chars(8, TETENGO2_TEXT('\0'));
+            pivot_char_type* p_pivot_first = &pivot_chars[0];
+            pivot_char_type* p_pivot_last =
+                p_pivot_first + pivot_chars.size() - 1;
+
+            for (;;)
+            {
+                const string_char_type* p_string_next = NULL;
+                pivot_char_type* p_pivot_next = NULL;
+
+                const typename converter_type::result result =
+                    converter.in(
+                        state,
+                        p_string_first,
+                        p_string_last,
+                        p_string_next,
+                        p_pivot_first,
+                        p_pivot_last,
+                        p_pivot_next
+                    );
+                if (p_string_next == p_string_last)
+                {
+                    assert(
+                        *p_pivot_next ==
+                        static_cast<pivot_char_type>(TETENGO2_TEXT('\0'))
+                    );
+                    return pivot_type(&pivot_chars[0], p_pivot_next);
+                }
+
+                if (result == converter_type::error)
+                {
+                    *p_pivot_next = TETENGO2_TEXT('?');
+                    ++p_string_next;
+                    ++p_pivot_next;
+                }
+                else
+                {
+                    expand_destination(
+                        pivot_chars, p_pivot_first, p_pivot_last, p_pivot_next
+                    );
+                }
+
+                p_string_first = p_string_next;
+                p_pivot_first = p_pivot_next;
+            }
         }
 
         template <typename Char>
@@ -352,67 +398,6 @@ namespace tetengo2 { namespace encoding
             p_first = &chars[0] + first_offset;
             p_last = &chars[0] + chars.size() - 1;
             p_next = &chars[0] + next_offset;
-        }
-
-        typename pivot_type::size_type calc_pivot_max_length(
-            const converter_type& converter,
-            const string_type&    string
-        )
-        const
-        {
-            std::mbstate_t state = std::mbstate_t();
-
-            return converter.length(
-                state,
-                string.c_str(),
-                string.c_str() + string.length(),
-                std::numeric_limits<std::size_t>::max()
-            ) + 1;
-        }
-
-        pivot_type convert_to_pivot(
-            const converter_type&                converter,
-            const string_type&                   string,
-            const typename pivot_type::size_type pivot_max_length
-        )
-        const
-        {
-            std::mbstate_t state = std::mbstate_t();
-
-            const string_char_type* p_string_next = NULL;
-
-            boost::scoped_array<pivot_char_type> p_pivot(
-                new pivot_char_type[pivot_max_length]
-            );
-            pivot_char_type* p_pivot_next = NULL;
-            
-            const typename converter_type::result result =
-                converter.in(
-                    state,
-                    string.c_str(),
-                    string.c_str() + string.length(),
-                    p_string_next,
-                    p_pivot.get(),
-                    p_pivot.get() + pivot_max_length,
-                    p_pivot_next
-                );
-            
-            if (result == converter_type::ok)
-            {
-                *p_pivot_next = TETENGO2_TEXT('\0');
-                return pivot_type(p_pivot.get());
-            }
-            else if (result == converter_type::noconv)
-            {
-                assert(string.length() + 1 == pivot_max_length);
-                return pivot_type(string.begin(), string.end());
-            }
-            else
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't convert string to pivot.")
-                );
-            }
         }
 
 
