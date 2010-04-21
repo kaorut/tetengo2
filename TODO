@@ -29,11 +29,6 @@ Added on    : 2010/04/11
 Depends on  : (none)
 Description : Create tetengo2::encoding::ascii.
 ------------------------------------------------------------------------------
-Number      : 00000030
-Added on    : 2010/04/14
-Depends on  : (none)
-Description : Improve the implementation of tetengo2::encoder.
-------------------------------------------------------------------------------
 Number      : 00000031
 Added on    : 2010/mm/yy
 Depends on  : (none)
