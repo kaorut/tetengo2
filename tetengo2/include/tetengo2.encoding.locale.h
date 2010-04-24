@@ -18,6 +18,7 @@
 #include <vector>
 
 //#include <boost/concept_check.hpp>
+#include <boost/operators.hpp>
 //#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits.hpp>
@@ -42,7 +43,8 @@ namespace tetengo2 { namespace encoding
     class locale :
         public encoding,
         public assignable<locale<String> >,
-        private swappable<locale<String> >
+        private swappable<locale<String> >,
+        private boost::equality_comparable<locale<String> >
     {
     private:
         // concept checks
@@ -113,6 +115,21 @@ namespace tetengo2 { namespace encoding
         locale& operator=(const locale& another)
         {
             return assign(another);
+        }
+
+        /*!
+            \brief Checks whether one encoding based on a locale is equal to
+                   another.
+
+            \param one     One encoding based on a locale.
+            \param another Another encoding based on a locale.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const locale& one, const locale& another)
+        {
+            return one.m_locale == another.m_locale;
         }
 
         /*!

@@ -13,6 +13,7 @@
 #include <cstddef>
 //#include <string>
 
+#include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
 
 #define NOMINMAX
@@ -32,7 +33,8 @@ namespace tetengo2 { namespace encoding { namespace win32
     class utf8 :
         public encoding,
         public assignable<utf8>,
-        private swappable<utf8>
+        private swappable<utf8>,
+        private boost::equality_comparable<utf8>
     {
     public:
         // types
@@ -89,6 +91,20 @@ namespace tetengo2 { namespace encoding { namespace win32
         utf8& operator=(const utf8& another)
         {
             return assign(another);
+        }
+
+        /*!
+            \brief Checks whether one UTF-8 encoding is equal to another.
+
+            \param one     One UTF-8 encoding.
+            \param another Another UTF-8 encoding.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const utf8& one, const utf8& another)
+        {
+            return true;
         }
 
         /*!

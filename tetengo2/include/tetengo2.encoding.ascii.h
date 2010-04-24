@@ -13,6 +13,7 @@
 //#include <string>
 
 #include <boost/iterator_adaptors.hpp>
+#include <boost/operators.hpp>
 
 #include "tetengo2.assignable.h"
 #include "tetengo2.swappable.h"
@@ -27,7 +28,8 @@ namespace tetengo2 { namespace encoding
     class ascii :
         public encoding,
         public assignable<ascii>,
-        private swappable<ascii>
+        private swappable<ascii>,
+        private boost::equality_comparable<ascii>
     {
     public:
         // types
@@ -84,6 +86,20 @@ namespace tetengo2 { namespace encoding
         ascii& operator=(const ascii& another)
         {
             return assign(another);
+        }
+
+        /*!
+            \brief Checks whether one ascii encoding is equal to another.
+
+            \param one     One ASCII encoding.
+            \param another Another ASCII encoding.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const ascii& one, const ascii& another)
+        {
+            return true;
         }
 
         /*!

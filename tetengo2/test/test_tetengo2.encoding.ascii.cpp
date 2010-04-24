@@ -77,6 +77,16 @@ BOOST_AUTO_TEST_SUITE(ascii)
         encoding1 = encoding2;
     }
 
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const tetengo2::encoding::ascii encoding1;
+        const tetengo2::encoding::ascii encoding2;
+
+        BOOST_CHECK(encoding1 == encoding2);
+    }
+
     BOOST_AUTO_TEST_CASE(from_pivot)
     {
         BOOST_TEST_PASSPOINT();

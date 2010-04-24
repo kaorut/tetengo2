@@ -89,6 +89,16 @@ BOOST_AUTO_TEST_SUITE(utf8)
         encoding1 = encoding2;
     }
 
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const tetengo2::encoding::win32::utf8 encoding1;
+        const tetengo2::encoding::win32::utf8 encoding2;
+
+        BOOST_CHECK(encoding1 == encoding2);
+    }
+
     BOOST_AUTO_TEST_CASE(from_pivot)
     {
         BOOST_TEST_PASSPOINT();

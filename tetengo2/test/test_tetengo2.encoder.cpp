@@ -8,10 +8,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-//#include <locale>
-//#include <stdexcept>
-//#include <string>
-
 #include "tetengo2.text.h"
 #include "tetengo2.encoding.ascii.h"
 
