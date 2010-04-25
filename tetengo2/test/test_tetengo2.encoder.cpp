@@ -43,13 +43,14 @@ BOOST_AUTO_TEST_SUITE(encoder)
             const encoding_type encoding2;
             const encoder_type encoder1(encoding1, encoding2);
             const encoder_type encoder2(encoder1);
+
+            BOOST_CHECK(encoder1 == encoder2);
         }
     }
 
     BOOST_AUTO_TEST_CASE(swap)
     {
         BOOST_TEST_PASSPOINT();
-
 
         const encoding_type encoding1;
         const encoding_type encoding2;
@@ -69,6 +70,20 @@ BOOST_AUTO_TEST_SUITE(encoder)
         const encoder_type encoder2(encoding2, encoding1);
 
         encoder1 = encoder2;
+
+        BOOST_CHECK(encoder1 == encoder2);
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const encoding_type encoding1;
+        const encoding_type encoding2;
+        encoder_type encoder1(encoding1, encoding2);
+        encoder_type encoder2(encoding1, encoding2);
+
+        BOOST_CHECK(encoder1 == encoder2);
     }
 
     BOOST_AUTO_TEST_CASE(internal_encoding)

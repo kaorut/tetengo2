@@ -24,7 +24,8 @@ namespace concept_tetengo2
     template <typename Type>
     class Encoder :
         private boost::DefaultConstructible<Type>,
-        private concept_tetengo2::Assignable<Type>
+        private concept_tetengo2::Assignable<Type>,
+        private boost::EqualityComparable<Type>
     {
 #if !defined(DOCUMENTATION)
     public:

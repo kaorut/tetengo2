@@ -24,11 +24,6 @@ Added on    : 2010/04/02
 Depends on  : (none)
 Description : Improve the precompiled header compile rule with Automake.
 ------------------------------------------------------------------------------
-Number      : 00000031
-Added on    : 2010/04/23
-Depends on  : (none)
-Description : Add operator==() to tetengo2::encoder and tetengo2::encoding::*.
-------------------------------------------------------------------------------
 Number      : 00000033
 Added on    : 2010/mm/yy
 Depends on  : (none)

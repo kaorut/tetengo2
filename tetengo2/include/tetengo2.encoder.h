@@ -13,11 +13,13 @@
 
 //#include <boost/concept_check.hpp>
 //#include <boost/swap.hpp>
+#include <boost/operators.hpp>
 //#include <boost/type_traits.hpp>
 //#include <boost/utility.hpp>
 
 #include "concept_tetengo2.encoding.Encoding.h"
 #include "tetengo2.assignable.h"
+#include "tetengo2.swappable.h"
 #include "tetengo2.encoding.locale.h"
 
 
@@ -33,7 +35,11 @@ namespace tetengo2
     */
     template <typename InternalEncoding, typename ExternalEncoding>
     class encoder :
-        public assignable<encoder<InternalEncoding, ExternalEncoding> >
+        public assignable<encoder<InternalEncoding, ExternalEncoding> >,
+        public swappable<encoder<InternalEncoding, ExternalEncoding> >,
+        public boost::equality_comparable<
+            encoder<InternalEncoding, ExternalEncoding>
+        >
     {
     private:
         // concept checks
@@ -126,6 +132,21 @@ namespace tetengo2
         encoder& operator=(const encoder& another)
         {
             return assign(another);
+        }
+
+        /*!
+            \brief Checks whether one encoder is equal to another.
+
+            \param one     One encoder.
+            \param another Another encoder.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const encoder& one, const encoder& another)
+        {
+            return one.m_internal_encoding == another.m_internal_encoding &&
+                one.m_external_encoding == another.m_external_encoding;
         }
 
         /*!
