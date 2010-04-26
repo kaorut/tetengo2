@@ -66,6 +66,8 @@ extra_sources = \
     test_tetengo2.gui.win32.widget.cpp \
     test_tetengo2.gui.win32.window.cpp
 
+BUILT_SOURCES = $(PRECOMPILE_BUILT_SOURCES)
+
 check_PROGRAMS = tetengo2.test
 EXTRA_DIST = $(extra_headers) $(extra_sources)
 
@@ -91,4 +93,7 @@ messages.test:
 
 clean-local:
 	-rm -rf messages.test
+
+$(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
+	pushd $(top_srcdir)/precompiled; $(MAKE) all; popd
 

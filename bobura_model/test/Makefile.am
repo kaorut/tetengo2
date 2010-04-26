@@ -19,6 +19,8 @@ sources = \
 
 extra_sources =
 
+BUILT_SOURCES = $(PRECOMPILE_BUILT_SOURCES)
+
 check_PROGRAMS = bobura_model.test
 EXTRA_DIST = $(extra_headers) $(extra_sources)
 
@@ -37,3 +39,7 @@ bobura_model_test_LDADD = \
     $(BOOST_SYSTEM_LIB) \
     $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 bobura_model_test_SOURCES = $(headers) $(sources)
+
+$(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
+	pushd $(top_srcdir)/precompiled; $(MAKE) all; popd
+

@@ -19,11 +19,6 @@ Description : Use boost::signal2::signal directly to implement event
               observers.
               Make event observer aggregating classes.
 ------------------------------------------------------------------------------
-Number      : 00000027
-Added on    : 2010/04/02
-Depends on  : (none)
-Description : Improve the precompiled header compile rule with Automake.
-------------------------------------------------------------------------------
 Number      : 00000033
 Added on    : 2010/mm/yy
 Depends on  : (none)
