@@ -557,6 +557,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="test_tetengo2::meta"
+				>
+				<File
+					RelativePath=".\test\test_tetengo2.meta.assoc_list.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Headers"

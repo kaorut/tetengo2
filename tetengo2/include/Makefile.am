@@ -42,7 +42,8 @@ headers = \
     tetengo2.gui.mouse_observer.h \
     tetengo2.gui.paint_observer.h \
     tetengo2.gui.recursive_menu_iterator.h \
-    tetengo2.gui.window_observer.h
+    tetengo2.gui.window_observer.h \
+    tetengo2.meta.assoc_list.h
 
 extra_headers = \
     tetengo2.encoding.win32.utf8.h \

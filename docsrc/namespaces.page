@@ -58,6 +58,10 @@
     \brief The namespace for GUI specific to Win32 platforms.
 */
 
+/*! \namespace tetengo2::meta
+    \brief The namespace for metaprogramming.
+*/
+
 /*! \namespace concept_bobura
     \brief The namespace for concept check classes for the namespace bobura.
 */
