@@ -383,6 +383,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="tetengo2::meta"
+				>
+				<File
+					RelativePath=".\include\tetengo2.meta.assoc_list.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resources"
