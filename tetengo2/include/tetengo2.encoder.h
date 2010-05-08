@@ -13,7 +13,7 @@
 
 //#include <boost/concept_check.hpp>
 //#include <boost/swap.hpp>
-#include <boost/operators.hpp>
+//#include <boost/operators.hpp>
 //#include <boost/type_traits.hpp>
 //#include <boost/utility.hpp>
 

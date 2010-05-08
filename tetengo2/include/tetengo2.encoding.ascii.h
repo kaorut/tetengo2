@@ -12,8 +12,8 @@
 #include <stdexcept>
 //#include <string>
 
-#include <boost/iterator_adaptors.hpp>
 #include <boost/operators.hpp>
+#include <boost/iterator/transform_iterator.hpp>
 
 #include "tetengo2.assignable.h"
 #include "tetengo2.swappable.h"

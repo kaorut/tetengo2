@@ -46,7 +46,7 @@
 #include <boost/function.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/iterator_adaptors.hpp>
+#include <boost/iterator/transform_iterator.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
