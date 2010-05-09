@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_MESSAGECATALOGPARSER_H)
-#define TETENGO2_MESSAGECATALOGPARSER_H
+#define TETENGO2_MESSAGECATALOGPARSER_H //!< !! Include Guard !!
 
 #include <algorithm>
 #include <cstddef>

@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_MENUSEPARATOR_H)
-#define STUBTETENGO2_GUI_MENUSEPARATOR_H
+#define STUBTETENGO2_GUI_MENUSEPARATOR_H //!< !! Include Guard !!
 
 #include <cstddef>
 

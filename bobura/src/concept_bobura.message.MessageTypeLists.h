@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTBOBURA_MESSAGE_MESSAGETYPELIST_H)
-#define CONCEPTBOBURA_MESSAGE_MESSAGETYPELIST_H
+#define CONCEPTBOBURA_MESSAGE_MESSAGETYPELIST_H //!< !! Include Guard !!
 
 #include <boost/concept_check.hpp>
 

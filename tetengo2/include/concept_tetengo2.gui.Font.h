@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_GUI_FONT_H)
-#define CONCEPTTETENGO2_GUI_FONT_H
+#define CONCEPTTETENGO2_GUI_FONT_H //!< !! Include Guard !!
 
 //#include <boost/concept_check.hpp>
 

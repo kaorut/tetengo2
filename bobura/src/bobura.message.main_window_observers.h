@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MESSAGE_MAINWINDOWOBSERVERS_H)
-#define BOBURA_MESSAGE_MAINWINDOWOBSERVERS_H
+#define BOBURA_MESSAGE_MAINWINDOWOBSERVERS_H //!< !! Include Guard !!
 
 #include <utility>
 

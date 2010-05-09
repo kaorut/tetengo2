@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MODEL_TRAININFO_STOP_H)
-#define BOBURA_MODEL_TRAININFO_STOP_H
+#define BOBURA_MODEL_TRAININFO_STOP_H //!< !! Include Guard !!
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>

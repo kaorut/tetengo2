@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_ENCODING_LOCALE_H)
-#define TETENGO2_ENCODING_LOCALE_H
+#define TETENGO2_ENCODING_LOCALE_H //!< !! Include Guard !!
 
 #include <cassert>
 #include <cstddef>

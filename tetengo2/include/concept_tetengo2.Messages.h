@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_MESSAGES_H)
-#define CONCEPTTETENGO2_MESSAGES_H
+#define CONCEPTTETENGO2_MESSAGES_H //!< !! Include Guard !!
 
 #include <locale>
 #include <string>

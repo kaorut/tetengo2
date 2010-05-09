@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTBOBURA_ABOUTDIALOG_H)
-#define CONCEPTBOBURA_ABOUTDIALOG_H
+#define CONCEPTBOBURA_ABOUTDIALOG_H //!< !! Include Guard !!
 
 //#include <boost/concept_check.hpp>
 

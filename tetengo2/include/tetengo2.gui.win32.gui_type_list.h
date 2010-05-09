@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_WIN32_GUITYPELIST_H)
-#define TETENGO2_GUI_WIN32_GUITYPELIST_H
+#define TETENGO2_GUI_WIN32_GUITYPELIST_H //!< !! Include Guard !!
 
 //#include <boost/concept_check.hpp>
 

@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_COMMAND_ABOUT_H)
-#define BOBURA_COMMAND_ABOUT_H
+#define BOBURA_COMMAND_ABOUT_H //!< !! Include Guard !!
 
 //#include <boost/concept_check.hpp>
 #include <boost/swap.hpp>

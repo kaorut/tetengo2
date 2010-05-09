@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTBOBURA_MAINWINDOW_H)
-#define CONCEPTBOBURA_MAINWINDOW_H
+#define CONCEPTBOBURA_MAINWINDOW_H //!< !! Include Guard !!
 
 //#include <boost/concept_check.hpp>
 

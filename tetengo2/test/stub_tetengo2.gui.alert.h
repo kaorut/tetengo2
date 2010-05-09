@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_ALERT_H)
-#define STUBTETENGO2_GUI_ALERT_H
+#define STUBTETENGO2_GUI_ALERT_H //!< !! Include Guard !!
 
 #include <cstddef>
 #include <exception>

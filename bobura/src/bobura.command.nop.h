@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_COMMAND_NOP_H)
-#define BOBURA_COMMAND_NOP_H
+#define BOBURA_COMMAND_NOP_H //!< !! Include Guard !!
 
 #include <tetengo2.assignable.h>
 #include <tetengo2.swappable.h>

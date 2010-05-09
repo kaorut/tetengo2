@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_RECURSIVEMENUITERATOR_H)
-#define TETENGO2_GUI_RECURSIVEMENUITERATOR_H
+#define TETENGO2_GUI_RECURSIVEMENUITERATOR_H //!< !! Include Guard !!
 
 #include <cassert>
 #include <cstddef>

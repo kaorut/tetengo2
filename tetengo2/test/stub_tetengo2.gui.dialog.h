@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_DIALOG_H)
-#define STUBTETENGO2_GUI_DIALOG_H
+#define STUBTETENGO2_GUI_DIALOG_H //!< !! Include Guard !!
 
 //#include <boost/concept_check.hpp>
 

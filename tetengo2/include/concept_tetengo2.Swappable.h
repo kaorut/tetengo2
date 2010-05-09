@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_SWAPPABLE_H)
-#define CONCEPTTETENGO2_SWAPPABLE_H
+#define CONCEPTTETENGO2_SWAPPABLE_H //!< !! Include Guard !!
 
 #include <boost/concept_check.hpp>
 #include <boost/swap.hpp>

@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_TYPELIST_H)
-#define BOBURA_TYPELIST_H
+#define BOBURA_TYPELIST_H //!< !! Include Guard !!
 
 //#include <cstddef>
 //#include <istream>

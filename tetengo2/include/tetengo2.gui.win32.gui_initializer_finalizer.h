@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_GUIINITIALIZERFINALIZER_H)
-#define TETENGO2_GUI_GUIINITIALIZERFINALIZER_H
+#define TETENGO2_GUI_GUIINITIALIZERFINALIZER_H //!< !! Include Guard !!
 
 #include <cstddef>
 #include <stdexcept>

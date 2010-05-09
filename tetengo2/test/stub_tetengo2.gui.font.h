@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_FONT_H)
-#define STUBTETENGO2_GUI_FONT_H
+#define STUBTETENGO2_GUI_FONT_H //!< !! Include Guard !!
 
 #include <vector>
 

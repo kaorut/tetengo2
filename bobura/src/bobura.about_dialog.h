@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_ABOUTDIALOG_H)
-#define BOBURA_ABOUTDIALOG_H
+#define BOBURA_ABOUTDIALOG_H //!< !! Include Guard !!
 
 //#include <memory>
 //#include <utility>

@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_WIDGET_H)
-#define STUBTETENGO2_GUI_WIDGET_H
+#define STUBTETENGO2_GUI_WIDGET_H //!< !! Include Guard !!
 
 //#include <cstddef>
 #include <exception>

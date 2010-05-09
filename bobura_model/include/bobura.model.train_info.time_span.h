@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MODEL_TRAININFO_TIMESPAN_H)
-#define BOBURA_MODEL_TRAININFO_TIMESPAN_H
+#define BOBURA_MODEL_TRAININFO_TIMESPAN_H //!< !! Include Guard !!
 
 #include <stdexcept>
 

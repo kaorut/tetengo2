@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MAINWINDOW_H)
-#define BOBURA_MAINWINDOW_H
+#define BOBURA_MAINWINDOW_H //!< !! Include Guard !!
 
 #include <memory>
 

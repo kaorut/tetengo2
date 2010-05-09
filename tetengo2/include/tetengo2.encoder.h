@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_ENCODER_H)
-#define TETENGO2_ENCODER_H
+#define TETENGO2_ENCODER_H //!< !! Include Guard !!
 
 //#include <cstddef>
 

@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_MESSAGECATALOG_H)
-#define TETENGO2_MESSAGECATALOG_H
+#define TETENGO2_MESSAGECATALOG_H //!< !! Include Guard !!
 
 #include <cstddef>
 //#include <locale>

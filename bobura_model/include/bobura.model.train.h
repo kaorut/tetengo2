@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MODEL_TRAIN_H)
-#define BOBURA_MODEL_TRAIN_H
+#define BOBURA_MODEL_TRAIN_H //!< !! Include Guard !!
 
 #include <iterator>
 #include <vector>

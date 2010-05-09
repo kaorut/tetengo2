@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_GUI_MENUITEM_H)
-#define CONCEPTTETENGO2_GUI_MENUITEM_H
+#define CONCEPTTETENGO2_GUI_MENUITEM_H //!< !! Include Guard !!
 
 #include <memory>
 

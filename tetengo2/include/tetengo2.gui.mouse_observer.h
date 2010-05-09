@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_MOUSEOBSERVER_H)
-#define TETENGO2_GUI_MOUSEOBSERVER_H
+#define TETENGO2_GUI_MOUSEOBSERVER_H //!< !! Include Guard !!
 
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>

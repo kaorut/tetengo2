@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTBOBURA_MODEL_TRAIN_H)
-#define CONCEPTBOBURA_MODEL_TRAIN_H
+#define CONCEPTBOBURA_MODEL_TRAIN_H //!< !! Include Guard !!
 
 //#include <boost/concept_check.hpp>
 

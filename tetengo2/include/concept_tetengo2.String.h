@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_STRING_H)
-#define CONCEPTTETENGO2_STRING_H
+#define CONCEPTTETENGO2_STRING_H //!< !! Include Guard !!
 
 #include <string>
 

@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_GUI_PAINTOBSERVER_H)
-#define CONCEPTTETENGO2_GUI_PAINTOBSERVER_H
+#define CONCEPTTETENGO2_GUI_PAINTOBSERVER_H //!< !! Include Guard !!
 
 #include <cstddef>
 

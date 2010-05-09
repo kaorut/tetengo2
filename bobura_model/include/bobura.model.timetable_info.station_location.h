@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H)
-#define BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H
+#define BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H //!< !! Include Guard !!
 
 //#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>

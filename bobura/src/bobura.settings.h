@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_SETTINGS_H)
-#define BOBURA_SETTINGS_H
+#define BOBURA_SETTINGS_H //!< !! Include Guard !!
 
 #include <vector>
 
