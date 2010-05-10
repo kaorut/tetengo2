@@ -9,6 +9,12 @@
 #if !defined(TETENGO2_META_ASSOCLIST_H)
 #define TETENGO2_META_ASSOCLIST_H //!< !! Include Guard !!
 
+#include <boost/mpl/begin.hpp>
+#include <boost/mpl/end.hpp>
+#include <boost/mpl/deref.hpp>
+#include <boost/mpl/iterator_tags.hpp>
+#include <boost/mpl/next.hpp>
+
 
 namespace tetengo2 { namespace meta
 {
@@ -29,11 +35,50 @@ namespace tetengo2 { namespace meta
         //! The next node.
         typedef Next next;
 
+        //! The category.
+        typedef boost::mpl::forward_iterator_tag category;
 
     };
 
 
 }}
+
+#if !defined(DOCUMENTATION)
+namespace boost { namespace mpl
+{
+    // functions
+
+    // boost::mpl::deref
+    template <typename Value, typename Next>
+    struct deref<tetengo2::meta::assoc_list<Value, Next> >
+    {
+        typedef Value type;
+    };
+
+    // boost::mpl::next
+    template <typename Value, typename Next>
+    struct next<tetengo2::meta::assoc_list<Value, Next> >
+    {
+        typedef Next type;
+    };
+
+    // boost::mpl::begin
+    template <typename Value, typename Next>
+    struct begin<tetengo2::meta::assoc_list<Value, Next> >
+    {
+        typedef tetengo2::meta::assoc_list<Value, Next> type;
+    };
+
+    // boost::mpl::end
+    template <typename Value, typename Next>
+    struct end<tetengo2::meta::assoc_list<Value, Next> >
+    {
+        typedef tetengo2::meta::assoc_list<Value, Next> type;
+    };
+
+
+}}
+#endif
 
 
 #endif

@@ -120,6 +120,7 @@ BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
 BOOST_CONCEPT_ASSERT                             boost/concept_check.hpp
 BOOST_CONCEPT_USAGE                              boost/concept_check.hpp
+BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
 BOOST_TEST_MODULE                                boost/test/unit_test.hpp
@@ -178,10 +179,19 @@ boost::forward_traversal_tag                     boost/iterator/iterator_categor
 boost::function                                  boost/function.hpp
 boost::get_error_info                            boost/exception/all.hpp
 boost::ignore_unused_variable_warning            boost/concept_check.hpp
+boost::is_convertible                            boost/type_traits.hpp
 boost::is_same                                   boost/type_traits.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
 boost::make_transform_iterator                   boost/iterator/transform_iterator.hpp
 boost::make_tuple                                boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
+boost::mpl::begin                                boost/mpl/begin.hpp
+boost::mpl::deref                                boost/mpl/deref.hpp
+boost::mpl::end                                  boost/mpl/end.hpp
+boost::mpl::forward_iterator_tag                 boost/mpl/iterator_tags.hpp
+boost::mpl::int_                                 boost/mpl/int.hpp
+boost::mpl::next                                 boost/mpl/next.hpp
+boost::mpl::pair                                 boost/mpl/pair.hpp
+boost::mpl::void_                                boost/mpl/void.hpp
 boost::next                                      boost/next_prior.hpp
 boost::noncopyable                               boost/noncopyable.hpp
 boost::optional                                  boost/optional.hpp
