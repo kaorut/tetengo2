@@ -14,7 +14,10 @@
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/next.hpp>
+<<<<<<< HEAD
 #include <boost/mpl/void.hpp>
+=======
+>>>>>>> 58d562fba44ebab96dd811888cfbb7040889ed3f
 
 
 namespace tetengo2 { namespace meta
@@ -74,7 +77,11 @@ namespace boost { namespace mpl
     template <typename Value, typename Next>
     struct end<tetengo2::meta::assoc_list<Value, Next> >
     {
+<<<<<<< HEAD
         typedef boost::mpl::void_ type;
+=======
+        typedef tetengo2::meta::assoc_list<Value, Next> type;
+>>>>>>> 58d562fba44ebab96dd811888cfbb7040889ed3f
     };
 
 
