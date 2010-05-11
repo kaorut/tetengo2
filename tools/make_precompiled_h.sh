@@ -9,19 +9,17 @@ SOLUTIONDIR=`dirname $0`/..
 
 list()
 {
-    for f in `$1`;
+    for f in "$1";
     do
-        grep "^\#include <[a-z]\+>" $f;
+        grep -h "^\#include <[a-z]\+>" $f;
     done | sort | uniq
     echo ''
-    for f in `$1`;
+    for f in "$1";
     do
-        grep "^\#include <boost\/" $f;
-    done | sort | uniq
+        grep -h "^\#include <boost\/" $f;
+    done |
+    grep -v "^\#include <boost\/test\/" | sort | uniq
 }
 
-echo '// sources'
-list "list_sources $SOLUTIONDIR"
-echo ''
-echo '// test sources'
-list "list_sources $SOLUTIONDIR && list_test_sources $SOLUTIONDIR"
+SOURCES=`list_sources $SOLUTIONDIR && list_test_sources $SOLUTIONDIR`
+list "$SOURCES"

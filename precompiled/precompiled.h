@@ -47,11 +47,15 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/transform_iterator.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/end.hpp>
+#include <boost/mpl/int.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/next.hpp>
+#include <boost/mpl/pair.hpp>
+#include <boost/mpl/void.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
