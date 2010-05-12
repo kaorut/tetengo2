@@ -176,12 +176,12 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         {
             typedef boost::mpl::end<assoc_list1>::type end;
 
-            BOOST_MPL_ASSERT((boost::is_same<end, boost::mpl::void_>));
+            BOOST_MPL_ASSERT((boost::is_same<end, assoc_list1::next>));
         }
         {
             typedef boost::mpl::end<assoc_list2>::type end;
 
-            BOOST_MPL_ASSERT((boost::is_same<end, boost::mpl::void_>));
+            BOOST_MPL_ASSERT((boost::is_same<end, assoc_list2::next::next>));
         }
     }
 
