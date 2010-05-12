@@ -15,6 +15,7 @@
 //#include <boost/mpl/iterator_tags.hpp>
 //#include <boost/mpl/next.hpp>
 #include <boost/mpl/pair.hpp>
+//#include <boost/mpl/size.hpp>
 #include <boost/mpl/void.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -42,17 +43,6 @@ namespace
         boost::mpl::void_
         > >
         assoc_list2;
-
-    typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<boost::mpl::int_<0>, boost::mpl::int_<3000> >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<boost::mpl::int_<1>, boost::mpl::int_<3001> >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<boost::mpl::int_<2>, boost::mpl::int_<3010> >,
-        boost::mpl::void_
-        > > >
-        assoc_list3;
 
 
 }
@@ -182,6 +172,25 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::end<assoc_list2>::type end;
 
             BOOST_MPL_ASSERT((boost::is_same<end, assoc_list2::next::next>));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(size)
+    {
+        {
+            typedef boost::mpl::size<assoc_list0>::type size;
+
+            BOOST_MPL_ASSERT_RELATION(size::value, ==, 0);
+        }
+        {
+            typedef boost::mpl::size<assoc_list1>::type size;
+
+            BOOST_MPL_ASSERT_RELATION(size::value, ==, 1);
+        }
+        {
+            typedef boost::mpl::size<assoc_list2>::type size;
+
+            BOOST_MPL_ASSERT_RELATION(size::value, ==, 2);
         }
     }
 
