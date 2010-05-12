@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_ENCODING_UTF8_H)
-#define STUBTETENGO2_ENCODING_UTF8_H //!< !! Include Guard !!
+#define STUBTETENGO2_ENCODING_UTF8_H
 
 //#include <string>
 

@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_WIN32_MESSAGELOOP_H)
-#define TETENGO2_GUI_WIN32_MESSAGELOOP_H //!< !! Include Guard !!
+#define TETENGO2_GUI_WIN32_MESSAGELOOP_H
 
 #include <cstddef>
 #include <sstream>

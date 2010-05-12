@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_META_ASSOCLIST_H)
-#define TETENGO2_META_ASSOCLIST_H //!< !! Include Guard !!
+#define TETENGO2_META_ASSOCLIST_H
 
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/end.hpp>

@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MODEL_TIMETABLE_H)
-#define BOBURA_MODEL_TIMETABLE_H //!< !! Include Guard !!
+#define BOBURA_MODEL_TIMETABLE_H
 
 #include <algorithm>
 #include <iterator>

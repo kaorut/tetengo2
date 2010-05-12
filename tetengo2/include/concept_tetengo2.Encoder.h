@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_ENCODER_H)
-#define CONCEPTTETENGO2_ENCODER_H //!< !! Include Guard !!
+#define CONCEPTTETENGO2_ENCODER_H
 
 //#include <boost/concept_check.hpp>
 

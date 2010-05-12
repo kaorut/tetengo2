@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTBOBURA_SETTINGS_H)
-#define CONCEPTBOBURA_SETTINGS_H //!< !! Include Guard !!
+#define CONCEPTBOBURA_SETTINGS_H
 
 #include <boost/concept_check.hpp>
 

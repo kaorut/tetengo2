@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_MESSAGECATALOG_H)
-#define CONCEPTTETENGO2_MESSAGECATALOG_H //!< !! Include Guard !!
+#define CONCEPTTETENGO2_MESSAGECATALOG_H
 
 #include <boost/concept_check.hpp>
 

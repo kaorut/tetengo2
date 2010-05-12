@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MESSAGE_ABOUTDIALOGOBSERVERS_H)
-#define BOBURA_MESSAGE_ABOUTDIALOGOBSERVERS_H //!< !! Include Guard !!
+#define BOBURA_MESSAGE_ABOUTDIALOGOBSERVERS_H
 
 #include <cassert>
 #include <cstddef>

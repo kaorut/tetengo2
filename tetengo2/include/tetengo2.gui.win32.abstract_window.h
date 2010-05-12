@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_WIN32_ABSTRACTWINDOW_H)
-#define TETENGO2_GUI_WIN32_ABSTRACTWINDOW_H //!< !! Include Guard !!
+#define TETENGO2_GUI_WIN32_ABSTRACTWINDOW_H
 
 #include <algorithm>
 #include <cassert>

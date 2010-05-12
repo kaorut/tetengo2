@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_MAINMENU_H)
-#define STUBTETENGO2_GUI_MAINMENU_H //!< !! Include Guard !!
+#define STUBTETENGO2_GUI_MAINMENU_H
 
 #include <cstddef>
 

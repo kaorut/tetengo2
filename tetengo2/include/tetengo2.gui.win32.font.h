@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_WIN32_FONT_H)
-#define TETENGO2_GUI_WIN32_FONT_H //!< !! Include Guard !!
+#define TETENGO2_GUI_WIN32_FONT_H
 
 #include <algorithm>
 #include <cassert>

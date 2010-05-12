@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_GUITYPELIST_H)
-#define STUBTETENGO2_GUI_GUITYPELIST_H //!< !! Include Guard !!
+#define STUBTETENGO2_GUI_GUITYPELIST_H
 
 //#include <boost/concept_check.hpp>
 

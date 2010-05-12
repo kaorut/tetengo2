@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_SWAPPABLE_H)
-#define TETENGO2_SWAPPABLE_H //!< !! Include Guard !!
+#define TETENGO2_SWAPPABLE_H
 
 
 namespace tetengo2

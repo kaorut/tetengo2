@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_WIN32_MENU_H)
-#define TETENGO2_GUI_WIN32_MENU_H //!< !! Include Guard !!
+#define TETENGO2_GUI_WIN32_MENU_H
 
 //#include <cassert>
 //#include <cstddef>

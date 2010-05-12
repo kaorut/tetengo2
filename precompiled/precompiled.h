@@ -7,7 +7,7 @@
 */
 
 #if !defined(PRECOMPILED_H)
-#define PRECOMPILED_H //!< !! Include Guard !!
+#define PRECOMPILED_H
 
 // The standard library headers
 

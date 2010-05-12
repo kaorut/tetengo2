@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_GUI_WIDGET_H)
-#define CONCEPTTETENGO2_GUI_WIDGET_H //!< !! Include Guard !!
+#define CONCEPTTETENGO2_GUI_WIDGET_H
 
 #include <memory>
 #include <utility>

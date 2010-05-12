@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_PAINTOBSERVER_H)
-#define TETENGO2_GUI_PAINTOBSERVER_H //!< !! Include Guard !!
+#define TETENGO2_GUI_PAINTOBSERVER_H
 
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>

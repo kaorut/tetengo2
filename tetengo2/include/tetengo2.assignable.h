@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_ASSIGNABLE_H)
-#define TETENGO2_ASSIGNABLE_H //!< !! Include Guard !!
+#define TETENGO2_ASSIGNABLE_H
 
 
 namespace tetengo2

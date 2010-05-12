@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_QUITMESSAGELOOP_H)
-#define STUBTETENGO2_GUI_QUITMESSAGELOOP_H //!< !! Include Guard !!
+#define STUBTETENGO2_GUI_QUITMESSAGELOOP_H
 
 #include <functional>
 

@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTBOBURA_COMMAND_COMMANDTYPELIST_H)
-#define CONCEPTBOBURA_COMMAND_COMMANDTYPELIST_H //!< !! Include Guard !!
+#define CONCEPTBOBURA_COMMAND_COMMANDTYPELIST_H
 
 #include <boost/concept_check.hpp>
 

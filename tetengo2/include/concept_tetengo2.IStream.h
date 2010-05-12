@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_ISTREAM_H)
-#define CONCEPTTETENGO2_ISTREAM_H //!< !! Include Guard !!
+#define CONCEPTTETENGO2_ISTREAM_H
 
 #include <istream>
 

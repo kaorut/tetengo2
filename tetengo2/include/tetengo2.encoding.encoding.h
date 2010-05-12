@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_ENCODING_ENCODING_H)
-#define TETENGO2_ENCODING_ENCODING_H //!< !! Include Guard !!
+#define TETENGO2_ENCODING_ENCODING_H
 
 #include <string>
 

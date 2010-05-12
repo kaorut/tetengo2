@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GENERATOR_H)
-#define TETENGO2_GENERATOR_H //!< !! Include Guard !!
+#define TETENGO2_GENERATOR_H
 
 
 namespace tetengo2

@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MODEL_TRAININFO_TIME_H)
-#define BOBURA_MODEL_TRAININFO_TIME_H //!< !! Include Guard !!
+#define BOBURA_MODEL_TRAININFO_TIME_H
 
 #include <cassert>
 #include <limits>

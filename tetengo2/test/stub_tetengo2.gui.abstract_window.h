@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_ABSTRACTWINDOW_H)
-#define STUBTETENGO2_GUI_ABSTRACTWINDOW_H //!< !! Include Guard !!
+#define STUBTETENGO2_GUI_ABSTRACTWINDOW_H
 
 //#include <memory>
 

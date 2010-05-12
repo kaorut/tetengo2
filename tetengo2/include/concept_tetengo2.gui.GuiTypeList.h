@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_GUI_GUITYPELIST_H)
-#define CONCEPTTETENGO2_GUI_GUITYPELIST_H //!< !! Include Guard !!
+#define CONCEPTTETENGO2_GUI_GUITYPELIST_H
 
 #include <boost/concept_check.hpp>
 

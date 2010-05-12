@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_MESSAGES_H)
-#define TETENGO2_MESSAGES_H //!< !! Include Guard !!
+#define TETENGO2_MESSAGES_H
 
 #include <algorithm>
 #include <functional>

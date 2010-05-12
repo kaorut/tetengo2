@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_MENUOBSERVER_H)
-#define TETENGO2_GUI_MENUOBSERVER_H //!< !! Include Guard !!
+#define TETENGO2_GUI_MENUOBSERVER_H
 
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>

@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_GUI_DIALOG_H)
-#define CONCEPTTETENGO2_GUI_DIALOG_H //!< !! Include Guard !!
+#define CONCEPTTETENGO2_GUI_DIALOG_H
 
 //#include <boost/concept_check.hpp>
 

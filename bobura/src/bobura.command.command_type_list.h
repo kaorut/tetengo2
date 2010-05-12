@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_COMMAND_COMMANDTYPELIST_H)
-#define BOBURA_COMMAND_COMMANDTYPELIST_H //!< !! Include Guard !!
+#define BOBURA_COMMAND_COMMANDTYPELIST_H
 
 //#include <boost/concept_check.hpp>
 #include <boost/function.hpp>

@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_BOBURA_H)
-#define BOBURA_BOBURA_H //!< !! Include Guard !!
+#define BOBURA_BOBURA_H
 
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>

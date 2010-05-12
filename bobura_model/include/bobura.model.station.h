@@ -7,7 +7,7 @@
 */
 
 #if !defined(BOBURA_MODEL_STATION_H)
-#define BOBURA_MODEL_STATION_H //!< !! Include Guard !!
+#define BOBURA_MODEL_STATION_H
 
 #include <cassert>
 #include <cstddef>

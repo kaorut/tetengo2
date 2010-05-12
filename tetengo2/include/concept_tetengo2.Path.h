@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTTETENGO2_PATH_H)
-#define CONCEPTTETENGO2_PATH_H //!< !! Include Guard !!
+#define CONCEPTTETENGO2_PATH_H
 
 #include <boost/concept_check.hpp>
 #include <boost/filesystem.hpp>

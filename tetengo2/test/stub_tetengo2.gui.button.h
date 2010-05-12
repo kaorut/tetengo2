@@ -7,7 +7,7 @@
 */
 
 #if !defined(STUBTETENGO2_GUI_BUTTON_H)
-#define STUBTETENGO2_GUI_BUTTON_H //!< !! Include Guard !!
+#define STUBTETENGO2_GUI_BUTTON_H
 
 //#include <boost/concept_check.hpp>
 

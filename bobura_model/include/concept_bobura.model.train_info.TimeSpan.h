@@ -7,7 +7,7 @@
 */
 
 #if !defined(CONCEPTBOBURA_MODEL_TRAININFO_TIMESPAN_H)
-#define CONCEPTBOBURA_MODEL_TRAININFO_TIMESPAN_H //!< !! Include Guard !!
+#define CONCEPTBOBURA_MODEL_TRAININFO_TIMESPAN_H
 
 //#include <boost/concept_check.hpp>
 #include <boost/tuple/tuple.hpp>
