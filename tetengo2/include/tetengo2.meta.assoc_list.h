@@ -12,8 +12,10 @@
 #include <cstddef>
 
 #include <boost/mpl/begin.hpp>
-#include <boost/mpl/end.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/mpl/deref.hpp>
+#include <boost/mpl/empty.hpp>
+#include <boost/mpl/end.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/next.hpp>
 #include <boost/mpl/size.hpp>
@@ -146,6 +148,19 @@ namespace boost { namespace mpl
     struct size<tetengo2::meta::assoc_list_end>
     {
         typedef boost::mpl::size_t<0> type;
+    };
+
+    // boost::mpl::empty
+    template <typename Value, typename Next>
+    struct empty<tetengo2::meta::assoc_list<Value, Next> >
+    {
+        typedef boost::mpl::bool_<false> type;
+    };
+
+    template <>
+    struct empty<tetengo2::meta::assoc_list_end>
+    {
+        typedef boost::mpl::bool_<true> type;
     };
 
 

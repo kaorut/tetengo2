@@ -9,7 +9,9 @@
 #include <boost/type_traits.hpp>
 #include <boost/mpl/assert.hpp>
 //#include <boost/mpl/begin.hpp>
+//#include <boost/mpl/bool.hpp>
 //#include <boost/mpl/deref.hpp>
+//#include <boost/mpl/empty.hpp>
 //#include <boost/mpl/end.hpp>
 #include <boost/mpl/int.hpp>
 //#include <boost/mpl/iterator_tags.hpp>
@@ -185,6 +187,31 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::size<assoc_list2>::type size;
 
             BOOST_MPL_ASSERT_RELATION(size::value, ==, 2);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(empty)
+    {
+        {
+            typedef boost::mpl::empty<assoc_list0>::type empty;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<empty, boost::mpl::bool_<true> >
+            ));
+        }
+        {
+            typedef boost::mpl::empty<assoc_list1>::type empty;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<empty, boost::mpl::bool_<false> >
+            ));
+        }
+        {
+            typedef boost::mpl::empty<assoc_list2>::type empty;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<empty, boost::mpl::bool_<false> >
+            ));
         }
     }
 
