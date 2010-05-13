@@ -16,7 +16,6 @@
 //#include <boost/mpl/next.hpp>
 #include <boost/mpl/pair.hpp>
 //#include <boost/mpl/size.hpp>
-#include <boost/mpl/void.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.meta.assoc_list.h"
@@ -26,12 +25,12 @@ namespace
 {
     // types
 
-    typedef boost::mpl::void_ assoc_list0;
+    typedef tetengo2::meta::assoc_list_end assoc_list0;
 
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<boost::mpl::int_<0>, boost::mpl::int_<1000> >,
-        boost::mpl::void_
+        tetengo2::meta::assoc_list_end
         >
         assoc_list1;
 
@@ -40,7 +39,7 @@ namespace
             boost::mpl::pair<boost::mpl::int_<0>, boost::mpl::int_<2000> >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<boost::mpl::int_<1>, boost::mpl::int_<2001> >,
-        boost::mpl::void_
+        tetengo2::meta::assoc_list_end
         > >
         assoc_list2;
 
@@ -55,13 +54,6 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
 
     BOOST_AUTO_TEST_CASE(deref)
     {
-        {
-            typedef boost::mpl::deref<assoc_list0>::type dereferenced;
-
-            BOOST_MPL_ASSERT((
-                boost::is_same<dereferenced, boost::mpl::void_>
-            ));
-        }
         {
             typedef boost::mpl::deref<assoc_list1>::type dereferenced;
 
@@ -161,7 +153,9 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         {
             typedef boost::mpl::end<assoc_list0>::type end;
 
-            BOOST_MPL_ASSERT((boost::is_same<end, boost::mpl::void_>));
+            BOOST_MPL_ASSERT((
+                boost::is_same<end, tetengo2::meta::assoc_list_end>
+            ));
         }
         {
             typedef boost::mpl::end<assoc_list1>::type end;

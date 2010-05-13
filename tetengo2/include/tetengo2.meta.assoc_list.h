@@ -18,7 +18,6 @@
 #include <boost/mpl/next.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <boost/mpl/void.hpp>
 
 
 namespace tetengo2 { namespace meta
@@ -47,6 +46,20 @@ namespace tetengo2 { namespace meta
     };
 
 
+    /*!
+        \brief The metaclass for the end node of an associative list.
+    */
+    struct assoc_list_end
+    {
+        // types
+
+        //! The category
+        typedef boost::mpl::forward_iterator_tag category;
+
+
+    };
+
+
 #if !defined(DOCUMENTATION)
     namespace detail
     {
@@ -61,7 +74,7 @@ namespace tetengo2 { namespace meta
         };
 
         template <std::size_t Size>
-        struct assoc_list_size<boost::mpl::void_, Size>
+        struct assoc_list_size<assoc_list_end, Size>
         {
             typedef boost::mpl::size_t<Size> type;
         };
@@ -99,11 +112,23 @@ namespace boost { namespace mpl
         typedef tetengo2::meta::assoc_list<Value, Next> type;
     };
 
+    template <>
+    struct begin<tetengo2::meta::assoc_list_end>
+    {
+        typedef tetengo2::meta::assoc_list_end type;
+    };
+
     // boost::mpl::end
     template <typename Value, typename Next>
     struct end<tetengo2::meta::assoc_list<Value, Next> >
     {
-        typedef boost::mpl::void_ type;
+        typedef tetengo2::meta::assoc_list_end type;
+    };
+
+    template <>
+    struct end<tetengo2::meta::assoc_list_end>
+    {
+        typedef tetengo2::meta::assoc_list_end type;
     };
 
     // boost::mpl::size
@@ -118,10 +143,11 @@ namespace boost { namespace mpl
     };
 
     template <>
-    struct size<boost::mpl::void_>
+    struct size<tetengo2::meta::assoc_list_end>
     {
         typedef boost::mpl::size_t<0> type;
     };
+
 
 }}
 #endif
