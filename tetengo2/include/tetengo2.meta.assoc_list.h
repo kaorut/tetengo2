@@ -27,6 +27,20 @@ namespace tetengo2 { namespace meta
     /*!
         \brief The metaclass for a node of an associative list.
 
+        This metaclass meets the following <a
+        href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/index.html">Boost
+        MPL</a> concepts:
+
+        \arg <a
+            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/forward-sequence.html">Forward
+            Sequence</a>
+        \arg <a
+            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/associative-sequence.html">Associative
+            Sequence</a>
+        \arg <a
+            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/extensible-associative-sequence.html">Extensible
+            Associative Sequence</a>
+
         \tparam Value A value.
         \tparam Next  A next node.
     */
