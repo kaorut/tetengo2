@@ -13,6 +13,7 @@
 //#include <boost/mpl/deref.hpp>
 //#include <boost/mpl/empty.hpp>
 //#include <boost/mpl/end.hpp>
+//#include <boost/mpl/front.hpp>
 #include <boost/mpl/int.hpp>
 //#include <boost/mpl/iterator_tags.hpp>
 //#include <boost/mpl/next.hpp>
@@ -211,6 +212,34 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
 
             BOOST_MPL_ASSERT((
                 boost::is_same<empty, boost::mpl::bool_<false> >
+            ));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(front)
+    {
+        {
+            typedef boost::mpl::front<assoc_list1>::type front;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<
+                    front,
+                    boost::mpl::pair<
+                        boost::mpl::int_<0>, boost::mpl::int_<1000>
+                    >
+                >
+            ));
+        }
+        {
+            typedef boost::mpl::front<assoc_list2>::type front;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<
+                    front,
+                    boost::mpl::pair<
+                        boost::mpl::int_<0>, boost::mpl::int_<2000>
+                    >
+                >
             ));
         }
     }
