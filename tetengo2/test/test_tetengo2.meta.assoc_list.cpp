@@ -14,6 +14,7 @@
 //#include <boost/mpl/empty.hpp>
 //#include <boost/mpl/end.hpp>
 //#include <boost/mpl/front.hpp>
+//#include <boost/mpl/has_key.hpp>
 #include <boost/mpl/int.hpp>
 //#include <boost/mpl/iterator_tags.hpp>
 //#include <boost/mpl/next.hpp>
@@ -240,6 +241,37 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                         boost::mpl::int_<0>, boost::mpl::int_<2000>
                     >
                 >
+            ));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(has_key)
+    {
+        {
+            typedef
+                boost::mpl::has_key<assoc_list0, boost::mpl::int_<0> >::type
+                has_key;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<has_key, boost::mpl::bool_<false> >
+            ));
+        }
+        {
+            typedef
+                boost::mpl::has_key<assoc_list2, boost::mpl::int_<0> >::type
+                has_key;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<has_key, boost::mpl::bool_<true> >
+            ));
+        }
+        {
+            typedef
+                boost::mpl::has_key<assoc_list2, boost::mpl::int_<2> >::type
+                has_key;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<has_key, boost::mpl::bool_<false> >
             ));
         }
     }

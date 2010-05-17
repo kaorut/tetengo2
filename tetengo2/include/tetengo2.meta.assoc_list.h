@@ -17,6 +17,7 @@
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/front.hpp>
+#include <boost/mpl/has_key.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/next.hpp>
 #include <boost/mpl/size.hpp>
@@ -183,6 +184,27 @@ namespace boost { namespace mpl
     struct front<tetengo2::meta::assoc_list<Value, Next> >
     {
         typedef Value type;
+    };
+
+    // boost::mpl::has_key
+    template <typename Value, typename Next, typename Key>
+    struct has_key<tetengo2::meta::assoc_list<Value, Next>, Key>
+    {
+        typedef typename has_key<Next, Key>::type type;
+    };
+
+    template <typename Value, typename Next>
+    struct has_key<
+        tetengo2::meta::assoc_list<Value, Next>, typename Value::first
+    >
+    {
+        typedef boost::mpl::bool_<true> type;
+    };
+
+    template <typename Key>
+    struct has_key<tetengo2::meta::assoc_list_end, Key>
+    {
+        typedef boost::mpl::bool_<false> type;
     };
 
 
