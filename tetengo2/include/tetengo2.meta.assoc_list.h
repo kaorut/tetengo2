@@ -13,6 +13,7 @@
 
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/count.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/end.hpp>
@@ -95,6 +96,36 @@ namespace tetengo2 { namespace meta
         struct assoc_list_size<assoc_list_end, Size>
         {
             typedef boost::mpl::size_t<Size> type;
+        };
+
+        template <typename AssocList, typename Key, std::size_t Count>
+        struct assoc_list_count
+        {
+            typedef
+                typename assoc_list_count<
+                    typename AssocList::next, Key, Count
+                >::type
+                type;
+        };
+
+        template <typename AssocList, std::size_t Count>
+        struct assoc_list_count<
+            AssocList, typename AssocList::value::first, Count
+        >
+        {
+            typedef
+                typename assoc_list_count<
+                    typename AssocList::next,
+                    typename AssocList::value::first,
+                    Count + 1
+                >::type
+                type;
+        };
+
+        template <typename Key, std::size_t Count>
+        struct assoc_list_count<assoc_list_end, Key, Count>
+        {
+            typedef boost::mpl::size_t<Count> type;
         };
 
 
@@ -205,6 +236,23 @@ namespace boost { namespace mpl
     struct has_key<tetengo2::meta::assoc_list_end, Key>
     {
         typedef boost::mpl::bool_<false> type;
+    };
+
+    // boost::mpl::count
+    template <typename Value, typename Next, typename Key>
+    struct count<tetengo2::meta::assoc_list<Value, Next>, Key>
+    {
+        typedef
+            typename tetengo2::meta::detail::assoc_list_count<
+                tetengo2::meta::assoc_list<Value, Next>, Key, 0
+            >::type
+            type;
+    };
+
+    template <typename Key>
+    struct count<tetengo2::meta::assoc_list_end, Key>
+    {
+        typedef boost::mpl::size_t<0> type;
     };
 
 

@@ -10,6 +10,7 @@
 #include <boost/mpl/assert.hpp>
 //#include <boost/mpl/begin.hpp>
 //#include <boost/mpl/bool.hpp>
+//#include <boost/mpl/count.hpp>
 //#include <boost/mpl/deref.hpp>
 //#include <boost/mpl/empty.hpp>
 //#include <boost/mpl/end.hpp>
@@ -46,6 +47,17 @@ namespace
         tetengo2::meta::assoc_list_end
         > >
         assoc_list2;
+
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<boost::mpl::int_<0>, boost::mpl::int_<3000> >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<boost::mpl::int_<1>, boost::mpl::int_<3001> >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<boost::mpl::int_<0>, boost::mpl::int_<3100> >,
+        tetengo2::meta::assoc_list_end
+        > > >
+        assoc_list3;
 
 
 }
@@ -273,6 +285,38 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             BOOST_MPL_ASSERT((
                 boost::is_same<has_key, boost::mpl::bool_<false> >
             ));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(count)
+    {
+        {
+            typedef
+                boost::mpl::count<assoc_list0, boost::mpl::int_<0> >::type
+                count;
+
+            BOOST_MPL_ASSERT_RELATION(count::value, ==, 0);
+        }
+        {
+            typedef
+                boost::mpl::count<assoc_list2, boost::mpl::int_<0> >::type
+                count;
+
+            BOOST_MPL_ASSERT_RELATION(count::value, ==, 1);
+        }
+        {
+            typedef
+                boost::mpl::count<assoc_list2, boost::mpl::int_<2> >::type
+                count;
+
+            BOOST_MPL_ASSERT_RELATION(count::value, ==, 0);
+        }
+        {
+            typedef
+                boost::mpl::count<assoc_list3, boost::mpl::int_<0> >::type
+                count;
+
+            BOOST_MPL_ASSERT_RELATION(count::value, ==, 2);
         }
     }
 
