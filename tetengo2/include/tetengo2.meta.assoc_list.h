@@ -45,16 +45,16 @@ namespace tetengo2 { namespace meta
             href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/extensible-associative-sequence.html">Extensible
             Associative Sequence</a>
 
-        \tparam Value A value.
-        \tparam Next  A next node.
+        \tparam Element An element.
+        \tparam Next    A next node.
     */
-    template <typename Value, typename Next>
+    template <typename Element, typename Next>
     struct assoc_list
     {
         // types
 
-        //! The value.
-        typedef Value value;
+        //! The element.
+        typedef Element element;
 
         //! The next node.
         typedef Next next;
@@ -111,13 +111,13 @@ namespace tetengo2 { namespace meta
 
         template <typename AssocList, std::size_t Count>
         struct assoc_list_count<
-            AssocList, typename AssocList::value::first, Count
+            AssocList, typename AssocList::element::first, Count
         >
         {
             typedef
                 typename assoc_list_count<
                     typename AssocList::next,
-                    typename AssocList::value::first,
+                    typename AssocList::element::first,
                     Count + 1
                 >::type
                 type;
@@ -141,7 +141,7 @@ namespace tetengo2 { namespace meta
 
         template <typename AssocList, std::size_t Order>
         struct assoc_list_order<
-            AssocList, typename AssocList::value::first, Order
+            AssocList, typename AssocList::element::first, Order
         >
         {
             typedef boost::mpl::size_t<Order> type;
@@ -166,24 +166,24 @@ namespace boost { namespace mpl
     // functions
 
     // boost::mpl::deref
-    template <typename Value, typename Next>
-    struct deref<tetengo2::meta::assoc_list<Value, Next> >
+    template <typename Element, typename Next>
+    struct deref<tetengo2::meta::assoc_list<Element, Next> >
     {
-        typedef Value type;
+        typedef Element type;
     };
 
     // boost::mpl::next
-    template <typename Value, typename Next>
-    struct next<tetengo2::meta::assoc_list<Value, Next> >
+    template <typename Element, typename Next>
+    struct next<tetengo2::meta::assoc_list<Element, Next> >
     {
         typedef Next type;
     };
 
     // boost::mpl::begin
-    template <typename Value, typename Next>
-    struct begin<tetengo2::meta::assoc_list<Value, Next> >
+    template <typename Element, typename Next>
+    struct begin<tetengo2::meta::assoc_list<Element, Next> >
     {
-        typedef tetengo2::meta::assoc_list<Value, Next> type;
+        typedef tetengo2::meta::assoc_list<Element, Next> type;
     };
 
     template <>
@@ -193,8 +193,8 @@ namespace boost { namespace mpl
     };
 
     // boost::mpl::end
-    template <typename Value, typename Next>
-    struct end<tetengo2::meta::assoc_list<Value, Next> >
+    template <typename Element, typename Next>
+    struct end<tetengo2::meta::assoc_list<Element, Next> >
     {
         typedef tetengo2::meta::assoc_list_end type;
     };
@@ -206,12 +206,12 @@ namespace boost { namespace mpl
     };
 
     // boost::mpl::size
-    template <typename Value, typename Next>
-    struct size<tetengo2::meta::assoc_list<Value, Next> >
+    template <typename Element, typename Next>
+    struct size<tetengo2::meta::assoc_list<Element, Next> >
     {
         typedef
             typename tetengo2::meta::detail::assoc_list_size<
-                tetengo2::meta::assoc_list<Value, Next>, 0
+                tetengo2::meta::assoc_list<Element, Next>, 0
             >::type
             type;
     };
@@ -223,8 +223,8 @@ namespace boost { namespace mpl
     };
 
     // boost::mpl::empty
-    template <typename Value, typename Next>
-    struct empty<tetengo2::meta::assoc_list<Value, Next> >
+    template <typename Element, typename Next>
+    struct empty<tetengo2::meta::assoc_list<Element, Next> >
     {
         typedef boost::mpl::bool_<false> type;
     };
@@ -236,22 +236,22 @@ namespace boost { namespace mpl
     };
 
     // boost::mpl::front
-    template <typename Value, typename Next>
-    struct front<tetengo2::meta::assoc_list<Value, Next> >
+    template <typename Element, typename Next>
+    struct front<tetengo2::meta::assoc_list<Element, Next> >
     {
-        typedef Value type;
+        typedef Element type;
     };
 
     // boost::mpl::has_key
-    template <typename Value, typename Next, typename Key>
-    struct has_key<tetengo2::meta::assoc_list<Value, Next>, Key>
+    template <typename Element, typename Next, typename Key>
+    struct has_key<tetengo2::meta::assoc_list<Element, Next>, Key>
     {
         typedef typename has_key<Next, Key>::type type;
     };
 
-    template <typename Value, typename Next>
+    template <typename Element, typename Next>
     struct has_key<
-        tetengo2::meta::assoc_list<Value, Next>, typename Value::first
+        tetengo2::meta::assoc_list<Element, Next>, typename Element::first
     >
     {
         typedef boost::mpl::bool_<true> type;
@@ -264,12 +264,12 @@ namespace boost { namespace mpl
     };
 
     // boost::mpl::count
-    template <typename Value, typename Next, typename Key>
-    struct count<tetengo2::meta::assoc_list<Value, Next>, Key>
+    template <typename Element, typename Next, typename Key>
+    struct count<tetengo2::meta::assoc_list<Element, Next>, Key>
     {
         typedef
             typename tetengo2::meta::detail::assoc_list_count<
-                tetengo2::meta::assoc_list<Value, Next>, Key, 0
+                tetengo2::meta::assoc_list<Element, Next>, Key, 0
             >::type
             type;
     };
@@ -281,12 +281,12 @@ namespace boost { namespace mpl
     };
 
     // boost::mpl::order
-    template <typename Value, typename Next, typename Key>
-    struct order<tetengo2::meta::assoc_list<Value, Next>, Key>
+    template <typename Element, typename Next, typename Key>
+    struct order<tetengo2::meta::assoc_list<Element, Next>, Key>
     {
         typedef
             typename tetengo2::meta::detail::assoc_list_order<
-                tetengo2::meta::assoc_list<Value, Next>, Key, 0
+                tetengo2::meta::assoc_list<Element, Next>, Key, 0
             >::type
             type;
     };
