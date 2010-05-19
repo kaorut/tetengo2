@@ -19,6 +19,7 @@
 #include <boost/mpl/int.hpp>
 //#include <boost/mpl/iterator_tags.hpp>
 //#include <boost/mpl/next.hpp>
+//#include <boost/mpl/order.hpp>
 #include <boost/mpl/pair.hpp>
 //#include <boost/mpl/size.hpp>
 #include <boost/test/unit_test.hpp>
@@ -317,6 +318,31 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 count;
 
             BOOST_MPL_ASSERT_RELATION(count::value, ==, 2);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(order)
+    {
+        {
+            typedef
+                boost::mpl::order<assoc_list0, boost::mpl::int_<0> >::type
+                order;
+
+            BOOST_MPL_ASSERT((boost::is_same<order, boost::mpl::void_>));
+        }
+        {
+            typedef
+                boost::mpl::order<assoc_list2, boost::mpl::int_<0> >::type
+                order;
+
+            BOOST_MPL_ASSERT_NOT((boost::is_same<order, boost::mpl::void_>));
+        }
+        {
+            typedef
+                boost::mpl::order<assoc_list2, boost::mpl::int_<2> >::type
+                order;
+
+            BOOST_MPL_ASSERT((boost::is_same<order, boost::mpl::void_>));
         }
     }
 

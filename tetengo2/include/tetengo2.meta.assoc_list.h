@@ -21,6 +21,7 @@
 #include <boost/mpl/has_key.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/next.hpp>
+#include <boost/mpl/order.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/size_t.hpp>
 
@@ -126,6 +127,30 @@ namespace tetengo2 { namespace meta
         struct assoc_list_count<assoc_list_end, Key, Count>
         {
             typedef boost::mpl::size_t<Count> type;
+        };
+
+        template <typename AssocList, typename Key, std::size_t Order>
+        struct assoc_list_order
+        {
+            typedef
+                typename assoc_list_order<
+                    typename AssocList::next, Key, Order + 1
+                >::type
+                type;
+        };
+
+        template <typename AssocList, std::size_t Order>
+        struct assoc_list_order<
+            AssocList, typename AssocList::value::first, Order
+        >
+        {
+            typedef boost::mpl::size_t<Order> type;
+        };
+
+        template <typename Key, std::size_t Order>
+        struct assoc_list_order<assoc_list_end, Key, Order>
+        {
+            typedef boost::mpl::void_ type;
         };
 
 
@@ -253,6 +278,23 @@ namespace boost { namespace mpl
     struct count<tetengo2::meta::assoc_list_end, Key>
     {
         typedef boost::mpl::size_t<0> type;
+    };
+
+    // boost::mpl::order
+    template <typename Value, typename Next, typename Key>
+    struct order<tetengo2::meta::assoc_list<Value, Next>, Key>
+    {
+        typedef
+            typename tetengo2::meta::detail::assoc_list_order<
+                tetengo2::meta::assoc_list<Value, Next>, Key, 0
+            >::type
+            type;
+    };
+
+    template <typename Key>
+    struct order<tetengo2::meta::assoc_list_end, Key>
+    {
+        typedef boost::mpl::void_ type;
     };
 
 
