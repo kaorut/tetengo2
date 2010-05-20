@@ -8,6 +8,7 @@
 
 #include <boost/type_traits.hpp>
 #include <boost/mpl/assert.hpp>
+//#include <boost/mpl/at.hpp>
 //#include <boost/mpl/begin.hpp>
 //#include <boost/mpl/bool.hpp>
 //#include <boost/mpl/count.hpp>
@@ -344,6 +345,75 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
 
             BOOST_MPL_ASSERT((boost::is_same<order, boost::mpl::void_>));
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(at)
+    {
+        {
+            typedef
+                boost::mpl::at<assoc_list0, boost::mpl::int_<0> >::type
+                value;
+
+            BOOST_MPL_ASSERT((boost::is_same<value, boost::mpl::void_>));
+        }
+        //{
+        //    typedef
+        //        boost::mpl::at<
+        //            assoc_list0, boost::mpl::int_<0>, boost::mpl::int_<9999>
+        //        >::type
+        //        value;
+
+        //    BOOST_MPL_ASSERT((
+        //        boost::is_same<value, boost::mpl::int_<9999> >
+        //    ));
+        //}
+        {
+            typedef
+                boost::mpl::at<assoc_list2, boost::mpl::int_<0> >::type
+                value;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<value, boost::mpl::int_<2000> >
+            ));
+        }
+        {
+            typedef
+                boost::mpl::at<assoc_list2, boost::mpl::int_<1> >::type
+                value;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<value, boost::mpl::int_<2001> >
+            ));
+        }
+        //{
+        //    typedef
+        //        boost::mpl::at<
+        //            assoc_list2, boost::mpl::int_<0>, boost::mpl::int_<9999>
+        //        >::type
+        //        value;
+
+        //    BOOST_MPL_ASSERT((
+        //        boost::is_same<value, boost::mpl::int_<2000> >
+        //    ));
+        //}
+        {
+            typedef
+                boost::mpl::at<assoc_list2, boost::mpl::int_<2> >::type
+                value;
+
+            BOOST_MPL_ASSERT((boost::is_same<value, boost::mpl::void_>));
+        }
+        //{
+        //    typedef
+        //        boost::mpl::at<
+        //            assoc_list2, boost::mpl::int_<2>, boost::mpl::int_<9999>
+        //        >::type
+        //        value;
+
+        //    BOOST_MPL_ASSERT((
+        //        boost::is_same<value, boost::mpl::int_<9999> >
+        //    ));
+        //}
     }
 
 

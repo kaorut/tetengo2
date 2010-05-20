@@ -11,6 +11,7 @@
 
 #include <cstddef>
 
+#include <boost/mpl/at.hpp>
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/count.hpp>
@@ -293,6 +294,28 @@ namespace boost { namespace mpl
 
     template <typename Key>
     struct order<tetengo2::meta::assoc_list_end, Key>
+    {
+        typedef boost::mpl::void_ type;
+    };
+
+    // boost::mpl::at
+
+    template <typename Element, typename Next, typename Key>
+    struct at<tetengo2::meta::assoc_list<Element, Next>, Key>
+    {
+        typedef typename at<Next, Key>::type type;
+    };
+
+    template <typename Element, typename Next>
+    struct at<
+        tetengo2::meta::assoc_list<Element, Next>, typename Element::first
+    >
+    {
+        typedef typename Element::second type;
+    };
+
+    template <typename Key>
+    struct at<tetengo2::meta::assoc_list_end, Key>
     {
         typedef boost::mpl::void_ type;
     };
