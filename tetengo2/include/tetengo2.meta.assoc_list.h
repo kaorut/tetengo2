@@ -26,6 +26,7 @@
 #include <boost/mpl/order.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/size_t.hpp>
+#include <boost/mpl/value_type.hpp>
 
 
 namespace tetengo2 { namespace meta
@@ -333,6 +334,20 @@ namespace boost { namespace mpl
     struct key_type<tetengo2::meta::assoc_list_end, Element>
     {
         typedef typename Element::first type;
+    };
+
+    // boost::mpl::value_type
+
+    template <typename Element, typename Next>
+    struct value_type<tetengo2::meta::assoc_list<Element, Next>, Element>
+    {
+        typedef typename Element::second type;
+    };
+
+    template <typename Element>
+    struct value_type<tetengo2::meta::assoc_list_end, Element>
+    {
+        typedef typename Element::second type;
     };
 
 

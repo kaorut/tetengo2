@@ -24,6 +24,7 @@
 //#include <boost/mpl/order.hpp>
 #include <boost/mpl/pair.hpp>
 //#include <boost/mpl/size.hpp>
+//#include <boost/mpl/value_type.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.meta.assoc_list.h"
@@ -448,6 +449,39 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             ));
         }
     }
+
+    BOOST_AUTO_TEST_CASE(value_type)
+    {
+        {
+            typedef
+                boost::mpl::value_type<
+                    assoc_list0,
+                    boost::mpl::pair<
+                        boost::mpl::int_<0>, boost::mpl::int_<1000>
+                    >
+                >::type
+                value_type;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<value_type, boost::mpl::int_<1000> >
+            ));
+        }
+        {
+            typedef
+                boost::mpl::value_type<
+                    assoc_list0,
+                    boost::mpl::pair<
+                        boost::mpl::int_<1>, boost::mpl::int_<1000>
+                    >
+                >::type
+                value_type;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<value_type, boost::mpl::int_<1000> >
+            ));
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
