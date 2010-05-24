@@ -27,6 +27,7 @@
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/value_type.hpp>
+#include <boost/mpl/void.hpp>
 
 
 namespace tetengo2 { namespace meta

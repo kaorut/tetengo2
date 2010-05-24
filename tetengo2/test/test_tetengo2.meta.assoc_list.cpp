@@ -25,6 +25,7 @@
 #include <boost/mpl/pair.hpp>
 //#include <boost/mpl/size.hpp>
 //#include <boost/mpl/value_type.hpp>
+//#include <boost/mpl/void.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.meta.assoc_list.h"
