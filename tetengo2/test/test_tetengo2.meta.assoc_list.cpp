@@ -17,6 +17,7 @@
 //#include <boost/mpl/end.hpp>
 //#include <boost/mpl/front.hpp>
 //#include <boost/mpl/has_key.hpp>
+//#include <boost/mpl/insert.hpp>
 #include <boost/mpl/int.hpp>
 //#include <boost/mpl/iterator_tags.hpp>
 //#include <boost/mpl/key_type.hpp>
@@ -479,6 +480,68 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
 
             BOOST_MPL_ASSERT((
                 boost::is_same<value_type, boost::mpl::int_<1000> >
+            ));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(insert)
+    {
+        {
+            typedef
+                boost::mpl::insert<
+                    assoc_list0,
+                    boost::mpl::pair<
+                        boost::mpl::int_<0>, boost::mpl::int_<1000>
+                    >
+                >::type
+                inserted;
+
+            BOOST_MPL_ASSERT((
+                boost::mpl::has_key<inserted, boost::mpl::int_<0> >::type
+            ));
+        }
+        {
+            typedef
+                boost::mpl::insert<
+                    assoc_list1,
+                    boost::mpl::pair<
+                        boost::mpl::int_<1>, boost::mpl::int_<1001>
+                    >
+                >::type
+                inserted;
+
+            BOOST_MPL_ASSERT((
+                boost::mpl::has_key<inserted, boost::mpl::int_<1> >::type
+            ));
+        }
+        {
+            typedef
+                boost::mpl::insert<
+                    assoc_list0,
+                    boost::mpl::end<assoc_list0>::type,
+                    boost::mpl::pair<
+                        boost::mpl::int_<0>, boost::mpl::int_<1000>
+                    >
+                >::type
+                inserted;
+
+            BOOST_MPL_ASSERT((
+                boost::mpl::has_key<inserted, boost::mpl::int_<0> >::type
+            ));
+        }
+        {
+            typedef
+                boost::mpl::insert<
+                    assoc_list1,
+                    boost::mpl::end<assoc_list1>::type,
+                    boost::mpl::pair<
+                        boost::mpl::int_<1>, boost::mpl::int_<1001>
+                    >
+                >::type
+                inserted;
+
+            BOOST_MPL_ASSERT((
+                boost::mpl::has_key<inserted, boost::mpl::int_<1> >::type
             ));
         }
     }

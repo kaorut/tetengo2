@@ -20,6 +20,7 @@
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/has_key.hpp>
+#include <boost/mpl/insert.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/key_type.hpp>
 #include <boost/mpl/next.hpp>
@@ -349,6 +350,59 @@ namespace boost { namespace mpl
     struct value_type<tetengo2::meta::assoc_list_end, Element>
     {
         typedef typename Element::second type;
+    };
+
+    // boost::mpl::insert
+
+    template <typename Element, typename Next, typename NewElement>
+    struct insert<tetengo2::meta::assoc_list<Element, Next>, NewElement>
+    {
+        typedef
+            tetengo2::meta::assoc_list<
+                NewElement, tetengo2::meta::assoc_list<Element, Next>
+            >
+            type;
+    };
+
+    template <typename NewElement>
+    struct insert<tetengo2::meta::assoc_list_end, NewElement>
+    {
+        typedef
+            tetengo2::meta::assoc_list<
+                NewElement, tetengo2::meta::assoc_list<
+                    NewElement, tetengo2::meta::assoc_list_end
+                >
+            >
+            type;
+    };
+
+    template <
+        typename Element,
+        typename Next,
+        typename Position,
+        typename NewElement
+    >
+    struct insert<
+        tetengo2::meta::assoc_list<Element, Next>,
+        Position,
+        NewElement
+    >
+    {
+        typedef
+            typename boost::mpl::insert<
+                tetengo2::meta::assoc_list<Element, Next>, NewElement
+            >::type
+            type;
+    };
+
+    template <typename Position, typename NewElement>
+    struct insert<tetengo2::meta::assoc_list_end, Position, NewElement>
+    {
+        typedef
+            typename boost::mpl::insert<
+                tetengo2::meta::assoc_list_end, NewElement
+            >::type
+            type;
     };
 
 
