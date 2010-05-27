@@ -369,9 +369,7 @@ namespace boost { namespace mpl
     {
         typedef
             tetengo2::meta::assoc_list<
-                NewElement, tetengo2::meta::assoc_list<
-                    NewElement, tetengo2::meta::assoc_list_end
-                >
+                NewElement, tetengo2::meta::assoc_list_end
             >
             type;
     };

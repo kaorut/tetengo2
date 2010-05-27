@@ -496,6 +496,9 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 >::type
                 inserted;
 
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<inserted>::type::value, ==, 1
+            );
             BOOST_MPL_ASSERT((
                 boost::mpl::has_key<inserted, boost::mpl::int_<0> >::type
             ));
@@ -510,6 +513,9 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 >::type
                 inserted;
 
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<inserted>::type::value, ==, 2
+            );
             BOOST_MPL_ASSERT((
                 boost::mpl::has_key<inserted, boost::mpl::int_<1> >::type
             ));
@@ -525,6 +531,9 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 >::type
                 inserted;
 
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<inserted>::type::value, ==, 1
+            );
             BOOST_MPL_ASSERT((
                 boost::mpl::has_key<inserted, boost::mpl::int_<0> >::type
             ));
@@ -540,6 +549,9 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 >::type
                 inserted;
 
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<inserted>::type::value, ==, 2
+            );
             BOOST_MPL_ASSERT((
                 boost::mpl::has_key<inserted, boost::mpl::int_<1> >::type
             ));
