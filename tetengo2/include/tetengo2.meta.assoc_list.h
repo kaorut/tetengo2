@@ -18,6 +18,7 @@
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/end.hpp>
+#include <boost/mpl/erase_key.hpp>
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/has_key.hpp>
 #include <boost/mpl/insert.hpp>
@@ -156,6 +157,41 @@ namespace tetengo2 { namespace meta
         struct assoc_list_order<assoc_list_end, Key, Order>
         {
             typedef boost::mpl::void_ type;
+        };
+
+        template <typename AssocList, typename Key, typename Erased>
+        struct assoc_list_erase_key
+        {
+            typedef
+                typename assoc_list_erase_key<
+                    typename AssocList::next,
+                    Key,
+                    typename boost::mpl::insert<
+                        Erased,
+                        typename AssocList::element
+                    >::type
+                >::type
+                type;
+        };
+
+        template <typename AssocList, typename Erased>
+        struct assoc_list_erase_key<
+            AssocList, typename AssocList::element::first, Erased
+        >
+        {
+            typedef
+                typename assoc_list_erase_key<
+                    typename AssocList::next,
+                    typename AssocList::element::first,
+                    Erased
+                >::type
+                type;
+        };
+
+        template <typename Key, typename Erased>
+        struct assoc_list_erase_key<assoc_list_end, Key, Erased>
+        {
+            typedef Erased type;
         };
 
 
@@ -401,6 +437,30 @@ namespace boost { namespace mpl
                 tetengo2::meta::assoc_list_end, NewElement
             >::type
             type;
+    };
+
+    // boost::mpl::erase_key
+
+    template <typename Element, typename Next, typename Key>
+    struct erase_key<tetengo2::meta::assoc_list<Element, Next>, Key>
+    {
+        typedef
+            typename tetengo2::meta::detail::assoc_list_erase_key<
+                typename tetengo2::meta::detail::assoc_list_erase_key<
+                    tetengo2::meta::assoc_list<Element, Next>,
+                    Key,
+                    tetengo2::meta::assoc_list_end
+                >::type,
+                boost::mpl::void_,
+                tetengo2::meta::assoc_list_end
+            >::type
+            type;
+    };
+
+    template <typename Key>
+    struct erase_key<tetengo2::meta::assoc_list_end, Key>
+    {
+        typedef tetengo2::meta::assoc_list_end type;
     };
 
 
