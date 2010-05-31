@@ -18,6 +18,7 @@
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/end.hpp>
+#include <boost/mpl/erase.hpp>
 #include <boost/mpl/erase_key.hpp>
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/has_key.hpp>
@@ -459,6 +460,34 @@ namespace boost { namespace mpl
 
     template <typename Key>
     struct erase_key<tetengo2::meta::assoc_list_end, Key>
+    {
+        typedef tetengo2::meta::assoc_list_end type;
+    };
+
+    // boost::mpl::erase
+
+    template <typename Element, typename Next, typename Position>
+    struct erase<tetengo2::meta::assoc_list<Element, Next>, Position>
+    {
+        typedef
+            typename erase_key<
+                tetengo2::meta::assoc_list<Element, Next>,
+                typename deref<Position>::type::first
+            >::type
+            type;
+    };
+
+    template <typename Element, typename Next>
+    struct erase<
+        tetengo2::meta::assoc_list<Element, Next>,
+        tetengo2::meta::assoc_list_end
+    >
+    {
+        typedef tetengo2::meta::assoc_list<Element, Next> type;
+    };
+
+    template <typename Position>
+    struct erase<tetengo2::meta::assoc_list_end, Position>
     {
         typedef tetengo2::meta::assoc_list_end type;
     };

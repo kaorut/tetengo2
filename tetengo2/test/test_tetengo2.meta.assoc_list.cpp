@@ -15,6 +15,7 @@
 //#include <boost/mpl/deref.hpp>
 //#include <boost/mpl/empty.hpp>
 //#include <boost/mpl/end.hpp>
+//#include <boost/mpl/erase.hpp>
 //#include <boost/mpl/erase_key.hpp>
 //#include <boost/mpl/front.hpp>
 //#include <boost/mpl/has_key.hpp>
@@ -607,6 +608,90 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         {
             typedef
                 boost::mpl::erase_key<assoc_list3, boost::mpl::int_<1> >::type
+                erased;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<erased>::type::value, ==, 2
+            );
+            BOOST_MPL_ASSERT_NOT((
+                boost::mpl::has_key<erased, boost::mpl::int_<1> >::type
+            ));
+            BOOST_MPL_ASSERT((
+                boost::is_same<
+                    erased::element,
+                    boost::mpl::pair<
+                        boost::mpl::int_<0>, boost::mpl::int_<3000>
+                    >
+                >
+            ));
+            BOOST_MPL_ASSERT((
+                boost::is_same<
+                    erased::next::element,
+                    boost::mpl::pair<
+                        boost::mpl::int_<0>, boost::mpl::int_<3100>
+                    >
+                >
+            ));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(erase)
+    {
+        {
+            typedef
+                boost::mpl::erase<assoc_list0, assoc_list0>::type
+                erased;
+
+            BOOST_MPL_ASSERT((boost::mpl::empty<erased>::type));
+        }
+        {
+            typedef
+                boost::mpl::erase<assoc_list1, assoc_list1>::type
+                erased;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<erased>::type::value, ==, 0
+            );
+            BOOST_MPL_ASSERT_NOT((
+                boost::mpl::has_key<erased, boost::mpl::int_<0> >::type
+            ));
+        }
+        {
+            typedef
+                boost::mpl::erase<assoc_list1, assoc_list1::next>::type
+                erased;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<erased>::type::value, ==, 1
+            );
+        }
+        {
+            typedef
+                boost::mpl::erase<assoc_list2, assoc_list2::next>::type
+                erased;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<erased>::type::value, ==, 1
+            );
+            BOOST_MPL_ASSERT_NOT((
+                boost::mpl::has_key<erased, boost::mpl::int_<1> >::type
+            ));
+        }
+        {
+            typedef
+                boost::mpl::erase<assoc_list3, assoc_list3>::type
+                erased;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<erased>::type::value, ==, 1
+            );
+            BOOST_MPL_ASSERT_NOT((
+                boost::mpl::has_key<erased, boost::mpl::int_<0> >::type
+            ));
+        }
+        {
+            typedef
+                boost::mpl::erase<assoc_list3, assoc_list3::next>::type
                 erased;
 
             BOOST_MPL_ASSERT_RELATION(
