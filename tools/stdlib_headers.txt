@@ -189,13 +189,17 @@ boost::make_tuple                                boost/tuple/tuple.hpp,boost/tup
 boost::mpl::at                                   boost/mpl/at.hpp
 boost::mpl::begin                                boost/mpl/begin.hpp
 boost::mpl::bool_                                boost/mpl/bool.hpp
+boost::mpl::clear                                boost/mpl/clear.hpp
 boost::mpl::count                                boost/mpl/count.hpp
 boost::mpl::deref                                boost/mpl/deref.hpp
 boost::mpl::empty                                boost/mpl/empty.hpp
 boost::mpl::end                                  boost/mpl/end.hpp
+boost::mpl::erase                                boost/mpl/erase.hpp
+boost::mpl::erase_key                            boost/mpl/erase_key.hpp
 boost::mpl::forward_iterator_tag                 boost/mpl/iterator_tags.hpp
 boost::mpl::front                                boost/mpl/front.hpp
 boost::mpl::has_key                              boost/mpl/has_key.hpp
+boost::mpl::insert                               boost/mpl/insert.hpp
 boost::mpl::int_                                 boost/mpl/int.hpp
 boost::mpl::key_type                             boost/mpl/key_type.hpp
 boost::mpl::next                                 boost/mpl/next.hpp

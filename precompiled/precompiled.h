@@ -51,12 +51,16 @@
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/clear.hpp>
 #include <boost/mpl/count.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/end.hpp>
+#include <boost/mpl/erase.hpp>
+#include <boost/mpl/erase_key.hpp>
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/has_key.hpp>
+#include <boost/mpl/insert.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/key_type.hpp>
@@ -66,6 +70,7 @@
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/value_type.hpp>
+#include <boost/mpl/void.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
