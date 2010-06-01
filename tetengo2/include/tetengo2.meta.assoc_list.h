@@ -14,6 +14,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/clear.hpp>
 #include <boost/mpl/count.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/empty.hpp>
@@ -488,6 +489,20 @@ namespace boost { namespace mpl
 
     template <typename Position>
     struct erase<tetengo2::meta::assoc_list_end, Position>
+    {
+        typedef tetengo2::meta::assoc_list_end type;
+    };
+
+    // boost::mpl::clear
+
+    template <typename Element, typename Next>
+    struct clear<tetengo2::meta::assoc_list<Element, Next> >
+    {
+        typedef tetengo2::meta::assoc_list_end type;
+    };
+
+    template <>
+    struct clear<tetengo2::meta::assoc_list_end>
     {
         typedef tetengo2::meta::assoc_list_end type;
     };

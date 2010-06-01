@@ -11,6 +11,7 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/mpl/begin.hpp>
 //#include <boost/mpl/bool.hpp>
+//#include <boost/mpl/clear.hpp>
 //#include <boost/mpl/count.hpp>
 //#include <boost/mpl/deref.hpp>
 //#include <boost/mpl/empty.hpp>
@@ -716,6 +717,30 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                     >
                 >
             ));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(clear)
+    {
+        {
+            typedef boost::mpl::clear<assoc_list0>::type cleared;
+
+            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>::type));
+        }
+        {
+            typedef boost::mpl::clear<assoc_list1>::type cleared;
+
+            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>::type));
+        }
+        {
+            typedef boost::mpl::clear<assoc_list2>::type cleared;
+
+            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>::type));
+        }
+        {
+            typedef boost::mpl::clear<assoc_list3>::type cleared;
+
+            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>::type));
         }
     }
 
