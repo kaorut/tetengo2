@@ -444,6 +444,10 @@
 					RelativePath=".\src\bobura.type_list.h"
 					>
 				</File>
+				<File
+					RelativePath=".\src\bobura.type_list_new.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="bobura::command"
