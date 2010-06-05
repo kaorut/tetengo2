@@ -37,6 +37,12 @@
 namespace tetengo2 { namespace meta
 {
     /*!
+        \brief The tag for a node of an associative list.
+    */
+    struct assoc_list_tag;
+
+
+    /*!
         \brief The metaclass for a node of an associative list.
 
         This metaclass meets the following <a
@@ -67,6 +73,9 @@ namespace tetengo2 { namespace meta
         //! The next node.
         typedef Next next;
 
+        //! The tag.
+        typedef assoc_list_tag tag;
+
         //! The category.
         typedef boost::mpl::forward_iterator_tag category;
 
@@ -80,6 +89,9 @@ namespace tetengo2 { namespace meta
     struct assoc_list_end
     {
         // types
+
+        //! The tag.
+        typedef assoc_list_tag tag;
 
         //! The category
         typedef boost::mpl::forward_iterator_tag category;

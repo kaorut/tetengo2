@@ -27,7 +27,7 @@
 //#include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
-#include "bobura.type_list_new.h"
+//#include "bobura.type_list_new.h"
 
 
 namespace

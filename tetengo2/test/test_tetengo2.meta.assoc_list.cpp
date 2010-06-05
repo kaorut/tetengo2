@@ -218,23 +218,17 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         {
             typedef boost::mpl::empty<assoc_list0>::type empty;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<empty, boost::mpl::bool_<true> >
-            ));
+            BOOST_MPL_ASSERT((empty));
         }
         {
             typedef boost::mpl::empty<assoc_list1>::type empty;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<empty, boost::mpl::bool_<false> >
-            ));
+            BOOST_MPL_ASSERT_NOT((empty));
         }
         {
             typedef boost::mpl::empty<assoc_list2>::type empty;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<empty, boost::mpl::bool_<false> >
-            ));
+            BOOST_MPL_ASSERT_NOT((empty));
         }
     }
 
