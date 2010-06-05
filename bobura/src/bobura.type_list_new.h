@@ -12,36 +12,32 @@
 #include <cstddef>
 #include <string>
 
-#include <boost/mpl/insert_range.hpp>
-
 #include <tetengo2.meta.assoc_list.h>
 
 
-namespace bobura { namespace types
+namespace bobura
 {
-    //! The difference type.
-    struct difference {};
+    namespace types
+    {
+        struct difference; //! The difference type.
+        struct size;       //! The size type.
+        struct string;     //! The string type.
+    }
 
-    //! The size type.
-    struct size {};
-
-    //! The string type.
-    struct string {};
-
-    //! The common types.
+    //! The common type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<difference, std::ptrdiff_t>,
+            boost::mpl::pair<types::difference, std::ptrdiff_t>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<size, std::size_t>,
+            boost::mpl::pair<types::size, std::size_t>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<string, std::wstring>,
+            boost::mpl::pair<types::string, std::wstring>,
         tetengo2::meta::assoc_list_end
         > > >
-        common_types;
+        common_type_list;
 
 
-}}
+}
 
 
 #endif
