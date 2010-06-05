@@ -62,11 +62,13 @@
 #include <boost/mpl/has_key.hpp>
 #include <boost/mpl/insert.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/is_sequence.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/key_type.hpp>
 #include <boost/mpl/next.hpp>
 #include <boost/mpl/order.hpp>
 #include <boost/mpl/pair.hpp>
+#include <boost/mpl/sequence_tag.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/value_type.hpp>

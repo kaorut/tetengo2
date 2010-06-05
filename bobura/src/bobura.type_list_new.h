@@ -9,8 +9,10 @@
 #if !defined(BOBURA_TYPELISTNEW_H)
 #define BOBURA_TYPELISTNEW_H
 
-#include <cstddef>
+//#include <cstddef>
 #include <string>
+
+#include <boost/mpl/pair.hpp>
 
 #include <tetengo2.meta.assoc_list.h>
 
