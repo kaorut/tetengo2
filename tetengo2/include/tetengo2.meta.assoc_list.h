@@ -227,20 +227,16 @@ namespace boost { namespace mpl
     // functions
 
     // boost::mpl::deref
+
     template <typename Element, typename Next>
     struct deref<tetengo2::meta::assoc_list<Element, Next> >
     {
         typedef Element type;
     };
 
-    // boost::mpl::next
-    template <typename Element, typename Next>
-    struct next<tetengo2::meta::assoc_list<Element, Next> >
-    {
-        typedef Next type;
-    };
 
     // boost::mpl::begin
+
     template <typename Element, typename Next>
     struct begin<tetengo2::meta::assoc_list<Element, Next> >
     {
@@ -253,7 +249,9 @@ namespace boost { namespace mpl
         typedef tetengo2::meta::assoc_list_end type;
     };
 
+
     // boost::mpl::end
+
     template <typename Element, typename Next>
     struct end<tetengo2::meta::assoc_list<Element, Next> >
     {
@@ -265,6 +263,7 @@ namespace boost { namespace mpl
     {
         typedef tetengo2::meta::assoc_list_end type;
     };
+
 
     // boost::mpl::size
     template <typename Element, typename Next>
