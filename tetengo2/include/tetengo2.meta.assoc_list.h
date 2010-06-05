@@ -249,21 +249,6 @@ namespace boost { namespace mpl
     };
 
 
-    // boost::mpl::empty
-
-    template <typename Element, typename Next>
-    struct empty<tetengo2::meta::assoc_list<Element, Next> >
-    {
-        typedef boost::mpl::bool_<false> type;
-    };
-
-    template <>
-    struct empty<tetengo2::meta::assoc_list_end>
-    {
-        typedef boost::mpl::bool_<true> type;
-    };
-
-
     // boost::mpl::front
 
     template <typename Element, typename Next>
