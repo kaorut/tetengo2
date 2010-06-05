@@ -249,15 +249,6 @@ namespace boost { namespace mpl
     };
 
 
-    // boost::mpl::front
-
-    template <typename Element, typename Next>
-    struct front<tetengo2::meta::assoc_list<Element, Next> >
-    {
-        typedef Element type;
-    };
-
-
     // boost::mpl::has_key
 
     template <typename Element, typename Next, typename Key>
