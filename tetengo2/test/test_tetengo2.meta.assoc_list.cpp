@@ -77,6 +77,25 @@ BOOST_AUTO_TEST_SUITE(meta)
 BOOST_AUTO_TEST_SUITE(assoc_list)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(is_sequence)
+    {
+        {
+            typedef boost::mpl::is_sequence<assoc_list0>::type is_sequence;
+
+            BOOST_MPL_ASSERT((is_sequence));
+        }
+        {
+            typedef boost::mpl::is_sequence<assoc_list1>::type is_sequence;
+
+            BOOST_MPL_ASSERT((is_sequence));
+        }
+        {
+            typedef boost::mpl::is_sequence<assoc_list2>::type is_sequence;
+
+            BOOST_MPL_ASSERT((is_sequence));
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(deref)
     {
         {
