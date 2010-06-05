@@ -580,7 +580,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<inserted>::type::value, ==, 1
             );
             BOOST_MPL_ASSERT((
-                boost::mpl::has_key<inserted, boost::mpl::int_<0> >::type
+                boost::mpl::has_key<inserted, boost::mpl::int_<0> >
             ));
         }
         {
@@ -597,7 +597,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<inserted>::type::value, ==, 2
             );
             BOOST_MPL_ASSERT((
-                boost::mpl::has_key<inserted, boost::mpl::int_<1> >::type
+                boost::mpl::has_key<inserted, boost::mpl::int_<1> >
             ));
         }
         {
@@ -615,7 +615,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<inserted>::type::value, ==, 1
             );
             BOOST_MPL_ASSERT((
-                boost::mpl::has_key<inserted, boost::mpl::int_<0> >::type
+                boost::mpl::has_key<inserted, boost::mpl::int_<0> >
             ));
         }
         {
@@ -633,7 +633,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<inserted>::type::value, ==, 2
             );
             BOOST_MPL_ASSERT((
-                boost::mpl::has_key<inserted, boost::mpl::int_<1> >::type
+                boost::mpl::has_key<inserted, boost::mpl::int_<1> >
             ));
         }
     }
@@ -645,7 +645,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::erase_key<assoc_list0, boost::mpl::int_<0> >::type
                 erased;
 
-            BOOST_MPL_ASSERT((boost::mpl::empty<erased>::type));
+            BOOST_MPL_ASSERT((boost::mpl::empty<erased>));
         }
         {
             typedef
@@ -656,7 +656,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<erased>::type::value, ==, 0
             );
             BOOST_MPL_ASSERT_NOT((
-                boost::mpl::has_key<erased, boost::mpl::int_<0> >::type
+                boost::mpl::has_key<erased, boost::mpl::int_<0> >
             ));
         }
         {
@@ -668,7 +668,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<erased>::type::value, ==, 1
             );
             BOOST_MPL_ASSERT_NOT((
-                boost::mpl::has_key<erased, boost::mpl::int_<1> >::type
+                boost::mpl::has_key<erased, boost::mpl::int_<1> >
             ));
         }
         {
@@ -680,7 +680,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<erased>::type::value, ==, 1
             );
             BOOST_MPL_ASSERT_NOT((
-                boost::mpl::has_key<erased, boost::mpl::int_<0> >::type
+                boost::mpl::has_key<erased, boost::mpl::int_<0> >
             ));
         }
         {
@@ -692,7 +692,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<erased>::type::value, ==, 2
             );
             BOOST_MPL_ASSERT_NOT((
-                boost::mpl::has_key<erased, boost::mpl::int_<1> >::type
+                boost::mpl::has_key<erased, boost::mpl::int_<1> >
             ));
             BOOST_MPL_ASSERT((
                 boost::is_same<
@@ -720,7 +720,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::erase<assoc_list0, assoc_list0>::type
                 erased;
 
-            BOOST_MPL_ASSERT((boost::mpl::empty<erased>::type));
+            BOOST_MPL_ASSERT((boost::mpl::empty<erased>));
         }
         {
             typedef
@@ -731,7 +731,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<erased>::type::value, ==, 0
             );
             BOOST_MPL_ASSERT_NOT((
-                boost::mpl::has_key<erased, boost::mpl::int_<0> >::type
+                boost::mpl::has_key<erased, boost::mpl::int_<0> >
             ));
         }
         {
@@ -752,7 +752,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<erased>::type::value, ==, 1
             );
             BOOST_MPL_ASSERT_NOT((
-                boost::mpl::has_key<erased, boost::mpl::int_<1> >::type
+                boost::mpl::has_key<erased, boost::mpl::int_<1> >
             ));
         }
         {
@@ -764,7 +764,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<erased>::type::value, ==, 1
             );
             BOOST_MPL_ASSERT_NOT((
-                boost::mpl::has_key<erased, boost::mpl::int_<0> >::type
+                boost::mpl::has_key<erased, boost::mpl::int_<0> >
             ));
         }
         {
@@ -776,7 +776,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<erased>::type::value, ==, 2
             );
             BOOST_MPL_ASSERT_NOT((
-                boost::mpl::has_key<erased, boost::mpl::int_<1> >::type
+                boost::mpl::has_key<erased, boost::mpl::int_<1> >
             ));
             BOOST_MPL_ASSERT((
                 boost::is_same<
@@ -802,22 +802,22 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         {
             typedef boost::mpl::clear<assoc_list0>::type cleared;
 
-            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>::type));
+            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>));
         }
         {
             typedef boost::mpl::clear<assoc_list1>::type cleared;
 
-            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>::type));
+            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>));
         }
         {
             typedef boost::mpl::clear<assoc_list2>::type cleared;
 
-            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>::type));
+            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>));
         }
         {
             typedef boost::mpl::clear<assoc_list3>::type cleared;
 
-            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>::type));
+            BOOST_MPL_ASSERT((boost::mpl::empty<cleared>));
         }
     }
 
