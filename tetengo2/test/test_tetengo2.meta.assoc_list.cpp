@@ -22,11 +22,13 @@
 //#include <boost/mpl/has_key.hpp>
 //#include <boost/mpl/insert.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/is_sequence.hpp>
 //#include <boost/mpl/iterator_tags.hpp>
 //#include <boost/mpl/key_type.hpp>
 //#include <boost/mpl/next.hpp>
 //#include <boost/mpl/order.hpp>
 #include <boost/mpl/pair.hpp>
+#include <boost/mpl/sequence_tag.hpp>
 //#include <boost/mpl/size.hpp>
 //#include <boost/mpl/value_type.hpp>
 //#include <boost/mpl/void.hpp>
@@ -93,6 +95,31 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::is_sequence<assoc_list2>::type is_sequence;
 
             BOOST_MPL_ASSERT((is_sequence));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(sequence_tag)
+    {
+        {
+            typedef boost::mpl::sequence_tag<assoc_list0>::type sequence_tag;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<sequence_tag, tetengo2::meta::assoc_list_tag>
+            ));
+        }
+        {
+            typedef boost::mpl::sequence_tag<assoc_list1>::type sequence_tag;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<sequence_tag, tetengo2::meta::assoc_list_tag>
+            ));
+        }
+        {
+            typedef boost::mpl::sequence_tag<assoc_list2>::type sequence_tag;
+
+            BOOST_MPL_ASSERT((
+                boost::is_same<sequence_tag, tetengo2::meta::assoc_list_tag>
+            ));
         }
     }
 
