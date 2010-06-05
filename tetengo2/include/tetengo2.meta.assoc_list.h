@@ -67,6 +67,9 @@ namespace tetengo2 { namespace meta
     {
         // types
 
+        //! This type.
+        typedef assoc_list type;
+
         //! The element.
         typedef Element element;
 
@@ -89,6 +92,9 @@ namespace tetengo2 { namespace meta
     struct assoc_list_end
     {
         // types
+
+        //! This type.
+        typedef assoc_list_end type;
 
         //! The tag.
         typedef assoc_list_tag tag;

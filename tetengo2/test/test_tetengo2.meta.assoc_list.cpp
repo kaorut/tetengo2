@@ -79,6 +79,25 @@ BOOST_AUTO_TEST_SUITE(meta)
 BOOST_AUTO_TEST_SUITE(assoc_list)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(type)
+    {
+        {
+            typedef assoc_list0::type this_type;
+
+            BOOST_MPL_ASSERT((boost::is_same<this_type, assoc_list0>));
+        }
+        {
+            typedef assoc_list1::type this_type;
+
+            BOOST_MPL_ASSERT((boost::is_same<this_type, assoc_list1>));
+        }
+        {
+            typedef assoc_list2::type this_type;
+
+            BOOST_MPL_ASSERT((boost::is_same<this_type, assoc_list2>));
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(is_sequence)
     {
         {
@@ -174,7 +193,25 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
     BOOST_AUTO_TEST_CASE(category)
     {
         {
+            typedef assoc_list0::category category;
+
+            BOOST_MPL_ASSERT((
+                boost::is_convertible<
+                    category, boost::mpl::forward_iterator_tag
+                >
+            ));
+        }
+        {
             typedef assoc_list1::category category;
+
+            BOOST_MPL_ASSERT((
+                boost::is_convertible<
+                    category, boost::mpl::forward_iterator_tag
+                >
+            ));
+        }
+        {
+            typedef assoc_list2::category category;
 
             BOOST_MPL_ASSERT((
                 boost::is_convertible<
