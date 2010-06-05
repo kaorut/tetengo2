@@ -109,22 +109,6 @@ namespace tetengo2 { namespace meta
 #if !defined(DOCUMENTATION)
     namespace detail
     {
-        template <typename AssocList, std::size_t Size>
-        struct assoc_list_size
-        {
-            typedef
-                typename assoc_list_size<
-                    typename AssocList::next, Size + 1
-                >::type
-                type;
-        };
-
-        template <std::size_t Size>
-        struct assoc_list_size<assoc_list_end, Size>
-        {
-            typedef boost::mpl::size_t<Size> type;
-        };
-
         template <typename AssocList, typename Key, std::size_t Count>
         struct assoc_list_count
         {
@@ -265,24 +249,8 @@ namespace boost { namespace mpl
     };
 
 
-    // boost::mpl::size
-    template <typename Element, typename Next>
-    struct size<tetengo2::meta::assoc_list<Element, Next> >
-    {
-        typedef
-            typename tetengo2::meta::detail::assoc_list_size<
-                tetengo2::meta::assoc_list<Element, Next>, 0
-            >::type
-            type;
-    };
-
-    template <>
-    struct size<tetengo2::meta::assoc_list_end>
-    {
-        typedef boost::mpl::size_t<0> type;
-    };
-
     // boost::mpl::empty
+
     template <typename Element, typename Next>
     struct empty<tetengo2::meta::assoc_list<Element, Next> >
     {
@@ -295,14 +263,18 @@ namespace boost { namespace mpl
         typedef boost::mpl::bool_<true> type;
     };
 
+
     // boost::mpl::front
+
     template <typename Element, typename Next>
     struct front<tetengo2::meta::assoc_list<Element, Next> >
     {
         typedef Element type;
     };
 
+
     // boost::mpl::has_key
+
     template <typename Element, typename Next, typename Key>
     struct has_key<tetengo2::meta::assoc_list<Element, Next>, Key>
     {
@@ -323,7 +295,9 @@ namespace boost { namespace mpl
         typedef boost::mpl::bool_<false> type;
     };
 
+
     // boost::mpl::count
+
     template <typename Element, typename Next, typename Key>
     struct count<tetengo2::meta::assoc_list<Element, Next>, Key>
     {
@@ -340,7 +314,9 @@ namespace boost { namespace mpl
         typedef boost::mpl::size_t<0> type;
     };
 
+
     // boost::mpl::order
+
     template <typename Element, typename Next, typename Key>
     struct order<tetengo2::meta::assoc_list<Element, Next>, Key>
     {
@@ -356,6 +332,7 @@ namespace boost { namespace mpl
     {
         typedef boost::mpl::void_ type;
     };
+
 
     // boost::mpl::at
 
@@ -379,6 +356,7 @@ namespace boost { namespace mpl
         typedef boost::mpl::void_ type;
     };
 
+
     // boost::mpl::key_type
 
     template <typename Element, typename Next>
@@ -393,6 +371,7 @@ namespace boost { namespace mpl
         typedef typename Element::first type;
     };
 
+
     // boost::mpl::value_type
 
     template <typename Element, typename Next>
@@ -406,6 +385,7 @@ namespace boost { namespace mpl
     {
         typedef typename Element::second type;
     };
+
 
     // boost::mpl::insert
 
@@ -458,6 +438,7 @@ namespace boost { namespace mpl
             type;
     };
 
+
     // boost::mpl::erase_key
 
     template <typename Element, typename Next, typename Key>
@@ -481,6 +462,7 @@ namespace boost { namespace mpl
     {
         typedef tetengo2::meta::assoc_list_end type;
     };
+
 
     // boost::mpl::erase
 
@@ -509,6 +491,7 @@ namespace boost { namespace mpl
     {
         typedef tetengo2::meta::assoc_list_end type;
     };
+
 
     // boost::mpl::clear
 
