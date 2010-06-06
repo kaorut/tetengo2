@@ -217,16 +217,14 @@ namespace boost { namespace mpl
 
     // boost::mpl::begin
 
-    template <typename Element, typename Next>
-    struct begin<tetengo2::meta::assoc_list<Element, Next> >
-    {
-        typedef tetengo2::meta::assoc_list<Element, Next> type;
-    };
-
     template <>
-    struct begin<tetengo2::meta::assoc_list_end>
+    struct begin_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef tetengo2::meta::assoc_list_end type;
+        template <typename AssocList>
+        struct apply
+        {
+            typedef AssocList type;
+        };
     };
 
 
