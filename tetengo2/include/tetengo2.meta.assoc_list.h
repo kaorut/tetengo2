@@ -133,7 +133,7 @@ namespace tetengo2 { namespace meta
         template <typename Key, std::size_t Count>
         struct assoc_list_count<assoc_list_end, Key, Count>
         {
-            typedef boost::mpl::size_t<Count> type;
+            typedef boost::mpl::integral_c<std::size_t, Count> type;
         };
 
         template <typename AssocList, typename Key, std::size_t Order>
@@ -151,7 +151,7 @@ namespace tetengo2 { namespace meta
             AssocList, typename AssocList::element::first, Order
         >
         {
-            typedef boost::mpl::size_t<Order> type;
+            typedef boost::mpl::integral_c<std::size_t, Order> type;
         };
 
         template <typename Key, std::size_t Order>
@@ -270,39 +270,36 @@ namespace boost { namespace mpl
 
     // boost::mpl::count
 
-    template <typename Element, typename Next, typename Key>
-    struct count<tetengo2::meta::assoc_list<Element, Next>, Key>
+    template <>
+    struct count_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef
-            typename tetengo2::meta::detail::assoc_list_count<
-                tetengo2::meta::assoc_list<Element, Next>, Key, 0
-            >::type
-            type;
-    };
+        template <typename AssocList, typename Key>
+        struct apply
+        {
+            typedef
+                typename tetengo2::meta::detail::assoc_list_count<
+                    AssocList, Key, 0
+                >::type
+                type;
+        };
 
-    template <typename Key>
-    struct count<tetengo2::meta::assoc_list_end, Key>
-    {
-        typedef boost::mpl::size_t<0> type;
     };
-
+    
 
     // boost::mpl::order
 
-    template <typename Element, typename Next, typename Key>
-    struct order<tetengo2::meta::assoc_list<Element, Next>, Key>
+    template <>
+    struct order_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef
-            typename tetengo2::meta::detail::assoc_list_order<
-                tetengo2::meta::assoc_list<Element, Next>, Key, 0
-            >::type
-            type;
-    };
-
-    template <typename Key>
-    struct order<tetengo2::meta::assoc_list_end, Key>
-    {
-        typedef boost::mpl::void_ type;
+        template <typename AssocList, typename Key>
+        struct apply
+        {
+            typedef
+                typename tetengo2::meta::detail::assoc_list_order<
+                    AssocList, Key, 0
+                >::type
+                type;
+        };
     };
 
 
