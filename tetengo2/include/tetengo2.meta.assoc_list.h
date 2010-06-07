@@ -330,31 +330,27 @@ namespace boost { namespace mpl
 
     // boost::mpl::key_type
 
-    template <typename Element, typename Next>
-    struct key_type<tetengo2::meta::assoc_list<Element, Next>, Element>
+    template <>
+    struct key_type_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef typename Element::first type;
-    };
-
-    template <typename Element>
-    struct key_type<tetengo2::meta::assoc_list_end, Element>
-    {
-        typedef typename Element::first type;
+        template <typename AssocList, typename Element>
+        struct apply
+        {
+            typedef typename Element::first type;
+        };
     };
 
 
     // boost::mpl::value_type
 
-    template <typename Element, typename Next>
-    struct value_type<tetengo2::meta::assoc_list<Element, Next>, Element>
+    template <>
+    struct value_type_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef typename Element::second type;
-    };
-
-    template <typename Element>
-    struct value_type<tetengo2::meta::assoc_list_end, Element>
-    {
-        typedef typename Element::second type;
+        template <typename AssocList, typename Element>
+        struct apply
+        {
+            typedef typename Element::second type;
+        };
     };
 
 
