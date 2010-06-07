@@ -29,6 +29,7 @@
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/value_type.hpp>
 #include <boost/mpl/void.hpp>
+#include <boost/mpl/aux_/na.hpp>
 
 
 namespace tetengo2 { namespace meta
@@ -356,53 +357,24 @@ namespace boost { namespace mpl
 
     // boost::mpl::insert
 
-    template <typename Element, typename Next, typename NewElement>
-    struct insert<tetengo2::meta::assoc_list<Element, Next>, NewElement>
+    template <>
+    struct insert_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef
-            tetengo2::meta::assoc_list<
-                NewElement, tetengo2::meta::assoc_list<Element, Next>
-            >
-            type;
-    };
+        template <
+            typename AssocList,
+            typename PositionOrNewElement,
+            typename NewElement
+        >
+        struct apply
+        {
+            typedef tetengo2::meta::assoc_list<NewElement, AssocList> type;
+        };
 
-    template <typename NewElement>
-    struct insert<tetengo2::meta::assoc_list_end, NewElement>
-    {
-        typedef
-            tetengo2::meta::assoc_list<
-                NewElement, tetengo2::meta::assoc_list_end
-            >
-            type;
-    };
-
-    template <
-        typename Element,
-        typename Next,
-        typename Position,
-        typename NewElement
-    >
-    struct insert<
-        tetengo2::meta::assoc_list<Element, Next>,
-        Position,
-        NewElement
-    >
-    {
-        typedef
-            typename boost::mpl::insert<
-                tetengo2::meta::assoc_list<Element, Next>, NewElement
-            >::type
-            type;
-    };
-
-    template <typename Position, typename NewElement>
-    struct insert<tetengo2::meta::assoc_list_end, Position, NewElement>
-    {
-        typedef
-            typename boost::mpl::insert<
-                tetengo2::meta::assoc_list_end, NewElement
-            >::type
-            type;
+        template <typename AssocList, typename NewElement>
+        struct apply<AssocList, NewElement, boost::mpl::na>
+        {
+            typedef tetengo2::meta::assoc_list<NewElement, AssocList> type;
+        };
     };
 
 
