@@ -22,6 +22,7 @@
 #include <boost/mpl/erase_key.hpp>
 #include <boost/mpl/has_key.hpp>
 #include <boost/mpl/insert.hpp>
+#include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/key_type.hpp>
 #include <boost/mpl/order.hpp>
@@ -243,24 +244,27 @@ namespace boost { namespace mpl
 
     // boost::mpl::has_key
 
-    template <typename Element, typename Next, typename Key>
-    struct has_key<tetengo2::meta::assoc_list<Element, Next>, Key>
+    template <>
+    struct has_key_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef typename has_key<Next, Key>::type type;
-    };
+        template <typename AssocList, typename Key>
+        struct apply
+        {
+            typedef typename apply<typename AssocList::next, Key>::type type;
+        };
 
-    template <typename Element, typename Next>
-    struct has_key<
-        tetengo2::meta::assoc_list<Element, Next>, typename Element::first
-    >
-    {
-        typedef boost::mpl::bool_<true> type;
-    };
+        template <typename AssocList>
+        struct apply<AssocList, typename AssocList::element::first>
+        {
+            typedef boost::mpl::integral_c<bool, true> type;
+        };
 
-    template <typename Key>
-    struct has_key<tetengo2::meta::assoc_list_end, Key>
-    {
-        typedef boost::mpl::bool_<false> type;
+        template <typename Key>
+        struct apply<tetengo2::meta::assoc_list_end, Key>
+        {
+            typedef boost::mpl::integral_c<bool, false> type;
+        };
+
     };
 
 

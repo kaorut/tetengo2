@@ -350,27 +350,21 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::has_key<assoc_list0, boost::mpl::int_<0> >::type
                 has_key;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<has_key, boost::mpl::bool_<false> >
-            ));
+            BOOST_MPL_ASSERT_NOT((has_key));
         }
         {
             typedef
                 boost::mpl::has_key<assoc_list2, boost::mpl::int_<0> >::type
                 has_key;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<has_key, boost::mpl::bool_<true> >
-            ));
+            BOOST_MPL_ASSERT((has_key));
         }
         {
             typedef
                 boost::mpl::has_key<assoc_list2, boost::mpl::int_<2> >::type
                 has_key;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<has_key, boost::mpl::bool_<false> >
-            ));
+            BOOST_MPL_ASSERT_NOT((has_key));
         }
     }
 
