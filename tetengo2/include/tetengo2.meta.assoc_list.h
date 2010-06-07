@@ -305,24 +305,26 @@ namespace boost { namespace mpl
 
     // boost::mpl::at
 
-    template <typename Element, typename Next, typename Key>
-    struct at<tetengo2::meta::assoc_list<Element, Next>, Key>
+    template <>
+    struct at_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef typename at<Next, Key>::type type;
-    };
+        template <typename AssocList, typename Key>
+        struct apply
+        {
+            typedef typename at<typename AssocList::next, Key>::type type;
+        };
 
-    template <typename Element, typename Next>
-    struct at<
-        tetengo2::meta::assoc_list<Element, Next>, typename Element::first
-    >
-    {
-        typedef typename Element::second type;
-    };
+        template <typename AssocList>
+        struct apply<AssocList, typename AssocList::element::first>
+        {
+            typedef typename AssocList::element::second type;
+        };
 
-    template <typename Key>
-    struct at<tetengo2::meta::assoc_list_end, Key>
-    {
-        typedef boost::mpl::void_ type;
+        template <typename Key>
+        struct apply<tetengo2::meta::assoc_list_end, Key>
+        {
+            typedef boost::mpl::void_ type;
+        };
     };
 
 
