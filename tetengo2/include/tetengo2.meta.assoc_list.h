@@ -386,62 +386,54 @@ namespace boost { namespace mpl
         template <typename AssocList, typename Key>
         struct apply
         {
-        typedef
-            typename tetengo2::meta::detail::assoc_list_erase_key<
+            typedef
                 typename tetengo2::meta::detail::assoc_list_erase_key<
-                    AssocList,
-                    Key,
+                    typename tetengo2::meta::detail::assoc_list_erase_key<
+                        AssocList,
+                        Key,
+                        tetengo2::meta::assoc_list_end
+                    >::type,
+                    boost::mpl::na,
                     tetengo2::meta::assoc_list_end
-                >::type,
-                boost::mpl::na,
-                tetengo2::meta::assoc_list_end
-            >::type
-            type;
+                >::type
+                type;
         };
     };
 
 
     // boost::mpl::erase
 
-    template <typename Element, typename Next, typename Position>
-    struct erase<tetengo2::meta::assoc_list<Element, Next>, Position>
+    template <>
+    struct erase_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef
-            typename erase_key<
-                tetengo2::meta::assoc_list<Element, Next>,
-                typename deref<Position>::type::first
-            >::type
-            type;
-    };
+        template <typename AssocList, typename Position, typename NotUsed>
+        struct apply
+        {
+            typedef
+                typename erase_key<
+                    AssocList, typename deref<Position>::type::first
+                >::type
+                type;
+        };
 
-    template <typename Element, typename Next>
-    struct erase<
-        tetengo2::meta::assoc_list<Element, Next>,
-        tetengo2::meta::assoc_list_end
-    >
-    {
-        typedef tetengo2::meta::assoc_list<Element, Next> type;
-    };
-
-    template <typename Position>
-    struct erase<tetengo2::meta::assoc_list_end, Position>
-    {
-        typedef tetengo2::meta::assoc_list_end type;
+        template <typename AssocList, typename NotUsed>
+        struct apply<AssocList, tetengo2::meta::assoc_list_end, NotUsed>
+        {
+            typedef AssocList type;
+        };
     };
 
 
     // boost::mpl::clear
 
-    template <typename Element, typename Next>
-    struct clear<tetengo2::meta::assoc_list<Element, Next> >
-    {
-        typedef tetengo2::meta::assoc_list_end type;
-    };
-
     template <>
-    struct clear<tetengo2::meta::assoc_list_end>
+    struct clear_impl<tetengo2::meta::assoc_list_tag>
     {
-        typedef tetengo2::meta::assoc_list_end type;
+        template <typename AssocList>
+        struct apply
+        {
+            typedef tetengo2::meta::assoc_list_end type;
+        };
     };
 
 
