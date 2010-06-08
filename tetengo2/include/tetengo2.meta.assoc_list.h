@@ -380,26 +380,24 @@ namespace boost { namespace mpl
 
     // boost::mpl::erase_key
 
-    template <typename Element, typename Next, typename Key>
-    struct erase_key<tetengo2::meta::assoc_list<Element, Next>, Key>
+    template <>
+    struct erase_key_impl<tetengo2::meta::assoc_list_tag>
     {
+        template <typename AssocList, typename Key>
+        struct apply
+        {
         typedef
             typename tetengo2::meta::detail::assoc_list_erase_key<
                 typename tetengo2::meta::detail::assoc_list_erase_key<
-                    tetengo2::meta::assoc_list<Element, Next>,
+                    AssocList,
                     Key,
                     tetengo2::meta::assoc_list_end
                 >::type,
-                boost::mpl::void_,
+                boost::mpl::na,
                 tetengo2::meta::assoc_list_end
             >::type
             type;
-    };
-
-    template <typename Key>
-    struct erase_key<tetengo2::meta::assoc_list_end, Key>
-    {
-        typedef tetengo2::meta::assoc_list_end type;
+        };
     };
 
 
