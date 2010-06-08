@@ -45,9 +45,16 @@ namespace tetengo2 { namespace meta
         href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/index.html">Boost
         MPL</a> concepts:
 
+
         \arg <a
             href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/forward-sequence.html">Forward
             Sequence</a>
+        \arg <a
+            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/extensible-sequence.html">Extensible
+            Sequence</a>
+        \arg <a
+            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/front-extensible-sequence.html">Front
+            Extensible Sequence</a>
         \arg <a
             href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/associative-sequence.html">Associative
             Sequence</a>
