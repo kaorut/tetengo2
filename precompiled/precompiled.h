@@ -49,8 +49,8 @@
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/at.hpp>
+#include <boost/mpl/aux_/na.hpp>
 #include <boost/mpl/begin.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/mpl/clear.hpp>
 #include <boost/mpl/count.hpp>
 #include <boost/mpl/deref.hpp>
@@ -62,6 +62,7 @@
 #include <boost/mpl/has_key.hpp>
 #include <boost/mpl/insert.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/is_sequence.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/key_type.hpp>
@@ -70,7 +71,6 @@
 #include <boost/mpl/pair.hpp>
 #include <boost/mpl/sequence_tag.hpp>
 #include <boost/mpl/size.hpp>
-#include <boost/mpl/size_t.hpp>
 #include <boost/mpl/value_type.hpp>
 #include <boost/mpl/void.hpp>
 #include <boost/next_prior.hpp>

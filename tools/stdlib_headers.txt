@@ -188,7 +188,6 @@ boost::make_transform_iterator                   boost/iterator/transform_iterat
 boost::make_tuple                                boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
 boost::mpl::at                                   boost/mpl/at.hpp
 boost::mpl::begin                                boost/mpl/begin.hpp
-boost::mpl::bool_                                boost/mpl/bool.hpp
 boost::mpl::clear                                boost/mpl/clear.hpp
 boost::mpl::count                                boost/mpl/count.hpp
 boost::mpl::deref                                boost/mpl/deref.hpp
@@ -201,14 +200,15 @@ boost::mpl::front                                boost/mpl/front.hpp
 boost::mpl::has_key                              boost/mpl/has_key.hpp
 boost::mpl::insert                               boost/mpl/insert.hpp
 boost::mpl::int_                                 boost/mpl/int.hpp
+boost::mpl::integral_c                           boost/mpl/integral_c.hpp
 boost::mpl::is_sequence                          boost/mpl/is_sequence.hpp
 boost::mpl::key_type                             boost/mpl/key_type.hpp
+boost::mpl::na                                   boost/mpl/aux_/na.hpp
 boost::mpl::next                                 boost/mpl/next.hpp
 boost::mpl::order                                boost/mpl/order.hpp
 boost::mpl::pair                                 boost/mpl/pair.hpp
 boost::mpl::sequence_tag                         boost/mpl/sequence_tag.hpp
 boost::mpl::size                                 boost/mpl/size.hpp
-boost::mpl::size_t                               boost/mpl/size_t.hpp
 boost::mpl::value_type                           boost/mpl/value_type.hpp
 boost::mpl::void_                                boost/mpl/void.hpp
 boost::next                                      boost/next_prior.hpp

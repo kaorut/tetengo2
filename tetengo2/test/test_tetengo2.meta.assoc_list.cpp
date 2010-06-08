@@ -10,7 +10,6 @@
 #include <boost/mpl/assert.hpp>
 //#include <boost/mpl/at.hpp>
 //#include <boost/mpl/begin.hpp>
-//#include <boost/mpl/bool.hpp>
 //#include <boost/mpl/clear.hpp>
 //#include <boost/mpl/count.hpp>
 //#include <boost/mpl/deref.hpp>
