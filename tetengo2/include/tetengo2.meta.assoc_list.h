@@ -499,7 +499,7 @@ namespace boost { namespace mpl
     template <>
     struct erase_impl<tetengo2::meta::assoc_list_tag>
     {
-        template <typename AssocList, typename Position, typename NotUsed>
+        template <typename AssocList, typename Position, typename Ignored>
         struct apply
         {
             typedef
@@ -509,8 +509,8 @@ namespace boost { namespace mpl
                 type;
         };
 
-        template <typename AssocList, typename NotUsed>
-        struct apply<AssocList, tetengo2::meta::assoc_list_end, NotUsed>
+        template <typename AssocList, typename Ignored>
+        struct apply<AssocList, tetengo2::meta::assoc_list_end, Ignored>
         {
             typedef AssocList type;
         };
