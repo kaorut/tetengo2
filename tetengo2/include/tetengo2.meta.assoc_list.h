@@ -26,6 +26,8 @@
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/key_type.hpp>
 #include <boost/mpl/order.hpp>
+#include <boost/mpl/pop_front.hpp>
+#include <boost/mpl/push_front.hpp>
 #include <boost/mpl/reverse.hpp>
 #include <boost/mpl/value_type.hpp>
 #include <boost/mpl/void.hpp>
@@ -526,6 +528,32 @@ namespace boost { namespace mpl
         struct apply
         {
             typedef tetengo2::meta::assoc_list_end type;
+        };
+    };
+
+
+    // boost::mpl::push_front
+
+    template <>
+    struct push_front_impl<tetengo2::meta::assoc_list_tag>
+    {
+        template <typename AssocList, typename NewElement>
+        struct apply
+        {
+            typedef typename insert<AssocList, NewElement>::type type;
+        };
+    };
+
+
+    // boost::mpl::pop_front
+
+    template <>
+    struct pop_front_impl<tetengo2::meta::assoc_list_tag>
+    {
+        template <typename AssocList>
+        struct apply
+        {
+            typedef typename AssocList::next type;
         };
     };
 

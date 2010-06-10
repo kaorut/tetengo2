@@ -28,6 +28,8 @@
 #include <boost/mpl/next.hpp>
 //#include <boost/mpl/order.hpp>
 #include <boost/mpl/pair.hpp>
+//#include <boost/mpl/pop_front.hpp>
+//#include <boost/mpl/push_front.hpp>
 #include <boost/mpl/sequence_tag.hpp>
 #include <boost/mpl/size.hpp>
 //#include <boost/mpl/value_type.hpp>
@@ -897,6 +899,78 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::clear<assoc_list3>::type cleared;
 
             BOOST_MPL_ASSERT((boost::mpl::empty<cleared>));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(push_front)
+    {
+        {
+            typedef
+                boost::mpl::push_front<
+                    assoc_list0,
+                    boost::mpl::pair<
+                        boost::mpl::int_<0>, boost::mpl::int_<1000>
+                    >
+                >::type
+                pushed;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<pushed>::type::value, ==, 1
+            );
+            BOOST_MPL_ASSERT((
+                boost::is_same<
+                    pushed::element,
+                    boost::mpl::pair<
+                        boost::mpl::int_<0>, boost::mpl::int_<1000>
+                    >
+                >
+            ));
+        }
+        {
+            typedef
+                boost::mpl::push_front<
+                    assoc_list1,
+                    boost::mpl::pair<
+                        boost::mpl::int_<1>, boost::mpl::int_<1001>
+                    >
+                >::type
+                pushed;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<pushed>::type::value, ==, 2
+            );
+            BOOST_MPL_ASSERT((
+                boost::is_same<
+                    pushed::element,
+                    boost::mpl::pair<
+                        boost::mpl::int_<1>, boost::mpl::int_<1001>
+                    >
+                >
+            ));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(pop_front)
+    {
+        {
+            typedef boost::mpl::pop_front<assoc_list1>::type popped;
+
+            BOOST_MPL_ASSERT((boost::mpl::empty<popped>));
+        }
+        {
+            typedef boost::mpl::pop_front<assoc_list2>::type popped;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<popped>::type::value, ==, 1
+            );
+            BOOST_MPL_ASSERT((
+                boost::is_same<
+                    popped::element,
+                    boost::mpl::pair<
+                        boost::mpl::int_<1>, boost::mpl::int_<2001>
+                    >
+                >
+            ));
         }
     }
 
