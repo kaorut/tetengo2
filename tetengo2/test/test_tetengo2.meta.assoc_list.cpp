@@ -20,6 +20,7 @@
 #include <boost/mpl/front.hpp>
 //#include <boost/mpl/has_key.hpp>
 //#include <boost/mpl/insert.hpp>
+//#include <boost/mpl/insert_range.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/is_sequence.hpp>
 //#include <boost/mpl/iterator_tags.hpp>
@@ -30,6 +31,7 @@
 #include <boost/mpl/sequence_tag.hpp>
 #include <boost/mpl/size.hpp>
 //#include <boost/mpl/value_type.hpp>
+#include <boost/mpl/vector.hpp>
 //#include <boost/mpl/void.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -627,6 +629,90 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             );
             BOOST_MPL_ASSERT((
                 boost::mpl::has_key<inserted, boost::mpl::int_<1> >
+            ));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(insert_range)
+    {
+        {
+            typedef
+                boost::mpl::insert_range<
+                    assoc_list0,
+                    boost::mpl::na,
+                    assoc_list0
+                >::type
+                inserted;
+
+            BOOST_MPL_ASSERT((boost::mpl::empty<inserted>));
+        }
+        {
+            typedef
+                boost::mpl::insert_range<
+                    assoc_list0,
+                    boost::mpl::na,
+                    assoc_list1
+                >::type
+                inserted;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<inserted>::type::value, ==, 1
+            );
+            BOOST_MPL_ASSERT((
+                boost::mpl::has_key<inserted, boost::mpl::int_<0> >
+            ));
+        }
+        {
+            typedef
+                boost::mpl::insert_range<
+                    assoc_list1,
+                    boost::mpl::na,
+                    assoc_list2
+                >::type
+                inserted;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<inserted>::type::value, ==, 3
+            );
+            BOOST_MPL_ASSERT((
+                boost::mpl::has_key<inserted, boost::mpl::int_<1> >
+            ));
+        }
+        {
+            typedef
+                boost::mpl::insert_range<
+                    assoc_list0,
+                    boost::mpl::na,
+                    boost::mpl::vector<>
+                >::type
+                inserted;
+
+            BOOST_MPL_ASSERT((boost::mpl::empty<inserted>));
+        }
+        {
+            typedef
+                boost::mpl::insert_range<
+                    assoc_list1,
+                    boost::mpl::na,
+                    boost::mpl::vector<
+                        boost::mpl::pair<
+                            boost::mpl::int_<11>, boost::mpl::int_<9001>
+                        >,
+                        boost::mpl::pair<
+                            boost::mpl::int_<12>, boost::mpl::int_<9002>
+                        >
+                    >
+                >::type
+                inserted;
+
+            BOOST_MPL_ASSERT_RELATION(
+                boost::mpl::size<inserted>::type::value, ==, 3
+            );
+            BOOST_MPL_ASSERT((
+                boost::mpl::has_key<inserted, boost::mpl::int_<11> >
+            ));
+            BOOST_MPL_ASSERT((
+                boost::mpl::has_key<inserted, boost::mpl::int_<12> >
             ));
         }
     }

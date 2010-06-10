@@ -21,10 +21,12 @@
 #include <boost/mpl/erase_key.hpp>
 #include <boost/mpl/has_key.hpp>
 #include <boost/mpl/insert.hpp>
+#include <boost/mpl/insert_range.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/key_type.hpp>
 #include <boost/mpl/order.hpp>
+#include <boost/mpl/reverse.hpp>
 #include <boost/mpl/value_type.hpp>
 #include <boost/mpl/void.hpp>
 #include <boost/mpl/aux_/na.hpp>
@@ -166,6 +168,49 @@ namespace tetengo2 { namespace meta
             typedef boost::mpl::void_ type;
         };
 
+        template <
+            typename AssocList,
+            typename RangeFirst,
+            typename RangeLast,
+            typename Inserted
+        >
+        struct assoc_list_insert_range
+        {
+            typedef
+                typename assoc_list_insert_range<
+                    typename AssocList::next,
+                    RangeFirst,
+                    RangeLast,
+                    assoc_list<typename AssocList::element, Inserted>
+                >::type
+                type;
+        };
+
+        template <typename RangeFirst, typename RangeLast, typename Inserted>
+        struct assoc_list_insert_range<
+            assoc_list_end, RangeFirst, RangeLast, Inserted
+        >
+        {
+            typedef
+                typename assoc_list_insert_range<
+                    assoc_list_end,
+                    typename boost::mpl::next<RangeFirst>::type,
+                    RangeLast,
+                    assoc_list<
+                        typename boost::mpl::deref<RangeFirst>::type, Inserted
+                    >
+                >::type
+                type;
+        };
+
+        template <typename RangeLast, typename Inserted>
+        struct assoc_list_insert_range<
+            assoc_list_end, RangeLast, RangeLast, Inserted
+        >
+        {
+            typedef Inserted type;
+        };
+
         template <typename AssocList, typename Key, typename Erased>
         struct assoc_list_erase_key
         {
@@ -201,6 +246,21 @@ namespace tetengo2 { namespace meta
             typedef Erased type;
         };
 
+        template <typename Range>
+        struct assoc_list_reverse
+        {
+            typedef typename boost::mpl::reverse<Range>::type type;
+        };
+
+        template <typename Element, typename Next>
+        struct assoc_list_reverse<assoc_list<Element, Next> >
+        {
+            typedef
+                typename assoc_list_erase_key<
+                    assoc_list<Element, Next>, boost::mpl::na, assoc_list_end
+                >::type
+                type;
+        };
 
     }
 #endif
@@ -383,6 +443,36 @@ namespace boost { namespace mpl
     };
 
 
+    // boost::mpl::insert_range
+
+    template <>
+    struct insert_range_impl<tetengo2::meta::assoc_list_tag>
+    {
+        template <typename AssocList, typename Position, typename Range>
+        struct apply
+        {
+            typedef
+                typename tetengo2::meta::detail::assoc_list_insert_range<
+                    typename tetengo2::meta::detail::assoc_list_reverse<
+                        AssocList
+                    >::type,
+                    typename boost::mpl::begin<
+                        typename tetengo2::meta::detail::assoc_list_reverse<
+                            Range
+                        >::type
+                    >::type,
+                    typename boost::mpl::end<
+                        typename tetengo2::meta::detail::assoc_list_reverse<
+                            Range
+                        >::type
+                    >::type,
+                    tetengo2::meta::assoc_list_end
+                >::type
+                type;
+        };
+    };
+
+
     // boost::mpl::erase_key
 
     template <>
@@ -392,14 +482,12 @@ namespace boost { namespace mpl
         struct apply
         {
             typedef
-                typename tetengo2::meta::detail::assoc_list_erase_key<
+                typename tetengo2::meta::detail::assoc_list_reverse<
                     typename tetengo2::meta::detail::assoc_list_erase_key<
                         AssocList,
                         Key,
                         tetengo2::meta::assoc_list_end
-                    >::type,
-                    boost::mpl::na,
-                    tetengo2::meta::assoc_list_end
+                    >::type
                 >::type
                 type;
         };
