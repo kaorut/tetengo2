@@ -61,6 +61,7 @@
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/has_key.hpp>
 #include <boost/mpl/insert.hpp>
+#include <boost/mpl/insert_range.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/is_sequence.hpp>
@@ -69,9 +70,13 @@
 #include <boost/mpl/next.hpp>
 #include <boost/mpl/order.hpp>
 #include <boost/mpl/pair.hpp>
+#include <boost/mpl/pop_front.hpp>
+#include <boost/mpl/push_front.hpp>
+#include <boost/mpl/reverse.hpp>
 #include <boost/mpl/sequence_tag.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/value_type.hpp>
+#include <boost/mpl/vector.hpp>
 #include <boost/mpl/void.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/noncopyable.hpp>

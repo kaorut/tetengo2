@@ -25,6 +25,7 @@
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/key_type.hpp>
+#include <boost/mpl/next.hpp>
 #include <boost/mpl/order.hpp>
 #include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/push_front.hpp>

@@ -199,6 +199,7 @@ boost::mpl::forward_iterator_tag                 boost/mpl/iterator_tags.hpp
 boost::mpl::front                                boost/mpl/front.hpp
 boost::mpl::has_key                              boost/mpl/has_key.hpp
 boost::mpl::insert                               boost/mpl/insert.hpp
+boost::mpl::insert_range                         boost/mpl/insert_range.hpp
 boost::mpl::int_                                 boost/mpl/int.hpp
 boost::mpl::integral_c                           boost/mpl/integral_c.hpp
 boost::mpl::is_sequence                          boost/mpl/is_sequence.hpp
@@ -207,9 +208,13 @@ boost::mpl::na                                   boost/mpl/aux_/na.hpp
 boost::mpl::next                                 boost/mpl/next.hpp
 boost::mpl::order                                boost/mpl/order.hpp
 boost::mpl::pair                                 boost/mpl/pair.hpp
+boost::mpl::pop_front                            boost/mpl/pop_front.hpp
+boost::mpl::push_front                           boost/mpl/push_front.hpp
+boost::mpl::reverse                              boost/mpl/reverse.hpp
 boost::mpl::sequence_tag                         boost/mpl/sequence_tag.hpp
 boost::mpl::size                                 boost/mpl/size.hpp
 boost::mpl::value_type                           boost/mpl/value_type.hpp
+boost::mpl::vector                               boost/mpl/vector.hpp
 boost::mpl::void_                                boost/mpl/void.hpp
 boost::next                                      boost/next_prior.hpp
 boost::noncopyable                               boost/noncopyable.hpp

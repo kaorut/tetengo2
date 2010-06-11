@@ -25,7 +25,7 @@
 #include <boost/mpl/is_sequence.hpp>
 //#include <boost/mpl/iterator_tags.hpp>
 //#include <boost/mpl/key_type.hpp>
-#include <boost/mpl/next.hpp>
+//#include <boost/mpl/next.hpp>
 //#include <boost/mpl/order.hpp>
 #include <boost/mpl/pair.hpp>
 //#include <boost/mpl/pop_front.hpp>
@@ -35,6 +35,7 @@
 //#include <boost/mpl/value_type.hpp>
 #include <boost/mpl/vector.hpp>
 //#include <boost/mpl/void.hpp>
+//#include <boost/mpl/aux_/na.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.meta.assoc_list.h"
