@@ -50,14 +50,6 @@ namespace bobura
 
     namespace type
     {
-        struct internal_encoding; //!< The internal encoding type.
-        struct ui_encoding;    //!< The encoding type for the user interface.
-        struct exception_encoding; //!< The encoding type for exceptions.
-        struct message_catalog_encoding; //!< The encoding type for the
-                                         //!< message catalog.
-        struct locale_name_encoding; //!< The encoder type for locale names.
-
-        struct internal_encoder; //!< The internal encoder type.
         struct ui_encoder;     //!< The encoder type for the user interface.
         struct exception_encoder; //!< The encoder type for exceptions.
         struct message_catalog_encoder; //!< The encoder type for the
@@ -68,38 +60,98 @@ namespace bobura
         struct messages_facet; //!< The messages facet type.
     }
 
+    namespace detail
+    {
+        typedef
+            tetengo2::encoding::locale<
+                boost::mpl::at<common_type_list, type::string>::type
+            >
+            internal_encoding_type;
+        typedef tetengo2::encoding::locale<std::wstring> ui_encoding_type;
+        typedef tetengo2::encoding::win32::utf8 exception_encoding_type;
+        typedef
+            tetengo2::encoding::win32::utf8 message_catalog_encoding_type;
+        typedef
+            tetengo2::encoding::locale<std::string>
+            locale_name_encoding_type;
+
+        typedef
+            tetengo2::encoder<
+                detail::internal_encoding_type,
+                detail::message_catalog_encoding_type
+            >
+            message_catalog_encoder_type;
+        typedef
+            tetengo2::message_catalog_parser<
+                std::istream,
+                boost::mpl::at<common_type_list, type::string>::type,
+                message_catalog_encoder_type
+            >
+            message_catalog_parser_type;
+        typedef
+            tetengo2::encoder<
+                detail::internal_encoding_type,
+                detail::locale_name_encoding_type
+            >
+            locale_name_encoder_type;
+    }
+
     //! The type list for the locale.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::internal_encoding,
-                tetengo2::encoding::locale<
-                    boost::mpl::at<common_type_list, type::string>::type
+                type::ui_encoder,
+                tetengo2::encoder<
+                    detail::internal_encoding_type, detail::ui_encoding_type
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui_encoding, int>,
+            boost::mpl::pair<
+                type::exception_encoder,
+                tetengo2::encoder<
+                    detail::internal_encoding_type,
+                    detail::exception_encoding_type
+                >
+            >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::exception_encoding, int>,
+            boost::mpl::pair<
+                type::message_catalog_encoder,
+                detail::message_catalog_encoder_type
+            >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::message_catalog_encoding, int>,
+            boost::mpl::pair<
+                type::locale_name_encoder,
+                detail::locale_name_encoder_type
+            >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::locale_name_encoding, int>,
+            boost::mpl::pair<
+                type::message_catalog_parser,
+                detail::message_catalog_parser_type
+            >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::internal_encoder, int>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui_encoder, int>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::exception_encoder, int>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::message_catalog_encoder, int>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::locale_name_encoder, int>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::messages_facet, int>,
+            boost::mpl::pair<
+                type::messages_facet,
+                tetengo2::messages<
+                    boost::filesystem::wpath,
+                    detail::message_catalog_parser_type,
+                    detail::locale_name_encoder_type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        > > > > > > > > > > >
+        > > > > > >
         locale_type_list;
+
+
+    /**** User Interface ****************************************************/
+
+    namespace type
+    {
+
+    }
+
+    //! The type list for the user interface.
+
+
 
 
     /**** All ***************************************************************/
