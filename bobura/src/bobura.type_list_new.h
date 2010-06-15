@@ -19,6 +19,28 @@
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
+#include <tetengo2.gui.menu_observer.h>
+#include <tetengo2.gui.mouse_observer.h>
+#include <tetengo2.gui.paint_observer.h>
+#include <tetengo2.gui.window_observer.h>
+#include <tetengo2.gui.win32.abstract_popup_menu.h>
+#include <tetengo2.gui.win32.abstract_window.h>
+#include <tetengo2.gui.win32.alert.h>
+#include <tetengo2.gui.win32.button.h>
+#include <tetengo2.gui.win32.canvas.h>
+#include <tetengo2.gui.win32.dialog.h>
+#include <tetengo2.gui.win32.dialog_message_loop.h>
+#include <tetengo2.gui.win32.font.h>
+#include <tetengo2.gui.win32.gui_initializer_finalizer.h>
+#include <tetengo2.gui.win32.main_menu.h>
+#include <tetengo2.gui.win32.menu.h>
+#include <tetengo2.gui.win32.menu_command.h>
+#include <tetengo2.gui.win32.menu_separator.h>
+#include <tetengo2.gui.win32.message_loop.h>
+#include <tetengo2.gui.win32.popup_menu.h>
+#include <tetengo2.gui.win32.quit_message_loop.h>
+#include <tetengo2.gui.win32.widget.h>
+#include <tetengo2.gui.win32.window.h>
 #include <tetengo2.meta.assoc_list.h>
 
 
@@ -60,7 +82,7 @@ namespace bobura
         struct messages_facet; //!< The messages facet type.
     }
 
-    namespace detail
+    namespace detail { namespace locale
     {
         typedef
             tetengo2::encoding::locale<
@@ -77,8 +99,7 @@ namespace bobura
 
         typedef
             tetengo2::encoder<
-                detail::internal_encoding_type,
-                detail::message_catalog_encoding_type
+                internal_encoding_type, message_catalog_encoding_type
             >
             message_catalog_encoder_type;
         typedef
@@ -90,11 +111,10 @@ namespace bobura
             message_catalog_parser_type;
         typedef
             tetengo2::encoder<
-                detail::internal_encoding_type,
-                detail::locale_name_encoding_type
+                internal_encoding_type, locale_name_encoding_type
             >
             locale_name_encoder_type;
-    }
+    }}
 
     //! The type list for the locale.
     typedef
@@ -102,39 +122,40 @@ namespace bobura
             boost::mpl::pair<
                 type::ui_encoder,
                 tetengo2::encoder<
-                    detail::internal_encoding_type, detail::ui_encoding_type
+                    detail::locale::internal_encoding_type,
+                    detail::locale::ui_encoding_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::exception_encoder,
                 tetengo2::encoder<
-                    detail::internal_encoding_type,
-                    detail::exception_encoding_type
+                    detail::locale::internal_encoding_type,
+                    detail::locale::exception_encoding_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::message_catalog_encoder,
-                detail::message_catalog_encoder_type
+                detail::locale::message_catalog_encoder_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::locale_name_encoder,
-                detail::locale_name_encoder_type
+                detail::locale::locale_name_encoder_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::message_catalog_parser,
-                detail::message_catalog_parser_type
+                detail::locale::message_catalog_parser_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::messages_facet,
                 tetengo2::messages<
                     boost::filesystem::wpath,
-                    detail::message_catalog_parser_type,
-                    detail::locale_name_encoder_type
+                    detail::locale::message_catalog_parser_type,
+                    detail::locale::locale_name_encoder_type
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -146,11 +167,43 @@ namespace bobura
 
     namespace type
     {
-
+        struct gui_initializer_finalizer; //!< The GUI initializer and
+                                          //!< finalizer type.
+        struct message_loop;   //!< The message loop type.
+        struct quit_message_loop; //!< The quit-message-loop type.
+        struct canvas;         //!< The canvas type.
+        struct window;         //!< The window type.
+        struct popup_menu;     //!< The popup menu type.
+        struct menu_command;   //!< The menu command type.
+        struct menu_separator; //!< The menu separator type;
+        struct dialog;         //!< The dialog type.
+        struct button;         //!< The button type.
     }
 
-    //! The type list for the user interface.
+    namespace detail { namespace ui
+    {
 
+    }}
+
+    //! The type list for the user interface.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::gui_initializer_finalizer,
+                tetengo2::gui::win32::gui_initializer_finalizer
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::message_loop, tetengo2::gui::win32::message_loop
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::quit_message_loop,
+                tetengo2::gui::win32::quit_message_loop
+            >,
+        tetengo2::meta::assoc_list_end
+    > > >
+    ui_type_list;
 
 
 
