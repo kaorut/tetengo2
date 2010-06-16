@@ -202,8 +202,8 @@ namespace bobura
                 tetengo2::gui::win32::quit_message_loop
             >,
         tetengo2::meta::assoc_list_end
-    > > >
-    ui_type_list;
+        > > >
+        ui_type_list;
 
 
 
@@ -215,8 +215,10 @@ namespace bobura
             common_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
             locale_type_list, tetengo2::meta::assoc_list_end,
+        boost::mpl::insert_range<
+            ui_type_list, tetengo2::meta::assoc_list_end,
         tetengo2::meta::assoc_list_end
-        >::type>::type
+        >::type>::type>::type
         bobura_type_list;
 
 
