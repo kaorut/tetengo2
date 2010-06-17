@@ -40,16 +40,16 @@ namespace bobura { namespace command
     public:
         // types
 
-        //! The command type;
+        //! \return The command type.
         typedef boost::function<void ()> command_type;
 
-        //! The about command type.
+        //! \return The about command type.
         typedef about<AboutDialog> about_type;
 
-        //! The exit command type.
+        //! \return The exit command type.
         typedef exit<Window> exit_type;
 
-        //! The nop command type.
+        //! \return The nop command type.
         typedef nop nop_type;
 
 

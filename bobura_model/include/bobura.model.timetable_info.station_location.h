@@ -47,10 +47,10 @@ namespace bobura { namespace model { namespace timetable_info
     public:
         // types
 
-        //! The station type.
+        //! \return The station type.
         typedef Station station_type;
 
-        //! The meterage type.
+        //! \return The meterage type.
         typedef Meterage meterage_type;
 
 
@@ -109,7 +109,7 @@ namespace bobura { namespace model { namespace timetable_info
 
             \param another Another station location.
 
-            \return this object.
+            \return This object.
         */
         station_location& operator=(const station_location& another)
         {

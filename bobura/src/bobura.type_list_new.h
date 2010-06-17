@@ -55,7 +55,7 @@ namespace bobura
         struct string;         //!< The string type.
     }
 
-    //! The common type list.
+    //! \return The common type.list.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::difference, std::ptrdiff_t>,
@@ -82,6 +82,7 @@ namespace bobura
         struct messages_facet; //!< The messages facet type.
     }
 
+#if !defined(DOCUMENTATION)
     namespace detail { namespace locale
     {
         typedef
@@ -115,8 +116,9 @@ namespace bobura
             >
             locale_name_encoder_type;
     }}
+#endif
 
-    //! The type list for the locale.
+    //! \return The type.list for the locale.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -180,12 +182,14 @@ namespace bobura
         struct button;         //!< The button type.
     }
 
+#if !defined(DOCUMENTATION)
     namespace detail { namespace ui
     {
 
     }}
+#endif
 
-    //! The type list for the user interface.
+    //! \return The type.list for the user interface.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -209,7 +213,7 @@ namespace bobura
 
     /**** All ***************************************************************/
 
-    //! The type list for Bobura.
+    //! \return The type.list for Bobura.
     typedef
         boost::mpl::insert_range<
             common_type_list, tetengo2::meta::assoc_list_end,

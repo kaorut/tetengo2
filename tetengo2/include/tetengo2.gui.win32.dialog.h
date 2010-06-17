@@ -64,7 +64,7 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef AbstractWindow base_type;
 
         //! \copydoc tetengo2::gui::win32::widget::handle_type
@@ -112,13 +112,13 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_type.
         typedef typename base_type::window_observer_type window_observer_type;
 
-        //! The message loop type.
+        //! \return The message loop type.
         typedef MessageLoop message_loop_type;
 
-        //! The quit message loop type.
+        //! \return The quit message loop type.
         typedef QuitMessageLoop quit_message_loop_type;
 
-        //! The result type.
+        //! \return The result type.
         enum result_type
         {
             result_undecided,   //!< The result is not decided yet.

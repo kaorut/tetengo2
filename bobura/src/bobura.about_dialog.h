@@ -55,7 +55,7 @@ namespace bobura
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef Dialog base_type;
 
         //! \copydoc tetengo2::gui::win32::widget::handle_type
@@ -111,17 +111,17 @@ namespace bobura
             typename base_type::quit_message_loop_type
             quit_message_loop_type;
 
-        //! The abstract window type.
+        //! \return The abstract window type.
         typedef typename base_type::base_type abstract_window_type;
 
-        //! The button type.
+        //! \return The button type.
         typedef Button button_type;
 
-        //! The message type list type.
+        //! \return The message type list type.
         typedef
             AboutDialogMessageTypeList about_dialog_message_type_list_type;
 
-        //! The OK button mouse observer type.
+        //! \return The OK button mouse observer type.
         typedef
             typename about_dialog_message_type_list_type::about_dialog_ok_button_mouse_observer_type
             about_dialog_ok_button_mouse_observer_type;

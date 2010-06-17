@@ -55,17 +55,17 @@ namespace tetengo2
     public:
         // types
 
-        //! The internal encoding type.
+        //! \return The internal encoding type.
         typedef InternalEncoding internal_encoding_type;
 
-        //! The internal string type.
+        //! \return The internal string type.
         typedef
             typename internal_encoding_type::string_type internal_string_type;
 
-        //! The external encoding type.
+        //! \return The external encoding type.
         typedef ExternalEncoding external_encoding_type;
 
-        //! The external string type.
+        //! \return The external string type.
         typedef
             typename external_encoding_type::string_type external_string_type;
 
@@ -127,7 +127,7 @@ namespace tetengo2
 
             \param another Another encoder.
 
-            \return this object.
+            \return This object.
         */
         encoder& operator=(const encoder& another)
         {

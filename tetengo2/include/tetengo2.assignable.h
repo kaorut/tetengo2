@@ -46,6 +46,8 @@ namespace tetengo2
             constructor.
 
             \param another Another.
+
+            \return This object.
         */
         Derived& assign(Derived another)
         {

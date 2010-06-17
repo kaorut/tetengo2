@@ -40,10 +40,10 @@ namespace bobura { namespace command
     public:
         // types
 
-        //! The about dialog type.
+        //! \return The about dialog type.
         typedef AboutDialog about_dialog_type;
 
-        //! The abstract_window type.
+        //! \return The abstract window type.
         typedef
             typename about_dialog_type::abstract_window_type
             abstract_window_type;
@@ -97,7 +97,7 @@ namespace bobura { namespace command
 
             \param another Another about command.
 
-            \return this object.
+            \return This object.
         */
         about& operator=(const about& another)
         {

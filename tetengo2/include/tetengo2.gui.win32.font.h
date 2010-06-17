@@ -64,13 +64,13 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The string type.
+        //! \return The string type.
         typedef String string_type;
 
-        //! The size type.
+        //! \return The size type.
         typedef Size size_type;
 
-        //! The families type.
+        //! \return The families type.
         typedef std::vector<string_type> families_type;
 
 
@@ -177,7 +177,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param another Another font.
 
-            \return this object.
+            \return This object.
         */
         font& operator=(const font& another)
         {

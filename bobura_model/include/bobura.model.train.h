@@ -52,16 +52,16 @@ namespace bobura { namespace model
     public:
         // types
 
-        //! The number type.
+        //! \return The number type.
         typedef Number number_type;
 
-        //! The note type.
+        //! \return The note type.
         typedef Note note_type;
 
-        //! The stop type.
+        //! \return The stop type.
         typedef Stop stop_type;
 
-        //! The stops type.
+        //! \return The stops type.
         typedef std::vector<stop_type> stops_type;
 
 
@@ -143,7 +143,7 @@ namespace bobura { namespace model
 
             \param another Another train.
 
-            \return this object.
+            \return This object.
         */
         train& operator=(const train& another)
         {

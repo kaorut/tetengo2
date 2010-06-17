@@ -45,16 +45,16 @@ namespace bobura { namespace message
     public:
         // types
 
-        //! The main window menu observer type;
+        //! \return The main window menu observer type.
         typedef
             main_window_menu_observer<Command> main_window_menu_observer_type;
 
-        //! The main window paint observer type;
+        //! \return The main window paint observer type.
         typedef
             main_window_paint_observer<Canvas>
             main_window_paint_observer_type;
 
-        //! The main window window observer type;
+        //! \return The main window window observer type.
         typedef
             main_window_window_observer<QuitMessageLoop>
             main_window_window_observer_type;
@@ -87,7 +87,7 @@ namespace bobura { namespace message
     public:
         // types
 
-        //! The about dialog OK button mouse observer type.
+        //! \return The about dialog OK button mouse observer type.
         typedef
             about_dialog_ok_button_mouse_observer<Dialog>
             about_dialog_ok_button_mouse_observer_type;

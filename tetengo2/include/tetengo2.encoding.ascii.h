@@ -34,10 +34,10 @@ namespace tetengo2 { namespace encoding
     public:
         // types
 
-        //! The string type.
+        //! \return The string type.
         typedef std::string string_type;
 
-        //! The string character type.
+        //! \return The string character type.
         typedef string_type::value_type string_char_type;
 
 
@@ -81,7 +81,7 @@ namespace tetengo2 { namespace encoding
 
             \param another Another ASCII encoding.
 
-            \return this object.
+            \return This object.
         */
         ascii& operator=(const ascii& another)
         {

@@ -23,7 +23,7 @@ namespace tetengo2
     public:
         // types
 
-        //! The result type.
+        //! \return The result type.
         typedef Result result_type;
 
 

@@ -37,7 +37,7 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        //! The canvas type.
+        //! \return The canvas type.
         typedef Canvas canvas_type;
 
 

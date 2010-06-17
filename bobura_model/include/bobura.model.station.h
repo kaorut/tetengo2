@@ -51,10 +51,10 @@ namespace bobura { namespace model
     public:
         // types
 
-        //! The name type.
+        //! \return The name type.
         typedef Name name_type;
 
-        //! The grade type.
+        //! \return The grade type.
         typedef Grade grade_type;
 
 
@@ -112,7 +112,7 @@ namespace bobura { namespace model
 
             \param another Another station.
 
-            \return this object.
+            \return This object.
         */
         station& operator=(const station& another)
         {

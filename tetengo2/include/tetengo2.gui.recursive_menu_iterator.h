@@ -40,7 +40,7 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        //! The menu type.
+        //! \return The menu type.
         typedef Menu menu_type;
 
 
@@ -108,7 +108,7 @@ namespace tetengo2 { namespace gui
 
             \param another Another recursive menu iterator.
 
-            \return this object.
+            \return This object.
         */
         recursive_menu_iterator& operator=(
             const recursive_menu_iterator& another

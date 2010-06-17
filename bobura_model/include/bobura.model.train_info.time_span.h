@@ -46,7 +46,7 @@ namespace bobura { namespace model { namespace train_info
     public:
         // types
 
-        //! The tick type.
+        //! \return The tick type.
         typedef TimeSpanTick tick_type;
 
 
@@ -140,7 +140,7 @@ namespace bobura { namespace model { namespace train_info
 
             \param another Another time span.
 
-            \return this object.
+            \return This object.
         */
         time_span& operator=(const time_span& another)
         {
@@ -152,7 +152,7 @@ namespace bobura { namespace model { namespace train_info
 
             \param another Another time span.
 
-            \return this object.
+            \return This object.
         */
         time_span& operator+=(const time_span& another)
         {
@@ -169,7 +169,7 @@ namespace bobura { namespace model { namespace train_info
 
             \param another Another time span.
 
-            \return this object.
+            \return This object.
         */
         time_span& operator-=(const time_span& another)
         {

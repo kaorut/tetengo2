@@ -73,26 +73,26 @@ namespace tetengo2
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef
             std::messages<
                 typename MessageCatalogParser::string_type::value_type
             >
             base_type;
 
-        //! The catalog type.
+        //! \return The catalog type.
         typedef typename base_type::catalog catalog;
 
-        //! The string_type.
+        //! \return The string type.
         typedef typename base_type::string_type string_type;
 
-        //! The path type.
+        //! \return The path type.
         typedef Path path_type;
 
-        //! The message catalog parser type.
+        //! \return The message catalog parser type.
         typedef MessageCatalogParser message_catalog_parser_type;
 
-        //! The encoder type for locale names.
+        //! \return The encoder type.for locale names.
         typedef LocaleNameEncoder locale_name_encoder_type;
 
 

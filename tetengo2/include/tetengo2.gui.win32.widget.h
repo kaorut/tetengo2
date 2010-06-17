@@ -113,43 +113,43 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The handle type.
+        //! \return The handle type.
         typedef Handle handle_type;
 
-        //! The canvas type.
+        //! \return The canvas type.
         typedef Canvas canvas_type;
 
-        //! The alerting unary functor type.
+        //! \return The alerting unary functor type.
         typedef Alert alert_type;
 
-        //! The difference type.
+        //! \return The difference type.
         typedef Difference difference_type;
 
-        //! The size type.
+        //! \return The size type.
         typedef Size size_type;
 
-        //! The position type.
+        //! \return The position type.
         typedef std::pair<difference_type, difference_type> position_type;
 
-        //! The dimension type.
+        //! \return The dimension type.
         typedef std::pair<size_type, size_type> dimension_type;
 
-        //! The string type.
+        //! \return The string type.
         typedef String string_type;
 
-        //! The encoder type.
+        //! \return The encoder type.
         typedef Encoder encoder_type;
 
-        //! The font type.
+        //! \return The font type.
         typedef Font font_type;
 
-        //! The child type.
+        //! \return The child type.
         typedef widget child_type;
 
-        //! The paint observer type.
+        //! \return The paint observer type.
         typedef PaintObserver paint_observer_type;
 
-        //! The mouse observer type.
+        //! \return The mouse observer type.
         typedef MouseObserver mouse_observer_type;
 
 
@@ -826,7 +826,7 @@ namespace tetengo2 { namespace gui { namespace win32
     protected:
         // types
 
-        //! The custom message type.
+        //! \return The custom message type.
         enum message_type
         {
             message_command = WM_APP,   //!< A command message.

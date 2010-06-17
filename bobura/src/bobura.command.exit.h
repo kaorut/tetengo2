@@ -39,7 +39,7 @@ namespace bobura { namespace command
     public:
         // types
 
-        //! The window type.
+        //! \return The window type.
         typedef Window window_type;
 
 
@@ -91,7 +91,7 @@ namespace bobura { namespace command
 
             \param another Another exit command.
 
-            \return this object.
+            \return This object.
         */
         exit& operator=(const exit& another)
         {

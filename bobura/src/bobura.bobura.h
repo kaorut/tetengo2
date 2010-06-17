@@ -47,13 +47,13 @@ namespace bobura
     public:
         // types
 
-        //! The settings type.
+        //! \return The settings type.
         typedef Settings settings_type;
 
-        //! The main window type.
+        //! \return The main window type.
         typedef MainWindow main_window_type;
 
-        //! The type list type to create platform specific GUI
+        //! \return The type list type.to create platform specific GUI
         //! components.
         typedef GuiTypeList gui_type_list_type;
 

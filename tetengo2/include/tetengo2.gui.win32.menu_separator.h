@@ -43,7 +43,7 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef Menu base_type;
 
         //! \copydoc tetengo2::gui::win32::menu::id_type

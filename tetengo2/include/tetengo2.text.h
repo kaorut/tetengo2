@@ -29,10 +29,10 @@ namespace tetengo2
     public:
         // types
 
-        //! The multibyte value type.
+        //! \return The multibyte value type.
         typedef Multibyte multibyte_type;
 
-        //! The wide value type.
+        //! \return The wide value type.
         typedef Wide wide_type;
 
 
@@ -91,7 +91,7 @@ namespace tetengo2
 
             \param another Another text value holder.
 
-            \return this object.
+            \return This object.
         */
         text_value_holder& operator=(const text_value_holder& another)
         {

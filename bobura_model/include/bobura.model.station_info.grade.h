@@ -36,7 +36,7 @@ namespace bobura { namespace model { namespace station_info
     public:
         // types
 
-        //! The name type.
+        //! \return The name type.
         typedef GradeName name_type;
 
 
@@ -86,7 +86,7 @@ namespace bobura { namespace model { namespace station_info
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef grade<GradeName> base_type;
 
         //! \copydoc bobura::model::station_info::grade::name_type
@@ -154,7 +154,7 @@ namespace bobura { namespace model { namespace station_info
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef grade<GradeName> base_type;
 
         //! \copydoc bobura::model::station_info::grade::name_type
@@ -222,7 +222,7 @@ namespace bobura { namespace model { namespace station_info
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef grade<GradeName> base_type;
 
         //! \copydoc bobura::model::station_info::grade::name_type
@@ -290,7 +290,7 @@ namespace bobura { namespace model { namespace station_info
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef grade<GradeName> base_type;
 
         //! \copydoc bobura::model::station_info::grade::name_type

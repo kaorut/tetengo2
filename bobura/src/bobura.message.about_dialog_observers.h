@@ -40,7 +40,7 @@ namespace bobura { namespace message
     public:
         // types
 
-        //! The dialog type.
+        //! \return The dialog type.
         typedef Dialog dialog_type;
 
 

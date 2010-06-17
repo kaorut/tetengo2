@@ -46,10 +46,10 @@ namespace bobura { namespace model { namespace train_info
     public:
         // types
 
-        //! The time type.
+        //! \return The time type.
         typedef Time time_type;
 
-        //! The platform type.
+        //! \return The platform type.
         typedef Platform platform_type;
 
 
@@ -113,7 +113,7 @@ namespace bobura { namespace model { namespace train_info
 
             \param another Another stop.
 
-            \return this object.
+            \return This object.
         */
         stop& operator=(const stop& another)
         {

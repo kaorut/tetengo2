@@ -39,10 +39,10 @@ namespace tetengo2 { namespace encoding { namespace win32
     public:
         // types
 
-        //! The string type.
+        //! \return The string type.
         typedef std::string string_type;
 
-        //! The string character type.
+        //! \return The string character type.
         typedef string_type::value_type string_char_type;
 
 
@@ -86,7 +86,7 @@ namespace tetengo2 { namespace encoding { namespace win32
 
             \param another Another UTF-8 encoding.
 
-            \return this object.
+            \return This object.
         */
         utf8& operator=(const utf8& another)
         {

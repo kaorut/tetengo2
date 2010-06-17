@@ -81,28 +81,28 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The handle type for the native interface.
+        //! \return The handle type.for the native interface.
         typedef Handle handle_type;
 
-        //! The size type.
+        //! \return The size type.
         typedef Size size_type;
 
-        //! The point type.
+        //! \return The point type.
         typedef std::pair<size_type, size_type> point_type;
 
-        //! The rectangle type.
+        //! \return The rectangle type.
         typedef std::pair<point_type, point_type> rectangle_type;
 
-        //! The string type.
+        //! \return The string type.
         typedef String string_type;
 
-        //! The encoder type.
+        //! \return The encoder type.
         typedef Encoder encoder_type;
 
-        //! The window handle type for the native interface.
+        //! \return The window handle type.for the native interface.
         typedef WindowHandle window_handle_type;
 
-        //! The font type.
+        //! \return The font type.
         typedef Font font_type;
 
 

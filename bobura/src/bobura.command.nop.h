@@ -63,7 +63,7 @@ namespace bobura { namespace command
 
             \param another Another nop command.
 
-            \return this object.
+            \return This object.
         */
         nop& operator=(const nop& another)
         {

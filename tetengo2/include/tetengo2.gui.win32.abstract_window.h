@@ -64,7 +64,7 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef Widget base_type;
 
         //! \copydoc tetengo2::gui::win32::widget::handle_type
@@ -106,10 +106,10 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::widget::mouse_observer_type
         typedef typename base_type::mouse_observer_type mouse_observer_type;
 
-        //! The main menu type.
+        //! \return The main menu type.
         typedef MainMenu main_menu_type;
 
-        //! The abstract_window observer type.
+        //! \return The abstract window observer type.
         typedef WindowObserver window_observer_type;
 
 

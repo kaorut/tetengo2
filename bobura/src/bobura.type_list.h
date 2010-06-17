@@ -40,65 +40,65 @@ namespace bobura
     public:
         // types
 
-        //! The difference type.
+        //! \return The difference type.
         typedef std::ptrdiff_t difference_type;
 
-        //! The size type.
+        //! \return The size type.
         typedef std::size_t size_type;
 
-        //! The string type.
+        //! \return The string type.
         typedef std::wstring string_type;
 
-        //! The internal encoding type.
+        //! \return The internal encoding type.
         typedef
             tetengo2::encoding::locale<string_type> internal_encoding_type;
 
-        //! The encoding type for the user interface.
+        //! \return The encoding type.for the user interface.
         typedef
             tetengo2::encoding::locale<std::wstring> ui_encoding_type;
 
-        //! The encoding type for exceptions.
+        //! \return The encoding type.for exceptions.
         typedef tetengo2::encoding::win32::utf8 exception_encoding_type;
 
-        //! The message catalog type for the message catalog.
+        //! \return The message catalog type.for the message catalog.
         typedef tetengo2::encoding::win32::utf8 message_catalog_encoding_type;
 
-        //! The encoding type for locale names.
+        //! \return The encoding type.for locale names.
         typedef
             tetengo2::encoding::locale<std::string> locale_name_encoding_type;
 
-        //! The encoder type for the user interface.
+        //! \return The encoder type.for the user interface.
         typedef
             tetengo2::encoder<internal_encoding_type, ui_encoding_type>
             ui_encoder_type;
 
-        //! The encoder type for exceptions.
+        //! \return The encoder type.for exceptions.
         typedef
             tetengo2::encoder<internal_encoding_type, exception_encoding_type>
             exception_encoder_type;
 
-        //! The encoder type for the message catalog.
+        //! \return The encoder type.for the message catalog.
         typedef
             tetengo2::encoder<
                 internal_encoding_type, message_catalog_encoding_type
             >
             message_catalog_encoder_type;
 
-        //! The encoder type for locale names.
+        //! \return The encoder type.for locale names.
         typedef
             tetengo2::encoder<
                 internal_encoding_type, locale_name_encoding_type
             >
             locale_name_encoder_type;
 
-        //! The message catalog parser type.
+        //! \return The message catalog parser type.
         typedef
             tetengo2::message_catalog_parser<
                 std::istream, string_type, message_catalog_encoder_type
             >
             message_catalog_parser_type;
 
-        //! The messages facet type.
+        //! \return The messages facet type.
         typedef
             tetengo2::messages<
                 boost::filesystem::wpath,
@@ -107,7 +107,7 @@ namespace bobura
             >
             messages_type;
 
-        //! The type list type to create platform specific GUI components.
+        //! \return The type list type.to create platform specific GUI components.
         typedef
             tetengo2::gui::win32::gui_type_list<
                 difference_type,
@@ -118,18 +118,18 @@ namespace bobura
             >
             gui_type_list_type;
 
-        //! The GUI initialization and finalization manager type.
+        //! \return The GUI initialization and finalization manager type.
         typedef
             gui_type_list_type::gui_initializer_finalizer_type
             gui_initializer_finalizer_type;
 
-        //! The binary functor type of the alert.
+        //! \return The binary functor type.of the alert.
         typedef gui_type_list_type::alert_type alert_type;
 
-        //! The settings type.
+        //! \return The settings type.
         typedef settings<string_type> settings_type;
 
-        //! The about dialog message type list type.
+        //! \return The about dialog message type list type.
         typedef
             message::about_dialog_message_type_list<
                 typename gui_type_list_type::dialog_type
@@ -137,7 +137,7 @@ namespace bobura
             about_dialog_message_type_list_type;
 
 
-        //! The about dialog type.
+        //! \return The about dialog type.
         typedef
             about_dialog<
                 typename gui_type_list_type::dialog_type,
@@ -146,14 +146,14 @@ namespace bobura
             >
             about_dialog_type;
 
-        //! The command type list type.
+        //! \return The command type list type.
         typedef
             command::command_type_list<
                 typename gui_type_list_type::window_type, about_dialog_type
             >
             command_type_list_type;
 
-        //! The message type list type.
+        //! \return The message type list type.
         typedef
             message::main_window_message_type_list<
                 typename command_type_list_type::command_type,
@@ -162,7 +162,7 @@ namespace bobura
             >
             main_window_message_type_list_type;
 
-        //! The main window type.
+        //! \return The main window type.
         typedef
             main_window<
                 gui_type_list_type,
@@ -171,7 +171,7 @@ namespace bobura
             >
             main_window_type;
 
-        //! The Bobura application type.
+        //! \return The Bobura application type.
         typedef
             bobura<settings_type, main_window_type, gui_type_list_type>
             bobura_type;

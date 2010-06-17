@@ -57,21 +57,21 @@ namespace tetengo2
     public:
         // types
 
-        //! The input stream type.
+        //! \return The input stream type.
         typedef InputStream input_stream_type;
 
-        //! The input string_type.
+        //! \return The input string type.
         typedef
             std::basic_string<typename input_stream_type::char_type>
             input_string_type;
 
-        //! The string type.
+        //! \return The string type.
         typedef String string_type;
 
-        //! The encoder type.
+        //! \return The encoder type.
         typedef Encoder encoder_type;
 
-        //! The entry type.
+        //! \return The entry type.
         typedef std::pair<string_type, string_type> entry_type;
 
 

@@ -59,7 +59,7 @@ namespace bobura
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef typename GuiTypeList::window_type base_type;
 
         //! \copydoc tetengo2::gui::win32::widget::handle_type
@@ -107,13 +107,13 @@ namespace bobura
         //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_type.
         typedef typename base_type::window_observer_type window_observer_type;
 
-        //! The GUI type list type.
+        //! \return The GUI type list type.
         typedef GuiTypeList gui_type_list_type;
 
-        //! The command type list type.
+        //! \return The command type list type.
         typedef CommandTypeList command_type_list_type;
 
-        //! The message type list type.
+        //! \return The message type list type.
         typedef MainWindowMessageTypeList main_window_message_type_list_type;
 
 

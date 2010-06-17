@@ -58,16 +58,16 @@ namespace bobura { namespace model
     public:
         // types
 
-        //! The station location type.
+        //! \return The station location type.
         typedef StationLocation station_location_type;
 
-        //! The station locations type.
+        //! \return The station locations type.
         typedef std::vector<station_location_type> station_locations_type;
 
-        //! The train type.
+        //! \return The train type.
         typedef Train train_type;
 
-        //! The trains type.
+        //! \return The trains type.
         typedef std::vector<train_type> trains_type;
 
 
@@ -140,7 +140,7 @@ namespace bobura { namespace model
 
             \param another Another timetable.
 
-            \return this object.
+            \return This object.
         */
         timetable& operator=(const timetable& another)
         {

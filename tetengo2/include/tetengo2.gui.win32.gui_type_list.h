@@ -88,32 +88,32 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The GUI initialization and finalization manager type.
+        //! \return The GUI initialization and finalization manager type.
         typedef
             tetengo2::gui::win32::gui_initializer_finalizer
             gui_initializer_finalizer_type;
 
-        //! The message loop type.
+        //! \return The message loop type.
         typedef message_loop message_loop_type;
 
-        //! The quit-message-loop type.
+        //! \return The quit-message-loop type.
         typedef quit_message_loop quit_message_loop_type;
 
-        //! The encoder type for the user interface.
+        //! \return The encoder type.for the user interface.
         typedef UiEncoder ui_encoder_type;
 
-        //! The encoder type for exceptions.
+        //! \return The encoder type.for exceptions.
         typedef ExceptionEncoder exception_encoder_type;
 
-        //! The alert dialog type.
+        //! \return The alert dialog type.
         typedef
             alert< ::HWND, ui_encoder_type, exception_encoder_type>
             alert_type;
 
-        //! The font type.
+        //! \return The font type.
         typedef font<String, Size> font_type;
 
-        //! The canvas type.
+        //! \return The canvas type.
         typedef
             canvas<
                 const Gdiplus::Graphics*,
@@ -125,7 +125,7 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             canvas_type;
 
-        //! The widget type.
+        //! \return The widget type.
         typedef
             widget<
                 ::HWND,
@@ -157,34 +157,34 @@ namespace tetengo2 { namespace gui { namespace win32
             abstract_popup_menu_type;
 
     public:
-        //! The main menu type.
+        //! \return The main menu type.
         typedef
             tetengo2::gui::win32::main_menu<abstract_popup_menu_type>
             main_menu_type;
 
-        //! The popup menu type.
+        //! \return The popup menu type.
         typedef popup_menu<abstract_popup_menu_type> popup_menu_type;
 
-        //! The abstract window type.
+        //! \return The abstract window type.
         typedef
             abstract_window<
                 widget_type, main_menu_type, tetengo2::gui::window_observer
             >
             abstract_window_type;
 
-        //! The window type.
+        //! \return The window type.
         typedef window<abstract_window_type> window_type;
 
-        //! The menu command type.
+        //! \return The menu command type.
         typedef menu_command<menu_type> menu_command_type;
 
-        //! The menu separator type.
+        //! \return The menu separator type.
         typedef menu_separator<menu_type> menu_separator_type;
 
-        //! The dialog message loop type.
+        //! \return The dialog message loop type.
         typedef dialog_message_loop dialog_message_loop_type;
 
-        //! The dialog type.
+        //! \return The dialog type.
         typedef
             dialog<
                 abstract_window_type,
@@ -193,7 +193,7 @@ namespace tetengo2 { namespace gui { namespace win32
             >
             dialog_type;
 
-        //! The button type.
+        //! \return The button type.
         typedef button<widget_type> button_type;
 
 

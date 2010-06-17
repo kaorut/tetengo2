@@ -55,10 +55,10 @@ namespace tetengo2 { namespace encoding
     public:
         // types
 
-        //! The string type.
+        //! \return The string type.
         typedef String string_type;
 
-        //! The string character type.
+        //! \return The string character type.
         typedef typename string_type::value_type string_char_type;
 
 
@@ -110,7 +110,7 @@ namespace tetengo2 { namespace encoding
 
             \param another Another encoding based on a locale.
 
-            \return this object.
+            \return This object.
         */
         locale& operator=(const locale& another)
         {

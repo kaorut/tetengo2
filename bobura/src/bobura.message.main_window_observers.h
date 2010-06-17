@@ -39,7 +39,7 @@ namespace bobura { namespace message
     public:
         // types
 
-        //! The command type.
+        //! \return The command type.
         typedef Command command_type;
 
 
@@ -94,7 +94,7 @@ namespace bobura { namespace message
     public:
         // types
 
-        //! The base type.
+        //! \return The base type.
         typedef tetengo2::gui::paint_observer<Canvas> base_type;
 
         //! \copydoc tetengo2::gui::paint_observer::canvas_type
@@ -181,7 +181,7 @@ namespace bobura { namespace message
     public:
         // types
 
-        //! The unary functor type for quitting the message loop.
+        //! \return The unary functor type.for quitting the message loop.
         typedef QuitMessageLoop quit_message_loop_type;
 
 
