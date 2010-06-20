@@ -1,6 +1,8 @@
 *.gch
 *.ncb
 *.o
+*.opensdf
+*.sdf
 *.suo
 *.user
 */obj

@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A5EBAC50-5464-4E80-B47A-A28FA0D7A3CC}</ProjectGuid>
+    <RootNamespace>tetengo2</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\concept_tetengo2.Assignable.h" />
+    <ClInclude Include="include\concept_tetengo2.Encoder.h" />
+    <ClInclude Include="include\concept_tetengo2.encoding.Encoding.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.AbstractWindow.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.Button.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.Canvas.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.Dialog.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.Font.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.GuiTypeList.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.Handle.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.Menu.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.MenuObserver.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.MouseObserver.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.PaintObserver.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.Widget.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.Window.h" />
+    <ClInclude Include="include\concept_tetengo2.gui.WindowObserver.h" />
+    <ClInclude Include="include\concept_tetengo2.IStream.h" />
+    <ClInclude Include="include\concept_tetengo2.MessageCatalog.h" />
+    <ClInclude Include="include\concept_tetengo2.MessageCatalogParser.h" />
+    <ClInclude Include="include\concept_tetengo2.Messages.h" />
+    <ClInclude Include="include\concept_tetengo2.Path.h" />
+    <ClInclude Include="include\concept_tetengo2.String.h" />
+    <ClInclude Include="include\concept_tetengo2.Swappable.h" />
+    <ClInclude Include="include\tetengo2.assignable.h" />
+    <ClInclude Include="include\tetengo2.encoder.h" />
+    <ClInclude Include="include\tetengo2.encoding.ascii.h" />
+    <ClInclude Include="include\tetengo2.encoding.encoding.h" />
+    <ClInclude Include="include\tetengo2.encoding.locale.h" />
+    <ClInclude Include="include\tetengo2.encoding.win32.utf8.h" />
+    <ClInclude Include="include\tetengo2.generator.h" />
+    <ClInclude Include="include\tetengo2.gui.menu_observer.h" />
+    <ClInclude Include="include\tetengo2.gui.mouse_observer.h" />
+    <ClInclude Include="include\tetengo2.gui.paint_observer.h" />
+    <ClInclude Include="include\tetengo2.gui.recursive_menu_iterator.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.abstract_popup_menu.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.abstract_window.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.alert.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.button.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.canvas.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.dialog.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.dialog_message_loop.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.font.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.gui_initializer_finalizer.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.gui_type_list.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.main_menu.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.menu.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.menu_command.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.menu_separator.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.message_loop.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.popup_menu.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.quit_message_loop.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.widget.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.window.h" />
+    <ClInclude Include="include\tetengo2.gui.window_observer.h" />
+    <ClInclude Include="include\tetengo2.messages.h" />
+    <ClInclude Include="include\tetengo2.message_catalog.h" />
+    <ClInclude Include="include\tetengo2.message_catalog_parser.h" />
+    <ClInclude Include="include\tetengo2.meta.assoc_list.h" />
+    <ClInclude Include="include\tetengo2.swappable.h" />
+    <ClInclude Include="include\tetengo2.text.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
