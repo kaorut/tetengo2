@@ -227,9 +227,6 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <ResourceCompile Include="res\win32\bobura.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="res\win32\COMCTL32.DLL.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="res\messages\_catalogs.txt" />
     <None Include="res\win32\kuma.ico" />
   </ItemGroup>

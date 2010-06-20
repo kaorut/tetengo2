@@ -7,12 +7,6 @@
     <Filter Include="sources">
       <UniqueIdentifier>{ee1a6b64-7abc-4714-87a4-7beea6710a72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resources">
-      <UniqueIdentifier>{7ec31a28-a797-4bc4-aa30-d53ce992d659}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="resources\win32">
-      <UniqueIdentifier>{75178209-8135-4801-a0bd-ce49d94449a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\test_bobura::message">
       <UniqueIdentifier>{8d9ca398-31cc-4d38-952c-b49a2f2020a0}</UniqueIdentifier>
     </Filter>
@@ -27,11 +21,6 @@
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Manifest Include="res\win32\COMCTL32.DLL.manifest">
-      <Filter>resources\win32</Filter>
-    </Manifest>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\precompiled\precompiled.cpp">

@@ -111,11 +111,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="res\win32\COMCTL32.DLL.manifest">
-      <Filter>resources\win32</Filter>
-    </Manifest>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\precompiled\precompiled.cpp">
       <Filter>sources</Filter>
     </ClCompile>

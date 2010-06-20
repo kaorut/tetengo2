@@ -207,9 +207,6 @@ echo Skipping...
     <ClInclude Include="..\precompiled\precompiled.h" />
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="res\win32\COMCTL32.DLL.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\precompiled\precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
