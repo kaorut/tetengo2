@@ -60,6 +60,72 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\precompiled\precompiled.h" />
+    <ClInclude Include="test\stub_tetengo2.encoding.utf8.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.abstract_popup_menu.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.abstract_window.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.alert.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.button.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.canvas.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.dialog.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.font.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.gui_initializer_finalizer.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.gui_type_list.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.main_menu.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.menu.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.menu_command.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.menu_separator.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.message_loop.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.popup_menu.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.quit_message_loop.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.widget.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res.test\messages.test\English.txt" />
+    <None Include="res.test\messages.test\Japanese.txt" />
+    <None Include="res.test\messages.test\_catalogs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\precompiled\precompiled.cpp" />
+    <ClCompile Include="test\master.cpp" />
+    <ClCompile Include="test\test_tetengo2.assignable.cpp" />
+    <ClCompile Include="test\test_tetengo2.encoder.cpp" />
+    <ClCompile Include="test\test_tetengo2.encoding.ascii.cpp" />
+    <ClCompile Include="test\test_tetengo2.encoding.encoding.cpp" />
+    <ClCompile Include="test\test_tetengo2.encoding.locale.cpp" />
+    <ClCompile Include="test\test_tetengo2.encoding.win32.utf8.cpp" />
+    <ClCompile Include="test\test_tetengo2.generator.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.menu_observer.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.mouse_observer.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.paint_observer.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.recursive_menu_iterator.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.abstract_popup_menu.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.abstract_window.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.alert.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.button.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.canvas.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.dialog.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.dialog_message_loop.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.font.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.gui_initializer_finalizer.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.gui_type_list.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.main_menu.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.menu.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.menu_command.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.menu_separator.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.message_loop.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.popup_menu.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.quit_message_loop.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.widget.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.window.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.window_observer.cpp" />
+    <ClCompile Include="test\test_tetengo2.messages.cpp" />
+    <ClCompile Include="test\test_tetengo2.message_catalog.cpp" />
+    <ClCompile Include="test\test_tetengo2.message_catalog_parser.cpp" />
+    <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp" />
+    <ClCompile Include="test\test_tetengo2.swappable.cpp" />
+    <ClCompile Include="test\test_tetengo2.text.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
