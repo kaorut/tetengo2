@@ -54,7 +54,9 @@ namespace tetengo2 { namespace gui
         m_p_menu(NULL),
         m_parents()
         {
-            m_parents.push(parent_and_index_type(NULL, 0));
+            m_parents.push(
+                parent_and_index_type(static_cast<menu_type*>(NULL), 0)
+            );
         }
 
         /*!
@@ -67,7 +69,9 @@ namespace tetengo2 { namespace gui
         m_p_menu(p_menu),
         m_parents()
         {
-            m_parents.push(parent_and_index_type(NULL, 0));
+            m_parents.push(
+                parent_and_index_type(static_cast<menu_type*>(NULL), 0)
+            );
         }
 
         /*!
