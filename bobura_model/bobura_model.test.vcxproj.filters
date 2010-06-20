@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{c5ed62c0-fe83-404a-9a61-46be4bb8b687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{027997a8-750c-4211-964c-8c1ead92449e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_bobura::model">
+      <UniqueIdentifier>{5a72901f-746e-4461-813c-f9faa955c965}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\precompiled\precompiled.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\precompiled\precompiled.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="test\master.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.station.cpp">
+      <Filter>sources\test_bobura::model</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.station_info.grade.cpp">
+      <Filter>sources\test_bobura::model</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.timetable.cpp">
+      <Filter>sources\test_bobura::model</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.timetable_info.station_location.cpp">
+      <Filter>sources\test_bobura::model</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.train.cpp">
+      <Filter>sources\test_bobura::model</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.train_info.stop.cpp">
+      <Filter>sources\test_bobura::model</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.train_info.time.cpp">
+      <Filter>sources\test_bobura::model</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.train_info.time_span.cpp">
+      <Filter>sources\test_bobura::model</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
