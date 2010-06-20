@@ -81,19 +81,47 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BOOST_ALL_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompiled.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>precompiled.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
+xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
+</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BOOST_ALL_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompiled.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>precompiled.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
+xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
+</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -101,12 +129,23 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BOOST_ALL_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
+xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
+</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -114,14 +153,62 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BOOST_ALL_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
+xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
+</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\precompiled\precompiled.h" />
+    <ClInclude Include="res\win32\resource.h" />
+    <ClInclude Include="src\bobura.about_dialog.h" />
+    <ClInclude Include="src\bobura.bobura.h" />
+    <ClInclude Include="src\bobura.command.about.h" />
+    <ClInclude Include="src\bobura.command.command_type_list.h" />
+    <ClInclude Include="src\bobura.command.exit.h" />
+    <ClInclude Include="src\bobura.command.nop.h" />
+    <ClInclude Include="src\bobura.main_window.h" />
+    <ClInclude Include="src\bobura.message.about_dialog_observers.h" />
+    <ClInclude Include="src\bobura.message.main_window_observers.h" />
+    <ClInclude Include="src\bobura.message.message_type_lists.h" />
+    <ClInclude Include="src\bobura.settings.h" />
+    <ClInclude Include="src\bobura.type_list.h" />
+    <ClInclude Include="src\bobura.type_list_new.h" />
+    <ClInclude Include="src\concept_bobura.AboutDialog.h" />
+    <ClInclude Include="src\concept_bobura.command.CommandTypeList.h" />
+    <ClInclude Include="src\concept_bobura.MainWindow.h" />
+    <ClInclude Include="src\concept_bobura.message.MessageTypeLists.h" />
+    <ClInclude Include="src\concept_bobura.Settings.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\win32\bobura.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\win32\COMCTL32.DLL.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\messages\_catalogs.txt" />
+    <None Include="res\win32\kuma.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\precompiled\precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

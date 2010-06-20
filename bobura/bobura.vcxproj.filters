@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{40d9bb89-894c-436a-b1f0-fd625769a1ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{1ec8b982-af82-4d02-8372-e3d08474aaab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\bobura">
+      <UniqueIdentifier>{331196ef-56c9-4373-868d-94eb01451bd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\bobura::command">
+      <UniqueIdentifier>{70024d0f-a754-44dd-b562-b95d72a46525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\bobura::message">
+      <UniqueIdentifier>{a708a07f-8972-43b3-8115-9a955ced00b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\concept_bobura">
+      <UniqueIdentifier>{53282996-1141-4913-8627-28a0d6ca582c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\concept_bobura::command">
+      <UniqueIdentifier>{f3d17ef0-5589-4e86-9947-41f9a8958f29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\concept_bobura::message">
+      <UniqueIdentifier>{286924da-d81c-4eba-8118-8354d2bb4193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{1a283181-6f05-4efd-abfe-aa839069ca0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\messages">
+      <UniqueIdentifier>{810f9661-0a38-41fa-aa43-578bfb98cd1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\win32">
+      <UniqueIdentifier>{98f488c9-a614-4cbe-bdd1-1e3f93e8abc3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\bobura.about_dialog.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.bobura.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.main_window.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.settings.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.type_list.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.type_list_new.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.about.h">
+      <Filter>headers\bobura::command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.command_type_list.h">
+      <Filter>headers\bobura::command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.exit.h">
+      <Filter>headers\bobura::command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.nop.h">
+      <Filter>headers\bobura::command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.message.about_dialog_observers.h">
+      <Filter>headers\bobura::message</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.message.main_window_observers.h">
+      <Filter>headers\bobura::message</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.message.message_type_lists.h">
+      <Filter>headers\bobura::message</Filter>
+    </ClInclude>
+    <ClInclude Include="src\concept_bobura.AboutDialog.h">
+      <Filter>headers\concept_bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\concept_bobura.MainWindow.h">
+      <Filter>headers\concept_bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\concept_bobura.Settings.h">
+      <Filter>headers\concept_bobura</Filter>
+    </ClInclude>
+    <ClInclude Include="src\concept_bobura.command.CommandTypeList.h">
+      <Filter>headers\concept_bobura::command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\concept_bobura.message.MessageTypeLists.h">
+      <Filter>headers\concept_bobura::message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\precompiled\precompiled.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="res\win32\resource.h">
+      <Filter>resources\win32</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\messages\_catalogs.txt">
+      <Filter>resources\messages</Filter>
+    </None>
+    <None Include="res\win32\kuma.ico">
+      <Filter>resources\win32</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\win32\bobura.rc">
+      <Filter>resources\win32</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\win32\COMCTL32.DLL.manifest">
+      <Filter>resources\win32</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\precompiled\precompiled.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
