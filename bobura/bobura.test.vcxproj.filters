@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{bb099cae-d701-4e25-be75-036781ff6c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{ee1a6b64-7abc-4714-87a4-7beea6710a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{7ec31a28-a797-4bc4-aa30-d53ce992d659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\win32">
+      <UniqueIdentifier>{75178209-8135-4801-a0bd-ce49d94449a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_bobura::message">
+      <UniqueIdentifier>{8d9ca398-31cc-4d38-952c-b49a2f2020a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_bobura">
+      <UniqueIdentifier>{939d4fd8-7c9d-419a-ae30-6b92823ade6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_bobura::command">
+      <UniqueIdentifier>{6d34d48f-8242-4504-8461-a816fcd6385a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\precompiled\precompiled.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\win32\COMCTL32.DLL.manifest">
+      <Filter>resources\win32</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\precompiled\precompiled.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="test\master.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.about_dialog.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.bobura.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.main_window.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.settings.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.type_list.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.command.about.cpp">
+      <Filter>sources\test_bobura::command</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.command.command_type_list.cpp">
+      <Filter>sources\test_bobura::command</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.command.exit.cpp">
+      <Filter>sources\test_bobura::command</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.command.nop.cpp">
+      <Filter>sources\test_bobura::command</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.message.about_dialog_observers.cpp">
+      <Filter>sources\test_bobura::message</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.message.main_window_observers.cpp">
+      <Filter>sources\test_bobura::message</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.message.message_type_lists.cpp">
+      <Filter>sources\test_bobura::message</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
