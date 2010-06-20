@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{b3e3353b-c5be-4505-aeb3-827c557c8d04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\concept_bobura::model">
+      <UniqueIdentifier>{a2af9551-e87e-41ef-9f34-91ac2ba9f2b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\bobura::model">
+      <UniqueIdentifier>{a1a15d0d-e802-4f69-9c67-4db223541f52}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\bobura.model.station.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.station_info.grade.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.timetable.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.timetable_info.station_location.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.train.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.train_info.stop.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.train_info.time.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.train_info.time_span.h">
+      <Filter>headers\bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\concept_bobura.model.Station.h">
+      <Filter>headers\concept_bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\concept_bobura.model.station_info.Grade.h">
+      <Filter>headers\concept_bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\concept_bobura.model.Timetable.h">
+      <Filter>headers\concept_bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\concept_bobura.model.timetable_info.StationLocation.h">
+      <Filter>headers\concept_bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\concept_bobura.model.Train.h">
+      <Filter>headers\concept_bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\concept_bobura.model.train_info.Stop.h">
+      <Filter>headers\concept_bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\concept_bobura.model.train_info.Time.h">
+      <Filter>headers\concept_bobura::model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\concept_bobura.model.train_info.TimeSpan.h">
+      <Filter>headers\concept_bobura::model</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
