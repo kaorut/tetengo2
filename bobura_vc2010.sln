@@ -9,17 +9,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bobura", "bobura\bobura.vcx
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bobura.test", "bobura\bobura.test.vcxproj", "{E9959F02-3B7B-40BF-97C2-A20260C55601}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0915BC63-77EA-4D80-A703-248BA03078AA} = {0915BC63-77EA-4D80-A703-248BA03078AA}
-		{1406D9ED-B6CB-46FF-87E0-F2714255C403} = {1406D9ED-B6CB-46FF-87E0-F2714255C403}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bobura_model", "bobura_model\bobura_model.vcxproj", "{E3D6C3EA-1A16-45EB-80A6-69B4AFAD366C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bobura_model.test", "bobura_model\bobura_model.test.vcxproj", "{1406D9ED-B6CB-46FF-87E0-F2714255C403}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0915BC63-77EA-4D80-A703-248BA03078AA} = {0915BC63-77EA-4D80-A703-248BA03078AA}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tetengo2", "tetengo2\tetengo2.vcxproj", "{A5EBAC50-5464-4E80-B47A-A28FA0D7A3CC}"
 EndProject
