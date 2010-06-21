@@ -14,6 +14,19 @@
 
 #include <boost/mpl/pair.hpp>
 
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
+//#if !defined(min) && !defined(DOCUMENTATION)
+//#   define min(a, b) ((a) < (b) ? (a) : (b))
+//#endif
+//#if !defined(max) && !defined(DOCUMENTATION)
+//#   define max(a, b) ((a) > (b) ? (a) : (b))
+//#endif
+//#include <gdiplus.h>
+//#undef min
+//#undef max
+
 #include <tetengo2.encoder.h>
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog_parser.h>
@@ -185,7 +198,66 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace ui
     {
-
+        typedef
+            tetengo2::gui::win32::font<
+                boost::mpl::at<common_type_list, type::size>,
+                boost::mpl::at<common_type_list, type::string>
+            >
+            font_type;
+        typedef
+            tetengo2::gui::win32::canvas<
+                const Gdiplus::Graphics*,
+                boost::mpl::at<common_type_list, type::size>,
+                boost::mpl::at<common_type_list, type::string>,
+                boost::mpl::at<locale_type_list, type::ui_encoder>,
+                ::HWND,
+                detail::ui::font_type
+            >
+            canvas_type;
+        typedef
+            tetengo2::gui::win32::alert<
+                ::HWND,
+                boost::mpl::at<locale_type_list, type::ui_encoder>,
+                boost::mpl::at<locale_type_list, type::exception_encoder>
+            >
+            alert_type;
+        typedef
+            tetengo2::gui::win32::widget<
+                ::HWND,
+                canvas_type,
+                alert_type,
+                boost::mpl::at<common_type_list, type::difference>,
+                boost::mpl::at<common_type_list, type::size>,
+                boost::mpl::at<common_type_list, type::string>,
+                boost::mpl::at<locale_type_list, type::ui_encoder>,
+                font_type,
+                tetengo2::gui::paint_observer<canvas_type>,
+                tetengo2::gui::mouse_observer
+            >
+            widget_type;
+        typedef
+            tetengo2::gui::win32::menu<
+                ::UINT,
+                ::HMENU,
+                boost::mpl::at<common_type_list, type::string>,
+                boost::mpl::at<locale_type_list, type::ui_encoder>,
+                tetengo2::gui::menu_observer
+            >
+            menu_type;
+        typedef
+            tetengo2::gui::win32::abstract_popup_menu<menu_type>
+            abstract_popup_menu_type;
+        typedef
+            tetengo2::gui::win32::main_menu<abstract_popup_menu_type>
+            main_menu_type;
+        typedef
+            tetengo2::gui::win32::abstract_window<
+                widget_type, main_menu_type, tetengo2::gui::window_observer
+            >
+            abstract_window_type;
+        typedef
+            tetengo2::gui::win32::popup_menu<abstract_popup_menu_type>
+            popup_menu_type;
     }}
 #endif
 
@@ -205,10 +277,13 @@ namespace bobura
                 type::quit_message_loop,
                 tetengo2::gui::win32::quit_message_loop
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::canvas, detail::ui::canvas_type>,
         tetengo2::meta::assoc_list_end
-        > > >
+        > > > >
         ui_type_list;
 
+    
 
 
     /**** All ***************************************************************/
