@@ -19,11 +19,6 @@ Description : Use boost::signal2::signal directly to implement event
               observers.
               Make event observer aggregating classes.
 ------------------------------------------------------------------------------
-Number      : 00000033
-Added on    : 2010/06/20
-Depends on  : (none)
-Description : Upgrade the Visual Studio solution and project files.
-------------------------------------------------------------------------------
 Number      : 00000034
 Added on    : 2010/mm/yy
 Depends on  : (none)
