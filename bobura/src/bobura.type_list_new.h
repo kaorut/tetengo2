@@ -199,6 +199,8 @@ namespace bobura
     namespace detail { namespace ui
     {
         typedef
+            tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
+        typedef
             tetengo2::gui::win32::font<
                 boost::mpl::at<common_type_list, type::size>,
                 boost::mpl::at<common_type_list, type::string>
@@ -256,8 +258,8 @@ namespace bobura
             >
             abstract_window_type;
         typedef
-            tetengo2::gui::win32::popup_menu<abstract_popup_menu_type>
-            popup_menu_type;
+            tetengo2::gui::win32::dialog_message_loop
+            dialog_message_loop_type;
     }}
 #endif
 
@@ -274,16 +276,49 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::quit_message_loop,
-                tetengo2::gui::win32::quit_message_loop
+                type::quit_message_loop, detail::ui::quit_message_loop_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::canvas, detail::ui::canvas_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::window,
+                tetengo2::gui::win32::window<detail::ui::abstract_window_type>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::popup_menu,
+                tetengo2::gui::win32::popup_menu<
+                    detail::ui::abstract_popup_menu_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::menu_command,
+                tetengo2::gui::win32::menu_command<detail::ui::menu_type>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::menu_separator,
+                tetengo2::gui::win32::menu_separator<detail::ui::menu_type>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::dialog,
+                tetengo2::gui::win32::dialog<
+                    detail::ui::abstract_window_type,
+                    detail::ui::dialog_message_loop_type,
+                    detail::ui::quit_message_loop_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::button,
+                tetengo2::gui::win32::button<detail::ui::widget_type>
+            >,
         tetengo2::meta::assoc_list_end
-        > > > >
+        > > > > > > > > > >
         ui_type_list;
-
-    
 
 
     /**** All ***************************************************************/
