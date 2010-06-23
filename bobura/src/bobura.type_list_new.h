@@ -321,6 +321,37 @@ namespace bobura
         ui_type_list;
 
 
+    /**** About Dialog ******************************************************/
+
+    namespace type
+    {
+
+    }
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace about_dialog
+    {
+
+    }}
+#endif
+
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                int,
+                int
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        about_dialog_type_list;
+
+
+    /**** Main Window *******************************************************/
+
+
+    /**** The Application ***************************************************/
+
+
     /**** All ***************************************************************/
 
     //! \return The type.list for Bobura.
