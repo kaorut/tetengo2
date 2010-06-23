@@ -106,6 +106,9 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.manifest</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -136,6 +139,9 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.manifest</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -168,6 +174,9 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.manifest</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -200,6 +209,9 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.manifest</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
@@ -236,6 +248,9 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\win32\COMCTL32.DLL.manifest" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
