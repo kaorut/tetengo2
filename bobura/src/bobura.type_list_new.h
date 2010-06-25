@@ -60,6 +60,8 @@
 #include "bobura.message.message_type_lists.h"
 #include "bobura.settings.h"
 
+#include <tetengo2.gui.win32.gui_type_list.h>
+
 
 namespace bobura
 {
@@ -206,8 +208,8 @@ namespace bobura
             tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
         typedef
             tetengo2::gui::win32::font<
-                boost::mpl::at<common_type_list, type::size>::type,
-                boost::mpl::at<common_type_list, type::string>::type
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<common_type_list, type::size>::type
             >
             font_type;
         typedef
@@ -352,6 +354,58 @@ namespace bobura
 
 
     /**** Main Window *******************************************************/
+
+    namespace type
+    {
+        struct main_window;    //! The main window type.
+    }
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace main_window
+    {
+        typedef
+            command::command_type_list<
+                boost::mpl::at<ui_type_list, type::window>::type,
+                boost::mpl::at<
+                    about_dialog_type_list, type::about_dialog
+                >::type
+            >
+            command_type_list_type;
+        typedef
+            message::main_window_message_type_list<
+                typename command_type_list_type::command_type,
+                boost::mpl::at<ui_type_list, type::canvas>::type,
+                boost::mpl::at<ui_type_list, type::quit_message_loop>::type
+            >
+            message_type_list_type;
+
+        typedef
+            tetengo2::gui::win32::gui_type_list<
+                boost::mpl::at<common_type_list, type::difference>::type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                boost::mpl::at<
+                    locale_type_list, type::exception_encoder
+                >::type
+            >
+            gui_type_list_type;
+    }}
+#endif
+
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::main_window,
+                main_window<
+                    detail::main_window::gui_type_list_type,
+                    detail::main_window::command_type_list_type,
+                    detail::main_window::message_type_list_type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        > 
+        main_window_type_list;
 
 
     /**** The Application ***************************************************/
