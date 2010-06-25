@@ -473,9 +473,13 @@ namespace bobura
         boost::mpl::insert_range<
             ui_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
+            about_dialog_type_list, tetengo2::meta::assoc_list_end,
+        boost::mpl::insert_range<
+            main_window_type_list, tetengo2::meta::assoc_list_end,
+        boost::mpl::insert_range<
             application_type_list, tetengo2::meta::assoc_list_end,
         tetengo2::meta::assoc_list_end
-        >::type>::type>::type>::type
+        >::type>::type>::type>::type>::type>::type
         bobura_type_list;
 
 
