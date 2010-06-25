@@ -412,19 +412,50 @@ namespace bobura
 
     namespace type
     {
-        struct settings;   //! The settings type.
+        struct settings;       //! The settings type.
+        struct application;    //! The application type.
     }
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace application
+    {
+        typedef
+            settings<boost::mpl::at<common_type_list, type::string>::type>
+            settings_type;
+
+        typedef
+            tetengo2::gui::win32::gui_type_list<
+                boost::mpl::at<common_type_list, type::difference>::type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                boost::mpl::at<
+                    locale_type_list, type::exception_encoder
+                >::type
+            >
+            gui_type_list_type;
+    }}
+#endif
 
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::settings,
-                settings<
-                    boost::mpl::at<common_type_list, type::string>::type
+                detail::application::settings_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::application,
+                bobura<
+                    detail::application::settings_type,
+                    boost::mpl::at<
+                        main_window_type_list, type::main_window
+                    >::type,
+                    detail::application::gui_type_list_type
                 >
             >,
         tetengo2::meta::assoc_list_end
-        > 
+        > >
         application_type_list;
 
 
