@@ -58,6 +58,7 @@
 
 #include "bobura.about_dialog.h"
 #include "bobura.message.message_type_lists.h"
+#include "bobura.settings.h"
 
 
 namespace bobura
@@ -355,6 +356,23 @@ namespace bobura
 
     /**** The Application ***************************************************/
 
+    namespace type
+    {
+        struct settings;   //! The settings type.
+    }
+
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::settings,
+                settings<
+                    boost::mpl::at<common_type_list, type::string>::type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        > 
+        application_type_list;
+
 
     /**** All ***************************************************************/
 
@@ -366,8 +384,10 @@ namespace bobura
             locale_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
             ui_type_list, tetengo2::meta::assoc_list_end,
+        boost::mpl::insert_range<
+            application_type_list, tetengo2::meta::assoc_list_end,
         tetengo2::meta::assoc_list_end
-        >::type>::type>::type
+        >::type>::type>::type>::type
         bobura_type_list;
 
 
