@@ -57,8 +57,11 @@
 #include <tetengo2.meta.assoc_list.h>
 
 #include "bobura.about_dialog.h"
-#include "bobura.message.message_type_lists.h"
+#include "bobura.bobura.h"
+#include "bobura.main_window.h"
 #include "bobura.settings.h"
+#include "bobura.command.command_type_list.h"
+#include "bobura.message.message_type_lists.h"
 
 #include <tetengo2.gui.win32.gui_type_list.h>
 
