@@ -56,6 +56,9 @@
 #include <tetengo2.gui.win32.window.h>
 #include <tetengo2.meta.assoc_list.h>
 
+#include "bobura.about_dialog.h"
+#include "bobura.message.message_type_lists.h"
+
 
 namespace bobura
 {
@@ -202,16 +205,16 @@ namespace bobura
             tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
         typedef
             tetengo2::gui::win32::font<
-                boost::mpl::at<common_type_list, type::size>,
-                boost::mpl::at<common_type_list, type::string>
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<common_type_list, type::string>::type
             >
             font_type;
         typedef
             tetengo2::gui::win32::canvas<
                 const Gdiplus::Graphics*,
-                boost::mpl::at<common_type_list, type::size>,
-                boost::mpl::at<common_type_list, type::string>,
-                boost::mpl::at<locale_type_list, type::ui_encoder>,
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 ::HWND,
                 detail::ui::font_type
             >
@@ -219,8 +222,10 @@ namespace bobura
         typedef
             tetengo2::gui::win32::alert<
                 ::HWND,
-                boost::mpl::at<locale_type_list, type::ui_encoder>,
-                boost::mpl::at<locale_type_list, type::exception_encoder>
+                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                boost::mpl::at<
+                    locale_type_list, type::exception_encoder
+                >::type
             >
             alert_type;
         typedef
@@ -228,10 +233,10 @@ namespace bobura
                 ::HWND,
                 canvas_type,
                 alert_type,
-                boost::mpl::at<common_type_list, type::difference>,
-                boost::mpl::at<common_type_list, type::size>,
-                boost::mpl::at<common_type_list, type::string>,
-                boost::mpl::at<locale_type_list, type::ui_encoder>,
+                boost::mpl::at<common_type_list, type::difference>::type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 font_type,
                 tetengo2::gui::paint_observer<canvas_type>,
                 tetengo2::gui::mouse_observer
@@ -241,8 +246,8 @@ namespace bobura
             tetengo2::gui::win32::menu<
                 ::UINT,
                 ::HMENU,
-                boost::mpl::at<common_type_list, type::string>,
-                boost::mpl::at<locale_type_list, type::ui_encoder>,
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 tetengo2::gui::menu_observer
             >
             menu_type;
@@ -325,24 +330,23 @@ namespace bobura
 
     namespace type
     {
-
+        struct about_dialog;   //! The about dialog type.
     }
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace about_dialog
-    {
-
-    }}
-#endif
 
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                int,
-                int
+                type::about_dialog,
+                about_dialog<
+                    boost::mpl::at<ui_type_list, type::dialog>::type,
+                    boost::mpl::at<ui_type_list, type::button>::type,
+                    message::about_dialog_message_type_list<
+                        boost::mpl::at<ui_type_list, type::dialog>::type
+                    >
+                >
             >,
         tetengo2::meta::assoc_list_end
-        >
+        > 
         about_dialog_type_list;
 
 
