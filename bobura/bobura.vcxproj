@@ -228,7 +228,6 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <ClInclude Include="src\bobura.message.message_type_lists.h" />
     <ClInclude Include="src\bobura.settings.h" />
     <ClInclude Include="src\bobura.type_list.h" />
-    <ClInclude Include="src\bobura.type_list_new.h" />
     <ClInclude Include="src\concept_bobura.AboutDialog.h" />
     <ClInclude Include="src\concept_bobura.command.CommandTypeList.h" />
     <ClInclude Include="src\concept_bobura.MainWindow.h" />

@@ -41,9 +41,6 @@
     <ClCompile Include="test\test_bobura.settings.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.type_list.cpp">
-      <Filter>sources\test_bobura</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_bobura.command.about.cpp">
       <Filter>sources\test_bobura::command</Filter>
     </ClCompile>

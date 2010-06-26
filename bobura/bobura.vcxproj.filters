@@ -51,9 +51,6 @@
     <ClInclude Include="src\bobura.type_list.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
-    <ClInclude Include="src\bobura.type_list_new.h">
-      <Filter>headers\bobura</Filter>
-    </ClInclude>
     <ClInclude Include="src\bobura.command.about.h">
       <Filter>headers\bobura::command</Filter>
     </ClInclude>
