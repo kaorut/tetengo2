@@ -196,6 +196,7 @@ namespace bobura
         struct message_loop;   //!< The message loop type.
         struct quit_message_loop; //!< The quit-message-loop type.
         struct canvas;         //!< The canvas type.
+        struct alert;          //!< The alert type.
         struct window;         //!< The window type.
         struct popup_menu;     //!< The popup menu type.
         struct menu_command;   //!< The menu command type.
@@ -292,6 +293,8 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::canvas, detail::ui::canvas_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::alert, detail::ui::alert_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::window,
                 tetengo2::gui::win32::window<detail::ui::abstract_window_type>
@@ -328,7 +331,7 @@ namespace bobura
                 tetengo2::gui::win32::button<detail::ui::widget_type>
             >,
         tetengo2::meta::assoc_list_end
-        > > > > > > > > > >
+        > > > > > > > > > > >
         ui_type_list;
 
 

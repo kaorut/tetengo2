@@ -17,6 +17,7 @@
 //#include <boost/filesystem.hpp>
 //#include <boost/program_options.hpp>
 //#include <boost/scoped_array.hpp>
+#include <boost/mpl/at.hpp>
 //#include <boost/throw_exception.hpp>
 //#include <boost/exception/all.hpp>
 
@@ -26,7 +27,6 @@
 
 //#include <tetengo2.text.h>
 
-#include "bobura.type_list.h"
 #include "bobura.type_list_new.h"
 
 
@@ -63,7 +63,9 @@ namespace
     {
         const std::locale global_locale(
             std::locale(""),
-            new bobura::type_list::messages_type(
+            new typename boost::mpl::at<
+                bobura::bobura_type_list, bobura::type::messages_facet
+            >::type(
                 base_path / TETENGO2_TEXT("messages"),
                 std::locale(ui_locale_name().c_str())
             )
@@ -78,11 +80,15 @@ namespace
         CommandLineArgumentInputIterator command_line_argument_last
     )
     {
-        const typename bobura::type_list::settings_type settings(
+        const typename boost::mpl::at<
+            bobura::bobura_type_list, bobura::type::settings
+        >::type settings(
             command_line_argument_first, command_line_argument_last
         );
 
-        return bobura::type_list::bobura_type(settings).run();
+        return typename boost::mpl::at<
+            bobura::bobura_type_list, bobura::type::application
+        >::type(settings).run();
     }
 
 
@@ -123,17 +129,23 @@ throw ()
     }
     catch (const boost::exception& e)
     {
-        bobura::type_list::alert_type()(e);
+        boost::mpl::at<
+            bobura::bobura_type_list, bobura::type::alert
+        >::type()(e);
         return 1;
     }
     catch (const std::exception& e)
     {
-        bobura::type_list::alert_type()(e);
+        boost::mpl::at<
+            bobura::bobura_type_list, bobura::type::alert
+        >::type()(e);
         return 1;
     }
     catch (...)
     {
-        bobura::type_list::alert_type()();
+        boost::mpl::at<
+            bobura::bobura_type_list, bobura::type::alert
+        >::type()();
         return 2;
     }
 }
