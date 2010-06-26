@@ -10,8 +10,12 @@
 #define BOBURA_TYPELISTNEW_H
 
 //#include <cstddef>
-#include <string>
+//#include <istream>
+//#include <string>
 
+//#include <boost/filesystem.hpp>
+//#include <boost/mpl/at.hpp>
+//#include <boost/mpl/insert_range.hpp>
 #include <boost/mpl/pair.hpp>
 
 //#define NOMINMAX
