@@ -64,7 +64,7 @@ namespace
         const std::locale global_locale(
             std::locale(""),
             new typename boost::mpl::at<
-                bobura::bobura_type_list, bobura::type::messages_facet
+                bobura::type_list, bobura::type::messages_facet
             >::type(
                 base_path / TETENGO2_TEXT("messages"),
                 std::locale(ui_locale_name().c_str())
@@ -81,13 +81,13 @@ namespace
     )
     {
         const typename boost::mpl::at<
-            bobura::bobura_type_list, bobura::type::settings
+            bobura::type_list, bobura::type::settings
         >::type settings(
             command_line_argument_first, command_line_argument_last
         );
 
         return typename boost::mpl::at<
-            bobura::bobura_type_list, bobura::type::application
+            bobura::type_list, bobura::type::application
         >::type(settings).run();
     }
 
@@ -129,23 +129,17 @@ throw ()
     }
     catch (const boost::exception& e)
     {
-        boost::mpl::at<
-            bobura::bobura_type_list, bobura::type::alert
-        >::type()(e);
+        boost::mpl::at<bobura::type_list, bobura::type::alert>::type()(e);
         return 1;
     }
     catch (const std::exception& e)
     {
-        boost::mpl::at<
-            bobura::bobura_type_list, bobura::type::alert
-        >::type()(e);
+        boost::mpl::at<bobura::type_list, bobura::type::alert>::type()(e);
         return 1;
     }
     catch (...)
     {
-        boost::mpl::at<
-            bobura::bobura_type_list, bobura::type::alert
-        >::type()();
+        boost::mpl::at<bobura::type_list, bobura::type::alert>::type()();
         return 2;
     }
 }

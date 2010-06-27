@@ -466,7 +466,7 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list_end
         > >
-        application_type_list;
+        bobura_type_list;
 
 
     /**** All ***************************************************************/
@@ -484,10 +484,10 @@ namespace bobura
         boost::mpl::insert_range<
             main_window_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
-            application_type_list, tetengo2::meta::assoc_list_end,
+            bobura_type_list, tetengo2::meta::assoc_list_end,
         tetengo2::meta::assoc_list_end
         >::type>::type>::type>::type>::type>::type
-        bobura_type_list;
+        type_list;
 
 
 }
