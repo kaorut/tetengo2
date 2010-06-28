@@ -262,7 +262,6 @@ echo Skipping...
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog_message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.font.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.gui_initializer_finalizer.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.win32.gui_type_list.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.main_menu.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.menu.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.menu_command.cpp" />

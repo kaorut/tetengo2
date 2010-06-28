@@ -56,7 +56,6 @@ extra_sources = \
     test_tetengo2.gui.win32.dialog_message_loop.cpp \
     test_tetengo2.gui.win32.font.cpp \
     test_tetengo2.gui.win32.gui_initializer_finalizer.cpp \
-    test_tetengo2.gui.win32.gui_type_list.cpp \
     test_tetengo2.gui.win32.main_menu.cpp \
     test_tetengo2.gui.win32.menu.cpp \
     test_tetengo2.gui.win32.menu_command.cpp \
