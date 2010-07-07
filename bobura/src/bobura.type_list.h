@@ -432,18 +432,6 @@ namespace bobura
         typedef
             settings<boost::mpl::at<common_type_list, type::string>::type>
             settings_type;
-
-        typedef
-            tetengo2::gui::win32::gui_type_list<
-                boost::mpl::at<common_type_list, type::difference>::type,
-                boost::mpl::at<common_type_list, type::size>::type,
-                boost::mpl::at<common_type_list, type::string>::type,
-                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
-                boost::mpl::at<
-                    locale_type_list, type::exception_encoder
-                >::type
-            >
-            gui_type_list_type;
     }}
 #endif
 
@@ -461,7 +449,13 @@ namespace bobura
                     boost::mpl::at<
                         main_window_type_list, type::main_window
                     >::type,
-                    detail::application::gui_type_list_type
+                    boost::mpl::at<ui_type_list, type::message_loop>::type,
+                    boost::mpl::at<
+                        ui_type_list, type::quit_message_loop
+                    >::type,
+                    boost::mpl::at<
+                        ui_type_list, type::gui_initializer_finalizer
+                    >::type
                 >
             >,
         tetengo2::meta::assoc_list_end

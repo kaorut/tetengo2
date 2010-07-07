@@ -23,15 +23,24 @@ namespace bobura
    /*!
         \brief The class template for a bobura application.
 
-        \tparam Settings    Settings type. It must conform to
-                            concept_bobura::Settings<Settings>.
-        \tparam MainWindow  A main window type. It must conform to
-                            concept_bobura::MainWindow<MainWindow>.
-        \tparam GuiTypeList A type list type to create platform specific GUI
-                            components. It must conform to
-                            concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
+        \tparam Settings                A settings type. It must conform to
+                                        concept_bobura::Settings<Settings>.
+        \tparam MainWindow              A main window type. It must conform to
+                                        concept_bobura::MainWindow<MainWindow>.
+        \tparam MessageLoop             A message loop type. It must conform
+                                        to boost::Generator<MessageLoop, int>.
+        \tparam QuitMessageLoop         A quit-message-loop type. It must
+                                        conform to
+                                        boost::UnaryFunction<MessageLoop, int, void>.
+        \tparam GuiInitializerFinalizer A GUI initializer and finalizer type.
     */
-    template <typename Settings, typename MainWindow, typename GuiTypeList>
+    template <
+        typename Settings,
+        typename MainWindow,
+        typename MessageLoop,
+        typename QuitMessageLoop,
+        typename GuiInitializerFinalizer
+    >
     class bobura : private boost::noncopyable
     {
     private:
@@ -39,8 +48,9 @@ namespace bobura
 
         BOOST_CONCEPT_ASSERT((concept_bobura::Settings<Settings>));
         BOOST_CONCEPT_ASSERT((concept_bobura::MainWindow<MainWindow>));
+        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::GuiTypeList<GuiTypeList>
+            boost::UnaryFunction<QuitMessageLoop, void, int>
         ));
 
 
@@ -52,10 +62,15 @@ namespace bobura
 
         //! \return The main window type.
         typedef MainWindow main_window_type;
+        
+        //! \return The message loop type.
+        typedef MessageLoop message_loop_type;
+        
+        //! \return The quit-message-loop type.
+        typedef QuitMessageLoop quit_message_loop_type;
 
-        //! \return The type list type.to create platform specific GUI
-        //! components.
-        typedef GuiTypeList gui_type_list_type;
+        //! \return The GUI initializer and finalizer type.
+        typedef GuiInitializerFinalizer gui_initializer_finalizer_type;
 
 
         // constructors and destructor
@@ -97,20 +112,6 @@ namespace bobura
 
 
     private:
-        //types
-
-        typedef
-            typename gui_type_list_type::message_loop_type message_loop_type;
-
-        typedef
-            typename gui_type_list_type::quit_message_loop_type
-            quit_message_loop_type;
-
-        typedef
-            typename gui_type_list_type::gui_initializer_finalizer_type
-            gui_initializer_finalizer_type;
-
-
         // variables
 
         const gui_initializer_finalizer_type m_gui_initializer_finalizer;

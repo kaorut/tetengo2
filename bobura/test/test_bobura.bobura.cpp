@@ -18,6 +18,7 @@
 #include <stub_tetengo2.gui.canvas.h>
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.font.h>
+#include <stub_tetengo2.gui.gui_initializer_finalizer.h>
 #include <stub_tetengo2.gui.main_menu.h>
 #include <stub_tetengo2.gui.menu.h>
 #include <stub_tetengo2.gui.message_loop.h>
@@ -172,7 +173,13 @@ namespace
         main_window_type;
 
     typedef
-        bobura::bobura<settings_type, main_window_type, gui_type_list_type>
+        bobura::bobura<
+            settings_type,
+            main_window_type,
+            message_loop_type,
+            quit_message_loop_type,
+            stub_tetengo2::gui::gui_initializer_finalizer
+        >
         bobura_type;
 
 }
