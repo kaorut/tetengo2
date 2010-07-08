@@ -12,8 +12,6 @@
 //#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-#include <concept_tetengo2.gui.GuiTypeList.h>
-
 #include "concept_bobura.MainWindow.h"
 #include "concept_bobura.Settings.h"
 
@@ -31,7 +29,7 @@ namespace bobura
                                         to boost::Generator<MessageLoop, int>.
         \tparam QuitMessageLoop         A quit-message-loop type. It must
                                         conform to
-                                        boost::UnaryFunction<MessageLoop, int, void>.
+                                        boost::UnaryFunction<MessageLoop, void, int>.
         \tparam GuiInitializerFinalizer A GUI initializer and finalizer type.
     */
     template <

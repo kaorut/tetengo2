@@ -22,7 +22,7 @@ namespace concept_tetengo2 { namespace gui
         \tparam Type     A type.
         \tparam BaseType A base type.
     */
-    template <typename Type, typename BaseType = Type>
+    template <typename Type, typename BaseType>
     class Menu
     {
 #if !defined(DOCUMENTATION)

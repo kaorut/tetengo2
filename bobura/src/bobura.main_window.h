@@ -13,7 +13,8 @@
 
 //#include <boost/concept_check.hpp>
 
-#include <concept_tetengo2.gui.GuiTypeList.h>
+#include <concept_tetengo2.gui.Menu.h>
+#include <concept_tetengo2.gui.Window.h>
 #include <tetengo2.text.h>
 
 #include "concept_bobura.command.CommandTypeList.h"
@@ -25,26 +26,59 @@ namespace bobura
     /*!
         \brief The class template for the main window.
 
-        \tparam GuiTypeList               A GUI type list type. It must
+        \tparam Window                    A window type. It must conform to
+                                          concept_tetengo2::gui::Window<Window>.
+        \tparam QuitMessageLoop           A quit-message-loop type. It must
                                           conform to
-                                          concept_tetengo2::gui::GuiTypeList<GuiTypeList>.
+                                          boost::UnaryFunction<MessageLoop, void, int>.
+        \tparam MenuCommand               A menu command type. It must conform
+                                          to
+                                          concept_tetengo2::gui::Menu<MenuCommand, typename MenuCommand::base_type>.
+        \tparam PopupMenu                 A popup menu type. It must conform
+                                          to
+                                          concept_tetengo2::gui::Menu<PopupMenu, typename PopupMenu::base_type::base_type>.
+        \tparam MenuSeparator             A menu separator type. It must
+                                          conform to
+                                          concept_tetengo2::gui::Menu<MenuSeparator, typename MenuSeparator::base_type>.
         \tparam CommandTypeList           A command type. It must conform to
                                           concept_bobura::command::CommandTypeList<CommandTypeList>.
         \tparam MainWindowMessageTypeList A message type. It must conform to
                                           concept_bobura::message::MainWindowMessageTypeList<MainWindowMessageTypeList>.
     */
     template <
-        typename GuiTypeList,
+        typename Window,
+        typename QuitMessageLoop,
+        typename MenuCommand,
+        typename PopupMenu,
+        typename MenuSeparator,
         typename CommandTypeList,
         typename MainWindowMessageTypeList
     >
-    class main_window : public GuiTypeList::window_type
+    class main_window : public Window
     {
     private:
         // concept checks
 
         BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::GuiTypeList<GuiTypeList>
+            concept_tetengo2::gui::Window<Window>
+        ));
+        BOOST_CONCEPT_ASSERT((
+            boost::UnaryFunction<QuitMessageLoop, void, int>
+        ));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::Menu<
+                MenuCommand, typename MenuCommand::base_type
+            >
+        ));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::Menu<
+                PopupMenu, typename PopupMenu::base_type::base_type
+            >
+        ));
+        BOOST_CONCEPT_ASSERT((
+            concept_tetengo2::gui::Menu<
+                MenuSeparator, typename MenuSeparator::base_type
+            >
         ));
         BOOST_CONCEPT_ASSERT((
             concept_bobura::command::CommandTypeList<CommandTypeList>
@@ -60,7 +94,7 @@ namespace bobura
         // types
 
         //! \return The base type.
-        typedef typename GuiTypeList::window_type base_type;
+        typedef Window base_type;
 
         //! \copydoc tetengo2::gui::win32::widget::handle_type
         typedef typename base_type::handle_type handle_type;
@@ -107,8 +141,17 @@ namespace bobura
         //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_type.
         typedef typename base_type::window_observer_type window_observer_type;
 
-        //! \return The GUI type list type.
-        typedef GuiTypeList gui_type_list_type;
+        //! \return The quit-message-loop type.
+        typedef QuitMessageLoop quit_message_loop_type;
+
+        //! \return The menu command type.
+        typedef MenuCommand menu_command_type;
+
+        //! \return The popup menu type.
+        typedef PopupMenu popup_menu_type;
+
+        //! \return The menu separator type.
+        typedef MenuSeparator menu_separator_type;
 
         //! \return The command type list type.
         typedef CommandTypeList command_type_list_type;
@@ -122,7 +165,7 @@ namespace bobura
         /*!
             \brief Creates a main window.
         */
-        explicit main_window()
+        main_window()
         :
         base_type()
         {
@@ -140,22 +183,9 @@ namespace bobura
     private:
         //types
 
-        typedef
-            typename gui_type_list_type::quit_message_loop_type
-            quit_message_loop_type;
-
         typedef typename main_menu_type::base_type::base_type menu_type;
 
         typedef typename menu_type::menu_observer_type menu_observer_type;
-
-        typedef
-            typename gui_type_list_type::menu_command_type menu_command_type;
-
-        typedef typename gui_type_list_type::popup_menu_type popup_menu_type;
-
-        typedef
-            typename gui_type_list_type::menu_separator_type
-            menu_separator_type;
 
         typedef typename command_type_list_type::command_type command_type;
 

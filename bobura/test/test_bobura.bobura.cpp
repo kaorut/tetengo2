@@ -21,7 +21,10 @@
 #include <stub_tetengo2.gui.gui_initializer_finalizer.h>
 #include <stub_tetengo2.gui.main_menu.h>
 #include <stub_tetengo2.gui.menu.h>
+#include <stub_tetengo2.gui.menu_command.h>
+#include <stub_tetengo2.gui.menu_separator.h>
 #include <stub_tetengo2.gui.message_loop.h>
+#include <stub_tetengo2.gui.popup_menu.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.widget.h>
 #include <stub_tetengo2.gui.window.h>
@@ -34,8 +37,6 @@
 #include "bobura.settings.h"
 #include "bobura.command.command_type_list.h"
 #include "bobura.message.message_type_lists.h"
-
-#include <stub_tetengo2.gui.gui_type_list.h>
 
 
 namespace
@@ -155,18 +156,22 @@ namespace
         main_window_message_type_list_type;
 
     typedef
-        stub_tetengo2::gui::gui_type_list<
-            std::ptrdiff_t,
-            std::size_t,
-            std::wstring,
-            ui_encoder_type,
-            exception_encoder_type
-        >
-        gui_type_list_type;
+        stub_tetengo2::gui::menu_command<menu_type> menu_command_type;
+
+    typedef
+        stub_tetengo2::gui::popup_menu<abstract_popup_menu_type>
+        popup_menu_type;
+
+    typedef
+        stub_tetengo2::gui::menu_separator<menu_type> menu_separator_type;
 
     typedef
         bobura::main_window<
-            gui_type_list_type,
+            window_type,
+            quit_message_loop_type,
+            menu_command_type,
+            popup_menu_type,
+            menu_separator_type,
             command_type_list_type,
             main_window_message_type_list_type
         >

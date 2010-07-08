@@ -22,7 +22,7 @@ namespace stub_tetengo2 { namespace gui
     private:
         // concept checks
 
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<Menu>));
+        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<Menu, Menu>));
 
 
     public:

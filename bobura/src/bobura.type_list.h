@@ -67,8 +67,6 @@
 #include "bobura.command.command_type_list.h"
 #include "bobura.message.message_type_lists.h"
 
-#include <tetengo2.gui.win32.gui_type_list.h>
-
 
 namespace bobura
 {
@@ -388,18 +386,6 @@ namespace bobura
                 boost::mpl::at<ui_type_list, type::quit_message_loop>::type
             >
             message_type_list_type;
-
-        typedef
-            tetengo2::gui::win32::gui_type_list<
-                boost::mpl::at<common_type_list, type::difference>::type,
-                boost::mpl::at<common_type_list, type::size>::type,
-                boost::mpl::at<common_type_list, type::string>::type,
-                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
-                boost::mpl::at<
-                    locale_type_list, type::exception_encoder
-                >::type
-            >
-            gui_type_list_type;
     }}
 #endif
 
@@ -408,7 +394,13 @@ namespace bobura
             boost::mpl::pair<
                 type::main_window,
                 main_window<
-                    detail::main_window::gui_type_list_type,
+                    boost::mpl::at<ui_type_list, type::window>::type,
+                    boost::mpl::at<
+                        ui_type_list, type::quit_message_loop
+                    >::type,
+                    boost::mpl::at<ui_type_list, type::menu_command>::type,
+                    boost::mpl::at<ui_type_list, type::popup_menu>::type,
+                    boost::mpl::at<ui_type_list, type::menu_separator>::type,
                     detail::main_window::command_type_list_type,
                     detail::main_window::message_type_list_type
                 >
