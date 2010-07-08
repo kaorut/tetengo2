@@ -12,7 +12,6 @@ headers = \
     stub_tetengo2.gui.dialog.h \
     stub_tetengo2.gui.font.h \
     stub_tetengo2.gui.gui_initializer_finalizer.h \
-    stub_tetengo2.gui.gui_type_list.h \
     stub_tetengo2.gui.main_menu.h \
     stub_tetengo2.gui.menu.h \
     stub_tetengo2.gui.menu_command.h \

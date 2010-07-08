@@ -60,9 +60,6 @@
     <ClInclude Include="test\stub_tetengo2.gui.gui_initializer_finalizer.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.gui_type_list.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.main_menu.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>

@@ -51,9 +51,6 @@
     <ClInclude Include="include\concept_tetengo2.gui.Font.h">
       <Filter>headers\concept_tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\concept_tetengo2.gui.GuiTypeList.h">
-      <Filter>headers\concept_tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\concept_tetengo2.gui.Handle.h">
       <Filter>headers\concept_tetengo2::gui</Filter>
     </ClInclude>
@@ -172,9 +169,6 @@
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.gui_initializer_finalizer.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.gui_type_list.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.main_menu.h">

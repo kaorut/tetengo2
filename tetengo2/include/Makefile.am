@@ -18,7 +18,6 @@ headers = \
     concept_tetengo2.gui.Canvas.h \
     concept_tetengo2.gui.Dialog.h \
     concept_tetengo2.gui.Font.h \
-    concept_tetengo2.gui.GuiTypeList.h \
     concept_tetengo2.gui.Handle.h \
     concept_tetengo2.gui.Menu.h \
     concept_tetengo2.gui.MenuObserver.h \
@@ -56,7 +55,6 @@ extra_headers = \
     tetengo2.gui.win32.dialog_message_loop.h \
     tetengo2.gui.win32.font.h \
     tetengo2.gui.win32.gui_initializer_finalizer.h \
-    tetengo2.gui.win32.gui_type_list.h \
     tetengo2.gui.win32.main_menu.h \
     tetengo2.gui.win32.menu.h \
     tetengo2.gui.win32.menu_command.h \

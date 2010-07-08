@@ -220,7 +220,6 @@ echo Skipping...
     <ClInclude Include="test\stub_tetengo2.gui.dialog.h" />
     <ClInclude Include="test\stub_tetengo2.gui.font.h" />
     <ClInclude Include="test\stub_tetengo2.gui.gui_initializer_finalizer.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.gui_type_list.h" />
     <ClInclude Include="test\stub_tetengo2.gui.main_menu.h" />
     <ClInclude Include="test\stub_tetengo2.gui.menu.h" />
     <ClInclude Include="test\stub_tetengo2.gui.menu_command.h" />
