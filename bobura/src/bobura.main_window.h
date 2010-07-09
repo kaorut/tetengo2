@@ -9,7 +9,7 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
-#include <memory>
+//#include <memory>
 
 //#include <boost/concept_check.hpp>
 
