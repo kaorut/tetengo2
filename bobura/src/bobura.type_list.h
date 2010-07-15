@@ -64,6 +64,8 @@
 #include "bobura.bobura.h"
 #include "bobura.main_window.h"
 #include "bobura.settings.h"
+#include "bobura.command.type_list.h"
+
 #include "bobura.command.command_type_list.h"
 #include "bobura.message.message_type_lists.h"
 
@@ -79,7 +81,7 @@ namespace bobura
         struct string;         //!< The string type.
     }
 
-    //! \return The common type.list.
+    //! \return The common type list.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::difference, std::ptrdiff_t>,
@@ -142,7 +144,7 @@ namespace bobura
     }}
 #endif
 
-    //! \return The type.list for the locale.
+    //! \return The type list for the locale.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -277,7 +279,7 @@ namespace bobura
     }}
 #endif
 
-    //! \return The type.list for the user interface.
+    //! \return The type list for the user interface.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -457,7 +459,7 @@ namespace bobura
 
     /**** All ***************************************************************/
 
-    //! \return The type.list for Bobura.
+    //! \return The type list for Bobura.
     typedef
         boost::mpl::insert_range<
             common_type_list, tetengo2::meta::assoc_list_end,
