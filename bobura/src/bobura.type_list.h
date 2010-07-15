@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(BOBURA_TYPELISTNEW_H)
-#define BOBURA_TYPELISTNEW_H
+#if !defined(BOBURA_TYPELIST_H)
+#define BOBURA_TYPELIST_H
 
 //#include <cstddef>
 //#include <istream>
