@@ -9,6 +9,7 @@
 //#include <cstddef>
 //#include <string>
 
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <stub_tetengo2.gui.abstract_popup_menu.h>
@@ -35,7 +36,7 @@
 #include "bobura.bobura.h"
 #include "bobura.main_window.h"
 #include "bobura.settings.h"
-#include "bobura.command.command_type_list.h"
+#include "bobura.command.type_list.h"
 #include "bobura.message.message_type_lists.h"
 
 
@@ -144,12 +145,14 @@ namespace
         about_dialog_type;
 
     typedef
-        bobura::command::command_type_list<window_type, about_dialog_type>
+        bobura::command::type_list<window_type, about_dialog_type>::type
         command_type_list_type;
 
     typedef
         bobura::message::main_window_message_type_list<
-            command_type_list_type::command_type,
+            boost::mpl::at<
+                command_type_list_type, bobura::command::type::command
+            >::type,
             canvas_type,
             quit_message_loop_type
         >

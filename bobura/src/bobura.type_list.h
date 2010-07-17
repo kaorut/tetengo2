@@ -66,7 +66,6 @@
 #include "bobura.settings.h"
 #include "bobura.command.type_list.h"
 
-#include "bobura.command.command_type_list.h"
 #include "bobura.message.message_type_lists.h"
 
 
@@ -374,16 +373,18 @@ namespace bobura
     namespace detail { namespace main_window
     {
         typedef
-            command::command_type_list<
+            command::type_list<
                 boost::mpl::at<ui_type_list, type::window>::type,
                 boost::mpl::at<
                     about_dialog_type_list, type::about_dialog
                 >::type
-            >
-            command_type_list_type;
+            >::type
+            command_type_list;
         typedef
             message::main_window_message_type_list<
-                typename command_type_list_type::command_type,
+                boost::mpl::at<
+                    command_type_list, command::type::command
+                >::type,
                 boost::mpl::at<ui_type_list, type::canvas>::type,
                 boost::mpl::at<ui_type_list, type::quit_message_loop>::type
             >
@@ -403,7 +404,7 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::menu_command>::type,
                     boost::mpl::at<ui_type_list, type::popup_menu>::type,
                     boost::mpl::at<ui_type_list, type::menu_separator>::type,
-                    detail::main_window::command_type_list_type,
+                    detail::main_window::command_type_list,
                     detail::main_window::message_type_list_type
                 >
             >,
