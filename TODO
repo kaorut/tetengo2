@@ -20,6 +20,11 @@ Description : Use boost::signal2::signal directly to implement event
               Make event observer aggregating classes.
 ------------------------------------------------------------------------------
 Number      : 00000034
+Added on    : 2010/07/18
+Depends on  : (none)
+Description : Remove the concept checks.
+------------------------------------------------------------------------------
+Number      : 00000035
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
