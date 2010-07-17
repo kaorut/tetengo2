@@ -19,7 +19,6 @@
 #include <tetengo2.text.h>
 
 #include "bobura.command.type_list.h"
-//#include "concept_bobura.command.CommandTypeList.h"
 #include "concept_bobura.message.MessageTypeLists.h"
 
 namespace bobura
@@ -81,9 +80,6 @@ namespace bobura
                 MenuSeparator, typename MenuSeparator::base_type
             >
         ));
-        //BOOST_CONCEPT_ASSERT((
-        //    concept_bobura::command::CommandTypeList<CommandTypeList>
-        //));
         BOOST_CONCEPT_ASSERT((
             concept_bobura::message::MainWindowMessageTypeList<
                 MainWindowMessageTypeList
