@@ -19,9 +19,6 @@
     <Filter Include="headers\concept_bobura">
       <UniqueIdentifier>{53282996-1141-4913-8627-28a0d6ca582c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\concept_bobura::command">
-      <UniqueIdentifier>{f3d17ef0-5589-4e86-9947-41f9a8958f29}</UniqueIdentifier>
-    </Filter>
     <Filter Include="headers\concept_bobura::message">
       <UniqueIdentifier>{286924da-d81c-4eba-8118-8354d2bb4193}</UniqueIdentifier>
     </Filter>
@@ -54,9 +51,6 @@
     <ClInclude Include="src\bobura.command.about.h">
       <Filter>headers\bobura::command</Filter>
     </ClInclude>
-    <ClInclude Include="src\bobura.command.command_type_list.h">
-      <Filter>headers\bobura::command</Filter>
-    </ClInclude>
     <ClInclude Include="src\bobura.command.exit.h">
       <Filter>headers\bobura::command</Filter>
     </ClInclude>
@@ -80,9 +74,6 @@
     </ClInclude>
     <ClInclude Include="src\concept_bobura.Settings.h">
       <Filter>headers\concept_bobura</Filter>
-    </ClInclude>
-    <ClInclude Include="src\concept_bobura.command.CommandTypeList.h">
-      <Filter>headers\concept_bobura::command</Filter>
     </ClInclude>
     <ClInclude Include="src\concept_bobura.message.MessageTypeLists.h">
       <Filter>headers\concept_bobura::message</Filter>

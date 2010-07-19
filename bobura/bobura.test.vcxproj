@@ -217,7 +217,6 @@ echo Skipping...
     <ClCompile Include="test\test_bobura.about_dialog.cpp" />
     <ClCompile Include="test\test_bobura.bobura.cpp" />
     <ClCompile Include="test\test_bobura.command.about.cpp" />
-    <ClCompile Include="test\test_bobura.command.command_type_list.cpp" />
     <ClCompile Include="test\test_bobura.command.exit.cpp" />
     <ClCompile Include="test\test_bobura.command.nop.cpp" />
     <ClCompile Include="test\test_bobura.main_window.cpp" />

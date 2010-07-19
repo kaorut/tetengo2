@@ -11,7 +11,6 @@ sources = \
     test_bobura.about_dialog.cpp \
     test_bobura.bobura.cpp \
     test_bobura.command.about.cpp \
-    test_bobura.command.command_type_list.cpp \
     test_bobura.command.exit.cpp \
     test_bobura.command.nop.cpp \
     test_bobura.main_window.cpp \

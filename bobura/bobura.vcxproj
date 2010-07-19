@@ -219,7 +219,6 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <ClInclude Include="src\bobura.about_dialog.h" />
     <ClInclude Include="src\bobura.bobura.h" />
     <ClInclude Include="src\bobura.command.about.h" />
-    <ClInclude Include="src\bobura.command.command_type_list.h" />
     <ClInclude Include="src\bobura.command.exit.h" />
     <ClInclude Include="src\bobura.command.nop.h" />
     <ClInclude Include="src\bobura.command.type_list.h" />
@@ -230,7 +229,6 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <ClInclude Include="src\bobura.settings.h" />
     <ClInclude Include="src\bobura.type_list.h" />
     <ClInclude Include="src\concept_bobura.AboutDialog.h" />
-    <ClInclude Include="src\concept_bobura.command.CommandTypeList.h" />
     <ClInclude Include="src\concept_bobura.MainWindow.h" />
     <ClInclude Include="src\concept_bobura.message.MessageTypeLists.h" />
     <ClInclude Include="src\concept_bobura.Settings.h" />
