@@ -9,7 +9,7 @@
 //#include <cstddef>
 //#include <string>
 
-#include <boost/mpl/at.hpp>
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <stub_tetengo2.gui.abstract_popup_menu.h>

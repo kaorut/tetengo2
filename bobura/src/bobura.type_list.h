@@ -16,7 +16,7 @@
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 //#include <boost/mpl/insert_range.hpp>
-#include <boost/mpl/pair.hpp>
+//#include <boost/mpl/pair.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
