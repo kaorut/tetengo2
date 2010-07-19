@@ -33,7 +33,7 @@
 
 #include "bobura.about_dialog.h"
 #include "bobura.main_window.h"
-#include "bobura.command.type_list.h"
+#include "bobura.command.type_list_impl.h"
 #include "bobura.message.message_type_lists.h"
 
 

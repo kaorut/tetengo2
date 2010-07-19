@@ -87,6 +87,9 @@
     <ClInclude Include="src\bobura.command.type_list.h">
       <Filter>headers\bobura::command</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.type_list_impl.h">
+      <Filter>headers\bobura::command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\messages\_catalogs.txt">
