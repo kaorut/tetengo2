@@ -9,6 +9,7 @@ extra_headers = \
     bobura.command.exit.h \
     bobura.command.nop.h \
     bobura.command.type_list.h \
+    bobura.command.type_list_impl.h \
     bobura.main_window.h \
     bobura.message.about_dialog_observers.h \
     bobura.message.main_window_observers.h \
