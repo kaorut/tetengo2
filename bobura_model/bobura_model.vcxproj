@@ -130,14 +130,6 @@
     <ClInclude Include="include\bobura.model.train_info.stop.h" />
     <ClInclude Include="include\bobura.model.train_info.time.h" />
     <ClInclude Include="include\bobura.model.train_info.time_span.h" />
-    <ClInclude Include="include\concept_bobura.model.Station.h" />
-    <ClInclude Include="include\concept_bobura.model.station_info.Grade.h" />
-    <ClInclude Include="include\concept_bobura.model.Timetable.h" />
-    <ClInclude Include="include\concept_bobura.model.timetable_info.StationLocation.h" />
-    <ClInclude Include="include\concept_bobura.model.Train.h" />
-    <ClInclude Include="include\concept_bobura.model.train_info.Stop.h" />
-    <ClInclude Include="include\concept_bobura.model.train_info.Time.h" />
-    <ClInclude Include="include\concept_bobura.model.train_info.TimeSpan.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

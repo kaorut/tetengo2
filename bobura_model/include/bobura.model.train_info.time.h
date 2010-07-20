@@ -13,17 +13,14 @@
 #include <limits>
 #include <stdexcept>
 
-//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
-//#include <boost/swap.hpp>
+#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
-//#include <boost/tuple/tuple.hpp>
-//#include <boost/tuple/tuple_comparison.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
 
 #include <tetengo2.assignable.h>
 #include <tetengo2.swappable.h>
-
-#include "concept_bobura.model.train_info.TimeSpan.h"
 
 
 namespace bobura { namespace model { namespace train_info
@@ -31,10 +28,8 @@ namespace bobura { namespace model { namespace train_info
     /*!
         \brief The class for a time.
 
-        \tparam TimeTick A time tick type. It must conform to
-                         boost::UnsignedInteger<TimeTick>.
-        \tparam TimeSpan A time span type. It must conform to
-                         concept_bobura::model::train_info::TimeSpan<TimeSpan>.
+        \tparam TimeTick A time tick type.
+        \tparam TimeSpan A time span type.
     */
     template <typename TimeTick, typename TimeSpan>
     class time :
@@ -43,15 +38,6 @@ namespace bobura { namespace model { namespace train_info
         private boost::totally_ordered<time<TimeTick, TimeSpan> >,
         private boost::additive<time<TimeTick, TimeSpan>, TimeSpan>
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<TimeTick>));
-        BOOST_CONCEPT_ASSERT((
-            concept_bobura::model::train_info::TimeSpan<TimeSpan>
-        ));
-
-
     public:
         // types
 

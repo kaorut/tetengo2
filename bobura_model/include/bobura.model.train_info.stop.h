@@ -9,15 +9,11 @@
 #if !defined(BOBURA_MODEL_TRAININFO_STOP_H)
 #define BOBURA_MODEL_TRAININFO_STOP_H
 
-//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
-//#include <boost/swap.hpp>
+#include <boost/swap.hpp>
 
-#include <concept_tetengo2.String.h>
 #include <tetengo2.assignable.h>
 #include <tetengo2.swappable.h>
-
-#include "concept_bobura.model.train_info.Time.h"
 
 
 namespace bobura { namespace model { namespace train_info
@@ -25,10 +21,8 @@ namespace bobura { namespace model { namespace train_info
     /*!
         \brief The class for a train stop.
 
-        \tparam Time     A time type. It must conform to
-                         concept_bobura::model::train_info::Time<Time>.
-        \tparam Platform A string type. It must conform to
-                         concept_tetengo2::String<Platform>.
+        \tparam Time     A time type.
+        \tparam Platform A string type.
     */
     template <typename Time, typename Platform>
     class stop :
@@ -36,13 +30,6 @@ namespace bobura { namespace model { namespace train_info
         private tetengo2::swappable<stop<Time, Platform> >,
         private boost::equality_comparable<stop<Time, Platform> >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Time<Time>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Platform>));
-
-
     public:
         // types
 

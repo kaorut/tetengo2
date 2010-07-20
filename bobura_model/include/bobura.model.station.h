@@ -12,15 +12,11 @@
 #include <cassert>
 #include <cstddef>
 
-//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
-#include <concept_tetengo2.String.h>
 #include <tetengo2.assignable.h>
 #include <tetengo2.swappable.h>
-
-#include "concept_bobura.model.station_info.Grade.h"
 
 
 namespace bobura { namespace model
@@ -28,10 +24,8 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a station.
 
-        \tparam Name  A name type. It must conform to
-                      concept_tetengo2::String<Name>.
-        \tparam Grade A grade type. It must conform to
-                      concept_bobura::model::station_info::Grade<Grade>.
+        \tparam Name  A name type.
+        \tparam Grade A grade type.
     */
     template <typename Name, typename Grade>
     class station :
@@ -39,15 +33,6 @@ namespace bobura { namespace model
         private tetengo2::swappable<station<Name, Grade> >,
         private boost::equality_comparable<station<Name, Grade> >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Name>));
-        BOOST_CONCEPT_ASSERT((
-            concept_bobura::model::station_info::Grade<Grade>
-        ));
-
-
     public:
         // types
 

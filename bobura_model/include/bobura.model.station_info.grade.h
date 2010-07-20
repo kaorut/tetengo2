@@ -9,10 +9,8 @@
 #if !defined(BOBURA_MODEL_STATIONINFO_GRADE_H)
 #define BOBURA_MODEL_STATIONINFO_GRADE_H
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 
-#include <concept_tetengo2.String.h>
 #include <tetengo2.text.h>
 
 
@@ -21,18 +19,11 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a station grade.
 
-        \tparam GradeName A grade name type. It must conform to
-                          concept_tetengo2::String<GradeName>.
+        \tparam GradeName A grade name type.
     */
     template <typename GradeName>
     class grade : private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<GradeName>));
-
-
     public:
         // types
 

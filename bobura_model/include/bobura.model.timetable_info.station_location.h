@@ -9,14 +9,11 @@
 #if !defined(BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H)
 #define BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H
 
-//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
-//#include <boost/swap.hpp>
+#include <boost/swap.hpp>
 
 #include <tetengo2.assignable.h>
 #include <tetengo2.swappable.h>
-
-#include "concept_bobura.model.Station.h"
 
 
 namespace bobura { namespace model { namespace timetable_info
@@ -24,10 +21,8 @@ namespace bobura { namespace model { namespace timetable_info
     /*!
         \brief The class for a station location.
 
-        \tparam Station  A station type. It must conform to
-                         concept_bobura::model::Station<Station>.
-        \tparam Meterage A meterage type. It must conform to
-                         boost::UnsignedInteger<Meterage>.
+        \tparam Station  A station type.
+        \tparam Meterage A meterage type.
     */
     template <typename Station, typename Meterage>
     class station_location :
@@ -37,13 +32,6 @@ namespace bobura { namespace model { namespace timetable_info
             station_location<Station, Meterage>
         >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::Station<Station>));
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Meterage>));
-
-
     public:
         // types
 

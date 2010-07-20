@@ -15,17 +15,13 @@
 #include <vector>
 
 #include <boost/bind.hpp>
-//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
-//#include <boost/swap.hpp>
+#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
 #include <tetengo2.assignable.h>
 #include <tetengo2.swappable.h>
-
-#include "concept_bobura.model.Train.h"
-#include "concept_bobura.model.timetable_info.StationLocation.h"
 
 
 namespace bobura { namespace model
@@ -33,10 +29,8 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a timetable.
 
-        \tparam StationLocation A station location type. It must conform to
-                                concept_bobura::model::timetable_info::StationLocation<StationLocation>.
-        \tparam Train           A train type. It must conform to
-                                concept_bobura::model::Train<Train>.
+        \tparam StationLocation A station location type.
+        \tparam Train           A train type.
     */
     template <typename StationLocation, typename Train>
     class timetable :
@@ -44,17 +38,6 @@ namespace bobura { namespace model
         private tetengo2::swappable<timetable<StationLocation, Train> >,
         private boost::equality_comparable<timetable<StationLocation, Train> >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((
-            concept_bobura::model::timetable_info::StationLocation<
-                StationLocation
-            >
-        ));
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::Train<Train>));
-
-
     public:
         // types
 

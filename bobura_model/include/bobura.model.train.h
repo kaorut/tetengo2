@@ -12,15 +12,11 @@
 #include <iterator>
 #include <vector>
 
-//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
-//#include <boost/swap.hpp>
+#include <boost/swap.hpp>
 
-#include <concept_tetengo2.String.h>
 #include <tetengo2.assignable.h>
 #include <tetengo2.swappable.h>
-
-#include "concept_bobura.model.train_info.Stop.h"
 
 
 namespace bobura { namespace model
@@ -28,12 +24,9 @@ namespace bobura { namespace model
     /*!
         \brief The class for a train.
 
-        \tparam Number A number type. It must conform to
-                       concept_tetengo2::String<Number>.
-        \tparam Note   A note type. It must conform to
-                       concept_tetengo2::String<Note>.
-        \tparam Stop   A stop type. It must conform to
-                       concept_bobura::model::train_info::Stop<Stop>.
+        \tparam Number A number type.
+        \tparam Note   A note type.
+        \tparam Stop   A stop type.
     */
     template <typename Number, typename Note, typename Stop>
     class train :
@@ -41,14 +34,6 @@ namespace bobura { namespace model
         private tetengo2::swappable<train<Number, Note, Stop> >,
         private boost::equality_comparable<train<Number, Note, Stop> >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Number>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<Note>));
-        BOOST_CONCEPT_ASSERT((concept_bobura::model::train_info::Stop<Stop>));
-
-
     public:
         // types
 

@@ -11,7 +11,6 @@
 
 #include <stdexcept>
 
-#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
@@ -27,8 +26,7 @@ namespace bobura { namespace model { namespace train_info
     /*!
         \brief The class for a time span.
 
-        \tparam TimeSpanTick A time span tick type. It must conform to
-                             boost::SignedInteger<TimeSpanTick>.
+        \tparam TimeSpanTick A time span tick type.
     */
     template <typename TimeSpanTick>
     class time_span :
@@ -37,12 +35,6 @@ namespace bobura { namespace model { namespace train_info
         private boost::totally_ordered<time_span<TimeSpanTick> >,
         private boost::additive<time_span<TimeSpanTick> >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((boost::SignedInteger<TimeSpanTick>));
-
-
     public:
         // types
 
