@@ -9,16 +9,10 @@
 #if !defined(BOBURA_ABOUTDIALOG_H)
 #define BOBURA_ABOUTDIALOG_H
 
-//#include <memory>
-//#include <utility>
+#include <memory>
+#include <utility>
 
-//#include <boost/concept_check.hpp>
-
-#include <concept_tetengo2.gui.Dialog.h>
-#include <concept_tetengo2.gui.Button.h>
 #include <tetengo2.text.h>
-
-#include "concept_bobura.message.MessageTypeLists.h"
 
 
 namespace bobura
@@ -26,12 +20,9 @@ namespace bobura
     /*!
         \brief The class template for the about dialog.
 
-        \tparam Dialog                     A dialog type. It must conform to
-                                           concept_tetengo2::gui::Dialog<Dialog>.
-        \tparam Button                     A button type. It must conform to
-                                           concept_tetengo2::gui::Button<Button>.
-        \tparam AboutDialogMessageTypeList A message type. It must conform to
-                                           concept_bobura::message::AboutDialogMessageTypeList<AboutDialogMessageTypeList>.
+        \tparam Dialog                     A dialog type.
+        \tparam Button                     A button type.
+        \tparam AboutDialogMessageTypeList A message type.
     */
     template <
         typename Dialog,
@@ -40,18 +31,6 @@ namespace bobura
     >
     class about_dialog : public Dialog
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Button<Button>));
-        BOOST_CONCEPT_ASSERT((
-            concept_bobura::message::AboutDialogMessageTypeList<
-                AboutDialogMessageTypeList
-            >
-        ));
-
-
     public:
         // types
 

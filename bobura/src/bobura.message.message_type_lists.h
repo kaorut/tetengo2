@@ -9,8 +9,6 @@
 #if !defined(BOBURA_MESSAGE_MESSAGETYPELIST_H)
 #define BOBURA_MESSAGE_MESSAGETYPELIST_H
 
-//#include <boost/concept_check.hpp>
-
 #include "bobura.message.about_dialog_observers.h"
 #include "bobura.message.main_window_observers.h"
 
@@ -20,28 +18,14 @@ namespace bobura { namespace message
     /*!
         \brief The class template for a message type list of the main window.
 
-        \tparam Command         A command type. It must conform to
-                                boost::Generator<Command, void>.
-        \tparam Canvas          A canvas type of the main window. It must
-                                conform to
-                                concept_tetengo2::gui::Canvas<Canvas>.
+        \tparam Command         A command type.
+        \tparam Canvas          A canvas type of the main window.
         \tparam QuitMessageLoop A unary functor type for quitting the message
-                                loop. It must conform to
-                                boost::UnaryFunction<QuitMessageLoop, void, int>.
+                                loop.
     */
     template <typename Command, typename Canvas, typename QuitMessageLoop>
     class main_window_message_type_list
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((boost::Generator<Command, void>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Canvas<Canvas>));
-        BOOST_CONCEPT_ASSERT((
-            boost::UnaryFunction<QuitMessageLoop, void, int>
-        ));
-
-
     public:
         // types
 
@@ -72,18 +56,11 @@ namespace bobura { namespace message
     /*!
         \brief The class template for a message type list of the about dialog.
 
-        \tparam Dialog A dialog type. It must conform to
-                       concept_tetengo2::gui::Dialog<Dialog>.
+        \tparam Dialog A dialog type.
     */
     template <typename Dialog>
     class about_dialog_message_type_list
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
-
-
     public:
         // types
 

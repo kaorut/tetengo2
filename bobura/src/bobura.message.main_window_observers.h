@@ -11,8 +11,6 @@
 
 #include <utility>
 
-//#include <boost/concept_check.hpp>
-
 #include <tetengo2.text.h>
 #include <tetengo2.gui.menu_observer.h>
 #include <tetengo2.gui.paint_observer.h>
@@ -24,18 +22,11 @@ namespace bobura { namespace message
     /*!
         \brief The class template for a menu observer of the main window.
         
-        \tparam Command A command type. It must conform to
-                        boost::Generator<Command, void>.
+        \tparam Command A command type.
     */
     template <typename Command>
     class main_window_menu_observer : public tetengo2::gui::menu_observer
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((boost::Generator<Command, void>));
-
-
     public:
         // types
 
@@ -164,20 +155,11 @@ namespace bobura { namespace message
         \brief The class template for a window observer of the main window.
 
         \tparam QuitMessageLoop A unary functor type for quitting the message
-                                loop. It must conform to
-                                boost::UnaryFunction<QuitMessageLoop, void, int>
+                                loop.
     */
     template <typename QuitMessageLoop>
     class main_window_window_observer : public tetengo2::gui::window_observer
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((
-            boost::UnaryFunction<QuitMessageLoop, void, int>
-        ));
-
-
     public:
         // types
 

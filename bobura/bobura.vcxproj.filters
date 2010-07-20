@@ -16,12 +16,6 @@
     <Filter Include="headers\bobura::message">
       <UniqueIdentifier>{a708a07f-8972-43b3-8115-9a955ced00b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\concept_bobura">
-      <UniqueIdentifier>{53282996-1141-4913-8627-28a0d6ca582c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="headers\concept_bobura::message">
-      <UniqueIdentifier>{286924da-d81c-4eba-8118-8354d2bb4193}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resources">
       <UniqueIdentifier>{1a283181-6f05-4efd-abfe-aa839069ca0d}</UniqueIdentifier>
     </Filter>
@@ -65,18 +59,6 @@
     </ClInclude>
     <ClInclude Include="src\bobura.message.message_type_lists.h">
       <Filter>headers\bobura::message</Filter>
-    </ClInclude>
-    <ClInclude Include="src\concept_bobura.AboutDialog.h">
-      <Filter>headers\concept_bobura</Filter>
-    </ClInclude>
-    <ClInclude Include="src\concept_bobura.MainWindow.h">
-      <Filter>headers\concept_bobura</Filter>
-    </ClInclude>
-    <ClInclude Include="src\concept_bobura.Settings.h">
-      <Filter>headers\concept_bobura</Filter>
-    </ClInclude>
-    <ClInclude Include="src\concept_bobura.message.MessageTypeLists.h">
-      <Filter>headers\concept_bobura::message</Filter>
     </ClInclude>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>

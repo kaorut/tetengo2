@@ -11,11 +11,8 @@
 
 #include <vector>
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
-
-#include <concept_tetengo2.String.h>
 
 
 namespace bobura
@@ -23,18 +20,11 @@ namespace bobura
     /*!
         \brief The class template for settings of bobura.
 
-        \tparam String A string type. It must conform to
-                       concept_tetengo2::String<String>.
+        \tparam String A string type.
     */
     template <typename String>
     class settings : private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-
-
     public:
         // types
 

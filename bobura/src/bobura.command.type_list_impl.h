@@ -9,18 +9,15 @@
 #if !defined(BOBURA_COMMAND_TYPELISTIMPL_H)
 #define BOBURA_COMMAND_TYPELISTIMPL_H
 
-//#include <boost/concept_check.hpp>
 #include <boost/function.hpp>
 #include <boost/mpl/pair.hpp>
 
-#include <concept_tetengo2.gui.Window.h>
 #include <tetengo2.meta.assoc_list.h>
 
 #include "bobura.command.about.h"
 #include "bobura.command.exit.h"
 #include "bobura.command.nop.h"
 #include "bobura.command.type_list.h"
-#include "concept_bobura.AboutDialog.h"
 
 
 namespace bobura { namespace command
@@ -28,21 +25,12 @@ namespace bobura { namespace command
     /*!
         \brief The meta function for the type list of bobura::command.
 
-        \tparam Window      A window type. It must conform to
-                            concept_tetengo2::gui::Window<Window>.
-        \tparam AboutDialog An about dialog type. It must conform to
-                            concept_bobura::AboutDialog<AboutDialog>.
+        \tparam Window      A window type.
+        \tparam AboutDialog An about dialog type.
     */
     template <typename Window, typename AboutDialog>
     class type_list
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
-        BOOST_CONCEPT_ASSERT((concept_bobura::AboutDialog<AboutDialog>));
-
-
     public:
         // types
 

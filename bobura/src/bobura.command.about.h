@@ -9,13 +9,10 @@
 #if !defined(BOBURA_COMMAND_ABOUT_H)
 #define BOBURA_COMMAND_ABOUT_H
 
-//#include <boost/concept_check.hpp>
 #include <boost/swap.hpp>
 
 #include <tetengo2.assignable.h>
 #include <tetengo2.swappable.h>
-
-#include "concept_bobura.AboutDialog.h"
 
 
 namespace bobura { namespace command
@@ -23,20 +20,13 @@ namespace bobura { namespace command
     /*!
         \brief The class template for an about command.
 
-        \tparam AboutDialog An about dialog type. It must conform to
-                            concept_bobura::AboutDialog<AboutDialog>.
+        \tparam AboutDialog An about dialog type.
     */
     template <typename AboutDialog>
     class about :
         public tetengo2::assignable<about<AboutDialog> >,
         private tetengo2::swappable<about<AboutDialog> >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_bobura::AboutDialog<AboutDialog>));
-
-
     public:
         // types
 

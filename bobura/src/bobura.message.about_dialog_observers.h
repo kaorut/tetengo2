@@ -12,10 +12,7 @@
 #include <cassert>
 #include <cstddef>
 
-//#include <boost/concept_check.hpp>
-
 #include <tetengo2.gui.mouse_observer.h>
-#include <concept_tetengo2.gui.Dialog.h>
 
 
 namespace bobura { namespace message
@@ -24,19 +21,12 @@ namespace bobura { namespace message
         \brief The class template for a mouse observer of the OK button in the
                about dialog.
         
-        \tparam Dialog A dialog type. It must conform to
-                       concept_tetengo2::gui::Dialog<Dialog>.
+        \tparam Dialog A dialog type.
     */
     template <typename Dialog>
     class about_dialog_ok_button_mouse_observer :
         public tetengo2::gui::mouse_observer
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Dialog<Dialog>));
-
-
     public:
         // types
 

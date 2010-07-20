@@ -9,10 +9,8 @@
 #if !defined(BOBURA_COMMAND_EXIT_H)
 #define BOBURA_COMMAND_EXIT_H
 
-//#include <boost/concept_check.hpp>
 #include <boost/swap.hpp>
 
-#include <concept_tetengo2.gui.Window.h>
 #include <tetengo2.assignable.h>
 #include <tetengo2.swappable.h>
 
@@ -22,20 +20,13 @@ namespace bobura { namespace command
     /*!
         \brief The class template for an exit command.
 
-        \tparam Window A window type. It must conform to
-                       concept_tetengo2::gui::Window<Window>.
+        \tparam Window A window type.
     */
     template <typename Window>
     class exit :
         public tetengo2::assignable<exit<Window> >,
         private tetengo2::swappable<exit<Window> >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Window<Window>));
-
-
     public:
         // types
 

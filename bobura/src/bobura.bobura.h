@@ -9,11 +9,7 @@
 #if !defined(BOBURA_BOBURA_H)
 #define BOBURA_BOBURA_H
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
-
-#include "concept_bobura.MainWindow.h"
-#include "concept_bobura.Settings.h"
 
 
 namespace bobura
@@ -21,15 +17,10 @@ namespace bobura
    /*!
         \brief The class template for a bobura application.
 
-        \tparam Settings                A settings type. It must conform to
-                                        concept_bobura::Settings<Settings>.
-        \tparam MainWindow              A main window type. It must conform to
-                                        concept_bobura::MainWindow<MainWindow>.
-        \tparam MessageLoop             A message loop type. It must conform
-                                        to boost::Generator<MessageLoop, int>.
-        \tparam QuitMessageLoop         A quit-message-loop type. It must
-                                        conform to
-                                        boost::UnaryFunction<MessageLoop, void, int>.
+        \tparam Settings                A settings type.
+        \tparam MainWindow              A main window type.
+        \tparam MessageLoop             A message loop type.
+        \tparam QuitMessageLoop         A quit-message-loop type.
         \tparam GuiInitializerFinalizer A GUI initializer and finalizer type.
     */
     template <
@@ -41,17 +32,6 @@ namespace bobura
     >
     class bobura : private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_bobura::Settings<Settings>));
-        BOOST_CONCEPT_ASSERT((concept_bobura::MainWindow<MainWindow>));
-        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
-        BOOST_CONCEPT_ASSERT((
-            boost::UnaryFunction<QuitMessageLoop, void, int>
-        ));
-
-
     public:
         // types
 

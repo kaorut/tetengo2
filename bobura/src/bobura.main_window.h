@@ -9,41 +9,27 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
-//#include <memory>
+#include <memory>
 
-//#include <boost/concept_check.hpp>
 #include <boost/mpl/at.hpp>
 
-#include <concept_tetengo2.gui.Menu.h>
-#include <concept_tetengo2.gui.Window.h>
 #include <tetengo2.text.h>
 
 #include "bobura.command.type_list.h"
-#include "concept_bobura.message.MessageTypeLists.h"
+
 
 namespace bobura
 {
     /*!
         \brief The class template for the main window.
 
-        \tparam Window                    A window type. It must conform to
-                                          concept_tetengo2::gui::Window<Window>.
-        \tparam QuitMessageLoop           A quit-message-loop type. It must
-                                          conform to
-                                          boost::UnaryFunction<MessageLoop, void, int>.
-        \tparam MenuCommand               A menu command type. It must conform
-                                          to
-                                          concept_tetengo2::gui::Menu<MenuCommand, typename MenuCommand::base_type>.
-        \tparam PopupMenu                 A popup menu type. It must conform
-                                          to
-                                          concept_tetengo2::gui::Menu<PopupMenu, typename PopupMenu::base_type::base_type>.
-        \tparam MenuSeparator             A menu separator type. It must
-                                          conform to
-                                          concept_tetengo2::gui::Menu<MenuSeparator, typename MenuSeparator::base_type>.
-        \tparam CommandTypeList           A command type. It must conform to
-                                          concept_bobura::command::CommandTypeList<CommandTypeList>.
-        \tparam MainWindowMessageTypeList A message type. It must conform to
-                                          concept_bobura::message::MainWindowMessageTypeList<MainWindowMessageTypeList>.
+        \tparam Window                    A window type.
+        \tparam QuitMessageLoop           A quit-message-loop type.
+        \tparam MenuCommand               A menu command type.
+        \tparam PopupMenu                 A popup menu type.
+        \tparam MenuSeparator             A menu separator type.
+        \tparam CommandTypeList           A command type.
+        \tparam MainWindowMessageTypeList A message type.
     */
     template <
         typename Window,
@@ -56,37 +42,6 @@ namespace bobura
     >
     class main_window : public Window
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::Window<Window>
-        ));
-        BOOST_CONCEPT_ASSERT((
-            boost::UnaryFunction<QuitMessageLoop, void, int>
-        ));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::Menu<
-                MenuCommand, typename MenuCommand::base_type
-            >
-        ));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::Menu<
-                PopupMenu, typename PopupMenu::base_type::base_type
-            >
-        ));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::Menu<
-                MenuSeparator, typename MenuSeparator::base_type
-            >
-        ));
-        BOOST_CONCEPT_ASSERT((
-            concept_bobura::message::MainWindowMessageTypeList<
-                MainWindowMessageTypeList
-            >
-        ));
-
-
     public:
         // types
 
