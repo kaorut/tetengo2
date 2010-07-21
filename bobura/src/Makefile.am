@@ -15,11 +15,7 @@ extra_headers = \
     bobura.message.main_window_observers.h \
     bobura.message.message_type_lists.h \
     bobura.settings.h \
-    bobura.type_list.h \
-    concept_bobura.AboutDialog.h \
-    concept_bobura.MainWindow.h \
-    concept_bobura.Settings.h \
-    concept_bobura.message.MessageTypeLists.h
+    bobura.type_list.h
 
 extra_sources = \
     main.cpp

@@ -10,15 +10,7 @@ headers = \
     bobura.model.train.h \
     bobura.model.train_info.stop.h \
     bobura.model.train_info.time.h \
-    bobura.model.train_info.time_span.h \
-    concept_bobura.model.Station.h \
-    concept_bobura.model.Timetable.h \
-    concept_bobura.model.Train.h \
-    concept_bobura.model.station_info.Grade.h \
-    concept_bobura.model.timetable_info.StationLocation.h \
-    concept_bobura.model.train_info.Stop.h \
-    concept_bobura.model.train_info.Time.h \
-    concept_bobura.model.train_info.TimeSpan.h
+    bobura.model.train_info.time_span.h
 
 extra_headers =
 
