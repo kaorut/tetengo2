@@ -9,21 +9,12 @@
 #if !defined(STUBTETENGO2_GUI_BUTTON_H)
 #define STUBTETENGO2_GUI_BUTTON_H
 
-//#include <boost/concept_check.hpp>
-
-#include "concept_tetengo2.gui.Widget.h"
-
 
 namespace stub_tetengo2 { namespace gui
 {
     template <typename Widget>
     class button : public Widget
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
-
     public:
         // types
 

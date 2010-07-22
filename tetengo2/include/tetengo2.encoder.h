@@ -11,13 +11,11 @@
 
 //#include <cstddef>
 
-//#include <boost/concept_check.hpp>
 //#include <boost/swap.hpp>
 //#include <boost/operators.hpp>
 //#include <boost/type_traits.hpp>
 //#include <boost/utility.hpp>
 
-#include "concept_tetengo2.encoding.Encoding.h"
 #include "tetengo2.assignable.h"
 #include "tetengo2.swappable.h"
 #include "tetengo2.encoding.locale.h"
@@ -28,10 +26,8 @@ namespace tetengo2
     /*!
         \brief The class template for an encoder.
 
-        \tparam InternalEncoding An internal encoding type. It must conform to
-                                 concept_tetengo2::Encoding<InternalEncoding>.
-        \tparam ExternalEncoding An external encoding type. It must conform to
-                                 concept_tetengo2::Encoding<ExternalEncoding>.
+        \tparam InternalEncoding An internal encoding type.
+        \tparam ExternalEncoding An external encoding type.
     */
     template <typename InternalEncoding, typename ExternalEncoding>
     class encoder :
@@ -41,17 +37,6 @@ namespace tetengo2
             encoder<InternalEncoding, ExternalEncoding>
         >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::encoding::Encoding<InternalEncoding>
-        ));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::encoding::Encoding<ExternalEncoding>
-        ));
-
-
     public:
         // types
 

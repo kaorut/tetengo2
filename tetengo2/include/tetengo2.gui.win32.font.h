@@ -14,7 +14,6 @@
 #include <stdexcept>
 #include <vector>
 
-//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/swap.hpp>
@@ -33,7 +32,6 @@
 #undef min
 #undef max
 
-#include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"
 #include "tetengo2.swappable.h"
 
@@ -43,10 +41,8 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a font for Win32 platforms.
  
-        \tparam String A string type. It must conform to
-                       concept_tetengo2::String<String>.
-        \tparam Size   A size type. It must conform to
-                       boost::UnsignedInteger<Size>.
+        \tparam String A string type.
+        \tparam Size   A size type.
    */
     template <typename String, typename Size>
     class font :
@@ -54,13 +50,6 @@ namespace tetengo2 { namespace gui { namespace win32
         private swappable<font<String, Size> >,
         private boost::equality_comparable<font<String, Size> >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
-
-
     public:
         // types
 

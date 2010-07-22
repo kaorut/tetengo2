@@ -16,7 +16,6 @@
 #include <vector>
 
 #include <boost/bind.hpp>
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 #include <boost/throw_exception.hpp>
@@ -26,10 +25,6 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.String.h"
-#include "concept_tetengo2.gui.Handle.h"
-#include "concept_tetengo2.gui.MenuObserver.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
@@ -38,16 +33,11 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a menu.
 
-        \tparam Id           A ID type. It must conform to
-                             boost::UnsignedInteger<Id>.
-        \tparam Handle       A handle type. It must conform to
-                             concept_tetengo2::gui::Handle<Handle>.
-        \tparam String       A string type. It must conform to
-                             concept_tetengo2::String<String>.
-        \tparam Encoder      An encoder type. It must conform to
-                             concept_tetengo2::Encoder<Encoder>.
-        \tparam MenuObserver A menu observer type. It must conform to
-                             concept_tetengo2::gui::MenuObserver<MenuObserver>.
+        \tparam Id           A ID type.
+        \tparam Handle       A handle type.
+        \tparam String       A string type.
+        \tparam Encoder      An encoder type.
+        \tparam MenuObserver A menu observer type.
    */
     template <
         typename Id,
@@ -58,18 +48,6 @@ namespace tetengo2 { namespace gui { namespace win32
     >
     class menu : boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuObserver<MenuObserver>
-        ));
-
-
     public:
         // types
 

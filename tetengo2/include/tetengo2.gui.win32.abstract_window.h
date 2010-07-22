@@ -17,7 +17,6 @@
 #include <stdexcept>
 
 #include <boost/bind.hpp>
-//#include <boost/concept_check.hpp>
 #include <boost/signal.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -26,41 +25,19 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "concept_tetengo2.gui.Menu.h"
-#include "concept_tetengo2.gui.WindowObserver.h"
-#include "concept_tetengo2.gui.Widget.h"
-
 
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
         \brief The class template for an abstract window for Win32 platforms.
  
-        \tparam Widget         A widget type. It must conform to
-                               concept_tetengo2::gui::Widget<Widget>.
-        \tparam MainMenu       A main menu type. It must conform to
-                               concept_tetengo2::gui::Menu<Menu>.
-        \tparam WindowObserver A abstract_window observer type. It must
-                               conform to
-                               concept_tetengo2::gui::WindowObserver<WindowObserver>.
+        \tparam Widget         A widget type.
+        \tparam MainMenu       A main menu type.
+        \tparam WindowObserver A abstract_window observer type.
    */
     template <typename Widget, typename MainMenu, typename WindowObserver>
     class abstract_window : public Widget
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::Menu<
-                MainMenu, typename MainMenu::base_type::base_type
-            >
-        ));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::WindowObserver<WindowObserver>
-        ));
-
-
     public:
         // types
 

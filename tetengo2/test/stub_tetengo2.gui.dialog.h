@@ -9,10 +9,6 @@
 #if !defined(STUBTETENGO2_GUI_DIALOG_H)
 #define STUBTETENGO2_GUI_DIALOG_H
 
-//#include <boost/concept_check.hpp>
-
-#include "concept_tetengo2.gui.AbstractWindow.h"
-
 
 namespace stub_tetengo2 { namespace gui
 {
@@ -23,18 +19,6 @@ namespace stub_tetengo2 { namespace gui
     >
     class dialog : public AbstractWindow
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::AbstractWindow<AbstractWindow>
-        ));
-        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
-        BOOST_CONCEPT_ASSERT((
-            boost::UnaryFunction<QuitMessageLoop, void, int>
-        ));
-
-
     public:
         // types
 

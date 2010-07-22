@@ -12,14 +12,11 @@
 #include <cstddef>
 #include <stdexcept>
 
-//#include <boost/concept_check.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
-
-#include "concept_tetengo2.gui.Widget.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -27,18 +24,11 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a button for Win32 platforms.
  
-        \tparam Widget A widget type. It must conform to
-                       concept_tetengo2::gui::Widget<Widget>.
+        \tparam Widget A widget type.
    */
     template <typename Widget>
     class button : public Widget
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
-
-
     public:
         // types
 

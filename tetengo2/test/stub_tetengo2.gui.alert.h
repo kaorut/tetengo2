@@ -14,11 +14,7 @@
 #include <functional>
 #include <stdexcept>
 
-//#include <boost/concept_check.hpp>
 #include <boost/exception/all.hpp>
-
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.gui.Handle.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -28,17 +24,8 @@ namespace stub_tetengo2 { namespace gui
         typename UiEncoder,
         typename ExceptionEncoder
     >
-    class alert :
-        public std::unary_function<std::exception, void>
+    class alert : public std::unary_function<std::exception, void>
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<UiEncoder>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<ExceptionEncoder>));
-
-
     public:
         // types
 

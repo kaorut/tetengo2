@@ -17,7 +17,6 @@
 #include <sstream>
 #include <string>
 
-//#include <boost/concept_check.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/exception/all.hpp>
 
@@ -26,8 +25,6 @@
 #include <windows.h>
 #include <commctrl.h>
 
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.gui.Handle.h"
 #include "tetengo2.text.h"
 
 
@@ -37,14 +34,9 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The unary functor class template for an alert for Win32
                platforms.
 
-        \tparam WindowHandle     A window handle type. It must conform to
-                                 concept_tetengo2::gui::Handle<WindowHandle>.
-        \tparam UiEncoder        An encoder type for the user interface. It
-                                 must
-                                 conform to concept_tetengo2::Encoder<UiEncoder>.
-        \tparam ExceptionEncoder An encoder type for the user interface. It
-                                 must
-                                 conform to concept_tetengo2::Encoder<ExceptionEncoder>.
+        \tparam WindowHandle     A window handle type.
+        \tparam UiEncoder        An encoder type for the user interface.
+        \tparam ExceptionEncoder An encoder type for the user interface.
     */
     template <
         typename WindowHandle,
@@ -54,14 +46,6 @@ namespace tetengo2 { namespace gui { namespace win32
     class alert :
         public std::unary_function<std::exception, void>
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<UiEncoder>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<ExceptionEncoder>));
-
-
     public:
         // types
 

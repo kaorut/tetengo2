@@ -13,14 +13,11 @@
 #include <stdexcept>
 #include <vector>
 
-//#include <boost/concept_check.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
-
-#include "concept_tetengo2.gui.Menu.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -28,20 +25,11 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a popup menu.
 
-        \tparam Menu A menu type. It must conform to
-                     concept_tetengo2::gui::Menu<Menu>
+        \tparam Menu A menu type.
    */
     template <typename Menu>
     class popup_menu : public Menu
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::Menu<Menu, typename Menu::base_type>
-        ));
-
-
     public:
         // types
 

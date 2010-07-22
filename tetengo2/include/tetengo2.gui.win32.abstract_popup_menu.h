@@ -18,7 +18,6 @@
 #include <string>
 #include <vector>
 
-//#include <boost/concept_check.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -26,7 +25,6 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "concept_tetengo2.gui.Menu.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
@@ -35,18 +33,11 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a abstract_popup_menu.
 
-        \tparam Menu A menu type. It must conform to
-                     concept_tetengo2::gui::Menu<Menu>
+        \tparam Menu A menu type.
    */
     template <typename Menu>
     class abstract_popup_menu : public Menu
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<Menu, Menu>));
-
-
     public:
         // types
 

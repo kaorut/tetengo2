@@ -12,10 +12,7 @@
 #include <cstddef>
 //#include <locale>
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
-
-#include "concept_tetengo2.Messages.h"
 
 
 namespace tetengo2
@@ -23,18 +20,11 @@ namespace tetengo2
     /*!
         \brief The class template for a message catalog.
 
-        \tparam Messages A messages facet type. It must conform to
-                         concept_tetengo2::Messages<Messages>.
+        \tparam Messages A messages facet type.
     */
     template <typename Messages>
     class message_catalog : private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Messages<Messages>));
-
-
     public:
         // types
 

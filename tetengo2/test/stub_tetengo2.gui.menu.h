@@ -14,15 +14,10 @@
 #include <memory>
 #include <stdexcept>
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.String.h"
-#include "concept_tetengo2.gui.Handle.h"
-#include "concept_tetengo2.gui.MenuObserver.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
@@ -37,18 +32,6 @@ namespace stub_tetengo2 { namespace gui
     >
     class menu : boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Id>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MenuObserver<MenuObserver>
-        ));
-
-
     public:
         // types
 

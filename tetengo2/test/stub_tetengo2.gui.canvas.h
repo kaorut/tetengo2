@@ -11,13 +11,7 @@
 
 #include <utility>
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
-
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.String.h"
-#include "concept_tetengo2.gui.Font.h"
-#include "concept_tetengo2.gui.Handle.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -32,17 +26,6 @@ namespace stub_tetengo2 { namespace gui
     >
     class canvas : private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
-
-
     public:
         // types
 

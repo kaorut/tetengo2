@@ -20,7 +20,6 @@
 #include <vector>
 
 #include <boost/bind.hpp>
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 #include <boost/scoped_array.hpp>
@@ -32,44 +31,22 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.String.h"
-#include "concept_tetengo2.gui.Canvas.h"
-#include "concept_tetengo2.gui.Font.h"
-#include "concept_tetengo2.gui.Handle.h"
-#include "concept_tetengo2.gui.MouseObserver.h"
-#include "concept_tetengo2.gui.PaintObserver.h"
-
 
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
         \brief The base class template for a GUI widget for Win32 platforms.
 
-        \tparam Handle                A handle type to the native interface.
-                                      It must conform to
-                                      concept_tetengo2::gui::Handle<Handle>.
-        \tparam Canvas                A canvas type. It must conform to
-                                      concept_tetengo2::gui::Canvas<Canvas>.
-        \tparam Alert                 An alerting unary functor type. It must
-                                      conform to
-                                      boost::UnaryFunction<Alert, void, Handle, std::exception>.
-        \tparam Difference            A difference type. It must conform to
-                                      boost::SignedInteger<Difference>.
-        \tparam Size                  A size type. It must conform to
-                                      boost::UnsignedInteger<Size>.
-        \tparam String                A string type. It must conform to
-                                      concept_tetengo2::String<String>.
-        \tparam Encoder               An encoder type. It must conform to
-                                      concept_tetengo2::Encoder<Encoder>.
-        \tparam Font                  A font type. It must conform to
-                                      concept_tetengo2::gui::Font<Font>.
-        \tparam PaintObserver         A paint observer type. It must conform
-                                      to
-                                      concept_tetengo2::gui::PaintObserver<PaintObserver>.
-        \tparam MouseObserver         A mouse observer type. It must conform
-                                      to
-                                      concept_tetengo2::gui::MouseObserver<MouseObserver>.
+        \tparam Handle        A handle type to the native interface.
+        \tparam Canvas        A canvas type.
+        \tparam Alert         An alerting unary functor type.
+        \tparam Difference    A difference type.
+        \tparam Size          A size type.
+        \tparam String        A string type.
+        \tparam Encoder       An encoder type.
+        \tparam Font          A font type.
+        \tparam PaintObserver A paint observer type.
+        \tparam MouseObserver A mouse observer type.
     */
     template <
         typename Handle,
@@ -85,31 +62,6 @@ namespace tetengo2 { namespace gui { namespace win32
     >
     class widget : private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Canvas<Canvas>));
-        struct concept_check_Alert
-        {
-            typedef std::exception exception_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<Alert, void, exception_type>
-            ));
-        };
-        BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::PaintObserver<PaintObserver>
-        ));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MouseObserver<MouseObserver>
-        ));
-
-
     public:
         // types
 

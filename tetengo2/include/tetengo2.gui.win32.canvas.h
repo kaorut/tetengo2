@@ -15,7 +15,6 @@
 #include <memory>
 #include <utility>
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -32,30 +31,18 @@
 #undef min
 #undef max
 
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.String.h"
-#include "concept_tetengo2.gui.Font.h"
-#include "concept_tetengo2.gui.Handle.h"
-
 
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
         \brief The class template for a canvas for Win32 platforms.
 
-        \tparam Handle       A handle type for the native interface. It must
-                             conform to concept_tetengo2::gui::Handle<Handle>.
-        \tparam Size         A size type. It must conform to
-                             boost::UnsignedInteger<Size>.
-        \tparam String       A string type. It must conform to
-                             concept_tetengo2::String<String>.
-        \tparam Encoder      An encoder type. It must conform to
-                             concept_tetengo2::Encoder<Encoder>.
-        \tparam WindowHandle A window handle type for the native interface. It
-                             must conform to
-                             concept_tetengo2::gui::Handle<WindowHandle>.
-        \tparam Font         A font type. It must conform to
-                             concept_tetengo2::gui::Font<Font>.
+        \tparam Handle       A handle type for the native interface.
+        \tparam Size         A size type.
+        \tparam String       A string type.
+        \tparam Encoder      An encoder type.
+        \tparam WindowHandle A window handle type for the native interface.
+        \tparam Font         A font type.
     */
     template <
         typename Handle,
@@ -67,17 +54,6 @@ namespace tetengo2 { namespace gui { namespace win32
     >
     class canvas : private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<WindowHandle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
-
-
     public:
         // types
 

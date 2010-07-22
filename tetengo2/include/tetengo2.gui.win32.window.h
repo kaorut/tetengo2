@@ -12,14 +12,11 @@
 #include <cstddef>
 #include <stdexcept>
 
-//#include <boost/concept_check.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
-
-#include "concept_tetengo2.gui.AbstractWindow.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -27,20 +24,11 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a window for Win32 platforms.
  
-        \tparam AbstractWindow An abstract window type. It must conform to
-                               concept_tetengo2::gui::AbstractWindow<AbstractWindow>.
+        \tparam AbstractWindow An abstract window type.
    */
     template <typename AbstractWindow>
     class window : public AbstractWindow
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::AbstractWindow<AbstractWindow>
-        ));
-
-
     public:
         // types
 

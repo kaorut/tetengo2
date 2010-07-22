@@ -19,15 +19,11 @@
 #include <utility>
 #include <vector>
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
 
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.IStream.h"
-#include "concept_tetengo2.String.h"
 #include "tetengo2.text.h"
 
 
@@ -36,24 +32,13 @@ namespace tetengo2
     /*!
         \brief The class template for a message catalog parser.
 
-        \tparam InputStream An input stream type. It must conform to
-                            concept_tetengo2::IStream<InputStream>.
-        \tparam String      A string type. It must conform to
-                            concept_tetengo2::String<String>.
-        \tparam Encoder     An encoder type. It must conform to
-                            concept_tetengo2::Encoder<Encoder>.
+        \tparam InputStream An input stream type.
+        \tparam String      A string type.
+        \tparam Encoder     An encoder type.
     */
     template <typename InputStream, typename String, typename Encoder>
     class message_catalog_parser : private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::IStream<InputStream>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
-
-
     public:
         // types
 

@@ -9,24 +9,12 @@
 #if !defined(STUBTETENGO2_GUI_WINDOW_H)
 #define STUBTETENGO2_GUI_WINDOW_H
 
-//#include <boost/concept_check.hpp>
-
-#include "concept_tetengo2.gui.AbstractWindow.h"
-
 
 namespace stub_tetengo2 { namespace gui
 {
     template <typename AbstractWindow>
     class window : public AbstractWindow
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::AbstractWindow<AbstractWindow>
-        ));
-
-
     public:
         // types
 

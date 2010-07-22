@@ -16,17 +16,9 @@
 #include <utility>
 #include <vector>
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.String.h"
-#include "concept_tetengo2.gui.Canvas.h"
-#include "concept_tetengo2.gui.Font.h"
-#include "concept_tetengo2.gui.Handle.h"
-#include "concept_tetengo2.gui.MouseObserver.h"
-#include "concept_tetengo2.gui.PaintObserver.h"
 #include "tetengo2.text.h"
 
 
@@ -46,32 +38,6 @@ namespace stub_tetengo2 { namespace gui
     >
     class widget : private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Handle<Handle>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Canvas<Canvas>));
-        struct concept_check_Alert
-        {
-            typedef std::exception exception_type;
-            BOOST_CONCEPT_ASSERT((
-                boost::UnaryFunction<Alert, void, exception_type>
-            ));
-        };
-        BOOST_CONCEPT_ASSERT((boost::SignedInteger<Difference>));
-        BOOST_CONCEPT_ASSERT((boost::UnsignedInteger<Size>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<Encoder>));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Font<Font>));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::PaintObserver<PaintObserver>
-        ));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::MouseObserver<MouseObserver>
-        ));
-
-
-
     public:
         // types
 

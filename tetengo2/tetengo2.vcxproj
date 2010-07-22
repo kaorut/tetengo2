@@ -122,29 +122,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\concept_tetengo2.Assignable.h" />
-    <ClInclude Include="include\concept_tetengo2.Encoder.h" />
-    <ClInclude Include="include\concept_tetengo2.encoding.Encoding.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.AbstractWindow.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.Button.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.Canvas.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.Dialog.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.Font.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.Handle.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.Menu.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.MenuObserver.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.MouseObserver.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.PaintObserver.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.Widget.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.Window.h" />
-    <ClInclude Include="include\concept_tetengo2.gui.WindowObserver.h" />
-    <ClInclude Include="include\concept_tetengo2.IStream.h" />
-    <ClInclude Include="include\concept_tetengo2.MessageCatalog.h" />
-    <ClInclude Include="include\concept_tetengo2.MessageCatalogParser.h" />
-    <ClInclude Include="include\concept_tetengo2.Messages.h" />
-    <ClInclude Include="include\concept_tetengo2.Path.h" />
-    <ClInclude Include="include\concept_tetengo2.String.h" />
-    <ClInclude Include="include\concept_tetengo2.Swappable.h" />
     <ClInclude Include="include\tetengo2.assignable.h" />
     <ClInclude Include="include\tetengo2.encoder.h" />
     <ClInclude Include="include\tetengo2.encoding.ascii.h" />

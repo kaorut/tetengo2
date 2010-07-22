@@ -11,30 +11,13 @@
 
 #include <cstddef>
 
-//#include <boost/concept_check.hpp>
-
-#include "concept_tetengo2.gui.Menu.h"
-
 
 namespace stub_tetengo2 { namespace gui
 {
-    /*!
-        \brief The class template for a menu separator.
-
-        The handle is NULL. The text is empty.
-
-        \tparam Menu A menu type. It must conform to
-                     concept_tetengo2::gui::Menu<Menu>
-   */
     template <typename Menu>
     class menu_separator : public Menu
     {
     private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<Menu, Menu>));
-
-
     public:
         // types
 

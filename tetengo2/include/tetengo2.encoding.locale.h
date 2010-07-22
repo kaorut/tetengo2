@@ -17,14 +17,12 @@
 #include <stdexcept>
 #include <vector>
 
-//#include <boost/concept_check.hpp>
 #include <boost/operators.hpp>
 //#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits.hpp>
 #include <boost/utility.hpp>
 
-#include "concept_tetengo2.String.h"
 #include "tetengo2.assignable.h"
 #include "tetengo2.swappable.h"
 #include "tetengo2.text.h"
@@ -36,8 +34,7 @@ namespace tetengo2 { namespace encoding
     /*!
         \brief The class template for an encoding based on a locale.
 
-        \tparam String A string type. It must conform to
-                       concept_tetengo2::String<String>.
+        \tparam String A string type.
     */
     template <typename String>
     class locale :
@@ -46,12 +43,6 @@ namespace tetengo2 { namespace encoding
         private swappable<locale<String> >,
         private boost::equality_comparable<locale<String> >
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::String<String>));
-
-
     public:
         // types
 

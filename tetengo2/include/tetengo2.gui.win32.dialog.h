@@ -16,7 +16,6 @@
 #include <stdexcept>
 
 #include <boost/cast.hpp>
-//#include <boost/concept_check.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/exception/all.hpp>
@@ -25,22 +24,16 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "concept_tetengo2.gui.AbstractWindow.h"
-
 
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
         \brief The class template for a modal dialog.
  
-        \tparam AbstractWindow  An abstract window type. It must conform to
-                                concept_tetengo2::gui::AbstractWindow<AbstractWindow>.
-        \tparam MessageLoop     A generator type for a message loop. It must
-                                conform to
-                                boost::Generator<MessageLoop, int>.
+        \tparam AbstractWindow  An abstract window type.
+        \tparam MessageLoop     A generator type for a message loop.
         \tparam QuitMessageLoop A unary functor type for quitting the message
-                                loop. It must conform to
-                                boost::UnaryFunction<QuitMessageLoop, void, int>
+                                loop.
    */
     template <
         typename AbstractWindow,
@@ -49,18 +42,6 @@ namespace tetengo2 { namespace gui { namespace win32
     >
     class dialog : public AbstractWindow
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::AbstractWindow<AbstractWindow>
-        ));
-        BOOST_CONCEPT_ASSERT((boost::Generator<MessageLoop, int>));
-        BOOST_CONCEPT_ASSERT((
-            boost::UnaryFunction<QuitMessageLoop, void, int>
-        ));
-
-
     public:
         // types
 

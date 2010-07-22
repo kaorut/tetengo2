@@ -21,15 +21,11 @@
 #include <vector>
 
 #include <boost/bind.hpp>
-//#include <boost/concept_check.hpp>
 //#include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "concept_tetengo2.Encoder.h"
-#include "concept_tetengo2.MessageCatalogParser.h"
-#include "concept_tetengo2.Path.h"
 #include "tetengo2.text.h"
 
 
@@ -40,14 +36,9 @@ namespace tetengo2
 
         It is a customized locale facet for a messages facet.
 
-        \tparam Path                 A path type. It must conform to
-                                     concept_tetengo2::Path<Path>.
-        \tparam MessageCatalogParser A message catalog parser type. It must
-                                     conform to
-                                     concept_tetengo2::MessageCatalogParser<MessageCatalogParser>.
-        \tparam LocaleNameEncoder    An encoder type for locale names. It must
-                                     conform to
-                                     concept_tetengo2::Encoder<LocaleNameEncoder>.
+        \tparam Path                 A path type.
+        \tparam MessageCatalogParser A message catalog parser type.
+        \tparam LocaleNameEncoder    An encoder type for locale names.
     */
     template <
         typename Path,
@@ -60,16 +51,6 @@ namespace tetengo2
         >,
         private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Path<Path>));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::MessageCatalogParser<MessageCatalogParser>
-        ));
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::Encoder<LocaleNameEncoder>));
-
-
     public:
         // types
 

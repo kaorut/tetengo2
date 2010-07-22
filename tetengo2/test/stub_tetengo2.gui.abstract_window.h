@@ -11,32 +11,12 @@
 
 //#include <memory>
 
-//#include <boost/concept_check.hpp>
-
-#include "concept_tetengo2.gui.Menu.h"
-#include "concept_tetengo2.gui.WindowObserver.h"
-#include "concept_tetengo2.gui.Widget.h"
-
 
 namespace stub_tetengo2 { namespace gui
 {
     template <typename Widget, typename MainMenu, typename WindowObserver>
     class abstract_window : public Widget
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Widget<Widget>));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::Menu<
-                MainMenu, typename MainMenu::base_type::base_type
-            >
-        ));
-        BOOST_CONCEPT_ASSERT((
-            concept_tetengo2::gui::WindowObserver<WindowObserver>
-        ));
-
-
     public:
         // types
 

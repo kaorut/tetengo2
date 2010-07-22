@@ -9,11 +9,8 @@
 #if !defined(TETENGO2_GUI_PAINTOBSERVER_H)
 #define TETENGO2_GUI_PAINTOBSERVER_H
 
-//#include <boost/concept_check.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
-
-#include "concept_tetengo2.gui.Canvas.h"
 
 
 namespace tetengo2 { namespace gui
@@ -21,19 +18,12 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The base class template for a paint observer.
 
-        \tparam Canvas A canvas type. It must conform to
-                       concept_tetengo2::gui::Canvas<Canvas>.
+        \tparam Canvas A canvas type.
     */
     template <typename Canvas>
     class paint_observer :
         public boost::signals::trackable, private boost::noncopyable
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Canvas<Canvas>));
-
-
     public:
         // types
 

@@ -12,13 +12,9 @@
 #include <cstddef>
 #include <vector>
 
-//#include <boost/concept_check.hpp>
-
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
-
-#include "concept_tetengo2.gui.Menu.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -28,18 +24,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         The handle is NULL.
 
-        \tparam Menu A menu type. It must conform to
-                     concept_tetengo2::gui::Menu<Menu>
+        \tparam Menu A menu type.
    */
     template <typename Menu>
     class menu_command : public Menu
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<Menu, Menu>));
-
-
     public:
         // types
 

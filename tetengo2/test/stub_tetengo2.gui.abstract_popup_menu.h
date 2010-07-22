@@ -11,10 +11,7 @@
 
 //#include <memory>
 
-//#include <boost/concept_check.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-
-#include "concept_tetengo2.gui.Menu.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -22,12 +19,6 @@ namespace stub_tetengo2 { namespace gui
     template <typename Menu>
     class abstract_popup_menu : public Menu
     {
-    private:
-        // concept checks
-
-        BOOST_CONCEPT_ASSERT((concept_tetengo2::gui::Menu<Menu, Menu>));
-
-
     public:
         // types
 
