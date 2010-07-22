@@ -4,4 +4,6 @@
 
 SUBDIRS = include test
 
-EXTRA_DIST = bobura_model.vcproj bobura_model.test.vcproj
+EXTRA_DIST = \
+    bobura_model.vcxproj bobura_model.vcxproj.filters \
+    bobura_model.test.vcxproj bobura_model.test.vcxproj.filters

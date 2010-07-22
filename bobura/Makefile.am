@@ -4,4 +4,6 @@
 
 SUBDIRS = src test
 
-EXTRA_DIST = bobura.vcproj bobura.test.vcproj
+EXTRA_DIST = \
+    bobura.vcxproj bobura.vcxproj.filters \
+    bobura.test.vcxproj bobura.test.vcxproj.filters

@@ -4,4 +4,6 @@
 
 SUBDIRS = include test res.test
 
-EXTRA_DIST = tetengo2.vcproj tetengo2.test.vcproj
+EXTRA_DIST = \
+    tetengo2.vcxproj tetengo2.vcxproj.filters \
+    tetengo2.test.vcxproj tetengo2.test.vcxproj.filters
