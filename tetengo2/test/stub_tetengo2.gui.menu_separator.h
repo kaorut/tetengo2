@@ -9,8 +9,6 @@
 #if !defined(STUBTETENGO2_GUI_MENUSEPARATOR_H)
 #define STUBTETENGO2_GUI_MENUSEPARATOR_H
 
-#include <cstddef>
-
 
 namespace stub_tetengo2 { namespace gui
 {

@@ -40,7 +40,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/bind.hpp>
 #include <boost/cast.hpp>
-#include <boost/concept_check.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/function.hpp>

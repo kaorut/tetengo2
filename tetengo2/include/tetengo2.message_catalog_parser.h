@@ -15,7 +15,7 @@
 #include <locale>
 #include <memory>
 #include <stdexcept>
-//#include <string>
+#include <string>
 #include <utility>
 #include <vector>
 

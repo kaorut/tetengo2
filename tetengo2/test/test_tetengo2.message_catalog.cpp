@@ -6,7 +6,7 @@
     $Id$
 */
 
-//#include <istream>
+#include <istream>
 //#include <locale>
 //#include <stdexcept>
 //#include <string>

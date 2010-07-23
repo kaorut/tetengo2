@@ -10,7 +10,7 @@
 #define BOBURA_TYPELIST_H
 
 //#include <cstddef>
-//#include <istream>
+#include <istream>
 //#include <string>
 
 //#include <boost/filesystem.hpp>

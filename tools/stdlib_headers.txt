@@ -118,8 +118,6 @@ BOOST_CHECK_GE                                   boost/test/unit_test.hpp
 BOOST_CHECK_LT                                   boost/test/unit_test.hpp
 BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
-BOOST_CONCEPT_ASSERT                             boost/concept_check.hpp
-BOOST_CONCEPT_USAGE                              boost/concept_check.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
@@ -152,16 +150,6 @@ Gdiplus::TextRenderingHintClearTypeGridFit       gdiplus.h
 Gdiplus::UnitPixel                               gdiplus.h
 NULL                                             cstddef
 assert                                           cassert
-boost::Assignable                                boost/concept_check.hpp
-boost::Convertible                               boost/concept_check.hpp
-boost::CopyConstructible                         boost/concept_check.hpp
-boost::DefaultConstructible                      boost/concept_check.hpp
-boost::EqualityComparable                        boost/concept_check.hpp
-boost::Generator                                 boost/concept_check.hpp
-boost::LessThanComparable                        boost/concept_check.hpp
-boost::SignedInteger                             boost/concept_check.hpp
-boost::UnaryFunction                             boost/concept_check.hpp
-boost::UnsignedInteger                           boost/concept_check.hpp
 boost::additive                                  boost/operators.hpp
 boost::bind                                      boost/bind.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
@@ -172,7 +160,6 @@ boost::escaped_list_separator                    boost/tokenizer.hpp
 boost::exception                                 boost/exception/all.hpp
 boost::filesystem::basic_directory_entry         boost/filesystem.hpp
 boost::filesystem::basic_directory_iterator      boost/filesystem.hpp
-boost::filesystem::basic_path                    boost/filesystem.hpp
 boost::filesystem::exists                        boost/filesystem.hpp
 boost::filesystem::is_directory                  boost/filesystem.hpp
 boost::filesystem::path                          boost/filesystem.hpp
@@ -180,7 +167,6 @@ boost::filesystem::wpath                         boost/filesystem.hpp
 boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
 boost::function                                  boost/function.hpp
 boost::get_error_info                            boost/exception/all.hpp
-boost::ignore_unused_variable_warning            boost/concept_check.hpp
 boost::is_convertible                            boost/type_traits.hpp
 boost::is_same                                   boost/type_traits.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp

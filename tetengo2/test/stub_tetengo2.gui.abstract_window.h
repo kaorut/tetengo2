@@ -9,7 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_ABSTRACTWINDOW_H)
 #define STUBTETENGO2_GUI_ABSTRACTWINDOW_H
 
-//#include <memory>
+#include <memory>
 
 
 namespace stub_tetengo2 { namespace gui

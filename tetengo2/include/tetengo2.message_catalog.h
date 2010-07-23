@@ -10,7 +10,7 @@
 #define TETENGO2_MESSAGECATALOG_H
 
 #include <cstddef>
-//#include <locale>
+#include <locale>
 
 #include <boost/noncopyable.hpp>
 

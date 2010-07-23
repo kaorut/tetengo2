@@ -12,7 +12,7 @@
 #include <cassert>
 #include <cstddef>
 #include <exception>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
 
 #include <boost/cast.hpp>

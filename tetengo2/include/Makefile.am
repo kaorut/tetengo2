@@ -3,29 +3,6 @@
 # $Id$
 
 headers = \
-    concept_tetengo2.Assignable.h \
-    concept_tetengo2.Encoder.h \
-    concept_tetengo2.IStream.h \
-    concept_tetengo2.MessageCatalog.h \
-    concept_tetengo2.MessageCatalogParser.h \
-    concept_tetengo2.Messages.h \
-    concept_tetengo2.Path.h \
-    concept_tetengo2.String.h \
-    concept_tetengo2.Swappable.h \
-    concept_tetengo2.encoding.Encoding.h \
-    concept_tetengo2.gui.AbstractWindow.h \
-    concept_tetengo2.gui.Button.h \
-    concept_tetengo2.gui.Canvas.h \
-    concept_tetengo2.gui.Dialog.h \
-    concept_tetengo2.gui.Font.h \
-    concept_tetengo2.gui.Handle.h \
-    concept_tetengo2.gui.Menu.h \
-    concept_tetengo2.gui.MenuObserver.h \
-    concept_tetengo2.gui.MouseObserver.h \
-    concept_tetengo2.gui.PaintObserver.h \
-    concept_tetengo2.gui.Widget.h \
-    concept_tetengo2.gui.Window.h \
-    concept_tetengo2.gui.WindowObserver.h \
     tetengo2.assignable.h \
     tetengo2.encoder.h \
     tetengo2.generator.h \

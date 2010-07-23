@@ -9,7 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_ABSTRACTPOPUPMENU_H)
 #define STUBTETENGO2_GUI_ABSTRACTPOPUPMENU_H
 
-//#include <memory>
+#include <memory>
 
 #include <boost/ptr_container/ptr_vector.hpp>
 

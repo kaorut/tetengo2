@@ -11,7 +11,7 @@
 
 #include <cstddef>
 #include <stdexcept>
-//#include <string>
+#include <string>
 #include <memory>
 #include <utility>
 

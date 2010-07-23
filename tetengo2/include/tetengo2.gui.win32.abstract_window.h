@@ -13,7 +13,7 @@
 #include <cassert>
 #include <cstddef>
 #include <functional>
-//#include <memory>
+#include <memory>
 #include <stdexcept>
 
 #include <boost/bind.hpp>
