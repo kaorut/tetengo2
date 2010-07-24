@@ -67,8 +67,6 @@
 #include "bobura.command.type_list_impl.h"
 #include "bobura.message.type_list_impl.h"
 
-#include "bobura.message.message_type_lists.h"
-
 
 namespace bobura
 {
@@ -353,9 +351,9 @@ namespace bobura
                 about_dialog<
                     boost::mpl::at<ui_type_list, type::dialog>::type,
                     boost::mpl::at<ui_type_list, type::button>::type,
-                    message::about_dialog_message_type_list<
+                    message::about_dialog::type_list<
                         boost::mpl::at<ui_type_list, type::dialog>::type
-                    >
+                    >::type
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -382,14 +380,14 @@ namespace bobura
             >::type
             command_type_list;
         typedef
-            message::main_window_message_type_list<
+            message::main_window::type_list<
                 boost::mpl::at<
                     command_type_list, command::type::command
                 >::type,
                 boost::mpl::at<ui_type_list, type::canvas>::type,
                 boost::mpl::at<ui_type_list, type::quit_message_loop>::type
-            >
-            message_type_list_type;
+            >::type
+            message_type_list;
     }}
 #endif
 
@@ -406,7 +404,7 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::popup_menu>::type,
                     boost::mpl::at<ui_type_list, type::menu_separator>::type,
                     detail::main_window::command_type_list,
-                    detail::main_window::message_type_list_type
+                    detail::main_window::message_type_list
                 >
             >,
         tetengo2::meta::assoc_list_end

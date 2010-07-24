@@ -12,7 +12,11 @@
 #include <memory>
 #include <utility>
 
+#include <boost/mpl/at.hpp>
+
 #include <tetengo2.text.h>
+
+#include "bobura.message.type_list.h"
 
 
 namespace bobura
@@ -102,7 +106,10 @@ namespace bobura
 
         //! \return The OK button mouse observer type.
         typedef
-            typename about_dialog_message_type_list_type::about_dialog_ok_button_mouse_observer_type
+            typename boost::mpl::at<
+                about_dialog_message_type_list_type,
+                message::about_dialog::type::ok_button_mouse_observer
+            >::type
             about_dialog_ok_button_mouse_observer_type;
 
 

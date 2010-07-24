@@ -56,8 +56,5 @@
     <ClCompile Include="test\test_bobura.message.main_window_observers.cpp">
       <Filter>sources\test_bobura::message</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.message.message_type_lists.cpp">
-      <Filter>sources\test_bobura::message</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

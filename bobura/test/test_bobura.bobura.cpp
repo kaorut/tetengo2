@@ -37,7 +37,7 @@
 #include "bobura.main_window.h"
 #include "bobura.settings.h"
 #include "bobura.command.type_list_impl.h"
-#include "bobura.message.message_type_lists.h"
+#include "bobura.message.type_list_impl.h"
 
 
 namespace
@@ -133,7 +133,7 @@ namespace
         dialog_type;
 
     typedef
-        bobura::message::about_dialog_message_type_list<dialog_type>
+        bobura::message::about_dialog::type_list<dialog_type>::type
         about_dialog_message_type_list_type;
 
     typedef stub_tetengo2::gui::button<widget_type> button_type;
@@ -149,13 +149,13 @@ namespace
         command_type_list_type;
 
     typedef
-        bobura::message::main_window_message_type_list<
+        bobura::message::main_window::type_list<
             boost::mpl::at<
                 command_type_list_type, bobura::command::type::command
             >::type,
             canvas_type,
             quit_message_loop_type
-        >
+        >::type
         main_window_message_type_list_type;
 
     typedef

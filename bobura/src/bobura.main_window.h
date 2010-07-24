@@ -16,6 +16,7 @@
 #include <tetengo2.text.h>
 
 #include "bobura.command.type_list.h"
+#include "bobura.message.type_list.h"
 
 
 namespace bobura
@@ -163,15 +164,19 @@ namespace bobura
         {
             window.add_window_observer(
                 std::auto_ptr<window_observer_type>(
-                    new typename main_window_message_type_list_type::main_window_window_observer_type(
-                        quit_message_loop_type()
-                    )
+                    new typename boost::mpl::at<
+                        main_window_message_type_list_type,
+                        message::main_window::type::window_observer
+                    >::type(quit_message_loop_type())
                 )
             );
 
             window.add_paint_observer(
                 std::auto_ptr<paint_observer_type>(
-                    new typename main_window_message_type_list_type::main_window_paint_observer_type()
+                    new typename boost::mpl::at<
+                        main_window_message_type_list_type,
+                        message::main_window::type::paint_observer
+                    >::type()
                 )
             );
         }
@@ -321,9 +326,10 @@ namespace bobura
             );
 
             std::auto_ptr<menu_observer_type> p_menu_observer(
-                new typename main_window_message_type_list_type::main_window_menu_observer_type(
-                    command
-                )
+                new typename boost::mpl::at<
+                    main_window_message_type_list_type,
+                    message::main_window::type::menu_observer
+                >::type(command)
             );
             p_menu_command->add_menu_observer(p_menu_observer);
 

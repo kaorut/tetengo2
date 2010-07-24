@@ -29,7 +29,7 @@
 #include <tetengo2.encoding.locale.h>
 
 #include "bobura.about_dialog.h"
-#include "bobura.message.message_type_lists.h"
+#include "bobura.message.type_list_impl.h"
 
 
 namespace
@@ -125,7 +125,7 @@ namespace
     typedef stub_tetengo2::gui::button<widget_type> button_type;
 
     typedef
-        bobura::message::about_dialog_message_type_list<dialog_type>
+        bobura::message::about_dialog::type_list<dialog_type>::type
         about_dialog_message_type_list_type;
 
     typedef
