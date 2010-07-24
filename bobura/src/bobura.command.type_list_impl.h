@@ -23,7 +23,7 @@
 namespace bobura { namespace command
 {
     /*!
-        \brief The meta function for the type list of bobura::command.
+        \brief The meta function for the type list of the commands.
 
         \tparam Window      A window type.
         \tparam AboutDialog An about dialog type.

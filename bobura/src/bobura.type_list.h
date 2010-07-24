@@ -65,6 +65,7 @@
 #include "bobura.main_window.h"
 #include "bobura.settings.h"
 #include "bobura.command.type_list_impl.h"
+#include "bobura.message.type_list_impl.h"
 
 #include "bobura.message.message_type_lists.h"
 
