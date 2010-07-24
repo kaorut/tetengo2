@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::type_list.
+    \brief The definition of bobura::comand::type.
 
     Copyright (C) 2007-2010 kaoru
 
