@@ -344,6 +344,7 @@ namespace bobura
         struct about_dialog;   //! The about dialog type.
     }
 
+    //! \return The type list for the about dialog.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -391,6 +392,7 @@ namespace bobura
     }}
 #endif
 
+    //! \return The type list for the main window.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -429,6 +431,7 @@ namespace bobura
     }}
 #endif
 
+    //! \return The type list for the application.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
