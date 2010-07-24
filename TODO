@@ -20,6 +20,11 @@ Description : Use boost::signal2::signal directly to implement event
               Make event observer aggregating classes.
 ------------------------------------------------------------------------------
 Number      : 00000035
+Added on    : 2010/07/25
+Depends on  : (none)
+Description : Use the rvalue references of the C++0x feature.
+------------------------------------------------------------------------------
+Number      : 00000036
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
