@@ -14,7 +14,7 @@ sources = \
     test_bobura.command.exit.cpp \
     test_bobura.command.nop.cpp \
     test_bobura.main_window.cpp \
-    test_bobura.message.about_dialog_observers.cpp \
+    test_bobura.message.about_dialog.cpp \
     test_bobura.message.main_window_observers.cpp \
     test_bobura.settings.cpp
 

@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::message::about_dialog_ok_button_mouse_observer.
+    \brief Test of class bobura::message::about_dialog::ok_button_mouse_observer.
 
     Copyright (C) 2007-2010 kaoru
 
@@ -8,13 +8,13 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.message.about_dialog_observers.h"
+#include "bobura.message.about_dialog.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
-
-BOOST_AUTO_TEST_SUITE(about_dialog_ok_button_mouse_observer)
+BOOST_AUTO_TEST_SUITE(about_dialog)
+BOOST_AUTO_TEST_SUITE(ok_button_mouse_observer)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -29,6 +29,6 @@ BOOST_AUTO_TEST_SUITE(about_dialog_ok_button_mouse_observer)
 
 
 BOOST_AUTO_TEST_SUITE_END()
-
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

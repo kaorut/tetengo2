@@ -13,7 +13,7 @@
 
 #include <tetengo2.meta.assoc_list.h>
 
-#include "bobura.message.about_dialog_observers.h"
+#include "bobura.message.about_dialog.h"
 #include "bobura.message.main_window_observers.h"
 #include "bobura.message.type_list.h"
 
@@ -81,7 +81,7 @@ namespace bobura { namespace message
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
                         type::ok_button_mouse_observer,
-                        about_dialog_ok_button_mouse_observer<Dialog>
+                        ok_button_mouse_observer<Dialog>
                     >,
                 tetengo2::meta::assoc_list_end
                 >

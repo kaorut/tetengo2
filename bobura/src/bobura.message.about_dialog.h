@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of bobura::message::about_dialog_ok_button_mouse_observer.
+    \brief The definition of bobura::message::ok_button_mouse_observer.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_MESSAGE_ABOUTDIALOGOBSERVERS_H)
-#define BOBURA_MESSAGE_ABOUTDIALOGOBSERVERS_H
+#if !defined(BOBURA_MESSAGE_ABOUTDIALOG_H)
+#define BOBURA_MESSAGE_ABOUTDIALOG_H
 
 #include <cassert>
 #include <cstddef>
@@ -15,16 +15,15 @@
 #include <tetengo2.gui.mouse_observer.h>
 
 
-namespace bobura { namespace message
+namespace bobura { namespace message { namespace about_dialog
 {
     /*!
-        \brief The class template for a mouse observer of the OK button in the
-               about dialog.
+        \brief The class template for a mouse observer of the OK button.
         
         \tparam Dialog A dialog type.
     */
     template <typename Dialog>
-    class about_dialog_ok_button_mouse_observer :
+    class ok_button_mouse_observer :
         public tetengo2::gui::mouse_observer
     {
     public:
@@ -42,7 +41,7 @@ namespace bobura { namespace message
             
             \param p_dialog A pointer to a dialog.
         */
-        explicit about_dialog_ok_button_mouse_observer(
+        explicit ok_button_mouse_observer(
             dialog_type* const p_dialog
         )
         :
@@ -55,7 +54,7 @@ namespace bobura { namespace message
             \brief Destroys the mouse observer of the OK button in the about
                    dialog.
         */
-        virtual ~about_dialog_ok_button_mouse_observer()
+        virtual ~ok_button_mouse_observer()
         throw ()
         {}
 
@@ -79,6 +78,7 @@ namespace bobura { namespace message
     };
 
 
-}}
+}}}
+
 
 #endif
