@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::message::main_window_menu_observer.
+    \brief The definition of bobura::message::menu_observer.
 
     Copyright (C) 2007-2010 kaoru
 
@@ -17,7 +17,7 @@
 #include <tetengo2.gui.window_observer.h>
 
 
-namespace bobura { namespace message
+namespace bobura { namespace message { namespace main_window
 {
     /*!
         \brief The class template for a menu observer of the main window.
@@ -25,7 +25,7 @@ namespace bobura { namespace message
         \tparam Command A command type.
     */
     template <typename Command>
-    class main_window_menu_observer : public tetengo2::gui::menu_observer
+    class menu_observer : public tetengo2::gui::menu_observer
     {
     public:
         // types
@@ -41,7 +41,7 @@ namespace bobura { namespace message
 
             \param command A command.
         */
-        explicit main_window_menu_observer(const command_type& command)
+        explicit menu_observer(const command_type& command)
         :
         m_command(command)
         {}
@@ -49,7 +49,7 @@ namespace bobura { namespace message
         /*!
             \brief Destroys the menu observer of the main window.
         */
-        virtual ~main_window_menu_observer()
+        virtual ~menu_observer()
         throw ()
         {}
 
@@ -79,8 +79,7 @@ namespace bobura { namespace message
                        concept_tetengo2::gui::Canvas<Canvas>.
     */
     template <typename Canvas>
-    class main_window_paint_observer :
-        public tetengo2::gui::paint_observer<Canvas>
+    class paint_observer : public tetengo2::gui::paint_observer<Canvas>
     {
     public:
         // types
@@ -97,13 +96,13 @@ namespace bobura { namespace message
         /*!
             \brief Creates a paint observer of the main window.
         */
-        main_window_paint_observer()
+        paint_observer()
         {}
 
         /*!
             \brief Destroys the paint observer of the main window.
         */
-        virtual ~main_window_paint_observer()
+        virtual ~paint_observer()
         throw ()
         {}
 
@@ -158,7 +157,7 @@ namespace bobura { namespace message
                                 loop.
     */
     template <typename QuitMessageLoop>
-    class main_window_window_observer : public tetengo2::gui::window_observer
+    class window_observer : public tetengo2::gui::window_observer
     {
     public:
         // types
@@ -175,7 +174,7 @@ namespace bobura { namespace message
             \param quit_message_loop A unary functor for quitting the message
                                      loop.
         */
-        explicit main_window_window_observer(
+        explicit window_observer(
             const quit_message_loop_type& quit_message_loop
         )
         :
@@ -185,7 +184,7 @@ namespace bobura { namespace message
         /*!
             \brief Destroys the window observer of the main window.
         */
-        virtual ~main_window_window_observer()
+        virtual ~window_observer()
         throw ()
         {}
 
@@ -208,6 +207,7 @@ namespace bobura { namespace message
     };
 
 
-}}
+}}}
+
 
 #endif

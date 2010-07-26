@@ -221,7 +221,7 @@ echo Skipping...
     <ClCompile Include="test\test_bobura.command.nop.cpp" />
     <ClCompile Include="test\test_bobura.main_window.cpp" />
     <ClCompile Include="test\test_bobura.message.about_dialog.cpp" />
-    <ClCompile Include="test\test_bobura.message.main_window_observers.cpp" />
+    <ClCompile Include="test\test_bobura.message.main_window.cpp" />
     <ClCompile Include="test\test_bobura.settings.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

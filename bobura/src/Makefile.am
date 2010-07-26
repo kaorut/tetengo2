@@ -12,7 +12,7 @@ extra_headers = \
     bobura.command.type_list_impl.h \
     bobura.main_window.h \
     bobura.message.about_dialog.h \
-    bobura.message.main_window_observers.h \
+    bobura.message.main_window.h \
     bobura.message.type_list.h \
     bobura.message.type_list_impl.h \
     bobura.settings.h \

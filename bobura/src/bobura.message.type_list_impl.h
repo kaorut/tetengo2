@@ -14,7 +14,7 @@
 #include <tetengo2.meta.assoc_list.h>
 
 #include "bobura.message.about_dialog.h"
-#include "bobura.message.main_window_observers.h"
+#include "bobura.message.main_window.h"
 #include "bobura.message.type_list.h"
 
 
@@ -28,8 +28,8 @@ namespace bobura { namespace message
 
             \tparam Command         A command type.
             \tparam Canvas          A canvas type of the main window.
-            \tparam QuitMessageLoop A unary functor type for quitting the message
-                                    loop.
+            \tparam QuitMessageLoop A unary functor type for quitting the
+                                    message loop.
         */
         template <typename Command, typename Canvas, typename QuitMessageLoop>
         class type_list
@@ -41,18 +41,16 @@ namespace bobura { namespace message
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::menu_observer,
-                        main_window_menu_observer<Command>
+                        type::menu_observer, menu_observer<Command>
                     >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::paint_observer,
-                        main_window_paint_observer<Canvas>
+                        type::paint_observer, paint_observer<Canvas>
                     >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
                         type::window_observer,
-                        main_window_window_observer<QuitMessageLoop>
+                        window_observer<QuitMessageLoop>
                     >,
                 tetengo2::meta::assoc_list_end
                 > > >

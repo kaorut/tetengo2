@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::message::about_dialog::ok_button_mouse_observer.
+    \brief Test of class bobura::message::about_dialog.
 
     Copyright (C) 2007-2010 kaoru
 

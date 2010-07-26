@@ -50,10 +50,10 @@
     <ClCompile Include="test\test_bobura.command.nop.cpp">
       <Filter>sources\test_bobura::command</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.message.main_window_observers.cpp">
+    <ClCompile Include="test\test_bobura.message.about_dialog.cpp">
       <Filter>sources\test_bobura::message</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.message.about_dialog.cpp">
+    <ClCompile Include="test\test_bobura.message.main_window.cpp">
       <Filter>sources\test_bobura::message</Filter>
     </ClCompile>
   </ItemGroup>
