@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000025
-Added on    : 2010/03/25
-Depends on  : (none)
-Description : Use boost::mpl::map to describe type lists.
-------------------------------------------------------------------------------
 Number      : 00000026
 Added on    : 2010/03/27
 Depends on  : (none)
