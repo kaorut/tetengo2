@@ -218,8 +218,8 @@ boost::program_options::wparsed_options          boost/program_options.hpp
 boost::ptr_vector                                boost/ptr_container/ptr_vector.hpp
 boost::replace_all                               boost/algorithm/string.hpp
 boost::scoped_array                              boost/scoped_array.hpp
-boost::signal                                    boost/signal.hpp
-boost::signals::trackable                        boost/signal.hpp
+boost::signals2::signal                          boost/signals2.hpp
+boost::signals2::trackable                       boost/signals2.hpp
 boost::swap                                      boost/swap.hpp
 boost::throw_file                                boost/exception/all.hpp
 boost::throw_function                            boost/exception/all.hpp
