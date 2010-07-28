@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_PAINTOBSERVER_H
 
 #include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
+#include <boost/signals2.hpp>
 
 
 namespace tetengo2 { namespace gui
@@ -22,7 +22,7 @@ namespace tetengo2 { namespace gui
     */
     template <typename Canvas>
     class paint_observer :
-        public boost::signals::trackable, private boost::noncopyable
+        public boost::signals2::trackable, private boost::noncopyable
     {
     public:
         // types

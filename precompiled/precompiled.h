@@ -85,7 +85,7 @@
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
-#include <boost/signal.hpp>
+#include <boost/signals2.hpp>
 #include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>

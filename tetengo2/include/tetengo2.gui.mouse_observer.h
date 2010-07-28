@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_MOUSEOBSERVER_H
 
 #include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
+#include <boost/signals2.hpp>
 
 
 namespace tetengo2 { namespace gui
@@ -19,7 +19,7 @@ namespace tetengo2 { namespace gui
         \brief The base class for a mouse observer.
     */
     class mouse_observer :
-        public boost::signals::trackable, private boost::noncopyable
+        public boost::signals2::trackable, private boost::noncopyable
     {
     public:
         // constructors and destructor

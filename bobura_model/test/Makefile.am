@@ -35,7 +35,6 @@ bobura_model_test_LDFLAGS = $(BOOST_LDFLAGS)
 bobura_model_test_LDADD = \
     $(BOOST_FILESYSTEM_LIB) \
     $(BOOST_PROGRAM_OPTIONS_LIB) \
-    $(BOOST_SIGNALS_LIB) \
     $(BOOST_SYSTEM_LIB) \
     $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 bobura_model_test_SOURCES = $(headers) $(sources)

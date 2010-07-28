@@ -17,7 +17,7 @@
 
 #include <boost/bind.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
+#include <boost/signals2.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -343,7 +343,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         boost::ptr_vector<menu_observer_type> m_menu_observers;
 
-        boost::signal<void ()> m_menu_selected_handler;
+        boost::signals2::signal<void ()> m_menu_selected_handler;
 
 
     };

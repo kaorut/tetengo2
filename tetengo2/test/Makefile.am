@@ -82,7 +82,6 @@ tetengo2_test_LDFLAGS = $(BOOST_LDFLAGS)
 tetengo2_test_LDADD = \
     $(BOOST_FILESYSTEM_LIB) \
     $(BOOST_PROGRAM_OPTIONS_LIB) \
-    $(BOOST_SIGNALS_LIB) \
     $(BOOST_SYSTEM_LIB) \
     $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 tetengo2_test_SOURCES = $(headers) $(sources)

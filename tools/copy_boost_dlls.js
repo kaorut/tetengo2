@@ -83,7 +83,6 @@ function getDllNames(version, debug)
 	
 	dllNames.push("boost_filesystem-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
 	dllNames.push("boost_program_options-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
-	dllNames.push("boost_signals-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
 	dllNames.push("boost_system-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
 	dllNames.push("boost_unit_test_framework-*-mt-" + (debug ? "gd-" : "") + version + ".dll");
 	

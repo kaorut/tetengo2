@@ -21,7 +21,7 @@
 
 #include <boost/bind.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
+#include <boost/signals2.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/exception/all.hpp>
@@ -955,7 +955,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The event handler for a mouse click.
         */
-        boost::signal<void ()>& mouse_clicked_handler()
+        boost::signals2::signal<void ()>& mouse_clicked_handler()
         {
             return m_mouse_clicked_handler;
         }
@@ -1053,11 +1053,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         boost::ptr_vector<paint_observer_type> m_paint_observers;
 
-        boost::signal<void (canvas_type*)> m_paint_paint_handler;
+        boost::signals2::signal<void (canvas_type*)> m_paint_paint_handler;
 
         boost::ptr_vector<mouse_observer_type> m_mouse_observers;
 
-        boost::signal<void ()> m_mouse_clicked_handler;
+        boost::signals2::signal<void ()> m_mouse_clicked_handler;
 
 
         // functions
