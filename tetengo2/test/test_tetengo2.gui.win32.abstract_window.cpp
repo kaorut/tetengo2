@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(add_window_observer)
+    BOOST_AUTO_TEST_CASE(window_observer_set)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }

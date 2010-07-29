@@ -15,6 +15,7 @@
 #include <memory>
 #include <stdexcept>
 
+#include <boost/bind.hpp>
 #include <boost/cast.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
@@ -90,8 +91,10 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type.
         typedef typename base_type::main_menu_type main_menu_type;
 
-        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_type.
-        typedef typename base_type::window_observer_type window_observer_type;
+        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_set_type.
+        typedef
+            typename base_type::window_observer_set_type
+            window_observer_set_type;
 
         //! \return The message loop type.
         typedef MessageLoop message_loop_type;
@@ -202,10 +205,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 parent.activate();
             } BOOST_SCOPE_EXIT_END
 
-            this->add_window_observer(
-                std::auto_ptr<window_observer_type> (
-                    new dialog_window_observer_type()
-                )
+            this->window_observer_set().destroyed().connect(
+                boost::bind(quit_message_loop_type(), 0)
             );
             this->set_visible(true);
 
@@ -266,17 +267,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // types
-
-        struct dialog_window_observer_type : public window_observer_type
-        {
-            virtual void destroyed()
-            {
-                quit_message_loop_type()(0);
-            }
-        };
-
-
         // static functions
 
         static const string_type& window_class_name()

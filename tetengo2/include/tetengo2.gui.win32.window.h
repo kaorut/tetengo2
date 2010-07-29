@@ -77,8 +77,10 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type.
         typedef typename base_type::main_menu_type main_menu_type;
 
-        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_type.
-        typedef typename base_type::window_observer_type window_observer_type;
+        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_set_type.
+        typedef
+            typename base_type::window_observer_set_type
+            window_observer_set_type;
 
 
         // constructors and destructor

@@ -52,7 +52,9 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename base_type::main_menu_type main_menu_type;
 
-        typedef typename base_type::window_observer_type window_observer_type;
+        typedef
+            typename base_type::window_observer_set_type
+            window_observer_set_type;
 
         typedef MessageLoop message_loop_type;
 

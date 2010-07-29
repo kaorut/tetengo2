@@ -11,6 +11,7 @@
 
 #include <memory>
 
+#include <boost/bind.hpp>
 #include <boost/mpl/at.hpp>
 
 #include <tetengo2.text.h>
@@ -91,8 +92,10 @@ namespace bobura
         //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type.
         typedef typename base_type::main_menu_type main_menu_type;
 
-        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_type.
-        typedef typename base_type::window_observer_type window_observer_type;
+        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_set_type.
+        typedef
+            typename base_type::window_observer_set_type
+            window_observer_set_type;
 
         //! \return The quit-message-loop type.
         typedef QuitMessageLoop quit_message_loop_type;
@@ -162,13 +165,8 @@ namespace bobura
 
         static void set_message_observers(main_window& window)
         {
-            window.add_window_observer(
-                std::auto_ptr<window_observer_type>(
-                    new typename boost::mpl::at<
-                        main_window_message_type_list_type,
-                        message::main_window::type::window_observer
-                    >::type(quit_message_loop_type())
-                )
+            window.window_observer_set().destroyed().connect(
+                boost::bind(quit_message_loop_type(), 0)
             );
 
             window.add_paint_observer(

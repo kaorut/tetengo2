@@ -31,11 +31,11 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for an abstract window for Win32 platforms.
  
-        \tparam Widget         A widget type.
-        \tparam MainMenu       A main menu type.
-        \tparam WindowObserver A abstract_window observer type.
+        \tparam Widget            A widget type.
+        \tparam MainMenu          A main menu type.
+        \tparam WindowObserverSet A window observer set type.
    */
-    template <typename Widget, typename MainMenu, typename WindowObserver>
+    template <typename Widget, typename MainMenu, typename WindowObserverSet>
     class abstract_window : public Widget
     {
     public:
@@ -86,8 +86,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \return The main menu type.
         typedef MainMenu main_menu_type;
 
-        //! \return The abstract window observer type.
-        typedef WindowObserver window_observer_type;
+        //! \return The window observer set type.
+        typedef WindowObserverSet window_observer_set_type;
 
 
         // constructors and destructor
@@ -215,27 +215,34 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Adds an abstract window observer.
+            \brief Returns the window observer set.
 
-            \param p_window_observer An auto pointer to an abstract window observer.
+            \return The window observer set.
 
             \throw std::runtime_error When the abstract window is already
                                       destroyed.
         */
-        virtual void add_window_observer(
-            std::auto_ptr<window_observer_type> p_window_observer
-        )
+        virtual const window_observer_set_type& window_observer_set()
+        const
         {
             check_destroyed();
 
-            m_window_destroyed_handler.connect(
-                boost::bind(
-                    &typename window_observer_type::destroyed,
-                    p_window_observer.get()
-                )
-            );
+            return m_window_observer_set;
+        }
 
-            m_window_observers.push_back(p_window_observer);
+        /*!
+            \brief Returns the window observer set.
+
+            \return The window observer set.
+
+            \throw std::runtime_error When the abstract window is already
+                                      destroyed.
+        */
+        virtual window_observer_set_type& window_observer_set()
+        {
+            check_destroyed();
+
+            return m_window_observer_set;
         }
 
         /*!
@@ -293,8 +300,7 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         base_type(),
         m_p_main_menu(),
-        m_window_observers(),
-        m_window_destroyed_handler()
+        m_window_observer_set()
         {}
 
         /*!
@@ -306,8 +312,7 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         base_type(parent),
         m_p_main_menu(),
-        m_window_observers(),
-        m_window_destroyed_handler()
+        m_window_observer_set()
         {}
 
 
@@ -381,9 +386,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 }
             case WM_DESTROY:
                 {
-                    if (m_window_observers.empty()) break;
+                    if (m_window_observer_set.destroyed().empty()) break;
 
-                    m_window_destroyed_handler();
+                    m_window_observer_set.destroyed()();
                     break;
                 }
             }
@@ -398,9 +403,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         std::auto_ptr<main_menu_type> m_p_main_menu;
 
-        boost::ptr_vector<window_observer_type> m_window_observers;
-
-        boost::signals2::signal<void ()> m_window_destroyed_handler;
+        window_observer_set_type m_window_observer_set;
 
 
     };

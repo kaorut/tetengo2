@@ -14,7 +14,7 @@
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Widget, typename MainMenu, typename WindowObserver>
+    template <typename Widget, typename MainMenu, typename WindowObserverSet>
     class abstract_window : public Widget
     {
     public:
@@ -50,7 +50,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef MainMenu main_menu_type;
 
-        typedef WindowObserver window_observer_type;
+        typedef WindowObserverSet window_observer_set_type;
 
 
         // constructors and destructor
@@ -80,10 +80,18 @@ namespace stub_tetengo2 { namespace gui
         virtual void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
         {}
 
-        virtual void add_window_observer(
-            std::auto_ptr<window_observer_type> p_window_observer
-        )
-        {}
+        virtual const window_observer_set_type& window_observer_set()
+        const
+        {
+            static const window_observer_set_type dummy;
+            return dummy;
+        }
+
+        virtual window_observer_set_type& window_observer_set()
+        {
+            static window_observer_set_type dummy;
+            return dummy;
+        }
 
         virtual void close()
         const

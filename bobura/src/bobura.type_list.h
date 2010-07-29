@@ -39,7 +39,6 @@
 #include <tetengo2.gui.menu_observer.h>
 #include <tetengo2.gui.mouse_observer.h>
 #include <tetengo2.gui.paint_observer.h>
-#include <tetengo2.gui.window_observer.h>
 #include <tetengo2.gui.win32.abstract_popup_menu.h>
 #include <tetengo2.gui.win32.abstract_window.h>
 #include <tetengo2.gui.win32.alert.h>
@@ -58,6 +57,7 @@
 #include <tetengo2.gui.win32.quit_message_loop.h>
 #include <tetengo2.gui.win32.widget.h>
 #include <tetengo2.gui.win32.window.h>
+#include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.meta.assoc_list.h>
 
 #include "bobura.about_dialog.h"
@@ -268,7 +268,9 @@ namespace bobura
             main_menu_type;
         typedef
             tetengo2::gui::win32::abstract_window<
-                widget_type, main_menu_type, tetengo2::gui::window_observer
+                widget_type,
+                main_menu_type,
+                tetengo2::gui::window_observer_set
             >
             abstract_window_type;
         typedef
