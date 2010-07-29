@@ -14,7 +14,6 @@
 #include <tetengo2.text.h>
 #include <tetengo2.gui.menu_observer.h>
 #include <tetengo2.gui.paint_observer.h>
-#include <tetengo2.gui.window_observer.h>
 
 
 namespace bobura { namespace message { namespace main_window
@@ -145,63 +144,6 @@ namespace bobura { namespace message { namespace main_window
         typedef typename canvas_type::string_type string_type;
 
         typedef typename canvas_type::font_type font_type;
-
-
-    };
-
-
-    /*!
-        \brief The class template for a window observer of the main window.
-
-        \tparam QuitMessageLoop A unary functor type for quitting the message
-                                loop.
-    */
-    template <typename QuitMessageLoop>
-    class window_observer : public tetengo2::gui::window_observer
-    {
-    public:
-        // types
-
-        //! \return The unary functor type.for quitting the message loop.
-        typedef QuitMessageLoop quit_message_loop_type;
-
-
-        // constructors and destructor
-
-        /*!
-            \brief Creates a window observer of the main window.
-
-            \param quit_message_loop A unary functor for quitting the message
-                                     loop.
-        */
-        explicit window_observer(
-            const quit_message_loop_type& quit_message_loop
-        )
-        :
-        m_quit_message_loop(quit_message_loop)
-        {}
-
-        /*!
-            \brief Destroys the window observer of the main window.
-        */
-        virtual ~window_observer()
-        throw ()
-        {}
-
-
-        // functions
-
-        //! \copydoc tetengo2::gui::window_observer::destroyed.
-        virtual void destroyed()
-        {
-            m_quit_message_loop(0);
-        }
-
-
-    private:
-        // variables
-
-        const quit_message_loop_type m_quit_message_loop;
 
 
     };

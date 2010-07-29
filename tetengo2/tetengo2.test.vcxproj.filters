@@ -208,9 +208,6 @@
     <ClCompile Include="test\test_tetengo2.gui.win32.window.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.window_observer.cpp">
-      <Filter>sources\test_tetengo2::gui</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.generator.cpp">
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>

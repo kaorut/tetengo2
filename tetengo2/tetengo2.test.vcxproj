@@ -270,7 +270,6 @@ echo Skipping...
     <ClCompile Include="test\test_tetengo2.gui.win32.quit_message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.widget.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.window.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.window_observer.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.window_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.messages.cpp" />
     <ClCompile Include="test\test_tetengo2.message_catalog.cpp" />

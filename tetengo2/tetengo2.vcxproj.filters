@@ -120,9 +120,6 @@
     <ClInclude Include="include\tetengo2.gui.win32.window.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.window_observer.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.meta.assoc_list.h">
       <Filter>headers\tetengo2::meta</Filter>
     </ClInclude>

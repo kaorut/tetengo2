@@ -387,8 +387,7 @@ namespace bobura
                 boost::mpl::at<
                     command_type_list, command::type::command
                 >::type,
-                boost::mpl::at<ui_type_list, type::canvas>::type,
-                boost::mpl::at<ui_type_list, type::quit_message_loop>::type
+                boost::mpl::at<ui_type_list, type::canvas>::type
             >::type
             message_type_list;
     }}

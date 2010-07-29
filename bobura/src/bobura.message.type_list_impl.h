@@ -26,12 +26,10 @@ namespace bobura { namespace message
             \brief The meta function for the type list of the main window
                    messages.
 
-            \tparam Command         A command type.
-            \tparam Canvas          A canvas type of the main window.
-            \tparam QuitMessageLoop A unary functor type for quitting the
-                                    message loop.
+            \tparam Command A command type.
+            \tparam Canvas  A canvas type of the main window.
         */
-        template <typename Command, typename Canvas, typename QuitMessageLoop>
+        template <typename Command, typename Canvas>
         class type_list
         {
         public:
@@ -47,13 +45,8 @@ namespace bobura { namespace message
                     boost::mpl::pair<
                         type::paint_observer, paint_observer<Canvas>
                     >,
-                tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::window_observer,
-                        window_observer<QuitMessageLoop>
-                    >,
                 tetengo2::meta::assoc_list_end
-                > > >
+                > >
                 type;
                 
 

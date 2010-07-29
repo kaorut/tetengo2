@@ -44,21 +44,6 @@ BOOST_AUTO_TEST_SUITE(paint_observer)
 
 
 BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE(window_observer)
-    // test cases
-
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(destroyed)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-
-BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

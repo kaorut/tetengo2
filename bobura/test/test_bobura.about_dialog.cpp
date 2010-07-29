@@ -24,7 +24,7 @@
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.widget.h>
 #include <stub_tetengo2.gui.window.h>
-#include <tetengo2.gui.window_observer.h>
+#include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.encoder.h>
 #include <tetengo2.encoding.locale.h>
 
@@ -104,7 +104,7 @@ namespace
 
     typedef
         stub_tetengo2::gui::abstract_window<
-            widget_type, main_menu_type, tetengo2::gui::window_observer
+            widget_type, main_menu_type, tetengo2::gui::window_observer_set
         >
         abstract_window_type;
 

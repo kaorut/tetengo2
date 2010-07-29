@@ -154,8 +154,7 @@ namespace
             boost::mpl::at<
                 command_type_list_type, bobura::command::type::command
             >::type,
-            canvas_type,
-            quit_message_loop_type
+            canvas_type
         >::type
         main_window_message_type_list_type;
 
