@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_WINDOWOBSERVERSET_H)
 #define TETENGO2_GUI_WINDOWOBSERVERSET_H
 
+#include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
-#include <boost/utility.hpp>
 
 
 namespace tetengo2 { namespace gui

@@ -12,7 +12,6 @@
 #include <cassert>
 #include <cstddef>
 #include <exception>
-#include <memory>
 #include <stdexcept>
 
 #include <boost/bind.hpp>

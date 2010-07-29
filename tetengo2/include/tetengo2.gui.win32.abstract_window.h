@@ -17,9 +17,7 @@
 #include <stdexcept>
 
 #include <boost/bind.hpp>
-#include <boost/signals2.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
