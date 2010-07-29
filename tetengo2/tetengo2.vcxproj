@@ -152,6 +152,7 @@
     <ClInclude Include="include\tetengo2.gui.win32.widget.h" />
     <ClInclude Include="include\tetengo2.gui.win32.window.h" />
     <ClInclude Include="include\tetengo2.gui.window_observer.h" />
+    <ClInclude Include="include\tetengo2.gui.window_observer_set.h" />
     <ClInclude Include="include\tetengo2.messages.h" />
     <ClInclude Include="include\tetengo2.message_catalog.h" />
     <ClInclude Include="include\tetengo2.message_catalog_parser.h" />

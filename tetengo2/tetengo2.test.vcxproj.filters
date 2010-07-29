@@ -217,5 +217,8 @@
     <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp">
       <Filter>sources\test_tetengo2::meta</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.window_observer_set.cpp">
+      <Filter>sources\test_tetengo2::gui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
