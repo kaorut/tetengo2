@@ -23,10 +23,12 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        //! The observer type of destroyed.
+        /*!
+            \brief The observer type of destroyed.
+        */
         typedef void destroyed_type();
 
-        //! The signal type of destroyed.
+        //! \return The signal type of destroyed.
         typedef boost::signals2::signal<destroyed_type> destroyed_signal_type;
 
 
