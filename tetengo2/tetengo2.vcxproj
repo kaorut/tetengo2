@@ -132,6 +132,7 @@
     <ClInclude Include="include\tetengo2.gui.menu_observer.h" />
     <ClInclude Include="include\tetengo2.gui.mouse_observer.h" />
     <ClInclude Include="include\tetengo2.gui.paint_observer.h" />
+    <ClInclude Include="include\tetengo2.gui.paint_observer_set.h" />
     <ClInclude Include="include\tetengo2.gui.recursive_menu_iterator.h" />
     <ClInclude Include="include\tetengo2.gui.win32.abstract_popup_menu.h" />
     <ClInclude Include="include\tetengo2.gui.win32.abstract_window.h" />
