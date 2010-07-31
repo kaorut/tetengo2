@@ -68,8 +68,7 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a local station grade.
 
-        \tparam GradeName A grade name type. It must conform to
-                          concept_tetengo2::String<GradeName>.
+        \tparam GradeName A grade name type.
     */
     template <typename GradeName>
     class local : public grade<GradeName>
@@ -136,8 +135,7 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a principal station grade.
  
-        \tparam GradeName A grade name type. It must conform to
-                          concept_tetengo2::String<GradeName>.
+        \tparam GradeName A grade name type.
    */
     template <typename GradeName>
     class principal : public grade<GradeName>
@@ -204,8 +202,7 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a local terminal station grade.
 
-        \tparam GradeName A grade name type. It must conform to
-                          concept_tetengo2::String<GradeName>.
+        \tparam GradeName A grade name type.
     */
     template <typename GradeName>
     class local_terminal : public grade<GradeName>
@@ -272,8 +269,7 @@ namespace bobura { namespace model { namespace station_info
     /*!
         \brief The class for a principal terminal station grade.
 
-        \tparam GradeName A grade name type. It must conform to
-                          concept_tetengo2::String<GradeName>.
+        \tparam GradeName A grade name type.
     */
     template <typename GradeName>
     class principal_terminal : public grade<GradeName>
