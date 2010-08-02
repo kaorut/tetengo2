@@ -20,6 +20,11 @@ Depends on  : (none)
 Description : Use the rvalue references of the C++0x feature.
 ------------------------------------------------------------------------------
 Number      : 00000036
+Added on    : 2010/08/02
+Depends on  : (none)
+Description : Create a class widget_traits. Derives the subclass directly.
+------------------------------------------------------------------------------
+Number      : 00000037
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
