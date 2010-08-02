@@ -62,9 +62,9 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Returns the observer called when a canvas needs to be
-                   painted.
+                   repainted.
 
-            \return The observer called when a canvas needs to be painted.
+            \return The observer called when a canvas needs to be repainted.
         */
         const paint_signal_type& paint()
         const
@@ -74,9 +74,9 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Returns the observer called when a canvas needs to be
-                   painted.
+                   repainted.
 
-            \return The observer called when a canvas needs to be painted.
+            \return The observer called when a canvas needs to be repainted.
         */
         paint_signal_type& paint()
         {
