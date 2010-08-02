@@ -68,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::widget::child_type
         typedef typename base_type::child_type child_type;
 
-        //! \copydoc tetengo2::gui::win32::widget::paint_observer_type
+        //! \copydoc tetengo2::gui::win32::widget::paint_observer_set_type
         typedef
             typename base_type::paint_observer_set_type
             paint_observer_set_type;

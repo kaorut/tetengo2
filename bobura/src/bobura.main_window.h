@@ -83,7 +83,7 @@ namespace bobura
         //! \copydoc tetengo2::gui::win32::widget::child_type
         typedef typename base_type::child_type child_type;
 
-        //! \copydoc tetengo2::gui::win32::widget::paint_observer_type
+        //! \copydoc tetengo2::gui::win32::widget::paint_observer_set_type
         typedef
             typename base_type::paint_observer_set_type
             paint_observer_set_type;
@@ -91,10 +91,10 @@ namespace bobura
         //! \copydoc tetengo2::gui::win32::widget::mouse_observer_type
         typedef typename base_type::mouse_observer_type mouse_observer_type;
 
-        //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type.
+        //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type
         typedef typename base_type::main_menu_type main_menu_type;
 
-        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_set_type.
+        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_set_type
         typedef
             typename base_type::window_observer_set_type
             window_observer_set_type;

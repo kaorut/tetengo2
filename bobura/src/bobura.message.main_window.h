@@ -55,7 +55,7 @@ namespace bobura { namespace message { namespace main_window
 
         // functions
 
-        //! \copydoc tetengo2::gui::menu_observer::selected.
+        //! \copydoc tetengo2::gui::menu_observer::selected
         virtual void selected()
         {
             m_command();

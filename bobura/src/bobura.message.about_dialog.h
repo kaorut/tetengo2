@@ -61,7 +61,7 @@ namespace bobura { namespace message { namespace about_dialog
 
         // functions
 
-        //! \copydoc tetengo2::gui::mouse_observer::clicked.
+        //! \copydoc tetengo2::gui::mouse_observer::clicked
         virtual void clicked()
         {
             m_p_dialog->set_result(dialog_type::result_accepted);
