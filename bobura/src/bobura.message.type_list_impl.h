@@ -42,9 +42,7 @@ namespace bobura { namespace message
                         type::menu_observer, menu_observer<Command>
                     >,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::paint_observer, paint_observer<Canvas>
-                    >,
+                    boost::mpl::pair<type::paint, paint<Canvas> >,
                 tetengo2::meta::assoc_list_end
                 > >
                 type;

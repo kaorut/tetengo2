@@ -37,16 +37,16 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a GUI widget for Win32 platforms.
 
-        \tparam Handle        A handle type to the native interface.
-        \tparam Canvas        A canvas type.
-        \tparam Alert         An alerting unary functor type.
-        \tparam Difference    A difference type.
-        \tparam Size          A size type.
-        \tparam String        A string type.
-        \tparam Encoder       An encoder type.
-        \tparam Font          A font type.
-        \tparam PaintObserver A paint observer type.
-        \tparam MouseObserver A mouse observer type.
+        \tparam Handle           A handle type to the native interface.
+        \tparam Canvas           A canvas type.
+        \tparam Alert            An alerting unary functor type.
+        \tparam Difference       A difference type.
+        \tparam Size             A size type.
+        \tparam String           A string type.
+        \tparam Encoder          An encoder type.
+        \tparam Font             A font type.
+        \tparam PaintObserverSet A paint observer set type.
+        \tparam MouseObserver    A mouse observer type.
     */
     template <
         typename Handle,
@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename String,
         typename Encoder,
         typename Font,
-        typename PaintObserver,
+        typename PaintObserverSet,
         typename MouseObserver
     >
     class widget : private boost::noncopyable
@@ -98,8 +98,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \return The child type.
         typedef widget child_type;
 
-        //! \return The paint observer type.
-        typedef PaintObserver paint_observer_type;
+        //! \return The paint observer set type.
+        typedef PaintObserverSet paint_observer_set_type;
 
         //! \return The mouse observer type.
         typedef MouseObserver mouse_observer_type;
@@ -716,27 +716,32 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Adds a paint observer.
+            \brief Returns the paint observer set.
 
-            \param p_paint_observer An auto pointer to a paint observer.
+            \return The paint observer set.
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual void add_paint_observer(
-            std::auto_ptr<paint_observer_type> p_paint_observer
-        )
+        virtual const paint_observer_set_type& paint_observer_set()
+        const
         {
             check_destroyed();
 
-            m_paint_paint_handler.connect(
-                boost::bind(
-                    &typename paint_observer_type::paint,
-                    p_paint_observer.get(),
-                    _1
-                )
-            );
+            return m_paint_observer_set;
+        }
 
-            m_paint_observers.push_back(p_paint_observer);
+        /*!
+            \brief Returns the paint observer set.
+
+            \return The paint observer set.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        virtual paint_observer_set_type& paint_observer_set()
+        {
+            check_destroyed();
+
+            return m_paint_observer_set;
         }
 
         /*!
@@ -844,8 +849,7 @@ namespace tetengo2 { namespace gui { namespace win32
         widget()
         :
         m_destroyed(false),
-        m_paint_observers(),
-        m_paint_paint_handler(),
+        m_paint_observer_set(),
         m_mouse_observers(),
         m_mouse_clicked_handler()
         {}
@@ -858,8 +862,7 @@ namespace tetengo2 { namespace gui { namespace win32
         explicit widget(widget& parent)
         :
         m_destroyed(false),
-        m_paint_observers(),
-        m_paint_paint_handler(),
+        m_paint_observer_set(),
         m_mouse_observers(),
         m_mouse_clicked_handler()
         {}
@@ -917,10 +920,10 @@ namespace tetengo2 { namespace gui { namespace win32
                 }
             case WM_PAINT:
                 {
-                    if (m_paint_observers.empty()) break;
+                    if (m_paint_observer_set.paint().empty()) break;
 
                     canvas_type canvas(this->handle(), true);
-                    m_paint_paint_handler(&canvas);
+                    m_paint_observer_set.paint()(canvas);
                     return 0;
                 }
             case WM_DESTROY:
@@ -1051,9 +1054,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         bool m_destroyed;
 
-        boost::ptr_vector<paint_observer_type> m_paint_observers;
-
-        boost::signals2::signal<void (canvas_type*)> m_paint_paint_handler;
+        paint_observer_set_type m_paint_observer_set;
 
         boost::ptr_vector<mouse_observer_type> m_mouse_observers;
 

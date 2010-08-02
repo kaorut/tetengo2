@@ -32,7 +32,7 @@ namespace stub_tetengo2 { namespace gui
         typename String,
         typename Encoder,
         typename Font,
-        typename PaintObserver,
+        typename PaintObserverSet,
         typename MouseObserver
     >
     class widget : private boost::noncopyable
@@ -62,7 +62,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef widget child_type;
 
-        typedef PaintObserver paint_observer_type;
+        typedef PaintObserverSet paint_observer_set_type;
 
         typedef MouseObserver mouse_observer_type;
 
@@ -246,10 +246,18 @@ namespace stub_tetengo2 { namespace gui
         void click()
         {}
 
-        virtual void add_paint_observer(
-            std::auto_ptr<paint_observer_type> p_paint_observer
-        )
-        {}
+        virtual const paint_observer_set_type& paint_observer_set()
+        const
+        {
+            static const paint_observer_set_type dummy;
+            return dummy;
+        }
+
+        virtual paint_observer_set_type& paint_observer_set()
+        {
+            static paint_observer_set_type dummy;
+            return dummy;
+        }
 
         virtual void add_mouse_observer(
             std::auto_ptr<mouse_observer_type> p_mouse_observer

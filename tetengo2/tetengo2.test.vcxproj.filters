@@ -148,9 +148,6 @@
     <ClCompile Include="test\test_tetengo2.gui.mouse_observer.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.paint_observer.cpp">
-      <Filter>sources\test_tetengo2::gui</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.recursive_menu_iterator.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>

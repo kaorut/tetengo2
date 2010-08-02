@@ -84,7 +84,9 @@ namespace bobura
         typedef typename base_type::child_type child_type;
 
         //! \copydoc tetengo2::gui::win32::widget::paint_observer_type
-        typedef typename base_type::paint_observer_type paint_observer_type;
+        typedef
+            typename base_type::paint_observer_set_type
+            paint_observer_set_type;
 
         //! \copydoc tetengo2::gui::win32::widget::mouse_observer_type
         typedef typename base_type::mouse_observer_type mouse_observer_type;
@@ -169,13 +171,11 @@ namespace bobura
                 boost::bind(quit_message_loop_type(), 0)
             );
 
-            window.add_paint_observer(
-                std::auto_ptr<paint_observer_type>(
-                    new typename boost::mpl::at<
-                        main_window_message_type_list_type,
-                        message::main_window::type::paint_observer
-                    >::type()
-                )
+            window.paint_observer_set().paint().connect(
+                typename boost::mpl::at<
+                    main_window_message_type_list_type,
+                    message::main_window::type::paint
+                >::type()
             );
         }
 

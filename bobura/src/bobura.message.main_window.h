@@ -9,11 +9,11 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOWOBSERVERS_H)
 #define BOBURA_MESSAGE_MAINWINDOWOBSERVERS_H
 
+#include <functional>
 #include <utility>
 
 #include <tetengo2.text.h>
 #include <tetengo2.gui.menu_observer.h>
-#include <tetengo2.gui.paint_observer.h>
 
 
 namespace bobura { namespace message { namespace main_window
@@ -73,53 +73,35 @@ namespace bobura { namespace message { namespace main_window
 
     /*!
         \brief The class template for a paint observer of the main window.
-
-        \tparam Canvas A canvas type of the main window.
+        
+        \tparam Canvas A canvas type.
     */
     template <typename Canvas>
-    class paint_observer : public tetengo2::gui::paint_observer<Canvas>
+    class paint : public std::unary_function<Canvas, void>
     {
     public:
         // types
 
-        //! \return The base type.
-        typedef tetengo2::gui::paint_observer<Canvas> base_type;
-
-        //! \copydoc tetengo2::gui::paint_observer::canvas_type
-        typedef typename base_type::canvas_type canvas_type;
-
-
-        // constructors and destructor
-
-        /*!
-            \brief Creates a paint observer of the main window.
-        */
-        paint_observer()
-        {}
-
-        /*!
-            \brief Destroys the paint observer of the main window.
-        */
-        virtual ~paint_observer()
-        throw ()
-        {}
+        //! \return The canvas type.
+        typedef Canvas canvas_type;
 
 
         // functions
 
         /*!
-            \brief Called when it is necessary to repaint the window.
+            \brief Called when the canvas needs to be repainted.
 
-            \param p_canvas The pointer to the canvas.
+            \param canvas A canvas.
         */
-        virtual void paint(canvas_type* p_canvas)
-        { 
+        void operator()(canvas_type& canvas)
+        const
+        {
             const font_type& dialog_font = font_type::dialog_font();
 
-            p_canvas->draw_text(dialog_font.family(), std::make_pair(32, 32));
+            canvas.draw_text(dialog_font.family(), std::make_pair(32, 32));
 
 #if defined(_MSC_VER)
-            p_canvas->set_font(
+            canvas.set_font(
                 font_type(
                     string_type(TETENGO2_TEXT("‚Ý‚©‚¿‚á‚ñ")),
                     64,
@@ -130,16 +112,15 @@ namespace bobura { namespace message { namespace main_window
                 )
             );
 
-            p_canvas->draw_text(
-                string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")), std::make_pair(32, 64)
+            canvas.draw_text(
+                string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")),
+                std::make_pair(32, 64)
             );
 #endif
         }
 
 
     private:
-        // types
-
         typedef typename canvas_type::string_type string_type;
 
         typedef typename canvas_type::font_type font_type;

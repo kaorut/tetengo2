@@ -60,9 +60,6 @@
     <ClInclude Include="include\tetengo2.gui.mouse_observer.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.paint_observer.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.recursive_menu_iterator.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>

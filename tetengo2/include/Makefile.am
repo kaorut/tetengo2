@@ -16,7 +16,7 @@ headers = \
     tetengo2.encoding.locale.h \
     tetengo2.gui.menu_observer.h \
     tetengo2.gui.mouse_observer.h \
-    tetengo2.gui.paint_observer.h \
+    tetengo2.gui.paint_observer_set.h \
     tetengo2.gui.recursive_menu_iterator.h \
     tetengo2.gui.window_observer_set.h \
     tetengo2.meta.assoc_list.h

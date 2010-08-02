@@ -24,6 +24,7 @@
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.widget.h>
 #include <stub_tetengo2.gui.window.h>
+#include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.encoder.h>
 #include <tetengo2.encoding.locale.h>
@@ -79,7 +80,7 @@ namespace
             std::wstring,
             ui_encoder_type,
             font_type,
-            tetengo2::gui::paint_observer<canvas_type>,
+            tetengo2::gui::paint_observer_set<canvas_type>,
             tetengo2::gui::mouse_observer
         >
         widget_type;

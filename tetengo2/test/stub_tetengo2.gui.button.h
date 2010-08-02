@@ -40,7 +40,9 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename base_type::child_type child_type;
 
-        typedef typename base_type::paint_observer_type paint_observer_type;
+        typedef
+            typename base_type::paint_observer_set_type
+            paint_observer_set_type;
 
         typedef typename base_type::mouse_observer_type mouse_observer_type;
 

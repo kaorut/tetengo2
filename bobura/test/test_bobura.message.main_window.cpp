@@ -29,15 +29,10 @@ BOOST_AUTO_TEST_SUITE(menu_observer)
 
 
 BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE(paint_observer)
+BOOST_AUTO_TEST_SUITE(paint)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(paint)
+    BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
