@@ -15,9 +15,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include <boost/bind.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/signals2.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
