@@ -38,9 +38,7 @@ namespace bobura { namespace message
             //! \return The type list for the main window.
             typedef
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::menu_observer, menu_observer<Command>
-                    >,
+                    boost::mpl::pair<type::menu, menu<Command> >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::paint, paint<Canvas> >,
                 tetengo2::meta::assoc_list_end

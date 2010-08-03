@@ -16,7 +16,7 @@
 #include "stub_tetengo2.gui.popup_menu.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
-#include "tetengo2.gui.menu_observer.h"
+#include "tetengo2.gui.menu_observer_set.h"
 
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
@@ -39,7 +39,7 @@ namespace
             const void*,
             std::string,
             encoder_type,
-            tetengo2::gui::menu_observer
+            tetengo2::gui::menu_observer_set
         >
         menu_type;
 

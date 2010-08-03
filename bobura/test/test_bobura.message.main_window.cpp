@@ -14,7 +14,7 @@
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(main_window)
-BOOST_AUTO_TEST_SUITE(menu_observer)
+BOOST_AUTO_TEST_SUITE(menu)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_SUITE(menu_observer)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(selected)
+    BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }

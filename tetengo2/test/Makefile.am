@@ -37,7 +37,7 @@ sources = \
     test_tetengo2.encoding.encoding.cpp \
     test_tetengo2.encoding.ascii.cpp \
     test_tetengo2.encoding.locale.cpp \
-    test_tetengo2.gui.menu_observer.cpp \
+    test_tetengo2.gui.menu_observer_set.cpp \
     test_tetengo2.gui.mouse_observer.cpp \
     test_tetengo2.gui.paint_observer_set.cpp \
     test_tetengo2.gui.recursive_menu_iterator.cpp \

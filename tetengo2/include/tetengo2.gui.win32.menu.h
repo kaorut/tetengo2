@@ -33,18 +33,18 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a menu.
 
-        \tparam Id           A ID type.
-        \tparam Handle       A handle type.
-        \tparam String       A string type.
-        \tparam Encoder      An encoder type.
-        \tparam MenuObserver A menu observer type.
+        \tparam Id              A ID type.
+        \tparam Handle          A handle type.
+        \tparam String          A string type.
+        \tparam Encoder         An encoder type.
+        \tparam MenuObserverSet A menu observer set type.
    */
     template <
         typename Id,
         typename Handle,
         typename String,
         typename Encoder,
-        typename MenuObserver
+        typename MenuObserverSet
     >
     class menu : boost::noncopyable
     {
@@ -63,8 +63,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \return The encoder type.
         typedef Encoder encoder_type;
 
-        //! \return The menu observer type.
-        typedef MenuObserver menu_observer_type;
+        //! \return The menu observer set type.
+        typedef MenuObserverSet menu_observer_set_type;
 
         //! \return The iterator type.
         typedef typename boost::ptr_vector<menu>::iterator iterator;
@@ -130,25 +130,28 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void select()
         {
-            m_menu_selected_handler();
+            m_menu_observer_set.selected()();
         }
 
         /*!
-            \brief Adds a menu observer.
+            \brief Returns the menu observer set.
 
-            \param p_menu_observer An auto pointer to a menu observer.
+            \return The menu observer set.
         */
-        void add_menu_observer(
-            std::auto_ptr<menu_observer_type> p_menu_observer
-        )
+        const menu_observer_set_type& menu_observer_set()
+        const
         {
-            m_menu_selected_handler.connect(
-                boost::bind(
-                    &menu_observer_type::selected, p_menu_observer.get()
-                )
-            );
+            return m_menu_observer_set;
+        }
 
-            m_menu_observers.push_back(p_menu_observer);
+        /*!
+            \brief Returns the menu observer set.
+
+            \return The menu observer set.
+        */
+        menu_observer_set_type& menu_observer_set()
+        {
+            return m_menu_observer_set;
         }
 
         /*!
@@ -312,8 +315,7 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         m_id(get_and_increment_id()),
         m_text(text),
-        m_menu_observers(),
-        m_menu_selected_handler()
+        m_menu_observer_set()
         {}
 
 
@@ -341,9 +343,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         string_type m_text;
 
-        boost::ptr_vector<menu_observer_type> m_menu_observers;
-
-        boost::signals2::signal<void ()> m_menu_selected_handler;
+        menu_observer_set_type m_menu_observer_set;
 
 
     };

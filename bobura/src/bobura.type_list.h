@@ -36,7 +36,7 @@
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
-#include <tetengo2.gui.menu_observer.h>
+#include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer.h>
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.win32.abstract_popup_menu.h>
@@ -257,7 +257,7 @@ namespace bobura
                 ::HMENU,
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
-                tetengo2::gui::menu_observer
+                tetengo2::gui::menu_observer_set
             >
             menu_type;
         typedef

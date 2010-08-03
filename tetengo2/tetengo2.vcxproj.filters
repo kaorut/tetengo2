@@ -54,9 +54,6 @@
     <ClInclude Include="include\tetengo2.encoding.win32.utf8.h">
       <Filter>headers\tetengo2::encoding</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.menu_observer.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.mouse_observer.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>

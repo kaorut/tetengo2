@@ -28,7 +28,7 @@ namespace stub_tetengo2 { namespace gui
         typename Handle,
         typename String,
         typename Encoder,
-        typename MenuObserver
+        typename MenuObserverSet
     >
     class menu : boost::noncopyable
     {
@@ -43,7 +43,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef Encoder encoder_type;
 
-        typedef MenuObserver menu_observer_type;
+        typedef MenuObserverSet menu_observer_set_type;
 
         typedef typename boost::ptr_vector<menu>::iterator iterator;
 
@@ -88,10 +88,18 @@ namespace stub_tetengo2 { namespace gui
         void select()
         {}
 
-        void add_menu_observer(
-            std::auto_ptr<menu_observer_type> p_menu_observer
-        )
-        {}
+        const menu_observer_set_type& menu_observer_set()
+        const
+        {
+            static const menu_observer_set_type dummy;
+            return dummy;
+        }
+
+        menu_observer_set_type& menu_observer_set()
+        {
+            static menu_observer_set_type dummy;
+            return dummy;
+        }
 
         virtual const_iterator begin()
         const

@@ -143,7 +143,8 @@ namespace bobura
 
         typedef typename main_menu_type::base_type::base_type menu_type;
 
-        typedef typename menu_type::menu_observer_type menu_observer_type;
+        typedef
+            typename menu_type::menu_observer_set_type menu_observer_set_type;
 
         typedef
             typename boost::mpl::at<
@@ -323,13 +324,12 @@ namespace bobura
                 new menu_command_type(text)
             );
 
-            std::auto_ptr<menu_observer_type> p_menu_observer(
-                new typename boost::mpl::at<
+            p_menu_command->menu_observer_set().selected().connect(
+                typename boost::mpl::at<
                     main_window_message_type_list_type,
-                    message::main_window::type::menu_observer
+                    message::main_window::type::menu
                 >::type(command)
             );
-            p_menu_command->add_menu_observer(p_menu_observer);
 
             popup_menu.insert(popup_menu.end(), p_menu_command);
         }

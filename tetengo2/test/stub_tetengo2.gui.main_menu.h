@@ -30,7 +30,8 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename base_type::encoder_type encoder_type;
 
-        typedef typename base_type::menu_observer_type menu_observer_type;
+        typedef
+            typename base_type::menu_observer_set_type menu_observer_set_type;
 
         typedef typename base_type::iterator iterator;
 

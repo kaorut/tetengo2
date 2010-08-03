@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::message::menu_observer.
+    \brief The definition of bobura::message::main_window.
 
     Copyright (C) 2007-2010 kaoru
 
@@ -12,24 +12,24 @@
 #include <functional>
 #include <utility>
 
+#include <tetengo2.generator.h>
 #include <tetengo2.text.h>
-#include <tetengo2.gui.menu_observer.h>
 
 
 namespace bobura { namespace message { namespace main_window
 {
     /*!
-        \brief The class template for a menu observer of the main window.
+        \brief The class for a menu observer of the main window.
         
         \tparam Command A command type.
     */
     template <typename Command>
-    class menu_observer : public tetengo2::gui::menu_observer
+    class menu : public tetengo2::generator<void>
     {
     public:
         // types
 
-        //! \return The command type.
+        //! The command type.
         typedef Command command_type;
 
 
@@ -40,23 +40,19 @@ namespace bobura { namespace message { namespace main_window
 
             \param command A command.
         */
-        explicit menu_observer(const command_type& command)
+        menu(const command_type& command)
         :
         m_command(command)
-        {}
-
-        /*!
-            \brief Destroys the menu observer of the main window.
-        */
-        virtual ~menu_observer()
-        throw ()
         {}
 
 
         // functions
 
-        //! \copydoc tetengo2::gui::menu_observer::selected
-        virtual void selected()
+        /*!
+            \brief Called when the menu is selected.
+        */
+        void operator()()
+        const
         {
             m_command();
         }
@@ -65,7 +61,7 @@ namespace bobura { namespace message { namespace main_window
     private:
         // variables
 
-        const command_type m_command;
+        command_type m_command;
 
 
     };

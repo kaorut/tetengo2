@@ -48,8 +48,9 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \copydoc tetengo2::gui::win32::menu::encoder_type
         typedef typename base_type::encoder_type encoder_type;
 
-        //! \copydoc tetengo2::gui::win32::menu::menu_observer_type
-        typedef typename base_type::menu_observer_type menu_observer_type;
+        //! \copydoc tetengo2::gui::win32::menu::menu_observer_set_type
+        typedef
+            typename base_type::menu_observer_set_type menu_observer_set_type;
 
         //! \copydoc tetengo2::gui::win32::menu::iterator
         typedef typename base_type::iterator iterator;
