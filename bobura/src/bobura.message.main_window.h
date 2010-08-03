@@ -29,7 +29,7 @@ namespace bobura { namespace message { namespace main_window
     public:
         // types
 
-        //! The command type.
+        //! \return The command type.
         typedef Command command_type;
 
 
