@@ -250,6 +250,7 @@ echo Skipping...
     <ClCompile Include="test\test_tetengo2.generator.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.mouse_observer.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.mouse_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.paint_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.recursive_menu_iterator.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.abstract_popup_menu.cpp" />
