@@ -9,22 +9,18 @@
 #if !defined(BOBURA_MESSAGE_ABOUTDIALOG_H)
 #define BOBURA_MESSAGE_ABOUTDIALOG_H
 
-#include <cassert>
-#include <cstddef>
-
-#include <tetengo2.gui.mouse_observer.h>
+#include <tetengo2.generator.h>
 
 
 namespace bobura { namespace message { namespace about_dialog
 {
-    /*!
+     /*!
         \brief The class template for a mouse observer of the OK button.
         
         \tparam Dialog A dialog type.
     */
     template <typename Dialog>
-    class ok_button_mouse_observer :
-        public tetengo2::gui::mouse_observer
+    class ok_button_mouse : public tetengo2::generator<void>
     {
     public:
         // types
@@ -36,43 +32,33 @@ namespace bobura { namespace message { namespace about_dialog
         // constructors and destructor
 
         /*!
-            \brief Creates a mouse observer of the OK button in the about
-                   dialog.
-            
-            \param p_dialog A pointer to a dialog.
-        */
-        explicit ok_button_mouse_observer(
-            dialog_type* const p_dialog
-        )
-        :
-        m_p_dialog(p_dialog)
-        {
-            assert(m_p_dialog != NULL);
-        }
+            \brief Creates a mouse observer of the OK button.
 
-        /*!
-            \brief Destroys the mouse observer of the OK button in the about
-                   dialog.
+            \param dialog A dialog.
         */
-        virtual ~ok_button_mouse_observer()
-        throw ()
+        explicit ok_button_mouse(dialog_type& dialog)
+        :
+        m_dialog(dialog)
         {}
 
 
         // functions
 
-        //! \copydoc tetengo2::gui::mouse_observer::clicked
-        virtual void clicked()
+        /*!
+            \brief Called when the OK button is clicked.
+        */
+        void operator()()
+        const
         {
-            m_p_dialog->set_result(dialog_type::result_accepted);
-            m_p_dialog->close();
+            m_dialog.set_result(dialog_type::result_accepted);
+            m_dialog.close();
         }
 
 
     private:
         // variables
 
-        dialog_type* const m_p_dialog;
+        dialog_type& m_dialog;
 
 
     };

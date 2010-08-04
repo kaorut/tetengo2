@@ -46,7 +46,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Encoder          An encoder type.
         \tparam Font             A font type.
         \tparam PaintObserverSet A paint observer set type.
-        \tparam MouseObserver    A mouse observer type.
+        \tparam MouseObserverSet A mouse observer set type.
     */
     template <
         typename Handle,
@@ -58,7 +58,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename Encoder,
         typename Font,
         typename PaintObserverSet,
-        typename MouseObserver
+        typename MouseObserverSet
     >
     class widget : private boost::noncopyable
     {
@@ -101,8 +101,8 @@ namespace tetengo2 { namespace gui { namespace win32
         //! \return The paint observer set type.
         typedef PaintObserverSet paint_observer_set_type;
 
-        //! \return The mouse observer type.
-        typedef MouseObserver mouse_observer_type;
+        //! \return The mouse observer set type.
+        typedef MouseObserverSet mouse_observer_set_type;
 
 
         // constructors and destructor
@@ -708,11 +708,11 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Clicks the widget.
+            \brief Clicks this widget.
         */
         void click()
         {
-            m_mouse_clicked_handler();
+            m_mouse_observer_set.clicked()();
         }
 
         /*!
@@ -745,26 +745,32 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Adds a mouse observer.
+            \brief Returns the mouse observer set.
 
-            \param p_mouse_observer An auto pointer to a mouse observer.
+            \return The mouse observer set.
 
-            \throw std::runtime_error When the button is already destroyed.
+            \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual void add_mouse_observer(
-            std::auto_ptr<mouse_observer_type> p_mouse_observer
-        )
+        virtual const mouse_observer_set_type& mouse_observer_set()
+        const
         {
             check_destroyed();
 
-            m_mouse_clicked_handler.connect(
-                boost::bind(
-                    &typename mouse_observer_type::clicked,
-                    p_mouse_observer.get()
-                )
-            );
+            return m_mouse_observer_set;
+        }
 
-            m_mouse_observers.push_back(p_mouse_observer);
+        /*!
+            \brief Returns the mouse observer set.
+
+            \return The mouse observer set.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        virtual mouse_observer_set_type& mouse_observer_set()
+        {
+            check_destroyed();
+
+            return m_mouse_observer_set;
         }
 
         /*!
@@ -850,8 +856,7 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         m_destroyed(false),
         m_paint_observer_set(),
-        m_mouse_observers(),
-        m_mouse_clicked_handler()
+        m_mouse_observer_set()
         {}
 
         /*!
@@ -863,8 +868,7 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         m_destroyed(false),
         m_paint_observer_set(),
-        m_mouse_observers(),
-        m_mouse_clicked_handler()
+        m_mouse_observer_set()
         {}
 
 
@@ -951,16 +955,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 wParam,
                 lParam
             );
-        }
-
-        /*!
-            \brief Returns the event handler for a mouse click.
-
-            \return The event handler for a mouse click.
-        */
-        boost::signals2::signal<void ()>& mouse_clicked_handler()
-        {
-            return m_mouse_clicked_handler;
         }
 
 
@@ -1056,9 +1050,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         paint_observer_set_type m_paint_observer_set;
 
-        boost::ptr_vector<mouse_observer_type> m_mouse_observers;
-
-        boost::signals2::signal<void ()> m_mouse_clicked_handler;
+        mouse_observer_set_type m_mouse_observer_set;
 
 
         // functions

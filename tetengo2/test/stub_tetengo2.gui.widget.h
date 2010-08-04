@@ -33,7 +33,7 @@ namespace stub_tetengo2 { namespace gui
         typename Encoder,
         typename Font,
         typename PaintObserverSet,
-        typename MouseObserver
+        typename MouseObserverSet
     >
     class widget : private boost::noncopyable
     {
@@ -64,7 +64,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef PaintObserverSet paint_observer_set_type;
 
-        typedef MouseObserver mouse_observer_type;
+        typedef MouseObserverSet mouse_observer_set_type;
 
 
         // constructors and destructor
@@ -259,10 +259,18 @@ namespace stub_tetengo2 { namespace gui
             return dummy;
         }
 
-        virtual void add_mouse_observer(
-            std::auto_ptr<mouse_observer_type> p_mouse_observer
-        )
-        {}
+        virtual const mouse_observer_set_type& mouse_observer_set()
+        const
+        {
+            static const mouse_observer_set_type dummy;
+            return dummy;
+        }
+
+        virtual mouse_observer_set_type& mouse_observer_set()
+        {
+            static mouse_observer_set_type dummy;
+            return dummy;
+        }
 
         virtual bool destroyed()
         const

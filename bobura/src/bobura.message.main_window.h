@@ -40,7 +40,7 @@ namespace bobura { namespace message { namespace main_window
 
             \param command A command.
         */
-        menu(const command_type& command)
+        explicit menu(const command_type& command)
         :
         m_command(command)
         {}
@@ -117,6 +117,8 @@ namespace bobura { namespace message { namespace main_window
 
 
     private:
+        // types
+
         typedef typename canvas_type::string_type string_type;
 
         typedef typename canvas_type::font_type font_type;

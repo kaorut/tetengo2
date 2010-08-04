@@ -117,12 +117,12 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(add_paint_observer)
+    BOOST_AUTO_TEST_CASE(paint_observer_set)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(add_mouse_observer)
+    BOOST_AUTO_TEST_CASE(mouse_observer_set)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }

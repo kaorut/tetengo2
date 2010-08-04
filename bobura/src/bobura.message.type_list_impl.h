@@ -67,8 +67,7 @@ namespace bobura { namespace message
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::ok_button_mouse_observer,
-                        ok_button_mouse_observer<Dialog>
+                        type::ok_button_mouse, ok_button_mouse<Dialog>
                     >,
                 tetengo2::meta::assoc_list_end
                 >

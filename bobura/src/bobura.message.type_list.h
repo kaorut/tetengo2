@@ -25,8 +25,7 @@ namespace bobura { namespace message
     {
         namespace type
         {
-            struct ok_button_mouse_observer; //!< The OK button mouse observer
-                                             //!< type.
+            struct ok_button_mouse; //!< The OK button mouse observer type.
         }
     }
 

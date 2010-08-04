@@ -79,8 +79,10 @@ namespace bobura
             typename base_type::paint_observer_set_type
             paint_observer_set_type;
 
-        //! \copydoc tetengo2::gui::win32::widget::mouse_observer_type
-        typedef typename base_type::mouse_observer_type mouse_observer_type;
+        //! \copydoc tetengo2::gui::win32::widget::mouse_observer_set_type
+        typedef
+            typename base_type::mouse_observer_set_type
+            mouse_observer_set_type;
 
         //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type
         typedef typename base_type::main_menu_type main_menu_type;
@@ -107,14 +109,6 @@ namespace bobura
         //! \return The message type list type.
         typedef
             AboutDialogMessageTypeList about_dialog_message_type_list_type;
-
-        //! \return The OK button mouse observer type.
-        typedef
-            typename boost::mpl::at<
-                about_dialog_message_type_list_type,
-                message::about_dialog::type::ok_button_mouse_observer
-            >::type
-            about_dialog_ok_button_mouse_observer_type;
 
 
         // constructors and destructor
@@ -162,10 +156,11 @@ namespace bobura
             dialog.m_p_ok_button->set_text(string_type(TETENGO2_TEXT("OK")));
             dialog.m_p_ok_button->set_dimension(std::make_pair(88, 24));
             dialog.m_p_ok_button->set_position(std::make_pair(280, 216));
-            dialog.m_p_ok_button->add_mouse_observer(
-                std::auto_ptr<mouse_observer_type>(
-                    new about_dialog_ok_button_mouse_observer_type(&dialog)
-                )
+            dialog.m_p_ok_button->mouse_observer_set().clicked().connect(
+                typename boost::mpl::at<
+                    about_dialog_message_type_list_type,
+                    message::about_dialog::type::ok_button_mouse
+                >::type(dialog)
             );
         }
 

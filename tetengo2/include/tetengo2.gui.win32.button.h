@@ -73,8 +73,10 @@ namespace tetengo2 { namespace gui { namespace win32
             typename base_type::paint_observer_set_type
             paint_observer_set_type;
 
-        //! \copydoc tetengo2::gui::win32::widget::mouse_observer_type
-        typedef typename base_type::mouse_observer_type mouse_observer_type;
+        //! \copydoc tetengo2::gui::win32::widget::mouse_observer_set_type
+        typedef
+            typename base_type::mouse_observer_set_type
+            mouse_observer_set_type;
 
         //! \return The style type.
         enum style_type
@@ -156,7 +158,7 @@ namespace tetengo2 { namespace gui { namespace win32
             {
             case message_command:
                 {
-                    mouse_clicked_handler()();
+                    mouse_observer_set_type().clicked()();
                     break;
                 }
             }

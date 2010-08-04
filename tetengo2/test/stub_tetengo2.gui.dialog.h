@@ -50,7 +50,9 @@ namespace stub_tetengo2 { namespace gui
             typename base_type::paint_observer_set_type
             paint_observer_set_type;
 
-        typedef typename base_type::mouse_observer_type mouse_observer_type;
+        typedef
+            typename base_type::mouse_observer_set_type
+            mouse_observer_set_type;
 
         typedef typename base_type::main_menu_type main_menu_type;
 

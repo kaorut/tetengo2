@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_SUITE(menu)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(add_menu_observer)
+    BOOST_AUTO_TEST_CASE(menu_observer_set)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }

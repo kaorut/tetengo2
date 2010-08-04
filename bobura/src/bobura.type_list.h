@@ -37,7 +37,7 @@
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
 #include <tetengo2.gui.menu_observer_set.h>
-#include <tetengo2.gui.mouse_observer.h>
+#include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.win32.abstract_popup_menu.h>
 #include <tetengo2.gui.win32.abstract_window.h>
@@ -248,7 +248,7 @@ namespace bobura
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 font_type,
                 tetengo2::gui::paint_observer_set<canvas_type>,
-                tetengo2::gui::mouse_observer
+                tetengo2::gui::mouse_observer_set
             >
             widget_type;
         typedef
