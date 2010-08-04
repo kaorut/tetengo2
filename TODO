@@ -32,6 +32,11 @@ Description : Create traits classes for the menus.
               Derives the subclass directly.
 ------------------------------------------------------------------------------
 Number      : 00000038
+Added on    : 2010/08/05
+Depends on  : (none)
+Description : Make the widget member functions non-virtual.
+------------------------------------------------------------------------------
+Number      : 00000039
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
