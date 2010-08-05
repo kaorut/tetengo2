@@ -7,13 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000026
-Added on    : 2010/03/27
-Depends on  : (none)
-Description : Use boost::signal2::signal directly to implement event
-              observers.
-              Make event observer aggregating classes.
-------------------------------------------------------------------------------
 Number      : 00000035
 Added on    : 2010/07/25
 Depends on  : (none)
