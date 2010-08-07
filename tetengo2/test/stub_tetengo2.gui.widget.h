@@ -12,59 +12,55 @@
 #include <cstddef>
 #include <memory>
 #include <stdexcept>
-#include <utility>
+//#include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.text.h"
+#include "tetengo2.gui.widget_traits.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <
-        typename Handle,
-        typename Canvas,
-        typename Alert,
-        typename Difference,
-        typename Size,
-        typename String,
-        typename Encoder,
-        typename Font,
-        typename PaintObserverSet,
-        typename MouseObserverSet
-    >
+    template <typename Traits>
     class widget : private boost::noncopyable
     {
     public:
         // types
 
-        typedef Handle handle_type;
+        typedef Traits traits_type;
 
-        typedef Canvas canvas_type;
+        typedef typename traits_type::handle_type handle_type;
 
-        typedef Alert alert_type;
+        typedef typename traits_type::canvas_type canvas_type;
 
-        typedef Difference difference_type;
+        typedef typename traits_type::alert_type alert_type;
 
-        typedef Size size_type;
+        typedef typename traits_type::difference_type difference_type;
 
-        typedef std::pair<difference_type, difference_type> position_type;
+        typedef typename traits_type::size_type size_type;
 
-        typedef std::pair<size_type, size_type> dimension_type;
+        typedef typename traits_type::position_type position_type;
 
-        typedef String string_type;
+        typedef typename traits_type::dimension_type dimension_type;
 
-        typedef Encoder encoder_type;
+        typedef typename traits_type::string_type string_type;
 
-        typedef Font font_type;
+        typedef typename traits_type::encoder_type encoder_type;
+
+        typedef typename traits_type::font_type font_type;
+
+        typedef
+            typename traits_type::paint_observer_set_type
+            paint_observer_set_type;
+
+        typedef
+            typename traits_type::mouse_observer_set_type
+            mouse_observer_set_type;
 
         typedef widget child_type;
-
-        typedef PaintObserverSet paint_observer_set_type;
-
-        typedef MouseObserverSet mouse_observer_set_type;
 
 
         // constructors and destructor

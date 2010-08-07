@@ -27,6 +27,7 @@
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
+#include <tetengo2.gui.widget_traits.h>
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.encoder.h>
 #include <tetengo2.encoding.locale.h>
@@ -73,7 +74,7 @@ namespace
         canvas_type;
 
     typedef
-        stub_tetengo2::gui::widget<
+        tetengo2::gui::widget_traits<
             const void*,
             canvas_type,
             alert_type,
@@ -85,7 +86,9 @@ namespace
             tetengo2::gui::paint_observer_set<canvas_type>,
             tetengo2::gui::mouse_observer_set
         >
-        widget_type;
+        widget_traits_type;
+
+    typedef stub_tetengo2::gui::widget<widget_traits_type> widget_type;
 
     typedef
         stub_tetengo2::gui::menu<

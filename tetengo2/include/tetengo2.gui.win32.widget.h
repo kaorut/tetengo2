@@ -34,72 +34,59 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a GUI widget for Win32 platforms.
 
-        \tparam Handle           A handle type to the native interface.
-        \tparam Canvas           A canvas type.
-        \tparam Alert            An alerting unary functor type.
-        \tparam Difference       A difference type.
-        \tparam Size             A size type.
-        \tparam String           A string type.
-        \tparam Encoder          An encoder type.
-        \tparam Font             A font type.
-        \tparam PaintObserverSet A paint observer set type.
-        \tparam MouseObserverSet A mouse observer set type.
+        \tparam Traits A traits type.
     */
-    template <
-        typename Handle,
-        typename Canvas,
-        typename Alert,
-        typename Difference,
-        typename Size,
-        typename String,
-        typename Encoder,
-        typename Font,
-        typename PaintObserverSet,
-        typename MouseObserverSet
-    >
+    template <typename Traits>
     class widget : private boost::noncopyable
     {
     public:
         // types
 
+        //! \return The traits type.
+        typedef Traits traits_type;
+
         //! \return The handle type.
-        typedef Handle handle_type;
+        typedef typename traits_type::handle_type handle_type;
 
         //! \return The canvas type.
-        typedef Canvas canvas_type;
+        typedef typename traits_type::canvas_type canvas_type;
 
         //! \return The alerting unary functor type.
-        typedef Alert alert_type;
+        typedef typename traits_type::alert_type alert_type;
 
         //! \return The difference type.
-        typedef Difference difference_type;
+        typedef typename traits_type::difference_type difference_type;
 
         //! \return The size type.
-        typedef Size size_type;
+        typedef typename traits_type::size_type size_type;
 
         //! \return The position type.
-        typedef std::pair<difference_type, difference_type> position_type;
+        typedef typename traits_type::position_type position_type;
 
         //! \return The dimension type.
-        typedef std::pair<size_type, size_type> dimension_type;
+        typedef typename traits_type::dimension_type dimension_type;
 
         //! \return The string type.
-        typedef String string_type;
+        typedef typename traits_type::string_type string_type;
 
         //! \return The encoder type.
-        typedef Encoder encoder_type;
+        typedef typename traits_type::encoder_type encoder_type;
 
         //! \return The font type.
-        typedef Font font_type;
+        typedef typename traits_type::font_type font_type;
+
+        //! \return The paint observer set type.
+        typedef
+            typename traits_type::paint_observer_set_type
+            paint_observer_set_type;
+
+        //! \return The mouse observer set type.
+        typedef
+            typename traits_type::mouse_observer_set_type
+            mouse_observer_set_type;
 
         //! \return The child type.
         typedef widget child_type;
-
-        //! \return The paint observer set type.
-        typedef PaintObserverSet paint_observer_set_type;
-
-        //! \return The mouse observer set type.
-        typedef MouseObserverSet mouse_observer_set_type;
 
 
         // constructors and destructor
