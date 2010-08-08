@@ -15,7 +15,7 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The traits class template for a GUI widget for Win32 platforms.
+        \brief The traits class template for a GUI widget.
  
         \tparam Handle           A handle type to the native interface.
         \tparam Canvas           A canvas type.
