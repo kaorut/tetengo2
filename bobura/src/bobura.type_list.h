@@ -36,6 +36,7 @@
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
+#include <tetengo2.gui.abstract_window_traits.h>
 #include <tetengo2.gui.button_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -270,11 +271,14 @@ namespace bobura
             tetengo2::gui::win32::main_menu<abstract_popup_menu_type>
             main_menu_type;
         typedef
-            tetengo2::gui::win32::abstract_window<
-                widget_type,
+            tetengo2::gui::abstract_window_traits<
+                widget_traits_type,
                 main_menu_type,
                 tetengo2::gui::window_observer_set
             >
+            abstract_window_traits_type;
+        typedef
+            tetengo2::gui::win32::abstract_window<abstract_window_traits_type>
             abstract_window_type;
         typedef
             tetengo2::gui::button_traits<widget_traits_type>

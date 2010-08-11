@@ -9,52 +9,28 @@
 #if !defined(STUBTETENGO2_GUI_ABSTRACTWINDOW_H)
 #define STUBTETENGO2_GUI_ABSTRACTWINDOW_H
 
-#include <memory>
+//#include <memory>
+
+#include "stub_tetengo2.gui.widget.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Widget, typename MainMenu, typename WindowObserverSet>
-    class abstract_window : public Widget
+    template <typename Traits>
+    class abstract_window : public widget<typename Traits::base_type>
     {
     public:
         // types
 
-        typedef Widget base_type;
+        typedef Traits traits_type;
 
-        typedef typename base_type::handle_type handle_type;
+        typedef widget<typename traits_type::base_type> base_type;
 
-        typedef typename base_type::canvas_type canvas_type;
-
-        typedef typename base_type::alert_type alert_type;
-
-        typedef typename base_type::difference_type difference_type;
-
-        typedef typename base_type::size_type size_type;
-
-        typedef typename base_type::position_type position_type;
-
-        typedef typename base_type::dimension_type dimension_type;
-
-        typedef typename base_type::string_type string_type;
-
-        typedef typename base_type::encoder_type encoder_type;
-
-        typedef typename base_type::font_type font_type;
-
-        typedef typename base_type::child_type child_type;
+        typedef typename traits_type::main_menu_type main_menu_type;
 
         typedef
-            typename base_type::paint_observer_set_type
-            paint_observer_set_type;
-
-        typedef
-            typename base_type::mouse_observer_set_type
-            mouse_observer_set_type;
-
-        typedef MainMenu main_menu_type;
-
-        typedef WindowObserverSet window_observer_set_type;
+            typename traits_type::window_observer_set_type
+            window_observer_set_type;
 
 
         // constructors and destructor

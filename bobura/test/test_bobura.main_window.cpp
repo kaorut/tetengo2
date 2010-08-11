@@ -28,6 +28,7 @@
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.widget.h>
 #include <stub_tetengo2.gui.window.h>
+#include <tetengo2.gui.abstract_window_traits.h>
 #include <tetengo2.gui.button_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -116,9 +117,15 @@ namespace
         main_menu_type;
 
     typedef
-        stub_tetengo2::gui::abstract_window<
-            widget_type, main_menu_type, tetengo2::gui::window_observer_set
+        tetengo2::gui::abstract_window_traits<
+            widget_traits_type,
+            main_menu_type,
+            tetengo2::gui::window_observer_set
         >
+        abstract_window_traits_type;
+
+    typedef
+        stub_tetengo2::gui::abstract_window<abstract_window_traits_type>
         abstract_window_type;
 
     typedef stub_tetengo2::gui::window<abstract_window_type> window_type;
