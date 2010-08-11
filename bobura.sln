@@ -2,11 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bobura", "bobura\bobura.vcxproj", "{A4CCFA3F-DD28-409B-AD43-C5152F969946}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E9959F02-3B7B-40BF-97C2-A20260C55601} = {E9959F02-3B7B-40BF-97C2-A20260C55601}
-		{0915BC63-77EA-4D80-A703-248BA03078AA} = {0915BC63-77EA-4D80-A703-248BA03078AA}
-		{1406D9ED-B6CB-46FF-87E0-F2714255C403} = {1406D9ED-B6CB-46FF-87E0-F2714255C403}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bobura.test", "bobura\bobura.test.vcxproj", "{E9959F02-3B7B-40BF-97C2-A20260C55601}"
 EndProject
