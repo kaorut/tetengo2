@@ -24,6 +24,7 @@
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.widget.h>
 #include <stub_tetengo2.gui.window.h>
+#include <tetengo2.gui.button_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
@@ -128,7 +129,10 @@ namespace
         >
         dialog_type;
 
-    typedef stub_tetengo2::gui::button<widget_type> button_type;
+    typedef
+        tetengo2::gui::button_traits<widget_traits_type> button_traits_type;
+
+    typedef stub_tetengo2::gui::button<button_traits_type> button_type;
 
     typedef
         bobura::message::about_dialog::type_list<dialog_type>::type
