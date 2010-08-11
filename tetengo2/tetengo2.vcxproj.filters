@@ -135,5 +135,8 @@
     <ClInclude Include="include\tetengo2.gui.abstract_window_traits.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.dialog_traits.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

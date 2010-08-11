@@ -38,6 +38,7 @@
 #include <tetengo2.encoding.win32.utf8.h>
 #include <tetengo2.gui.abstract_window_traits.h>
 #include <tetengo2.gui.button_traits.h>
+#include <tetengo2.gui.dialog_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
@@ -281,6 +282,14 @@ namespace bobura
             tetengo2::gui::win32::abstract_window<abstract_window_traits_type>
             abstract_window_type;
         typedef
+            tetengo2::gui::dialog_traits<
+                abstract_window_traits_type,
+                tetengo2::gui::win32::dialog_message_loop,
+                quit_message_loop_type
+            >
+            dialog_traits_type;
+        typedef tetengo2::gui::win32::dialog<dialog_traits_type> dialog_type;
+        typedef
             tetengo2::gui::button_traits<widget_traits_type>
             button_traits_type;
         typedef tetengo2::gui::win32::button<button_traits_type> button_type;
@@ -329,14 +338,7 @@ namespace bobura
                 tetengo2::gui::win32::menu_separator<detail::ui::menu_type>
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::dialog,
-                tetengo2::gui::win32::dialog<
-                    detail::ui::abstract_window_type,
-                    tetengo2::gui::win32::dialog_message_loop,
-                    detail::ui::quit_message_loop_type
-                >
-            >,
+            boost::mpl::pair<type::dialog, detail::ui::dialog_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list_end

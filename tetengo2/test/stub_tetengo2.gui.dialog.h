@@ -9,60 +9,26 @@
 #if !defined(STUBTETENGO2_GUI_DIALOG_H)
 #define STUBTETENGO2_GUI_DIALOG_H
 
+#include "stub_tetengo2.gui.abstract_window.h"
+
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <
-        typename AbstractWindow,
-        typename MessageLoop,
-        typename QuitMessageLoop
-    >
-    class dialog : public AbstractWindow
+    template <typename Traits>
+    class dialog : public abstract_window<typename Traits::base_type>
     {
     public:
         // types
 
-        typedef AbstractWindow base_type;
+        typedef Traits traits_type;
 
-        typedef typename base_type::handle_type handle_type;
+        typedef abstract_window<typename traits_type::base_type> base_type;
 
-        typedef typename base_type::canvas_type canvas_type;
-
-        typedef typename base_type::alert_type alert_type;
-
-        typedef typename base_type::difference_type difference_type;
-
-        typedef typename base_type::size_type size_type;
-
-        typedef typename base_type::position_type position_type;
-
-        typedef typename base_type::dimension_type dimension_type;
-
-        typedef typename base_type::string_type string_type;
-
-        typedef typename base_type::encoder_type encoder_type;
-
-        typedef typename base_type::font_type font_type;
-
-        typedef typename base_type::child_type child_type;
+        typedef typename traits_type::message_loop_type message_loop_type;
 
         typedef
-            typename base_type::paint_observer_set_type
-            paint_observer_set_type;
-
-        typedef
-            typename base_type::mouse_observer_set_type
-            mouse_observer_set_type;
-
-        typedef typename base_type::main_menu_type main_menu_type;
-
-        typedef
-            typename base_type::window_observer_set_type
-            window_observer_set_type;
-
-        typedef MessageLoop message_loop_type;
-
-        typedef QuitMessageLoop quit_message_loop_type;
+            typename traits_type::quit_message_loop_type
+            quit_message_loop_type;
 
         enum result_type
         {
@@ -86,7 +52,7 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual handle_type handle()
+        virtual typename dialog::handle_type handle()
         const
         {
             return 0;
@@ -111,5 +77,6 @@ namespace stub_tetengo2 { namespace gui
 
 
 }}
+
 
 #endif

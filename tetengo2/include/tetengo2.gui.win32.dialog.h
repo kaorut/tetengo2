@@ -9,20 +9,22 @@
 #if !defined(TETENGO2_GUI_WIN32_DIALOG_H)
 #define TETENGO2_GUI_WIN32_DIALOG_H
 
-#include <cassert>
-#include <cstddef>
-#include <exception>
-#include <stdexcept>
+//#include <cassert>
+//#include <cstddef>
+//#include <exception>
+//#include <stdexcept>
 
-#include <boost/bind.hpp>
+//#include <boost/bind.hpp>
 #include <boost/cast.hpp>
 #include <boost/scope_exit.hpp>
-#include <boost/throw_exception.hpp>
-#include <boost/exception/all.hpp>
+//#include <boost/throw_exception.hpp>
+//#include <boost/exception/all.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
+
+#include "tetengo2.gui.win32.abstract_window.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -30,80 +32,27 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a modal dialog.
  
-        \tparam AbstractWindow  An abstract window type.
-        \tparam MessageLoop     A generator type for a message loop.
-        \tparam QuitMessageLoop A unary functor type for quitting the message
-                                loop.
+        \tparam Traits A traits type.
    */
-    template <
-        typename AbstractWindow,
-        typename MessageLoop,
-        typename QuitMessageLoop
-    >
-    class dialog : public AbstractWindow
+    template <typename Traits>
+    class dialog : public abstract_window<typename Traits::base_type>
     {
     public:
         // types
 
+        //! \return The traits type.
+        typedef Traits traits_type;
+
         //! \return The base type.
-        typedef AbstractWindow base_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::handle_type
-        typedef typename base_type::handle_type handle_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::canvas_type
-        typedef typename base_type::canvas_type canvas_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::alert_type
-        typedef typename base_type::alert_type alert_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::difference_type
-        typedef typename base_type::difference_type difference_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::size_type
-        typedef typename base_type::size_type size_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::position_type
-        typedef typename base_type::position_type position_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::dimension_type
-        typedef typename base_type::dimension_type dimension_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::string_type
-        typedef typename base_type::string_type string_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::encoder_type
-        typedef typename base_type::encoder_type encoder_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::font_type
-        typedef typename base_type::font_type font_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::child_type
-        typedef typename base_type::child_type child_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::paint_observer_set_type
-        typedef
-            typename base_type::paint_observer_set_type
-            paint_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::mouse_observer_set_type
-        typedef
-            typename base_type::mouse_observer_set_type
-            mouse_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type
-        typedef typename base_type::main_menu_type main_menu_type;
-
-        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_set_type
-        typedef
-            typename base_type::window_observer_set_type
-            window_observer_set_type;
+        typedef abstract_window<typename traits_type::base_type> base_type;
 
         //! \return The message loop type.
-        typedef MessageLoop message_loop_type;
+        typedef typename traits_type::message_loop_type message_loop_type;
 
-        //! \return The quit message loop type.
-        typedef QuitMessageLoop quit_message_loop_type;
+        //! \return The quit-message-loop type.
+        typedef
+            typename traits_type::quit_message_loop_type
+            quit_message_loop_type;
 
         //! \return The result type.
         enum result_type
