@@ -23,6 +23,7 @@ headers = \
     tetengo2.gui.recursive_menu_iterator.h \
     tetengo2.gui.widget_traits.h \
     tetengo2.gui.window_observer_set.h \
+    tetengo2.gui.window_traits.h \
     tetengo2.meta.assoc_list.h
 
 extra_headers = \

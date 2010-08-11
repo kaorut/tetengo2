@@ -9,52 +9,20 @@
 #if !defined(STUBTETENGO2_GUI_WINDOW_H)
 #define STUBTETENGO2_GUI_WINDOW_H
 
+#include "stub_tetengo2.gui.abstract_window.h"
+
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename AbstractWindow>
-    class window : public AbstractWindow
+    template <typename Traits>
+    class window : public abstract_window<typename Traits::base_type>
     {
     public:
         // types
 
-        typedef AbstractWindow base_type;
+        typedef Traits traits_type;
 
-        typedef typename base_type::handle_type handle_type;
-
-        typedef typename base_type::canvas_type canvas_type;
-
-        typedef typename base_type::alert_type alert_type;
-
-        typedef typename base_type::difference_type difference_type;
-
-        typedef typename base_type::size_type size_type;
-
-        typedef typename base_type::position_type position_type;
-
-        typedef typename base_type::dimension_type dimension_type;
-
-        typedef typename base_type::string_type string_type;
-
-        typedef typename base_type::encoder_type encoder_type;
-
-        typedef typename base_type::font_type font_type;
-
-        typedef typename base_type::child_type child_type;
-
-        typedef
-            typename base_type::paint_observer_set_type
-            paint_observer_set_type;
-
-        typedef
-            typename base_type::mouse_observer_set_type
-            mouse_observer_set_type;
-
-        typedef typename base_type::main_menu_type main_menu_type;
-
-        typedef
-            typename base_type::window_observer_set_type
-            window_observer_set_type;
+        typedef abstract_window<typename traits_type::base_type> base_type;
 
 
         // constructors and destructor
@@ -76,7 +44,7 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual handle_type handle()
+        virtual typename window::handle_type handle()
         const
         {
             return 0;

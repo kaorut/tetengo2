@@ -36,6 +36,7 @@
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.widget_traits.h>
 #include <tetengo2.gui.window_observer_set.h>
+#include <tetengo2.gui.window_traits.h>
 #include <tetengo2.encoder.h>
 #include <tetengo2.encoding.locale.h>
 
@@ -129,7 +130,11 @@ namespace
         stub_tetengo2::gui::abstract_window<abstract_window_traits_type>
         abstract_window_type;
 
-    typedef stub_tetengo2::gui::window<abstract_window_type> window_type;
+    typedef
+        tetengo2::gui::window_traits<abstract_window_traits_type>
+        window_traits_type;
+
+    typedef stub_tetengo2::gui::window<window_traits_type> window_type;
 
     typedef stub_tetengo2::gui::message_loop message_loop_type;
 

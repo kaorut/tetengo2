@@ -62,6 +62,7 @@
 #include <tetengo2.gui.win32.widget.h>
 #include <tetengo2.gui.win32.window.h>
 #include <tetengo2.gui.window_observer_set.h>
+#include <tetengo2.gui.window_traits.h>
 #include <tetengo2.meta.assoc_list.h>
 
 #include "bobura.about_dialog.h"
@@ -282,6 +283,10 @@ namespace bobura
             tetengo2::gui::win32::abstract_window<abstract_window_traits_type>
             abstract_window_type;
         typedef
+            tetengo2::gui::window_traits<abstract_window_traits_type>
+            window_traits_type;
+        typedef tetengo2::gui::win32::window<window_traits_type> window_type;
+        typedef
             tetengo2::gui::dialog_traits<
                 abstract_window_traits_type,
                 tetengo2::gui::win32::dialog_message_loop,
@@ -316,10 +321,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::alert, detail::ui::alert_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::window,
-                tetengo2::gui::win32::window<detail::ui::abstract_window_type>
-            >,
+            boost::mpl::pair<type::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::popup_menu,
