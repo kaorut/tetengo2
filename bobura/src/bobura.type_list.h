@@ -36,6 +36,7 @@
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
+#include <tetengo2.gui.button_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
@@ -276,8 +277,9 @@ namespace bobura
             >
             abstract_window_type;
         typedef
-            tetengo2::gui::win32::dialog_message_loop
-            dialog_message_loop_type;
+            tetengo2::gui::button_traits<widget_traits_type>
+            button_traits_type;
+        typedef tetengo2::gui::win32::button<button_traits_type> button_type;
     }}
 #endif
 
@@ -327,15 +329,12 @@ namespace bobura
                 type::dialog,
                 tetengo2::gui::win32::dialog<
                     detail::ui::abstract_window_type,
-                    detail::ui::dialog_message_loop_type,
+                    tetengo2::gui::win32::dialog_message_loop,
                     detail::ui::quit_message_loop_type
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::button,
-                tetengo2::gui::win32::button<detail::ui::widget_type>
-            >,
+            boost::mpl::pair<type::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list_end
         > > > > > > > > > > >
         ui_type_list;

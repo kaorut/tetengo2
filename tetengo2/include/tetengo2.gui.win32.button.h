@@ -9,14 +9,16 @@
 #if !defined(TETENGO2_GUI_WIN32_BUTTON_H)
 #define TETENGO2_GUI_WIN32_BUTTON_H
 
-#include <cstddef>
-#include <stdexcept>
+//#include <cstddef>
+//#include <stdexcept>
 
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
+
+#include "tetengo2.gui.win32.widget.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -24,59 +26,19 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a button for Win32 platforms.
  
-        \tparam Widget A widget type.
+        \tparam Traits A traits type.
    */
-    template <typename Widget>
-    class button : public Widget
+    template <typename Traits>
+    class button : public widget<typename Traits::base_type>
     {
     public:
         // types
 
+        //! \return The traits type.
+        typedef Traits traits_type;
+
         //! \return The base type.
-        typedef Widget base_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::handle_type
-        typedef typename base_type::handle_type handle_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::canvas_type
-        typedef typename base_type::canvas_type canvas_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::alert_type
-        typedef typename base_type::alert_type alert_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::difference_type
-        typedef typename base_type::difference_type difference_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::size_type
-        typedef typename base_type::size_type size_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::position_type
-        typedef typename base_type::position_type position_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::dimension_type
-        typedef typename base_type::dimension_type dimension_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::string_type
-        typedef typename base_type::string_type string_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::encoder_type
-        typedef typename base_type::encoder_type encoder_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::font_type
-        typedef typename base_type::font_type font_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::child_type
-        typedef typename base_type::child_type child_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::paint_observer_set_type
-        typedef
-            typename base_type::paint_observer_set_type
-            paint_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::mouse_observer_set_type
-        typedef
-            typename base_type::mouse_observer_set_type
-            mouse_observer_set_type;
+        typedef widget<typename traits_type::base_type> base_type;
 
         //! \return The style type.
         enum style_type
