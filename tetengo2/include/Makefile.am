@@ -16,6 +16,7 @@ headers = \
     tetengo2.encoding.locale.h \
     tetengo2.gui.abstract_window_traits.h \
     tetengo2.gui.button_traits.h \
+    tetengo2.gui.dialog_traits.h \
     tetengo2.gui.menu_observer_set.h \
     tetengo2.gui.mouse_observer_set.h \
     tetengo2.gui.paint_observer_set.h \
