@@ -41,65 +41,6 @@ namespace bobura
         //! \return The base type.
         typedef Dialog base_type;
 
-        //! \copydoc tetengo2::gui::win32::widget::handle_type
-        typedef typename base_type::handle_type handle_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::canvas_type
-        typedef typename base_type::canvas_type canvas_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::alert_type
-        typedef typename base_type::alert_type alert_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::difference_type
-        typedef typename base_type::difference_type difference_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::size_type
-        typedef typename base_type::size_type size_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::position_type
-        typedef typename base_type::position_type position_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::dimension_type
-        typedef typename base_type::dimension_type dimension_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::string_type
-        typedef typename base_type::string_type string_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::encoder_type
-        typedef typename base_type::encoder_type encoder_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::font_type
-        typedef typename base_type::font_type font_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::child_type
-        typedef typename base_type::child_type child_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::paint_observer_set_type
-        typedef
-            typename base_type::paint_observer_set_type
-            paint_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::mouse_observer_set_type
-        typedef
-            typename base_type::mouse_observer_set_type
-            mouse_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type
-        typedef typename base_type::main_menu_type main_menu_type;
-
-        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_set_type
-        typedef
-            typename base_type::window_observer_set_type
-            window_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::dialog::message_loop_type
-        typedef typename base_type::message_loop_type message_loop_type;
-
-        //! \copydoc tetengo2::gui::win32::dialog::quit_message_loop_type
-        typedef
-            typename base_type::quit_message_loop_type
-            quit_message_loop_type;
-
         //! \return The abstract window type.
         typedef typename base_type::base_type abstract_window_type;
 
@@ -142,7 +83,8 @@ namespace bobura
             const abstract_window_type& parent
         )
         {
-            const position_type& parent_position = parent.position();
+            const typename about_dialog::position_type& parent_position =
+                parent.position();
             dialog.set_client_dimension(std::make_pair(384, 256));
             dialog.set_position(
                 std::make_pair(
@@ -153,7 +95,9 @@ namespace bobura
             dialog.m_p_ok_button.reset(
                 new button_type(dialog, button_type::style_default)
             );
-            dialog.m_p_ok_button->set_text(string_type(TETENGO2_TEXT("OK")));
+            dialog.m_p_ok_button->set_text(
+                typename about_dialog::string_type(TETENGO2_TEXT("OK"))
+            );
             dialog.m_p_ok_button->set_dimension(std::make_pair(88, 24));
             dialog.m_p_ok_button->set_position(std::make_pair(280, 216));
             dialog.m_p_ok_button->mouse_observer_set().clicked().connect(
