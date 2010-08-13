@@ -50,57 +50,6 @@ namespace bobura
         //! \return The base type.
         typedef Window base_type;
 
-        //! \copydoc tetengo2::gui::win32::widget::handle_type
-        typedef typename base_type::handle_type handle_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::canvas_type
-        typedef typename base_type::canvas_type canvas_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::alert_type
-        typedef typename base_type::alert_type alert_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::difference_type
-        typedef typename base_type::difference_type difference_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::size_type
-        typedef typename base_type::size_type size_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::position_type
-        typedef typename base_type::position_type position_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::dimension_type
-        typedef typename base_type::dimension_type dimension_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::string_type
-        typedef typename base_type::string_type string_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::encoder_type
-        typedef typename base_type::encoder_type encoder_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::font_type
-        typedef typename base_type::font_type font_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::child_type
-        typedef typename base_type::child_type child_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::paint_observer_set_type
-        typedef
-            typename base_type::paint_observer_set_type
-            paint_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::widget::mouse_observer_set_type
-        typedef
-            typename base_type::mouse_observer_set_type
-            mouse_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::abstract_window::main_menu_type
-        typedef typename base_type::main_menu_type main_menu_type;
-
-        //! \copydoc tetengo2::gui::win32::abstract_window::window_observer_set_type
-        typedef
-            typename base_type::window_observer_set_type
-            window_observer_set_type;
-
         //! \return The quit-message-loop type.
         typedef QuitMessageLoop quit_message_loop_type;
 
@@ -143,10 +92,14 @@ namespace bobura
     private:
         //types
 
+        typedef typename base_type::main_menu_type main_menu_type;
+
         typedef typename main_menu_type::base_type::base_type menu_type;
 
         typedef
             typename menu_type::menu_observer_set_type menu_observer_set_type;
+
+        typedef typename base_type::string_type string_type;
 
         typedef
             typename boost::mpl::at<
