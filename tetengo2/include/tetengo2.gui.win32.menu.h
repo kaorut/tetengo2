@@ -31,38 +31,33 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a menu.
 
-        \tparam Id              A ID type.
-        \tparam Handle          A handle type.
-        \tparam String          A string type.
-        \tparam Encoder         An encoder type.
-        \tparam MenuObserverSet A menu observer set type.
+        \tparam Traits A traits type.
    */
-    template <
-        typename Id,
-        typename Handle,
-        typename String,
-        typename Encoder,
-        typename MenuObserverSet
-    >
+    template <typename Traits>
     class menu : boost::noncopyable
     {
     public:
         // types
 
+        //! \return The traits type.
+        typedef Traits traits_type;
+
         //! \return The ID type.
-        typedef Id id_type;
+        typedef typename traits_type::id_type id_type;
 
         //! \return The handle type.
-        typedef Handle handle_type;
+        typedef typename traits_type::handle_type handle_type;
 
         //! \return The string type.
-        typedef String string_type;
+        typedef typename traits_type::string_type string_type;
 
         //! \return The encoder type.
-        typedef Encoder encoder_type;
+        typedef typename traits_type::encoder_type encoder_type;
 
         //! \return The menu observer set type.
-        typedef MenuObserverSet menu_observer_set_type;
+        typedef
+            typename traits_type::menu_observer_set_type
+            menu_observer_set_type;
 
         //! \return The iterator type.
         typedef typename boost::ptr_vector<menu>::iterator iterator;

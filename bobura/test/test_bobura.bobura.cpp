@@ -33,6 +33,7 @@
 #include <tetengo2.gui.button_traits.h>
 #include <tetengo2.gui.dialog_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
+#include <tetengo2.gui.menu_traits.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.widget_traits.h>
@@ -106,14 +107,16 @@ namespace
     typedef stub_tetengo2::gui::widget<widget_traits_type> widget_type;
 
     typedef
-        stub_tetengo2::gui::menu<
+        tetengo2::gui::menu_traits<
             unsigned int,
             const void*,
             std::wstring,
             ui_encoder_type,
             tetengo2::gui::menu_observer_set
         >
-        menu_type;
+        menu_traits_type;
+
+    typedef stub_tetengo2::gui::menu<menu_traits_type> menu_type;
 
     typedef
         stub_tetengo2::gui::abstract_popup_menu<menu_type>

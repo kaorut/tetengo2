@@ -40,6 +40,7 @@
 #include <tetengo2.gui.button_traits.h>
 #include <tetengo2.gui.dialog_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
+#include <tetengo2.gui.menu_traits.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.widget_traits.h>
@@ -258,14 +259,15 @@ namespace bobura
             widget_traits_type;
         typedef tetengo2::gui::win32::widget<widget_traits_type> widget_type;
         typedef
-            tetengo2::gui::win32::menu<
+            tetengo2::gui::menu_traits<
                 ::UINT,
                 ::HMENU,
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 tetengo2::gui::menu_observer_set
             >
-            menu_type;
+            menu_traits_type;
+        typedef tetengo2::gui::win32::menu<menu_traits_type> menu_type;
         typedef
             tetengo2::gui::win32::abstract_popup_menu<menu_type>
             abstract_popup_menu_type;

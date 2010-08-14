@@ -23,27 +23,25 @@
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <
-        typename Id,
-        typename Handle,
-        typename String,
-        typename Encoder,
-        typename MenuObserverSet
-    >
+    template <typename Traits>
     class menu : boost::noncopyable
     {
     public:
         // types
 
-        typedef Id id_type;
+        typedef Traits traits_type;
 
-        typedef Handle handle_type;
+        typedef typename traits_type::id_type id_type;
 
-        typedef String string_type;
+        typedef typename traits_type::handle_type handle_type;
 
-        typedef Encoder encoder_type;
+        typedef typename traits_type::string_type string_type;
 
-        typedef MenuObserverSet menu_observer_set_type;
+        typedef typename traits_type::encoder_type encoder_type;
+
+        typedef
+            typename traits_type::menu_observer_set_type
+            menu_observer_set_type;
 
         typedef typename boost::ptr_vector<menu>::iterator iterator;
 
