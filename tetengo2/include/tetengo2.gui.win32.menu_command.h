@@ -16,6 +16,8 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.gui.win32.menu.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -24,46 +26,19 @@ namespace tetengo2 { namespace gui { namespace win32
 
         The handle is NULL.
 
-        \tparam Menu A menu type.
+        \tparam Traits A traits type.
    */
-    template <typename Menu>
-    class menu_command : public Menu
+    template <typename Traits>
+    class menu_command : public menu<Traits>
     {
     public:
         // types
 
+        //! \return The traits type.
+        typedef Traits traits_type;
+
         //! \return The base type.
-        typedef Menu base_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::id_type
-        typedef typename base_type::id_type id_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::handle_type
-        typedef typename base_type::handle_type handle_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::string_type
-        typedef typename base_type::string_type string_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::encoder_type
-        typedef typename base_type::encoder_type encoder_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::menu_observer_set_type
-        typedef
-            typename base_type::menu_observer_set_type menu_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::iterator
-        typedef typename base_type::iterator iterator;
-
-        //! \copydoc tetengo2::gui::win32::menu::const_iterator
-        typedef typename base_type::const_iterator const_iterator;
-
-        //! \copydoc tetengo2::gui::win32::menu::recursive_iterator
-        typedef typename base_type::recursive_iterator recursive_iterator;
-
-        //! \copydoc tetengo2::gui::win32::menu::const_recursive_iterator
-        typedef
-            typename base_type::const_recursive_iterator
-            const_recursive_iterator;
+        typedef menu<traits_type> base_type;
 
 
         // constructors and destructor

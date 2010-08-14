@@ -187,7 +187,7 @@ namespace
         main_window_message_type_list_type;
 
     typedef
-        stub_tetengo2::gui::menu_command<menu_type> menu_command_type;
+        stub_tetengo2::gui::menu_command<menu_traits_type> menu_command_type;
 
     typedef
         stub_tetengo2::gui::popup_menu<abstract_popup_menu_type>
