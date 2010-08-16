@@ -9,12 +9,12 @@
 #if !defined(TETENGO2_GUI_WIN32_MENUSEPARATOR_H)
 #define TETENGO2_GUI_WIN32_MENUSEPARATOR_H
 
-#include <cstddef>
-#include <vector>
+//#include <cstddef>
+//#include <vector>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
 
 #include "tetengo2.gui.win32.menu.h"
 
