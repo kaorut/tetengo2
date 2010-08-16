@@ -47,7 +47,7 @@ namespace
     typedef stub_tetengo2::gui::menu<menu_traits_type> menu_type;
 
     typedef
-        stub_tetengo2::gui::abstract_popup_menu<menu_type>
+        stub_tetengo2::gui::abstract_popup_menu<menu_traits_type>
         abstract_popup_menu_type;
 
     typedef

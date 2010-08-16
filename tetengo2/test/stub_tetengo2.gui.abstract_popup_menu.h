@@ -9,41 +9,24 @@
 #if !defined(STUBTETENGO2_GUI_ABSTRACTPOPUPMENU_H)
 #define STUBTETENGO2_GUI_ABSTRACTPOPUPMENU_H
 
-#include <memory>
+//#include <memory>
 
-#include <boost/ptr_container/ptr_vector.hpp>
+//#include <boost/ptr_container/ptr_vector.hpp>
+
+#include "stub_tetengo2.gui.menu.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Menu>
-    class abstract_popup_menu : public Menu
+    template <typename Traits>
+    class abstract_popup_menu : public menu<Traits>
     {
     public:
         // types
 
-        typedef Menu base_type;
+        typedef Traits traits_type;
 
-        typedef typename base_type::id_type id_type;
-
-        typedef typename base_type::handle_type handle_type;
-
-        typedef typename base_type::string_type string_type;
-
-        typedef typename base_type::encoder_type encoder_type;
-
-        typedef
-            typename base_type::menu_observer_set_type menu_observer_set_type;
-
-        typedef typename base_type::iterator iterator;
-
-        typedef typename base_type::const_iterator const_iterator;
-
-        typedef typename base_type::recursive_iterator recursive_iterator;
-
-        typedef
-            typename base_type::const_recursive_iterator
-            const_recursive_iterator;
+        typedef menu<traits_type> base_type;
 
 
         // constructors and destructor
@@ -55,65 +38,74 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual handle_type handle()
+        virtual typename abstract_popup_menu::handle_type handle()
         const
         {
             return m_handle;
         }
 
-        virtual const_iterator begin()
+        virtual typename abstract_popup_menu::const_iterator begin()
         const
         {
             return m_children.begin();
         }
 
-        virtual iterator begin()
+        virtual typename abstract_popup_menu::iterator begin()
         {
             return m_children.begin();
         }
 
-        virtual const_iterator end()
+        virtual typename abstract_popup_menu::const_iterator end()
         const
         {
             return m_children.end();
         }
 
-        virtual iterator end()
+        virtual typename abstract_popup_menu::iterator end()
         {
             return m_children.end();
         }
 
-        virtual const_recursive_iterator recursive_begin()
+        virtual typename abstract_popup_menu::const_recursive_iterator
+        recursive_begin()
         const
         {
-            return const_recursive_iterator(this);
+            return typename abstract_popup_menu::const_recursive_iterator(
+                this
+            );
         }
 
-        virtual recursive_iterator recursive_begin()
+        virtual typename abstract_popup_menu::recursive_iterator
+        recursive_begin()
         {
-            return recursive_iterator(this);
+            return typename abstract_popup_menu::recursive_iterator(this);
         }
 
-        virtual const_recursive_iterator recursive_end()
+        virtual typename abstract_popup_menu::const_recursive_iterator
+        recursive_end()
         const
         {
-            return const_recursive_iterator();
+            return typename abstract_popup_menu::const_recursive_iterator();
         }
 
-        virtual recursive_iterator recursive_end()
+        virtual typename abstract_popup_menu::recursive_iterator
+        recursive_end()
         {
-            return recursive_iterator();
+            return typename abstract_popup_menu::recursive_iterator();
         }
 
         virtual void insert(
-            const iterator           offset,
-            std::auto_ptr<base_type> p_menu
+            const typename abstract_popup_menu::iterator offset,
+            std::auto_ptr<base_type>                     p_menu
         )
         {
             m_children.insert(offset, p_menu);
         }
 
-        virtual void erase(const iterator first, const iterator last)
+        virtual void erase(
+            const typename abstract_popup_menu::iterator first,
+            const typename abstract_popup_menu::iterator last
+        )
         {
             m_children.erase(first, last);
         }
@@ -122,7 +114,10 @@ namespace stub_tetengo2 { namespace gui
     protected:
         // constructors
 
-        abstract_popup_menu(const handle_type handle, const string_type& text)
+        abstract_popup_menu(
+            const typename abstract_popup_menu::handle_type  handle,
+            const typename abstract_popup_menu::string_type& text
+        )
         :
         base_type(text),
         m_handle(handle),
@@ -133,7 +128,7 @@ namespace stub_tetengo2 { namespace gui
     private:
         // variables
 
-        const handle_type m_handle;
+        const typename abstract_popup_menu::handle_type m_handle;
 
         boost::ptr_vector<base_type> m_children;
 

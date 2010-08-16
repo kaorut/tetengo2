@@ -13,18 +13,19 @@
 //#include <cstddef>
 #include <cstring>
 //#include <iterator>
-#include <memory>
-#include <stdexcept>
+//#include <memory>
+//#include <stdexcept>
 #include <string>
-#include <vector>
+//#include <vector>
 
-#include <boost/throw_exception.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+//#include <boost/throw_exception.hpp>
+//#include <boost/ptr_container/ptr_vector.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
 
+#include "tetengo2.gui.win32.menu.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
@@ -33,46 +34,19 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a abstract_popup_menu.
 
-        \tparam Menu A menu type.
+        \tparam Traits A traits type.
    */
-    template <typename Menu>
-    class abstract_popup_menu : public Menu
+    template <typename Traits>
+    class abstract_popup_menu : public menu<Traits>
     {
     public:
         // types
 
+        //! \return The traits type.
+        typedef Traits traits_type;
+
         //! \return The base type.
-        typedef Menu base_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::id_type
-        typedef typename base_type::id_type id_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::handle_type
-        typedef typename base_type::handle_type handle_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::string_type
-        typedef typename base_type::string_type string_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::encoder_type
-        typedef typename base_type::encoder_type encoder_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::menu_observer_set_type
-        typedef
-            typename base_type::menu_observer_set_type menu_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::iterator
-        typedef typename base_type::iterator iterator;
-
-        //! \copydoc tetengo2::gui::win32::menu::const_iterator
-        typedef typename base_type::const_iterator const_iterator;
-
-        //! \copydoc tetengo2::gui::win32::menu::recursive_iterator
-        typedef typename base_type::recursive_iterator recursive_iterator;
-
-        //! \copydoc tetengo2::gui::win32::menu::const_recursive_iterator
-        typedef
-            typename base_type::const_recursive_iterator
-            const_recursive_iterator;
+        typedef menu<traits_type> base_type;
 
 
         // constructors and destructor
