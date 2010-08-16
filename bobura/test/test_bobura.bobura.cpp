@@ -194,7 +194,8 @@ namespace
         popup_menu_type;
 
     typedef
-        stub_tetengo2::gui::menu_separator<menu_type> menu_separator_type;
+        stub_tetengo2::gui::menu_separator<menu_traits_type>
+        menu_separator_type;
 
     typedef
         bobura::main_window<

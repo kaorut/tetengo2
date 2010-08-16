@@ -341,7 +341,9 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu_separator,
-                tetengo2::gui::win32::menu_separator<detail::ui::menu_type>
+                tetengo2::gui::win32::menu_separator<
+                    detail::ui::menu_traits_type
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::dialog, detail::ui::dialog_type>,
