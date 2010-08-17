@@ -272,8 +272,7 @@ namespace bobura
             tetengo2::gui::win32::abstract_popup_menu<menu_traits_type>
             abstract_popup_menu_type;
         typedef
-            tetengo2::gui::win32::main_menu<abstract_popup_menu_type>
-            main_menu_type;
+            tetengo2::gui::win32::main_menu<menu_traits_type> main_menu_type;
         typedef
             tetengo2::gui::abstract_window_traits<
                 widget_traits_type,

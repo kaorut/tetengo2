@@ -11,44 +11,27 @@
 
 #include <cstddef>
 
+#include "stub_tetengo2.gui.abstract_popup_menu.h"
+
 
 namespace stub_tetengo2 { namespace gui
 {
-    template <typename Menu>
-    class main_menu : public Menu
+    template <typename Traits>
+    class main_menu : public abstract_popup_menu<Traits>
     {
     public:
         // types
 
-        typedef Menu base_type;
+        typedef Traits traits_type;
 
-        typedef typename base_type::id_type id_type;
-
-        typedef typename base_type::handle_type handle_type;
-
-        typedef typename base_type::string_type string_type;
-
-        typedef typename base_type::encoder_type encoder_type;
-
-        typedef
-            typename base_type::menu_observer_set_type menu_observer_set_type;
-
-        typedef typename base_type::iterator iterator;
-
-        typedef typename base_type::const_iterator const_iterator;
-
-        typedef typename base_type::recursive_iterator recursive_iterator;
-
-        typedef
-            typename base_type::const_recursive_iterator
-            const_recursive_iterator;
+        typedef abstract_popup_menu<traits_type> base_type;
 
 
         // constructors and destructor
 
         main_menu()
         :
-        base_type(NULL, string_type())
+        base_type(NULL, typename main_menu::string_type())
         {}
 
         virtual ~main_menu()
