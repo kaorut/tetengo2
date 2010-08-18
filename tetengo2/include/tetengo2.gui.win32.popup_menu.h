@@ -19,52 +19,27 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.gui.win32.abstract_popup_menu.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
         \brief The class template for a popup menu.
 
-        \tparam Menu A menu type.
+        \tparam Traits A traits type.
    */
-    template <typename Menu>
-    class popup_menu : public Menu
+    template <typename Traits>
+    class popup_menu : public abstract_popup_menu<Traits>
     {
     public:
         // types
 
+        //! \return The traits type.
+        typedef Traits traits_type;
+
         //! \return The base type.
-        typedef Menu base_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::id_type
-        typedef typename base_type::id_type id_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::handle_type
-        typedef typename base_type::handle_type handle_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::string_type
-        typedef typename base_type::string_type string_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::encoder_type
-        typedef typename base_type::encoder_type encoder_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::menu_observer_set_type
-        typedef
-            typename base_type::menu_observer_set_type menu_observer_set_type;
-
-        //! \copydoc tetengo2::gui::win32::menu::iterator
-        typedef typename base_type::iterator iterator;
-
-        //! \copydoc tetengo2::gui::win32::menu::const_iterator
-        typedef typename base_type::const_iterator const_iterator;
-
-        //! \copydoc tetengo2::gui::win32::menu::recursive_iterator
-        typedef typename base_type::recursive_iterator recursive_iterator;
-
-        //! \copydoc tetengo2::gui::win32::menu::const_recursive_iterator
-        typedef
-            typename base_type::const_recursive_iterator
-            const_recursive_iterator;
+        typedef abstract_popup_menu<traits_type> base_type;
 
 
         // constructors and destructor
@@ -113,7 +88,7 @@ namespace tetengo2 { namespace gui { namespace win32
             if (handle == NULL)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a main menu.")
+                    std::runtime_error("Can't create a popup menu.")
                 );
             }
 

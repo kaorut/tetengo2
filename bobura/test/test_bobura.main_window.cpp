@@ -182,9 +182,7 @@ namespace
     typedef
         stub_tetengo2::gui::menu_command<menu_traits_type> menu_command_type;
 
-    typedef
-        stub_tetengo2::gui::popup_menu<abstract_popup_menu_type>
-        popup_menu_type;
+    typedef stub_tetengo2::gui::popup_menu<menu_traits_type> popup_menu_type;
 
     typedef
         stub_tetengo2::gui::menu_separator<menu_traits_type>

@@ -50,9 +50,7 @@ namespace
         stub_tetengo2::gui::abstract_popup_menu<menu_traits_type>
         abstract_popup_menu_type;
 
-    typedef
-        stub_tetengo2::gui::popup_menu<abstract_popup_menu_type>
-        popup_menu_type;
+    typedef stub_tetengo2::gui::popup_menu<menu_traits_type> popup_menu_type;
 
     typedef tetengo2::gui::recursive_menu_iterator<menu_type> iterator_type;
 
