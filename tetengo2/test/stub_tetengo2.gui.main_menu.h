@@ -9,7 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_MAINMENU_H)
 #define STUBTETENGO2_GUI_MAINMENU_H
 
-#include <cstddef>
+//#include <cstddef>
 
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
 

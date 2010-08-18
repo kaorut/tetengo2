@@ -9,15 +9,15 @@
 #if !defined(TETENGO2_GUI_WIN32_POPUPMENU_H)
 #define TETENGO2_GUI_WIN32_POPUPMENU_H
 
-#include <cstddef>
-#include <stdexcept>
-#include <vector>
+//#include <cstddef>
+//#include <stdexcept>
+//#include <vector>
 
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
 
 #include "tetengo2.gui.win32.abstract_popup_menu.h"
 

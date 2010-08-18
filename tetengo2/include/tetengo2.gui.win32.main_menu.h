@@ -9,16 +9,16 @@
 #if !defined(TETENGO2_GUI_WIN32_MAINMENU_H)
 #define TETENGO2_GUI_WIN32_MAINMENU_H
 
-#include <cassert>
-#include <cstddef>
-#include <stdexcept>
-#include <vector>
+//#include <cassert>
+//#include <cstddef>
+//#include <stdexcept>
+//#include <vector>
 
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
 
 #include "tetengo2.gui.win32.abstract_popup_menu.h"
 
