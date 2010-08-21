@@ -15,5 +15,6 @@ do
         "$f" \
         "$SOLUTIONDIR/tools/stdlib_headers.txt" \
         "$1";
+    "$SOLUTIONDIR/tools/include_order.pl" < "$f";
     echo '';
 done
