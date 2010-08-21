@@ -10,11 +10,11 @@ SOLUTIONDIR=`dirname $0`/..
 for f in `list_sources $SOLUTIONDIR; list_test_sources $SOLUTIONDIR`;
 do
     echo '['$f']';
+    "$SOLUTIONDIR/tools/include_order.pl" < "$f";
     "$SOLUTIONDIR/tools/check_includes.pl" \
         "$SOLUTIONDIR" \
         "$f" \
         "$SOLUTIONDIR/tools/stdlib_headers.txt" \
         "$1";
-    "$SOLUTIONDIR/tools/include_order.pl" < "$f";
     echo '';
 done

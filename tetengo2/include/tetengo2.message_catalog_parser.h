@@ -19,10 +19,10 @@
 #include <utility>
 #include <vector>
 
+#include <boost/algorithm/string.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
-#include <boost/algorithm/string.hpp>
 
 #include "tetengo2.text.h"
 
