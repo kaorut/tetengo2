@@ -48,8 +48,11 @@ namespace bobura { namespace model { namespace station_info
 
             \return The name.
         */
-        virtual const name_type& name()
-        const = 0;
+        const name_type& name()
+        const
+        {
+            return name_impl();
+        }
 
 
     protected:
@@ -60,6 +63,13 @@ namespace bobura { namespace model { namespace station_info
         */
         grade()
         {}
+
+
+    private:
+        // virtual functions
+
+        virtual const name_type& name_impl()
+        const = 0;
 
 
     };
@@ -78,9 +88,6 @@ namespace bobura { namespace model { namespace station_info
 
         //! \return The base type.
         typedef grade<GradeName> base_type;
-
-        //! \copydoc bobura::model::station_info::grade::name_type
-        typedef typename base_type::name_type name_type;
 
 
         // static functions
@@ -108,26 +115,23 @@ namespace bobura { namespace model { namespace station_info
         {}
 
 
-        // functions
-
-        /*!
-            \copybrief grade::name
-
-            \return The name "local".
-        */
-        virtual const name_type& name()
-        const
-        {
-            static const name_type singleton(TETENGO2_TEXT("local"));
-            return singleton;
-        }
-
-
     private:
         // constructors
 
         local()
         {}
+
+
+        // virtual functions
+
+        virtual const typename local::name_type& name_impl()
+        const
+        {
+            static const typename local::name_type singleton(
+                TETENGO2_TEXT("local")
+            );
+            return singleton;
+        }
 
 
     };
@@ -145,9 +149,6 @@ namespace bobura { namespace model { namespace station_info
 
         //! \return The base type.
         typedef grade<GradeName> base_type;
-
-        //! \copydoc bobura::model::station_info::grade::name_type
-        typedef typename base_type::name_type name_type;
 
 
         // static functions
@@ -175,26 +176,23 @@ namespace bobura { namespace model { namespace station_info
         {}
 
 
-        // functions
-
-        /*!
-            \copybrief grade::name
-
-            \return The name "principal".
-        */
-        virtual const name_type& name()
-        const
-        {
-            static const name_type singleton(TETENGO2_TEXT("principal"));
-            return singleton;
-        }
-
-
     private:
         // constructors
 
         principal()
         {}
+
+
+        // virtual functions
+
+        virtual const typename principal::name_type& name_impl()
+        const
+        {
+            static const typename principal::name_type singleton(
+                TETENGO2_TEXT("principal")
+            );
+            return singleton;
+        }
 
 
     };
@@ -212,9 +210,6 @@ namespace bobura { namespace model { namespace station_info
 
         //! \return The base type.
         typedef grade<GradeName> base_type;
-
-        //! \copydoc bobura::model::station_info::grade::name_type
-        typedef typename base_type::name_type name_type;
 
 
         // static functions
@@ -242,21 +237,6 @@ namespace bobura { namespace model { namespace station_info
         {}
 
 
-        // functions
-
-        /*!
-            \copybrief grade::name
-
-            \return The name "local terminal".
-        */
-        virtual const name_type& name()
-        const
-        {
-            static const name_type singleton(TETENGO2_TEXT("local terminal"));
-            return singleton;
-        }
-
-
     private:
         // constructors
 
@@ -264,7 +244,19 @@ namespace bobura { namespace model { namespace station_info
         {}
 
 
-    };
+        // virtual functions
+
+        virtual const typename local_terminal::name_type& name_impl()
+        const
+        {
+            static const typename local_terminal::name_type singleton(
+                TETENGO2_TEXT("local terminal")
+            );
+            return singleton;
+        }
+
+
+   };
 
     /*!
         \brief The class for a principal terminal station grade.
@@ -279,9 +271,6 @@ namespace bobura { namespace model { namespace station_info
 
         //! \return The base type.
         typedef grade<GradeName> base_type;
-
-        //! \copydoc bobura::model::station_info::grade::name_type
-        typedef typename base_type::name_type name_type;
 
 
         // static functions
@@ -309,28 +298,23 @@ namespace bobura { namespace model { namespace station_info
         {}
 
 
-        // functions
-
-        /*!
-            \copybrief grade::name
-
-            \return The name "principal terminal".
-        */
-        virtual const name_type& name()
-        const
-        {
-            static const name_type singleton(
-                TETENGO2_TEXT("principal terminal")
-            );
-            return singleton;
-        }
-
-
     private:
         // constructors
 
         principal_terminal()
         {}
+
+
+        // virtual functions
+
+        virtual const typename principal_terminal::name_type& name_impl()
+        const
+        {
+            static const typename principal_terminal::name_type singleton(
+                TETENGO2_TEXT("principal terminal")
+            );
+            return singleton;
+        }
 
 
     };
