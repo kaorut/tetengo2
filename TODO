@@ -27,11 +27,6 @@ Added on    : 2010/08/18
 Depends on  : (none)
 Description : Make the menu member functions non-virtual.
 ------------------------------------------------------------------------------
-Number      : 00000042
-Added on    : 2010/08/18
-Depends on  : (none)
-Description : Make the station_info::grade member functions non-virtual.
-------------------------------------------------------------------------------
 Number      : 00000043
 Added on    : 2010/mm/yy
 Depends on  : (none)
