@@ -17,11 +17,6 @@ Added on    : 2010/08/05
 Depends on  : (none)
 Description : Make the widget member functions non-virtual.
 ------------------------------------------------------------------------------
-Number      : 00000039
-Added on    : 2010/08/18
-Depends on  : (none)
-Description : Sort the #includes.
-------------------------------------------------------------------------------
 Number      : 00000040
 Added on    : 2010/08/18
 Depends on  : (none)
