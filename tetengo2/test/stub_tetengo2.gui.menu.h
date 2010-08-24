@@ -71,10 +71,10 @@ namespace stub_tetengo2 { namespace gui
             return 0;
         }
 
-        virtual handle_type handle()
+        handle_type handle()
         const
         {
-            return NULL;
+            return handle_impl();
         }
 
         const string_type& text()
@@ -180,6 +180,15 @@ namespace stub_tetengo2 { namespace gui
         // variables
 
         const string_type m_text;
+
+
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const
+        {
+            return NULL;
+        }
 
 
     };

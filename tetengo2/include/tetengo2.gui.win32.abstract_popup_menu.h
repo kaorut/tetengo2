@@ -65,17 +65,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         /*!
-            \brief Returns the handle.
-
-            \return The handle. It may be NULL.
-        */
-        virtual handle_type handle()
-        const
-        {
-            return m_handle;
-        }
-
-        /*!
             \brief Returns the first immutable iterator to the children.
 
             \return The first immutable iterator.
@@ -229,6 +218,15 @@ namespace tetengo2 { namespace gui { namespace win32
         handle_type m_handle;
 
         boost::ptr_vector<base_type> m_children;
+
+
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const
+        {
+            return m_handle;
+        }
 
 
         // functions

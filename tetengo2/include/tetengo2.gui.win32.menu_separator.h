@@ -59,10 +59,10 @@ namespace tetengo2 { namespace gui { namespace win32
         {}
 
 
-        // functions
+    private:
+        // virtual functions
 
-        //! \copydoc tetengo2::gui::win32::menu::set_menu_info
-        virtual void set_menu_info(
+        virtual void set_menu_info_impl(
             ::MENUITEMINFOW&       menu_info,
             std::vector< ::WCHAR>& duplicated_text
         )

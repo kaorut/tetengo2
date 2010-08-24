@@ -38,12 +38,6 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual typename abstract_popup_menu::handle_type handle()
-        const
-        {
-            return m_handle;
-        }
-
         virtual typename abstract_popup_menu::const_iterator begin()
         const
         {
@@ -131,6 +125,15 @@ namespace stub_tetengo2 { namespace gui
         const typename abstract_popup_menu::handle_type m_handle;
 
         boost::ptr_vector<base_type> m_children;
+
+
+        // virtual functions
+
+        virtual typename abstract_popup_menu::handle_type handle_impl()
+        const
+        {
+            return m_handle;
+        }
 
 
     };

@@ -101,10 +101,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return Always NULL.
         */
-        virtual handle_type handle()
+        handle_type handle()
         const
         {
-            return NULL;
+            return handle_impl();
         }
 
         /*!
@@ -275,11 +275,14 @@ namespace tetengo2 { namespace gui { namespace win32
             \param menu_info       A menu information.
             \param duplicated_text A duplicated text.
         */
-        virtual void set_menu_info(
+        void set_menu_info(
             ::MENUITEMINFOW&       menu_info,
             std::vector< ::WCHAR>& duplicated_text
         )
-        const = 0;
+        const
+        {
+            set_menu_info_impl(menu_info, duplicated_text);
+        }
 
 
     protected:
@@ -337,6 +340,21 @@ namespace tetengo2 { namespace gui { namespace win32
         string_type m_text;
 
         menu_observer_set_type m_menu_observer_set;
+
+
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const
+        {
+            return NULL;
+        }
+
+        virtual void set_menu_info_impl(
+            ::MENUITEMINFOW&       menu_info,
+            std::vector< ::WCHAR>& duplicated_text
+        )
+        const = 0;
 
 
     };

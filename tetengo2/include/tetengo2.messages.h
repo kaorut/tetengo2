@@ -103,7 +103,7 @@ namespace tetengo2
 
 
     protected:
-        // functions
+        // virtual functions
         
         /*!
             \brief Opens a message catalog.
