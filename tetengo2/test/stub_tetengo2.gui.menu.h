@@ -99,48 +99,48 @@ namespace stub_tetengo2 { namespace gui
             return dummy;
         }
 
-        virtual const_iterator begin()
+        const_iterator begin()
         const
         {
-            return const_iterator();
+            return begin_impl();
         }
 
-        virtual iterator begin()
+        iterator begin()
         {
-            return iterator();
+            return begin_impl();
         }
 
-        virtual const_iterator end()
+        const_iterator end()
         const
         {
-            return const_iterator();
+            return end_impl();
         }
 
-        virtual iterator end()
+        iterator end()
         {
-            return iterator();
+            return end_impl();
         }
 
-        virtual const_recursive_iterator recursive_begin()
+        const_recursive_iterator recursive_begin()
         const
         {
-            return const_recursive_iterator();
+            return recursive_begin_impl();
         }
 
-        virtual recursive_iterator recursive_begin()
+        recursive_iterator recursive_begin()
         {
-            return recursive_iterator();
+            return recursive_begin_impl();
         }
 
-        virtual const_recursive_iterator recursive_end()
+        const_recursive_iterator recursive_end()
         const
         {
-            return const_recursive_iterator();
+            return recursive_end_impl();
         }
 
-        virtual recursive_iterator recursive_end()
+        recursive_iterator recursive_end()
         {
-            return recursive_iterator();
+            return recursive_end_impl();
         }
 
         virtual void insert(const iterator offset, std::auto_ptr<menu> p_menu)
@@ -188,6 +188,50 @@ namespace stub_tetengo2 { namespace gui
         const
         {
             return NULL;
+        }
+
+        virtual const_iterator begin_impl()
+        const
+        {
+            return const_iterator();
+        }
+
+        virtual iterator begin_impl()
+        {
+            return iterator();
+        }
+
+        virtual const_iterator end_impl()
+        const
+        {
+            return const_iterator();
+        }
+
+        virtual iterator end_impl()
+        {
+            return iterator();
+        }
+
+        virtual const_recursive_iterator recursive_begin_impl()
+        const
+        {
+            return const_recursive_iterator();
+        }
+
+        virtual recursive_iterator recursive_begin_impl()
+        {
+            return recursive_iterator();
+        }
+
+        virtual const_recursive_iterator recursive_end_impl()
+        const
+        {
+            return const_recursive_iterator();
+        }
+
+        virtual recursive_iterator recursive_end_impl()
+        {
+            return recursive_iterator();
         }
 
 

@@ -38,56 +38,6 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual typename abstract_popup_menu::const_iterator begin()
-        const
-        {
-            return m_children.begin();
-        }
-
-        virtual typename abstract_popup_menu::iterator begin()
-        {
-            return m_children.begin();
-        }
-
-        virtual typename abstract_popup_menu::const_iterator end()
-        const
-        {
-            return m_children.end();
-        }
-
-        virtual typename abstract_popup_menu::iterator end()
-        {
-            return m_children.end();
-        }
-
-        virtual typename abstract_popup_menu::const_recursive_iterator
-        recursive_begin()
-        const
-        {
-            return typename abstract_popup_menu::const_recursive_iterator(
-                this
-            );
-        }
-
-        virtual typename abstract_popup_menu::recursive_iterator
-        recursive_begin()
-        {
-            return typename abstract_popup_menu::recursive_iterator(this);
-        }
-
-        virtual typename abstract_popup_menu::const_recursive_iterator
-        recursive_end()
-        const
-        {
-            return typename abstract_popup_menu::const_recursive_iterator();
-        }
-
-        virtual typename abstract_popup_menu::recursive_iterator
-        recursive_end()
-        {
-            return typename abstract_popup_menu::recursive_iterator();
-        }
-
         virtual void insert(
             const typename abstract_popup_menu::iterator offset,
             std::auto_ptr<base_type>                     p_menu
@@ -133,6 +83,56 @@ namespace stub_tetengo2 { namespace gui
         const
         {
             return m_handle;
+        }
+
+        virtual typename abstract_popup_menu::const_iterator begin_impl()
+        const
+        {
+            return m_children.begin();
+        }
+
+        virtual typename abstract_popup_menu::iterator begin_impl()
+        {
+            return m_children.begin();
+        }
+
+        virtual typename abstract_popup_menu::const_iterator end_impl()
+        const
+        {
+            return m_children.end();
+        }
+
+        virtual typename abstract_popup_menu::iterator end_impl()
+        {
+            return m_children.end();
+        }
+
+        virtual typename abstract_popup_menu::const_recursive_iterator
+        recursive_begin_impl()
+        const
+        {
+            return typename abstract_popup_menu::const_recursive_iterator(
+                this
+            );
+        }
+
+        virtual typename abstract_popup_menu::recursive_iterator
+        recursive_begin_impl()
+        {
+            return typename abstract_popup_menu::recursive_iterator(this);
+        }
+
+        virtual typename abstract_popup_menu::const_recursive_iterator
+        recursive_end_impl()
+        const
+        {
+            return typename abstract_popup_menu::const_recursive_iterator();
+        }
+
+        virtual typename abstract_popup_menu::recursive_iterator
+        recursive_end_impl()
+        {
+            return typename abstract_popup_menu::recursive_iterator();
         }
 
 

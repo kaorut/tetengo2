@@ -65,98 +65,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         /*!
-            \brief Returns the first immutable iterator to the children.
-
-            \return The first immutable iterator.
-        */
-        virtual const_iterator begin()
-        const
-        {
-            return m_children.begin();
-        }
-
-        /*!
-            \brief Returns the first mutable iterator to the children.
-
-            \return The first mutable iterator.
-        */
-        virtual iterator begin()
-        {
-            return m_children.begin();
-        }
-
-        /*!
-            \brief Returns the last immutable iterator to the children.
-
-            \return The last immutable iterator.
-        */
-        virtual const_iterator end()
-        const
-        {
-            return m_children.end();
-        }
-
-        /*!
-            \brief Returns the last mutable iterator to the children.
-
-            \return The last mutable iterator.
-        */
-        virtual iterator end()
-        {
-            return m_children.end();
-        }
-
-        /*!
-            \brief Returns the recursive first immutable iterator to this menu
-                   and the children.
-
-            The first iterator points to this abstract_popup_menu.
-
-            \return The recursive first immutable iterator.
-        */
-        virtual const_recursive_iterator recursive_begin()
-        const
-        {
-            return const_recursive_iterator(this);
-        }
-
-        /*!
-            \brief Returns the recursive first mutable iterator to this menu
-                   and the children.
-
-            The first iterator points to this abstract_popup_menu.
-
-            \return The recursive first mutable iterator.
-        */
-        virtual recursive_iterator recursive_begin()
-        {
-            return recursive_iterator(this);
-        }
-
-        /*!
-            \brief Returns the recursive last immutable iterator to this menu
-                   and the children.
-
-            \return The recursive last immutable iterator.
-        */
-        virtual const_recursive_iterator recursive_end()
-        const
-        {
-            return const_recursive_iterator();
-        }
-
-        /*!
-            \brief Returns the recursive last mutable iterator to this menu
-                   and the children.
-
-            \return The recursive last mutable iterator.
-        */
-        virtual recursive_iterator recursive_end()
-        {
-            return recursive_iterator();
-        }
-
-        /*!
             \brief Inserts a menu as a child.
 
             \param offset An offset where a menu is inserted.
@@ -226,6 +134,50 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_handle;
+        }
+
+        virtual const_iterator begin_impl()
+        const
+        {
+            return m_children.begin();
+        }
+
+        virtual iterator begin_impl()
+        {
+            return m_children.begin();
+        }
+
+        virtual const_iterator end_impl()
+        const
+        {
+            return m_children.end();
+        }
+
+        virtual iterator end_impl()
+        {
+            return m_children.end();
+        }
+
+        virtual const_recursive_iterator recursive_begin_impl()
+        const
+        {
+            return const_recursive_iterator(this);
+        }
+
+        virtual recursive_iterator recursive_begin_impl()
+        {
+            return recursive_iterator(this);
+        }
+
+        virtual const_recursive_iterator recursive_end_impl()
+        const
+        {
+            return const_recursive_iterator();
+        }
+
+        virtual recursive_iterator recursive_end_impl()
+        {
+            return recursive_iterator();
         }
 
 

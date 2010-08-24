@@ -152,10 +152,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The first immutable iterator.
         */
-        virtual const_iterator begin()
+        const_iterator begin()
         const
         {
-            return empty_children().begin();
+            return begin_impl();
         }
 
         /*!
@@ -163,9 +163,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The first mutable iterator.
         */
-        virtual iterator begin()
+        iterator begin()
         {
-            return empty_children().begin();
+            return begin_impl();
         }
 
         /*!
@@ -173,10 +173,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The last immutable iterator.
         */
-        virtual const_iterator end()
+        const_iterator end()
         const
         {
-            return empty_children().end();
+            return end_impl();
         }
 
         /*!
@@ -184,9 +184,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The last mutable iterator.
         */
-        virtual iterator end()
+        iterator end()
         {
-            return empty_children().end();
+            return end_impl();
         }
 
         /*!
@@ -197,10 +197,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The recursive first immutable iterator.
         */
-        virtual const_recursive_iterator recursive_begin()
+        const_recursive_iterator recursive_begin()
         const
         {
-            return const_recursive_iterator();
+            return recursive_begin_impl();
         }
 
         /*!
@@ -211,9 +211,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The recursive first mutable iterator.
         */
-        virtual recursive_iterator recursive_begin()
+        recursive_iterator recursive_begin()
         {
-            return recursive_iterator();
+            return recursive_begin_impl();
         }
 
         /*!
@@ -222,10 +222,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The recursive last immutable iterator.
         */
-        virtual const_recursive_iterator recursive_end()
+        const_recursive_iterator recursive_end()
         const
         {
-            return const_recursive_iterator();
+            return recursive_end_impl();
         }
 
         /*!
@@ -234,9 +234,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The recursive last mutable iterator.
         */
-        virtual recursive_iterator recursive_end()
+        recursive_iterator recursive_end()
         {
-            return recursive_iterator();
+            return recursive_end_impl();
         }
 
         /*!
@@ -355,6 +355,50 @@ namespace tetengo2 { namespace gui { namespace win32
             std::vector< ::WCHAR>& duplicated_text
         )
         const = 0;
+
+        virtual const_iterator begin_impl()
+        const
+        {
+            return empty_children().begin();
+        }
+
+        virtual iterator begin_impl()
+        {
+            return empty_children().begin();
+        }
+
+        virtual const_iterator end_impl()
+        const
+        {
+            return empty_children().end();
+        }
+
+        virtual iterator end_impl()
+        {
+            return empty_children().end();
+        }
+
+        virtual const_recursive_iterator recursive_begin_impl()
+        const
+        {
+            return const_recursive_iterator();
+        }
+
+        virtual recursive_iterator recursive_begin_impl()
+        {
+            return recursive_iterator();
+        }
+
+        virtual const_recursive_iterator recursive_end_impl()
+        const
+        {
+            return const_recursive_iterator();
+        }
+
+        virtual recursive_iterator recursive_end_impl()
+        {
+            return recursive_iterator();
+        }
 
 
     };
