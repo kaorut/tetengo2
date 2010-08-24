@@ -62,47 +62,6 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
 
-        // functions
-
-        /*!
-            \brief Inserts a menu as a child.
-
-            \param offset An offset where a menu is inserted.
-            \param p_menu An auto pointer to a menu. It must not be NULL.
-        */
-        virtual void insert(
-            const iterator           offset,
-            std::auto_ptr<base_type> p_menu
-        )
-        {
-            if (p_menu.get() == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument(
-                        "The auto pointer to a menu is NULL."
-                    )
-                );
-            }
-
-            insert_native_menu(offset, *p_menu);
-
-            m_children.insert(offset, p_menu);
-        }
-
-        /*!
-            \brief Erases the menus from the children.
-
-            \param first The first iterator to the erased menus.
-            \param last  The last iterator to the eraed menus.
-        */
-        virtual void erase(const iterator first, const iterator last)
-        {
-            erase_native_menus(first, last);
-
-            m_children.erase(first, last);
-        }
-
-
     protected:
         // constructors
 
@@ -178,6 +137,32 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual recursive_iterator recursive_end_impl()
         {
             return recursive_iterator();
+        }
+
+        virtual void insert_impl(
+            const iterator           offset,
+            std::auto_ptr<base_type> p_menu
+        )
+        {
+            if (p_menu.get() == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "The auto pointer to a menu is NULL."
+                    )
+                );
+            }
+
+            insert_native_menu(offset, *p_menu);
+
+            m_children.insert(offset, p_menu);
+        }
+
+        virtual void erase_impl(const iterator first, const iterator last)
+        {
+            erase_native_menus(first, last);
+
+            m_children.erase(first, last);
         }
 
 

@@ -143,18 +143,14 @@ namespace stub_tetengo2 { namespace gui
             return recursive_end_impl();
         }
 
-        virtual void insert(const iterator offset, std::auto_ptr<menu> p_menu)
+        void insert(const iterator offset, std::auto_ptr<menu> p_menu)
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(
-                std::logic_error("Can't insert any menus.")
-            );
+            insert_impl(offset, p_menu);
         }
 
-        virtual void erase(const iterator first, const iterator last)
+        void erase(const iterator first, const iterator last)
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
+            erase_impl(first, last);
         }
 
 
@@ -232,6 +228,23 @@ namespace stub_tetengo2 { namespace gui
         virtual recursive_iterator recursive_end_impl()
         {
             return recursive_iterator();
+        }
+
+        virtual void insert_impl(
+            const iterator      offset,
+            std::auto_ptr<menu> p_menu
+        )
+        {
+            assert(false);
+            BOOST_THROW_EXCEPTION(
+                std::logic_error("Can't insert any menus.")
+            );
+        }
+
+        virtual void erase_impl(const iterator first, const iterator last)
+        {
+            assert(false);
+            BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
         }
 
 

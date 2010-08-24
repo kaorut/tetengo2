@@ -36,25 +36,6 @@ namespace stub_tetengo2 { namespace gui
         {}
 
 
-        // functions
-
-        virtual void insert(
-            const typename abstract_popup_menu::iterator offset,
-            std::auto_ptr<base_type>                     p_menu
-        )
-        {
-            m_children.insert(offset, p_menu);
-        }
-
-        virtual void erase(
-            const typename abstract_popup_menu::iterator first,
-            const typename abstract_popup_menu::iterator last
-        )
-        {
-            m_children.erase(first, last);
-        }
-
-
     protected:
         // constructors
 
@@ -133,6 +114,22 @@ namespace stub_tetengo2 { namespace gui
         recursive_end_impl()
         {
             return typename abstract_popup_menu::recursive_iterator();
+        }
+
+        virtual void insert_impl(
+            const typename abstract_popup_menu::iterator offset,
+            std::auto_ptr<base_type>                     p_menu
+        )
+        {
+            m_children.insert(offset, p_menu);
+        }
+
+        virtual void erase_impl(
+            const typename abstract_popup_menu::iterator first,
+            const typename abstract_popup_menu::iterator last
+        )
+        {
+            m_children.erase(first, last);
         }
 
 
