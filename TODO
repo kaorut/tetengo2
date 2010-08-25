@@ -22,11 +22,6 @@ Added on    : 2010/08/18
 Depends on  : (none)
 Description : Update the usage of boost::filesystem to the version 3.
 ------------------------------------------------------------------------------
-Number      : 00000041
-Added on    : 2010/08/18
-Depends on  : (none)
-Description : Make the menu member functions non-virtual.
-------------------------------------------------------------------------------
 Number      : 00000043
 Added on    : 2010/mm/yy
 Depends on  : (none)
