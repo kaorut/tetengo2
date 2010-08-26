@@ -73,7 +73,7 @@ namespace stub_tetengo2 { namespace gui
             return dummy;
         }
 
-        virtual void close()
+        void close()
         const
         {}
 

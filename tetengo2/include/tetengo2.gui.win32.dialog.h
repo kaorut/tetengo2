@@ -91,20 +91,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        //! \copydoc tetengo2::gui::win32::abstract_window::close
-        virtual void close()
-        {
-            check_destroyed();
-
-            const ::BOOL result = ::DestroyWindow(this->handle());
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't destroy the dialog.")
-                );
-            }
-        }
-
         /*!
             \brief Sets the result.
 
@@ -389,6 +375,19 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_handle;
+        }
+
+        virtual void close_impl()
+        {
+            check_destroyed();
+
+            const ::BOOL result = ::DestroyWindow(this->handle());
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't destroy the dialog.")
+                );
+            }
         }
 
 

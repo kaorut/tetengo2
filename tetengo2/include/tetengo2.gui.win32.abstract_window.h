@@ -215,18 +215,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the abstract window is already
                                       destroyed.
         */
-        virtual void close()
+        void close()
         {
-            check_destroyed();
-
-            const ::BOOL result =
-                ::PostMessageW(this->handle(), WM_CLOSE, 0, 0);
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't close the abstract window.")
-                );
-            }
+            close_impl();
         }
 
 
@@ -368,6 +359,23 @@ namespace tetengo2 { namespace gui { namespace win32
         std::auto_ptr<main_menu_type> m_p_main_menu;
 
         window_observer_set_type m_window_observer_set;
+
+
+        // virtual functions
+
+        virtual void close_impl()
+        {
+            check_destroyed();
+
+            const ::BOOL result =
+                ::PostMessageW(this->handle(), WM_CLOSE, 0, 0);
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't close the abstract window.")
+                );
+            }
+        }
 
 
     };
