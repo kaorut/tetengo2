@@ -98,7 +98,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the dialog is already destroyed.
         */
-        virtual void set_result(const result_type result)
+        void set_result(const result_type result)
         {
             check_destroyed();
 
@@ -110,7 +110,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The result.
         */
-        virtual result_type result()
+        result_type result()
         const
         {
             return m_result;
@@ -123,7 +123,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the dialog is already destroyed.
         */
-        virtual result_type do_modal()
+        result_type do_modal()
         {
             check_destroyed();
 
@@ -148,7 +148,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     protected:
-        // functions
+        // virtual functions
 
         //! \copydoc tetengo2::gui::win32::widget::window_procedure
         virtual ::LRESULT window_procedure(

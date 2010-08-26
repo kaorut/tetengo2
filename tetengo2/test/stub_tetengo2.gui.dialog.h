@@ -52,16 +52,16 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual void set_result(const result_type result)
+        void set_result(const result_type result)
         {}
 
-        virtual result_type result()
+        result_type result()
         const
         {
             return result_undecided;
         }
 
-        virtual result_type do_modal()
+        result_type do_modal()
         {
             return result_canceled;
         }
