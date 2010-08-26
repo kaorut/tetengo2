@@ -117,7 +117,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual bool has_parent()
+        bool has_parent()
         const
         {
             check_destroyed();
@@ -133,7 +133,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the widget has no parent.
         */
-        virtual widget& parent()
+        widget& parent()
         {
             check_destroyed();
 
@@ -154,7 +154,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the widget has no parent.
         */
-        virtual const widget& parent()
+        const widget& parent()
         const
         {
             check_destroyed();
@@ -175,7 +175,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual widget& root_ancestor()
+        widget& root_ancestor()
         {
             check_destroyed();
 
@@ -195,7 +195,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual const widget& root_ancestor()
+        const widget& root_ancestor()
         const
         {
             check_destroyed();
@@ -216,7 +216,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual void set_enabled(const bool enabled)
+        void set_enabled(const bool enabled)
         {
             check_destroyed();
 
@@ -230,7 +230,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual bool enabled()
+        bool enabled()
         const
         {
             check_destroyed();
@@ -245,7 +245,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual void set_visible(const bool visible)
+        void set_visible(const bool visible)
         {
             check_destroyed();
 
@@ -261,7 +261,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual bool visible()
+        bool visible()
         const
         {
             check_destroyed();
@@ -276,7 +276,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual std::auto_ptr<canvas_type> create_canvas()
+        std::auto_ptr<canvas_type> create_canvas()
         {
             check_destroyed();
 
@@ -292,7 +292,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual std::auto_ptr<const canvas_type> create_canvas()
+        std::auto_ptr<const canvas_type> create_canvas()
         const
         {
             check_destroyed();
@@ -309,7 +309,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual void set_position(const position_type& position)
+        void set_position(const position_type& position)
         {
             check_destroyed();
 
@@ -338,7 +338,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual position_type position()
+        position_type position()
         const
         {
             check_destroyed();
@@ -363,7 +363,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::invalid_argument When either dimension.first or
                                          dimension.second is equal to 0.
         */
-        virtual void set_dimension(const dimension_type& dimension)
+        void set_dimension(const dimension_type& dimension)
         {
             check_destroyed();
 
@@ -399,7 +399,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual dimension_type dimension()
+        dimension_type dimension()
         const
         {
             check_destroyed();
@@ -430,7 +430,7 @@ namespace tetengo2 { namespace gui { namespace win32
                                          client_dimension.second is equal to
                                          0.
         */
-        virtual void set_client_dimension(
+        void set_client_dimension(
             const dimension_type& client_dimension
         )
         {
@@ -495,7 +495,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual dimension_type client_dimension()
+        dimension_type client_dimension()
         const
         {
             check_destroyed();
@@ -524,7 +524,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the text cannot be set.
         */
-        virtual void set_text(const string_type& text)
+        void set_text(const string_type& text)
         {
             check_destroyed();
 
@@ -546,7 +546,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual string_type text()
+        string_type text()
         const
         {
             check_destroyed();
@@ -570,7 +570,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the font cannot be set.
         */
-        virtual void set_font(const font_type& font)
+        void set_font(const font_type& font)
         {
             check_destroyed();
 
@@ -634,7 +634,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual font_type font()
+        font_type font()
         const
         {
             check_destroyed();
@@ -706,7 +706,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual const paint_observer_set_type& paint_observer_set()
+        const paint_observer_set_type& paint_observer_set()
         const
         {
             check_destroyed();
@@ -721,7 +721,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual paint_observer_set_type& paint_observer_set()
+        paint_observer_set_type& paint_observer_set()
         {
             check_destroyed();
 
@@ -735,7 +735,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual const mouse_observer_set_type& mouse_observer_set()
+        const mouse_observer_set_type& mouse_observer_set()
         const
         {
             check_destroyed();
@@ -750,7 +750,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual mouse_observer_set_type& mouse_observer_set()
+        mouse_observer_set_type& mouse_observer_set()
         {
             check_destroyed();
 
@@ -763,7 +763,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \retval true  When the widget is destroyed.
             \retval false Otherwise.
         */
-        virtual bool destroyed()
+        bool destroyed()
         const
         {
             return m_destroyed;

@@ -75,18 +75,13 @@ namespace stub_tetengo2 { namespace gui
         virtual handle_type handle()
         const = 0;
 
-        virtual void set_enabled(const bool enabled)
-        {
-            m_enabled = enabled;
-        }
-
-        virtual bool has_parent()
+        bool has_parent()
         const
         {
             return m_p_parent != NULL;
         }
 
-        virtual widget& parent()
+        widget& parent()
         {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
@@ -94,7 +89,7 @@ namespace stub_tetengo2 { namespace gui
             return *m_p_parent;
         }
 
-        virtual const widget& parent()
+        const widget& parent()
         const
         {
             if (!has_parent())
@@ -103,7 +98,7 @@ namespace stub_tetengo2 { namespace gui
             return *m_p_parent;
         }
 
-        virtual widget& root_ancestor()
+        widget& root_ancestor()
         {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
@@ -111,7 +106,7 @@ namespace stub_tetengo2 { namespace gui
             return *m_p_parent;
         }
 
-        virtual const widget& root_ancestor()
+        const widget& root_ancestor()
         const
         {
             if (!has_parent())
@@ -120,31 +115,36 @@ namespace stub_tetengo2 { namespace gui
             return *m_p_parent;
         }
 
-        virtual bool enabled()
+        void set_enabled(const bool enabled)
+        {
+            m_enabled = enabled;
+        }
+
+        bool enabled()
         const
         {
             return m_enabled;
         }
 
-        virtual void set_visible(const bool visible)
+        void set_visible(const bool visible)
         {
             m_visible = visible;
         }
 
-        virtual bool visible()
+        bool visible()
         const
         {
             return m_visible;
         }
 
-        virtual std::auto_ptr<canvas_type> create_canvas()
+        std::auto_ptr<canvas_type> create_canvas()
         {
             return std::auto_ptr<canvas_type>(
                 new canvas_type(this->handle(), false)
             );
         }
 
-        virtual std::auto_ptr<const canvas_type> create_canvas()
+        std::auto_ptr<const canvas_type> create_canvas()
         const
         {
             return std::auto_ptr<const canvas_type>(
@@ -152,18 +152,18 @@ namespace stub_tetengo2 { namespace gui
             );
         }
 
-        virtual void set_position(const position_type& position)
+        void set_position(const position_type& position)
         {
             m_position = position;
         }
 
-        virtual const position_type& position()
+        const position_type& position()
         const
         {
             return m_position;
         }
 
-        virtual void set_dimension(const dimension_type& dimension)
+        void set_dimension(const dimension_type& dimension)
         {
             if (dimension.first == 0 || dimension.second == 0)
             {
@@ -175,13 +175,13 @@ namespace stub_tetengo2 { namespace gui
             m_dimension = dimension;
         }
 
-        virtual const dimension_type& dimension()
+        const dimension_type& dimension()
         const
         {
             return m_dimension;
         }
 
-        virtual void set_client_dimension(
+        void set_client_dimension(
             const dimension_type& client_dimension
         )
         {
@@ -195,27 +195,27 @@ namespace stub_tetengo2 { namespace gui
             m_client_dimension = client_dimension;
         }
 
-        virtual const dimension_type& client_dimension()
+        const dimension_type& client_dimension()
         const
         {
             return m_client_dimension;
         }
 
-        virtual void set_text(const string_type& text)
+        void set_text(const string_type& text)
         {
             m_text = text;
         }
 
-        virtual string_type text()
+        string_type text()
         const
         {
             return m_text;
         }
 
-        virtual void set_font(const font_type& font)
+        void set_font(const font_type& font)
         {}
 
-        virtual font_type font()
+        font_type font()
         const
         {
             return font_type(
@@ -242,33 +242,33 @@ namespace stub_tetengo2 { namespace gui
         void click()
         {}
 
-        virtual const paint_observer_set_type& paint_observer_set()
+        const paint_observer_set_type& paint_observer_set()
         const
         {
             static const paint_observer_set_type dummy;
             return dummy;
         }
 
-        virtual paint_observer_set_type& paint_observer_set()
+        paint_observer_set_type& paint_observer_set()
         {
             static paint_observer_set_type dummy;
             return dummy;
         }
 
-        virtual const mouse_observer_set_type& mouse_observer_set()
+        const mouse_observer_set_type& mouse_observer_set()
         const
         {
             static const mouse_observer_set_type dummy;
             return dummy;
         }
 
-        virtual mouse_observer_set_type& mouse_observer_set()
+        mouse_observer_set_type& mouse_observer_set()
         {
             static mouse_observer_set_type dummy;
             return dummy;
         }
 
-        virtual bool destroyed()
+        bool destroyed()
         const
         {
             return false;
