@@ -42,9 +42,10 @@ namespace stub_tetengo2 { namespace gui
         {}
 
 
-        // functions
+    private:
+        // virtual functions
 
-        virtual typename window::handle_type handle()
+        virtual typename window::handle_type handle_impl()
         const
         {
             return 0;

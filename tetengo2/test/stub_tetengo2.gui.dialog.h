@@ -52,12 +52,6 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual typename dialog::handle_type handle()
-        const
-        {
-            return 0;
-        }
-
         virtual void set_result(const result_type result)
         {}
 
@@ -70,6 +64,16 @@ namespace stub_tetengo2 { namespace gui
         virtual result_type do_modal()
         {
             return result_canceled;
+        }
+
+
+    private:
+        // virtual functions
+
+        virtual typename dialog::handle_type handle_impl()
+        const
+        {
+            return 0;
         }
 
 

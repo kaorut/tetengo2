@@ -72,8 +72,11 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual handle_type handle()
-        const = 0;
+        handle_type handle()
+        const
+        {
+            return handle_impl();
+        }
 
         bool has_parent()
         const
@@ -326,6 +329,12 @@ namespace stub_tetengo2 { namespace gui
         dimension_type m_client_dimension;
 
         string_type m_text;
+
+
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const = 0;
 
 
     };

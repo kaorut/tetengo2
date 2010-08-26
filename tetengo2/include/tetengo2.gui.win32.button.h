@@ -86,13 +86,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        //! \copydoc tetengo2::gui::win32::widget::handle
-        virtual handle_type handle()
-        const
-        {
-            return m_handle;
-        }
-
         /*!
             \brief Returns the style.
 
@@ -228,6 +221,15 @@ namespace tetengo2 { namespace gui { namespace win32
         const style_type m_style;
 
         const ::WNDPROC m_p_original_window_procedure;
+
+
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const
+        {
+            return m_handle;
+        }
 
 
     };

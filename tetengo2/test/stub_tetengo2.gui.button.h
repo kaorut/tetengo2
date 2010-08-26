@@ -47,12 +47,6 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual typename button::handle_type handle()
-        const
-        {
-            return 0;
-        }
-
         virtual style_type style()
         const
         {
@@ -64,6 +58,15 @@ namespace stub_tetengo2 { namespace gui
         // variables
 
         const style_type m_style;
+
+
+        // virtual functions
+
+        virtual typename button::handle_type handle_impl()
+        const
+        {
+            return 0;
+        }
 
 
     };

@@ -105,9 +105,16 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the handle.
             
             \return The handle.
+
+            \throw std::runtime_error When the widget is already destroyed.
         */
-        virtual handle_type handle()
-        const = 0;
+        handle_type handle()
+        const
+        {
+            check_destroyed();
+
+            return handle_impl();
+        }
 
         /*!
             \brief Returns whether the widget has a parent.
@@ -854,6 +861,12 @@ namespace tetengo2 { namespace gui { namespace win32
         m_paint_observer_set(),
         m_mouse_observer_set()
         {}
+
+
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const = 0;
 
 
         // functions

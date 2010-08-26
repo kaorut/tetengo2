@@ -91,13 +91,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        //! \copydoc tetengo2::gui::win32::widget::handle
-        virtual handle_type handle()
-        const
-        {
-            return m_handle;
-        }
-
         //! \copydoc tetengo2::gui::win32::abstract_window::close
         virtual void close()
         {
@@ -388,6 +381,15 @@ namespace tetengo2 { namespace gui { namespace win32
         const handle_type m_handle;
 
         result_type m_result;
+
+
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const
+        {
+            return m_handle;
+        }
 
 
     };
