@@ -47,7 +47,7 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual style_type style()
+        style_type style()
         const
         {
             return m_style;

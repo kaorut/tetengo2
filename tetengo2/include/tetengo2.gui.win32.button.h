@@ -91,7 +91,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The style.
         */
-        virtual style_type style()
+        style_type style()
         const
         {
             return m_style;
@@ -99,7 +99,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     protected:
-        // functions
+        // virtual functions
 
         //! \copydoc tetengo2::gui::win32::widget::window_procedure
         virtual ::LRESULT window_procedure(
