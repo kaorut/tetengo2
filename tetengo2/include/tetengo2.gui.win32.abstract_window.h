@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the abstract window is already
                                       destroyed.
         */
-        virtual void activate()
+        void activate()
         {
             check_destroyed();
 
@@ -88,7 +88,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the abstract window is already
                                       destroyed.
         */
-        virtual bool has_main_menu()
+        bool has_main_menu()
         const
         {
             check_destroyed();
@@ -107,7 +107,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the abstract window is already
                                       destroyed.
         */
-        virtual main_menu_type& main_menu()
+        main_menu_type& main_menu()
         {
             check_destroyed();
 
@@ -127,7 +127,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the abstract window is already
                                       destroyed.
         */
-        virtual const main_menu_type& main_menu()
+        const main_menu_type& main_menu()
         const
         {
             check_destroyed();
@@ -148,7 +148,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the abstract window is already
                                       destroyed.
         */
-        virtual void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
+        void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
         {
             check_destroyed();
 
@@ -186,7 +186,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the abstract window is already
                                       destroyed.
         */
-        virtual const window_observer_set_type& window_observer_set()
+        const window_observer_set_type& window_observer_set()
         const
         {
             check_destroyed();
@@ -202,7 +202,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the abstract window is already
                                       destroyed.
         */
-        virtual window_observer_set_type& window_observer_set()
+        window_observer_set_type& window_observer_set()
         {
             check_destroyed();
 
@@ -280,7 +280,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {}
 
 
-        // functions
+        // virtual functions
 
         //! \copydoc tetengo2::gui::win32::widget::window_procedure
         virtual ::LRESULT window_procedure(

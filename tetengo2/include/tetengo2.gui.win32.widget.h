@@ -931,26 +931,23 @@ namespace tetengo2 { namespace gui { namespace win32
                 {
                     delete_current_font();
                     m_destroyed = true;
-                    break;
+                    return 0;
                 }
             case WM_NCDESTROY:
                 {
                     const widget* const p_widget =
                         reinterpret_cast<const widget*>(
                             ::RemovePropW(
-                                this->handle(),
+                                handle_impl(),
                                 property_key_for_cpp_instance()
                             )
                         );
                     assert(p_widget == this);
+                    return 0;
                 }
             }
             return ::CallWindowProcW(
-                p_default_window_procedure,
-                this->handle(),
-                uMsg,
-                wParam,
-                lParam
+                p_default_window_procedure, handle(), uMsg, wParam, lParam
             );
         }
 

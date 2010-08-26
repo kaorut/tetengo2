@@ -42,32 +42,32 @@ namespace stub_tetengo2 { namespace gui
 
         // functions
 
-        virtual void activate()
+        void activate()
         {}
 
-        virtual bool has_main_menu()
+        bool has_main_menu()
         const
         {
             return false;
         }
 
-        virtual main_menu_type& main_menu()
+        main_menu_type& main_menu()
         {
             static main_menu_type dummy;
             return dummy;
         }
 
-        virtual void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
+        void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
         {}
 
-        virtual const window_observer_set_type& window_observer_set()
+        const window_observer_set_type& window_observer_set()
         const
         {
             static const window_observer_set_type dummy;
             return dummy;
         }
 
-        virtual window_observer_set_type& window_observer_set()
+        window_observer_set_type& window_observer_set()
         {
             static window_observer_set_type dummy;
             return dummy;
