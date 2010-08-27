@@ -143,7 +143,7 @@ namespace stub_tetengo2 { namespace gui
         std::auto_ptr<canvas_type> create_canvas()
         {
             return std::auto_ptr<canvas_type>(
-                new canvas_type(this->handle(), false)
+                new canvas_type(handle(), false)
             );
         }
 
@@ -151,7 +151,7 @@ namespace stub_tetengo2 { namespace gui
         const
         {
             return std::auto_ptr<const canvas_type>(
-                new canvas_type(this->handle(), false)
+                new canvas_type(handle(), false)
             );
         }
 

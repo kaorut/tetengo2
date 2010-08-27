@@ -90,7 +90,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::WNDPROC p_default_window_procedure
         )
         {
-            return this->base_type::window_procedure(
+            return base_type::window_procedure(
                 uMsg, wParam, lParam, p_default_window_procedure
             );
         }

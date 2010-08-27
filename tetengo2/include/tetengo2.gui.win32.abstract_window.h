@@ -76,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             check_destroyed();
 
-            ::BringWindowToTop(this->handle());
+            ::BringWindowToTop(handle());
         }
 
         /*!
@@ -152,7 +152,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             check_destroyed();
 
-            if (::SetMenu(this->handle(), NULL) == 0)
+            if (::SetMenu(handle(), NULL) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't unset the main menu.")
@@ -163,13 +163,13 @@ namespace tetengo2 { namespace gui { namespace win32
             
             if (m_p_main_menu.get() != NULL)
             {
-                if (::SetMenu(this->handle(), m_p_main_menu->handle()) == 0)
+                if (::SetMenu(handle(), m_p_main_menu->handle()) == 0)
                 {
                     BOOST_THROW_EXCEPTION(
                         std::runtime_error("Can't set a main menu.")
                     );
                 }
-                if (::DrawMenuBar(this->handle()) == 0)
+                if (::DrawMenuBar(handle()) == 0)
                 {
                     BOOST_THROW_EXCEPTION(
                         std::runtime_error("Can't draw the main menu.")
@@ -347,7 +347,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     break;
                 }
             }
-            return this->base_type::window_procedure(
+            return base_type::window_procedure(
                 uMsg, wParam, lParam, p_default_window_procedure
             );
         }
@@ -367,8 +367,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             check_destroyed();
 
-            const ::BOOL result =
-                ::PostMessageW(this->handle(), WM_CLOSE, 0, 0);
+            const ::BOOL result = ::PostMessageW(handle(), WM_CLOSE, 0, 0);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(

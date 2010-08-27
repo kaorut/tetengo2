@@ -127,23 +127,23 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             check_destroyed();
 
-            assert(this->has_parent());
-            base_type& parent = dynamic_cast<base_type&>(this->parent());
-            parent.set_enabled(false);
-            BOOST_SCOPE_EXIT((&parent))
+            assert(has_parent());
+            base_type& parent_window = dynamic_cast<base_type&>(parent());
+            parent_window.set_enabled(false);
+            BOOST_SCOPE_EXIT((&parent_window))
             {
-                parent.set_enabled(true);
-                parent.activate();
+                parent_window.set_enabled(true);
+                parent_window.activate();
             } BOOST_SCOPE_EXIT_END
 
-            this->window_observer_set().destroyed().connect(
+            window_observer_set().destroyed().connect(
                 boost::bind(quit_message_loop_type(), 0)
             );
-            this->set_visible(true);
+            set_visible(true);
 
             message_loop_type()();
 
-            return this->result();
+            return result();
         }
 
 
@@ -169,29 +169,29 @@ namespace tetengo2 { namespace gui { namespace win32
                         (lo_wparam == IDOK || lo_wparam == IDCANCEL)
                     )
                     {
-                        const ::HWND handle =
+                        const ::HWND window_handle =
                             reinterpret_cast< ::HWND>(lParam);
                         assert(
-                            handle == ::GetDlgItem(this->handle(), lo_wparam)
+                            window_handle == ::GetDlgItem(handle(), lo_wparam)
                         );
-                        if (handle != NULL)
+                        if (window_handle != NULL)
                         {
-                            p_widget_from(handle)->click();
+                            p_widget_from(window_handle)->click();
                         }
                         else
                         {
-                            this->set_result(
+                            set_result(
                                 lo_wparam == IDOK ?
                                 result_accepted : result_canceled
                             );
-                            this->close();
+                            close();
                         }
                         return 0;
                     }
                     break;
                 }
             }
-            return this->base_type::window_procedure(
+            return base_type::window_procedure(
                 uMsg, wParam, lParam, p_default_window_procedure
             );
         }
@@ -381,7 +381,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             check_destroyed();
 
-            const ::BOOL result = ::DestroyWindow(this->handle());
+            const ::BOOL result = ::DestroyWindow(handle());
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(

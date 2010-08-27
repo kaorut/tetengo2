@@ -117,7 +117,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     break;
                 }
             }
-            return this->base_type::window_procedure(
+            return base_type::window_procedure(
                 uMsg, wParam, lParam, m_p_original_window_procedure
             );
         }

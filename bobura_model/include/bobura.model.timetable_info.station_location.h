@@ -149,7 +149,7 @@ namespace bobura { namespace model { namespace timetable_info
 
             \param another Another sation_location.
 
-            \retval true  When this->meterage() <= another.meterage().
+            \retval true  When meterage() <= another.meterage().
             \retval false Otherwise.
         */
         bool before(const station_location& another)
