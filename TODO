@@ -12,11 +12,6 @@ Added on    : 2010/07/25
 Depends on  : (none)
 Description : Use the rvalue references of the C++0x feature.
 ------------------------------------------------------------------------------
-Number      : 00000038
-Added on    : 2010/08/05
-Depends on  : (none)
-Description : Make the widget member functions non-virtual.
-------------------------------------------------------------------------------
 Number      : 00000040
 Added on    : 2010/08/18
 Depends on  : (none)
