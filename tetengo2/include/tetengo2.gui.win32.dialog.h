@@ -95,13 +95,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Sets the result.
 
             \param result A result.
-
-            \throw std::runtime_error When the dialog is already destroyed.
         */
         void set_result(const result_type result)
         {
-            check_destroyed();
-
             m_result = result;
         }
 
@@ -120,13 +116,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Shows the dialog as modal.
 
             \return The result.
-
-            \throw std::runtime_error When the dialog is already destroyed.
         */
         result_type do_modal()
         {
-            check_destroyed();
-
             assert(has_parent());
             base_type& parent_window = dynamic_cast<base_type&>(parent());
             parent_window.set_enabled(false);
@@ -379,8 +371,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
         virtual void close_impl()
         {
-            check_destroyed();
-
             const ::BOOL result = ::DestroyWindow(handle());
             if (result == 0)
             {

@@ -68,14 +68,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Activates the abstract window.
-
-            \throw std::runtime_error When the abstract window is already
-                                      destroyed.
         */
         void activate()
         {
-            check_destroyed();
-
             ::BringWindowToTop(handle());
         }
 
@@ -84,15 +79,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \retval true  When the abstract window has a main menu.
             \retval false Otherwise.
-
-            \throw std::runtime_error When the abstract window is already
-                                      destroyed.
         */
         bool has_main_menu()
         const
         {
-            check_destroyed();
-
             return m_p_main_menu.get() != NULL;
         }
 
@@ -103,14 +93,9 @@ namespace tetengo2 { namespace gui { namespace win32
             undefined.
 
             \return The main menu.
-
-            \throw std::runtime_error When the abstract window is already
-                                      destroyed.
         */
         main_menu_type& main_menu()
         {
-            check_destroyed();
-
             assert(has_main_menu());
 
             return *m_p_main_menu;
@@ -123,15 +108,10 @@ namespace tetengo2 { namespace gui { namespace win32
             undefined.
 
             \return The main menu.
-
-            \throw std::runtime_error When the abstract window is already
-                                      destroyed.
         */
         const main_menu_type& main_menu()
         const
         {
-            check_destroyed();
-
             assert(has_main_menu());
 
             return *m_p_main_menu;
@@ -144,14 +124,9 @@ namespace tetengo2 { namespace gui { namespace win32
             destroyed.
 
             \param p_main_menu An auto pointer to a main menu.
-
-            \throw std::runtime_error When the abstract window is already
-                                      destroyed.
         */
         void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
         {
-            check_destroyed();
-
             if (::SetMenu(handle(), NULL) == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -182,15 +157,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the window observer set.
 
             \return The window observer set.
-
-            \throw std::runtime_error When the abstract window is already
-                                      destroyed.
         */
         const window_observer_set_type& window_observer_set()
         const
         {
-            check_destroyed();
-
             return m_window_observer_set;
         }
 
@@ -198,14 +168,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the window observer set.
 
             \return The window observer set.
-
-            \throw std::runtime_error When the abstract window is already
-                                      destroyed.
         */
         window_observer_set_type& window_observer_set()
         {
-            check_destroyed();
-
             return m_window_observer_set;
         }
 
@@ -365,8 +330,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
         virtual void close_impl()
         {
-            check_destroyed();
-
             const ::BOOL result = ::PostMessageW(handle(), WM_CLOSE, 0, 0);
             if (result == 0)
             {

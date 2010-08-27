@@ -111,7 +111,12 @@ namespace tetengo2 { namespace gui { namespace win32
         handle_type handle()
         const
         {
-            check_destroyed();
+            if (m_destroyed)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("This window is destroyed.")
+                );
+            }
 
             return handle_impl();
         }
@@ -121,14 +126,10 @@ namespace tetengo2 { namespace gui { namespace win32
             
             \retval true  When the widget has a parent.
             \retval false Otherwise.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         bool has_parent()
         const
         {
-            check_destroyed();
-
             return ::GetParent(handle()) != NULL;
         }
 
@@ -137,13 +138,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The parent.
 
-            \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the widget has no parent.
         */
         widget& parent()
         {
-            check_destroyed();
-
             if (!has_parent())
                 BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
@@ -157,14 +155,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The parent.
 
-            \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the widget has no parent.
         */
         const widget& parent()
         const
         {
-            check_destroyed();
-
             if (!has_parent())
                 BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
@@ -178,13 +173,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the root ancestor.
 
             \return The root ancestor.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         widget& root_ancestor()
         {
-            check_destroyed();
-
             const ::HWND root_ancestor_handle =
                 ::GetAncestor(handle(), GA_ROOT);
             assert(root_ancestor_handle != NULL);
@@ -198,14 +189,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the root ancestor.
 
             \return The root ancestor.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         const widget& root_ancestor()
         const
         {
-            check_destroyed();
-
             const ::HWND root_ancestor_handle =
                 ::GetAncestor(handle(), GA_ROOT);
             assert(root_ancestor_handle != NULL);
@@ -219,13 +206,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Sets the enabled status.
 
             \param enabled A enabled status.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         void set_enabled(const bool enabled)
         {
-            check_destroyed();
-
             ::EnableWindow(handle(), enabled ? TRUE : FALSE);
         }
 
@@ -233,14 +216,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the enabled status.
 
             \return The enabled status.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         bool enabled()
         const
         {
-            check_destroyed();
-
             return ::IsWindowEnabled(handle()) == TRUE;
         }
 
@@ -248,13 +227,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Sets the visible status.
 
             \param visible A visible status.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         void set_visible(const bool visible)
         {
-            check_destroyed();
-
             ::ShowWindow(handle(), visible ? SW_SHOW : SW_HIDE);
             if (visible)
                 ::UpdateWindow(handle());
@@ -264,14 +239,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the visible status.
 
             \return The visible status.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         bool visible()
         const
         {
-            check_destroyed();
-
             return ::IsWindowVisible(handle()) == TRUE;
         }
 
@@ -279,13 +250,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates a canvas.
 
             \return The auto pointer to a canvas.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         std::auto_ptr<canvas_type> create_canvas()
         {
-            check_destroyed();
-
             return std::auto_ptr<canvas_type>(
                 new canvas_type(handle(), false)
             );
@@ -295,14 +262,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates a canvas.
 
             \return The auto pointer to a canvas.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         std::auto_ptr<const canvas_type> create_canvas()
         const
         {
-            check_destroyed();
-
             return std::auto_ptr<const canvas_type>(
                 new canvas_type(handle(), false)
             );
@@ -312,13 +275,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Sets the position.
 
             \param position A position.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         void set_position(const position_type& position)
         {
-            check_destroyed();
-
             const dimension_type rectangle = dimension();
 
             const ::BOOL result = ::MoveWindow(
@@ -341,14 +300,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the position.
 
             \return The position.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         position_type position()
         const
         {
-            check_destroyed();
-
             ::RECT rectangle = {0, 0, 0, 0};
             if (::GetWindowRect(handle(), &rectangle) == 0)
             {
@@ -365,14 +320,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param dimension A dimension.
 
-            \throw std::runtime_error When the widget is already destroyed.
             \throw std::invalid_argument When either dimension.first or
                                          dimension.second is equal to 0.
         */
         void set_dimension(const dimension_type& dimension)
         {
-            check_destroyed();
-
             if (dimension.first == 0 || dimension.second == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -402,14 +354,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the dimension.
 
             \return The dimension.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         dimension_type dimension()
         const
         {
-            check_destroyed();
-
             ::RECT rectangle = {0, 0, 0, 0};
             if (::GetWindowRect(handle(), &rectangle) == 0)
             {
@@ -431,7 +379,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param client_dimension A client dimension.
 
-            \throw std::runtime_error When the widget is already destroyed.
             \throw std::invalid_argument When either client_dimension.first or
                                          client_dimension.second is equal to
                                          0.
@@ -440,8 +387,6 @@ namespace tetengo2 { namespace gui { namespace win32
             const dimension_type& client_dimension
         )
         {
-            check_destroyed();
-
             if (client_dimension.first == 0 || client_dimension.second == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -498,14 +443,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the client dimension.
 
             \return The client dimension.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         dimension_type client_dimension()
         const
         {
-            check_destroyed();
-
             ::RECT rectangle = {0, 0, 0, 0};
             if (::GetClientRect(handle(), &rectangle) == 0)
             {
@@ -527,13 +468,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param text A text.
 
-            \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the text cannot be set.
         */
         void set_text(const string_type& text)
         {
-            check_destroyed();
-
             const ::BOOL result = ::SetWindowTextW(
                 handle(), encoder().encode(text).c_str()
             );
@@ -549,14 +487,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Retuns the text.
 
             \return The text.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         string_type text()
         const
         {
-            check_destroyed();
-
             const int length = ::GetWindowTextLengthW(handle());
             if (length == 0) return string_type();
 
@@ -573,13 +507,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param font a font.
 
-            \throw std::runtime_error When the widget is already destroyed.
             \throw std::runtime_error When the font cannot be set.
         */
         void set_font(const font_type& font)
         {
-            check_destroyed();
-
             const ::HFONT previous_font_handle =
                 reinterpret_cast< ::HFONT>(
                     ::SendMessageW(handle(), WM_GETFONT, 0, 0)
@@ -637,14 +568,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Retuns the font.
 
             \return The font.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         font_type font()
         const
         {
-            check_destroyed();
-
             ::HFONT font_handle =
                 reinterpret_cast< ::HFONT>(
                     ::SendMessageW(handle(), WM_GETFONT, 0, 0)
@@ -709,14 +636,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the paint observer set.
 
             \return The paint observer set.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         const paint_observer_set_type& paint_observer_set()
         const
         {
-            check_destroyed();
-
             return m_paint_observer_set;
         }
 
@@ -724,13 +647,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the paint observer set.
 
             \return The paint observer set.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         paint_observer_set_type& paint_observer_set()
         {
-            check_destroyed();
-
             return m_paint_observer_set;
         }
 
@@ -738,14 +657,10 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the mouse observer set.
 
             \return The mouse observer set.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         const mouse_observer_set_type& mouse_observer_set()
         const
         {
-            check_destroyed();
-
             return m_mouse_observer_set;
         }
 
@@ -753,13 +668,9 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Returns the mouse observer set.
 
             \return The mouse observer set.
-
-            \throw std::runtime_error When the widget is already destroyed.
         */
         mouse_observer_set_type& mouse_observer_set()
         {
-            check_destroyed();
-
             return m_mouse_observer_set;
         }
 
@@ -863,28 +774,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // virtual functions
-
-        virtual handle_type handle_impl()
-        const = 0;
-
-
-        // functions
-
-        /*!
-            \brief Checks wether the window is destroyed.
-
-            \throw std::runtime_error When the window is already destroyed.
-        */
-        void check_destroyed()
-        const
-        {
-            if (m_destroyed)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("This window is destroyed.")
-                );
-            }
-        }
 
         /*!
             \brief Dispatches the window messages.
@@ -1044,6 +933,12 @@ namespace tetengo2 { namespace gui { namespace win32
         paint_observer_set_type m_paint_observer_set;
 
         mouse_observer_set_type m_mouse_observer_set;
+
+
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const = 0;
 
 
         // functions
