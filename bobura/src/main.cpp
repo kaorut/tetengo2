@@ -15,6 +15,7 @@
 //#include <vector>
 
 //#include <boost/exception/all.hpp>
+//#define BOOST_FILESYSTEM_VERSION 3
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 //#include <boost/program_options.hpp>
@@ -58,15 +59,14 @@ namespace
             locale_info(locale_id, LOCALE_SENGCOUNTRY);
     }
 
-    template <typename Path>
-    void set_locale(const Path& base_path)
+    void set_locale(const boost::filesystem::path& base_path)
     {
         const std::locale global_locale(
             std::locale(""),
-            new typename boost::mpl::at<
+            new boost::mpl::at<
                 bobura::type_list, bobura::type::messages_facet
             >::type(
-                base_path / TETENGO2_TEXT("messages"),
+                base_path / L"messages",
                 std::locale(ui_locale_name().c_str())
             )
         );
@@ -120,7 +120,7 @@ throw ()
         assert(!command_line_arguments.empty());
 
         set_locale(
-            boost::filesystem::wpath(command_line_arguments[0]).parent_path()
+            boost::filesystem::path(command_line_arguments[0]).parent_path()
         );
 
         return ::run_application(

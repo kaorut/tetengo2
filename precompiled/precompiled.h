@@ -41,6 +41,7 @@
 #include <boost/bind.hpp>
 #include <boost/cast.hpp>
 #include <boost/exception/all.hpp>
+#define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
 #include <boost/function.hpp>
 #include <boost/iterator/iterator_categories.hpp>

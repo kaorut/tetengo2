@@ -21,6 +21,7 @@
 #include <vector>
 
 #include <boost/bind.hpp>
+#define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
@@ -73,7 +74,7 @@ namespace tetengo2
         //! \return The message catalog parser type.
         typedef MessageCatalogParser message_catalog_parser_type;
 
-        //! \return The encoder type.for locale names.
+        //! \return The encoder type for locale names.
         typedef LocaleNameEncoder locale_name_encoder_type;
 
 
@@ -197,19 +198,13 @@ namespace tetengo2
     private:
         // types
 
-        typedef
-            std::map<string_type, typename path_type::string_type>
-            catalog_file_mappings_type;
+        typedef std::map<string_type, string_type> catalog_file_mappings_type;
 
         typedef std::map<string_type, string_type> message_catalog_type;
 
-        typedef
-            boost::filesystem::basic_directory_iterator<path_type>
-            directory_iterator_type;
+        typedef boost::filesystem::directory_iterator directory_iterator_type;
 
-        typedef
-            boost::filesystem::basic_directory_entry<path_type>
-            directory_entry_type;
+        typedef boost::filesystem::directory_entry directory_entry_type;
 
         struct matches_locale_type :
             public std::unary_function<path_type, bool>
@@ -330,7 +325,7 @@ namespace tetengo2
                 path_type(
                     message_catalog_directory /
                     catalog_file_mappings_filename()
-                ).external_file_string().c_str()
+                ).c_str()
             );
             if (!input_stream.is_open())
             {
@@ -353,9 +348,7 @@ namespace tetengo2
             message_catalog_type& message_catalog
         )
         {
-            std::ifstream input_stream(
-                catalog_file.external_file_string().c_str()
-            );
+            std::ifstream input_stream(catalog_file.c_str());
             if (!input_stream.is_open())
             {
                 BOOST_THROW_EXCEPTION(

@@ -13,6 +13,7 @@
 #include <istream>
 //#include <string>
 
+//#define BOOST_FILESYSTEM_VERSION 3
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 //#include <boost/mpl/insert_range.hpp>
@@ -185,7 +186,7 @@ namespace bobura
             boost::mpl::pair<
                 type::messages_facet,
                 tetengo2::messages<
-                    boost::filesystem::wpath,
+                    boost::filesystem::path,
                     detail::locale::message_catalog_parser_type,
                     detail::locale::locale_name_encoder_type
                 >
