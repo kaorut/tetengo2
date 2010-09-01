@@ -11,7 +11,6 @@
 
 #include <algorithm>
 #include <functional>
-#include <fstream>
 #include <ios>
 #include <iterator>
 #include <locale>
@@ -23,6 +22,7 @@
 #include <boost/bind.hpp>
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
@@ -321,11 +321,11 @@ namespace tetengo2
         {
             catalog_file_mappings_type mappings;
 
-            std::ifstream input_stream(
+            boost::filesystem::ifstream input_stream(
                 path_type(
                     message_catalog_directory /
                     catalog_file_mappings_filename()
-                ).c_str()
+                )
             );
             if (!input_stream.is_open())
             {
@@ -348,7 +348,7 @@ namespace tetengo2
             message_catalog_type& message_catalog
         )
         {
-            std::ifstream input_stream(catalog_file.c_str());
+            boost::filesystem::ifstream input_stream(catalog_file);
             if (!input_stream.is_open())
             {
                 BOOST_THROW_EXCEPTION(

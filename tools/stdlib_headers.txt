@@ -118,6 +118,7 @@ BOOST_CHECK_GE                                   boost/test/unit_test.hpp
 BOOST_CHECK_LT                                   boost/test/unit_test.hpp
 BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
+BOOST_FILESYSTEM_VERSION                         boost/filesystem.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
@@ -158,12 +159,12 @@ boost::enable_if                                 boost/utility.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::escaped_list_separator                    boost/tokenizer.hpp
 boost::exception                                 boost/exception/all.hpp
-boost::filesystem::basic_directory_entry         boost/filesystem.hpp
-boost::filesystem::basic_directory_iterator      boost/filesystem.hpp
+boost::filesystem::directory_entry               boost/filesystem.hpp
+boost::filesystem::directory_iterator            boost/filesystem.hpp
 boost::filesystem::exists                        boost/filesystem.hpp
+boost::filesystem::ifstream                      boost/filesystem/fstream.hpp
 boost::filesystem::is_directory                  boost/filesystem.hpp
 boost::filesystem::path                          boost/filesystem.hpp
-boost::filesystem::wpath                         boost/filesystem.hpp
 boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
 boost::function                                  boost/function.hpp
 boost::get_error_info                            boost/exception/all.hpp
@@ -219,7 +220,6 @@ boost::ptr_vector                                boost/ptr_container/ptr_vector.
 boost::replace_all                               boost/algorithm/string.hpp
 boost::scoped_array                              boost/scoped_array.hpp
 boost::signals2::signal                          boost/signals2.hpp
-boost::signals2::trackable                       boost/signals2.hpp
 boost::swap                                      boost/swap.hpp
 boost::throw_file                                boost/exception/all.hpp
 boost::throw_function                            boost/exception/all.hpp
@@ -244,7 +244,6 @@ std::for_each                                    algorithm
 std::getline                                     string
 std::greater                                     functional
 std::has_facet                                   locale
-std::ifstream                                    fstream
 std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
 std::istream                                     istream

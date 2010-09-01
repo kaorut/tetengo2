@@ -17,7 +17,6 @@
 #include <cstring>
 #include <cwchar>
 #include <exception>
-#include <fstream>
 #include <functional>
 #include <iomanip>
 #include <ios>
@@ -43,6 +42,7 @@
 #include <boost/exception/all.hpp>
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <boost/function.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
