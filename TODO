@@ -10,9 +10,29 @@
 Number      : 00000035
 Added on    : 2010/07/25
 Depends on  : (none)
-Description : Use the rvalue references of the C++0x feature.
+Description : Use rvalue references in bobura.
 ------------------------------------------------------------------------------
 Number      : 00000043
+Added on    : 2010/09/04
+Depends on  : (none)
+Description : Use rvalue references in bobura_model.
+------------------------------------------------------------------------------
+Number      : 00000044
+Added on    : 2010/09/04
+Depends on  : (none)
+Description : Use rvalue references in tetengo2.
+------------------------------------------------------------------------------
+Number      : 00000045
+Added on    : 2010/09/04
+Depends on  : (none)
+Description : Introduce noexcept.
+------------------------------------------------------------------------------
+Number      : 00000046
+Added on    : 2010/09/04
+Depends on  : (none)
+Description : Introduce >>.
+------------------------------------------------------------------------------
+Number      : 00000047
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
