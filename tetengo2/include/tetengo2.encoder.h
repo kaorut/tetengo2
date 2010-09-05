@@ -31,8 +31,8 @@ namespace tetengo2
     */
     template <typename InternalEncoding, typename ExternalEncoding>
     class encoder :
-        public assignable<encoder<InternalEncoding, ExternalEncoding> >,
-        public swappable<encoder<InternalEncoding, ExternalEncoding> >,
+        public assignable<encoder<InternalEncoding, ExternalEncoding>>,
+        public swappable<encoder<InternalEncoding, ExternalEncoding>>,
         public boost::equality_comparable<
             encoder<InternalEncoding, ExternalEncoding>
         >

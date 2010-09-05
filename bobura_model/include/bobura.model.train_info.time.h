@@ -33,9 +33,9 @@ namespace bobura { namespace model { namespace train_info
     */
     template <typename TimeTick, typename TimeSpan>
     class time :
-        public tetengo2::assignable<time<TimeTick, TimeSpan> >,
-        private tetengo2::swappable<time<TimeTick, TimeSpan> >,
-        private boost::totally_ordered<time<TimeTick, TimeSpan> >,
+        public tetengo2::assignable<time<TimeTick, TimeSpan>>,
+        private tetengo2::swappable<time<TimeTick, TimeSpan>>,
+        private boost::totally_ordered<time<TimeTick, TimeSpan>>,
         private boost::additive<time<TimeTick, TimeSpan>, TimeSpan>
     {
     public:

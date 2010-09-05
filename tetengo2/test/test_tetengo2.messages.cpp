@@ -176,7 +176,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             {
                 const set_global_locale global_locale(locale_en);
                 const std::messages<char>& messages =
-                    std::use_facet<std::messages<char> >(std::locale());
+                    std::use_facet<std::messages<char>>(std::locale());
                 BOOST_CHECK(
                     dynamic_cast<const messages_type*>(&messages) != NULL
                 );
@@ -197,7 +197,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             {
                 const set_global_locale global_locale(locale_ja);
                 const std::messages<char>& messages =
-                    std::use_facet<std::messages<char> >(std::locale());
+                    std::use_facet<std::messages<char>>(std::locale());
                 BOOST_CHECK(
                     dynamic_cast<const messages_type*>(&messages) != NULL
                 );
@@ -218,7 +218,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             {
                 const set_global_locale global_locale(locale_zh);
                 const std::messages<char>& messages =
-                    std::use_facet<std::messages<char> >(std::locale());
+                    std::use_facet<std::messages<char>>(std::locale());
                 BOOST_CHECK(
                     dynamic_cast<const messages_type*>(&messages) != NULL
                 );
@@ -243,7 +243,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             {
                 const set_global_locale global_locale(locale_en);
                 const std::messages<char>& messages =
-                    std::use_facet<std::messages<char> >(std::locale());
+                    std::use_facet<std::messages<char>>(std::locale());
                 BOOST_CHECK(
                     dynamic_cast<const messages_type*>(&messages) != NULL
                 );
@@ -270,7 +270,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             {
                 const set_global_locale global_locale(locale_ja);
                 const std::messages<char>& messages =
-                    std::use_facet<std::messages<char> >(std::locale());
+                    std::use_facet<std::messages<char>>(std::locale());
                 BOOST_CHECK(
                     dynamic_cast<const messages_type*>(&messages) != NULL
                 );
@@ -297,7 +297,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             {
                 const set_global_locale global_locale(locale_zh);
                 const std::messages<char>& messages =
-                    std::use_facet<std::messages<char> >(std::locale());
+                    std::use_facet<std::messages<char>>(std::locale());
                 BOOST_CHECK(
                     dynamic_cast<const messages_type*>(&messages) != NULL
                 );
@@ -325,7 +325,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             {
                 const set_global_locale global_locale(locale_en);
                 const std::messages<char>& messages =
-                    std::use_facet<std::messages<char> >(std::locale());
+                    std::use_facet<std::messages<char>>(std::locale());
                 BOOST_CHECK(
                     dynamic_cast<const messages_type*>(&messages) != NULL
                 );
@@ -348,7 +348,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             {
                 const set_global_locale global_locale(locale_ja);
                 const std::messages<char>& messages =
-                    std::use_facet<std::messages<char> >(std::locale());
+                    std::use_facet<std::messages<char>>(std::locale());
                 BOOST_CHECK(
                     dynamic_cast<const messages_type*>(&messages) != NULL
                 );
@@ -371,7 +371,7 @@ BOOST_AUTO_TEST_SUITE(messages)
             {
                 const set_global_locale global_locale(locale_zh);
                 const std::messages<char>& messages =
-                    std::use_facet<std::messages<char> >(std::locale());
+                    std::use_facet<std::messages<char>>(std::locale());
                 BOOST_CHECK(
                     dynamic_cast<const messages_type*>(&messages) != NULL
                 );

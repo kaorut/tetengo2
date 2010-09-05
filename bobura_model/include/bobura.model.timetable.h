@@ -34,9 +34,9 @@ namespace bobura { namespace model
     */
     template <typename StationLocation, typename Train>
     class timetable :
-        public tetengo2::assignable<timetable<StationLocation, Train> >,
-        private tetengo2::swappable<timetable<StationLocation, Train> >,
-        private boost::equality_comparable<timetable<StationLocation, Train> >
+        public tetengo2::assignable<timetable<StationLocation, Train>>,
+        private tetengo2::swappable<timetable<StationLocation, Train>>,
+        private boost::equality_comparable<timetable<StationLocation, Train>>
     {
     public:
         // types

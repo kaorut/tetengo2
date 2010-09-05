@@ -39,13 +39,13 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::command, boost::function<void ()> >,
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::about, about<AboutDialog> >,
+                boost::mpl::pair<type::about, about<AboutDialog>>,
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::exit, exit<Window> >,
+                boost::mpl::pair<type::exit, exit<Window>>,
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::nop, nop >,
+                boost::mpl::pair<type::nop, nop>,
             tetengo2::meta::assoc_list_end
-            > > > >
+            >>>>
             type;
                 
 

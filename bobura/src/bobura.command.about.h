@@ -24,8 +24,8 @@ namespace bobura { namespace command
     */
     template <typename AboutDialog>
     class about :
-        public tetengo2::assignable<about<AboutDialog> >,
-        private tetengo2::swappable<about<AboutDialog> >
+        public tetengo2::assignable<about<AboutDialog>>,
+        private tetengo2::swappable<about<AboutDialog>>
     {
     public:
         // types

@@ -95,7 +95,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::string, std::wstring>,
         tetengo2::meta::assoc_list_end
-        > > >
+        >>>
         common_type_list;
 
 
@@ -192,7 +192,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        > > > > > >
+        >>>>>>
         locale_type_list;
 
 
@@ -348,7 +348,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list_end
-        > > > > > > > > > > >
+        >>>>>>>>>>>
         ui_type_list;
 
 
@@ -470,7 +470,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        > >
+        >>
         bobura_type_list;
 
 

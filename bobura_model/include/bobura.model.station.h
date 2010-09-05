@@ -29,9 +29,9 @@ namespace bobura { namespace model
     */
     template <typename Name, typename Grade>
     class station :
-        public tetengo2::assignable<station<Name, Grade> >,
-        private tetengo2::swappable<station<Name, Grade> >,
-        private boost::equality_comparable<station<Name, Grade> >
+        public tetengo2::assignable<station<Name, Grade>>,
+        private tetengo2::swappable<station<Name, Grade>>,
+        private boost::equality_comparable<station<Name, Grade>>
     {
     public:
         // types

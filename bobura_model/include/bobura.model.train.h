@@ -30,9 +30,9 @@ namespace bobura { namespace model
     */
     template <typename Number, typename Note, typename Stop>
     class train :
-        public tetengo2::assignable<train<Number, Note, Stop> >,
-        private tetengo2::swappable<train<Number, Note, Stop> >,
-        private boost::equality_comparable<train<Number, Note, Stop> >
+        public tetengo2::assignable<train<Number, Note, Stop>>,
+        private tetengo2::swappable<train<Number, Note, Stop>>,
+        private boost::equality_comparable<train<Number, Note, Stop>>
     {
     public:
         // types

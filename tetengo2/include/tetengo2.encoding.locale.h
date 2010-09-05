@@ -39,9 +39,9 @@ namespace tetengo2 { namespace encoding
     template <typename String>
     class locale :
         public encoding,
-        public assignable<locale<String> >,
-        private swappable<locale<String> >,
-        private boost::equality_comparable<locale<String> >
+        public assignable<locale<String>>,
+        private swappable<locale<String>>,
+        private boost::equality_comparable<locale<String>>
     {
     public:
         // types

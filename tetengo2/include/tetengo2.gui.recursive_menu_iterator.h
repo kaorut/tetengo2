@@ -35,7 +35,7 @@ namespace tetengo2 { namespace gui
         public boost::iterator_facade<
             recursive_menu_iterator<Menu>, Menu, boost::forward_traversal_tag
         >,
-        public assignable<recursive_menu_iterator<Menu> >
+        public assignable<recursive_menu_iterator<Menu>>
     {
     public:
         // types

@@ -26,9 +26,9 @@ namespace bobura { namespace model { namespace train_info
     */
     template <typename Time, typename Platform>
     class stop :
-        public tetengo2::assignable<stop<Time, Platform> >,
-        private tetengo2::swappable<stop<Time, Platform> >,
-        private boost::equality_comparable<stop<Time, Platform> >
+        public tetengo2::assignable<stop<Time, Platform>>,
+        private tetengo2::swappable<stop<Time, Platform>>,
+        private boost::equality_comparable<stop<Time, Platform>>
     {
     public:
         // types

@@ -256,7 +256,7 @@ namespace tetengo2 { namespace meta
         };
 
         template <typename Element, typename Next>
-        struct assoc_list_reverse<assoc_list<Element, Next> >
+        struct assoc_list_reverse<assoc_list<Element, Next>>
         {
             typedef
                 typename assoc_list_erase_key<
@@ -279,7 +279,7 @@ namespace boost { namespace mpl
     // boost::mpl::deref
 
     template <typename Element, typename Next>
-    struct deref<tetengo2::meta::assoc_list<Element, Next> >
+    struct deref<tetengo2::meta::assoc_list<Element, Next>>
     {
         typedef Element type;
     };

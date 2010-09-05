@@ -23,9 +23,9 @@ namespace stub_tetengo2 { namespace gui
 {
     template <typename String, typename Size>
     class font :
-        public tetengo2::assignable<font<String, Size> >,
-        private tetengo2::swappable<font<String, Size> >,
-        private boost::equality_comparable<font<String, Size> >
+        public tetengo2::assignable<font<String, Size>>,
+        private tetengo2::swappable<font<String, Size>>,
+        private boost::equality_comparable<font<String, Size>>
     {
     public:
         // types

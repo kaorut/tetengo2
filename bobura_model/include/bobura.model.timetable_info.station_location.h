@@ -26,8 +26,8 @@ namespace bobura { namespace model { namespace timetable_info
     */
     template <typename Station, typename Meterage>
     class station_location :
-        public tetengo2::assignable<station_location<Station, Meterage> >,
-        private tetengo2::swappable<station_location<Station, Meterage> >,
+        public tetengo2::assignable<station_location<Station, Meterage>>,
+        private tetengo2::swappable<station_location<Station, Meterage>>,
         private boost::equality_comparable<
             station_location<Station, Meterage>
         >

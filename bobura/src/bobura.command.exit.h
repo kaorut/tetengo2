@@ -24,8 +24,8 @@ namespace bobura { namespace command
     */
     template <typename Window>
     class exit :
-        public tetengo2::assignable<exit<Window> >,
-        private tetengo2::swappable<exit<Window> >
+        public tetengo2::assignable<exit<Window>>,
+        private tetengo2::swappable<exit<Window>>
     {
     public:
         // types

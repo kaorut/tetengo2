@@ -24,7 +24,7 @@ namespace tetengo2
     */
     template <typename Multibyte, typename Wide>
     class text_value_holder :
-        public assignable<text_value_holder<Multibyte, Wide> >
+        public assignable<text_value_holder<Multibyte, Wide>>
     {
     public:
         // types

@@ -46,9 +46,9 @@ namespace tetengo2 { namespace gui { namespace win32
    */
     template <typename String, typename Size>
     class font :
-        public assignable<font<String, Size> >,
-        private swappable<font<String, Size> >,
-        private boost::equality_comparable<font<String, Size> >
+        public assignable<font<String, Size>>,
+        private swappable<font<String, Size>>,
+        private boost::equality_comparable<font<String, Size>>
     {
     public:
         // types
