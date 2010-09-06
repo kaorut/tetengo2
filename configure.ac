@@ -55,7 +55,7 @@ test -z $DOXYGEN && \
     AC_MSG_WARN([You cannot generate documentation for lack of Doxygen.])
 
 #### Checks for libraries ####
-AX_BOOST_BASE([1.43]) 
+AX_BOOST_BASE([1.44]) 
 AX_BOOST_FILESYSTEM
 AX_BOOST_PROGRAM_OPTIONS
 AX_BOOST_SYSTEM
