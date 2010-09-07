@@ -4,6 +4,7 @@
 
 headers = \
     tetengo2.assignable.h \
+    tetengo2.cpp0x_keyword.h \
     tetengo2.encoder.h \
     tetengo2.generator.h \
     tetengo2.message_catalog.h \

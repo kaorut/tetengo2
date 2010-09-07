@@ -123,6 +123,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.assignable.h" />
+    <ClInclude Include="include\tetengo2.cpp0x_keyword.h" />
     <ClInclude Include="include\tetengo2.encoder.h" />
     <ClInclude Include="include\tetengo2.encoding.ascii.h" />
     <ClInclude Include="include\tetengo2.encoding.encoding.h" />
