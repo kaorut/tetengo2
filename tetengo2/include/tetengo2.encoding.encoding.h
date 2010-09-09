@@ -11,6 +11,8 @@
 
 #include <string>
 
+#include "tetengo2.cpp0x_keyword.h"
+
 
 namespace tetengo2 { namespace encoding
 {
@@ -35,7 +37,7 @@ namespace tetengo2 { namespace encoding
             \brief Destroys the encoding based on a encoding.
         */
         ~encoding()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

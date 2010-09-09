@@ -12,6 +12,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
+#include "tetengo2.cpp0x_keyword.h"
+
 
 namespace tetengo2 { namespace gui
 {
@@ -46,7 +48,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the mouse observer set.
         */
         ~mouse_observer_set()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

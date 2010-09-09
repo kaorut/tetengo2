@@ -16,6 +16,7 @@
 #include <boost/iterator/transform_iterator.hpp>
 
 #include "tetengo2.assignable.h"
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.swappable.h"
 #include "tetengo2.encoding.encoding.h"
 
@@ -61,7 +62,7 @@ namespace tetengo2 { namespace encoding
             \brief Destroys the ASCII encoding.
         */
         ~ascii()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -73,7 +74,7 @@ namespace tetengo2 { namespace encoding
             \param another Another ASCII encoding.
         */
         void swap(ascii& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
         /*!

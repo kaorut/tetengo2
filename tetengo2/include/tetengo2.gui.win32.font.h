@@ -33,6 +33,7 @@
 #undef max
 
 #include "tetengo2.assignable.h"
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.swappable.h"
 
 
@@ -139,7 +140,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the font.
         */
         virtual ~font()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -151,7 +152,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \param another Another font.
         */
         void swap(font& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(m_family, another.m_family);
             boost::swap(m_size, another.m_size);

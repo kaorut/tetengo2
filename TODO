@@ -22,11 +22,6 @@ Added on    : 2010/09/04
 Depends on  : (none)
 Description : Use rvalue references in tetengo2.
 ------------------------------------------------------------------------------
-Number      : 00000045
-Added on    : 2010/09/04
-Depends on  : (none)
-Description : Introduce noexcept.
-------------------------------------------------------------------------------
 Number      : 00000047
 Added on    : 2010/09/07
 Depends on  : (none)

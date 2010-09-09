@@ -16,6 +16,7 @@
 //#define OEMRESOURCE
 //#include <windows.h>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.win32.menu.h"
 
 
@@ -55,7 +56,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the menu separator.
         */
         virtual ~menu_separator()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

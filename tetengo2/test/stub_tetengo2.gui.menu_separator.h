@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_MENUSEPARATOR_H
 
 #include "stub_tetengo2.gui.menu.h"
+#include "tetengo2.cpp0x_keyword.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -34,7 +35,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~menu_separator()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

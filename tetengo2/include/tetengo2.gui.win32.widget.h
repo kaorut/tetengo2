@@ -28,6 +28,8 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.cpp0x_keyword.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -95,7 +97,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the widget.
         */
         virtual ~widget()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -876,7 +878,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::WPARAM wParam,
             const ::LPARAM lParam
         )
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             try
             {

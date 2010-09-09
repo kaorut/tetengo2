@@ -23,6 +23,7 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
@@ -79,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the menu.
         */
         virtual ~menu()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

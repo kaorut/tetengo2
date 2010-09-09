@@ -14,6 +14,7 @@
 
 #include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.text.h>
 
 #include "bobura.message.type_list.h"
@@ -71,7 +72,7 @@ namespace bobura
             \brief Destroys the about dialog.
         */
         virtual ~about_dialog()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

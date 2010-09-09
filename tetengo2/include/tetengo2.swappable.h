@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_SWAPPABLE_H)
 #define TETENGO2_SWAPPABLE_H
 
+#include "tetengo2.cpp0x_keyword.h"
+
 
 namespace tetengo2
 {
@@ -30,7 +32,7 @@ namespace tetengo2
             \param object2 An object #2.
         */
         friend void swap(Derived& object1, Derived& object2)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             object1.swap(object2);
         }

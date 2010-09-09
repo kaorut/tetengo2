@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_ASSIGNABLE_H)
 #define TETENGO2_ASSIGNABLE_H
 
+#include "tetengo2.cpp0x_keyword.h"
+
 
 namespace tetengo2
 {
@@ -33,7 +35,7 @@ namespace tetengo2
             \brief Destroys the assignable.
         */
         ~assignable()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

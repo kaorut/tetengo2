@@ -11,6 +11,7 @@
 
 #include <boost/noncopyable.hpp>
 
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.text.h>
 
 
@@ -37,7 +38,7 @@ namespace bobura { namespace model { namespace station_info
             \brief Destroys the grade.
         */
         virtual ~grade()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -111,7 +112,7 @@ namespace bobura { namespace model { namespace station_info
             \brief Destroys the local.
         */
         virtual ~local()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -172,7 +173,7 @@ namespace bobura { namespace model { namespace station_info
             \brief Destroys the principal.
         */
         virtual ~principal()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -233,7 +234,7 @@ namespace bobura { namespace model { namespace station_info
             \brief Destroys the local terminal.
         */
         virtual ~local_terminal()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -294,7 +295,7 @@ namespace bobura { namespace model { namespace station_info
             \brief Destroys the principal terminal.
         */
         virtual ~principal_terminal()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

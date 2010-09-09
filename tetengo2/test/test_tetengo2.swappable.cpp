@@ -9,6 +9,7 @@
 #include <boost/swap.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.swappable.h"
 
 
@@ -26,7 +27,7 @@ namespace
         {}
 
         void swap(test_class& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             const int temp = m_value;
             m_value = another.m_value;

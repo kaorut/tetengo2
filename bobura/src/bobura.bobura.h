@@ -11,6 +11,8 @@
 
 #include <boost/noncopyable.hpp>
 
+#include <tetengo2.cpp0x_keyword.h>
+
 
 namespace bobura
 {
@@ -68,7 +70,7 @@ namespace bobura
             \brief Destroys the bobura application.
         */
         ~bobura()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

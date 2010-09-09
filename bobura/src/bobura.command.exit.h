@@ -12,6 +12,7 @@
 #include <boost/swap.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.swappable.h>
 
 
@@ -60,7 +61,7 @@ namespace bobura { namespace command
             \brief Destroys the exit command.
         */
         ~exit()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -72,7 +73,7 @@ namespace bobura { namespace command
             \param another Another exit command.
         */
         void swap(exit& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(m_p_window, another.m_p_window);
         }

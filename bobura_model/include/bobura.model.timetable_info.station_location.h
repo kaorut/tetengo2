@@ -13,6 +13,7 @@
 #include <boost/swap.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.swappable.h>
 
 
@@ -74,7 +75,7 @@ namespace bobura { namespace model { namespace timetable_info
             \brief Destroys the station location.
         */
         ~station_location()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -86,7 +87,7 @@ namespace bobura { namespace model { namespace timetable_info
             \param another Another station location.
         */
         void swap(station_location& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(m_station, another.m_station);
             boost::swap(m_meterage, another.m_meterage);

@@ -16,6 +16,8 @@
 
 #include <boost/exception/all.hpp>
 
+#include "tetengo2.cpp0x_keyword.h"
+
 
 namespace stub_tetengo2 { namespace gui
 {
@@ -39,7 +41,7 @@ namespace stub_tetengo2 { namespace gui
         // constructors
 
         alert(const window_handle_type window_handle = NULL)
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -47,7 +49,7 @@ namespace stub_tetengo2 { namespace gui
 
         void operator()(const boost::exception& exception)
         const
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
         void operator()(
@@ -55,7 +57,7 @@ namespace stub_tetengo2 { namespace gui
                 std::runtime_error("Unknown Error!")
         )
         const
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

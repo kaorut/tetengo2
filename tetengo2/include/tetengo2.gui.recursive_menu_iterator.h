@@ -21,6 +21,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 
 #include "tetengo2.assignable.h"
+#include "tetengo2.cpp0x_keyword.h"
 
 
 namespace tetengo2 { namespace gui
@@ -89,7 +90,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the recursive menu iterator.
         */
         ~recursive_menu_iterator()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -101,7 +102,7 @@ namespace tetengo2 { namespace gui
             \param another Another recursive menu iterator.
         */
         void swap(recursive_menu_iterator& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(m_p_menu, another.m_p_menu);
             boost::swap(m_parents, another.m_parents);

@@ -21,6 +21,7 @@
 #include <boost/utility.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.swappable.h>
 
 
@@ -100,7 +101,7 @@ namespace bobura { namespace model
             \brief Destroys the timetable.
         */
         ~timetable()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -112,7 +113,7 @@ namespace bobura { namespace model
             \param another Another timetable.
         */
         void swap(timetable& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(m_station_locations, another.m_station_locations);
             boost::swap(m_trains, another.m_trains);

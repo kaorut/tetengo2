@@ -20,6 +20,7 @@
 //#define OEMRESOURCE
 //#include <windows.h>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.win32.abstract_popup_menu.h"
 
 
@@ -57,7 +58,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the main menu.
         */
         virtual ~main_menu()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

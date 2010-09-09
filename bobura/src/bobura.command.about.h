@@ -12,6 +12,7 @@
 #include <boost/swap.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.swappable.h>
 
 
@@ -65,7 +66,7 @@ namespace bobura { namespace command
             \brief Destroys the about command.
         */
         ~about()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -77,7 +78,7 @@ namespace bobura { namespace command
             \param another Another about command.
         */
         void swap(about& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(m_p_parent, another.m_p_parent);
         }

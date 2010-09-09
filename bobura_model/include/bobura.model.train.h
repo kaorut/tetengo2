@@ -16,6 +16,7 @@
 #include <boost/swap.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.swappable.h>
 
 
@@ -104,7 +105,7 @@ namespace bobura { namespace model
             \brief Destroys the train.
         */
         ~train()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -116,7 +117,7 @@ namespace bobura { namespace model
             \param another Another train.
         */
         void swap(train& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(m_number, another.m_number);
             boost::swap(m_note, another.m_note);

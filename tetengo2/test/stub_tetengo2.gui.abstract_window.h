@@ -12,6 +12,7 @@
 //#include <memory>
 
 #include "stub_tetengo2.gui.widget.h"
+#include "tetengo2.cpp0x_keyword.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -36,7 +37,7 @@ namespace stub_tetengo2 { namespace gui
         // constructors and destructor
 
         virtual ~abstract_window()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

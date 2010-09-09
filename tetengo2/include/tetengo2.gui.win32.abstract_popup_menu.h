@@ -25,6 +25,7 @@
 //#define OEMRESOURCE
 //#include <windows.h>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.win32.menu.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
@@ -55,7 +56,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the abstract_popup_menu.
         */
         virtual ~abstract_popup_menu()
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             if (::IsMenu(m_handle) != 0)
                 ::DestroyMenu(m_handle);

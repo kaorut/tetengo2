@@ -14,6 +14,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/program_options.hpp>
 
+#include <tetengo2.cpp0x_keyword.h>
+
 
 namespace bobura
 {
@@ -75,7 +77,7 @@ namespace bobura
             \brief Destroys the settings.
         */
         ~settings()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

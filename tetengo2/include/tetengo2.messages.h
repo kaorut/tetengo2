@@ -27,6 +27,7 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.text.h"
 
 
@@ -99,7 +100,7 @@ namespace tetengo2
             \brief Destroys the messages facet.
         */
         virtual ~messages()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

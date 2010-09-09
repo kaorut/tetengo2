@@ -31,6 +31,8 @@
 #undef min
 #undef max
 
+#include "tetengo2.cpp0x_keyword.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -118,7 +120,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the canvas.
         */
         ~canvas()
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             if (m_on_paint)
                 ::EndPaint(m_window_handle, m_p_paint_info.get());

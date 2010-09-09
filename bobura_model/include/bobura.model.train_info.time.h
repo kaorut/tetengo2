@@ -20,6 +20,7 @@
 #include <boost/tuple/tuple_comparison.hpp>
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.swappable.h>
 
 
@@ -123,7 +124,7 @@ namespace bobura { namespace model { namespace train_info
             \brief Destroys the time.
         */
         ~time()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -135,7 +136,7 @@ namespace bobura { namespace model { namespace train_info
             \param another Another time.
         */
         void swap(time& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(
                 m_seconds_from_midnight, another.m_seconds_from_midnight

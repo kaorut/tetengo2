@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_BUTTON_H
 
 #include "stub_tetengo2.gui.widget.h"
+#include "tetengo2.cpp0x_keyword.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -41,7 +42,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~button()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

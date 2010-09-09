@@ -14,6 +14,7 @@
 #include <boost/bind.hpp>
 #include <boost/mpl/at.hpp>
 
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.text.h>
 
 #include "bobura.command.type_list.h"
@@ -85,7 +86,7 @@ namespace bobura
             \brief Destroys the main window.
         */
         virtual ~main_window()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

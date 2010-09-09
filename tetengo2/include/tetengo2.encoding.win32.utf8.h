@@ -21,6 +21,7 @@
 #include <windows.h>
 
 #include "tetengo2.assignable.h"
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.swappable.h"
 #include "tetengo2.encoding.encoding.h"
 
@@ -66,7 +67,7 @@ namespace tetengo2 { namespace encoding { namespace win32
             \brief Destroys the UTF-8 encoding.
         */
         ~utf8()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -78,7 +79,7 @@ namespace tetengo2 { namespace encoding { namespace win32
             \param another Another UTF-8 encoding.
         */
         void swap(utf8& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
         /*!

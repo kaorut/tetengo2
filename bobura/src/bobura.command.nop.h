@@ -10,6 +10,7 @@
 #define BOBURA_COMMAND_NOP_H
 
 #include <tetengo2.assignable.h>
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.swappable.h>
 
 
@@ -43,7 +44,7 @@ namespace bobura { namespace command
             \brief Destroys the no-operation command.
         */
         ~nop()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -55,7 +56,7 @@ namespace bobura { namespace command
             \param another Another nop command.
         */
         void swap(nop& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
         /*!

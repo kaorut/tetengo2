@@ -14,6 +14,7 @@
 //#include <boost/ptr_container/ptr_vector.hpp>
 
 #include "stub_tetengo2.gui.menu.h"
+#include "tetengo2.cpp0x_keyword.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -32,7 +33,7 @@ namespace stub_tetengo2 { namespace gui
         // constructors and destructor
 
         virtual ~abstract_popup_menu()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

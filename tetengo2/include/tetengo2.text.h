@@ -12,6 +12,7 @@
 #include <boost/swap.hpp>
 
 #include "tetengo2.assignable.h"
+#include "tetengo2.cpp0x_keyword.h"
 
 
 namespace tetengo2
@@ -68,7 +69,7 @@ namespace tetengo2
             \brief Destroys the text value holder.
         */
         ~text_value_holder()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -80,7 +81,7 @@ namespace tetengo2
             \param another Another text value holder.
         */
         void swap(text_value_holder& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(m_multibyte, another.m_multibyte);
             boost::swap(m_wide, another.m_wide);

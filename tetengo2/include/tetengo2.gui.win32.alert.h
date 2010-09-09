@@ -25,6 +25,7 @@
 #include <windows.h>
 #include <commctrl.h>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.text.h"
 
 
@@ -67,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \param window_handle     A window handle.
         */
         explicit alert(const window_handle_type window_handle = NULL)
-        throw ()
+        TETENGO2_NOEXCEPT
         :
         m_window_handle(actual_parent_window_handle(window_handle))
         {}
@@ -82,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void operator()(const boost::exception& exception)
         const
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             try
             {
@@ -142,7 +143,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 std::runtime_error("Unknown Error!")
         )
         const
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             try
             {

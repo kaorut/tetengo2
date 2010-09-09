@@ -17,6 +17,7 @@
 //#include <boost/utility.hpp>
 
 #include "tetengo2.assignable.h"
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.swappable.h"
 #include "tetengo2.encoding.locale.h"
 
@@ -89,7 +90,7 @@ namespace tetengo2
             \brief Destroys the encoder.
         */
         ~encoder()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 
@@ -101,7 +102,7 @@ namespace tetengo2
             \param another Another encoder.
         */
         void swap(encoder& another)
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             boost::swap(m_internal_encoding, another.m_internal_encoding);
             boost::swap(m_external_encoding, another.m_external_encoding);

@@ -26,7 +26,8 @@
 //#define OEMRESOURCE
 //#include <windows.h>
 
-//#include <tetengo2.text.h>
+#include <tetengo2.cpp0x_keyword.h>
+#include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
 
@@ -111,7 +112,7 @@ int WINAPI wWinMain(
     const ::LPWSTR    lpCmdLine,
     const int         nCmdShow
 )
-throw ()
+TETENGO2_NOEXCEPT
 {
     try
     {

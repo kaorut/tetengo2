@@ -18,6 +18,7 @@
 #include <boost/throw_exception.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
@@ -59,7 +60,7 @@ namespace stub_tetengo2 { namespace gui
         // constructors and destructor
 
         virtual ~menu()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

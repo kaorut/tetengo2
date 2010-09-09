@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_WINDOW_H
 
 #include "stub_tetengo2.gui.abstract_window.h"
+#include "tetengo2.cpp0x_keyword.h"
 
 
 namespace stub_tetengo2 { namespace gui
@@ -38,7 +39,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~window()
-        throw ()
+        TETENGO2_NOEXCEPT
         {}
 
 

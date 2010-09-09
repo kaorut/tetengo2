@@ -29,6 +29,8 @@
 #undef min
 #undef max
 
+#include "tetengo2.cpp0x_keyword.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -57,7 +59,7 @@ namespace tetengo2 { namespace gui { namespace win32
                    management.
         */
         ~gui_initializer_finalizer()
-        throw ()
+        TETENGO2_NOEXCEPT
         {
             Gdiplus::GdiplusShutdown(m_gdiplus_token);
         }
