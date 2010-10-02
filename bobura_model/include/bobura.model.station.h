@@ -13,11 +13,6 @@
 #include <cstddef>
 
 #include <boost/operators.hpp>
-#include <boost/swap.hpp>
-
-#include <tetengo2.assignable.h>
-#include <tetengo2.cpp0x_keyword.h>
-#include <tetengo2.swappable.h>
 
 
 namespace bobura { namespace model
@@ -29,10 +24,7 @@ namespace bobura { namespace model
         \tparam Grade A grade type.
     */
     template <typename Name, typename Grade>
-    class station :
-        public tetengo2::assignable<station<Name, Grade>>,
-        private tetengo2::swappable<station<Name, Grade>>,
-        private boost::equality_comparable<station<Name, Grade>>
+    class station : private boost::equality_comparable<station<Name, Grade>>
     {
     public:
         // types
@@ -58,52 +50,8 @@ namespace bobura { namespace model
         m_p_grade(&grade)
         {}
 
-        /*!
-            \brief Copies a station.
-
-            \param another Another station.
-        */
-        station(const station& another)
-        :
-        m_name(another.m_name),
-        m_p_grade(another.m_p_grade)
-        {
-            assert(another.m_p_grade != NULL);
-        }
-
-        /*!
-            \brief Destroys the station.
-        */
-        ~station()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another station.
-
-            \param another Another station.
-        */
-        void swap(station& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_name, another.m_name);
-            boost::swap(m_p_grade, another.m_p_grade);
-        }
-
-        /*!
-            \brief Assigns another station.
-
-            \param another Another station.
-
-            \return This object.
-        */
-        station& operator=(const station& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether one station is equal to anther.

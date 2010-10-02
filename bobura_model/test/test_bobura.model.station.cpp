@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include <boost/swap.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.model.station_info.grade.h"
@@ -128,7 +129,7 @@ BOOST_AUTO_TEST_SUITE(station)
             L"B", principal_type::instance()
         );
 
-        station1.swap(station2);
+        boost::swap(station1, station2);
 
         BOOST_CHECK(station1.name() == std::wstring(L"B"));
         BOOST_CHECK_EQUAL(&station1.grade(), &principal_type::instance());

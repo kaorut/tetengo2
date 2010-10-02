@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             station_locations2.begin(), station_locations2.end()
         );
 
-        timetable1.swap(timetable2);
+        boost::swap(timetable1, timetable2);
 
         BOOST_CHECK(timetable1.station_locations() == station_locations2);
         BOOST_CHECK(timetable2.station_locations() == station_locations1);

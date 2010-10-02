@@ -20,9 +20,7 @@
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
-#include <tetengo2.assignable.h>
 #include <tetengo2.cpp0x_keyword.h>
-#include <tetengo2.swappable.h>
 
 
 namespace bobura { namespace model
@@ -35,8 +33,6 @@ namespace bobura { namespace model
     */
     template <typename StationLocation, typename Train>
     class timetable :
-        public tetengo2::assignable<timetable<StationLocation, Train>>,
-        private tetengo2::swappable<timetable<StationLocation, Train>>,
         private boost::equality_comparable<timetable<StationLocation, Train>>
     {
     public:
@@ -86,50 +82,8 @@ namespace bobura { namespace model
         m_trains()
         {}
 
-        /*!
-            \brief Copies a timetable.
-
-            \param another Another timetable.
-        */
-        timetable(const timetable& another)
-        :
-        m_station_locations(another.m_station_locations),
-        m_trains(another.m_trains)
-        {}
-
-        /*!
-            \brief Destroys the timetable.
-        */
-        ~timetable()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another timetable.
-
-            \param another Another timetable.
-        */
-        void swap(timetable& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_station_locations, another.m_station_locations);
-            boost::swap(m_trains, another.m_trains);
-        }
-
-        /*!
-            \brief Assigns another timetable.
-
-            \param another Another timetable.
-
-            \return This object.
-        */
-        timetable& operator=(const timetable& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether this is equal to anther timetable.
