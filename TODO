@@ -28,12 +28,6 @@ Depends on  : (none)
 Description : Remove the copy constructor, the destructor, the swap function,
               the assign operator in bobura.
 ------------------------------------------------------------------------------
-Number      : 00000049
-Added on    : 2010/10/02
-Depends on  : (none)
-Description : Remove the copy constructor, the destructor, the swap function,
-              the assign operator in bobura_model.
-------------------------------------------------------------------------------
 Number      : 00000050
 Added on    : 2010/10/02
 Depends on  : (none)
