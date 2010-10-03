@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_SUITE(station_location)
             station_type(L"B", local_type::instance()), 2
         );
 
-        station_location1.swap(station_location2);
+        boost::swap(station_location1, station_location2);
 
         BOOST_CHECK(station_location1.station().name() == L"B");
         BOOST_CHECK_EQUAL(station_location1.meterage(), 2U);

@@ -19,9 +19,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 
-#include <tetengo2.assignable.h>
 #include <tetengo2.cpp0x_keyword.h>
-#include <tetengo2.swappable.h>
 
 
 namespace bobura { namespace model { namespace train_info
@@ -34,8 +32,6 @@ namespace bobura { namespace model { namespace train_info
     */
     template <typename TimeTick, typename TimeSpan>
     class time :
-        public tetengo2::assignable<time<TimeTick, TimeSpan>>,
-        private tetengo2::swappable<time<TimeTick, TimeSpan>>,
         private boost::totally_ordered<time<TimeTick, TimeSpan>>,
         private boost::additive<time<TimeTick, TimeSpan>, TimeSpan>
     {
@@ -110,50 +106,8 @@ namespace bobura { namespace model { namespace train_info
         )
         {}
 
-        /*!
-            \brief Copies a time.
-
-            \param another Another time.
-        */
-        time(const time& another)
-        :
-        m_seconds_from_midnight(another.m_seconds_from_midnight)
-        {}
-
-        /*!
-            \brief Destroys the time.
-        */
-        ~time()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another time.
-
-            \param another Another time.
-        */
-        void swap(time& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(
-                m_seconds_from_midnight, another.m_seconds_from_midnight
-            );
-        }
-
-        /*!
-            \brief Assigns another time.
-
-            \param another Another time.
-
-            \return This object.
-        */
-        time& operator=(const time& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Adds a time span.

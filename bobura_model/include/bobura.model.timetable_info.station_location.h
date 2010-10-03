@@ -12,9 +12,7 @@
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
-#include <tetengo2.assignable.h>
 #include <tetengo2.cpp0x_keyword.h>
-#include <tetengo2.swappable.h>
 
 
 namespace bobura { namespace model { namespace timetable_info
@@ -27,8 +25,6 @@ namespace bobura { namespace model { namespace timetable_info
     */
     template <typename Station, typename Meterage>
     class station_location :
-        public tetengo2::assignable<station_location<Station, Meterage>>,
-        private tetengo2::swappable<station_location<Station, Meterage>>,
         private boost::equality_comparable<
             station_location<Station, Meterage>
         >
@@ -60,50 +56,8 @@ namespace bobura { namespace model { namespace timetable_info
         m_meterage(meterage)
         {}
 
-        /*!
-            \brief Copies a station location.
-
-            \param another Another station location.
-        */
-        station_location(const station_location& another)
-        :
-        m_station(another.m_station),
-        m_meterage(another.m_meterage)
-        {}
-
-        /*!
-            \brief Destroys the station location.
-        */
-        ~station_location()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another station location.
-
-            \param another Another station location.
-        */
-        void swap(station_location& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_station, another.m_station);
-            boost::swap(m_meterage, another.m_meterage);
-        }
-
-        /*!
-            \brief Assigns another station location.
-
-            \param another Another station location.
-
-            \return This object.
-        */
-        station_location& operator=(const station_location& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether one station location is equal to anther.

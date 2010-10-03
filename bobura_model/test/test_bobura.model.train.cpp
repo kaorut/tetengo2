@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_SUITE(train)
         stops2.push_back(stop_type(time_type(3), time_type(4), "b"));
         train_type train2("2", "y", stops2.begin(), stops2.end());
 
-        train1.swap(train2);
+        boost::swap(train1, train2);
 
         BOOST_CHECK(train1.stops() == stops2);
         BOOST_CHECK(train2.stops() == stops1);

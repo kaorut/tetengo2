@@ -12,9 +12,7 @@
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
-#include <tetengo2.assignable.h>
 #include <tetengo2.cpp0x_keyword.h>
-#include <tetengo2.swappable.h>
 
 
 namespace bobura { namespace model { namespace train_info
@@ -27,8 +25,6 @@ namespace bobura { namespace model { namespace train_info
     */
     template <typename Time, typename Platform>
     class stop :
-        public tetengo2::assignable<stop<Time, Platform>>,
-        private tetengo2::swappable<stop<Time, Platform>>,
         private boost::equality_comparable<stop<Time, Platform>>
     {
     public:
@@ -61,52 +57,8 @@ namespace bobura { namespace model { namespace train_info
         m_platform(platform)
         {}
 
-        /*!
-            \brief Copies a stop.
-
-            \param another Another stop.
-        */
-        stop(const stop& another)
-        :
-        m_arrival(another.m_arrival),
-        m_departure(another.m_departure),
-        m_platform(another.m_platform)
-        {}
-
-        /*!
-            \brief Destroys the stop.
-        */
-        ~stop()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another stop.
-
-            \param another Another stop.
-        */
-        void swap(stop& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_arrival, another.m_arrival);
-            boost::swap(m_departure, another.m_departure);
-            boost::swap(m_platform, another.m_platform);
-        }
-
-        /*!
-            \brief Assigns another stop.
-
-            \param another Another stop.
-
-            \return This object.
-        */
-        stop& operator=(const stop& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether one stop is equal to anther.

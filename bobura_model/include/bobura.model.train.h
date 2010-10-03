@@ -15,9 +15,7 @@
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
-#include <tetengo2.assignable.h>
 #include <tetengo2.cpp0x_keyword.h>
-#include <tetengo2.swappable.h>
 
 
 namespace bobura { namespace model
@@ -31,8 +29,6 @@ namespace bobura { namespace model
     */
     template <typename Number, typename Note, typename Stop>
     class train :
-        public tetengo2::assignable<train<Number, Note, Stop>>,
-        private tetengo2::swappable<train<Number, Note, Stop>>,
         private boost::equality_comparable<train<Number, Note, Stop>>
     {
     public:
@@ -89,52 +85,8 @@ namespace bobura { namespace model
         m_stops(stop_first, stop_last)
         {}
 
-        /*!
-            \brief Copies a train.
-
-            \param another Another train.
-        */
-        train(const train& another)
-        :
-        m_number(another.m_number),
-        m_note(another.m_note),
-        m_stops(another.m_stops)
-        {}
-
-        /*!
-            \brief Destroys the train.
-        */
-        ~train()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another train.
-
-            \param another Another train.
-        */
-        void swap(train& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_number, another.m_number);
-            boost::swap(m_note, another.m_note);
-            boost::swap(m_stops, another.m_stops);
-        }
-
-        /*!
-            \brief Assigns another train.
-
-            \param another Another train.
-
-            \return This object.
-        */
-        train& operator=(const train& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether one train is equal to anther.
@@ -224,6 +176,7 @@ namespace bobura { namespace model
         note_type m_note;
 
         stops_type m_stops;
+
 
         // functions
 

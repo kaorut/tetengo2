@@ -152,7 +152,7 @@ BOOST_AUTO_TEST_SUITE(time)
         time_type time1(1);
         time_type time2(2);
 
-        time1.swap(time2);
+        boost::swap(time1, time2);
 
         BOOST_CHECK_EQUAL(time1.seconds_from_midnight(), 2U);
         BOOST_CHECK_EQUAL(time2.seconds_from_midnight(), 1U);

@@ -215,7 +215,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
         time_span_type time_span1(1);
         time_span_type time_span2(2);
 
-        time_span1.swap(time_span2);
+        boost::swap(time_span1, time_span2);
 
         BOOST_CHECK_EQUAL(time_span1.seconds(), 2);
         BOOST_CHECK_EQUAL(time_span2.seconds(), 1);

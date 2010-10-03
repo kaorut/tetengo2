@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_SUITE(stop)
         stop_type stop1(time_type(1), time_type(2), "1");
         stop_type stop2(time_type(3), time_type(4), "2");
 
-        stop1.swap(stop2);
+        boost::swap(stop1, stop2);
 
         BOOST_CHECK(stop1.arrival() == time_type(3));
         BOOST_CHECK(stop1.departure() == time_type(4));
