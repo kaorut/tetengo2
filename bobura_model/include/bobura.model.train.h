@@ -13,9 +13,6 @@
 #include <vector>
 
 #include <boost/operators.hpp>
-#include <boost/swap.hpp>
-
-#include <tetengo2.cpp0x_keyword.h>
 
 
 namespace bobura { namespace model

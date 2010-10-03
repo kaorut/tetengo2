@@ -17,8 +17,6 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 
-#include <tetengo2.cpp0x_keyword.h>
-
 
 namespace bobura { namespace model { namespace train_info
 {

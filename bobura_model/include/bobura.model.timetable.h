@@ -16,11 +16,8 @@
 
 #include <boost/bind.hpp>
 #include <boost/operators.hpp>
-#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
-
-#include <tetengo2.cpp0x_keyword.h>
 
 
 namespace bobura { namespace model
