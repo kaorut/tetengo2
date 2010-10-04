@@ -9,12 +9,6 @@
 #if !defined(BOBURA_COMMAND_ABOUT_H)
 #define BOBURA_COMMAND_ABOUT_H
 
-#include <boost/swap.hpp>
-
-#include <tetengo2.assignable.h>
-#include <tetengo2.cpp0x_keyword.h>
-#include <tetengo2.swappable.h>
-
 
 namespace bobura { namespace command
 {
@@ -24,9 +18,7 @@ namespace bobura { namespace command
         \tparam AboutDialog An about dialog type.
     */
     template <typename AboutDialog>
-    class about :
-        public tetengo2::assignable<about<AboutDialog>>,
-        private tetengo2::swappable<about<AboutDialog>>
+    class about
     {
     public:
         // types
@@ -52,48 +44,8 @@ namespace bobura { namespace command
         m_p_parent(&parent)
         {}
 
-        /*!
-            \brief Copies an about command.
-
-            \param another Another about command.
-        */
-        about(const about& another)
-        :
-        m_p_parent(another.m_p_parent)
-        {}
-
-        /*!
-            \brief Destroys the about command.
-        */
-        ~about()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another about command.
-
-            \param another Another about command.
-        */
-        void swap(about& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_p_parent, another.m_p_parent);
-        }
-
-        /*!
-            \brief Assigns another about command.
-
-            \param another Another about command.
-
-            \return This object.
-        */
-        about& operator=(const about& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Executes the command.
