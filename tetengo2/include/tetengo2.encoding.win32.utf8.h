@@ -20,9 +20,6 @@
 #define OEMRESOURCE
 #include <windows.h>
 
-#include "tetengo2.assignable.h"
-#include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.swappable.h"
 #include "tetengo2.encoding.encoding.h"
 
 
@@ -31,11 +28,7 @@ namespace tetengo2 { namespace encoding { namespace win32
     /*!
         \brief The class for a UTF-8 encoding.
     */
-    class utf8 :
-        public encoding,
-        public assignable<utf8>,
-        private swappable<utf8>,
-        private boost::equality_comparable<utf8>
+    class utf8 : public encoding, private boost::equality_comparable<utf8>
     {
     public:
         // types
@@ -55,44 +48,8 @@ namespace tetengo2 { namespace encoding { namespace win32
         utf8()
         {}
 
-        /*!
-            \brief Copies a UTF-8 encoding.
-
-            \param another Another UTF-8 encoding.
-        */
-        utf8(const utf8& another)
-        {}
-
-        /*!
-            \brief Destroys the UTF-8 encoding.
-        */
-        ~utf8()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another UTF-8 encoding.
-
-            \param another Another UTF-8 encoding.
-        */
-        void swap(utf8& another)
-        TETENGO2_NOEXCEPT
-        {}
-
-        /*!
-            \brief Assigns another UTF-8 encoding.
-
-            \param another Another UTF-8 encoding.
-
-            \return This object.
-        */
-        utf8& operator=(const utf8& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether one UTF-8 encoding is equal to another.

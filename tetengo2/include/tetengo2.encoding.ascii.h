@@ -15,9 +15,6 @@
 #include <boost/operators.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 
-#include "tetengo2.assignable.h"
-#include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.swappable.h"
 #include "tetengo2.encoding.encoding.h"
 
 
@@ -26,11 +23,7 @@ namespace tetengo2 { namespace encoding
     /*!
         \brief The class for an ASCII encoding.
     */
-    class ascii :
-        public encoding,
-        public assignable<ascii>,
-        private swappable<ascii>,
-        private boost::equality_comparable<ascii>
+    class ascii : public encoding, private boost::equality_comparable<ascii>
     {
     public:
         // types
@@ -50,44 +43,8 @@ namespace tetengo2 { namespace encoding
         ascii()
         {}
 
-        /*!
-            \brief Copies an ASCII encoding.
-
-            \param another Another ASCII encoding.
-        */
-        ascii(const ascii& another)
-        {}
-
-        /*!
-            \brief Destroys the ASCII encoding.
-        */
-        ~ascii()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another ASCII encoding.
-
-            \param another Another ASCII encoding.
-        */
-        void swap(ascii& another)
-        TETENGO2_NOEXCEPT
-        {}
-
-        /*!
-            \brief Assigns another ASCII encoding.
-
-            \param another Another ASCII encoding.
-
-            \return This object.
-        */
-        ascii& operator=(const ascii& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether one ascii encoding is equal to another.

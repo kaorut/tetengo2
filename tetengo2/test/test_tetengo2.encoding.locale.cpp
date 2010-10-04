@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_SUITE(locale)
                 multibyte_encoding_type encoding1(locale_en);
                 multibyte_encoding_type encoding2(locale_ja);
 
-                encoding1.swap(encoding2);
+                boost::swap(encoding1, encoding2);
 
                 BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
                 BOOST_CHECK(encoding2.locale_based_on() == locale_en);
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_SUITE(locale)
                 wide_encoding_type encoding1(locale_en);
                 wide_encoding_type encoding2(locale_ja);
 
-                encoding1.swap(encoding2);
+                boost::swap(encoding1, encoding2);
 
                 BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
                 BOOST_CHECK(encoding2.locale_based_on() == locale_en);

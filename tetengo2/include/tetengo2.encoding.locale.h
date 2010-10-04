@@ -23,9 +23,6 @@
 #include <boost/type_traits.hpp>
 #include <boost/utility.hpp>
 
-#include "tetengo2.assignable.h"
-#include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.swappable.h"
 #include "tetengo2.text.h"
 #include "tetengo2.encoding.encoding.h"
 
@@ -40,8 +37,6 @@ namespace tetengo2 { namespace encoding
     template <typename String>
     class locale :
         public encoding,
-        public assignable<locale<String>>,
-        private swappable<locale<String>>,
         private boost::equality_comparable<locale<String>>
     {
     public:
@@ -66,48 +61,8 @@ namespace tetengo2 { namespace encoding
         m_locale(locale_based_on)
         {}
 
-        /*!
-            \brief Copies an encoding based on a locale.
-
-            \param another Another encoding based on a locale.
-        */
-        locale(const locale& another)
-        :
-        m_locale(another.m_locale)
-        {}
-
-        /*!
-            \brief Destroys the encoding based on a locale.
-        */
-        ~locale()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another encoding based on a locale.
-
-            \param another Another encoding based on a locale.
-        */
-        void swap(locale& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_locale, another.m_locale);
-        }
-
-        /*!
-            \brief Assigns another encoding based on a locale.
-
-            \param another Another encoding based on a locale.
-
-            \return This object.
-        */
-        locale& operator=(const locale& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether one encoding based on a locale is equal to

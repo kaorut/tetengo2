@@ -20,9 +20,6 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 
-#include "tetengo2.assignable.h"
-#include "tetengo2.cpp0x_keyword.h"
-
 
 namespace tetengo2 { namespace gui
 {
@@ -35,8 +32,7 @@ namespace tetengo2 { namespace gui
     class recursive_menu_iterator :
         public boost::iterator_facade<
             recursive_menu_iterator<Menu>, Menu, boost::forward_traversal_tag
-        >,
-        public assignable<recursive_menu_iterator<Menu>>
+        >
     {
     public:
         // types
@@ -75,52 +71,8 @@ namespace tetengo2 { namespace gui
             );
         }
 
-        /*!
-            \brief Copies a recursive menu_iterator.
-
-            \param another Another recursive menu iterator.
-        */
-        recursive_menu_iterator(const recursive_menu_iterator& another)
-        :
-        m_p_menu(another.m_p_menu),
-        m_parents(another.m_parents)
-        {}
-
-        /*!
-            \brief Destroys the recursive menu iterator.
-        */
-        ~recursive_menu_iterator()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another recursive menu iterator.
-
-            \param another Another recursive menu iterator.
-        */
-        void swap(recursive_menu_iterator& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_p_menu, another.m_p_menu);
-            boost::swap(m_parents, another.m_parents);
-        }
-
-        /*!
-            \brief Assigns another recursive menu iterator.
-
-            \param another Another recursive menu iterator.
-
-            \return This object.
-        */
-        recursive_menu_iterator& operator=(
-            const recursive_menu_iterator& another
-        )
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Dereferences the iterator.

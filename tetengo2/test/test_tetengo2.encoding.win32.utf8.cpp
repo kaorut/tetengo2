@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_SUITE(utf8)
         tetengo2::encoding::win32::utf8 encoding1;
         tetengo2::encoding::win32::utf8 encoding2;
 
-        encoding1.swap(encoding2);
+        boost::swap(encoding1, encoding2);
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)

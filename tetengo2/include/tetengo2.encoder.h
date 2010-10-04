@@ -16,9 +16,6 @@
 //#include <boost/type_traits.hpp>
 //#include <boost/utility.hpp>
 
-#include "tetengo2.assignable.h"
-#include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.swappable.h"
 #include "tetengo2.encoding.locale.h"
 
 
@@ -32,8 +29,6 @@ namespace tetengo2
     */
     template <typename InternalEncoding, typename ExternalEncoding>
     class encoder :
-        public assignable<encoder<InternalEncoding, ExternalEncoding>>,
-        public swappable<encoder<InternalEncoding, ExternalEncoding>>,
         public boost::equality_comparable<
             encoder<InternalEncoding, ExternalEncoding>
         >
@@ -75,50 +70,8 @@ namespace tetengo2
         m_external_encoding(external_encoding)
         {}
 
-        /*!
-            \brief Copies an encoder.
-
-            \param another Another encoder;
-        */
-        encoder(const encoder& another)
-        :
-        m_internal_encoding(another.m_internal_encoding),
-        m_external_encoding(another.m_external_encoding)
-        {}
-        
-        /*!
-            \brief Destroys the encoder.
-        */
-        ~encoder()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another encoder.
-
-            \param another Another encoder.
-        */
-        void swap(encoder& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_internal_encoding, another.m_internal_encoding);
-            boost::swap(m_external_encoding, another.m_external_encoding);
-        }
-
-        /*!
-            \brief Assigns another encoder.
-
-            \param another Another encoder.
-
-            \return This object.
-        */
-        encoder& operator=(const encoder& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether one encoder is equal to another.

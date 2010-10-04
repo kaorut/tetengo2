@@ -11,9 +11,6 @@
 
 #include <boost/swap.hpp>
 
-#include "tetengo2.assignable.h"
-#include "tetengo2.cpp0x_keyword.h"
-
 
 namespace tetengo2
 {
@@ -24,8 +21,7 @@ namespace tetengo2
         \tparam Wide      A wide value type.
     */
     template <typename Multibyte, typename Wide>
-    class text_value_holder :
-        public assignable<text_value_holder<Multibyte, Wide>>
+    class text_value_holder
     {
     public:
         // types
@@ -54,50 +50,8 @@ namespace tetengo2
         m_wide(wide)
         {}
 
-        /*!
-            \brief Copies a text value holder.
-
-            \param another Another text value holder.
-        */
-        text_value_holder(const text_value_holder& another)
-        :
-        m_multibyte(another.m_multibyte),
-        m_wide(another.m_wide)
-        {}
-
-        /*!
-            \brief Destroys the text value holder.
-        */
-        ~text_value_holder()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another text value holder.
-
-            \param another Another text value holder.
-        */
-        void swap(text_value_holder& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_multibyte, another.m_multibyte);
-            boost::swap(m_wide, another.m_wide);
-        }
-
-        /*!
-            \brief Assigns another text value holder.
-
-            \param another Another text value holder.
-
-            \return This object.
-        */
-        text_value_holder& operator=(const text_value_holder& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Returns the multibyte value.

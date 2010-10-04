@@ -32,10 +32,6 @@
 #undef min
 #undef max
 
-#include "tetengo2.assignable.h"
-#include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.swappable.h"
-
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -46,10 +42,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Size   A size type.
    */
     template <typename String, typename Size>
-    class font :
-        public assignable<font<String, Size>>,
-        private swappable<font<String, Size>>,
-        private boost::equality_comparable<font<String, Size>>
+    class font : private boost::equality_comparable<font<String, Size>>
     {
     public:
         // types
@@ -121,58 +114,8 @@ namespace tetengo2 { namespace gui { namespace win32
         m_strikeout(strikeout)
         {}
 
-        /*!
-            \brief Copies a font.
-
-            \param another Another font.
-        */
-        font(const font& another)
-        :
-        m_family(another.m_family),
-        m_size(another.m_size),
-        m_bold(another.m_bold),
-        m_italic(another.m_italic),
-        m_underline(another.m_underline),
-        m_strikeout(another.m_strikeout)
-        {}
-
-        /*!
-            \brief Destroys the font.
-        */
-        virtual ~font()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        /*!
-            \brief Swaps the members with another font.
-
-            \param another Another font.
-        */
-        void swap(font& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_family, another.m_family);
-            boost::swap(m_size, another.m_size);
-            boost::swap(m_bold, another.m_bold);
-            boost::swap(m_italic, another.m_italic);
-            boost::swap(m_underline, another.m_underline);
-            boost::swap(m_strikeout, another.m_strikeout);
-        }
-
-        /*!
-            \brief Assigns another font.
-
-            \param another Another font.
-
-            \return This object.
-        */
-        font& operator=(const font& another)
-        {
-            return assign(another);
-        }
 
         /*!
             \brief Checks whether one font is equal to another.
@@ -380,6 +323,7 @@ namespace tetengo2 { namespace gui { namespace win32
         
             return family;
         }
+
 
         // variables
 

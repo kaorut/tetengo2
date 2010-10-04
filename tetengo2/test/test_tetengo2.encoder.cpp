@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_SUITE(encoder)
         encoder_type encoder1(encoding1, encoding2);
         encoder_type encoder2(encoding2, encoding1);
 
-        encoder1.swap(encoder2);
+        boost::swap(encoder1, encoder2);
     }
 
     BOOST_AUTO_TEST_CASE(operator_assign)
