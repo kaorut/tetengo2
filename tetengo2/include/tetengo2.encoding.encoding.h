@@ -11,8 +11,6 @@
 
 #include <string>
 
-#include "tetengo2.cpp0x_keyword.h"
-
 
 namespace tetengo2 { namespace encoding
 {
@@ -30,15 +28,6 @@ namespace tetengo2 { namespace encoding
         //! \return The pivot character type.
         typedef pivot_type::value_type pivot_char_type;
 
-
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the encoding based on a encoding.
-        */
-        ~encoding()
-        TETENGO2_NOEXCEPT
-        {}
 
 
     protected:

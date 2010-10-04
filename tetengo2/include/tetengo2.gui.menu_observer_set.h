@@ -12,8 +12,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
-#include "tetengo2.cpp0x_keyword.h"
-
 
 namespace tetengo2 { namespace gui
 {
@@ -42,13 +40,6 @@ namespace tetengo2 { namespace gui
         menu_observer_set()
         :
         m_selected()
-        {}
-
-        /*!
-            \brief Destroys the paint observer set.
-        */
-        ~menu_observer_set()
-        TETENGO2_NOEXCEPT
         {}
 
 

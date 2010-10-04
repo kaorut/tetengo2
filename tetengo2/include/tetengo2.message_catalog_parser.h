@@ -24,7 +24,6 @@
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
 
-#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.text.h"
 
 
@@ -75,13 +74,6 @@ namespace tetengo2
         {
             m_input_stream.imbue(std::locale::classic());
         }
-
-        /*!
-            \brief Destroys a message catalog parser.
-        */
-        ~message_catalog_parser()
-        TETENGO2_NOEXCEPT
-        {}
 
 
         // functions

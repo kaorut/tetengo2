@@ -11,8 +11,6 @@
 
 #include <boost/noncopyable.hpp>
 
-#include <tetengo2.cpp0x_keyword.h>
-
 
 namespace bobura
 {
@@ -64,13 +62,6 @@ namespace bobura
         :
         m_gui_initializer_finalizer(),
         m_settings(settings)
-        {}
-
-        /*!
-            \brief Destroys the bobura application.
-        */
-        ~bobura()
-        TETENGO2_NOEXCEPT
         {}
 
 
