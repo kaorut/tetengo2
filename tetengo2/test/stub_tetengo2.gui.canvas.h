@@ -13,8 +13,6 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.cpp0x_keyword.h"
-
 
 namespace stub_tetengo2 { namespace gui
 {
@@ -56,10 +54,6 @@ namespace stub_tetengo2 { namespace gui
         )
         :
         m_font(font_type::dialog_font())
-        {}
-
-        ~canvas()
-        TETENGO2_NOEXCEPT
         {}
 
 

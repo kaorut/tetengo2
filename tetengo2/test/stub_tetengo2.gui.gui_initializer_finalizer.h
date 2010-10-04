@@ -11,8 +11,6 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.cpp0x_keyword.h"
-
 
 namespace stub_tetengo2 { namespace gui
 {
@@ -22,10 +20,6 @@ namespace stub_tetengo2 { namespace gui
         // constructors and destructor
 
         gui_initializer_finalizer()
-        {}
-
-        ~gui_initializer_finalizer()
-        TETENGO2_NOEXCEPT
         {}
 
 

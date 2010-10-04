@@ -11,18 +11,12 @@
 
 //#include <string>
 
-#include "tetengo2.assignable.h"
-#include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.swappable.h"
 #include "tetengo2.encoding.encoding.h"
 
 
 namespace tetengo2 { namespace encoding
 {
-    class utf8 :
-        public encoding,
-        public assignable<utf8>,
-        private swappable<utf8>
+    class utf8 : public encoding
     {
     private:
     public:
@@ -38,24 +32,8 @@ namespace tetengo2 { namespace encoding
         utf8()
         {}
 
-        utf8(const utf8& another)
-        {}
-
-        ~utf8()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        void swap(utf8& another)
-        TETENGO2_NOEXCEPT
-        {}
-
-        utf8& operator=(const utf8& another)
-        {
-            return assign(another);
-        }
 
         string_type from_pivot(const pivot_type& pivot)
         const
