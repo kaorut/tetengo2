@@ -109,9 +109,6 @@
     <ClCompile Include="..\precompiled\precompiled.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.assignable.cpp">
-      <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.encoder.cpp">
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.messages.cpp">
-      <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.swappable.cpp">
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.text.cpp">

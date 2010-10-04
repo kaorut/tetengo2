@@ -241,7 +241,6 @@ echo Skipping...
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="test\master.cpp" />
-    <ClCompile Include="test\test_tetengo2.assignable.cpp" />
     <ClCompile Include="test\test_tetengo2.encoder.cpp" />
     <ClCompile Include="test\test_tetengo2.encoding.ascii.cpp" />
     <ClCompile Include="test\test_tetengo2.encoding.encoding.cpp" />
@@ -275,7 +274,6 @@ echo Skipping...
     <ClCompile Include="test\test_tetengo2.message_catalog.cpp" />
     <ClCompile Include="test\test_tetengo2.message_catalog_parser.cpp" />
     <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp" />
-    <ClCompile Include="test\test_tetengo2.swappable.cpp" />
     <ClCompile Include="test\test_tetengo2.text.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

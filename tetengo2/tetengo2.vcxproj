@@ -122,7 +122,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\tetengo2.assignable.h" />
     <ClInclude Include="include\tetengo2.cpp0x_keyword.h" />
     <ClInclude Include="include\tetengo2.encoder.h" />
     <ClInclude Include="include\tetengo2.encoding.ascii.h" />
@@ -163,7 +162,6 @@
     <ClInclude Include="include\tetengo2.message_catalog.h" />
     <ClInclude Include="include\tetengo2.message_catalog_parser.h" />
     <ClInclude Include="include\tetengo2.meta.assoc_list.h" />
-    <ClInclude Include="include\tetengo2.swappable.h" />
     <ClInclude Include="include\tetengo2.text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

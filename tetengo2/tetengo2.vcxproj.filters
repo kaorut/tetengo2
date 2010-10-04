@@ -18,9 +18,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\tetengo2.assignable.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.encoder.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
@@ -34,9 +31,6 @@
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.messages.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.swappable.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.text.h">
