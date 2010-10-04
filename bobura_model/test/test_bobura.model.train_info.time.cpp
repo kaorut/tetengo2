@@ -36,11 +36,7 @@ BOOST_AUTO_TEST_SUITE(time)
             >
             time_type;
 
-            const time_type time = time_type::uninitialized();
-
-            const time_type copy_of_time(time);
-
-            BOOST_CHECK(time == copy_of_time);
+        const time_type time = time_type::uninitialized();
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -58,28 +54,16 @@ BOOST_AUTO_TEST_SUITE(time)
             const time_type time(0);
 
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 0U);
-
-            const time_type copy_of_time(time);
-
-            BOOST_CHECK(time == copy_of_time);
         }
         {
             const time_type time(1);
 
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 1U);
-
-            const time_type copy_of_time(time);
-
-            BOOST_CHECK(time == copy_of_time);
         }
         {
             const time_type time(2);
 
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 2U);
-
-            const time_type copy_of_time(time);
-
-            BOOST_CHECK(time == copy_of_time);
         }
         {
             const time_type time(24 * 60 * 60 - 1);
@@ -136,63 +120,6 @@ BOOST_AUTO_TEST_SUITE(time)
         }
         {
             BOOST_CHECK_THROW(time_type(24, 0, 0), std::out_of_range);
-        }
-    }
-
-    BOOST_AUTO_TEST_CASE(swap)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-
-        time_type time1(1);
-        time_type time2(2);
-
-        boost::swap(time1, time2);
-
-        BOOST_CHECK_EQUAL(time1.seconds_from_midnight(), 2U);
-        BOOST_CHECK_EQUAL(time2.seconds_from_midnight(), 1U);
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_assign)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-
-        {
-            time_type time1(1);
-            const time_type time2(2);
-
-            time1 = time2;
-
-            BOOST_CHECK(time1 == time2);
-        }
-        {
-            time_type time1 = time_type::uninitialized();
-            const time_type time2(2);
-
-            time1 = time2;
-
-            BOOST_CHECK(time1 == time2);
-        }
-        {
-            time_type time1(1);
-            const time_type time2 = time_type::uninitialized();
-
-            time1 = time2;
-
-            BOOST_CHECK(time1 == time2);
         }
     }
 

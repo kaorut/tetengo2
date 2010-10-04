@@ -48,46 +48,26 @@ BOOST_AUTO_TEST_SUITE(time_span)
             const time_span_type time_span(0);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 0);
-
-            const time_span_type copy_of_time_span(time_span);
-            
-            BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
             const time_span_type time_span(1);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 1);
-
-            const time_span_type copy_of_time_span(time_span);
-            
-            BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
             const time_span_type time_span(2);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), 2);
-
-            const time_span_type copy_of_time_span(time_span);
-            
-            BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
             const time_span_type time_span(-1);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), -1);
-
-            const time_span_type copy_of_time_span(time_span);
-            
-            BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
             const time_span_type time_span(-2);
 
             BOOST_CHECK_EQUAL(time_span.seconds(), -2);
-
-            const time_span_type copy_of_time_span(time_span);
-            
-            BOOST_CHECK(time_span == copy_of_time_span);
         }
         {
             const time_span_type time_span(0, 0, 0);
@@ -202,42 +182,6 @@ BOOST_AUTO_TEST_SUITE(time_span)
             BOOST_CHECK_THROW(
                 time_span_type(-1, 1, -1), std::invalid_argument
             );
-        }
-    }
-
-    BOOST_AUTO_TEST_CASE(swap)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time_span<std::ptrdiff_t>
-            time_span_type;
-
-        time_span_type time_span1(1);
-        time_span_type time_span2(2);
-
-        boost::swap(time_span1, time_span2);
-
-        BOOST_CHECK_EQUAL(time_span1.seconds(), 2);
-        BOOST_CHECK_EQUAL(time_span2.seconds(), 1);
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_assign)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time_span<std::ptrdiff_t>
-            time_span_type;
-
-        {
-            time_span_type time_span1(1);
-            const time_span_type time_span2(2);
-
-            time_span1 = time_span2;
-
-            BOOST_CHECK_EQUAL(time_span1.seconds(), 2);
-            BOOST_CHECK_EQUAL(time_span2.seconds(), 2);
         }
     }
 

@@ -35,128 +35,42 @@ BOOST_AUTO_TEST_SUITE(station)
             const bobura::model::station<std::wstring, grade_type> station(
                 L"", local_type::instance()
             );
-            const bobura::model::station<std::wstring, grade_type>
-            copy_of_station(station);
-
-            BOOST_CHECK(station == copy_of_station);
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
                 L"A", local_type::instance()
             );
-
-            const bobura::model::station<std::wstring, grade_type>
-            copy_of_station(station);
-
-            BOOST_CHECK(station == copy_of_station);
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
                 L"AB", local_type::instance()
             );
-
-            const bobura::model::station<std::wstring, grade_type>
-            copy_of_station(station);
-
-            BOOST_CHECK(station == copy_of_station);
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
                 std::wstring(1024 * 1024, L'X'), local_type::instance()
             );
-
-            const bobura::model::station<std::wstring, grade_type>
-            copy_of_station(station);
-
-            BOOST_CHECK(station == copy_of_station);
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
                 L"", principal_type::instance()
             );
-
-            const bobura::model::station<std::wstring, grade_type>
-            copy_of_station(station);
-
-            BOOST_CHECK(station == copy_of_station);
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
                 L"A", principal_type::instance()
             );
-
-            const bobura::model::station<std::wstring, grade_type>
-            copy_of_station(station);
-
-            BOOST_CHECK(station == copy_of_station);
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
                 L"AB", principal_type::instance()
             );
-
-            const bobura::model::station<std::wstring, grade_type>
-            copy_of_station(station);
-
-            BOOST_CHECK(station == copy_of_station);
         }
         {
             const bobura::model::station<std::wstring, grade_type> station(
                 std::wstring(1024 * 1024, L'X'), local_type::instance()
             );
-
-            const bobura::model::station<std::wstring, grade_type>
-            copy_of_station(station);
-
-            BOOST_CHECK(station == copy_of_station);
         }
-    }
-
-    BOOST_AUTO_TEST_CASE(swap)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef
-            bobura::model::station_info::principal<std::wstring>
-            principal_type;
-
-        bobura::model::station<std::wstring, grade_type> station1(
-            L"A", local_type::instance()
-        );
-        bobura::model::station<std::wstring, grade_type> station2(
-            L"B", principal_type::instance()
-        );
-
-        boost::swap(station1, station2);
-
-        BOOST_CHECK(station1.name() == std::wstring(L"B"));
-        BOOST_CHECK_EQUAL(&station1.grade(), &principal_type::instance());
-        BOOST_CHECK(station2.name() == std::wstring(L"A"));
-        BOOST_CHECK_EQUAL(&station2.grade(), &local_type::instance());
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_assign)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef
-            bobura::model::station_info::principal<std::wstring>
-            principal_type;
-
-        bobura::model::station<std::wstring, grade_type> station1(
-            L"A", local_type::instance()
-        );
-        const bobura::model::station<std::wstring, grade_type> station2(
-            L"B", principal_type::instance()
-        );
-
-        station1 = station2;
-
-        BOOST_CHECK(station1 == station2);
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
