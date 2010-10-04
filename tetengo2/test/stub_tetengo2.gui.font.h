@@ -14,19 +14,13 @@
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
-#include "tetengo2.assignable.h"
-#include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.swappable.h"
 #include "tetengo2.text.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
     template <typename String, typename Size>
-    class font :
-        public tetengo2::assignable<font<String, Size>>,
-        private tetengo2::swappable<font<String, Size>>,
-        private boost::equality_comparable<font<String, Size>>
+    class font : private boost::equality_comparable<font<String, Size>>
     {
     public:
         // types
@@ -79,38 +73,8 @@ namespace stub_tetengo2 { namespace gui
         m_strikeout(strikeout)
         {}
 
-        font(const font& another)
-        :
-        m_family(another.m_family),
-        m_size(another.m_size),
-        m_bold(another.m_bold),
-        m_italic(another.m_italic),
-        m_underline(another.m_underline),
-        m_strikeout(another.m_strikeout)
-        {}
-
-        virtual ~font()
-        TETENGO2_NOEXCEPT
-        {}
-
 
         // functions
-
-        void swap(font& another)
-        TETENGO2_NOEXCEPT
-        {
-            boost::swap(m_family, another.m_family);
-            boost::swap(m_size, another.m_size);
-            boost::swap(m_bold, another.m_bold);
-            boost::swap(m_italic, another.m_italic);
-            boost::swap(m_underline, another.m_underline);
-            boost::swap(m_strikeout, another.m_strikeout);
-        }
-
-        font& operator=(const font& another)
-        {
-            return assign(another);
-        }
 
         friend bool operator==(const font& one, const font& another)
         {
