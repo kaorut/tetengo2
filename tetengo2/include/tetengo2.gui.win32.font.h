@@ -16,7 +16,6 @@
 
 #include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
-#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX

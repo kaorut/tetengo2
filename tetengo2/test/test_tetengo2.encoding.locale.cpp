@@ -87,66 +87,6 @@ BOOST_AUTO_TEST_SUITE(locale)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(swap)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        if (locale_supported())
-        {
-            {
-                multibyte_encoding_type encoding1(locale_en);
-                multibyte_encoding_type encoding2(locale_ja);
-
-                boost::swap(encoding1, encoding2);
-
-                BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
-                BOOST_CHECK(encoding2.locale_based_on() == locale_en);
-            }
-            {
-                wide_encoding_type encoding1(locale_en);
-                wide_encoding_type encoding2(locale_ja);
-
-                boost::swap(encoding1, encoding2);
-
-                BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
-                BOOST_CHECK(encoding2.locale_based_on() == locale_en);
-            }
-        }
-        else
-        {
-            BOOST_WARN_MESSAGE(false, "Locale not supported.");
-        }
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_assign)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        if (locale_supported())
-        {
-            {
-                multibyte_encoding_type encoding1(locale_en);
-                const multibyte_encoding_type encoding2(locale_ja);
-
-                encoding1 = encoding2;
-
-                BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
-            }
-            {
-                wide_encoding_type encoding1(locale_en);
-                const wide_encoding_type encoding2(locale_ja);
-
-                encoding1 = encoding2;
-
-                BOOST_CHECK(encoding1.locale_based_on() == locale_ja);
-            }
-        }
-        else
-        {
-            BOOST_WARN_MESSAGE(false, "Locale not supported.");
-        }
-    }
-
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();

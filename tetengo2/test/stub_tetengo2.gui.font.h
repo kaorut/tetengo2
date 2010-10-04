@@ -12,7 +12,7 @@
 #include <vector>
 
 #include <boost/operators.hpp>
-//#include <boost/swap.hpp>
+#include <boost/swap.hpp>
 
 #include "tetengo2.assignable.h"
 #include "tetengo2.cpp0x_keyword.h"

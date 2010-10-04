@@ -18,7 +18,6 @@
 #include <vector>
 
 #include <boost/operators.hpp>
-//#include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits.hpp>
 #include <boost/utility.hpp>

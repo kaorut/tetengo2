@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_TEXT_H)
 #define TETENGO2_TEXT_H
 
-#include <boost/swap.hpp>
-
 
 namespace tetengo2
 {

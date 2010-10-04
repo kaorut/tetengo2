@@ -16,7 +16,6 @@
 #include <utility>
 
 #include <boost/next_prior.hpp>
-#include <boost/swap.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 
