@@ -40,15 +40,6 @@ namespace tetengo2 { namespace encoding { namespace win32
         typedef string_type::value_type string_char_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Creates a UTF-8 encoding.
-        */
-        utf8()
-        {}
-
-
         // functions
 
         /*!

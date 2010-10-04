@@ -35,15 +35,6 @@ namespace tetengo2 { namespace encoding
         typedef string_type::value_type string_char_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Creates an ASCII encoding.
-        */
-        ascii()
-        {}
-
-
         // functions
 
         /*!

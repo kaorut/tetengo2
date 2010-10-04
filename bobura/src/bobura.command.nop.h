@@ -18,15 +18,6 @@ namespace bobura { namespace command
     class nop
     {
     public:
-        // constructors and destructor
-
-        /*!
-            \brief Creates a no-operation command.
-        */
-        nop()
-        {}
-
-
         // functions
 
         /*!

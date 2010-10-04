@@ -32,17 +32,6 @@ namespace tetengo2 { namespace gui
         typedef boost::signals2::signal<destroyed_type> destroyed_signal_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Creates a window observer set.
-        */
-        window_observer_set()
-        :
-        m_destroyed()
-        {}
-
-
         // functions
 
         /*!

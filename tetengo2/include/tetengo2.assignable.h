@@ -21,15 +21,6 @@ namespace tetengo2
     class assignable
     {
     protected:
-        // constructors and destructor
-
-        /*!
-            \brief Creates an assignable.
-        */
-        assignable()
-        {}
-
-
         // functions
 
         /*!

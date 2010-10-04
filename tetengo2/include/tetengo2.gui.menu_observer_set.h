@@ -32,17 +32,6 @@ namespace tetengo2 { namespace gui
         typedef boost::signals2::signal<selected_type> selected_signal_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Creates a paint observer set.
-        */
-        menu_observer_set()
-        :
-        m_selected()
-        {}
-
-
         // functions
 
         /*!

@@ -27,12 +27,6 @@ namespace tetengo2 { namespace encoding
         typedef string_type::value_type string_char_type;
 
 
-        // constructors and destructor
-
-        utf8()
-        {}
-
-
         // functions
 
         string_type from_pivot(const pivot_type& pivot)

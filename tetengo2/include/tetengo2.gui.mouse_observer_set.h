@@ -32,17 +32,6 @@ namespace tetengo2 { namespace gui
         typedef boost::signals2::signal<clicked_type> clicked_signal_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Creates a mouse observer set.
-        */
-        mouse_observer_set()
-        :
-        m_clicked()
-        {}
-
-
         // functions
 
         /*!

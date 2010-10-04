@@ -15,15 +15,7 @@
 namespace stub_tetengo2 { namespace gui
 {
     class gui_initializer_finalizer : private boost::noncopyable
-    {
-    public:
-        // constructors and destructor
-
-        gui_initializer_finalizer()
-        {}
-
-
-    };
+    {};
 
 
 }}
