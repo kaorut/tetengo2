@@ -62,13 +62,6 @@ BOOST_AUTO_TEST_SUITE(win32)
 BOOST_AUTO_TEST_SUITE(utf8)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        tetengo2::encoding::win32::utf8 encoding;
-    }
-
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();

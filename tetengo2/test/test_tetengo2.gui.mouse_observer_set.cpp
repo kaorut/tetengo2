@@ -16,13 +16,6 @@ BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(mouse_observer_set)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const tetengo2::gui::mouse_observer_set observer_set;
-    }
-
     BOOST_AUTO_TEST_CASE(clicked)
     {
         BOOST_TEST_PASSPOINT();

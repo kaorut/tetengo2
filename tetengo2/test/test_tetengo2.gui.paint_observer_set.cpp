@@ -52,13 +52,6 @@ BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(paint_observer_set)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const tetengo2::gui::paint_observer_set<canvas_type> observer_set;
-    }
-
     BOOST_AUTO_TEST_CASE(destroyed)
     {
         BOOST_TEST_PASSPOINT();
