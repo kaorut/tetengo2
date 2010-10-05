@@ -22,18 +22,6 @@ Added on    : 2010/09/04
 Depends on  : 50, 53, 56
 Description : Use rvalue references in tetengo2.
 ------------------------------------------------------------------------------
-Number      : 00000048
-Added on    : 2010/10/02
-Depends on  : (none)
-Description : Remove the copy constructor, the destructor, the swap function,
-              the assign operator in bobura.
-------------------------------------------------------------------------------
-Number      : 00000050
-Added on    : 2010/10/02
-Depends on  : (none)
-Description : Remove the copy constructor, the destructor, the swap function,
-              the assign operator in tetengo2.
-------------------------------------------------------------------------------
 Number      : 00000051
 Added on    : 2010/10/02
 Depends on  : (none)
