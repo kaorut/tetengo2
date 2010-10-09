@@ -9,10 +9,10 @@
 #if !defined(BOBURA_ABOUTDIALOG_H)
 #define BOBURA_ABOUTDIALOG_H
 
-#include <memory>
 #include <utility>
 
 #include <boost/mpl/at.hpp>
+#include <boost/scoped_ptr.hpp>
 
 #include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.text.h>
@@ -112,7 +112,7 @@ namespace bobura
 
         // variables
 
-        std::auto_ptr<button_type> m_p_ok_button;
+        boost::scoped_ptr<button_type> m_p_ok_button;
 
 
     };
