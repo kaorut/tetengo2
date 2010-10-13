@@ -12,7 +12,6 @@
 #include <vector>
 
 #include <boost/operators.hpp>
-#include <boost/swap.hpp>
 
 #include "tetengo2.text.h"
 

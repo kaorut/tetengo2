@@ -9,6 +9,7 @@
 //#include <memory>
 //#include <string>
 
+#include <boost/scoped_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
@@ -91,7 +92,7 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
             const iterator_type iterator;
         }
         {
-            const std::auto_ptr<menu_type> p_menu = create_menu();
+            const boost::scoped_ptr<menu_type> p_menu(create_menu());
 
             const iterator_type iterator(p_menu.get());
         }
@@ -102,7 +103,7 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::auto_ptr<menu_type> p_menu = create_menu();
+            const boost::scoped_ptr<menu_type> p_menu(create_menu());
 
             iterator_type iterator(p_menu.get());
 

@@ -21,6 +21,7 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
 
@@ -102,7 +103,7 @@ namespace tetengo2
             if (!has_next())
                 BOOST_THROW_EXCEPTION(std::runtime_error("No next entry."));
 
-            const std::auto_ptr<entry_type> p_entry = m_p_preread_entry;
+            const boost::scoped_ptr<entry_type> p_entry(m_p_preread_entry);
             m_p_preread_entry.reset();
             return *p_entry;
         }

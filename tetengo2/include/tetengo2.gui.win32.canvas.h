@@ -16,6 +16,7 @@
 #include <utility>
 
 #include <boost/noncopyable.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
@@ -282,7 +283,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         const bool m_on_paint;
 
-        const std::auto_ptr< ::PAINTSTRUCT> m_p_paint_info;
+        const boost::scoped_ptr< ::PAINTSTRUCT> m_p_paint_info;
 
         const ::HDC m_device_context;
 

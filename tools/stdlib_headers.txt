@@ -219,6 +219,7 @@ boost::program_options::wparsed_options          boost/program_options.hpp
 boost::ptr_vector                                boost/ptr_container/ptr_vector.hpp
 boost::replace_all                               boost/algorithm/string.hpp
 boost::scoped_array                              boost/scoped_array.hpp
+boost::scoped_ptr                                boost/scoped_ptr.hpp
 boost::signals2::signal                          boost/signals2.hpp
 boost::swap                                      boost/swap.hpp
 boost::throw_file                                boost/exception/all.hpp
