@@ -41,21 +41,21 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! \return The traits type.
+        //! The traits type.
         typedef Traits traits_type;
 
-        //! \return The base type.
+        //! The base type.
         typedef abstract_window<typename traits_type::base_type> base_type;
 
-        //! \return The message loop type.
+        //! The message loop type.
         typedef typename traits_type::message_loop_type message_loop_type;
 
-        //! \return The quit-message-loop type.
+        //! The quit-message-loop type.
         typedef
             typename traits_type::quit_message_loop_type
             quit_message_loop_type;
 
-        //! \return The result type.
+        //! The result type.
         enum result_type
         {
             result_undecided,   //!< The result is not decided yet.

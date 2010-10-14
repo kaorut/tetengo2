@@ -33,10 +33,10 @@ namespace tetengo2 { namespace encoding { namespace win32
     public:
         // types
 
-        //! \return The string type.
+        //! The string type.
         typedef std::string string_type;
 
-        //! \return The string character type.
+        //! The string character type.
         typedef string_type::value_type string_char_type;
 
 

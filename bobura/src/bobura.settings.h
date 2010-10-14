@@ -28,7 +28,7 @@ namespace bobura
     public:
         // types
 
-        //! \return The string type.
+        //! The string type.
         typedef String string_type;
 
 

@@ -75,19 +75,19 @@ namespace tetengo2 { namespace meta
     {
         // types
 
-        //! \return This type.
+        //! This type.
         typedef assoc_list type;
 
-        //! \return The element.
+        //! The element.
         typedef Element element;
 
-        //! \return The next node.
+        //! The next node.
         typedef Next next;
 
-        //! \return The tag.
+        //! The tag.
         typedef assoc_list_tag tag;
 
-        //! \return The category.
+        //! The category.
         typedef boost::mpl::forward_iterator_tag category;
 
 
@@ -101,13 +101,13 @@ namespace tetengo2 { namespace meta
     {
         // types
 
-        //! \return This type.
+        //! This type.
         typedef assoc_list_end type;
 
-        //! \return The tag.
+        //! The tag.
         typedef assoc_list_tag tag;
 
-        //! \return The category.
+        //! The category.
         typedef boost::mpl::forward_iterator_tag category;
 
 

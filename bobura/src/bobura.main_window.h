@@ -48,25 +48,25 @@ namespace bobura
     public:
         // types
 
-        //! \return The base type.
+        //! The base type.
         typedef Window base_type;
 
-        //! \return The quit-message-loop type.
+        //! The quit-message-loop type.
         typedef QuitMessageLoop quit_message_loop_type;
 
-        //! \return The menu command type.
+        //! The menu command type.
         typedef MenuCommand menu_command_type;
 
-        //! \return The popup menu type.
+        //! The popup menu type.
         typedef PopupMenu popup_menu_type;
 
-        //! \return The menu separator type.
+        //! The menu separator type.
         typedef MenuSeparator menu_separator_type;
 
-        //! \return The command type list type.
+        //! The command type list type.
         typedef CommandTypeList command_type_list_type;
 
-        //! \return The message type list type.
+        //! The message type list type.
         typedef MainWindowMessageTypeList main_window_message_type_list_type;
 
 

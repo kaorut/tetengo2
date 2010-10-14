@@ -37,10 +37,10 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! \return The traits type.
+        //! The traits type.
         typedef Traits traits_type;
 
-        //! \return The base type.
+        //! The base type.
         typedef abstract_popup_menu<traits_type> base_type;
 
 

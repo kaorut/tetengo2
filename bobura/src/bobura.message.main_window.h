@@ -29,7 +29,7 @@ namespace bobura { namespace message { namespace main_window
     public:
         // types
 
-        //! \return The command type.
+        //! The command type.
         typedef Command command_type;
 
 
@@ -78,7 +78,7 @@ namespace bobura { namespace message { namespace main_window
     public:
         // types
 
-        //! \return The canvas type.
+        //! The canvas type.
         typedef Canvas canvas_type;
 
 

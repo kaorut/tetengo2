@@ -44,40 +44,40 @@ namespace tetengo2 { namespace gui
     {
         // types
 
-        //! \return The handle type.
+        //! The handle type.
         typedef Handle handle_type;
 
-        //! \return The canvas type.
+        //! The canvas type.
         typedef Canvas canvas_type;
 
-        //! \return The alerting unary functor type.
+        //! The alerting unary functor type.
         typedef Alert alert_type;
 
-        //! \return The difference type.
+        //! The difference type.
         typedef Difference difference_type;
 
-        //! \return The size type.
+        //! The size type.
         typedef Size size_type;
 
-        //! \return The position type.
+        //! The position type.
         typedef std::pair<difference_type, difference_type> position_type;
 
-        //! \return The dimension type.
+        //! The dimension type.
         typedef std::pair<size_type, size_type> dimension_type;
 
-        //! \return The string type.
+        //! The string type.
         typedef String string_type;
 
-        //! \return The encoder type.
+        //! The encoder type.
         typedef Encoder encoder_type;
 
-        //! \return The font type.
+        //! The font type.
         typedef Font font_type;
 
-        //! \return The paint observer set type.
+        //! The paint observer set type.
         typedef PaintObserverSet paint_observer_set_type;
 
-        //! \return The mouse observer set type.
+        //! The mouse observer set type.
         typedef MouseObserverSet mouse_observer_set_type;
 
 

@@ -26,7 +26,7 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        //! \return The canvas type.
+        //! The canvas type.
         typedef Canvas canvas_type;
 
         /*!
@@ -36,7 +36,7 @@ namespace tetengo2 { namespace gui
         */
         typedef void paint_type(canvas_type& canvas);
 
-        //! \return The signal type of paint.
+        //! The signal type of paint.
         typedef boost::signals2::signal<paint_type> paint_signal_type;
 
 

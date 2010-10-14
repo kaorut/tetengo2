@@ -33,7 +33,7 @@ namespace bobura { namespace model { namespace train_info
     public:
         // types
 
-        //! \return The tick type.
+        //! The tick type.
         typedef TimeSpanTick tick_type;
 
 

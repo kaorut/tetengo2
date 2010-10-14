@@ -86,7 +86,7 @@ namespace bobura
         struct string;         //!< The string type.
     }
 
-    //! \return The common type list.
+    //! The common type list.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::difference, std::ptrdiff_t>,
@@ -149,7 +149,7 @@ namespace bobura
     }}
 #endif
 
-    //! \return The type list for the locale.
+    //! The type list for the locale.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -303,7 +303,7 @@ namespace bobura
     }}
 #endif
 
-    //! \return The type list for the user interface.
+    //! The type list for the user interface.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -359,7 +359,7 @@ namespace bobura
         struct about_dialog;   //! The about dialog type.
     }
 
-    //! \return The type list for the about dialog.
+    //! The type list for the about dialog.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -406,7 +406,7 @@ namespace bobura
     }}
 #endif
 
-    //! \return The type list for the main window.
+    //! The type list for the main window.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -445,7 +445,7 @@ namespace bobura
     }}
 #endif
 
-    //! \return The type list for the application.
+    //! The type list for the application.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -476,7 +476,7 @@ namespace bobura
 
     /**** All ***************************************************************/
 
-    //! \return The type list for Bobura.
+    //! The type list for Bobura.
     typedef
         boost::mpl::insert_range<
             common_type_list, tetengo2::meta::assoc_list_end,

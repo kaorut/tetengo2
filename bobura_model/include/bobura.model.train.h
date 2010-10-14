@@ -31,16 +31,16 @@ namespace bobura { namespace model
     public:
         // types
 
-        //! \return The number type.
+        //! The number type.
         typedef Number number_type;
 
-        //! \return The note type.
+        //! The note type.
         typedef Note note_type;
 
-        //! \return The stop type.
+        //! The stop type.
         typedef Stop stop_type;
 
-        //! \return The stops type.
+        //! The stops type.
         typedef std::vector<stop_type> stops_type;
 
 

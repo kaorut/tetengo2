@@ -35,16 +35,16 @@ namespace bobura { namespace model
     public:
         // types
 
-        //! \return The station location type.
+        //! The station location type.
         typedef StationLocation station_location_type;
 
-        //! \return The station locations type.
+        //! The station locations type.
         typedef std::vector<station_location_type> station_locations_type;
 
-        //! \return The train type.
+        //! The train type.
         typedef Train train_type;
 
-        //! \return The trains type.
+        //! The trains type.
         typedef std::vector<train_type> trains_type;
 
 

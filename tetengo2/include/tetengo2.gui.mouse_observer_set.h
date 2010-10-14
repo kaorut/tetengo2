@@ -28,7 +28,7 @@ namespace tetengo2 { namespace gui
         */
         typedef void clicked_type();
 
-        //! \return The signal type of clicked.
+        //! The signal type of clicked.
         typedef boost::signals2::signal<clicked_type> clicked_signal_type;
 
 

@@ -35,13 +35,13 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! \return The traits type.
+        //! The traits type.
         typedef Traits traits_type;
 
-        //! \return The base type.
+        //! The base type.
         typedef widget<typename traits_type::base_type> base_type;
 
-        //! \return The style type.
+        //! The style type.
         enum style_type
         {
             style_normal,   //!< A normal button.

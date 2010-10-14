@@ -35,17 +35,17 @@ namespace tetengo2
     public:
         // types
 
-        //! \return The internal encoding type.
+        //! The internal encoding type.
         typedef InternalEncoding internal_encoding_type;
 
-        //! \return The internal string type.
+        //! The internal string type.
         typedef
             typename internal_encoding_type::string_type internal_string_type;
 
-        //! \return The external encoding type.
+        //! The external encoding type.
         typedef ExternalEncoding external_encoding_type;
 
-        //! \return The external string type.
+        //! The external string type.
         typedef
             typename external_encoding_type::string_type external_string_type;
 

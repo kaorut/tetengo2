@@ -39,16 +39,16 @@ namespace bobura
     public:
         // types
 
-        //! \return The base type.
+        //! The base type.
         typedef Dialog base_type;
 
-        //! \return The abstract window type.
+        //! The abstract window type.
         typedef typename base_type::base_type abstract_window_type;
 
-        //! \return The button type.
+        //! The button type.
         typedef Button button_type;
 
-        //! \return The message type list type.
+        //! The message type list type.
         typedef
             AboutDialogMessageTypeList about_dialog_message_type_list_type;
 

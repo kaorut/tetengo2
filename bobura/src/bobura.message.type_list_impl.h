@@ -35,7 +35,7 @@ namespace bobura { namespace message
         public:
             // types
 
-            //! \return The type list for the main window.
+            //! The type list for the main window.
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::menu, menu<Command>>,
@@ -63,7 +63,7 @@ namespace bobura { namespace message
         public:
             // types
 
-            //! \return The type list for the about dialog.
+            //! The type list for the about dialog.
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<

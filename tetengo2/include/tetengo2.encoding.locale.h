@@ -41,10 +41,10 @@ namespace tetengo2 { namespace encoding
     public:
         // types
 
-        //! \return The string type.
+        //! The string type.
         typedef String string_type;
 
-        //! \return The string character type.
+        //! The string character type.
         typedef typename string_type::value_type string_char_type;
 
 

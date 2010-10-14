@@ -28,13 +28,13 @@ namespace tetengo2 { namespace gui
     {
         //types
 
-        //! \return The base type.
+        //! The base type.
         typedef WidgetTraits base_type;
 
-        //! \return The main menu type.
+        //! The main menu type.
         typedef MainMenu main_menu_type;
 
-        //! \return The window observer set type.
+        //! The window observer set type.
         typedef WindowObserverSet window_observer_set_type;
 
 

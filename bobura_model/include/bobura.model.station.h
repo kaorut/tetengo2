@@ -29,10 +29,10 @@ namespace bobura { namespace model
     public:
         // types
 
-        //! \return The name type.
+        //! The name type.
         typedef Name name_type;
 
-        //! \return The grade type.
+        //! The grade type.
         typedef Grade grade_type;
 
 

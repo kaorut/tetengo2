@@ -35,19 +35,19 @@ namespace bobura
     public:
         // types
 
-        //! \return The settings type.
+        //! The settings type.
         typedef Settings settings_type;
 
-        //! \return The main window type.
+        //! The main window type.
         typedef MainWindow main_window_type;
         
-        //! \return The message loop type.
+        //! The message loop type.
         typedef MessageLoop message_loop_type;
         
-        //! \return The quit-message-loop type.
+        //! The quit-message-loop type.
         typedef QuitMessageLoop quit_message_loop_type;
 
-        //! \return The GUI initializer and finalizer type.
+        //! The GUI initializer and finalizer type.
         typedef GuiInitializerFinalizer gui_initializer_finalizer_type;
 
 

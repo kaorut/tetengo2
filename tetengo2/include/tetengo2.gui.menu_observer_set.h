@@ -28,7 +28,7 @@ namespace tetengo2 { namespace gui
         */
         typedef void selected_type();
 
-        //! \return The signal type of selected.
+        //! The signal type of selected.
         typedef boost::signals2::signal<selected_type> selected_signal_type;
 
 

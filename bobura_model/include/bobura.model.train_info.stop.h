@@ -27,10 +27,10 @@ namespace bobura { namespace model { namespace train_info
     public:
         // types
 
-        //! \return The time type.
+        //! The time type.
         typedef Time time_type;
 
-        //! \return The platform type.
+        //! The platform type.
         typedef Platform platform_type;
 
 

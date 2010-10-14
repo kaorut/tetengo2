@@ -32,19 +32,19 @@ namespace tetengo2 { namespace gui
     {
         //types
 
-        //! \return The ID type.
+        //! The ID type.
         typedef Id id_type;
 
-        //! \return The handle type.
+        //! The handle type.
         typedef Handle handle_type;
 
-        //! \return The string type.
+        //! The string type.
         typedef String string_type;
 
-        //! \return The encoder type.
+        //! The encoder type.
         typedef Encoder encoder_type;
 
-        //! \return The menu observer set type.
+        //! The menu observer set type.
         typedef MenuObserverSet menu_observer_set_type;
 
 

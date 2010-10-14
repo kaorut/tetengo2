@@ -30,10 +30,10 @@ namespace tetengo2
     public:
         // types
 
-        //! \return The messages type.
+        //! The messages type.
         typedef Messages messages_type;
 
-        //! \return The string type.
+        //! The string type.
         typedef typename messages_type::string_type string_type;
 
 

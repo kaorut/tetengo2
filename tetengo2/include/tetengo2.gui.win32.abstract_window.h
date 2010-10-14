@@ -40,16 +40,16 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! \return The traits type.
+        //! The traits type.
         typedef Traits traits_type;
 
-        //! \return The base type.
+        //! The base type.
         typedef widget<typename traits_type::base_type> base_type;
 
-        //! \return The main menu type.
+        //! The main menu type.
         typedef typename traits_type::main_menu_type main_menu_type;
 
-        //! \return The window observer set type.
+        //! The window observer set type.
         typedef
             typename traits_type::window_observer_set_type
             window_observer_set_type;

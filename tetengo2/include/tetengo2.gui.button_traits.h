@@ -22,7 +22,7 @@ namespace tetengo2 { namespace gui
     {
         //types
 
-        //! \return The base type.
+        //! The base type.
         typedef WidgetTraits base_type;
 
 

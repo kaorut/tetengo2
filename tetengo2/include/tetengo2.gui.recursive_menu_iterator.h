@@ -36,7 +36,7 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        //! \return The menu type.
+        //! The menu type.
         typedef Menu menu_type;
 
 

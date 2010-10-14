@@ -46,13 +46,13 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! \return The string type.
+        //! The string type.
         typedef String string_type;
 
-        //! \return The size type.
+        //! The size type.
         typedef Size size_type;
 
-        //! \return The families type.
+        //! The families type.
         typedef std::vector<string_type> families_type;
 
 

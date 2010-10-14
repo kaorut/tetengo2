@@ -24,10 +24,10 @@ namespace tetengo2
     public:
         // types
 
-        //! \return The multibyte value type.
+        //! The multibyte value type.
         typedef Multibyte multibyte_type;
 
-        //! \return The wide value type.
+        //! The wide value type.
         typedef Wide wide_type;
 
 

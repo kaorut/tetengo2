@@ -50,13 +50,13 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! \return The window handle type.
+        //! The window handle type.
         typedef WindowHandle window_handle_type;
 
-        //! \return The encoder type.for the user interface.
+        //! The encoder type.for the user interface.
         typedef UiEncoder ui_encoder_type;
 
-        //! \return The encoder type.for exceptions.
+        //! The encoder type.for exceptions.
         typedef ExceptionEncoder exception_encoder_type;
 
 

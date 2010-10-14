@@ -23,10 +23,10 @@ namespace bobura { namespace command
     public:
         // types
 
-        //! \return The about dialog type.
+        //! The about dialog type.
         typedef AboutDialog about_dialog_type;
 
-        //! \return The abstract window type.
+        //! The abstract window type.
         typedef
             typename about_dialog_type::abstract_window_type
             abstract_window_type;

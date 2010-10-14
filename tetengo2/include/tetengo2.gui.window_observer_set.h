@@ -28,7 +28,7 @@ namespace tetengo2 { namespace gui
         */
         typedef void destroyed_type();
 
-        //! \return The signal type of destroyed.
+        //! The signal type of destroyed.
         typedef boost::signals2::signal<destroyed_type> destroyed_signal_type;
 
 

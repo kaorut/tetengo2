@@ -44,50 +44,50 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! \return The traits type.
+        //! The traits type.
         typedef Traits traits_type;
 
-        //! \return The handle type.
+        //! The handle type.
         typedef typename traits_type::handle_type handle_type;
 
-        //! \return The canvas type.
+        //! The canvas type.
         typedef typename traits_type::canvas_type canvas_type;
 
-        //! \return The alerting unary functor type.
+        //! The alerting unary functor type.
         typedef typename traits_type::alert_type alert_type;
 
-        //! \return The difference type.
+        //! The difference type.
         typedef typename traits_type::difference_type difference_type;
 
-        //! \return The size type.
+        //! The size type.
         typedef typename traits_type::size_type size_type;
 
-        //! \return The position type.
+        //! The position type.
         typedef typename traits_type::position_type position_type;
 
-        //! \return The dimension type.
+        //! The dimension type.
         typedef typename traits_type::dimension_type dimension_type;
 
-        //! \return The string type.
+        //! The string type.
         typedef typename traits_type::string_type string_type;
 
-        //! \return The encoder type.
+        //! The encoder type.
         typedef typename traits_type::encoder_type encoder_type;
 
-        //! \return The font type.
+        //! The font type.
         typedef typename traits_type::font_type font_type;
 
-        //! \return The paint observer set type.
+        //! The paint observer set type.
         typedef
             typename traits_type::paint_observer_set_type
             paint_observer_set_type;
 
-        //! \return The mouse observer set type.
+        //! The mouse observer set type.
         typedef
             typename traits_type::mouse_observer_set_type
             mouse_observer_set_type;
 
-        //! \return The child type.
+        //! The child type.
         typedef widget child_type;
 
 
@@ -692,7 +692,7 @@ namespace tetengo2 { namespace gui { namespace win32
     protected:
         // types
 
-        //! \return The custom message type.
+        //! The custom message type.
         enum message_type
         {
             message_command = WM_APP,   //!< A command message.

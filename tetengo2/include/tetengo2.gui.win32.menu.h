@@ -40,37 +40,37 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! \return The traits type.
+        //! The traits type.
         typedef Traits traits_type;
 
-        //! \return The ID type.
+        //! The ID type.
         typedef typename traits_type::id_type id_type;
 
-        //! \return The handle type.
+        //! The handle type.
         typedef typename traits_type::handle_type handle_type;
 
-        //! \return The string type.
+        //! The string type.
         typedef typename traits_type::string_type string_type;
 
-        //! \return The encoder type.
+        //! The encoder type.
         typedef typename traits_type::encoder_type encoder_type;
 
-        //! \return The menu observer set type.
+        //! The menu observer set type.
         typedef
             typename traits_type::menu_observer_set_type
             menu_observer_set_type;
 
-        //! \return The iterator type.
+        //! The iterator type.
         typedef typename boost::ptr_vector<menu>::iterator iterator;
 
-        //! \return The const iterator type.
+        //! The const iterator type.
         typedef
             typename boost::ptr_vector<menu>::const_iterator const_iterator;
 
-        //! \return The recursive iterator type.
+        //! The recursive iterator type.
         typedef recursive_menu_iterator<menu> recursive_iterator;
 
-        //! \return The const recursive iterator type.
+        //! The const recursive iterator type.
         typedef recursive_menu_iterator<const menu> const_recursive_iterator;
 
 

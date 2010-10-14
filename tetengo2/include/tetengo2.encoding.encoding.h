@@ -22,10 +22,10 @@ namespace tetengo2 { namespace encoding
     public:
         // types
 
-        //! \return The pivot type.
+        //! The pivot type.
         typedef std::wstring pivot_type;
 
-        //! \return The pivot character type.
+        //! The pivot character type.
         typedef pivot_type::value_type pivot_char_type;
 
 

@@ -29,13 +29,13 @@ namespace tetengo2 { namespace gui
     {
         //types
 
-        //! \return The base type.
+        //! The base type.
         typedef AbstractWindowTraits base_type;
 
-        //! \return The message loop type.
+        //! The message loop type.
         typedef MessageLoop message_loop_type;
 
-        //! \return The quit-message-loop type.
+        //! The quit-message-loop type.
         typedef QuitMessageLoop quit_message_loop_type;
 
 

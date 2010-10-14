@@ -29,10 +29,10 @@ namespace bobura { namespace model { namespace timetable_info
     public:
         // types
 
-        //! \return The station type.
+        //! The station type.
         typedef Station station_type;
 
-        //! \return The meterage type.
+        //! The meterage type.
         typedef Meterage meterage_type;
 
 

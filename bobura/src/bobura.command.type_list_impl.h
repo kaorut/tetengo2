@@ -34,7 +34,7 @@ namespace bobura { namespace command
     public:
         // types
 
-        //! \return The type list for the commands.
+        //! The type list for the commands.
         typedef
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::command, boost::function<void ()> >,

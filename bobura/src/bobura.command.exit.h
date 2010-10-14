@@ -23,7 +23,7 @@ namespace bobura { namespace command
     public:
         // types
 
-        //! \return The window type.
+        //! The window type.
         typedef Window window_type;
 
 
