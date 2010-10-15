@@ -36,11 +36,12 @@
 
 // Boost library headers
 
+#define BOOST_FILESYSTEM_VERSION 3
+
 #include <boost/algorithm/string.hpp>
 #include <boost/bind.hpp>
 #include <boost/cast.hpp>
 #include <boost/exception/all.hpp>
-#define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/function.hpp>
@@ -86,6 +87,7 @@
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <boost/signals2.hpp>
 #include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
