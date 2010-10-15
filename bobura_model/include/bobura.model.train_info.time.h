@@ -181,16 +181,16 @@ namespace bobura { namespace model { namespace train_info
             The result is always 0 or positive. A smaller minus a larger
             is calculated over the midnight.
 
+            \param one     One time.
             \param another Another time.
 
             \return The time span.
 
-            \throw std::logic_error When this or another is uninitialized.
+            \throw std::logic_error When one and/or another are uninitialized.
         */
-        time_span_type operator-(const time& another)
-        const
+        friend time_span_type operator-(const time& one, const time& another)
         {
-            if (*this == uninitialized() || another == uninitialized())
+            if (one == uninitialized() || another == uninitialized())
             {
                 BOOST_THROW_EXCEPTION(
                     std::logic_error("The time object is uninitialized.")
@@ -198,7 +198,7 @@ namespace bobura { namespace model { namespace train_info
             }
 
             typename time_span_type::tick_type seconds =
-                m_seconds_from_midnight;
+                one.m_seconds_from_midnight;
             seconds -= another.m_seconds_from_midnight;
             while (seconds < 0)
                 seconds += time_span_type::seconds_of_whole_day();
