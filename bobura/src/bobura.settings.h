@@ -47,7 +47,7 @@ namespace bobura
         /*!
             \brief Creates settings.
 
-            \param command_line_arguments A command line arguments.
+            \param command_line_arguments Command line arguments.
         */
         settings(std::vector<string_type>&& command_line_arguments)
         :
