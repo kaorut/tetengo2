@@ -22,11 +22,6 @@ Added on    : 2010/09/04
 Depends on  : 50, 53, 56
 Description : Use rvalue references in tetengo2.
 ------------------------------------------------------------------------------
-Number      : 00000054
-Added on    : 2010/10/02
-Depends on  : (none)
-Description : Add overloads with rvalue references in bobura.
-------------------------------------------------------------------------------
 Number      : 00000055
 Added on    : 2010/10/02
 Depends on  : (none)
