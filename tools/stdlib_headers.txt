@@ -242,6 +242,7 @@ std::exception                                   exception
 std::find                                        algorithm
 std::find_if                                     algorithm
 std::for_each                                    algorithm
+std::forward                                     utility
 std::getline                                     string
 std::greater                                     functional
 std::has_facet                                   locale
@@ -259,6 +260,7 @@ std::mbstate_t                                   cwchar
 std::memset                                      cstring
 std::messages                                    locale
 std::messages_base::catalog                      locale
+std::move                                        utility
 std::numeric_limits                              limits
 std::ostringstream                               sstream
 std::out_of_range                                stdexcept

@@ -10,6 +10,7 @@
 #define BOBURA_MAINWINDOW_H
 
 #include <memory>
+#include <utility>
 
 #include <boost/bind.hpp>
 #include <boost/mpl/at.hpp>
@@ -271,13 +272,15 @@ namespace bobura
         }
 
         static void append_menu_command(
-            menu_type&                              popup_menu,
-            const typename menu_type::string_type&  text,
-            const command_type&                     command
+            menu_type&                        popup_menu,
+            typename menu_type::string_type&& text,
+            const command_type&               command
         )
         {
             std::auto_ptr<menu_type> p_menu_command(
-                new menu_command_type(text)
+                new menu_command_type(
+                    std::forward<typename menu_type::string_type>(text)
+                )
             );
 
             p_menu_command->menu_observer_set().selected().connect(

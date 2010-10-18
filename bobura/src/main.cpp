@@ -12,6 +12,7 @@
 //#include <locale>
 //#include <stdexcept>
 //#include <string>
+//#include <utility>
 //#include <vector>
 
 //#include <boost/exception/all.hpp>
@@ -75,19 +76,14 @@ namespace
         std::locale::global(global_locale);
     }
 
-    template <typename CommandLineArgumentInputIterator>
-    int run_application(
-        CommandLineArgumentInputIterator command_line_argument_first,
-        CommandLineArgumentInputIterator command_line_argument_last
-    )
+    int run_application(std::vector<std::wstring>&& command_line_arguments)
     {
-        const typename boost::mpl::at<
-            bobura::type_list, bobura::type::settings
-        >::type settings(
-            command_line_argument_first, command_line_argument_last
+        const boost::mpl::at<bobura::type_list, bobura::type::settings>::type
+        settings(
+            std::forward<std::vector<std::wstring>>(command_line_arguments)
         );
 
-        return typename boost::mpl::at<
+        return boost::mpl::at<
             bobura::type_list, bobura::type::application
         >::type(settings).run();
     }
@@ -116,7 +112,7 @@ TETENGO2_NOEXCEPT
 {
     try
     {
-        const std::vector<std::wstring> command_line_arguments =
+        std::vector<std::wstring> command_line_arguments =
             boost::program_options::split_winmain(::GetCommandLineW());
         assert(!command_line_arguments.empty());
 
@@ -124,9 +120,7 @@ TETENGO2_NOEXCEPT
             boost::filesystem::path(command_line_arguments[0]).parent_path()
         );
 
-        return ::run_application(
-            command_line_arguments.begin(), command_line_arguments.end()
-        );
+        return ::run_application(std::move(command_line_arguments));
     }
     catch (const boost::exception& e)
     {

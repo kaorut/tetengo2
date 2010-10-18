@@ -7,6 +7,7 @@
 */
 
 #include <string>
+//#include <utility>
 //#include <vector>
 
 #include <boost/test/unit_test.hpp>
@@ -22,10 +23,8 @@ BOOST_AUTO_TEST_SUITE(settings)
     {
         BOOST_TEST_PASSPOINT();
 
-        const std::vector<std::wstring> arguments;
-        const bobura::settings<std::wstring> settings(
-            arguments.begin(), arguments.end()
-        );
+        std::vector<std::wstring> arguments;
+        const bobura::settings<std::wstring> settings(std::move(arguments));
     }
 
 

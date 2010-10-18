@@ -9,6 +9,7 @@
 #if !defined(BOBURA_SETTINGS_H)
 #define BOBURA_SETTINGS_H
 
+#include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>
@@ -46,27 +47,15 @@ namespace bobura
         /*!
             \brief Creates settings.
 
-            \tparam CommandLineArgumentInputIterator A input iterator type for
-                                                     a command line arguments.
-
-            \param command_line_argument_first The first iterator for a
-                                               command line arguments.
-            \param command_line_argument_last  The last iterator for a command
-                                               line arguments.
+            \param command_line_arguments A command line arguments.
         */
-        template <typename CommandLineArgumentInputIterator>
-        settings(
-            CommandLineArgumentInputIterator command_line_argument_first,
-            CommandLineArgumentInputIterator command_line_argument_last
-        )
+        settings(std::vector<string_type>&& command_line_arguments)
         :
         m_options(make_options()),
         m_option_values(
             make_option_values(
                 m_options,
-                std::vector<string_type>(
-                    command_line_argument_first, command_line_argument_last
-                )
+                std::forward<std::vector<string_type>>(command_line_arguments)
             )
         )
         {}
@@ -82,7 +71,7 @@ namespace bobura
 
         // functions
 
-        static const boost::program_options::options_description
+        static boost::program_options::options_description
         make_options()
         {
             boost::program_options::options_description options(
@@ -98,24 +87,28 @@ namespace bobura
             )
             ;
 
-            return options;
+            return std::move(options);
         }
 
-        static const boost::program_options::variables_map make_option_values(
+        static boost::program_options::variables_map make_option_values(
             const boost::program_options::options_description& options,
-            const std::vector<string_type>&                    command_line_arguments
+            std::vector<string_type>&&                         command_line_arguments
         )
         {
-            const boost::program_options::wparsed_options& parsed_options =
+            boost::program_options::wparsed_options parsed_options =
                 boost::program_options::wcommand_line_parser(
-                    command_line_arguments
+                    std::forward<std::vector<string_type>>(
+                        command_line_arguments
+                    )
                 ).options(options).run();
 
             boost::program_options::variables_map option_values;
-            boost::program_options::store(parsed_options, option_values);
+            boost::program_options::store(
+                std::move(parsed_options), option_values
+            );
             boost::program_options::notify(option_values);
 
-            return option_values;
+            return std::move(option_values);
         }
 
 
