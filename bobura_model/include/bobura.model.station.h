@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <cstddef>
+#include <utility>
 
 #include <boost/operators.hpp>
 
@@ -41,12 +42,15 @@ namespace bobura { namespace model
         /*!
             \brief Creates a station.
 
+            \tparam N A name type.
+
             \param name  A name.
             \param grade A grade.
         */
-        station(const name_type& name, const grade_type& grade)
+        template <typename N>
+        station(N&& name, const grade_type& grade)
         :
-        m_name(name),
+        m_name(std::forward<N>(name)),
         m_p_grade(&grade)
         {}
 
