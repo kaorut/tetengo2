@@ -9,6 +9,7 @@
 //#include <cstddef>
 //#include <stdexcept>
 #include <string>
+#include <utility>
 
 #include <boost/test/unit_test.hpp>
 
@@ -59,6 +60,35 @@ BOOST_AUTO_TEST_SUITE(timetable)
             const timetable_type timetable;
 
             BOOST_CHECK(timetable.station_locations().empty());
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", local_type::instance()), 1
+                )
+            );
+
+            const timetable_type timetable(std::move(station_locations));
+
+            BOOST_CHECK(timetable.station_locations() == station_locations);
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", local_type::instance()), 1
+                )
+            );
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"B", local_type::instance()), 2
+                )
+            );
+
+            const timetable_type timetable(station_locations);
+
+            BOOST_CHECK(timetable.station_locations() == station_locations);
         }
         {
             timetable_type::station_locations_type station_locations;

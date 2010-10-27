@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <iterator>
 #include <stdexcept>
+#include <utility>
 #include <vector>
 
 #include <boost/bind.hpp>
@@ -62,6 +63,20 @@ namespace bobura { namespace model
         /*!
             \brief Creates a timetalble.
 
+            \tparam SLs A station locations type.
+
+            \param station_locations The station locations
+        */
+        template <typename SLs>
+        timetable(SLs&& station_locations)
+        :
+        m_station_locations(std::forward<SLs>(station_locations)),
+        m_trains()
+        {}
+
+        /*!
+            \brief Creates a timetalble.
+
             \tparam InputIterator An input iterator for station locations.
 
             \param station_location_first The first iterator among station
@@ -71,8 +86,8 @@ namespace bobura { namespace model
         */
         template <typename InputIterator>
         timetable(
-            InputIterator station_location_first,
-            InputIterator station_location_last
+            const InputIterator station_location_first,
+            const InputIterator station_location_last
         )
         :
         m_station_locations(station_location_first, station_location_last),
