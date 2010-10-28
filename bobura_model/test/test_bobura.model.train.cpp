@@ -7,6 +7,7 @@
 */
 
 #include <cstddef>
+#include <utility>
 #include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -44,6 +45,24 @@ BOOST_AUTO_TEST_SUITE(train)
             const train_type train("1", "x");
 
             BOOST_CHECK(train.stops().empty());
+        }
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            train_type::stops_type stops2(stops);
+
+            const train_type train("1", "x", std::move(stops2));
+
+            BOOST_CHECK(train.stops() == stops);
+        }
+        {
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+
+            const train_type train("1", "x", stops);
+
+            BOOST_CHECK(train.stops() == stops);
         }
         {
             train_type::stops_type stops;

@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TRAIN_H
 
 #include <iterator>
+#include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
@@ -49,13 +50,17 @@ namespace bobura { namespace model
         /*!
             \brief Creates a train.
 
+            \tparam No A number type.
+            \tparam Nt A note type.
+
             \param number A number.
             \param note   A note.
         */
-        train(const number_type& number, const note_type& note)
+        template <typename No, typename Nt>
+        train(No&& number, Nt&& note)
         :
-        m_number(number),
-        m_note(note),
+        m_number(std::forward<No>(number)),
+        m_note(std::forward<Nt>(note)),
         m_stops()
         {}
 
@@ -64,21 +69,46 @@ namespace bobura { namespace model
 
             \tparam InputIterator An input iterator for stops.
 
+            \tparam No A number type.
+            \tparam Nt A note type.
+            \tparam Ss A stops type.
+
+            \param number     A number.
+            \param note       A note.
+            \param stops      Stops.
+        */
+        template <typename No, typename Nt, typename Ss>
+        train(No&& number, Nt&& note, Ss&& stops)
+        :
+        m_number(std::forward<No>(number)),
+        m_note(std::forward<Nt>(note)),
+        m_stops(std::forward<Ss>(stops))
+        {}
+
+        /*!
+            \brief Creates a train.
+
+            \tparam InputIterator An input iterator for stops.
+
+            \tparam No            A number type.
+            \tparam Nt            A note type.
+            \tparam InputIterator An input iterator type.
+
             \param number     A number.
             \param note       A note.
             \param stop_first The first iterator among stops.
             \param stop_last  The last iterator among stops.
         */
-        template <typename InputIterator>
+        template <typename No, typename Nt, typename InputIterator>
         train(
-            const number_type& number,
-            const note_type&   note,
-            InputIterator      stop_first,
-            InputIterator      stop_last
+            No&&          number,
+            Nt&&          note,
+            InputIterator stop_first,
+            InputIterator stop_last
         )
         :
-        m_number(number),
-        m_note(note),
+        m_number(std::forward<No>(number)),
+        m_note(std::forward<Nt>(note)),
         m_stops(stop_first, stop_last)
         {}
 
@@ -137,15 +167,20 @@ namespace bobura { namespace model
         /*!
             \brief Inserts a stop.
 
+            \tparam S A stop type.
+
             \param position A position where a stop is inserted.
             \param stop     A stop.
         */
+        template <typename S>
         void insert_stop(
             const typename stops_type::const_iterator position,
-            const stop_type&                          stop
+            S&&                                       stop
         )
         {
-            m_stops.insert(to_mutable(position, m_stops), stop);
+            m_stops.insert(
+                to_mutable(position, m_stops), std::forward<S>(stop)
+            );
         }
 
         /*!
