@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H)
 #define BOBURA_MODEL_TIMETABLEINFO_STATIONLOCATION_H
 
+#include <utility>
+
 #include <boost/operators.hpp>
 
 
@@ -41,16 +43,17 @@ namespace bobura { namespace model { namespace timetable_info
         /*!
             \brief Creates a station location.
 
+            \tparam S A station type.
+            \tparam M A meterage type.
+
             \param station  A station.
             \param meterage A meterage.
         */
-        station_location(
-            const station_type& station,
-            const meterage_type meterage
-        )
+        template <typename S, typename M>
+        station_location(S&& station, M&& meterage)
         :
-        m_station(station),
-        m_meterage(meterage)
+        m_station(std::forward<S>(station)),
+        m_meterage(std::forward<M>(meterage))
         {}
 
 

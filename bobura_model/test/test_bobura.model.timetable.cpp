@@ -68,8 +68,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     station_type(L"A", local_type::instance()), 1
                 )
             );
+            timetable_type::station_locations_type station_locations2(
+                station_locations
+            );
 
-            const timetable_type timetable(std::move(station_locations));
+            const timetable_type timetable(std::move(station_locations2));
 
             BOOST_CHECK(timetable.station_locations() == station_locations);
         }

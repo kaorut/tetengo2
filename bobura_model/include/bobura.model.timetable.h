@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <iterator>
 #include <stdexcept>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -68,7 +69,7 @@ namespace bobura { namespace model
             \param station_locations The station locations
         */
         template <typename SLs>
-        timetable(SLs&& station_locations)
+        explicit timetable(SLs&& station_locations)
         :
         m_station_locations(std::forward<SLs>(station_locations)),
         m_trains()
