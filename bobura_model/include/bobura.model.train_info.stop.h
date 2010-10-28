@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MODEL_TRAININFO_STOP_H)
 #define BOBURA_MODEL_TRAININFO_STOP_H
 
+#include <utility>
+
 #include <boost/operators.hpp>
 
 
@@ -39,19 +41,20 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Creates a stop.
 
+            \tparam AT An arrival time type.
+            \tparam DT A departure time type.
+            \tparam P  A platform type.
+
             \param arrival   An arrival time.
             \param departure A departure time.
             \param platform  A platform.
         */
-        stop(
-            const time_type&     arrival,
-            const time_type&     departure,
-            const platform_type& platform
-        )
+        template <typename AT, typename DT, typename P>
+        stop(AT&& arrival, DT&& departure, P&& platform)
         :
-        m_arrival(arrival),
-        m_departure(departure),
-        m_platform(platform)
+        m_arrival(std::forward<AT>(arrival)),
+        m_departure(std::forward<DT>(departure)),
+        m_platform(std::forward<P>(platform))
         {}
 
 
