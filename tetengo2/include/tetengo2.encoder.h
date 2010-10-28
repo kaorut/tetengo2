@@ -10,6 +10,7 @@
 #define TETENGO2_ENCODER_H
 
 //#include <cstddef>
+#include <utility>
 
 //#include <boost/operators.hpp>
 //#include <boost/type_traits.hpp>
@@ -54,19 +55,27 @@ namespace tetengo2
 
         /*!
             \brief Creates an encoder.
+        */
+        encoder()
+        :
+        m_internal_encoding(internal_encoding_type()),
+        m_external_encoding(external_encoding_type())
+        {}
+
+        /*!
+            \brief Creates an encoder.
+
+            \tparam IE An internal encoding type.
+            \tparam EE An external encoding type.
 
             \param internal_encoding An internal encoding.
             \param external_encoding An external encoding.
         */
-        explicit encoder(
-            const internal_encoding_type& internal_encoding =
-                internal_encoding_type(),
-            const external_encoding_type& external_encoding =
-                external_encoding_type()
-        )
+        template <typename IE, typename EE>
+        explicit encoder(IE&& internal_encoding, EE&& external_encoding)
         :
-        m_internal_encoding(internal_encoding),
-        m_external_encoding(external_encoding)
+        m_internal_encoding(std::forward<IE>(internal_encoding)),
+        m_external_encoding(std::forward<EE>(external_encoding))
         {}
 
 
@@ -112,30 +121,40 @@ namespace tetengo2
         /*!
             \brief Encodes a string.
 
+            \tparam IS An internal string type.
+
             \param string A string
 
             \return An encoded string.
         */
-        external_string_type encode(const internal_string_type& string)
+        template <typename IS>
+        external_string_type encode(IS&& string)
         const
         {
             return encode_impl(
-                string, m_internal_encoding, m_external_encoding
+                std::forward<IS>(string),
+                m_internal_encoding,
+                m_external_encoding
             );
         }
 
         /*!
             \brief Decodes a string.
 
+            \tparam ES An external string type.
+
             \param string A string.
 
             \return A decoded string.
         */
-        internal_string_type decode(const external_string_type& string)
+        template <typename ES>
+        internal_string_type decode(ES&& string)
         const
         {
             return decode_impl(
-                string, m_internal_encoding, m_external_encoding
+                std::forward<ES>(string),
+                m_internal_encoding,
+                m_external_encoding
             );
         }
 
@@ -152,37 +171,37 @@ namespace tetengo2
 
         // static functions
 
-        template <typename InternEnc, typename ExternEnc>
+        template <typename IS, typename InternEnc, typename ExternEnc>
         static external_string_type encode_impl(
-            const internal_string_type& string,
-            const InternEnc&            internal_encoding,
-            const ExternEnc&            external_encoding,
+            IS&&             string,
+            const InternEnc& internal_encoding,
+            const ExternEnc& external_encoding,
             const typename boost::enable_if<
                 boost::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
-            return string;
+            return std::forward<IS>(string);
         }
 
-        template <typename InternEnc, typename ExternEnc>
+        template <typename IS, typename InternEnc, typename ExternEnc>
         static external_string_type encode_impl(
-            const internal_string_type& string,
-            const InternEnc&            internal_encoding,
-            const ExternEnc&            external_encoding,
+            IS&&             string,
+            const InternEnc& internal_encoding,
+            const ExternEnc& external_encoding,
             const typename boost::disable_if<
                 boost::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
             return external_encoding.from_pivot(
-                internal_encoding.to_pivot(string)
+                internal_encoding.to_pivot(std::forward<IS>(string))
             );
         }
 
-        template <typename Str>
+        template <typename IS, typename Str>
         static external_string_type encode_impl(
-            const internal_string_type&  string,
+            IS&&                         string,
             const encoding::locale<Str>& internal_encoding,
             const encoding::locale<Str>& external_encoding
         )
@@ -192,48 +211,47 @@ namespace tetengo2
                 external_encoding.locale_based_on()
             )
             {
-                return string;
+                return std::forward<IS>(string);
             }
             else
             {
                 return external_encoding.from_pivot(
-                    internal_encoding.to_pivot(string)
+                    internal_encoding.to_pivot(std::forward<IS>(string))
                 );
             }
         }
 
-
-        template <typename InternEnc, typename ExternEnc>
+        template <typename ES, typename InternEnc, typename ExternEnc>
         static internal_string_type decode_impl(
-            const external_string_type& string,
-            const InternEnc&            internal_encoding,
-            const ExternEnc&            external_encoding,
+            ES&&             string,
+            const InternEnc& internal_encoding,
+            const ExternEnc& external_encoding,
             const typename boost::enable_if<
                 boost::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
-            return string;
+            return std::forward<ES>(string);
         }
 
-        template <typename InternEnc, typename ExternEnc>
+        template <typename ES, typename InternEnc, typename ExternEnc>
         static internal_string_type decode_impl(
-            const external_string_type& string,
-            const InternEnc&            internal_encoding,
-            const ExternEnc&            external_encoding,
+            ES&&             string,
+            const InternEnc& internal_encoding,
+            const ExternEnc& external_encoding,
             const typename boost::disable_if<
                 boost::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
             return internal_encoding.from_pivot(
-                external_encoding.to_pivot(string)
+                external_encoding.to_pivot(std::forward<ES>(string))
             );
         }
 
-        template <typename Str>
+        template <typename ES, typename Str>
         static internal_string_type decode_impl(
-            const external_string_type&  string,
+            ES&&                         string,
             const encoding::locale<Str>& internal_encoding,
             const encoding::locale<Str>& external_encoding
         )
@@ -243,12 +261,12 @@ namespace tetengo2
                 external_encoding.locale_based_on()
             )
             {
-                return string;
+                return std::forward<ES>(string);
             }
             else
             {
                 return internal_encoding.from_pivot(
-                    external_encoding.to_pivot(string)
+                    external_encoding.to_pivot(std::forward<ES>(string))
                 );
             }
         }
