@@ -11,6 +11,7 @@
 
 #include <cstddef>
 #include <locale>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 
@@ -64,18 +65,23 @@ namespace tetengo2
         /*!
             \brief Returns the localized text.
 
+            \tparam S A string type.
+
             \param default_text A default text. It is also used as a key of
                                 the message catalog.
 
             \return The localized text.
         */
-        string_type get(const string_type default_text)
+        template <typename S>
+        string_type get(S&& default_text)
         const
         {
             if (m_p_messages == NULL || m_catalog_id < 0)
                 return default_text;
 
-            return m_p_messages->get(m_catalog_id, 0, 0, default_text);
+            return m_p_messages->get(
+                m_catalog_id, 0, 0, std::forward<S>(default_text)
+            );
         }
 
 
@@ -87,18 +93,22 @@ namespace tetengo2
 
         // static functions
 
-        static const messages_type* get_messages(const std::locale& locale)
+        template <typename L>
+        static const messages_type* get_messages(L&& locale)
         {
             return std::has_facet<messages_type>(locale) ?
-                &std::use_facet<messages_type>(locale) : NULL;
+                &std::use_facet<messages_type>(std::forward<L>(locale)) :
+                NULL;
         }
 
+        template <typename L>
         static catalog_id_type open_messages(
             const messages_type* const p_messages,
-            const std::locale&         locale
+            L&&                        locale
         )
         {
-            return p_messages != NULL ? p_messages->open("", locale) : -1;
+            return p_messages != NULL ?
+                p_messages->open("", std::forward<L>(locale)) : -1;
         }
 
 
