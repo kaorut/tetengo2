@@ -135,6 +135,8 @@ namespace bobura { namespace model
             count of the station locations coincides with the one of the every
             train stop.
 
+            \tparam SL A station location type.
+
             \param position         A position where a station location is
                                     inserted.
             \param station_location A station location.
@@ -143,11 +145,11 @@ namespace bobura { namespace model
                                          sequenced in ascending order after
                                          the insertion.
         */
+        template <typename SL>
         void insert_station_location(
             const typename station_locations_type::const_iterator
-            position,
-            const station_location_type&
-            station_location
+                 position,
+            SL&& station_location
         )
         {
             if (!can_insert_to(position, station_location))
@@ -165,7 +167,8 @@ namespace bobura { namespace model
                 );
 
             m_station_locations.insert(
-                to_mutable(position, m_station_locations), station_location
+                to_mutable(position, m_station_locations),
+                std::forward<SL>(station_location)
             );
 
             std::for_each(
@@ -230,6 +233,8 @@ namespace bobura { namespace model
             The count of train stops must coincide with the one of the station
             locations.
 
+            \tparam T A train type.
+
             \param position A position where a train is inserted.
             \param train    A train.
 
@@ -237,9 +242,10 @@ namespace bobura { namespace model
                                          train does not coincide with the one
                                          of the station locations.
         */
+        template <typename T>
         void insert_train(
             const typename trains_type::const_iterator position,
-            const train_type&                          train
+            T&&                                        train
         )
         {
             if (train.stops().size() != m_station_locations.size())
@@ -252,7 +258,9 @@ namespace bobura { namespace model
                 );
             }
 
-            m_trains.insert(to_mutable(position, m_trains), train);
+            m_trains.insert(
+                to_mutable(position, m_trains), std::forward<T>(train)
+            );
         }
 
         /*!
