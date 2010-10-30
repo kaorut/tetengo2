@@ -17,6 +17,7 @@
 #include <map>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <boost/bind.hpp>
@@ -84,16 +85,24 @@ namespace tetengo2
         /*!
             \brief Creates a messages facet.
 
+            \tparam P A path type.
+            \tparam L A locale type.
+
             \param path   A path where message catalogs are stored.
             \param locale A locale for the messages facet.
 
             \throw std::ios_base::failure When the path does not exist or is
                                           not a directory.
         */
-        messages(const path_type& path, const std::locale& locale)
+        template <typename P, typename L>
+        messages(P&& path, L&& locale)
         :
         m_open(false),
-        m_message_catalog(load_message_catalog(path, locale))
+        m_message_catalog(
+            load_message_catalog(
+                std::forward<P>(path), std::forward<L>(locale)
+            )
+        )
         {}
 
         /*!
@@ -102,98 +111,6 @@ namespace tetengo2
         virtual ~messages()
         TETENGO2_NOEXCEPT
         {}
-
-
-    protected:
-        // virtual functions
-        
-        /*!
-            \brief Opens a message catalog.
-
-            \param catalog_name Not used.
-            \param locale       Not used.
-
-            \return The catalog ID. When failed, the value is less than 0.
-
-            \throw std::runtime_error A message catalog is already open.
-        */
-        virtual catalog do_open(
-            const std::string& catalog_name,
-            const std::locale& locale
-        )
-        const
-        {
-            if (m_open)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("A message catalog is already open.")
-                );
-            }
-
-            if (!m_message_catalog) return -1;
-
-            m_open = true;
-            return 1;
-        }
-        
-        /*!
-            \brief Returns the localized message.
-
-            \param catalog_id      A catalog ID.
-            \param set             Not used.
-            \param message         Not used.
-            \param default_message A default message. Also, used as a key.
-
-            \return The localized message.
-
-            \throw std::runtime_error The message catalog is not open.
-        */
-        virtual string_type do_get(
-            const catalog      catalog_id,
-            const int          set,
-            const int          message,
-            const string_type& default_message
-        )
-        const
-        {
-            if (catalog_id < 0)
-                return default_message;
-            
-            if (!m_open)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("The message catalog is not open.")
-                );
-            }
-
-            const typename message_catalog_type::const_iterator found =
-                m_message_catalog->find(default_message);
-
-            return found != m_message_catalog->end() ?
-                found->second : default_message;
-        }
-
-        /*!
-            \brief Closes the message catalog.
-
-            \param catalog_id A catalog ID.
-
-            \throw std::runtime_error The message catalog is not open.
-        */
-        virtual void do_close(const catalog catalog_id)
-        const
-        {
-            if (catalog_id < 0) return;
-
-            if (!m_open)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("The message catalog is not open.")
-                );
-            }
-
-            m_open = false;
-        }
 
 
     private:
@@ -213,7 +130,8 @@ namespace tetengo2
             const std::locale& m_locale;
 
             matches_locale_type(const std::locale& locale)
-            : m_locale(locale)
+            :
+            m_locale(locale)
             {}
 
             bool operator()(
@@ -253,26 +171,29 @@ namespace tetengo2
             return singleton;
         }
 
+        template <typename P, typename L>
         static const boost::optional<message_catalog_type>
-        load_message_catalog(
-            const path_type&   path,
-            const std::locale& locale
-        )
+        load_message_catalog(P&& path, L&& locale)
         {
             const boost::optional<path_type> catalog_file =
-                select_catalog_file(path, locale);
+                select_catalog_file(
+                    std::forward<P>(path), std::forward<L>(locale)
+                );
             if (!catalog_file)
                 return boost::optional<message_catalog_type>();
 
             message_catalog_type message_catalog;
             read_message_catalog(*catalog_file, message_catalog);
             
-            return boost::optional<message_catalog_type>(message_catalog);
+            return boost::optional<message_catalog_type>(
+                std::move(message_catalog)
+            );
         }
 
+        template <typename P, typename L>
         static const boost::optional<path_type> select_catalog_file(
-            const path_type&   path,
-            const std::locale& locale
+            P&&  path,
+            L&& locale
         )
         {
             if (!boost::filesystem::exists(path))
@@ -311,20 +232,21 @@ namespace tetengo2
                     matches_locale_type(locale)
                 );
             if (found != catalog_file_mappings.end())
-                return path / found->second;
+                return std::forward<P>(path) / found->second;
 
             return boost::optional<path_type>();
         }
 
+        template <typename P>
         static catalog_file_mappings_type read_catalog_file_mappings(
-            const path_type& message_catalog_directory    
+            P&& message_catalog_directory    
         )
         {
             catalog_file_mappings_type mappings;
 
             boost::filesystem::ifstream input_stream(
                 path_type(
-                    message_catalog_directory /
+                    std::forward<P>(message_catalog_directory) /
                     catalog_file_mappings_filename()
                 )
             );
@@ -344,12 +266,15 @@ namespace tetengo2
             return mappings;
         }
 
+        template <typename P>
         static void read_message_catalog(
-            const path_type&      catalog_file,
+            P&&                   catalog_file,
             message_catalog_type& message_catalog
         )
         {
-            boost::filesystem::ifstream input_stream(catalog_file);
+            boost::filesystem::ifstream input_stream(
+                std::forward<P>(catalog_file)
+            );
             if (!input_stream.is_open())
             {
                 BOOST_THROW_EXCEPTION(
@@ -369,6 +294,67 @@ namespace tetengo2
 
         const boost::optional<message_catalog_type> m_message_catalog;
         
+
+        // virtual functions
+        
+        virtual catalog do_open(
+            const std::string& catalog_name,
+            const std::locale& locale
+        )
+        const
+        {
+            if (m_open)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("A message catalog is already open.")
+                );
+            }
+
+            if (!m_message_catalog) return -1;
+
+            m_open = true;
+            return 1;
+        }
+        
+        virtual string_type do_get(
+            const catalog      catalog_id,
+            const int          set,
+            const int          message,
+            const string_type& default_message
+        )
+        const
+        {
+            if (catalog_id < 0)
+                return default_message;
+            
+            if (!m_open)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("The message catalog is not open.")
+                );
+            }
+
+            const typename message_catalog_type::const_iterator found =
+                m_message_catalog->find(default_message);
+
+            return found != m_message_catalog->end() ?
+                found->second : default_message;
+        }
+
+        virtual void do_close(const catalog catalog_id)
+        const
+        {
+            if (catalog_id < 0) return;
+
+            if (!m_open)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("The message catalog is not open.")
+                );
+            }
+
+            m_open = false;
+        }
 
 
     };
