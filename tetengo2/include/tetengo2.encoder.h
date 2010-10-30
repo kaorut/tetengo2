@@ -10,7 +10,7 @@
 #define TETENGO2_ENCODER_H
 
 //#include <cstddef>
-#include <utility>
+//#include <utility>
 
 //#include <boost/operators.hpp>
 //#include <boost/type_traits.hpp>
