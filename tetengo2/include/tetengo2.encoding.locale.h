@@ -15,6 +15,7 @@
 #include <iterator>
 #include <locale>
 #include <stdexcept>
+#include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
@@ -51,13 +52,24 @@ namespace tetengo2 { namespace encoding
         // constructors and destructor
 
         /*!
+            \brief Creates an encoding based on the current locale.
+        */
+        locale()
+        :
+        m_locale()
+        {}
+
+        /*!
             \brief Creates an encoding based on a locale.
+
+            \tparam L A locale type.
 
             \param locale_based_on A locale based on.
         */
-        explicit locale(const std::locale& locale_based_on = std::locale())
+        template <typename L>
+        explicit locale(L&& locale_based_on)
         :
-        m_locale(locale_based_on)
+        m_locale(std::forward<L>(locale_based_on))
         {}
 
 
@@ -92,27 +104,33 @@ namespace tetengo2 { namespace encoding
         /*!
             \brief Translates a string from the pivot encoding.
 
+            \tparam P A pivot type.
+
             \param pivot A pivot string.
 
             \return A translated string.
         */
-        string_type from_pivot(const pivot_type& pivot)
+        template <typename P>
+        string_type from_pivot(P&& pivot)
         const
         {
-            return from_pivot_impl(pivot);
+            return from_pivot_impl(std::forward<P>(pivot));
         }
 
         /*!
             \brief Translates a string to the pivot encoding.
 
+            \tparam S A string type.
+
             \param string A string.
 
             \return A translated pivot string.
         */
-        pivot_type to_pivot(const string_type& string)
+        template <typename S>
+        pivot_type to_pivot(S&& string)
         const
         {
-            return to_pivot_impl(string);
+            return to_pivot_impl(std::forward<S>(string));
         }
 
 
@@ -133,21 +151,21 @@ namespace tetengo2 { namespace encoding
 
         template <typename Pivot>
         string_type from_pivot_impl(
-            const Pivot& pivot,
+            Pivot&& pivot,
             const typename boost::enable_if<
-                boost::is_same<Pivot, string_type>
+                boost::is_convertible<Pivot, string_type>
             >::type* const = NULL
         )
         const
         {
-            return pivot;
+            return std::forward<Pivot>(pivot);
         }
 
         template <typename Pivot>
         string_type from_pivot_impl(
             const Pivot& pivot,
             const typename boost::disable_if<
-                boost::is_same<Pivot, string_type>
+                boost::is_convertible<Pivot, string_type>
             >::type* const = NULL
         )
         const
@@ -224,7 +242,7 @@ namespace tetengo2 { namespace encoding
         }
 
         void unshift(
-            const converter_type& converter,
+            const converter_type&          converter,
             std::mbstate_t&                state,
             std::vector<string_char_type>& string_chars,
             string_char_type*              p_string_first,
@@ -264,21 +282,21 @@ namespace tetengo2 { namespace encoding
 
         template <typename Str>
         pivot_type to_pivot_impl(
-            const Str& string,
+            Str&& string,
             const typename boost::enable_if<
-                boost::is_same<pivot_type, Str>
+                boost::is_convertible<Str, pivot_type>
             >::type* const = NULL
         )
         const
         {
-            return string;
+            return std::forward<Str>(string);
         }
 
         template <typename Str>
         pivot_type to_pivot_impl(
             const Str& string,
             const typename boost::disable_if<
-                boost::is_same<pivot_type, Str>
+                boost::is_convertible<Str, pivot_type>
             >::type* const = NULL
         )
         const

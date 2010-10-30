@@ -58,8 +58,8 @@ namespace tetengo2
         */
         encoder()
         :
-        m_internal_encoding(internal_encoding_type()),
-        m_external_encoding(external_encoding_type())
+        m_internal_encoding(),
+        m_external_encoding()
         {}
 
         /*!
