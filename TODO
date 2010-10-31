@@ -7,26 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000035
-Added on    : 2010/07/25
-Depends on  : 48, 51, 54
-Description : Use rvalue references in bobura.
-------------------------------------------------------------------------------
-Number      : 00000043
-Added on    : 2010/09/04
-Depends on  : 49, 52, 55
-Description : Use rvalue references in bobura_model.
-------------------------------------------------------------------------------
-Number      : 00000044
-Added on    : 2010/09/04
-Depends on  : 50, 53, 56
-Description : Use rvalue references in tetengo2.
-------------------------------------------------------------------------------
-Number      : 00000056
-Added on    : 2010/10/02
-Depends on  : (none)
-Description : Add overloads with rvalue references in tetengo2.
-------------------------------------------------------------------------------
 Number      : 00000057
 Added on    : 2010/mm/yy
 Depends on  : (none)
