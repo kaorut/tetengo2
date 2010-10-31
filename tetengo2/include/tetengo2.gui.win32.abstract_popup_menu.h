@@ -16,6 +16,7 @@
 //#include <memory>
 //#include <stdexcept>
 #include <string>
+#include <utility>
 //#include <vector>
 
 //#include <boost/throw_exception.hpp>
@@ -69,12 +70,15 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a abstract_popup_menu.
 
+            \tparam S A string type.
+
             \param handle  A handle.
             \param text    A text.
         */
-        abstract_popup_menu(const handle_type handle, const string_type& text)
+        template <typename S>
+        abstract_popup_menu(const handle_type handle, S&& text)
         :
-        base_type(text),
+        base_type(std::forward<S>(text)),
         m_handle(handle),
         m_children()
         {}
@@ -169,10 +173,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        std::vector< ::WCHAR> duplicate_text(const string_type& text)
+        template <typename S>
+        std::vector< ::WCHAR> duplicate_text(S&& text)
         const
         {
-            const std::wstring native_string = encoder().encode(text);
+            const std::wstring native_string =
+                encoder().encode(std::forward<S>(text));
 
             std::vector< ::WCHAR> duplicated;
             duplicated.reserve(native_string.length() + 1);
