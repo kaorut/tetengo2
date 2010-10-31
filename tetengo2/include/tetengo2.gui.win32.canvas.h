@@ -157,22 +157,28 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Sets a font.
 
+            \tparam F A font type.
+
             \param font A font.
         */
-        void set_font(const font_type& font)
+        template <typename F>
+        void set_font(F&& font)
         {
-            m_font = font;
+            m_font = std::forward<F>(font);
         }
 
         /*!
             \brief Draws a text.
+
+            \tparam S A string type.
 
             \param text  A text to draw.
             \param point A point where the text is drawn.
 
             \throw std::runtime_error When the text cannot be drawn.
         */
-        void draw_text(const string_type& text, const point_type& point)
+        template <typename S>
+        void draw_text(S&& text, const point_type& point)
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const Gdiplus::FontFamily font_family(
@@ -200,7 +206,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 Gdiplus::Color(128, 255, 0, 0)
             );
 
-            const std::wstring encoded_text = encoder().encode(text);
+            const std::wstring encoded_text =
+                encoder().encode(std::forward<S>(text));
             const Gdiplus::Status result = m_graphics.DrawString(
                 encoded_text.c_str(),
                 static_cast< ::INT>(encoded_text.length()),
