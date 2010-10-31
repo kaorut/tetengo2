@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_ABSTRACTPOPUPMENU_H
 
 //#include <memory>
+#include <utility>
 
 //#include <boost/ptr_container/ptr_vector.hpp>
 
@@ -39,13 +40,14 @@ namespace stub_tetengo2 { namespace gui
 
     protected:
         // constructors
-
+        
+        template <typename S>
         abstract_popup_menu(
-            const typename abstract_popup_menu::handle_type  handle,
-            const typename abstract_popup_menu::string_type& text
+            const typename abstract_popup_menu::handle_type handle,
+            S&&                                             text
         )
         :
-        base_type(text),
+        base_type(std::forward<S>(text)),
         m_handle(handle),
         m_children()
         {}
