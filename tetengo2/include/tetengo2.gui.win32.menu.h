@@ -13,6 +13,7 @@
 //#include <cstddef>
 #include <memory>
 #include <stdexcept>
+#include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>
@@ -302,12 +303,15 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a menu.
 
+            \tparam S A string type.
+
             \param text A text.
         */
-        explicit menu(const string_type& text)
+        template <typename S>
+        explicit menu(S&& text)
         :
         m_id(get_and_increment_id()),
-        m_text(text),
+        m_text(std::forward<S>(text)),
         m_menu_observer_set()
         {}
 
