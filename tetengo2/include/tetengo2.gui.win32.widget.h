@@ -468,14 +468,17 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Sets the text.
 
+            \tparam S A string type.
+
             \param text A text.
 
             \throw std::runtime_error When the text cannot be set.
         */
-        void set_text(const string_type& text)
+        template <typename S>
+        void set_text(S&& text)
         {
             const ::BOOL result = ::SetWindowTextW(
-                handle(), encoder().encode(text).c_str()
+                handle(), encoder().encode(std::forward<S>(text)).c_str()
             );
             if (result == 0)
             {
