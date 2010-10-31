@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <cassert>
 #include <stdexcept>
+#include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
@@ -89,6 +90,8 @@ namespace tetengo2 { namespace gui { namespace win32
             When family is not installed, the family of the dialog font is set
             instead.
 
+            \tparam S A string type.
+
             \param family    A family.
             \param size      A size.
             \param bold      Whether this font is bold.
@@ -96,16 +99,17 @@ namespace tetengo2 { namespace gui { namespace win32
             \param underline Whether this font is underlined.
             \param strikeout Whether this font is striked out.
         */
+        template <typename S>
         font(
-            const string_type& family,
-            const size_type    size,
-            const bool         bold,
-            const bool         italic,
-            const bool         underline,
-            const bool         strikeout
+            S&&             family,
+            const size_type size,
+            const bool      bold,
+            const bool      italic,
+            const bool      underline,
+            const bool      strikeout
         )
         :
-        m_family(select_family(family)),
+        m_family(select_family(std::forward<S>(family))),
         m_size(size),
         m_bold(bold),
         m_italic(italic),
@@ -307,7 +311,8 @@ namespace tetengo2 { namespace gui { namespace win32
             return families;
         }
 
-        string_type select_family(const string_type& family)
+        template <typename S>
+        string_type select_family(S&& family)
         {
             if (
                 std::find(
@@ -320,7 +325,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 return dialog_font().family();
             }
         
-            return family;
+            return std::forward<S>(family);
         }
 
 
