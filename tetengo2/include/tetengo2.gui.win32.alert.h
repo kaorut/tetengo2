@@ -18,8 +18,8 @@
 #include <string>
 #include <utility>
 
-#include <boost/scope_exit.hpp>
 #include <boost/exception/all.hpp>
+#include <boost/scope_exit.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE

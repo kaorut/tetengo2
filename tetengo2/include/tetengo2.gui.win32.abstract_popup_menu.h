@@ -16,11 +16,11 @@
 //#include <memory>
 //#include <stdexcept>
 #include <string>
-#include <utility>
+//#include <utility>
 //#include <vector>
 
-//#include <boost/throw_exception.hpp>
 //#include <boost/ptr_container/ptr_vector.hpp>
+//#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE

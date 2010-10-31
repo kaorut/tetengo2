@@ -12,6 +12,7 @@
 #include <cstddef>
 
 #include <boost/mpl/at.hpp>
+#include <boost/mpl/aux_/na.hpp>
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/clear.hpp>
 #include <boost/mpl/count.hpp>
@@ -32,7 +33,6 @@
 #include <boost/mpl/reverse.hpp>
 #include <boost/mpl/value_type.hpp>
 #include <boost/mpl/void.hpp>
-#include <boost/mpl/aux_/na.hpp>
 
 
 namespace tetengo2 { namespace meta

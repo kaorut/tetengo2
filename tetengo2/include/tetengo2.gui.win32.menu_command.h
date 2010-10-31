@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_WIN32_MENUCOMMAND_H
 
 //#include <cstddef>
-#include <utility>
+//#include <utility>
 //#include <vector>
 
 //#define NOMINMAX

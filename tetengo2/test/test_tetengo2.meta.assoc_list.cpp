@@ -6,9 +6,9 @@
     $Id$
 */
 
-#include <boost/type_traits.hpp>
 #include <boost/mpl/assert.hpp>
 //#include <boost/mpl/at.hpp>
+//#include <boost/mpl/aux_/na.hpp>
 //#include <boost/mpl/begin.hpp>
 //#include <boost/mpl/clear.hpp>
 //#include <boost/mpl/count.hpp>
@@ -35,8 +35,8 @@
 //#include <boost/mpl/value_type.hpp>
 #include <boost/mpl/vector.hpp>
 //#include <boost/mpl/void.hpp>
-//#include <boost/mpl/aux_/na.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/type_traits.hpp>
 
 #include "tetengo2.meta.assoc_list.h"
 

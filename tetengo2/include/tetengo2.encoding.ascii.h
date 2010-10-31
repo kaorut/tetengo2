@@ -12,8 +12,8 @@
 #include <stdexcept>
 //#include <string>
 
-#include <boost/operators.hpp>
 #include <boost/iterator/transform_iterator.hpp>
+#include <boost/operators.hpp>
 
 #include "tetengo2.encoding.encoding.h"
 
