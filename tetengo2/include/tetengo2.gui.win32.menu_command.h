@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_WIN32_MENUCOMMAND_H
 
 //#include <cstddef>
+#include <utility>
 //#include <vector>
 
 //#define NOMINMAX
@@ -47,11 +48,14 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a menu command.
 
+            \tparam S A string type.
+
             \param text A text.
         */
-        explicit menu_command(const string_type& text)
+        template <typename S>
+        explicit menu_command(S&& text)
         :
-        base_type(text)
+        base_type(std::forward<S>(text))
         {}
 
         /*!
