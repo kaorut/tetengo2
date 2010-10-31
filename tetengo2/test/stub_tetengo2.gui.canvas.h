@@ -71,12 +71,14 @@ namespace stub_tetengo2 { namespace gui
             return m_font;
         }
 
-        void set_font(const font_type& font)
+        template <typename F>
+        void set_font(F&& font)
         {
-            m_font = font;
+            m_font = std::forward<F>(font);
         }
 
-        void draw_text(const string_type& text, const point_type& point)
+        template <typename S>
+        void draw_text(S&& text, const point_type& point)
         {}
 
 
