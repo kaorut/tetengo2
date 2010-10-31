@@ -9,6 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_FONT_H)
 #define STUBTETENGO2_GUI_FONT_H
 
+#include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
@@ -55,16 +56,17 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
+        template <typename S>
         font(
-            const string_type& family,
-            const size_type    size,
-            const bool         bold,
-            const bool         italic,
-            const bool         underline,
-            const bool         strikeout
+            S&&             family,
+            const size_type size,
+            const bool      bold,
+            const bool      italic,
+            const bool      underline,
+            const bool      strikeout
         )
         :
-        m_family(family),
+        m_family(std::forward<S>(family)),
         m_size(size),
         m_bold(bold),
         m_italic(italic),
