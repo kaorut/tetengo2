@@ -29,13 +29,15 @@ namespace tetengo2 { namespace encoding
 
         // functions
 
-        string_type from_pivot(const pivot_type& pivot)
+        template <typename P>
+        string_type from_pivot(P&& pivot)
         const
         {
             return string_type();
         }
 
-        pivot_type to_pivot(const string_type& string)
+        template <typename S>
+        pivot_type to_pivot(S&& string)
         const
         {
             return pivot_type();
