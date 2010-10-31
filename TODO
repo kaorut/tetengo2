@@ -8,6 +8,26 @@
 \verbatim
 ------------------------------------------------------------------------------
 Number      : 00000057
+Added on    : 2010/10/31
+Depends on  : (none)
+Description : Improve the event prodecures.
+------------------------------------------------------------------------------
+Number      : 00000058
+Added on    : 2010/10/31
+Depends on  : (none)
+Description : Replaced boost function calls to C++0x std function calls.
+------------------------------------------------------------------------------
+Number      : 00000059
+Added on    : 2010/10/31
+Depends on  : (none)
+Description : Use a message catalog for the UI texts.
+------------------------------------------------------------------------------
+Number      : 00000060
+Added on    : 2010/10/31
+Depends on  : (none)
+Description : Create tetengo2::gui::win32::label.
+------------------------------------------------------------------------------
+Number      : 00000061
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
