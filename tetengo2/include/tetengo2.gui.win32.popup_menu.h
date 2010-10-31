@@ -11,6 +11,7 @@
 
 //#include <cstddef>
 //#include <stdexcept>
+#include <utility>
 //#include <vector>
 
 //#include <boost/throw_exception.hpp>
@@ -48,11 +49,14 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a popup menu.
 
+            \tparam S A string type.
+
             \param text A text.
         */
-        explicit popup_menu(const string_type& text)
+        template <typename S>
+        explicit popup_menu(S&& text)
         :
-        base_type(create_menu(), text)
+        base_type(create_menu(), std::forward<S>(text))
         {}
 
         /*!
