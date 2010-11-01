@@ -156,9 +156,10 @@ namespace stub_tetengo2 { namespace gui
             );
         }
 
-        void set_position(const position_type& position)
+        template <typename P>
+        void set_position(P&& position)
         {
-            m_position = position;
+            m_position = std::forward<P>(position);
         }
 
         const position_type& position()
@@ -167,7 +168,8 @@ namespace stub_tetengo2 { namespace gui
             return m_position;
         }
 
-        void set_dimension(const dimension_type& dimension)
+        template <typename D>
+        void set_dimension(D&& dimension)
         {
             if (dimension.first == 0 || dimension.second == 0)
             {
@@ -176,7 +178,7 @@ namespace stub_tetengo2 { namespace gui
                 );
             }
 
-            m_dimension = dimension;
+            m_dimension = std::forward<D>(dimension);
         }
 
         const dimension_type& dimension()
@@ -185,9 +187,8 @@ namespace stub_tetengo2 { namespace gui
             return m_dimension;
         }
 
-        void set_client_dimension(
-            const dimension_type& client_dimension
-        )
+        template <typename D>
+        void set_client_dimension(D&& client_dimension)
         {
             if (client_dimension.first == 0 || client_dimension.second == 0)
             {
@@ -196,7 +197,7 @@ namespace stub_tetengo2 { namespace gui
                 );
             }
 
-            m_client_dimension = client_dimension;
+            m_client_dimension = std::forward<D>(client_dimension);
         }
 
         const dimension_type& client_dimension()
@@ -205,9 +206,10 @@ namespace stub_tetengo2 { namespace gui
             return m_client_dimension;
         }
 
-        void set_text(const string_type& text)
+        template <typename S>
+        void set_text(S&& text)
         {
-            m_text = text;
+            m_text = std::forward<S>(text);
         }
 
         string_type text()
@@ -216,7 +218,8 @@ namespace stub_tetengo2 { namespace gui
             return m_text;
         }
 
-        void set_font(const font_type& font)
+        template <typename F>
+        void set_font(F&& font)
         {}
 
         font_type font()

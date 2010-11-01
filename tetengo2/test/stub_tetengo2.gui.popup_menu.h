@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_POPUPMENU_H
 
 //#include <cstddef>
+#include <utility>
 
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "tetengo2.cpp0x_keyword.h"
@@ -30,9 +31,10 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        explicit popup_menu(const typename popup_menu::string_type& text)
+        template <typename S>
+        explicit popup_menu(S&& text)
         :
-        base_type(NULL, text)
+        base_type(NULL, std::forward<S>(text))
         {}
 
         virtual ~popup_menu()
