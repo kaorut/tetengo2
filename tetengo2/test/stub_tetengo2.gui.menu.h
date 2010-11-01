@@ -13,6 +13,7 @@
 //#include <cstddef>
 #include <memory>
 #include <stdexcept>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -167,9 +168,10 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors
 
-        explicit menu(const string_type& text)
+        template <typename S>
+        explicit menu(S&& text)
         :
-        m_text(text)
+        m_text(std::forward<S>(text))
         {}
 
 
