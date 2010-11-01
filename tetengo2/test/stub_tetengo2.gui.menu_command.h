@@ -9,6 +9,8 @@
 #if !defined(STUBTETENGO2_GUI_MENUCOMMAND_H)
 #define STUBTETENGO2_GUI_MENUCOMMAND_H
 
+#include <utility>
+
 #include "stub_tetengo2.gui.menu.h"
 #include "tetengo2.cpp0x_keyword.h"
 
@@ -28,9 +30,10 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        explicit menu_command(const typename menu_command::string_type& text)
+        template <typename S>
+        explicit menu_command(S&& text)
         :
-        base_type(text)
+        base_type(std::forward<S>(text))
         {}
 
         virtual ~menu_command()
