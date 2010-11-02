@@ -10,10 +10,10 @@
 #define TETENGO2_ENCODER_H
 
 //#include <cstddef>
+#include <type_traits>
 //#include <utility>
 
 //#include <boost/operators.hpp>
-//#include <boost/type_traits.hpp>
 //#include <boost/utility.hpp>
 
 #include "tetengo2.encoding.locale.h"
@@ -163,7 +163,7 @@ namespace tetengo2
         // types
 
         typedef
-            typename boost::is_same<
+            typename std::is_same<
                 internal_encoding_type, external_encoding_type
             >::type
             encodings_are_same_type;
@@ -177,7 +177,7 @@ namespace tetengo2
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
             const typename boost::enable_if<
-                boost::is_same<InternEnc, ExternEnc>
+                std::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
@@ -190,7 +190,7 @@ namespace tetengo2
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
             const typename boost::disable_if<
-                boost::is_same<InternEnc, ExternEnc>
+                std::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
@@ -227,7 +227,7 @@ namespace tetengo2
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
             const typename boost::enable_if<
-                boost::is_same<InternEnc, ExternEnc>
+                std::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {
@@ -240,7 +240,7 @@ namespace tetengo2
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
             const typename boost::disable_if<
-                boost::is_same<InternEnc, ExternEnc>
+                std::is_same<InternEnc, ExternEnc>
             >::type* const = NULL
         )
         {

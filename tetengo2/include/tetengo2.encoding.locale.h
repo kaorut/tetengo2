@@ -15,12 +15,12 @@
 #include <iterator>
 #include <locale>
 #include <stdexcept>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/type_traits.hpp>
 #include <boost/utility.hpp>
 
 #include "tetengo2.text.h"
@@ -153,7 +153,7 @@ namespace tetengo2 { namespace encoding
         string_type from_pivot_impl(
             Pivot&& pivot,
             const typename boost::enable_if<
-                boost::is_convertible<Pivot, string_type>
+                std::is_convertible<Pivot, string_type>
             >::type* const = NULL
         )
         const
@@ -165,7 +165,7 @@ namespace tetengo2 { namespace encoding
         string_type from_pivot_impl(
             const Pivot& pivot,
             const typename boost::disable_if<
-                boost::is_convertible<Pivot, string_type>
+                std::is_convertible<Pivot, string_type>
             >::type* const = NULL
         )
         const
@@ -284,7 +284,7 @@ namespace tetengo2 { namespace encoding
         pivot_type to_pivot_impl(
             Str&& string,
             const typename boost::enable_if<
-                boost::is_convertible<Str, pivot_type>
+                std::is_convertible<Str, pivot_type>
             >::type* const = NULL
         )
         const
@@ -296,7 +296,7 @@ namespace tetengo2 { namespace encoding
         pivot_type to_pivot_impl(
             const Str& string,
             const typename boost::disable_if<
-                boost::is_convertible<Str, pivot_type>
+                std::is_convertible<Str, pivot_type>
             >::type* const = NULL
         )
         const
