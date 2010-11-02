@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <type_traits>
+
 #include <boost/mpl/assert.hpp>
 //#include <boost/mpl/at.hpp>
 //#include <boost/mpl/aux_/na.hpp>
@@ -36,7 +38,6 @@
 #include <boost/mpl/vector.hpp>
 //#include <boost/mpl/void.hpp>
 #include <boost/test/unit_test.hpp>
-#include <boost/type_traits.hpp>
 
 #include "tetengo2.meta.assoc_list.h"
 
@@ -88,17 +89,17 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         {
             typedef assoc_list0::type this_type;
 
-            BOOST_MPL_ASSERT((boost::is_same<this_type, assoc_list0>));
+            BOOST_MPL_ASSERT((std::is_same<this_type, assoc_list0>));
         }
         {
             typedef assoc_list1::type this_type;
 
-            BOOST_MPL_ASSERT((boost::is_same<this_type, assoc_list1>));
+            BOOST_MPL_ASSERT((std::is_same<this_type, assoc_list1>));
         }
         {
             typedef assoc_list2::type this_type;
 
-            BOOST_MPL_ASSERT((boost::is_same<this_type, assoc_list2>));
+            BOOST_MPL_ASSERT((std::is_same<this_type, assoc_list2>));
         }
     }
 
@@ -127,21 +128,21 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::sequence_tag<assoc_list0>::type sequence_tag;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<sequence_tag, tetengo2::meta::assoc_list_tag>
+                std::is_same<sequence_tag, tetengo2::meta::assoc_list_tag>
             ));
         }
         {
             typedef boost::mpl::sequence_tag<assoc_list1>::type sequence_tag;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<sequence_tag, tetengo2::meta::assoc_list_tag>
+                std::is_same<sequence_tag, tetengo2::meta::assoc_list_tag>
             ));
         }
         {
             typedef boost::mpl::sequence_tag<assoc_list2>::type sequence_tag;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<sequence_tag, tetengo2::meta::assoc_list_tag>
+                std::is_same<sequence_tag, tetengo2::meta::assoc_list_tag>
             ));
         }
     }
@@ -152,7 +153,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::deref<assoc_list1>::type dereferenced;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     dereferenced,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<1000>
@@ -164,7 +165,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::deref<assoc_list2>::type dereferenced;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     dereferenced,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<2000>
@@ -179,18 +180,16 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         {
             typedef boost::mpl::next<assoc_list1>::type next;
 
-            BOOST_MPL_ASSERT((boost::is_same<next, assoc_list1::next>));
+            BOOST_MPL_ASSERT((std::is_same<next, assoc_list1::next>));
         }
         {
             typedef boost::mpl::next<assoc_list2>::type next;
 
-            BOOST_MPL_ASSERT((boost::is_same<next, assoc_list2::next>));
+            BOOST_MPL_ASSERT((std::is_same<next, assoc_list2::next>));
 
             typedef boost::mpl::next<next>::type next2;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<next2, assoc_list2::next::next>
-            ));
+            BOOST_MPL_ASSERT((std::is_same<next2, assoc_list2::next::next>));
         }
     }
 
@@ -200,7 +199,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef assoc_list0::category category;
 
             BOOST_MPL_ASSERT((
-                boost::is_convertible<
+                std::is_convertible<
                     category, boost::mpl::forward_iterator_tag
                 >
             ));
@@ -209,7 +208,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef assoc_list1::category category;
 
             BOOST_MPL_ASSERT((
-                boost::is_convertible<
+                std::is_convertible<
                     category, boost::mpl::forward_iterator_tag
                 >
             ));
@@ -218,7 +217,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef assoc_list2::category category;
 
             BOOST_MPL_ASSERT((
-                boost::is_convertible<
+                std::is_convertible<
                     category, boost::mpl::forward_iterator_tag
                 >
             ));
@@ -230,14 +229,14 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         {
             typedef boost::mpl::begin<assoc_list0>::type begin;
 
-            BOOST_MPL_ASSERT((boost::is_same<begin, assoc_list0>));
+            BOOST_MPL_ASSERT((std::is_same<begin, assoc_list0>));
         }
         {
             typedef boost::mpl::begin<assoc_list1>::type begin;
 
-            BOOST_MPL_ASSERT((boost::is_same<begin, assoc_list1>));
+            BOOST_MPL_ASSERT((std::is_same<begin, assoc_list1>));
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     boost::mpl::deref<begin>::type,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<1000>
@@ -248,9 +247,9 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         {
             typedef boost::mpl::begin<assoc_list2>::type begin;
 
-            BOOST_MPL_ASSERT((boost::is_same<begin, assoc_list2>));
+            BOOST_MPL_ASSERT((std::is_same<begin, assoc_list2>));
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     boost::mpl::deref<begin>::type,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<2000>
@@ -266,18 +265,18 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::end<assoc_list0>::type end;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<end, tetengo2::meta::assoc_list_end>
+                std::is_same<end, tetengo2::meta::assoc_list_end>
             ));
         }
         {
             typedef boost::mpl::end<assoc_list1>::type end;
 
-            BOOST_MPL_ASSERT((boost::is_same<end, assoc_list1::next>));
+            BOOST_MPL_ASSERT((std::is_same<end, assoc_list1::next>));
         }
         {
             typedef boost::mpl::end<assoc_list2>::type end;
 
-            BOOST_MPL_ASSERT((boost::is_same<end, assoc_list2::next::next>));
+            BOOST_MPL_ASSERT((std::is_same<end, assoc_list2::next::next>));
         }
     }
 
@@ -325,7 +324,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::front<assoc_list1>::type front;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     front,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<1000>
@@ -337,7 +336,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
             typedef boost::mpl::front<assoc_list2>::type front;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     front,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<2000>
@@ -411,21 +410,21 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::order<assoc_list0, boost::mpl::int_<0>>::type
                 order;
 
-            BOOST_MPL_ASSERT((boost::is_same<order, boost::mpl::void_>));
+            BOOST_MPL_ASSERT((std::is_same<order, boost::mpl::void_>));
         }
         {
             typedef
                 boost::mpl::order<assoc_list2, boost::mpl::int_<0>>::type
                 order;
 
-            BOOST_MPL_ASSERT_NOT((boost::is_same<order, boost::mpl::void_>));
+            BOOST_MPL_ASSERT_NOT((std::is_same<order, boost::mpl::void_>));
         }
         {
             typedef
                 boost::mpl::order<assoc_list2, boost::mpl::int_<2>>::type
                 order;
 
-            BOOST_MPL_ASSERT((boost::is_same<order, boost::mpl::void_>));
+            BOOST_MPL_ASSERT((std::is_same<order, boost::mpl::void_>));
         }
     }
 
@@ -436,7 +435,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::at<assoc_list0, boost::mpl::int_<0>>::type
                 value;
 
-            BOOST_MPL_ASSERT((boost::is_same<value, boost::mpl::void_>));
+            BOOST_MPL_ASSERT((std::is_same<value, boost::mpl::void_>));
         }
         //{
         //    typedef
@@ -445,27 +444,21 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         //        >::type
         //        value;
 
-        //    BOOST_MPL_ASSERT((
-        //        boost::is_same<value, boost::mpl::int_<9999>>
-        //    ));
+        //    BOOST_MPL_ASSERT((std::is_same<value, boost::mpl::int_<9999>>));
         //}
         {
             typedef
                 boost::mpl::at<assoc_list2, boost::mpl::int_<0>>::type
                 value;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<value, boost::mpl::int_<2000>>
-            ));
+            BOOST_MPL_ASSERT((std::is_same<value, boost::mpl::int_<2000>>));
         }
         {
             typedef
                 boost::mpl::at<assoc_list2, boost::mpl::int_<1>>::type
                 value;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<value, boost::mpl::int_<2001>>
-            ));
+            BOOST_MPL_ASSERT((std::is_same<value, boost::mpl::int_<2001>>));
         }
         //{
         //    typedef
@@ -474,16 +467,14 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         //        >::type
         //        value;
 
-        //    BOOST_MPL_ASSERT((
-        //        boost::is_same<value, boost::mpl::int_<2000>>
-        //    ));
+        //    BOOST_MPL_ASSERT((std::is_same<value, boost::mpl::int_<2000>>));
         //}
         {
             typedef
                 boost::mpl::at<assoc_list2, boost::mpl::int_<2>>::type
                 value;
 
-            BOOST_MPL_ASSERT((boost::is_same<value, boost::mpl::void_>));
+            BOOST_MPL_ASSERT((std::is_same<value, boost::mpl::void_>));
         }
         //{
         //    typedef
@@ -492,9 +483,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
         //        >::type
         //        value;
 
-        //    BOOST_MPL_ASSERT((
-        //        boost::is_same<value, boost::mpl::int_<9999>>
-        //    ));
+        //    BOOST_MPL_ASSERT((std::is_same<value, boost::mpl::int_<9999>>));
         //}
     }
 
@@ -510,9 +499,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 >::type
                 key_type;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<key_type, boost::mpl::int_<0>>
-            ));
+            BOOST_MPL_ASSERT((std::is_same<key_type, boost::mpl::int_<0>>));
         }
         {
             typedef
@@ -524,9 +511,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 >::type
                 key_type;
 
-            BOOST_MPL_ASSERT((
-                boost::is_same<key_type, boost::mpl::int_<1>>
-            ));
+            BOOST_MPL_ASSERT((std::is_same<key_type, boost::mpl::int_<1>>));
         }
     }
 
@@ -543,7 +528,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 value_type;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<value_type, boost::mpl::int_<1000>>
+                std::is_same<value_type, boost::mpl::int_<1000>>
             ));
         }
         {
@@ -557,7 +542,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 value_type;
 
             BOOST_MPL_ASSERT((
-                boost::is_same<value_type, boost::mpl::int_<1000>>
+                std::is_same<value_type, boost::mpl::int_<1000>>
             ));
         }
     }
@@ -777,7 +762,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::has_key<erased, boost::mpl::int_<1>>
             ));
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     erased::element,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<3000>
@@ -785,7 +770,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 >
             ));
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     erased::next::element,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<3100>
@@ -861,7 +846,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::has_key<erased, boost::mpl::int_<1>>
             ));
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     erased::element,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<3000>
@@ -869,7 +854,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 >
             ));
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     erased::next::element,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<3100>
@@ -919,7 +904,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<pushed>::type::value, ==, 1
             );
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     pushed::element,
                     boost::mpl::pair<
                         boost::mpl::int_<0>, boost::mpl::int_<1000>
@@ -941,7 +926,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<pushed>::type::value, ==, 2
             );
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     pushed::element,
                     boost::mpl::pair<
                         boost::mpl::int_<1>, boost::mpl::int_<1001>
@@ -965,7 +950,7 @@ BOOST_AUTO_TEST_SUITE(assoc_list)
                 boost::mpl::size<popped>::type::value, ==, 1
             );
             BOOST_MPL_ASSERT((
-                boost::is_same<
+                std::is_same<
                     popped::element,
                     boost::mpl::pair<
                         boost::mpl::int_<1>, boost::mpl::int_<2001>
