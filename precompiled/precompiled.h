@@ -30,6 +30,7 @@
 #include <stack>
 #include <stdexcept>
 #include <string>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -94,7 +95,6 @@
 #include <boost/tokenizer.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
-#include <boost/type_traits.hpp>
 #include <boost/utility.hpp>
 
 

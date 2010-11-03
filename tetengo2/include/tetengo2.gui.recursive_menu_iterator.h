@@ -15,9 +15,9 @@
 #include <stack>
 #include <utility>
 
-#include <boost/next_prior.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+#include <boost/next_prior.hpp>
 
 
 namespace tetengo2 { namespace gui

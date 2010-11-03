@@ -168,8 +168,6 @@ boost::filesystem::path                          boost/filesystem.hpp
 boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
 boost::function                                  boost/function.hpp
 boost::get_error_info                            boost/exception/all.hpp
-boost::is_convertible                            boost/type_traits.hpp
-boost::is_same                                   boost/type_traits.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
 boost::make_transform_iterator                   boost/iterator/transform_iterator.hpp
 boost::make_tuple                                boost/tuple/tuple.hpp,boost/tuple/tuple_comparison.hpp
@@ -248,6 +246,8 @@ std::greater                                     functional
 std::has_facet                                   locale
 std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
+std::is_convertible                              type_traits
+std::is_same                                     type_traits
 std::istream                                     istream
 std::istringstream                               sstream
 std::locale                                      locale

@@ -10,7 +10,7 @@
 #define STUBTETENGO2_GUI_POPUPMENU_H
 
 //#include <cstddef>
-#include <utility>
+//#include <utility>
 
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "tetengo2.cpp0x_keyword.h"

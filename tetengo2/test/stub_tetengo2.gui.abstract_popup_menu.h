@@ -10,7 +10,7 @@
 #define STUBTETENGO2_GUI_ABSTRACTPOPUPMENU_H
 
 //#include <memory>
-#include <utility>
+//#include <utility>
 
 //#include <boost/ptr_container/ptr_vector.hpp>
 

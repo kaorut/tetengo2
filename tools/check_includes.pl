@@ -284,7 +284,7 @@ sub is_std_or_boost_header
 {
 	my($header_name) = @_;
 	
-	return 1 if $header_name =~ /^[a-z0-9]+$/;
+	return 1 if $header_name =~ /^[a-z0-9_\/]+$/;
 	return 1 if $header_name =~ /^boost\/.+\.hpp$/;
 	return 1 if $header_name =~ /^windows\.h$/;
 	return 1 if $header_name =~ /^commctrl\.h$/;

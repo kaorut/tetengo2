@@ -11,7 +11,7 @@ list()
 {
     for f in "$1";
     do
-        grep -h "^\#include <[a-z]\+>" $f;
+        grep -h "^\#include <[a-z_\/]\+>" $f;
     done | sort | uniq
     echo ''
     for f in "$1";

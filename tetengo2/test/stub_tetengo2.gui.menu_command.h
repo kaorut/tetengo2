@@ -9,7 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_MENUCOMMAND_H)
 #define STUBTETENGO2_GUI_MENUCOMMAND_H
 
-#include <utility>
+//#include <utility>
 
 #include "stub_tetengo2.gui.menu.h"
 #include "tetengo2.cpp0x_keyword.h"

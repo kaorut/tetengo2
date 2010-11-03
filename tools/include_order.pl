@@ -49,7 +49,6 @@ sub equal
 	
 	for (my($i) = 0; $i < scalar(@$r_array1); ++$i)
 	{
-		print $$r_array1[$i].' vs '.$$r_array2[$i]."\n";
 		return 0 if $$r_array1[$i] ne $$r_array2[$i];
 	}
 	
