@@ -8,10 +8,9 @@
 
 #include <cstddef>
 //#include <stdexcept>
+#include <tuple>
 
 #include <boost/test/unit_test.hpp>
-//#include <boost/tuple/tuple.hpp>
-//#include <boost/tuple/tuple_comparison.hpp>
 
 #include "bobura.model.train_info.time_span.h"
 
@@ -208,7 +207,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span1.hours_minutes_seconds() ==
-                boost::make_tuple(0, 1, 0)
+                std::make_tuple(0, 1, 0)
             );
         }
         {
@@ -219,7 +218,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span1.hours_minutes_seconds() ==
-                boost::make_tuple(0, 0, 59)
+                std::make_tuple(0, 0, 59)
             );
         }
         {
@@ -238,7 +237,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span3.hours_minutes_seconds() ==
-                boost::make_tuple(1, 0, 0)
+                std::make_tuple(1, 0, 0)
             );
         }
         {
@@ -249,7 +248,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span3.hours_minutes_seconds() ==
-                boost::make_tuple(0, 59, 59)
+                std::make_tuple(0, 59, 59)
             );
         }
     }
@@ -278,7 +277,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span1.hours_minutes_seconds() ==
-                boost::make_tuple(0, 1, 0)
+                std::make_tuple(0, 1, 0)
             );
         }
         {
@@ -289,7 +288,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span1.hours_minutes_seconds() ==
-                boost::make_tuple(0, 0, 59)
+                std::make_tuple(0, 0, 59)
             );
         }
         {
@@ -308,7 +307,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span3.hours_minutes_seconds() ==
-                boost::make_tuple(1, 0, 0)
+                std::make_tuple(1, 0, 0)
             );
         }
         {
@@ -319,7 +318,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span3.hours_minutes_seconds() ==
-                boost::make_tuple(0, 59, 59)
+                std::make_tuple(0, 59, 59)
             );
         }
     }
@@ -485,7 +484,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span.hours_minutes_seconds() ==
-                boost::make_tuple(0, 0, 0)
+                std::make_tuple(0, 0, 0)
             );
         }
         {
@@ -493,7 +492,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span.hours_minutes_seconds() ==
-                boost::make_tuple(1, 1, 1)
+                std::make_tuple(1, 1, 1)
             );
         }
         {
@@ -501,7 +500,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span.hours_minutes_seconds() ==
-                boost::make_tuple(1, 2, 3)
+                std::make_tuple(1, 2, 3)
             );
         }
         {
@@ -509,7 +508,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span.hours_minutes_seconds() ==
-                boost::make_tuple(-1, -1, -1)
+                std::make_tuple(-1, -1, -1)
             );
         }
         {
@@ -517,7 +516,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             BOOST_CHECK(
                 time_span.hours_minutes_seconds() ==
-                boost::make_tuple(-1, -2, -3)
+                std::make_tuple(-1, -2, -3)
             );
         }
     }

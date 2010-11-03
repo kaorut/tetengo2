@@ -8,10 +8,9 @@
 
 #include <cstddef>
 //#include <stdexcept>
+#include <tuple>
 
 #include <boost/test/unit_test.hpp>
-//#include <boost/tuple/tuple.hpp>
-//#include <boost/tuple/tuple_comparison.hpp>
 
 #include "bobura.model.train_info.time_span.h"
 
@@ -443,35 +442,35 @@ BOOST_AUTO_TEST_SUITE(time)
             const time_type time(0, 0, 0);
 
             BOOST_CHECK(
-                time.hours_minutes_seconds() == boost::make_tuple(0U, 0U, 0U)
+                time.hours_minutes_seconds() == std::make_tuple(0U, 0U, 0U)
             );
         }
         {
             const time_type time(0, 0, 1);
 
             BOOST_CHECK(
-                time.hours_minutes_seconds() == boost::make_tuple(0U, 0U, 1U)
+                time.hours_minutes_seconds() == std::make_tuple(0U, 0U, 1U)
             );
         }
         {
             const time_type time(0, 1, 0);
 
             BOOST_CHECK(
-                time.hours_minutes_seconds() == boost::make_tuple(0U, 1U, 0U)
+                time.hours_minutes_seconds() == std::make_tuple(0U, 1U, 0U)
             );
         }
         {
             const time_type time(1, 0, 0);
 
             BOOST_CHECK(
-                time.hours_minutes_seconds() == boost::make_tuple(1U, 0U, 0U)
+                time.hours_minutes_seconds() == std::make_tuple(1U, 0U, 0U)
             );
         }
         {
             const time_type time(1, 2, 3);
 
             BOOST_CHECK(
-                time.hours_minutes_seconds() == boost::make_tuple(1U, 2U, 3U)
+                time.hours_minutes_seconds() == std::make_tuple(1U, 2U, 3U)
             );
         }
         {

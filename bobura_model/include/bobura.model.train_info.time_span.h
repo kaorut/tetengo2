@@ -10,12 +10,11 @@
 #define BOBURA_MODEL_TRAININFO_TIMESPAN_H
 
 #include <stdexcept>
+#include <tuple>
 
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/tuple/tuple.hpp>
-#include <boost/tuple/tuple_comparison.hpp>
 
 
 namespace bobura { namespace model { namespace train_info
@@ -171,9 +170,9 @@ namespace bobura { namespace model { namespace train_info
             \brief Returns the hours, minutes and seconds.
 
             \return The hours, minutes and seconds, which are stored in a
-                    boost::tuple object in this order.
+                    std::tuple object in this order.
         */
-        const boost::tuple<tick_type, tick_type, tick_type>
+        const std::tuple<tick_type, tick_type, tick_type>
         hours_minutes_seconds()
         const
         {
@@ -182,7 +181,7 @@ namespace bobura { namespace model { namespace train_info
             const tick_type seconds =
                 m_seconds - hours * 60 * 60 - minutes * 60;
 
-            return boost::make_tuple(hours, minutes, seconds);
+            return std::make_tuple(hours, minutes, seconds);
         }
 
 
