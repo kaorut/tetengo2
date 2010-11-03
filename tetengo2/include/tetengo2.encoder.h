@@ -176,8 +176,8 @@ namespace tetengo2
             IS&&             string,
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
-            const typename boost::enable_if<
-                std::is_same<InternEnc, ExternEnc>
+            const typename std::enable_if<
+                std::is_same<InternEnc, ExternEnc>::value
             >::type* const = NULL
         )
         {
@@ -189,8 +189,8 @@ namespace tetengo2
             IS&&             string,
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
-            const typename boost::disable_if<
-                std::is_same<InternEnc, ExternEnc>
+            const typename std::enable_if<
+                !std::is_same<InternEnc, ExternEnc>::value
             >::type* const = NULL
         )
         {
@@ -226,8 +226,8 @@ namespace tetengo2
             ES&&             string,
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
-            const typename boost::enable_if<
-                std::is_same<InternEnc, ExternEnc>
+            const typename std::enable_if<
+                std::is_same<InternEnc, ExternEnc>::value
             >::type* const = NULL
         )
         {
@@ -239,8 +239,8 @@ namespace tetengo2
             ES&&             string,
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
-            const typename boost::disable_if<
-                std::is_same<InternEnc, ExternEnc>
+            const typename std::enable_if<
+                !std::is_same<InternEnc, ExternEnc>::value
             >::type* const = NULL
         )
         {

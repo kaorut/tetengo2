@@ -152,8 +152,8 @@ namespace tetengo2 { namespace encoding
         template <typename Pivot>
         string_type from_pivot_impl(
             Pivot&& pivot,
-            const typename boost::enable_if<
-                std::is_convertible<Pivot, string_type>
+            const typename std::enable_if<
+                std::is_convertible<Pivot, string_type>::value
             >::type* const = NULL
         )
         const
@@ -164,8 +164,8 @@ namespace tetengo2 { namespace encoding
         template <typename Pivot>
         string_type from_pivot_impl(
             const Pivot& pivot,
-            const typename boost::disable_if<
-                std::is_convertible<Pivot, string_type>
+            const typename std::enable_if<
+                !std::is_convertible<Pivot, string_type>::value
             >::type* const = NULL
         )
         const
@@ -283,8 +283,8 @@ namespace tetengo2 { namespace encoding
         template <typename Str>
         pivot_type to_pivot_impl(
             Str&& string,
-            const typename boost::enable_if<
-                std::is_convertible<Str, pivot_type>
+            const typename std::enable_if<
+                std::is_convertible<Str, pivot_type>::value
             >::type* const = NULL
         )
         const
@@ -295,8 +295,8 @@ namespace tetengo2 { namespace encoding
         template <typename Str>
         pivot_type to_pivot_impl(
             const Str& string,
-            const typename boost::disable_if<
-                std::is_convertible<Str, pivot_type>
+            const typename std::enable_if<
+                !std::is_convertible<Str, pivot_type>::value
             >::type* const = NULL
         )
         const
