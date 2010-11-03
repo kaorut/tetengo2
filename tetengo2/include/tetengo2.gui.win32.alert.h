@@ -175,7 +175,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef typename ui_encoder_type::internal_string_type string_type;
 
 
-        // static function
+        // static functions
 
         static window_handle_type actual_parent_window_handle(
             const window_handle_type window_handle
