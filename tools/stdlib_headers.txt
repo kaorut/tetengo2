@@ -199,7 +199,7 @@ boost::mpl::size                                 boost/mpl/size.hpp
 boost::mpl::value_type                           boost/mpl/value_type.hpp
 boost::mpl::vector                               boost/mpl/vector.hpp
 boost::mpl::void_                                boost/mpl/void.hpp
-boost::next                                      boost/next_prior.hpp
+boost::next                                      boost/utility.hpp
 boost::noncopyable                               boost/noncopyable.hpp
 boost::optional                                  boost/optional.hpp
 boost::polymorphic_downcast                      boost/cast.hpp
