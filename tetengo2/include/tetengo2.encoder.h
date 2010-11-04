@@ -14,7 +14,6 @@
 //#include <utility>
 
 //#include <boost/operators.hpp>
-//#include <boost/utility.hpp>
 
 #include "tetengo2.encoding.locale.h"
 

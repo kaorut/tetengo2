@@ -154,8 +154,6 @@ assert                                           cassert
 boost::additive                                  boost/operators.hpp
 boost::bind                                      boost/bind.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
-boost::disable_if                                boost/utility.hpp
-boost::enable_if                                 boost/utility.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::escaped_list_separator                    boost/tokenizer.hpp
 boost::exception                                 boost/exception/all.hpp
@@ -231,6 +229,7 @@ std::basic_string                                string
 std::codecvt                                     locale
 std::copy                                        algorithm
 std::distance                                    iterator
+std::enable_if                                   type_traits
 std::endl                                        iomanip
 std::equal_to                                    functional
 std::exception                                   exception

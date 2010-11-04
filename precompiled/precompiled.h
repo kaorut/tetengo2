@@ -80,7 +80,6 @@
 #include <boost/mpl/value_type.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/void.hpp>
-#include <boost/next_prior.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
 #include <boost/optional.hpp>

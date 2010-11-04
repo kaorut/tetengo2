@@ -21,7 +21,6 @@
 
 #include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility.hpp>
 
 #include "tetengo2.text.h"
 #include "tetengo2.encoding.encoding.h"
