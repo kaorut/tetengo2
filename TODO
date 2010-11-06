@@ -12,11 +12,6 @@ Added on    : 2010/10/31
 Depends on  : (none)
 Description : Improve the event prodecures.
 ------------------------------------------------------------------------------
-Number      : 00000058
-Added on    : 2010/10/31
-Depends on  : (none)
-Description : Replaced boost function calls to C++0x std function calls.
-------------------------------------------------------------------------------
 Number      : 00000059
 Added on    : 2010/10/31
 Depends on  : (none)
