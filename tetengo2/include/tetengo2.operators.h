@@ -16,7 +16,7 @@
 namespace tetengo2
 {
     /*!
-        \brief The class template for a text value holder.
+        \brief The class template for providing operator plus.
 
         \tparam T A type.
     */
