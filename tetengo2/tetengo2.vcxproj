@@ -162,6 +162,7 @@
     <ClInclude Include="include\tetengo2.message_catalog.h" />
     <ClInclude Include="include\tetengo2.message_catalog_parser.h" />
     <ClInclude Include="include\tetengo2.meta.assoc_list.h" />
+    <ClInclude Include="include\tetengo2.operators.h" />
     <ClInclude Include="include\tetengo2.text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

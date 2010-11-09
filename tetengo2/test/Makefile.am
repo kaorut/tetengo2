@@ -40,7 +40,8 @@ sources = \
     test_tetengo2.gui.paint_observer_set.cpp \
     test_tetengo2.gui.recursive_menu_iterator.cpp \
     test_tetengo2.gui.window_observer_set.cpp \
-    test_tetengo2.meta.assoc_list.cpp
+    test_tetengo2.meta.assoc_list.cpp \
+    test_tetengo2.operators.cpp
 
 extra_sources = \
     test_tetengo2.encoding.win32.utf8.cpp \

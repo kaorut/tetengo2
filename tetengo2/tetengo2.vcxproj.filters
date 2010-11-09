@@ -141,5 +141,8 @@
     <ClInclude Include="include\tetengo2.cpp0x_keyword.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.operators.h">
+      <Filter>headers\tetengo2</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,7 +23,8 @@ headers = \
     tetengo2.gui.widget_traits.h \
     tetengo2.gui.window_observer_set.h \
     tetengo2.gui.window_traits.h \
-    tetengo2.meta.assoc_list.h
+    tetengo2.meta.assoc_list.h \
+    tetengo2.operators.h
 
 extra_headers = \
     tetengo2.encoding.win32.utf8.h \

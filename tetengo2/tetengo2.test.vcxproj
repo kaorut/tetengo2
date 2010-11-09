@@ -274,6 +274,7 @@ echo Skipping...
     <ClCompile Include="test\test_tetengo2.message_catalog.cpp" />
     <ClCompile Include="test\test_tetengo2.message_catalog_parser.cpp" />
     <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp" />
+    <ClCompile Include="test\test_tetengo2.operators.cpp" />
     <ClCompile Include="test\test_tetengo2.text.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
