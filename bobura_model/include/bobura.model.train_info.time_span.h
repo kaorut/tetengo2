@@ -16,6 +16,8 @@
 #include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
 
+#include <tetengo2.operators.h>
+
 
 namespace bobura { namespace model { namespace train_info
 {
@@ -27,7 +29,7 @@ namespace bobura { namespace model { namespace train_info
     template <typename TimeSpanTick>
     class time_span :
         private boost::totally_ordered<time_span<TimeSpanTick>>,
-        private boost::additive<time_span<TimeSpanTick>>
+        private tetengo2::additive<time_span<TimeSpanTick>>
     {
     public:
         // types
