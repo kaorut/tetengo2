@@ -17,14 +17,15 @@ namespace
 {
     // types
 
-    template <typename T>
-    struct addable_class : private tetengo2::addable<addable_class<T>>
+    template <typename T, typename U = T>
+    struct addable_class :
+        private tetengo2::addable<addable_class<T, U>, addable_class<U>>
     {
         T value;
 
         addable_class(T value) : value(value) {}
 
-        addable_class& operator+=(const addable_class& another)
+        addable_class& operator+=(const addable_class<U>& another)
         {
             value += another.value;
             return *this;
@@ -33,15 +34,17 @@ namespace
 
     };
 
-    template <typename T>
+    template <typename T, typename U = T>
     struct substractable_class :
-        private tetengo2::substractable<substractable_class<T>>
+        private tetengo2::substractable<
+            substractable_class<T, U>, substractable_class<U>
+        >
     {
         T value;
 
         substractable_class(T value) : value(value) {}
 
-        substractable_class& operator-=(const substractable_class& another)
+        substractable_class& operator-=(const substractable_class<U>& another)
         {
             value -= another.value;
             return *this;
@@ -63,34 +66,37 @@ BOOST_AUTO_TEST_SUITE(addable)
         BOOST_TEST_PASSPOINT();
 
         {
-            const addable_class<int> tc1(123);
-            const addable_class<int> tc2(456);
+            const addable_class<int, unsigned short> tc1(123);
+            const addable_class<unsigned short> tc2(456);
 
-            const addable_class<int> tc3 = tc1 + tc2;
-
-            BOOST_CHECK_EQUAL(tc3.value, 579);
-        }
-        {
-            const addable_class<int> tc1(123);
-            addable_class<int> tc2(456);
-
-            const addable_class<int> tc3 = tc1 + std::move(tc2);
+            const addable_class<int, unsigned short> tc3 = tc1 + tc2;
 
             BOOST_CHECK_EQUAL(tc3.value, 579);
         }
         {
-            addable_class<int> tc1(123);
-            const addable_class<int> tc2(456);
+            const addable_class<int, unsigned short> tc1(123);
+            addable_class<unsigned short> tc2(456);
 
-            const addable_class<int> tc3 = std::move(tc1) + tc2;
+            const addable_class<int, unsigned short> tc3 =
+                tc1 + std::move(tc2);
 
             BOOST_CHECK_EQUAL(tc3.value, 579);
         }
         {
-            addable_class<int> tc1(123);
-            addable_class<int> tc2(456);
+            addable_class<int, unsigned short> tc1(123);
+            const addable_class<unsigned short> tc2(456);
 
-            const addable_class<int> tc3 = std::move(tc1) + std::move(tc2);
+            const addable_class<int, unsigned short> tc3 =
+                std::move(tc1) + tc2;
+
+            BOOST_CHECK_EQUAL(tc3.value, 579);
+        }
+        {
+            addable_class<int, unsigned short> tc1(123);
+            addable_class<unsigned short> tc2(456);
+
+            const addable_class<int, unsigned short> tc3 =
+                std::move(tc1) + std::move(tc2);
 
             BOOST_CHECK_EQUAL(tc3.value, 579);
         }
@@ -106,34 +112,37 @@ BOOST_AUTO_TEST_SUITE(substractable)
         BOOST_TEST_PASSPOINT();
 
         {
-            const substractable_class<int> tc1(123);
-            const substractable_class<int> tc2(456);
+            const substractable_class<int, unsigned short> tc1(123);
+            const substractable_class<unsigned short> tc2(456);
 
-            const substractable_class<int> tc3 = tc1 - tc2;
-
-            BOOST_CHECK_EQUAL(tc3.value, -333);
-        }
-        {
-            const substractable_class<int> tc1(123);
-            substractable_class<int> tc2(456);
-
-            const substractable_class<int> tc3 = tc1 - std::move(tc2);
+            const substractable_class<int, unsigned short> tc3 = tc1 - tc2;
 
             BOOST_CHECK_EQUAL(tc3.value, -333);
         }
         {
-            substractable_class<int> tc1(123);
-            const substractable_class<int> tc2(456);
+            const substractable_class<int, unsigned short> tc1(123);
+            substractable_class<unsigned short> tc2(456);
 
-            const substractable_class<int> tc3 = std::move(tc1) - tc2;
+            const substractable_class<int, unsigned short> tc3 =
+                tc1 - std::move(tc2);
 
             BOOST_CHECK_EQUAL(tc3.value, -333);
         }
         {
-            substractable_class<int> tc1(123);
-            substractable_class<int> tc2(456);
+            substractable_class<int, unsigned short> tc1(123);
+            const substractable_class<unsigned short> tc2(456);
 
-            const substractable_class<int> tc3 = std::move(tc1) - std::move(tc2);
+            const substractable_class<int, unsigned short> tc3 =
+                std::move(tc1) - tc2;
+
+            BOOST_CHECK_EQUAL(tc3.value, -333);
+        }
+        {
+            substractable_class<int, unsigned short> tc1(123);
+            substractable_class<unsigned short> tc2(456);
+
+            const substractable_class<int, unsigned short> tc3 =
+                std::move(tc1) - std::move(tc2);
 
             BOOST_CHECK_EQUAL(tc3.value, -333);
         }
