@@ -76,6 +76,34 @@ namespace tetengo2
     };
 
 
+    /*!
+        \brief The class template for providing operator minus.
+
+        \tparam T A type.
+    */
+    template <typename T>
+    class substractable
+    {
+    public:
+        // functions
+
+        template <typename U>
+        friend T operator-(const T& t, const U& u)
+        {
+            return operator-(T(t), u);
+        }
+
+        template <typename U>
+        friend T operator-(T&& t, const U& u)
+        {
+            t -= u;
+            return t;
+        }
+
+
+    };
+
+
 }
 
 

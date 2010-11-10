@@ -33,6 +33,23 @@ namespace
 
     };
 
+    template <typename T>
+    struct substractable_class :
+        private tetengo2::substractable<substractable_class<T>>
+    {
+        T value;
+
+        substractable_class(T value) : value(value) {}
+
+        substractable_class& operator-=(const substractable_class& another)
+        {
+            value -= another.value;
+            return *this;
+        }
+    
+
+    };
+
 
 };
 
@@ -78,6 +95,50 @@ BOOST_AUTO_TEST_SUITE(addable)
             BOOST_CHECK_EQUAL(tc3.value, 579);
         }
     }
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(substractable)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(operator_minus)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const substractable_class<int> tc1(123);
+            const substractable_class<int> tc2(456);
+
+            const substractable_class<int> tc3 = tc1 - tc2;
+
+            BOOST_CHECK_EQUAL(tc3.value, -333);
+        }
+        {
+            const substractable_class<int> tc1(123);
+            substractable_class<int> tc2(456);
+
+            const substractable_class<int> tc3 = tc1 - std::move(tc2);
+
+            BOOST_CHECK_EQUAL(tc3.value, -333);
+        }
+        {
+            substractable_class<int> tc1(123);
+            const substractable_class<int> tc2(456);
+
+            const substractable_class<int> tc3 = std::move(tc1) - tc2;
+
+            BOOST_CHECK_EQUAL(tc3.value, -333);
+        }
+        {
+            substractable_class<int> tc1(123);
+            substractable_class<int> tc2(456);
+
+            const substractable_class<int> tc3 = std::move(tc1) - std::move(tc2);
+
+            BOOST_CHECK_EQUAL(tc3.value, -333);
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
