@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_OPERATORS_H)
 #define TETENGO2_OPERATORS_H
 
-#include <type_traits>
 #include <utility>
 
 

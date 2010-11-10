@@ -151,7 +151,6 @@ Gdiplus::TextRenderingHintClearTypeGridFit       gdiplus.h
 Gdiplus::UnitPixel                               gdiplus.h
 NULL                                             cstddef
 assert                                           cassert
-boost::additive                                  boost/operators.hpp
 boost::bind                                      boost/bind.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
