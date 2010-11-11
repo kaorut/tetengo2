@@ -13,9 +13,11 @@
 #include <cassert>
 #include <cstddef>
 #include <exception>
+#include <functional>
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -701,6 +703,16 @@ namespace tetengo2 { namespace gui { namespace win32
             message_command = WM_APP,   //!< A command message.
         };
 
+        //! The message handler map type.
+        typedef
+            std::unordered_map<
+                ::UINT,
+                std::function<
+                    boost::optional< ::LRESULT> (::WPARAM, ::LPARAM)
+                >
+            >
+            message_handler_map_type;
+
 
         // static functions
 
@@ -760,6 +772,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         widget()
         :
+        m_message_handler_map(make_message_handler_map()),
         m_destroyed(false),
         m_paint_observer_set(),
         m_mouse_observer_set()
@@ -772,6 +785,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         explicit widget(widget& parent)
         :
+        m_message_handler_map(make_message_handler_map()),
         m_destroyed(false),
         m_paint_observer_set(),
         m_mouse_observer_set()
@@ -798,47 +812,15 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::WNDPROC p_default_window_procedure
         )
         {
-            switch (uMsg)
+            const typename message_handler_map_type::const_iterator handler =
+                m_message_handler_map.find(uMsg);
+            if (handler != m_message_handler_map.end())
             {
-            case WM_COMMAND:
-                {
-                    if (lParam == 0) break;
-
-                    ::PostMessageW(
-                        reinterpret_cast< ::HWND>(lParam),
-                        message_command,
-                        wParam,
-                        reinterpret_cast< ::LPARAM>(handle())
-                    );
-                    break;
-                }
-            case WM_PAINT:
-                {
-                    if (m_paint_observer_set.paint().empty()) break;
-
-                    canvas_type canvas(handle(), true);
-                    m_paint_observer_set.paint()(canvas);
-                    return 0;
-                }
-            case WM_DESTROY:
-                {
-                    delete_current_font();
-                    m_destroyed = true;
-                    return 0;
-                }
-            case WM_NCDESTROY:
-                {
-                    const widget* const p_widget =
-                        reinterpret_cast<const widget*>(
-                            ::RemovePropW(
-                                handle_impl(),
-                                property_key_for_cpp_instance()
-                            )
-                        );
-                    assert(p_widget == this);
-                    return 0;
-                }
+                const boost::optional< ::LRESULT> o_result =
+                    handler->second(wParam, lParam);
+                if (o_result) return *o_result;
             }
+
             return ::CallWindowProcW(
                 p_default_window_procedure, handle(), uMsg, wParam, lParam
             );
@@ -933,6 +915,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // variables
 
+        const message_handler_map_type m_message_handler_map;
+
         bool m_destroyed;
 
         paint_observer_set_type m_paint_observer_set;
@@ -947,6 +931,89 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
+
+        message_handler_map_type make_message_handler_map()
+        {
+            message_handler_map_type map;
+
+            map[WM_COMMAND] = boost::bind(&widget::on_command, this, _1, _2);
+            map[WM_PAINT] = boost::bind(&widget::on_paint, this, _1, _2);
+            map[WM_DESTROY] = boost::bind(&widget::on_destroy, this, _1, _2);
+            map[WM_NCDESTROY] =
+                boost::bind(&widget::on_ncdestroy, this, _1, _2);
+
+            return map;
+        }
+
+        boost::optional< ::LRESULT> on_command(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            if (lParam == 0) return boost::optional< ::LRESULT>();
+
+            ::PostMessageW(
+                reinterpret_cast< ::HWND>(lParam),
+                message_command,
+                wParam,
+                reinterpret_cast< ::LPARAM>(handle())
+            );
+            return boost::optional< ::LRESULT>();
+        }
+
+        boost::optional< ::LRESULT> on_paint(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            if (m_paint_observer_set.paint().empty())
+                return boost::optional< ::LRESULT>();
+
+            canvas_type canvas(handle(), true);
+            m_paint_observer_set.paint()(canvas);
+            return boost::optional< ::LRESULT>(0);
+        }
+
+        boost::optional< ::LRESULT> on_destroy(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            delete_current_font();
+            m_destroyed = true;
+            return boost::optional< ::LRESULT>(0);
+        }
+
+        boost::optional< ::LRESULT> on_ncdestroy(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            const widget* const p_widget =
+                reinterpret_cast<const widget*>(
+                    ::RemovePropW(
+                        handle_impl(),
+                        property_key_for_cpp_instance()
+                    )
+                );
+            assert(p_widget == this);
+            return boost::optional< ::LRESULT>(0);
+        }
+
+        template <typename Child>
+        std::vector<Child*> children_impl()
+        const
+        {
+            std::vector<Child*> children;
+
+            ::EnumChildWindows(
+                handle(),
+                enum_child_proc<Child>,
+                reinterpret_cast< ::LPARAM>(&children)
+            );
+
+            return children;
+        }
 
         void delete_current_font()
         {
@@ -963,21 +1030,6 @@ namespace tetengo2 { namespace gui { namespace win32
                     std::runtime_error("Can't delete previous font.")
                 );
             }
-        }
-
-        template <typename Child>
-        std::vector<Child*> children_impl()
-        const
-        {
-            std::vector<Child*> children;
-
-            ::EnumChildWindows(
-                handle(),
-                enum_child_proc<Child>,
-                reinterpret_cast< ::LPARAM>(&children)
-            );
-
-            return children;
         }
 
 
