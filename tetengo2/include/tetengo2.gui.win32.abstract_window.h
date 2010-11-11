@@ -224,18 +224,6 @@ namespace tetengo2 { namespace gui { namespace win32
         m_window_observer_set()
         {}
 
-        /*!
-            \brief Creates an abstract window.
-
-            \param parent A parent window.
-        */
-        explicit abstract_window(abstract_window& parent)
-        :
-        base_type(parent),
-        m_p_main_menu(),
-        m_window_observer_set()
-        {}
-
 
         // virtual functions
 

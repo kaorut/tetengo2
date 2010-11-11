@@ -778,19 +778,6 @@ namespace tetengo2 { namespace gui { namespace win32
         m_mouse_observer_set()
         {}
 
-        /*!
-            \brief Creates a widget.
-
-            \param parent  A parent.
-        */
-        explicit widget(widget& parent)
-        :
-        m_message_handler_map(make_message_handler_map()),
-        m_destroyed(false),
-        m_paint_observer_set(),
-        m_mouse_observer_set()
-        {}
-
 
         // virtual functions
 

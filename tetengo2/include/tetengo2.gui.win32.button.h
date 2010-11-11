@@ -69,7 +69,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const style_type style = style_normal
         )
         :
-        base_type(parent),
+        base_type(),
         m_handle(create_window(parent, style)),
         m_style(style),
         m_p_original_window_procedure(replace_window_procedure(m_handle))

@@ -66,7 +66,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         explicit window(const base_type& parent)
         :
-        base_type(parent),
+        base_type(),
         m_handle(create_window(&parent))
         {
             initialize(this);
