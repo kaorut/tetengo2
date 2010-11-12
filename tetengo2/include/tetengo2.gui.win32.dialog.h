@@ -276,9 +276,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     boost::polymorphic_downcast<dialog*>(p_widget_from(hWnd));
                 if (p_dialog != NULL)
                 {
-                    return p_dialog->window_procedure(
-                        uMsg, wParam, lParam, ::DefDlgProcW
-                    );
+                    return p_dialog->window_procedure(uMsg, wParam, lParam);
                 }
                 else
                 {
@@ -329,6 +327,12 @@ namespace tetengo2 { namespace gui { namespace win32
                     std::runtime_error("Can't destroy the dialog.")
                 );
             }
+        }
+
+        virtual ::WNDPROC p_default_window_procedure()
+        const
+        {
+            return ::DefDlgProc;
         }
 
 

@@ -805,8 +805,7 @@ namespace tetengo2 { namespace gui { namespace win32
         ::LRESULT window_procedure(
             const ::UINT    uMsg,
             const ::WPARAM  wParam,
-            const ::LPARAM  lParam,
-            const ::WNDPROC p_default_window_procedure
+            const ::LPARAM  lParam
         )
         {
             typedef
@@ -826,7 +825,7 @@ namespace tetengo2 { namespace gui { namespace win32
             }
 
             return ::CallWindowProcW(
-                p_default_window_procedure, handle(), uMsg, wParam, lParam
+                p_default_window_procedure(), handle(), uMsg, wParam, lParam
             );
         }
 
@@ -874,9 +873,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 widget* const p_widget = p_widget_from(hWnd);
                 if (p_widget != NULL)
                 {
-                    return p_widget->window_procedure(
-                        uMsg, wParam, lParam, ::DefWindowProcW
-                    );
+                    return p_widget->window_procedure(uMsg, wParam, lParam);
                 }
                 else
                 {
@@ -932,6 +929,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
         virtual handle_type handle_impl()
         const = 0;
+
+        virtual ::WNDPROC p_default_window_procedure()
+        const
+        {
+            return ::DefWindowProc;
+        }
 
 
         // functions

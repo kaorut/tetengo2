@@ -162,49 +162,6 @@ namespace tetengo2 { namespace gui { namespace win32
             return handle;
         }
 
-        static ::LRESULT CALLBACK static_window_procedure(
-            const ::HWND   hWnd,
-            const ::UINT   uMsg,
-            const ::WPARAM wParam,
-            const ::LPARAM lParam
-        )
-        TETENGO2_NOEXCEPT
-        {
-            try
-            {
-                button* const p_button =
-                    boost::polymorphic_downcast<button*>(p_widget_from(hWnd));
-                if (p_button != NULL)
-                {
-                    return p_button->window_procedure(
-                        uMsg, wParam, lParam, p_button->m_p_original_window_procedure
-                    );
-                }
-                else
-                {
-                    return ::CallWindowProcW(
-                        ::DefWindowProcW, hWnd, uMsg, wParam, lParam
-                    );
-                }
-            }
-            catch (const boost::exception& e)
-            {
-                (alert_type(hWnd))(e);
-                return 0;
-            }
-            catch (const std::exception& e)
-            {
-                (alert_type(hWnd))(e);
-                return 0;
-            }
-            catch (...)
-            {
-                (alert_type(hWnd))();
-                return 0;
-            }
-        }
-
-
         static ::WNDPROC replace_window_procedure(const ::HWND handle)
         {
 #if defined(_WIN32) && !defined(_WIN64)
@@ -216,7 +173,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     handle,
                     GWLP_WNDPROC,
                     reinterpret_cast< ::LONG_PTR>(
-                        static_window_procedure
+                        base_type::p_static_window_procedure()
                     )
                 );
 #if defined(_WIN32) && !defined(_WIN64)
@@ -248,6 +205,12 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_handle;
+        }
+
+        virtual ::WNDPROC p_default_window_procedure()
+        const
+        {
+            return m_p_original_window_procedure;
         }
 
 
