@@ -75,7 +75,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         explicit dialog(base_type& parent)
         :
-        base_type(),
+        base_type(make_message_handler_map(message_handler_map_type())),
         m_handle(create_window(&parent)),
         m_result(result_undecided)
         {
@@ -137,56 +137,6 @@ namespace tetengo2 { namespace gui { namespace win32
             message_loop_type()();
 
             return result();
-        }
-
-
-    protected:
-        // virtual functions
-
-        //! \copydoc tetengo2::gui::win32::widget::window_procedure
-        virtual ::LRESULT window_procedure(
-            const ::UINT    uMsg,
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam,
-            const ::WNDPROC p_default_window_procedure
-        )
-        {
-            switch (uMsg)
-            {
-            case WM_COMMAND:
-                {
-                    const ::WORD hi_wparam = HIWORD(wParam);
-                    const ::WORD lo_wparam = LOWORD(wParam);
-                    if (
-                        hi_wparam == 0 &&
-                        (lo_wparam == IDOK || lo_wparam == IDCANCEL)
-                    )
-                    {
-                        const ::HWND window_handle =
-                            reinterpret_cast< ::HWND>(lParam);
-                        assert(
-                            window_handle == ::GetDlgItem(handle(), lo_wparam)
-                        );
-                        if (window_handle != NULL)
-                        {
-                            p_widget_from(window_handle)->click();
-                        }
-                        else
-                        {
-                            set_result(
-                                lo_wparam == IDOK ?
-                                result_accepted : result_canceled
-                            );
-                            close();
-                        }
-                        return 0;
-                    }
-                    break;
-                }
-            }
-            return base_type::window_procedure(
-                uMsg, wParam, lParam, p_default_window_procedure
-            );
         }
 
 
@@ -379,6 +329,59 @@ namespace tetengo2 { namespace gui { namespace win32
                     std::runtime_error("Can't destroy the dialog.")
                 );
             }
+        }
+
+
+        // functions
+
+        message_handler_map_type make_message_handler_map(
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
+
+            map[WM_COMMAND].push_back(
+                boost::bind(&dialog::on_command, this, _1, _2)
+            );
+
+            return map;
+        }
+
+        boost::optional< ::LRESULT> on_command(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            const ::WORD hi_wparam = HIWORD(wParam);
+            const ::WORD lo_wparam = LOWORD(wParam);
+            if (
+                hi_wparam == 0 &&
+                (lo_wparam == IDOK || lo_wparam == IDCANCEL)
+            )
+            {
+                const ::HWND window_handle =
+                    reinterpret_cast< ::HWND>(lParam);
+                assert(
+                    window_handle == ::GetDlgItem(handle(), lo_wparam)
+                );
+                if (window_handle != NULL)
+                {
+                    p_widget_from(window_handle)->click();
+                }
+                else
+                {
+                    set_result(
+                        lo_wparam == IDOK ?
+                        result_accepted : result_canceled
+                    );
+                    close();
+                }
+                return boost::optional< ::LRESULT>(0);
+            }
+
+            return boost::optional< ::LRESULT>();
         }
 
 

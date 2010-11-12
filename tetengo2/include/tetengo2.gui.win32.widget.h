@@ -22,6 +22,7 @@
 #include <vector>
 
 #include <boost/exception/all.hpp>
+#include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/throw_exception.hpp>
@@ -700,17 +701,17 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The custom message type.
         enum message_type
         {
-            message_command = WM_APP,   //!< A command message.
+            message_command = WM_APP + 1,   //!< A command message.
         };
+
+        //! The message handler type.
+        typedef
+            std::function<boost::optional< ::LRESULT> (::WPARAM, ::LPARAM)>
+            message_handler_type;
 
         //! The message handler map type.
         typedef
-            std::unordered_map<
-                ::UINT,
-                std::function<
-                    boost::optional< ::LRESULT> (::WPARAM, ::LPARAM)
-                >
-            >
+            std::unordered_map< ::UINT, std::vector<message_handler_type>>
             message_handler_map_type;
 
 
@@ -769,43 +770,59 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates a widget.
+
+            \param message_handler_map A message handler map.
         */
-        widget()
+        widget(
+            message_handler_map_type&& message_handler_map =
+                message_handler_map_type()
+        )
         :
-        m_message_handler_map(make_message_handler_map()),
+        m_message_handler_map(
+            make_message_handler_map(
+                std::forward<message_handler_map_type>(message_handler_map)
+            )
+        ),
         m_destroyed(false),
         m_paint_observer_set(),
         m_mouse_observer_set()
         {}
 
 
-        // virtual functions
+        // functions
 
         /*!
-            \brief Dispatches the window messages.
+            \brief Dispatches window messages.
 
             \param uMsg                       A message.
-            \param wParam                     A word-sized parameter.
-            \param lParam                     A long-sized parameter.
-            \param p_default_window_procedure A pointer to a default window
+            \param wParam                     A parameter #1.
+            #param lParam                     A parameter #2.
+            \param p_default_window_procesure A pointer to the default window
                                               procedure.
 
-            \return The result code.
+            \return The result.
         */
-        virtual ::LRESULT window_procedure(
+        ::LRESULT window_procedure(
             const ::UINT    uMsg,
             const ::WPARAM  wParam,
             const ::LPARAM  lParam,
             const ::WNDPROC p_default_window_procedure
         )
         {
-            const typename message_handler_map_type::const_iterator handler =
-                m_message_handler_map.find(uMsg);
-            if (handler != m_message_handler_map.end())
+            typedef
+                typename message_handler_map_type::const_iterator
+                map_iterator;
+            const map_iterator found = m_message_handler_map.find(uMsg);
+            if (found != m_message_handler_map.end())
             {
-                const boost::optional< ::LRESULT> o_result =
-                    handler->second(wParam, lParam);
-                if (o_result) return *o_result;
+                BOOST_FOREACH (
+                    const message_handler_type& handler, found->second
+                )
+                {
+                    const boost::optional< ::LRESULT> o_result =
+                        handler(wParam, lParam);
+                    if (o_result) return *o_result;
+                }
             }
 
             return ::CallWindowProcW(
@@ -919,15 +936,26 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        message_handler_map_type make_message_handler_map()
+        message_handler_map_type make_message_handler_map(
+            message_handler_map_type&& initial_map
+        )
         {
-            message_handler_map_type map;
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
 
-            map[WM_COMMAND] = boost::bind(&widget::on_command, this, _1, _2);
-            map[WM_PAINT] = boost::bind(&widget::on_paint, this, _1, _2);
-            map[WM_DESTROY] = boost::bind(&widget::on_destroy, this, _1, _2);
-            map[WM_NCDESTROY] =
-                boost::bind(&widget::on_ncdestroy, this, _1, _2);
+            map[WM_COMMAND].push_back(
+                boost::bind(&widget::on_command, this, _1, _2)
+            );
+            map[WM_PAINT].push_back(
+                boost::bind(&widget::on_paint, this, _1, _2)
+            );
+            map[WM_DESTROY].push_back(
+                boost::bind(&widget::on_destroy, this, _1, _2)
+            );
+            map[WM_NCDESTROY].push_back(
+                boost::bind(&widget::on_ncdestroy, this, _1, _2)
+            );
 
             return map;
         }

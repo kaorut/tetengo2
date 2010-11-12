@@ -216,95 +216,19 @@ namespace tetengo2 { namespace gui { namespace win32
 
         /*!
             \brief Creates an abstract window.
+
+            \param message_handler_map A message handler map.
         */
-        abstract_window()
+        abstract_window(message_handler_map_type&& message_handler_map)
         :
-        base_type(),
+        base_type(
+            make_message_handler_map(
+                std::forward<message_handler_map_type>(message_handler_map)
+            )
+        ),
         m_p_main_menu(),
         m_window_observer_set()
         {}
-
-
-        // virtual functions
-
-        //! \copydoc tetengo2::gui::win32::widget::window_procedure
-        virtual ::LRESULT window_procedure(
-            const ::UINT    uMsg,
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam,
-            const ::WNDPROC p_default_window_procedure
-        )
-        {
-            switch (uMsg)
-            {
-            case WM_COMMAND:
-                {
-                    const ::WORD source = HIWORD(wParam);
-                    const ::WORD id = LOWORD(wParam);
-                    if (source == 0)
-                    {
-                        if (!has_main_menu()) break;
-
-                        const typename main_menu_type::recursive_iterator
-                        found = std::find_if(
-                            main_menu().recursive_begin(),
-                            main_menu().recursive_end(),
-                            boost::bind(
-                                std::equal_to<
-                                    typename main_menu_type::id_type
-                                >(),
-                                boost::bind(
-                                    &main_menu_type::base_type::id, _1
-                                ),
-                                id
-                            )
-                        );
-                        if (found == main_menu().recursive_end()) break;
-                        found->select();
-
-                        return 0;
-                    }
-
-                    break;
-                }
-            case WM_INITMENUPOPUP:
-                {
-                    const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
-
-                    if (!has_main_menu()) break;
-
-                    const typename main_menu_type::recursive_iterator
-                    found = std::find_if(
-                        main_menu().recursive_begin(),
-                        main_menu().recursive_end(),
-                        boost::bind(
-                            std::equal_to<
-                                typename main_menu_type::handle_type
-                            >(),
-                            boost::bind(
-                                &main_menu_type::base_type::base_type::handle,
-                                _1
-                            ),
-                            handle
-                        )
-                    );
-                    if (found == main_menu().recursive_end()) break;
-                    found->select();
-
-                    return 0;
-                }
-            case WM_DESTROY:
-                {
-                    if (m_window_observer_set.destroyed().empty()) break;
-
-                    m_window_observer_set.destroyed()();
-                    break;
-                }
-            }
-            return base_type::window_procedure(
-                uMsg, wParam, lParam, p_default_window_procedure
-            );
-        }
 
 
     private:
@@ -326,6 +250,109 @@ namespace tetengo2 { namespace gui { namespace win32
                     std::runtime_error("Can't close the abstract window.")
                 );
             }
+        }
+
+
+        // functions
+
+        message_handler_map_type make_message_handler_map(
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
+
+            map[WM_COMMAND].push_back(
+                boost::bind(&abstract_window::on_command, this, _1, _2)
+            );
+            map[WM_INITMENUPOPUP].push_back(
+                boost::bind(&abstract_window::on_initmenupopup, this, _1, _2)
+            );
+            map[WM_DESTROY].push_back(
+                boost::bind(&abstract_window::on_destroy, this, _1, _2)
+            );
+
+            return map;
+        }
+
+        boost::optional< ::LRESULT> on_command(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            const ::WORD source = HIWORD(wParam);
+            const ::WORD id = LOWORD(wParam);
+            if (source == 0)
+            {
+                if (!has_main_menu()) return boost::optional< ::LRESULT>();
+
+                const typename main_menu_type::recursive_iterator
+                found = std::find_if(
+                    main_menu().recursive_begin(),
+                    main_menu().recursive_end(),
+                    boost::bind(
+                        std::equal_to<
+                            typename main_menu_type::id_type
+                        >(),
+                        boost::bind(
+                            &main_menu_type::base_type::id, _1
+                        ),
+                        id
+                    )
+                );
+                if (found == main_menu().recursive_end())
+                    return boost::optional< ::LRESULT>();
+                found->select();
+
+                return boost::optional< ::LRESULT>(0);
+            }
+
+            return boost::optional< ::LRESULT>();
+        }
+
+        boost::optional< ::LRESULT> on_initmenupopup(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
+
+            if (!has_main_menu()) return boost::optional< ::LRESULT>();
+
+            const typename main_menu_type::recursive_iterator
+            found = std::find_if(
+                main_menu().recursive_begin(),
+                main_menu().recursive_end(),
+                boost::bind(
+                    std::equal_to<
+                        typename main_menu_type::handle_type
+                    >(),
+                    boost::bind(
+                        &main_menu_type::base_type::base_type::handle,
+                        _1
+                    ),
+                    handle
+                )
+            );
+            if (found == main_menu().recursive_end())
+                return boost::optional< ::LRESULT>();
+            found->select();
+
+            return boost::optional< ::LRESULT>(0);
+        }
+
+        boost::optional< ::LRESULT> on_destroy(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            if (m_window_observer_set.destroyed().empty())
+                return boost::optional< ::LRESULT>();
+
+            m_window_observer_set.destroyed()();
+
+            return boost::optional< ::LRESULT>();
         }
 
 

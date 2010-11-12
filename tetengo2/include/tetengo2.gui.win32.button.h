@@ -69,7 +69,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const style_type style = style_normal
         )
         :
-        base_type(),
+        base_type(make_message_handler_map(message_handler_map_type())),
         m_handle(create_window(parent, style)),
         m_style(style),
         m_p_original_window_procedure(replace_window_procedure(m_handle))
@@ -96,31 +96,6 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_style;
-        }
-
-
-    protected:
-        // virtual functions
-
-        //! \copydoc tetengo2::gui::win32::widget::window_procedure
-        virtual ::LRESULT window_procedure(
-            const ::UINT    uMsg,
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam,
-            const ::WNDPROC p_default_window_procedure
-        )
-        {
-            switch (uMsg)
-            {
-            case message_command:
-                {
-                    mouse_observer_set_type().clicked()();
-                    break;
-                }
-            }
-            return base_type::window_procedure(
-                uMsg, wParam, lParam, m_p_original_window_procedure
-            );
         }
 
 
@@ -187,6 +162,49 @@ namespace tetengo2 { namespace gui { namespace win32
             return handle;
         }
 
+        static ::LRESULT CALLBACK static_window_procedure(
+            const ::HWND   hWnd,
+            const ::UINT   uMsg,
+            const ::WPARAM wParam,
+            const ::LPARAM lParam
+        )
+        TETENGO2_NOEXCEPT
+        {
+            try
+            {
+                button* const p_button =
+                    boost::polymorphic_downcast<button*>(p_widget_from(hWnd));
+                if (p_button != NULL)
+                {
+                    return p_button->window_procedure(
+                        uMsg, wParam, lParam, p_button->m_p_original_window_procedure
+                    );
+                }
+                else
+                {
+                    return ::CallWindowProcW(
+                        ::DefWindowProcW, hWnd, uMsg, wParam, lParam
+                    );
+                }
+            }
+            catch (const boost::exception& e)
+            {
+                (alert_type(hWnd))(e);
+                return 0;
+            }
+            catch (const std::exception& e)
+            {
+                (alert_type(hWnd))(e);
+                return 0;
+            }
+            catch (...)
+            {
+                (alert_type(hWnd))();
+                return 0;
+            }
+        }
+
+
         static ::WNDPROC replace_window_procedure(const ::HWND handle)
         {
 #if defined(_WIN32) && !defined(_WIN64)
@@ -198,7 +216,7 @@ namespace tetengo2 { namespace gui { namespace win32
                     handle,
                     GWLP_WNDPROC,
                     reinterpret_cast< ::LONG_PTR>(
-                        base_type::p_static_window_procedure()
+                        static_window_procedure
                     )
                 );
 #if defined(_WIN32) && !defined(_WIN64)
@@ -230,6 +248,34 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_handle;
+        }
+
+
+        // functions
+
+        message_handler_map_type make_message_handler_map(
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
+
+            map[WM_COMMAND].push_back(
+                boost::bind(&button::on_command, this, _1, _2)
+            );
+
+            return map;
+        }
+
+        boost::optional< ::LRESULT> on_command(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            mouse_observer_set_type().clicked()();
+            
+            return boost::optional< ::LRESULT>();
         }
 
 

@@ -51,7 +51,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         window()
         :
-        base_type(),
+        base_type(message_handler_map_type()),
         m_handle(create_window(NULL))
         {
             initialize(this);
@@ -66,7 +66,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         explicit window(const base_type& parent)
         :
-        base_type(),
+        base_type(message_handler_map_type()),
         m_handle(create_window(&parent))
         {
             initialize(this);
@@ -78,23 +78,6 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual ~window()
         TETENGO2_NOEXCEPT
         {}
-
-
-    protected:
-        // virtual functions
-
-        //! \copydoc tetengo2::gui::win32::widget::window_procedure
-        virtual ::LRESULT window_procedure(
-            const ::UINT    uMsg,
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam,
-            const ::WNDPROC p_default_window_procedure
-        )
-        {
-            return base_type::window_procedure(
-                uMsg, wParam, lParam, p_default_window_procedure
-            );
-        }
 
 
     private:
