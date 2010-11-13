@@ -236,7 +236,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::LPARAM  lParam
         )
         {
-            mouse_observer_set_type().clicked()();
+            mouse_observer_set().clicked()();
             
             return boost::optional< ::LRESULT>();
         }
