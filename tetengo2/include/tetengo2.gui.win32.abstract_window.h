@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void activate()
         {
-            ::BringWindowToTop(handle());
+            ::SetActiveWindow(handle());
         }
 
         /*!
