@@ -200,7 +200,8 @@ namespace tetengo2 { namespace gui { namespace win32
             ::WNDCLASSEXW window_class;
             window_class.cbSize = sizeof(::WNDCLASSEXW);
             window_class.style = 0;
-            window_class.lpfnWndProc = static_window_procedure;
+            window_class.lpfnWndProc =
+                base_type::base_type::p_static_window_procedure();
             window_class.cbClsExtra = 0;
             window_class.cbWndExtra = DLGWINDOWEXTRA;
             window_class.hInstance = instance_handle;
@@ -262,46 +263,6 @@ namespace tetengo2 { namespace gui { namespace win32
             }
         }
 
-        static ::LRESULT CALLBACK static_window_procedure(
-            const ::HWND   hWnd,
-            const ::UINT   uMsg,
-            const ::WPARAM wParam,
-            const ::LPARAM lParam
-        )
-        TETENGO2_NOEXCEPT
-        {
-            try
-            {
-                dialog* const p_dialog =
-                    boost::polymorphic_downcast<dialog*>(p_widget_from(hWnd));
-                if (p_dialog != NULL)
-                {
-                    return p_dialog->window_procedure(uMsg, wParam, lParam);
-                }
-                else
-                {
-                    return ::CallWindowProcW(
-                        ::DefDlgProcW, hWnd, uMsg, wParam, lParam
-                    );
-                }
-            }
-            catch (const boost::exception& e)
-            {
-                (alert_type(hWnd))(e);
-                return 0;
-            }
-            catch (const std::exception& e)
-            {
-                (alert_type(hWnd))(e);
-                return 0;
-            }
-            catch (...)
-            {
-                (alert_type(hWnd))();
-                return 0;
-            }
-        }
-
 
         // variables
 
@@ -327,12 +288,6 @@ namespace tetengo2 { namespace gui { namespace win32
                     std::runtime_error("Can't destroy the dialog.")
                 );
             }
-        }
-
-        virtual ::WNDPROC p_default_window_procedure()
-        const
-        {
-            return ::DefDlgProc;
         }
 
 
