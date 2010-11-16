@@ -224,14 +224,14 @@ namespace tetengo2 { namespace gui { namespace win32
                 std::forward<message_handler_map_type>(initial_map)
             );
 
-            map[message_command].push_back(
-                boost::bind(&button::on_message_command, this, _1, _2)
+            map[WM_TETENGO2_COMMAND].push_back(
+                boost::bind(&button::on_tetengo2_command, this, _1, _2)
             );
 
             return map;
         }
 
-        boost::optional< ::LRESULT> on_message_command(
+        boost::optional< ::LRESULT> on_tetengo2_command(
             const ::WPARAM  wParam,
             const ::LPARAM  lParam
         )

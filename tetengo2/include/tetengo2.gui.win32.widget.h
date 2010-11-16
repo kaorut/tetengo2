@@ -701,7 +701,7 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The custom message type.
         enum message_type
         {
-            message_command = WM_APP + 1,   //!< A command message.
+            WM_TETENGO2_COMMAND = WM_APP + 1,   //!< A command message.
         };
 
         //! The message handler type.
@@ -972,7 +972,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             ::PostMessageW(
                 reinterpret_cast< ::HWND>(lParam),
-                message_command,
+                WM_TETENGO2_COMMAND,
                 wParam,
                 reinterpret_cast< ::LPARAM>(handle())
             );
