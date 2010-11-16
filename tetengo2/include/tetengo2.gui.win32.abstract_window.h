@@ -12,11 +12,13 @@
 //#include <algorithm>
 //#include <cassert>
 //#include <cstddef>
-#include <functional>
+//#include <functional>
 //#include <memory>
 //#include <stdexcept>
+//#include <utility>
 
-#include <boost/bind.hpp>
+//#include <boost/bind.hpp>
+//#include <boost/optional.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX

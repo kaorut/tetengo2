@@ -21,9 +21,11 @@
 #include <utility>
 #include <vector>
 
+#include <boost/bind.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -933,7 +935,7 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual ::WNDPROC p_default_window_procedure()
         const
         {
-            return ::DefWindowProc;
+            return ::DefWindowProcW;
         }
 
 

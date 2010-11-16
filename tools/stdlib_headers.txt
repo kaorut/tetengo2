@@ -2,14 +2,12 @@
 ::AdjustWindowRectEx                             windows.h
 ::BOOL                                           windows.h
 ::BeginPaint                                     windows.h
-::BringWindowToTop                               windows.h
 ::CallWindowProcW                                windows.h
 ::CreateFontIndirectW                            windows.h
 ::CreateMenu                                     windows.h
 ::CreatePopupMenu                                windows.h
 ::CreateWindowExW                                windows.h
 ::DWORD                                          windows.h
-::DefDlgProcW                                    windows.h
 ::DefWindowProcW                                 windows.h
 ::DeleteMenu                                     windows.h
 ::DeleteObject                                   windows.h
@@ -92,6 +90,7 @@
 ::RemoveMenu                                     windows.h
 ::RemovePropW                                    windows.h
 ::SendMessageW                                   windows.h
+::SetActiveWindow                                windows.h
 ::SetMenu                                        windows.h
 ::SetPropW                                       windows.h
 ::SetWindowLongPtrW                              windows.h
@@ -119,6 +118,7 @@ BOOST_CHECK_LT                                   boost/test/unit_test.hpp
 BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
 BOOST_FILESYSTEM_VERSION                         boost/filesystem.hpp
+BOOST_FOREACH                                    boost/foreach.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
@@ -199,7 +199,6 @@ boost::mpl::void_                                boost/mpl/void.hpp
 boost::next                                      boost/utility.hpp
 boost::noncopyable                               boost/noncopyable.hpp
 boost::optional                                  boost/optional.hpp
-boost::polymorphic_downcast                      boost/cast.hpp
 boost::prior                                     boost/utility.hpp
 boost::program_options::notify                   boost/program_options.hpp
 boost::program_options::options_description      boost/program_options.hpp
@@ -271,6 +270,7 @@ std::string                                      string
 std::transform                                   algorithm
 std::tuple                                       tuple
 std::unary_function                              functional
+std::unordered_map                               unordered_map
 std::use_facet                                   locale
 std::vector                                      vector
 std::wstring                                     string
