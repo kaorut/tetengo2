@@ -796,11 +796,9 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Dispatches window messages.
 
-            \param uMsg                       A message.
-            \param wParam                     A parameter #1.
-            #param lParam                     A parameter #2.
-            \param p_default_window_procesure A pointer to the default window
-                                              procedure.
+            \param uMsg   A message.
+            \param wParam A parameter #1.
+            \param lParam A parameter #2.
 
             \return The result.
         */

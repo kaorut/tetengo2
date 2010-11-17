@@ -26,22 +26,54 @@ namespace tetengo2
     public:
         // functions
 
+        /*!
+            \brief Adds two values.
+
+            \param t A value.
+            \param u A value.
+
+            \return The sum.
+        */
         friend T operator+(const T& t, const U& u)
         {
             return operator+(T(t), u);
         }
 
+        /*!
+            \brief Adds two values.
+
+            \param t A value.
+            \param u A value.
+
+            \return The sum.
+        */
         friend T operator+(const T& t, U&& u)
         {
             return operator+(T(t), u);
         }
 
+        /*!
+            \brief Adds two values.
+
+            \param t A value.
+            \param u A value.
+
+            \return The sum.
+        */
         friend T operator+(T&& t, const U& u)
         {
             t += u;
             return t;
         }
 
+        /*!
+            \brief Adds two values.
+
+            \param t A value.
+            \param u A value.
+
+            \return The sum.
+        */
         friend T operator+(T&& t, U&& u)
         {
             return operator+(std::forward<T>(t), static_cast<const U&>(u));
@@ -63,22 +95,54 @@ namespace tetengo2
     public:
         // functions
 
+        /*!
+            \brief Subtracts two values.
+
+            \param t A value.
+            \param u A value.
+
+            \return The difference.
+        */
         friend T operator-(const T& t, const U& u)
         {
             return operator-(T(t), u);
         }
 
+        /*!
+            \brief Subtracts two values.
+
+            \param t A value.
+            \param u A value.
+
+            \return The difference.
+        */
         friend T operator-(const T& t, U&& u)
         {
             return operator-(T(t), u);
         }
 
+        /*!
+            \brief Subtracts two values.
+
+            \param t A value.
+            \param u A value.
+
+            \return The difference.
+        */
         friend T operator-(T&& t, const U& u)
         {
             t -= u;
             return t;
         }
 
+        /*!
+            \brief Subtracts two values.
+
+            \param t A value.
+            \param u A value.
+
+            \return The difference.
+        */
         friend T operator-(T&& t, U&& u)
         {
             return operator-(std::forward<T>(t), static_cast<const U&>(u));
