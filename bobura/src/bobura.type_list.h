@@ -34,6 +34,7 @@
 
 #include <tetengo2.encoder.h>
 #include <tetengo2.messages.h>
+#include <tetengo2.message_catalog.h>
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
@@ -111,6 +112,7 @@ namespace bobura
 
         struct message_catalog_parser; //!< The message catalog parser type.
         struct messages_facet; //!< The messages facet type.
+        struct message_catalog; //!< The message catalog type.
     }
 
 #if !defined(DOCUMENTATION)
@@ -146,6 +148,13 @@ namespace bobura
                 internal_encoding_type, locale_name_encoding_type
             >
             locale_name_encoder_type;
+        typedef
+            tetengo2::messages<
+                boost::filesystem::path,
+                detail::locale::message_catalog_parser_type,
+                detail::locale::locale_name_encoder_type
+            >
+            messages_type;
     }}
 #endif
 
@@ -184,15 +193,15 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::messages_facet,
-                tetengo2::messages<
-                    boost::filesystem::path,
-                    detail::locale::message_catalog_parser_type,
-                    detail::locale::locale_name_encoder_type
-                >
+                type::messages_facet, detail::locale::messages_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::message_catalog,
+                tetengo2::message_catalog<detail::locale::messages_type>
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>
+        >>>>>>>
         locale_type_list;
 
 
@@ -457,6 +466,9 @@ namespace bobura
                 type::application,
                 bobura<
                     detail::application::settings_type,
+                    boost::mpl::at<
+                        locale_type_list, type::message_catalog
+                    >::type,
                     boost::mpl::at<
                         main_window_type_list, type::main_window
                     >::type,

@@ -18,6 +18,7 @@ namespace bobura
         \brief The class template for a bobura application.
 
         \tparam Settings                A settings type.
+        \tparam MessageCatalog          A message catalog type.
         \tparam MainWindow              A main window type.
         \tparam MessageLoop             A message loop type.
         \tparam QuitMessageLoop         A quit-message-loop type.
@@ -25,6 +26,7 @@ namespace bobura
     */
     template <
         typename Settings,
+        typename MessageCatalog,
         typename MainWindow,
         typename MessageLoop,
         typename QuitMessageLoop,
@@ -37,6 +39,9 @@ namespace bobura
 
         //! The settings type.
         typedef Settings settings_type;
+
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
 
         //! The main window type.
         typedef MainWindow main_window_type;
@@ -75,6 +80,8 @@ namespace bobura
         int run()
         const
         {
+            const message_catalog_type message_catalog;
+
             main_window_type main_window;
             main_window.set_visible(true);
 

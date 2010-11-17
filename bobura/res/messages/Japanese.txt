@@ -1,0 +1,3 @@
+# Message Catalog for Japanese
+
+Bobura=ぼうぶら

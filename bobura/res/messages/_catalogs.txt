@@ -1,1 +1,4 @@
 # Mappings between locale names and catalog file names.
+
+# Japanese
+Japanese_Japan=Japanese.txt
