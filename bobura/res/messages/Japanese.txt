@@ -1,3 +1,28 @@
 # Message Catalog for Japanese
 
+# Common
+
 Bobura=ぼうぶら
+
+
+# Menu
+
+&File=ファイル(&F)
+&New\tCtrl+N=新規作成(&N)\tCtrl+N
+&Open...\tCtrl+O=開く(&O)...\tCtrl+O
+&Save\tCtrl+S=上書き保存(&S)\tCtrl+S
+Save &As...=名前を付けて保存(&A)...
+E&xit=終了(&X)
+
+&Edit=編集(&E)
+&Undo\tCtrl+Z=元に戻す(&Z)\tCtrl+Z
+&Redo\tCtrl+Y=やり直し(&R)\tCtrl+Y
+Cu&t\tCtrl+X=切り取り(&T)\tCtrl+X
+&Copy\tCtrl+C=コピー(&C)\tCtrl+C
+&Paste\tCtrl+V=貼り付け(&P)\tCtrl+P
+&Find...\tCtrl+F=検索(&F)...\tCtrl+F
+&Replace...\tCtrl+H=置換(&R)...\tCtrl+H
+
+&Help=ヘルプ(&H)
+&About...=バージョン情報(&A)...
+

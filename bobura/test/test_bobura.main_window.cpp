@@ -12,6 +12,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <stub_tetengo2.encoding.utf8.h>
 #include <stub_tetengo2.gui.abstract_popup_menu.h>
 #include <stub_tetengo2.gui.abstract_window.h>
 #include <stub_tetengo2.gui.alert.h>
@@ -40,6 +41,9 @@
 #include <tetengo2.gui.window_traits.h>
 #include <tetengo2.encoder.h>
 #include <tetengo2.encoding.locale.h>
+#include <tetengo2.messages.h>
+#include <tetengo2.message_catalog.h>
+#include <tetengo2.message_catalog_parser.h>
 
 #include "bobura.about_dialog.h"
 #include "bobura.main_window.h"
@@ -137,6 +141,36 @@ namespace
 
     typedef stub_tetengo2::gui::window<window_traits_type> window_type;
 
+    typedef stub_tetengo2::encoding::utf8 message_catalog_encoding_type;
+
+    typedef tetengo2::encoding::locale<std::string> locale_name_encoding_type;
+
+    typedef
+        tetengo2::encoder<
+            internal_encoding_type, message_catalog_encoding_type
+        >
+        message_catalog_encoder_type;
+
+    typedef
+        tetengo2::message_catalog_parser<
+            std::istream, std::wstring, message_catalog_encoder_type
+        >
+        message_catalog_parser_type;
+
+    typedef
+        tetengo2::encoder<internal_encoding_type, locale_name_encoding_type>
+        locale_name_encoder_type;
+
+    typedef
+        tetengo2::messages<
+            boost::filesystem::path,
+            message_catalog_parser_type,
+            locale_name_encoder_type
+        >
+        messages_type;
+
+    typedef tetengo2::message_catalog<messages_type> message_catalog_type;
+
     typedef stub_tetengo2::gui::message_loop message_loop_type;
 
     typedef stub_tetengo2::gui::quit_message_loop quit_message_loop_type;
@@ -191,6 +225,7 @@ namespace
     typedef
         bobura::main_window<
             window_type,
+            message_catalog_type,
             quit_message_loop_type,
             menu_command_type,
             popup_menu_type,
@@ -212,7 +247,8 @@ BOOST_AUTO_TEST_SUITE(main_window)
     {
         BOOST_TEST_PASSPOINT();
 
-        const main_window_type main_window;
+        const message_catalog_type message_catalog;
+        const main_window_type main_window(message_catalog);
     }
 
 

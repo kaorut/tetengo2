@@ -11,6 +11,7 @@
 
 #include <cstddef>
 #include <locale>
+#include <type_traits>
 #include <utility>
 
 #include <boost/noncopyable.hpp>
@@ -73,7 +74,12 @@ namespace tetengo2
             \return The localized text.
         */
         template <typename S>
-        string_type get(S&& default_text)
+        string_type get(
+            S&& default_text,
+            typename std::enable_if<
+                std::is_convertible<S&&, string_type>::value
+            >::type* = NULL
+        )
         const
         {
             if (m_p_messages == NULL || m_catalog_id < 0)
@@ -83,6 +89,21 @@ namespace tetengo2
                 m_catalog_id, 0, 0, std::forward<S>(default_text)
             );
         }
+
+#if !defined(DOCUMENTATION)
+        template <typename S>
+        string_type get(
+            S&& default_text,
+            typename std::enable_if<
+                !std::is_convertible<S&&, string_type>::value
+            >::type* = NULL
+        )
+        const
+        {
+            return get(string_type(default_text));
+        }
+
+#endif
 
 
     private:

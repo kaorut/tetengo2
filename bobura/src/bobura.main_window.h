@@ -28,6 +28,7 @@ namespace bobura
         \brief The class template for the main window.
 
         \tparam Window                    A window type.
+        \tparam MessageCatalog            A message catalog type.
         \tparam QuitMessageLoop           A quit-message-loop type.
         \tparam MenuCommand               A menu command type.
         \tparam PopupMenu                 A popup menu type.
@@ -37,6 +38,7 @@ namespace bobura
     */
     template <
         typename Window,
+        typename MessageCatalog,
         typename QuitMessageLoop,
         typename MenuCommand,
         typename PopupMenu,
@@ -51,6 +53,9 @@ namespace bobura
 
         //! The base type.
         typedef Window base_type;
+
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
 
         //! The quit-message-loop type.
         typedef QuitMessageLoop quit_message_loop_type;
@@ -75,10 +80,13 @@ namespace bobura
 
         /*!
             \brief Creates a main window.
+
+            \param message_catalog A message catalog.
         */
-        main_window()
+        explicit main_window(const message_catalog_type& message_catalog)
         :
-        base_type()
+        base_type(),
+        m_message_catalog(message_catalog)
         {
             initialize_window(*this);
         }
@@ -116,11 +124,10 @@ namespace bobura
         {
             set_message_observers(window);
             set_menus(window);
-#if defined(_MSC_VER)
-            window.set_text(
-                string_type(TETENGO2_TEXT("ぼうぶら テストプログラム"))
-            );
-#endif
+
+            const message_catalog_type& message_catalog =
+                window.m_message_catalog;
+            window.set_text(message_catalog.get(TETENGO2_TEXT("Bobura")));
         }
 
         static void set_message_observers(main_window& window)
@@ -139,40 +146,42 @@ namespace bobura
 
         static void set_menus(main_window& window)
         {
+            const message_catalog_type& message_catalog =
+                window.m_message_catalog;
+
             std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
 
-#if defined(_MSC_VER)
             {
                 std::auto_ptr<menu_type> p_popup_menu(
                     new popup_menu_type(
-                        string_type(TETENGO2_TEXT("ファイル(&F)"))
+                        message_catalog.get(TETENGO2_TEXT("&File"))
                     )
                 );
 
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("新規作成(&N)\tCtrl+N")),
+                    message_catalog.get(TETENGO2_TEXT("&New\tCtrl+N")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("開く(&O)...\tCtrl+O")),
+                    message_catalog.get(TETENGO2_TEXT("&Open...\tCtrl+O")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("上書き保存(&S)\tCtrl+S")),
+                    message_catalog.get(TETENGO2_TEXT("&Save\tCtrl+S")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("名前を付けて保存(&A)...")),
+                    message_catalog.get(TETENGO2_TEXT("Save &As...")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
@@ -180,7 +189,7 @@ namespace bobura
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("終了(&X)")),
+                    message_catalog.get(TETENGO2_TEXT("E&xit")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::exit
                     >::type(window)
@@ -191,42 +200,20 @@ namespace bobura
             {
                 std::auto_ptr<menu_type> p_popup_menu(
                     new popup_menu_type(
-                        string_type(TETENGO2_TEXT("編集(&E)"))
+                        message_catalog.get(TETENGO2_TEXT("&Edit"))
                     )
                 );
 
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("元に戻す(&U)\tCtrl+Z")),
+                    message_catalog.get(TETENGO2_TEXT("&Undo\tCtrl+Z")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("やり直し(&R)\tCtrl+Y")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_separator(*p_popup_menu);
-                append_menu_command(
-                    *p_popup_menu,
-                    string_type(TETENGO2_TEXT("切り取り(&T)\tCtrl+X")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    string_type(TETENGO2_TEXT("コピー(&C)\tCtrl+C")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    string_type(TETENGO2_TEXT("貼り付け(&P)\tCtrl+V")),
+                    message_catalog.get(TETENGO2_TEXT("&Redo\tCtrl+Y")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
@@ -234,14 +221,36 @@ namespace bobura
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("検索(&F)...\tCtrl+F")),
+                    message_catalog.get(TETENGO2_TEXT("Cu&t\tCtrl+X")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("置換(&R)...\tCtrl+H")),
+                    message_catalog.get(TETENGO2_TEXT("&Copy\tCtrl+C")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    message_catalog.get(TETENGO2_TEXT("&Paste\tCtrl+V")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu,
+                    message_catalog.get(TETENGO2_TEXT("&Find...\tCtrl+F")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    message_catalog.get(TETENGO2_TEXT("&Replace...\tCtrl+H")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
@@ -252,13 +261,13 @@ namespace bobura
             {
                 std::auto_ptr<menu_type> p_popup_menu(
                     new popup_menu_type(
-                        string_type(TETENGO2_TEXT("ヘルプ(&H)"))
+                        message_catalog.get(TETENGO2_TEXT("&Help"))
                     )
                 );
 
                 append_menu_command(
                     *p_popup_menu,
-                    string_type(TETENGO2_TEXT("バージョン情報(&A)...")),
+                    message_catalog.get(TETENGO2_TEXT("&About...")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::about
                     >::type(window)
@@ -266,7 +275,6 @@ namespace bobura
 
                 p_main_menu->insert(p_main_menu->end(), p_popup_menu);
             }
-#endif
 
             window.set_main_menu(p_main_menu);
         }
@@ -300,6 +308,11 @@ namespace bobura
             );
             popup_menu.insert(popup_menu.end(), p_menu_separator);
         }
+
+
+        // variables
+
+        const message_catalog_type& m_message_catalog;
 
 
     };

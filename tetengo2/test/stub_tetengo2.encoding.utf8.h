@@ -14,9 +14,9 @@
 #include "tetengo2.encoding.encoding.h"
 
 
-namespace tetengo2 { namespace encoding
+namespace stub_tetengo2 { namespace encoding
 {
-    class utf8 : public encoding
+    class utf8 : public tetengo2::encoding::encoding
     {
     private:
     public:
