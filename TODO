@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000059
-Added on    : 2010/10/31
-Depends on  : (none)
-Description : Use a message catalog for the UI texts.
-------------------------------------------------------------------------------
 Number      : 00000060
 Added on    : 2010/10/31
 Depends on  : (none)
