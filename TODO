@@ -13,6 +13,11 @@ Depends on  : (none)
 Description : Create tetengo2::gui::win32::label.
 ------------------------------------------------------------------------------
 Number      : 00000062
+Added on    : 2010/11/25
+Depends on  : (none)
+Description : Create tetengo2::gui::win32::image.
+------------------------------------------------------------------------------
+Number      : 00000063
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
