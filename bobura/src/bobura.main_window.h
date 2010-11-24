@@ -88,7 +88,7 @@ namespace bobura
         base_type(),
         m_message_catalog(message_catalog)
         {
-            initialize_window(*this);
+            initialize_window();
         }
 
         /*!
@@ -119,165 +119,6 @@ namespace bobura
 
 
         // static functions
-
-        static void initialize_window(main_window& window)
-        {
-            set_message_observers(window);
-            set_menus(window);
-
-            const message_catalog_type& message_catalog =
-                window.m_message_catalog;
-            window.set_text(message_catalog.get(TETENGO2_TEXT("Bobura")));
-        }
-
-        static void set_message_observers(main_window& window)
-        {
-            window.window_observer_set().destroyed().connect(
-                boost::bind(quit_message_loop_type(), 0)
-            );
-
-            window.paint_observer_set().paint().connect(
-                typename boost::mpl::at<
-                    main_window_message_type_list_type,
-                    message::main_window::type::paint
-                >::type()
-            );
-        }
-
-        static void set_menus(main_window& window)
-        {
-            const message_catalog_type& message_catalog =
-                window.m_message_catalog;
-
-            std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
-
-            {
-                std::auto_ptr<menu_type> p_popup_menu(
-                    new popup_menu_type(
-                        message_catalog.get(TETENGO2_TEXT("&File"))
-                    )
-                );
-
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&New\tCtrl+N")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&Open...\tCtrl+O")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&Save\tCtrl+S")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Save &As...")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_separator(*p_popup_menu);
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("E&xit")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::exit
-                    >::type(window)
-                );
-
-                p_main_menu->insert(p_main_menu->end(), p_popup_menu);
-            }
-            {
-                std::auto_ptr<menu_type> p_popup_menu(
-                    new popup_menu_type(
-                        message_catalog.get(TETENGO2_TEXT("&Edit"))
-                    )
-                );
-
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&Undo\tCtrl+Z")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&Redo\tCtrl+Y")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_separator(*p_popup_menu);
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Cu&t\tCtrl+X")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&Copy\tCtrl+C")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&Paste\tCtrl+V")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_separator(*p_popup_menu);
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&Find...\tCtrl+F")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&Replace...\tCtrl+H")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-
-                p_main_menu->insert(p_main_menu->end(), p_popup_menu);
-            }
-            {
-                std::auto_ptr<menu_type> p_popup_menu(
-                    new popup_menu_type(
-                        message_catalog.get(TETENGO2_TEXT("&Help"))
-                    )
-                );
-
-                append_menu_command(
-                    *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("&About...")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::about
-                    >::type(window)
-                );
-
-                p_main_menu->insert(p_main_menu->end(), p_popup_menu);
-            }
-
-            window.set_main_menu(p_main_menu);
-        }
 
         static void append_menu_command(
             menu_type&                        popup_menu,
@@ -313,6 +154,165 @@ namespace bobura
         // variables
 
         const message_catalog_type& m_message_catalog;
+
+
+        // functions
+
+        void initialize_window()
+        {
+            set_message_observers();
+            set_menus();
+
+            set_text(m_message_catalog.get(TETENGO2_TEXT("Bobura")));
+        }
+
+        void set_message_observers()
+        {
+            window_observer_set().destroyed().connect(
+                boost::bind(quit_message_loop_type(), 0)
+            );
+
+            paint_observer_set().paint().connect(
+                typename boost::mpl::at<
+                    main_window_message_type_list_type,
+                    message::main_window::type::paint
+                >::type()
+            );
+        }
+
+        void set_menus()
+        {
+            std::auto_ptr<main_menu_type> p_main_menu(new main_menu_type());
+
+            {
+                std::auto_ptr<menu_type> p_popup_menu(
+                    new popup_menu_type(
+                        m_message_catalog.get(TETENGO2_TEXT("&File"))
+                    )
+                );
+
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("&New\tCtrl+N")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("&Open...\tCtrl+O")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("&Save\tCtrl+S")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("Save &As...")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("E&xit")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::exit
+                    >::type(*this)
+                );
+
+                p_main_menu->insert(p_main_menu->end(), p_popup_menu);
+            }
+            {
+                std::auto_ptr<menu_type> p_popup_menu(
+                    new popup_menu_type(
+                        m_message_catalog.get(TETENGO2_TEXT("&Edit"))
+                    )
+                );
+
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("&Undo\tCtrl+Z")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("&Redo\tCtrl+Y")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("Cu&t\tCtrl+X")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("&Copy\tCtrl+C")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("&Paste\tCtrl+V")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("&Find...\tCtrl+F")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(
+                        TETENGO2_TEXT("&Replace...\tCtrl+H")
+                    ),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::nop
+                    >::type()
+                );
+
+                p_main_menu->insert(p_main_menu->end(), p_popup_menu);
+            }
+            {
+                std::auto_ptr<menu_type> p_popup_menu(
+                    new popup_menu_type(
+                        m_message_catalog.get(TETENGO2_TEXT("&Help"))
+                    )
+                );
+
+                append_menu_command(
+                    *p_popup_menu,
+                    m_message_catalog.get(TETENGO2_TEXT("&About...")),
+                    typename boost::mpl::at<
+                        command_type_list_type, command::type::about
+                    >::type(*this)
+                );
+
+                p_main_menu->insert(p_main_menu->end(), p_popup_menu);
+            }
+
+            set_main_menu(p_main_menu);
+        }
 
 
     };
