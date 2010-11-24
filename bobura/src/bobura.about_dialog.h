@@ -99,6 +99,8 @@ namespace bobura
 
         void initialize_dialog(const abstract_window_type& parent)
         {
+            set_text(m_message_catalog.get(TETENGO2_TEXT("About")));
+
             const typename about_dialog::position_type& parent_position =
                 parent.position();
             set_client_dimension(std::make_pair(384, 256));
@@ -117,9 +119,7 @@ namespace bobura
                 new button_type(*this, button_type::style_default)
             );
 
-            p_button->set_text(
-                typename about_dialog::string_type(TETENGO2_TEXT("OK"))
-            );
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("OK")));
             p_button->set_dimension(std::make_pair(88, 24));
             p_button->set_position(std::make_pair(280, 216));
             p_button->mouse_observer_set().clicked().connect(

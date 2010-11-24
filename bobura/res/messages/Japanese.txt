@@ -5,6 +5,12 @@
 Bobura=ぼうぶら
 
 
+# Widget Text
+
+About=バージョン情報
+OK=OK
+
+
 # Menu
 
 &File=ファイル(&F)
