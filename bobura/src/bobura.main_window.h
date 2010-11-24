@@ -305,7 +305,7 @@ namespace bobura
                     m_message_catalog.get(TETENGO2_TEXT("&About...")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::about
-                    >::type(*this)
+                    >::type(*this, m_message_catalog)
                 );
 
                 p_main_menu->insert(p_main_menu->end(), p_popup_menu);

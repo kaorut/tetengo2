@@ -27,11 +27,13 @@ namespace bobura
         \brief The class template for the about dialog.
 
         \tparam Dialog                     A dialog type.
+        \tparam MessageCatalog             A message catalog type.
         \tparam Button                     A button type.
         \tparam AboutDialogMessageTypeList A message type.
     */
     template <
         typename Dialog,
+        typename MessageCatalog,
         typename Button,
         typename AboutDialogMessageTypeList
     >
@@ -45,6 +47,9 @@ namespace bobura
 
         //! The abstract window type.
         typedef typename base_type::base_type abstract_window_type;
+
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
 
         //! The button type.
         typedef Button button_type;
@@ -60,10 +65,15 @@ namespace bobura
             \brief Creates an about dialog.
 
             \param parent A parent window.
+            \param message_catalog A message catalog.
         */
-        explicit about_dialog(abstract_window_type& parent)
+        about_dialog(
+            abstract_window_type&       parent,
+            const message_catalog_type& message_catalog
+        )
         :
         base_type(parent),
+        m_message_catalog(message_catalog),
         m_p_ok_button()
         {
             initialize_dialog(parent);
@@ -79,6 +89,8 @@ namespace bobura
 
     private:
         // variables
+
+        const message_catalog_type& m_message_catalog;
 
         boost::scoped_ptr<button_type> m_p_ok_button;
 

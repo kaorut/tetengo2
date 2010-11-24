@@ -199,7 +199,10 @@ namespace
 
     typedef
         bobura::about_dialog<
-            dialog_type, button_type, about_dialog_message_type_list_type
+            dialog_type,
+            message_catalog_type,
+            button_type,
+            about_dialog_message_type_list_type
         >
         about_dialog_type;
 

@@ -374,6 +374,9 @@ namespace bobura
                 type::about_dialog,
                 about_dialog<
                     boost::mpl::at<ui_type_list, type::dialog>::type,
+                    boost::mpl::at<
+                        locale_type_list, type::message_catalog
+                    >::type,
                     boost::mpl::at<ui_type_list, type::button>::type,
                     message::about_dialog::type_list<
                         boost::mpl::at<ui_type_list, type::dialog>::type

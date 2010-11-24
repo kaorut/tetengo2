@@ -7,10 +7,14 @@
 */
 
 //#include <cstddef>
+#include <istream>
 //#include <string>
 
+//#define BOOST_FILESYSTEM_VERSION 3
+//#include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <stub_tetengo2.encoding.utf8.h>
 #include <stub_tetengo2.gui.abstract_popup_menu.h>
 #include <stub_tetengo2.gui.abstract_window.h>
 #include <stub_tetengo2.gui.alert.h>
@@ -36,6 +40,9 @@
 #include <tetengo2.gui.window_traits.h>
 #include <tetengo2.encoder.h>
 #include <tetengo2.encoding.locale.h>
+#include <tetengo2.messages.h>
+#include <tetengo2.message_catalog.h>
+#include <tetengo2.message_catalog_parser.h>
 
 #include "bobura.about_dialog.h"
 #include "bobura.message.type_list_impl.h"
@@ -145,6 +152,36 @@ namespace
 
     typedef stub_tetengo2::gui::dialog<dialog_traits_type> dialog_type;
 
+    typedef stub_tetengo2::encoding::utf8 message_catalog_encoding_type;
+
+    typedef tetengo2::encoding::locale<std::string> locale_name_encoding_type;
+
+    typedef
+        tetengo2::encoder<
+            internal_encoding_type, message_catalog_encoding_type
+        >
+        message_catalog_encoder_type;
+
+    typedef
+        tetengo2::message_catalog_parser<
+            std::istream, std::wstring, message_catalog_encoder_type
+        >
+        message_catalog_parser_type;
+
+    typedef
+        tetengo2::encoder<internal_encoding_type, locale_name_encoding_type>
+        locale_name_encoder_type;
+
+    typedef
+        tetengo2::messages<
+            boost::filesystem::path,
+            message_catalog_parser_type,
+            locale_name_encoder_type
+        >
+        messages_type;
+
+    typedef tetengo2::message_catalog<messages_type> message_catalog_type;
+
     typedef
         tetengo2::gui::button_traits<widget_traits_type> button_traits_type;
 
@@ -156,7 +193,10 @@ namespace
 
     typedef
         bobura::about_dialog<
-            dialog_type, button_type, about_dialog_message_type_list_type
+            dialog_type,
+            message_catalog_type,
+            button_type,
+            about_dialog_message_type_list_type
         >
         about_dialog_type;
 
@@ -173,7 +213,8 @@ BOOST_AUTO_TEST_SUITE(about_dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        const about_dialog_type about_dialog(window);
+        const message_catalog_type message_catalog;
+        const about_dialog_type about_dialog(window, message_catalog);
     }
 
 
