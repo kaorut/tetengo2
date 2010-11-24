@@ -9,6 +9,7 @@
 #if !defined(BOBURA_ABOUTDIALOG_H)
 #define BOBURA_ABOUTDIALOG_H
 
+#include <memory>
 #include <utility>
 
 #include <boost/mpl/at.hpp>
@@ -65,7 +66,7 @@ namespace bobura
         base_type(parent),
         m_p_ok_button()
         {
-            initialize_dialog(*this, parent);
+            initialize_dialog(parent);
         }
 
         /*!
@@ -77,42 +78,47 @@ namespace bobura
 
 
     private:
-        // static functions
+        // variables
 
-        static void initialize_dialog(
-            about_dialog&               dialog,
-            const abstract_window_type& parent
-        )
+        boost::scoped_ptr<button_type> m_p_ok_button;
+
+
+        // functions
+
+        void initialize_dialog(const abstract_window_type& parent)
         {
             const typename about_dialog::position_type& parent_position =
                 parent.position();
-            dialog.set_client_dimension(std::make_pair(384, 256));
-            dialog.set_position(
+            set_client_dimension(std::make_pair(384, 256));
+            set_position(
                 std::make_pair(
                     parent_position.first + 64, parent_position.second + 64
                 )
             );
 
-            dialog.m_p_ok_button.reset(
-                new button_type(dialog, button_type::style_default)
+            m_p_ok_button.reset(create_ok_button().release());
+        }
+
+        std::auto_ptr<button_type> create_ok_button()
+        {
+            std::auto_ptr<button_type> p_button(
+                new button_type(*this, button_type::style_default)
             );
-            dialog.m_p_ok_button->set_text(
+
+            p_button->set_text(
                 typename about_dialog::string_type(TETENGO2_TEXT("OK"))
             );
-            dialog.m_p_ok_button->set_dimension(std::make_pair(88, 24));
-            dialog.m_p_ok_button->set_position(std::make_pair(280, 216));
-            dialog.m_p_ok_button->mouse_observer_set().clicked().connect(
+            p_button->set_dimension(std::make_pair(88, 24));
+            p_button->set_position(std::make_pair(280, 216));
+            p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     about_dialog_message_type_list_type,
                     message::about_dialog::type::ok_button_mouse
-                >::type(dialog)
+                >::type(*this)
             );
+
+            return p_button;
         }
-
-
-        // variables
-
-        boost::scoped_ptr<button_type> m_p_ok_button;
 
 
     };
