@@ -103,8 +103,8 @@ namespace bobura
 
             const typename about_dialog::position_type& parent_position =
                 parent.position();
-            set_client_dimension(std::make_pair(384, 256));
-            set_position(
+            this->set_client_dimension(std::make_pair(384, 256));
+            this->set_position(
                 std::make_pair(
                     parent_position.first + 64, parent_position.second + 64
                 )

@@ -168,11 +168,11 @@ namespace bobura
 
         void set_message_observers()
         {
-            window_observer_set().destroyed().connect(
+            this->window_observer_set().destroyed().connect(
                 boost::bind(quit_message_loop_type(), 0)
             );
 
-            paint_observer_set().paint().connect(
+            this->paint_observer_set().paint().connect(
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::paint
@@ -311,7 +311,7 @@ namespace bobura
                 p_main_menu->insert(p_main_menu->end(), p_popup_menu);
             }
 
-            set_main_menu(p_main_menu);
+            this->set_main_menu(p_main_menu);
         }
 
 
