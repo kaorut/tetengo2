@@ -87,11 +87,6 @@ namespace stub_tetengo2 { namespace gui
         base_type()
         {}
 
-        explicit abstract_window(base_type& parent)
-        :
-        base_type(parent)
-        {}
-
 
     };
 

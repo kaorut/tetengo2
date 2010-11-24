@@ -294,20 +294,9 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors
 
-        explicit widget()
+        widget()
         :
         m_p_parent(NULL),
-        m_enabled(false),
-        m_visible(false),
-        m_position(std::make_pair(0, 0)),
-        m_dimension(std::make_pair(100, 100)),
-        m_client_dimension(std::make_pair(80, 80)),
-        m_text()
-        {}
-
-        explicit widget(widget& parent)
-        :
-        m_p_parent(&parent),
         m_enabled(false),
         m_visible(false),
         m_position(std::make_pair(0, 0)),

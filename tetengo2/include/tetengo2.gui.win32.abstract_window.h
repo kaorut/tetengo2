@@ -221,7 +221,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param message_handler_map A message handler map.
         */
-        abstract_window(message_handler_map_type&& message_handler_map)
+        explicit abstract_window(
+            message_handler_map_type&& message_handler_map
+        )
         :
         base_type(
             make_message_handler_map(

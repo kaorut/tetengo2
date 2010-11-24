@@ -35,7 +35,7 @@ namespace stub_tetengo2 { namespace gui
 
         explicit window(const base_type& parent)
         :
-        base_type(parent)
+        base_type()
         {}
 
         virtual ~window()

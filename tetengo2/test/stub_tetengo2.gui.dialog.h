@@ -43,7 +43,7 @@ namespace stub_tetengo2 { namespace gui
 
         dialog(base_type& parent)
         :
-        base_type(parent)
+        base_type()
         {}
 
         virtual ~dialog()

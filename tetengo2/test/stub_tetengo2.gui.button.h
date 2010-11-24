@@ -35,9 +35,12 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        button(base_type& parent, const style_type style = style_normal)
+        explicit button(
+            base_type&       parent,
+            const style_type style = style_normal
+        )
         :
-        base_type(parent),
+        base_type(),
         m_style(style)
         {}
 
