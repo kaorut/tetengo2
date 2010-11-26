@@ -79,6 +79,8 @@ namespace bobura
         :
         base_type(parent),
         m_message_catalog(message_catalog),
+        m_p_title_label(),
+        m_p_copyright_label(),
         m_p_ok_button()
         {
             initialize_dialog(parent);
@@ -97,6 +99,10 @@ namespace bobura
 
         const message_catalog_type& m_message_catalog;
 
+        boost::scoped_ptr<label_type> m_p_title_label;
+
+        boost::scoped_ptr<label_type> m_p_copyright_label;
+
         boost::scoped_ptr<button_type> m_p_ok_button;
 
 
@@ -108,14 +114,42 @@ namespace bobura
 
             const typename about_dialog::position_type& parent_position =
                 parent.position();
-            this->set_client_dimension(std::make_pair(384, 256));
+            this->set_client_dimension(std::make_pair(256, 112));
             this->set_position(
                 std::make_pair(
                     parent_position.first + 64, parent_position.second + 64
                 )
             );
 
+            m_p_title_label.reset(create_title_label().release());
+            m_p_copyright_label.reset(create_copyright_label().release());
             m_p_ok_button.reset(create_ok_button().release());
+        }
+
+        std::auto_ptr<label_type> create_title_label()
+        {
+            std::auto_ptr<label_type> p_label(new label_type(*this));
+
+            p_label->set_text(
+                string_type(TETENGO2_TEXT("Bobura version 0.0"))
+            );
+            p_label->set_dimension(std::make_pair(128, 24));
+            p_label->set_position(std::make_pair(32, 16));
+
+            return p_label;
+        }
+
+        std::auto_ptr<label_type> create_copyright_label()
+        {
+            std::auto_ptr<label_type> p_label(new label_type(*this));
+
+            p_label->set_text(
+                string_type(TETENGO2_TEXT("Copyright (C) 2010 kaorut"))
+            );
+            p_label->set_dimension(std::make_pair(256, 24));
+            p_label->set_position(std::make_pair(32, 36));
+
+            return p_label;
         }
 
         std::auto_ptr<button_type> create_ok_button()
@@ -126,7 +160,7 @@ namespace bobura
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("OK")));
             p_button->set_dimension(std::make_pair(88, 24));
-            p_button->set_position(std::make_pair(280, 216));
+            p_button->set_position(std::make_pair(144, 72));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     about_dialog_message_type_list_type,

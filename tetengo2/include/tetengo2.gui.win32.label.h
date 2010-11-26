@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace win32
         explicit label(base_type& parent)
         :
         base_type(make_message_handler_map(message_handler_map_type())),
-        m_handle(create_window(parent, style))
+        m_handle(create_window(parent)),
         m_p_original_window_procedure(replace_window_procedure(m_handle))
         {
             initialize(this);
