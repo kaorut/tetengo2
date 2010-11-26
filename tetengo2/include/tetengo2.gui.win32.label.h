@@ -13,8 +13,6 @@
 //#include <stdexcept>
 //#include <utility>
 
-//#include <boost/bind.hpp>
-//#include <boost/optional.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
