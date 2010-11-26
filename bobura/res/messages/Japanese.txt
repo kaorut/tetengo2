@@ -2,13 +2,14 @@
 
 # Common
 
-Bobura=ぼうぶら
+Bobura=鉄道系アプリケーション建設予定地
 
 
 # Widget Text
 
 About=バージョン情報
 OK=OK
+version=バージョン
 
 
 # Menu

@@ -10,8 +10,10 @@
 #define BOBURA_ABOUTDIALOG_H
 
 #include <memory>
+#include <sstream>
 #include <utility>
 
+#include <boost/format.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/scoped_ptr.hpp>
 
@@ -81,6 +83,7 @@ namespace bobura
         m_message_catalog(message_catalog),
         m_p_title_label(),
         m_p_copyright_label(),
+        m_p_link_label(),
         m_p_ok_button()
         {
             initialize_dialog(parent);
@@ -103,6 +106,8 @@ namespace bobura
 
         boost::scoped_ptr<label_type> m_p_copyright_label;
 
+        boost::scoped_ptr<label_type> m_p_link_label;
+
         boost::scoped_ptr<button_type> m_p_ok_button;
 
 
@@ -114,7 +119,7 @@ namespace bobura
 
             const typename about_dialog::position_type& parent_position =
                 parent.position();
-            this->set_client_dimension(std::make_pair(256, 112));
+            this->set_client_dimension(std::make_pair(384, 128));
             this->set_position(
                 std::make_pair(
                     parent_position.first + 64, parent_position.second + 64
@@ -123,19 +128,24 @@ namespace bobura
 
             m_p_title_label.reset(create_title_label().release());
             m_p_copyright_label.reset(create_copyright_label().release());
+            m_p_link_label.reset(create_link_label().release());
             m_p_ok_button.reset(create_ok_button().release());
         }
 
         std::auto_ptr<label_type> create_title_label()
         {
+            typedef typename base_type::string_type::value_type char_type;
+            std::basic_ostringstream<char_type> title;
+            title <<
+                boost::basic_format<char_type>(TETENGO2_TEXT("%s  %s %s")) %
+                    m_message_catalog.get(TETENGO2_TEXT("Bobura")) %
+                    m_message_catalog.get(TETENGO2_TEXT("version")) %
+                    typename base_type::string_type(TETENGO2_TEXT("0.0.0"));
+
             std::auto_ptr<label_type> p_label(new label_type(*this));
 
-            p_label->set_text(
-                typename base_type::string_type(
-                    TETENGO2_TEXT("Bobura version 0.0")
-                )
-            );
-            p_label->set_dimension(std::make_pair(128, 24));
+            p_label->set_text(title.str());
+            p_label->set_dimension(std::make_pair(336, 24));
             p_label->set_position(std::make_pair(32, 16));
 
             return p_label;
@@ -150,8 +160,23 @@ namespace bobura
                     TETENGO2_TEXT("Copyright (C) 2010 kaorut")
                 )
             );
-            p_label->set_dimension(std::make_pair(256, 24));
+            p_label->set_dimension(std::make_pair(192, 24));
             p_label->set_position(std::make_pair(32, 36));
+
+            return p_label;
+        }
+
+        std::auto_ptr<label_type> create_link_label()
+        {
+            std::auto_ptr<label_type> p_label(new label_type(*this));
+
+            p_label->set_text(
+                typename base_type::string_type(
+                    TETENGO2_TEXT("http://www.tetengo.org/")
+                )
+            );
+            p_label->set_dimension(std::make_pair(192, 24));
+            p_label->set_position(std::make_pair(32, 60));
 
             return p_label;
         }
@@ -164,7 +189,7 @@ namespace bobura
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("OK")));
             p_button->set_dimension(std::make_pair(88, 24));
-            p_button->set_position(std::make_pair(144, 72));
+            p_button->set_position(std::make_pair(288, 96));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     about_dialog_message_type_list_type,
