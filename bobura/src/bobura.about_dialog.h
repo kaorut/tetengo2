@@ -131,7 +131,9 @@ namespace bobura
             std::auto_ptr<label_type> p_label(new label_type(*this));
 
             p_label->set_text(
-                string_type(TETENGO2_TEXT("Bobura version 0.0"))
+                typename base_type::string_type(
+                    TETENGO2_TEXT("Bobura version 0.0")
+                )
             );
             p_label->set_dimension(std::make_pair(128, 24));
             p_label->set_position(std::make_pair(32, 16));
@@ -144,7 +146,9 @@ namespace bobura
             std::auto_ptr<label_type> p_label(new label_type(*this));
 
             p_label->set_text(
-                string_type(TETENGO2_TEXT("Copyright (C) 2010 kaorut"))
+                typename base_type::string_type(
+                    TETENGO2_TEXT("Copyright (C) 2010 kaorut")
+                )
             );
             p_label->set_dimension(std::make_pair(256, 24));
             p_label->set_position(std::make_pair(32, 36));
