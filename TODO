@@ -18,6 +18,11 @@ Depends on  : (none)
 Description : Create tetengo2::gui::win32::image.
 ------------------------------------------------------------------------------
 Number      : 00000063
+Added on    : 2010/11/26
+Depends on  : (none)
+Description : Be able to specify a widget dimension in multiple units.
+------------------------------------------------------------------------------
+Number      : 00000064
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
