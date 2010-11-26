@@ -28,12 +28,14 @@ namespace bobura
 
         \tparam Dialog                     A dialog type.
         \tparam MessageCatalog             A message catalog type.
+        \tparam Label                      A label type.
         \tparam Button                     A button type.
         \tparam AboutDialogMessageTypeList A message type.
     */
     template <
         typename Dialog,
         typename MessageCatalog,
+        typename Label,
         typename Button,
         typename AboutDialogMessageTypeList
     >
@@ -50,6 +52,9 @@ namespace bobura
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
+
+        //! The label type.
+        typedef Label label_type;
 
         //! The button type.
         typedef Button button_type;

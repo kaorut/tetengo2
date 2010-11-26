@@ -41,6 +41,7 @@
 #include <tetengo2.gui.abstract_window_traits.h>
 #include <tetengo2.gui.button_traits.h>
 #include <tetengo2.gui.dialog_traits.h>
+#include <tetengo2.gui.label_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.menu_traits.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -55,6 +56,7 @@
 #include <tetengo2.gui.win32.dialog_message_loop.h>
 #include <tetengo2.gui.win32.font.h>
 #include <tetengo2.gui.win32.gui_initializer_finalizer.h>
+#include <tetengo2.gui.win32.label.h>
 #include <tetengo2.gui.win32.main_menu.h>
 #include <tetengo2.gui.win32.menu.h>
 #include <tetengo2.gui.win32.menu_command.h>
@@ -219,6 +221,7 @@ namespace bobura
         struct menu_command;   //!< The menu command type.
         struct menu_separator; //!< The menu separator type;
         struct dialog;         //!< The dialog type.
+        struct label;          //!< The label type.
         struct button;         //!< The button type.
     }
 
@@ -305,6 +308,9 @@ namespace bobura
             dialog_traits_type;
         typedef tetengo2::gui::win32::dialog<dialog_traits_type> dialog_type;
         typedef
+            tetengo2::gui::label_traits<widget_traits_type> label_traits_type;
+        typedef tetengo2::gui::win32::label<label_traits_type> label_type;
+        typedef
             tetengo2::gui::button_traits<widget_traits_type>
             button_traits_type;
         typedef tetengo2::gui::win32::button<button_traits_type> button_type;
@@ -354,9 +360,11 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::dialog, detail::ui::dialog_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::label, detail::ui::label_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>
+        >>>>>>>>>>>>
         ui_type_list;
 
 
@@ -377,6 +385,7 @@ namespace bobura
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,
+                    boost::mpl::at<ui_type_list, type::label>::type,
                     boost::mpl::at<ui_type_list, type::button>::type,
                     message::about_dialog::type_list<
                         boost::mpl::at<ui_type_list, type::dialog>::type

@@ -24,6 +24,7 @@
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.font.h>
 #include <stub_tetengo2.gui.gui_initializer_finalizer.h>
+#include <stub_tetengo2.gui.label.h>
 #include <stub_tetengo2.gui.main_menu.h>
 #include <stub_tetengo2.gui.menu.h>
 #include <stub_tetengo2.gui.menu_command.h>
@@ -36,6 +37,7 @@
 #include <tetengo2.gui.abstract_window_traits.h>
 #include <tetengo2.gui.button_traits.h>
 #include <tetengo2.gui.dialog_traits.h>
+#include <tetengo2.gui.label_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.menu_traits.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -197,6 +199,10 @@ namespace
         bobura::message::about_dialog::type_list<dialog_type>::type
         about_dialog_message_type_list_type;
 
+    typedef tetengo2::gui::label_traits<widget_traits_type> label_traits_type;
+
+    typedef stub_tetengo2::gui::label<label_traits_type> label_type;
+
     typedef
         tetengo2::gui::button_traits<widget_traits_type> button_traits_type;
 
@@ -206,6 +212,7 @@ namespace
         bobura::about_dialog<
             dialog_type,
             message_catalog_type,
+            label_type,
             button_type,
             about_dialog_message_type_list_type
         >
