@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::win32::button.
+    \brief Test of class tetengo2::gui::win32::label.
 
     Copyright (C) 2007-2010 kaoru
 
@@ -8,13 +8,13 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.win32.button.h"
+#include "tetengo2.gui.win32.label.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(win32)
-BOOST_AUTO_TEST_SUITE(button)
+BOOST_AUTO_TEST_SUITE(label)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

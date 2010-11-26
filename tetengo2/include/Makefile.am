@@ -16,6 +16,7 @@ headers = \
     tetengo2.gui.abstract_window_traits.h \
     tetengo2.gui.button_traits.h \
     tetengo2.gui.dialog_traits.h \
+    tetengo2.gui.label_traits.h \
     tetengo2.gui.menu_observer_set.h \
     tetengo2.gui.mouse_observer_set.h \
     tetengo2.gui.paint_observer_set.h \
@@ -37,6 +38,7 @@ extra_headers = \
     tetengo2.gui.win32.dialog_message_loop.h \
     tetengo2.gui.win32.font.h \
     tetengo2.gui.win32.gui_initializer_finalizer.h \
+    tetengo2.gui.win32.label.h \
     tetengo2.gui.win32.main_menu.h \
     tetengo2.gui.win32.menu.h \
     tetengo2.gui.win32.menu_command.h \

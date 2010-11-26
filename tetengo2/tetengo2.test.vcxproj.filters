@@ -90,6 +90,9 @@
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="test\stub_tetengo2.gui.label.h">
+      <Filter>headers\stub_tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\_catalogs.txt">
@@ -213,6 +216,9 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.operators.cpp">
       <Filter>sources\test_tetengo2</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.win32.label.cpp">
+      <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

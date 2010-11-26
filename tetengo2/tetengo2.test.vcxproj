@@ -220,6 +220,7 @@ echo Skipping...
     <ClInclude Include="test\stub_tetengo2.gui.dialog.h" />
     <ClInclude Include="test\stub_tetengo2.gui.font.h" />
     <ClInclude Include="test\stub_tetengo2.gui.gui_initializer_finalizer.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.label.h" />
     <ClInclude Include="test\stub_tetengo2.gui.main_menu.h" />
     <ClInclude Include="test\stub_tetengo2.gui.menu.h" />
     <ClInclude Include="test\stub_tetengo2.gui.menu_command.h" />
@@ -260,6 +261,7 @@ echo Skipping...
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog_message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.font.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.gui_initializer_finalizer.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.win32.label.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.main_menu.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.menu.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.menu_command.cpp" />
