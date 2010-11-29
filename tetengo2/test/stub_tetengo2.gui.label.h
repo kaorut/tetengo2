@@ -25,10 +25,12 @@ namespace stub_tetengo2 { namespace gui
 
         typedef control<typename traits_type::base_type> base_type;
 
+        typedef typename base_type::base_type widget_type;
+
 
         // constructors and destructor
 
-        explicit label(typename base_type::base_type& parent)
+        explicit label(widget_type& parent)
         :
         base_type()
         {}

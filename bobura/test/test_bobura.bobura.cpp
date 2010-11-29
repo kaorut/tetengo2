@@ -196,7 +196,7 @@ namespace
     typedef stub_tetengo2::gui::label<label_traits_type> label_type;
 
     typedef
-        tetengo2::gui::button_traits<widget_traits_type> button_traits_type;
+        tetengo2::gui::button_traits<control_traits_type> button_traits_type;
 
     typedef stub_tetengo2::gui::button<button_traits_type> button_type;
 

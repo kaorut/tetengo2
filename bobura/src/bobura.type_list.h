@@ -316,7 +316,7 @@ namespace bobura
             label_traits_type;
         typedef tetengo2::gui::win32::label<label_traits_type> label_type;
         typedef
-            tetengo2::gui::button_traits<widget_traits_type>
+            tetengo2::gui::button_traits<control_traits_type>
             button_traits_type;
         typedef tetengo2::gui::win32::button<button_traits_type> button_type;
     }}

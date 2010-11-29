@@ -9,21 +9,23 @@
 #if !defined(STUBTETENGO2_GUI_BUTTON_H)
 #define STUBTETENGO2_GUI_BUTTON_H
 
-#include "stub_tetengo2.gui.widget.h"
+#include "stub_tetengo2.gui.control.h"
 #include "tetengo2.cpp0x_keyword.h"
 
 
 namespace stub_tetengo2 { namespace gui
 {
     template <typename Traits>
-    class button : public widget<typename Traits::base_type>
+    class button : public control<typename Traits::base_type>
     {
     public:
         // types
 
         typedef Traits traits_type;
 
-        typedef widget<typename traits_type::base_type> base_type;
+        typedef control<typename traits_type::base_type> base_type;
+
+        typedef typename base_type::base_type widget_type;
 
         enum style_type
         {
@@ -36,7 +38,7 @@ namespace stub_tetengo2 { namespace gui
         // constructors and destructor
 
         explicit button(
-            base_type&       parent,
+            widget_type&     parent,
             const style_type style = style_normal
         )
         :
@@ -62,15 +64,6 @@ namespace stub_tetengo2 { namespace gui
         // variables
 
         const style_type m_style;
-
-
-        // virtual functions
-
-        virtual typename button::handle_type handle_impl()
-        const
-        {
-            return 0;
-        }
 
 
     };

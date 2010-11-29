@@ -22,7 +22,7 @@
 //#include <windows.h>
 
 #include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.gui.win32.widget.h"
+#include "tetengo2.gui.win32.control.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -33,7 +33,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Traits A traits type.
    */
     template <typename Traits>
-    class button : public widget<typename Traits::base_type>
+    class button : public control<typename Traits::base_type>
     {
     public:
         // types
@@ -42,7 +42,10 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef Traits traits_type;
 
         //! The base type.
-        typedef widget<typename traits_type::base_type> base_type;
+        typedef control<typename traits_type::base_type> base_type;
+
+        //! The widget type.
+        typedef typename base_type::base_type widget_type;
 
         //! The style type.
         enum style_type
@@ -68,14 +71,15 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When a button cannot be created.
         */
         explicit button(
-            base_type&       parent,
+            widget_type&     parent,
             const style_type style = style_normal
         )
         :
-        base_type(make_message_handler_map(message_handler_map_type())),
-        m_handle(create_window(parent, style)),
-        m_style(style),
-        m_p_original_window_procedure(replace_window_procedure(m_handle))
+        base_type(
+            make_message_handler_map(message_handler_map_type()),
+            create_window(parent, style)
+        ),
+        m_style(style)
         {
             initialize(this);
         }
@@ -106,8 +110,8 @@ namespace tetengo2 { namespace gui { namespace win32
         // static functions
 
         static handle_type create_window(
-            const base_type& parent,
-            const style_type style
+            const widget_type& parent,
+            const style_type   style
         )
         {
             const ::DWORD create_window_style =
@@ -165,56 +169,10 @@ namespace tetengo2 { namespace gui { namespace win32
             return handle;
         }
 
-        static ::WNDPROC replace_window_procedure(const ::HWND handle)
-        {
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(push)
-#    pragma warning(disable: 4244)
-#endif
-            const ::LONG_PTR result = 
-                ::SetWindowLongPtrW(
-                    handle,
-                    GWLP_WNDPROC,
-                    reinterpret_cast< ::LONG_PTR>(
-                        base_type::p_static_window_procedure()
-                    )
-                );
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(pop)
-#endif
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't replace window procedure.")
-                );
-            }
-
-            return reinterpret_cast< ::WNDPROC>(result);
-        }
-
 
         // variables
 
-        const handle_type m_handle;
-
         const style_type m_style;
-
-        const ::WNDPROC m_p_original_window_procedure;
-
-
-        // virtual functions
-
-        virtual handle_type handle_impl()
-        const
-        {
-            return m_handle;
-        }
-
-        virtual ::WNDPROC p_default_window_procedure()
-        const
-        {
-            return m_p_original_window_procedure;
-        }
 
 
         // functions
