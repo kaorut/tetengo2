@@ -150,5 +150,11 @@
     <ClInclude Include="include\tetengo2.gui.label_traits.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.control_traits.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.win32.control.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

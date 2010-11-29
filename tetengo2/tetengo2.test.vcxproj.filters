@@ -93,6 +93,9 @@
     <ClInclude Include="test\stub_tetengo2.gui.label.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
+    <ClInclude Include="test\stub_tetengo2.gui.control.h">
+      <Filter>headers\stub_tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\_catalogs.txt">
@@ -218,6 +221,9 @@
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.label.cpp">
+      <Filter>sources\test_tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.win32.control.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
   </ItemGroup>

@@ -131,6 +131,7 @@
     <ClInclude Include="include\tetengo2.generator.h" />
     <ClInclude Include="include\tetengo2.gui.abstract_window_traits.h" />
     <ClInclude Include="include\tetengo2.gui.button_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.control_traits.h" />
     <ClInclude Include="include\tetengo2.gui.dialog_traits.h" />
     <ClInclude Include="include\tetengo2.gui.label_traits.h" />
     <ClInclude Include="include\tetengo2.gui.menu_observer_set.h" />
@@ -144,6 +145,7 @@
     <ClInclude Include="include\tetengo2.gui.win32.alert.h" />
     <ClInclude Include="include\tetengo2.gui.win32.button.h" />
     <ClInclude Include="include\tetengo2.gui.win32.canvas.h" />
+    <ClInclude Include="include\tetengo2.gui.win32.control.h" />
     <ClInclude Include="include\tetengo2.gui.win32.dialog.h" />
     <ClInclude Include="include\tetengo2.gui.win32.dialog_message_loop.h" />
     <ClInclude Include="include\tetengo2.gui.win32.font.h" />
