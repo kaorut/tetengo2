@@ -40,6 +40,7 @@
 #include <tetengo2.encoding.win32.utf8.h>
 #include <tetengo2.gui.abstract_window_traits.h>
 #include <tetengo2.gui.button_traits.h>
+#include <tetengo2.gui.control_traits.h>
 #include <tetengo2.gui.dialog_traits.h>
 #include <tetengo2.gui.label_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
@@ -308,7 +309,11 @@ namespace bobura
             dialog_traits_type;
         typedef tetengo2::gui::win32::dialog<dialog_traits_type> dialog_type;
         typedef
-            tetengo2::gui::label_traits<widget_traits_type> label_traits_type;
+            tetengo2::gui::control_traits<widget_traits_type>
+            control_traits_type;
+        typedef
+            tetengo2::gui::label_traits<control_traits_type>
+            label_traits_type;
         typedef tetengo2::gui::win32::label<label_traits_type> label_type;
         typedef
             tetengo2::gui::button_traits<widget_traits_type>

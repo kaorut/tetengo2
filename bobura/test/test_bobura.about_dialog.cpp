@@ -15,8 +15,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <stub_tetengo2.encoding.utf8.h>
-#include <stub_tetengo2.gui.abstract_popup_menu.h>
-#include <stub_tetengo2.gui.abstract_window.h>
 #include <stub_tetengo2.gui.alert.h>
 #include <stub_tetengo2.gui.button.h>
 #include <stub_tetengo2.gui.canvas.h>
@@ -27,10 +25,10 @@
 #include <stub_tetengo2.gui.menu.h>
 #include <stub_tetengo2.gui.message_loop.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
-#include <stub_tetengo2.gui.widget.h>
 #include <stub_tetengo2.gui.window.h>
 #include <tetengo2.gui.abstract_window_traits.h>
 #include <tetengo2.gui.button_traits.h>
+#include <tetengo2.gui.control_traits.h>
 #include <tetengo2.gui.dialog_traits.h>
 #include <tetengo2.gui.label_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
@@ -102,8 +100,6 @@ namespace
         >
         widget_traits_type;
 
-    typedef stub_tetengo2::gui::widget<widget_traits_type> widget_type;
-
     typedef
         tetengo2::gui::menu_traits<
             unsigned int,
@@ -116,10 +112,6 @@ namespace
 
     typedef stub_tetengo2::gui::menu<menu_traits_type> menu_type;
 
-    typedef
-        stub_tetengo2::gui::abstract_popup_menu<menu_traits_type>
-        abstract_popup_menu_type;
-
     typedef stub_tetengo2::gui::main_menu<menu_traits_type> main_menu_type;
 
     typedef
@@ -130,10 +122,6 @@ namespace
         >
         abstract_window_traits_type;
 
-    typedef
-        stub_tetengo2::gui::abstract_window<abstract_window_traits_type>
-        abstract_window_type;
-    
     typedef
         tetengo2::gui::window_traits<abstract_window_traits_type>
         window_traits_type;
@@ -184,7 +172,11 @@ namespace
 
     typedef tetengo2::message_catalog<messages_type> message_catalog_type;
 
-    typedef tetengo2::gui::label_traits<widget_traits_type> label_traits_type;
+    typedef
+        tetengo2::gui::control_traits<widget_traits_type> control_traits_type;
+
+    typedef
+        tetengo2::gui::label_traits<control_traits_type> label_traits_type;
 
     typedef stub_tetengo2::gui::label<label_traits_type> label_type;
 

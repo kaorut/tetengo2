@@ -20,7 +20,7 @@
 //#include <windows.h>
 
 #include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.gui.win32.widget.h"
+#include "tetengo2.gui.win32.control.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -31,7 +31,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam Traits A traits type.
    */
     template <typename Traits>
-    class label : public widget<typename Traits::base_type>
+    class label : public control<typename Traits::base_type>
     {
     public:
         // types
@@ -40,7 +40,10 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef Traits traits_type;
 
         //! The base type.
-        typedef widget<typename traits_type::base_type> base_type;
+        typedef control<typename traits_type::base_type> base_type;
+
+        //! The widget type.
+        typedef typename base_type::base_type widget_type;
 
 
         // constructors and destructor
@@ -52,11 +55,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When a label cannot be created.
         */
-        explicit label(base_type& parent)
+        explicit label(widget_type& parent)
         :
-        base_type(make_message_handler_map(message_handler_map_type())),
-        m_handle(create_window(parent)),
-        m_p_original_window_procedure(replace_window_procedure(m_handle))
+        base_type(
+            make_message_handler_map(message_handler_map_type()),
+            create_window(parent)
+        )
         {
             initialize(this);
         }
@@ -72,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // static functions
 
-        static handle_type create_window(const base_type& parent)
+        static handle_type create_window(const widget_type& parent)
         {
             const handle_type handle = ::CreateWindowExW(
                 0,
@@ -96,55 +100,6 @@ namespace tetengo2 { namespace gui { namespace win32
             }
 
             return handle;
-        }
-
-        static ::WNDPROC replace_window_procedure(const ::HWND handle)
-        {
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(push)
-#    pragma warning(disable: 4244)
-#endif
-            const ::LONG_PTR result = 
-                ::SetWindowLongPtrW(
-                    handle,
-                    GWLP_WNDPROC,
-                    reinterpret_cast< ::LONG_PTR>(
-                        base_type::p_static_window_procedure()
-                    )
-                );
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(pop)
-#endif
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't replace window procedure.")
-                );
-            }
-
-            return reinterpret_cast< ::WNDPROC>(result);
-        }
-
-
-        // variables
-
-        const handle_type m_handle;
-
-        const ::WNDPROC m_p_original_window_procedure;
-
-
-        // virtual functions
-
-        virtual handle_type handle_impl()
-        const
-        {
-            return m_handle;
-        }
-
-        virtual ::WNDPROC p_default_window_procedure()
-        const
-        {
-            return m_p_original_window_procedure;
         }
 
 

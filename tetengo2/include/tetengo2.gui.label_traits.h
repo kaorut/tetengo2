@@ -15,15 +15,15 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The traits class template for a label.
  
-        \tparam WidgetTraits A traits type for a GUI widget.
+        \tparam ControlTraits A traits type for a control.
    */
-    template <typename WidgetTraits>
+    template <typename ControlTraits>
     struct label_traits
     {
         //types
 
         //! The base type.
-        typedef WidgetTraits base_type;
+        typedef ControlTraits base_type;
 
 
     };

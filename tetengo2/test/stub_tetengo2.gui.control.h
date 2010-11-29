@@ -28,14 +28,28 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        explicit control(const handle_type handle)
+        virtual ~control()
+        TETENGO2_NOEXCEPT
+        {}
+
+
+    protected:
+        // constructors
+
+        control()
         :
         base_type()
         {}
 
-        virtual ~control()
-        TETENGO2_NOEXCEPT
-        {}
+
+    private:
+        // virtual functions
+
+        virtual typename control::handle_type handle_impl()
+        const
+        {
+            return 0;
+        }
 
 
     };

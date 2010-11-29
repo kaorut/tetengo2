@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_WIN32_CONTROL_H)
 #define TETENGO2_GUI_WIN32_CONTROL_H
 
-//#include <cstddef>
 //#include <stdexcept>
 //#include <utility>
 
@@ -46,24 +45,34 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \brief Creates a control.
-
-            \param parent A parent widget.
-
-            \throw std::runtime_error When a control cannot be created.
-        */
-        explicit control(const handle_type handle)
-        :
-        base_type(make_message_handler_map(message_handler_map_type())),
-        m_handle(handle),
-        m_p_original_window_procedure(replace_window_procedure(m_handle))
-        {}
-
-        /*!
             \brief Destroys the control.
         */
         virtual ~control()
         TETENGO2_NOEXCEPT
+        {}
+
+
+    protected:
+        // constructors
+
+        /*!
+            \brief Creates a control.
+
+            \param message_handler_map A message handler map.
+            \param handle              A handle.
+        */
+        control(
+            message_handler_map_type&& message_handler_map,
+            const handle_type          handle
+        )
+        :
+        base_type(
+            make_message_handler_map(
+                std::forward<message_handler_map_type>(message_handler_map)
+            )
+        ),
+        m_handle(handle),
+        m_p_original_window_procedure(replace_window_procedure(m_handle))
         {}
 
 
