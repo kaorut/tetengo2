@@ -16,6 +16,9 @@
     <Filter Include="headers\tetengo2::encoding">
       <UniqueIdentifier>{8e2047ca-496a-4bcb-8e9c-a7144f52ceea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::gui::unit">
+      <UniqueIdentifier>{0468b3a4-d43c-4d49-841e-dc96e1bb257a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.encoder.h">

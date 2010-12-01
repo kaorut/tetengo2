@@ -66,6 +66,14 @@
     \brief The namespace for GUI specific to Win32 platforms.
 */
 
+/*! \namespace tetengo2::gui::unit
+    \brief The namespace for size units.
+*/
+
+/*! \namespace tetengo2::gui::unit::win32
+    \brief The namespace for size units specific to Win32 platforms.
+*/
+
 /*! \namespace tetengo2::meta
     \brief The namespace for metaprogramming.
 */
