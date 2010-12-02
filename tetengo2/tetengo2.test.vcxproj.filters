@@ -232,5 +232,8 @@
     <ClCompile Include="test\test_tetengo2.gui.win32.control.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp">
+      <Filter>sources\test_tetengo2::gui::unit</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

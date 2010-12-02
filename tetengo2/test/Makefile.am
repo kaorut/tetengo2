@@ -41,6 +41,7 @@ sources = \
     test_tetengo2.gui.mouse_observer_set.cpp \
     test_tetengo2.gui.paint_observer_set.cpp \
     test_tetengo2.gui.recursive_menu_iterator.cpp \
+    test_tetengo2.gui.unit.pixel.cpp \
     test_tetengo2.gui.window_observer_set.cpp \
     test_tetengo2.meta.assoc_list.cpp \
     test_tetengo2.operators.cpp
