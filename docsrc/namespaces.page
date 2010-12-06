@@ -66,6 +66,10 @@
     \brief The namespace for GUI specific to Win32 platforms.
 */
 
+/*! \namespace tetengo2::gui::traits
+    \brief The namespace for traits.
+*/
+
 /*! \namespace tetengo2::gui::unit
     \brief The namespace for size units.
 */
