@@ -139,8 +139,8 @@
     <ClInclude Include="include\tetengo2.gui.paint_observer_set.h" />
     <ClInclude Include="include\tetengo2.gui.recursive_menu_iterator.h" />
     <ClInclude Include="include\tetengo2.gui.traits.menu_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.widget_traits.h" />
     <ClInclude Include="include\tetengo2.gui.unit.pixel.h" />
-    <ClInclude Include="include\tetengo2.gui.widget_traits.h" />
     <ClInclude Include="include\tetengo2.gui.win32.abstract_popup_menu.h" />
     <ClInclude Include="include\tetengo2.gui.win32.abstract_window.h" />
     <ClInclude Include="include\tetengo2.gui.win32.alert.h" />

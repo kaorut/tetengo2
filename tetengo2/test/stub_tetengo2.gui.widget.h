@@ -19,8 +19,8 @@
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.gui.traits.widget_traits.h"
 #include "tetengo2.text.h"
-#include "tetengo2.gui.widget_traits.h"
 
 
 namespace stub_tetengo2 { namespace gui

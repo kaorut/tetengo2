@@ -44,10 +44,10 @@
 #include <tetengo2.gui.dialog_traits.h>
 #include <tetengo2.gui.label_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
-#include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
-#include <tetengo2.gui.widget_traits.h>
+#include <tetengo2.gui.traits.menu_traits.h>
+#include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.win32.abstract_popup_menu.h>
 #include <tetengo2.gui.win32.abstract_window.h>
 #include <tetengo2.gui.win32.alert.h>
@@ -257,7 +257,7 @@ namespace bobura
             >
             alert_type;
         typedef
-            tetengo2::gui::widget_traits<
+            tetengo2::gui::traits::widget_traits<
                 ::HWND,
                 canvas_type,
                 alert_type,

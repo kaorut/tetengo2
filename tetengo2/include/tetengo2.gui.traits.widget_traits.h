@@ -1,18 +1,18 @@
 /*! \file
-    \brief The definition of tetengo2::gui::widget_traits.
+    \brief The definition of tetengo2::gui::traits::widget_traits.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIDGETTRAITS_H)
-#define TETENGO2_GUI_WIDGETTRAITS_H
+#if !defined(TETENGO2_GUI_TRAITS_WIDGETTRAITS_H)
+#define TETENGO2_GUI_TRAITS_WIDGETTRAITS_H
 
 #include <utility>
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace traits
 {
     /*!
         \brief The traits class template for a GUI widget.
@@ -84,7 +84,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif
