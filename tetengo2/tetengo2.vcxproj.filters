@@ -156,13 +156,13 @@
     <ClInclude Include="include\tetengo2.gui.label_traits.h">
       <Filter>headers\tetengo2::gui::traits</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.menu_traits.h">
-      <Filter>headers\tetengo2::gui::traits</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.widget_traits.h">
       <Filter>headers\tetengo2::gui::traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.window_traits.h">
+      <Filter>headers\tetengo2::gui::traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.traits.menu_traits.h">
       <Filter>headers\tetengo2::gui::traits</Filter>
     </ClInclude>
   </ItemGroup>

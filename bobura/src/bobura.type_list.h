@@ -44,7 +44,7 @@
 #include <tetengo2.gui.dialog_traits.h>
 #include <tetengo2.gui.label_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
-#include <tetengo2.gui.menu_traits.h>
+#include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.widget_traits.h>
@@ -272,7 +272,7 @@ namespace bobura
             widget_traits_type;
         typedef tetengo2::gui::win32::widget<widget_traits_type> widget_type;
         typedef
-            tetengo2::gui::menu_traits<
+            tetengo2::gui::traits::menu_traits<
                 ::UINT,
                 ::HMENU,
                 boost::mpl::at<common_type_list, type::string>::type,

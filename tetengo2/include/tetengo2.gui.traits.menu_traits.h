@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_MENUTRAITS_H
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace traits
 {
     /*!
         \brief The traits class template for a menu.
@@ -53,7 +53,7 @@ namespace tetengo2 { namespace gui
 
 
 
-}}
+}}}
 
 
 #endif

@@ -36,9 +36,9 @@
 #include <tetengo2.gui.dialog_traits.h>
 #include <tetengo2.gui.label_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
-#include <tetengo2.gui.menu_traits.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
+#include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.widget_traits.h>
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.gui.window_traits.h>
@@ -109,7 +109,7 @@ namespace
     typedef stub_tetengo2::gui::widget<widget_traits_type> widget_type;
 
     typedef
-        tetengo2::gui::menu_traits<
+        tetengo2::gui::traits::menu_traits<
             unsigned int,
             const void*,
             std::wstring,

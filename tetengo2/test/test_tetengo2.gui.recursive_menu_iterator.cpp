@@ -18,7 +18,7 @@
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.menu_observer_set.h"
-#include <tetengo2.gui.menu_traits.h>
+#include "tetengo2.gui.traits.menu_traits.h"
 
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
@@ -36,7 +36,7 @@ namespace
         encoder_type;
 
     typedef
-        tetengo2::gui::menu_traits<
+        tetengo2::gui::traits::menu_traits<
             unsigned int,
             const void*,
             std::string,
