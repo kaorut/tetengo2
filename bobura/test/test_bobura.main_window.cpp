@@ -30,7 +30,6 @@
 #include <stub_tetengo2.gui.popup_menu.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.window.h>
-#include <tetengo2.gui.abstract_window_traits.h>
 #include <tetengo2.gui.button_traits.h>
 #include <tetengo2.gui.control_traits.h>
 #include <tetengo2.gui.dialog_traits.h>
@@ -38,6 +37,7 @@
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
+#include <tetengo2.gui.traits.abstract_window_traits.h>
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.window_observer_set.h>
@@ -123,7 +123,7 @@ namespace
     typedef stub_tetengo2::gui::main_menu<menu_traits_type> main_menu_type;
 
     typedef
-        tetengo2::gui::abstract_window_traits<
+        tetengo2::gui::traits::abstract_window_traits<
             widget_traits_type,
             main_menu_type,
             tetengo2::gui::window_observer_set
