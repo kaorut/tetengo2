@@ -13,20 +13,20 @@ headers = \
     tetengo2.encoding.encoding.h \
     tetengo2.encoding.ascii.h \
     tetengo2.encoding.locale.h \
-    tetengo2.gui.button_traits.h \
-    tetengo2.gui.control_traits.h \
-    tetengo2.gui.dialog_traits.h \
-    tetengo2.gui.label_traits.h \
     tetengo2.gui.menu_observer_set.h \
     tetengo2.gui.mouse_observer_set.h \
     tetengo2.gui.paint_observer_set.h \
     tetengo2.gui.recursive_menu_iterator.h \
     tetengo2.gui.traits.abstract_window_traits.h \
+    tetengo2.gui.traits.button_traits.h \
+    tetengo2.gui.traits.control_traits.h \
+    tetengo2.gui.traits.dialog_traits.h \
+    tetengo2.gui.traits.label_traits.h \
     tetengo2.gui.traits.menu_traits.h \
     tetengo2.gui.traits.widget_traits.h \
+    tetengo2.gui.traits.window_traits.h \
     tetengo2.gui.unit.pixel.h \
     tetengo2.gui.window_observer_set.h \
-    tetengo2.gui.window_traits.h \
     tetengo2.meta.assoc_list.h \
     tetengo2.operators.h
 

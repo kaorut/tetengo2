@@ -1,16 +1,16 @@
 /*! \file
-    \brief The definition of tetengo2::gui::window_traits.
+    \brief The definition of tetengo2::gui::traits::window_traits.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WINDOWTRAITS_H)
-#define TETENGO2_GUI_WINDOWTRAITS_H
+#if !defined(TETENGO2_GUI_TRAITS_WINDOWTRAITS_H)
+#define TETENGO2_GUI_TRAITS_WINDOWTRAITS_H
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace traits
 {
     /*!
         \brief The traits class template for a window.
@@ -29,7 +29,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

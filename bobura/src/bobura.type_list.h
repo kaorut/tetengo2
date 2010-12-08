@@ -38,16 +38,17 @@
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
-#include <tetengo2.gui.button_traits.h>
-#include <tetengo2.gui.control_traits.h>
-#include <tetengo2.gui.dialog_traits.h>
-#include <tetengo2.gui.label_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.traits.abstract_window_traits.h>
+#include <tetengo2.gui.traits.button_traits.h>
+#include <tetengo2.gui.traits.control_traits.h>
+#include <tetengo2.gui.traits.dialog_traits.h>
+#include <tetengo2.gui.traits.label_traits.h>
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
+#include <tetengo2.gui.traits.window_traits.h>
 #include <tetengo2.gui.win32.abstract_popup_menu.h>
 #include <tetengo2.gui.win32.abstract_window.h>
 #include <tetengo2.gui.win32.alert.h>
@@ -68,7 +69,6 @@
 #include <tetengo2.gui.win32.widget.h>
 #include <tetengo2.gui.win32.window.h>
 #include <tetengo2.gui.window_observer_set.h>
-#include <tetengo2.gui.window_traits.h>
 #include <tetengo2.meta.assoc_list.h>
 
 #include "bobura.about_dialog.h"
@@ -297,11 +297,11 @@ namespace bobura
             tetengo2::gui::win32::abstract_window<abstract_window_traits_type>
             abstract_window_type;
         typedef
-            tetengo2::gui::window_traits<abstract_window_traits_type>
+            tetengo2::gui::traits::window_traits<abstract_window_traits_type>
             window_traits_type;
         typedef tetengo2::gui::win32::window<window_traits_type> window_type;
         typedef
-            tetengo2::gui::dialog_traits<
+            tetengo2::gui::traits::dialog_traits<
                 abstract_window_traits_type,
                 tetengo2::gui::win32::dialog_message_loop,
                 quit_message_loop_type
@@ -309,14 +309,14 @@ namespace bobura
             dialog_traits_type;
         typedef tetengo2::gui::win32::dialog<dialog_traits_type> dialog_type;
         typedef
-            tetengo2::gui::control_traits<widget_traits_type>
+            tetengo2::gui::traits::control_traits<widget_traits_type>
             control_traits_type;
         typedef
-            tetengo2::gui::label_traits<control_traits_type>
+            tetengo2::gui::traits::label_traits<control_traits_type>
             label_traits_type;
         typedef tetengo2::gui::win32::label<label_traits_type> label_type;
         typedef
-            tetengo2::gui::button_traits<control_traits_type>
+            tetengo2::gui::traits::button_traits<control_traits_type>
             button_traits_type;
         typedef tetengo2::gui::win32::button<button_traits_type> button_type;
     }}

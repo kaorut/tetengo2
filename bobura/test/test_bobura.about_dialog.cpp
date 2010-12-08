@@ -26,18 +26,18 @@
 #include <stub_tetengo2.gui.message_loop.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.window.h>
-#include <tetengo2.gui.button_traits.h>
-#include <tetengo2.gui.control_traits.h>
-#include <tetengo2.gui.dialog_traits.h>
-#include <tetengo2.gui.label_traits.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.traits.abstract_window_traits.h>
+#include <tetengo2.gui.traits.button_traits.h>
+#include <tetengo2.gui.traits.control_traits.h>
+#include <tetengo2.gui.traits.dialog_traits.h>
+#include <tetengo2.gui.traits.label_traits.h>
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
+#include <tetengo2.gui.traits.window_traits.h>
 #include <tetengo2.gui.window_observer_set.h>
-#include <tetengo2.gui.window_traits.h>
 #include <tetengo2.encoder.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.messages.h>
@@ -123,7 +123,7 @@ namespace
         abstract_window_traits_type;
 
     typedef
-        tetengo2::gui::window_traits<abstract_window_traits_type>
+        tetengo2::gui::traits::window_traits<abstract_window_traits_type>
         window_traits_type;
 
     typedef stub_tetengo2::gui::window<window_traits_type> window_type;
@@ -133,7 +133,7 @@ namespace
     typedef stub_tetengo2::gui::quit_message_loop quit_message_loop_type;
 
     typedef
-        tetengo2::gui::dialog_traits<
+        tetengo2::gui::traits::dialog_traits<
             abstract_window_traits_type,
             message_loop_type,
             quit_message_loop_type
@@ -173,15 +173,15 @@ namespace
     typedef tetengo2::message_catalog<messages_type> message_catalog_type;
 
     typedef
-        tetengo2::gui::control_traits<widget_traits_type> control_traits_type;
+        tetengo2::gui::traits::control_traits<widget_traits_type> control_traits_type;
 
     typedef
-        tetengo2::gui::label_traits<control_traits_type> label_traits_type;
+        tetengo2::gui::traits::label_traits<control_traits_type> label_traits_type;
 
     typedef stub_tetengo2::gui::label<label_traits_type> label_type;
 
     typedef
-        tetengo2::gui::button_traits<control_traits_type> button_traits_type;
+        tetengo2::gui::traits::button_traits<control_traits_type> button_traits_type;
 
     typedef stub_tetengo2::gui::button<button_traits_type> button_type;
 
