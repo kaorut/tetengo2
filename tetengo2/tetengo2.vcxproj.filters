@@ -165,5 +165,8 @@
     <ClInclude Include="include\tetengo2.gui.traits.window_traits.h">
       <Filter>headers\tetengo2::gui::traits</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.measure.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
