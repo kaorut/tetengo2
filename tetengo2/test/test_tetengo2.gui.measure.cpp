@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <utility>
+
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.unit.pixel.h"
@@ -35,6 +37,42 @@ BOOST_AUTO_TEST_SUITE(gui)
 
             BOOST_CHECK_EQUAL(pixels, 456);
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(left)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const std::pair<int, int> position = std::make_pair(123, 456);
+
+        BOOST_CHECK_EQUAL(tetengo2::gui::left(position), 123);
+    }
+
+    BOOST_AUTO_TEST_CASE(top)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const std::pair<int, int> position = std::make_pair(123, 456);
+
+        BOOST_CHECK_EQUAL(tetengo2::gui::top(position), 456);
+    }
+
+    BOOST_AUTO_TEST_CASE(width)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const std::pair<int, int> dimension = std::make_pair(123, 456);
+
+        BOOST_CHECK_EQUAL(tetengo2::gui::width(dimension), 123);
+    }
+
+    BOOST_AUTO_TEST_CASE(height)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const std::pair<int, int> dimension = std::make_pair(123, 456);
+
+        BOOST_CHECK_EQUAL(tetengo2::gui::height(dimension), 456);
     }
 
 
