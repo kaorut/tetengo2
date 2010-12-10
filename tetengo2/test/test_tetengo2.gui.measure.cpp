@@ -26,14 +26,14 @@ BOOST_AUTO_TEST_SUITE(gui)
         {
             const tetengo2::gui::unit::pixel<int, int> value(123);
 
-            const int pixels = tetengo2::gui::to_pixels(value);
+            const int pixels = tetengo2::gui::to_pixels<int>(value);
 
             BOOST_CHECK_EQUAL(pixels, 123);
         }
         {
             const int value = 456;
 
-            const int pixels = tetengo2::gui::to_pixels(value);
+            const int pixels = tetengo2::gui::to_pixels<int>(value);
 
             BOOST_CHECK_EQUAL(pixels, 456);
         }

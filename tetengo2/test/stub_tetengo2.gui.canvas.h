@@ -33,10 +33,6 @@ namespace stub_tetengo2 { namespace gui
 
         typedef Size size_type;
 
-        typedef std::pair<size_type, size_type> point_type;
-
-        typedef std::pair<point_type, point_type> rectangle_type;
-
         typedef String string_type;
 
         typedef Encoder encoder_type;
@@ -77,8 +73,8 @@ namespace stub_tetengo2 { namespace gui
             m_font = std::forward<F>(font);
         }
 
-        template <typename S>
-        void draw_text(S&& text, const point_type& point)
+        template <typename S, typename P>
+        void draw_text(S&& text, P&& point)
         {}
 
 

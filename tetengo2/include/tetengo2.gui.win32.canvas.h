@@ -33,6 +33,7 @@
 #undef max
 
 #include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.gui.measure.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -65,12 +66,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The size type.
         typedef Size size_type;
-
-        //! The point type.
-        typedef std::pair<size_type, size_type> point_type;
-
-        //! The rectangle type.
-        typedef std::pair<point_type, point_type> rectangle_type;
 
         //! The string type.
         typedef String string_type;
@@ -171,14 +166,15 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Draws a text.
 
             \tparam S A string type.
+            \tparam P A point type.
 
             \param text  A text to draw.
             \param point A point where the text is drawn.
 
             \throw std::runtime_error When the text cannot be drawn.
         */
-        template <typename S>
-        void draw_text(S&& text, const point_type& point)
+        template <typename S, typename P>
+        void draw_text(S&& text, P&& point)
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const Gdiplus::FontFamily font_family(
@@ -213,8 +209,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 static_cast< ::INT>(encoded_text.length()),
                 &font,
                 Gdiplus::PointF(
-                    static_cast<Gdiplus::REAL>(point.first),
-                    static_cast<Gdiplus::REAL>(point.second)
+                    to_pixels<Gdiplus::REAL>(left(point)),
+                    to_pixels<Gdiplus::REAL>(top(point))
                 ),
                 &brush
             );
