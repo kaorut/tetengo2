@@ -242,6 +242,7 @@ std::greater                                     functional
 std::has_facet                                   locale
 std::invalid_argument                            stdexcept
 std::ios_base::failure                           ios
+std::is_arithmetic                               type_traits
 std::is_convertible                              type_traits
 std::is_same                                     type_traits
 std::istream                                     istream

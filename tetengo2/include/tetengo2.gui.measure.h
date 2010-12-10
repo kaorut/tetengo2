@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_MEASURE_H)
 #define TETENGO2_GUI_MEASURE_H
 
+#include <cstddef>
 #include <type_traits>
 #include <utility>
 
