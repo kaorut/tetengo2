@@ -8,6 +8,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.gui.unit.pixel.h"
+
 #include "tetengo2.gui.measure.h"
 
 
@@ -19,7 +21,20 @@ BOOST_AUTO_TEST_SUITE(gui)
     {
         BOOST_TEST_PASSPOINT();
 
-        // TODO
+        {
+            const tetengo2::gui::unit::pixel<int, int> value(123);
+
+            const int pixels = tetengo2::gui::to_pixels(value);
+
+            BOOST_CHECK_EQUAL(pixels, 123);
+        }
+        {
+            const int value = 456;
+
+            const int pixels = tetengo2::gui::to_pixels(value);
+
+            BOOST_CHECK_EQUAL(pixels, 456);
+        }
     }
 
 
