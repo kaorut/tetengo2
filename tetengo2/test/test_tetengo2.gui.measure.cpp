@@ -39,6 +39,28 @@ BOOST_AUTO_TEST_SUITE(gui)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(to_unit)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            typedef tetengo2::gui::unit::pixel<int, int> unit_type;
+            const int value = 123;
+
+            const unit_type unit = tetengo2::gui::to_unit<unit_type>(value);
+
+            BOOST_CHECK_EQUAL(unit.value(), 123);
+        }
+        {
+            typedef int unit_type;
+            const int value = 456;
+
+            const unit_type unit = tetengo2::gui::to_unit<unit_type>(value);
+
+            BOOST_CHECK_EQUAL(unit, 456);
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(left)
     {
         BOOST_TEST_PASSPOINT();

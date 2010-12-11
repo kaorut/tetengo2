@@ -38,6 +38,14 @@ namespace tetengo2 { namespace gui { namespace unit
         typedef PixelValue pixel_value_type;
 
 
+        // static functions
+
+        static pixel from_pixels(const pixel_value_type value)
+        {
+            return pixel(static_cast<value_type>(value));
+        }
+
+
         // constructors and destructor
 
         /*!
@@ -134,7 +142,7 @@ namespace tetengo2 { namespace gui { namespace unit
         pixel_value_type to_pixels()
         const
         {
-            return m_value;
+            return static_cast<pixel_value_type>(m_value);
         }
 
 

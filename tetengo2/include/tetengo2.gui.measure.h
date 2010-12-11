@@ -22,7 +22,7 @@ namespace tetengo2 { namespace gui
         \tparam PixelValue A pixel value type.
         \tparam Unit       A unit type.
 
-        \param value A value.
+        \param value A value in a certain unit.
 
         \return The converted value in pixels.
     */
@@ -37,16 +37,46 @@ namespace tetengo2 { namespace gui
         return static_cast<PixelValue>(value.to_pixels());
     }
 
+    /*!
+        \brief Converts a value in pixels to a certain unit.
+
+        \tparam Unit       A unit type.
+        \tparam PixelValue A pixel value type.
+
+        \param value A value in pixels.
+
+        \return The converted value in a certain unit.
+    */
+    template <typename Unit, typename PixelValue>
+    Unit to_unit(
+        const PixelValue value,
+        typename std::enable_if<
+            !std::is_arithmetic<Unit>::value
+        >::type* = NULL
+    )
+    {
+        return Unit::from_pixels(
+            static_cast<typename Unit::pixel_value_type>(value)
+        );
+    }
+
 #if !defined(DOCUMENTATION)
     template <typename PixelValue, typename Unit>
     PixelValue to_pixels(
         const Unit& value,
-        typename std::enable_if<
-            std::is_arithmetic<Unit>::value
-        >::type* = NULL
+        typename std::enable_if<std::is_arithmetic<Unit>::value>::type* = NULL
     )
     {
         return static_cast<PixelValue>(value);
+    }
+
+    template <typename Unit, typename PixelValue>
+    Unit to_unit(
+        const PixelValue value,
+        typename std::enable_if<std::is_arithmetic<Unit>::value>::type* = NULL
+    )
+    {
+        return static_cast<Unit>(value);
     }
 #endif
 

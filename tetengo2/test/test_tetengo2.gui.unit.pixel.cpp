@@ -17,6 +17,16 @@ BOOST_AUTO_TEST_SUITE(unit)
 BOOST_AUTO_TEST_SUITE(pixel)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(from_pixels)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const tetengo2::gui::unit::pixel<int, int> unit =
+            tetengo2::gui::unit::pixel<int, int>::from_pixels(123);
+
+        BOOST_CHECK_EQUAL(unit.value(), 123);
+    }
+
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
