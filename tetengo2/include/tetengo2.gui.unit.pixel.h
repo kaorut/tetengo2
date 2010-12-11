@@ -40,6 +40,13 @@ namespace tetengo2 { namespace gui { namespace unit
 
         // static functions
 
+        /*!
+            \brief Returns a pixel unit made from a value in pixels.
+
+            \param value A value in pixels.
+
+            \return A pixel unit.
+        */
         static pixel from_pixels(const pixel_value_type value)
         {
             return pixel(static_cast<value_type>(value));
