@@ -183,7 +183,7 @@ namespace tetengo2 { namespace encoding
             std::vector<string_char_type> string_chars(
                 8, TETENGO2_TEXT('\0')
             );
-            string_char_type* p_string_first = &string_chars[0];
+            string_char_type* p_string_first = string_chars.data();
             string_char_type* p_string_last =
                 p_string_first + string_chars.size() - 1;
 
@@ -216,7 +216,7 @@ namespace tetengo2 { namespace encoding
                         *p_string_next ==
                         static_cast<string_char_type>(TETENGO2_TEXT('\0'))
                     );
-                    return string_type(&string_chars[0], p_string_next);
+                    return string_type(string_chars.data(), p_string_next);
                 }
 
                 if (result == converter_type::error)
@@ -312,7 +312,7 @@ namespace tetengo2 { namespace encoding
                 p_string_first + string.length();
 
             std::vector<pivot_char_type> pivot_chars(8, TETENGO2_TEXT('\0'));
-            pivot_char_type* p_pivot_first = &pivot_chars[0];
+            pivot_char_type* p_pivot_first = pivot_chars.data();
             pivot_char_type* p_pivot_last =
                 p_pivot_first + pivot_chars.size() - 1;
 
@@ -337,7 +337,7 @@ namespace tetengo2 { namespace encoding
                         *p_pivot_next ==
                         static_cast<pivot_char_type>(TETENGO2_TEXT('\0'))
                     );
-                    return pivot_type(&pivot_chars[0], p_pivot_next);
+                    return pivot_type(pivot_chars.data(), p_pivot_next);
                 }
 
                 if (result == converter_type::error)
@@ -368,15 +368,15 @@ namespace tetengo2 { namespace encoding
         const
         {
             const typename std::vector<Char>::difference_type first_offset =
-                std::distance(&chars[0], p_first);
+                std::distance(chars.data(), p_first);
             const typename std::vector<Char>::difference_type next_offset =
-                std::distance(&chars[0], p_next);
+                std::distance(chars.data(), p_next);
 
             chars.resize(chars.size() * 2, TETENGO2_TEXT('\0'));
 
-            p_first = &chars[0] + first_offset;
-            p_last = &chars[0] + chars.size() - 1;
-            p_next = &chars[0] + next_offset;
+            p_first = chars.data() + first_offset;
+            p_last = chars.data() + chars.size() - 1;
+            p_next = chars.data() + next_offset;
         }
 
 

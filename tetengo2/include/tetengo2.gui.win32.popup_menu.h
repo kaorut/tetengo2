@@ -94,7 +94,7 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             menu_info.fMask = MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
-            menu_info.dwTypeData = &duplicated_text[0];
+            menu_info.dwTypeData = duplicated_text.data();
             menu_info.wID = id();
             menu_info.hSubMenu = handle();
         }
