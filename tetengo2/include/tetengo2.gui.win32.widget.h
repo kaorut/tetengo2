@@ -293,10 +293,18 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const ::BOOL result = ::MoveWindow(
                 handle(),
-                to_pixels<int>(left(position)),
-                to_pixels<int>(top(position)),
-                to_pixels<int>(width(rectangle)),
-                to_pixels<int>(height(rectangle)),
+                to_pixels<int>(
+                    gui::position<position_type>::left(position)
+                ),
+                to_pixels<int>(
+                    gui::position<position_type>::top(position)
+                ),
+                to_pixels<int>(
+                    gui::dimension<dimension_type>::width(rectangle)
+                ),
+                to_pixels<int>(
+                    gui::dimension<dimension_type>::height(rectangle)
+                ),
                 visible() ? TRUE : FALSE
             );
             if (result == 0)
@@ -323,7 +331,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            return position_type(rectangle.left, rectangle.top);
+            return gui::position<position_type>::make(
+                rectangle.left, rectangle.top
+            );
         }
 
         /*!
@@ -347,10 +357,18 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const ::BOOL result = ::MoveWindow(
                 handle(),
-                to_pixels<int>(left(location)),
-                to_pixels<int>(top(location)),
-                to_pixels<int>(width(dimension)),
-                to_pixels<int>(height(dimension)),
+                to_pixels<int>(
+                    gui::position<position_type>::left(location)
+                ),
+                to_pixels<int>(
+                    gui::position<position_type>::top(location)
+                ),
+                to_pixels<int>(
+                    gui::dimension<dimension_type>::width(dimension)
+                ),
+                to_pixels<int>(
+                    gui::dimension<dimension_type>::height(dimension)
+                ),
                 visible() ? TRUE : FALSE
             );
             if (result == 0)
@@ -379,7 +397,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             assert(rectangle.right - rectangle.left > 0);
             assert(rectangle.bottom - rectangle.top > 0);
-            return std::make_pair(
+            return gui::dimension<dimension_type>::make(
                 rectangle.right - rectangle.left,
                 rectangle.bottom - rectangle.top
             );
@@ -411,12 +429,22 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::LONG_PTR extended_window_style =
                 ::GetWindowLongPtrW(handle(), GWL_EXSTYLE);
             ::RECT rectangle = {
-                to_pixels< ::LONG>(left(location)),
-                to_pixels< ::LONG>(top(location)),
-                to_pixels< ::LONG>(left(location)) +
-                    to_pixels< ::LONG>(width(client_dimension)),
-                to_pixels< ::LONG>(left(location)) +
-                    to_pixels< ::LONG>(height(client_dimension))
+                to_pixels< ::LONG>(
+                    gui::position<position_type>::left(location)
+                ),
+                to_pixels< ::LONG>(
+                    gui::position<position_type>::top(location)
+                ),
+                to_pixels< ::LONG>(
+                    gui::position<position_type>::left(location)
+                ) + to_pixels< ::LONG>(
+                    gui::dimension<dimension_type>::width(client_dimension)
+                ),
+                to_pixels< ::LONG>(
+                    gui::position<position_type>::left(location)
+                ) + to_pixels< ::LONG>(
+                    gui::dimension<dimension_type>::height(client_dimension)
+                )
             };
             if (
                 ::AdjustWindowRectEx(
@@ -468,7 +496,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             assert(rectangle.right - rectangle.left > 0);
             assert(rectangle.bottom - rectangle.top > 0);
-            return std::make_pair(
+            return gui::dimension<dimension_type>::make(
                 rectangle.right - rectangle.left,
                 rectangle.bottom - rectangle.top
             );

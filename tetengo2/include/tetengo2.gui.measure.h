@@ -80,65 +80,221 @@ namespace tetengo2 { namespace gui
     }
 #endif
 
-    /*!
-        \brief Returns the left.
-
-        \tparam T A type.
-
-        \param position A position.
-
-        \return The left.
-    */
-    template <typename T>
-    T left(const std::pair<T, T>& position)
-    {
-        return position.first;
-    }
 
     /*!
-        \brief Returns the top.
+        \brief The position class.
 
-        \tparam T A type.
-
-        \param position A position.
-
-        \return The top.
+        \tparam Position A position type.
     */
-    template <typename T>
-    T top(const std::pair<T, T>& position)
+    template <typename Position>
+    class position
     {
-        return position.second;
-    }
+    public:
+        // types
+
+        //! The position type.
+        typedef Position position_type;
+
+        //! The left type.
+        typedef typename Position::left_type left_type;
+
+        //! The top type.
+        typedef typename Position::top_type top_type;
+
+
+        // static functions
+
+        /*!
+            \brief Returns the left.
+
+            \param position A position.
+
+            \return The left.
+        */
+        static const left_type& left(const position_type& position);
+
+        /*!
+            \brief Returns the top.
+
+            \param position A position.
+
+            \return The top.
+        */
+        static const top_type& top(const position_type& position);
+
+        /*!
+            \brief Makes a position.
+
+            \tparam L A left type.
+            \tparam T A top type.
+
+            \param left A left.
+            \param top  A top.
+
+            \return A position.
+        */
+        template <typename L, typename T>
+        static position_type make(L&& left, T&& top);
+
+
+    private:
+        // forbidden operations
+
+        position();
+
+
+    };
+
+#if !defined(DOCUMENTATION)
+    template <typename LeftTop>
+    class position<std::pair<LeftTop, LeftTop>>
+    {
+    public:
+        // types
+
+        typedef std::pair<LeftTop, LeftTop> position_type;
+
+        typedef LeftTop left_type;
+
+        typedef LeftTop top_type;
+
+
+        // static functions
+
+        static const left_type& left(const position_type& position)
+        {
+            return position.first;
+        }
+
+        static const top_type& top(const position_type& position)
+        {
+            return position.second;
+        }
+
+        template <typename L, typename T>
+        static position_type make(L&& left, T&& top)
+        {
+            return position_type(std::forward<L>(left), std::forward<T>(top));
+        }
+
+
+    private:
+        // forbidden operations
+
+        position();
+
+
+    };
+#endif
+
 
     /*!
-        \brief Returns the width.
+        \brief The dimension class.
 
-        \tparam T A type.
-
-        \param dimension A dimension.
-
-        \return The width.
+        \tparam Dimension A dimension type.
     */
-    template <typename T>
-    T width(const std::pair<T, T>& dimension)
+    template <typename Dimension>
+    class dimension
     {
-        return dimension.first;
-    }
+    public:
+        // types
 
-    /*!
-        \brief Returns the height.
+        //! The dimension type.
+        typedef Dimension dimension_type;
 
-        \tparam T A type.
+        //! The left type.
+        typedef typename Dimension::width_type width_type;
 
-        \param dimension A dimension.
+        //! The top type.
+        typedef typename Dimension::height_type height_type;
 
-        \return The height.
-    */
-    template <typename T>
-    T height(const std::pair<T, T>& dimension)
+
+        // static functions
+
+        /*!
+            \brief Returns the width.
+
+            \param dimension A dimension.
+
+            \return The width.
+        */
+        static const width_type& width(const dimension_type& dimension);
+
+        /*!
+            \brief Returns the height.
+
+            \param dimension A dimension.
+
+            \return The height.
+        */
+        static const height_type& height(const dimension_type& dimension);
+
+        /*!
+            \brief Makes a dimension.
+
+            \tparam W A width type.
+            \tparam H A height type.
+
+            \param width  A width.
+            \param height A height.
+
+            \return A dimension.
+        */
+        template <typename W, typename H>
+        static dimension_type make(W&& width, H&& height);
+
+
+    private:
+        // forbidden operations
+
+        dimension();
+
+
+    };
+
+#if !defined(DOCUMENTATION)
+    template <typename LeftTop>
+    class dimension<std::pair<WidthHeight, WidthHeight>>
     {
-        return dimension.second;
-    }
+    public:
+        // types
+
+        typedef std::pair<WidthHeight, WidthHeight> dimension_type;
+
+        typedef WidthHeight width_type;
+
+        typedef WidthHeight height_type;
+
+
+        // static functions
+
+        static const width_type& width(const dimension_type& dimension)
+        {
+            return dimension.first;
+        }
+
+        static const height_type& height(const dimension_type& dimension)
+        {
+            return dimension.second;
+        }
+
+        template <typename W, typename H>
+        static dimension_type make(W&& width, H&& height)
+        {
+            return dimension_type(
+                std::forward<W>(width), std::forward<H>(height)
+            );
+        }
+
+
+    private:
+        // forbidden operations
+
+        dimension();
+
+
+    };
+#endif
 
 
 }}

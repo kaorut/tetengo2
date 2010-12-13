@@ -166,15 +166,15 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Draws a text.
 
             \tparam S A string type.
-            \tparam P A point type.
+            \tparam P A position type.
 
             \param text  A text to draw.
-            \param point A point where the text is drawn.
+            \param position A position where the text is drawn.
 
             \throw std::runtime_error When the text cannot be drawn.
         */
         template <typename S, typename P>
-        void draw_text(S&& text, P&& point)
+        void draw_text(S&& text, P&& position)
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const Gdiplus::FontFamily font_family(
@@ -209,8 +209,10 @@ namespace tetengo2 { namespace gui { namespace win32
                 static_cast< ::INT>(encoded_text.length()),
                 &font,
                 Gdiplus::PointF(
-                    to_pixels<Gdiplus::REAL>(left(point)),
-                    to_pixels<Gdiplus::REAL>(top(point))
+                    to_pixels<Gdiplus::REAL>(
+                        gui::position<P>::left(position)
+                    ),
+                    to_pixels<Gdiplus::REAL>(gui::position<P>::top(position))
                 ),
                 &brush
             );
