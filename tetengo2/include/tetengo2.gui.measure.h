@@ -253,7 +253,7 @@ namespace tetengo2 { namespace gui
     };
 
 #if !defined(DOCUMENTATION)
-    template <typename LeftTop>
+    template <typename WidthHeight>
     class dimension<std::pair<WidthHeight, WidthHeight>>
     {
     public:

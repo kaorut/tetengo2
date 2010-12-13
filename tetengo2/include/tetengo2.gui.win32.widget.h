@@ -331,8 +331,14 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            return gui::position<position_type>::make(
-                rectangle.left, rectangle.top
+            typedef gui::position<position_type> position_traits_type;
+            return position_traits_type::make(
+                to_unit<typename position_traits_type::left_type>(
+                    rectangle.left
+                ),
+                to_unit<typename position_traits_type::top_type>(
+                    rectangle.top
+                )
             );
         }
 
@@ -397,9 +403,14 @@ namespace tetengo2 { namespace gui { namespace win32
 
             assert(rectangle.right - rectangle.left > 0);
             assert(rectangle.bottom - rectangle.top > 0);
-            return gui::dimension<dimension_type>::make(
-                rectangle.right - rectangle.left,
-                rectangle.bottom - rectangle.top
+            typedef gui::dimension<dimension_type> dimension_traits_type;
+            return dimension_traits_type::make(
+                to_unit<typename dimension_traits_type::width_type>(
+                    rectangle.right - rectangle.left
+                ),
+                to_unit<typename dimension_traits_type::height_type>(
+                    rectangle.bottom - rectangle.top
+                )
             );
         }
 
@@ -496,9 +507,14 @@ namespace tetengo2 { namespace gui { namespace win32
 
             assert(rectangle.right - rectangle.left > 0);
             assert(rectangle.bottom - rectangle.top > 0);
-            return gui::dimension<dimension_type>::make(
-                rectangle.right - rectangle.left,
-                rectangle.bottom - rectangle.top
+            typedef gui::dimension<dimension_type> dimension_traits_type;
+            return dimension_traits_type::make(
+                to_unit<typename dimension_traits_type::width_type>(
+                    rectangle.right - rectangle.left
+                ),
+                to_unit<typename dimension_traits_type::height_type>(
+                    rectangle.bottom - rectangle.top
+                )
             );
         }
 
