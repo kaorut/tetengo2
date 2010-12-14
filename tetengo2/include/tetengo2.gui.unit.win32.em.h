@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::unit::em.
+    \brief The definition of tetengo2::gui::unit::win32::em.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_UNIT_EM_H)
-#define TETENGO2_GUI_UNIT_EM_H
+#if !defined(TETENGO2_GUI_UNIT_WIN32_EM_H)
+#define TETENGO2_GUI_UNIT_WIN32_EM_H
 
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
