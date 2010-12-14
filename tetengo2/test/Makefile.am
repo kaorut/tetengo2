@@ -21,6 +21,7 @@ headers = \
     stub_tetengo2.gui.message_loop.h \
     stub_tetengo2.gui.popup_menu.h \
     stub_tetengo2.gui.quit_message_loop.h \
+    stub_tetengo2.gui.unit.win32.em.h \
     stub_tetengo2.gui.widget.h \
     stub_tetengo2.gui.window.h
 
@@ -49,6 +50,7 @@ sources = \
 
 extra_sources = \
     test_tetengo2.encoding.win32.utf8.cpp \
+    test_tetengo2.gui.unit.win32.em.cpp \
     test_tetengo2.gui.win32.abstract_popup_menu.cpp \
     test_tetengo2.gui.win32.abstract_window.cpp \
     test_tetengo2.gui.win32.alert.cpp \

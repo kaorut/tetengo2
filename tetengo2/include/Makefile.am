@@ -51,6 +51,7 @@ extra_headers = \
     tetengo2.gui.win32.message_loop.h \
     tetengo2.gui.win32.popup_menu.h \
     tetengo2.gui.win32.quit_message_loop.h \
+    tetengo2.gui.unit.win32.em.h \
     tetengo2.gui.win32.widget.h \
     tetengo2.gui.win32.window.h
 

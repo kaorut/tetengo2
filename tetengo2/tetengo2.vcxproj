@@ -143,6 +143,7 @@
     <ClInclude Include="include\tetengo2.gui.traits.widget_traits.h" />
     <ClInclude Include="include\tetengo2.gui.traits.window_traits.h" />
     <ClInclude Include="include\tetengo2.gui.unit.pixel.h" />
+    <ClInclude Include="include\tetengo2.gui.unit.win32.em.h" />
     <ClInclude Include="include\tetengo2.gui.win32.abstract_popup_menu.h" />
     <ClInclude Include="include\tetengo2.gui.win32.abstract_window.h" />
     <ClInclude Include="include\tetengo2.gui.win32.alert.h" />
