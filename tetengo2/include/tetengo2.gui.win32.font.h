@@ -11,17 +11,17 @@
 
 #include <algorithm>
 #include <cassert>
-#include <stdexcept>
+//#include <stdexcept>
 #include <utility>
 #include <vector>
 
 #include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
 #if !defined(min) && !defined(DOCUMENTATION)
 #   define min(a, b) ((a) < (b) ? (a) : (b))
 #endif

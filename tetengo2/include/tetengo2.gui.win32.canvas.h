@@ -9,11 +9,11 @@
 #if !defined(TETENGO2_GUI_WIN32_CANVAS_H)
 #define TETENGO2_GUI_WIN32_CANVAS_H
 
-#include <cstddef>
+//#include <cstddef>
 #include <stdexcept>
 #include <string>
 #include <memory>
-#include <utility>
+//#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>

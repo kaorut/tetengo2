@@ -9,28 +9,13 @@
 #if !defined(TETENGO2_GUI_WIN32_DETAIL_DIALOGFONT_H)
 #define TETENGO2_GUI_WIN32_DETAIL_DIALOGFONT_H
 
-#include <algorithm>
-#include <cassert>
 #include <stdexcept>
-#include <utility>
-#include <vector>
 
-#include <boost/operators.hpp>
-#include <boost/scoped_array.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
-#if !defined(min) && !defined(DOCUMENTATION)
-#   define min(a, b) ((a) < (b) ? (a) : (b))
-#endif
-#if !defined(max) && !defined(DOCUMENTATION)
-#   define max(a, b) ((a) > (b) ? (a) : (b))
-#endif
-#include <gdiplus.h>
-#undef min
-#undef max
 
 
 namespace tetengo2 { namespace gui { namespace win32 { namespace detail
