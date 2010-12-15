@@ -12,7 +12,7 @@
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
-#include <tetengo2.operators.h>
+#include "tetengo2.operators.h"
 
 
 namespace tetengo2 { namespace gui { namespace unit
