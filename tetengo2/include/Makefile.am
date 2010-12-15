@@ -39,6 +39,7 @@ extra_headers = \
     tetengo2.gui.win32.button.h \
     tetengo2.gui.win32.canvas.h \
     tetengo2.gui.win32.control.h \
+    tetengo2.gui.win32.detail.font.h \
     tetengo2.gui.win32.dialog.h \
     tetengo2.gui.win32.dialog_message_loop.h \
     tetengo2.gui.win32.font.h \

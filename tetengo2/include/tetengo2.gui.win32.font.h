@@ -32,6 +32,8 @@
 #undef min
 #undef max
 
+#include "tetengo2.gui.win32.detail.font.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32
 {
@@ -215,7 +217,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         static font make_dialog_font()
         {
-            const ::LOGFONTW log_font = get_message_font();
+            const ::LOGFONTW log_font = detail::get_message_font();
 
             assert(log_font.lfHeight < 0);
             assert(
@@ -233,44 +235,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 log_font.lfUnderline != 0,
                 log_font.lfStrikeOut != 0
             );
-        }
-
-        static ::LOGFONTW get_message_font()
-        {
-            ::NONCLIENTMETRICSW metrics;
-            get_nonclient_metrics(metrics);
-
-            return metrics.lfMessageFont;
-        }
-
-        static void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
-        {
-            ::OSVERSIONINFOW os_version_info;
-            os_version_info.dwOSVersionInfoSize = sizeof(::OSVERSIONINFOW);
-            if (::GetVersionEx(&os_version_info) == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get Windows version.")
-                );
-            }
-
-            const ::UINT metrics_size = os_version_info.dwMajorVersion >= 6 ?
-                sizeof(::NONCLIENTMETRICSW) :
-                sizeof(::NONCLIENTMETRICSW) - sizeof(int);
-            metrics.cbSize = metrics_size;
-            if (
-                ::SystemParametersInfoW(
-                    SPI_GETNONCLIENTMETRICS,
-                    metrics_size,
-                    &metrics,
-                    0
-                ) == 0
-            )
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get non-client metrics.")
-                );
-            }
         }
 
         static families_type make_installed_families()
