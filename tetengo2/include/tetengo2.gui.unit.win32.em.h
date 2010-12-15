@@ -9,9 +9,12 @@
 #if !defined(TETENGO2_GUI_UNIT_WIN32_EM_H)
 #define TETENGO2_GUI_UNIT_WIN32_EM_H
 
+#include <utility>
+
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
+#include "tetengo2.gui.win32.detail.font.h"
 #include "tetengo2.operators.h"
 
 
@@ -49,7 +52,8 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         */
         static em from_pixels(const pixel_value_type value)
         {
-            return em(static_cast<value_type>(value));
+            value_type em_value = value / -get_message_font().lfHeight;
+            return em(std::move(em_value));
         }
 
 
@@ -149,7 +153,7 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         pixel_value_type to_pixels()
         const
         {
-            return static_cast<pixel_value_type>(m_value);
+            return m_value * -get_message_font().lfHeight;
         }
 
 
