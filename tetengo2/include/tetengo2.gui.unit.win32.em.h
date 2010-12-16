@@ -64,11 +64,14 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         /*!
             \brief Creates an EM height unit.
 
+            \tparam V A value type.
+
             \param value A value.
         */
-        explicit em(const value_type value)
+        template <typename V>
+        explicit em(V&& value)
         :
-        m_value(value)
+        m_value(std::forward<V>(value))
         {}
 
 
@@ -141,7 +144,7 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
 
             \return The value.
         */
-        value_type value()
+        const value_type& value()
         const
         {
             return m_value;

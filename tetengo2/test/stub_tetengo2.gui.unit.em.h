@@ -9,6 +9,8 @@
 #if !defined(STUBTETENGO2_GUI_UNIT_EM_H)
 #define STUBTETENGO2_GUI_UNIT_EM_H
 
+//#include <utility>
+
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
@@ -34,15 +36,16 @@ namespace stub_tetengo2 { namespace gui { namespace unit
 
         static em from_pixels(const pixel_value_type value)
         {
-            return em(static_cast<value_type>(value));
+            return em(value_type(value));
         }
 
 
         // constructors and destructor
 
-        explicit em(const value_type value)
+        template <typename V>
+        explicit em(V&& value)
         :
-        m_value(value)
+        m_value(std::forward<V>(value))
         {}
 
 
@@ -78,7 +81,7 @@ namespace stub_tetengo2 { namespace gui { namespace unit
             return one.m_value < another.m_value;
         }
 
-        value_type value()
+        const value_type& value()
         const
         {
             return m_value;

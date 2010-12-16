@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_UNIT_PIXEL_H)
 #define TETENGO2_GUI_UNIT_PIXEL_H
 
+//#include <utility>
+
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
@@ -49,7 +51,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         static pixel from_pixels(const pixel_value_type value)
         {
-            return pixel(static_cast<value_type>(value));
+            return pixel(value_type(value));
         }
 
 
@@ -58,11 +60,14 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Creates a pixel unit.
 
+            \tparam V A value type.
+
             \param value A value.
         */
-        explicit pixel(const value_type value)
+        template <typename V>
+        explicit pixel(V&& value)
         :
-        m_value(value)
+        m_value(std::forward<V>(value))
         {}
 
 
@@ -135,7 +140,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return The value.
         */
-        value_type value()
+        const value_type& value()
         const
         {
             return m_value;
