@@ -174,7 +174,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \throw std::runtime_error When the text cannot be drawn.
         */
         template <typename S, typename P>
-        void draw_text(S&& text, P&& position)
+        void draw_text(S&& text, const P& position)
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const Gdiplus::FontFamily font_family(

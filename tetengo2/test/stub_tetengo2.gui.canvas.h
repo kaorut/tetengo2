@@ -74,7 +74,7 @@ namespace stub_tetengo2 { namespace gui
         }
 
         template <typename S, typename P>
-        void draw_text(S&& text, P&& position)
+        void draw_text(S&& text, const P& position)
         {}
 
 
