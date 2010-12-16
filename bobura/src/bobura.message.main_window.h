@@ -6,11 +6,10 @@
     $Id$
 */
 
-#if !defined(BOBURA_MESSAGE_MAINWINDOWOBSERVERS_H)
-#define BOBURA_MESSAGE_MAINWINDOWOBSERVERS_H
+#if !defined(BOBURA_MESSAGE_MAINWINDOW_H)
+#define BOBURA_MESSAGE_MAINWINDOW_H
 
 #include <functional>
-#include <utility>
 
 #include <tetengo2.generator.h>
 #include <tetengo2.text.h>
