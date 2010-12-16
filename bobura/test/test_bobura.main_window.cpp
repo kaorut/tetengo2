@@ -29,6 +29,7 @@
 #include <stub_tetengo2.gui.message_loop.h>
 #include <stub_tetengo2.gui.popup_menu.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
+#include <stub_tetengo2.gui.unit.em.h>
 #include <stub_tetengo2.gui.window.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -77,6 +78,18 @@ namespace
             const void*, ui_encoder_type, exception_encoder_type
         >
         alert_type;
+
+    typedef
+        stub_tetengo2::gui::unit::em<std::ptrdiff_t, std::ptrdiff_t>
+        unit_difference_type;
+
+    typedef
+        std::pair<unit_difference_type, unit_difference_type> position_type;
+
+    typedef
+        stub_tetengo2::gui::unit::em<std::size_t, std::size_t> unit_size_type;
+
+    typedef std::pair<unit_size_type, unit_size_type> dimension_type;
 
     typedef stub_tetengo2::gui::font<std::wstring, std::size_t> font_type;
 
@@ -220,7 +233,8 @@ namespace
             boost::mpl::at<
                 command_type_list_type, bobura::command::type::command
             >::type,
-            canvas_type
+            canvas_type,
+            position_type
         >::type
         main_window_message_type_list_type;
 

@@ -26,10 +26,11 @@ namespace bobura { namespace message
             \brief The meta function for the type list of the main window
                    messages.
 
-            \tparam Command A command type.
-            \tparam Canvas  A canvas type of the main window.
+            \tparam Command  A command type.
+            \tparam Canvas   A canvas type of the main window.
+            \tparam Position A position type.
         */
-        template <typename Command, typename Canvas>
+        template <typename Command, typename Canvas, typename Position>
         class type_list
         {
         public:
@@ -40,7 +41,7 @@ namespace bobura { namespace message
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::menu, menu<Command>>,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::paint, paint<Canvas>>,
+                    boost::mpl::pair<type::paint, paint<Canvas, Position>>,
                 tetengo2::meta::assoc_list_end
                 >>
                 type;

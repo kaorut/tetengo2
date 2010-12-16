@@ -70,9 +70,10 @@ namespace bobura { namespace message { namespace main_window
     /*!
         \brief The class template for a paint observer of the main window.
         
-        \tparam Canvas A canvas type.
+        \tparam Canvas   A canvas type.
+        \tparam Position A position type.
     */
-    template <typename Canvas>
+    template <typename Canvas, typename Position>
     class paint : public std::unary_function<Canvas, void>
     {
     public:
@@ -80,6 +81,9 @@ namespace bobura { namespace message { namespace main_window
 
         //! The canvas type.
         typedef Canvas canvas_type;
+
+        //! The position type.
+        typedef Position position_type;
 
 
         // functions
@@ -94,7 +98,13 @@ namespace bobura { namespace message { namespace main_window
         {
             const font_type& dialog_font = font_type::dialog_font();
 
-            canvas.draw_text(dialog_font.family(), std::make_pair(32, 32));
+            canvas.draw_text(
+                dialog_font.family(),
+                position_type(
+                    typename position_type::first_type(2),
+                    typename position_type::second_type(2)
+                )
+            );
 
 #if defined(_MSC_VER)
             canvas.set_font(
@@ -110,7 +120,10 @@ namespace bobura { namespace message { namespace main_window
 
             canvas.draw_text(
                 string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")),
-                std::make_pair(32, 64)
+                position_type(
+                    typename position_type::first_type(4),
+                    typename position_type::second_type(4)
+                )
             );
 #endif
         }

@@ -49,6 +49,7 @@
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.traits.window_traits.h>
+#include <tetengo2.gui.unit.win32.em.h>
 #include <tetengo2.gui.win32.abstract_popup_menu.h>
 #include <tetengo2.gui.win32.abstract_window.h>
 #include <tetengo2.gui.win32.alert.h>
@@ -215,6 +216,8 @@ namespace bobura
                                           //!< finalizer type.
         struct message_loop;   //!< The message loop type.
         struct quit_message_loop; //!< The quit-message-loop type.
+        struct position;       //!< The position type.
+        struct dimension;      //!< The dimension type.
         struct canvas;         //!< The canvas type.
         struct alert;          //!< The alert type.
         struct window;         //!< The window type.
@@ -231,6 +234,21 @@ namespace bobura
     {
         typedef
             tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
+        typedef
+            tetengo2::gui::unit::win32::em<
+                boost::mpl::at<common_type_list, type::difference>::type,
+                boost::mpl::at<common_type_list, type::difference>::type
+            >
+            unit_difference_type;
+        typedef
+            std::pair<unit_difference_type, unit_difference_type>
+            position_type;
+        typedef
+            tetengo2::gui::unit::win32::em<
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<common_type_list, type::size>::type
+            > unit_size_type;
+        typedef std::pair<unit_size_type, unit_size_type> dimension_type;
         typedef
             tetengo2::gui::win32::font<
                 boost::mpl::at<common_type_list, type::string>::type,
@@ -338,6 +356,10 @@ namespace bobura
                 type::quit_message_loop, detail::ui::quit_message_loop_type
             >,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::position, detail::ui::position_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::dimension, detail::ui::dimension_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::canvas, detail::ui::canvas_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::alert, detail::ui::alert_type>,
@@ -369,7 +391,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>
+        >>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -425,7 +447,8 @@ namespace bobura
                 boost::mpl::at<
                     command_type_list, command::type::command
                 >::type,
-                boost::mpl::at<ui_type_list, type::canvas>::type
+                boost::mpl::at<ui_type_list, type::canvas>::type,
+                boost::mpl::at<ui_type_list, type::position>::type
             >::type
             message_type_list;
     }}
