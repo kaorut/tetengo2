@@ -52,7 +52,9 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         */
         static em from_pixels(const pixel_value_type value)
         {
-            value_type em_value = value / -get_message_font().lfHeight;
+            value_type em_value =
+                value /
+                -tetengo2::gui::win32::detail::get_message_font().lfHeight;
             return em(std::move(em_value));
         }
 
@@ -153,7 +155,9 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         pixel_value_type to_pixels()
         const
         {
-            return m_value * -get_message_font().lfHeight;
+            return
+                m_value *
+                -tetengo2::gui::win32::detail::get_message_font().lfHeight;
         }
 
 
