@@ -98,13 +98,7 @@ namespace bobura { namespace message { namespace main_window
         {
             const font_type& dialog_font = font_type::dialog_font();
 
-            canvas.draw_text(
-                dialog_font.family(),
-                position_type(
-                    typename position_type::first_type(2),
-                    typename position_type::second_type(2)
-                )
-            );
+            canvas.draw_text(dialog_font.family(), position_type(2, 2));
 
 #if defined(_MSC_VER)
             canvas.set_font(
@@ -119,11 +113,7 @@ namespace bobura { namespace message { namespace main_window
             );
 
             canvas.draw_text(
-                string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")),
-                position_type(
-                    typename position_type::first_type(4),
-                    typename position_type::second_type(4)
-                )
+                string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")), position_type(4, 4)
             );
 #endif
         }
