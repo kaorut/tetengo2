@@ -19,6 +19,7 @@
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.traits.widget_traits.h"
 #include "tetengo2.text.h"
 
@@ -171,7 +172,12 @@ namespace stub_tetengo2 { namespace gui
         template <typename D>
         void set_dimension(D&& dimension)
         {
-            if (dimension.first == 0 || dimension.second == 0)
+            if (
+                tetengo2::gui::dimension<dimension_type>::width(dimension) ==
+                    typename tetengo2::gui::dimension<dimension_type>::width_type(0) ||
+                tetengo2::gui::dimension<dimension_type>::height(dimension) ==
+                    typename tetengo2::gui::dimension<dimension_type>::height_type(0)
+            )
             {
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument("Dimension has zero value.")
@@ -190,7 +196,12 @@ namespace stub_tetengo2 { namespace gui
         template <typename D>
         void set_client_dimension(D&& client_dimension)
         {
-            if (client_dimension.first == 0 || client_dimension.second == 0)
+            if (
+                tetengo2::gui::dimension<dimension_type>::width(client_dimension) ==
+                    typename tetengo2::gui::dimension<dimension_type>::width_type(0) ||
+                tetengo2::gui::dimension<dimension_type>::height(client_dimension) ==
+                    typename tetengo2::gui::dimension<dimension_type>::height_type(0)
+            )
             {
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument("Client dimension has zero value.")
