@@ -42,10 +42,14 @@ namespace stub_tetengo2 { namespace gui { namespace unit
 
         // constructors and destructor
 
-        template <typename V>
-        explicit em(V&& value)
+        explicit em(const value_type& value)
         :
-        m_value(std::forward<V>(value))
+        m_value(value)
+        {}
+
+        explicit em(value_type&& value)
+        :
+        m_value(std::forward<value_type>(value))
         {}
 
 

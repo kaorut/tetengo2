@@ -60,14 +60,21 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Creates a pixel unit.
 
-            \tparam V A value type.
+            \param value A value.
+        */
+        explicit pixel(const value_type& value)
+        :
+        m_value(value)
+        {}
+
+        /*!
+            \brief Creates a pixel unit.
 
             \param value A value.
         */
-        template <typename V>
-        explicit pixel(V&& value)
+        explicit pixel(value_type&& value)
         :
-        m_value(std::forward<V>(value))
+        m_value(std::forward<value_type>(value))
         {}
 
 
