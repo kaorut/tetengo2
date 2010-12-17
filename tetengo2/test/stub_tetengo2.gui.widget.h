@@ -39,13 +39,13 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename traits_type::alert_type alert_type;
 
-        typedef typename traits_type::difference_type difference_type;
-
-        typedef typename traits_type::size_type size_type;
-
         typedef typename traits_type::position_type position_type;
 
         typedef typename traits_type::dimension_type dimension_type;
+
+        typedef typename traits_type::difference_type difference_type;
+
+        typedef typename traits_type::size_type size_type;
 
         typedef typename traits_type::string_type string_type;
 

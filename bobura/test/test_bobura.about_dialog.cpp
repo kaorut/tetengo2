@@ -9,6 +9,7 @@
 //#include <cstddef>
 #include <istream>
 //#include <string>
+//#include <utility>
 
 //#define BOOST_FILESYSTEM_VERSION 3
 //#include <boost/filesystem.hpp>
@@ -25,6 +26,7 @@
 #include <stub_tetengo2.gui.menu.h>
 #include <stub_tetengo2.gui.message_loop.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
+#include <stub_tetengo2.gui.unit.em.h>
 #include <stub_tetengo2.gui.window.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -72,6 +74,18 @@ namespace
         >
         alert_type;
 
+    typedef
+        stub_tetengo2::gui::unit::em<std::ptrdiff_t, std::ptrdiff_t>
+        unit_difference_type;
+
+    typedef
+        std::pair<unit_difference_type, unit_difference_type> position_type;
+
+    typedef
+        stub_tetengo2::gui::unit::em<std::size_t, std::size_t> unit_size_type;
+
+    typedef std::pair<unit_size_type, unit_size_type> dimension_type;
+
     typedef stub_tetengo2::gui::font<std::wstring, std::size_t> font_type;
 
     typedef
@@ -90,8 +104,8 @@ namespace
             const void*,
             canvas_type,
             alert_type,
-            std::ptrdiff_t,
-            std::size_t,
+            position_type,
+            dimension_type,
             std::wstring,
             ui_encoder_type,
             font_type,

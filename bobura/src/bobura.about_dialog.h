@@ -18,6 +18,7 @@
 #include <boost/scoped_ptr.hpp>
 
 #include <tetengo2.cpp0x_keyword.h>
+#include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 
 #include "bobura.message.type_list.h"
@@ -119,10 +120,13 @@ namespace bobura
 
             const typename about_dialog::position_type& parent_position =
                 parent.position();
-            this->set_client_dimension(std::make_pair(384, 128));
+            this->set_client_dimension(std::make_pair(36, 10));
             this->set_position(
-                std::make_pair(
-                    parent_position.first + 64, parent_position.second + 64
+                position_type(
+                    tetengo2::gui::position<position_type>::left(parent_position) +
+                        typename tetengo2::gui::position<position_type>::left_type(6),
+                    tetengo2::gui::position<position_type>::top(parent_position) +
+                        typename tetengo2::gui::position<position_type>::top_type(6)
                 )
             );
 
@@ -145,8 +149,8 @@ namespace bobura
             std::auto_ptr<label_type> p_label(new label_type(*this));
 
             p_label->set_text(title.str());
-            p_label->set_dimension(std::make_pair(336, 24));
-            p_label->set_position(std::make_pair(32, 16));
+            p_label->set_dimension(std::make_pair(32, 2));
+            p_label->set_position(std::make_pair(2, 1));
 
             return p_label;
         }
@@ -160,8 +164,8 @@ namespace bobura
                     TETENGO2_TEXT("Copyright (C) 2010 kaorut")
                 )
             );
-            p_label->set_dimension(std::make_pair(192, 24));
-            p_label->set_position(std::make_pair(32, 36));
+            p_label->set_dimension(std::make_pair(32, 2));
+            p_label->set_position(std::make_pair(2, 3));
 
             return p_label;
         }
@@ -175,8 +179,8 @@ namespace bobura
                     TETENGO2_TEXT("http://www.tetengo.org/")
                 )
             );
-            p_label->set_dimension(std::make_pair(192, 24));
-            p_label->set_position(std::make_pair(32, 60));
+            p_label->set_dimension(std::make_pair(32, 2));
+            p_label->set_position(std::make_pair(2, 5));
 
             return p_label;
         }
@@ -188,8 +192,8 @@ namespace bobura
             );
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("OK")));
-            p_button->set_dimension(std::make_pair(88, 24));
-            p_button->set_position(std::make_pair(288, 96));
+            p_button->set_dimension(std::make_pair(8, 2));
+            p_button->set_position(std::make_pair(26, 7));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     about_dialog_message_type_list_type,

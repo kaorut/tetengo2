@@ -11,6 +11,8 @@
 
 #include <utility>
 
+#include "tetengo2.gui.measure.h"
+
 
 namespace tetengo2 { namespace gui { namespace traits
 {
@@ -20,8 +22,8 @@ namespace tetengo2 { namespace gui { namespace traits
         \tparam Handle           A handle type to the native interface.
         \tparam Canvas           A canvas type.
         \tparam Alert            An alerting unary functor type.
-        \tparam Difference       A difference type.
-        \tparam Size             A size type.
+        \tparam Position         A position type.
+        \tparam Dimension        A dimension type.
         \tparam String           A string type.
         \tparam Encoder          An encoder type.
         \tparam Font             A font type.
@@ -32,8 +34,8 @@ namespace tetengo2 { namespace gui { namespace traits
         typename Handle,
         typename Canvas,
         typename Alert,
-        typename Difference,
-        typename Size,
+        typename Position,
+        typename Dimension,
         typename String,
         typename Encoder,
         typename Font,
@@ -53,17 +55,21 @@ namespace tetengo2 { namespace gui { namespace traits
         //! The alerting unary functor type.
         typedef Alert alert_type;
 
-        //! The difference type.
-        typedef Difference difference_type;
-
-        //! The size type.
-        typedef Size size_type;
-
         //! The position type.
-        typedef std::pair<difference_type, difference_type> position_type;
+        typedef Position position_type;
 
         //! The dimension type.
-        typedef std::pair<size_type, size_type> dimension_type;
+        typedef Dimension dimension_type;
+
+        //! The difference type.
+        typedef
+            typename tetengo2::gui::position<position_type>::left_type
+            difference_type;
+
+        //! The size type.
+        typedef
+            typename tetengo2::gui::dimension<dimension_type>::width_type
+            size_type;
 
         //! The string type.
         typedef String string_type;

@@ -62,17 +62,17 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The alerting unary functor type.
         typedef typename traits_type::alert_type alert_type;
 
-        //! The difference type.
-        typedef typename traits_type::difference_type difference_type;
-
-        //! The size type.
-        typedef typename traits_type::size_type size_type;
-
         //! The position type.
         typedef typename traits_type::position_type position_type;
 
         //! The dimension type.
         typedef typename traits_type::dimension_type dimension_type;
+
+        //! The difference type.
+        typedef typename traits_type::difference_type difference_type;
+
+        //! The size type.
+        typedef typename traits_type::size_type size_type;
 
         //! The string type.
         typedef typename traits_type::string_type string_type;
@@ -352,7 +352,12 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void set_dimension(const dimension_type& dimension)
         {
-            if (dimension.first == 0 || dimension.second == 0)
+            if (
+                gui::dimension<dimension_type>::width(dimension) ==
+                    typename gui::dimension<dimension_type>::width_type(0) ||
+                gui::dimension<dimension_type>::height(dimension) ==
+                    typename gui::dimension<dimension_type>::height_type(0)
+            )
             {
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument("Dimension has zero value.")
@@ -427,7 +432,12 @@ namespace tetengo2 { namespace gui { namespace win32
             const dimension_type& client_dimension
         )
         {
-            if (client_dimension.first == 0 || client_dimension.second == 0)
+            if (
+                gui::dimension<dimension_type>::width(client_dimension) ==
+                    typename gui::dimension<dimension_type>::width_type(0) ||
+                gui::dimension<dimension_type>::height(client_dimension) ==
+                    typename gui::dimension<dimension_type>::height_type(0)
+            )
             {
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument("Client dimension has zero value.")
