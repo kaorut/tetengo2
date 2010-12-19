@@ -60,7 +60,7 @@ namespace bobura { namespace model { namespace timetable_info
         // functions
 
         /*!
-            \brief Checks whether one station location is equal to anther.
+            \brief Checks whether one station location is equal to another.
 
             \param one     One station location.
             \param another Another station location.

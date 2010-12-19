@@ -116,7 +116,7 @@ namespace bobura { namespace model
         // functions
 
         /*!
-            \brief Checks whether one train is equal to anther.
+            \brief Checks whether one train is equal to another.
 
             \param one     One train.
             \param another Another train.

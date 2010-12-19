@@ -119,7 +119,7 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         }
 
         /*!
-            \brief Checks whether one EM height unit is equal to anther.
+            \brief Checks whether one EM height unit is equal to another.
 
             \param one     One EM height unit.
             \param another Another EM height unit.
@@ -133,7 +133,7 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         }
 
         /*!
-            \brief Checks whether one EM height unit is less than anther.
+            \brief Checks whether one EM height unit is less than another.
 
             \param one     One EM height unit.
             \param another Another EM height unit.

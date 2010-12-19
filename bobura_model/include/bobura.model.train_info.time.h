@@ -208,7 +208,7 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether one time is equal to anther.
+            \brief Checks whether one time is equal to another.
 
             \param one     One time.
             \param another Another time.
@@ -223,7 +223,7 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether one time is less than anther.
+            \brief Checks whether one time is less than another.
 
             \param one     One time.
             \param another Another time.

@@ -28,7 +28,9 @@ namespace tetengo2 { namespace gui { namespace unit
     template <typename Value, typename PixelValue>
     class pixel :
         private boost::totally_ordered<pixel<Value, PixelValue>>,
-        private tetengo2::additive<pixel<Value, PixelValue>>
+        private boost::totally_ordered<pixel<Value, PixelValue>, Value>,
+        private tetengo2::additive<pixel<Value, PixelValue>>,
+        private tetengo2::additive<pixel<Value, PixelValue>, Value>
     {
     public:
         // types
@@ -98,6 +100,23 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
+            \brief Adds another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& operator+=(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value += another;
+            
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
             \brief Subtracts another pixel unit.
 
             \param another Another pixel unit.
@@ -115,7 +134,24 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Checks whether one pixel unit is equal to anther.
+            \brief Subtracts another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& operator-=(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value -= another;
+            
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Checks whether one pixel unit is equal to another.
 
             \param one     One pixel unit.
             \param another Another pixel unit.
@@ -129,7 +165,21 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Checks whether one pixel unit is less than anther.
+            \brief Checks whether one  pixel unit is equal to another.
+
+            \param one     One pixel unit.
+            \param another Another value in pixel unit.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const pixel& one, const value_type& another)
+        {
+            return one.m_value == another;
+        }
+
+        /*!
+            \brief Checks whether one pixel unit is less than another.
 
             \param one     One pixel unit.
             \param another Another pixel unit.
@@ -140,6 +190,20 @@ namespace tetengo2 { namespace gui { namespace unit
         friend bool operator<(const pixel& one, const pixel& another)
         {
             return one.m_value < another.m_value;
+        }
+
+        /*!
+            \brief Checks whether one pixel unit is less than another.
+
+            \param one     One pixel unit.
+            \param another Another value in pixel unit.
+
+            \retval true  When the one is less than the other.
+            \retval false Otherwise.
+        */
+        friend bool operator<(const pixel& one, const value_type& another)
+        {
+            return one.m_value < another;
         }
 
         /*!

@@ -98,7 +98,7 @@ namespace bobura { namespace model
         // functions
 
         /*!
-            \brief Checks whether this is equal to anther timetable.
+            \brief Checks whether this is equal to another timetable.
 
             \param one     One timetable.
             \param another Another timetable.

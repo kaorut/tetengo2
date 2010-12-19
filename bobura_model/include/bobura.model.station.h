@@ -58,7 +58,7 @@ namespace bobura { namespace model
         // functions
 
         /*!
-            \brief Checks whether one station is equal to anther.
+            \brief Checks whether one station is equal to another.
 
             \param one     One station.
             \param another Another station.

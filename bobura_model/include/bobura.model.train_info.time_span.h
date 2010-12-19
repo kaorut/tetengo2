@@ -130,7 +130,7 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether one time span is equal to anther.
+            \brief Checks whether one time span is equal to another.
 
             \param one     One time span.
             \param another Another time span.
@@ -144,7 +144,7 @@ namespace bobura { namespace model { namespace train_info
         }
 
         /*!
-            \brief Checks whether one time span is less than anther.
+            \brief Checks whether one time span is less than another.
 
             \param one     One time span.
             \param another Another time span.

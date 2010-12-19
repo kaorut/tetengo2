@@ -38,24 +38,44 @@ BOOST_AUTO_TEST_SUITE(pixel)
     {
         BOOST_TEST_PASSPOINT();
 
-        tetengo2::gui::unit::pixel<int, int> unit1(456);
-        const tetengo2::gui::unit::pixel<int, int> unit2(123);
+        {
+            tetengo2::gui::unit::pixel<int, int> unit1(456);
+            const tetengo2::gui::unit::pixel<int, int> unit2(123);
 
-        unit1 += unit2;
+            unit1 += unit2;
 
-        BOOST_CHECK_EQUAL(unit1.value(), 579);
+            BOOST_CHECK_EQUAL(unit1.value(), 579);
+        }
+        {
+            BOOST_TEST_PASSPOINT();
+
+            tetengo2::gui::unit::pixel<int, int> unit1(456);
+
+            unit1 += 123;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 579);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_minus_assign)
     {
         BOOST_TEST_PASSPOINT();
 
-        tetengo2::gui::unit::pixel<int, int> unit1(456);
-        const tetengo2::gui::unit::pixel<int, int> unit2(123);
+        {
+            tetengo2::gui::unit::pixel<int, int> unit1(456);
+            const tetengo2::gui::unit::pixel<int, int> unit2(123);
 
-        unit1 -= unit2;
+            unit1 -= unit2;
 
-        BOOST_CHECK_EQUAL(unit1.value(), 333);
+            BOOST_CHECK_EQUAL(unit1.value(), 333);
+        }
+        {
+            tetengo2::gui::unit::pixel<int, int> unit1(456);
+
+            unit1 -= 123;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 333);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
@@ -74,12 +94,34 @@ BOOST_AUTO_TEST_SUITE(pixel)
 
             BOOST_CHECK(unit1 != unit2);
         }
+        {
+            const tetengo2::gui::unit::pixel<int, int> unit1(123);
+
+            BOOST_CHECK(unit1 == 123);
+        }
+        {
+            const tetengo2::gui::unit::pixel<int, int> unit1(456);
+
+            BOOST_CHECK(unit1 != 123);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_less)
     {
         BOOST_TEST_PASSPOINT();
 
+        {
+            const tetengo2::gui::unit::pixel<int, int> unit1(123);
+            const tetengo2::gui::unit::pixel<int, int> unit2(456);
+
+            BOOST_CHECK(unit1 < unit2);
+        }
+        {
+            const tetengo2::gui::unit::pixel<int, int> unit1(456);
+            const tetengo2::gui::unit::pixel<int, int> unit2(123);
+
+            BOOST_CHECK(unit1 > unit2);
+        }
         {
             const tetengo2::gui::unit::pixel<int, int> unit1(123);
             const tetengo2::gui::unit::pixel<int, int> unit2(456);

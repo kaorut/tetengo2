@@ -61,7 +61,7 @@ namespace bobura { namespace model { namespace train_info
         // functions
 
         /*!
-            \brief Checks whether one stop is equal to anther.
+            \brief Checks whether one stop is equal to another.
 
             \param one     One stop.
             \param another Another stop.
