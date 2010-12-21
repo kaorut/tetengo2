@@ -22,7 +22,9 @@ namespace stub_tetengo2 { namespace gui { namespace unit
     template <typename Value, typename PixelValue>
     class em :
         private boost::totally_ordered<em<Value, PixelValue>>,
-        private tetengo2::additive<em<Value, PixelValue>>
+        private boost::totally_ordered<em<Value, PixelValue>, Value>,
+        private tetengo2::additive<em<Value, PixelValue>>,
+        private tetengo2::additive<em<Value, PixelValue>, Value>
     {
     public:
         // types
@@ -65,6 +67,16 @@ namespace stub_tetengo2 { namespace gui { namespace unit
             return *this;
         }
 
+        em& operator+=(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value += another;
+            
+            boost::swap(temp, *this);
+            return *this;
+        }
+
         em& operator-=(const em& another)
         {
             em temp(*this);
@@ -75,14 +87,34 @@ namespace stub_tetengo2 { namespace gui { namespace unit
             return *this;
         }
 
+        em& operator-=(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value -= another;
+            
+            boost::swap(temp, *this);
+            return *this;
+        }
+
         friend bool operator==(const em& one, const em& another)
         {
             return one.m_value == another.m_value;
         }
 
+        friend bool operator==(const em& one, const value_type& another)
+        {
+            return one.m_value == another;
+        }
+
         friend bool operator<(const em& one, const em& another)
         {
             return one.m_value < another.m_value;
+        }
+
+        friend bool operator<(const em& one, const value_type& another)
+        {
+            return one.m_value < another;
         }
 
         const value_type& value()

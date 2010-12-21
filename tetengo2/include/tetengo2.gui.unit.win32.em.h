@@ -29,7 +29,9 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
     template <typename Value, typename PixelValue>
     class em :
         private boost::totally_ordered<em<Value, PixelValue>>,
-        private tetengo2::additive<em<Value, PixelValue>>
+        private boost::totally_ordered<em<Value, PixelValue>, Value>,
+        private tetengo2::additive<em<Value, PixelValue>>,
+        private tetengo2::additive<em<Value, PixelValue>, Value>
     {
     public:
         // types
@@ -102,6 +104,23 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         }
 
         /*!
+            \brief Adds another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& operator+=(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value += another;
+            
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
             \brief Subtracts another EM height unit.
 
             \param another Another EM height unit.
@@ -113,6 +132,23 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
             em temp(*this);
 
             temp.m_value -= another.m_value;
+            
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Subtracts another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& operator-=(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value -= another;
             
             boost::swap(temp, *this);
             return *this;
@@ -133,6 +169,20 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         }
 
         /*!
+            \brief Checks whether one EM height unit is equal to another.
+
+            \param one     One EM height unit.
+            \param another Another value in EM height unit.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(const em& one, const value_type& another)
+        {
+            return one.m_value == another;
+        }
+
+        /*!
             \brief Checks whether one EM height unit is less than another.
 
             \param one     One EM height unit.
@@ -144,6 +194,20 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         friend bool operator<(const em& one, const em& another)
         {
             return one.m_value < another.m_value;
+        }
+
+        /*!
+            \brief Checks whether one EM height unit is less than another.
+
+            \param one     One EM height unit.
+            \param another Another value in EM height unit.
+
+            \retval true  When the one is less than the other.
+            \retval false Otherwise.
+        */
+        friend bool operator<(const em& one, const value_type& another)
+        {
+            return one.m_value < another;
         }
 
         /*!
