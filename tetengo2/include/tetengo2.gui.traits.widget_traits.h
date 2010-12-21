@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_TRAITS_WIDGETTRAITS_H)
 #define TETENGO2_GUI_TRAITS_WIDGETTRAITS_H
 
-#include <utility>
-
 #include "tetengo2.gui.measure.h"
 
 

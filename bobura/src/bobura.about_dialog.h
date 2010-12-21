@@ -11,7 +11,6 @@
 
 #include <memory>
 #include <sstream>
-#include <utility>
 
 #include <boost/format.hpp>
 #include <boost/mpl/at.hpp>
