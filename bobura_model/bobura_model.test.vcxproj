@@ -87,7 +87,7 @@
       <ForcedIncludeFiles>precompiled.h</ForcedIncludeFiles>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_TEST_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableSpecificWarnings>4100;4251;4275;4373;4503;4510;4512;4610</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4146;4251;4275;4373;4503;4510;4512;4610</DisableSpecificWarnings>
       <StringPooling>true</StringPooling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <BrowseInformation>true</BrowseInformation>
@@ -117,7 +117,7 @@ echo Skipping...
       <ForcedIncludeFiles>precompiled.h</ForcedIncludeFiles>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_TEST_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableSpecificWarnings>4100;4251;4275;4373;4503;4510;4512;4610</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4146;4251;4275;4373;4503;4510;4512;4610</DisableSpecificWarnings>
       <StringPooling>true</StringPooling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <BrowseInformation>true</BrowseInformation>
@@ -146,7 +146,7 @@ echo Skipping...
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_TEST_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableSpecificWarnings>4100;4251;4275;4373;4503;4510;4512;4610</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4146;4251;4275;4373;4503;4510;4512;4610</DisableSpecificWarnings>
       <StringPooling>true</StringPooling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <BrowseInformation>true</BrowseInformation>
@@ -178,7 +178,7 @@ echo Skipping...
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;BOOST_ALL_DYN_LINK;BOOST_TEST_DYN_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableSpecificWarnings>4100;4251;4275;4373;4503;4510;4512;4610</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4146;4251;4275;4373;4503;4510;4512;4610</DisableSpecificWarnings>
       <StringPooling>true</StringPooling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <BrowseInformation>true</BrowseInformation>

@@ -19,6 +19,7 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/mpl/insert_range.hpp>
 //#include <boost/mpl/pair.hpp>
+#include <boost/rational.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
@@ -237,7 +238,9 @@ namespace bobura
             tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
         typedef
             tetengo2::gui::unit::win32::em<
-                boost::mpl::at<common_type_list, type::difference>::type,
+                boost::rational<
+                    boost::mpl::at<common_type_list, type::difference>::type
+                >,
                 boost::mpl::at<common_type_list, type::difference>::type
             >
             unit_difference_type;
@@ -246,7 +249,9 @@ namespace bobura
             position_type;
         typedef
             tetengo2::gui::unit::win32::em<
-                boost::mpl::at<common_type_list, type::size>::type,
+                boost::rational<
+                    boost::mpl::at<common_type_list, type::size>::type
+                >,
                 boost::mpl::at<common_type_list, type::size>::type
             > unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;

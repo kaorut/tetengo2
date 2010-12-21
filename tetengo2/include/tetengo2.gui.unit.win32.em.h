@@ -9,9 +9,11 @@
 #if !defined(TETENGO2_GUI_UNIT_WIN32_EM_H)
 #define TETENGO2_GUI_UNIT_WIN32_EM_H
 
+#include <type_traits>
 //#include <utility>
 
 #include <boost/operators.hpp>
+#include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
 #include "tetengo2.gui.win32.detail.font.h"
@@ -54,10 +56,12 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         */
         static em from_pixels(const pixel_value_type value)
         {
-            value_type em_value =
-                value /
-                -tetengo2::gui::win32::detail::get_message_font().lfHeight;
-            return em(std::move(em_value));
+            return em(
+                to_value<value_type>(
+                    value,
+                    -tetengo2::gui::win32::detail::get_message_font().lfHeight
+                )
+            );
         }
 
 
@@ -243,13 +247,67 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         pixel_value_type to_pixels()
         const
         {
-            return
+            return to_pixel_value(
                 m_value *
-                -tetengo2::gui::win32::detail::get_message_font().lfHeight;
+                -tetengo2::gui::win32::detail::get_message_font().lfHeight
+            );
         }
 
 
     private:
+        // static functions
+
+        template <typename V>
+        static V to_value(
+            const pixel_value_type numerator,
+            const pixel_value_type denominator,
+            typename std::enable_if<
+                std::is_convertible<
+                    boost::rational<typename value_type::int_type>, V
+                >::value
+            >::type* = NULL
+        )
+        {
+            return boost::rational<typename value_type::int_type>(
+                numerator, denominator
+            );
+        }
+
+        template <typename V>
+        static V to_value(
+            const pixel_value_type numerator,
+            const pixel_value_type denominator,
+            typename std::enable_if<std::is_arithmetic<V>::value>::type* =
+                NULL
+        )
+        {
+            return numerator / denominator;
+        }
+
+        template <typename V>
+        static pixel_value_type to_pixel_value(
+            const V& value,
+            typename std::enable_if<
+                std::is_convertible<
+                    boost::rational<typename value_type::int_type>, V
+                >::value
+            >::type* = NULL
+        )
+        {
+            return boost::rational_cast<pixel_value_type>(value);
+        }
+
+        template <typename V>
+        static pixel_value_type to_pixel_value(
+            const V value,
+            typename std::enable_if<std::is_arithmetic<V>::value>::type* =
+                NULL
+        )
+        {
+            return static_cast<pixel_value_type>(value);
+        }
+
+
         // variables
 
         value_type m_value;
