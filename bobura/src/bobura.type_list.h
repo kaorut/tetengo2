@@ -19,7 +19,7 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/mpl/insert_range.hpp>
 //#include <boost/mpl/pair.hpp>
-#include <boost/rational.hpp>
+//#include <boost/rational.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE

@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_UNIT_WIN32_EM_H)
 #define TETENGO2_GUI_UNIT_WIN32_EM_H
 
+#include <cstddef>
 #include <type_traits>
 //#include <utility>
 

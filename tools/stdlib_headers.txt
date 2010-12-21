@@ -210,6 +210,8 @@ boost::program_options::variables_map            boost/program_options.hpp
 boost::program_options::wcommand_line_parser     boost/program_options.hpp
 boost::program_options::wparsed_options          boost/program_options.hpp
 boost::ptr_vector                                boost/ptr_container/ptr_vector.hpp
+boost::rational                                  boost/rational.hpp
+boost::rational_cast                             boost/rational.hpp
 boost::replace_all                               boost/algorithm/string.hpp
 boost::scoped_array                              boost/scoped_array.hpp
 boost::scoped_ptr                                boost/scoped_ptr.hpp

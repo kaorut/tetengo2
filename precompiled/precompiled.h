@@ -87,6 +87,7 @@
 #include <boost/optional.hpp>
 #include <boost/program_options.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/rational.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/scoped_ptr.hpp>
