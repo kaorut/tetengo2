@@ -353,10 +353,8 @@ namespace tetengo2 { namespace gui { namespace win32
         void set_dimension(const dimension_type& dimension)
         {
             if (
-                gui::dimension<dimension_type>::width(dimension) ==
-                    typename gui::dimension<dimension_type>::width_type(0) ||
-                gui::dimension<dimension_type>::height(dimension) ==
-                    typename gui::dimension<dimension_type>::height_type(0)
+                gui::dimension<dimension_type>::width(dimension) == 0 ||
+                gui::dimension<dimension_type>::height(dimension) == 0
             )
             {
                 BOOST_THROW_EXCEPTION(
@@ -434,9 +432,8 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             if (
                 gui::dimension<dimension_type>::width(client_dimension) ==
-                    typename gui::dimension<dimension_type>::width_type(0) ||
-                gui::dimension<dimension_type>::height(client_dimension) ==
-                    typename gui::dimension<dimension_type>::height_type(0)
+                    0 ||
+                gui::dimension<dimension_type>::height(client_dimension) == 0
             )
             {
                 BOOST_THROW_EXCEPTION(

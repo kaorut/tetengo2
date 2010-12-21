@@ -174,9 +174,9 @@ namespace stub_tetengo2 { namespace gui
         {
             if (
                 tetengo2::gui::dimension<dimension_type>::width(dimension) ==
-                    typename tetengo2::gui::dimension<dimension_type>::width_type(0) ||
+                    0 ||
                 tetengo2::gui::dimension<dimension_type>::height(dimension) ==
-                    typename tetengo2::gui::dimension<dimension_type>::height_type(0)
+                    0
             )
             {
                 BOOST_THROW_EXCEPTION(
@@ -197,10 +197,12 @@ namespace stub_tetengo2 { namespace gui
         void set_client_dimension(D&& client_dimension)
         {
             if (
-                tetengo2::gui::dimension<dimension_type>::width(client_dimension) ==
-                    typename tetengo2::gui::dimension<dimension_type>::width_type(0) ||
-                tetengo2::gui::dimension<dimension_type>::height(client_dimension) ==
-                    typename tetengo2::gui::dimension<dimension_type>::height_type(0)
+                tetengo2::gui::dimension<dimension_type>::width(
+                    client_dimension
+                ) == 0 ||
+                tetengo2::gui::dimension<dimension_type>::height(
+                    client_dimension
+                ) == 0
             )
             {
                 BOOST_THROW_EXCEPTION(

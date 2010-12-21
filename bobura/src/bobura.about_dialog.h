@@ -118,23 +118,17 @@ namespace bobura
         {
             set_text(m_message_catalog.get(TETENGO2_TEXT("About")));
 
-            typedef tetengo2::gui::dimension<typename about_dialog::dimension_type> dim_type;
             this->set_client_dimension(
                 typename about_dialog::dimension_type(36, 10)
             );
 
-            const typename about_dialog::position_type& parent_position =
-                parent.position();
-            typedef tetengo2::gui::position<typename about_dialog::position_type> pos_type;
-            typename pos_type::left_type dialog_left =
-                pos_type::left(parent_position) +
-                typename pos_type::left_type(6);
-            typename pos_type::top_type dialog_top =
-                pos_type::top(parent_position) +
-                typename pos_type::top_type(6);
+            typedef
+                tetengo2::gui::position<typename about_dialog::position_type>
+                pos_type;
             this->set_position(
                 typename about_dialog::position_type(
-                    std::move(dialog_left), std::move(dialog_top)
+                    pos_type::left(parent.position()) + 6,
+                    pos_type::top(parent.position()) + 6
                 )
             );
 
