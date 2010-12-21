@@ -207,6 +207,20 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
+            \brief Checks whether one pixel unit is greater than another.
+
+            \param one     One pixel unit.
+            \param another Another value in pixel unit.
+
+            \retval true  When the one is greater than the other.
+            \retval false Otherwise.
+        */
+        friend bool operator>(const pixel& one, const value_type& another)
+        {
+            return one.m_value > another;
+        }
+
+        /*!
             \brief Returns the value.
 
             \return The value.

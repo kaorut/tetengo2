@@ -124,15 +124,19 @@ BOOST_AUTO_TEST_SUITE(pixel)
         }
         {
             const tetengo2::gui::unit::pixel<int, int> unit1(123);
-            const tetengo2::gui::unit::pixel<int, int> unit2(456);
 
-            BOOST_CHECK(unit1 < unit2);
+            BOOST_CHECK(unit1 < 456);
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_greater)
+    {
+        BOOST_TEST_PASSPOINT();
+
         {
             const tetengo2::gui::unit::pixel<int, int> unit1(456);
-            const tetengo2::gui::unit::pixel<int, int> unit2(123);
 
-            BOOST_CHECK(unit1 > unit2);
+            BOOST_CHECK(unit1 > 123);
         }
     }
 

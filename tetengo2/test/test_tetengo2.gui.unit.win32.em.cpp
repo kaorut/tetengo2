@@ -48,6 +48,11 @@ BOOST_AUTO_TEST_SUITE(em)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(operator_greater)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(value)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");

@@ -117,6 +117,11 @@ namespace stub_tetengo2 { namespace gui { namespace unit
             return one.m_value < another;
         }
 
+        friend bool operator>(const em& one, const value_type& another)
+        {
+            return one.m_value > another;
+        }
+
         const value_type& value()
         const
         {

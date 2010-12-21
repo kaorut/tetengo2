@@ -211,6 +211,20 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         }
 
         /*!
+            \brief Checks whether one EM height unit is greater than another.
+
+            \param one     One EM height unit.
+            \param another Another value in EM height unit.
+
+            \retval true  When the one is greater than the other.
+            \retval false Otherwise.
+        */
+        friend bool operator>(const em& one, const value_type& another)
+        {
+            return one.m_value > another;
+        }
+
+        /*!
             \brief Returns the value.
 
             \return The value.
