@@ -282,12 +282,9 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Sets the position.
 
-            \tparam P A position type.
-
             \param position A position.
         */
-        template <typename P>
-        void set_position(P&& position)
+        void set_position(const position_type& position)
         {
             const dimension_type rectangle = dimension();
 

@@ -85,24 +85,16 @@ namespace tetengo2
         /*!
             \brief Creates a messages facet.
 
-            \tparam P A path type.
-            \tparam L A locale type.
-
             \param path   A path where message catalogs are stored.
             \param locale A locale for the messages facet.
 
             \throw std::ios_base::failure When the path does not exist or is
                                           not a directory.
         */
-        template <typename P, typename L>
-        messages(P&& path, L&& locale)
+        messages(const path_type& path, const std::locale& locale)
         :
         m_open(false),
-        m_message_catalog(
-            load_message_catalog(
-                std::forward<P>(path), std::forward<L>(locale)
-            )
-        )
+        m_message_catalog(load_message_catalog(path, locale))
         {}
 
         /*!
@@ -171,14 +163,11 @@ namespace tetengo2
             return singleton;
         }
 
-        template <typename P, typename L>
-        static const boost::optional<message_catalog_type>
-        load_message_catalog(P&& path, L&& locale)
+        static boost::optional<message_catalog_type>
+        load_message_catalog(const path_type& path, const std::locale& locale)
         {
             const boost::optional<path_type> catalog_file =
-                select_catalog_file(
-                    std::forward<P>(path), std::forward<L>(locale)
-                );
+                select_catalog_file(path, locale);
             if (!catalog_file)
                 return boost::optional<message_catalog_type>();
 
@@ -190,10 +179,9 @@ namespace tetengo2
             );
         }
 
-        template <typename P, typename L>
         static const boost::optional<path_type> select_catalog_file(
-            P&&  path,
-            L&& locale
+            const path_type&   path,
+            const std::locale& locale
         )
         {
             if (!boost::filesystem::exists(path))
@@ -232,21 +220,20 @@ namespace tetengo2
                     matches_locale_type(locale)
                 );
             if (found != catalog_file_mappings.end())
-                return std::forward<P>(path) / found->second;
+                return path / found->second;
 
             return boost::optional<path_type>();
         }
 
-        template <typename P>
         static catalog_file_mappings_type read_catalog_file_mappings(
-            P&& message_catalog_directory    
+            const path_type& message_catalog_directory    
         )
         {
             catalog_file_mappings_type mappings;
 
             boost::filesystem::ifstream input_stream(
                 path_type(
-                    std::forward<P>(message_catalog_directory) /
+                    message_catalog_directory /
                     catalog_file_mappings_filename()
                 )
             );
@@ -266,15 +253,12 @@ namespace tetengo2
             return mappings;
         }
 
-        template <typename P>
         static void read_message_catalog(
-            P&&                   catalog_file,
+            const path_type&      catalog_file,
             message_catalog_type& message_catalog
         )
         {
-            boost::filesystem::ifstream input_stream(
-                std::forward<P>(catalog_file)
-            );
+            boost::filesystem::ifstream input_stream(catalog_file);
             if (!input_stream.is_open())
             {
                 BOOST_THROW_EXCEPTION(

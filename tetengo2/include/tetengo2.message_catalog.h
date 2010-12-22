@@ -83,11 +83,9 @@ namespace tetengo2
         const
         {
             if (m_p_messages == NULL || m_catalog_id < 0)
-                return default_text;
+                return std::forward<S>(default_text);
 
-            return m_p_messages->get(
-                m_catalog_id, 0, 0, std::forward<S>(default_text)
-            );
+            return m_p_messages->get(m_catalog_id, 0, 0, default_text);
         }
 
 #if !defined(DOCUMENTATION)
@@ -100,7 +98,7 @@ namespace tetengo2
         )
         const
         {
-            return get(string_type(default_text));
+            return get(string_type(std::forward<S>(default_text)));
         }
 
 #endif
@@ -114,22 +112,18 @@ namespace tetengo2
 
         // static functions
 
-        template <typename L>
-        static const messages_type* get_messages(L&& locale)
+        static const messages_type* get_messages(const std::locale& locale)
         {
             return std::has_facet<messages_type>(locale) ?
-                &std::use_facet<messages_type>(std::forward<L>(locale)) :
-                NULL;
+                &std::use_facet<messages_type>(locale) : NULL;
         }
 
-        template <typename L>
         static catalog_id_type open_messages(
             const messages_type* const p_messages,
-            L&&                        locale
+            const std::locale&         locale
         )
         {
-            return p_messages != NULL ?
-                p_messages->open("", std::forward<L>(locale)) : -1;
+            return p_messages != NULL ? p_messages->open("", locale) : -1;
         }
 
 

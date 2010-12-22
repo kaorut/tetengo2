@@ -238,11 +238,11 @@ namespace tetengo2
             );
         }
 
-        std::auto_ptr<entry_type> parse(input_string_type&& line)
+        std::auto_ptr<entry_type> parse(const input_string_type& line)
         const
         {
             const tokenizer_type tokenizer(
-                std::forward<input_string_type>(line),
+                line,
                 separator_type(
                     input_string_type(TETENGO2_TEXT("\\")),
                     input_string_type(TETENGO2_TEXT("=")),
