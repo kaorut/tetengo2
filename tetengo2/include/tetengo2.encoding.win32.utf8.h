@@ -21,6 +21,7 @@
 #include <windows.h>
 
 #include "tetengo2.encoding.encoding.h"
+#include "tetengo2.win32.detail.windows_version.h"
 
 
 namespace tetengo2 { namespace encoding { namespace win32
@@ -66,10 +67,14 @@ namespace tetengo2 { namespace encoding { namespace win32
         string_type from_pivot(const pivot_type& pivot)
         const
         {
+            const ::DWORD flags =
+                tetengo2::win32::detail::on_windows_vista_or_later() ?
+                WC_ERR_INVALID_CHARS : 0;
+
             const int string_length =
                 ::WideCharToMultiByte(
                     CP_UTF8,
-                    WC_ERR_INVALID_CHARS,
+                    flags,
                     pivot.c_str(),
                     static_cast<int>(pivot.length()),
                     NULL,
@@ -84,7 +89,7 @@ namespace tetengo2 { namespace encoding { namespace win32
             const int converted_length =
                 ::WideCharToMultiByte(
                     CP_UTF8,
-                    WC_ERR_INVALID_CHARS,
+                    flags,
                     pivot.c_str(),
                     static_cast<int>(pivot.length()),
                     p_string.get(),
