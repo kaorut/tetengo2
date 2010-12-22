@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::detail::dialog_font.
+    \brief The definition of tetengo2::gui::win32::detail::font.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_DETAIL_DIALOGFONT_H)
-#define TETENGO2_GUI_WIN32_DETAIL_DIALOGFONT_H
+#if !defined(TETENGO2_GUI_WIN32_DETAIL_FONT_H)
+#define TETENGO2_GUI_WIN32_DETAIL_FONT_H
 
 #include <stdexcept>
 
