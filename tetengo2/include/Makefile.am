@@ -40,7 +40,6 @@ extra_headers = \
     tetengo2.gui.win32.canvas.h \
     tetengo2.gui.win32.control.h \
     tetengo2.gui.win32.detail.font.h \
-    tetengo2.gui.win32.detail.windows_version.h \
     tetengo2.gui.win32.dialog.h \
     tetengo2.gui.win32.dialog_message_loop.h \
     tetengo2.gui.win32.font.h \
@@ -55,7 +54,8 @@ extra_headers = \
     tetengo2.gui.win32.quit_message_loop.h \
     tetengo2.gui.unit.win32.em.h \
     tetengo2.gui.win32.widget.h \
-    tetengo2.gui.win32.window.h
+    tetengo2.gui.win32.window.h \
+    tetengo2.win32.detail.windows_version.h
 
 pkginclude_HEADERS = $(headers)
 EXTRA_DIST = $(extra_headers)
