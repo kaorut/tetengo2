@@ -174,5 +174,8 @@
     <ClInclude Include="include\tetengo2.gui.win32.detail.font.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.win32.detail.windows_version.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
