@@ -17,21 +17,15 @@
 #define OEMRESOURCE
 #include <windows.h>
 
+#include "tetengo2.win32.detail.windows_version.h"
+
 
 namespace tetengo2 { namespace gui { namespace win32 { namespace detail
 {
     inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
     {
-        ::OSVERSIONINFOW os_version_info;
-        os_version_info.dwOSVersionInfoSize = sizeof(::OSVERSIONINFOW);
-        if (::GetVersionEx(&os_version_info) == 0)
-        {
-            BOOST_THROW_EXCEPTION(
-                std::runtime_error("Can't get Windows version.")
-            );
-        }
-
-        const ::UINT metrics_size = os_version_info.dwMajorVersion >= 6 ?
+        const ::UINT metrics_size =
+            tetengo2::win32::detail::on_windows_vista_or_later() ?
             sizeof(::NONCLIENTMETRICSW) :
             sizeof(::NONCLIENTMETRICSW) - sizeof(int);
         metrics.cbSize = metrics_size;
