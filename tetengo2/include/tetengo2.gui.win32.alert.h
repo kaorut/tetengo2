@@ -28,6 +28,7 @@
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.text.h"
+#include "tetengo2.win32.detail.windows_version.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
@@ -265,13 +266,7 @@ namespace tetengo2 { namespace gui { namespace win32
         void show_task_dialog_impl(S1&& caption, S2&& text1, S3&& text2)
         const
         {
-            const ::HINSTANCE handle = ::LoadLibraryW(L"COMCTL32.DLL");
-            BOOST_SCOPE_EXIT((handle))
-            {
-                if (handle != NULL)
-                    ::FreeLibrary(handle);
-            } BOOST_SCOPE_EXIT_END
-            if (handle == NULL)
+            if (!tetengo2::win32::detail::on_windows_vista_or_later())
             {
                 show_message_box(
                     std::forward<S1>(caption),
@@ -281,30 +276,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 return;
             }
 
-            typedef ::HRESULT (WINAPI * task_dialog)(
-                ::HWND,
-                ::HINSTANCE,
-                ::PCWSTR,
-                ::PCWSTR,
-                ::PCWSTR,
-                ::TASKDIALOG_COMMON_BUTTON_FLAGS,
-                ::PCWSTR,
-                int*
-            ); 
-            task_dialog p_task_dialog = reinterpret_cast<task_dialog>(
-                ::GetProcAddress(handle, "TaskDialog")
-            );
-            if (p_task_dialog == NULL)
-            {
-                show_message_box(
-                    std::forward<S1>(caption),
-                    std::forward<S2>(text1),
-                    std::forward<S3>(text2)
-                );
-                return;
-            }
-
-            p_task_dialog(
+            ::TaskDialog(
                 m_window_handle,
                 ::GetModuleHandle(NULL),
                 caption.c_str(),
