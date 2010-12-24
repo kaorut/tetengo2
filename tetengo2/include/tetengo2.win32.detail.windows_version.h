@@ -49,7 +49,8 @@ namespace tetengo2 { namespace win32 { namespace detail
 
     inline bool on_windows_vista_or_later()
     {
-        return verify_windows_version(6, 0, 0, 0);
+        static const bool result = verify_windows_version(6, 0, 0, 0);
+        return result;
     }
 
 
