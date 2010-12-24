@@ -126,7 +126,7 @@ namespace tetengo2 { namespace gui { namespace win32
             {
                 parent_window.set_enabled(true);
                 parent_window.activate();
-            } BOOST_SCOPE_EXIT_END
+            } BOOST_SCOPE_EXIT_END;
 
             window_observer_set().destroyed().connect(
                 boost::bind(quit_message_loop_type(), 0)

@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
-                } BOOST_SCOPE_EXIT_END
+                } BOOST_SCOPE_EXIT_END;
 
                 BOOST_CHECK_GE(catalog_id, 0);
 
@@ -207,7 +207,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
-                } BOOST_SCOPE_EXIT_END
+                } BOOST_SCOPE_EXIT_END;
 
                 BOOST_CHECK_GE(catalog_id, 0);
 
@@ -261,7 +261,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
-                } BOOST_SCOPE_EXIT_END
+                } BOOST_SCOPE_EXIT_END;
 
                 BOOST_CHECK(
                     messages.get(catalog_id, 0, 0, "Language") == "English"
@@ -288,7 +288,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                 BOOST_SCOPE_EXIT((&messages)(catalog_id))
                 {
                     messages.close(catalog_id);
-                } BOOST_SCOPE_EXIT_END
+                } BOOST_SCOPE_EXIT_END;
 
                 BOOST_CHECK(
                     messages.get(catalog_id, 0, 0, "Language") == "Japanese"
@@ -343,7 +343,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                     BOOST_CHECK_THROW(
                         messages.close(catalog_id), std::runtime_error
                     );
-                } BOOST_SCOPE_EXIT_END
+                } BOOST_SCOPE_EXIT_END;
             }
             {
                 const set_global_locale global_locale(locale_ja);
@@ -366,7 +366,7 @@ BOOST_AUTO_TEST_SUITE(messages)
                     BOOST_CHECK_THROW(
                         messages.close(catalog_id), std::runtime_error
                     );
-                } BOOST_SCOPE_EXIT_END
+                } BOOST_SCOPE_EXIT_END;
             }
             {
                 const set_global_locale global_locale(locale_zh);

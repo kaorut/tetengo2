@@ -270,7 +270,7 @@ namespace tetengo2 { namespace gui { namespace win32
             {
                 if (handle != NULL)
                     ::FreeLibrary(handle);
-            } BOOST_SCOPE_EXIT_END
+            } BOOST_SCOPE_EXIT_END;
             if (handle == NULL)
             {
                 show_message_box(
