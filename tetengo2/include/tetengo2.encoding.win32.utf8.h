@@ -16,9 +16,9 @@
 #include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
 
 #include "tetengo2.encoding.encoding.h"
 #include "tetengo2.win32.detail.windows_version.h"

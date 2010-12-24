@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_WIN32_DETAIL_WINDOWSVERSION_H)
 #define TETENGO2_GUI_WIN32_DETAIL_WINDOWSVERSION_H
 
-#include <algorithm>
-
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>

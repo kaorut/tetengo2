@@ -13,9 +13,9 @@
 
 #include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <windows.h>
 
 #include "tetengo2.win32.detail.windows_version.h"
 
