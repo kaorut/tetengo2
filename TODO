@@ -9,10 +9,30 @@
 ------------------------------------------------------------------------------
 Number      : 00000062
 Added on    : 2010/11/25
-Depends on  : (none)
+Depends on  : 00000065, 00000066
 Description : Create tetengo2::gui::win32::image.
 ------------------------------------------------------------------------------
 Number      : 00000065
+Added on    : 2010/12/27
+Depends on  : (none)
+Description : Create tetengo2::gui::win32::picture.
+------------------------------------------------------------------------------
+Number      : 00000066
+Added on    : 2010/12/27
+Depends on  : 00000065
+Description : Create tetengo2::gui::win32::canvas::paint_picture().
+------------------------------------------------------------------------------
+Number      : 00000067
+Added on    : 2010/12/27
+Depends on  : 00000065
+Description : Create tetengo2::gui::picture::bmp_reader.
+------------------------------------------------------------------------------
+Number      : 00000068
+Added on    : 2010/12/27
+Depends on  : 00000065
+Description : Create tetengo2::gui::picture::png_reader.
+------------------------------------------------------------------------------
+Number      : 00000069
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
