@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_DETAIL_FONT_H)
 #define TETENGO2_GUI_WIN32_DETAIL_FONT_H
 
+#if !defined(DOCUMENTATION)
 #include <stdexcept>
 
 #include <boost/throw_exception.hpp>
@@ -54,6 +55,7 @@ namespace tetengo2 { namespace gui { namespace win32 { namespace detail
 
 
 }}}}
+#endif
 
 
 #endif

@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_DETAIL_WINDOWSVERSION_H)
 #define TETENGO2_GUI_WIN32_DETAIL_WINDOWSVERSION_H
 
+#if !defined(DOCUMENTATION)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <windows.h>
@@ -53,6 +54,7 @@ namespace tetengo2 { namespace win32 { namespace detail
 
 
 }}}
+#endif
 
 
 #endif
