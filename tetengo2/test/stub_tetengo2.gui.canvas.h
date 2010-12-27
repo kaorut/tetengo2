@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_CANVAS_H
 
 #include <utility>
+#include <vector>
 
 #include <boost/noncopyable.hpp>
 
@@ -71,6 +72,12 @@ namespace stub_tetengo2 { namespace gui
         void set_font(F&& font)
         {
             m_font = std::forward<F>(font);
+        }
+
+        std::vector<string_type> installed_font_families()
+        const
+        {
+            return std::vector<string_type>();
         }
 
         template <typename S, typename P>

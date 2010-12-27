@@ -10,12 +10,14 @@
 #define TETENGO2_GUI_WIN32_CANVAS_H
 
 //#include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <string>
-#include <memory>
 //#include <utility>
+#include <vector>
 
 #include <boost/noncopyable.hpp>
+#include <boost/scoped_array.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -160,6 +162,50 @@ namespace tetengo2 { namespace gui { namespace win32
         void set_font(F&& font)
         {
             m_font = std::forward<F>(font);
+        }
+
+        /*!
+            \brief Returns the installed font families.
+
+            \return The installed font families.
+        */
+        std::vector<string_type> installed_font_families()
+        const
+        {
+            const Gdiplus::InstalledFontCollection font_collection;
+            const ::INT count = font_collection.GetFamilyCount();
+            const boost::scoped_array<Gdiplus::FontFamily> p_families(
+                new Gdiplus::FontFamily[count]
+            );
+            ::INT actual_count = 0;
+
+            const Gdiplus::Status status =
+                font_collection.GetFamilies(
+                    count, p_families.get(), &actual_count
+                );
+            if (status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get installed font families.")
+                );
+            }
+
+            std::vector<string_type> families;
+            families.reserve(actual_count);
+            for (::INT i = 0; i < actual_count; ++i)
+            {
+                wchar_t family_name[LF_FACESIZE];
+                const Gdiplus::Status family_name_status =
+                    p_families[i].GetFamilyName(family_name);
+                if (family_name_status != Gdiplus::Ok)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't get font family name.")
+                    );
+                }
+                families.push_back(family_name);
+            }
+            return families;
         }
 
         /*!

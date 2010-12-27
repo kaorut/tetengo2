@@ -9,28 +9,14 @@
 #if !defined(TETENGO2_GUI_WIN32_FONT_H)
 #define TETENGO2_GUI_WIN32_FONT_H
 
-#include <algorithm>
 #include <cassert>
-//#include <stdexcept>
 #include <utility>
-#include <vector>
 
 #include <boost/operators.hpp>
-#include <boost/scoped_array.hpp>
-//#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <windows.h>
-#if !defined(min) && !defined(DOCUMENTATION)
-#   define min(a, b) ((a) < (b) ? (a) : (b))
-#endif
-#if !defined(max) && !defined(DOCUMENTATION)
-#   define max(a, b) ((a) > (b) ? (a) : (b))
-#endif
-#include <gdiplus.h>
-#undef min
-#undef max
 
 #include "tetengo2.gui.win32.detail.font.h"
 
@@ -55,9 +41,6 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The size type.
         typedef Size size_type;
 
-        //! The families type.
-        typedef std::vector<string_type> families_type;
-
 
         // static functions
 
@@ -69,17 +52,6 @@ namespace tetengo2 { namespace gui { namespace win32
         static const font& dialog_font()
         {
             static const font singleton(make_dialog_font());
-            return singleton;
-        }
-
-        /*!
-            \brief Returns the installed font families.
-
-            \return The installed font families.
-        */
-        static const families_type& installed_families()
-        {
-            static const families_type singleton(make_installed_families());
             return singleton;
         }
 
@@ -111,7 +83,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const bool      strikeout
         )
         :
-        m_family(select_family(std::forward<S>(family))),
+        m_family(std::forward<S>(family)),
         m_size(size),
         m_bold(bold),
         m_italic(italic),
@@ -220,13 +192,6 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::LOGFONTW log_font = detail::get_message_font();
 
             assert(log_font.lfHeight < 0);
-            assert(
-                std::find(
-                    installed_families().begin(),
-                    installed_families().end(),
-                    log_font.lfFaceName
-                ) != installed_families().end()
-            );
             return font(
                 log_font.lfFaceName,
                 -log_font.lfHeight,
@@ -235,61 +200,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 log_font.lfUnderline != 0,
                 log_font.lfStrikeOut != 0
             );
-        }
-
-        static families_type make_installed_families()
-        {
-            const Gdiplus::InstalledFontCollection font_collection;
-            const ::INT count = font_collection.GetFamilyCount();
-            const boost::scoped_array<Gdiplus::FontFamily> p_families(
-                new Gdiplus::FontFamily[count]
-            );
-            ::INT actual_count = 0;
-
-            const Gdiplus::Status status =
-                font_collection.GetFamilies(
-                    count, p_families.get(), &actual_count
-                );
-            if (status != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get installed font families.")
-                );
-            }
-
-            families_type families;
-            families.reserve(actual_count);
-            for (::INT i = 0; i < actual_count; ++i)
-            {
-                wchar_t family_name[LF_FACESIZE];
-                const Gdiplus::Status family_name_status =
-                    p_families[i].GetFamilyName(family_name);
-                if (family_name_status != Gdiplus::Ok)
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't get font family name.")
-                    );
-                }
-                families.push_back(family_name);
-            }
-            return families;
-        }
-
-        template <typename S>
-        string_type select_family(S&& family)
-        {
-            if (
-                std::find(
-                    installed_families().begin(),
-                    installed_families().end(),
-                    family
-                ) == installed_families().end()
-            )
-            {
-                return dialog_font().family();
-            }
-        
-            return std::forward<S>(family);
         }
 
 

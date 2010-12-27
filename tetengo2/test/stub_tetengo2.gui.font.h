@@ -10,7 +10,6 @@
 #define STUBTETENGO2_GUI_FONT_H
 
 #include <utility>
-#include <vector>
 
 #include <boost/operators.hpp>
 
@@ -29,8 +28,6 @@ namespace stub_tetengo2 { namespace gui
 
         typedef Size size_type;
 
-        typedef std::vector<string_type> families_type;
-
 
         // static functions
 
@@ -44,12 +41,6 @@ namespace stub_tetengo2 { namespace gui
                 false,
                 false
             );
-            return singleton;
-        }
-
-        static const families_type& installed_families()
-        {
-            static const families_type singleton;
             return singleton;
         }
 

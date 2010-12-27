@@ -22,11 +22,6 @@ BOOST_AUTO_TEST_SUITE(font)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(installed_families)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
