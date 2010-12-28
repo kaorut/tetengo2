@@ -131,6 +131,7 @@ BOOST_THROW_EXCEPTION                            boost/throw_exception.hpp
 BOOST_WARN_MESSAGE                               boost/test/unit_test.hpp
 Gdiplus::Color                                   gdiplus.h
 Gdiplus::Font                                    gdiplus.h
+Gdiplus::FontCollection                          gdiplus.h
 Gdiplus::FontFamily                              gdiplus.h
 Gdiplus::FontStyleBold                           gdiplus.h
 Gdiplus::FontStyleItalic                         gdiplus.h
@@ -235,7 +236,6 @@ std::enable_if                                   type_traits
 std::endl                                        iomanip
 std::equal_to                                    functional
 std::exception                                   exception
-std::find                                        algorithm
 std::find_if                                     algorithm
 std::for_each                                    algorithm
 std::forward                                     utility

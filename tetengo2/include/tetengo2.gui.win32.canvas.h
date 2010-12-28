@@ -223,27 +223,9 @@ namespace tetengo2 { namespace gui { namespace win32
         void draw_text(S&& text, const P& position)
         {
             const Gdiplus::InstalledFontCollection font_collection;
-            const Gdiplus::FontFamily font_family(
-                m_font.family().c_str(), &font_collection
+            const boost::scoped_ptr<Gdiplus::Font> p_gdiplus_font(
+                create_gdiplus_font(m_font, font_collection)
             );
-            if (!font_family.IsAvailable())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Font family is not available.")
-                );
-            }
-            const Gdiplus::Font font(
-                &font_family,
-                static_cast<Gdiplus::REAL>(m_font.size()),
-                get_font_style(),
-                Gdiplus::UnitPixel
-            );
-            if (!font.IsAvailable())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Font is not available.")
-                );
-            }
             const Gdiplus::SolidBrush brush(
                 Gdiplus::Color(128, 255, 0, 0)
             );
@@ -253,7 +235,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const Gdiplus::Status result = m_graphics.DrawString(
                 encoded_text.c_str(),
                 static_cast< ::INT>(encoded_text.length()),
-                &font,
+                p_gdiplus_font.get(),
                 Gdiplus::PointF(
                     to_pixels<Gdiplus::REAL>(
                         gui::position<P>::left(position)
@@ -311,17 +293,69 @@ namespace tetengo2 { namespace gui { namespace win32
             return device_context;
         }
 
-        ::INT get_font_style()
+        static std::auto_ptr<Gdiplus::Font> create_gdiplus_font(
+            const font_type&               font,
+            const Gdiplus::FontCollection& font_collection,
+            const size_type                fallback_level = 0
+        )
+        {
+            if (fallback_level > 2)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Font is not available.")
+                );
+            }
+
+            const string_type& font_family =
+                fallback_level < 1 ?
+                font.family() : font_type::dialog_font().family();
+            const Gdiplus::FontFamily gdiplus_font_family(
+                font_family.c_str(), &font_collection
+            );
+            if (!gdiplus_font_family.IsAvailable())
+            {
+                return create_gdiplus_font(
+                    font, font_collection, fallback_level + 1
+                );
+            }
+
+            const Gdiplus::REAL font_size =
+                fallback_level < 2 ?
+                static_cast<Gdiplus::REAL>(font.size()) :
+                static_cast<Gdiplus::REAL>(font_type::dialog_font().size());
+            const ::INT font_style =
+                fallback_level < 2 ?
+                get_font_style(font) :
+                get_font_style(font_type::dialog_font());
+            std::auto_ptr<Gdiplus::Font> p_gdiplus_font(
+                new Gdiplus::Font(
+                    &gdiplus_font_family,
+                    font_size,
+                    font_style,
+                    Gdiplus::UnitPixel
+                )
+            );
+            if (!p_gdiplus_font->IsAvailable())
+            {
+                return create_gdiplus_font(
+                    font, font_collection, fallback_level + 1
+                );
+            }
+
+            return p_gdiplus_font;
+        }
+
+        static ::INT get_font_style(const font_type& font)
         {
             ::INT style = Gdiplus::FontStyleRegular;
 
-            if (m_font.bold())
+            if (font.bold())
                 style |= Gdiplus::FontStyleBold;
-            if (m_font.italic())
+            if (font.italic())
                 style |= Gdiplus::FontStyleItalic;
-            if (m_font.underline())
+            if (font.underline())
                 style |= Gdiplus::FontStyleUnderline;
-            if (m_font.strikeout())
+            if (font.strikeout())
                 style |= Gdiplus::FontStyleStrikeout;
 
             return style;
