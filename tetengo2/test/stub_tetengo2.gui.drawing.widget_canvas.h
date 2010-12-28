@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of stub_tetengo2::gui::canvas.
+    \brief The definition of stub_tetengo2::gui::drawing::widget_canvas.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(STUBTETENGO2_GUI_CANVAS_H)
-#define STUBTETENGO2_GUI_CANVAS_H
+#if !defined(STUBTETENGO2_GUI_DRAWING_WIDGETCANVAS_H)
+#define STUBTETENGO2_GUI_DRAWING_WIDGETCANVAS_H
 
 #include <utility>
 #include <vector>
@@ -15,7 +15,7 @@
 #include <boost/noncopyable.hpp>
 
 
-namespace stub_tetengo2 { namespace gui
+namespace stub_tetengo2 { namespace gui { namespace drawing
 {
     template <
         typename Handle,
@@ -25,7 +25,7 @@ namespace stub_tetengo2 { namespace gui
         typename WindowHandle,
         typename Font
     >
-    class canvas : private boost::noncopyable
+    class widget_canvas : private boost::noncopyable
     {
     public:
         // types
@@ -45,7 +45,7 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        canvas(
+        widget_canvas(
             const window_handle_type window_handle,
             const bool               on_paint
         )
@@ -94,6 +94,7 @@ namespace stub_tetengo2 { namespace gui
     };
 
 
-}}
+}}}
+
 
 #endif

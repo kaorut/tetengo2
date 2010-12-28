@@ -22,6 +22,9 @@
     <Filter Include="headers\tetengo2::gui::traits">
       <UniqueIdentifier>{7fff864c-722e-40fe-95ec-6be896ae7240}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::gui::drawing">
+      <UniqueIdentifier>{ec77ce78-8f8b-4143-b3d0-fdf250201d84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.encoder.h">
@@ -67,9 +70,6 @@
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.button.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.canvas.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.dialog.h">
@@ -176,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.win32.detail.windows_version.h">
       <Filter>headers\tetengo2</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h">
+      <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

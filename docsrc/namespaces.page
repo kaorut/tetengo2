@@ -62,6 +62,18 @@
     \brief The namespace for GUI.
 */
 
+/*! \namespace tetengo2::gui::drawing
+    \brief The namespace for drawing components.
+*/
+
+/*! \namespace tetengo2::gui::drawing::win32
+    \brief The namespace for drawing components specific to Win32 platforms.
+*/
+
+/*! \namespace tetengo2::gui::drawing::win32::gdiplus
+    \brief The namespace for drawing components specific to GDI+.
+*/
+
 /*! \namespace tetengo2::gui::win32
     \brief The namespace for GUI specific to Win32 platforms.
 */

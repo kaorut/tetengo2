@@ -12,7 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "stub_tetengo2.gui.font.h"
-#include "stub_tetengo2.gui.canvas.h"
+#include "stub_tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.paint_observer_set.h"
@@ -33,7 +33,7 @@ namespace
     typedef stub_tetengo2::gui::font<std::wstring, std::size_t> font_type;
 
     typedef
-        stub_tetengo2::gui::canvas<
+        stub_tetengo2::gui::drawing::widget_canvas<
             const void*,
             std::size_t,
             std::wstring,

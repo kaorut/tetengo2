@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::canvas.
+    \brief The definition of tetengo2::gui::drawing::win32::gdiplus::widget_canvas.
 
     Copyright (C) 2007-2010 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_CANVAS_H)
-#define TETENGO2_GUI_WIN32_CANVAS_H
+#if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_WIDGETCANVAS_H)
+#define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_WIDGETCANVAS_H
 
 //#include <cstddef>
 #include <memory>
@@ -38,10 +38,11 @@
 #include "tetengo2.gui.measure.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
+namespace gdiplus
 {
     /*!
-        \brief The class template for a canvas for Win32 platforms.
+        \brief The class template for a widget canvas for Win32 platforms.
 
         \tparam Handle       A handle type for the native interface.
         \tparam Size         A size type.
@@ -58,7 +59,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename WindowHandle,
         typename Font
     >
-    class canvas : private boost::noncopyable
+    class widget_canvas : private boost::noncopyable
     {
     public:
         // types
@@ -85,15 +86,15 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \brief Creates a canvas.
+            \brief Creates a widget canvas.
 
             \param window_handle A window handle.
             \param on_paint      Whether this constructor is called in the
                                  window repaint procedure.
 
-            \throw std::runtime_error When a canvas cannot be created.
+            \throw std::runtime_error When a widget canvas cannot be created.
         */
-        canvas(
+        widget_canvas(
             const window_handle_type window_handle,
             const bool               on_paint
         )
@@ -115,9 +116,9 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Destroys the canvas.
+            \brief Destroys the widget canvas.
         */
-        ~canvas()
+        ~widget_canvas()
         TETENGO2_NOEXCEPT
         {
             if (m_on_paint)
@@ -380,6 +381,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}}}}
+
 
 #endif

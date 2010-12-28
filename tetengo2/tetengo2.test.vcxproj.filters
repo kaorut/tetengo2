@@ -37,6 +37,12 @@
     <Filter Include="sources\test_tetengo2::gui::unit">
       <UniqueIdentifier>{8d96695a-f7cd-4028-8ef8-ba34b2d12a1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\stub_tetengo2::gui::drawing">
+      <UniqueIdentifier>{2f02334f-a336-4a30-97cd-6536df9e9969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_tetengo2::gui::drawing">
+      <UniqueIdentifier>{0dfc00c9-8439-4893-a77d-0a7bbb07e83f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test\stub_tetengo2.encoding.utf8.h">
@@ -52,9 +58,6 @@
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.button.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.canvas.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.dialog.h">
@@ -104,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.unit.em.h">
       <Filter>headers\stub_tetengo2::gui::unit</Filter>
+    </ClInclude>
+    <ClInclude Include="test\stub_tetengo2.gui.drawing.widget_canvas.h">
+      <Filter>headers\stub_tetengo2::gui::drawing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +170,6 @@
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.button.cpp">
-      <Filter>sources\test_tetengo2::gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.win32.canvas.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog.cpp">
@@ -243,6 +246,9 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.unit.win32.em.cpp">
       <Filter>sources\test_tetengo2::gui::unit</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.widget_canvas.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
