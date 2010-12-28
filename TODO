@@ -15,24 +15,31 @@ Description : Create tetengo2::gui::win32::image.
 Number      : 00000065
 Added on    : 2010/12/27
 Depends on  : (none)
-Description : Create tetengo2::gui::win32::picture.
+Description : Create tetengo2::gui::drawing::win32::gdiplus::picture.
 ------------------------------------------------------------------------------
 Number      : 00000066
 Added on    : 2010/12/27
-Depends on  : 00000065
-Description : Create tetengo2::gui::win32::canvas::paint_picture().
-------------------------------------------------------------------------------
-Number      : 00000067
-Added on    : 2010/12/27
-Depends on  : 00000065
-Description : Create tetengo2::gui::picture::bmp_reader.
+Depends on  : 00000065, 00000070
+Description : Create
+              tetengo2::gui::drawing::win32::gdiplus::canvas::paint_picture().
 ------------------------------------------------------------------------------
 Number      : 00000068
 Added on    : 2010/12/27
 Depends on  : 00000065
-Description : Create tetengo2::gui::picture::png_reader.
+Description : Create tetengo2::gui::drawing::win32::gdiplus::picture_reader.
 ------------------------------------------------------------------------------
 Number      : 00000069
+Added on    : 2010/12/28
+Depends on  : 00000070
+Description : Move tetengo2::gui::win32::canvas to
+              tetengo2::gui::drawing::win32::gdiplus::window_canvas.
+------------------------------------------------------------------------------
+Number      : 00000070
+Added on    : 2010/12/28
+Depends on  : (none)
+Description : Create tetengo2::gui::drawing::win32::gdiplus::canvas.
+------------------------------------------------------------------------------
+Number      : 00000071
 Added on    : 2010/mm/yy
 Depends on  : (none)
 Description : 
