@@ -17,12 +17,6 @@ Added on    : 2010/12/27
 Depends on  : (none)
 Description : Create tetengo2::gui::drawing::win32::gdiplus::picture.
 ------------------------------------------------------------------------------
-Number      : 00000066
-Added on    : 2010/12/27
-Depends on  : 00000065, 00000070
-Description : Create
-              tetengo2::gui::drawing::win32::gdiplus::canvas::paint_picture().
-------------------------------------------------------------------------------
 Number      : 00000068
 Added on    : 2010/12/27
 Depends on  : 00000065
