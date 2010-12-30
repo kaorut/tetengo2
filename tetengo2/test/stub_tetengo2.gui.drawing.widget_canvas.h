@@ -22,8 +22,8 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typename Size,
         typename String,
         typename Encoder,
-        typename WindowHandle,
-        typename Font
+        typename Font,
+        typename WindowHandle
     >
     class widget_canvas : private boost::noncopyable
     {
@@ -38,9 +38,9 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
 
         typedef Encoder encoder_type;
 
-        typedef WindowHandle window_handle_type;
-
         typedef Font font_type;
+
+        typedef WindowHandle window_handle_type;
 
 
         // constructors and destructor

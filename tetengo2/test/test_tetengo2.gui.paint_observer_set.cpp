@@ -38,8 +38,8 @@ namespace
             std::size_t,
             std::wstring,
             ui_encoder_type,
-            const void*,
-            font_type
+            font_type,
+            const void*
         >
         canvas_type;
 

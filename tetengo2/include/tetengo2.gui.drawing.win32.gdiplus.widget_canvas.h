@@ -48,16 +48,16 @@ namespace gdiplus
         \tparam Size         A size type.
         \tparam String       A string type.
         \tparam Encoder      An encoder type.
-        \tparam WindowHandle A window handle type for the native interface.
         \tparam Font         A font type.
+        \tparam WindowHandle A window handle type for the native interface.
     */
     template <
         typename Handle,
         typename Size,
         typename String,
         typename Encoder,
-        typename WindowHandle,
-        typename Font
+        typename Font,
+        typename WindowHandle
     >
     class widget_canvas : private boost::noncopyable
     {
@@ -76,11 +76,11 @@ namespace gdiplus
         //! The encoder type.
         typedef Encoder encoder_type;
 
-        //! The window handle type.for the native interface.
-        typedef WindowHandle window_handle_type;
-
         //! The font type.
         typedef Font font_type;
+
+        //! The window handle type.for the native interface.
+        typedef WindowHandle window_handle_type;
 
 
         // constructors and destructor

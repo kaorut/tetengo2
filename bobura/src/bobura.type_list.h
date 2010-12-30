@@ -267,8 +267,8 @@ namespace bobura
                 boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
-                ::HWND,
-                detail::ui::font_type
+                detail::ui::font_type,
+                ::HWND
             >
             canvas_type;
         typedef
