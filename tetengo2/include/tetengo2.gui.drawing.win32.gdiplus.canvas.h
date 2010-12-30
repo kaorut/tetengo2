@@ -40,7 +40,7 @@ namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
 namespace gdiplus
 {
     /*!
-        \brief The class template for a widget canvas for Win32 platforms.
+        \brief The class template for a canvas for Win32 platforms.
 
         \tparam Handle  A handle type for the native interface.
         \tparam Size    A size type.
@@ -79,7 +79,7 @@ namespace gdiplus
         // constructors and destructor
 
         /*!
-            \brief Creates a widget canvas.
+            \brief Creates a canvas.
 
             \tparam DeviceHandle A device handle type.
 
