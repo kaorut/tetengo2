@@ -22,7 +22,8 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typename Size,
         typename String,
         typename Encoder,
-        typename Font
+        typename Font,
+        typename Picture
     >
     class canvas : private boost::noncopyable
     {
@@ -38,6 +39,8 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typedef Encoder encoder_type;
 
         typedef Font font_type;
+
+        typedef Picture picture_type;
 
 
         // constructors and destructor
@@ -76,6 +79,10 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
 
         template <typename S, typename P>
         void draw_text(S&& text, const P& position)
+        {}
+
+        template <typename P>
+        void paint_picture(const picture_type& picture, const P& position)
         {}
 
 

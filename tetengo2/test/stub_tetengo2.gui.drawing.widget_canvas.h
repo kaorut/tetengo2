@@ -19,14 +19,17 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typename Size,
         typename String,
         typename Encoder,
-        typename Font
+        typename Font,
+        typename Picture
     >
-    class widget_canvas : public canvas<Handle, Size, String, Encoder, Font>
+    class widget_canvas :
+        public canvas<Handle, Size, String, Encoder, Font, Picture>
     {
     public:
         // types
 
-        typedef canvas<Handle, Size, String, Encoder, Font> base_type;
+        typedef
+            canvas<Handle, Size, String, Encoder, Font, Picture> base_type;
 
 
         // constructors and destructor

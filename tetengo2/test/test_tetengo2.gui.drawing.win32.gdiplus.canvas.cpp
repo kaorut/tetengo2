@@ -49,6 +49,11 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(paint_picture)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(gdiplus_graphics)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");

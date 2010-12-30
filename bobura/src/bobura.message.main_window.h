@@ -117,8 +117,11 @@ namespace bobura { namespace message { namespace main_window
                 string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")), position_type(4, 4)
             );
 
-            //tetengo2::gui::drawing::win32::gdiplus::picture<std::size_t> pic(std::make_pair(128, 96), canvas);
-            //canvas.gdiplus_graphics().DrawImage(&pic.gdiplus_bitmap(), 0, 0);
+            const typename canvas_type::picture_type pic(
+                std::make_pair(128, 96), canvas
+            );
+            canvas.paint_picture(pic, position_type(4, 8));
+            canvas.paint_picture(pic, position_type(6, 12));
 #endif
         }
 

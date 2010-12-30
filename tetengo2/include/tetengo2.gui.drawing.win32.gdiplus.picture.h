@@ -61,12 +61,12 @@ namespace gdiplus
             \param device_handle A device handle.
         */
         template <typename Dimension, typename Canvas>
-        picture(const Dimension& dimension, Canvas& canvas)
+        picture(const Dimension& dimension, const Canvas& canvas)
         :
         m_bitmap(
             to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
             to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension)),
-            &canvas.gdiplus_graphics()
+            &const_cast<Canvas&>(canvas).gdiplus_graphics()
         )
         {
             for (std::size_t i = 0; i < 128; ++i)

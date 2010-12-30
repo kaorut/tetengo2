@@ -40,6 +40,7 @@
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
+#include <tetengo2.gui.drawing.win32.gdiplus.picture.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -263,12 +264,18 @@ namespace bobura
             >
             font_type;
         typedef
+            tetengo2::gui::drawing::win32::gdiplus::picture<
+                boost::mpl::at<common_type_list, type::size>::type
+            >
+            picture_type;
+        typedef
             tetengo2::gui::drawing::win32::gdiplus::widget_canvas<
                 const Gdiplus::Graphics*,
                 boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
-                detail::ui::font_type
+                font_type,
+                picture_type
             >
             canvas_type;
         typedef

@@ -47,13 +47,15 @@ namespace gdiplus
         \tparam String  A string type.
         \tparam Encoder An encoder type.
         \tparam Font    A font type.
+        \tparam Picture A picture type.
     */
     template <
         typename Handle,
         typename Size,
         typename String,
         typename Encoder,
-        typename Font
+        typename Font,
+        typename Picture
     >
     class canvas : private boost::noncopyable
     {
@@ -74,6 +76,9 @@ namespace gdiplus
 
         //! The font type.
         typedef Font font_type;
+
+        //! The picture type.
+        typedef Picture picture_type;
 
 
         // constructors and destructor
@@ -219,6 +224,33 @@ namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't draw text!")
+                );
+            }
+        }
+
+        /*!
+            \brief Paints a picture.
+
+            \tparam P A position type.
+
+            \param picture  A picture to paint.
+            \param position A position where the text is drawn.
+
+            \throw std::runtime_error When the picture cannot be painted.
+        */
+        template <typename P>
+        void paint_picture(const picture_type& picture, const P& position)
+        {
+            const Gdiplus::Status result =
+                m_graphics.DrawImage(
+                    &const_cast<picture_type&>(picture).gdiplus_bitmap(),
+                    to_pixels< ::INT>(gui::position<P>::left(position)),
+                    to_pixels< ::INT>(gui::position<P>::top(position))
+                );
+            if (result != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't paint picture!")
                 );
             }
         }
