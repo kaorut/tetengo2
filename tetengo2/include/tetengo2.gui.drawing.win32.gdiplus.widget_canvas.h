@@ -49,7 +49,7 @@ namespace gdiplus
         \tparam String       A string type.
         \tparam Encoder      An encoder type.
         \tparam Font         A font type.
-        \tparam WindowHandle A window handle type for the native interface.
+        \tparam WidgetHandle A widget handle type for the native interface.
     */
     template <
         typename Handle,
@@ -57,7 +57,7 @@ namespace gdiplus
         typename String,
         typename Encoder,
         typename Font,
-        typename WindowHandle
+        typename WidgetHandle
     >
     class widget_canvas : private boost::noncopyable
     {
@@ -79,8 +79,8 @@ namespace gdiplus
         //! The font type.
         typedef Font font_type;
 
-        //! The window handle type.for the native interface.
-        typedef WindowHandle window_handle_type;
+        //! The widget handle type.for the native interface.
+        typedef WidgetHandle widget_handle_type;
 
 
         // constructors and destructor
@@ -88,24 +88,24 @@ namespace gdiplus
         /*!
             \brief Creates a widget canvas.
 
-            \param window_handle A window handle.
+            \param widget_handle A widget handle.
             \param on_paint      Whether this constructor is called in the
                                  window repaint procedure.
 
             \throw std::runtime_error When a widget canvas cannot be created.
         */
         widget_canvas(
-            const window_handle_type window_handle,
+            const widget_handle_type widget_handle,
             const bool               on_paint
         )
         :
-        m_window_handle(window_handle),
+        m_widget_handle(widget_handle),
         m_on_paint(on_paint),
         m_p_paint_info(
             on_paint ?
-            create_paint_info(window_handle) : std::auto_ptr< ::PAINTSTRUCT>()
+            create_paint_info(widget_handle) : std::auto_ptr< ::PAINTSTRUCT>()
         ),
-        m_device_context(on_paint ? NULL : get_device_context(window_handle)),
+        m_device_context(on_paint ? NULL : get_device_context(widget_handle)),
         m_graphics(on_paint ? m_p_paint_info->hdc : m_device_context),
         m_font(font_type::dialog_font())
         {
@@ -122,9 +122,9 @@ namespace gdiplus
         TETENGO2_NOEXCEPT
         {
             if (m_on_paint)
-                ::EndPaint(m_window_handle, m_p_paint_info.get());
+                ::EndPaint(m_widget_handle, m_p_paint_info.get());
             else
-                ::ReleaseDC(m_window_handle, m_device_context);
+                ::ReleaseDC(m_widget_handle, m_device_context);
         }
 
 
@@ -264,12 +264,12 @@ namespace gdiplus
         }
 
         static std::auto_ptr< ::PAINTSTRUCT> create_paint_info(
-            const window_handle_type window_handle
+            const widget_handle_type widget_handle
         )
         {
             std::auto_ptr< ::PAINTSTRUCT> p_paint_info(new ::PAINTSTRUCT());
 
-            if (::BeginPaint(window_handle, p_paint_info.get()) == NULL)
+            if (::BeginPaint(widget_handle, p_paint_info.get()) == NULL)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't begin paint!")
@@ -280,10 +280,10 @@ namespace gdiplus
         }
 
         static ::HDC get_device_context(
-            const window_handle_type window_handle
+            const widget_handle_type widget_handle
         )
         {
-            const ::HDC device_context = ::GetDC(window_handle);
+            const ::HDC device_context = ::GetDC(widget_handle);
             if (device_context == NULL)
             {
                 BOOST_THROW_EXCEPTION(
@@ -365,7 +365,7 @@ namespace gdiplus
 
         // variables
 
-        const window_handle_type m_window_handle;
+        const widget_handle_type m_widget_handle;
 
         const bool m_on_paint;
 

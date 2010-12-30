@@ -808,14 +808,14 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Returns the pointer to the widget.
 
-            \param window_handle A window handle.
+            \param widget_handle A widget handle.
 
             \return The pointer to the widget.
         */
-        static widget* p_widget_from(const ::HWND window_handle)
+        static widget* p_widget_from(const ::HWND widget_handle)
         {
             return reinterpret_cast<widget*>(
-                ::GetPropW(window_handle, property_key_for_cpp_instance())
+                ::GetPropW(widget_handle, property_key_for_cpp_instance())
             );
         }
 

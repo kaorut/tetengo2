@@ -22,7 +22,7 @@
 namespace stub_tetengo2 { namespace gui
 {
     template <
-        typename WindowHandle,
+        typename WidgetHandle,
         typename UiEncoder,
         typename ExceptionEncoder
     >
@@ -31,7 +31,7 @@ namespace stub_tetengo2 { namespace gui
     public:
         // types
 
-        typedef WindowHandle window_handle_type;
+        typedef WidgetHandle widget_handle_type;
 
         typedef UiEncoder ui_encoder_type;
 
@@ -40,7 +40,7 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors
 
-        alert(const window_handle_type window_handle = NULL)
+        alert(const widget_handle_type widget_handle = NULL)
         TETENGO2_NOEXCEPT
         {}
 

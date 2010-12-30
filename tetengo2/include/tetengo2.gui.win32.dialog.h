@@ -231,9 +231,9 @@ namespace tetengo2 { namespace gui { namespace win32
             }
         }
 
-        static void delete_system_menus(const ::HWND window_handle)
+        static void delete_system_menus(const ::HWND widget_handle)
         {
-            const ::HMENU menu_handle = ::GetSystemMenu(window_handle, FALSE);
+            const ::HMENU menu_handle = ::GetSystemMenu(widget_handle, FALSE);
             if (menu_handle == NULL) return;
 
             if (::DeleteMenu(menu_handle, SC_SIZE, MF_BYCOMMAND) == 0)
@@ -319,14 +319,14 @@ namespace tetengo2 { namespace gui { namespace win32
                 (lo_wparam == IDOK || lo_wparam == IDCANCEL)
             )
             {
-                const ::HWND window_handle =
+                const ::HWND widget_handle =
                     reinterpret_cast< ::HWND>(lParam);
                 assert(
-                    window_handle == ::GetDlgItem(handle(), lo_wparam)
+                    widget_handle == ::GetDlgItem(handle(), lo_wparam)
                 );
-                if (window_handle != NULL)
+                if (widget_handle != NULL)
                 {
-                    p_widget_from(window_handle)->click();
+                    p_widget_from(widget_handle)->click();
                 }
                 else
                 {

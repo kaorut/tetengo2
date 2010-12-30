@@ -36,12 +36,12 @@ namespace tetengo2 { namespace gui { namespace win32
         \brief The unary functor class template for an alert for Win32
                platforms.
 
-        \tparam WindowHandle     A window handle type.
+        \tparam WidgetHandle     A widget handle type.
         \tparam UiEncoder        An encoder type for the user interface.
         \tparam ExceptionEncoder An encoder type for the user interface.
     */
     template <
-        typename WindowHandle,
+        typename WidgetHandle,
         typename UiEncoder,
         typename ExceptionEncoder
     >
@@ -51,8 +51,8 @@ namespace tetengo2 { namespace gui { namespace win32
     public:
         // types
 
-        //! The window handle type.
-        typedef WindowHandle window_handle_type;
+        //! The widget handle type.
+        typedef WidgetHandle widget_handle_type;
 
         //! The encoder type.for the user interface.
         typedef UiEncoder ui_encoder_type;
@@ -66,12 +66,12 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates an alert.
 
-            \param window_handle     A window handle.
+            \param widget_handle     A widget handle.
         */
-        explicit alert(const window_handle_type window_handle = NULL)
+        explicit alert(const widget_handle_type widget_handle = NULL)
         TETENGO2_NOEXCEPT
         :
-        m_window_handle(actual_parent_window_handle(window_handle))
+        m_widget_handle(actual_parent_widget_handle(widget_handle))
         {}
 
 
@@ -177,12 +177,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // static functions
 
-        static window_handle_type actual_parent_window_handle(
-            const window_handle_type window_handle
+        static widget_handle_type actual_parent_widget_handle(
+            const widget_handle_type widget_handle
         )
         {
-            const window_handle_type actual_parent_handle =
-                ::GetAncestor(window_handle, GA_ROOT);
+            const widget_handle_type actual_parent_handle =
+                ::GetAncestor(widget_handle, GA_ROOT);
 
             if (
                 actual_parent_handle == NULL ||
@@ -212,7 +212,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // variables
 
-        const window_handle_type m_window_handle;
+        const widget_handle_type m_widget_handle;
 
 
         // functions
@@ -305,7 +305,7 @@ namespace tetengo2 { namespace gui { namespace win32
             }
 
             p_task_dialog(
-                m_window_handle,
+                m_widget_handle,
                 ::GetModuleHandle(NULL),
                 caption.c_str(),
                 text1.c_str(),
@@ -327,7 +327,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const std::wstring text =
                 std::forward<S1>(text1) + L"\n\n" + std::forward<S2>(text2);
             ::MessageBoxW(
-                m_window_handle,
+                m_widget_handle,
                 text.c_str(),
                 caption.c_str(),
                 MB_OK | MB_ICONERROR
