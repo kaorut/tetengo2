@@ -54,10 +54,10 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The widget handle type.
         typedef WidgetHandle widget_handle_type;
 
-        //! The encoder type.for the user interface.
+        //! The encoder type for the user interface.
         typedef UiEncoder ui_encoder_type;
 
-        //! The encoder type.for exceptions.
+        //! The encoder type for exceptions.
         typedef ExceptionEncoder exception_encoder_type;
 
 

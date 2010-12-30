@@ -64,7 +64,7 @@ namespace gdiplus
     public:
         // types
 
-        //! The handle type.for the native interface.
+        //! The handle type for the native interface.
         typedef Handle handle_type;
 
         //! The size type.
@@ -79,7 +79,7 @@ namespace gdiplus
         //! The font type.
         typedef Font font_type;
 
-        //! The widget handle type.for the native interface.
+        //! The widget handle type for the native interface.
         typedef WidgetHandle widget_handle_type;
 
 
