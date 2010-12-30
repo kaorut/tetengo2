@@ -16,7 +16,7 @@
 
 //#include <boost/bind.hpp>
 //#include <boost/optional.hpp>
-#include <boost/scope_exit.hpp>
+//#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX

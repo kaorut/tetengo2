@@ -9,10 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_DRAWING_WIDGETCANVAS_H)
 #define STUBTETENGO2_GUI_DRAWING_WIDGETCANVAS_H
 
-#include <utility>
-#include <vector>
-
-#include <boost/noncopyable.hpp>
+#include "stub_tetengo2.gui.drawing.canvas.h"
 
 
 namespace stub_tetengo2 { namespace gui { namespace drawing
@@ -22,73 +19,23 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typename Size,
         typename String,
         typename Encoder,
-        typename Font,
-        typename WidgetHandle
+        typename Font
     >
-    class widget_canvas : private boost::noncopyable
+    class widget_canvas : public canvas<Handle, Size, String, Encoder, Font>
     {
     public:
         // types
 
-        typedef Handle handle_type;
-
-        typedef Size size_type;
-
-        typedef String string_type;
-
-        typedef Encoder encoder_type;
-
-        typedef Font font_type;
-
-        typedef WidgetHandle widget_handle_type;
+        typedef canvas<Handle, Size, String, Encoder, Font> base_type;
 
 
         // constructors and destructor
 
-        widget_canvas(
-            const widget_handle_type widget_handle,
-            const bool               on_paint
-        )
+        template <typename DeviceHandle>
+        widget_canvas(const DeviceHandle device_handle)
         :
-        m_font(font_type::dialog_font())
+        base_type(device_handle)
         {}
-
-
-        // functions
-
-        handle_type handle()
-        const
-        {
-            return 0;
-        }
-
-        const font_type& font()
-        const
-        {
-            return m_font;
-        }
-
-        template <typename F>
-        void set_font(F&& font)
-        {
-            m_font = std::forward<F>(font);
-        }
-
-        std::vector<string_type> installed_font_families()
-        const
-        {
-            return std::vector<string_type>();
-        }
-
-        template <typename S, typename P>
-        void draw_text(S&& text, const P& position)
-        {}
-
-
-    private:
-        // variables
-
-        font_type m_font;
 
 
     };

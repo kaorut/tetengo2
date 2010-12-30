@@ -253,7 +253,8 @@ namespace bobura
                     boost::mpl::at<common_type_list, type::size>::type
                 >,
                 boost::mpl::at<common_type_list, type::size>::type
-            > unit_size_type;
+            >
+            unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;
         typedef
             tetengo2::gui::win32::font<
@@ -267,8 +268,7 @@ namespace bobura
                 boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
-                detail::ui::font_type,
-                ::HWND
+                detail::ui::font_type
             >
             canvas_type;
         typedef

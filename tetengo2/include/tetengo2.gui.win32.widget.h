@@ -26,6 +26,7 @@
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+#include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -1036,8 +1037,22 @@ namespace tetengo2 { namespace gui { namespace win32
             if (m_paint_observer_set.paint().empty())
                 return boost::optional< ::LRESULT>();
 
-            canvas_type canvas(handle(), true);
+            ::PAINTSTRUCT paint_struct = {};
+            if (::BeginPaint(handle(), &paint_struct) == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't begin paint.")
+                );
+            }
+            const widget& self = *this;
+            BOOST_SCOPE_EXIT((&self)(&paint_struct))
+            {
+                ::EndPaint(self.handle(), &paint_struct);
+            } BOOST_SCOPE_EXIT_END;
+            canvas_type canvas(paint_struct.hdc);
+
             m_paint_observer_set.paint()(canvas);
+
             return boost::optional< ::LRESULT>(0);
         }
 

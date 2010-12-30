@@ -129,6 +129,7 @@
     <ClInclude Include="include\tetengo2.encoding.locale.h" />
     <ClInclude Include="include\tetengo2.encoding.win32.utf8.h" />
     <ClInclude Include="include\tetengo2.generator.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.canvas.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h" />
     <ClInclude Include="include\tetengo2.gui.measure.h" />
     <ClInclude Include="include\tetengo2.gui.menu_observer_set.h" />

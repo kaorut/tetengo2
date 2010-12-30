@@ -94,8 +94,7 @@ namespace
             std::size_t,
             std::wstring,
             ui_encoder_type,
-            font_type,
-            const void*
+            font_type
         >
         canvas_type;
 

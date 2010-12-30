@@ -24,31 +24,6 @@ BOOST_AUTO_TEST_SUITE(widget_canvas)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(handle)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(font)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(set_font)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(installed_font_families)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(draw_text)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
