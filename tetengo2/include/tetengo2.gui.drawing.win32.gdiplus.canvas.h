@@ -223,6 +223,27 @@ namespace gdiplus
             }
         }
 
+        /*!
+            \brief Returns the GDI+ graphics.
+
+            \return The GDI+ graphics.
+        */
+        Gdiplus::Graphics& gdiplus_graphics()
+        {
+            return m_graphics;
+        }
+
+        /*!
+            \brief Returns the GDI+ graphics.
+
+            \return The GDI+ graphics.
+        */
+        const Gdiplus::Graphics& gdiplus_graphics()
+        const
+        {
+            return m_graphics;
+        }
+
 
     private:
         // static functions

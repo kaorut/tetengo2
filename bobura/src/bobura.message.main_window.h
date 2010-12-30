@@ -14,6 +14,8 @@
 #include <tetengo2.generator.h>
 #include <tetengo2.text.h>
 
+#include <tetengo2.gui.drawing.win32.gdiplus.picture.h>
+
 
 namespace bobura { namespace message { namespace main_window
 {
@@ -114,6 +116,9 @@ namespace bobura { namespace message { namespace main_window
             canvas.draw_text(
                 string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")), position_type(4, 4)
             );
+
+            //tetengo2::gui::drawing::win32::gdiplus::picture<std::size_t> pic(std::make_pair(128, 96), canvas);
+            //canvas.gdiplus_graphics().DrawImage(&pic.gdiplus_bitmap(), 0, 0);
 #endif
         }
 
