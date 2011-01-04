@@ -70,8 +70,8 @@ namespace gdiplus
             &const_cast<Canvas&>(canvas).gdiplus_graphics()
         )
         {
-            for (std::size_t i = 0; i < 128; ++i)
-                for (std::size_t j = 0; j < 96; ++j)
+            for (::INT i = 0; i < 128; ++i)
+                for (::INT j = 0; j < 96; ++j)
                     m_bitmap.SetPixel(i, j, Gdiplus::Color(128, 0, 0, 255));
         }
 
