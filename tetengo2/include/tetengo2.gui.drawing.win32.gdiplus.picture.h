@@ -57,9 +57,10 @@ namespace gdiplus
             \brief Creates a picture based on a canvas.
             
             \tparam Dimension A dimension type.
-            \tparam Canvas A canvas type.
+            \tparam Canvas    A canvas type.
 
-            \param device_handle A device handle.
+            \param dimension A dimension.
+            \param canvas    A canvas.
         */
         template <typename Dimension, typename Canvas>
         picture(const Dimension& dimension, const Canvas& canvas)
