@@ -15,8 +15,6 @@
 #include <tetengo2.generator.h>
 #include <tetengo2.text.h>
 
-#include <tetengo2.gui.drawing.win32.gdiplus.picture.h>
-
 
 namespace bobura { namespace message { namespace main_window
 {
