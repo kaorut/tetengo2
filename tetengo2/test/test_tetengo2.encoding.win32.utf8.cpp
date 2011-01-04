@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::encoding::win32::utf8.
 
-    Copyright (C) 2007-2010 kaoru
+    Copyright (C) 2007-2011 kaoru
 
     $Id$
 */

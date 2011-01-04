@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::measure.
 
-    Copyright (C) 2007-2010 kaoru
+    Copyright (C) 2007-2011 kaoru
 
     $Id$
 */

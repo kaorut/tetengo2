@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class bobura::model::train_info::stop.
 
-    Copyright (C) 2007-2010 kaoru
+    Copyright (C) 2007-2011 kaoru
 
     $Id$
 */

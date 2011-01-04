@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::gui::win32::menu_command.
 
-    Copyright (C) 2007-2010 kaoru
+    Copyright (C) 2007-2011 kaoru
 
     $Id$
 */

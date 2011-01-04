@@ -1,6 +1,6 @@
 #!/bin/sh
 # Checks the #include directives.
-# Copyright (C) 2007-2010 kaoru
+# Copyright (C) 2007-2011 kaoru
 # $Id$
 
 LANG=C

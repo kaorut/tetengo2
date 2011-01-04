@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::encoding::locale.
 
-    Copyright (C) 2007-2010 kaoru
+    Copyright (C) 2007-2011 kaoru
 
     $Id$
 */

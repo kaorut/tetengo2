@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of stub_tetengo2::gui::menu_separator.
 
-    Copyright (C) 2007-2010 kaoru
+    Copyright (C) 2007-2011 kaoru
 
     $Id$
 */

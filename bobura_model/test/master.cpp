@@ -1,7 +1,7 @@
 /*! \file
     \brief The master test suite for bobura_model.
 
-    Copyright (C) 2007-2010 kaoru
+    Copyright (C) 2007-2011 kaoru
 
     $Id$
 */

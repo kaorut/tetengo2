@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::gui::menu_observer_set.
 
-    Copyright (C) 2007-2010 kaoru
+    Copyright (C) 2007-2011 kaoru
 
     $Id$
 */

@@ -1,7 +1,7 @@
 /*! \file
     \brief Test of class tetengo2::message_catalog_parser.
 
-    Copyright (C) 2007-2010 kaoru
+    Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
