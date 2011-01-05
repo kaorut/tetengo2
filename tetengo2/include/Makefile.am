@@ -35,6 +35,7 @@ extra_headers = \
     tetengo2.encoding.win32.utf8.h \
     tetengo2.gui.drawing.win32.gdiplus.canvas.h \
     tetengo2.gui.drawing.win32.gdiplus.picture.h \
+    tetengo2.gui.drawing.win32.gdiplus.picture_reader.h \
     tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h \
     tetengo2.gui.win32.abstract_popup_menu.h \
     tetengo2.gui.win32.abstract_window.h \
