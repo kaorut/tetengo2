@@ -283,26 +283,20 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Sets the position.
 
+            \tparam P A position type.
+
             \param position A position.
         */
-        void set_position(const position_type& position)
+        template <typename P>
+        void set_position(const P& position)
         {
-            const dimension_type rectangle = dimension();
-
+            const dimension_type dim = dimension();
             const ::BOOL result = ::MoveWindow(
                 handle(),
-                to_pixels<int>(
-                    gui::position<position_type>::left(position)
-                ),
-                to_pixels<int>(
-                    gui::position<position_type>::top(position)
-                ),
-                to_pixels<int>(
-                    gui::dimension<dimension_type>::width(rectangle)
-                ),
-                to_pixels<int>(
-                    gui::dimension<dimension_type>::height(rectangle)
-                ),
+                to_pixels<int>(gui::position<P>::left(position)),
+                to_pixels<int>(gui::position<P>::top(position)),
+                to_pixels<int>(gui::dimension<dimension_type>::width(dim)),
+                to_pixels<int>(gui::dimension<dimension_type>::height(dim)),
                 visible() ? TRUE : FALSE
             );
             if (result == 0)
@@ -343,16 +337,19 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Sets the dimension.
 
+            \tparam D A dimension type.
+
             \param dimension A dimension.
 
             \throw std::invalid_argument When either dimension.first or
                                          dimension.second is equal to 0.
         */
-        void set_dimension(const dimension_type& dimension)
+        template <typename D>
+        void set_dimension(const D& dimension)
         {
             if (
-                gui::dimension<dimension_type>::width(dimension) == 0 ||
-                gui::dimension<dimension_type>::height(dimension) == 0
+                gui::dimension<D>::width(dimension) == 0 ||
+                gui::dimension<D>::height(dimension) == 0
             )
             {
                 BOOST_THROW_EXCEPTION(
@@ -360,22 +357,13 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            const position_type location = position();
-
+            const position_type pos = position();
             const ::BOOL result = ::MoveWindow(
                 handle(),
-                to_pixels<int>(
-                    gui::position<position_type>::left(location)
-                ),
-                to_pixels<int>(
-                    gui::position<position_type>::top(location)
-                ),
-                to_pixels<int>(
-                    gui::dimension<dimension_type>::width(dimension)
-                ),
-                to_pixels<int>(
-                    gui::dimension<dimension_type>::height(dimension)
-                ),
+                to_pixels<int>(gui::position<position_type>::left(pos)),
+                to_pixels<int>(gui::position<position_type>::top(pos)),
+                to_pixels<int>(gui::dimension<D>::width(dimension)),
+                to_pixels<int>(gui::dimension<D>::height(dimension)),
                 visible() ? TRUE : FALSE
             );
             if (result == 0)
@@ -418,20 +406,20 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Sets the client dimension.
 
+            \tparam D A dimension type.
+
             \param client_dimension A client dimension.
 
             \throw std::invalid_argument When either client_dimension.first or
                                          client_dimension.second is equal to
                                          0.
         */
-        void set_client_dimension(
-            const dimension_type& client_dimension
-        )
+        template <typename D>
+        void set_client_dimension(const D& client_dimension)
         {
             if (
-                gui::dimension<dimension_type>::width(client_dimension) ==
-                    0 ||
-                gui::dimension<dimension_type>::height(client_dimension) == 0
+                gui::dimension<D>::width(client_dimension) == 0 ||
+                gui::dimension<D>::height(client_dimension) == 0
             )
             {
                 BOOST_THROW_EXCEPTION(
@@ -439,29 +427,24 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            const position_type location = position();
+            const position_type pos = position();
             const ::LONG_PTR window_style =
                 ::GetWindowLongPtrW(handle(), GWL_STYLE);
             const ::LONG_PTR extended_window_style =
                 ::GetWindowLongPtrW(handle(), GWL_EXSTYLE);
-            ::RECT rectangle = {
+            const ::LONG left =
+                to_pixels< ::LONG>(gui::position<position_type>::left(pos));
+            const ::LONG top =
+                to_pixels< ::LONG>(gui::position<position_type>::top(pos));
+            const ::LONG width =
                 to_pixels< ::LONG>(
-                    gui::position<position_type>::left(location)
-                ),
+                    gui::dimension<D>::width(client_dimension)
+                );
+            const ::LONG height =
                 to_pixels< ::LONG>(
-                    gui::position<position_type>::top(location)
-                ),
-                to_pixels< ::LONG>(
-                    gui::position<position_type>::left(location)
-                ) + to_pixels< ::LONG>(
-                    gui::dimension<dimension_type>::width(client_dimension)
-                ),
-                to_pixels< ::LONG>(
-                    gui::position<position_type>::left(location)
-                ) + to_pixels< ::LONG>(
-                    gui::dimension<dimension_type>::height(client_dimension)
-                )
-            };
+                    gui::dimension<D>::height(client_dimension)
+                );
+            ::RECT rectangle = { left, top, left + width, top + height };
             if (
                 ::AdjustWindowRectEx(
                     &rectangle,
