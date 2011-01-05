@@ -12,11 +12,6 @@ Added on    : 2010/11/25
 Depends on  : 00000065, 00000066
 Description : Create tetengo2::gui::win32::image.
 ------------------------------------------------------------------------------
-Number      : 00000065
-Added on    : 2010/12/27
-Depends on  : (none)
-Description : Create tetengo2::gui::drawing::win32::gdiplus::picture.
-------------------------------------------------------------------------------
 Number      : 00000068
 Added on    : 2010/12/27
 Depends on  : 00000065
