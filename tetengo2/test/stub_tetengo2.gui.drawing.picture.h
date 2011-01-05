@@ -30,8 +30,25 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         // constructors and destructor
 
         template <typename Dimension, typename Canvas>
-        picture(const Dimension& dimension, const Canvas& canvas)
+        picture(Dimension&& dimension, const Canvas& canvas)
+        :
+        m_dimension(std::forward<Dimension>(dimension))
         {}
+
+
+        // functions
+
+        const dimension_type& dimension()
+        const
+        {
+            return m_dimension;
+        }
+
+
+    private:
+        // variables
+
+        dimension_type m_dimension;
 
 
     };

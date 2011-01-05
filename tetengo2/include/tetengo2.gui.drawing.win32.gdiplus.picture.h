@@ -76,6 +76,24 @@ namespace gdiplus
                     m_bitmap.SetPixel(i, j, Gdiplus::Color(128, 0, 0, 255));
         }
 
+
+        // functions
+
+        /*!
+            \brief Returns the dimension.
+
+            \return The dimension.
+        */
+        dimension_type dimension()
+        const
+        {
+            Gdiplus::Bitmap& bitmap = const_cast<Gdiplus::Bitmap&>(m_bitmap);
+            return dimension_type(
+                to_unit<size_type>(bitmap.GetWidth()),
+                to_unit<size_type>(bitmap.GetHeight())
+            );
+        }
+
         /*!
             \brief Returns the GDI+ bitmap.
 

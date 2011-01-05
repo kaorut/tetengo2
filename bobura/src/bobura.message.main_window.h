@@ -121,6 +121,9 @@ namespace bobura { namespace message { namespace main_window
             );
             canvas.paint_picture(pic, position_type(4, 8));
             canvas.paint_picture(pic, position_type(6, 12));
+
+            const typename canvas_type::picture_type::dimension_type dim =
+                pic.dimension();
 #endif
         }
 
