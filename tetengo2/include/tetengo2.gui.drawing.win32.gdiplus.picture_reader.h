@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_PICTUREREADER_H)
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_PICTUREREADER_H
 
+#include <utility>
+
 #include <boost/noncopyable.hpp>
 
 
@@ -18,9 +20,10 @@ namespace gdiplus
     /*!
         \brief The class template for a picture reader for Win32 platforms.
 
-        \tparam Picture A picture type.
+        \tparam Picture     A picture type.
+        \tparam InputStream An input stream type.
     */
-    template <typename Picture>
+    template <typename Picture, typename InputStream>
     class picture_reader : private boost::noncopyable
     {
     public:
@@ -28,6 +31,9 @@ namespace gdiplus
 
         //! The picture type.
         typedef Picture picture_type;
+
+        //! The input stream type.
+        typedef InputStream input_stream_type;
 
 
         // constructors and destructor
@@ -37,6 +43,21 @@ namespace gdiplus
         */
         picture_reader()
         {}
+
+
+        // functions
+
+        /*!
+            \brief Reads a picture.
+
+            \param input_stream An input stream.
+
+            \return A std::auto_ptr to a picture.
+        */
+        std::auto_ptr<picture_type> read(input_stream_type& input_stream)
+        {
+            return std::auto_ptr<picture_type>();
+        }
 
 
     };

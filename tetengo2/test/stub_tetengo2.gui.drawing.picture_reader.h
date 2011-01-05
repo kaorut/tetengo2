@@ -14,7 +14,7 @@
 
 namespace stub_tetengo2 { namespace gui { namespace drawing
 {
-    template <typename Picture>
+    template <typename Picture, typename InputStream>
     class picture_reader : private boost::noncopyable
     {
     public:
@@ -22,11 +22,21 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
 
         typedef Picture picture_type;
 
+        typedef InputStream input_stream_type;
+
 
         // constructors and destructor
 
         picture_reader()
         {}
+
+
+        // functions
+
+        std::auto_ptr<picture_type> read(input_stream_type& input_stream)
+        {
+            return std::auto_ptr<picture_type>();
+        }
 
 
     };
