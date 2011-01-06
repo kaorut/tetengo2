@@ -9,9 +9,11 @@
 #if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_PICTURE_H)
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_PICTURE_H
 
+#include <memory>
 //#include <utility>
 
 #include <boost/noncopyable.hpp>
+#include <boost/scoped_ptr.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -64,16 +66,32 @@ namespace gdiplus
         template <typename Dimension, typename Canvas>
         picture(const Dimension& dimension, const Canvas& canvas)
         :
-        m_bitmap(
-            to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
-            to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension)),
-            &const_cast<Canvas&>(canvas).gdiplus_graphics()
+        m_p_bitmap(
+            new Gdiplus::Bitmap(
+                to_pixels< ::INT>(
+                    gui::dimension<Dimension>::width(dimension)
+                ),
+                to_pixels< ::INT>(
+                    gui::dimension<Dimension>::height(dimension)
+                ),
+                &const_cast<Canvas&>(canvas).gdiplus_graphics()
+            )
         )
         {
             for (::INT i = 0; i < 128; ++i)
                 for (::INT j = 0; j < 96; ++j)
-                    m_bitmap.SetPixel(i, j, Gdiplus::Color(128, 0, 0, 255));
+                    m_p_bitmap->SetPixel(i, j, Gdiplus::Color(128, 0, 0, 255));
         }
+
+        /*!
+            \brief Creates a picture with a GDI+ bitmap.
+
+            \param p_bitmap A std::auto_ptr to a GDI+ bitmap.
+        */
+        picture(std::auto_ptr<Gdiplus::Bitmap> p_bitmap)
+        :
+        m_p_bitmap(p_bitmap)
+        {}
 
 
         // functions
@@ -86,10 +104,11 @@ namespace gdiplus
         dimension_type dimension()
         const
         {
-            Gdiplus::Bitmap& bitmap = const_cast<Gdiplus::Bitmap&>(m_bitmap);
+            Gdiplus::Bitmap* const p_bitmap =
+                const_cast<Gdiplus::Bitmap*>(m_p_bitmap.get());
             return dimension_type(
-                to_unit<size_type>(bitmap.GetWidth()),
-                to_unit<size_type>(bitmap.GetHeight())
+                to_unit<size_type>(p_bitmap->GetWidth()),
+                to_unit<size_type>(p_bitmap->GetHeight())
             );
         }
 
@@ -100,7 +119,7 @@ namespace gdiplus
         */
         Gdiplus::Bitmap& gdiplus_bitmap()
         {
-            return m_bitmap;
+            return *m_p_bitmap;
         }
 
         /*!
@@ -111,14 +130,14 @@ namespace gdiplus
         const Gdiplus::Bitmap& gdiplus_bitmap()
         const
         {
-            return m_bitmap;
+            return *m_p_bitmap;
         }
 
 
     private:
         // variables
 
-        Gdiplus::Bitmap m_bitmap;
+        const boost::scoped_ptr<Gdiplus::Bitmap> m_p_bitmap;
 
 
     };

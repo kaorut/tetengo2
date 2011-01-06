@@ -70,10 +70,11 @@ namespace bobura { namespace message { namespace main_window
     /*!
         \brief The class template for a paint observer of the main window.
         
-        \tparam Canvas   A canvas type.
-        \tparam Position A position type.
+        \tparam Canvas        A canvas type.
+        \tparam Position      A position type.
+        \tparam PictureReader A picture reader type.
     */
-    template <typename Canvas, typename Position>
+    template <typename Canvas, typename Position, typename PictureReader>
     class paint : public std::unary_function<Canvas, void>
     {
     public:
@@ -84,6 +85,9 @@ namespace bobura { namespace message { namespace main_window
 
         //! The position type.
         typedef Position position_type;
+
+        //! The picture reader type.
+        typedef PictureReader picture_reader_type;
 
 
         // functions
@@ -96,8 +100,14 @@ namespace bobura { namespace message { namespace main_window
         void operator()(canvas_type& canvas)
         const
         {
-            const font_type& dialog_font = font_type::dialog_font();
+#if defined(_MSC_VER)
+            picture_reader_type reader;
+            const boost::scoped_ptr<typename canvas_type::picture_type>
+            p_pic2(reader.read(L"D:\\kumakuma.jpg"));
+            canvas.paint_picture(*p_pic2, position_type(0, 0));
+#endif
 
+            const font_type& dialog_font = font_type::dialog_font();
             canvas.draw_text(dialog_font.family(), position_type(2, 2));
 
 #if defined(_MSC_VER)
@@ -111,20 +121,16 @@ namespace bobura { namespace message { namespace main_window
                     false
                 )
             );
-
             canvas.draw_text(
                 string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")), position_type(4, 4)
             );
+#endif
 
             const typename canvas_type::picture_type pic(
                 std::make_pair(128, 96), canvas
             );
             canvas.paint_picture(pic, position_type(4, 8));
             canvas.paint_picture(pic, position_type(6, 12));
-
-            const typename canvas_type::picture_type::dimension_type dim =
-                pic.dimension();
-#endif
         }
 
 

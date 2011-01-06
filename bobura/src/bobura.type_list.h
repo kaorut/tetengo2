@@ -41,6 +41,7 @@
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture.h>
+#include <tetengo2.gui.drawing.win32.gdiplus.picture_reader.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -92,6 +93,7 @@ namespace bobura
         struct difference;     //!< The difference type.
         struct size;           //!< The size type.
         struct string;         //!< The string type.
+        struct path;           //!< The path type.
     }
 
     //! The common type list.
@@ -102,8 +104,10 @@ namespace bobura
             boost::mpl::pair<type::size, std::size_t>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::string, std::wstring>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::path, boost::filesystem::path>,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         common_type_list;
 
 
@@ -156,7 +160,7 @@ namespace bobura
             locale_name_encoder_type;
         typedef
             tetengo2::messages<
-                boost::filesystem::path,
+                boost::mpl::at<common_type_list, type::path>::type,
                 message_catalog_parser_type,
                 locale_name_encoder_type
             >
@@ -221,6 +225,7 @@ namespace bobura
         struct quit_message_loop; //!< The quit-message-loop type.
         struct position;       //!< The position type.
         struct dimension;      //!< The dimension type.
+        struct picture_reader; //!< The picture reader type.
         struct canvas;         //!< The canvas type.
         struct alert;          //!< The alert type.
         struct window;         //!< The window type.
@@ -268,6 +273,12 @@ namespace bobura
                 boost::mpl::at<common_type_list, type::size>::type
             >
             picture_type;
+        typedef
+            tetengo2::gui::drawing::win32::gdiplus::picture_reader<
+                picture_type,
+                boost::mpl::at<common_type_list, type::path>::type
+            >
+            picture_reader_type;
         typedef
             tetengo2::gui::drawing::win32::gdiplus::widget_canvas<
                 const Gdiplus::Graphics*,
@@ -373,6 +384,10 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::dimension, detail::ui::dimension_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::picture_reader, detail::ui::picture_reader_type
+            >,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::canvas, detail::ui::canvas_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::alert, detail::ui::alert_type>,
@@ -404,7 +419,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -461,7 +476,8 @@ namespace bobura
                     command_type_list, command::type::command
                 >::type,
                 boost::mpl::at<ui_type_list, type::canvas>::type,
-                boost::mpl::at<ui_type_list, type::position>::type
+                boost::mpl::at<ui_type_list, type::position>::type,
+                boost::mpl::at<ui_type_list, type::picture_reader>::type
             >::type
             message_type_list;
     }}
