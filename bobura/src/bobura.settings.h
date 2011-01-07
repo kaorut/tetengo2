@@ -65,18 +65,33 @@ namespace bobura
 
         // functions
 
+        /*!
+            \brief Returns the base path.
+
+            \return The base path.
+        */
         const path_type& base_path()
         const
         {
             return m_base_path;
         }
 
+        /*!
+            \brief Returns the message directory path.
+
+            \return The message directory path.
+        */
         path_type message_directory_path()
         const
         {
             return m_base_path / path_string_type(TETENGO2_TEXT("messages"));
         }
 
+        /*!
+            \brief Returns the image directory path.
+
+            \return The image directory path.
+        */
         path_type image_directory_path()
         const
         {
