@@ -77,11 +77,7 @@ namespace gdiplus
                 &const_cast<Canvas&>(canvas).gdiplus_graphics()
             )
         )
-        {
-            for (::INT i = 0; i < 128; ++i)
-                for (::INT j = 0; j < 96; ++j)
-                    m_p_bitmap->SetPixel(i, j, Gdiplus::Color(128, 0, 0, 255));
-        }
+        {}
 
         /*!
             \brief Creates a picture with a GDI+ bitmap.

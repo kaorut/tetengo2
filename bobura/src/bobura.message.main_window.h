@@ -10,6 +10,7 @@
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
 #include <functional>
+#include <type_traits>
 #include <utility>
 
 #include <boost/scoped_ptr.hpp>
@@ -91,6 +92,30 @@ namespace bobura { namespace message { namespace main_window
         //! The picture reader type.
         typedef PictureReader picture_reader_type;
 
+        //! The path type.
+        typedef typename picture_reader_type::path_type path_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a paint observer of the main window.
+
+            \tparam P A path type.
+
+            \param image_directory_path An image directory path.
+        */
+        template <typename P>
+        paint(
+            P&& image_directory_path,
+            typename std::enable_if<
+                std::is_convertible<P, path_type>::value
+            >::type* = NULL
+        )
+        :
+        m_image_directory_path(std::forward<P>(image_directory_path))
+        {}
+
 
         // functions
 
@@ -105,7 +130,7 @@ namespace bobura { namespace message { namespace main_window
 #if defined(_MSC_VER)
             picture_reader_type reader;
             const boost::scoped_ptr<typename canvas_type::picture_type>
-            p_pic2(reader.read(L"D:\\kumakuma.jpg"));
+            p_pic2(reader.read(m_image_directory_path / L"kumakuma.jpg"));
             canvas.paint_picture(*p_pic2, position_type(0, 0));
 #endif
 
@@ -127,12 +152,6 @@ namespace bobura { namespace message { namespace main_window
                 string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")), position_type(4, 4)
             );
 #endif
-
-            const typename canvas_type::picture_type pic(
-                std::make_pair(128, 96), canvas
-            );
-            canvas.paint_picture(pic, position_type(4, 8));
-            canvas.paint_picture(pic, position_type(6, 12));
         }
 
 
@@ -142,6 +161,11 @@ namespace bobura { namespace message { namespace main_window
         typedef typename canvas_type::string_type string_type;
 
         typedef typename canvas_type::font_type font_type;
+
+
+        // variables
+
+        path_type m_image_directory_path;
 
 
     };

@@ -79,7 +79,8 @@ namespace
         tetengo2::encoder<internal_encoding_type, exception_encoding_type>
         exception_encoder_type;
 
-    typedef bobura::settings<std::wstring> settings_type;
+    typedef
+        bobura::settings<std::wstring, boost::filesystem::path> settings_type;
 
     typedef
         stub_tetengo2::gui::alert<
@@ -265,6 +266,7 @@ namespace
         bobura::main_window<
             window_type,
             message_catalog_type,
+            settings_type,
             quit_message_loop_type,
             menu_command_type,
             popup_menu_type,
@@ -296,7 +298,9 @@ BOOST_AUTO_TEST_SUITE(bobura)
     {
         BOOST_TEST_PASSPOINT();
 
-        const settings_type settings;
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
         const bobura_type bobura(settings);
     }
 
@@ -304,7 +308,9 @@ BOOST_AUTO_TEST_SUITE(bobura)
     {
         BOOST_TEST_PASSPOINT();
 
-        const settings_type settings;
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
         const bobura_type bobura(settings);
 
         BOOST_CHECK_EQUAL(bobura.run(), 0);

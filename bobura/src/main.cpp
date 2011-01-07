@@ -35,6 +35,15 @@
 
 namespace
 {
+    // types
+
+    typedef
+        boost::mpl::at<bobura::type_list, bobura::type::settings>::type
+        settings_type;
+
+
+    // functions
+
     std::string locale_info(const ::LCID id, const ::LCTYPE type)
     {
         const int length = ::GetLocaleInfoA(id, type, NULL, 0);
@@ -61,28 +70,22 @@ namespace
             locale_info(locale_id, LOCALE_SENGCOUNTRY);
     }
 
-    void set_locale(const boost::filesystem::path& base_path)
+    void set_locale(const boost::filesystem::path& message_directory_path)
     {
         const std::locale global_locale(
             std::locale(""),
             new boost::mpl::at<
                 bobura::type_list, bobura::type::messages_facet
             >::type(
-                base_path / L"messages",
-                std::locale(ui_locale_name().c_str())
+                message_directory_path, std::locale(ui_locale_name().c_str())
             )
         );
 
         std::locale::global(global_locale);
     }
 
-    int run_application(std::vector<std::wstring>&& command_line_arguments)
+    int run_application(const settings_type& settings)
     {
-        const boost::mpl::at<bobura::type_list, bobura::type::settings>::type
-        settings(
-            std::forward<std::vector<std::wstring>>(command_line_arguments)
-        );
-
         return boost::mpl::at<
             bobura::type_list, bobura::type::application
         >::type(settings).run();
@@ -115,12 +118,15 @@ TETENGO2_NOEXCEPT
         std::vector<std::wstring> command_line_arguments =
             boost::program_options::split_winmain(::GetCommandLineW());
         assert(!command_line_arguments.empty());
-
-        set_locale(
-            boost::filesystem::path(command_line_arguments[0]).parent_path()
+        boost::filesystem::path base_path =
+            boost::filesystem::path(command_line_arguments[0]).parent_path();
+        const settings_type settings(
+            std::move(command_line_arguments), std::move(base_path)
         );
 
-        return ::run_application(std::move(command_line_arguments));
+        set_locale(settings.message_directory_path());
+
+        return ::run_application(settings);
     }
     catch (const boost::exception& e)
     {

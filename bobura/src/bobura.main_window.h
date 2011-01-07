@@ -29,6 +29,7 @@ namespace bobura
 
         \tparam Window                    A window type.
         \tparam MessageCatalog            A message catalog type.
+        \tparam Settings                  A settings type.
         \tparam QuitMessageLoop           A quit-message-loop type.
         \tparam MenuCommand               A menu command type.
         \tparam PopupMenu                 A popup menu type.
@@ -39,6 +40,7 @@ namespace bobura
     template <
         typename Window,
         typename MessageCatalog,
+        typename Settings,
         typename QuitMessageLoop,
         typename MenuCommand,
         typename PopupMenu,
@@ -56,6 +58,9 @@ namespace bobura
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
+
+        //! The settings type.
+        typedef Settings settings_type;
 
         //! The quit-message-loop type.
         typedef QuitMessageLoop quit_message_loop_type;
@@ -82,13 +87,17 @@ namespace bobura
             \brief Creates a main window.
 
             \param message_catalog A message catalog.
+            \param settings        Settings.
         */
-        explicit main_window(const message_catalog_type& message_catalog)
+        main_window(
+            const message_catalog_type& message_catalog,
+            const settings_type&        settings
+        )
         :
         base_type(),
         m_message_catalog(message_catalog)
         {
-            initialize_window();
+            initialize_window(settings);
         }
 
         /*!
@@ -158,15 +167,15 @@ namespace bobura
 
         // functions
 
-        void initialize_window()
+        void initialize_window(const settings_type& settings)
         {
-            set_message_observers();
+            set_message_observers(settings);
             set_menus();
 
             set_text(m_message_catalog.get(TETENGO2_TEXT("Bobura")));
         }
 
-        void set_message_observers()
+        void set_message_observers(const settings_type& settings)
         {
             this->window_observer_set().destroyed().connect(
                 boost::bind(quit_message_loop_type(), 0)
@@ -176,7 +185,7 @@ namespace bobura
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::paint
-                >::type()
+                >::type(settings.image_directory_path())
             );
         }
 

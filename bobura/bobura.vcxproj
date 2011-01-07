@@ -101,6 +101,7 @@
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
+xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
 </Command>
     </PostBuildEvent>
     <ResourceCompile>
@@ -134,6 +135,7 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
+xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
 </Command>
     </PostBuildEvent>
     <ResourceCompile>
@@ -169,6 +171,7 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
+xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
 </Command>
     </PostBuildEvent>
     <ResourceCompile>
@@ -204,6 +207,7 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
+xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
 </Command>
     </PostBuildEvent>
     <ResourceCompile>

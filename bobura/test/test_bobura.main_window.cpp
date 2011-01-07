@@ -53,9 +53,10 @@
 #include <tetengo2.message_catalog_parser.h>
 
 #include "bobura.about_dialog.h"
-#include "bobura.main_window.h"
 #include "bobura.command.type_list_impl.h"
+#include "bobura.main_window.h"
 #include "bobura.message.type_list_impl.h"
+#include "bobura.settings.h"
 
 
 namespace
@@ -263,9 +264,13 @@ namespace
         menu_separator_type;
 
     typedef
+        bobura::settings<std::wstring, boost::filesystem::path> settings_type;
+
+    typedef
         bobura::main_window<
             window_type,
             message_catalog_type,
+            settings_type,
             quit_message_loop_type,
             menu_command_type,
             popup_menu_type,
@@ -288,7 +293,12 @@ BOOST_AUTO_TEST_SUITE(main_window)
         BOOST_TEST_PASSPOINT();
 
         const message_catalog_type message_catalog;
-        const main_window_type main_window(message_catalog);
+        const main_window_type main_window(
+            message_catalog,
+            settings_type(
+                std::vector<std::wstring>(), boost::filesystem::path()
+            )
+        );
     }
 
 

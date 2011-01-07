@@ -94,7 +94,17 @@ namespace bobura
         struct size;           //!< The size type.
         struct string;         //!< The string type.
         struct path;           //!< The path type.
+        struct settings;       //! The settings type.
     }
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace common
+    {
+        typedef std::wstring string_type;
+        typedef boost::filesystem::path path_type;
+        typedef settings<string_type, path_type> settings_type;
+    }}
+#endif
 
     //! The common type list.
     typedef
@@ -103,11 +113,13 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::size, std::size_t>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::string, std::wstring>,
+            boost::mpl::pair<type::string, detail::common::string_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::path, boost::filesystem::path>,
+            boost::mpl::pair<type::path, detail::common::path_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::settings, detail::common::settings_type>,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         common_type_list;
 
 
@@ -491,6 +503,7 @@ namespace bobura
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,
+                    boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<
                         ui_type_list, type::quit_message_loop
                     >::type,
@@ -510,31 +523,16 @@ namespace bobura
 
     namespace type
     {
-        struct settings;       //! The settings type.
         struct application;    //! The application type.
     }
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace application
-    {
-        typedef
-            settings<boost::mpl::at<common_type_list, type::string>::type>
-            settings_type;
-    }}
-#endif
 
     //! The type list for the application.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::settings,
-                detail::application::settings_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
                 type::application,
                 bobura<
-                    detail::application::settings_type,
+                    boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,
@@ -551,7 +549,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>
+        >
         bobura_type_list;
 
 

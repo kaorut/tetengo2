@@ -82,7 +82,7 @@ namespace bobura
         {
             const message_catalog_type message_catalog;
 
-            main_window_type main_window(message_catalog);
+            main_window_type main_window(message_catalog, m_settings);
             main_window.set_visible(true);
 
             return message_loop_type()();
