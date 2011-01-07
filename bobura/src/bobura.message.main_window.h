@@ -9,6 +9,7 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOW_H)
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
+#include <cstddef>
 #include <functional>
 #include <type_traits>
 #include <utility>

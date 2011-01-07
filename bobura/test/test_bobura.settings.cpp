@@ -12,7 +12,6 @@
 
 //#define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
-#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.settings.h"
