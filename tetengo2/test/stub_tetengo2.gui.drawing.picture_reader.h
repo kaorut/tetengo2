@@ -9,6 +9,8 @@
 #if !defined(STUBTETENGO2_GUI_DRAWING_PICTUREREADER_H)
 #define STUBTETENGO2_GUI_DRAWING_PICTUREREADER_H
 
+#include <memory>
+
 #include <boost/noncopyable.hpp>
 
 

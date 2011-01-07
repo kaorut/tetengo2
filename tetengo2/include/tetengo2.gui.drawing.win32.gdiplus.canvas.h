@@ -241,11 +241,21 @@ namespace gdiplus
         template <typename P>
         void paint_picture(const picture_type& picture, const P& position)
         {
+            const typename picture_type::dimension_type& picture_dimension =
+                picture.dimension();
             const Gdiplus::Status result =
                 m_graphics.DrawImage(
                     &const_cast<picture_type&>(picture).gdiplus_bitmap(),
                     to_pixels< ::INT>(gui::position<P>::left(position)),
-                    to_pixels< ::INT>(gui::position<P>::top(position))
+                    to_pixels< ::INT>(gui::position<P>::top(position)),
+                    to_pixels< ::INT>(
+                        gui::dimension<
+                            typename picture_type::dimension_type
+                        >::width(picture_dimension)),
+                    to_pixels< ::INT>(
+                        gui::dimension<
+                            typename picture_type::dimension_type
+                        >::height(picture_dimension))
                 );
             if (result != Gdiplus::Ok)
             {

@@ -20,6 +20,7 @@
 #include <stub_tetengo2.gui.alert.h>
 #include <stub_tetengo2.gui.button.h>
 #include <stub_tetengo2.gui.drawing.picture.h>
+#include <stub_tetengo2.gui.drawing.picture_reader.h>
 #include <stub_tetengo2.gui.drawing.widget_canvas.h>
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.font.h>
@@ -205,15 +206,18 @@ namespace
         about_dialog_message_type_list_type;
 
     typedef
-        tetengo2::gui::traits::control_traits<widget_traits_type> control_traits_type;
+        tetengo2::gui::traits::control_traits<widget_traits_type>
+        control_traits_type;
 
     typedef
-        tetengo2::gui::traits::label_traits<control_traits_type> label_traits_type;
+        tetengo2::gui::traits::label_traits<control_traits_type>
+        label_traits_type;
 
     typedef stub_tetengo2::gui::label<label_traits_type> label_type;
 
     typedef
-        tetengo2::gui::traits::button_traits<control_traits_type> button_traits_type;
+        tetengo2::gui::traits::button_traits<control_traits_type>
+        button_traits_type;
 
     typedef stub_tetengo2::gui::button<button_traits_type> button_type;
 
@@ -232,12 +236,19 @@ namespace
         command_type_list_type;
 
     typedef
+        stub_tetengo2::gui::drawing::picture_reader<
+            picture_type, boost::filesystem::path
+        >
+        picture_reader_type;
+
+    typedef
         bobura::message::main_window::type_list<
             boost::mpl::at<
                 command_type_list_type, bobura::command::type::command
             >::type,
             canvas_type,
-            position_type
+            position_type,
+            picture_reader_type
         >::type
         main_window_message_type_list_type;
 

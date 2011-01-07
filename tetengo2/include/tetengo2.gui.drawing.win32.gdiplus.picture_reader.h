@@ -15,6 +15,9 @@
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#define NOMINMAX
+#define OEMRESOURCE
+#include <windows.h>
 #if !defined(min) && !defined(DOCUMENTATION)
 #   define min(a, b) ((a) < (b) ? (a) : (b))
 #endif
@@ -24,7 +27,6 @@
 #include <gdiplus.h>
 #undef min
 #undef max
-#include <objidl.h>
 
 
 namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {

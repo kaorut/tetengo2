@@ -12,6 +12,8 @@
 #include <functional>
 #include <utility>
 
+#include <boost/scoped_ptr.hpp>
+
 #include <tetengo2.generator.h>
 #include <tetengo2.text.h>
 
