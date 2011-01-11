@@ -189,5 +189,11 @@
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.picture_reader.h">
       <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.win32.image.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.traits.image_traits.h">
+      <Filter>headers\tetengo2::gui::traits</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

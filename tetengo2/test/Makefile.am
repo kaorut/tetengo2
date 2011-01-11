@@ -16,6 +16,7 @@ headers = \
     stub_tetengo2.gui.drawing.widget_canvas.h \
     stub_tetengo2.gui.font.h \
     stub_tetengo2.gui.gui_initializer_finalizer.h \
+    stub_tetengo2.gui.image.h \
     stub_tetengo2.gui.label.h \
     stub_tetengo2.gui.main_menu.h \
     stub_tetengo2.gui.menu.h \
@@ -67,6 +68,7 @@ extra_sources = \
     test_tetengo2.gui.win32.dialog_message_loop.cpp \
     test_tetengo2.gui.win32.font.cpp \
     test_tetengo2.gui.win32.gui_initializer_finalizer.cpp \
+    test_tetengo2.gui.win32.image.cpp \
     test_tetengo2.gui.win32.label.cpp \
     test_tetengo2.gui.win32.main_menu.cpp \
     test_tetengo2.gui.win32.menu.cpp \

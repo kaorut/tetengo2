@@ -22,6 +22,7 @@ headers = \
     tetengo2.gui.traits.button_traits.h \
     tetengo2.gui.traits.control_traits.h \
     tetengo2.gui.traits.dialog_traits.h \
+    tetengo2.gui.traits.image_traits.h \
     tetengo2.gui.traits.label_traits.h \
     tetengo2.gui.traits.menu_traits.h \
     tetengo2.gui.traits.widget_traits.h \
@@ -47,6 +48,7 @@ extra_headers = \
     tetengo2.gui.win32.dialog_message_loop.h \
     tetengo2.gui.win32.font.h \
     tetengo2.gui.win32.gui_initializer_finalizer.h \
+    tetengo2.gui.win32.image.h \
     tetengo2.gui.win32.label.h \
     tetengo2.gui.win32.main_menu.h \
     tetengo2.gui.win32.menu.h \
