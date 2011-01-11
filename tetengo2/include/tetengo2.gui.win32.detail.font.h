@@ -16,7 +16,7 @@
 
 //#define NOMINMAX
 //#define OEMRESOURCE
-//#include <windows.h>
+//#include <Windows.h>
 
 #include "tetengo2.win32.detail.windows_version.h"
 

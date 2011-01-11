@@ -286,9 +286,9 @@ sub is_std_or_boost_header
 	
 	return 1 if $header_name =~ /^[a-z0-9_\/]+$/;
 	return 1 if $header_name =~ /^boost\/.+\.hpp$/;
-	return 1 if $header_name =~ /^windows\.h$/;
-	return 1 if $header_name =~ /^commctrl\.h$/;
-	return 1 if $header_name =~ /^gdiplus\.h$/;
+	return 1 if $header_name =~ /^Windows\.h$/;
+	return 1 if $header_name =~ /^CommCtrl\.h$/;
+	return 1 if $header_name =~ /^GdiPlus\.h$/;
 	
 	return 0;
 }

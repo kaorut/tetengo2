@@ -23,8 +23,8 @@
 
 #define NOMINMAX
 #define OEMRESOURCE
-#include <windows.h>
-#include <commctrl.h>
+#include <Windows.h>
+#include <CommCtrl.h>
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.text.h"

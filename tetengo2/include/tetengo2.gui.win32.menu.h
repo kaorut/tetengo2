@@ -22,7 +22,7 @@
 
 #define NOMINMAX
 #define OEMRESOURCE
-#include <windows.h>
+#include <Windows.h>
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"

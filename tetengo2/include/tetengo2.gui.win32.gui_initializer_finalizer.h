@@ -17,15 +17,15 @@
 
 #define NOMINMAX
 #define OEMRESOURCE
-#include <windows.h>
-#include <commctrl.h>
+#include <Windows.h>
+#include <CommCtrl.h>
 #if !defined(min) && !defined(DOCUMENTATION)
 #   define min(a, b) ((a) < (b) ? (a) : (b))
 #endif
 #if !defined(max) && !defined(DOCUMENTATION)
 #   define max(a, b) ((a) > (b) ? (a) : (b))
 #endif
-#include <gdiplus.h>
+#include <GdiPlus.h>
 #undef min
 #undef max
 

@@ -13,7 +13,7 @@
 
 #define NOMINMAX
 #define OEMRESOURCE
-#include <windows.h>
+#include <Windows.h>
 
 
 namespace tetengo2 { namespace gui { namespace win32

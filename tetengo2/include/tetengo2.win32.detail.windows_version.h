@@ -12,7 +12,7 @@
 #if !defined(DOCUMENTATION)
 #define NOMINMAX
 #define OEMRESOURCE
-#include <windows.h>
+#include <Windows.h>
 
 
 namespace tetengo2 { namespace win32 { namespace detail
