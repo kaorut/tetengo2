@@ -129,9 +129,12 @@ namespace bobura { namespace message { namespace main_window
         const
         {
 #if defined(_MSC_VER)
-            picture_reader_type reader;
+            picture_reader_type reader(
+                m_image_directory_path /
+                typename path_type::string_type(TETENGO2_TEXT("kumakuma.jpg"))
+            );
             const boost::scoped_ptr<typename canvas_type::picture_type>
-            p_pic2(reader.read(m_image_directory_path / L"kumakuma.jpg"));
+            p_pic2(reader.read());
             canvas.paint_picture(*p_pic2, position_type(0, 0));
 #endif
 

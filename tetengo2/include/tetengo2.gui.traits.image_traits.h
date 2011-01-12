@@ -16,14 +16,18 @@ namespace tetengo2 { namespace gui { namespace traits
         \brief The traits class template for an image.
  
         \tparam ControlTraits A traits type for a control.
+        \tparam Picture       A picture type.
    */
-    template <typename ControlTraits>
+    template <typename ControlTraits, typename Picture>
     struct image_traits
     {
         //types
 
         //! The base type.
         typedef ControlTraits base_type;
+
+        //! The picture type.
+        typedef Picture picture_type;
 
 
     };

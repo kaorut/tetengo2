@@ -13,6 +13,8 @@
 //#include <stdexcept>
 //#include <utility>
 
+#include <boost/bind.hpp>
+#include <boost/scoped_ptr.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
@@ -45,24 +47,32 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The widget type.
         typedef typename base_type::base_type widget_type;
 
+        //! The picture type.
+        typedef typename traits_type::picture_type picture_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates an image.
 
-            \param parent A parent widget.
+            \tparam PictureReader A picture reader type.
+
+            \param parent         A parent widget.
+            \param picture_reader A picture reader.
 
             \throw std::runtime_error When an image cannot be created.
         */
-        explicit image(widget_type& parent)
+        template <typename PictureReader>
+        image(widget_type& parent, PictureReader& picture_reader)
         :
         base_type(
             make_message_handler_map(message_handler_map_type()),
             create_window(parent)
-        )
+        ),
+        m_p_picture(picture_reader.read())
         {
-            initialize(this);
+            initialize_image(this);
         }
 
         /*!
@@ -102,6 +112,20 @@ namespace tetengo2 { namespace gui { namespace win32
             return handle;
         }
 
+        static void initialize_image(image* const p_image)
+        {
+            initialize(p_image);
+
+            p_image->paint_observer_set().paint().connect(
+                boost::bind(&image::paint_picture, p_image, _1)
+            );
+        }
+
+
+        // variables
+
+        const boost::scoped_ptr<picture_type> m_p_picture;
+
 
         // functions
 
@@ -114,6 +138,12 @@ namespace tetengo2 { namespace gui { namespace win32
             );
 
             return map;
+        }
+
+        void paint_picture(canvas_type& canvas)
+        const
+        {
+            canvas.paint_picture(*m_p_picture, position_type(0, 0));
         }
 
 

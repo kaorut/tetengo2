@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_DRAWING_PICTUREREADER_H
 
 #include <memory>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 
@@ -29,16 +30,25 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
 
         // constructors and destructor
 
-        picture_reader()
+        template <typename P>
+        picture_reader(P&& path)
+        :
+        m_path(std::forward<P>(path))
         {}
 
 
         // functions
 
-        std::auto_ptr<picture_type> read(const path_type& path)
+        std::auto_ptr<picture_type> read()
         {
             return std::auto_ptr<picture_type>();
         }
+
+
+    private:
+        // variables
+
+        const path_type m_path;
 
 
     };

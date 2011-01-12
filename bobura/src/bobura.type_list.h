@@ -50,6 +50,7 @@
 #include <tetengo2.gui.traits.button_traits.h>
 #include <tetengo2.gui.traits.control_traits.h>
 #include <tetengo2.gui.traits.dialog_traits.h>
+#include <tetengo2.gui.traits.image_traits.h>
 #include <tetengo2.gui.traits.label_traits.h>
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
@@ -63,6 +64,7 @@
 #include <tetengo2.gui.win32.dialog_message_loop.h>
 #include <tetengo2.gui.win32.font.h>
 #include <tetengo2.gui.win32.gui_initializer_finalizer.h>
+#include <tetengo2.gui.win32.image.h>
 #include <tetengo2.gui.win32.label.h>
 #include <tetengo2.gui.win32.main_menu.h>
 #include <tetengo2.gui.win32.menu.h>
@@ -237,6 +239,7 @@ namespace bobura
         struct quit_message_loop; //!< The quit-message-loop type.
         struct position;       //!< The position type.
         struct dimension;      //!< The dimension type.
+        struct picture;        //!< The picture type.
         struct picture_reader; //!< The picture reader type.
         struct canvas;         //!< The canvas type.
         struct alert;          //!< The alert type.
@@ -246,6 +249,7 @@ namespace bobura
         struct menu_separator; //!< The menu separator type;
         struct dialog;         //!< The dialog type.
         struct label;          //!< The label type.
+        struct image;          //!< The image type.
         struct button;         //!< The button type.
     }
 
@@ -368,6 +372,12 @@ namespace bobura
             label_traits_type;
         typedef tetengo2::gui::win32::label<label_traits_type> label_type;
         typedef
+            tetengo2::gui::traits::image_traits<
+                control_traits_type, picture_type
+            >
+            image_traits_type;
+        typedef tetengo2::gui::win32::image<image_traits_type> image_type;
+        typedef
             tetengo2::gui::traits::button_traits<control_traits_type>
             button_traits_type;
         typedef tetengo2::gui::win32::button<button_traits_type> button_type;
@@ -393,6 +403,8 @@ namespace bobura
             boost::mpl::pair<type::position, detail::ui::position_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::dimension, detail::ui::dimension_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::picture, detail::ui::picture_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::picture_reader, detail::ui::picture_reader_type
@@ -427,9 +439,11 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::label, detail::ui::label_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::image, detail::ui::image_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -450,8 +464,11 @@ namespace bobura
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,
+                    boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<ui_type_list, type::label>::type,
+                    boost::mpl::at<ui_type_list, type::image>::type,
                     boost::mpl::at<ui_type_list, type::button>::type,
+                    boost::mpl::at<ui_type_list, type::picture_reader>::type,
                     message::about_dialog::type_list<
                         boost::mpl::at<ui_type_list, type::dialog>::type
                     >::type

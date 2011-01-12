@@ -36,6 +36,9 @@ namespace bobura { namespace command
             typename about_dialog_type::message_catalog_type
             message_catalog_type;
 
+        //! The settings type.
+        typedef typename about_dialog_type::settings_type settings_type;
+
 
         // constructors and destructor
 
@@ -44,14 +47,17 @@ namespace bobura { namespace command
 
             \param parent          A parent window.
             \param message_catalog A message catalog.
+            \param setting         Settings type.
         */
         about(
             abstract_window_type&       parent,
-            const message_catalog_type& message_catalog
+            const message_catalog_type& message_catalog,
+            const settings_type&        settings
         )
         :
         m_p_parent(&parent),
-        m_p_message_catalog(&message_catalog)
+        m_p_message_catalog(&message_catalog),
+        m_p_settings(&settings)
         {}
 
 
@@ -62,7 +68,9 @@ namespace bobura { namespace command
         */
         void operator()()
         {
-            about_dialog_type(*m_p_parent, *m_p_message_catalog).do_modal();
+            about_dialog_type(
+                *m_p_parent, *m_p_message_catalog, *m_p_settings
+            ).do_modal();
         }
 
 
@@ -72,6 +80,8 @@ namespace bobura { namespace command
         abstract_window_type* m_p_parent;
 
         const message_catalog_type* m_p_message_catalog;
+
+        const settings_type* m_p_settings;
 
 
     };

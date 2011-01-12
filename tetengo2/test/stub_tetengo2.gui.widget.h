@@ -160,7 +160,11 @@ namespace stub_tetengo2 { namespace gui
         template <typename P>
         void set_position(P&& position)
         {
-            m_position = std::forward<P>(position);
+            typedef tetengo2::gui::position<position_type> pos_type;
+            const typename pos_type::left_type left =
+                pos_type::left(position);
+            const typename pos_type::top_type top = pos_type::top(position);
+            m_position = position_type(left, top);
         }
 
         const position_type& position()
@@ -172,19 +176,19 @@ namespace stub_tetengo2 { namespace gui
         template <typename D>
         void set_dimension(D&& dimension)
         {
-            if (
-                tetengo2::gui::dimension<dimension_type>::width(dimension) ==
-                    0 ||
-                tetengo2::gui::dimension<dimension_type>::height(dimension) ==
-                    0
-            )
+            typedef tetengo2::gui::dimension<dimension_type> dim_type;
+            const typename dim_type::width_type width =
+                dim_type::width(dimension);
+            const typename dim_type::height_type height =
+                dim_type::height(dimension);
+            if (width == 0 || height == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument("Dimension has zero value.")
                 );
             }
 
-            m_dimension = std::forward<D>(dimension);
+            m_dimension = dimension_type(width, height);
         }
 
         const dimension_type& dimension()
@@ -196,21 +200,19 @@ namespace stub_tetengo2 { namespace gui
         template <typename D>
         void set_client_dimension(D&& client_dimension)
         {
-            if (
-                tetengo2::gui::dimension<dimension_type>::width(
-                    client_dimension
-                ) == 0 ||
-                tetengo2::gui::dimension<dimension_type>::height(
-                    client_dimension
-                ) == 0
-            )
+            typedef tetengo2::gui::dimension<dimension_type> dim_type;
+            const typename dim_type::width_type width =
+                dim_type::width(client_dimension);
+            const typename dim_type::height_type height =
+                dim_type::height(client_dimension);
+            if (width == 0 || height == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument("Client dimension has zero value.")
                 );
             }
 
-            m_client_dimension = std::forward<D>(client_dimension);
+            m_client_dimension = dimension_type(width, height);
         }
 
         const dimension_type& client_dimension()

@@ -22,6 +22,8 @@
 
 #include "bobura.message.type_list.h"
 
+#include <tetengo2.text.h>
+
 
 namespace bobura
 {
@@ -30,15 +32,21 @@ namespace bobura
 
         \tparam Dialog                     A dialog type.
         \tparam MessageCatalog             A message catalog type.
+        \tparam Settings                   A settings type.
         \tparam Label                      A label type.
+        \tparam Image                      An image type.
         \tparam Button                     A button type.
+        \tparam PictureReader              A picture reader type.
         \tparam AboutDialogMessageTypeList A message type.
     */
     template <
         typename Dialog,
         typename MessageCatalog,
+        typename Settings,
         typename Label,
+        typename Image,
         typename Button,
+        typename PictureReader,
         typename AboutDialogMessageTypeList
     >
     class about_dialog : public Dialog
@@ -55,11 +63,20 @@ namespace bobura
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
+        //! The settings type.
+        typedef Settings settings_type;
+
         //! The label type.
         typedef Label label_type;
 
+        //! The image type.
+        typedef Image image_type;
+
         //! The button type.
         typedef Button button_type;
+
+        //! The picture reader type.
+        typedef PictureReader picture_reader_type;
 
         //! The message type list type.
         typedef
@@ -71,16 +88,20 @@ namespace bobura
         /*!
             \brief Creates an about dialog.
 
-            \param parent A parent window.
+            \param parent          A parent window.
             \param message_catalog A message catalog.
+            \param settings        Settings.
         */
         about_dialog(
             abstract_window_type&       parent,
-            const message_catalog_type& message_catalog
+            const message_catalog_type& message_catalog,
+            const settings_type&        settings
         )
         :
         base_type(parent),
         m_message_catalog(message_catalog),
+        m_settings(settings),
+        m_p_application_image(),
         m_p_title_label(),
         m_p_copyright_label(),
         m_p_link_label(),
@@ -101,6 +122,10 @@ namespace bobura
         // variables
 
         const message_catalog_type& m_message_catalog;
+
+        const settings_type& m_settings;
+
+        boost::scoped_ptr<image_type> m_p_application_image;
 
         boost::scoped_ptr<label_type> m_p_title_label;
 
@@ -131,10 +156,28 @@ namespace bobura
                 )
             );
 
+            m_p_application_image.reset(create_application_image().release());
             m_p_title_label.reset(create_title_label().release());
             m_p_copyright_label.reset(create_copyright_label().release());
             m_p_link_label.reset(create_link_label().release());
             m_p_ok_button.reset(create_ok_button().release());
+
+            locate_controls();
+        }
+
+        std::auto_ptr<image_type> create_application_image()
+        {
+            picture_reader_type picture_reader(
+                m_settings.image_directory_path() /
+                typename picture_reader_type::path_type::string_type(
+                    TETENGO2_TEXT("kuma.png")
+                )
+            );
+            std::auto_ptr<image_type> p_image(
+                new image_type(*this, picture_reader)
+            );
+
+            return p_image;
         }
 
         std::auto_ptr<label_type> create_title_label()
@@ -150,8 +193,6 @@ namespace bobura
             std::auto_ptr<label_type> p_label(new label_type(*this));
 
             p_label->set_text(title.str());
-            p_label->set_dimension(typename about_dialog::dimension_type(32, 2));
-            p_label->set_position(typename about_dialog::position_type(2, 1));
 
             return p_label;
         }
@@ -162,11 +203,9 @@ namespace bobura
 
             p_label->set_text(
                 typename base_type::string_type(
-                    TETENGO2_TEXT("Copyright (C) 2010 kaorut")
+                    TETENGO2_TEXT("Copyright (C) 2010 kaoru")
                 )
             );
-            p_label->set_dimension(typename about_dialog::dimension_type(32, 2));
-            p_label->set_position(typename about_dialog::position_type(2, 3));
 
             return p_label;
         }
@@ -180,8 +219,6 @@ namespace bobura
                     TETENGO2_TEXT("http://www.tetengo.org/")
                 )
             );
-            p_label->set_dimension(typename about_dialog::dimension_type(32, 2));
-            p_label->set_position(typename about_dialog::position_type(2, 5));
 
             return p_label;
         }
@@ -193,8 +230,6 @@ namespace bobura
             );
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("OK")));
-            p_button->set_dimension(typename about_dialog::dimension_type(8, 2));
-            p_button->set_position(typename about_dialog::position_type(26, 7));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     about_dialog_message_type_list_type,
@@ -203,6 +238,27 @@ namespace bobura
             );
 
             return p_button;
+        }
+
+        void locate_controls()
+        {
+            typedef typename about_dialog::dimension_type dimension_type;
+            typedef typename about_dialog::position_type position_type;
+
+            m_p_application_image->set_dimension(std::make_pair(32, 32));
+            m_p_application_image->set_position(position_type(0, 0));
+
+            m_p_title_label->set_dimension(dimension_type(32, 2));
+            m_p_title_label->set_position(position_type(2, 1));
+
+            m_p_copyright_label->set_dimension(dimension_type(32, 2));
+            m_p_copyright_label->set_position(position_type(2, 3));
+
+            m_p_link_label->set_dimension(dimension_type(32, 2));
+            m_p_link_label->set_position(position_type(2, 5));
+
+            m_p_ok_button->set_dimension(dimension_type(8, 2));
+            m_p_ok_button->set_position(position_type(26, 7));
         }
 
 

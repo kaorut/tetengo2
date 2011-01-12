@@ -390,8 +390,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            assert(rectangle.right - rectangle.left > 0);
-            assert(rectangle.bottom - rectangle.top > 0);
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
             typedef gui::dimension<dimension_type> dimension_traits_type;
             return dimension_traits_type::make(
                 to_unit<typename dimension_traits_type::width_type>(
@@ -459,8 +459,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            assert(rectangle.right - rectangle.left > 0);
-            assert(rectangle.bottom - rectangle.top > 0);
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
             const ::BOOL result = ::MoveWindow(
                 handle(),
                 rectangle.left,
@@ -493,8 +493,8 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            assert(rectangle.right - rectangle.left > 0);
-            assert(rectangle.bottom - rectangle.top > 0);
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
             typedef gui::dimension<dimension_type> dimension_traits_type;
             return dimension_traits_type::make(
                 to_unit<typename dimension_traits_type::width_type>(

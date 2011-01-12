@@ -26,6 +26,7 @@
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.font.h>
 #include <stub_tetengo2.gui.gui_initializer_finalizer.h>
+#include <stub_tetengo2.gui.image.h>
 #include <stub_tetengo2.gui.label.h>
 #include <stub_tetengo2.gui.main_menu.h>
 #include <stub_tetengo2.gui.menu.h>
@@ -43,6 +44,7 @@
 #include <tetengo2.gui.traits.button_traits.h>
 #include <tetengo2.gui.traits.control_traits.h>
 #include <tetengo2.gui.traits.dialog_traits.h>
+#include <tetengo2.gui.traits.image_traits.h>
 #include <tetengo2.gui.traits.label_traits.h>
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
@@ -56,10 +58,10 @@
 
 #include "bobura.about_dialog.h"
 #include "bobura.bobura.h"
-#include "bobura.main_window.h"
-#include "bobura.settings.h"
 #include "bobura.command.type_list_impl.h"
+#include "bobura.main_window.h"
 #include "bobura.message.type_list_impl.h"
+#include "bobura.settings.h"
 
 
 namespace
@@ -104,6 +106,12 @@ namespace
     typedef stub_tetengo2::gui::font<std::wstring, std::size_t> font_type;
 
     typedef stub_tetengo2::gui::drawing::picture<std::size_t> picture_type;
+
+    typedef
+        stub_tetengo2::gui::drawing::picture_reader<
+            picture_type, boost::filesystem::path
+        >
+        picture_reader_type;
 
     typedef
         stub_tetengo2::gui::drawing::widget_canvas<
@@ -218,6 +226,12 @@ namespace
     typedef stub_tetengo2::gui::label<label_traits_type> label_type;
 
     typedef
+        tetengo2::gui::traits::image_traits<control_traits_type, picture_type>
+        image_traits_type;
+
+    typedef stub_tetengo2::gui::image<image_traits_type> image_type;
+
+    typedef
         tetengo2::gui::traits::button_traits<control_traits_type>
         button_traits_type;
 
@@ -227,8 +241,11 @@ namespace
         bobura::about_dialog<
             dialog_type,
             message_catalog_type,
+            settings_type,
             label_type,
+            image_type,
             button_type,
+            picture_reader_type,
             about_dialog_message_type_list_type
         >
         about_dialog_type;
@@ -236,12 +253,6 @@ namespace
     typedef
         bobura::command::type_list<window_type, about_dialog_type>::type
         command_type_list_type;
-
-    typedef
-        stub_tetengo2::gui::drawing::picture_reader<
-            picture_type, boost::filesystem::path
-        >
-        picture_reader_type;
 
     typedef
         bobura::message::main_window::type_list<

@@ -95,9 +95,10 @@ namespace bobura
         )
         :
         base_type(),
-        m_message_catalog(message_catalog)
+        m_message_catalog(message_catalog),
+        m_settings(settings)
         {
-            initialize_window(settings);
+            initialize_window();
         }
 
         /*!
@@ -164,18 +165,20 @@ namespace bobura
 
         const message_catalog_type& m_message_catalog;
 
+        const settings_type& m_settings;
+
 
         // functions
 
-        void initialize_window(const settings_type& settings)
+        void initialize_window()
         {
-            set_message_observers(settings);
+            set_message_observers();
             set_menus();
 
             set_text(m_message_catalog.get(TETENGO2_TEXT("Bobura")));
         }
 
-        void set_message_observers(const settings_type& settings)
+        void set_message_observers()
         {
             this->window_observer_set().destroyed().connect(
                 boost::bind(quit_message_loop_type(), 0)
@@ -185,7 +188,7 @@ namespace bobura
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::paint
-                >::type(settings.image_directory_path())
+                >::type(m_settings.image_directory_path())
             );
         }
 
@@ -314,7 +317,7 @@ namespace bobura
                     m_message_catalog.get(TETENGO2_TEXT("&About...")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::about
-                    >::type(*this, m_message_catalog)
+                    >::type(*this, m_message_catalog, m_settings)
                 );
 
                 p_main_menu->insert(p_main_menu->end(), p_popup_menu);

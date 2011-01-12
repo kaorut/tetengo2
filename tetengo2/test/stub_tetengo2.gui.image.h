@@ -9,6 +9,8 @@
 #if !defined(STUBTETENGO2_GUI_IMAGE_H)
 #define STUBTETENGO2_GUI_IMAGE_H
 
+#include <boost/scoped_ptr.hpp>
+
 #include "stub_tetengo2.gui.control.h"
 #include "tetengo2.cpp0x_keyword.h"
 
@@ -27,17 +29,27 @@ namespace stub_tetengo2 { namespace gui
 
         typedef typename base_type::base_type widget_type;
 
+        typedef typename traits_type::picture_type picture_type;
+
 
         // constructors and destructor
 
-        explicit image(widget_type& parent)
+        template <typename PictureReader>
+        image(widget_type& parent, PictureReader& picture_reader)
         :
-        base_type()
+        base_type(),
+        m_p_picture(picture_reader.read())
         {}
 
         virtual ~image()
         TETENGO2_NOEXCEPT
         {}
+
+
+    private:
+        // variables
+
+        const boost::scoped_ptr<picture_type> m_p_picture;
 
 
     };

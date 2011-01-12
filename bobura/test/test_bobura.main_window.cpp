@@ -25,6 +25,7 @@
 #include <stub_tetengo2.gui.drawing.widget_canvas.h>
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.font.h>
+#include <stub_tetengo2.gui.image.h>
 #include <stub_tetengo2.gui.label.h>
 #include <stub_tetengo2.gui.main_menu.h>
 #include <stub_tetengo2.gui.menu.h>
@@ -42,6 +43,7 @@
 #include <tetengo2.gui.traits.button_traits.h>
 #include <tetengo2.gui.traits.control_traits.h>
 #include <tetengo2.gui.traits.dialog_traits.h>
+#include <tetengo2.gui.traits.image_traits.h>
 #include <tetengo2.gui.traits.label_traits.h>
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
@@ -79,6 +81,9 @@ namespace
         exception_encoder_type;
 
     typedef
+        bobura::settings<std::wstring, boost::filesystem::path> settings_type;
+
+    typedef
         stub_tetengo2::gui::alert<
             const void*, ui_encoder_type, exception_encoder_type
         >
@@ -99,6 +104,12 @@ namespace
     typedef stub_tetengo2::gui::font<std::wstring, std::size_t> font_type;
 
     typedef stub_tetengo2::gui::drawing::picture<std::size_t> picture_type;
+
+    typedef
+        stub_tetengo2::gui::drawing::picture_reader<
+            picture_type, boost::filesystem::path
+        >
+        picture_reader_type;
 
     typedef
         stub_tetengo2::gui::drawing::widget_canvas<
@@ -219,6 +230,12 @@ namespace
     typedef stub_tetengo2::gui::label<label_traits_type> label_type;
 
     typedef
+        tetengo2::gui::traits::image_traits<control_traits_type, picture_type>
+        image_traits_type;
+
+    typedef stub_tetengo2::gui::image<image_traits_type> image_type;
+
+    typedef
         tetengo2::gui::traits::button_traits<control_traits_type>
         button_traits_type;
 
@@ -228,8 +245,11 @@ namespace
         bobura::about_dialog<
             dialog_type,
             message_catalog_type,
+            settings_type,
             label_type,
+            image_type,
             button_type,
+            picture_reader_type,
             about_dialog_message_type_list_type
         >
         about_dialog_type;
@@ -237,12 +257,6 @@ namespace
     typedef
         bobura::command::type_list<window_type, about_dialog_type>::type
         command_type_list_type;
-
-    typedef
-        stub_tetengo2::gui::drawing::picture_reader<
-            picture_type, boost::filesystem::path
-        >
-        picture_reader_type;
 
     typedef
         bobura::message::main_window::type_list<
@@ -263,9 +277,6 @@ namespace
     typedef
         stub_tetengo2::gui::menu_separator<menu_traits_type>
         menu_separator_type;
-
-    typedef
-        bobura::settings<std::wstring, boost::filesystem::path> settings_type;
 
     typedef
         bobura::main_window<
@@ -294,12 +305,10 @@ BOOST_AUTO_TEST_SUITE(main_window)
         BOOST_TEST_PASSPOINT();
 
         const message_catalog_type message_catalog;
-        const main_window_type main_window(
-            message_catalog,
-            settings_type(
-                std::vector<std::wstring>(), boost::filesystem::path()
-            )
-        );
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
+        const main_window_type main_window(message_catalog, settings);
     }
 
 

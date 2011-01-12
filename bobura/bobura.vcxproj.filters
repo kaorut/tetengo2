@@ -25,6 +25,9 @@
     <Filter Include="resources\win32">
       <UniqueIdentifier>{98f488c9-a614-4cbe-bdd1-1e3f93e8abc3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="resources\images">
+      <UniqueIdentifier>{bc4e3f8a-8e28-42fd-b9f2-02ca4e2c7f21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bobura.about_dialog.h">
@@ -82,6 +85,12 @@
     </None>
     <None Include="res\win32\kuma.ico">
       <Filter>resources\win32</Filter>
+    </None>
+    <None Include="res\images\kumakuma.jpg">
+      <Filter>resources\images</Filter>
+    </None>
+    <None Include="res\images\kuma.png">
+      <Filter>resources\images</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

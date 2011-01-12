@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <stdexcept>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
@@ -55,8 +56,15 @@ namespace gdiplus
 
         /*!
             \brief Creates a picture reader.
+
+            \tparam P A path type.
+
+            \param path A path.
         */
-        picture_reader()
+        template <typename P>
+        picture_reader(P&& path)
+        :
+        m_path(std::forward<P>(path))
         {}
 
 
@@ -65,16 +73,14 @@ namespace gdiplus
         /*!
             \brief Reads a picture.
 
-            \param path A path.
-
             \return A std::auto_ptr to a picture.
 
             \throw std::runtime_error When a picture cannot be read.
         */
-        std::auto_ptr<picture_type> read(const path_type& path)
+        std::auto_ptr<picture_type> read()
         {
             std::auto_ptr<Gdiplus::Bitmap> p_bitmap(
-                new Gdiplus::Bitmap(path.c_str())
+                new Gdiplus::Bitmap(m_path.c_str())
             );
             if (p_bitmap->GetLastStatus() != S_OK)
             {
@@ -85,6 +91,12 @@ namespace gdiplus
 
             return std::auto_ptr<picture_type>(new picture_type(p_bitmap));
         }
+
+
+    private:
+        // variables
+
+        const path_type m_path;
 
 
     };
