@@ -13,7 +13,18 @@ Depends on  : 00000065, 00000066
 Description : Create tetengo2::gui::win32::image.
 ------------------------------------------------------------------------------
 Number      : 00000071
-Added on    : 2010/mm/yy
+Added on    : 2011/01/12
+Depends on  : (none)
+Description : Create test_bobura.types.h.
+------------------------------------------------------------------------------
+Number      : 00000072
+Added on    : 2011/01/12
+Depends on  : (none)
+Description : Modify tetengo2::gui::win32::widget and other widget classes to
+              tetengo2::gui::widget and tetengo2::detail::win32::*.
+------------------------------------------------------------------------------
+Number      : 00000073
+Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
 ------------------------------------------------------------------------------
