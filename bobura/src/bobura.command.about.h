@@ -47,7 +47,7 @@ namespace bobura { namespace command
 
             \param parent          A parent window.
             \param message_catalog A message catalog.
-            \param setting         Settings type.
+            \param settings        Settings type.
         */
         about(
             abstract_window_type&       parent,
