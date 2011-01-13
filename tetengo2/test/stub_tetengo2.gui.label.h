@@ -40,6 +40,12 @@ namespace stub_tetengo2 { namespace gui
         {}
 
 
+        // functions
+
+        void fit_to_content()
+        {}
+
+
     };
 
 

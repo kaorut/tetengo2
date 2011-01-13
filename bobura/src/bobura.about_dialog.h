@@ -11,7 +11,6 @@
 
 #include <memory>
 #include <sstream>
-//#include <utility>
 
 #include <boost/format.hpp>
 #include <boost/mpl/at.hpp>
@@ -249,13 +248,13 @@ namespace bobura
             m_p_application_image->fit_to_content();
             m_p_application_image->set_position(position_type(0, 0));
 
-            m_p_title_label->set_dimension(dimension_type(32, 2));
+            m_p_title_label->fit_to_content();
             m_p_title_label->set_position(position_type(2, 1));
 
-            m_p_copyright_label->set_dimension(dimension_type(32, 2));
+            m_p_copyright_label->fit_to_content();
             m_p_copyright_label->set_position(position_type(2, 3));
 
-            m_p_link_label->set_dimension(dimension_type(32, 2));
+            m_p_link_label->fit_to_content();
             m_p_link_label->set_position(position_type(2, 5));
 
             m_p_ok_button->set_dimension(dimension_type(8, 2));

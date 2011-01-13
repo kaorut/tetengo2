@@ -22,6 +22,11 @@ BOOST_AUTO_TEST_SUITE(label)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(fit_to_content)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

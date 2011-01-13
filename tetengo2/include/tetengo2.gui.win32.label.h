@@ -13,6 +13,7 @@
 //#include <stdexcept>
 //#include <utility>
 
+//#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
@@ -20,6 +21,7 @@
 //#include <Windows.h>
 
 #include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.win32.control.h"
 
 
@@ -73,6 +75,17 @@ namespace tetengo2 { namespace gui { namespace win32
         {}
 
 
+        // functions
+
+        /*!
+            \brief Fit the dimension to the dimension of the text.
+        */
+        void fit_to_content()
+        {
+            set_client_dimension(calculate_text_dimension());
+        }
+
+
     private:
         // static functions
 
@@ -104,6 +117,31 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
+
+        std::pair<size_type, size_type> calculate_text_dimension()
+        const
+        {
+            const handle_type handle = this->handle();
+            const ::HDC hdc = ::GetDC(handle);
+            BOOST_SCOPE_EXIT((handle)(hdc))
+            {
+                ::ReleaseDC(handle, hdc);
+            } BOOST_SCOPE_EXIT_END;
+
+            ::SIZE size = {};
+            if (
+                ::GetTextExtentPoint32W(
+                    hdc, text().c_str(), text().length(), &size
+                ) == 0
+            )
+            {
+                throw std::runtime_error("Can't get text extent.");
+            }
+
+            return std::pair<size_type, size_type>(
+                to_unit<size_type>(size.cx), to_unit<size_type>(size.cy)
+            );
+        }
 
         message_handler_map_type make_message_handler_map(
             message_handler_map_type&& initial_map

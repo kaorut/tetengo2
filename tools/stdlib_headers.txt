@@ -24,6 +24,7 @@
 ::GetClassInfoExW                                Windows.h
 ::GetClientRect                                  Windows.h
 ::GetCommandLineW                                Windows.h
+::GetDC                                          Windows.h
 ::GetDlgItem                                     Windows.h
 ::GetLastError                                   Windows.h
 ::GetLocaleInfoA                                 Windows.h
@@ -36,6 +37,7 @@
 ::GetStockObject                                 Windows.h
 ::GetSysColorBrush                               Windows.h
 ::GetSystemMenu                                  Windows.h
+::GetTextExtentPoint32W                          Windows.h
 ::GetUserDefaultLangID                           Windows.h
 ::GetWindowLongPtrW                              Windows.h
 ::GetWindowRect                                  Windows.h
@@ -43,6 +45,7 @@
 ::GetWindowTextW                                 Windows.h
 ::HANDLE                                         Windows.h
 ::HBRUSH                                         Windows.h
+::HDC                                            Windows.h
 ::HFONT                                          Windows.h
 ::HICON                                          Windows.h
 ::HINSTANCE                                      Windows.h
@@ -84,8 +87,10 @@
 ::PostQuitMessage                                Windows.h
 ::RECT                                           Windows.h
 ::RegisterClassExW                               Windows.h
+::ReleaseDC                                      Windows.h
 ::RemoveMenu                                     Windows.h
 ::RemovePropW                                    Windows.h
+::SIZE                                           Windows.h
 ::SendMessageW                                   Windows.h
 ::SetActiveWindow                                Windows.h
 ::SetMenu                                        Windows.h
