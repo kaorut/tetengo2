@@ -13,7 +13,7 @@
 //#include <stdexcept>
 //#include <utility>
 
-#include <boost/bind.hpp>
+//#include <boost/bind.hpp>
 #include <boost/scoped_ptr.hpp>
 //#include <boost/throw_exception.hpp>
 
