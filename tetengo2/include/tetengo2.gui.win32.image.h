@@ -83,6 +83,17 @@ namespace tetengo2 { namespace gui { namespace win32
         {}
 
 
+        // functions
+
+        /*!
+            \brief Fit the dimension to the dimension of the picture.
+        */
+        void fit_to_content()
+        {
+            set_client_dimension(m_p_picture->dimension());
+        }
+
+
     private:
         // static functions
 

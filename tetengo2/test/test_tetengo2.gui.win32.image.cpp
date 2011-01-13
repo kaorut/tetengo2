@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(handle)
+    BOOST_AUTO_TEST_CASE(fit_to_content)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }

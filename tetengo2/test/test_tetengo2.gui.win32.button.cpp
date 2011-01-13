@@ -22,11 +22,6 @@ BOOST_AUTO_TEST_SUITE(button)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(handle)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
     BOOST_AUTO_TEST_CASE(style)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
