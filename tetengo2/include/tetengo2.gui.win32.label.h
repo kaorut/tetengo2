@@ -131,7 +131,10 @@ namespace tetengo2 { namespace gui { namespace win32
             ::SIZE size = {};
             if (
                 ::GetTextExtentPoint32W(
-                    hdc, text().c_str(), text().length(), &size
+                    hdc,
+                    text().c_str(),
+                    static_cast<int>(text().length()),
+                    &size
                 ) == 0
             )
             {
