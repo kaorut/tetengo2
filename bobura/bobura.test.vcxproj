@@ -207,6 +207,7 @@ echo Skipping...
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
+    <ClInclude Include="test\test_bobura.types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\precompiled\precompiled.cpp">

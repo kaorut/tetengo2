@@ -16,10 +16,16 @@
     <Filter Include="sources\test_bobura::command">
       <UniqueIdentifier>{6d34d48f-8242-4504-8461-a816fcd6385a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\test_bobura">
+      <UniqueIdentifier>{73d67de8-0656-4e21-8ca8-4148bc1d7127}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="test\test_bobura.types.h">
+      <Filter>headers\test_bobura</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
