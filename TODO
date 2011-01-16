@@ -20,11 +20,6 @@ Description : Create tetengo2::gui::win32::widget::text_color(),
               set_text_color(), background_color(), set_background_color(),
               background_transparent() and set_background_transparent().
 ------------------------------------------------------------------------------
-Number      : 00000076
-Added on    : 2011/01/13
-Depends on  : (none)
-Description : Create tetengo2::gui::win32::image::stretch() and set_stretch().
-------------------------------------------------------------------------------
 Number      : 00000077
 Added on    : 2011/mm/yy
 Depends on  : (none)
