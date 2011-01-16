@@ -139,7 +139,22 @@ namespace tetengo2 { namespace gui { namespace win32
                 std::forward<message_handler_map_type>(initial_map)
             );
 
+            map[WM_TETENGO2_CONTROL_COLOR].push_back(
+                boost::bind(&control::on_control_color, this, _1, _2)
+            );
+
             return map;
+        }
+
+        boost::optional< ::LRESULT> on_control_color(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            const ::HDC hdc = reinterpret_cast< ::HDC>(wParam);
+            hdc;
+
+            return boost::optional< ::LRESULT>();
         }
 
 

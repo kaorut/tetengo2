@@ -740,6 +740,7 @@ namespace tetengo2 { namespace gui { namespace win32
         enum message_type
         {
             WM_TETENGO2_COMMAND = WM_APP + 1,   //!< A command message.
+            WM_TETENGO2_CONTROL_COLOR,          //!< A control color message.
         };
 
         //! The message handler type.
@@ -983,6 +984,21 @@ namespace tetengo2 { namespace gui { namespace win32
             map[WM_COMMAND].push_back(
                 boost::bind(&widget::on_command, this, _1, _2)
             );
+            map[WM_CTLCOLORBTN].push_back(
+                boost::bind(&widget::on_control_color, this, _1, _2)
+            );
+            map[WM_CTLCOLOREDIT].push_back(
+                boost::bind(&widget::on_control_color, this, _1, _2)
+            );
+            map[WM_CTLCOLORLISTBOX].push_back(
+                boost::bind(&widget::on_control_color, this, _1, _2)
+            );
+            map[WM_CTLCOLORSCROLLBAR].push_back(
+                boost::bind(&widget::on_control_color, this, _1, _2)
+            );
+            map[WM_CTLCOLORSTATIC].push_back(
+                boost::bind(&widget::on_control_color, this, _1, _2)
+            );
             map[WM_PAINT].push_back(
                 boost::bind(&widget::on_paint, this, _1, _2)
             );
@@ -1010,6 +1026,27 @@ namespace tetengo2 { namespace gui { namespace win32
                 reinterpret_cast< ::LPARAM>(handle())
             );
             return boost::optional< ::LRESULT>();
+        }
+
+        boost::optional< ::LRESULT> on_control_color(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            if (lParam == 0) return boost::optional< ::LRESULT>();
+
+            const ::LRESULT result =
+                ::SendMessageW(
+                    reinterpret_cast< ::HWND>(lParam),
+                    WM_TETENGO2_CONTROL_COLOR,
+                    wParam,
+                    0
+                );
+
+            return
+                result == NULL ?
+                boost::optional< ::LRESULT>() :
+                boost::optional< ::LRESULT>(result);
         }
 
         boost::optional< ::LRESULT> on_paint(
