@@ -81,9 +81,21 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         void draw_text(S&& text, const P& position)
         {}
 
+        template <typename P, typename D /* = typename P::dimension_type */>
+        void paint_picture(
+            const picture_type& picture,
+            const P&            position,
+            const D&            dimension /* = picture.dimension() */
+        )
+        {}
+
+#if !defined(DOCUMENTATION)
         template <typename P>
         void paint_picture(const picture_type& picture, const P& position)
-        {}
+        {
+            paint_picture(picture, position, picture.dimension());
+        }
+#endif
 
 
     private:

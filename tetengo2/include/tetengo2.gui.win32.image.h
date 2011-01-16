@@ -154,7 +154,9 @@ namespace tetengo2 { namespace gui { namespace win32
         void paint_picture(canvas_type& canvas)
         const
         {
-            canvas.paint_picture(*m_p_picture, position_type(0, 0));
+            canvas.paint_picture(
+                *m_p_picture, position_type(0, 0), client_dimension()
+            );
         }
 
 

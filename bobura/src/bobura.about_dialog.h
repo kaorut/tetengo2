@@ -245,7 +245,8 @@ namespace bobura
             typedef typename about_dialog::dimension_type dimension_type;
             typedef typename about_dialog::position_type position_type;
 
-            m_p_application_image->fit_to_content();
+            //m_p_application_image->fit_to_content();
+            m_p_application_image->set_dimension(dimension_type(10, 10));
             m_p_application_image->set_position(position_type(0, 0));
 
             m_p_title_label->fit_to_content();

@@ -232,30 +232,28 @@ namespace gdiplus
             \brief Paints a picture.
 
             \tparam P A position type.
+            \tparam D A dimension type.
 
-            \param picture  A picture to paint.
-            \param position A position where the text is drawn.
+            \param picture   A picture to paint.
+            \param position  A position where the picture is painted.
+            \param dimension A dimension in which the picture is painted.
 
             \throw std::runtime_error When the picture cannot be painted.
         */
-        template <typename P>
-        void paint_picture(const picture_type& picture, const P& position)
+        template <typename P, typename D /* = typename P::dimension_type */>
+        void paint_picture(
+            const picture_type& picture,
+            const P&            position,
+            const D&            dimension /* = picture.dimension() */
+        )
         {
-            const typename picture_type::dimension_type& picture_dimension =
-                picture.dimension();
             const Gdiplus::Status result =
                 m_graphics.DrawImage(
                     &const_cast<picture_type&>(picture).gdiplus_bitmap(),
                     to_pixels< ::INT>(gui::position<P>::left(position)),
                     to_pixels< ::INT>(gui::position<P>::top(position)),
-                    to_pixels< ::INT>(
-                        gui::dimension<
-                            typename picture_type::dimension_type
-                        >::width(picture_dimension)),
-                    to_pixels< ::INT>(
-                        gui::dimension<
-                            typename picture_type::dimension_type
-                        >::height(picture_dimension))
+                    to_pixels< ::INT>(gui::dimension<D>::width(dimension)),
+                    to_pixels< ::INT>(gui::dimension<D>::height(dimension))
                 );
             if (result != Gdiplus::Ok)
             {
@@ -264,6 +262,14 @@ namespace gdiplus
                 );
             }
         }
+
+#if !defined(DOCUMENTATION)
+        template <typename P>
+        void paint_picture(const picture_type& picture, const P& position)
+        {
+            paint_picture(picture, position, picture.dimension());
+        }
+#endif
 
         /*!
             \brief Returns the GDI+ graphics.
