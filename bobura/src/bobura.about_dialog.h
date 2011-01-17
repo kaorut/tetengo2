@@ -203,7 +203,7 @@ namespace bobura
 
             p_label->set_text(
                 typename base_type::string_type(
-                    TETENGO2_TEXT("Copyright (C) 2010 kaoru")
+                    TETENGO2_TEXT("Copyright (C) 2007-2011 kaoru")
                 )
             );
 

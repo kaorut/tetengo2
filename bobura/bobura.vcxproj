@@ -108,7 +108,7 @@ xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
       <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Manifest>
-      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.manifest</AdditionalManifestFiles>
+      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,7 +142,7 @@ xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
       <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Manifest>
-      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.manifest</AdditionalManifestFiles>
+      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -178,7 +178,7 @@ xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
       <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Manifest>
-      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.manifest</AdditionalManifestFiles>
+      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -214,7 +214,7 @@ xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
       <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Manifest>
-      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.manifest</AdditionalManifestFiles>
+      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -252,7 +252,8 @@ xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="res\win32\COMCTL32.DLL.manifest" />
+    <None Include="res\win32\COMCTL32.DLL.Win32.manifest" />
+    <None Include="res\win32\COMCTL32.DLL.x64.manifest" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

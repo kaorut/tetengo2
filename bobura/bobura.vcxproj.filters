@@ -92,6 +92,12 @@
     <None Include="res\images\kuma.png">
       <Filter>resources\images</Filter>
     </None>
+    <None Include="res\win32\COMCTL32.DLL.x64.manifest">
+      <Filter>resources\win32</Filter>
+    </None>
+    <None Include="res\win32\COMCTL32.DLL.Win32.manifest">
+      <Filter>resources\win32</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\win32\bobura.rc">
@@ -105,10 +111,5 @@
     <ClCompile Include="src\main.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Manifest Include="res\win32\COMCTL32.DLL.manifest">
-      <Filter>resources\win32</Filter>
-    </Manifest>
   </ItemGroup>
 </Project>
