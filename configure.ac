@@ -55,7 +55,7 @@ test -z $DOXYGEN && \
     AC_MSG_WARN([You cannot generate documentation for lack of Doxygen.])
 
 #### Checks for libraries ####
-AX_BOOST_BASE([1.44]) 
+AX_BOOST_BASE([1.45])
 AX_BOOST_FILESYSTEM
 AX_BOOST_PROGRAM_OPTIONS
 AX_BOOST_SYSTEM
@@ -67,7 +67,7 @@ AC_CXX_HAVE_STL
 AC_HEADER_STDC
 
 #### Checks for typedefs, structures, and compiler characteristics ####
-AC_CXX_TEMPLATES
+AC_CXX_COMPILE_STDCXX_0X
 
 #### Checks for library functions ####
 
