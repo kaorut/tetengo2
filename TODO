@@ -15,10 +15,9 @@ Description : Modify tetengo2::gui::win32::widget and other widget classes to
 ------------------------------------------------------------------------------
 Number      : 00000073
 Added on    : 2011/01/13
-Depends on  : 00000077, 00000078
+Depends on  : 00000077, 00000078, 00000079
 Description : Create tetengo2::gui::win32::control::text_color(),
-              set_text_color(), background_color(), set_background_color(),
-              background_transparent() and set_background_transparent().
+              set_text_color(), background(), set_background.
 ------------------------------------------------------------------------------
 Number      : 00000077
 Added on    : 2011/01/14
@@ -31,6 +30,13 @@ Depends on  : 00000077
 Description : Create tetengo2::gui::drawing::win32::gdiplus::background.
 ------------------------------------------------------------------------------
 Number      : 00000079
+Added on    : 2011/01/17
+Depends on  : 00000077, 00000078
+Description : Create
+              tetengo2::gui::drawing::win32::gdiplus::solid_background() and 
+              transparent_background().
+------------------------------------------------------------------------------
+Number      : 00000080
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
