@@ -219,6 +219,7 @@ echo Skipping...
     <ClInclude Include="test\stub_tetengo2.gui.control.h" />
     <ClInclude Include="test\stub_tetengo2.gui.dialog.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.canvas.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.drawing.color.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.picture.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.picture_reader.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.widget_canvas.h" />
@@ -255,6 +256,7 @@ echo Skipping...
     <ClCompile Include="test\test_tetengo2.encoding.win32.utf8.cpp" />
     <ClCompile Include="test\test_tetengo2.generator.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.canvas.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.color.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.picture.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.picture_reader.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.widget_canvas.cpp" />

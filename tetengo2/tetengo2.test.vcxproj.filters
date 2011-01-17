@@ -123,6 +123,9 @@
     <ClInclude Include="test\stub_tetengo2.gui.image.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
+    <ClInclude Include="test\stub_tetengo2.gui.drawing.color.h">
+      <Filter>headers\stub_tetengo2::gui::drawing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\_catalogs.txt">
@@ -273,6 +276,9 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.image.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.color.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

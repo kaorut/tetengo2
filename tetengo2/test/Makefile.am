@@ -11,6 +11,7 @@ headers = \
     stub_tetengo2.gui.control.h \
     stub_tetengo2.gui.dialog.h \
     stub_tetengo2.gui.drawing.canvas.h \
+    stub_tetengo2.gui.drawing.color.h \
     stub_tetengo2.gui.drawing.picture.h \
     stub_tetengo2.gui.drawing.picture_reader.h \
     stub_tetengo2.gui.drawing.widget_canvas.h \
@@ -55,6 +56,7 @@ sources = \
 extra_sources = \
     test_tetengo2.encoding.win32.utf8.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.canvas.cpp \
+    test_tetengo2.gui.drawing.win32.gdiplus.color.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.picture.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.picture_reader.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.window_canvas.cpp \
