@@ -195,7 +195,7 @@
     <ClInclude Include="include\tetengo2.gui.traits.image_traits.h">
       <Filter>headers\tetengo2::gui::traits</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.color.h">
+    <ClInclude Include="include\tetengo2.gui.drawing.color.h">
       <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
   </ItemGroup>

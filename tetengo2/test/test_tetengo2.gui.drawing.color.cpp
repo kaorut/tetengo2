@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::drawing::win32::gdiplus::color.
+    \brief Test of class tetengo2::gui::drawing::color.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -8,16 +8,14 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.drawing.win32.gdiplus.color.h"
+#include "tetengo2.gui.drawing.color.h"
 
 
 namespace
 {
     // types
 
-    typedef
-        tetengo2::gui::drawing::win32::gdiplus::color<unsigned char>
-        color_type;
+    typedef tetengo2::gui::drawing::color<unsigned char> color_type;
 
 
 }
@@ -26,8 +24,6 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(drawing)
-BOOST_AUTO_TEST_SUITE(win32)
-BOOST_AUTO_TEST_SUITE(gdiplus)
 BOOST_AUTO_TEST_SUITE(color)
     // test cases
 
@@ -81,8 +77,6 @@ BOOST_AUTO_TEST_SUITE(color)
     }
 
 
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

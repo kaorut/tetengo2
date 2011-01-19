@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::drawing::win32::gdiplus::color.
+    \brief The definition of tetengo2::gui::drawing::color.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_COLOR_H)
-#define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_COLOR_H
+#if !defined(TETENGO2_GUI_DRAWING_COLOR_H)
+#define TETENGO2_GUI_DRAWING_COLOR_H
 
 #include <limits>
 
@@ -27,8 +27,7 @@
 #undef max
 
 
-namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
-namespace gdiplus
+namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
         \brief The class template for a color for Win32 platforms.
@@ -148,7 +147,7 @@ namespace gdiplus
     };
 
 
-}}}}}
+}}}
 
 
 #endif
