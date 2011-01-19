@@ -100,10 +100,11 @@
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-if "%PROCESSOR_ARCHITECTURE%" == "x86" (
+call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
+if "%BOBURA_CONFIG%" == "1" (
 "$(TargetDir)\$(TargetFileName)" --result_code=no --report_level=no
 ) else (
-echo Skipping...
+echo Skipping the unit test...
 )
 </Command>
     </PostBuildEvent>
@@ -131,10 +132,11 @@ echo Skipping...
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-if not "%PROCESSOR_ARCHITECTURE%" == "x86" (
+call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
+if "%BOBURA_CONFIG%" == "1" (
 "$(TargetDir)\$(TargetFileName)" --result_code=no --report_level=no
 ) else (
-echo Skipping...
+echo Skipping the unit test...
 )
 </Command>
     </PostBuildEvent>
@@ -164,10 +166,11 @@ echo Skipping...
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-if "%PROCESSOR_ARCHITECTURE%" == "x86" (
+call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
+if "%BOBURA_CONFIG%" == "1" (
 "$(TargetDir)\$(TargetFileName)" --result_code=no --report_level=no
 ) else (
-echo Skipping...
+echo Skipping the unit test...
 )
 </Command>
     </PostBuildEvent>
@@ -197,10 +200,11 @@ echo Skipping...
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-if not "%PROCESSOR_ARCHITECTURE%" == "x86" (
+call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
+if "%BOBURA_CONFIG%" == "1" (
 "$(TargetDir)\$(TargetFileName)" --result_code=no --report_level=no
 ) else (
-echo Skipping...
+echo Skipping the unit test...
 )
 </Command>
     </PostBuildEvent>

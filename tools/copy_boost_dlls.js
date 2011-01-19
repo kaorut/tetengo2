@@ -4,77 +4,13 @@
 	$Id$
 */
 
-function trim(string)
-{
-	var trimmed = string;
-	
-	var character_offset = trimmed.search(/[^ \t]/);
-	if (character_offset == -1) return "";
-		trimmed = trimmed.substring(character_offset);
-	var whitespace_offset = trimmed.search(/[ \t]+$/);
-	if (whitespace_offset >= 0)
-		trimmed = trimmed.substring(0, whitespace_offset);
-	
-	return trimmed;
-}
-
-function parseLine(line, pattern)
-{
-	var trimmed = trim(line);
-	
-	var found_define_lib = trimmed.match(pattern);
-	if (found_define_lib == null) return null;
-	
-	var key_value = trimmed.substring(found_define_lib.lastIndex);
-	var found_whitespace = key_value.match(/\s+/);
-	if (found_whitespace == null)
-	{
-		WScript.Echo("Syntax Error: " + trimmed);
-		return null;
-	}
-	
-	var key = key_value.substring(0, found_whitespace.index);
-	var value = trim(key_value.substring(found_whitespace.lastIndex));
-	value = value.replace(/\\\\/g, "\\");
-	value = value.replace(/\"/g, "");
-	return new Array(key, value);
-}
-
-function getSourceAndVersion()
-{
-	var source = new Array;
-	var version = null;
-	
-	var filesystem = WScript.CreateObject("Scripting.FileSystemObject");
-	var stream = filesystem.OpenTextFile("..\\bobura_config.h", 1, false, 0);
-	while (!stream.AtEndOfStream)
-	{
-		var line = stream.ReadLine();
-		
-		var parsed1 = parseLine(line, /^#\s*define\s+BOOST_LIB_/);
-		if (parsed1 != null)
-		{
-			source[parsed1[0]] = parsed1[1];
-			continue;
-		}
-		
-		var parsed2 = parseLine(line, /^#\s*define\s+BOOST_VERSION/);
-		if (parsed2 != null)
-		{
-			version = parsed2[1];
-			continue;
-		}
-	}
-	stream.Close();
-	
-	return new Array(source, version);
-}
-
-function getDestination(solutionDirectory, releaseOrDebug)
+function getDestinationDirectory(solutionDirectory, releaseOrDebug, platform)
 {
 	var filesystem = WScript.CreateObject("Scripting.FileSystemObject");
 	
-	return filesystem.BuildPath(solutionDirectory, "bin\\" + releaseOrDebug);
+	return filesystem.BuildPath(
+		solutionDirectory, "bin\\" + releaseOrDebug + "." + platform
+	);
 }
 
 function getDllNames(version, debug)
@@ -104,7 +40,21 @@ function copyFile(sourceDirectory, destinationDirectory, fileName)
 
 // main
 
-if (WScript.Arguments.length < 3)
+function include(script)
+{
+	var path =
+		WScript.ScriptFullName.replace(
+			new RegExp(WScript.ScriptName + "$"), ""
+		);
+	var stream =
+		WScript.CreateObject("Scripting.FileSystemObject").OpenTextFile(
+			path + script, 1, false, 0
+		);
+	try { return stream.ReadAll(); } finally { stream.Close(); }
+}
+eval(include("parse_bobura_config.js"));
+
+if (WScript.Arguments.length < 2)
 {
 	WScript.Echo(
 		"Usage: cscript copy_boost_dlls.js SOLUTION_DIRECTORY RELEASE_OR_DEBUG PLATFORM"
@@ -115,25 +65,23 @@ var solutionDirectory = WScript.Arguments(0);
 var releaseOrDebug = WScript.Arguments(1);
 var platform = WScript.Arguments(2);
 
-var sourceAndVersion = getSourceAndVersion();
-var destination = getDestination(solutionDirectory, releaseOrDebug);
-
-var sourceDirectory = sourceAndVersion[0][platform];
-if (sourceDirectory == null || sourceDirectory.length == 0)
+var stream =
+	WScript.CreateObject("Scripting.FileSystemObject").OpenTextFile(
+		solutionDirectory + "bobura_config.h", 1, false, 0
+	);
+try
 {
-	WScript.Echo("The Boost source directory is unknown.");
-	WScript.Quit(1);
+	var version = getMacroValue(stream, "BOOST_VERSION");
+	var sourceDirectory = getMacroValue(stream, "BOOST_LIB_" + platform);
+	var destinationDirectory =
+		getDestinationDirectory(solutionDirectory, releaseOrDebug, platform);
+	var dllNames =
+		getDllNames(version, releaseOrDebug.toLowerCase() == "debug");
+
+	for (var i = 0; i < dllNames.length; ++i)
+		copyFile(sourceDirectory, destinationDirectory, dllNames[i]);
 }
-var destinationDirectory = destination + "." + platform;
-var version = sourceAndVersion[1];
-if (version == null || version.length == 0)
+finally
 {
-	WScript.Echo("The Boost version is unknown.");
-	WScript.Quit(1);
+	stream.Close();
 }
-
-var dllNames =
-	getDllNames(version, releaseOrDebug.toLowerCase() == "debug");
-for (var i = 0; i < dllNames.length; ++i)
-	copyFile(sourceDirectory, destinationDirectory, dllNames[i]);
-
