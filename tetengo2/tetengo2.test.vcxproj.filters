@@ -277,5 +277,8 @@
     <ClCompile Include="test\test_tetengo2.gui.drawing.color.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

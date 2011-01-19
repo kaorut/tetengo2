@@ -13,6 +13,7 @@ headers = \
     tetengo2.encoding.encoding.h \
     tetengo2.encoding.ascii.h \
     tetengo2.encoding.locale.h \
+    tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.color.h \
     tetengo2.gui.measure.h \
     tetengo2.gui.menu_observer_set.h \

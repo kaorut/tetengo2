@@ -42,6 +42,7 @@ sources = \
     test_tetengo2.encoding.encoding.cpp \
     test_tetengo2.encoding.ascii.cpp \
     test_tetengo2.encoding.locale.cpp \
+    test_tetengo2.gui.drawing.background.cpp \
     test_tetengo2.gui.drawing.color.cpp \
     test_tetengo2.gui.measure.cpp \
     test_tetengo2.gui.menu_observer_set.cpp \

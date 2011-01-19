@@ -33,6 +33,7 @@
 #undef min
 #undef max
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.measure.h"
 
 
@@ -84,23 +85,11 @@ namespace gdiplus
         // constructors and destructor
 
         /*!
-            \brief Creates a canvas.
-
-            \tparam DeviceHandle A device handle type.
-
-            \param device_handle A device handle.
+            \brief Destroys the canvas.
         */
-        template <typename DeviceHandle>
-        canvas(const DeviceHandle device_handle)
-        :
-        m_graphics(device_handle),
-        m_font(font_type::dialog_font())
-        {
-            m_graphics.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
-            m_graphics.SetTextRenderingHint(
-                Gdiplus::TextRenderingHintClearTypeGridFit
-            );
-        }
+        virtual ~canvas()
+        TETENGO2_NOEXCEPT
+        {}
 
 
         // functions
@@ -290,6 +279,29 @@ namespace gdiplus
         const
         {
             return m_graphics;
+        }
+
+        
+    protected:
+        // constructors
+
+        /*!
+            \brief Creates a canvas.
+
+            \tparam DeviceHandle A device handle type.
+
+            \param device_handle A device handle.
+        */
+        template <typename DeviceHandle>
+        canvas(const DeviceHandle device_handle)
+        :
+        m_graphics(device_handle),
+        m_font(font_type::dialog_font())
+        {
+            m_graphics.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+            m_graphics.SetTextRenderingHint(
+                Gdiplus::TextRenderingHintClearTypeGridFit
+            );
         }
 
 
