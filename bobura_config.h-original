@@ -26,10 +26,10 @@
 #define BOOST_LIB_x64 "X:\\path\\to\\boost\\lib-msvc10-x64"
 
 // Set to 1 to run test programs for a Win32 (x86) platform.
-#define RUN_TEST_FOR_WIN32 1
+#define RUN_TEST_FOR_Win32 1
 
 // Set to 1 to run test programs for a x64 (AMD64) platform.
-#define RUN_TEST_FOR_X64 0
+#define RUN_TEST_FOR_x64 0
 
 
 #endif
