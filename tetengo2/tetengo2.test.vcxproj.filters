@@ -123,6 +123,9 @@
     <ClInclude Include="test\stub_tetengo2.gui.image.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
+    <ClInclude Include="test\stub_tetengo2.gui.drawing.transparent_background.h">
+      <Filter>headers\stub_tetengo2::gui::drawing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\_catalogs.txt">
@@ -278,6 +281,9 @@
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.transparent_background.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
   </ItemGroup>

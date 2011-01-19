@@ -134,6 +134,7 @@
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.canvas.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.picture.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.picture_reader.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.transparent_background.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h" />
     <ClInclude Include="include\tetengo2.gui.measure.h" />
     <ClInclude Include="include\tetengo2.gui.menu_observer_set.h" />

@@ -201,5 +201,8 @@
     <ClInclude Include="include\tetengo2.gui.drawing.background.h">
       <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.transparent_background.h">
+      <Filter>headers\tetengo2::gui::drawing</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
