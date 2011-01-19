@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_WIDGETCANVAS_H)
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_WIDGETCANVAS_H
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.drawing.win32.gdiplus.canvas.h"
 
 
@@ -57,6 +58,13 @@ namespace gdiplus
         widget_canvas(const DeviceHandle device_handle)
         :
         base_type(device_handle)
+        {}
+
+        /*!
+            \brief Destroys the widget canvas.
+        */
+        virtual ~widget_canvas()
+        TETENGO2_NOEXCEPT
         {}
 
 
