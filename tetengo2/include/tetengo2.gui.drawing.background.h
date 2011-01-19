@@ -43,6 +43,11 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // functions
 
+        /*!
+            \brief Returns the handle;
+
+            \return The handle.
+        */
         handle_type handle()
         const
         {

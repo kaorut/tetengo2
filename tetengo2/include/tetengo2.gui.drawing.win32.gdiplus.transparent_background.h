@@ -30,6 +30,7 @@ namespace gdiplus
     public:
         // types
 
+        //! The base type.
         typedef background<Handle> base_type;
 
 
