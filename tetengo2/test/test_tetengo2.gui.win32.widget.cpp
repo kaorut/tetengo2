@@ -147,17 +147,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(check_destroyed)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
     BOOST_AUTO_TEST_CASE(window_procedure)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(mouse_clicked_handler)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
