@@ -62,6 +62,9 @@ namespace bobura
         //! The abstract window type.
         typedef typename base_type::base_type abstract_window_type;
 
+        //! The background type.
+        typedef typename base_type::background_type background_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
