@@ -16,6 +16,7 @@
 #include "stub_tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
+#include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.gui.paint_observer_set.h"
 
 
@@ -31,6 +32,8 @@ namespace
         tetengo2::encoder<internal_encoding_type, ui_encoding_type>
         ui_encoder_type;
 
+    typedef tetengo2::gui::drawing::background<const void*> background_type;
+
     typedef stub_tetengo2::gui::font<std::wstring, std::size_t> font_type;
 
     typedef stub_tetengo2::gui::drawing::picture<std::size_t> picture_type;
@@ -41,6 +44,7 @@ namespace
             std::size_t,
             std::wstring,
             ui_encoder_type,
+            background_type,
             font_type,
             picture_type
         >
