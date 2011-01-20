@@ -898,6 +898,16 @@ namespace tetengo2 { namespace gui { namespace win32
             );
         }
 
+        /*!
+            \brief Erases the background.
+
+            \param canvas A canvas.
+        */
+        void erase_background(canvas_type& canvas)
+        {
+
+        }
+
 
     private:
         // static functions
@@ -1021,6 +1031,9 @@ namespace tetengo2 { namespace gui { namespace win32
             map[WM_COMMAND].push_back(
                 boost::bind(&widget::on_command, this, _1, _2)
             );
+            map[WM_ERASEBKGND].push_back(
+                boost::bind(&widget::on_erase_background, this, _1, _2)
+            );
             map[WM_CTLCOLORBTN].push_back(
                 boost::bind(&widget::on_control_color, this, _1, _2)
             );
@@ -1063,6 +1076,19 @@ namespace tetengo2 { namespace gui { namespace win32
                 reinterpret_cast< ::LPARAM>(handle())
             );
             return boost::optional< ::LRESULT>();
+        }
+
+        boost::optional< ::LRESULT> on_erase_background(
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            if (!background()) return boost::optional< ::LRESULT>();
+
+            canvas_type canvas(reinterpret_cast< ::HDC>(wParam));
+            erase_background(canvas);
+
+            return boost::optional< ::LRESULT>(TRUE);
         }
 
         boost::optional< ::LRESULT> on_control_color(

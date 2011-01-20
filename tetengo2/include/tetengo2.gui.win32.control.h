@@ -153,10 +153,14 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::LPARAM  lParam
         )
         {
-            const ::HDC hdc = reinterpret_cast< ::HDC>(wParam);
-            hdc;
+            if (!background()) return boost::optional< ::LRESULT>();
 
-            return boost::optional< ::LRESULT>();
+            canvas_type canvas(reinterpret_cast< ::HDC>(wParam));
+            erase_background(canvas);
+
+            return boost::optional< ::LRESULT>(
+                reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))    
+            );
         }
 
 
