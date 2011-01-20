@@ -123,6 +123,7 @@ typedef
         std::size_t,
         std::wstring,
         ui_encoder_type,
+        background_type,
         font_type,
         picture_type
     >

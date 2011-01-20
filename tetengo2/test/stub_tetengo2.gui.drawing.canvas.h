@@ -22,6 +22,7 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typename Size,
         typename String,
         typename Encoder,
+        typename Background,
         typename Font,
         typename Picture
     >
@@ -37,6 +38,8 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typedef String string_type;
 
         typedef Encoder encoder_type;
+
+        typedef Background background_type;
 
         typedef Font font_type;
 
@@ -76,6 +79,14 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         {
             return std::vector<string_type>();
         }
+
+        template <typename P, typename D>
+        void fill_rectangle(
+            const P&               position,
+            const D&               dimension,
+            const background_type& background
+        )
+        {}
 
         template <typename S, typename P>
         void draw_text(S&& text, const P& position)

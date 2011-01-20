@@ -19,30 +19,35 @@ namespace gdiplus
     /*!
         \brief The class template for a widget canvas for Win32 platforms.
 
-        \tparam Handle  A handle type for the native interface.
-        \tparam Size    A size type.
-        \tparam String  A string type.
-        \tparam Encoder An encoder type.
-        \tparam Font    A font type.
-        \tparam Picture A picture type.
+        \tparam Handle     A handle type for the native interface.
+        \tparam Size       A size type.
+        \tparam String     A string type.
+        \tparam Encoder    An encoder type.
+        \tparam Background A background type.
+        \tparam Font       A font type.
+        \tparam Picture    A picture type.
     */
     template <
         typename Handle,
         typename Size,
         typename String,
         typename Encoder,
+        typename Background,
         typename Font,
         typename Picture
     >
     class widget_canvas :
-        public canvas<Handle, Size, String, Encoder, Font, Picture>
+        public canvas<
+            Handle, Size, String, Encoder, Background, Font, Picture
+        >
     {
     public:
         // types
 
         //! The base type.
         typedef
-            canvas<Handle, Size, String, Encoder, Font, Picture> base_type;
+            canvas<Handle, Size, String, Encoder, Background, Font, Picture>
+            base_type;
 
 
         // constructors and destructor

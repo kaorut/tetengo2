@@ -43,18 +43,20 @@ namespace gdiplus
     /*!
         \brief The class template for a canvas for Win32 platforms.
 
-        \tparam Handle  A handle type for the native interface.
-        \tparam Size    A size type.
-        \tparam String  A string type.
-        \tparam Encoder An encoder type.
-        \tparam Font    A font type.
-        \tparam Picture A picture type.
+        \tparam Handle     A handle type for the native interface.
+        \tparam Size       A size type.
+        \tparam String     A string type.
+        \tparam Encoder    An encoder type.
+        \tparam Background A background type.
+        \tparam Font       A font type.
+        \tparam Picture    A picture type.
     */
     template <
         typename Handle,
         typename Size,
         typename String,
         typename Encoder,
+        typename Background,
         typename Font,
         typename Picture
     >
@@ -74,6 +76,9 @@ namespace gdiplus
 
         //! The encoder type.
         typedef Encoder encoder_type;
+
+        //! The background type.
+        typedef Background background_type;
 
         //! The font type.
         typedef Font font_type;
@@ -174,12 +179,32 @@ namespace gdiplus
         }
 
         /*!
+            \brief Fills a rectangle region.
+
+            \tparam P A position type.
+            \tparam D A dimension type.
+
+            \param position   A position of a region.
+            \param dimension  A dimension of a region.
+            \param background A background.
+        */
+        template <typename P, typename D>
+        void fill_rectangle(
+            const P&               position,
+            const D&               dimension,
+            const background_type& background
+        )
+        {
+
+        }
+
+        /*!
             \brief Draws a text.
 
             \tparam S A string type.
             \tparam P A position type.
 
-            \param text  A text to draw.
+            \param text     A text to draw.
             \param position A position where the text is drawn.
 
             \throw std::runtime_error When the text cannot be drawn.
