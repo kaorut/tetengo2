@@ -24,7 +24,7 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
     public:
         // types
 
-        typedef background<Handle> base_type;
+        typedef tetengo2::gui::drawing::background<Handle> base_type;
 
 
         // constructors and destructor
