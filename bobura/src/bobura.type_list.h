@@ -43,6 +43,7 @@
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture_reader.h>
+#include <tetengo2.gui.drawing.win32.gdiplus.transparent_background.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -252,6 +253,7 @@ namespace bobura
         struct label;          //!< The label type.
         struct image;          //!< The image type.
         struct button;         //!< The button type.
+        struct transparent_background; //!< The transparent background type.
     }
 
 #if !defined(DOCUMENTATION)
@@ -280,8 +282,13 @@ namespace bobura
             unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;
         typedef
-            tetengo2::gui::drawing::background<Gdiplus::Brush>
+            tetengo2::gui::drawing::background<const Gdiplus::Brush*>
             background_type;
+        typedef
+            tetengo2::gui::drawing::win32::gdiplus::transparent_background<
+                const Gdiplus::Brush*
+            >
+            transparent_background_type;
         typedef
             tetengo2::gui::win32::font<
                 boost::mpl::at<common_type_list, type::string>::type,
@@ -447,8 +454,13 @@ namespace bobura
             boost::mpl::pair<type::image, detail::ui::image_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::transparent_background,
+                detail::ui::transparent_background_type
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -474,6 +486,9 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::image>::type,
                     boost::mpl::at<ui_type_list, type::button>::type,
                     boost::mpl::at<ui_type_list, type::picture_reader>::type,
+                    boost::mpl::at<
+                        ui_type_list, type::transparent_background
+                    >::type,
                     message::about_dialog::type_list<
                         boost::mpl::at<ui_type_list, type::dialog>::type
                     >::type

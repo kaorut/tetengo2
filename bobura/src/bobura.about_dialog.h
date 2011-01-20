@@ -37,6 +37,7 @@ namespace bobura
         \tparam Image                      An image type.
         \tparam Button                     A button type.
         \tparam PictureReader              A picture reader type.
+        \tparam TransparentBackground      A transparent background type.
         \tparam AboutDialogMessageTypeList A message type.
     */
     template <
@@ -47,6 +48,7 @@ namespace bobura
         typename Image,
         typename Button,
         typename PictureReader,
+        typename TransparentBackground,
         typename AboutDialogMessageTypeList
     >
     class about_dialog : public Dialog
@@ -77,6 +79,9 @@ namespace bobura
 
         //! The picture reader type.
         typedef PictureReader picture_reader_type;
+
+        //! The transparent background type.
+        typedef TransparentBackground transparent_background_type;
 
         //! The message type list type.
         typedef
@@ -193,6 +198,10 @@ namespace bobura
             std::auto_ptr<label_type> p_label(new label_type(*this));
 
             p_label->set_text(title.str());
+            std::auto_ptr<background_type> p_background(
+                new transparent_background_type()
+            );
+            p_label->set_background(p_background);
 
             return p_label;
         }
@@ -206,6 +215,10 @@ namespace bobura
                     TETENGO2_TEXT("Copyright (C) 2007-2011 kaoru")
                 )
             );
+            std::auto_ptr<background_type> p_background(
+                new transparent_background_type()
+            );
+            p_label->set_background(p_background);
 
             return p_label;
         }
@@ -219,6 +232,10 @@ namespace bobura
                     TETENGO2_TEXT("http://www.tetengo.org/")
                 )
             );
+            std::auto_ptr<background_type> p_background(
+                new transparent_background_type()
+            );
+            p_label->set_background(p_background);
 
             return p_label;
         }

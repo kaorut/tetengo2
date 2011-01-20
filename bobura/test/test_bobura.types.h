@@ -23,6 +23,7 @@
 #include <stub_tetengo2.gui.button.h>
 #include <stub_tetengo2.gui.drawing.picture.h>
 #include <stub_tetengo2.gui.drawing.picture_reader.h>
+#include <stub_tetengo2.gui.drawing.transparent_background.h>
 #include <stub_tetengo2.gui.drawing.widget_canvas.h>
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.font.h>
@@ -101,6 +102,10 @@ typedef stub_tetengo2::gui::unit::em<std::size_t, std::size_t> unit_size_type;
 typedef std::pair<unit_size_type, unit_size_type> dimension_type;
 
 typedef tetengo2::gui::drawing::background<const void*> background_type;
+
+typedef
+    stub_tetengo2::gui::drawing::transparent_background<const void*>
+    transparent_background_type;
 
 typedef stub_tetengo2::gui::font<std::wstring, std::size_t> font_type;
 
@@ -244,6 +249,7 @@ typedef
         image_type,
         button_type,
         picture_reader_type,
+        transparent_background_type,
         about_dialog_message_type_list_type
     >
     about_dialog_type;

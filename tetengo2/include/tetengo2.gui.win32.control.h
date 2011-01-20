@@ -155,8 +155,11 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             if (!background()) return boost::optional< ::LRESULT>();
 
-            canvas_type canvas(reinterpret_cast< ::HDC>(wParam));
+            const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
+            canvas_type canvas(device_context);
             erase_background(canvas);
+
+            ::SetBkMode(device_context, TRANSPARENT);
 
             return boost::optional< ::LRESULT>(
                 reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))    
