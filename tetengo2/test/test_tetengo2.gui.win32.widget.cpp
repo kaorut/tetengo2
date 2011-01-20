@@ -102,6 +102,16 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(set_background)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(background)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(set_font)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");

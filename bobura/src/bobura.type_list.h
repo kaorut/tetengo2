@@ -40,6 +40,7 @@
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
+#include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture_reader.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h>
@@ -279,6 +280,9 @@ namespace bobura
             unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;
         typedef
+            tetengo2::gui::drawing::background<Gdiplus::Brush>
+            background_type;
+        typedef
             tetengo2::gui::win32::font<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::size>::type
@@ -321,6 +325,7 @@ namespace bobura
                 dimension_type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                background_type,
                 font_type,
                 tetengo2::gui::paint_observer_set<canvas_type>,
                 tetengo2::gui::mouse_observer_set

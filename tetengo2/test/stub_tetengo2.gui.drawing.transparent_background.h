@@ -17,8 +17,9 @@
 
 namespace stub_tetengo2 { namespace gui { namespace drawing
 {
-    template <typename Picture, typename Path>
-    class transparent_background : private boost::noncopyable
+    template <typename Handle>
+    class transparent_background :
+        public tetengo2::gui::drawing::background<Handle>
     {
     public:
         // types

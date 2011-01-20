@@ -132,6 +132,7 @@ BOOST_TEST_PASSPOINT                             boost/test/unit_test.hpp
 BOOST_THROW_EXCEPTION                            boost/throw_exception.hpp
 BOOST_WARN_MESSAGE                               boost/test/unit_test.hpp
 Gdiplus::Bitmap                                  GdiPlus.h,Windows.h
+Gdiplus::Brush                                   GdiPlus.h,Windows.h
 Gdiplus::Color                                   GdiPlus.h,Windows.h
 Gdiplus::Font                                    GdiPlus.h,Windows.h
 Gdiplus::FontCollection                          GdiPlus.h,Windows.h

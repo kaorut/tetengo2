@@ -24,6 +24,7 @@ namespace tetengo2 { namespace gui { namespace traits
         \tparam Dimension        A dimension type.
         \tparam String           A string type.
         \tparam Encoder          An encoder type.
+        \tparam Background       A background type.
         \tparam Font             A font type.
         \tparam PaintObserverSet A paint observer set type.
         \tparam MouseObserverSet A mouse observer set type.
@@ -36,6 +37,7 @@ namespace tetengo2 { namespace gui { namespace traits
         typename Dimension,
         typename String,
         typename Encoder,
+        typename Background,
         typename Font,
         typename PaintObserverSet,
         typename MouseObserverSet
@@ -74,6 +76,9 @@ namespace tetengo2 { namespace gui { namespace traits
 
         //! The encoder type.
         typedef Encoder encoder_type;
+
+        //! The background type.
+        typedef Background background_type;
 
         //! The font type.
         typedef Font font_type;

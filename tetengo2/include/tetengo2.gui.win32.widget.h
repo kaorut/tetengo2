@@ -28,6 +28,7 @@
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
@@ -80,6 +81,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The encoder type.
         typedef typename traits_type::encoder_type encoder_type;
+
+        //! The background type.
+        typedef typename traits_type::background_type background_type;
 
         //! The font type.
         typedef typename traits_type::font_type font_type;
@@ -212,9 +216,9 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Sets the enabled status.
+            \brief Sets an enabled status.
 
-            \param enabled A enabled status.
+            \param enabled An enabled status.
         */
         void set_enabled(const bool enabled)
         {
@@ -233,7 +237,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Sets the visible status.
+            \brief Sets a visible status.
 
             \param visible A visible status.
         */
@@ -281,7 +285,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Sets the position.
+            \brief Sets a position.
 
             \tparam P A position type.
 
@@ -335,7 +339,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Sets the dimension.
+            \brief Sets a dimension.
 
             \tparam D A dimension type.
 
@@ -404,7 +408,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Sets the client dimension.
+            \brief Sets a client dimension.
 
             \tparam D A dimension type.
 
@@ -507,7 +511,7 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Sets the text.
+            \brief Sets a text.
 
             \tparam S A string type.
 
@@ -549,7 +553,37 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Sets the font.
+            \brief Sets a background.
+
+            When p_background points to NULL, the system default background is
+            used.
+
+            \param p_background An std::auto_ptr to a background.
+        */
+        void set_background(std::auto_ptr<background_type> p_background)
+        {
+            m_p_background.reset(p_background.release());
+        }
+
+        /*!
+            \brief Returns the background.
+
+            When the system default background is used, this function returns
+            an uninitialized value.
+
+            \return The background or an uninitialized value.
+        */
+        boost::optional<const background_type&> background()
+        const
+        {
+            return
+                m_p_background.get() != NULL ?
+                boost::optional<const background_type&>(*m_p_background) :
+                boost::optional<const background_type&>();
+        }
+
+        /*!
+            \brief Sets a font.
 
             \param font a font.
 
@@ -820,6 +854,7 @@ namespace tetengo2 { namespace gui { namespace win32
             )
         ),
         m_destroyed(false),
+        m_p_background(),
         m_paint_observer_set(),
         m_mouse_observer_set()
         {}
@@ -953,6 +988,8 @@ namespace tetengo2 { namespace gui { namespace win32
         const message_handler_map_type m_message_handler_map;
 
         bool m_destroyed;
+
+        boost::scoped_ptr<background_type> m_p_background;
 
         paint_observer_set_type m_paint_observer_set;
 

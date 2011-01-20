@@ -16,6 +16,8 @@
 #include <vector>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
@@ -51,6 +53,8 @@ namespace stub_tetengo2 { namespace gui
         typedef typename traits_type::string_type string_type;
 
         typedef typename traits_type::encoder_type encoder_type;
+
+        typedef typename traits_type::background_type background_type;
 
         typedef typename traits_type::font_type font_type;
 
@@ -233,6 +237,20 @@ namespace stub_tetengo2 { namespace gui
             return m_text;
         }
 
+        void set_background(std::auto_ptr<background_type> p_background)
+        {
+            m_p_background.reset(p_background.release());
+        }
+
+        boost::optional<const background_type&> background()
+        const
+        {
+            return
+                m_p_background.get() != NULL ?
+                boost::optional<const background_type&>(*m_p_background) :
+                boost::optional<const background_type&>();
+        }
+
         template <typename F>
         void set_font(F&& font)
         {}
@@ -317,7 +335,8 @@ namespace stub_tetengo2 { namespace gui
         m_position(std::make_pair(0, 0)),
         m_dimension(std::make_pair(100, 100)),
         m_client_dimension(std::make_pair(80, 80)),
-        m_text()
+        m_text(),
+        m_p_background()
         {}
 
 
@@ -337,6 +356,8 @@ namespace stub_tetengo2 { namespace gui
         dimension_type m_client_dimension;
 
         string_type m_text;
+
+        boost::scoped_ptr<background_type> m_p_background;
 
 
         // virtual functions

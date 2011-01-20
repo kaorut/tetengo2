@@ -38,6 +38,7 @@
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.unit.em.h>
 #include <stub_tetengo2.gui.window.h>
+#include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
@@ -99,6 +100,8 @@ typedef stub_tetengo2::gui::unit::em<std::size_t, std::size_t> unit_size_type;
 
 typedef std::pair<unit_size_type, unit_size_type> dimension_type;
 
+typedef tetengo2::gui::drawing::background<const void*> background_type;
+
 typedef stub_tetengo2::gui::font<std::wstring, std::size_t> font_type;
 
 typedef stub_tetengo2::gui::drawing::picture<std::size_t> picture_type;
@@ -129,6 +132,7 @@ typedef
         dimension_type,
         std::wstring,
         ui_encoder_type,
+        background_type,
         font_type,
         tetengo2::gui::paint_observer_set<canvas_type>,
         tetengo2::gui::mouse_observer_set
