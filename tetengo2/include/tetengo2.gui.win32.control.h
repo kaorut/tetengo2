@@ -75,7 +75,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \tparam C A color type.
 
-            \param color A text color.
+            \param text_color A text color.
         */
         template <typename C /* = boost::optional<color_type>() */>
         void set_text_color(
