@@ -225,6 +225,7 @@ echo Skipping the unit test...
     <ClInclude Include="test\stub_tetengo2.gui.drawing.canvas.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.picture.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.picture_reader.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.drawing.solid_background.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.transparent_background.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.widget_canvas.h" />
     <ClInclude Include="test\stub_tetengo2.gui.font.h" />
@@ -264,6 +265,7 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.picture.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.picture_reader.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.solid_background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.transparent_background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.widget_canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.measure.cpp" />

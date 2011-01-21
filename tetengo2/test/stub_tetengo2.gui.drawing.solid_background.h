@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of stub_tetengo2::gui::drawing::transparent_background.
+    \brief The definition of stub_tetengo2::gui::drawing::solid_background.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(STUBTETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H)
-#define STUBTETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H
+#if !defined(STUBTETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H)
+#define STUBTETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H
 
 #include <cstddef>
 
@@ -18,7 +18,7 @@
 namespace stub_tetengo2 { namespace gui { namespace drawing
 {
     template <typename Handle>
-    class transparent_background :
+    class solid_background :
         public tetengo2::gui::drawing::background<Handle>
     {
     public:
@@ -29,12 +29,12 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
 
         // constructors and destructor
 
-        transparent_background()
+        solid_background()
         :
         base_type()
         {}
 
-        virtual ~transparent_background()
+        virtual ~solid_background()
         TETENGO2_NOEXCEPT
         {}
 

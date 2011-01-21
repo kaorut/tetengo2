@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::drawing::win32::gdiplus::transparent_background.
+    \brief The definition of tetengo2::gui::drawing::win32::gdiplus::solid_background.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_TRANSPARENTBACKGROUND_H)
-#define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_TRANSPARENTBACKGROUND_H
+#if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_SOLIDBACKGROUND_H)
+#define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_SOLIDBACKGROUND_H
 
 #include <cstddef>
 
@@ -19,13 +19,12 @@ namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
 namespace gdiplus
 {
     /*!
-        \brief The class template for a transparent background for Win32
-               platforms.
+        \brief The class template for a solid background for Win32 platforms.
         
         \tparam Handle A handle type.
     */
     template <typename Handle>
-    class transparent_background : public background<Handle>
+    class solid_background : public background<Handle>
     {
     public:
         // types
@@ -37,9 +36,9 @@ namespace gdiplus
         // constructors and destructor
 
         /*!
-            \brief Creates a transparent background.
+            \brief Creates a solid background.
         */
-        transparent_background()
+        solid_background()
         :
         base_type()
         {}
@@ -47,7 +46,7 @@ namespace gdiplus
         /*!
             \brief Destroys the background.
         */
-        virtual ~transparent_background()
+        virtual ~solid_background()
         TETENGO2_NOEXCEPT
         {}
 
