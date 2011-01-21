@@ -10,6 +10,20 @@
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_SOLIDBACKGROUND_H
 
 #include <cstddef>
+#include <utility>
+
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
+#if !defined(min) && !defined(DOCUMENTATION)
+#   define min(a, b) ((a) < (b) ? (a) : (b))
+#endif
+#if !defined(max) && !defined(DOCUMENTATION)
+#   define max(a, b) ((a) > (b) ? (a) : (b))
+#endif
+#include <GdiPlus.h>
+#undef min
+#undef max
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.drawing.background.h"
@@ -21,9 +35,10 @@ namespace gdiplus
     /*!
         \brief The class template for a solid background for Win32 platforms.
         
+        \tparam Color  A color type.
         \tparam Handle A handle type.
     */
-    template <typename Handle>
+    template <typename Color, typename Handle>
     class solid_background : public background<Handle>
     {
     public:
@@ -32,15 +47,32 @@ namespace gdiplus
         //! The base type.
         typedef background<Handle> base_type;
 
+        //! The color type.
+        typedef Color color_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a solid background.
+
+            \tparam C A color type.
+
+            \param color A color.
         */
-        solid_background()
+        template <typename C>
+        solid_background(C&& color)
         :
-        base_type()
+        base_type(),
+        m_color(std::forward<C>(color)),
+        m_brush(
+            Gdiplus::Color(
+                m_color.alpha(),
+                m_color.red(),
+                m_color.green(),
+                m_color.blue()
+            )
+        )
         {}
 
         /*!
@@ -51,13 +83,34 @@ namespace gdiplus
         {}
 
 
+        // functions
+
+        /*!
+            \brief Returns the color.
+
+            \return The color.
+        */
+        const color_type& color()
+        const
+        {
+            return m_color;
+        }
+
+
     private:
+        // variables
+
+        const color_type m_color;
+
+        Gdiplus::SolidBrush m_brush;
+
+
         // virtual functions
 
         virtual typename base_type::handle_type handle_impl()
         const
         {
-            return NULL;
+            return &m_brush;
         }
 
 

@@ -10,6 +10,7 @@
 #define STUBTETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H
 
 #include <cstddef>
+#include <utility>
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.drawing.background.h"
@@ -17,7 +18,7 @@
 
 namespace stub_tetengo2 { namespace gui { namespace drawing
 {
-    template <typename Handle>
+    template <typename Color, typename Handle>
     class solid_background :
         public tetengo2::gui::drawing::background<Handle>
     {
@@ -26,12 +27,16 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
 
         typedef tetengo2::gui::drawing::background<Handle> base_type;
 
+        typedef Color color_type;
+
 
         // constructors and destructor
 
-        solid_background()
+        template <typename C>
+        solid_background(C&& color)
         :
-        base_type()
+        base_type(),
+        m_color(std::forward<C>(color))
         {}
 
         virtual ~solid_background()
@@ -39,7 +44,21 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         {}
 
 
+        // functions
+
+        const color_type& color()
+        const
+        {
+            return m_color;
+        }
+
+
     private:
+        // variables
+
+        const color_type m_color;
+
+
         // virtual functions
 
         virtual typename base_type::handle_type handle_impl()
