@@ -40,6 +40,7 @@
 #include <stub_tetengo2.gui.unit.em.h>
 #include <stub_tetengo2.gui.window.h>
 #include <tetengo2.gui.drawing.background.h>
+#include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
@@ -219,8 +220,10 @@ typedef
     bobura::message::about_dialog::type_list<dialog_type>::type
     about_dialog_message_type_list_type;
 
+typedef tetengo2::gui::drawing::color<unsigned char> color_type;
+
 typedef
-    tetengo2::gui::traits::control_traits<widget_traits_type>
+    tetengo2::gui::traits::control_traits<widget_traits_type, color_type>
     control_traits_type;
 
 typedef

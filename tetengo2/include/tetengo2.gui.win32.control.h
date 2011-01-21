@@ -43,6 +43,9 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The base type.
         typedef widget<typename traits_type::base_type> base_type;
 
+        //! The color type.
+        typedef typename traits_type::color_type color_type;
+
 
         // constructors and destructor
 
@@ -52,6 +55,42 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual ~control()
         TETENGO2_NOEXCEPT
         {}
+
+
+        // functions
+
+        /*!
+            \brief Returns the text color.
+
+            \return The text color.
+        */
+        const boost::optional<color_type>& text_color()
+        const
+        {
+            return m_text_color;
+        }
+
+        /*!
+            \brief Sets a text color.
+
+            \tparam C A color type.
+
+            \param color A text color.
+        */
+        template <typename C /* = boost::optional<color_type>() */>
+        void set_text_color(
+            C&& text_color /* = boost::optional<color_type>() */
+        )
+        {
+            m_text_color = text_color;
+        }
+
+#if !defined(DOCUMENTATION)
+        void set_text_color()
+        {
+            m_text_color = boost::optional<color_type>();
+        }
+#endif
 
 
     protected:
@@ -74,7 +113,8 @@ namespace tetengo2 { namespace gui { namespace win32
             )
         ),
         m_handle(handle),
-        m_p_original_window_procedure(replace_window_procedure(m_handle))
+        m_p_original_window_procedure(replace_window_procedure(m_handle)),
+        m_text_color()
         {}
 
 
@@ -114,6 +154,8 @@ namespace tetengo2 { namespace gui { namespace win32
         const handle_type m_handle;
 
         const ::WNDPROC m_p_original_window_procedure;
+
+        boost::optional<color_type> m_text_color;
 
 
         // virtual functions
@@ -159,6 +201,17 @@ namespace tetengo2 { namespace gui { namespace win32
             canvas_type canvas(device_context);
             erase_background(canvas);
 
+            if (m_text_color)
+            {
+                ::SetTextColor(
+                    device_context,
+                    RGB(
+                        m_text_color->red(),
+                        m_text_color->green(),
+                        m_text_color->blue()
+                    )
+                );
+            }
             ::SetBkMode(device_context, TRANSPARENT);
 
             return boost::optional< ::LRESULT>(

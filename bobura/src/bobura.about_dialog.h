@@ -80,6 +80,9 @@ namespace bobura
         //! The button type.
         typedef Button button_type;
 
+        //! The color type.
+        typedef typename label_type::color_type color_type;
+
         //! The picture reader type.
         typedef PictureReader picture_reader_type;
 
@@ -201,6 +204,7 @@ namespace bobura
             std::auto_ptr<label_type> p_label(new label_type(*this));
 
             p_label->set_text(title.str());
+            p_label->set_text_color(color_type(255, 0, 0));
             std::auto_ptr<background_type> p_background(
                 new transparent_background_type()
             );

@@ -41,6 +41,7 @@
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
 #include <tetengo2.gui.drawing.background.h>
+#include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture_reader.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.transparent_background.h>
@@ -377,8 +378,11 @@ namespace bobura
             >
             dialog_traits_type;
         typedef tetengo2::gui::win32::dialog<dialog_traits_type> dialog_type;
+        typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
-            tetengo2::gui::traits::control_traits<widget_traits_type>
+            tetengo2::gui::traits::control_traits<
+                widget_traits_type, color_type
+            >
             control_traits_type;
         typedef
             tetengo2::gui::traits::label_traits<control_traits_type>
