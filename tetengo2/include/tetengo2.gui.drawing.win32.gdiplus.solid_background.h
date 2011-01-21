@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_SOLIDBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_SOLIDBACKGROUND_H
 
-#include <cstddef>
 #include <utility>
 
 #define NOMINMAX

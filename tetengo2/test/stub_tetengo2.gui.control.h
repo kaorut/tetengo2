@@ -9,7 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_CONTROL_H)
 #define STUBTETENGO2_GUI_CONTROL_H
 
-#include <boost/optional.hpp>
+//#include <boost/optional.hpp>
 
 #include "stub_tetengo2.gui.widget.h"
 #include "tetengo2.cpp0x_keyword.h"

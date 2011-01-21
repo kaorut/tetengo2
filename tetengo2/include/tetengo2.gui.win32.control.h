@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_CONTROL_H)
 #define TETENGO2_GUI_WIN32_CONTROL_H
 
+//#include <cstddef>
 //#include <stdexcept>
 //#include <utility>
 

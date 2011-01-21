@@ -93,8 +93,10 @@
 ::SIZE                                           Windows.h
 ::SendMessageW                                   Windows.h
 ::SetActiveWindow                                Windows.h
+::SetBkMode                                      Windows.h
 ::SetMenu                                        Windows.h
 ::SetPropW                                       Windows.h
+::SetTextColor                                   Windows.h
 ::SetWindowLongPtrW                              Windows.h
 ::SetWindowTextW                                 Windows.h
 ::ShowWindow                                     Windows.h
@@ -150,6 +152,7 @@ Gdiplus::InstalledFontCollection                 GdiPlus.h,Windows.h
 Gdiplus::Ok                                      GdiPlus.h,Windows.h
 Gdiplus::PointF                                  GdiPlus.h,Windows.h
 Gdiplus::REAL                                    GdiPlus.h,Windows.h
+Gdiplus::Rect                                    GdiPlus.h,Windows.h
 Gdiplus::SmoothingModeAntiAlias                  GdiPlus.h,Windows.h
 Gdiplus::SolidBrush                              GdiPlus.h,Windows.h
 Gdiplus::Status                                  GdiPlus.h,Windows.h
