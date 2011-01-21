@@ -31,12 +31,22 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
 
         transparent_background()
         :
-        base_type(NULL)
+        base_type()
         {}
 
         virtual ~transparent_background()
         TETENGO2_NOEXCEPT
         {}
+
+
+    private:
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const
+        {
+            return NULL;
+        }
 
 
     };

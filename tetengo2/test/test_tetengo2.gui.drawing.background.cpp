@@ -21,8 +21,19 @@ namespace
     {
         concrete_background(const int handle)
         :
-        background_type(handle)
+        background_type(),
+        m_handle(handle)
         {}
+
+
+    private:
+        const handle_type m_handle;
+
+        virtual handle_type handle_impl()
+        const
+        {
+            return m_handle;
+        }
 
 
     };

@@ -51,7 +51,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         handle_type handle()
         const
         {
-            return m_handle;
+            return handle_impl();
         }
 
 
@@ -60,19 +60,16 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         /*!
             \brief Creates a background.
-
-            \param handle A handle;
         */
-        background(const handle_type handle)
-        :
-        m_handle(handle)
+        background()
         {}
 
 
     private:
-        // variables
+        // virtual functions
 
-        handle_type m_handle;
+        virtual handle_type handle_impl()
+        const = 0;
 
 
     };

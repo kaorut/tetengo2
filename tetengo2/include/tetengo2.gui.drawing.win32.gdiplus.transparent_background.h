@@ -41,7 +41,7 @@ namespace gdiplus
         */
         transparent_background()
         :
-        base_type(NULL)
+        base_type()
         {}
 
         /*!
@@ -50,6 +50,16 @@ namespace gdiplus
         virtual ~transparent_background()
         TETENGO2_NOEXCEPT
         {}
+
+
+    private:
+        // virtual functions
+
+        virtual handle_type handle_impl()
+        const
+        {
+            return NULL;
+        }
 
 
     };
