@@ -905,7 +905,11 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void erase_background(canvas_type& canvas)
         {
+            if (!background()) return;
 
+            canvas.fill_rectangle(
+                position_type(0, 0), client_dimension(), *background()
+            );
         }
 
 

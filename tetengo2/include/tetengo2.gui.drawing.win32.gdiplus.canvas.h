@@ -195,7 +195,15 @@ namespace gdiplus
             const background_type& background
         )
         {
+            if (background.handle() == NULL) return;
 
+            const Gdiplus::Rect rectangle(
+                gui::to_pixels< ::INT>(gui::position<P>::left(position)),
+                gui::to_pixels< ::INT>(gui::position<P>::top(position)),
+                gui::to_pixels< ::INT>(gui::dimension<D>::width(dimension)),
+                gui::to_pixels< ::INT>(gui::dimension<D>::height(dimension))
+            );
+            m_graphics.FillRectangle(background.handle(), rectangle);
         }
 
         /*!
