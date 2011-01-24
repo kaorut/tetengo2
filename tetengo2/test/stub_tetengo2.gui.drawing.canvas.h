@@ -14,6 +14,8 @@
 
 #include <boost/noncopyable.hpp>
 
+#include "tetengo2.gui.measure.h"
+
 
 namespace stub_tetengo2 { namespace gui { namespace drawing
 {
@@ -21,6 +23,7 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typename Handle,
         typename Size,
         typename String,
+        typename Dimension,
         typename Encoder,
         typename Background,
         typename Font,
@@ -36,6 +39,8 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typedef Size size_type;
 
         typedef String string_type;
+
+        typedef Dimension dimension_type;
 
         typedef Encoder encoder_type;
 

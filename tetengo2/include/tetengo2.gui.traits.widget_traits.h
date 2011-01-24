@@ -63,13 +63,10 @@ namespace tetengo2 { namespace gui { namespace traits
 
         //! The difference type.
         typedef
-            typename tetengo2::gui::position<position_type>::left_type
-            difference_type;
+            typename gui::position<position_type>::left_type difference_type;
 
         //! The size type.
-        typedef
-            typename tetengo2::gui::dimension<dimension_type>::width_type
-            size_type;
+        typedef typename gui::dimension<dimension_type>::width_type size_type;
 
         //! The string type.
         typedef String string_type;

@@ -8,6 +8,7 @@
 
 //#include <cstddef>
 //#include <string>
+#include <utility>
 
 #include <boost/test/unit_test.hpp>
 
@@ -23,6 +24,8 @@
 namespace
 {
     // types
+
+    typedef std::pair<std::size_t, std::size_t> dimension_type;
 
     typedef tetengo2::encoding::locale<std::wstring> internal_encoding_type;
 
@@ -43,6 +46,7 @@ namespace
             const void*,
             std::size_t,
             std::wstring,
+            dimension_type,
             ui_encoder_type,
             background_type,
             font_type,

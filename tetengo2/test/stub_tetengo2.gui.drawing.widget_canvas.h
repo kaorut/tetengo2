@@ -18,6 +18,7 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         typename Handle,
         typename Size,
         typename String,
+        typename Dimension,
         typename Encoder,
         typename Background,
         typename Font,
@@ -25,14 +26,30 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
     >
     class widget_canvas :
         public canvas<
-            Handle, Size, String, Encoder, Background, Font, Picture
+            Handle,
+            Size,
+            String,
+            Dimension,
+            Encoder,
+            Background,
+            Font,
+            Picture
         >
     {
     public:
         // types
 
         typedef
-            canvas<Handle, Size, String, Encoder, Background, Font, Picture>
+            canvas<
+                Handle,
+                Size,
+                String,
+                Dimension,
+                Encoder,
+                Background,
+                Font,
+                Picture
+            >
             base_type;
 
 

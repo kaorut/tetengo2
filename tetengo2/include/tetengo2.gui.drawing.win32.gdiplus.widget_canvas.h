@@ -22,6 +22,7 @@ namespace gdiplus
         \tparam Handle     A handle type for the native interface.
         \tparam Size       A size type.
         \tparam String     A string type.
+        \tparam Dimension  A dimension type.
         \tparam Encoder    An encoder type.
         \tparam Background A background type.
         \tparam Font       A font type.
@@ -31,6 +32,7 @@ namespace gdiplus
         typename Handle,
         typename Size,
         typename String,
+        typename Dimension,
         typename Encoder,
         typename Background,
         typename Font,
@@ -38,7 +40,14 @@ namespace gdiplus
     >
     class widget_canvas :
         public canvas<
-            Handle, Size, String, Encoder, Background, Font, Picture
+            Handle,
+            Size,
+            String,
+            Dimension,
+            Encoder,
+            Background,
+            Font,
+            Picture
         >
     {
     public:
@@ -46,7 +55,16 @@ namespace gdiplus
 
         //! The base type.
         typedef
-            canvas<Handle, Size, String, Encoder, Background, Font, Picture>
+            canvas<
+                Handle,
+                Size,
+                String,
+                Dimension,
+                Encoder,
+                Background,
+                Font,
+                Picture
+            >
             base_type;
 
 

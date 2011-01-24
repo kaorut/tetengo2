@@ -123,6 +123,7 @@ typedef
         const void*,
         std::size_t,
         std::wstring,
+        dimension_type,
         ui_encoder_type,
         background_type,
         font_type,

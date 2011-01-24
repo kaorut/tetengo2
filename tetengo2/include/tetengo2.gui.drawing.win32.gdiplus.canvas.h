@@ -47,6 +47,7 @@ namespace gdiplus
         \tparam Handle     A handle type for the native interface.
         \tparam Size       A size type.
         \tparam String     A string type.
+        \tparam Dimension  A dimension type.
         \tparam Encoder    An encoder type.
         \tparam Background A background type.
         \tparam Font       A font type.
@@ -56,6 +57,7 @@ namespace gdiplus
         typename Handle,
         typename Size,
         typename String,
+        typename Dimension,
         typename Encoder,
         typename Background,
         typename Font,
@@ -74,6 +76,9 @@ namespace gdiplus
 
         //! The string type.
         typedef String string_type;
+
+        //! The dimension type.
+        typedef Dimension dimension_type;
 
         //! The encoder type.
         typedef Encoder encoder_type;
@@ -206,6 +211,14 @@ namespace gdiplus
             );
             m_graphics.FillRectangle(background.handle(), rectangle);
         }
+
+        /*!
+            \brief Calculates the dimension of a text.
+
+            \param text A text.
+
+            \return The dimension of the text.
+        */
 
         /*!
             \brief Draws a text.
