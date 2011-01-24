@@ -201,7 +201,7 @@ namespace gdiplus
             const background_type& background
         )
         {
-            //if (background.handle() == NULL) return;
+            if (background.handle() == NULL) return;
 
             const Gdiplus::Rect rectangle(
                 gui::to_pixels< ::INT>(gui::position<P>::left(position)),
@@ -209,9 +209,7 @@ namespace gdiplus
                 gui::to_pixels< ::INT>(gui::dimension<D>::width(dimension)),
                 gui::to_pixels< ::INT>(gui::dimension<D>::height(dimension))
             );
-            //m_graphics.FillRectangle(background.handle(), rectangle);
-            Gdiplus::SolidBrush brush(Gdiplus::Color(64, 255, 0, 0));
-            m_graphics.FillRectangle(&brush, rectangle);
+            m_graphics.FillRectangle(background.handle(), rectangle);
         }
 
         /*!
@@ -239,9 +237,10 @@ namespace gdiplus
             const Gdiplus::Status result =
                 m_graphics.MeasureString(
                     text.c_str(),
-                    text.length(),
+                    static_cast< ::INT>(text.length()),
                     p_gdiplus_font.get(),
                     layout,
+                    Gdiplus::StringFormat::GenericTypographic(),
                     &bounding
                 );
             if (result != Gdiplus::Ok)

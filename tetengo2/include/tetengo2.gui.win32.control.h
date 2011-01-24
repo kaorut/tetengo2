@@ -204,16 +204,30 @@ namespace tetengo2 { namespace gui { namespace win32
 
             if (m_text_color)
             {
-                ::SetTextColor(
-                    device_context,
-                    RGB(
-                        m_text_color->red(),
-                        m_text_color->green(),
-                        m_text_color->blue()
-                    )
+                const ::COLORREF previous_color =
+                    ::SetTextColor(
+                        device_context,
+                        RGB(
+                            m_text_color->red(),
+                            m_text_color->green(),
+                            m_text_color->blue()
+                        )
+                    );
+                if (previous_color == CLR_INVALID)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't set text color.")
+                    );
+                }
+            }
+            const int previous_background_mode =
+                ::SetBkMode(device_context, TRANSPARENT);
+            if (previous_background_mode == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set background mode.")
                 );
             }
-            ::SetBkMode(device_context, TRANSPARENT);
 
             return boost::optional< ::LRESULT>(
                 reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))    
