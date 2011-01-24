@@ -20,6 +20,11 @@ Description : Create
               tetengo2::gui::drawing::win32::gdiplus::canvas::calc_text_dimension().
 ------------------------------------------------------------------------------
 Number      : 00000081
+Added on    : 2011/01/24
+Depends on  : (none)
+Description : Create tetengo2::win32::widget::create_canvas().
+------------------------------------------------------------------------------
+Number      : 00000082
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
