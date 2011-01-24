@@ -13,11 +13,6 @@ Depends on  : (none)
 Description : Modify tetengo2::gui::win32::widget and other widget classes to
               tetengo2::gui::widget and tetengo2::detail::win32::*.
 ------------------------------------------------------------------------------
-Number      : 00000081
-Added on    : 2011/01/24
-Depends on  : (none)
-Description : Create tetengo2::win32::widget::create_canvas().
-------------------------------------------------------------------------------
 Number      : 00000082
 Added on    : 2011/01/24
 Depends on  : (none)
