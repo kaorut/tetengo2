@@ -49,6 +49,11 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(calc_text_dimension)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(draw_text)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");

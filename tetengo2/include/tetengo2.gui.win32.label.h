@@ -82,7 +82,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void fit_to_content()
         {
-            set_client_dimension(calculate_text_dimension());
+            set_client_dimension(calc_text_dimension());
         }
 
 
@@ -118,7 +118,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        std::pair<size_type, size_type> calculate_text_dimension()
+        dimension_type calc_text_dimension()
         const
         {
             const handle_type handle = this->handle();
@@ -127,23 +127,9 @@ namespace tetengo2 { namespace gui { namespace win32
             {
                 ::ReleaseDC(handle, hdc);
             } BOOST_SCOPE_EXIT_END;
+            canvas_type canvas(hdc);
 
-            ::SIZE size = {};
-            if (
-                ::GetTextExtentPoint32W(
-                    hdc,
-                    text().c_str(),
-                    static_cast<int>(text().length()),
-                    &size
-                ) == 0
-            )
-            {
-                throw std::runtime_error("Can't get text extent.");
-            }
-
-            return std::pair<size_type, size_type>(
-                to_unit<size_type>(size.cx), to_unit<size_type>(size.cy)
-            );
+            return canvas.calc_text_dimension(text());
         }
 
         message_handler_map_type make_message_handler_map(

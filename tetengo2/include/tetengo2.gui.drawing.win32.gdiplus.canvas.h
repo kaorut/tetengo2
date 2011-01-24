@@ -201,7 +201,7 @@ namespace gdiplus
             const background_type& background
         )
         {
-            if (background.handle() == NULL) return;
+            //if (background.handle() == NULL) return;
 
             const Gdiplus::Rect rectangle(
                 gui::to_pixels< ::INT>(gui::position<P>::left(position)),
@@ -209,7 +209,9 @@ namespace gdiplus
                 gui::to_pixels< ::INT>(gui::dimension<D>::width(dimension)),
                 gui::to_pixels< ::INT>(gui::dimension<D>::height(dimension))
             );
-            m_graphics.FillRectangle(background.handle(), rectangle);
+            //m_graphics.FillRectangle(background.handle(), rectangle);
+            Gdiplus::SolidBrush brush(Gdiplus::Color(64, 255, 0, 0));
+            m_graphics.FillRectangle(&brush, rectangle);
         }
 
         /*!
@@ -219,6 +221,45 @@ namespace gdiplus
 
             \return The dimension of the text.
         */
+        dimension_type calc_text_dimension(const string_type& text)
+        const
+        {
+            const Gdiplus::InstalledFontCollection font_collection;
+            const boost::scoped_ptr<Gdiplus::Font> p_gdiplus_font(
+                create_gdiplus_font(m_font, font_collection)
+            );
+
+            const Gdiplus::RectF layout(
+                0,
+                0,
+                std::numeric_limits<Gdiplus::REAL>::max(),
+                std::numeric_limits<Gdiplus::REAL>::max()
+            );
+            Gdiplus::RectF bounding;
+            const Gdiplus::Status result =
+                m_graphics.MeasureString(
+                    text.c_str(),
+                    text.length(),
+                    p_gdiplus_font.get(),
+                    layout,
+                    &bounding
+                );
+            if (result != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't measure text!")
+                );
+            }
+
+            return dimension_type(
+                gui::to_unit<
+                    typename gui::dimension<dimension_type>::width_type
+                >(bounding.Width),
+                gui::to_unit<
+                    typename gui::dimension<dimension_type>::height_type
+                >(bounding.Height)
+            );
+        }
 
         /*!
             \brief Draws a text.

@@ -93,6 +93,12 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         )
         {}
 
+        dimension_type calc_text_dimension(const string_type& text)
+        const
+        {
+            return dimension_type();
+        }
+
         template <typename S, typename P>
         void draw_text(S&& text, const P& position)
         {}
