@@ -19,6 +19,12 @@ Depends on  : (none)
 Description : Create tetengo2::win32::widget::create_canvas().
 ------------------------------------------------------------------------------
 Number      : 00000082
+Added on    : 2011/01/24
+Depends on  : (none)
+Description : Move tetengo2::gui::win32::font to
+              tetengo2::gui::drawing::win32.
+------------------------------------------------------------------------------
+Number      : 00000083
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
