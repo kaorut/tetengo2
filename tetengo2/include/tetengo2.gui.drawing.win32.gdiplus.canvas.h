@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_CANVAS_H
 
 //#include <cstddef>
+#include <limits>
 #include <memory>
 #include <stdexcept>
 #include <string>

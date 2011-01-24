@@ -9,7 +9,7 @@
 #if !defined(STUBTETENGO2_GUI_DRAWING_CANVAS_H)
 #define STUBTETENGO2_GUI_DRAWING_CANVAS_H
 
-#include <utility>
+//#include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>

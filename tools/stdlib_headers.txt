@@ -2,6 +2,7 @@
 ::AdjustWindowRectEx                             Windows.h
 ::BOOL                                           Windows.h
 ::BeginPaint                                     Windows.h
+::COLORREF                                       Windows.h
 ::CallWindowProcW                                Windows.h
 ::CreateFontIndirectW                            Windows.h
 ::CreateMenu                                     Windows.h
@@ -37,7 +38,6 @@
 ::GetStockObject                                 Windows.h
 ::GetSysColorBrush                               Windows.h
 ::GetSystemMenu                                  Windows.h
-::GetTextExtentPoint32W                          Windows.h
 ::GetUserDefaultLangID                           Windows.h
 ::GetWindowLongPtrW                              Windows.h
 ::GetWindowRect                                  Windows.h
@@ -90,7 +90,6 @@
 ::ReleaseDC                                      Windows.h
 ::RemoveMenu                                     Windows.h
 ::RemovePropW                                    Windows.h
-::SIZE                                           Windows.h
 ::SendMessageW                                   Windows.h
 ::SetActiveWindow                                Windows.h
 ::SetBkMode                                      Windows.h
@@ -153,9 +152,11 @@ Gdiplus::Ok                                      GdiPlus.h,Windows.h
 Gdiplus::PointF                                  GdiPlus.h,Windows.h
 Gdiplus::REAL                                    GdiPlus.h,Windows.h
 Gdiplus::Rect                                    GdiPlus.h,Windows.h
+Gdiplus::RectF                                   GdiPlus.h,Windows.h
 Gdiplus::SmoothingModeAntiAlias                  GdiPlus.h,Windows.h
 Gdiplus::SolidBrush                              GdiPlus.h,Windows.h
 Gdiplus::Status                                  GdiPlus.h,Windows.h
+Gdiplus::StringFormat::GenericTypographic        GdiPlus.h,Windows.h
 Gdiplus::TextRenderingHintClearTypeGridFit       GdiPlus.h,Windows.h
 Gdiplus::UnitPixel                               GdiPlus.h,Windows.h
 NULL                                             cstddef
