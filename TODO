@@ -13,12 +13,6 @@ Depends on  : (none)
 Description : Modify tetengo2::gui::win32::widget and other widget classes to
               tetengo2::gui::widget and tetengo2::detail::win32::*.
 ------------------------------------------------------------------------------
-Number      : 00000080
-Added on    : 2011/01/21
-Depends on  : (none)
-Description : Create
-              tetengo2::gui::drawing::win32::gdiplus::canvas::calc_text_dimension().
-------------------------------------------------------------------------------
 Number      : 00000081
 Added on    : 2011/01/24
 Depends on  : (none)
