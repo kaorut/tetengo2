@@ -46,16 +46,25 @@
     \brief The root namespace for Tetengo2.
 */
 
-/*! \namespace tetengo2::win32
-    \brief The namespace for Tetengo2 specific to Win32 platforms.
+/*! \namespace tetengo2::detail
+    \brief The namespace for the detail implementations.
+*/
+
+/*! \namespace tetengo2::detail::stub
+    \brief The namespace for the stub of the detail implementations.
+*/
+
+/*! \namespace tetengo2::detail::windows
+    \brief The namespace for the detail implementations using the Windows
+           APIs.
+*/
+
+/*! \namespace tetengo2::detail::windows::gdiplus
+    \brief The namespace for the detail implementations using GDI+.
 */
 
 /*! \namespace tetengo2::encoding
     \brief The namespace for encodings.
-*/
-
-/*! \namespace tetengo2::encoding::win32
-    \brief The namespace for encodings specific to Win32 platforms.
 */
 
 /*! \namespace tetengo2::gui
@@ -66,28 +75,12 @@
     \brief The namespace for drawing components.
 */
 
-/*! \namespace tetengo2::gui::drawing::win32
-    \brief The namespace for drawing components specific to Win32 platforms.
-*/
-
-/*! \namespace tetengo2::gui::drawing::win32::gdiplus
-    \brief The namespace for drawing components specific to GDI+.
-*/
-
-/*! \namespace tetengo2::gui::win32
-    \brief The namespace for GUI specific to Win32 platforms.
-*/
-
 /*! \namespace tetengo2::gui::traits
     \brief The namespace for traits.
 */
 
 /*! \namespace tetengo2::gui::unit
     \brief The namespace for size units.
-*/
-
-/*! \namespace tetengo2::gui::unit::win32
-    \brief The namespace for size units specific to Win32 platforms.
 */
 
 /*! \namespace tetengo2::meta

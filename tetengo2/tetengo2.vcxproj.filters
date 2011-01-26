@@ -25,6 +25,15 @@
     <Filter Include="headers\tetengo2::gui::drawing">
       <UniqueIdentifier>{ec77ce78-8f8b-4143-b3d0-fdf250201d84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::detail::windows">
+      <UniqueIdentifier>{f68b9b9d-7191-43be-9e17-0561a586ad69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\tetengo2::detail::stub">
+      <UniqueIdentifier>{fd863b14-a8f2-4e0a-8268-1a7a8d85f292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\tetengo2::detail::windows::gdiplus">
+      <UniqueIdentifier>{bb8d439b-5590-41af-b3e6-4f1f4c47d349}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.encoder.h">
