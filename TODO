@@ -9,11 +9,43 @@
 ------------------------------------------------------------------------------
 Number      : 00000072
 Added on    : 2011/01/12
-Depends on  : (none)
-Description : Modify tetengo2::gui::win32::widget and other widget classes to
-              tetengo2::gui::widget and tetengo2::detail::win32::*.
+Depends on  : 00000083
+Description : Modify tetengo2::gui::win32::* into tetengo2::gui::*,
+              tetengo2::detail::windows::* and tetengo2::detail::stub::*.
 ------------------------------------------------------------------------------
 Number      : 00000083
+Added on    : 2011/01/25
+Depends on  : (none)
+Description : Create namespaces tetengo2::detail::windows,
+              tetengo2::detail::windows::gdiplus and tetengo2::detail::stub.
+------------------------------------------------------------------------------
+Number      : 00000084
+Added on    : 2011/01/25
+Depends on  : 00000083
+Description : Modify tetengo2::win32::* into tetengo2::*,
+              tetengo2::detail::windows::* and tetengo2::detail::stub::*.
+------------------------------------------------------------------------------
+Number      : 00000085
+Added on    : 2011/01/25
+Depends on  : 00000083
+Description : Modify tetengo2::gui::drawing::win32::* into
+              tetengo2::gui::drawing::*, tetengo2::detail::windows::* and
+              tetengo2::detail::stub::*.
+------------------------------------------------------------------------------
+Number      : 00000086
+Added on    : 2011/01/25
+Depends on  : 00000083
+Description : Modify tetengo2::gui::unit::win32::* into
+              tetengo2::gui::unit::*, tetengo2::detail::windows::* and
+              tetengo2::detail::stub::*.
+------------------------------------------------------------------------------
+Number      : 00000087
+Added on    : 2011/01/25
+Depends on  : 00000083
+Description : Modify tetengo2::encoding::win32::* into tetengo2::encoding::*,
+              tetengo2::detail::windows::* and tetengo2::detail::stub::*.
+------------------------------------------------------------------------------
+Number      : 00000088
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
