@@ -17,6 +17,10 @@
 #include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
+
 #include "tetengo2.gui.drawing.win32.detail.font.h"
 #include "tetengo2.operators.h"
 
