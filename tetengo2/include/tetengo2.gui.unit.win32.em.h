@@ -17,7 +17,7 @@
 #include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
-#include "tetengo2.gui.win32.detail.font.h"
+#include "tetengo2.gui.drawing.win32.detail.font.h"
 #include "tetengo2.operators.h"
 
 
@@ -57,12 +57,9 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         */
         static em from_pixels(const pixel_value_type value)
         {
-            return em(
-                to_value<value_type>(
-                    value,
-                    -tetengo2::gui::win32::detail::get_message_font().lfHeight
-                )
-            );
+            const ::LOGFONTW& message_font =
+                tetengo2::gui::drawing::win32::detail::get_message_font();
+            return em(to_value<value_type>(value, -message_font.lfHeight));
         }
 
 
@@ -248,10 +245,9 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         pixel_value_type to_pixels()
         const
         {
-            return to_pixel_value(
-                m_value *
-                -tetengo2::gui::win32::detail::get_message_font().lfHeight
-            );
+            const ::LOGFONTW& message_font =
+                tetengo2::gui::drawing::win32::detail::get_message_font();
+            return to_pixel_value(m_value * -message_font.lfHeight);
         }
 
 

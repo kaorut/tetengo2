@@ -63,9 +63,6 @@
     <ClInclude Include="test\stub_tetengo2.gui.dialog.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.font.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.gui_initializer_finalizer.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
@@ -127,6 +124,9 @@
       <Filter>headers\stub_tetengo2::gui::drawing</Filter>
     </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.drawing.solid_background.h">
+      <Filter>headers\stub_tetengo2::gui::drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="test\stub_tetengo2.gui.drawing.font.h">
       <Filter>headers\stub_tetengo2::gui::drawing</Filter>
     </ClInclude>
   </ItemGroup>
@@ -194,9 +194,6 @@
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog_message_loop.cpp">
-      <Filter>sources\test_tetengo2::gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.win32.font.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.gui_initializer_finalizer.cpp">
@@ -290,6 +287,9 @@
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.solid_background.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.font.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,12 +11,12 @@ headers = \
     stub_tetengo2.gui.control.h \
     stub_tetengo2.gui.dialog.h \
     stub_tetengo2.gui.drawing.canvas.h \
+    stub_tetengo2.gui.drawing.font.h \
     stub_tetengo2.gui.drawing.picture.h \
     stub_tetengo2.gui.drawing.picture_reader.h \
     stub_tetengo2.gui.drawing.solid_background.h \
     stub_tetengo2.gui.drawing.transparent_background.h \
     stub_tetengo2.gui.drawing.widget_canvas.h \
-    stub_tetengo2.gui.font.h \
     stub_tetengo2.gui.gui_initializer_finalizer.h \
     stub_tetengo2.gui.image.h \
     stub_tetengo2.gui.label.h \
@@ -58,6 +58,7 @@ sources = \
 
 extra_sources = \
     test_tetengo2.encoding.win32.utf8.cpp \
+    test_tetengo2.gui.drawing.win32.font.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.canvas.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.picture.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.picture_reader.cpp \
@@ -72,7 +73,6 @@ extra_sources = \
     test_tetengo2.gui.win32.control.cpp \
     test_tetengo2.gui.win32.dialog.cpp \
     test_tetengo2.gui.win32.dialog_message_loop.cpp \
-    test_tetengo2.gui.win32.font.cpp \
     test_tetengo2.gui.win32.gui_initializer_finalizer.cpp \
     test_tetengo2.gui.win32.image.cpp \
     test_tetengo2.gui.win32.label.cpp \

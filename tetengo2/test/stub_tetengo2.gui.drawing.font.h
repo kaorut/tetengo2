@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of stub_tetengo2::gui::font.
+    \brief The definition of stub_tetengo2::gui::drawing::font.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -16,7 +16,7 @@
 #include "tetengo2.text.h"
 
 
-namespace stub_tetengo2 { namespace gui
+namespace stub_tetengo2 { namespace gui { namespace drawing
 {
     template <typename String, typename Size>
     class font : private boost::equality_comparable<font<String, Size>>
@@ -134,7 +134,7 @@ namespace stub_tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

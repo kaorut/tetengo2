@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_DETAIL_FONT_H)
-#define TETENGO2_GUI_WIN32_DETAIL_FONT_H
+#if !defined(TETENGO2_GUI_DRAWING_WIN32_DETAIL_FONT_H)
+#define TETENGO2_GUI_DRAWING_WIN32_DETAIL_FONT_H
 
 #if !defined(DOCUMENTATION)
 #include <stdexcept>
@@ -21,7 +21,8 @@
 #include "tetengo2.win32.detail.windows_version.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32 { namespace detail
+namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
+namespace detail
 {
     inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
     {
@@ -54,7 +55,7 @@ namespace tetengo2 { namespace gui { namespace win32 { namespace detail
     }
 
 
-}}}}
+}}}}}
 #endif
 
 

@@ -78,9 +78,6 @@
     <ClInclude Include="include\tetengo2.gui.win32.dialog_message_loop.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.font.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.gui_initializer_finalizer.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -171,9 +168,6 @@
     <ClInclude Include="include\tetengo2.gui.unit.win32.em.h">
       <Filter>headers\tetengo2::gui::unit</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.detail.font.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.win32.detail.windows_version.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
@@ -205,6 +199,12 @@
       <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.solid_background.h">
+      <Filter>headers\tetengo2::gui::drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.drawing.win32.font.h">
+      <Filter>headers\tetengo2::gui::drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.drawing.win32.detail.font.h">
       <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
   </ItemGroup>

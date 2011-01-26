@@ -36,6 +36,7 @@ headers = \
 
 extra_headers = \
     tetengo2.encoding.win32.utf8.h \
+    tetengo2.gui.drawing.win32.font.h \
     tetengo2.gui.drawing.win32.gdiplus.canvas.h \
     tetengo2.gui.drawing.win32.gdiplus.picture.h \
     tetengo2.gui.drawing.win32.gdiplus.picture_reader.h \
@@ -50,7 +51,6 @@ extra_headers = \
     tetengo2.gui.win32.detail.font.h \
     tetengo2.gui.win32.dialog.h \
     tetengo2.gui.win32.dialog_message_loop.h \
-    tetengo2.gui.win32.font.h \
     tetengo2.gui.win32.gui_initializer_finalizer.h \
     tetengo2.gui.win32.image.h \
     tetengo2.gui.win32.label.h \

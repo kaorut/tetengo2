@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::font.
+    \brief The definition of tetengo2::gui::drawing::win32::font.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -18,10 +18,10 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.gui.win32.detail.font.h"
+#include "tetengo2.gui.drawing.win32.detail.font.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui { namespace drawing { namespace win32
 {
     /*!
         \brief The class template for a font for Win32 platforms.
@@ -221,7 +221,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}}}
 
 
 #endif

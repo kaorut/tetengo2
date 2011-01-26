@@ -42,6 +42,7 @@
 #include <tetengo2.encoding.win32.utf8.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
+#include <tetengo2.gui.drawing.win32.font.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture_reader.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.transparent_background.h>
@@ -65,7 +66,6 @@
 #include <tetengo2.gui.win32.button.h>
 #include <tetengo2.gui.win32.dialog.h>
 #include <tetengo2.gui.win32.dialog_message_loop.h>
-#include <tetengo2.gui.win32.font.h>
 #include <tetengo2.gui.win32.gui_initializer_finalizer.h>
 #include <tetengo2.gui.win32.image.h>
 #include <tetengo2.gui.win32.label.h>
@@ -291,7 +291,7 @@ namespace bobura
             >
             transparent_background_type;
         typedef
-            tetengo2::gui::win32::font<
+            tetengo2::gui::drawing::win32::font<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::size>::type
             >

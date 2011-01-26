@@ -223,12 +223,12 @@ echo Skipping the unit test...
     <ClInclude Include="test\stub_tetengo2.gui.control.h" />
     <ClInclude Include="test\stub_tetengo2.gui.dialog.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.canvas.h" />
+    <ClInclude Include="test\stub_tetengo2.gui.drawing.font.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.picture.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.picture_reader.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.solid_background.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.transparent_background.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.widget_canvas.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.font.h" />
     <ClInclude Include="test\stub_tetengo2.gui.gui_initializer_finalizer.h" />
     <ClInclude Include="test\stub_tetengo2.gui.image.h" />
     <ClInclude Include="test\stub_tetengo2.gui.label.h" />
@@ -262,6 +262,7 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.generator.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.color.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.font.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.picture.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.picture_reader.cpp" />
@@ -282,7 +283,6 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.gui.win32.control.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog_message_loop.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.win32.font.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.gui_initializer_finalizer.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.image.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.label.cpp" />

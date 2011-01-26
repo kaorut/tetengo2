@@ -21,12 +21,12 @@
 #include <stub_tetengo2.encoding.utf8.h>
 #include <stub_tetengo2.gui.alert.h>
 #include <stub_tetengo2.gui.button.h>
+#include <stub_tetengo2.gui.drawing.font.h>
 #include <stub_tetengo2.gui.drawing.picture.h>
 #include <stub_tetengo2.gui.drawing.picture_reader.h>
 #include <stub_tetengo2.gui.drawing.transparent_background.h>
 #include <stub_tetengo2.gui.drawing.widget_canvas.h>
 #include <stub_tetengo2.gui.dialog.h>
-#include <stub_tetengo2.gui.font.h>
 #include <stub_tetengo2.gui.gui_initializer_finalizer.h>
 #include <stub_tetengo2.gui.image.h>
 #include <stub_tetengo2.gui.label.h>
@@ -108,7 +108,8 @@ typedef
     stub_tetengo2::gui::drawing::transparent_background<const void*>
     transparent_background_type;
 
-typedef stub_tetengo2::gui::font<std::wstring, std::size_t> font_type;
+typedef
+    stub_tetengo2::gui::drawing::font<std::wstring, std::size_t> font_type;
 
 typedef stub_tetengo2::gui::drawing::picture<std::size_t> picture_type;
 
