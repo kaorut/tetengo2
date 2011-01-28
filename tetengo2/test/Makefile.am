@@ -3,7 +3,6 @@
 # $Id$
 
 headers = \
-    stub_tetengo2.encoding.utf8.h \
     stub_tetengo2.gui.abstract_popup_menu.h \
     stub_tetengo2.gui.abstract_window.h \
     stub_tetengo2.gui.alert.h \

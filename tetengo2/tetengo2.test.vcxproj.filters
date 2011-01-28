@@ -13,9 +13,6 @@
     <Filter Include="headers\stub_tetengo2::gui">
       <UniqueIdentifier>{2fc1d3c0-82ad-4f9e-a4df-506ffd36dcf6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\stub_tetengo2::encoding">
-      <UniqueIdentifier>{b8c87cbe-0ff8-480b-ba61-5182b63c5648}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resources\messages.test">
       <UniqueIdentifier>{88129b10-44cf-4601-bd33-b39fd5cfc891}</UniqueIdentifier>
     </Filter>
@@ -45,9 +42,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="test\stub_tetengo2.encoding.utf8.h">
-      <Filter>headers\stub_tetengo2::encoding</Filter>
-    </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.abstract_popup_menu.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
