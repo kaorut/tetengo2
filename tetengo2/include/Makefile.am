@@ -5,6 +5,7 @@
 headers = \
     tetengo2.cpp0x_keyword.h \
     tetengo2.detail.stub.encoding.h \
+    tetengo2.detail.stub.unit.h \
     tetengo2.encoder.h \
     tetengo2.generator.h \
     tetengo2.message_catalog.h \
@@ -38,6 +39,7 @@ headers = \
 
 extra_headers = \
     tetengo2.detail.windows.encoding.h \
+    tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.windows_version.h \
     tetengo2.gui.drawing.win32.font.h \
     tetengo2.gui.drawing.win32.gdiplus.canvas.h \
@@ -46,6 +48,7 @@ extra_headers = \
     tetengo2.gui.drawing.win32.gdiplus.solid_background.h \
     tetengo2.gui.drawing.win32.gdiplus.transparent_background.h \
     tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h \
+    tetengo2.gui.unit.win32.em.h \
     tetengo2.gui.win32.abstract_popup_menu.h \
     tetengo2.gui.win32.abstract_window.h \
     tetengo2.gui.win32.alert.h \
@@ -64,7 +67,6 @@ extra_headers = \
     tetengo2.gui.win32.message_loop.h \
     tetengo2.gui.win32.popup_menu.h \
     tetengo2.gui.win32.quit_message_loop.h \
-    tetengo2.gui.unit.win32.em.h \
     tetengo2.gui.win32.widget.h \
     tetengo2.gui.win32.window.h
 
