@@ -198,11 +198,11 @@ namespace tetengo2
             );
         }
 
-        template <typename IS, typename Str>
+        template <typename IS, typename Str, typename DE>
         static external_string_type encode_impl(
-            IS&&                         string,
-            const encoding::locale<Str>& internal_encoding,
-            const encoding::locale<Str>& external_encoding
+            IS&&                             string,
+            const encoding::locale<Str, DE>& internal_encoding,
+            const encoding::locale<Str, DE>& external_encoding
         )
         {
             if (
@@ -248,11 +248,11 @@ namespace tetengo2
             );
         }
 
-        template <typename ES, typename Str>
+        template <typename ES, typename Str, typename DE>
         static internal_string_type decode_impl(
-            ES&&                         string,
-            const encoding::locale<Str>& internal_encoding,
-            const encoding::locale<Str>& external_encoding
+            ES&&                             string,
+            const encoding::locale<Str, DE>& internal_encoding,
+            const encoding::locale<Str, DE>& external_encoding
         )
         {
             if (

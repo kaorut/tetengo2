@@ -21,9 +21,14 @@
 namespace tetengo2 { namespace encoding
 {
     /*!
-        \brief The class for an ASCII encoding.
+        \brief The class template for an ASCII encoding.
+
+        \tparam DetailEncoding A detail implementation type of an encoding.
     */
-    class ascii : public encoding, private boost::equality_comparable<ascii>
+    template <typename DetailEncoding>
+    class ascii :
+        public encoding<DetailEncoding>,
+        private boost::equality_comparable<ascii<DetailEncoding>>
     {
     public:
         // types

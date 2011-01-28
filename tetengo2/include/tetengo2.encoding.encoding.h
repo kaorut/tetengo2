@@ -15,19 +15,24 @@
 namespace tetengo2 { namespace encoding
 {
     /*!
-        \brief The class for a encoding.
+        \brief The class template for a encoding.
+
+        \tparam DetailEncoding A detail implementation type of an encoding.
     */
+    template <typename DetailEncoding>
     class encoding
     {
     public:
         // types
 
+        //! The detail implementation type of an encoding.
+        typedef DetailEncoding detail_encoding_type;
+
         //! The pivot type.
-        typedef std::wstring pivot_type;
+        typedef typename detail_encoding_type::pivot_type pivot_type;
 
         //! The pivot character type.
-        typedef pivot_type::value_type pivot_char_type;
-
+        typedef typename pivot_type::value_type pivot_char_type;
 
 
     protected:

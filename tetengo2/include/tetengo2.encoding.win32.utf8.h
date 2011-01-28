@@ -16,20 +16,20 @@
 #include <boost/operators.hpp>
 #include <boost/scoped_array.hpp>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
-
-#include "tetengo2.detail.windows.windows_version.h"
 #include "tetengo2.encoding.encoding.h"
 
 
 namespace tetengo2 { namespace encoding { namespace win32
 {
     /*!
-        \brief The class for a UTF-8 encoding.
+        \brief The class template for a UTF-8 encoding.
+
+        \tparam DetailEncoding A detail implementation type of an encoding.
     */
-    class utf8 : public encoding, private boost::equality_comparable<utf8>
+    template <typename DetailEncoding>
+    class utf8 :
+        public encoding<DetailEncoding>,
+        private boost::equality_comparable<utf8<DetailEncoding>>
     {
     public:
         // types
@@ -39,6 +39,9 @@ namespace tetengo2 { namespace encoding { namespace win32
 
         //! The string character type.
         typedef string_type::value_type string_char_type;
+
+        //! The detail implementation type of an encoding.
+        typedef DetailEncoding detail_encoding_type;
 
 
         // functions
@@ -67,42 +70,7 @@ namespace tetengo2 { namespace encoding { namespace win32
         string_type from_pivot(const pivot_type& pivot)
         const
         {
-            const ::DWORD flags =
-                tetengo2::detail::windows::on_windows_vista_or_later() ?
-                WC_ERR_INVALID_CHARS : 0;
-
-            const int string_length =
-                ::WideCharToMultiByte(
-                    CP_UTF8,
-                    flags,
-                    pivot.c_str(),
-                    static_cast<int>(pivot.length()),
-                    NULL,
-                    0,
-                    NULL,
-                    NULL
-                );
-            const boost::scoped_array<char> p_string(
-                new char[string_length + 1]
-            );
-
-            const int converted_length =
-                ::WideCharToMultiByte(
-                    CP_UTF8,
-                    flags,
-                    pivot.c_str(),
-                    static_cast<int>(pivot.length()),
-                    p_string.get(),
-                    string_length,
-                    NULL,
-                    NULL
-                );
-            assert(converted_length == string_length);
-            p_string[string_length] = '\0';
-
-            return string_type(
-                p_string.get(), p_string.get() + string_length
-            );
+            return detail_encoding_type::pivot_to_utf8(pivot);
         }
 
         /*!
@@ -115,32 +83,7 @@ namespace tetengo2 { namespace encoding { namespace win32
         pivot_type to_pivot(const string_type& string)
         const
         {
-            const int pivot_length =
-                ::MultiByteToWideChar(
-                    CP_UTF8,
-                    MB_ERR_INVALID_CHARS,
-                    string.c_str(),
-                    static_cast<int>(string.length()),
-                    NULL,
-                    0
-                );
-            const boost::scoped_array<wchar_t> p_pivot(
-                new wchar_t[pivot_length + 1]
-            );
-
-            const int converted_length =
-                ::MultiByteToWideChar(
-                    CP_UTF8,
-                    MB_ERR_INVALID_CHARS,
-                    string.c_str(),
-                    static_cast<int>(string.length()),
-                    p_pivot.get(),
-                    pivot_length
-                );
-            assert(converted_length == pivot_length);
-            p_pivot[pivot_length] = L'\0';
-
-            return pivot_type(p_pivot.get(), p_pivot.get() + pivot_length);
+            return detail_encoding_type::utf8_to_pivot(string);
         }
 
 

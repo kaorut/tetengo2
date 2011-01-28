@@ -32,11 +32,12 @@ namespace tetengo2 { namespace encoding
         \brief The class template for an encoding based on a locale.
 
         \tparam String A string type.
+        \tparam DetailEncoding A detail implementation type of an encoding.
     */
-    template <typename String>
+    template <typename String, typename DetailEncoding>
     class locale :
-        public encoding,
-        private boost::equality_comparable<locale<String>>
+        public encoding<DetailEncoding>,
+        private boost::equality_comparable<locale<String, DetailEncoding>>
     {
     public:
         // types

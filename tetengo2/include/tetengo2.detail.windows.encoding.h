@@ -132,6 +132,9 @@ namespace tetengo2 { namespace detail { namespace windows
         encoding();
 
 
+   };
+
+
 }}}
 
 

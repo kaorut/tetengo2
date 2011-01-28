@@ -38,6 +38,7 @@
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog.h>
 #include <tetengo2.message_catalog_parser.h>
+#include <tetengo2.detail.windows.encoding.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.win32.utf8.h>
 #include <tetengo2.gui.drawing.background.h>
@@ -146,17 +147,24 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace locale
     {
+        typedef tetengo2::detail::windows::encoding detail_encoding_type;
         typedef
             tetengo2::encoding::locale<
-                boost::mpl::at<common_type_list, type::string>::type
+                boost::mpl::at<common_type_list, type::string>::type,
+                detail_encoding_type
             >
             internal_encoding_type;
-        typedef tetengo2::encoding::locale<std::wstring> ui_encoding_type;
-        typedef tetengo2::encoding::win32::utf8 exception_encoding_type;
         typedef
-            tetengo2::encoding::win32::utf8 message_catalog_encoding_type;
+            tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+            ui_encoding_type;
         typedef
-            tetengo2::encoding::locale<std::string>
+            tetengo2::encoding::win32::utf8<detail_encoding_type>
+            exception_encoding_type;
+        typedef
+            tetengo2::encoding::win32::utf8<detail_encoding_type>
+            message_catalog_encoding_type;
+        typedef
+            tetengo2::encoding::locale<std::string, detail_encoding_type>
             locale_name_encoding_type;
         typedef
             tetengo2::encoder<
