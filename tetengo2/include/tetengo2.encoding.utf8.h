@@ -24,18 +24,18 @@ namespace tetengo2 { namespace encoding
     /*!
         \brief The class template for a UTF-8 encoding.
 
-        \tparam DetailEncoding A detail implementation type of an encoding.
+        \tparam EncodingDetails A detail implementation type of an encoding.
     */
-    template <typename DetailEncoding>
+    template <typename EncodingDetails>
     class utf8 :
-        public encoding<DetailEncoding>,
-        private boost::equality_comparable<utf8<DetailEncoding>>
+        public encoding<EncodingDetails>,
+        private boost::equality_comparable<utf8<EncodingDetails>>
     {
     public:
         // types
 
         //! The base type.
-        typedef encoding<DetailEncoding> base_type;
+        typedef encoding<EncodingDetails> base_type;
 
         //! The string type.
         typedef std::string string_type;
@@ -44,7 +44,7 @@ namespace tetengo2 { namespace encoding
         typedef string_type::value_type string_char_type;
 
         //! The detail implementation type of an encoding.
-        typedef DetailEncoding detail_encoding_type;
+        typedef EncodingDetails encoding_details_type;
 
 
         // functions
@@ -73,7 +73,7 @@ namespace tetengo2 { namespace encoding
         string_type from_pivot(const typename base_type::pivot_type& pivot)
         const
         {
-            return detail_encoding_type::pivot_to_utf8(pivot);
+            return encoding_details_type::pivot_to_utf8(pivot);
         }
 
         /*!
@@ -86,7 +86,7 @@ namespace tetengo2 { namespace encoding
         typename base_type::pivot_type to_pivot(const string_type& string)
         const
         {
-            return detail_encoding_type::utf8_to_pivot(string);
+            return encoding_details_type::utf8_to_pivot(string);
         }
 
 

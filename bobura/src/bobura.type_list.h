@@ -147,24 +147,24 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace locale
     {
-        typedef tetengo2::detail::windows::encoding detail_encoding_type;
+        typedef tetengo2::detail::windows::encoding encoding_details_type;
         typedef
             tetengo2::encoding::locale<
                 boost::mpl::at<common_type_list, type::string>::type,
-                detail_encoding_type
+                encoding_details_type
             >
             internal_encoding_type;
         typedef
-            tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+            tetengo2::encoding::locale<std::wstring, encoding_details_type>
             ui_encoding_type;
         typedef
-            tetengo2::encoding::utf8<detail_encoding_type>
+            tetengo2::encoding::utf8<encoding_details_type>
             exception_encoding_type;
         typedef
-            tetengo2::encoding::utf8<detail_encoding_type>
+            tetengo2::encoding::utf8<encoding_details_type>
             message_catalog_encoding_type;
         typedef
-            tetengo2::encoding::locale<std::string, detail_encoding_type>
+            tetengo2::encoding::locale<std::string, encoding_details_type>
             locale_name_encoding_type;
         typedef
             tetengo2::encoder<

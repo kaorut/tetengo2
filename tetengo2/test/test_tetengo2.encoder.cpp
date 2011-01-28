@@ -19,9 +19,9 @@ namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::encoding detail_encoding_type;
+    typedef tetengo2::detail::stub::encoding encoding_details_type;
 
-    typedef tetengo2::encoding::ascii<detail_encoding_type> encoding_type;
+    typedef tetengo2::encoding::ascii<encoding_details_type> encoding_type;
 
     typedef tetengo2::encoder<encoding_type, encoding_type> encoder_type;
 

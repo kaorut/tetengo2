@@ -71,14 +71,14 @@
 
 // types
 
-typedef tetengo2::detail::stub::encoding detail_encoding_type;
+typedef tetengo2::detail::stub::encoding encoding_details_type;
 
 typedef
-    tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+    tetengo2::encoding::locale<std::wstring, encoding_details_type>
     internal_encoding_type;
 
 typedef
-    tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+    tetengo2::encoding::locale<std::wstring, encoding_details_type>
     ui_encoding_type;
 
 typedef
@@ -86,7 +86,7 @@ typedef
     ui_encoder_type;
 
 typedef
-    tetengo2::encoding::locale<std::string, detail_encoding_type>
+    tetengo2::encoding::locale<std::string, encoding_details_type>
     exception_encoding_type;
 
 typedef
@@ -186,11 +186,11 @@ typedef
 typedef stub_tetengo2::gui::window<window_traits_type> window_type;
 
 typedef
-    tetengo2::encoding::utf8<detail_encoding_type>
+    tetengo2::encoding::utf8<encoding_details_type>
     message_catalog_encoding_type;
 
 typedef
-    tetengo2::encoding::locale<std::string, detail_encoding_type>
+    tetengo2::encoding::locale<std::string, encoding_details_type>
     locale_name_encoding_type;
 
 typedef

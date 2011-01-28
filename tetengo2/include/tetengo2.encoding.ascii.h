@@ -23,18 +23,18 @@ namespace tetengo2 { namespace encoding
     /*!
         \brief The class template for an ASCII encoding.
 
-        \tparam DetailEncoding A detail implementation type of an encoding.
+        \tparam EncodingDetails A detail implementation type of an encoding.
     */
-    template <typename DetailEncoding>
+    template <typename EncodingDetails>
     class ascii :
-        public encoding<DetailEncoding>,
-        private boost::equality_comparable<ascii<DetailEncoding>>
+        public encoding<EncodingDetails>,
+        private boost::equality_comparable<ascii<EncodingDetails>>
     {
     public:
         // types
 
         //! The base type.
-        typedef encoding<DetailEncoding> base_type;
+        typedef encoding<EncodingDetails> base_type;
 
         //! The string type.
         typedef std::string string_type;

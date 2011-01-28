@@ -22,14 +22,14 @@ namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::encoding detail_encoding_type;
+    typedef tetengo2::detail::stub::encoding encoding_details_type;
 
     typedef
-        tetengo2::encoding::locale<std::string, detail_encoding_type>
+        tetengo2::encoding::locale<std::string, encoding_details_type>
         multibyte_encoding_type;
 
     typedef
-        tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+        tetengo2::encoding::locale<std::wstring, encoding_details_type>
         wide_encoding_type;
 
 
