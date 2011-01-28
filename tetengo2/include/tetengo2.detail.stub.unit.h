@@ -20,6 +20,17 @@ namespace tetengo2 { namespace detail { namespace stub
     public:
         // static functions
 
+        template <typename Value, typename PixelValue>
+        static Value pixels_to_em(const PixelValue pixel_value)
+        {
+            return static_cast<Value>(pixel_value);
+        }
+
+        template <typename PixelValue, typename Value>
+        static PixelValue em_to_pixels(const Value& value)
+        {
+            return static_cast<PixelValue>(value);
+        }
 
 
     private:

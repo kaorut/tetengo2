@@ -13,6 +13,8 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
+#include "tetengo2.gui.drawing.win32.detail.font.h"
+
 
 namespace tetengo2 { namespace detail { namespace windows
 {
@@ -25,6 +27,32 @@ namespace tetengo2 { namespace detail { namespace windows
     {
     public:
         // static functions
+
+        /*!
+            \brief Translates a value in pixels into a value in ems.
+
+            \param pixel_value A value in pixels.
+
+            \return The value in ems.
+        */
+        template <typename Value, typename PixelValue>
+        static Value pixels_to_em(const PixelValue pixel_value)
+        {
+            return static_cast<Value>(pixel_value);
+        }
+
+        /*!
+            \brief Translates a value in ems into a value in pixels.
+
+            \param value A value in ems.
+
+            \return The value in pixels.
+        */
+        template <typename PixelValue, typename Value>
+        static PixelValue em_to_pixels(const Value& value)
+        {
+            return static_cast<PixelValue>(value);
+        }
 
 
 
