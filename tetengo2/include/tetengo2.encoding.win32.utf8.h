@@ -20,8 +20,8 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
+#include "tetengo2.detail.windows.windows_version.h"
 #include "tetengo2.encoding.encoding.h"
-#include "tetengo2.win32.detail.windows_version.h"
 
 
 namespace tetengo2 { namespace encoding { namespace win32
@@ -68,7 +68,7 @@ namespace tetengo2 { namespace encoding { namespace win32
         const
         {
             const ::DWORD flags =
-                tetengo2::win32::detail::on_windows_vista_or_later() ?
+                tetengo2::detail::windows::on_windows_vista_or_later() ?
                 WC_ERR_INVALID_CHARS : 0;
 
             const int string_length =

@@ -18,7 +18,7 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.win32.detail.windows_version.h"
+#include "tetengo2.detail.windows.windows_version.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
@@ -27,7 +27,7 @@ namespace detail
     inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
     {
         const ::UINT metrics_size =
-            tetengo2::win32::detail::on_windows_vista_or_later() ?
+            tetengo2::detail::windows::on_windows_vista_or_later() ?
             sizeof(::NONCLIENTMETRICSW) :
             sizeof(::NONCLIENTMETRICSW) - sizeof(int);
         metrics.cbSize = metrics_size;

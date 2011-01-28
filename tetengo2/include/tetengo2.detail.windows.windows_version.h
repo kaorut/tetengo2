@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::detail::windows_version.
+    \brief The definition of tetengo2::detail::windows::windows_version.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_DETAIL_WINDOWSVERSION_H)
-#define TETENGO2_GUI_WIN32_DETAIL_WINDOWSVERSION_H
+#if !defined(TETENGO2_DETAIL_WINDOWS_WINDOWSVERSION_H)
+#define TETENGO2_DETAIL_WINDOWS_WINDOWSVERSION_H
 
 #if !defined(DOCUMENTATION)
 #define NOMINMAX
@@ -15,7 +15,7 @@
 #include <Windows.h>
 
 
-namespace tetengo2 { namespace win32 { namespace detail
+namespace tetengo2 { namespace detail { namespace windows
 {
     inline bool verify_windows_version(
         const ::DWORD major,
