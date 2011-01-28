@@ -172,9 +172,6 @@
     <ClCompile Include="test\test_tetengo2.encoding.locale.cpp">
       <Filter>sources\test_tetengo2::encoding</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.encoding.win32.utf8.cpp">
-      <Filter>sources\test_tetengo2::encoding</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.recursive_menu_iterator.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
@@ -291,6 +288,9 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.font.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.encoding.utf8.cpp">
+      <Filter>sources\test_tetengo2::encoding</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

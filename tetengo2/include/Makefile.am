@@ -14,6 +14,7 @@ headers = \
     tetengo2.encoding.encoding.h \
     tetengo2.encoding.ascii.h \
     tetengo2.encoding.locale.h \
+    tetengo2.encoding.utf8.h \
     tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.color.h \
     tetengo2.gui.measure.h \
@@ -36,7 +37,6 @@ headers = \
     tetengo2.operators.h
 
 extra_headers = \
-    tetengo2.encoding.win32.utf8.h \
     tetengo2.detail.windows.encoding.h \
     tetengo2.detail.windows.windows_version.h \
     tetengo2.gui.drawing.win32.font.h \

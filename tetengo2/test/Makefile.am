@@ -44,6 +44,7 @@ sources = \
     test_tetengo2.encoding.encoding.cpp \
     test_tetengo2.encoding.ascii.cpp \
     test_tetengo2.encoding.locale.cpp \
+    test_tetengo2.encoding.utf8.cpp \
     test_tetengo2.gui.drawing.background.cpp \
     test_tetengo2.gui.drawing.color.cpp \
     test_tetengo2.gui.measure.cpp \
@@ -57,7 +58,6 @@ sources = \
     test_tetengo2.operators.cpp
 
 extra_sources = \
-    test_tetengo2.encoding.win32.utf8.cpp \
     test_tetengo2.gui.drawing.win32.font.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.canvas.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.picture.cpp \
