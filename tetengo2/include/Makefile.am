@@ -4,6 +4,7 @@
 
 headers = \
     tetengo2.cpp0x_keyword.h \
+    tetengo2.detail.stub.encoding.h \
     tetengo2.encoder.h \
     tetengo2.generator.h \
     tetengo2.message_catalog.h \
@@ -36,6 +37,7 @@ headers = \
 
 extra_headers = \
     tetengo2.encoding.win32.utf8.h \
+    tetengo2.detail.windows.encoding.h \
     tetengo2.detail.windows.windows_version.h \
     tetengo2.gui.drawing.win32.font.h \
     tetengo2.gui.drawing.win32.gdiplus.canvas.h \
