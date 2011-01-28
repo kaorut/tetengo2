@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_WINDOWSVERSION_H)
 #define TETENGO2_DETAIL_WINDOWS_WINDOWSVERSION_H
 
-#if !defined(DOCUMENTATION)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
@@ -17,6 +16,18 @@
 
 namespace tetengo2 { namespace detail { namespace windows
 {
+    /*!
+        \brief Verifies the Windows version.
+
+        \param major              A major version.
+        \param minor              A minor version.
+        \param service_pack_major A service pack major version.
+        \param service pack_minor A service pack minor version.
+
+        \retval true  When the system is runnin on a later version of Windows
+                      than the specified version.
+        \retval false Otherwise.
+    */
     inline bool verify_windows_version(
         const ::DWORD major,
         const ::DWORD minor,
@@ -45,7 +56,14 @@ namespace tetengo2 { namespace detail { namespace windows
             condition
         ) != 0;
     }
+    
+    /*!
+        \brief Returns whether the system is running on Windows Vista or
+               later.
 
+        \retval true  When the system is runnin on Windows Vista or later.
+        \retval false Otherwise.
+    */
     inline bool on_windows_vista_or_later()
     {
         static const bool result = verify_windows_version(6, 0, 0, 0);
@@ -54,7 +72,6 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
 }}}
-#endif
 
 
 #endif
