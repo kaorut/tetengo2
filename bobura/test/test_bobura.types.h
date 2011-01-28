@@ -18,7 +18,6 @@
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 
-#include <stub_tetengo2.encoding.utf8.h>
 #include <stub_tetengo2.gui.alert.h>
 #include <stub_tetengo2.gui.button.h>
 #include <stub_tetengo2.gui.drawing.font.h>
@@ -39,6 +38,8 @@
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.unit.em.h>
 #include <stub_tetengo2.gui.window.h>
+#include <tetengo2.detail.stub.encoding.h>
+#include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.menu_observer_set.h>
@@ -70,15 +71,23 @@
 
 // types
 
-typedef tetengo2::encoding::locale<std::wstring> internal_encoding_type;
+typedef tetengo2::detail::stub::encoding detail_encoding_type;
 
-typedef tetengo2::encoding::locale<std::wstring> ui_encoding_type;
+typedef
+    tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+    internal_encoding_type;
+
+typedef
+    tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+    ui_encoding_type;
 
 typedef
     tetengo2::encoder<internal_encoding_type, ui_encoding_type>
     ui_encoder_type;
 
-typedef tetengo2::encoding::locale<std::string> exception_encoding_type;
+typedef
+    tetengo2::encoding::locale<std::string, detail_encoding_type>
+    exception_encoding_type;
 
 typedef
     tetengo2::encoder<internal_encoding_type, exception_encoding_type>
@@ -176,9 +185,13 @@ typedef
 
 typedef stub_tetengo2::gui::window<window_traits_type> window_type;
 
-typedef stub_tetengo2::encoding::utf8 message_catalog_encoding_type;
+typedef
+    tetengo2::encoding::utf8<detail_encoding_type>
+    message_catalog_encoding_type;
 
-typedef tetengo2::encoding::locale<std::string> locale_name_encoding_type;
+typedef
+    tetengo2::encoding::locale<std::string, detail_encoding_type>
+    locale_name_encoding_type;
 
 typedef
     tetengo2::encoder<internal_encoding_type, message_catalog_encoding_type>

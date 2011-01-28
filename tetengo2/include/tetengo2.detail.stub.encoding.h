@@ -41,18 +41,15 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static utf8_string_type pivot_to_utf8(const pivot_type& pivot)
         {
-            pivot_type pivot;
-            pivot.reserve(string.length());
+            utf8_string_type string;
+            string.reserve(pivot.length());
             std::transform(
-                string.begin(),
-                string.end(),
-                std::back_inserter(pivot),
-                cast<
-                    typename pivot_type::value_type,
-                    typename utf8_string_type::value_type
-                >
+                pivot.begin(),
+                pivot.end(),
+                std::back_inserter(string),
+                cast<utf8_string_type::value_type, pivot_type::value_type>
             );
-            return pivot;
+            return string;
         }
 
         /*!
@@ -64,18 +61,15 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static pivot_type utf8_to_pivot(const utf8_string_type& string)
         {
-            utf8_string_type string;
-            string.reserve(pivot.length());
+            pivot_type pivot;
+            pivot.reserve(string.length());
             std::transform(
-                pivot.begin(),
-                pivot.end(),
-                std::back_inserter(string),
-                cast<
-                    typename utf8_string_type::value_type,
-                    typename pivot_type::value_type
-                >
+                string.begin(),
+                string.end(),
+                std::back_inserter(pivot),
+                cast<pivot_type::value_type, utf8_string_type::value_type>
             );
-            return string;
+            return pivot;
         }
 
 
@@ -92,6 +86,9 @@ namespace tetengo2 { namespace detail { namespace stub
         // forbidden operations
 
         encoding();
+
+
+    };
 
 
 }}}

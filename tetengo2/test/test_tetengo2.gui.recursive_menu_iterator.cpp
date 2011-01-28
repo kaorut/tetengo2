@@ -15,6 +15,7 @@
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "stub_tetengo2.gui.menu.h"
 #include "stub_tetengo2.gui.popup_menu.h"
+#include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.menu_observer_set.h"
@@ -27,9 +28,15 @@ namespace
 {
     // types
 
-    typedef tetengo2::encoding::locale<std::wstring> internal_encoding_type;
+    typedef tetengo2::detail::stub::encoding detail_encoding_type;
 
-    typedef tetengo2::encoding::locale<std::wstring> encoding_type;
+    typedef
+        tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+        internal_encoding_type;
+
+    typedef
+        tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+        encoding_type;
 
     typedef
         tetengo2::encoder<internal_encoding_type, encoding_type>

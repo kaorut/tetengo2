@@ -33,6 +33,9 @@ namespace tetengo2 { namespace encoding
     public:
         // types
 
+        //! The base type.
+        typedef encoding<DetailEncoding> base_type;
+
         //! The string type.
         typedef std::string string_type;
 
@@ -63,7 +66,7 @@ namespace tetengo2 { namespace encoding
 
             \return A translated string.
         */
-        string_type from_pivot(const pivot_type& pivot)
+        string_type from_pivot(const typename base_type::pivot_type& pivot)
         const
         {
             return string_type(
@@ -79,10 +82,10 @@ namespace tetengo2 { namespace encoding
 
             \return A translated pivot string.
         */
-        pivot_type to_pivot(const string_type& string)
+        typename base_type::pivot_type to_pivot(const string_type& string)
         const
         {
-            return pivot_type(
+            return typename base_type::pivot_type(
                 boost::make_transform_iterator(string.begin(), from_ascii),
                 boost::make_transform_iterator(string.end(), from_ascii)
             );
@@ -92,19 +95,18 @@ namespace tetengo2 { namespace encoding
     private:
         // static functions
 
-        static string_type::value_type to_ascii(
-            const pivot_type::value_type pivot_char
+        static string_char_type to_ascii(
+            const typename base_type::pivot_char_type pivot_char
         )
         {
-            static const string_type::value_type question = 0x3F;
+            static const string_char_type question = 0x3F;
 
             return 0 <= pivot_char && pivot_char <= 0x7F ?
-                static_cast<string_type::value_type>(pivot_char) :
-                question;
+                static_cast<string_char_type>(pivot_char) : question;
         }
 
-        static pivot_type::value_type from_ascii(
-            const string_type::value_type ascii_char
+        static typename base_type::pivot_char_type from_ascii(
+            const string_char_type ascii_char
         )
         {
             if (ascii_char < 0 || 0x80 <= ascii_char)

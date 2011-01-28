@@ -12,6 +12,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.text.h"
 
 #include "tetengo2.encoding.locale.h"
@@ -21,9 +22,15 @@ namespace
 {
     // types
 
-    typedef tetengo2::encoding::locale<std::string> multibyte_encoding_type;
+    typedef tetengo2::detail::stub::encoding detail_encoding_type;
 
-    typedef tetengo2::encoding::locale<std::wstring> wide_encoding_type;
+    typedef
+        tetengo2::encoding::locale<std::string, detail_encoding_type>
+        multibyte_encoding_type;
+
+    typedef
+        tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+        wide_encoding_type;
 
 
     // functions

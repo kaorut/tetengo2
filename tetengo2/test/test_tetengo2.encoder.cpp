@@ -9,6 +9,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.text.h"
+#include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoding.ascii.h"
 
 #include "tetengo2.encoder.h"
@@ -18,7 +19,9 @@ namespace
 {
     // types
 
-    typedef tetengo2::encoding::ascii encoding_type;
+    typedef tetengo2::detail::stub::encoding detail_encoding_type;
+
+    typedef tetengo2::encoding::ascii<detail_encoding_type> encoding_type;
 
     typedef tetengo2::encoder<encoding_type, encoding_type> encoder_type;
 

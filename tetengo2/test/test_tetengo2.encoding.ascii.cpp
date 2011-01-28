@@ -11,11 +11,19 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.encoding.h"
+
 #include "tetengo2.encoding.ascii.h"
 
 
 namespace
 {
+    // types
+
+    typedef tetengo2::detail::stub::encoding detail_encoding_type;
+
+    typedef tetengo2::encoding::ascii<detail_encoding_type> encoding_type;
+
     // variables
 
     // "\n 0Aa~[DEL]"
@@ -54,15 +62,15 @@ BOOST_AUTO_TEST_SUITE(ascii)
     {
         BOOST_TEST_PASSPOINT();
 
-        tetengo2::encoding::ascii encoding;
+        encoding_type encoding;
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
 
-        const tetengo2::encoding::ascii encoding1;
-        const tetengo2::encoding::ascii encoding2;
+        const encoding_type encoding1;
+        const encoding_type encoding2;
 
         BOOST_CHECK(encoding1 == encoding2);
     }
@@ -77,7 +85,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
                 ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1
             );
 
-            const tetengo2::encoding::ascii encoding;
+            const encoding_type encoding;
             const std::string result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == string);
@@ -88,7 +96,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
                 ascii_nonascii, ascii_nonascii + sizeof(ascii_nonascii) - 1
             );
 
-            const tetengo2::encoding::ascii encoding;
+            const encoding_type encoding;
             const std::string result = encoding.from_pivot(pivot);
 
             BOOST_CHECK(result == string);
@@ -105,7 +113,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
                 ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1
             );
 
-            const tetengo2::encoding::ascii encoding;
+            const encoding_type encoding;
             const std::wstring result = encoding.to_pivot(string);
 
             BOOST_CHECK(result == pivot);
@@ -115,7 +123,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
                 nonascii, nonascii + sizeof(nonascii) - 1
             );
 
-            const tetengo2::encoding::ascii encoding;
+            const encoding_type encoding;
             BOOST_CHECK_THROW(
                 encoding.to_pivot(string), std::invalid_argument
             );

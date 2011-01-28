@@ -40,7 +40,7 @@
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.detail.windows.encoding.h>
 #include <tetengo2.encoding.locale.h>
-#include <tetengo2.encoding.win32.utf8.h>
+#include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.win32.font.h>
@@ -158,10 +158,10 @@ namespace bobura
             tetengo2::encoding::locale<std::wstring, detail_encoding_type>
             ui_encoding_type;
         typedef
-            tetengo2::encoding::win32::utf8<detail_encoding_type>
+            tetengo2::encoding::utf8<detail_encoding_type>
             exception_encoding_type;
         typedef
-            tetengo2::encoding::win32::utf8<detail_encoding_type>
+            tetengo2::encoding::utf8<detail_encoding_type>
             message_catalog_encoding_type;
         typedef
             tetengo2::encoding::locale<std::string, detail_encoding_type>

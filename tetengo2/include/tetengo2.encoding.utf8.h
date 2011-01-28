@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::encoding::win32::utf8.
+    \brief The definition of tetengo2::encoding::utf8.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -19,7 +19,7 @@
 #include "tetengo2.encoding.encoding.h"
 
 
-namespace tetengo2 { namespace encoding { namespace win32
+namespace tetengo2 { namespace encoding
 {
     /*!
         \brief The class template for a UTF-8 encoding.
@@ -33,6 +33,9 @@ namespace tetengo2 { namespace encoding { namespace win32
     {
     public:
         // types
+
+        //! The base type.
+        typedef encoding<DetailEncoding> base_type;
 
         //! The string type.
         typedef std::string string_type;
@@ -67,7 +70,7 @@ namespace tetengo2 { namespace encoding { namespace win32
 
             \return A translated string.
         */
-        string_type from_pivot(const pivot_type& pivot)
+        string_type from_pivot(const typename base_type::pivot_type& pivot)
         const
         {
             return detail_encoding_type::pivot_to_utf8(pivot);
@@ -80,7 +83,7 @@ namespace tetengo2 { namespace encoding { namespace win32
 
             \return A translated pivot string.
         */
-        pivot_type to_pivot(const string_type& string)
+        typename base_type::pivot_type to_pivot(const string_type& string)
         const
         {
             return detail_encoding_type::utf8_to_pivot(string);
@@ -90,7 +93,7 @@ namespace tetengo2 { namespace encoding { namespace win32
     };
 
 
-}}}
+}}
 
 
 #endif

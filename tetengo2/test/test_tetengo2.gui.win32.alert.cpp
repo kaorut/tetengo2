@@ -15,19 +15,26 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.gui.win32.alert.h"
-
+#include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
+
+#include "tetengo2.gui.win32.alert.h"
 
 
 namespace
 {
     // types
 
-    typedef tetengo2::encoding::locale<std::wstring> internal_encoding_type;
+    typedef tetengo2::detail::stub::encoding detail_encoding_type;
 
-    typedef tetengo2::encoding::locale<std::wstring> encoding_type;
+    typedef
+        tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+        internal_encoding_type;
+
+    typedef
+        tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+        encoding_type;
 
     typedef
         tetengo2::encoder<internal_encoding_type, encoding_type>

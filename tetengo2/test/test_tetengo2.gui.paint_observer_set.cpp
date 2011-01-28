@@ -15,6 +15,7 @@
 #include "stub_tetengo2.gui.drawing.font.h"
 #include "stub_tetengo2.gui.drawing.picture.h"
 #include "stub_tetengo2.gui.drawing.widget_canvas.h"
+#include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.drawing.background.h"
@@ -27,9 +28,15 @@ namespace
 
     typedef std::pair<std::size_t, std::size_t> dimension_type;
 
-    typedef tetengo2::encoding::locale<std::wstring> internal_encoding_type;
+    typedef tetengo2::detail::stub::encoding detail_encoding_type;
 
-    typedef tetengo2::encoding::locale<std::wstring> ui_encoding_type;
+    typedef
+        tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+        internal_encoding_type;
+
+    typedef
+        tetengo2::encoding::locale<std::wstring, detail_encoding_type>
+        ui_encoding_type;
 
     typedef
         tetengo2::encoder<internal_encoding_type, ui_encoding_type>
