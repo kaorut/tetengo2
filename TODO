@@ -13,18 +13,6 @@ Depends on  : 00000083
 Description : Modify tetengo2::gui::win32::* into tetengo2::gui::*,
               tetengo2::detail::windows::* and tetengo2::detail::stub::*.
 ------------------------------------------------------------------------------
-Number      : 00000083
-Added on    : 2011/01/25
-Depends on  : (none)
-Description : Create namespaces tetengo2::detail::windows,
-              tetengo2::detail::windows::gdiplus and tetengo2::detail::stub.
-------------------------------------------------------------------------------
-Number      : 00000084
-Added on    : 2011/01/25
-Depends on  : 00000083
-Description : Modify tetengo2::win32::* into tetengo2::*,
-              tetengo2::detail::windows::* and tetengo2::detail::stub::*.
-------------------------------------------------------------------------------
 Number      : 00000085
 Added on    : 2011/01/25
 Depends on  : 00000083
