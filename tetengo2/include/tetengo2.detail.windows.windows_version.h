@@ -22,7 +22,7 @@ namespace tetengo2 { namespace detail { namespace windows
         \param major              A major version.
         \param minor              A minor version.
         \param service_pack_major A service pack major version.
-        \param service pack_minor A service pack minor version.
+        \param service_pack_minor A service pack minor version.
 
         \retval true  When the system is runnin on a later version of Windows
                       than the specified version.

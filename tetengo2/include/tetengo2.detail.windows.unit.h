@@ -31,6 +31,9 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Translates a value in pixels into a value in ems.
 
+            \tparam Value      A value type.
+            \tparam PixelValue A pixel value type.
+
             \param pixel_value A value in pixels.
 
             \return The value in ems.
@@ -43,6 +46,9 @@ namespace tetengo2 { namespace detail { namespace windows
 
         /*!
             \brief Translates a value in ems into a value in pixels.
+
+            \tparam PixelValue A pixel value type.
+            \tparam Value      A value type.
 
             \param value A value in ems.
 

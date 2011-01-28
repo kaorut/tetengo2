@@ -20,12 +20,32 @@ namespace tetengo2 { namespace detail { namespace stub
     public:
         // static functions
 
+        /*!
+            \brief Translates a value in pixels into a value in ems.
+
+            \tparam Value      A value type.
+            \tparam PixelValue A pixel value type.
+
+            \param pixel_value A value in pixels.
+
+            \return The value in ems.
+        */
         template <typename Value, typename PixelValue>
         static Value pixels_to_em(const PixelValue pixel_value)
         {
             return static_cast<Value>(pixel_value);
         }
 
+        /*!
+            \brief Translates a value in ems into a value in pixels.
+
+            \tparam PixelValue A pixel value type.
+            \tparam Value      A value type.
+
+            \param value A value in ems.
+
+            \return The value in pixels.
+        */
         template <typename PixelValue, typename Value>
         static PixelValue em_to_pixels(const Value& value)
         {
