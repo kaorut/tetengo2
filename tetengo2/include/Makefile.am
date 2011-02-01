@@ -32,6 +32,7 @@ headers = \
     tetengo2.gui.traits.menu_traits.h \
     tetengo2.gui.traits.widget_traits.h \
     tetengo2.gui.traits.window_traits.h \
+    tetengo2.gui.unit.em.h \
     tetengo2.gui.unit.pixel.h \
     tetengo2.gui.window_observer_set.h \
     tetengo2.meta.assoc_list.h \
@@ -48,7 +49,6 @@ extra_headers = \
     tetengo2.gui.drawing.win32.gdiplus.solid_background.h \
     tetengo2.gui.drawing.win32.gdiplus.transparent_background.h \
     tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h \
-    tetengo2.gui.unit.win32.em.h \
     tetengo2.gui.win32.abstract_popup_menu.h \
     tetengo2.gui.win32.abstract_window.h \
     tetengo2.gui.win32.alert.h \

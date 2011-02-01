@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::unit::win32::em.
+    \brief The definition of tetengo2::gui::unit::em.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -17,7 +17,7 @@
 #include "tetengo2.operators.h"
 
 
-namespace tetengo2 { namespace gui { namespace unit { namespace win32
+namespace tetengo2 { namespace gui { namespace unit
 {
     /*!
         \brief The class template for a EM height unit.
@@ -258,7 +258,7 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
     };
 
 
-}}}}
+}}}
 
 
 #endif

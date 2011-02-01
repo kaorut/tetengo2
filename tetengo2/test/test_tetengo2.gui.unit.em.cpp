@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::unit::win32::em.
+    \brief Test of class tetengo2::gui::unit::em.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -8,13 +8,12 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.unit.win32.em.h"
+#include "tetengo2.gui.unit.em.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(unit)
-BOOST_AUTO_TEST_SUITE(win32)
 BOOST_AUTO_TEST_SUITE(em)
     // test cases
 
@@ -64,7 +63,6 @@ BOOST_AUTO_TEST_SUITE(em)
     }
 
 
-BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

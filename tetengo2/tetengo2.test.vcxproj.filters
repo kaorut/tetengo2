@@ -250,9 +250,6 @@
     <ClCompile Include="test\test_tetengo2.gui.measure.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.unit.win32.em.cpp">
-      <Filter>sources\test_tetengo2::gui::unit</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.widget_canvas.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
@@ -285,6 +282,9 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.encoding.utf8.cpp">
       <Filter>sources\test_tetengo2::encoding</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.unit.em.cpp">
+      <Filter>sources\test_tetengo2::gui::unit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

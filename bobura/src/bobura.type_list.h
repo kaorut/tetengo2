@@ -61,7 +61,7 @@
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.traits.window_traits.h>
-#include <tetengo2.gui.unit.win32.em.h>
+#include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.win32.abstract_popup_menu.h>
 #include <tetengo2.gui.win32.abstract_window.h>
 #include <tetengo2.gui.win32.alert.h>
@@ -273,7 +273,7 @@ namespace bobura
             tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
         typedef tetengo2::detail::windows::unit unit_details_type;
         typedef
-            tetengo2::gui::unit::win32::em<
+            tetengo2::gui::unit::em<
                 boost::rational<
                     boost::mpl::at<common_type_list, type::difference>::type
                 >,
@@ -285,7 +285,7 @@ namespace bobura
             std::pair<unit_difference_type, unit_difference_type>
             position_type;
         typedef
-            tetengo2::gui::unit::win32::em<
+            tetengo2::gui::unit::em<
                 boost::rational<
                     boost::mpl::at<common_type_list, type::size>::type
                 >,

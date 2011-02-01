@@ -51,6 +51,7 @@ sources = \
     test_tetengo2.gui.mouse_observer_set.cpp \
     test_tetengo2.gui.paint_observer_set.cpp \
     test_tetengo2.gui.recursive_menu_iterator.cpp \
+    test_tetengo2.gui.unit.em.cpp \
     test_tetengo2.gui.unit.pixel.cpp \
     test_tetengo2.gui.window_observer_set.cpp \
     test_tetengo2.meta.assoc_list.cpp \
@@ -64,7 +65,6 @@ extra_sources = \
     test_tetengo2.gui.drawing.win32.gdiplus.solid_background.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.transparent_background.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.window_canvas.cpp \
-    test_tetengo2.gui.unit.win32.em.cpp \
     test_tetengo2.gui.win32.abstract_popup_menu.cpp \
     test_tetengo2.gui.win32.abstract_window.cpp \
     test_tetengo2.gui.win32.alert.cpp \
