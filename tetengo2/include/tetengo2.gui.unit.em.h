@@ -59,7 +59,11 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         static em from_pixels(const pixel_value_type value)
         {
+#if defined(__GNUC__)
+            return em(unit_details_type::pixels_to_em(value));
+#else
             return em(unit_details_type::pixels_to_em<value_type>(value));
+#endif
         }
 
 
@@ -245,7 +249,11 @@ namespace tetengo2 { namespace gui { namespace unit
         pixel_value_type to_pixels()
         const
         {
+#if defined(__GNUC__)
+            return unit_details_type::em_to_pixels(m_value);
+#else
             return unit_details_type::em_to_pixels<pixel_value_type>(m_value);
+#endif
         }
 
 
