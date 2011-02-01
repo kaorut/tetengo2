@@ -39,6 +39,7 @@
 #include <tetengo2.message_catalog.h>
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.detail.windows.encoding.h>
+#include <tetengo2.detail.windows.unit.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.drawing.background.h>
@@ -270,12 +271,14 @@ namespace bobura
     {
         typedef
             tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
+        typedef tetengo2::detail::windows::unit unit_details_type;
         typedef
             tetengo2::gui::unit::win32::em<
                 boost::rational<
                     boost::mpl::at<common_type_list, type::difference>::type
                 >,
-                boost::mpl::at<common_type_list, type::difference>::type
+                boost::mpl::at<common_type_list, type::difference>::type,
+                unit_details_type
             >
             unit_difference_type;
         typedef
@@ -286,7 +289,8 @@ namespace bobura
                 boost::rational<
                     boost::mpl::at<common_type_list, type::size>::type
                 >,
-                boost::mpl::at<common_type_list, type::size>::type
+                boost::mpl::at<common_type_list, type::size>::type,
+                unit_details_type
             >
             unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;

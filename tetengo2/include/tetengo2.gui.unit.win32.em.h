@@ -9,19 +9,11 @@
 #if !defined(TETENGO2_GUI_UNIT_WIN32_EM_H)
 #define TETENGO2_GUI_UNIT_WIN32_EM_H
 
-#include <cstddef>
-#include <type_traits>
 //#include <utility>
 
 #include <boost/operators.hpp>
-#include <boost/rational.hpp>
 #include <boost/swap.hpp>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
-
-#include "tetengo2.gui.drawing.win32.detail.font.h"
 #include "tetengo2.operators.h"
 
 
@@ -30,15 +22,18 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
     /*!
         \brief The class template for a EM height unit.
  
-        \tparam Value      A value type.
-        \tparam PixelValue A em value type.
+        \tparam Value       A value type.
+        \tparam PixelValue  A em value type.
+        \tparam UnitDetails A detail implementation type of a unit.
    */
-    template <typename Value, typename PixelValue>
+    template <typename Value, typename PixelValue, typename UnitDetails>
     class em :
-        private boost::totally_ordered<em<Value, PixelValue>>,
-        private boost::totally_ordered<em<Value, PixelValue>, Value>,
-        private tetengo2::additive<em<Value, PixelValue>>,
-        private tetengo2::additive<em<Value, PixelValue>, Value>
+        private boost::totally_ordered<em<Value, PixelValue, UnitDetails>>,
+        private boost::totally_ordered<
+            em<Value, PixelValue, UnitDetails>, Value
+        >,
+        private tetengo2::additive<em<Value, PixelValue, UnitDetails>>,
+        private tetengo2::additive<em<Value, PixelValue, UnitDetails>, Value>
     {
     public:
         // types
@@ -48,6 +43,9 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
 
         //! The pixel value type.
         typedef PixelValue pixel_value_type;
+
+        //! The detail implementation type of a unit.
+        typedef UnitDetails unit_details_type;
 
 
         // static functions
@@ -61,9 +59,7 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         */
         static em from_pixels(const pixel_value_type value)
         {
-            const ::LOGFONTW& message_font =
-                tetengo2::gui::drawing::win32::detail::get_message_font();
-            return em(to_value<value_type>(value, -message_font.lfHeight));
+            return em(unit_details_type::pixels_to_em<value_type>(value));
         }
 
 
@@ -249,66 +245,11 @@ namespace tetengo2 { namespace gui { namespace unit { namespace win32
         pixel_value_type to_pixels()
         const
         {
-            const ::LOGFONTW& message_font =
-                tetengo2::gui::drawing::win32::detail::get_message_font();
-            return to_pixel_value(m_value * -message_font.lfHeight);
+            return unit_details_type::em_to_pixels<pixel_value_type>(m_value);
         }
 
 
     private:
-        // static functions
-
-        template <typename V>
-        static V to_value(
-            const pixel_value_type numerator,
-            const pixel_value_type denominator,
-            typename std::enable_if<
-                std::is_convertible<
-                    boost::rational<typename value_type::int_type>, V
-                >::value
-            >::type* = NULL
-        )
-        {
-            return boost::rational<typename value_type::int_type>(
-                numerator, denominator
-            );
-        }
-
-        template <typename V>
-        static V to_value(
-            const pixel_value_type numerator,
-            const pixel_value_type denominator,
-            typename std::enable_if<std::is_arithmetic<V>::value>::type* =
-                NULL
-        )
-        {
-            return numerator / denominator;
-        }
-
-        template <typename V>
-        static pixel_value_type to_pixel_value(
-            const V& value,
-            typename std::enable_if<
-                std::is_convertible<
-                    boost::rational<typename value_type::int_type>, V
-                >::value
-            >::type* = NULL
-        )
-        {
-            return boost::rational_cast<pixel_value_type>(value);
-        }
-
-        template <typename V>
-        static pixel_value_type to_pixel_value(
-            const V value,
-            typename std::enable_if<std::is_arithmetic<V>::value>::type* =
-                NULL
-        )
-        {
-            return static_cast<pixel_value_type>(value);
-        }
-
-
         // variables
 
         value_type m_value;
