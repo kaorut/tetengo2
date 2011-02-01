@@ -22,6 +22,11 @@
 
 namespace tetengo2 { namespace detail { namespace windows
 {
+    /*!
+        \brief Returns a nonclient metrics.
+
+        \param metrics A metrics where the result is stored.
+    */
     inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
     {
         const ::UINT metrics_size =
@@ -44,6 +49,11 @@ namespace tetengo2 { namespace detail { namespace windows
         }
     }
 
+    /*!
+        \brief Returns the message font.
+
+        \return The message font.
+    */
     inline ::LOGFONTW get_message_font()
     {
         ::NONCLIENTMETRICSW metrics;
