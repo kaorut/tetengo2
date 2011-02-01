@@ -18,7 +18,7 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.gui.drawing.win32.detail.font.h"
+#include "tetengo2.detail.windows.font.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -45,7 +45,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static Value pixels_to_em(const PixelValue pixel_value)
         {
             const ::LOGFONTW& message_font =
-                tetengo2::gui::drawing::win32::detail::get_message_font();
+                tetengo2::detail::windows::get_message_font();
             return to_value<Value, PixelValue>(pixel_value, -message_font.lfHeight);
         }
 
@@ -63,7 +63,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static PixelValue em_to_pixels(const Value& value)
         {
             const ::LOGFONTW& message_font =
-                tetengo2::gui::drawing::win32::detail::get_message_font();
+                tetengo2::detail::windows::get_message_font();
             return to_pixel_value<PixelValue, Value>(value * -message_font.lfHeight);
         }
 

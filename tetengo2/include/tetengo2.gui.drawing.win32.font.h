@@ -18,7 +18,7 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.gui.drawing.win32.detail.font.h"
+#include "tetengo2.detail.windows.font.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing { namespace win32
@@ -189,7 +189,8 @@ namespace tetengo2 { namespace gui { namespace drawing { namespace win32
 
         static font make_dialog_font()
         {
-            const ::LOGFONTW log_font = detail::get_message_font();
+            const ::LOGFONTW log_font =
+                tetengo2::detail::windows::get_message_font();
 
             assert(log_font.lfHeight < 0);
             return font(

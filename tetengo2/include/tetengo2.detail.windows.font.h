@@ -1,15 +1,14 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::detail::font.
+    \brief The definition of tetengo2::detail::windows::font.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_DRAWING_WIN32_DETAIL_FONT_H)
-#define TETENGO2_GUI_DRAWING_WIN32_DETAIL_FONT_H
+#if !defined(TETENGO2_DETAIL_WINDOWS_FONT_H)
+#define TETENGO2_DETAIL_WINDOWS_FONT_H
 
-#if !defined(DOCUMENTATION)
 #include <stdexcept>
 
 #include <boost/throw_exception.hpp>
@@ -21,8 +20,7 @@
 #include "tetengo2.detail.windows.windows_version.h"
 
 
-namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
-namespace detail
+namespace tetengo2 { namespace detail { namespace windows
 {
     inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
     {
@@ -55,8 +53,7 @@ namespace detail
     }
 
 
-}}}}}
-#endif
+}}}
 
 
 #endif

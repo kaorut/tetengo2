@@ -128,6 +128,7 @@
     <ClInclude Include="include\tetengo2.detail.stub.unit.h" />
     <ClInclude Include="include\tetengo2.detail.windows.drawing.h" />
     <ClInclude Include="include\tetengo2.detail.windows.encoding.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.font.h" />
     <ClInclude Include="include\tetengo2.detail.windows.unit.h" />
     <ClInclude Include="include\tetengo2.detail.windows.windows_version.h" />
     <ClInclude Include="include\tetengo2.encoder.h" />
@@ -138,7 +139,6 @@
     <ClInclude Include="include\tetengo2.generator.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.background.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.color.h" />
-    <ClInclude Include="include\tetengo2.gui.drawing.win32.detail.font.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.win32.font.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.canvas.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.picture.h" />
