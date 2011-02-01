@@ -8,7 +8,21 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.unit.h"
+
 #include "tetengo2.gui.unit.em.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        tetengo2::gui::unit::em<int, int, tetengo2::detail::stub::unit>
+        unit_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -19,47 +33,142 @@ BOOST_AUTO_TEST_SUITE(em)
 
     BOOST_AUTO_TEST_CASE(from_pixels)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const unit_type unit = unit_type::from_pixels(123 * 12);
+
+        BOOST_CHECK_EQUAL(unit.value(), 123);
     }
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const unit_type unit(123);
     }
 
     BOOST_AUTO_TEST_CASE(operator_plus_assign)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            unit_type unit1(456);
+            const unit_type unit2(123);
+
+            unit1 += unit2;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 579);
+        }
+        {
+            BOOST_TEST_PASSPOINT();
+
+            unit_type unit1(456);
+
+            unit1 += 123;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 579);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_minus_assign)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            unit_type unit1(456);
+            const unit_type unit2(123);
+
+            unit1 -= unit2;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 333);
+        }
+        {
+            unit_type unit1(456);
+
+            unit1 -= 123;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 333);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const unit_type unit1(123);
+            const unit_type unit2(123);
+
+            BOOST_CHECK(unit1 == unit2);
+        }
+        {
+            const unit_type unit1(456);
+            const unit_type unit2(123);
+
+            BOOST_CHECK(unit1 != unit2);
+        }
+        {
+            const unit_type unit1(123);
+
+            BOOST_CHECK(unit1 == 123);
+        }
+        {
+            const unit_type unit1(456);
+
+            BOOST_CHECK(unit1 != 123);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_less)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const unit_type unit1(123);
+            const unit_type unit2(456);
+
+            BOOST_CHECK(unit1 < unit2);
+        }
+        {
+            const unit_type unit1(456);
+            const unit_type unit2(123);
+
+            BOOST_CHECK(unit1 > unit2);
+        }
+        {
+            const unit_type unit1(123);
+
+            BOOST_CHECK(unit1 < 456);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_greater)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const unit_type unit1(456);
+
+            BOOST_CHECK(unit1 > 123);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(value)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const unit_type unit(123);
+
+        BOOST_CHECK_EQUAL(unit.value(), 123);
     }
 
     BOOST_AUTO_TEST_CASE(to_pixels)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const unit_type unit(123);
+
+        BOOST_CHECK_EQUAL(unit.to_pixels(), 123 * 12);
     }
 
 
