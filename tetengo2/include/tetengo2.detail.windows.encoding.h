@@ -26,8 +26,6 @@ namespace tetengo2 { namespace detail { namespace windows
 {
     /*!
         \brief The class for a detail implementation of an encoding.
-
-        \tparam Pivot A pivot type.
     */
     class encoding
     {

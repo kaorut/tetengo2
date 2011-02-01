@@ -25,8 +25,6 @@ namespace tetengo2 { namespace detail { namespace windows
 {
     /*!
         \brief The class for a detail implementation of a unit.
-
-        \tparam Pivot A pivot type.
     */
     class unit
     {
@@ -68,7 +66,6 @@ namespace tetengo2 { namespace detail { namespace windows
                 tetengo2::gui::drawing::win32::detail::get_message_font();
             return to_pixel_value<PixelValue, Value>(value * -message_font.lfHeight);
         }
-
 
 
     private:

@@ -4,6 +4,7 @@
 
 headers = \
     tetengo2.cpp0x_keyword.h \
+    tetengo2.detail.stub.drawing.h \
     tetengo2.detail.stub.encoding.h \
     tetengo2.detail.stub.unit.h \
     tetengo2.encoder.h \
@@ -39,6 +40,7 @@ headers = \
     tetengo2.operators.h
 
 extra_headers = \
+    tetengo2.detail.windows.drawing.h \
     tetengo2.detail.windows.encoding.h \
     tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.windows_version.h \
