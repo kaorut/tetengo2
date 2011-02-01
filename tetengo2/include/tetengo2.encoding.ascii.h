@@ -10,7 +10,7 @@
 #define TETENGO2_ENCODING_WIN32_UTF8_H
 
 #include <stdexcept>
-//#include <string>
+#include <string>
 
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/operators.hpp>

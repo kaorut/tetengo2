@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <string>
 
 
 namespace tetengo2 { namespace detail { namespace stub

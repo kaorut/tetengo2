@@ -9,12 +9,9 @@
 #if !defined(TETENGO2_ENCODING_WIN32_UTF8_H)
 #define TETENGO2_ENCODING_WIN32_UTF8_H
 
-#include <cassert>
-#include <cstddef>
-//#include <string>
+#include <string>
 
 #include <boost/operators.hpp>
-#include <boost/scoped_array.hpp>
 
 #include "tetengo2.encoding.encoding.h"
 
