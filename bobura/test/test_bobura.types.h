@@ -36,9 +36,9 @@
 #include <stub_tetengo2.gui.message_loop.h>
 #include <stub_tetengo2.gui.popup_menu.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
-#include <stub_tetengo2.gui.unit.em.h>
 #include <stub_tetengo2.gui.window.h>
 #include <tetengo2.detail.stub.encoding.h>
+#include <tetengo2.detail.stub.unit.h>
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
@@ -54,6 +54,7 @@
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.traits.window_traits.h>
+#include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.encoder.h>
 #include <tetengo2.encoding.locale.h>
@@ -101,13 +102,17 @@ typedef
     >
     alert_type;
 
+typedef tetengo2::detail::stub::unit unit_details_type;
+
 typedef
-    stub_tetengo2::gui::unit::em<std::ptrdiff_t, std::ptrdiff_t>
+    tetengo2::gui::unit::em<std::ptrdiff_t, std::ptrdiff_t, unit_details_type>
     unit_difference_type;
 
 typedef std::pair<unit_difference_type, unit_difference_type> position_type;
 
-typedef stub_tetengo2::gui::unit::em<std::size_t, std::size_t> unit_size_type;
+typedef
+    tetengo2::gui::unit::em<std::size_t, std::size_t, unit_details_type>
+    unit_size_type;
 
 typedef std::pair<unit_size_type, unit_size_type> dimension_type;
 
