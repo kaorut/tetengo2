@@ -271,14 +271,14 @@
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.solid_background.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.font.cpp">
-      <Filter>sources\test_tetengo2::gui::drawing</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.encoding.utf8.cpp">
       <Filter>sources\test_tetengo2::encoding</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.unit.em.cpp">
       <Filter>sources\test_tetengo2::gui::unit</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.font.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

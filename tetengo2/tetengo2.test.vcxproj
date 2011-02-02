@@ -260,7 +260,7 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.generator.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.color.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.font.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.drawing.font.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.picture.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.picture_reader.cpp" />
