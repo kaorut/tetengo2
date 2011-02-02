@@ -26,11 +26,13 @@ namespace tetengo2 { namespace gui { namespace drawing { namespace win32
     /*!
         \brief The class template for a font for Win32 platforms.
  
-        \tparam String A string type.
-        \tparam Size   A size type.
+        \tparam String         A string type.
+        \tparam Size           A size type.
+        \tparam DrawingDetails A detail implementation type of a drawing.
    */
-    template <typename String, typename Size>
-    class font : private boost::equality_comparable<font<String, Size>>
+    template <typename String, typename Size, typename DrawingDetails>
+    class font :
+        private boost::equality_comparable<font<String, Size, DrawingDetails>>
     {
     public:
         // types
@@ -40,6 +42,9 @@ namespace tetengo2 { namespace gui { namespace drawing { namespace win32
 
         //! The size type.
         typedef Size size_type;
+
+        //! The detail implementation type of a drawing.
+        typedef DrawingDetails drawing_details_type;
 
 
         // static functions
