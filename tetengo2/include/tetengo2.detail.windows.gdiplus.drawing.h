@@ -13,6 +13,8 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
+#include "tetengo2.detail.windows.font.h"
+
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {
@@ -23,6 +25,23 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
     {
     public:
         // static functions
+
+        template <typename Font>
+        static Font make_dialog_font()
+        {
+            const ::LOGFONTW log_font =
+                tetengo2::detail::windows::get_message_font();
+
+            assert(log_font.lfHeight < 0);
+            return Font(
+                log_font.lfFaceName,
+                -log_font.lfHeight,
+                log_font.lfWeight >= FW_BOLD,
+                log_font.lfItalic != 0,
+                log_font.lfUnderline != 0,
+                log_font.lfStrikeOut != 0
+            );
+        }
 
 
     private:

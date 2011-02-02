@@ -14,12 +14,6 @@
 
 #include <boost/operators.hpp>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
-
-#include "tetengo2.detail.windows.font.h"
-
 
 namespace tetengo2 { namespace gui { namespace drawing { namespace win32
 {
@@ -56,7 +50,9 @@ namespace tetengo2 { namespace gui { namespace drawing { namespace win32
         */
         static const font& dialog_font()
         {
-            static const font singleton(make_dialog_font());
+            static const font singleton(
+                drawing_details_type::make_dialog_font<font>()
+            );
             return singleton;
         }
 
@@ -190,25 +186,6 @@ namespace tetengo2 { namespace gui { namespace drawing { namespace win32
 
 
     private:
-        // static functions
-
-        static font make_dialog_font()
-        {
-            const ::LOGFONTW log_font =
-                tetengo2::detail::windows::get_message_font();
-
-            assert(log_font.lfHeight < 0);
-            return font(
-                log_font.lfFaceName,
-                -log_font.lfHeight,
-                log_font.lfWeight >= FW_BOLD,
-                log_font.lfItalic != 0,
-                log_font.lfUnderline != 0,
-                log_font.lfStrikeOut != 0
-            );
-        }
-
-
         // variables
 
         string_type m_family;
