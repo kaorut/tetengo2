@@ -38,8 +38,8 @@
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog.h>
 #include <tetengo2.message_catalog_parser.h>
-#include <tetengo2.detail.windows.drawing.h>
 #include <tetengo2.detail.windows.encoding.h>
+#include <tetengo2.detail.windows.gdiplus.drawing.h>
 #include <tetengo2.detail.windows.unit.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.utf8.h>
@@ -303,7 +303,8 @@ namespace bobura
                 Gdiplus::Brush*
             >
             transparent_background_type;
-        typedef tetengo2::detail::windows::drawing drawing_details_type;
+        typedef
+            tetengo2::detail::windows::gdiplus::drawing drawing_details_type;
         typedef
             tetengo2::gui::drawing::win32::font<
                 boost::mpl::at<common_type_list, type::string>::type,

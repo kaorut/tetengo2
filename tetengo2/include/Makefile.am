@@ -40,9 +40,9 @@ headers = \
     tetengo2.operators.h
 
 extra_headers = \
-    tetengo2.detail.windows.drawing.h \
     tetengo2.detail.windows.encoding.h \
     tetengo2.detail.windows.font.h \
+    tetengo2.detail.windows.gdiplus.drawing.h \
     tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.windows_version.h \
     tetengo2.gui.drawing.win32.font.h \
