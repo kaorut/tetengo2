@@ -201,9 +201,6 @@
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.solid_background.h">
       <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.drawing.win32.font.h">
-      <Filter>headers\tetengo2::gui::drawing</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.windows_version.h">
       <Filter>headers\tetengo2::detail::windows</Filter>
     </ClInclude>
@@ -233,6 +230,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.gdiplus.drawing.h">
       <Filter>headers\tetengo2::detail::windows::gdiplus</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.drawing.font.h">
+      <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -45,7 +45,7 @@
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
-#include <tetengo2.gui.drawing.win32.font.h>
+#include <tetengo2.gui.drawing.font.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.picture_reader.h>
 #include <tetengo2.gui.drawing.win32.gdiplus.transparent_background.h>
@@ -306,7 +306,7 @@ namespace bobura
         typedef
             tetengo2::detail::windows::gdiplus::drawing drawing_details_type;
         typedef
-            tetengo2::gui::drawing::win32::font<
+            tetengo2::gui::drawing::font<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::size>::type,
                 drawing_details_type

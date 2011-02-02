@@ -19,6 +19,7 @@ headers = \
     tetengo2.encoding.utf8.h \
     tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.color.h \
+    tetengo2.gui.drawing.font.h \
     tetengo2.gui.measure.h \
     tetengo2.gui.menu_observer_set.h \
     tetengo2.gui.mouse_observer_set.h \
@@ -45,7 +46,6 @@ extra_headers = \
     tetengo2.detail.windows.gdiplus.drawing.h \
     tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.windows_version.h \
-    tetengo2.gui.drawing.win32.font.h \
     tetengo2.gui.drawing.win32.gdiplus.canvas.h \
     tetengo2.gui.drawing.win32.gdiplus.picture.h \
     tetengo2.gui.drawing.win32.gdiplus.picture_reader.h \
