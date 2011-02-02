@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H)
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H
 
+#include <cassert>
+
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
