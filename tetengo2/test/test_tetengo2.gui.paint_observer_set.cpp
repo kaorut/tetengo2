@@ -12,13 +12,14 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "stub_tetengo2.gui.drawing.font.h"
 #include "stub_tetengo2.gui.drawing.picture.h"
 #include "stub_tetengo2.gui.drawing.widget_canvas.h"
+#include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.drawing.background.h"
+#include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.paint_observer_set.h"
 
 
@@ -44,8 +45,12 @@ namespace
 
     typedef tetengo2::gui::drawing::background<const void*> background_type;
 
+    typedef tetengo2::detail::stub::drawing drawing_details_type;
+    
     typedef
-        stub_tetengo2::gui::drawing::font<std::wstring, std::size_t>
+        tetengo2::gui::drawing::font<
+            std::wstring, std::size_t, drawing_details_type
+        >
         font_type;
 
     typedef stub_tetengo2::gui::drawing::picture<std::size_t> picture_type;

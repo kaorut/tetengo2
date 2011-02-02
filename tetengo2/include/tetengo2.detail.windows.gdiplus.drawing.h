@@ -26,6 +26,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
     public:
         // static functions
 
+        /*!
+            \brief Makes a dialog font.
+
+            \tparam Font A font type.
+
+            \return A dialog font.
+        */
         template <typename Font>
         static Font make_dialog_font()
         {

@@ -20,7 +20,6 @@
 
 #include <stub_tetengo2.gui.alert.h>
 #include <stub_tetengo2.gui.button.h>
-#include <stub_tetengo2.gui.drawing.font.h>
 #include <stub_tetengo2.gui.drawing.picture.h>
 #include <stub_tetengo2.gui.drawing.picture_reader.h>
 #include <stub_tetengo2.gui.drawing.transparent_background.h>
@@ -37,11 +36,13 @@
 #include <stub_tetengo2.gui.popup_menu.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.window.h>
+#include <tetengo2.detail.stub.drawing.h>
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.detail.stub.unit.h>
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
+#include <tetengo2.gui.drawing.font.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
@@ -122,8 +123,13 @@ typedef
     stub_tetengo2::gui::drawing::transparent_background<const void*>
     transparent_background_type;
 
+typedef tetengo2::detail::stub::drawing draing_details_type;
+
 typedef
-    stub_tetengo2::gui::drawing::font<std::wstring, std::size_t> font_type;
+    tetengo2::gui::drawing::font<
+        std::wstring, std::size_t, draing_details_type
+    >
+    font_type;
 
 typedef stub_tetengo2::gui::drawing::picture<std::size_t> picture_type;
 

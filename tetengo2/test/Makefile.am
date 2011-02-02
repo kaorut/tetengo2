@@ -10,7 +10,6 @@ headers = \
     stub_tetengo2.gui.control.h \
     stub_tetengo2.gui.dialog.h \
     stub_tetengo2.gui.drawing.canvas.h \
-    stub_tetengo2.gui.drawing.font.h \
     stub_tetengo2.gui.drawing.picture.h \
     stub_tetengo2.gui.drawing.picture_reader.h \
     stub_tetengo2.gui.drawing.solid_background.h \
