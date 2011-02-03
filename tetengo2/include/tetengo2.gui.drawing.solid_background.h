@@ -11,7 +11,7 @@
 
 #include <utility>
 
-#include <boost/optional.hpp>
+//#include <boost/optional.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE

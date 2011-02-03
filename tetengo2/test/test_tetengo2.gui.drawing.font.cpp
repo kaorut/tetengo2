@@ -6,6 +6,9 @@
     $Id$
 */
 
+#include <cstddef>
+#include <string>
+
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.drawing.h"
