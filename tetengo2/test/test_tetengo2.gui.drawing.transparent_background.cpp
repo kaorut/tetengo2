@@ -8,7 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.drawing.win32.gdiplus.transparent_background.h"
+#include "tetengo2.gui.drawing.transparent_background.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

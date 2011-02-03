@@ -256,12 +256,6 @@
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.transparent_background.cpp">
-      <Filter>sources\test_tetengo2::gui::drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.solid_background.cpp">
-      <Filter>sources\test_tetengo2::gui::drawing</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.encoding.utf8.cpp">
       <Filter>sources\test_tetengo2::encoding</Filter>
     </ClCompile>
@@ -269,6 +263,12 @@
       <Filter>sources\test_tetengo2::gui::unit</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.drawing.font.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.transparent_background.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.solid_background.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
   </ItemGroup>
