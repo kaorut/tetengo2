@@ -50,11 +50,15 @@ BOOST_AUTO_TEST_SUITE(background)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
+        BOOST_TEST_PASSPOINT();
+
         const concrete_background background(42);
     }
 
     BOOST_AUTO_TEST_CASE(handle)
     {
+        BOOST_TEST_PASSPOINT();
+
         const concrete_background background(42);
 
         BOOST_CHECK_EQUAL(background.handle(), 42);
