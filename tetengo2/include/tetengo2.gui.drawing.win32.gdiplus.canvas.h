@@ -18,6 +18,7 @@
 #include <vector>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
@@ -202,7 +203,10 @@ namespace gdiplus
             const background_type& background
         )
         {
-            if (background.handle() == NULL) return;
+            const boost::optional<
+                const typename background_type::details_type&
+            > background_details = background.details();
+            if (!background_details) return;
 
             const Gdiplus::Rect rectangle(
                 gui::to_pixels< ::INT>(gui::position<P>::left(position)),
@@ -210,7 +214,7 @@ namespace gdiplus
                 gui::to_pixels< ::INT>(gui::dimension<D>::width(dimension)),
                 gui::to_pixels< ::INT>(gui::dimension<D>::height(dimension))
             );
-            m_graphics.FillRectangle(background.handle(), rectangle);
+            m_graphics.FillRectangle(&*background_details, rectangle);
         }
 
         /*!

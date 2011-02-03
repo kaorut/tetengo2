@@ -22,7 +22,6 @@
 #include <stub_tetengo2.gui.button.h>
 #include <stub_tetengo2.gui.drawing.picture.h>
 #include <stub_tetengo2.gui.drawing.picture_reader.h>
-#include <stub_tetengo2.gui.drawing.transparent_background.h>
 #include <stub_tetengo2.gui.drawing.widget_canvas.h>
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.gui_initializer_finalizer.h>
@@ -43,6 +42,7 @@
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
+#include <tetengo2.gui.drawing.win32.gdiplus.transparent_background.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
@@ -117,17 +117,18 @@ typedef
 
 typedef std::pair<unit_size_type, unit_size_type> dimension_type;
 
-typedef tetengo2::gui::drawing::background<const void*> background_type;
+typedef tetengo2::detail::stub::drawing drawing_details_type;
 
 typedef
-    stub_tetengo2::gui::drawing::transparent_background<const void*>
-    transparent_background_type;
+    tetengo2::gui::drawing::background<drawing_details_type> background_type;
 
-typedef tetengo2::detail::stub::drawing draing_details_type;
+typedef
+    tetengo2::gui::drawing::win32::gdiplus::transparent_background<drawing_details_type>
+    transparent_background_type;
 
 typedef
     tetengo2::gui::drawing::font<
-        std::wstring, std::size_t, draing_details_type
+        std::wstring, std::size_t, drawing_details_type
     >
     font_type;
 

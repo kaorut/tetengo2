@@ -6,7 +6,10 @@
     $Id$
 */
 
+#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include "tetengo2.detail.stub.drawing.h"
 
 #include "tetengo2.gui.drawing.background.h"
 
@@ -15,24 +18,24 @@ namespace
 {
     // types
 
-    typedef tetengo2::gui::drawing::background<int> background_type;
+    typedef
+        tetengo2::gui::drawing::background<tetengo2::detail::stub::drawing>
+        background_type;
 
     struct concrete_background : public background_type
     {
-        concrete_background(const int handle)
+        concrete_background()
         :
-        background_type(),
-        m_handle(handle)
+        background_type()
         {}
 
 
     private:
-        const handle_type m_handle;
-
-        virtual handle_type handle_impl()
+        virtual boost::optional<const background_type::details_type&>
+        details_impl()
         const
         {
-            return m_handle;
+            return boost::optional<const background_type::details_type&>();
         }
 
 
@@ -52,16 +55,16 @@ BOOST_AUTO_TEST_SUITE(background)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_background background(42);
+        const concrete_background background;
     }
 
     BOOST_AUTO_TEST_CASE(handle)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_background background(42);
+        const concrete_background background;
 
-        BOOST_CHECK_EQUAL(background.handle(), 42);
+        background.details();
     }
 
 

@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_DRAWING_BACKGROUND_H
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
 
@@ -19,16 +20,21 @@ namespace tetengo2 { namespace gui { namespace drawing
     /*!
         \brief The class template for a background.
 
-        \tparam Handle A handle type.
+        \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Handle>
+    template <typename DrawingDetails>
     class background : private boost::noncopyable
     {
     public:
         // types
 
-        //! The handle type.
-        typedef Handle handle_type;
+        //! The detail implementation type of a drawing.
+        typedef DrawingDetails drawing_details_type;
+
+        //! The detail implementation type.
+        typedef
+            typename drawing_details_type::background_details_type
+            details_type;
 
 
         // constructors and destructor
@@ -44,14 +50,14 @@ namespace tetengo2 { namespace gui { namespace drawing
         // functions
 
         /*!
-            \brief Returns the handle;
+            \brief Returns the detail implementation;
 
-            \return The handle.
+            \return The detail implementation.
         */
-        handle_type handle()
+        boost::optional<const details_type&> details()
         const
         {
-            return handle_impl();
+            return details_impl();
         }
 
 
@@ -68,7 +74,7 @@ namespace tetengo2 { namespace gui { namespace drawing
     private:
         // virtual functions
 
-        virtual handle_type handle_impl()
+        virtual boost::optional<const details_type&> details_impl()
         const = 0;
 
 

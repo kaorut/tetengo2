@@ -14,6 +14,15 @@
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
+//#if !defined(min) && !defined(DOCUMENTATION)
+//#   define min(a, b) ((a) < (b) ? (a) : (b))
+//#endif
+//#if !defined(max) && !defined(DOCUMENTATION)
+//#   define max(a, b) ((a) > (b) ? (a) : (b))
+//#endif
+//#include <GdiPlus.h>
+//#undef min
+//#undef max
 
 #include "tetengo2.detail.windows.font.h"
 
@@ -26,6 +35,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
     class drawing
     {
     public:
+        // types
+
+        //! The background details type.
+        typedef Gdiplus::Brush background_details_type;
+
+
         // static functions
 
         /*!

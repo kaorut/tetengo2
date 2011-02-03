@@ -296,15 +296,15 @@ namespace bobura
             unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;
         typedef
-            tetengo2::gui::drawing::background<Gdiplus::Brush*>
+            tetengo2::detail::windows::gdiplus::drawing drawing_details_type;
+        typedef
+            tetengo2::gui::drawing::background<drawing_details_type>
             background_type;
         typedef
             tetengo2::gui::drawing::win32::gdiplus::transparent_background<
-                Gdiplus::Brush*
+                drawing_details_type
             >
             transparent_background_type;
-        typedef
-            tetengo2::detail::windows::gdiplus::drawing drawing_details_type;
         typedef
             tetengo2::gui::drawing::font<
                 boost::mpl::at<common_type_list, type::string>::type,

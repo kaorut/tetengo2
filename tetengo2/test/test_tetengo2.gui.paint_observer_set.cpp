@@ -43,10 +43,12 @@ namespace
         tetengo2::encoder<internal_encoding_type, ui_encoding_type>
         ui_encoder_type;
 
-    typedef tetengo2::gui::drawing::background<const void*> background_type;
-
     typedef tetengo2::detail::stub::drawing drawing_details_type;
     
+    typedef
+        tetengo2::gui::drawing::background<drawing_details_type>
+        background_type;
+
     typedef
         tetengo2::gui::drawing::font<
             std::wstring, std::size_t, drawing_details_type

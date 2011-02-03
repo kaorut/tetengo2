@@ -20,6 +20,12 @@ namespace tetengo2 { namespace detail { namespace stub
     class drawing
     {
     public:
+        // types
+
+        //! The background details type.
+        struct background_details_type {};
+
+
         // static functions
 
         /*!

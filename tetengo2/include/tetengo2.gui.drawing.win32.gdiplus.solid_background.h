@@ -11,6 +11,8 @@
 
 #include <utility>
 
+#include <boost/optional.hpp>
+
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
@@ -34,17 +36,17 @@ namespace gdiplus
     /*!
         \brief The class template for a solid background for Win32 platforms.
         
-        \tparam Color  A color type.
-        \tparam Handle A handle type.
+        \tparam Color          A color type.
+        \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Color, typename Handle>
-    class solid_background : public background<Handle>
+    template <typename Color, typename DrawingDetails>
+    class solid_background : public background<DrawingDetails>
     {
     public:
         // types
 
         //! The base type.
-        typedef background<Handle> base_type;
+        typedef background<DrawingDetails> base_type;
 
         //! The color type.
         typedef Color color_type;
@@ -106,10 +108,13 @@ namespace gdiplus
 
         // virtual functions
 
-        virtual typename base_type::handle_type handle_impl()
+        virtual boost::optional<const typename base_type::details_type&>
+        details_impl()
         const
         {
-            return &m_brush;
+            return boost::optional<const typename base_type::details_type&>(
+                &m_brush
+            );
         }
 
 

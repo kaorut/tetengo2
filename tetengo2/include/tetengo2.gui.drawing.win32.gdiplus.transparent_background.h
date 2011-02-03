@@ -22,16 +22,16 @@ namespace gdiplus
         \brief The class template for a transparent background for Win32
                platforms.
         
-        \tparam Handle A handle type.
+        \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Handle>
-    class transparent_background : public background<Handle>
+    template <typename DrawingDetails>
+    class transparent_background : public background<DrawingDetails>
     {
     public:
         // types
 
         //! The base type.
-        typedef background<Handle> base_type;
+        typedef background<DrawingDetails> base_type;
 
 
         // constructors and destructor
@@ -55,10 +55,11 @@ namespace gdiplus
     private:
         // virtual functions
 
-        virtual typename base_type::handle_type handle_impl()
+        virtual boost::optional<const typename base_type::details_type&>
+        details_impl()
         const
         {
-            return NULL;
+            return boost::optional<const typename base_type::details_type&>();
         }
 
 
