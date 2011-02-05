@@ -53,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         base_type(),
         m_color(std::forward<C>(color)),
         m_p_details(
-            base_type::drawing_details_type::create_solid_brush(m_color)
+            base_type::drawing_details_type::create_solid_background(m_color)
         )
         {}
 
