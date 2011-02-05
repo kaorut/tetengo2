@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::drawing::win32::gdiplus::solid_background.
+    \brief The definition of tetengo2::gui::drawing::solid_background.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_SOLIDBACKGROUND_H)
-#define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_SOLIDBACKGROUND_H
+#if !defined(TETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H)
+#define TETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H
 
 #include <utility>
 
@@ -17,11 +17,10 @@
 #include "tetengo2.gui.drawing.background.h"
 
 
-namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
-namespace gdiplus
+namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
-        \brief The class template for a solid background for Win32 platforms.
+        \brief The class template for a solid background.
         
         \tparam Color          A color type.
         \tparam DrawingDetails A detail implementation type of a drawing.
@@ -106,7 +105,7 @@ namespace gdiplus
     };
 
 
-}}}}}
+}}}
 
 
 #endif

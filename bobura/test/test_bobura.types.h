@@ -123,7 +123,7 @@ typedef
     tetengo2::gui::drawing::background<drawing_details_type> background_type;
 
 typedef
-    tetengo2::gui::drawing::win32::gdiplus::transparent_background<drawing_details_type>
+    tetengo2::gui::drawing::transparent_background<drawing_details_type>
     transparent_background_type;
 
 typedef
