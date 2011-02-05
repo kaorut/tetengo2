@@ -41,7 +41,10 @@ namespace gdiplus
         */
         transparent_background()
         :
-        base_type()
+        base_type(),
+        m_p_details(
+            base_type::drawing_details_type::create_transparent_background()
+        )
         {}
 
         /*!
@@ -53,13 +56,27 @@ namespace gdiplus
 
 
     private:
+        // types
+
+        typedef typename base_type::details_type details_type;
+
+
+        // variables
+
+        const typename tetengo2::cpp0x::unique_ptr<details_type>::type
+        m_p_details;
+
+
         // virtual functions
 
         virtual boost::optional<const typename base_type::details_type&>
         details_impl()
         const
         {
-            return boost::optional<const typename base_type::details_type&>();
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<const details_type&>() :
+                boost::optional<const details_type&>(*m_p_details);
         }
 
 

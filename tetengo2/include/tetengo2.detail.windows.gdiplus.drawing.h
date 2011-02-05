@@ -54,7 +54,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return A tetengo2::cpp0x::unique_ptr::type to a solid background.
         */
         template <typename Color>
-        tetengo2::cpp0x::unique_ptr<background_details_type>::type
+        static tetengo2::cpp0x::unique_ptr<background_details_type>::type
         create_solid_background(const Color& color)
         {
             return tetengo2::cpp0x::unique_ptr<background_details_type>::type(
@@ -67,6 +67,20 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     )
                 )
             );
+        }
+
+        /*!
+            \brief Creates a transparent background.
+
+            \return A tetengo2::cpp0x::unique_ptr::type to a transparent
+                    background.
+        */
+        static tetengo2::cpp0x::unique_ptr<background_details_type>::type
+        create_transparent_background()
+        {
+            return tetengo2::cpp0x::unique_ptr<
+                background_details_type
+            >::type();
         }
 
         /*!
