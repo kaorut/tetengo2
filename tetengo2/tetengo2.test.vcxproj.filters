@@ -102,9 +102,6 @@
     <ClInclude Include="test\stub_tetengo2.gui.drawing.picture.h">
       <Filter>headers\stub_tetengo2::gui::drawing</Filter>
     </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.drawing.picture_reader.h">
-      <Filter>headers\stub_tetengo2::gui::drawing</Filter>
-    </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.image.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>

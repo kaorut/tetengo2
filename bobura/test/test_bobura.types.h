@@ -21,7 +21,6 @@
 #include <stub_tetengo2.gui.alert.h>
 #include <stub_tetengo2.gui.button.h>
 #include <stub_tetengo2.gui.drawing.picture.h>
-#include <stub_tetengo2.gui.drawing.picture_reader.h>
 #include <stub_tetengo2.gui.drawing.widget_canvas.h>
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.gui_initializer_finalizer.h>
@@ -42,6 +41,7 @@
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
+#include <tetengo2.gui.drawing.picture_reader.h>
 #include <tetengo2.gui.drawing.transparent_background.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
@@ -135,8 +135,8 @@ typedef
 typedef stub_tetengo2::gui::drawing::picture<std::size_t> picture_type;
 
 typedef
-    stub_tetengo2::gui::drawing::picture_reader<
-        picture_type, boost::filesystem::path
+    tetengo2::gui::drawing::picture_reader<
+        picture_type, boost::filesystem::path, drawing_details_type
     >
     picture_reader_type;
 

@@ -223,7 +223,6 @@ echo Skipping the unit test...
     <ClInclude Include="test\stub_tetengo2.gui.dialog.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.canvas.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.picture.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.drawing.picture_reader.h" />
     <ClInclude Include="test\stub_tetengo2.gui.drawing.widget_canvas.h" />
     <ClInclude Include="test\stub_tetengo2.gui.gui_initializer_finalizer.h" />
     <ClInclude Include="test\stub_tetengo2.gui.image.h" />

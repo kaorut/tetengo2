@@ -11,7 +11,6 @@ headers = \
     stub_tetengo2.gui.dialog.h \
     stub_tetengo2.gui.drawing.canvas.h \
     stub_tetengo2.gui.drawing.picture.h \
-    stub_tetengo2.gui.drawing.picture_reader.h \
     stub_tetengo2.gui.drawing.widget_canvas.h \
     stub_tetengo2.gui.gui_initializer_finalizer.h \
     stub_tetengo2.gui.image.h \

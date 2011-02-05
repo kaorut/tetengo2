@@ -35,6 +35,12 @@ namespace stub_tetengo2 { namespace gui { namespace drawing
         m_dimension(std::forward<Dimension>(dimension))
         {}
 
+        template <typename TEMP>
+        picture(std::auto_ptr<TEMP> p_temp)
+        :
+        m_dimension()
+        {}
+
 
         // functions
 
