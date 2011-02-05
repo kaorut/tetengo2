@@ -180,9 +180,6 @@
     <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.picture.h">
       <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.drawing.win32.gdiplus.picture_reader.h">
-      <Filter>headers\tetengo2::gui::drawing</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.image.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -232,6 +229,9 @@
       <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.drawing.solid_background.h">
+      <Filter>headers\tetengo2::gui::drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.drawing.picture_reader.h">
       <Filter>headers\tetengo2::gui::drawing</Filter>
     </ClInclude>
   </ItemGroup>

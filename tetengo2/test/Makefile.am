@@ -43,6 +43,7 @@ sources = \
     test_tetengo2.gui.drawing.background.cpp \
     test_tetengo2.gui.drawing.color.cpp \
     test_tetengo2.gui.drawing.font.cpp \
+    test_tetengo2.gui.drawing.picture_reader.cpp \
     test_tetengo2.gui.drawing.solid_background.cpp \
     test_tetengo2.gui.drawing.transparent_background.cpp \
     test_tetengo2.gui.measure.cpp \
@@ -59,7 +60,6 @@ sources = \
 extra_sources = \
     test_tetengo2.gui.drawing.win32.gdiplus.canvas.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.picture.cpp \
-    test_tetengo2.gui.drawing.win32.gdiplus.picture_reader.cpp \
     test_tetengo2.gui.drawing.win32.gdiplus.window_canvas.cpp \
     test_tetengo2.gui.win32.abstract_popup_menu.cpp \
     test_tetengo2.gui.win32.abstract_window.cpp \
