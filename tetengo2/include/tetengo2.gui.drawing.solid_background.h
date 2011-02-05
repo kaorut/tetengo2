@@ -13,19 +13,6 @@
 
 //#include <boost/optional.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
-#if !defined(min) && !defined(DOCUMENTATION)
-#   define min(a, b) ((a) < (b) ? (a) : (b))
-#endif
-#if !defined(max) && !defined(DOCUMENTATION)
-#   define max(a, b) ((a) > (b) ? (a) : (b))
-#endif
-#include <GdiPlus.h>
-#undef min
-#undef max
-
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.drawing.background.h"
 
@@ -66,13 +53,8 @@ namespace gdiplus
         :
         base_type(),
         m_color(std::forward<C>(color)),
-        m_brush(
-            Gdiplus::Color(
-                m_color.alpha(),
-                m_color.red(),
-                m_color.green(),
-                m_color.blue()
-            )
+        m_p_details(
+            base_type::drawing_details_type::create_solid_brush(m_color)
         )
         {}
 
@@ -99,22 +81,25 @@ namespace gdiplus
 
 
     private:
+        // types
+
+        typedef typename base_type::details_type details_type;
+
+
         // variables
 
         const color_type m_color;
 
-        Gdiplus::SolidBrush m_brush;
+        const typename tetengo2::cpp0x::unique_ptr<details_type>::type
+        m_p_details;
 
 
         // virtual functions
 
-        virtual boost::optional<const typename base_type::details_type&>
-        details_impl()
+        virtual boost::optional<const details_type&> details_impl()
         const
         {
-            return boost::optional<const typename base_type::details_type&>(
-                &m_brush
-            );
+            return boost::optional<const details_type&>(*m_p_details);
         }
 
 

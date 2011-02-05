@@ -24,6 +24,7 @@
 #undef min
 #undef max
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.detail.windows.font.h"
 
 
@@ -42,6 +43,31 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
 
         // static functions
+
+        /*!
+            \brief Creates a solid background.
+
+            \tparam Color A color type.
+
+            \param color A color.
+
+            \return A tetengo2::cpp0x::unique_ptr::type to a solid background.
+        */
+        template <typename Color>
+        tetengo2::cpp0x::unique_ptr<background_details_type>::type
+        create_solid_background(const Color& color)
+        {
+            return tetengo2::cpp0x::unique_ptr<background_details_type>::type(
+                new Gdiplus::SolidBrush(
+                    Gdiplus::Color(
+                        color.alpha(),
+                        color.red(),
+                        color.green(),
+                        color.blue()
+                    )
+                )
+            );
+        }
 
         /*!
             \brief Makes a dialog font.
