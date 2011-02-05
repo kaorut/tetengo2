@@ -20,7 +20,7 @@
 namespace tetengo2 { namespace cpp0x
 {
     /*!
-        \brief The class template for the alternate of std::unique_ptr.
+        \brief The class template for the alternate of std :: unique_ptr.
 
         \tparam T       A type.
         \tparam Deleter A deleter type.
@@ -28,7 +28,7 @@ namespace tetengo2 { namespace cpp0x
     template <typename T, typename Deleter = boost::checked_deleter<T>>
     struct unique_ptr
     {
-        //! The alternate type of std::unique_ptr.
+        //! The alternate type of std :: unique_ptr.
         typedef boost::interprocess::unique_ptr<T, Deleter> type;
 
 

@@ -163,6 +163,7 @@ NULL                                             cstddef
 assert                                           cassert
 boost::basic_format                              boost/format.hpp
 boost::bind                                      boost/bind.hpp
+boost::checked_deleter                           boost/utility.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::escaped_list_separator                    boost/tokenizer.hpp
@@ -175,6 +176,7 @@ boost::filesystem::is_directory                  boost/filesystem.hpp
 boost::filesystem::path                          boost/filesystem.hpp
 boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
 boost::get_error_info                            boost/exception/all.hpp
+boost::interprocess::unique_ptr                  boost/interprocess/smart_ptr/unique_ptr.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
 boost::make_transform_iterator                   boost/iterator/transform_iterator.hpp
 boost::mpl::at                                   boost/mpl/at.hpp

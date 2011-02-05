@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_TRANSPARENTBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_TRANSPARENTBACKGROUND_H
 
+#include <cstddef>
+
 //#include <boost/optional.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
