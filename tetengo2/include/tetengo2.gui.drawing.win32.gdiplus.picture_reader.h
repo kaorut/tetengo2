@@ -36,10 +36,11 @@ namespace gdiplus
     /*!
         \brief The class template for a picture reader for Win32 platforms.
 
-        \tparam Picture A picture type.
-        \tparam Path    A path type.
+        \tparam Picture        A picture type.
+        \tparam Path           A path type.
+        \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Picture, typename Path>
+    template <typename Picture, typename Path, typename DrawingDetails>
     class picture_reader : private boost::noncopyable
     {
     public:
@@ -50,6 +51,9 @@ namespace gdiplus
 
         //! The path type.
         typedef Path path_type;
+
+        //! The detail implementation type of a drawing.
+        typedef DrawingDetails drawing_details_type;
 
 
         // constructors and destructor

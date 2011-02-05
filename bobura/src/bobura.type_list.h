@@ -318,7 +318,8 @@ namespace bobura
         typedef
             tetengo2::gui::drawing::win32::gdiplus::picture_reader<
                 picture_type,
-                boost::mpl::at<common_type_list, type::path>::type
+                boost::mpl::at<common_type_list, type::path>::type,
+                drawing_details_type
             >
             picture_reader_type;
         typedef
