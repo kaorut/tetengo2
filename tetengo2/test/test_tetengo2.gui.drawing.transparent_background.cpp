@@ -8,7 +8,23 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.drawing.h"
+
 #include "tetengo2.gui.drawing.transparent_background.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        tetengo2::gui::drawing::transparent_background<
+            tetengo2::detail::stub::drawing
+        >
+        background_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -21,7 +37,9 @@ BOOST_AUTO_TEST_SUITE(transparent_background)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const background_type background;
     }
 
 
