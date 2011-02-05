@@ -36,7 +36,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~label()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

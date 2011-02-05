@@ -108,7 +108,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the widget.
         */
         virtual ~widget()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 
@@ -949,7 +949,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const ::WPARAM wParam,
             const ::LPARAM lParam
         )
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {
             try
             {

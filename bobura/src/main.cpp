@@ -111,7 +111,7 @@ int WINAPI wWinMain(
     const ::LPWSTR    lpCmdLine,
     const int         nCmdShow
 )
-TETENGO2_NOEXCEPT
+TETENGO2_CPP0X_NOEXCEPT
 {
     try
     {

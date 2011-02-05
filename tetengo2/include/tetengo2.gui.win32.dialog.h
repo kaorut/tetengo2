@@ -85,7 +85,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the dialog.
         */
         virtual ~dialog()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

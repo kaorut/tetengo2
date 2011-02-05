@@ -47,7 +47,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~dialog()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

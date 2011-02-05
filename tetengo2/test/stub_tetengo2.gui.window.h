@@ -39,7 +39,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~window()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

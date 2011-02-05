@@ -46,6 +46,10 @@
     \brief The root namespace for Tetengo2.
 */
 
+/*! \namespace tetengo2::cpp0x
+    \brief The namespace for the alternatives of C++0x features.
+*/
+
 /*! \namespace tetengo2::detail
     \brief The namespace for the detail implementations.
 */

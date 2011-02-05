@@ -56,7 +56,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the menu separator.
         */
         virtual ~menu_separator()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

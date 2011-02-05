@@ -48,7 +48,7 @@ namespace gdiplus
             \brief Destroys the background.
         */
         virtual ~transparent_background()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

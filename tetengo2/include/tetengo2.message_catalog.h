@@ -54,7 +54,7 @@ namespace tetengo2
             \brief Destroys a message catalog.
         */
         ~message_catalog()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {
             if (m_p_messages != NULL && m_catalog_id >= 0)
                 m_p_messages->close(m_catalog_id);

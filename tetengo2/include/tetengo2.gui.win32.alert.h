@@ -69,7 +69,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \param widget_handle     A widget handle.
         */
         explicit alert(const widget_handle_type widget_handle = NULL)
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         :
         m_widget_handle(actual_parent_widget_handle(widget_handle))
         {}
@@ -84,7 +84,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void operator()(const boost::exception& exception)
         const
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {
             try
             {
@@ -147,7 +147,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 std::runtime_error("Unknown Error!")
         )
         const
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {
             try
             {

@@ -63,7 +63,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the popup menu.
         */
         virtual ~popup_menu()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

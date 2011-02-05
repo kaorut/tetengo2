@@ -37,7 +37,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~menu_command()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

@@ -14,7 +14,8 @@
 
 
 //! The alternative to the C++0x keyword noexcept.
-#define TETENGO2_NOEXCEPT throw ()
+#define TETENGO2_CPP0X_NOEXCEPT throw ()
+
 
 namespace tetengo2 { namespace cpp0x
 {

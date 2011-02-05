@@ -88,7 +88,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the button.
         */
         virtual ~button()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

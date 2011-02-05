@@ -41,7 +41,7 @@ namespace stub_tetengo2 { namespace gui
         // constructors
 
         alert(const widget_handle_type widget_handle = NULL)
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 
@@ -49,7 +49,7 @@ namespace stub_tetengo2 { namespace gui
 
         void operator()(const boost::exception& exception)
         const
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
         void operator()(
@@ -57,7 +57,7 @@ namespace stub_tetengo2 { namespace gui
                 std::runtime_error("Unknown Error!")
         )
         const
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

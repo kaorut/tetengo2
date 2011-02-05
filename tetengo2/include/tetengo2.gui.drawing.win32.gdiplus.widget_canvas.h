@@ -87,7 +87,7 @@ namespace gdiplus
             \brief Destroys the widget canvas.
         */
         virtual ~widget_canvas()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

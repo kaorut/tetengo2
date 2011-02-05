@@ -35,7 +35,7 @@ namespace stub_tetengo2 { namespace gui
         {}
 
         virtual ~menu_separator()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

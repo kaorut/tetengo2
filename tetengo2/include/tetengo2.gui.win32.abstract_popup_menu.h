@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the abstract_popup_menu.
         */
         virtual ~abstract_popup_menu()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {
             if (::IsMenu(m_handle) != 0)
                 ::DestroyMenu(m_handle);

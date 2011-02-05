@@ -33,7 +33,7 @@ namespace stub_tetengo2 { namespace gui
         // constructors and destructor
 
         virtual ~control()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

@@ -71,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the label.
         */
         virtual ~label()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

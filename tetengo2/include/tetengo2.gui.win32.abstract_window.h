@@ -63,7 +63,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the abstract window.
         */
         virtual ~abstract_window()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

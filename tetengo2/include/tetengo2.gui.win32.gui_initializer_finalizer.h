@@ -59,7 +59,7 @@ namespace tetengo2 { namespace gui { namespace win32
                    management.
         */
         ~gui_initializer_finalizer()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {
             Gdiplus::GdiplusShutdown(m_gdiplus_token);
         }

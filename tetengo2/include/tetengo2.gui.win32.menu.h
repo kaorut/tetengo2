@@ -81,7 +81,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Destroys the menu.
         */
         virtual ~menu()
-        TETENGO2_NOEXCEPT
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 
