@@ -14,20 +14,6 @@
 #include <utility>
 
 #include <boost/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
-
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
-#if !defined(min) && !defined(DOCUMENTATION)
-#   define min(a, b) ((a) < (b) ? (a) : (b))
-#endif
-#if !defined(max) && !defined(DOCUMENTATION)
-#   define max(a, b) ((a) > (b) ? (a) : (b))
-#endif
-#include <GdiPlus.h>
-#undef min
-#undef max
 
 
 namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
@@ -83,21 +69,21 @@ namespace gdiplus
         */
         std::auto_ptr<picture_type> read()
         {
-            std::auto_ptr<Gdiplus::Bitmap> p_bitmap(
-                new Gdiplus::Bitmap(m_path.c_str())
+            std::auto_ptr<picture_details_type> p_picture(
+                drawing_details_type::read_picture(m_path).release()
             );
-            if (p_bitmap->GetLastStatus() != S_OK)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't read a picture.")
-                );
-            }
-
-            return std::auto_ptr<picture_type>(new picture_type(p_bitmap));
+            return std::auto_ptr<picture_type>(new picture_type(p_picture));
         }
 
 
     private:
+        // types
+
+        typedef
+            typename drawing_details_type::picture_details_type
+            picture_details_type;
+
+
         // variables
 
         const path_type m_path;

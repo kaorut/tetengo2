@@ -10,6 +10,10 @@
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H
 
 #include <cassert>
+#include <utility>
+//#include <stdexcept>
+
+//#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
@@ -40,6 +44,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
         //! The background details type.
         typedef Gdiplus::Brush background_details_type;
+
+        //! The picture details type.
+        typedef Gdiplus::Bitmap picture_details_type;
 
 
         // static functions
@@ -105,6 +112,32 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 log_font.lfUnderline != 0,
                 log_font.lfStrikeOut != 0
             );
+        }
+
+        /*!
+            \brief Reads a picture.
+
+            \tparam Path    A path type.
+
+            \param path A path.
+
+            \return A tetengo2::cpp0x::unique_ptr::type to a picture.
+        */
+        template <typename Path>
+        static tetengo2::cpp0x::unique_ptr<picture_details_type>::type
+        read_picture(const Path& path)
+        {
+            tetengo2::cpp0x::unique_ptr<picture_details_type>::type p_picture(
+                new Gdiplus::Bitmap(path.c_str())
+            );
+            if (p_picture->GetLastStatus() != S_OK)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't read a picture.")
+                );
+            }
+
+            return std::move(p_picture);
         }
 
 

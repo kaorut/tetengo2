@@ -26,6 +26,9 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The background details type.
         struct background_details_type {};
 
+        //! The picture details type.
+        struct picture_details_type {};
+
 
         // static functions
 
@@ -73,6 +76,24 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return Font(
                 TETENGO2_TEXT("TetengoFont"), 12, false, false, false, false
+            );
+        }
+
+        /*!
+            \brief Reads a picture.
+
+            \tparam Path    A path type.
+
+            \param path A path.
+
+            \return A tetengo2::cpp0x::unique_ptr::type to a picture.
+        */
+        template <typename Path>
+        static tetengo2::cpp0x::unique_ptr<picture_details_type>::type
+        read_picture(const Path& path)
+        {
+            return tetengo2::cpp0x::unique_ptr<picture_details_type>::type(
+                new picture_details_type()
             );
         }
 
