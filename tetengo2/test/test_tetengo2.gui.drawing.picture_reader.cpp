@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <cstddef>
+
 #include <boost/filesystem.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/test/unit_test.hpp>
