@@ -65,7 +65,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a picture with a detail implementation.
 
-            \param p_bitmap A std::auto_ptr to a detail implementation.
+            \param p_details A std::auto_ptr to a detail implementation.
         */
         picture(std::auto_ptr<details_type> p_details)
         :

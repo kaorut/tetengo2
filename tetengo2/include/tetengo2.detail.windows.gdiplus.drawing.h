@@ -177,6 +177,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \tparam Dimension A dimension type.
 
             \param picture A picture.
+
+            \return The dimension of the picture.
         */
         template <typename Dimension>
         static Dimension picture_dimension(
