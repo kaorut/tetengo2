@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_STUB_DRAWING_H
 
 #include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
 
 
@@ -27,7 +28,43 @@ namespace tetengo2 { namespace detail { namespace stub
         struct background_details_type {};
 
         //! The picture details type.
-        struct picture_details_type {};
+        struct picture_details_type
+        {
+            // constructors and destructor
+
+            /*!
+                \brief Creates a picture details type.
+
+                \param width A width.
+                \param height A height.
+            */
+            picture_details_type(
+                const std::size_t width,
+                const std::size_t height
+            )
+            :
+            m_dimension(width, height)
+            {}
+
+            /*!
+                \brief Returns the dimension.
+
+                \return The dimension.
+            */
+            const std::pair<std::size_t, std::size_t>& dimension()
+            const
+            {
+                return m_dimension;
+            }
+
+
+        private:
+            // variables
+
+            std::pair<std::size_t, std::size_t> m_dimension;
+
+
+        };
 
 
         // static functions
@@ -94,8 +131,12 @@ namespace tetengo2 { namespace detail { namespace stub
         static tetengo2::cpp0x::unique_ptr<picture_details_type>::type
         create_picture(const Dimension& dimension, const Canvas& canvas)
         {
+            const std::size_t width =
+                gui::dimension<Dimension>::width(dimension);
+            const std::size_t height =
+                gui::dimension<Dimension>::height(dimension);
             return tetengo2::cpp0x::unique_ptr<picture_details_type>::type(
-                new picture_details_type()
+                new picture_details_type(width, height)
             );
         }
 
@@ -113,7 +154,7 @@ namespace tetengo2 { namespace detail { namespace stub
         read_picture(const Path& path)
         {
             return tetengo2::cpp0x::unique_ptr<picture_details_type>::type(
-                new picture_details_type()
+                new picture_details_type(0, 0)
             );
         }
 
@@ -129,7 +170,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const picture_details_type& picture
         )
         {
-            return Dimension();
+            return Dimension(
+                picture.dimension().first, picture.dimension().second
+            );
         }
 
 

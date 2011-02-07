@@ -6,9 +6,31 @@
     $Id$
 */
 
+#include <cstddef>
+
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.drawing.h"
+
 #include "tetengo2.gui.drawing.picture.h"
+
+
+namespace
+{
+    // types
+
+    typedef tetengo2::detail::stub::drawing drawing_details_type;
+
+    typedef
+        tetengo2::gui::drawing::picture<std::size_t, drawing_details_type>
+        picture_type;
+
+    typedef picture_type::dimension_type dimension_type;
+
+    typedef int canvas_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -19,17 +41,41 @@ BOOST_AUTO_TEST_SUITE(picture)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const canvas_type canvas(42);
+            const picture_type picture(dimension_type(123, 456), canvas);
+        }
+        {
+            const canvas_type canvas(42);
+            std::auto_ptr<picture_type::details_type> p_details(
+                tetengo2::detail::stub::drawing::create_picture(
+                    dimension_type(123, 456), canvas
+                ).release()
+            );
+            const picture_type picture2(p_details);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const canvas_type canvas(42);
+        const picture_type picture(dimension_type(123, 456), canvas);
+
+        BOOST_CHECK(picture.dimension() == dimension_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(details)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const canvas_type canvas(42);
+        const picture_type picture(dimension_type(123, 456), canvas);
+
+        picture.details();
     }
 
 
