@@ -12,8 +12,8 @@
 #include <boost/scoped_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "stub_tetengo2.gui.drawing.picture.h"
 #include "tetengo2.detail.stub.drawing.h"
+#include "tetengo2.gui.drawing.picture.h"
 
 #include "tetengo2.gui.drawing.picture_reader.h"
 
@@ -22,13 +22,15 @@ namespace
 {
     // types
 
-    typedef stub_tetengo2::gui::drawing::picture<std::size_t> picture_type;
+    typedef tetengo2::detail::stub::drawing drawing_details_type;
+
+    typedef
+        tetengo2::gui::drawing::picture<std::size_t, drawing_details_type>
+        picture_type;
 
     typedef
         tetengo2::gui::drawing::picture_reader<
-            picture_type,
-            boost::filesystem::path,
-            tetengo2::detail::stub::drawing
+            picture_type, boost::filesystem::path, drawing_details_type
         >
         picture_reader_type;
 
