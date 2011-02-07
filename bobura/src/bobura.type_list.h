@@ -313,7 +313,9 @@ namespace bobura
             >
             font_type;
         typedef
-            tetengo2::gui::drawing::win32::gdiplus::picture<unit_size_type>
+            tetengo2::gui::drawing::win32::gdiplus::picture<
+                unit_size_type, drawing_details_type
+            >
             picture_type;
         typedef
             tetengo2::gui::drawing::picture_reader<

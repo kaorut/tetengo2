@@ -37,9 +37,10 @@ namespace gdiplus
     /*!
         \brief The class template for a picture for Win32 platforms.
 
-        \tparam Size A size type.
+        \tparam Size           A size type.
+        \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename Size>
+    template <typename Size, typename DrawingDetails>
     class picture : private boost::noncopyable
     {
     public:
@@ -50,6 +51,13 @@ namespace gdiplus
 
         //! The dimension type.
         typedef std::pair<size_type, size_type> dimension_type;
+
+        //! The detail implementation type of a drawing.
+        typedef DrawingDetails drawing_details_type;
+
+        //! The detail implementation type of a picture.
+        typedef
+            typename drawing_details_type::picture_details_type details_type;
 
 
         // constructors and destructor
