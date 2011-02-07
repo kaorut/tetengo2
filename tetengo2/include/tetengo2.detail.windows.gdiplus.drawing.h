@@ -30,6 +30,7 @@
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.detail.windows.font.h"
+#include "tetengo2.gui.measure.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
@@ -115,6 +116,36 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         /*!
+            \brief Creates a picture.
+
+            \tparam Dimension A dimension type.
+            \tparam Canvas    A canvas type.
+
+            \param dimension A dimension.
+            \param canvas    A canvas.
+
+            \return A tetengo2::cpp0x::unique_ptr::type to a picture.
+        */
+        template <typename Dimension, typename Canvas>
+        static tetengo2::cpp0x::unique_ptr<picture_details_type>::type
+        create_picture(const Dimension& dimension, const Canvas& canvas)
+        {
+            tetengo2::cpp0x::unique_ptr<picture_details_type>::type p_picture(
+                new Gdiplus::Bitmap(
+                    to_pixels< ::INT>(
+                        gui::dimension<Dimension>::width(dimension)
+                    ),
+                    to_pixels< ::INT>(
+                        gui::dimension<Dimension>::height(dimension)
+                    ),
+                    &const_cast<Canvas&>(canvas).gdiplus_graphics()
+                )
+            );
+
+            return std::move(p_picture);
+        }
+
+        /*!
             \brief Reads a picture.
 
             \tparam Path    A path type.
@@ -138,6 +169,28 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             }
 
             return std::move(p_picture);
+        }
+
+        /*!
+            \brief Returns the dimension of a picture.
+
+            \tparam Dimension A dimension type.
+
+            \param picture A picture.
+        */
+        template <typename Dimension>
+        static Dimension picture_dimension(
+            const picture_details_type& picture
+        )
+        {
+            return Dimension(
+                gui::to_unit<typename gui::dimension<Dimension>::width_type>(
+                    const_cast<picture_details_type&>(picture).GetWidth()
+                ),
+                gui::to_unit<typename gui::dimension<Dimension>::height_type>(
+                    const_cast<picture_details_type&>(picture).GetHeight()
+                )
+            );
         }
 
 

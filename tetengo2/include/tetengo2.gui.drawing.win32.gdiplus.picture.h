@@ -15,20 +15,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
-#if !defined(min) && !defined(DOCUMENTATION)
-#   define min(a, b) ((a) < (b) ? (a) : (b))
-#endif
-#if !defined(max) && !defined(DOCUMENTATION)
-#   define max(a, b) ((a) > (b) ? (a) : (b))
-#endif
-#include <GdiPlus.h>
-#undef min
-#undef max
-
-#include "tetengo2.gui.measure.h"
+#include "tetengo2.cpp0x_keyword.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
@@ -74,27 +61,17 @@ namespace gdiplus
         template <typename Dimension, typename Canvas>
         picture(const Dimension& dimension, const Canvas& canvas)
         :
-        m_p_bitmap(
-            new Gdiplus::Bitmap(
-                to_pixels< ::INT>(
-                    gui::dimension<Dimension>::width(dimension)
-                ),
-                to_pixels< ::INT>(
-                    gui::dimension<Dimension>::height(dimension)
-                ),
-                &const_cast<Canvas&>(canvas).gdiplus_graphics()
-            )
-        )
+        m_p_details(drawing_details_type::create_picture(dimension, canvas))
         {}
 
         /*!
-            \brief Creates a picture with a GDI+ bitmap.
+            \brief Creates a picture with a detail implementation.
 
-            \param p_bitmap A std::auto_ptr to a GDI+ bitmap.
+            \param p_bitmap A std::auto_ptr to a detail implementation.
         */
-        picture(std::auto_ptr<Gdiplus::Bitmap> p_bitmap)
+        picture(std::auto_ptr<details_type> p_details)
         :
-        m_p_bitmap(p_bitmap)
+        m_p_details(p_details.release())
         {}
 
 
@@ -108,40 +85,38 @@ namespace gdiplus
         dimension_type dimension()
         const
         {
-            Gdiplus::Bitmap* const p_bitmap =
-                const_cast<Gdiplus::Bitmap*>(m_p_bitmap.get());
-            return dimension_type(
-                to_unit<size_type>(p_bitmap->GetWidth()),
-                to_unit<size_type>(p_bitmap->GetHeight())
+            return drawing_details_type::picture_dimension<dimension_type>(
+                *m_p_details
             );
         }
 
         /*!
-            \brief Returns the GDI+ bitmap.
+            \brief Returns the detail implementation.
 
-            \return The GDI+ bitmap.
+            \return The detail implementation.
         */
-        Gdiplus::Bitmap& gdiplus_bitmap()
+        details_type& details()
         {
-            return *m_p_bitmap;
+            return *m_p_details;
         }
 
         /*!
-            \brief Returns the GDI+ bitmap.
+            \brief Returns the detail implementation.
 
-            \return The GDI+ bitmap.
+            \return The detail implementation.
         */
-        const Gdiplus::Bitmap& gdiplus_bitmap()
+        const details_type& details()
         const
         {
-            return *m_p_bitmap;
+            return *m_p_details;
         }
 
 
     private:
         // variables
 
-        const boost::scoped_ptr<Gdiplus::Bitmap> m_p_bitmap;
+        const typename tetengo2::cpp0x::unique_ptr<details_type>::type
+        m_p_details;
 
 
     };

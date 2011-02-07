@@ -80,6 +80,26 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Creates a picture.
+
+            \tparam Dimension A dimension type.
+            \tparam Canvas    A canvas type.
+
+            \param dimension A dimension.
+            \param canvas    A canvas.
+
+            \return A tetengo2::cpp0x::unique_ptr::type to a picture.
+        */
+        template <typename Dimension, typename Canvas>
+        static tetengo2::cpp0x::unique_ptr<picture_details_type>::type
+        create_picture(const Dimension& dimension, const Canvas& canvas)
+        {
+            return tetengo2::cpp0x::unique_ptr<picture_details_type>::type(
+                new picture_details_type()
+            );
+        }
+
+        /*!
             \brief Reads a picture.
 
             \tparam Path    A path type.
@@ -95,6 +115,21 @@ namespace tetengo2 { namespace detail { namespace stub
             return tetengo2::cpp0x::unique_ptr<picture_details_type>::type(
                 new picture_details_type()
             );
+        }
+
+        /*!
+            \brief Returns the dimension of a picture.
+
+            \tparam Dimension A dimension type.
+
+            \param picture A picture.
+        */
+        template <typename Dimension>
+        static Dimension picture_dimension(
+            const picture_details_type& picture
+        )
+        {
+            return Dimension();
         }
 
 

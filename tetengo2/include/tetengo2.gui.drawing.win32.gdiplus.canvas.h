@@ -329,7 +329,7 @@ namespace gdiplus
         {
             const Gdiplus::Status result =
                 m_graphics.DrawImage(
-                    &const_cast<picture_type&>(picture).gdiplus_bitmap(),
+                    &const_cast<picture_type&>(picture).details(),
                     to_pixels< ::INT>(gui::position<P>::left(position)),
                     to_pixels< ::INT>(gui::position<P>::top(position)),
                     to_pixels< ::INT>(gui::dimension<D>::width(dimension)),
