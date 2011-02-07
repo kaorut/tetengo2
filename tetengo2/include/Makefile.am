@@ -20,6 +20,7 @@ headers = \
     tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.color.h \
     tetengo2.gui.drawing.font.h \
+    tetengo2.gui.drawing.picture.h \
     tetengo2.gui.drawing.picture_reader.h \
     tetengo2.gui.drawing.solid_background.h \
     tetengo2.gui.drawing.transparent_background.h \
@@ -50,7 +51,6 @@ extra_headers = \
     tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.windows_version.h \
     tetengo2.gui.drawing.win32.gdiplus.canvas.h \
-    tetengo2.gui.drawing.win32.gdiplus.picture.h \
     tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h \
     tetengo2.gui.win32.abstract_popup_menu.h \
     tetengo2.gui.win32.abstract_window.h \

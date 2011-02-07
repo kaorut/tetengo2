@@ -84,9 +84,9 @@ namespace gdiplus
         dimension_type dimension()
         const
         {
-            return drawing_details_type::picture_dimension<dimension_type>(
-                *m_p_details
-            );
+            return drawing_details_type::template picture_dimension<
+                dimension_type
+            >(*m_p_details);
         }
 
         /*!
