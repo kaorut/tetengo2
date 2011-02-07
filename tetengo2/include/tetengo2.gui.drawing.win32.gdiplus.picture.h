@@ -10,10 +10,9 @@
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_PICTURE_H
 
 #include <memory>
-//#include <utility>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
-#include <boost/scoped_ptr.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
 

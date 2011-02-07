@@ -10,7 +10,7 @@
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H
 
 #include <cassert>
-#include <utility>
+//#include <utility>
 //#include <stdexcept>
 
 //#include <boost/throw_exception.hpp>
