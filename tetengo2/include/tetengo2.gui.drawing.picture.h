@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::drawing::win32::gdiplus::picture.
+    \brief The definition of tetengo2::gui::drawing::picture.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -17,8 +17,7 @@
 #include "tetengo2.cpp0x_keyword.h"
 
 
-namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
-namespace gdiplus
+namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
         \brief The class template for a picture for Win32 platforms.
@@ -121,7 +120,7 @@ namespace gdiplus
     };
 
 
-}}}}}
+}}}
 
 
 #endif
