@@ -9,6 +9,9 @@
 #if !defined(TETENGO2_DETAIL_STUB_DRAWING_H)
 #define TETENGO2_DETAIL_STUB_DRAWING_H
 
+//#include <cstddef>
+//#include <utility>
+
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
