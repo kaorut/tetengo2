@@ -19,35 +19,35 @@ namespace gdiplus
     /*!
         \brief The class template for a widget canvas for Win32 platforms.
 
-        \tparam Handle     A handle type for the native interface.
-        \tparam Size       A size type.
-        \tparam String     A string type.
-        \tparam Dimension  A dimension type.
-        \tparam Encoder    An encoder type.
-        \tparam Background A background type.
-        \tparam Font       A font type.
-        \tparam Picture    A picture type.
+        \tparam Size           A size type.
+        \tparam String         A string type.
+        \tparam Dimension      A dimension type.
+        \tparam Encoder        An encoder type.
+        \tparam Background     A background type.
+        \tparam Font           A font type.
+        \tparam Picture        A picture type.
+        \tparam DrawingDetails A detail implementation type of a drawing.
     */
     template <
-        typename Handle,
         typename Size,
         typename String,
         typename Dimension,
         typename Encoder,
         typename Background,
         typename Font,
-        typename Picture
+        typename Picture,
+        typename DrawingDetails
     >
     class widget_canvas :
         public canvas<
-            Handle,
             Size,
             String,
             Dimension,
             Encoder,
             Background,
             Font,
-            Picture
+            Picture,
+            DrawingDetails
         >
     {
     public:
@@ -56,14 +56,14 @@ namespace gdiplus
         //! The base type.
         typedef
             canvas<
-                Handle,
                 Size,
                 String,
                 Dimension,
                 Encoder,
                 Background,
                 Font,
-                Picture
+                Picture,
+                DrawingDetails
             >
             base_type;
 
@@ -73,14 +73,16 @@ namespace gdiplus
         /*!
             \brief Creates a widget canvas.
             
-            \tparam DeviceHandle A device handle type.
+            \tparam DeviceContext A device context handle type.
 
-            \param device_handle A device handle.
+            \param device_context A device context handle.
         */
-        template <typename DeviceHandle>
-        widget_canvas(const DeviceHandle device_handle)
+        template <typename DeviceContext>
+        widget_canvas(const DeviceContext device_context)
         :
-        base_type(device_handle)
+        base_type(
+            base_type::drawing_details_type::create_canvas(device_context)
+        )
         {}
 
         /*!

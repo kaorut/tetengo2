@@ -45,32 +45,29 @@ namespace gdiplus
     /*!
         \brief The class template for a canvas for Win32 platforms.
 
-        \tparam Handle     A handle type for the native interface.
-        \tparam Size       A size type.
-        \tparam String     A string type.
-        \tparam Dimension  A dimension type.
-        \tparam Encoder    An encoder type.
-        \tparam Background A background type.
-        \tparam Font       A font type.
-        \tparam Picture    A picture type.
+        \tparam Size           A size type.
+        \tparam String         A string type.
+        \tparam Dimension      A dimension type.
+        \tparam Encoder        An encoder type.
+        \tparam Background     A background type.
+        \tparam Font           A font type.
+        \tparam Picture        A picture type.
+        \tparam DrawingDetails A detail implementation type of a drawing.
     */
     template <
-        typename Handle,
         typename Size,
         typename String,
         typename Dimension,
         typename Encoder,
         typename Background,
         typename Font,
-        typename Picture
+        typename Picture,
+        typename DrawingDetails
     >
     class canvas : private boost::noncopyable
     {
     public:
         // types
-
-        //! The handle type for the native interface.
-        typedef Handle handle_type;
 
         //! The size type.
         typedef Size size_type;
@@ -93,6 +90,13 @@ namespace gdiplus
         //! The picture type.
         typedef Picture picture_type;
 
+        //! The detail implementation type of a drawing.
+        typedef DrawingDetails drawing_details_type;
+
+        //! The detail implementation type.
+        typedef
+            typename drawing_details_type::canvas_details_type details_type;
+
 
         // constructors and destructor
 
@@ -105,17 +109,6 @@ namespace gdiplus
 
 
         // functions
-
-        /*!
-            \brief Returns the handle.
-
-            \return The handle.
-        */
-        handle_type handle()
-        const
-        {
-            return &m_graphics;
-        }
 
         /*!
             \brief Returns the font.
@@ -149,40 +142,9 @@ namespace gdiplus
         std::vector<string_type> installed_font_families()
         const
         {
-            const Gdiplus::InstalledFontCollection font_collection;
-            const ::INT count = font_collection.GetFamilyCount();
-            const boost::scoped_array<Gdiplus::FontFamily> p_families(
-                new Gdiplus::FontFamily[count]
-            );
-            ::INT actual_count = 0;
-
-            const Gdiplus::Status status =
-                font_collection.GetFamilies(
-                    count, p_families.get(), &actual_count
-                );
-            if (status != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get installed font families.")
-                );
-            }
-
-            std::vector<string_type> families;
-            families.reserve(actual_count);
-            for (::INT i = 0; i < actual_count; ++i)
-            {
-                wchar_t family_name[LF_FACESIZE];
-                const Gdiplus::Status family_name_status =
-                    p_families[i].GetFamilyName(family_name);
-                if (family_name_status != Gdiplus::Ok)
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't get font family name.")
-                    );
-                }
-                families.push_back(family_name);
-            }
-            return families;
+            return drawing_details_type::template installed_font_families<
+                string_type
+            >();
         }
 
         /*!
@@ -202,18 +164,9 @@ namespace gdiplus
             const background_type& background
         )
         {
-            const boost::optional<
-                const typename background_type::details_type&
-            > background_details = background.details();
-            if (!background_details) return;
-
-            const Gdiplus::Rect rectangle(
-                gui::to_pixels< ::INT>(gui::position<P>::left(position)),
-                gui::to_pixels< ::INT>(gui::position<P>::top(position)),
-                gui::to_pixels< ::INT>(gui::dimension<D>::width(dimension)),
-                gui::to_pixels< ::INT>(gui::dimension<D>::height(dimension))
+            drawing_details_type::fill_rectangle(
+                *m_p_details, position, dimension, background
             );
-            m_graphics.FillRectangle(&*background_details, rectangle);
         }
 
         /*!
@@ -226,42 +179,9 @@ namespace gdiplus
         dimension_type calc_text_dimension(const string_type& text)
         const
         {
-            const Gdiplus::InstalledFontCollection font_collection;
-            const boost::scoped_ptr<Gdiplus::Font> p_gdiplus_font(
-                create_gdiplus_font(m_font, font_collection)
-            );
-
-            const Gdiplus::RectF layout(
-                0,
-                0,
-                std::numeric_limits<Gdiplus::REAL>::max(),
-                std::numeric_limits<Gdiplus::REAL>::max()
-            );
-            Gdiplus::RectF bounding;
-            const Gdiplus::Status result =
-                m_graphics.MeasureString(
-                    text.c_str(),
-                    static_cast< ::INT>(text.length()),
-                    p_gdiplus_font.get(),
-                    layout,
-                    Gdiplus::StringFormat::GenericTypographic(),
-                    &bounding
-                );
-            if (result != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't measure text!")
-                );
-            }
-
-            return dimension_type(
-                gui::to_unit<
-                    typename gui::dimension<dimension_type>::width_type
-                >(bounding.Width),
-                gui::to_unit<
-                    typename gui::dimension<dimension_type>::height_type
-                >(bounding.Height)
-            );
+            return drawing_details_type::template calc_text_dimension<
+                dimension_type
+            >(*m_p_details, m_font, text);
         }
 
         /*!
@@ -278,34 +198,13 @@ namespace gdiplus
         template <typename S, typename P>
         void draw_text(S&& text, const P& position)
         {
-            const Gdiplus::InstalledFontCollection font_collection;
-            const boost::scoped_ptr<Gdiplus::Font> p_gdiplus_font(
-                create_gdiplus_font(m_font, font_collection)
+            drawing_details_type::draw_text(
+                *m_p_details, 
+                m_font,
+                std::forward<S>(text),
+                encoder(),
+                position
             );
-            const Gdiplus::SolidBrush brush(
-                Gdiplus::Color(128, 255, 0, 0)
-            );
-
-            const std::wstring encoded_text =
-                encoder().encode(std::forward<S>(text));
-            const Gdiplus::Status result = m_graphics.DrawString(
-                encoded_text.c_str(),
-                static_cast< ::INT>(encoded_text.length()),
-                p_gdiplus_font.get(),
-                Gdiplus::PointF(
-                    to_pixels<Gdiplus::REAL>(
-                        gui::position<P>::left(position)
-                    ),
-                    to_pixels<Gdiplus::REAL>(gui::position<P>::top(position))
-                ),
-                &brush
-            );
-            if (result != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't draw text!")
-                );
-            }
         }
 
         /*!
@@ -327,20 +226,9 @@ namespace gdiplus
             const D&            dimension /* = picture.dimension() */
         )
         {
-            const Gdiplus::Status result =
-                m_graphics.DrawImage(
-                    &const_cast<picture_type&>(picture).details(),
-                    to_pixels< ::INT>(gui::position<P>::left(position)),
-                    to_pixels< ::INT>(gui::position<P>::top(position)),
-                    to_pixels< ::INT>(gui::dimension<D>::width(dimension)),
-                    to_pixels< ::INT>(gui::dimension<D>::height(dimension))
-                );
-            if (result != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't paint picture!")
-                );
-            }
+            drawing_details_type::paint_picture(
+                *m_p_details, picture, position, dimension
+            );
         }
 
 #if !defined(DOCUMENTATION)
@@ -352,24 +240,24 @@ namespace gdiplus
 #endif
 
         /*!
-            \brief Returns the GDI+ graphics.
+            \brief Returns the detail implementation.
 
-            \return The GDI+ graphics.
+            \return The detail implementation.
         */
-        Gdiplus::Graphics& gdiplus_graphics()
+        details_type& details()
         {
-            return m_graphics;
+            return *m_p_details;
         }
 
         /*!
-            \brief Returns the GDI+ graphics.
+            \brief Returns the detail implementation.
 
-            \return The GDI+ graphics.
+            \return The detail implementation.
         */
-        const Gdiplus::Graphics& gdiplus_graphics()
+        const details_type& details()
         const
         {
-            return m_graphics;
+            return *m_p_details;
         }
 
         
@@ -379,20 +267,16 @@ namespace gdiplus
         /*!
             \brief Creates a canvas.
 
-            \tparam DeviceHandle A device handle type.
-
-            \param device_handle A device handle.
+            \param p_details A detail implementation.
         */
-        template <typename DeviceHandle>
-        canvas(const DeviceHandle device_handle)
+        canvas(
+            typename tetengo2::cpp0x::unique_ptr<details_type>::type p_details
+        )
         :
-        m_graphics(device_handle),
+        m_p_details(std::move(p_details)),
         m_font(font_type::dialog_font())
         {
-            m_graphics.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
-            m_graphics.SetTextRenderingHint(
-                Gdiplus::TextRenderingHintClearTypeGridFit
-            );
+            drawing_details_type::initialize_canvas(*m_p_details);
         }
 
 
@@ -405,78 +289,11 @@ namespace gdiplus
             return singleton;
         }
 
-        static std::auto_ptr<Gdiplus::Font> create_gdiplus_font(
-            const font_type&               font,
-            const Gdiplus::FontCollection& font_collection,
-            const size_type                fallback_level = 0
-        )
-        {
-            if (fallback_level > 2)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Font is not available.")
-                );
-            }
-
-            const string_type& font_family =
-                fallback_level < 1 ?
-                font.family() : font_type::dialog_font().family();
-            const Gdiplus::FontFamily gdiplus_font_family(
-                font_family.c_str(), &font_collection
-            );
-            if (!gdiplus_font_family.IsAvailable())
-            {
-                return create_gdiplus_font(
-                    font, font_collection, fallback_level + 1
-                );
-            }
-
-            const Gdiplus::REAL font_size =
-                fallback_level < 2 ?
-                static_cast<Gdiplus::REAL>(font.size()) :
-                static_cast<Gdiplus::REAL>(font_type::dialog_font().size());
-            const ::INT font_style =
-                fallback_level < 2 ?
-                get_font_style(font) :
-                get_font_style(font_type::dialog_font());
-            std::auto_ptr<Gdiplus::Font> p_gdiplus_font(
-                new Gdiplus::Font(
-                    &gdiplus_font_family,
-                    font_size,
-                    font_style,
-                    Gdiplus::UnitPixel
-                )
-            );
-            if (!p_gdiplus_font->IsAvailable())
-            {
-                return create_gdiplus_font(
-                    font, font_collection, fallback_level + 1
-                );
-            }
-
-            return p_gdiplus_font;
-        }
-
-        static ::INT get_font_style(const font_type& font)
-        {
-            ::INT style = Gdiplus::FontStyleRegular;
-
-            if (font.bold())
-                style |= Gdiplus::FontStyleBold;
-            if (font.italic())
-                style |= Gdiplus::FontStyleItalic;
-            if (font.underline())
-                style |= Gdiplus::FontStyleUnderline;
-            if (font.strikeout())
-                style |= Gdiplus::FontStyleStrikeout;
-
-            return style;
-        }
-
 
         // variables
 
-        Gdiplus::Graphics m_graphics;
+        const typename tetengo2::cpp0x::unique_ptr<details_type>::type
+        m_p_details;
 
         font_type m_font;
 

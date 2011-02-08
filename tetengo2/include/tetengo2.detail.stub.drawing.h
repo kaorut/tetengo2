@@ -69,6 +69,9 @@ namespace tetengo2 { namespace detail { namespace stub
 
         };
 
+        //! The canvas details type.
+        struct canvas_details_type {};
+
 
         // static functions
 
@@ -179,6 +182,138 @@ namespace tetengo2 { namespace detail { namespace stub
                 picture.dimension().first, picture.dimension().second
             );
         }
+
+        /*!
+            \brief Creates a canvas.
+
+            \tparam DeviceContext A device context handle type.
+
+            \param device_context A device context handle.
+        */
+        template <typename DeviceContext>
+        static tetengo2::cpp0x::unique_ptr<canvas_details_type>::type
+        create_canvas(const DeviceContext device_context)
+        {
+            return tetengo2::cpp0x::unique_ptr<canvas_details_type>::type(
+                new canvas_details_type()
+            );
+        }
+
+        /*!
+            \brief Initializes a canvas.
+
+            \param canvas A canvas.
+        */
+        static void initialize_canvas(canvas_details_type& canvas)
+        {}
+
+        /*!
+            \brief Returns the installed font families.
+
+            \tparam String A string type.
+
+            \return The installed font families.
+        */
+        template <typename String>
+        static std::vector<String> installed_font_families()
+        {
+            const String font_name(TETENGO2_TEXT("TetengoFont"));
+            return std::vector<String>(1, font_name);
+        }
+
+        /*!
+            \brief Fills a rectangle region.
+
+            \tparam Position   A position type.
+            \tparam Dimension  A dimension type.
+            \tparam Background A background type.
+
+            \param position   A position of a region.
+            \param dimension  A dimension of a region.
+            \param background A background.
+        */
+        template <typename Position, typename Dimension, typename Background>
+        static void fill_rectangle(
+            canvas_details_type& canvas,
+            const Position&      position,
+            const Dimension&     dimension,
+            const Background&    background
+        )
+        {}
+
+        /*!
+            \brief Calculates the dimension of a text.
+
+            \tparam Dimension A dimension type.
+            \tparam Font      A font type.
+            \tparam String    A string type.
+
+            \param canvas A canvas.
+            \param font   A font.
+            \param text   A text.
+
+            \return The dimension of the text.
+        */
+        template <typename Dimension, typename Font, typename String>
+        static Dimension calc_text_dimension(
+            const canvas_details_type& canvas,
+            const Font&                font,
+            const String&              text
+        )
+        {
+            return Dimension(123, 456);
+        }
+
+        /*!
+            \brief Draws a text.
+
+            \tparam Font     A font type.
+            \tparam String   A string type.
+            \tparam Encoder  An encoder type.
+            \tparam Position A position type.
+
+            \param text     A text to draw.
+            \param encoder  An encoder.
+            \param position A position where the text is drawn.
+
+            \throw std::runtime_error When the text cannot be drawn.
+        */
+        template <
+            typename Font,
+            typename String,
+            typename Encoder,
+            typename Position
+        >
+        static void draw_text(
+            canvas_details_type& canvas,
+            const Font&          font,
+            String&&             text,
+            const Encoder&       encoder,
+            const Position&      position
+        )
+        {}
+
+        /*!
+            \brief Paints a picture.
+
+            \tparam Picture   A picture type.
+            \tparam Position  A position type.
+            \tparam Dimension A dimension type.
+
+            \param picture   A picture to paint.
+            \param position  A position where the picture is painted.
+            \param dimension A dimension in which the picture is painted.
+
+            \throw std::runtime_error When the picture cannot be painted.
+        */
+        template <typename Picture, typename Position, typename Dimension>
+        static void paint_picture(
+            canvas_details_type& canvas,
+            const Picture&       picture,
+            const Position&      position,
+            const Dimension&     dimension
+        )
+        {}
 
 
     private:
