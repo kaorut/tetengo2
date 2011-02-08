@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_WIDGETCANVAS_H
 
 #include "tetengo2.cpp0x_keyword.h"
-#include "tetengo2.gui.drawing.win32.gdiplus.canvas.h"
+#include "tetengo2.gui.drawing.canvas.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {

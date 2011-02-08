@@ -8,7 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h"
+#include "tetengo2.gui.drawing.widget_canvas.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

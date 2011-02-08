@@ -229,12 +229,6 @@
     <ClCompile Include="test\test_tetengo2.gui.measure.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.widget_canvas.cpp">
-      <Filter>sources\test_tetengo2::gui::drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.win32.gdiplus.canvas.cpp">
-      <Filter>sources\test_tetengo2::gui::drawing</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.image.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
@@ -263,6 +257,12 @@
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.drawing.picture.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.widget_canvas.cpp">
+      <Filter>sources\test_tetengo2::gui::drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.drawing.canvas.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,12 +18,14 @@ headers = \
     tetengo2.encoding.locale.h \
     tetengo2.encoding.utf8.h \
     tetengo2.gui.drawing.background.h \
+    tetengo2.gui.drawing.canvas.h \
     tetengo2.gui.drawing.color.h \
     tetengo2.gui.drawing.font.h \
     tetengo2.gui.drawing.picture.h \
     tetengo2.gui.drawing.picture_reader.h \
     tetengo2.gui.drawing.solid_background.h \
     tetengo2.gui.drawing.transparent_background.h \
+    tetengo2.gui.drawing.widget_canvas.h \
     tetengo2.gui.measure.h \
     tetengo2.gui.menu_observer_set.h \
     tetengo2.gui.mouse_observer_set.h \
@@ -50,8 +52,6 @@ extra_headers = \
     tetengo2.detail.windows.gdiplus.drawing.h \
     tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.windows_version.h \
-    tetengo2.gui.drawing.win32.gdiplus.canvas.h \
-    tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h \
     tetengo2.gui.win32.abstract_popup_menu.h \
     tetengo2.gui.win32.abstract_window.h \
     tetengo2.gui.win32.alert.h \

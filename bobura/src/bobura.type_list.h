@@ -40,7 +40,7 @@
 #include <tetengo2.gui.drawing.picture.h>
 #include <tetengo2.gui.drawing.picture_reader.h>
 #include <tetengo2.gui.drawing.transparent_background.h>
-#include <tetengo2.gui.drawing.win32.gdiplus.widget_canvas.h>
+#include <tetengo2.gui.drawing.widget_canvas.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
