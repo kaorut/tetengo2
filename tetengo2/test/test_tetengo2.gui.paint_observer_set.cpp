@@ -12,7 +12,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "stub_tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
@@ -20,6 +19,7 @@
 #include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.drawing.picture.h"
+#include "tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.gui.paint_observer_set.h"
 
 
@@ -60,15 +60,15 @@ namespace
         picture_type;
 
     typedef
-        stub_tetengo2::gui::drawing::widget_canvas<
-            const void*,
+        tetengo2::gui::drawing::widget_canvas<
             std::size_t,
             std::wstring,
             dimension_type,
             ui_encoder_type,
             background_type,
             font_type,
-            picture_type
+            picture_type,
+            drawing_details_type
         >
         canvas_type;
 

@@ -31,9 +31,6 @@
     <Filter Include="sources\test_tetengo2::gui::unit">
       <UniqueIdentifier>{8d96695a-f7cd-4028-8ef8-ba34b2d12a1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\stub_tetengo2::gui::drawing">
-      <UniqueIdentifier>{2f02334f-a336-4a30-97cd-6536df9e9969}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\test_tetengo2::gui::drawing">
       <UniqueIdentifier>{0dfc00c9-8439-4893-a77d-0a7bbb07e83f}</UniqueIdentifier>
     </Filter>
@@ -92,12 +89,6 @@
     </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.control.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.drawing.widget_canvas.h">
-      <Filter>headers\stub_tetengo2::gui::drawing</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.drawing.canvas.h">
-      <Filter>headers\stub_tetengo2::gui::drawing</Filter>
     </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.image.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
