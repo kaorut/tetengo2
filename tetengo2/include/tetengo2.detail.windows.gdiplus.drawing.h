@@ -10,10 +10,17 @@
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H
 
 #include <cassert>
+//#include <cstddef>
+#include <limits>
+#include <memory>
+#include <string>
 //#include <utility>
 #include <vector>
 //#include <stdexcept>
 
+#include <boost/optional.hpp>
+#include <boost/scoped_array.hpp>
+#include <boost/scoped_ptr.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX

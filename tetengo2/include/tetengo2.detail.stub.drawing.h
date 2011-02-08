@@ -10,7 +10,9 @@
 #define TETENGO2_DETAIL_STUB_DRAWING_H
 
 //#include <cstddef>
+#include <stdexcept>
 //#include <utility>
+#include <vector>
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.measure.h"

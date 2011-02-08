@@ -9,31 +9,11 @@
 #if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_CANVAS_H)
 #define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_CANVAS_H
 
-#include <limits>
-#include <memory>
 #include <stdexcept>
-#include <string>
 //#include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
-#include <boost/scoped_array.hpp>
-#include <boost/scoped_ptr.hpp>
-#include <boost/throw_exception.hpp>
-
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
-#if !defined(min) && !defined(DOCUMENTATION)
-#   define min(a, b) ((a) < (b) ? (a) : (b))
-#endif
-#if !defined(max) && !defined(DOCUMENTATION)
-#   define max(a, b) ((a) > (b) ? (a) : (b))
-#endif
-#include <GdiPlus.h>
-#undef min
-#undef max
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.measure.h"
