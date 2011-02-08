@@ -316,7 +316,7 @@ namespace bobura
             >
             picture_reader_type;
         typedef
-            tetengo2::gui::drawing::win32::gdiplus::widget_canvas<
+            tetengo2::gui::drawing::widget_canvas<
                 boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 dimension_type,

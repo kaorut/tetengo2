@@ -1,20 +1,19 @@
 /*! \file
-    \brief The definition of tetengo2::gui::drawing::win32::gdiplus::widget_canvas.
+    \brief The definition of tetengo2::gui::drawing::widget_canvas.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_WIDGETCANVAS_H)
-#define TETENGO2_GUI_DRAWING_WIN32_GDIPLUS_WIDGETCANVAS_H
+#if !defined(TETENGO2_GUI_DRAWING_WIDGETCANVAS_H)
+#define TETENGO2_GUI_DRAWING_WIDGETCANVAS_H
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.drawing.canvas.h"
 
 
-namespace tetengo2 { namespace gui { namespace drawing { namespace win32 {
-namespace gdiplus
+namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
         \brief The class template for a widget canvas for Win32 platforms.
@@ -96,7 +95,7 @@ namespace gdiplus
     };
 
 
-}}}}}
+}}}
 
 
 #endif
