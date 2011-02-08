@@ -212,6 +212,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \tparam DeviceContext A device context handle type.
 
             \param device_context A device context handle.
+
+            \return A tetengo2::cpp0x::unique_ptr::type to a canvas.
         */
         template <typename DeviceContext>
         static tetengo2::cpp0x::unique_ptr<canvas_details_type>::type
@@ -288,6 +290,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \tparam Dimension  A dimension type.
             \tparam Background A background type.
 
+            \param canvas     A canvas.
             \param position   A position of a region.
             \param dimension  A dimension of a region.
             \param background A background.
@@ -387,6 +390,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \tparam Encoder  An encoder type.
             \tparam Position A position type.
 
+            \param canvas   A canvas.
+            \param font     A font.
             \param text     A text to draw.
             \param encoder  An encoder.
             \param position A position where the text is drawn.
@@ -446,6 +451,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \tparam Position  A position type.
             \tparam Dimension A dimension type.
 
+            \param canvas    A canvas.
             \param picture   A picture to paint.
             \param position  A position where the picture is painted.
             \param dimension A dimension in which the picture is painted.
