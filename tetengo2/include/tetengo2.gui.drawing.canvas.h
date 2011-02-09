@@ -77,6 +77,21 @@ namespace tetengo2 { namespace gui { namespace drawing
             typename drawing_details_type::canvas_details_type details_type;
 
 
+        // static functions
+
+        /*!
+            \brief Returns the installed font families.
+
+            \return The installed font families.
+        */
+        static std::vector<string_type> installed_font_families()
+        {
+            return drawing_details_type::template installed_font_families<
+                string_type
+            >();
+        }
+
+
         // constructors and destructor
 
         /*!
@@ -111,19 +126,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         void set_font(F&& font)
         {
             m_font = std::forward<F>(font);
-        }
-
-        /*!
-            \brief Returns the installed font families.
-
-            \return The installed font families.
-        */
-        std::vector<string_type> installed_font_families()
-        const
-        {
-            return drawing_details_type::template installed_font_families<
-                string_type
-            >();
         }
 
         /*!
