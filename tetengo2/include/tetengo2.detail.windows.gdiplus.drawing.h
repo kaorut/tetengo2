@@ -103,30 +103,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         /*!
-            \brief Makes a dialog font.
-
-            \tparam Font A font type.
-
-            \return A dialog font.
-        */
-        template <typename Font>
-        static Font make_dialog_font()
-        {
-            const ::LOGFONTW log_font =
-                tetengo2::detail::windows::get_message_font();
-
-            assert(log_font.lfHeight < 0);
-            return Font(
-                log_font.lfFaceName,
-                -log_font.lfHeight,
-                log_font.lfWeight >= FW_BOLD,
-                log_font.lfItalic != 0,
-                log_font.lfUnderline != 0,
-                log_font.lfStrikeOut != 0
-            );
-        }
-
-        /*!
             \brief Creates a picture.
 
             \tparam Dimension A dimension type.
@@ -238,6 +214,71 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         /*!
+            \brief Fills a rectangle region.
+
+            \tparam Position   A position type.
+            \tparam Dimension  A dimension type.
+            \tparam Background A background type.
+
+            \param canvas     A canvas.
+            \param position   A position of a region.
+            \param dimension  A dimension of a region.
+            \param background A background.
+        */
+        template <typename Position, typename Dimension, typename Background>
+        static void fill_rectangle(
+            canvas_details_type& canvas,
+            const Position&      position,
+            const Dimension&     dimension,
+            const Background&    background
+        )
+        {
+            const boost::optional<const typename Background::details_type&>
+            background_details = background.details();
+            if (!background_details) return;
+
+            const Gdiplus::Rect rectangle(
+                gui::to_pixels< ::INT>(
+                    gui::position<Position>::left(position)
+                ),
+                gui::to_pixels< ::INT>(
+                    gui::position<Position>::top(position)
+                ),
+                gui::to_pixels< ::INT>(
+                    gui::dimension<Dimension>::width(dimension)
+                ),
+                gui::to_pixels< ::INT>(
+                    gui::dimension<Dimension>::height(dimension)
+                )
+            );
+            canvas.FillRectangle(&*background_details, rectangle);
+        }
+
+        /*!
+            \brief Makes a dialog font.
+
+            \tparam Font A font type.
+
+            \return A dialog font.
+        */
+        template <typename Font>
+        static Font make_dialog_font()
+        {
+            const ::LOGFONTW log_font =
+                tetengo2::detail::windows::get_message_font();
+
+            assert(log_font.lfHeight < 0);
+            return Font(
+                log_font.lfFaceName,
+                -log_font.lfHeight,
+                log_font.lfWeight >= FW_BOLD,
+                log_font.lfItalic != 0,
+                log_font.lfUnderline != 0,
+                log_font.lfStrikeOut != 0
+            );
+        }
+
+        /*!
             \brief Returns the installed font families.
 
             \tparam String A string type.
@@ -281,47 +322,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 families.push_back(family_name);
             }
             return families;
-        }
-
-        /*!
-            \brief Fills a rectangle region.
-
-            \tparam Position   A position type.
-            \tparam Dimension  A dimension type.
-            \tparam Background A background type.
-
-            \param canvas     A canvas.
-            \param position   A position of a region.
-            \param dimension  A dimension of a region.
-            \param background A background.
-        */
-        template <typename Position, typename Dimension, typename Background>
-        static void fill_rectangle(
-            canvas_details_type& canvas,
-            const Position&      position,
-            const Dimension&     dimension,
-            const Background&    background
-        )
-        {
-            const boost::optional<const typename Background::details_type&>
-            background_details = background.details();
-            if (!background_details) return;
-
-            const Gdiplus::Rect rectangle(
-                gui::to_pixels< ::INT>(
-                    gui::position<Position>::left(position)
-                ),
-                gui::to_pixels< ::INT>(
-                    gui::position<Position>::top(position)
-                ),
-                gui::to_pixels< ::INT>(
-                    gui::dimension<Dimension>::width(dimension)
-                ),
-                gui::to_pixels< ::INT>(
-                    gui::dimension<Dimension>::height(dimension)
-                )
-            );
-            canvas.FillRectangle(&*background_details, rectangle);
         }
 
         /*!

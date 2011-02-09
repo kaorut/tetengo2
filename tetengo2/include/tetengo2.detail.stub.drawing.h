@@ -110,21 +110,6 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Makes a dialog font.
-
-            \tparam Font A font type.
-
-            \return A dialog font.
-        */
-        template <typename Font>
-        static Font make_dialog_font()
-        {
-            return Font(
-                TETENGO2_TEXT("TetengoFont"), 12, false, false, false, false
-            );
-        }
-
-        /*!
             \brief Creates a picture.
 
             \tparam Dimension A dimension type.
@@ -212,20 +197,6 @@ namespace tetengo2 { namespace detail { namespace stub
         {}
 
         /*!
-            \brief Returns the installed font families.
-
-            \tparam String A string type.
-
-            \return The installed font families.
-        */
-        template <typename String>
-        static std::vector<String> installed_font_families()
-        {
-            const String font_name(TETENGO2_TEXT("TetengoFont"));
-            return std::vector<String>(1, font_name);
-        }
-
-        /*!
             \brief Fills a rectangle region.
 
             \tparam Position   A position type.
@@ -245,6 +216,35 @@ namespace tetengo2 { namespace detail { namespace stub
             const Background&    background
         )
         {}
+
+        /*!
+            \brief Makes a dialog font.
+
+            \tparam Font A font type.
+
+            \return A dialog font.
+        */
+        template <typename Font>
+        static Font make_dialog_font()
+        {
+            return Font(
+                TETENGO2_TEXT("TetengoFont"), 12, false, false, false, false
+            );
+        }
+
+        /*!
+            \brief Returns the installed font families.
+
+            \tparam String A string type.
+
+            \return The installed font families.
+        */
+        template <typename String>
+        static std::vector<String> installed_font_families()
+        {
+            const String font_name(TETENGO2_TEXT("TetengoFont"));
+            return std::vector<String>(1, font_name);
+        }
 
         /*!
             \brief Calculates the dimension of a text.
