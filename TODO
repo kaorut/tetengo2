@@ -26,6 +26,11 @@ Depends on  : (none)
 Description : Replace std::auto_ptr to boost::interprocess:unique_ptr.
 ------------------------------------------------------------------------------
 Number      : 00000089
+Added on    : 2011/02/09
+Depends on  : (none)
+Description : Replace excess rvalue reference usage to lvalue reference.
+------------------------------------------------------------------------------
+Number      : 00000090
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
