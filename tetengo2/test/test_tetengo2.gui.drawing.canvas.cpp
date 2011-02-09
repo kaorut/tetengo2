@@ -8,7 +8,83 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.detail.stub.drawing.h"
+#include "tetengo2.detail.stub.encoding.h"
+#include "tetengo2.encoder.h"
+#include "tetengo2.encoding.locale.h"
+#include "tetengo2.gui.drawing.font.h"
+#include "tetengo2.gui.drawing.picture.h"
+#include "tetengo2.gui.drawing.transparent_background.h"
+
 #include "tetengo2.gui.drawing.canvas.h"
+
+
+namespace
+{
+    // types
+
+    typedef tetengo2::detail::stub::encoding encoding_details_type;
+
+    typedef
+        tetengo2::encoding::locale<std::wstring, encoding_details_type>
+        internal_encoding_type;
+
+    typedef
+        tetengo2::encoding::locale<std::wstring, encoding_details_type>
+        ui_encoding_type;
+
+    typedef
+        tetengo2::encoder<internal_encoding_type, ui_encoding_type>
+        ui_encoder_type;
+
+    typedef tetengo2::detail::stub::drawing drawing_details_type;
+
+    typedef
+        tetengo2::gui::drawing::transparent_background<drawing_details_type>
+        transparent_background_type;
+
+    typedef
+        tetengo2::gui::drawing::font<
+            std::wstring, std::size_t, drawing_details_type
+        >
+        font_type;
+
+    typedef
+        tetengo2::gui::drawing::picture<std::size_t, drawing_details_type>
+        picture_type;
+
+    typedef drawing_details_type::canvas_details_type canvas_details_type;
+
+    typedef
+        tetengo2::gui::drawing::canvas<
+            std::size_t,
+            std::wstring,
+            std::pair<std::size_t, std::size_t>,
+            ui_encoder_type,
+            transparent_background_type,
+            font_type,
+            picture_type,
+            drawing_details_type
+        >
+        canvas_type;
+
+    struct concrete_canvas : public canvas_type
+    {
+        concrete_canvas()
+        :
+        canvas_type(
+            tetengo2::cpp0x::unique_ptr<canvas_details_type>::type(
+                new canvas_details_type()
+            )
+        )
+        {}
+
+
+    };
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -17,29 +93,45 @@ BOOST_AUTO_TEST_SUITE(drawing)
 BOOST_AUTO_TEST_SUITE(canvas)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
+    BOOST_AUTO_TEST_CASE(installed_font_families)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        typedef std::vector<canvas_type::string_type> string_vector_type;
+        const string_vector_type families =
+            canvas_type::installed_font_families();
+
+        BOOST_CHECK(families == string_vector_type(1, L"TetengoFont"));
     }
 
-    BOOST_AUTO_TEST_CASE(handle)
+    BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
     }
 
     BOOST_AUTO_TEST_CASE(font)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
+
+        const font_type& font = canvas.font();
+
+        BOOST_CHECK(font == font_type::dialog_font());
     }
 
     BOOST_AUTO_TEST_CASE(set_font)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
+        BOOST_TEST_PASSPOINT();
 
-    BOOST_AUTO_TEST_CASE(installed_font_families)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        concrete_canvas canvas;
+
+        const font_type font(L"AnotherFont", 42, true, true, true, true);
+        canvas.set_font(font);
+
+        BOOST_CHECK(canvas.font() == font);
     }
 
     BOOST_AUTO_TEST_CASE(fill_rectangle)
@@ -62,7 +154,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(gdiplus_graphics)
+    BOOST_AUTO_TEST_CASE(details)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
