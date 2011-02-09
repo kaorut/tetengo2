@@ -235,12 +235,17 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Returns the installed font families.
 
-            \tparam String A string type.
+            \tparam String  A string type.
+            \tparam Encoder An encoder type.
+
+            \param encoder An encoder.
 
             \return The installed font families.
         */
-        template <typename String>
-        static std::vector<String> installed_font_families()
+        template <typename String, typename Encoder>
+        static std::vector<String> installed_font_families(
+            const Encoder& encoder
+        )
         {
             const String font_name(TETENGO2_TEXT("TetengoFont"));
             return std::vector<String>(1, font_name);
@@ -252,18 +257,26 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam Dimension A dimension type.
             \tparam Font      A font type.
             \tparam String    A string type.
+            \tparam Encoder   An encoder type.
 
-            \param canvas A canvas.
-            \param font   A font.
-            \param text   A text.
+            \param canvas  A canvas.
+            \param font    A font.
+            \param text    A text.
+            \param encoder An encoder.
 
             \return The dimension of the text.
         */
-        template <typename Dimension, typename Font, typename String>
+        template <
+            typename Dimension,
+            typename Font,
+            typename String,
+            typename Encoder
+        >
         static Dimension calc_text_dimension(
             const canvas_details_type& canvas,
             const Font&                font,
-            const String&              text
+            String&&                   text,
+            const Encoder&             encoder
         )
         {
             return Dimension(123, 456);

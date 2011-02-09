@@ -281,12 +281,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         /*!
             \brief Returns the installed font families.
 
-            \tparam String A string type.
+            \tparam String  A string type.
+            \tparam Encoder An encoder type.
+
+            \param encoder An encoder.
 
             \return The installed font families.
         */
-        template <typename String>
-        static std::vector<String> installed_font_families()
+        template <typename String, typename Encoder>
+        static std::vector<String> installed_font_families(
+            const Encoder& encoder
+        )
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const ::INT count = font_collection.GetFamilyCount();
@@ -319,7 +324,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                         std::runtime_error("Can't get font family name.")
                     );
                 }
-                families.push_back(family_name);
+                families.push_back(encoder.decode(family_name));
             }
             return families;
         }
@@ -330,23 +335,31 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \tparam Dimension A dimension type.
             \tparam Font      A font type.
             \tparam String    A string type.
+            \tparam Encoder   An encoder type.
 
-            \param canvas A canvas.
-            \param font   A font.
-            \param text   A text.
+            \param canvas  A canvas.
+            \param font    A font.
+            \param text    A text.
+            \param encoder An encoder.
 
             \return The dimension of the text.
         */
-        template <typename Dimension, typename Font, typename String>
+        template <
+            typename Dimension,
+            typename Font,
+            typename String,
+            typename Encoder
+        >
         static Dimension calc_text_dimension(
             const canvas_details_type& canvas,
             const Font&                font,
-            const String&              text
+            String&&                   text,
+            const Encoder&             encoder
         )
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const boost::scoped_ptr<Gdiplus::Font> p_gdiplus_font(
-                create_gdiplus_font<String>(font, font_collection)
+                create_gdiplus_font<String>(font, font_collection, encoder)
             );
 
             const Gdiplus::RectF layout(
@@ -358,7 +371,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             Gdiplus::RectF bounding;
             const Gdiplus::Status result =
                 canvas.MeasureString(
-                    text.c_str(),
+                    encoder.encode(std::forward<String>(text)).c_str(),
                     static_cast< ::INT>(text.length()),
                     p_gdiplus_font.get(),
                     layout,
@@ -414,7 +427,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const boost::scoped_ptr<Gdiplus::Font> p_gdiplus_font(
-                create_gdiplus_font<String>(font, font_collection)
+                create_gdiplus_font<String>(font, font_collection, encoder)
             );
             const Gdiplus::SolidBrush brush(
                 Gdiplus::Color(128, 255, 0, 0)
@@ -494,10 +507,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
     private:
         // static functions
         
-        template <typename String, typename Font>
+        template <typename String, typename Font, typename Encoder>
         static std::auto_ptr<Gdiplus::Font> create_gdiplus_font(
             const Font&                    font,
             const Gdiplus::FontCollection& font_collection,
+            const Encoder&                 encoder,
             const std::size_t              fallback_level = 0
         )
         {
@@ -512,12 +526,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 fallback_level < 1 ?
                 font.family() : Font::dialog_font().family();
             const Gdiplus::FontFamily gdiplus_font_family(
-                font_family.c_str(), &font_collection
+                encoder.encode(font_family).c_str(), &font_collection
             );
             if (!gdiplus_font_family.IsAvailable())
             {
                 return create_gdiplus_font<String>(
-                    font, font_collection, fallback_level + 1
+                    font, font_collection, encoder, fallback_level + 1
                 );
             }
 
@@ -540,7 +554,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (!p_gdiplus_font->IsAvailable())
             {
                 return create_gdiplus_font<String>(
-                    font, font_collection, fallback_level + 1
+                    font, font_collection, encoder, fallback_level + 1
                 );
             }
 

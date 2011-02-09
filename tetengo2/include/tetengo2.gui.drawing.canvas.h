@@ -88,7 +88,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         {
             return drawing_details_type::template installed_font_families<
                 string_type
-            >();
+            >(encoder());
         }
 
 
@@ -162,7 +162,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         {
             return drawing_details_type::template calc_text_dimension<
                 dimension_type
-            >(*m_p_details, m_font, text);
+            >(*m_p_details, m_font, text, encoder());
         }
 
         /*!
