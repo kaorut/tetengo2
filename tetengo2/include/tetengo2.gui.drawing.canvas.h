@@ -14,6 +14,7 @@
 #include <vector>
 
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.gui.measure.h"
@@ -249,6 +250,8 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Creates a canvas.
 
             \param p_details A detail implementation.
+
+            \throw std::invalid_argument When p_details is NULL.
         */
         canvas(
             typename tetengo2::cpp0x::unique_ptr<details_type>::type p_details
@@ -257,6 +260,15 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_p_details(std::move(p_details)),
         m_font(font_type::dialog_font())
         {
+            if (m_p_details.get() == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "The detail implementation is NULL."
+                    )
+                );
+            }
+
             drawing_details_type::initialize_canvas(*m_p_details);
         }
 

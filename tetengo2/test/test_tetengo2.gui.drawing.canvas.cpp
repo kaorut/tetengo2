@@ -91,6 +91,16 @@ namespace
 
     };
 
+    struct concrete_canvas0 : public canvas_type
+    {
+        concrete_canvas0()
+        :
+        canvas_type(tetengo2::cpp0x::unique_ptr<canvas_details_type>::type())
+        {}
+
+
+    };
+
 
 }
 
@@ -116,7 +126,14 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_canvas canvas;
+        {
+            const concrete_canvas canvas;
+        }
+        {
+            BOOST_CHECK_THROW(
+                const concrete_canvas0 canvas, std::invalid_argument
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(font)
