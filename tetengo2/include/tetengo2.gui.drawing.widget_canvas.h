@@ -77,7 +77,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param device_context A device context handle.
         */
         template <typename DeviceContext>
-        widget_canvas(const DeviceContext device_context)
+        explicit widget_canvas(const DeviceContext device_context)
         :
         base_type(
             base_type::drawing_details_type::create_canvas(device_context)

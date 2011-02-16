@@ -16,7 +16,6 @@
 #include <stdexcept>
 #include <sstream>
 #include <string>
-#include <utility>
 
 #include <boost/exception/all.hpp>
 #include <boost/scope_exit.hpp>
@@ -217,28 +216,21 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        template <
-            typename S1,
-            typename S2,
-            typename S3,
-            typename S4,
-            typename S5
-        >
         void show_task_dialog(
-            S1&&      caption,
-            S2&&      text1,
-            S3&&      text2,
-            S4&&      source_file_name,
-            const int source_file_line,
-            S5&&      source_function
+            const string_type& caption,
+            const string_type& text1,
+            const string_type& text2,
+            const string_type& source_file_name,
+            const int          source_file_line,
+            const string_type& source_function
         )
         const
         {
 #if defined(NDEBUG)
             show_task_dialog_impl(
-                ui_encoder().encode(std::forward<S1>(caption)),
-                ui_encoder().encode(std::forward<S2>(text1)),
-                ui_encoder().encode(std::forward<S3>(text2))
+                ui_encoder().encode(caption),
+                ui_encoder().encode(text1),
+                ui_encoder().encode(text2)
             );
 #else
             std::basic_ostringstream<typename string_type::value_type> stream;
@@ -246,23 +238,26 @@ namespace tetengo2 { namespace gui { namespace win32
                 std::endl <<
                 std::endl <<
                 TETENGO2_TEXT("in ") <<
-                std::forward<S4>(source_file_name) <<
+                source_file_name <<
                 TETENGO2_TEXT("(") <<
                 source_file_line <<
                 TETENGO2_TEXT("):") <<
                 std::endl <<
-                std::forward<S5>(source_function);
+                source_function;
 
             show_task_dialog_impl(
-                ui_encoder().encode(std::forward<S1>(caption)),
-                ui_encoder().encode(std::forward<S2>(text1)),
-                ui_encoder().encode(std::forward<S3>(text2) + stream.str())
+                ui_encoder().encode(caption),
+                ui_encoder().encode(text1),
+                ui_encoder().encode(text2 + stream.str())
             );
 #endif
         }
 
-        template <typename S1, typename S2, typename S3>
-        void show_task_dialog_impl(S1&& caption, S2&& text1, S3&& text2)
+        void show_task_dialog_impl(
+            const std::wstring& caption,
+            const std::wstring& text1,
+            const std::wstring& text2
+        )
         const
         {
             const ::HINSTANCE handle = ::LoadLibraryW(L"COMCTL32.DLL");
@@ -273,11 +268,7 @@ namespace tetengo2 { namespace gui { namespace win32
             } BOOST_SCOPE_EXIT_END;
             if (handle == NULL)
             {
-                show_message_box(
-                    std::forward<S1>(caption),
-                    std::forward<S2>(text1),
-                    std::forward<S3>(text2)
-                );
+                show_message_box(caption, text1, text2);
                 return;
             }
 
@@ -296,11 +287,7 @@ namespace tetengo2 { namespace gui { namespace win32
             );
             if (p_task_dialog == NULL)
             {
-                show_message_box(
-                    std::forward<S1>(caption),
-                    std::forward<S2>(text1),
-                    std::forward<S3>(text2)
-                );
+                show_message_box(caption, text1, text2);
                 return;
             }
 
@@ -316,16 +303,14 @@ namespace tetengo2 { namespace gui { namespace win32
             );
         }
 
-        template <typename S1, typename S2>
         void show_message_box(
             const std::wstring& caption,
-            S1&&                text1,
-            S2&&                text2
+            const std::wstring& text1,
+            const std::wstring& text2
         )
         const
         {
-            const std::wstring text =
-                std::forward<S1>(text1) + L"\n\n" + std::forward<S2>(text2);
+            const std::wstring text = text1 + L"\n\n" + text2;
             ::MessageBoxW(
                 m_widget_handle,
                 text.c_str(),

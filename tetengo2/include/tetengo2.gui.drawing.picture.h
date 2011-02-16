@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_DRAWING_PICTURE_H)
 #define TETENGO2_GUI_DRAWING_PICTURE_H
 
+#include <cstddef>
 #include <memory>
 #include <utility>
 #include <stdexcept>
@@ -71,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \throw std::invalid_argument When p_details is NULL.
         */
-        picture(std::auto_ptr<details_type> p_details)
+        explicit picture(std::auto_ptr<details_type> p_details)
         :
         m_p_details(p_details.release())
         {

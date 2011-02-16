@@ -41,7 +41,7 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors and destructor
 
-        dialog(base_type& parent)
+        explicit dialog(base_type& parent)
         :
         base_type()
         {}

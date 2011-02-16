@@ -846,7 +846,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \param message_handler_map A message handler map.
         */
-        widget(message_handler_map_type&& message_handler_map)
+        explicit widget(message_handler_map_type&& message_handler_map)
         :
         m_message_handler_map(
             make_message_handler_map(

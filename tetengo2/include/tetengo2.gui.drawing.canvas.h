@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_DRAWING_CANVAS_H)
 #define TETENGO2_GUI_DRAWING_CANVAS_H
 
+//#include <cstddef>
 #include <stdexcept>
 //#include <utility>
 #include <vector>
@@ -169,7 +170,6 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Draws a text.
 
-            \tparam S A string type.
             \tparam P A position type.
 
             \param text     A text to draw.
@@ -177,15 +177,11 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \throw std::runtime_error When the text cannot be drawn.
         */
-        template <typename S, typename P>
-        void draw_text(S&& text, const P& position)
+        template <typename P>
+        void draw_text(const string_type& text, const P& position)
         {
             drawing_details_type::draw_text(
-                *m_p_details, 
-                m_font,
-                std::forward<S>(text),
-                encoder(),
-                position
+                *m_p_details, m_font, text, encoder(), position
             );
         }
 

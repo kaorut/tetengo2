@@ -40,7 +40,7 @@ namespace stub_tetengo2 { namespace gui
 
         // constructors
 
-        alert(const widget_handle_type widget_handle = NULL)
+        explicit alert(const widget_handle_type widget_handle = NULL)
         TETENGO2_CPP0X_NOEXCEPT
         {}
 

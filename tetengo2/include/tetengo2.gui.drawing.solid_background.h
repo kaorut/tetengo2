@@ -48,7 +48,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param color A color.
         */
         template <typename C>
-        solid_background(C&& color)
+        explicit solid_background(C&& color)
         :
         base_type(),
         m_color(std::forward<C>(color)),

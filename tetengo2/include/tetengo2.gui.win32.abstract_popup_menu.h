@@ -173,12 +173,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // functions
 
-        template <typename S>
-        std::vector< ::WCHAR> duplicate_text(S&& text)
+        std::vector< ::WCHAR> duplicate_text(const string_type& text)
         const
         {
-            const std::wstring native_string =
-                encoder().encode(std::forward<S>(text));
+            const std::wstring native_string = encoder().encode(text);
 
             std::vector< ::WCHAR> duplicated;
             duplicated.reserve(native_string.length() + 1);

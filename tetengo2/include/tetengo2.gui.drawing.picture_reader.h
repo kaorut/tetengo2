@@ -51,7 +51,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param path A path.
         */
         template <typename P>
-        picture_reader(P&& path)
+        explicit picture_reader(P&& path)
         :
         m_path(std::forward<P>(path))
         {}

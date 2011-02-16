@@ -275,7 +275,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static Dimension calc_text_dimension(
             const canvas_details_type& canvas,
             const Font&                font,
-            String&&                   text,
+            const String&              text,
             const Encoder&             encoder
         )
         {
@@ -307,7 +307,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
-            String&&             text,
+            const String&        text,
             const Encoder&       encoder,
             const Position&      position
         )

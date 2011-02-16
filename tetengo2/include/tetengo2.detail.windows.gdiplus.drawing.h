@@ -353,7 +353,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static Dimension calc_text_dimension(
             const canvas_details_type& canvas,
             const Font&                font,
-            String&&                   text,
+            const String&              text,
             const Encoder&             encoder
         )
         {
@@ -371,7 +371,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             Gdiplus::RectF bounding;
             const Gdiplus::Status result =
                 canvas.MeasureString(
-                    encoder.encode(std::forward<String>(text)).c_str(),
+                    encoder.encode(text).c_str(),
                     static_cast< ::INT>(text.length()),
                     p_gdiplus_font.get(),
                     layout,
@@ -420,7 +420,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
-            String&&             text,
+            const String&        text,
             const Encoder&       encoder,
             const Position&      position
         )
@@ -433,8 +433,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 Gdiplus::Color(128, 255, 0, 0)
             );
 
-            const std::wstring encoded_text =
-                encoder.encode(std::forward<String>(text));
+            const std::wstring encoded_text = encoder.encode(text);
             const Gdiplus::Status result = canvas.DrawString(
                 encoded_text.c_str(),
                 static_cast< ::INT>(encoded_text.length()),

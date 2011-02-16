@@ -133,7 +133,7 @@ namespace bobura
         static void append_menu_command(
             menu_type&                        popup_menu,
             typename menu_type::string_type&& text,
-            const command_type&               command
+            command_type&&                    command
         )
         {
             std::auto_ptr<menu_type> p_menu_command(
@@ -146,7 +146,7 @@ namespace bobura
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::menu
-                >::type(command)
+                >::type(std::forward<command_type>(command))
             );
 
             popup_menu.insert(popup_menu.end(), p_menu_command);
