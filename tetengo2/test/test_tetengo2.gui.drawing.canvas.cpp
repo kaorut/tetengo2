@@ -6,6 +6,11 @@
     $Id$
 */
 
+//#include <cstddef>
+//#include <string>
+//#include <utility>
+//#include <vector>
+
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
