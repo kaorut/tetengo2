@@ -8,6 +8,7 @@
 
 //#include <cstddef>
 //#include <memory>
+//#include <stdexcept>
 
 #include <boost/test/unit_test.hpp>
 
@@ -56,6 +57,13 @@ BOOST_AUTO_TEST_SUITE(picture)
                 ).release()
             );
             const picture_type picture2(p_details);
+        }
+        {
+            std::auto_ptr<picture_type::details_type> p_details;
+            
+            BOOST_CHECK_THROW(
+                const picture_type picture(p_details), std::invalid_argument
+            );
         }
     }
 

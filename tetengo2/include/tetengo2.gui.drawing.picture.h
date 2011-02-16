@@ -11,8 +11,10 @@
 
 #include <memory>
 #include <utility>
+#include <stdexcept>
 
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
 
@@ -66,11 +68,22 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Creates a picture with a detail implementation.
 
             \param p_details A std::auto_ptr to a detail implementation.
+
+            \throw std::invalid_argument When p_details is NULL.
         */
         picture(std::auto_ptr<details_type> p_details)
         :
         m_p_details(p_details.release())
-        {}
+        {
+            if (m_p_details.get() == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "The detail implementation is NULL."
+                    )
+                );
+            }
+        }
 
 
         // functions
