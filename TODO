@@ -13,13 +13,6 @@ Depends on  : 00000083
 Description : Modify tetengo2::gui::win32::* into tetengo2::gui::*,
               tetengo2::detail::windows::* and tetengo2::detail::stub::*.
 ------------------------------------------------------------------------------
-Number      : 00000085
-Added on    : 2011/01/25
-Depends on  : 00000083
-Description : Modify tetengo2::gui::drawing::win32::* into
-              tetengo2::gui::drawing::*, tetengo2::detail::windows::* and
-              tetengo2::detail::stub::*.
-------------------------------------------------------------------------------
 Number      : 00000088
 Added on    : 2011/02/01
 Depends on  : (none)
