@@ -16,6 +16,7 @@
 #include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
+#include "tetengo2.text.h"
 
 #include "tetengo2.gui.drawing.canvas.h"
 
@@ -23,6 +24,8 @@
 namespace
 {
     // types
+
+    typedef std::pair<std::size_t, std::size_t> dimension_type;
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
@@ -60,7 +63,7 @@ namespace
         tetengo2::gui::drawing::canvas<
             std::size_t,
             std::wstring,
-            std::pair<std::size_t, std::size_t>,
+            dimension_type,
             ui_encoder_type,
             transparent_background_type,
             font_type,
@@ -136,27 +139,69 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
     BOOST_AUTO_TEST_CASE(fill_rectangle)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.fill_rectangle(
+            std::make_pair(12, 34),
+            std::make_pair(56, 78),
+            transparent_background_type()
+        );
     }
 
     BOOST_AUTO_TEST_CASE(calc_text_dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
+
+        const dimension_type dimension =
+            canvas.calc_text_dimension(
+                canvas_type::string_type(TETENGO2_TEXT("hoge"))
+            );
+
+        BOOST_CHECK(dimension == dimension_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(draw_text)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.draw_text(
+            canvas_type::string_type(TETENGO2_TEXT("hoge")),
+            std::make_pair(12, 34)
+        );
     }
 
     BOOST_AUTO_TEST_CASE(paint_picture)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        const picture_type picture(std::make_pair(123, 456), canvas);
+        canvas.paint_picture(
+            picture, std::make_pair(12, 34), std::make_pair(56, 78)
+        );
     }
 
     BOOST_AUTO_TEST_CASE(details)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_canvas canvas;
+
+            canvas.details();
+        }
+        {
+            concrete_canvas canvas;
+
+            canvas.details();
+        }
     }
 
 
