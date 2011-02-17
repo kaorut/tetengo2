@@ -11,7 +11,6 @@
 
 //#include <cassert>
 //#include <cstddef>
-#include <memory>
 #include <stdexcept>
 //#include <utility>
 #include <vector>
@@ -245,13 +244,15 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Inserts a menu as a child.
 
             \param offset An offset where a menu is inserted.
-            \param p_menu An auto pointer to a menu. It must not be NULL.
-
-            \throw std::logic_error Always.
+            \param p_menu A tetengo2::cpp0x::unique_ptr::type to a menu.
+                          It must not be NULL.
         */
-        void insert(const iterator offset, std::auto_ptr<menu> p_menu)
+        void insert(
+            const iterator                                   offset,
+            typename tetengo2::cpp0x::unique_ptr<menu>::type p_menu
+        )
         {
-            insert_impl(offset, p_menu);
+            insert_impl(offset, std::move(p_menu));
         }
 
         /*!
@@ -402,8 +403,8 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         virtual void insert_impl(
-            const iterator      offset,
-            std::auto_ptr<menu> p_menu
+            const iterator                                   offset,
+            typename tetengo2::cpp0x::unique_ptr<menu>::type p_menu
         )
         {
             assert(false);

@@ -13,7 +13,6 @@
 //#include <cstddef>
 #include <cstring>
 //#include <iterator>
-//#include <memory>
 //#include <stdexcept>
 #include <string>
 //#include <utility>
@@ -145,8 +144,8 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         virtual void insert_impl(
-            const iterator           offset,
-            std::auto_ptr<base_type> p_menu
+            const iterator                                        offset,
+            typename tetengo2::cpp0x::unique_ptr<base_type>::type p_menu
         )
         {
             if (p_menu.get() == NULL)
@@ -160,7 +159,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             insert_native_menu(offset, *p_menu);
 
-            m_children.insert(offset, p_menu);
+            m_children.insert(offset, p_menu.release());
         }
 
         virtual void erase_impl(const iterator first, const iterator last)

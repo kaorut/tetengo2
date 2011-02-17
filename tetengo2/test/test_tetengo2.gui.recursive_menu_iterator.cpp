@@ -6,15 +6,15 @@
     $Id$
 */
 
-//#include <memory>
 //#include <string>
+//#include <utility>
 
-#include <boost/scoped_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "stub_tetengo2.gui.menu.h"
 #include "stub_tetengo2.gui.popup_menu.h"
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
@@ -65,22 +65,32 @@ namespace
 
     // functions
 
-    std::auto_ptr<menu_type> create_menu()
+    tetengo2::cpp0x::unique_ptr<menu_type>::type create_menu()
     {
-        std::auto_ptr<menu_type> p_menu(new popup_menu_type("0"));
+        tetengo2::cpp0x::unique_ptr<menu_type>::type p_menu(
+            new popup_menu_type("0")
+        );
 
         p_menu->insert(
-            p_menu->end(), std::auto_ptr<menu_type>(new popup_menu_type("1"))
+            p_menu->end(),
+            tetengo2::cpp0x::unique_ptr<menu_type>::type(
+                new popup_menu_type("1")
+            )
         );
         p_menu->begin()->insert(
             p_menu->begin()->end(),
-            std::auto_ptr<menu_type>(new popup_menu_type("2"))
+            tetengo2::cpp0x::unique_ptr<menu_type>::type(
+                new popup_menu_type("2")
+            )
         );
         p_menu->insert(
-            p_menu->end(), std::auto_ptr<menu_type>(new popup_menu_type("3"))
+            p_menu->end(),
+            tetengo2::cpp0x::unique_ptr<menu_type>::type(
+                new popup_menu_type("3")
+            )
         );
 
-        return p_menu;
+        return std::move(p_menu);
     }
 
 
@@ -99,7 +109,9 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
             const iterator_type iterator;
         }
         {
-            const boost::scoped_ptr<menu_type> p_menu(create_menu());
+            const tetengo2::cpp0x::unique_ptr<menu_type>::type p_menu(
+                create_menu()
+            );
 
             const iterator_type iterator(p_menu.get());
         }
@@ -110,7 +122,9 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
         BOOST_TEST_PASSPOINT();
 
         {
-            const boost::scoped_ptr<menu_type> p_menu(create_menu());
+            const tetengo2::cpp0x::unique_ptr<menu_type>::type p_menu(
+                create_menu()
+            );
 
             iterator_type iterator(p_menu.get());
 

@@ -9,7 +9,6 @@
 #if !defined(STUBTETENGO2_GUI_ABSTRACTPOPUPMENU_H)
 #define STUBTETENGO2_GUI_ABSTRACTPOPUPMENU_H
 
-//#include <memory>
 //#include <utility>
 
 //#include <boost/ptr_container/ptr_vector.hpp>
@@ -120,11 +119,11 @@ namespace stub_tetengo2 { namespace gui
         }
 
         virtual void insert_impl(
-            const typename abstract_popup_menu::iterator offset,
-            std::auto_ptr<base_type>                     p_menu
+            const typename abstract_popup_menu::iterator          offset,
+            typename tetengo2::cpp0x::unique_ptr<base_type>::type p_menu
         )
         {
-            m_children.insert(offset, p_menu);
+            m_children.insert(offset, p_menu.release());
         }
 
         virtual void erase_impl(

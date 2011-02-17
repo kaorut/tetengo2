@@ -11,7 +11,6 @@
 
 //#include <cassert>
 //#include <cstddef>
-#include <memory>
 #include <stdexcept>
 //#include <utility>
 
@@ -145,9 +144,12 @@ namespace stub_tetengo2 { namespace gui
             return recursive_end_impl();
         }
 
-        void insert(const iterator offset, std::auto_ptr<menu> p_menu)
+        void insert(
+            const iterator                                   offset,
+            typename tetengo2::cpp0x::unique_ptr<menu>::type p_menu
+        )
         {
-            insert_impl(offset, p_menu);
+            insert_impl(offset, std::move(p_menu));
         }
 
         void erase(const iterator first, const iterator last)
@@ -234,8 +236,8 @@ namespace stub_tetengo2 { namespace gui
         }
 
         virtual void insert_impl(
-            const iterator      offset,
-            std::auto_ptr<menu> p_menu
+            const iterator                                   offset,
+            typename tetengo2::cpp0x::unique_ptr<menu>::type p_menu
         )
         {
             assert(false);

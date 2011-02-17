@@ -9,8 +9,6 @@
 #if !defined(STUBTETENGO2_GUI_ABSTRACTWINDOW_H)
 #define STUBTETENGO2_GUI_ABSTRACTWINDOW_H
 
-//#include <memory>
-
 #include "stub_tetengo2.gui.widget.h"
 #include "tetengo2.cpp0x_keyword.h"
 
@@ -58,7 +56,10 @@ namespace stub_tetengo2 { namespace gui
             return dummy;
         }
 
-        void set_main_menu(std::auto_ptr<main_menu_type> p_main_menu)
+        void set_main_menu(
+            typename tetengo2::cpp0x::unique_ptr<main_menu_type>::type
+            p_main_menu
+        )
         {}
 
         const window_observer_set_type& window_observer_set()
