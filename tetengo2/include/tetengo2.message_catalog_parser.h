@@ -13,7 +13,6 @@
 #include <cstddef>
 #include <iterator>
 #include <locale>
-#include <memory>
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -21,10 +20,10 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.text.h"
 
 
@@ -103,7 +102,8 @@ namespace tetengo2
             if (!has_next())
                 BOOST_THROW_EXCEPTION(std::runtime_error("No next entry."));
 
-            const boost::scoped_ptr<entry_type> p_entry(m_p_preread_entry);
+            const typename tetengo2::cpp0x::unique_ptr<entry_type>::type
+            p_entry(std::move(m_p_preread_entry));
             m_p_preread_entry.reset();
             return *p_entry;
         }
@@ -140,7 +140,8 @@ namespace tetengo2
 
         mutable input_stream_type& m_input_stream;
 
-        mutable std::auto_ptr<entry_type> m_p_preread_entry;
+        mutable typename tetengo2::cpp0x::unique_ptr<entry_type>::type
+        m_p_preread_entry;
 
 
         // functions
@@ -152,10 +153,11 @@ namespace tetengo2
 
             while (m_input_stream.good())
             {
-                std::auto_ptr<entry_type> p_entry = parse(get_line());
+                typename tetengo2::cpp0x::unique_ptr<entry_type>::type
+                p_entry = parse(get_line());
                 if (p_entry.get() != NULL)
                 {
-                    m_p_preread_entry = p_entry;
+                    m_p_preread_entry = std::move(p_entry);
                     return true;
                 }
             }
@@ -238,7 +240,9 @@ namespace tetengo2
             );
         }
 
-        std::auto_ptr<entry_type> parse(const input_string_type& line)
+        typename tetengo2::cpp0x::unique_ptr<entry_type>::type parse(
+            const input_string_type& line
+        )
         const
         {
             const tokenizer_type tokenizer(
@@ -256,9 +260,12 @@ namespace tetengo2
             );
 
             if (tokens.size() < 2)
-                return std::auto_ptr<entry_type>();
+            {
+                return
+                    typename tetengo2::cpp0x::unique_ptr<entry_type>::type();
+            }
 
-            return std::auto_ptr<entry_type>(
+            return typename tetengo2::cpp0x::unique_ptr<entry_type>::type(
                 new entry_type(
                     encoder().decode(tokens[0]), encoder().decode(tokens[1])
                 )
