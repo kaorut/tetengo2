@@ -11,10 +11,10 @@
 
 #include <memory>
 #include <sstream>
+//#include <utility>
 
 #include <boost/format.hpp>
 #include <boost/mpl/at.hpp>
-#include <boost/scoped_ptr.hpp>
 
 #include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.gui.measure.h>
@@ -136,15 +136,20 @@ namespace bobura
 
         const settings_type& m_settings;
 
-        boost::scoped_ptr<image_type> m_p_application_image;
+        typename tetengo2::cpp0x::unique_ptr<image_type>::type
+        m_p_application_image;
 
-        boost::scoped_ptr<label_type> m_p_title_label;
+        typename tetengo2::cpp0x::unique_ptr<label_type>::type
+        m_p_title_label;
 
-        boost::scoped_ptr<label_type> m_p_copyright_label;
+        typename tetengo2::cpp0x::unique_ptr<label_type>::type
+        m_p_copyright_label;
 
-        boost::scoped_ptr<label_type> m_p_link_label;
+        typename tetengo2::cpp0x::unique_ptr<label_type>::type
+        m_p_link_label;
 
-        boost::scoped_ptr<button_type> m_p_ok_button;
+        typename tetengo2::cpp0x::unique_ptr<button_type>::type
+        m_p_ok_button;
 
 
         // functions
@@ -167,16 +172,17 @@ namespace bobura
                 )
             );
 
-            m_p_application_image.reset(create_application_image().release());
-            m_p_title_label.reset(create_title_label().release());
-            m_p_copyright_label.reset(create_copyright_label().release());
-            m_p_link_label.reset(create_link_label().release());
-            m_p_ok_button.reset(create_ok_button().release());
+            m_p_application_image = create_application_image();
+            m_p_title_label = create_title_label();
+            m_p_copyright_label = create_copyright_label();
+            m_p_link_label = create_link_label();
+            m_p_ok_button = create_ok_button();
 
             locate_controls();
         }
 
-        std::auto_ptr<image_type> create_application_image()
+        typename tetengo2::cpp0x::unique_ptr<image_type>::type
+        create_application_image()
         {
             picture_reader_type picture_reader(
                 m_settings.image_directory_path() /
@@ -184,14 +190,15 @@ namespace bobura
                     TETENGO2_TEXT("kuma.png")
                 )
             );
-            std::auto_ptr<image_type> p_image(
+            typename tetengo2::cpp0x::unique_ptr<image_type>::type p_image(
                 new image_type(*this, picture_reader)
             );
 
-            return p_image;
+            return std::move(p_image);
         }
 
-        std::auto_ptr<label_type> create_title_label()
+        typename tetengo2::cpp0x::unique_ptr<label_type>::type
+        create_title_label()
         {
             typedef typename base_type::string_type::value_type char_type;
             std::basic_ostringstream<char_type> title;
@@ -201,7 +208,9 @@ namespace bobura
                     m_message_catalog.get(TETENGO2_TEXT("version")) %
                     typename base_type::string_type(TETENGO2_TEXT("0.0.0"));
 
-            std::auto_ptr<label_type> p_label(new label_type(*this));
+            typename tetengo2::cpp0x::unique_ptr<label_type>::type p_label(
+                new label_type(*this)
+            );
 
             p_label->set_text(title.str());
             p_label->set_text_color(color_type(255, 0, 0));
@@ -210,12 +219,15 @@ namespace bobura
             );
             p_label->set_background(p_background);
 
-            return p_label;
+            return std::move(p_label);
         }
 
-        std::auto_ptr<label_type> create_copyright_label()
+        typename tetengo2::cpp0x::unique_ptr<label_type>::type
+        create_copyright_label()
         {
-            std::auto_ptr<label_type> p_label(new label_type(*this));
+            typename tetengo2::cpp0x::unique_ptr<label_type>::type p_label(
+                new label_type(*this)
+            );
 
             p_label->set_text(
                 typename base_type::string_type(
@@ -227,12 +239,15 @@ namespace bobura
             );
             p_label->set_background(p_background);
 
-            return p_label;
+            return std::move(p_label);
         }
 
-        std::auto_ptr<label_type> create_link_label()
+        typename tetengo2::cpp0x::unique_ptr<label_type>::type
+        create_link_label()
         {
-            std::auto_ptr<label_type> p_label(new label_type(*this));
+            typename tetengo2::cpp0x::unique_ptr<label_type>::type p_label(
+                new label_type(*this)
+            );
 
             p_label->set_text(
                 typename base_type::string_type(
@@ -244,12 +259,13 @@ namespace bobura
             );
             p_label->set_background(p_background);
 
-            return p_label;
+            return std::move(p_label);
         }
 
-        std::auto_ptr<button_type> create_ok_button()
+        typename tetengo2::cpp0x::unique_ptr<button_type>::type
+        create_ok_button()
         {
-            std::auto_ptr<button_type> p_button(
+            typename tetengo2::cpp0x::unique_ptr<button_type>::type p_button(
                 new button_type(*this, button_type::style_default)
             );
 
@@ -261,7 +277,7 @@ namespace bobura
                 >::type(*this)
             );
 
-            return p_button;
+            return std::move(p_button);
         }
 
         void locate_controls()
