@@ -9,9 +9,9 @@
 //#include <cstddef>
 
 #include <boost/filesystem.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.gui.drawing.picture.h"
 
@@ -59,7 +59,9 @@ BOOST_AUTO_TEST_SUITE(picture_reader)
         const boost::filesystem::path path;
         picture_reader_type reader(path);
 
-        const boost::scoped_ptr<picture_type> p_picture(reader.read());
+        const tetengo2::cpp0x::unique_ptr<picture_type>::type p_picture(
+            reader.read()
+        );
     }
 
 

@@ -9,8 +9,6 @@
 #if !defined(STUBTETENGO2_GUI_IMAGE_H)
 #define STUBTETENGO2_GUI_IMAGE_H
 
-//#include <boost/scoped_ptr.hpp>
-
 #include "stub_tetengo2.gui.control.h"
 #include "tetengo2.cpp0x_keyword.h"
 
@@ -55,7 +53,8 @@ namespace stub_tetengo2 { namespace gui
     private:
         // variables
 
-        const boost::scoped_ptr<picture_type> m_p_picture;
+        const typename tetengo2::cpp0x::unique_ptr<picture_type>::type
+        m_p_picture;
 
 
     };

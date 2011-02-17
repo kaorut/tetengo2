@@ -14,8 +14,7 @@
 #include <type_traits>
 #include <utility>
 
-#include <boost/scoped_ptr.hpp>
-
+#include <tetengo2.cpp0x_keyword.h>
 #include <tetengo2.generator.h>
 #include <tetengo2.text.h>
 
@@ -133,8 +132,9 @@ namespace bobura { namespace message { namespace main_window
                 m_image_directory_path /
                 typename path_type::string_type(TETENGO2_TEXT("kumakuma.jpg"))
             );
-            const boost::scoped_ptr<typename canvas_type::picture_type>
-            p_pic2(reader.read());
+            const typename tetengo2::cpp0x::unique_ptr<
+                typename canvas_type::picture_type
+            >::type p_pic2(reader.read());
             canvas.paint_picture(*p_pic2, position_type(0, 0));
 #endif
 

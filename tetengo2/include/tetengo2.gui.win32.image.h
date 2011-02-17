@@ -14,7 +14,6 @@
 //#include <utility>
 
 //#include <boost/bind.hpp>
-//#include <boost/scoped_ptr.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
@@ -135,7 +134,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // variables
 
-        const boost::scoped_ptr<picture_type> m_p_picture;
+        const typename tetengo2::cpp0x::unique_ptr<picture_type>::type
+        m_p_picture;
 
 
         // functions

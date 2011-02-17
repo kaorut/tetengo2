@@ -9,11 +9,12 @@
 #if !defined(TETENGO2_GUI_DRAWING_PICTUREREADER_H)
 #define TETENGO2_GUI_DRAWING_PICTUREREADER_H
 
-#include <memory>
 #include <stdexcept>
 #include <utility>
 
 #include <boost/noncopyable.hpp>
+
+#include "tetengo2.cpp0x_keyword.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing
@@ -62,16 +63,17 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Reads a picture.
 
-            \return A std::auto_ptr to a picture.
+            \return A tetengo2::cpp0x::unique_ptr::type to a picture.
 
             \throw std::runtime_error When a picture cannot be read.
         */
-        std::auto_ptr<picture_type> read()
+        typename tetengo2::cpp0x::unique_ptr<picture_type>::type read()
         {
-            std::auto_ptr<picture_details_type> p_picture(
-                drawing_details_type::read_picture(m_path).release()
+            typename tetengo2::cpp0x::unique_ptr<picture_details_type>::type
+            p_picture(drawing_details_type::read_picture(m_path));
+            return typename tetengo2::cpp0x::unique_ptr<picture_type>::type(
+                new picture_type(std::move(p_picture))
             );
-            return std::auto_ptr<picture_type>(new picture_type(p_picture));
         }
 
 

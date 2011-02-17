@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_DRAWING_PICTURE_H
 
 #include <cstddef>
-#include <memory>
 #include <utility>
 #include <stdexcept>
 
@@ -68,13 +67,16 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a picture with a detail implementation.
 
-            \param p_details A std::auto_ptr to a detail implementation.
+            \param p_details A tetengo2::cpp0x::unique_ptr::type to a detail
+                   implementation.
 
             \throw std::invalid_argument When p_details is NULL.
         */
-        explicit picture(std::auto_ptr<details_type> p_details)
+        explicit picture(
+            typename tetengo2::cpp0x::unique_ptr<details_type>::type p_details
+        )
         :
-        m_p_details(p_details.release())
+        m_p_details(std::move(p_details))
         {
             if (m_p_details.get() == NULL)
             {

@@ -7,11 +7,12 @@
 */
 
 //#include <cstddef>
-//#include <memory>
 //#include <stdexcept>
+//#include <utility>
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.cpp0x_keyword.h"
 #include "tetengo2.detail.stub.drawing.h"
 
 #include "tetengo2.gui.drawing.picture.h"
@@ -51,18 +52,21 @@ BOOST_AUTO_TEST_SUITE(picture)
         }
         {
             const canvas_type canvas(42);
-            std::auto_ptr<picture_type::details_type> p_details(
+            tetengo2::cpp0x::unique_ptr<picture_type::details_type>::type
+            p_details(
                 tetengo2::detail::stub::drawing::create_picture(
                     dimension_type(123, 456), canvas
-                ).release()
+                )
             );
-            const picture_type picture2(p_details);
+            const picture_type picture2(std::move(p_details));
         }
         {
-            std::auto_ptr<picture_type::details_type> p_details;
+            tetengo2::cpp0x::unique_ptr<picture_type::details_type>::type
+            p_details;
             
             BOOST_CHECK_THROW(
-                const picture_type picture(p_details), std::invalid_argument
+                const picture_type picture(std::move(p_details)),
+                std::invalid_argument
             );
         }
     }
