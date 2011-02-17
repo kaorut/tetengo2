@@ -12,7 +12,6 @@
 #include <cassert>
 //#include <cstddef>
 #include <limits>
-#include <memory>
 #include <string>
 //#include <utility>
 #include <vector>
@@ -20,7 +19,6 @@
 
 #include <boost/optional.hpp>
 #include <boost/scoped_array.hpp>
-#include <boost/scoped_ptr.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
@@ -358,7 +356,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const Gdiplus::InstalledFontCollection font_collection;
-            const boost::scoped_ptr<Gdiplus::Font> p_gdiplus_font(
+            const typename tetengo2::cpp0x::unique_ptr<Gdiplus::Font>::type
+            p_gdiplus_font(
                 create_gdiplus_font<String>(font, font_collection, encoder)
             );
 
@@ -426,7 +425,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const Gdiplus::InstalledFontCollection font_collection;
-            const boost::scoped_ptr<Gdiplus::Font> p_gdiplus_font(
+            const typename tetengo2::cpp0x::unique_ptr<Gdiplus::Font>::type
+            p_gdiplus_font(
                 create_gdiplus_font<String>(font, font_collection, encoder)
             );
             const Gdiplus::SolidBrush brush(
@@ -507,7 +507,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         // static functions
         
         template <typename String, typename Font, typename Encoder>
-        static std::auto_ptr<Gdiplus::Font> create_gdiplus_font(
+        static typename tetengo2::cpp0x::unique_ptr<Gdiplus::Font>::type
+        create_gdiplus_font(
             const Font&                    font,
             const Gdiplus::FontCollection& font_collection,
             const Encoder&                 encoder,
@@ -542,7 +543,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 fallback_level < 2 ?
                 get_font_style(font) :
                 get_font_style(Font::dialog_font());
-            std::auto_ptr<Gdiplus::Font> p_gdiplus_font(
+            typename tetengo2::cpp0x::unique_ptr<Gdiplus::Font>::type
+            p_gdiplus_font(
                 new Gdiplus::Font(
                     &gdiplus_font_family,
                     font_size,
@@ -557,7 +559,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 );
             }
 
-            return p_gdiplus_font;
+            return std::move(p_gdiplus_font);
         }
 
         template <typename Font>
