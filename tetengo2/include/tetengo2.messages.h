@@ -28,7 +28,7 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.cpp0x.h"
 #include "tetengo2.text.h"
 
 

@@ -129,9 +129,6 @@
     <ClInclude Include="include\tetengo2.gui.mouse_observer_set.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.cpp0x_keyword.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.operators.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
@@ -233,6 +230,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.drawing.canvas.h">
       <Filter>headers\tetengo2::gui::drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.cpp0x.h">
+      <Filter>headers\tetengo2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

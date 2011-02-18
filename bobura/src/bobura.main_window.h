@@ -14,7 +14,7 @@
 #include <boost/bind.hpp>
 #include <boost/mpl/at.hpp>
 
-#include <tetengo2.cpp0x_keyword.h>
+#include <tetengo2.cpp0x.h>
 #include <tetengo2.text.h>
 
 #include "bobura.command.type_list.h"

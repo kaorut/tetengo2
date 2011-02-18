@@ -14,7 +14,7 @@
 //#include <utility>
 #include <vector>
 
-#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
 

@@ -14,7 +14,7 @@
 #include <type_traits>
 #include <utility>
 
-#include <tetengo2.cpp0x_keyword.h>
+#include <tetengo2.cpp0x.h>
 #include <tetengo2.generator.h>
 #include <tetengo2.text.h>
 

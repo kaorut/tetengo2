@@ -16,7 +16,7 @@
 
 #include <boost/exception/all.hpp>
 
-#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.cpp0x.h"
 
 
 namespace stub_tetengo2 { namespace gui

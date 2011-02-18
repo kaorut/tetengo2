@@ -20,7 +20,7 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.abstract_popup_menu.h"
 
 

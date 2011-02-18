@@ -11,7 +11,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.gui.drawing.picture.h"
 

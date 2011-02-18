@@ -29,7 +29,7 @@
 #undef min
 #undef max
 
-#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.cpp0x.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32

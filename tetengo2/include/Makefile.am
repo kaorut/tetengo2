@@ -3,7 +3,7 @@
 # $Id$
 
 headers = \
-    tetengo2.cpp0x_keyword.h \
+    tetengo2.cpp0x.h \
     tetengo2.detail.stub.drawing.h \
     tetengo2.detail.stub.encoding.h \
     tetengo2.detail.stub.unit.h \

@@ -10,7 +10,7 @@
 #define STUBTETENGO2_GUI_DIALOG_H
 
 #include "stub_tetengo2.gui.abstract_window.h"
-#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.cpp0x.h"
 
 
 namespace stub_tetengo2 { namespace gui

@@ -14,7 +14,7 @@
 #include "stub_tetengo2.gui.abstract_popup_menu.h"
 #include "stub_tetengo2.gui.menu.h"
 #include "stub_tetengo2.gui.popup_menu.h"
-#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"

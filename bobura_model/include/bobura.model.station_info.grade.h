@@ -11,7 +11,7 @@
 
 #include <boost/noncopyable.hpp>
 
-#include <tetengo2.cpp0x_keyword.h>
+#include <tetengo2.cpp0x.h>
 #include <tetengo2.text.h>
 
 

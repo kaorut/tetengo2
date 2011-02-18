@@ -34,7 +34,7 @@
 #undef min
 #undef max
 
-#include "tetengo2.cpp0x_keyword.h"
+#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.windows.font.h"
 #include "tetengo2.gui.measure.h"
 
