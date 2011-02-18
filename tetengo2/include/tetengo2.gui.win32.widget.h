@@ -14,7 +14,6 @@
 //#include <cstddef>
 #include <exception>
 #include <functional>
-#include <memory>
 #include <stdexcept>
 #include <string>
 #include <unordered_map>
@@ -28,7 +27,6 @@
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
@@ -262,11 +260,12 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a canvas.
 
-            \return The auto pointer to a canvas.
+            \return The tetengo2::cpp0x::unique_ptr::type to a canvas.
         */
-        std::auto_ptr<canvas_type> create_canvas()
+        typename tetengo2::cpp0x::unique_ptr<canvas_type>::type
+        create_canvas()
         {
-            return std::auto_ptr<canvas_type>(
+            return typename tetengo2::cpp0x::unique_ptr<canvas_type>::type(
                 new canvas_type(handle(), false)
             );
         }
@@ -276,12 +275,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The auto pointer to a canvas.
         */
-        std::auto_ptr<const canvas_type> create_canvas()
+        typename tetengo2::cpp0x::unique_ptr<const canvas_type>::type
+        create_canvas()
         const
         {
-            return std::auto_ptr<const canvas_type>(
-                new canvas_type(handle(), false)
-            );
+            return typename tetengo2::cpp0x::unique_ptr<
+                const canvas_type
+            >::type(new canvas_type(handle(), false));
         }
 
         /*!
@@ -558,11 +558,15 @@ namespace tetengo2 { namespace gui { namespace win32
             When p_background points to NULL, the system default background is
             used.
 
-            \param p_background An std::auto_ptr to a background.
+            \param p_background A tetengo2::cpp0x::unique_ptr::type to a
+                                background.
         */
-        void set_background(std::auto_ptr<background_type> p_background)
+        void set_background(
+            typename tetengo2::cpp0x::unique_ptr<background_type>::type
+            p_background
+        )
         {
-            m_p_background.reset(p_background.release());
+            m_p_background = std::move(p_background);
         }
 
         /*!
@@ -1003,7 +1007,8 @@ namespace tetengo2 { namespace gui { namespace win32
 
         bool m_destroyed;
 
-        boost::scoped_ptr<background_type> m_p_background;
+        typename tetengo2::cpp0x::unique_ptr<background_type>::type
+        m_p_background;
 
         paint_observer_set_type m_paint_observer_set;
 

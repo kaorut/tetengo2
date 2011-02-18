@@ -9,7 +9,6 @@
 #if !defined(BOBURA_ABOUTDIALOG_H)
 #define BOBURA_ABOUTDIALOG_H
 
-#include <memory>
 #include <sstream>
 //#include <utility>
 
@@ -21,8 +20,6 @@
 #include <tetengo2.text.h>
 
 #include "bobura.message.type_list.h"
-
-#include <tetengo2.text.h>
 
 
 namespace bobura
@@ -214,10 +211,9 @@ namespace bobura
 
             p_label->set_text(title.str());
             p_label->set_text_color(color_type(255, 0, 0));
-            std::auto_ptr<background_type> p_background(
-                new transparent_background_type()
-            );
-            p_label->set_background(p_background);
+            typename tetengo2::cpp0x::unique_ptr<background_type>::type
+            p_background(new transparent_background_type());
+            p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
         }
@@ -234,10 +230,9 @@ namespace bobura
                     TETENGO2_TEXT("Copyright (C) 2007-2011 kaoru")
                 )
             );
-            std::auto_ptr<background_type> p_background(
-                new transparent_background_type()
-            );
-            p_label->set_background(p_background);
+            typename tetengo2::cpp0x::unique_ptr<background_type>::type
+            p_background(new transparent_background_type());
+            p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
         }
@@ -254,10 +249,9 @@ namespace bobura
                     TETENGO2_TEXT("http://www.tetengo.org/")
                 )
             );
-            std::auto_ptr<background_type> p_background(
-                new transparent_background_type()
-            );
-            p_label->set_background(p_background);
+            typename tetengo2::cpp0x::unique_ptr<background_type>::type
+            p_background(new transparent_background_type());
+            p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
         }

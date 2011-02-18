@@ -10,14 +10,12 @@
 #define STUBTETENGO2_GUI_WIDGET_H
 
 //#include <cstddef>
-#include <memory>
 #include <stdexcept>
 //#include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x_keyword.h"
@@ -146,19 +144,21 @@ namespace stub_tetengo2 { namespace gui
             return m_visible;
         }
 
-        std::auto_ptr<canvas_type> create_canvas()
+        typename tetengo2::cpp0x::unique_ptr<canvas_type>::type
+        create_canvas()
         {
-            return std::auto_ptr<canvas_type>(
+            return typename tetengo2::cpp0x::unique_ptr<canvas_type>::type(
                 new canvas_type(handle(), false)
             );
         }
 
-        std::auto_ptr<const canvas_type> create_canvas()
+        typename tetengo2::cpp0x::unique_ptr<const canvas_type>::type
+        create_canvas()
         const
         {
-            return std::auto_ptr<const canvas_type>(
-                new canvas_type(handle(), false)
-            );
+            return typename tetengo2::cpp0x::unique_ptr<
+                const canvas_type
+            >::type(new canvas_type(handle(), false));
         }
 
         template <typename P>
@@ -237,9 +237,12 @@ namespace stub_tetengo2 { namespace gui
             return m_text;
         }
 
-        void set_background(std::auto_ptr<background_type> p_background)
+        void set_background(
+            typename tetengo2::cpp0x::unique_ptr<background_type>::type
+            p_background
+        )
         {
-            m_p_background.reset(p_background.release());
+            m_p_background = std::move(p_background);
         }
 
         boost::optional<const background_type&> background()
@@ -357,7 +360,8 @@ namespace stub_tetengo2 { namespace gui
 
         string_type m_text;
 
-        boost::scoped_ptr<background_type> m_p_background;
+        typename tetengo2::cpp0x::unique_ptr<background_type>::type
+        m_p_background;
 
 
         // virtual functions
