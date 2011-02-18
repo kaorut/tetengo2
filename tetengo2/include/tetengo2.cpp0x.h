@@ -38,7 +38,7 @@
 
 namespace tetengo2 { namespace cpp0x
 {
-#if TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED
+#if TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED || defined(DOCUMENTATION)
     /*!
         \brief The meta function for unique pointer implementation.
 
