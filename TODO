@@ -13,12 +13,12 @@ Depends on  : 00000083
 Description : Modify tetengo2::gui::win32::* into tetengo2::gui::*,
               tetengo2::detail::windows::* and tetengo2::detail::stub::*.
 ------------------------------------------------------------------------------
-Number      : 00000088
-Added on    : 2011/02/01
-Depends on  : (none)
-Description : Replace std::auto_ptr and boost::scoped_ptr to std::unique_ptr.
-------------------------------------------------------------------------------
 Number      : 00000090
+Added on    : 2011/02/18
+Depends on  : 00000072
+Description : Replace boost::ptr_vector<T> to std::vector<std::unique_ptr<T>>.
+------------------------------------------------------------------------------
+Number      : 00000091
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
