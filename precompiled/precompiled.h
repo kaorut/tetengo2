@@ -25,7 +25,6 @@
 #include <limits>
 #include <locale>
 #include <map>
-#include <memory>
 #include <sstream>
 #include <stack>
 #include <stdexcept>
@@ -48,6 +47,7 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
+#include <boost/interprocess/smart_ptr/unique_ptr.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/transform_iterator.hpp>
@@ -90,7 +90,6 @@
 #include <boost/rational.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/scoped_array.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/signals2.hpp>
 #include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
