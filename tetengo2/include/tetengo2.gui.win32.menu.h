@@ -244,8 +244,7 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Inserts a menu as a child.
 
             \param offset An offset where a menu is inserted.
-            \param p_menu A tetengo2::cpp0x::unique_ptr::type to a menu.
-                          It must not be NULL.
+            \param p_menu A unique pointer to a menu. It must not be NULL.
         */
         void insert(
             const iterator                                   offset,

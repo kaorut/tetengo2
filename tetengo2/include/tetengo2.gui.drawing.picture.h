@@ -67,8 +67,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a picture with a detail implementation.
 
-            \param p_details A tetengo2::cpp0x::unique_ptr::type to a detail
-                   implementation.
+            \param p_details A unique pointer to a detail implementation.
 
             \throw std::invalid_argument When p_details is NULL.
         */

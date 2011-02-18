@@ -63,7 +63,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Reads a picture.
 
-            \return A tetengo2::cpp0x::unique_ptr::type to a picture.
+            \return A unique pointer to a picture.
 
             \throw std::runtime_error When a picture cannot be read.
         */

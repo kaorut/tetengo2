@@ -84,7 +84,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param color A color.
 
-            \return A tetengo2::cpp0x::unique_ptr::type to a solid background.
+            \return A unique pointer to a solid background.
         */
         template <typename Color>
         static tetengo2::cpp0x::unique_ptr<background_details_type>::type
@@ -98,8 +98,7 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Creates a transparent background.
 
-            \return A tetengo2::cpp0x::unique_ptr::type to a transparent
-                    background.
+            \return A unique pointer to a transparent background.
         */
         static tetengo2::cpp0x::unique_ptr<background_details_type>::type
         create_transparent_background()
@@ -118,7 +117,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param dimension A dimension.
             \param canvas    A canvas.
 
-            \return A tetengo2::cpp0x::unique_ptr::type to a picture.
+            \return A unique pointer to a picture.
         */
         template <typename Dimension, typename Canvas>
         static tetengo2::cpp0x::unique_ptr<picture_details_type>::type
@@ -140,7 +139,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param path A path.
 
-            \return A tetengo2::cpp0x::unique_ptr::type to a picture.
+            \return A unique pointer to a picture.
         */
         template <typename Path>
         static tetengo2::cpp0x::unique_ptr<picture_details_type>::type
@@ -177,7 +176,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param device_context A device context handle.
 
-            \return A tetengo2::cpp0x::unique_ptr::type to a canvas.
+            \return A unique pointer to a canvas.
         */
         template <typename DeviceContext>
         static tetengo2::cpp0x::unique_ptr<canvas_details_type>::type

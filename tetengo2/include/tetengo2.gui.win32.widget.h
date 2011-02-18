@@ -260,7 +260,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a canvas.
 
-            \return The tetengo2::cpp0x::unique_ptr::type to a canvas.
+            \return The unique pointer to a canvas.
         */
         typename tetengo2::cpp0x::unique_ptr<canvas_type>::type
         create_canvas()
@@ -558,8 +558,7 @@ namespace tetengo2 { namespace gui { namespace win32
             When p_background points to NULL, the system default background is
             used.
 
-            \param p_background A tetengo2::cpp0x::unique_ptr::type to a
-                                background.
+            \param p_background A unique pointer to a background.
         */
         void set_background(
             typename tetengo2::cpp0x::unique_ptr<background_type>::type
