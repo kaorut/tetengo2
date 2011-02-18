@@ -67,11 +67,12 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \throw std::runtime_error When a picture cannot be read.
         */
-        typename tetengo2::cpp0x::unique_ptr<picture_type>::type read()
+        typename cpp0x::unique_ptr<picture_type>::type read()
         {
-            typename tetengo2::cpp0x::unique_ptr<picture_details_type>::type
-            p_picture(drawing_details_type::read_picture(m_path));
-            return typename tetengo2::cpp0x::unique_ptr<picture_type>::type(
+            typename cpp0x::unique_ptr<picture_details_type>::type p_picture(
+                drawing_details_type::read_picture(m_path)
+            );
+            return typename cpp0x::unique_ptr<picture_type>::type(
                 new picture_type(std::move(p_picture))
             );
         }

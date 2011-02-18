@@ -87,10 +87,10 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to a solid background.
         */
         template <typename Color>
-        static tetengo2::cpp0x::unique_ptr<background_details_type>::type
+        static cpp0x::unique_ptr<background_details_type>::type
         create_solid_background(const Color& color)
         {
-            return tetengo2::cpp0x::unique_ptr<background_details_type>::type(
+            return cpp0x::unique_ptr<background_details_type>::type(
                 new background_details_type()
             );
         }
@@ -100,12 +100,10 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return A unique pointer to a transparent background.
         */
-        static tetengo2::cpp0x::unique_ptr<background_details_type>::type
+        static cpp0x::unique_ptr<background_details_type>::type
         create_transparent_background()
         {
-            return tetengo2::cpp0x::unique_ptr<
-                background_details_type
-            >::type();
+            return cpp0x::unique_ptr<background_details_type>::type();
         }
 
         /*!
@@ -120,14 +118,14 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to a picture.
         */
         template <typename Dimension, typename Canvas>
-        static tetengo2::cpp0x::unique_ptr<picture_details_type>::type
+        static cpp0x::unique_ptr<picture_details_type>::type
         create_picture(const Dimension& dimension, const Canvas& canvas)
         {
             const std::size_t width =
                 gui::dimension<Dimension>::width(dimension);
             const std::size_t height =
                 gui::dimension<Dimension>::height(dimension);
-            return tetengo2::cpp0x::unique_ptr<picture_details_type>::type(
+            return cpp0x::unique_ptr<picture_details_type>::type(
                 new picture_details_type(width, height)
             );
         }
@@ -142,10 +140,10 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to a picture.
         */
         template <typename Path>
-        static tetengo2::cpp0x::unique_ptr<picture_details_type>::type
+        static cpp0x::unique_ptr<picture_details_type>::type
         read_picture(const Path& path)
         {
-            return tetengo2::cpp0x::unique_ptr<picture_details_type>::type(
+            return cpp0x::unique_ptr<picture_details_type>::type(
                 new picture_details_type(0, 0)
             );
         }
@@ -179,10 +177,10 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to a canvas.
         */
         template <typename DeviceContext>
-        static tetengo2::cpp0x::unique_ptr<canvas_details_type>::type
+        static cpp0x::unique_ptr<canvas_details_type>::type
         create_canvas(const DeviceContext device_context)
         {
-            return tetengo2::cpp0x::unique_ptr<canvas_details_type>::type(
+            return cpp0x::unique_ptr<canvas_details_type>::type(
                 new canvas_details_type()
             );
         }

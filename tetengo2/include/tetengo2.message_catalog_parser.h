@@ -102,8 +102,9 @@ namespace tetengo2
             if (!has_next())
                 BOOST_THROW_EXCEPTION(std::runtime_error("No next entry."));
 
-            const typename tetengo2::cpp0x::unique_ptr<entry_type>::type
-            p_entry(std::move(m_p_preread_entry));
+            const typename cpp0x::unique_ptr<entry_type>::type p_entry(
+                std::move(m_p_preread_entry)
+            );
             m_p_preread_entry.reset();
             return *p_entry;
         }
@@ -140,7 +141,7 @@ namespace tetengo2
 
         mutable input_stream_type& m_input_stream;
 
-        mutable typename tetengo2::cpp0x::unique_ptr<entry_type>::type
+        mutable typename cpp0x::unique_ptr<entry_type>::type
         m_p_preread_entry;
 
 
@@ -153,8 +154,8 @@ namespace tetengo2
 
             while (m_input_stream.good())
             {
-                typename tetengo2::cpp0x::unique_ptr<entry_type>::type
-                p_entry = parse(get_line());
+                typename cpp0x::unique_ptr<entry_type>::type p_entry =
+                    parse(get_line());
                 if (p_entry.get() != NULL)
                 {
                     m_p_preread_entry = std::move(p_entry);
@@ -240,7 +241,7 @@ namespace tetengo2
             );
         }
 
-        typename tetengo2::cpp0x::unique_ptr<entry_type>::type parse(
+        typename cpp0x::unique_ptr<entry_type>::type parse(
             const input_string_type& line
         )
         const
@@ -260,12 +261,9 @@ namespace tetengo2
             );
 
             if (tokens.size() < 2)
-            {
-                return
-                    typename tetengo2::cpp0x::unique_ptr<entry_type>::type();
-            }
+                return typename cpp0x::unique_ptr<entry_type>::type();
 
-            return typename tetengo2::cpp0x::unique_ptr<entry_type>::type(
+            return typename cpp0x::unique_ptr<entry_type>::type(
                 new entry_type(
                     encoder().decode(tokens[0]), encoder().decode(tokens[1])
                 )

@@ -134,8 +134,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // variables
 
-        const typename tetengo2::cpp0x::unique_ptr<picture_type>::type
-        m_p_picture;
+        const typename cpp0x::unique_ptr<picture_type>::type m_p_picture;
 
 
         // functions

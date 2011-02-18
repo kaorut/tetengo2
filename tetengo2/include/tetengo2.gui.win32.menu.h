@@ -247,8 +247,8 @@ namespace tetengo2 { namespace gui { namespace win32
             \param p_menu A unique pointer to a menu. It must not be NULL.
         */
         void insert(
-            const iterator                                   offset,
-            typename tetengo2::cpp0x::unique_ptr<menu>::type p_menu
+            const iterator                         offset,
+            typename cpp0x::unique_ptr<menu>::type p_menu
         )
         {
             insert_impl(offset, std::move(p_menu));
@@ -402,8 +402,8 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         virtual void insert_impl(
-            const iterator                                   offset,
-            typename tetengo2::cpp0x::unique_ptr<menu>::type p_menu
+            const iterator                         offset,
+            typename cpp0x::unique_ptr<menu>::type p_menu
         )
         {
             assert(false);

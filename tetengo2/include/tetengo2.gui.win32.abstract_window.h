@@ -125,12 +125,10 @@ namespace tetengo2 { namespace gui { namespace win32
             When p_main_menu is NULL, the currently associated main menu is
             destroyed.
 
-            \param p_main_menu A tetengo::cpp0x::unique_ptr::type to a main
-                               menu.
+            \param p_main_menu A unique pointer to a main menu.
         */
         void set_main_menu(
-            typename tetengo2::cpp0x::unique_ptr<main_menu_type>::type
-            p_main_menu
+            typename cpp0x::unique_ptr<main_menu_type>::type p_main_menu
         )
         {
             if (::SetMenu(handle(), NULL) == 0)
@@ -241,8 +239,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // variables
 
-        typename tetengo2::cpp0x::unique_ptr<main_menu_type>::type
-        m_p_main_menu;
+        typename cpp0x::unique_ptr<main_menu_type>::type m_p_main_menu;
 
         window_observer_set_type m_window_observer_set;
 

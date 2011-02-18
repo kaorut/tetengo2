@@ -63,8 +63,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // variables
 
-        const typename tetengo2::cpp0x::unique_ptr<details_type>::type
-        m_p_details;
+        const typename cpp0x::unique_ptr<details_type>::type m_p_details;
 
 
         // virtual functions

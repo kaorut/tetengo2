@@ -144,8 +144,8 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         virtual void insert_impl(
-            const iterator                                        offset,
-            typename tetengo2::cpp0x::unique_ptr<base_type>::type p_menu
+            const iterator                              offset,
+            typename cpp0x::unique_ptr<base_type>::type p_menu
         )
         {
             if (p_menu.get() == NULL)

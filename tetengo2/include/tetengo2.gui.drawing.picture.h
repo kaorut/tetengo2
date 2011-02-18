@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \throw std::invalid_argument When p_details is NULL.
         */
         explicit picture(
-            typename tetengo2::cpp0x::unique_ptr<details_type>::type p_details
+            typename cpp0x::unique_ptr<details_type>::type p_details
         )
         :
         m_p_details(std::move(p_details))
@@ -128,8 +128,7 @@ namespace tetengo2 { namespace gui { namespace drawing
     private:
         // variables
 
-        const typename tetengo2::cpp0x::unique_ptr<details_type>::type
-        m_p_details;
+        const typename cpp0x::unique_ptr<details_type>::type m_p_details;
 
 
     };
