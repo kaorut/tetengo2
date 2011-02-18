@@ -9,25 +9,26 @@
 #if !defined(TETENGO2_CPP0X_H)
 #define TETENGO2_CPP0X_H
 
-#if \
-    defined(DOCUMENTATION) || \
-    (defined(_MSC_VER) && _MSC_VER >= 1600) || \
-    ( \
-        defined(__GNUC__) && defined(__GNUC_MINOR__) && \
-        __GNUC__ >= 4 && __GNUC_MINOR__ >= 4 \
-    )
-#   define TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED 1
-#else
-#   define TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED 0
+#if !defined(DOCUMENTATION)
+#   if \
+        (defined(_MSC_VER) && _MSC_VER >= 1600) || \
+        ( \
+            defined(__GNUC__) && defined(__GNUC_MINOR__) && \
+            __GNUC__ >= 4 && __GNUC_MINOR__ >= 4 \
+        )
+#       define TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED 1
+#   else
+#       define TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED 0
+#   endif
 #endif
 
 #if TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED
-#include <memory>
+#   include <memory>
 #endif
 
 #if !TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED
-#include <boost/interprocess/smart_ptr/unique_ptr.hpp>
-#include <boost/utility.hpp>
+#   include <boost/interprocess/smart_ptr/unique_ptr.hpp>
+#   include <boost/utility.hpp>
 #endif
 
 
