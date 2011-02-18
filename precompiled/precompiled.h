@@ -25,6 +25,7 @@
 #include <limits>
 #include <locale>
 #include <map>
+#include <memory>
 #include <sstream>
 #include <stack>
 #include <stdexcept>
@@ -89,7 +90,6 @@
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/rational.hpp>
 #include <boost/scope_exit.hpp>
-#include <boost/scoped_array.hpp>
 #include <boost/signals2.hpp>
 #include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>

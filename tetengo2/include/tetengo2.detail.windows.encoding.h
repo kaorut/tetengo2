@@ -12,8 +12,7 @@
 #include <cassert>
 #include <cstddef>
 #include <string>
-
-#include <boost/scoped_array.hpp>
+#include <vector>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
@@ -65,9 +64,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     NULL,
                     NULL
                 );
-            const boost::scoped_array<char> p_string(
-                new char[string_length + 1]
-            );
+            std::vector<char> string(string_length + 1, '\0');
 
             const int converted_length =
                 ::WideCharToMultiByte(
@@ -75,16 +72,15 @@ namespace tetengo2 { namespace detail { namespace windows
                     flags,
                     pivot.c_str(),
                     static_cast<int>(pivot.length()),
-                    p_string.get(),
+                    string.data(),
                     string_length,
                     NULL,
                     NULL
                 );
             assert(converted_length == string_length);
-            p_string[string_length] = '\0';
 
             return utf8_string_type(
-                p_string.get(), p_string.get() + string_length
+                string.begin(), string.begin() + string_length
             );
         }
 
@@ -106,9 +102,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     NULL,
                     0
                 );
-            const boost::scoped_array<wchar_t> p_pivot(
-                new wchar_t[pivot_length + 1]
-            );
+            std::vector<wchar_t> pivot(pivot_length + 1, L'\0');
 
             const int converted_length =
                 ::MultiByteToWideChar(
@@ -116,13 +110,12 @@ namespace tetengo2 { namespace detail { namespace windows
                     MB_ERR_INVALID_CHARS,
                     string.c_str(),
                     static_cast<int>(string.length()),
-                    p_pivot.get(),
+                    pivot.data(),
                     pivot_length
                 );
             assert(converted_length == pivot_length);
-            p_pivot[pivot_length] = L'\0';
 
-            return pivot_type(p_pivot.get(), p_pivot.get() + pivot_length);
+            return pivot_type(pivot.begin(), pivot.begin() + pivot_length);
         }
 
 

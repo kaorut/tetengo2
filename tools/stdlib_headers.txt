@@ -225,7 +225,6 @@ boost::ptr_vector                                boost/ptr_container/ptr_vector.
 boost::rational                                  boost/rational.hpp
 boost::rational_cast                             boost/rational.hpp
 boost::replace_all                               boost/algorithm/string.hpp
-boost::scoped_array                              boost/scoped_array.hpp
 boost::signals2::signal                          boost/signals2.hpp
 boost::swap                                      boost/swap.hpp
 boost::throw_file                                boost/exception/all.hpp
@@ -239,6 +238,7 @@ std::basic_ostringstream                         sstream
 std::basic_string                                string
 std::codecvt                                     locale
 std::copy                                        algorithm
+std::default_delete                              memory
 std::distance                                    iterator
 std::enable_if                                   type_traits
 std::endl                                        iomanip
@@ -283,6 +283,7 @@ std::string                                      string
 std::transform                                   algorithm
 std::tuple                                       tuple
 std::unary_function                              functional
+std::unique_ptr                                  memory
 std::unordered_map                               unordered_map
 std::use_facet                                   locale
 std::vector                                      vector

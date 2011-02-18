@@ -26,7 +26,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
-#include <boost/scoped_array.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
@@ -542,12 +541,12 @@ namespace tetengo2 { namespace gui { namespace win32
             const int length = ::GetWindowTextLengthW(handle());
             if (length == 0) return string_type();
 
-            const boost::scoped_array<wchar_t> p_text(
-                new wchar_t[length + 1]
-            );
-            ::GetWindowTextW(handle(), p_text.get(), length + 1);
+            std::vector<wchar_t> text(length + 1, L'\0');
+            ::GetWindowTextW(handle(), text.data(), length + 1);
 
-            return encoder().decode(p_text.get());
+            return encoder().decode(
+                std::wstring(text.begin(), text.begin() + length)
+            );
         }
 
         /*!

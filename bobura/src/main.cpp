@@ -20,7 +20,6 @@
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 //#include <boost/program_options.hpp>
-//#include <boost/scoped_array.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
@@ -54,10 +53,10 @@ namespace
             );
         }
 
-        boost::scoped_array<char> p_info(new char[length]);
-        ::GetLocaleInfoA(id, type, p_info.get(), length);
+        std::vector<char> info(length, '\0');
+        ::GetLocaleInfoA(id, type, info.data(), length);
 
-        return std::string(p_info.get());
+        return std::string(info.data());
     }
 
     std::string ui_locale_name()

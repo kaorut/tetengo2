@@ -17,8 +17,8 @@
 #include <vector>
 //#include <stdexcept>
 
+#include <boost/foreach.hpp>
 #include <boost/optional.hpp>
-#include <boost/scoped_array.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
@@ -290,14 +290,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const ::INT count = font_collection.GetFamilyCount();
-            const boost::scoped_array<Gdiplus::FontFamily> p_families(
-                new Gdiplus::FontFamily[count]
+            std::vector<Gdiplus::FontFamily> gdiplus_families(
+                count, Gdiplus::FontFamily()
             );
             ::INT actual_count = 0;
 
             const Gdiplus::Status status =
                 font_collection.GetFamilies(
-                    count, p_families.get(), &actual_count
+                    count, gdiplus_families.data(), &actual_count
                 );
             if (status != Gdiplus::Ok)
             {
@@ -312,7 +312,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 wchar_t family_name[LF_FACESIZE];
                 const Gdiplus::Status family_name_status =
-                    p_families[i].GetFamilyName(family_name);
+                    gdiplus_families[i].GetFamilyName(family_name);
                 if (family_name_status != Gdiplus::Ok)
                 {
                     BOOST_THROW_EXCEPTION(
