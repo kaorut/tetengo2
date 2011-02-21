@@ -29,6 +29,7 @@
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog.h>
 #include <tetengo2.message_catalog_parser.h>
+#include <tetengo2.detail.windows.alert.h>
 #include <tetengo2.detail.windows.encoding.h>
 #include <tetengo2.detail.windows.gdiplus.drawing.h>
 #include <tetengo2.detail.windows.unit.h>
@@ -327,13 +328,15 @@ namespace bobura
                 drawing_details_type
             >
             canvas_type;
+        typedef tetengo2::detail::windows::alert alert_details_type;
         typedef
             tetengo2::gui::win32::alert<
                 ::HWND,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 boost::mpl::at<
                     locale_type_list, type::exception_encoder
-                >::type
+                >::type,
+                alert_details_type
             >
             alert_type;
         typedef

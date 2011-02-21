@@ -38,11 +38,13 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam WidgetHandle     A widget handle type.
         \tparam UiEncoder        An encoder type for the user interface.
         \tparam ExceptionEncoder An encoder type for the user interface.
+        \tparam AlertDetails     A detail implementation type of an alert.
     */
     template <
         typename WidgetHandle,
         typename UiEncoder,
-        typename ExceptionEncoder
+        typename ExceptionEncoder,
+        typename AlertDetails
     >
     class alert :
         public std::unary_function<std::exception, void>
@@ -58,6 +60,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The encoder type for exceptions.
         typedef ExceptionEncoder exception_encoder_type;
+
+        //! The detail implemetation type of an alert.
+        typedef AlertDetails alert_details_type;
 
 
         // constructors

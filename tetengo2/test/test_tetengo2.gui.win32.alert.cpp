@@ -15,6 +15,7 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
+#include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
@@ -40,8 +41,12 @@ namespace
         tetengo2::encoder<internal_encoding_type, encoding_type>
         encoder_type;
 
+    typedef tetengo2::detail::stub::alert alert_details_type;
+
     typedef
-        tetengo2::gui::win32::alert< ::HWND, encoder_type, encoder_type>
+        tetengo2::gui::win32::alert<
+            ::HWND, encoder_type, encoder_type, alert_details_type
+        >
         alert_type;
 
 
