@@ -145,9 +145,6 @@
     <ClCompile Include="test\test_tetengo2.gui.win32.abstract_window.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.win32.alert.cpp">
-      <Filter>sources\test_tetengo2::gui</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.button.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
@@ -255,6 +252,9 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.drawing.canvas.cpp">
       <Filter>sources\test_tetengo2::gui::drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.alert.cpp">
+      <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

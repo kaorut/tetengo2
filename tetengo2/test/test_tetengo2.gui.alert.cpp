@@ -16,7 +16,7 @@
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
 
-#include "tetengo2.gui.win32.alert.h"
+#include "tetengo2.gui.alert.h"
 
 
 namespace

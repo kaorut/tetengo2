@@ -18,6 +18,7 @@ headers = \
     tetengo2.encoding.ascii.h \
     tetengo2.encoding.locale.h \
     tetengo2.encoding.utf8.h \
+    tetengo2.gui.alert.h \
     tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.canvas.h \
     tetengo2.gui.drawing.color.h \
@@ -56,7 +57,6 @@ extra_headers = \
     tetengo2.detail.windows.windows_version.h \
     tetengo2.gui.win32.abstract_popup_menu.h \
     tetengo2.gui.win32.abstract_window.h \
-    tetengo2.gui.win32.alert.h \
     tetengo2.gui.win32.button.h \
     tetengo2.gui.win32.control.h \
     tetengo2.gui.win32.dialog.h \

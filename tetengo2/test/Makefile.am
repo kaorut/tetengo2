@@ -36,6 +36,7 @@ sources = \
     test_tetengo2.encoding.ascii.cpp \
     test_tetengo2.encoding.locale.cpp \
     test_tetengo2.encoding.utf8.cpp \
+    test_tetengo2.gui.alert.cpp \
     test_tetengo2.gui.drawing.background.cpp \
     test_tetengo2.gui.drawing.canvas.cpp \
     test_tetengo2.gui.drawing.color.cpp \
@@ -59,7 +60,6 @@ sources = \
 extra_sources = \
     test_tetengo2.gui.win32.abstract_popup_menu.cpp \
     test_tetengo2.gui.win32.abstract_window.cpp \
-    test_tetengo2.gui.win32.alert.cpp \
     test_tetengo2.gui.win32.button.cpp \
     test_tetengo2.gui.win32.control.cpp \
     test_tetengo2.gui.win32.dialog.cpp \

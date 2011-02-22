@@ -72,9 +72,6 @@
     <ClInclude Include="include\tetengo2.gui.win32.abstract_window.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.alert.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.button.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -239,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.alert.h">
       <Filter>headers\tetengo2::detail::windows</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.alert.h">
+      <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

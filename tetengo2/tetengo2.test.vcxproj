@@ -251,6 +251,7 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.encoding.locale.cpp" />
     <ClCompile Include="test\test_tetengo2.encoding.utf8.cpp" />
     <ClCompile Include="test\test_tetengo2.generator.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.alert.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.color.cpp" />
@@ -269,7 +270,6 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.abstract_popup_menu.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.abstract_window.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.win32.alert.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.button.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.control.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog.cpp" />

@@ -35,6 +35,7 @@
 #include <tetengo2.detail.windows.unit.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.utf8.h>
+#include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
@@ -57,7 +58,6 @@
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.win32.abstract_popup_menu.h>
 #include <tetengo2.gui.win32.abstract_window.h>
-#include <tetengo2.gui.win32.alert.h>
 #include <tetengo2.gui.win32.button.h>
 #include <tetengo2.gui.win32.dialog.h>
 #include <tetengo2.gui.win32.dialog_message_loop.h>
