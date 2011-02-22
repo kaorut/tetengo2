@@ -50,11 +50,10 @@
 ::HICON                                          Windows.h
 ::HINSTANCE                                      Windows.h
 ::HMENU                                          Windows.h
-::HRESULT                                        Windows.h
 ::HWND                                           Windows.h
-::INITCOMMONCONTROLSEX                           CommCtrl.h
+::INITCOMMONCONTROLSEX                           Windows.h,CommCtrl.h
 ::INT                                            Windows.h
-::InitCommonControlsEx                           CommCtrl.h
+::InitCommonControlsEx                           Windows.h,CommCtrl.h
 ::InsertMenuItem                                 Windows.h
 ::IsDialogMessageW                               Windows.h
 ::IsMenu                                         Windows.h
@@ -82,7 +81,6 @@
 ::NONCLIENTMETRICSW                              Windows.h
 ::OSVERSIONINFOEXW                               Windows.h
 ::PAINTSTRUCT                                    Windows.h
-::PCWSTR                                         Windows.h
 ::PostMessageW                                   Windows.h
 ::PostQuitMessage                                Windows.h
 ::RECT                                           Windows.h
@@ -100,7 +98,7 @@
 ::SetWindowTextW                                 Windows.h
 ::ShowWindow                                     Windows.h
 ::SystemParametersInfoW                          Windows.h
-::TASKDIALOG_COMMON_BUTTON_FLAGS                 CommCtrl.h
+::TaskDialog                                     Windows.h,CommCtrl.h
 ::TranslateMessage                               Windows.h
 ::UINT                                           Windows.h
 ::ULONG_PTR                                      Windows.h

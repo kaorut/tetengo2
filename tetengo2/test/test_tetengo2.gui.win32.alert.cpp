@@ -11,10 +11,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
-
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
@@ -41,11 +37,13 @@ namespace
         tetengo2::encoder<internal_encoding_type, encoding_type>
         encoder_type;
 
-    typedef tetengo2::detail::stub::alert alert_details_type;
+    typedef
+        tetengo2::detail::stub::alert<std::wstring, encoder_type>
+        alert_details_type;
 
     typedef
         tetengo2::gui::win32::alert<
-            ::HWND, encoder_type, encoder_type, alert_details_type
+            const void*, encoder_type, encoder_type, alert_details_type
         >
         alert_type;
 
@@ -63,9 +61,9 @@ BOOST_AUTO_TEST_SUITE(alert)
     {
         BOOST_TEST_PASSPOINT();
 
-        alert_type(NULL);
-
-        alert_type(reinterpret_cast< ::HWND>(0x123456));
+        {
+            alert_type alert(NULL);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren_boost_exception)
