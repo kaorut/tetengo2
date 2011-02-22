@@ -3,7 +3,7 @@
 # $Id$
 
 #### General ####
-AC_PREREQ([2.61])
+AC_PREREQ([2.67])
 AC_INIT([bobura], [0.0.0], [kaorut@mc.pikara.ne.jp])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([bobura_config.h-original])
@@ -55,7 +55,7 @@ test -z $DOXYGEN && \
     AC_MSG_WARN([You cannot generate documentation for lack of Doxygen.])
 
 #### Checks for libraries ####
-AX_BOOST_BASE([1.45])
+AX_BOOST_BASE([1.46])
 AX_BOOST_FILESYSTEM
 AX_BOOST_PROGRAM_OPTIONS
 AX_BOOST_SYSTEM
