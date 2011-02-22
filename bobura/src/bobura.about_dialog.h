@@ -10,10 +10,13 @@
 #define BOBURA_ABOUTDIALOG_H
 
 #include <sstream>
+#include <stdexcept>
+#include <string>
 //#include <utility>
 
 #include <boost/format.hpp>
 #include <boost/mpl/at.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp0x.h>
 #include <tetengo2.gui.measure.h>
@@ -141,7 +144,7 @@ namespace bobura
             void operator()()
             const
             {
-                throw std::runtime_error(m_message);
+                BOOST_THROW_EXCEPTION(std::runtime_error(m_message));
             }
 
 
