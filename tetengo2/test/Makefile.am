@@ -5,7 +5,6 @@
 headers = \
     stub_tetengo2.gui.abstract_popup_menu.h \
     stub_tetengo2.gui.abstract_window.h \
-    stub_tetengo2.gui.alert.h \
     stub_tetengo2.gui.button.h \
     stub_tetengo2.gui.control.h \
     stub_tetengo2.gui.dialog.h \

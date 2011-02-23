@@ -217,7 +217,6 @@ echo Skipping the unit test...
     <ClInclude Include="..\precompiled\precompiled.h" />
     <ClInclude Include="test\stub_tetengo2.gui.abstract_popup_menu.h" />
     <ClInclude Include="test\stub_tetengo2.gui.abstract_window.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.alert.h" />
     <ClInclude Include="test\stub_tetengo2.gui.button.h" />
     <ClInclude Include="test\stub_tetengo2.gui.control.h" />
     <ClInclude Include="test\stub_tetengo2.gui.dialog.h" />

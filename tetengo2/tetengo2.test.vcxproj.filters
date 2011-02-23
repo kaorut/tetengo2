@@ -42,9 +42,6 @@
     <ClInclude Include="test\stub_tetengo2.gui.abstract_window.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.alert.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.button.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
