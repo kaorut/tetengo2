@@ -42,9 +42,7 @@ namespace
         alert_details_type;
 
     typedef
-        tetengo2::gui::alert<
-            const void*, encoder_type, encoder_type, alert_details_type
-        >
+        tetengo2::gui::alert<encoder_type, encoder_type, alert_details_type>
         alert_type;
 
 

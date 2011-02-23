@@ -104,10 +104,7 @@ typedef
 
 typedef
     tetengo2::gui::alert<
-        const void*,
-        ui_encoder_type,
-        exception_encoder_type,
-        alert_details_type
+        ui_encoder_type, exception_encoder_type, alert_details_type
     >
     alert_type;
 

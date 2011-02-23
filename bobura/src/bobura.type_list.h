@@ -336,7 +336,6 @@ namespace bobura
             alert_details_type;
         typedef
             tetengo2::gui::alert<
-                ::HWND,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 boost::mpl::at<
                     locale_type_list, type::exception_encoder

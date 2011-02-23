@@ -26,13 +26,11 @@ namespace tetengo2 { namespace gui
         \brief The unary functor class template for an alert for Win32
                platforms.
 
-        \tparam WidgetHandle     A widget handle type.
         \tparam UiEncoder        An encoder type for the user interface.
         \tparam ExceptionEncoder An encoder type for the user interface.
         \tparam AlertDetails     A detail implementation type of an alert.
     */
     template <
-        typename WidgetHandle,
         typename UiEncoder,
         typename ExceptionEncoder,
         typename AlertDetails
@@ -43,9 +41,6 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        //! The widget handle type.
-        typedef WidgetHandle widget_handle_type;
-
         //! The encoder type for the user interface.
         typedef UiEncoder ui_encoder_type;
 
@@ -54,6 +49,11 @@ namespace tetengo2 { namespace gui
 
         //! The detail implemetation type of an alert.
         typedef AlertDetails alert_details_type;
+
+        //! The widget handle type.
+        typedef
+            typename alert_details_type::widget_handle_type
+            widget_handle_type;
 
 
         // constructors
