@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_ALERT_H)
-#define TETENGO2_GUI_WIN32_ALERT_H
+#if !defined(TETENGO2_GUI_ALERT_H)
+#define TETENGO2_GUI_ALERT_H
 
 #include <cstddef>
 #include <exception>
