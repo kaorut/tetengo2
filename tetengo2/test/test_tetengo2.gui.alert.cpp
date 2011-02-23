@@ -31,19 +31,32 @@ namespace
 
     typedef
         tetengo2::encoding::locale<std::wstring, encoding_details_type>
-        encoding_type;
+        ui_encoding_type;
 
     typedef
-        tetengo2::encoder<internal_encoding_type, encoding_type>
-        encoder_type;
+        tetengo2::encoder<internal_encoding_type, ui_encoding_type>
+        ui_encoder_type;
 
     typedef
-        tetengo2::detail::stub::alert<std::wstring, encoder_type>
+        tetengo2::encoding::locale<std::string, encoding_details_type>
+        exception_encoding_type;
+
+    typedef
+        tetengo2::encoder<internal_encoding_type, exception_encoding_type>
+        exception_encoder_type;
+
+    typedef
+        tetengo2::detail::stub::alert<std::wstring, ui_encoder_type>
         alert_details_type;
 
     typedef
-        tetengo2::gui::alert<encoder_type, encoder_type, alert_details_type>
+        tetengo2::gui::alert<
+            ui_encoder_type, exception_encoder_type, alert_details_type
+        >
         alert_type;
+
+    struct boost_exception : public boost::exception
+    {};
 
 
 }
@@ -59,18 +72,28 @@ BOOST_AUTO_TEST_SUITE(alert)
         BOOST_TEST_PASSPOINT();
 
         {
-            alert_type alert(NULL);
+            const alert_type alert(NULL);
         }
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren_boost_exception)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const alert_type alert(NULL);
+
+        const boost_exception exception;
+        alert(exception);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren_std_exception)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const alert_type alert(NULL);
+
+        const std::runtime_error exception("Tetengo2");
+        alert(exception);
     }
 
 

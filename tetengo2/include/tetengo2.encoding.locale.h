@@ -177,6 +177,14 @@ namespace tetengo2 { namespace encoding
         )
         const
         {
+            return from_pivot_impl_impl(pivot);
+        }
+
+        string_type from_pivot_impl_impl(
+            const typename base_type::pivot_type& pivot
+        )
+        const
+        {
             if (!std::has_facet<converter_type>(m_locale))
                 return string_type(pivot.begin(), pivot.end());
 
@@ -311,6 +319,14 @@ namespace tetengo2 { namespace encoding
                     Str, typename base_type::pivot_type
                 >::value
             >::type* const = NULL
+        )
+        const
+        {
+            return to_pivot_impl_impl(string);
+        }
+
+        typename base_type::pivot_type to_pivot_impl_impl(
+            const string_type& string
         )
         const
         {

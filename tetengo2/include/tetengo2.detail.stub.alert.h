@@ -66,12 +66,13 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static void show_task_dialog(
             const widget_handle_type widget_handle,
-            const string_type&  text1,
-            const string_type&  text2,
-            const string_type&  source_file_name,
-            const int           source_file_line,
-            const string_type&  source_function,
-            const encoder_type& encoder
+            const string_type&       caption,
+            const string_type&       text1,
+            const string_type&       text2,
+            const string_type&       source_file_name,
+            const int                source_file_line,
+            const string_type&       source_function,
+            const encoder_type&      encoder
         )
         {}
 
