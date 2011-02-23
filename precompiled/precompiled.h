@@ -39,8 +39,6 @@
 
 // Boost library headers
 
-#define BOOST_FILESYSTEM_VERSION 3
-
 #include <boost/algorithm/string.hpp>
 #include <boost/bind.hpp>
 #include <boost/exception/all.hpp>

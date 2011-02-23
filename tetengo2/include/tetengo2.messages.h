@@ -21,7 +21,6 @@
 #include <vector>
 
 #include <boost/bind.hpp>
-#define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/noncopyable.hpp>

@@ -16,7 +16,6 @@
 //#include <vector>
 
 //#include <boost/exception/all.hpp>
-//#define BOOST_FILESYSTEM_VERSION 3
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 //#include <boost/program_options.hpp>
