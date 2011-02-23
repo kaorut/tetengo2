@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::alert.
+    \brief The definition of tetengo2::gui::alert.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -20,7 +20,7 @@
 #include "tetengo2.text.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
         \brief The unary functor class template for an alert for Win32
@@ -201,6 +201,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
+
 
 #endif
