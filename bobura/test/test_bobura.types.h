@@ -18,7 +18,6 @@
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 
-#include <stub_tetengo2.gui.alert.h>
 #include <stub_tetengo2.gui.button.h>
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.gui_initializer_finalizer.h>
@@ -32,10 +31,12 @@
 #include <stub_tetengo2.gui.popup_menu.h>
 #include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.window.h>
+#include <tetengo2.detail.stub.alert.h>
 #include <tetengo2.detail.stub.drawing.h>
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.detail.stub.unit.h>
 #include <tetengo2.encoding.utf8.h>
+#include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
@@ -98,8 +99,15 @@ typedef
 typedef bobura::settings<std::wstring, boost::filesystem::path> settings_type;
 
 typedef
-    stub_tetengo2::gui::alert<
-        const void*, ui_encoder_type, exception_encoder_type
+    tetengo2::detail::stub::alert<std::string, ui_encoder_type>
+    alert_details_type;
+
+typedef
+    tetengo2::gui::alert<
+        const void*,
+        ui_encoder_type,
+        exception_encoder_type,
+        alert_details_type
     >
     alert_type;
 
