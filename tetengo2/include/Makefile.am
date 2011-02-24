@@ -29,6 +29,7 @@ headers = \
     tetengo2.gui.drawing.solid_background.h \
     tetengo2.gui.drawing.transparent_background.h \
     tetengo2.gui.drawing.widget_canvas.h \
+    tetengo2.gui.fixture.h \
     tetengo2.gui.measure.h \
     tetengo2.gui.menu_observer_set.h \
     tetengo2.gui.mouse_observer_set.h \
@@ -64,7 +65,6 @@ extra_headers = \
     tetengo2.gui.win32.control.h \
     tetengo2.gui.win32.dialog.h \
     tetengo2.gui.win32.dialog_message_loop.h \
-    tetengo2.gui.win32.gui_initializer_finalizer.h \
     tetengo2.gui.win32.image.h \
     tetengo2.gui.win32.label.h \
     tetengo2.gui.win32.main_menu.h \

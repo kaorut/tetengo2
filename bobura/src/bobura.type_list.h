@@ -45,6 +45,7 @@
 #include <tetengo2.gui.drawing.picture_reader.h>
 #include <tetengo2.gui.drawing.transparent_background.h>
 #include <tetengo2.gui.drawing.widget_canvas.h>
+#include <tetengo2.gui.fixture.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
@@ -63,7 +64,6 @@
 #include <tetengo2.gui.win32.button.h>
 #include <tetengo2.gui.win32.dialog.h>
 #include <tetengo2.gui.win32.dialog_message_loop.h>
-#include <tetengo2.gui.win32.gui_initializer_finalizer.h>
 #include <tetengo2.gui.win32.image.h>
 #include <tetengo2.gui.win32.label.h>
 #include <tetengo2.gui.win32.main_menu.h>

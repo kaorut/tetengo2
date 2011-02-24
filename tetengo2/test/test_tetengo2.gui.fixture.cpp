@@ -8,7 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.win32.gui_initializer_finalizer.h"
+#include "tetengo2.gui.fixture.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

@@ -260,6 +260,7 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.gui.drawing.solid_background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.transparent_background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.widget_canvas.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.fixture.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.measure.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.mouse_observer_set.cpp" />
@@ -273,7 +274,6 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.gui.win32.control.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog_message_loop.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.win32.gui_initializer_finalizer.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.image.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.label.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.main_menu.cpp" />

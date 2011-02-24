@@ -81,9 +81,6 @@
     <ClInclude Include="include\tetengo2.gui.win32.dialog_message_loop.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.gui_initializer_finalizer.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.main_menu.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -248,6 +245,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.gdiplus.gui_fixture.h">
       <Filter>headers\tetengo2::detail::windows::gdiplus</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.fixture.h">
+      <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

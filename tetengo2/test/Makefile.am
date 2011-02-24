@@ -45,6 +45,7 @@ sources = \
     test_tetengo2.gui.drawing.solid_background.cpp \
     test_tetengo2.gui.drawing.transparent_background.cpp \
     test_tetengo2.gui.drawing.widget_canvas.cpp \
+    test_tetengo2.gui.fixture.cpp \
     test_tetengo2.gui.measure.cpp \
     test_tetengo2.gui.menu_observer_set.cpp \
     test_tetengo2.gui.mouse_observer_set.cpp \
@@ -63,7 +64,6 @@ extra_sources = \
     test_tetengo2.gui.win32.control.cpp \
     test_tetengo2.gui.win32.dialog.cpp \
     test_tetengo2.gui.win32.dialog_message_loop.cpp \
-    test_tetengo2.gui.win32.gui_initializer_finalizer.cpp \
     test_tetengo2.gui.win32.image.cpp \
     test_tetengo2.gui.win32.label.cpp \
     test_tetengo2.gui.win32.main_menu.cpp \
