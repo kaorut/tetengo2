@@ -12,6 +12,7 @@
 //#include <cstddef>
 #include <istream>
 //#include <string>
+#include <tuple>
 //#include <utility>
 
 //#include <boost/filesystem.hpp>
@@ -31,6 +32,8 @@
 #include <tetengo2.detail.windows.alert.h>
 #include <tetengo2.detail.windows.encoding.h>
 #include <tetengo2.detail.windows.gdiplus.drawing.h>
+#include <tetengo2.detail.windows.gdiplus.gui_fixture.h>
+#include <tetengo2.detail.windows.gui_fixture.h>
 #include <tetengo2.detail.windows.unit.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.utf8.h>
@@ -262,6 +265,17 @@ namespace bobura
     namespace detail { namespace ui
     {
         typedef
+            std::tuple<
+                tetengo2::detail::windows::gui_fixture,
+                tetengo2::detail::windows::gdiplus::gui_fixture
+            >
+            gui_fixture_details_tuple_type;
+        typedef
+            tetengo2::gui::win32::gui_initializer_finalizer<
+               gui_fixture_details_tuple_type
+            >
+            gui_initializer_finalizer_type;
+        typedef
             tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
         typedef tetengo2::detail::windows::unit unit_details_type;
         typedef
@@ -423,7 +437,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::gui_initializer_finalizer,
-                tetengo2::gui::win32::gui_initializer_finalizer
+                detail::ui::gui_initializer_finalizer_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
