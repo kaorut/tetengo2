@@ -38,13 +38,6 @@ namespace tetengo2 { namespace detail { namespace windows
             setup_common_controls();
         }
 
-        /*!
-            \brief Destroys the detail implementation of a GUI fixture.
-        */
-        ~gui_fixture()
-        TETENGO2_CPP0X_NOEXCEPT
-        {}
-
 
     private:
         // static functions
