@@ -9,6 +9,9 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GDIPLUS_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_GUIFIXTURE_H
 
+#include <cstddef>
+#include <stdexcept>
+
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 

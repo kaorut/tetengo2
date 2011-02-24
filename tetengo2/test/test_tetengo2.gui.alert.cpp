@@ -7,8 +7,10 @@
 */
 
 //#include <cstddef>
+//#include <stdexcept>
 //#include <string>
 
+//#include <boost/exception/all.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.alert.h"
