@@ -240,8 +240,7 @@ namespace bobura
 
     namespace type
     {
-        struct gui_initializer_finalizer; //!< The GUI initializer and
-                                          //!< finalizer type.
+        struct gui_fixture;    //!< The GUI fixture type.
         struct message_loop;   //!< The message loop type.
         struct quit_message_loop; //!< The quit-message-loop type.
         struct position;       //!< The position type.
@@ -271,10 +270,10 @@ namespace bobura
             >
             gui_fixture_details_tuple_type;
         typedef
-            tetengo2::gui::win32::gui_initializer_finalizer<
+            tetengo2::gui::fixture<
                gui_fixture_details_tuple_type
             >
-            gui_initializer_finalizer_type;
+            gui_fixture_type;
         typedef
             tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
         typedef tetengo2::detail::windows::unit unit_details_type;
@@ -435,10 +434,7 @@ namespace bobura
     //! The type list for the user interface.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::gui_initializer_finalizer,
-                detail::ui::gui_initializer_finalizer_type
-            >,
+            boost::mpl::pair<type::gui_fixture, detail::ui::gui_fixture_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::message_loop, tetengo2::gui::win32::message_loop
@@ -616,9 +612,7 @@ namespace bobura
                     boost::mpl::at<
                         ui_type_list, type::quit_message_loop
                     >::type,
-                    boost::mpl::at<
-                        ui_type_list, type::gui_initializer_finalizer
-                    >::type
+                    boost::mpl::at<ui_type_list, type::gui_fixture>::type
                 >
             >,
         tetengo2::meta::assoc_list_end

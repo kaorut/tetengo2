@@ -1,17 +1,18 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::gui_initializer_finalizer.
+    \brief The definition of tetengo2::gui::fixture.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_GUIINITIALIZERFINALIZER_H)
-#define TETENGO2_GUI_GUIINITIALIZERFINALIZER_H
+#if !defined(TETENGO2_GUI_FIXTURE_H)
+#define TETENGO2_GUI_FIXTURE_H
 
 #include <boost/noncopyable.hpp>
 
-namespace tetengo2 { namespace gui { namespace win32
+
+namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a GUI fixture.
@@ -20,7 +21,7 @@ namespace tetengo2 { namespace gui { namespace win32
                                     fixture.
     */
     template <typename FixtureDetailsTuple>
-    class gui_initializer_finalizer : private boost::noncopyable
+    class fixture : private boost::noncopyable
     {
     public:
         // types
@@ -34,7 +35,7 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Creates a GUI fixture.
         */
-        gui_initializer_finalizer()
+        fixture()
         :
         m_fixture_details_tuple()
         {}
@@ -49,6 +50,6 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
 
 #endif

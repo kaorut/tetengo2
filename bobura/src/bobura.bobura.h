@@ -17,12 +17,12 @@ namespace bobura
    /*!
         \brief The class template for a bobura application.
 
-        \tparam Settings                A settings type.
-        \tparam MessageCatalog          A message catalog type.
-        \tparam MainWindow              A main window type.
-        \tparam MessageLoop             A message loop type.
-        \tparam QuitMessageLoop         A quit-message-loop type.
-        \tparam GuiInitializerFinalizer A GUI initializer and finalizer type.
+        \tparam Settings        A settings type.
+        \tparam MessageCatalog  A message catalog type.
+        \tparam MainWindow      A main window type.
+        \tparam MessageLoop     A message loop type.
+        \tparam QuitMessageLoop A quit-message-loop type.
+        \tparam GuiFixture      A GUI fixture type.
     */
     template <
         typename Settings,
@@ -30,7 +30,7 @@ namespace bobura
         typename MainWindow,
         typename MessageLoop,
         typename QuitMessageLoop,
-        typename GuiInitializerFinalizer
+        typename GuiFixture
     >
     class bobura : private boost::noncopyable
     {
@@ -52,8 +52,8 @@ namespace bobura
         //! The quit-message-loop type.
         typedef QuitMessageLoop quit_message_loop_type;
 
-        //! The GUI initializer and finalizer type.
-        typedef GuiInitializerFinalizer gui_initializer_finalizer_type;
+        //! The GUI fixture type.
+        typedef GuiFixture gui_fixture_type;
 
 
         // constructors and destructor
@@ -65,7 +65,7 @@ namespace bobura
         */
         explicit bobura(const settings_type& settings)
         :
-        m_gui_initializer_finalizer(),
+        m_gui_fixture(),
         m_settings(settings)
         {}
 
@@ -92,7 +92,7 @@ namespace bobura
     private:
         // variables
 
-        const gui_initializer_finalizer_type m_gui_initializer_finalizer;
+        const gui_fixture_type m_gui_fixture;
 
         const settings_type& m_settings;
 
