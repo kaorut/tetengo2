@@ -12,6 +12,7 @@
 //#include <cstddef>
 #include <istream>
 //#include <string>
+#include <tuple>
 //#include <utility>
 
 //#include <boost/filesystem.hpp>
@@ -19,7 +20,6 @@
 
 #include <stub_tetengo2.gui.button.h>
 #include <stub_tetengo2.gui.dialog.h>
-#include <stub_tetengo2.gui.gui_initializer_finalizer.h>
 #include <stub_tetengo2.gui.image.h>
 #include <stub_tetengo2.gui.label.h>
 #include <stub_tetengo2.gui.main_menu.h>
@@ -33,6 +33,7 @@
 #include <tetengo2.detail.stub.alert.h>
 #include <tetengo2.detail.stub.drawing.h>
 #include <tetengo2.detail.stub.encoding.h>
+#include <tetengo2.detail.stub.gui_fixture.h>
 #include <tetengo2.detail.stub.unit.h>
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.alert.h>
@@ -43,6 +44,7 @@
 #include <tetengo2.gui.drawing.picture_reader.h>
 #include <tetengo2.gui.drawing.transparent_background.h>
 #include <tetengo2.gui.drawing.widget_canvas.h>
+#include <tetengo2.gui.fixture.h>
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
@@ -328,13 +330,17 @@ typedef
     main_window_type;
 
 typedef
+    tetengo2::gui::fixture<std::tuple<tetengo2::detail::stub::gui_fixture>>
+    gui_fixture_type;
+
+typedef
     bobura::bobura<
         settings_type,
         message_catalog_type,
         main_window_type,
         message_loop_type,
         quit_message_loop_type,
-        stub_tetengo2::gui::gui_initializer_finalizer
+        gui_fixture_type
     >
     bobura_type;
 
