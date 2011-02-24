@@ -6,9 +6,27 @@
     $Id$
 */
 
+#include <tuple>
+
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.gui_fixture.h"
+
 #include "tetengo2.gui.fixture.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        tetengo2::gui::fixture<
+            std::tuple<tetengo2::detail::stub::gui_fixture>
+        >
+        fixture_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -18,7 +36,9 @@ BOOST_AUTO_TEST_SUITE(fixture)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const fixture_type fixture;
     }
 
 
