@@ -17,17 +17,16 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for a GUI fixture.
 
-        \tparam FixtureDetailsTuple A detail implementation tuple type of a
-                                    fixture.
+        \tparam FixtureDetails A detail implementation type of a fixture.
     */
-    template <typename FixtureDetailsTuple>
+    template <typename FixtureDetails>
     class fixture : private boost::noncopyable
     {
     public:
         // types
 
-        //! The detail implementation tuple type of a fixture.
-        typedef FixtureDetailsTuple fixture_details_tuple_type;
+        //! The detail implementation type of a fixture.
+        typedef FixtureDetails fixture_details_type;
 
 
         // constructors and destructor
@@ -37,14 +36,14 @@ namespace tetengo2 { namespace gui
         */
         fixture()
         :
-        m_fixture_details_tuple()
+        m_fixture_details()
         {}
 
 
     private:
         // variables
 
-        const fixture_details_tuple_type m_fixture_details_tuple;
+        const fixture_details_type m_fixture_details;
 
 
     };

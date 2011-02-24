@@ -12,7 +12,6 @@
 //#include <cstddef>
 #include <istream>
 //#include <string>
-#include <tuple>
 //#include <utility>
 
 //#include <boost/filesystem.hpp>
@@ -330,17 +329,13 @@ typedef
     main_window_type;
 
 typedef
-    tetengo2::gui::fixture<std::tuple<tetengo2::detail::stub::gui_fixture>>
-    gui_fixture_type;
-
-typedef
     bobura::bobura<
         settings_type,
         message_catalog_type,
         main_window_type,
         message_loop_type,
         quit_message_loop_type,
-        gui_fixture_type
+        tetengo2::gui::fixture<tetengo2::detail::stub::gui_fixture>
     >
     bobura_type;
 

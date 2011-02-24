@@ -6,8 +6,6 @@
     $Id$
 */
 
-#include <tuple>
-
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.gui_fixture.h"
@@ -20,9 +18,7 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::fixture<
-            std::tuple<tetengo2::detail::stub::gui_fixture>
-        >
+        tetengo2::gui::fixture<tetengo2::detail::stub::gui_fixture>
         fixture_type;
 
 
