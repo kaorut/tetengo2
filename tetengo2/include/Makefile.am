@@ -8,6 +8,7 @@ headers = \
     tetengo2.detail.stub.drawing.h \
     tetengo2.detail.stub.encoding.h \
     tetengo2.detail.stub.gui_fixture.h \
+    tetengo2.detail.stub.message_loop.h \
     tetengo2.detail.stub.unit.h \
     tetengo2.encoder.h \
     tetengo2.generator.h \
@@ -57,6 +58,7 @@ extra_headers = \
     tetengo2.detail.windows.gdiplus.drawing.h \
     tetengo2.detail.windows.gdiplus.gui_fixture.h \
     tetengo2.detail.windows.gui_fixture.h \
+    tetengo2.detail.windows.message_loop.h \
     tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.windows_version.h \
     tetengo2.gui.win32.abstract_popup_menu.h \
