@@ -20,6 +20,34 @@ namespace tetengo2 { namespace detail { namespace stub
     public:
         // static functions
 
+        /*!
+            \brief Run the message loop.
+
+            \return The exit code.
+        */
+        static int loop()
+        {
+            return 0;
+        }
+
+        /*!
+            \brief Run the message loop for a dialog box.
+
+            \return The exit code.
+        */
+        static int dialog_loop()
+        {
+            return 0;
+        }
+
+        /*!
+            \brief Breaks the message loop.
+
+            \param exit_code An exit code.
+        */
+        static void break_loop(const int exit_code)
+        {}
+
 
     private:
         // forbidden operations
