@@ -34,6 +34,7 @@
 #include <tetengo2.detail.windows.gdiplus.drawing.h>
 #include <tetengo2.detail.windows.gdiplus.gui_fixture.h>
 #include <tetengo2.detail.windows.gui_fixture.h>
+#include <tetengo2.detail.windows.message_loop.h>
 #include <tetengo2.detail.windows.unit.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.utf8.h>
@@ -401,9 +402,16 @@ namespace bobura
             window_traits_type;
         typedef tetengo2::gui::win32::window<window_traits_type> window_type;
         typedef
+            tetengo2::detail::windows::message_loop message_loop_details_type;
+        typedef
+            tetengo2::gui::win32::dialog_message_loop<
+                message_loop_details_type
+            >
+            dialog_message_loop_type;
+        typedef
             tetengo2::gui::traits::dialog_traits<
                 abstract_window_traits_type,
-                tetengo2::gui::win32::dialog_message_loop,
+                dialog_message_loop_type,
                 quit_message_loop_type
             >
             dialog_traits_type;

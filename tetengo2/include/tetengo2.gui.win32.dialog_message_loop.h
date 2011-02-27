@@ -25,12 +25,21 @@
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The generator class for a message loop for dialogs for Win32
-               platforms.
+        \brief The class template for a message loop for dialogs.
+
+        \tparam MessageLoopDetails The detail implementationf of a message
+                                   loop.
     */
+    template <typename MessageLoopDetails>
     class dialog_message_loop : public tetengo2::generator<int>
     {
     public:
+        // types
+
+        //! The detail implementation of a message loop.
+        typedef MessageLoopDetails message_loop_details_type;
+
+
         // functions
 
         /*!
