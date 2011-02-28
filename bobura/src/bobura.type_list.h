@@ -281,7 +281,8 @@ namespace bobura
             tetengo2::gui::win32::message_loop<message_loop_details_type>
             message_loop_type;
         typedef
-            tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
+            tetengo2::gui::win32::quit_message_loop<message_loop_details_type>
+            quit_message_loop_type;
         typedef tetengo2::detail::windows::unit unit_details_type;
         typedef
             tetengo2::gui::unit::em<

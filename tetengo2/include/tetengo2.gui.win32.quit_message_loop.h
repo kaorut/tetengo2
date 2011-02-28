@@ -11,30 +11,36 @@
 
 #include <functional>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
-
 
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The unary functor class for a message loop for Win32 platforms.
+        \brief The class template for a message loop.
+
+        \tparam MessageLoopDetails The detail implementationf of a message
+                                   loop.
     */
+    template <typename MessageLoopDetails>
     class quit_message_loop : public std::unary_function<int, void>
     {
     public:
+        // types
+
+        //! The detail implementation of a message loop.
+        typedef MessageLoopDetails message_loop_details_type;
+
+
         // functions
 
         /*!
             \brief Quits the message loop.
 
-            \param exit_code An exit code.
+            \param exit_code An exit status code.
         */
         void operator()(const int exit_code)
         const
         {
-            ::PostQuitMessage(exit_code);
+            message_loop_details_type::break_loop(exit_code);
         }
 
 
