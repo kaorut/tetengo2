@@ -35,6 +35,7 @@ sources = \
     test_tetengo2.encoding.locale.cpp \
     test_tetengo2.encoding.utf8.cpp \
     test_tetengo2.gui.alert.cpp \
+    test_tetengo2.gui.dialog_message_loop.cpp \
     test_tetengo2.gui.drawing.background.cpp \
     test_tetengo2.gui.drawing.canvas.cpp \
     test_tetengo2.gui.drawing.color.cpp \
@@ -47,6 +48,8 @@ sources = \
     test_tetengo2.gui.fixture.cpp \
     test_tetengo2.gui.measure.cpp \
     test_tetengo2.gui.menu_observer_set.cpp \
+    test_tetengo2.gui.message_loop.cpp \
+    test_tetengo2.gui.message_loop_break.cpp \
     test_tetengo2.gui.mouse_observer_set.cpp \
     test_tetengo2.gui.paint_observer_set.cpp \
     test_tetengo2.gui.recursive_menu_iterator.cpp \
@@ -62,16 +65,13 @@ extra_sources = \
     test_tetengo2.gui.win32.button.cpp \
     test_tetengo2.gui.win32.control.cpp \
     test_tetengo2.gui.win32.dialog.cpp \
-    test_tetengo2.gui.win32.dialog_message_loop.cpp \
     test_tetengo2.gui.win32.image.cpp \
     test_tetengo2.gui.win32.label.cpp \
     test_tetengo2.gui.win32.main_menu.cpp \
     test_tetengo2.gui.win32.menu.cpp \
     test_tetengo2.gui.win32.menu_command.cpp \
     test_tetengo2.gui.win32.menu_separator.cpp \
-    test_tetengo2.gui.win32.message_loop.cpp \
     test_tetengo2.gui.win32.popup_menu.cpp \
-    test_tetengo2.gui.win32.quit_message_loop.cpp \
     test_tetengo2.gui.win32.widget.cpp \
     test_tetengo2.gui.win32.window.cpp
 

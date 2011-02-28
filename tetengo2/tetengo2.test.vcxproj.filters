@@ -145,9 +145,6 @@
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.win32.dialog_message_loop.cpp">
-      <Filter>sources\test_tetengo2::gui</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.main_menu.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
@@ -160,13 +157,7 @@
     <ClCompile Include="test\test_tetengo2.gui.win32.menu_separator.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.win32.message_loop.cpp">
-      <Filter>sources\test_tetengo2::gui</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.popup_menu.cpp">
-      <Filter>sources\test_tetengo2::gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.win32.quit_message_loop.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.win32.widget.cpp">
@@ -248,6 +239,15 @@
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.fixture.cpp">
+      <Filter>sources\test_tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.message_loop.cpp">
+      <Filter>sources\test_tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.message_loop_break.cpp">
+      <Filter>sources\test_tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.dialog_message_loop.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
   </ItemGroup>

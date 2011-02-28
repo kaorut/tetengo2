@@ -29,7 +29,7 @@ namespace bobura
         \tparam Window                    A window type.
         \tparam MessageCatalog            A message catalog type.
         \tparam Settings                  A settings type.
-        \tparam QuitMessageLoop           A quit-message-loop type.
+        \tparam MessageLoopBreak          A message loop break type.
         \tparam MenuCommand               A menu command type.
         \tparam PopupMenu                 A popup menu type.
         \tparam MenuSeparator             A menu separator type.
@@ -40,7 +40,7 @@ namespace bobura
         typename Window,
         typename MessageCatalog,
         typename Settings,
-        typename QuitMessageLoop,
+        typename MessageLoopBreak,
         typename MenuCommand,
         typename PopupMenu,
         typename MenuSeparator,
@@ -61,8 +61,8 @@ namespace bobura
         //! The settings type.
         typedef Settings settings_type;
 
-        //! The quit-message-loop type.
-        typedef QuitMessageLoop quit_message_loop_type;
+        //! The message loop break type.
+        typedef MessageLoopBreak message_loop_break_type;
 
         //! The menu command type.
         typedef MenuCommand menu_command_type;
@@ -182,7 +182,7 @@ namespace bobura
         void set_message_observers()
         {
             this->window_observer_set().destroyed().connect(
-                boost::bind(quit_message_loop_type(), 0)
+                boost::bind(message_loop_break_type(), 0)
             );
 
             this->paint_observer_set().paint().connect(

@@ -28,8 +28,8 @@ namespace stub_tetengo2 { namespace gui
         typedef typename traits_type::message_loop_type message_loop_type;
 
         typedef
-            typename traits_type::quit_message_loop_type
-            quit_message_loop_type;
+            typename traits_type::message_loop_break_type
+            message_loop_break_type;
 
         enum result_type
         {

@@ -49,10 +49,10 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The message loop type.
         typedef typename traits_type::message_loop_type message_loop_type;
 
-        //! The quit-message-loop type.
+        //! The message loop break type.
         typedef
-            typename traits_type::quit_message_loop_type
-            quit_message_loop_type;
+            typename traits_type::message_loop_break_type
+            message_loop_break_type;
 
         //! The result type.
         enum result_type
@@ -129,7 +129,7 @@ namespace tetengo2 { namespace gui { namespace win32
             } BOOST_SCOPE_EXIT_END;
 
             window_observer_set().destroyed().connect(
-                boost::bind(quit_message_loop_type(), 0)
+                boost::bind(message_loop_break_type(), 0)
             );
             set_visible(true);
 

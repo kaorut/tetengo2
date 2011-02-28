@@ -39,6 +39,7 @@
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.alert.h>
+#include <tetengo2.gui.dialog_message_loop.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
@@ -48,6 +49,8 @@
 #include <tetengo2.gui.drawing.widget_canvas.h>
 #include <tetengo2.gui.fixture.h>
 #include <tetengo2.gui.menu_observer_set.h>
+#include <tetengo2.gui.message_loop.h>
+#include <tetengo2.gui.message_loop_break.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.traits.abstract_window_traits.h>
@@ -64,16 +67,13 @@
 #include <tetengo2.gui.win32.abstract_window.h>
 #include <tetengo2.gui.win32.button.h>
 #include <tetengo2.gui.win32.dialog.h>
-#include <tetengo2.gui.win32.dialog_message_loop.h>
 #include <tetengo2.gui.win32.image.h>
 #include <tetengo2.gui.win32.label.h>
 #include <tetengo2.gui.win32.main_menu.h>
 #include <tetengo2.gui.win32.menu.h>
 #include <tetengo2.gui.win32.menu_command.h>
 #include <tetengo2.gui.win32.menu_separator.h>
-#include <tetengo2.gui.win32.message_loop.h>
 #include <tetengo2.gui.win32.popup_menu.h>
-#include <tetengo2.gui.win32.quit_message_loop.h>
 #include <tetengo2.gui.win32.widget.h>
 #include <tetengo2.gui.win32.window.h>
 #include <tetengo2.gui.window_observer_set.h>
@@ -243,7 +243,7 @@ namespace bobura
     {
         struct gui_fixture;    //!< The GUI fixture type.
         struct message_loop;   //!< The message loop type.
-        struct quit_message_loop; //!< The quit-message-loop type.
+        struct message_loop_break; //!< The message loop break type.
         struct position;       //!< The position type.
         struct dimension;      //!< The dimension type.
         struct picture;        //!< The picture type.
@@ -278,11 +278,11 @@ namespace bobura
         typedef
             tetengo2::detail::windows::message_loop message_loop_details_type;
         typedef
-            tetengo2::gui::win32::message_loop<message_loop_details_type>
+            tetengo2::gui::message_loop<message_loop_details_type>
             message_loop_type;
         typedef
-            tetengo2::gui::win32::quit_message_loop<message_loop_details_type>
-            quit_message_loop_type;
+            tetengo2::gui::message_loop_break<message_loop_details_type>
+            message_loop_break_type;
         typedef tetengo2::detail::windows::unit unit_details_type;
         typedef
             tetengo2::gui::unit::em<
@@ -408,15 +408,13 @@ namespace bobura
             window_traits_type;
         typedef tetengo2::gui::win32::window<window_traits_type> window_type;
         typedef
-            tetengo2::gui::win32::dialog_message_loop<
-                message_loop_details_type
-            >
+            tetengo2::gui::dialog_message_loop<message_loop_details_type>
             dialog_message_loop_type;
         typedef
             tetengo2::gui::traits::dialog_traits<
                 abstract_window_traits_type,
                 dialog_message_loop_type,
-                quit_message_loop_type
+                message_loop_break_type
             >
             dialog_traits_type;
         typedef tetengo2::gui::win32::dialog<dialog_traits_type> dialog_type;
@@ -453,7 +451,7 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::quit_message_loop, detail::ui::quit_message_loop_type
+                type::message_loop_break, detail::ui::message_loop_break_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::position, detail::ui::position_type>,
@@ -586,7 +584,7 @@ namespace bobura
                     >::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<
-                        ui_type_list, type::quit_message_loop
+                        ui_type_list, type::message_loop_break
                     >::type,
                     boost::mpl::at<ui_type_list, type::menu_command>::type,
                     boost::mpl::at<ui_type_list, type::popup_menu>::type,
@@ -622,7 +620,7 @@ namespace bobura
                     >::type,
                     boost::mpl::at<ui_type_list, type::message_loop>::type,
                     boost::mpl::at<
-                        ui_type_list, type::quit_message_loop
+                        ui_type_list, type::message_loop_break
                     >::type,
                     boost::mpl::at<ui_type_list, type::gui_fixture>::type
                 >

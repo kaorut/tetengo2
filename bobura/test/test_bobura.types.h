@@ -238,13 +238,13 @@ typedef tetengo2::message_catalog<messages_type> message_catalog_type;
 
 typedef stub_tetengo2::gui::message_loop message_loop_type;
 
-typedef stub_tetengo2::gui::quit_message_loop quit_message_loop_type;
+typedef stub_tetengo2::gui::quit_message_loop message_loop_break_type;
 
 typedef
     tetengo2::gui::traits::dialog_traits<
         abstract_window_traits_type,
         message_loop_type,
-        quit_message_loop_type
+        message_loop_break_type
     >
     dialog_traits_type;
 
@@ -319,7 +319,7 @@ typedef
         window_type,
         message_catalog_type,
         settings_type,
-        quit_message_loop_type,
+        message_loop_break_type,
         menu_command_type,
         popup_menu_type,
         menu_separator_type,
@@ -334,7 +334,7 @@ typedef
         message_catalog_type,
         main_window_type,
         message_loop_type,
-        quit_message_loop_type,
+        message_loop_break_type,
         tetengo2::gui::fixture<tetengo2::detail::stub::gui_fixture>
     >
     bobura_type;

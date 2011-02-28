@@ -1,27 +1,27 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::quit_message_loop.
+    \brief The definition of tetengo2::gui::message_loop_break.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_QUITMESSAGELOOP_H)
-#define TETENGO2_GUI_WIN32_QUITMESSAGELOOP_H
+#if !defined(TETENGO2_GUI_MESSAGELOOPBREAK_H)
+#define TETENGO2_GUI_MESSAGELOOPBREAK_H
 
 #include <functional>
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for a message loop.
+        \brief The class template for a message loop break.
 
         \tparam MessageLoopDetails The detail implementationf of a message
                                    loop.
     */
     template <typename MessageLoopDetails>
-    class quit_message_loop : public std::unary_function<int, void>
+    class message_loop_break : public std::unary_function<int, void>
     {
     public:
         // types
@@ -47,6 +47,6 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
 
 #endif

@@ -78,9 +78,6 @@
     <ClInclude Include="include\tetengo2.gui.win32.dialog.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.dialog_message_loop.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.main_menu.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -93,13 +90,7 @@
     <ClInclude Include="include\tetengo2.gui.win32.menu_separator.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.message_loop.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.popup_menu.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.quit_message_loop.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.widget.h">
@@ -254,6 +245,15 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_loop.h">
       <Filter>headers\tetengo2::detail::windows</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message_loop_break.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.dialog_message_loop.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message_loop.h">
+      <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

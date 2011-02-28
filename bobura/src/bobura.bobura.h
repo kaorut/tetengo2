@@ -21,7 +21,7 @@ namespace bobura
         \tparam MessageCatalog  A message catalog type.
         \tparam MainWindow      A main window type.
         \tparam MessageLoop     A message loop type.
-        \tparam QuitMessageLoop A quit-message-loop type.
+        \tparam MessageLoopBreak A message loop break type.
         \tparam GuiFixture      A GUI fixture type.
     */
     template <
@@ -29,7 +29,7 @@ namespace bobura
         typename MessageCatalog,
         typename MainWindow,
         typename MessageLoop,
-        typename QuitMessageLoop,
+        typename MessageLoopBreak,
         typename GuiFixture
     >
     class bobura : private boost::noncopyable
@@ -49,8 +49,8 @@ namespace bobura
         //! The message loop type.
         typedef MessageLoop message_loop_type;
         
-        //! The quit-message-loop type.
-        typedef QuitMessageLoop quit_message_loop_type;
+        //! The message loop break type.
+        typedef MessageLoopBreak message_loop_break_type;
 
         //! The GUI fixture type.
         typedef GuiFixture gui_fixture_type;

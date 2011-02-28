@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::message_loop.
+    \brief The definition of tetengo2::gui::message_loop.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_MESSAGELOOP_H)
-#define TETENGO2_GUI_WIN32_MESSAGELOOP_H
+#if !defined(TETENGO2_GUI_MESSAGELOOP_H)
+#define TETENGO2_GUI_MESSAGELOOP_H
 
 #include <cstddef>
 #include <sstream>
@@ -18,7 +18,7 @@
 #include "tetengo2.generator.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a message loop.
@@ -53,6 +53,6 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
 
 #endif

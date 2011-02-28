@@ -250,6 +250,7 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.encoding.utf8.cpp" />
     <ClCompile Include="test\test_tetengo2.generator.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.alert.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.dialog_message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.color.cpp" />
@@ -262,6 +263,8 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.gui.fixture.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.measure.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu_observer_set.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message_loop.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message_loop_break.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.mouse_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.paint_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.recursive_menu_iterator.cpp" />
@@ -272,16 +275,13 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.gui.win32.button.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.control.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.dialog.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.win32.dialog_message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.image.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.label.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.main_menu.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.menu.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.menu_command.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.menu_separator.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.win32.message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.popup_menu.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.win32.quit_message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.widget.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.win32.window.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.window_observer_set.cpp" />
