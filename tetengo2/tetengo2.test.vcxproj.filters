@@ -60,13 +60,7 @@
     <ClInclude Include="test\stub_tetengo2.gui.menu_separator.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.message_loop.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.popup_menu.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.quit_message_loop.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.widget.h">

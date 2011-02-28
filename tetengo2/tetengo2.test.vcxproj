@@ -226,9 +226,7 @@ echo Skipping the unit test...
     <ClInclude Include="test\stub_tetengo2.gui.menu.h" />
     <ClInclude Include="test\stub_tetengo2.gui.menu_command.h" />
     <ClInclude Include="test\stub_tetengo2.gui.menu_separator.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.message_loop.h" />
     <ClInclude Include="test\stub_tetengo2.gui.popup_menu.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.quit_message_loop.h" />
     <ClInclude Include="test\stub_tetengo2.gui.widget.h" />
     <ClInclude Include="test\stub_tetengo2.gui.window.h" />
   </ItemGroup>

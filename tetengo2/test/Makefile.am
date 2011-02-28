@@ -14,9 +14,7 @@ headers = \
     stub_tetengo2.gui.menu.h \
     stub_tetengo2.gui.menu_command.h \
     stub_tetengo2.gui.menu_separator.h \
-    stub_tetengo2.gui.message_loop.h \
     stub_tetengo2.gui.popup_menu.h \
-    stub_tetengo2.gui.quit_message_loop.h \
     stub_tetengo2.gui.widget.h \
     stub_tetengo2.gui.window.h
 

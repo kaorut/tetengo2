@@ -25,17 +25,19 @@
 #include <stub_tetengo2.gui.menu.h>
 #include <stub_tetengo2.gui.menu_command.h>
 #include <stub_tetengo2.gui.menu_separator.h>
-#include <stub_tetengo2.gui.message_loop.h>
 #include <stub_tetengo2.gui.popup_menu.h>
-#include <stub_tetengo2.gui.quit_message_loop.h>
 #include <stub_tetengo2.gui.window.h>
 #include <tetengo2.detail.stub.alert.h>
 #include <tetengo2.detail.stub.drawing.h>
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.detail.stub.gui_fixture.h>
+#include <tetengo2.detail.stub.message_loop.h>
 #include <tetengo2.detail.stub.unit.h>
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.alert.h>
+#include <tetengo2.gui.dialog_message_loop.h>
+#include <tetengo2.gui.message_loop.h>
+#include <tetengo2.gui.message_loop_break.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
@@ -236,14 +238,20 @@ typedef
 
 typedef tetengo2::message_catalog<messages_type> message_catalog_type;
 
-typedef stub_tetengo2::gui::message_loop message_loop_type;
+typedef tetengo2::detail::stub::message_loop message_loop_details_type;
 
-typedef stub_tetengo2::gui::quit_message_loop message_loop_break_type;
+typedef
+    tetengo2::gui::dialog_message_loop<message_loop_details_type>
+    dialog_message_loop_type;
+
+typedef
+    tetengo2::gui::message_loop_break<message_loop_details_type>
+    message_loop_break_type;
 
 typedef
     tetengo2::gui::traits::dialog_traits<
         abstract_window_traits_type,
-        message_loop_type,
+        dialog_message_loop_type,
         message_loop_break_type
     >
     dialog_traits_type;
@@ -327,6 +335,9 @@ typedef
         main_window_message_type_list_type
     >
     main_window_type;
+
+typedef
+    tetengo2::gui::message_loop<message_loop_details_type> message_loop_type;
 
 typedef
     bobura::bobura<
