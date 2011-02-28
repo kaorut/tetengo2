@@ -276,6 +276,11 @@ namespace bobura
             >
             gui_fixture_type;
         typedef
+            tetengo2::detail::windows::message_loop message_loop_details_type;
+        typedef
+            tetengo2::gui::win32::message_loop<message_loop_details_type>
+            message_loop_type;
+        typedef
             tetengo2::gui::win32::quit_message_loop quit_message_loop_type;
         typedef tetengo2::detail::windows::unit unit_details_type;
         typedef
@@ -402,8 +407,6 @@ namespace bobura
             window_traits_type;
         typedef tetengo2::gui::win32::window<window_traits_type> window_type;
         typedef
-            tetengo2::detail::windows::message_loop message_loop_details_type;
-        typedef
             tetengo2::gui::win32::dialog_message_loop<
                 message_loop_details_type
             >
@@ -445,7 +448,7 @@ namespace bobura
             boost::mpl::pair<type::gui_fixture, detail::ui::gui_fixture_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::message_loop, tetengo2::gui::win32::message_loop
+                type::message_loop, detail::ui::message_loop_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
