@@ -32,7 +32,7 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Run the message loop.
 
-            \return The exit code.
+            \return The exit status code.
         */
         static int loop()
         {
@@ -64,7 +64,7 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Run the message loop for a dialog box.
 
-            \return The exit code.
+            \return The exit status code.
         */
         static int dialog_loop()
         {
