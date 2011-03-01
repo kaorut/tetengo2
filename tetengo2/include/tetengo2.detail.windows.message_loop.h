@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGELOOP_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGELOOP_H
 
+#include <cstddef>
 #include <sstream>
 #include <stdexcept>
 

@@ -9,12 +9,6 @@
 #if !defined(TETENGO2_GUI_MESSAGELOOP_H)
 #define TETENGO2_GUI_MESSAGELOOP_H
 
-#include <cstddef>
-#include <sstream>
-#include <stdexcept>
-
-#include <boost/throw_exception.hpp>
-
 #include "tetengo2.generator.h"
 
 
