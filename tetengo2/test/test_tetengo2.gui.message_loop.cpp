@@ -8,6 +8,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.message_loop.h"
+
 #include "tetengo2.gui.message_loop.h"
 
 
@@ -18,7 +20,14 @@ BOOST_AUTO_TEST_SUITE(message_loop)
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        typedef 
+            tetengo2::gui::message_loop<tetengo2::detail::stub::message_loop>
+            message_loop_type;
+        const message_loop_type message_loop = message_loop_type();
+
+        message_loop();
     }
 
 
