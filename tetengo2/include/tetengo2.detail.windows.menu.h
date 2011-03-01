@@ -9,7 +9,11 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MENU_H)
 #define TETENGO2_DETAIL_WINDOWS_MENU_H
 
+#include <stdexcept>
 #include <type_traits>
+#include <utility>
+
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
@@ -63,9 +67,17 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Creates a men menu.
         */
-        menu_handle_type create_main_menu()
+        static menu_handle_type create_main_menu()
         {
-            return menu_handle_type();
+            menu_handle_type handle(::CreateMenu());
+            if (handle.get() == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a main menu.")
+                );
+            }
+
+            return std::move(handle);
         }
 
 

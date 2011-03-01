@@ -55,7 +55,9 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         main_menu()
         :
-        base_type(create_menu(), string_type())
+        base_type(
+            menu_details_type::create_main_menu().release(), string_type()
+        )
         {}
 
         /*!
@@ -67,23 +69,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // static functions
-
-        handle_type create_menu()
-        {
-            const handle_type handle = ::CreateMenu();
-
-            if (handle == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a main menu.")
-                );
-            }
-
-            return handle;
-        }
-
-
         // virtual functions
 
         virtual void set_menu_info_impl(
