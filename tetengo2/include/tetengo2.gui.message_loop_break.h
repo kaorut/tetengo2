@@ -17,7 +17,7 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for a message loop break.
 
-        \tparam MessageLoopDetails The detail implementationf of a message
+        \tparam MessageLoopDetails The detail implementation type of a message
                                    loop.
     */
     template <typename MessageLoopDetails>
@@ -26,7 +26,7 @@ namespace tetengo2 { namespace gui
     public:
         // types
 
-        //! The detail implementation of a message loop.
+        //! The detail implementation type of a message loop.
         typedef MessageLoopDetails message_loop_details_type;
 
 
