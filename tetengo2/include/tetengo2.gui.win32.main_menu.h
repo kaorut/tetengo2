@@ -29,9 +29,10 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a main menu for Win32 platforms.
 
-        \tparam Traits A traits type.
+        \tparam Traits      A traits type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename Traits>
+    template <typename Traits, typename MenuDetails>
     class main_menu : public abstract_popup_menu<Traits>
     {
     public:
@@ -42,6 +43,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The base type.
         typedef abstract_popup_menu<traits_type> base_type;
+
+        //! The detail implementation type of a menu.
+        typedef MenuDetails menu_details_type;
 
 
         // constructors and destructor

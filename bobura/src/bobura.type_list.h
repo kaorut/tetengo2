@@ -34,6 +34,7 @@
 #include <tetengo2.detail.windows.gdiplus.drawing.h>
 #include <tetengo2.detail.windows.gdiplus.gui_fixture.h>
 #include <tetengo2.detail.windows.gui_fixture.h>
+#include <tetengo2.detail.windows.menu.h>
 #include <tetengo2.detail.windows.message_loop.h>
 #include <tetengo2.detail.windows.unit.h>
 #include <tetengo2.encoding.locale.h>
@@ -391,8 +392,12 @@ namespace bobura
         typedef
             tetengo2::gui::win32::abstract_popup_menu<menu_traits_type>
             abstract_popup_menu_type;
+        typedef tetengo2::detail::windows::menu menu_details_type;
         typedef
-            tetengo2::gui::win32::main_menu<menu_traits_type> main_menu_type;
+            tetengo2::gui::win32::main_menu<
+                menu_traits_type, menu_details_type
+            >
+            main_menu_type;
         typedef
             tetengo2::gui::traits::abstract_window_traits<
                 widget_traits_type,
