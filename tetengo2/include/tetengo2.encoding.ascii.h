@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_ENCODING_WIN32_UTF8_H)
-#define TETENGO2_ENCODING_WIN32_UTF8_H
+#if !defined(TETENGO2_ENCODING_ASCII_H)
+#define TETENGO2_ENCODING_ASCII_H
 
 #include <stdexcept>
 #include <string>
