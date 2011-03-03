@@ -18,6 +18,7 @@
 //#include <utility>
 //#include <vector>
 
+#include <boost/optional.hpp>
 //#include <boost/ptr_container/ptr_vector.hpp>
 //#include <boost/throw_exception.hpp>
 
@@ -70,6 +71,26 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual ~abstract_popup_menu()
         TETENGO2_CPP0X_NOEXCEPT
         {}
+
+
+        // functions
+
+        boost::optional<details_type&> details()
+        {
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<details_type&>() :
+                boost::optional<details_type&>(*m_p_details);
+        }
+
+        boost::optional<const details_type&> details()
+        const
+        {
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<details_type&>() :
+                boost::optional<details_type&>(*m_p_details);
+        }
 
 
     protected:
@@ -166,7 +187,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            insert_native_menu(offset, *p_menu);
+            menu_details_type::insert_menu(*this, offset, *p_menu, encoder());
 
             m_children.insert(offset, p_menu.release());
         }
@@ -180,49 +201,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
-
-        std::vector< ::WCHAR> duplicate_text(const string_type& text)
-        const
-        {
-            const std::wstring native_string = encoder().encode(text);
-
-            std::vector< ::WCHAR> duplicated;
-            duplicated.reserve(native_string.length() + 1);
-            std::copy(
-                native_string.begin(),
-                native_string.end(),
-                std::back_inserter(duplicated)
-            );
-            duplicated.push_back(L'\0');
-
-            return duplicated;
-        }
-
-        void insert_native_menu(const const_iterator offset, base_type& menu)
-        const
-        {
-            ::MENUITEMINFOW menu_info;
-            std::memset(&menu_info, 0, sizeof(::MENUITEMINFO));
-            menu_info.cbSize = sizeof(::MENUITEMINFO);
-            std::vector< ::WCHAR> duplicated_text =
-                duplicate_text(menu.text());
-            menu.set_menu_info(menu_info, duplicated_text);
-
-            const ::BOOL result = ::InsertMenuItem(
-                m_p_details.get(),
-                static_cast< ::UINT>(
-                    std::distance(m_children.begin(), offset)
-                ),
-                TRUE,
-                &menu_info
-            );
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't insert a native menu.")
-                );
-            }
-        }
 
         void erase_native_menus(const_iterator first, const_iterator last)
         const

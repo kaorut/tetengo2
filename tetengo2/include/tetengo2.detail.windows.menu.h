@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <type_traits>
 #include <utility>
+#include <vector>
 
 #include <boost/throw_exception.hpp>
 
@@ -101,8 +102,80 @@ namespace tetengo2 { namespace detail { namespace windows
             return std::move(p_menu);
         }
 
+        /*!
+            \brief Inserts a menu.
+
+            \tparam PopupMenu       A popup menu type.
+            \tparam ForwardIterator An forward iterator type.
+            \tparam Menu            A menu type.
+            \tparam Encoder         An encoder type.
+
+            \param popup_menu A popup menu to which a menu is inserted.
+            \param offset     An offset.
+            \param menu       A menu to insert.
+            \param encoder    An encoder.
+        */
+        template <
+            typename PopupMenu,
+            typename ForwardIterator,
+            typename Menu,
+            typename Encoder
+        >
+        static void insert_menu(
+            PopupMenu&            popup_menu,
+            const ForwardIterator offset,
+            Menu&                 menu,
+            const Encoder&        encoder
+        )
+        {
+            ::MENUITEMINFOW menu_info = {};
+            menu_info.cbSize = sizeof(::MENUITEMINFO);
+            std::vector< ::WCHAR> duplicated_text =
+                duplicate_text(menu.text(), encoder);
+            menu.set_menu_info(menu_info, duplicated_text);
+
+            assert(popup_menu.details());
+            const ::BOOL result = ::InsertMenuItem(
+                &*popup_menu.details(),
+                static_cast< ::UINT>(
+                    std::distance(popup_menu.begin(), offset)
+                ),
+                TRUE,
+                &menu_info
+            );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't insert a native menu.")
+                );
+            }
+        }
+
 
     private:
+        // static functions
+
+        template <typename String, typename Encoder>
+        static std::vector< ::WCHAR> duplicate_text(
+            const String&  text,
+            const Encoder& encoder
+        )
+        {
+            const std::wstring native_string = encoder.encode(text);
+
+            std::vector< ::WCHAR> duplicated;
+            duplicated.reserve(native_string.length() + 1);
+            std::copy(
+                native_string.begin(),
+                native_string.end(),
+                std::back_inserter(duplicated)
+            );
+            duplicated.push_back(L'\0');
+
+            return duplicated;
+        }
+
+
         // forbidden operations
 
         menu();
