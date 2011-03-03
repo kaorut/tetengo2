@@ -142,7 +142,8 @@ namespace tetengo2 { namespace gui { namespace win32
             
             if (m_p_main_menu.get() != NULL)
             {
-                if (::SetMenu(handle(), m_p_main_menu->handle()) == 0)
+                assert(m_p_main_menu->details());
+                if (::SetMenu(handle(), &*m_p_main_menu->details()) == 0)
                 {
                     BOOST_THROW_EXCEPTION(
                         std::runtime_error("Can't set a main menu.")
@@ -237,6 +238,18 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
+        // static functions
+
+        static bool same_popup_menu(
+            const typename main_menu_type::base_type::base_type& menu1,
+            typename main_menu_type::handle_type                 menu2_handle
+        )
+        {
+            if (!menu1.details() || menu2_handle == NULL) return false;
+            return &*menu1.details() == menu2_handle;
+        }
+
+
         // variables
 
         typename cpp0x::unique_ptr<main_menu_type>::type m_p_main_menu;
@@ -329,16 +342,7 @@ namespace tetengo2 { namespace gui { namespace win32
             found = std::find_if(
                 main_menu().recursive_begin(),
                 main_menu().recursive_end(),
-                boost::bind(
-                    std::equal_to<
-                        typename main_menu_type::handle_type
-                    >(),
-                    boost::bind(
-                        &main_menu_type::base_type::base_type::handle,
-                        _1
-                    ),
-                    handle
-                )
+                boost::bind(same_popup_menu, _1, handle)
             );
             if (found == main_menu().recursive_end())
                 return boost::optional< ::LRESULT>();

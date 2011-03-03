@@ -77,6 +77,14 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The detail implementation type of a menu.
         typedef MenuDetails menu_details_type;
 
+        //! The detail implementation type.
+        typedef typename menu_details_type::menu_details_type details_type;
+
+        //! The detail implementation pointer type.
+        typedef
+            typename menu_details_type::menu_details_ptr_type
+            details_ptr_type;
+
 
         // constructors and destructor
 
@@ -99,17 +107,6 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_id;
-        }
-
-        /*!
-            \brief Returns the handle.
-
-            \return Always NULL.
-        */
-        handle_type handle()
-        const
-        {
-            return handle_impl();
         }
 
         /*!
@@ -272,6 +269,27 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        boost::optional<details_type&> details()
+        {
+            return details_impl();
+        }
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        boost::optional<const details_type&> details()
+        const
+        {
+            return details_impl();
+        }
+
+        /*!
             \brief Sets the Win32 menu information.
 
             \param menu_info       A menu information.
@@ -288,20 +306,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     protected:
-        // static functions
-
-        /*!
-            \brief Returns the encoder.
-
-            \return The encoder.
-        */
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton;
-            return singleton;
-        }
-
-
         // constructors
 
         /*!
@@ -348,12 +352,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // virtual functions
-
-        virtual handle_type handle_impl()
-        const
-        {
-            return NULL;
-        }
 
         virtual void set_menu_info_impl(
             ::MENUITEMINFOW&       menu_info,
@@ -420,6 +418,17 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             assert(false);
             BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
+        }
+
+        virtual boost::optional<details_type&> details_impl()
+        {
+            return boost::optional<details_type&>();
+        }
+
+        virtual boost::optional<const details_type&> details_impl()
+        const
+        {
+            return boost::optional<const details_type&>();
         }
 
 

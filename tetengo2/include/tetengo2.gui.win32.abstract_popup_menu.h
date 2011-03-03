@@ -64,26 +64,6 @@ namespace tetengo2 { namespace gui { namespace win32
         {}
 
 
-        // functions
-
-        boost::optional<details_type&> details()
-        {
-            return
-                m_p_details.get() == NULL ?
-                boost::optional<details_type&>() :
-                boost::optional<details_type&>(*m_p_details);
-        }
-
-        boost::optional<const details_type&> details()
-        const
-        {
-            return
-                m_p_details.get() == NULL ?
-                boost::optional<details_type&>() :
-                boost::optional<details_type&>(*m_p_details);
-        }
-
-
     protected:
         // constructors
 
@@ -105,6 +85,15 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
+        // static functions
+
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
+
+
         // variables
 
         details_ptr_type m_p_details;
@@ -113,12 +102,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // virtual functions
-
-        virtual handle_type handle_impl()
-        const
-        {
-            return m_p_details.get();
-        }
 
         virtual const_iterator begin_impl()
         const
@@ -188,6 +171,23 @@ namespace tetengo2 { namespace gui { namespace win32
             menu_details_type::erase_menus(*this, first, last);
 
             m_children.erase(first, last);
+        }
+
+        virtual boost::optional<details_type&> details_impl()
+        {
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<details_type&>() :
+                boost::optional<details_type&>(*m_p_details);
+        }
+
+        virtual boost::optional<const details_type&> details_impl()
+        const
+        {
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<const details_type&>() :
+                boost::optional<const details_type&>(*m_p_details);
         }
 
 
