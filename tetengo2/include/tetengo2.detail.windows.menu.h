@@ -155,6 +155,16 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
+        /*!
+            \brief Erases a menu.
+
+            \tparam PopupMenu       A popup menu type.
+            \tparam ForwardIterator An forward iterator type.
+
+            \param popup_menu A popup menu to which a menu is inserted.
+            \param first      A first position to erase.
+            \param last       A last position to erase.
+        */
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(
             PopupMenu&            popup_menu,
