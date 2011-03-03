@@ -31,7 +31,7 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class menu_separator : public menu<Traits>
+    class menu_separator : public menu<Traits, MenuDetails>
     {
     public:
         // types
@@ -43,7 +43,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef MenuDetails menu_details_type;
 
         //! The base type.
-        typedef menu<traits_type> base_type;
+        typedef menu<traits_type, menu_details_type> base_type;
 
 
         // constructors and destructor

@@ -32,9 +32,10 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a menu.
 
-        \tparam Traits A traits type.
+        \tparam Traits      A traits type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename Traits>
+    template <typename Traits, typename MenuDetails>
     class menu : boost::noncopyable
     {
     public:
@@ -72,6 +73,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The const recursive iterator type.
         typedef recursive_menu_iterator<const menu> const_recursive_iterator;
+
+        //! The detail implementation type of a menu.
+        typedef MenuDetails menu_details_type;
 
 
         // constructors and destructor
