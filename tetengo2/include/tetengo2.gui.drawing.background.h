@@ -59,6 +59,16 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
+        boost::optional<details_type&> details()
+        {
+            return details_impl();
+        }
+
+        /*!
+            \brief Returns the detail implementation;
+
+            \return The detail implementation.
+        */
         boost::optional<const details_type&> details()
         const
         {
@@ -78,6 +88,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
     private:
         // virtual functions
+
+        virtual boost::optional<details_type&> details_impl()
+        = 0;
 
         virtual boost::optional<const details_type&> details_impl()
         const = 0;

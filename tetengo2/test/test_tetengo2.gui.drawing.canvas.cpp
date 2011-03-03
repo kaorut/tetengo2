@@ -14,7 +14,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.encoder.h"
@@ -66,6 +65,9 @@ namespace
     typedef drawing_details_type::canvas_details_type canvas_details_type;
 
     typedef
+        drawing_details_type::canvas_details_ptr_type canvas_details_ptr_type;
+
+    typedef
         tetengo2::gui::drawing::canvas<
             std::size_t,
             std::wstring,
@@ -82,11 +84,7 @@ namespace
     {
         concrete_canvas()
         :
-        canvas_type(
-            tetengo2::cpp0x::unique_ptr<canvas_details_type>::type(
-                new canvas_details_type()
-            )
-        )
+        canvas_type(canvas_details_ptr_type(new canvas_details_type()))
         {}
 
 
@@ -96,7 +94,7 @@ namespace
     {
         concrete_canvas0()
         :
-        canvas_type(tetengo2::cpp0x::unique_ptr<canvas_details_type>::type())
+        canvas_type(canvas_details_ptr_type())
         {}
 
 

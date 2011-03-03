@@ -12,7 +12,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.drawing.h"
 
 #include "tetengo2.gui.drawing.picture.h"
@@ -52,8 +51,7 @@ BOOST_AUTO_TEST_SUITE(picture)
         }
         {
             const canvas_type canvas(42);
-            tetengo2::cpp0x::unique_ptr<picture_type::details_type>::type
-            p_details(
+            picture_type::details_ptr_type p_details(
                 tetengo2::detail::stub::drawing::create_picture(
                     dimension_type(123, 456), canvas
                 )
@@ -61,8 +59,7 @@ BOOST_AUTO_TEST_SUITE(picture)
             const picture_type picture2(std::move(p_details));
         }
         {
-            tetengo2::cpp0x::unique_ptr<picture_type::details_type>::type
-            p_details;
+            picture_type::details_ptr_type p_details;
             
             BOOST_CHECK_THROW(
                 const picture_type picture(std::move(p_details)),
@@ -85,10 +82,18 @@ BOOST_AUTO_TEST_SUITE(picture)
     {
         BOOST_TEST_PASSPOINT();
 
-        const canvas_type canvas(42);
-        const picture_type picture(dimension_type(123, 456), canvas);
+        {
+            const canvas_type canvas(42);
+            picture_type picture(dimension_type(123, 456), canvas);
 
-        picture.details();
+            picture.details();
+        }
+        {
+            const canvas_type canvas(42);
+            const picture_type picture(dimension_type(123, 456), canvas);
+
+            picture.details();
+        }
     }
 
 

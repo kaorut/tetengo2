@@ -14,9 +14,8 @@
 #include <stdexcept>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
-
-#include "tetengo2.cpp0x.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing
@@ -111,9 +110,12 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        details_type& details()
+        boost::optional<details_type&> details()
         {
-            return *m_p_details;
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<details_type&>() :
+                boost::optional<details_type&>(*m_p_details);
         }
 
         /*!
@@ -121,10 +123,13 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        const details_type& details()
+        boost::optional<const details_type&> details()
         const
         {
-            return *m_p_details;
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<const details_type&>() :
+                boost::optional<const details_type&>(*m_p_details);
         }
 
 

@@ -489,9 +489,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Dimension&     dimension
         )
         {
+            const boost::optional<typename Picture::details_type&>
+            picture_details(const_cast<Picture&>(picture).details());
+            if (!picture_details) return;
+
             const Gdiplus::Status result =
                 canvas.DrawImage(
-                    &const_cast<Picture&>(picture).details(),
+                    &*picture_details,
                     gui::to_pixels< ::INT>(
                         gui::position<Position>::left(position)
                     ),

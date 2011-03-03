@@ -31,6 +31,12 @@ namespace
 
 
     private:
+        virtual boost::optional<background_type::details_type&>
+        details_impl()
+        {
+            return boost::optional<background_type::details_type&>();
+        }
+
         virtual boost::optional<const background_type::details_type&>
         details_impl()
         const
@@ -58,13 +64,20 @@ BOOST_AUTO_TEST_SUITE(background)
         const concrete_background background;
     }
 
-    BOOST_AUTO_TEST_CASE(handle)
+    BOOST_AUTO_TEST_CASE(details)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_background background;
+        {
+            concrete_background background;
 
-        background.details();
+            background.details();
+        }
+        {
+            const concrete_background background;
+
+            background.details();
+        }
     }
 
 

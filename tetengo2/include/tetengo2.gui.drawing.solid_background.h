@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H
 
+#include <cstddef>
 #include <utility>
 
 //#include <boost/optional.hpp>
@@ -96,10 +97,23 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // virtual functions
 
-        virtual boost::optional<const details_type&> details_impl()
+        virtual boost::optional<details_type&>
+        details_impl()
+        {
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<details_type&>() :
+                boost::optional<details_type&>(*m_p_details);
+        }
+
+        virtual boost::optional<const details_type&>
+        details_impl()
         const
         {
-            return boost::optional<const details_type&>(*m_p_details);
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<const details_type&>() :
+                boost::optional<const details_type&>(*m_p_details);
         }
 
 
