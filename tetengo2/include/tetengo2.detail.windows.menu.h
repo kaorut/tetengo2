@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MENU_H)
 #define TETENGO2_DETAIL_WINDOWS_MENU_H
 
+#include <cstddef>
 #include <stdexcept>
 #include <type_traits>
 #include <utility>

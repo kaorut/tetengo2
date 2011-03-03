@@ -119,7 +119,6 @@ BOOST_CHECK_GE                                   boost/test/unit_test.hpp
 BOOST_CHECK_LT                                   boost/test/unit_test.hpp
 BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
-BOOST_FILESYSTEM_VERSION                         boost/filesystem.hpp
 BOOST_FOREACH                                    boost/foreach.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
@@ -273,6 +272,7 @@ std::ostringstream                               sstream
 std::out_of_range                                stdexcept
 std::pair                                        utility
 std::ptrdiff_t                                   cstddef
+std::remove_pointer                              type_traits
 std::runtime_error                               stdexcept
 std::size_t                                      cstddef
 std::sort                                        algorithm

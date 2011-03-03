@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIN32_MAINMENU_H
 
 //#include <cassert>
-//#include <cstddef>
 //#include <stdexcept>
 //#include <vector>
 
