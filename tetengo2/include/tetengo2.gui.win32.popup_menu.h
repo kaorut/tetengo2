@@ -29,9 +29,10 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a popup menu.
 
-        \tparam Traits A traits type.
+        \tparam Traits      A traits type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename Traits>
+    template <typename Traits, typename MenuDetails>
     class popup_menu : public abstract_popup_menu<Traits>
     {
     public:
@@ -42,6 +43,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The base type.
         typedef abstract_popup_menu<traits_type> base_type;
+
+        //! The detail implementation type of a menu.
+        typedef MenuDetails menu_details_type;
 
 
         // constructors and destructor
@@ -56,7 +60,10 @@ namespace tetengo2 { namespace gui { namespace win32
         template <typename S>
         explicit popup_menu(S&& text)
         :
-        base_type(create_menu(), std::forward<S>(text))
+        base_type(
+            menu_details_type::create_popup_menu().release(),
+            std::forward<S>(text)
+        )
         {}
 
         /*!
@@ -68,23 +75,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // static functions
-
-        handle_type create_menu()
-        {
-            const handle_type handle = ::CreatePopupMenu();
-
-            if (handle == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a popup menu.")
-                );
-            }
-
-            return handle;
-        }
-
-
         // virtual functions
 
         virtual void set_menu_info_impl(

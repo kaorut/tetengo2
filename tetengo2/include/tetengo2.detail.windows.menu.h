@@ -54,7 +54,7 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // types
 
-        //! The detail implementation type of a menu.
+        //! The menu details type.
         typedef std::remove_pointer< ::HMENU>::type menu_details_type;
 
         //! The menu details pointer type.
@@ -66,9 +66,9 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         /*!
-            \brief Creates a men menu.
+            \brief Creates a main menu.
 
-            \return A unque pointer to a menu.
+            \return A unque pointer to a main menu.
         */
         static menu_details_ptr_type create_main_menu()
         {
@@ -77,6 +77,24 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a main menu.")
+                );
+            }
+
+            return std::move(p_menu);
+        }
+
+        /*!
+            \brief Creates a popup menu.
+
+            \return A unque pointer to a popup menu.
+        */
+        static menu_details_ptr_type create_popup_menu()
+        {
+            menu_details_ptr_type p_menu(::CreatePopupMenu());
+            if (p_menu.get() == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a popup menu.")
                 );
             }
 

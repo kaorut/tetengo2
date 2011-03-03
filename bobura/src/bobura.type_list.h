@@ -477,7 +477,10 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::popup_menu,
-                tetengo2::gui::win32::popup_menu<detail::ui::menu_traits_type>
+                tetengo2::gui::win32::popup_menu<
+                    detail::ui::menu_traits_type,
+                    detail::ui::menu_details_type
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
