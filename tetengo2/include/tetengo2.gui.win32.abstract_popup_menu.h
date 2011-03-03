@@ -35,9 +35,10 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a abstract_popup_menu.
 
-        \tparam Traits A traits type.
+        \tparam Traits      A traits type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename Traits>
+    template <typename Traits, typename MenuDetails>
     class abstract_popup_menu : public menu<Traits>
     {
     public:
@@ -49,6 +50,17 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The base type.
         typedef menu<traits_type> base_type;
 
+        //! The detail implementation type of a menu.
+        typedef MenuDetails menu_details_type;
+
+        //! The detail implementation type.
+        typedef typename menu_details_type::menu_details_type details_type;
+
+        //! The detail implementation pointer type.
+        typedef
+            typename menu_details_type::menu_details_ptr_type
+            details_ptr_type;
+
 
         // constructors and destructor
 
@@ -57,10 +69,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         virtual ~abstract_popup_menu()
         TETENGO2_CPP0X_NOEXCEPT
-        {
-            if (::IsMenu(m_handle) != 0)
-                ::DestroyMenu(m_handle);
-        }
+        {}
 
 
     protected:
@@ -71,14 +80,14 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \tparam S A string type.
 
-            \param handle  A handle.
-            \param text    A text.
+            \param p_details A unique pointer to a detail implementation.
+            \param text      A text.
         */
         template <typename S>
-        abstract_popup_menu(const handle_type handle, S&& text)
+        abstract_popup_menu(details_ptr_type p_details, S&& text)
         :
         base_type(std::forward<S>(text)),
-        m_handle(handle),
+        m_p_details(std::move(p_details)),
         m_children()
         {}
 
@@ -86,7 +95,7 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // variables
 
-        handle_type m_handle;
+        details_ptr_type m_p_details;
 
         boost::ptr_vector<base_type> m_children;
 
@@ -96,7 +105,7 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual handle_type handle_impl()
         const
         {
-            return m_handle;
+            return m_p_details.get();
         }
 
         virtual const_iterator begin_impl()
@@ -200,7 +209,7 @@ namespace tetengo2 { namespace gui { namespace win32
             menu.set_menu_info(menu_info, duplicated_text);
 
             const ::BOOL result = ::InsertMenuItem(
-                m_handle,
+                m_p_details.get(),
                 static_cast< ::UINT>(
                     std::distance(m_children.begin(), offset)
                 ),
@@ -226,7 +235,7 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             ::RemoveMenu(
-                m_handle,
+                m_p_details.get(),
                 static_cast< ::UINT>(
                     std::distance(m_children.begin(), offset)
                 ),
