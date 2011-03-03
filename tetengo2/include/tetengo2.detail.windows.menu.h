@@ -56,28 +56,30 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The detail implementation type of a menu.
         typedef std::remove_pointer< ::HMENU>::type menu_details_type;
 
-        //! The menu handle type.
+        //! The menu details pointer type.
         typedef
             cpp0x::unique_ptr<menu_details_type, detail::menu_deleter>::type
-            menu_handle_type;
+            menu_details_ptr_type;
 
 
         // static functions
 
         /*!
             \brief Creates a men menu.
+
+            \return A unque pointer to a menu.
         */
-        static menu_handle_type create_main_menu()
+        static menu_details_ptr_type create_main_menu()
         {
-            menu_handle_type handle(::CreateMenu());
-            if (handle.get() == NULL)
+            menu_details_ptr_type p_menu(::CreateMenu());
+            if (p_menu.get() == NULL)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a main menu.")
                 );
             }
 
-            return std::move(handle);
+            return std::move(p_menu);
         }
 
 
