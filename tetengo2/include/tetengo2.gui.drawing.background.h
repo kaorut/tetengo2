@@ -36,6 +36,11 @@ namespace tetengo2 { namespace gui { namespace drawing
             typename drawing_details_type::background_details_type
             details_type;
 
+        //! The detail implementation pointer type.
+        typedef
+            typename drawing_details_type::background_details_ptr_type
+            details_ptr_type;
+
 
         // constructors and destructor
 

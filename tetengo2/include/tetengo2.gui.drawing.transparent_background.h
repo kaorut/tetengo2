@@ -60,10 +60,12 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         typedef typename base_type::details_type details_type;
 
+        typedef typename base_type::details_ptr_type details_ptr_type;
+
 
         // variables
 
-        const typename cpp0x::unique_ptr<details_type>::type m_p_details;
+        const details_ptr_type m_p_details;
 
 
         // virtual functions

@@ -32,6 +32,11 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The background details type.
         struct background_details_type {};
 
+        //! The background details pointer type.
+        typedef
+            cpp0x::unique_ptr<background_details_type>::type
+            background_details_ptr_type;
+
         //! The picture details type.
         struct picture_details_type
         {
@@ -71,8 +76,18 @@ namespace tetengo2 { namespace detail { namespace stub
 
         };
 
+        //! The picture details pointer type.
+        typedef
+            cpp0x::unique_ptr<picture_details_type>::type
+            picture_details_ptr_type;
+
         //! The canvas details type.
         struct canvas_details_type {};
+
+        //! The canvas details pointer type.
+        typedef
+            cpp0x::unique_ptr<canvas_details_type>::type
+            canvas_details_ptr_type;
 
 
         // static functions

@@ -78,6 +78,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         typedef
             typename drawing_details_type::canvas_details_type details_type;
 
+        //! The detail implementation pointer type.
+        typedef
+            typename drawing_details_type::canvas_details_ptr_type
+            details_ptr_type;
+
 
         // static functions
 
@@ -249,7 +254,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \throw std::invalid_argument When p_details is NULL.
         */
-        canvas(typename cpp0x::unique_ptr<details_type>::type p_details)
+        canvas(details_ptr_type p_details)
         :
         m_p_details(std::move(p_details)),
         m_font(font_type::dialog_font())
@@ -279,7 +284,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // variables
 
-        const typename cpp0x::unique_ptr<details_type>::type m_p_details;
+        const details_ptr_type m_p_details;
 
         font_type m_font;
 
