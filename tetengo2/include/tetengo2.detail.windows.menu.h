@@ -9,8 +9,12 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MENU_H)
 #define TETENGO2_DETAIL_WINDOWS_MENU_H
 
+#include <algorithm>
+#include <cassert>
 #include <cstddef>
+#include <iterator>
 #include <stdexcept>
+#include <string>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -151,6 +155,17 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
+        template <typename PopupMenu, typename ForwardIterator>
+        static void erase_menus(
+            PopupMenu&            popup_menu,
+            const ForwardIterator first,
+            const ForwardIterator last
+        )
+        {
+            for (ForwardIterator i = first; i != last; ++i)
+                erase_menu(popup_menu, i);
+        }
+
 
     private:
         // static functions
@@ -173,6 +188,29 @@ namespace tetengo2 { namespace detail { namespace windows
             duplicated.push_back(L'\0');
 
             return duplicated;
+        }
+
+        template <typename PopupMenu, typename ForwardIterator>
+        static void erase_menu(
+            PopupMenu&            popup_menu,
+            const ForwardIterator offset
+        )
+        {
+            assert(popup_menu.details());
+            const ::BOOL result =
+                ::RemoveMenu(
+                    &*popup_menu.details(),
+                    static_cast< ::UINT>(
+                        std::distance(popup_menu.begin(), offset)
+                    ),
+                    MF_BYPOSITION
+                );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't remove a native menu.")
+                );
+            }
         }
 
 

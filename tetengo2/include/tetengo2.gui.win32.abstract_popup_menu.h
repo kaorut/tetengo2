@@ -9,22 +9,13 @@
 #if !defined(TETENGO2_GUI_WIN32_ABSTRACTPOPUPMENU_H)
 #define TETENGO2_GUI_WIN32_ABSTRACTPOPUPMENU_H
 
-#include <algorithm>
 //#include <cstddef>
-#include <cstring>
-//#include <iterator>
 //#include <stdexcept>
-#include <string>
 //#include <utility>
-//#include <vector>
 
 #include <boost/optional.hpp>
 //#include <boost/ptr_container/ptr_vector.hpp>
 //#include <boost/throw_exception.hpp>
-
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.menu.h"
@@ -194,31 +185,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         virtual void erase_impl(const iterator first, const iterator last)
         {
-            erase_native_menus(first, last);
+            menu_details_type::erase_menus(*this, first, last);
 
             m_children.erase(first, last);
-        }
-
-
-        // functions
-
-        void erase_native_menus(const_iterator first, const_iterator last)
-        const
-        {
-            for (const_iterator i = first; i != last; ++i)
-                erase_native_menu(i);
-        }
-
-        void erase_native_menu(const_iterator offset)
-        const
-        {
-            ::RemoveMenu(
-                m_p_details.get(),
-                static_cast< ::UINT>(
-                    std::distance(m_children.begin(), offset)
-                ),
-                MF_BYPOSITION
-            );
         }
 
 
