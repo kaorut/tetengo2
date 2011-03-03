@@ -488,14 +488,16 @@ namespace bobura
             boost::mpl::pair<
                 type::menu_command,
                 tetengo2::gui::win32::menu_command<
-                    detail::ui::menu_traits_type
+                    detail::ui::menu_traits_type,
+                    detail::ui::menu_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu_separator,
                 tetengo2::gui::win32::menu_separator<
-                    detail::ui::menu_traits_type
+                    detail::ui::menu_traits_type,
+                    detail::ui::menu_details_type
                 >
             >,
         tetengo2::meta::assoc_list<

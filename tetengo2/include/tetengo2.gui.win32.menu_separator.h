@@ -25,11 +25,12 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a menu separator.
 
-        The handle is NULL. The text is empty.
+        The text is empty.
 
-        \tparam Traits A traits type.
+        \tparam Traits      A traits type.
+        \tparam MenuDetails A detail implementation type of a menu.
    */
-    template <typename Traits>
+    template <typename Traits, typename MenuDetails>
     class menu_separator : public menu<Traits>
     {
     public:
@@ -37,6 +38,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The traits type.
         typedef Traits traits_type;
+
+        //! The detail implementation type of a menu.
+        typedef MenuDetails menu_details_type;
 
         //! The base type.
         typedef menu<traits_type> base_type;
