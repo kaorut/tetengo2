@@ -388,17 +388,15 @@ namespace bobura
             menu_traits_type;
         typedef tetengo2::detail::windows::menu menu_details_type;
         typedef
-            tetengo2::gui::win32::menu<menu_traits_type, menu_details_type>
+            tetengo2::gui::menu<menu_traits_type, menu_details_type>
             menu_type;
         typedef
-            tetengo2::gui::win32::abstract_popup_menu<
+            tetengo2::gui::abstract_popup_menu<
                 menu_traits_type, menu_details_type
             >
             abstract_popup_menu_type;
         typedef
-            tetengo2::gui::win32::main_menu<
-                menu_traits_type, menu_details_type
-            >
+            tetengo2::gui::main_menu<menu_traits_type, menu_details_type>
             main_menu_type;
         typedef
             tetengo2::gui::traits::abstract_window_traits<
@@ -479,7 +477,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::popup_menu,
-                tetengo2::gui::win32::popup_menu<
+                tetengo2::gui::popup_menu<
                     detail::ui::menu_traits_type,
                     detail::ui::menu_details_type
                 >
@@ -487,7 +485,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu_command,
-                tetengo2::gui::win32::menu_command<
+                tetengo2::gui::menu_command<
                     detail::ui::menu_traits_type,
                     detail::ui::menu_details_type
                 >
@@ -495,7 +493,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu_separator,
-                tetengo2::gui::win32::menu_separator<
+                tetengo2::gui::menu_separator<
                     detail::ui::menu_traits_type,
                     detail::ui::menu_details_type
                 >

@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::abstract_popup_menu.
+    \brief The definition of tetengo2::gui::abstract_popup_menu.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_ABSTRACTPOPUPMENU_H)
-#define TETENGO2_GUI_WIN32_ABSTRACTPOPUPMENU_H
+#if !defined(TETENGO2_GUI_ABSTRACTPOPUPMENU_H)
+#define TETENGO2_GUI_ABSTRACTPOPUPMENU_H
 
 //#include <cstddef>
 //#include <stdexcept>
@@ -21,7 +21,7 @@
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
         \brief The base class template for a abstract_popup_menu.
@@ -43,6 +43,20 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The base type.
         typedef menu<traits_type, menu_details_type> base_type;
+
+        //! The iterator type.
+        typedef typename base_type::iterator iterator;
+
+        //! The const iterator type.
+        typedef typename base_type::const_iterator const_iterator;
+
+        //! The recursive iterator type.
+        typedef typename base_type::recursive_iterator recursive_iterator;
+
+        //! The const recursive iterator type.
+        typedef
+            typename base_type::const_recursive_iterator
+            const_recursive_iterator;
 
         //! The detail implementation type.
         typedef typename menu_details_type::menu_details_type details_type;
@@ -86,16 +100,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // types
 
         typedef typename traits_type::encoder_type encoder_type;
-
-        typedef typename base_type::const_iterator const_iterator;
-
-        typedef typename base_type::iterator iterator;
-
-        typedef
-            typename base_type::const_recursive_iterator
-            const_recursive_iterator;
-
-        typedef typename base_type::recursive_iterator recursive_iterator;
 
 
         // static functions
@@ -188,6 +192,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
+
 
 #endif

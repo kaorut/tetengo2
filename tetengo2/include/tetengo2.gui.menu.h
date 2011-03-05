@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::menu.
+    \brief The definition of tetengo2::gui::menu.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_MENU_H)
-#define TETENGO2_GUI_WIN32_MENU_H
+#if !defined(TETENGO2_GUI_MENU_H)
+#define TETENGO2_GUI_MENU_H
 
 //#include <cassert>
 //#include <cstddef>
@@ -23,7 +23,7 @@
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
         \brief The base class template for a menu.
@@ -399,6 +399,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
+
 
 #endif

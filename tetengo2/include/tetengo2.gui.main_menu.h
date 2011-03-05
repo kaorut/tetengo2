@@ -1,19 +1,19 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::main_menu.
+    \brief The definition of tetengo2::gui::main_menu.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_MAINMENU_H)
-#define TETENGO2_GUI_WIN32_MAINMENU_H
+#if !defined(TETENGO2_GUI_MAINMENU_H)
+#define TETENGO2_GUI_MAINMENU_H
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.abstract_popup_menu.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a main menu for Win32 platforms.
@@ -75,6 +75,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
+
 
 #endif

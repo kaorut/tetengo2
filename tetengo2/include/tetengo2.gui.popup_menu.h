@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_POPUPMENU_H)
-#define TETENGO2_GUI_WIN32_POPUPMENU_H
+#if !defined(TETENGO2_GUI_POPUPMENU_H)
+#define TETENGO2_GUI_POPUPMENU_H
 
 //#include <utility>
 
@@ -15,7 +15,7 @@
 #include "tetengo2.gui.abstract_popup_menu.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a popup menu.
@@ -82,6 +82,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
+
 
 #endif

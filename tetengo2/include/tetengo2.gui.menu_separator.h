@@ -1,19 +1,19 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::menu_separator.
+    \brief The definition of tetengo2::gui::menu_separator.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_MENUSEPARATOR_H)
-#define TETENGO2_GUI_WIN32_MENUSEPARATOR_H
+#if !defined(TETENGO2_GUI_MENUSEPARATOR_H)
+#define TETENGO2_GUI_MENUSEPARATOR_H
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.menu.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a menu separator.
@@ -77,6 +77,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
+
 
 #endif
