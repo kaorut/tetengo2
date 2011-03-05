@@ -44,9 +44,6 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The traits type.
         typedef Traits traits_type;
 
-        //! The ID type.
-        typedef typename traits_type::id_type id_type;
-
         //! The string type.
         typedef typename traits_type::string_type string_type;
 
@@ -94,17 +91,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
-
-        /*!
-            \brief Returns the ID.
-
-            \return The ID.
-        */
-        id_type id()
-        const
-        {
-            return m_id;
-        }
 
         /*!
             \brief Returns the text.
@@ -272,7 +258,10 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         boost::optional<details_type&> details()
         {
-            return details_impl();
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<details_type&>() :
+                boost::optional<details_type&>(*m_p_details);
         }
 
         /*!
@@ -283,7 +272,10 @@ namespace tetengo2 { namespace gui { namespace win32
         boost::optional<const details_type&> details()
         const
         {
-            return details_impl();
+            return
+                m_p_details.get() == NULL ?
+                boost::optional<const details_type&>() :
+                boost::optional<const details_type&>(*m_p_details);
         }
 
         /*!
@@ -310,26 +302,20 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \tparam S A string type.
 
-            \param text A text.
+            \param text      A text.
+            \param p_details A unique pointer to a detail implementation.
         */
         template <typename S>
-        explicit menu(S&& text)
+        menu(S&& text, details_ptr_type p_details)
         :
-        m_id(get_and_increment_id()),
         m_text(std::forward<S>(text)),
-        m_menu_observer_set()
+        m_menu_observer_set(),
+        m_p_details(std::move(p_details))
         {}
 
 
     private:
         // static functions
-
-        static id_type get_and_increment_id()
-        {
-            static id_type id = 40001;
-
-            return id++;
-        }
 
         static boost::ptr_vector<menu>& empty_children()
         {
@@ -341,11 +327,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // variables
 
-        id_type m_id;
-
         string_type m_text;
 
         menu_observer_set_type m_menu_observer_set;
+
+        const details_ptr_type m_p_details;
 
 
         // virtual functions
@@ -415,17 +401,6 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             assert(false);
             BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
-        }
-
-        virtual boost::optional<details_type&> details_impl()
-        {
-            return boost::optional<details_type&>();
-        }
-
-        virtual boost::optional<const details_type&> details_impl()
-        const
-        {
-            return boost::optional<const details_type&>();
         }
 
 

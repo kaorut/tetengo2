@@ -32,7 +32,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef Traits traits_type;
 
-        typedef typename traits_type::id_type id_type;
+        typedef unsigned int id_type;
 
         typedef const void* handle_type;
 

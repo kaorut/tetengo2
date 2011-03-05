@@ -381,7 +381,6 @@ namespace bobura
         typedef tetengo2::gui::win32::widget<widget_traits_type> widget_type;
         typedef
             tetengo2::gui::traits::menu_traits<
-                ::UINT,
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 tetengo2::gui::menu_observer_set

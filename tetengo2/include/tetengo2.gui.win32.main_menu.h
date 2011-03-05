@@ -54,7 +54,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         main_menu()
         :
-        base_type(menu_details_type::create_main_menu(), string_type())
+        base_type(string_type(), menu_details_type::create_main_menu())
         {}
 
         /*!

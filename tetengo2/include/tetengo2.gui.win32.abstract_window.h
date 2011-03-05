@@ -143,7 +143,10 @@ namespace tetengo2 { namespace gui { namespace win32
             if (m_p_main_menu.get() != NULL)
             {
                 assert(m_p_main_menu->details());
-                if (::SetMenu(handle(), &*m_p_main_menu->details()) == 0)
+                if (
+                    ::SetMenu(handle(), m_p_main_menu->details()->second) ==
+                    0
+                )
                 {
                     BOOST_THROW_EXCEPTION(
                         std::runtime_error("Can't set a main menu.")
@@ -240,13 +243,21 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // static functions
 
+        static bool same_menu(
+            const typename main_menu_type::base_type::base_type& menu1,
+            ::UINT                                               menu2_id
+        )
+        {
+            return menu1.details()->first == menu2_id;
+        }
+
         static bool same_popup_menu(
             const typename main_menu_type::base_type::base_type& menu1,
             ::HMENU                                              menu2_handle
         )
         {
             if (!menu1.details() || menu2_handle == NULL) return false;
-            return &*menu1.details() == menu2_handle;
+            return menu1.details()->second == menu2_handle;
         }
 
 
@@ -309,15 +320,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 found = std::find_if(
                     main_menu().recursive_begin(),
                     main_menu().recursive_end(),
-                    boost::bind(
-                        std::equal_to<
-                            typename main_menu_type::id_type
-                        >(),
-                        boost::bind(
-                            &main_menu_type::base_type::id, _1
-                        ),
-                        id
-                    )
+                    boost::bind(same_menu, _1, id)
                 );
                 if (found == main_menu().recursive_end())
                     return boost::optional< ::LRESULT>();

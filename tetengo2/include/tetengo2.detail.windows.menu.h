@@ -35,13 +35,22 @@ namespace tetengo2 { namespace detail { namespace windows
     {
         // types
 
+        typedef std::pair< ::UINT, ::HMENU> id_handle_type;
+
         struct menu_deleter
         {
-            void operator()(::HMENU gdi_menu_handle)
+            void operator()(id_handle_type* const p_id_handle)
             const
             {
-                if (::IsMenu(gdi_menu_handle))
-                    ::DestroyMenu(gdi_menu_handle);
+                if (
+                    p_id_handle->second != NULL &&
+                    ::IsMenu(p_id_handle->second)
+                )
+                {
+                    ::DestroyMenu(p_id_handle->second);
+                }
+
+                delete p_id_handle;
             }
 
 
@@ -60,7 +69,7 @@ namespace tetengo2 { namespace detail { namespace windows
         // types
 
         //! The menu details type.
-        typedef std::remove_pointer< ::HMENU>::type menu_details_type;
+        typedef detail::id_handle_type menu_details_type;
 
         //! The menu details pointer type.
         typedef
@@ -77,8 +86,10 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_main_menu()
         {
-            menu_details_ptr_type p_menu(::CreateMenu());
-            if (p_menu.get() == NULL)
+            menu_details_ptr_type p_menu(
+                new menu_details_type(get_and_increment_id(), ::CreateMenu())
+            );
+            if (p_menu->second == NULL)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a main menu.")
@@ -95,8 +106,12 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_popup_menu()
         {
-            menu_details_ptr_type p_menu(::CreatePopupMenu());
-            if (p_menu.get() == NULL)
+            menu_details_ptr_type p_menu(
+                new menu_details_type(
+                    get_and_increment_id(), ::CreatePopupMenu()
+                )
+            );
+            if (p_menu->second == NULL)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a popup menu.")
@@ -104,6 +119,20 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return std::move(p_menu);
+        }
+
+        /*!
+            \brief Creates a menu.
+
+            \return A unque pointer to a menu.
+        */
+        static menu_details_ptr_type create_menu()
+        {
+            return menu_details_ptr_type(
+                new menu_details_type(
+                    get_and_increment_id(), static_cast< ::HMENU>(NULL)
+                )
+            );
         }
 
         /*!
@@ -140,7 +169,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             assert(popup_menu.details());
             const ::BOOL result = ::InsertMenuItem(
-                &*popup_menu.details(),
+                popup_menu.details()->second,
                 static_cast< ::UINT>(
                     std::distance(popup_menu.begin(), offset)
                 ),
@@ -180,6 +209,13 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // static functions
 
+        static ::UINT get_and_increment_id()
+        {
+            static ::UINT id = 40001;
+
+            return id++;
+        }
+
         template <typename String, typename Encoder>
         static std::vector< ::WCHAR> duplicate_text(
             const String&  text,
@@ -206,10 +242,10 @@ namespace tetengo2 { namespace detail { namespace windows
             const ForwardIterator offset
         )
         {
-            assert(popup_menu.details());
+            assert(popup_menu.details()->second);
             const ::BOOL result =
                 ::RemoveMenu(
-                    &*popup_menu.details(),
+                    popup_menu.details()->second,
                     static_cast< ::UINT>(
                         std::distance(popup_menu.begin(), offset)
                     ),

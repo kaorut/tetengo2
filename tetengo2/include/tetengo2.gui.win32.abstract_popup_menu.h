@@ -72,14 +72,13 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \tparam S A string type.
 
-            \param p_details A unique pointer to a detail implementation.
             \param text      A text.
+            \param p_details A unique pointer to a detail implementation.
         */
         template <typename S>
-        abstract_popup_menu(details_ptr_type p_details, S&& text)
+        abstract_popup_menu(S&& text, details_ptr_type p_details)
         :
-        base_type(std::forward<S>(text)),
-        m_p_details(std::move(p_details)),
+        base_type(std::forward<S>(text), std::move(p_details)),
         m_children()
         {}
 
@@ -95,8 +94,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // variables
-
-        details_ptr_type m_p_details;
 
         boost::ptr_vector<base_type> m_children;
 
@@ -171,23 +168,6 @@ namespace tetengo2 { namespace gui { namespace win32
             menu_details_type::erase_menus(*this, first, last);
 
             m_children.erase(first, last);
-        }
-
-        virtual boost::optional<details_type&> details_impl()
-        {
-            return
-                m_p_details.get() == NULL ?
-                boost::optional<details_type&>() :
-                boost::optional<details_type&>(*m_p_details);
-        }
-
-        virtual boost::optional<const details_type&> details_impl()
-        const
-        {
-            return
-                m_p_details.get() == NULL ?
-                boost::optional<const details_type&>() :
-                boost::optional<const details_type&>(*m_p_details);
         }
 
 

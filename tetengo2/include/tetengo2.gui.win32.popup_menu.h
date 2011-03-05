@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace win32
         explicit popup_menu(S&& text)
         :
         base_type(
-            menu_details_type::create_popup_menu(), std::forward<S>(text)
+            std::forward<S>(text), menu_details_type::create_popup_menu()
         )
         {}
 
@@ -80,8 +80,8 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             menu_info.fMask = MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
             menu_info.dwTypeData = duplicated_text.data();
-            menu_info.wID = id();
-            menu_info.hSubMenu = const_cast< ::HMENU>(&*details());
+            menu_info.wID = details()->first;
+            menu_info.hSubMenu = details()->second;
         }
 
 

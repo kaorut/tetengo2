@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace win32
         template <typename S>
         explicit menu_command(S&& text)
         :
-        base_type(std::forward<S>(text))
+        base_type(std::forward<S>(text), menu_details_type::create_menu())
         {}
 
         /*!
@@ -79,7 +79,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             menu_info.fMask = MIIM_STRING | MIIM_ID;
             menu_info.dwTypeData = duplicated_text.data();
-            menu_info.wID = id();
+            menu_info.wID = details()->first;
         }
 
 
