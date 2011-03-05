@@ -35,26 +35,26 @@ namespace tetengo2 { namespace detail { namespace windows
     {
         // types
 
-        typedef std::pair< ::UINT, ::HMENU> id_handle_type;
-
         struct menu_deleter
         {
-            void operator()(id_handle_type* const p_id_handle)
+            void operator()(const ::HMENU menu_handle)
             const
             {
-                if (
-                    p_id_handle->second != NULL &&
-                    ::IsMenu(p_id_handle->second)
-                )
-                {
-                    ::DestroyMenu(p_id_handle->second);
-                }
-
-                delete p_id_handle;
+                if (::IsMenu(menu_handle))
+                    ::DestroyMenu(menu_handle);
             }
 
 
         };
+
+        typedef
+            std::pair<
+                ::UINT,
+                tetengo2::cpp0x::unique_ptr<
+                    std::remove_pointer< ::HMENU>::type
+                >::type
+            >
+            id_handle_type;
 
 
     }
@@ -73,8 +73,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         //! The menu details pointer type.
         typedef
-            cpp0x::unique_ptr<menu_details_type, detail::menu_deleter>::type
-            menu_details_ptr_type;
+            cpp0x::unique_ptr<menu_details_type>::type menu_details_ptr_type;
 
 
         // static functions
@@ -169,7 +168,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             assert(popup_menu.details());
             const ::BOOL result = ::InsertMenuItem(
-                popup_menu.details()->second,
+                &*popup_menu.details()->second,
                 static_cast< ::UINT>(
                     std::distance(popup_menu.begin(), offset)
                 ),
@@ -245,7 +244,7 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(popup_menu.details()->second);
             const ::BOOL result =
                 ::RemoveMenu(
-                    popup_menu.details()->second,
+                    &*popup_menu.details()->second,
                     static_cast< ::UINT>(
                         std::distance(popup_menu.begin(), offset)
                     ),

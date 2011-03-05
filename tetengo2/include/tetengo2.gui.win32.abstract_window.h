@@ -144,7 +144,7 @@ namespace tetengo2 { namespace gui { namespace win32
             {
                 assert(m_p_main_menu->details());
                 if (
-                    ::SetMenu(handle(), m_p_main_menu->details()->second) ==
+                    ::SetMenu(handle(), &*m_p_main_menu->details()->second) ==
                     0
                 )
                 {
@@ -257,7 +257,7 @@ namespace tetengo2 { namespace gui { namespace win32
         )
         {
             if (!menu1.details() || menu2_handle == NULL) return false;
-            return menu1.details()->second == menu2_handle;
+            return &*menu1.details()->second == menu2_handle;
         }
 
 
