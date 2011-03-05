@@ -75,6 +75,22 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef
             cpp0x::unique_ptr<menu_details_type>::type menu_details_ptr_type;
 
+        //! The style tag type.
+        struct style_tag
+        {
+#if !defined(DOCUMENTATION)
+            virtual void set_style(
+                const menu_details_type& details,
+                ::MENUITEMINFOW&         menu_info,
+                std::vector< ::WCHAR>&   text
+            )
+            const = 0;
+#endif
+
+
+        };
+
+
 
         // static functions
 
@@ -164,7 +180,9 @@ namespace tetengo2 { namespace detail { namespace windows
             menu_info.cbSize = sizeof(::MENUITEMINFO);
             std::vector< ::WCHAR> duplicated_text =
                 duplicate_text(menu.text(), encoder);
-            menu.set_menu_info(menu_info, duplicated_text);
+            menu.style().set_style(
+                *menu.details(), menu_info, duplicated_text
+            );
 
             assert(popup_menu.details());
             const ::BOOL result = ::InsertMenuItem(
@@ -204,8 +222,122 @@ namespace tetengo2 { namespace detail { namespace windows
                 erase_menu(popup_menu, i);
         }
 
+        /*!
+            \brief Returns the main menu style.
+
+            \return The main menu style.
+        */
+        static const style_tag& main_menu_style()
+        {
+            static const main_menu_style_tag singleton;
+            return singleton;
+        }
+
+        /*!
+            \brief Returns the popup menu style.
+
+            \return The popup menu style.
+        */
+        static const style_tag& popup_menu_style()
+        {
+            static const popup_menu_style_tag singleton;
+            return singleton;
+        }
+
+        /*!
+            \brief Returns the menu command style.
+
+            \return The menu command style.
+        */
+        static const style_tag& menu_command_style()
+        {
+            static const menu_command_style_tag singleton;
+            return singleton;
+        }
+
+        /*!
+            \brief Returns the menu separator style.
+
+            \return The menu separator style.
+        */
+        static const style_tag& menu_separator_style()
+        {
+            static const menu_separator_style_tag singleton;
+            return singleton;
+        }
+
 
     private:
+        // types
+
+        struct main_menu_style_tag : public style_tag
+        {
+            virtual void set_style(
+                const menu_details_type& details,
+                ::MENUITEMINFOW&         menu_info,
+                std::vector< ::WCHAR>&   text
+            )
+            const
+            {
+                assert(false);
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("A main menu cannot be inserted.")
+                );
+            }
+        };
+
+        struct popup_menu_style_tag : public style_tag
+        {
+            virtual void set_style(
+                const menu_details_type& details,
+                ::MENUITEMINFOW&         menu_info,
+                std::vector< ::WCHAR>&   text
+            )
+            const
+            {
+                menu_info.fMask = MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
+                menu_info.dwTypeData = text.data();
+                menu_info.wID = details.first;
+                menu_info.hSubMenu = &*details.second;
+            }
+
+
+        };
+
+        struct menu_command_style_tag : public style_tag
+        {
+            virtual void set_style(
+                const menu_details_type& details,
+                ::MENUITEMINFOW&         menu_info,
+                std::vector< ::WCHAR>&   text
+            )
+            const
+            {
+                menu_info.fMask = MIIM_STRING | MIIM_ID;
+                menu_info.dwTypeData = text.data();
+                menu_info.wID = details.first;
+            }
+
+
+        };
+
+        struct menu_separator_style_tag : public style_tag
+        {
+            virtual void set_style(
+                const menu_details_type& details,
+                ::MENUITEMINFOW&         menu_info,
+                std::vector< ::WCHAR>&   text
+            )
+            const
+            {
+                menu_info.fMask = MIIM_FTYPE;
+                menu_info.fType = MFT_SEPARATOR;
+            }
+
+
+        };
+
+
         // static functions
 
         static ::UINT get_and_increment_id()

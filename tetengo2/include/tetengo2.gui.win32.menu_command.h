@@ -9,13 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_MENUCOMMAND_H)
 #define TETENGO2_GUI_WIN32_MENUCOMMAND_H
 
-//#include <cstddef>
 //#include <utility>
-//#include <vector>
-
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.menu.h"
@@ -71,15 +65,10 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // virtual functions
 
-        virtual void set_menu_info_impl(
-            ::MENUITEMINFOW&       menu_info,
-            std::vector< ::WCHAR>& duplicated_text
-        )
+        virtual const style_type& style_impl()
         const
         {
-            menu_info.fMask = MIIM_STRING | MIIM_ID;
-            menu_info.dwTypeData = duplicated_text.data();
-            menu_info.wID = details()->first;
+            return menu_details_type::menu_command_style();
         }
 
 

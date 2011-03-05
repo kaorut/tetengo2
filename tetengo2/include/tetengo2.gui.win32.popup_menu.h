@@ -10,11 +10,6 @@
 #define TETENGO2_GUI_WIN32_POPUPMENU_H
 
 //#include <utility>
-//#include <vector>
-
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.abstract_popup_menu.h"
@@ -72,16 +67,10 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // virtual functions
 
-        virtual void set_menu_info_impl(
-            ::MENUITEMINFOW&       menu_info,
-            std::vector< ::WCHAR>& duplicated_text
-        )
+        virtual const style_type& style_impl()
         const
         {
-            menu_info.fMask = MIIM_STRING | MIIM_ID | MIIM_SUBMENU;
-            menu_info.dwTypeData = duplicated_text.data();
-            menu_info.wID = details()->first;
-            menu_info.hSubMenu = &*details()->second;
+            return menu_details_type::popup_menu_style();
         }
 
 

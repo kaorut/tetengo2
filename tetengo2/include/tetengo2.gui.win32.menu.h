@@ -13,15 +13,11 @@
 //#include <cstddef>
 #include <stdexcept>
 //#include <utility>
-#include <vector>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/throw_exception.hpp>
-
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
@@ -79,6 +75,9 @@ namespace tetengo2 { namespace gui { namespace win32
             typename menu_details_type::menu_details_ptr_type
             details_ptr_type;
 
+        //! The style type.
+        typedef typename menu_details_type::style_tag style_type;
+
 
         // constructors and destructor
 
@@ -101,6 +100,17 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_text;
+        }
+
+        /*!
+            \brief Returns the style.
+
+            \return The style.
+        */
+        const style_type& style()
+        const
+        {
+            return style_impl();
         }
 
         /*!
@@ -278,21 +288,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 boost::optional<const details_type&>(*m_p_details);
         }
 
-        /*!
-            \brief Sets the Win32 menu information.
-
-            \param menu_info       A menu information.
-            \param duplicated_text A duplicated text.
-        */
-        void set_menu_info(
-            ::MENUITEMINFOW&       menu_info,
-            std::vector< ::WCHAR>& duplicated_text
-        )
-        const
-        {
-            set_menu_info_impl(menu_info, duplicated_text);
-        }
-
 
     protected:
         // constructors
@@ -336,10 +331,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // virtual functions
 
-        virtual void set_menu_info_impl(
-            ::MENUITEMINFOW&       menu_info,
-            std::vector< ::WCHAR>& duplicated_text
-        )
+        virtual const style_type& style_impl()
         const = 0;
 
         virtual const_iterator begin_impl()

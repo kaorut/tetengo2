@@ -9,16 +9,6 @@
 #if !defined(TETENGO2_GUI_WIN32_MAINMENU_H)
 #define TETENGO2_GUI_WIN32_MAINMENU_H
 
-//#include <cassert>
-//#include <stdexcept>
-//#include <vector>
-
-//#include <boost/throw_exception.hpp>
-
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
-
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.abstract_popup_menu.h"
 
@@ -68,16 +58,10 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // virtual functions
 
-        virtual void set_menu_info_impl(
-            ::MENUITEMINFOW&       menu_info,
-            std::vector< ::WCHAR>& duplicated_text
-        )
+        virtual const style_type& style_impl()
         const
         {
-            assert(false);
-            BOOST_THROW_EXCEPTION(
-                std::logic_error("A main menu cannot be inserted.")
-            );
+            return menu_details_type::main_menu_style();
         }
 
 

@@ -13,7 +13,6 @@
 //#include <stdexcept>
 //#include <utility>
 
-#include <boost/optional.hpp>
 //#include <boost/ptr_container/ptr_vector.hpp>
 //#include <boost/throw_exception.hpp>
 
