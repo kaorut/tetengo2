@@ -11,14 +11,15 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "stub_tetengo2.gui.abstract_popup_menu.h"
-#include "stub_tetengo2.gui.menu.h"
-#include "stub_tetengo2.gui.popup_menu.h"
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.encoding.h"
+#include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.encoder.h"
 #include "tetengo2.encoding.locale.h"
+#include "tetengo2.gui.abstract_popup_menu.h"
+#include "tetengo2.gui.menu.h"
 #include "tetengo2.gui.menu_observer_set.h"
+#include "tetengo2.gui.popup_menu.h"
 #include "tetengo2.gui.traits.menu_traits.h"
 
 #include "tetengo2.gui.recursive_menu_iterator.h"
@@ -50,13 +51,20 @@ namespace
         >
         menu_traits_type;
 
-    typedef stub_tetengo2::gui::menu<menu_traits_type> menu_type;
+    typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        stub_tetengo2::gui::abstract_popup_menu<menu_traits_type>
+        tetengo2::gui::menu<menu_traits_type, menu_details_type> menu_type;
+
+    typedef
+        tetengo2::gui::abstract_popup_menu<
+            menu_traits_type, menu_details_type
+        >
         abstract_popup_menu_type;
 
-    typedef stub_tetengo2::gui::popup_menu<menu_traits_type> popup_menu_type;
+    typedef
+        tetengo2::gui::popup_menu<menu_traits_type, menu_details_type>
+        popup_menu_type;
 
     typedef tetengo2::gui::recursive_menu_iterator<menu_type> iterator_type;
 

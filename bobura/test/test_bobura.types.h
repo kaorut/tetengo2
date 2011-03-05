@@ -21,21 +21,21 @@
 #include <stub_tetengo2.gui.dialog.h>
 #include <stub_tetengo2.gui.image.h>
 #include <stub_tetengo2.gui.label.h>
-#include <stub_tetengo2.gui.main_menu.h>
-#include <stub_tetengo2.gui.menu.h>
-#include <stub_tetengo2.gui.menu_command.h>
-#include <stub_tetengo2.gui.menu_separator.h>
-#include <stub_tetengo2.gui.popup_menu.h>
 #include <stub_tetengo2.gui.window.h>
 #include <tetengo2.detail.stub.alert.h>
 #include <tetengo2.detail.stub.drawing.h>
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.detail.stub.gui_fixture.h>
+#include <tetengo2.detail.stub.menu.h>
 #include <tetengo2.detail.stub.message_loop.h>
 #include <tetengo2.detail.stub.unit.h>
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.dialog_message_loop.h>
+#include <tetengo2.gui.main_menu.h>
+#include <tetengo2.gui.menu.h>
+#include <tetengo2.gui.menu_command.h>
+#include <tetengo2.gui.menu_separator.h>
 #include <tetengo2.gui.message_loop.h>
 #include <tetengo2.gui.message_loop_break.h>
 #include <tetengo2.gui.drawing.background.h>
@@ -49,6 +49,7 @@
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
+#include <tetengo2.gui.popup_menu.h>
 #include <tetengo2.gui.traits.abstract_window_traits.h>
 #include <tetengo2.gui.traits.button_traits.h>
 #include <tetengo2.gui.traits.control_traits.h>
@@ -186,9 +187,13 @@ typedef
     >
     menu_traits_type;
 
-typedef stub_tetengo2::gui::menu<menu_traits_type> menu_type;
+typedef tetengo2::detail::stub::menu menu_details_type;
 
-typedef stub_tetengo2::gui::main_menu<menu_traits_type> main_menu_type;
+typedef tetengo2::gui::menu<menu_traits_type, menu_details_type> menu_type;
+
+typedef
+    tetengo2::gui::main_menu<menu_traits_type, menu_details_type>
+    main_menu_type;
 
 typedef
     tetengo2::gui::traits::abstract_window_traits<
@@ -313,12 +318,17 @@ typedef
     >::type
     main_window_message_type_list_type;
 
-typedef stub_tetengo2::gui::menu_command<menu_traits_type> menu_command_type;
-
-typedef stub_tetengo2::gui::popup_menu<menu_traits_type> popup_menu_type;
+typedef
+    tetengo2::gui::menu_command<menu_traits_type, menu_details_type>
+    menu_command_type;
 
 typedef
-    stub_tetengo2::gui::menu_separator<menu_traits_type> menu_separator_type;
+    tetengo2::gui::popup_menu<menu_traits_type, menu_details_type>
+    popup_menu_type;
+
+typedef
+    tetengo2::gui::menu_separator<menu_traits_type, menu_details_type>
+    menu_separator_type;
 
 typedef
     bobura::main_window<

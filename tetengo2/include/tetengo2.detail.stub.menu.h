@@ -117,7 +117,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static const style_tag& main_menu_style()
         {
-            static const style_tag singleton;
+            static const style_tag singleton = style_tag();
             return singleton;
         }
 
@@ -128,7 +128,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static const style_tag& popup_menu_style()
         {
-            static const style_tag singleton;
+            static const style_tag singleton = style_tag();
             return singleton;
         }
 
@@ -139,7 +139,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static const style_tag& menu_command_style()
         {
-            static const style_tag singleton;
+            static const style_tag singleton = style_tag();
             return singleton;
         }
 
@@ -150,7 +150,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static const style_tag& menu_separator_style()
         {
-            static const style_tag singleton;
+            static const style_tag singleton = style_tag();
             return singleton;
         }
 
