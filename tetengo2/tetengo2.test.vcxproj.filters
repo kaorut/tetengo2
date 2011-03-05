@@ -36,9 +36,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="test\stub_tetengo2.gui.abstract_popup_menu.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.abstract_window.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
@@ -46,21 +43,6 @@
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.dialog.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.main_menu.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.menu.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.menu_command.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.menu_separator.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.popup_menu.h">
       <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="test\stub_tetengo2.gui.widget.h">

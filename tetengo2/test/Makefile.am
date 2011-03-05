@@ -3,18 +3,12 @@
 # $Id$
 
 headers = \
-    stub_tetengo2.gui.abstract_popup_menu.h \
     stub_tetengo2.gui.abstract_window.h \
     stub_tetengo2.gui.button.h \
     stub_tetengo2.gui.control.h \
     stub_tetengo2.gui.dialog.h \
     stub_tetengo2.gui.image.h \
     stub_tetengo2.gui.label.h \
-    stub_tetengo2.gui.main_menu.h \
-    stub_tetengo2.gui.menu.h \
-    stub_tetengo2.gui.menu_command.h \
-    stub_tetengo2.gui.menu_separator.h \
-    stub_tetengo2.gui.popup_menu.h \
     stub_tetengo2.gui.widget.h \
     stub_tetengo2.gui.window.h
 
