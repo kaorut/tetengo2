@@ -382,7 +382,6 @@ namespace bobura
         typedef
             tetengo2::gui::traits::menu_traits<
                 ::UINT,
-                ::HMENU,
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 tetengo2::gui::menu_observer_set

@@ -181,7 +181,6 @@ typedef
 typedef
     tetengo2::gui::traits::menu_traits<
         unsigned int,
-        const void*,
         std::wstring,
         ui_encoder_type,
         tetengo2::gui::menu_observer_set

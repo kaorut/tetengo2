@@ -242,7 +242,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         static bool same_popup_menu(
             const typename main_menu_type::base_type::base_type& menu1,
-            typename main_menu_type::handle_type                 menu2_handle
+            ::HMENU                                              menu2_handle
         )
         {
             if (!menu1.details() || menu2_handle == NULL) return false;

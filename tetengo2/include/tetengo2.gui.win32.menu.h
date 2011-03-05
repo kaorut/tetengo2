@@ -47,9 +47,6 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The ID type.
         typedef typename traits_type::id_type id_type;
 
-        //! The handle type.
-        typedef typename traits_type::handle_type handle_type;
-
         //! The string type.
         typedef typename traits_type::string_type string_type;
 

@@ -16,14 +16,12 @@ namespace tetengo2 { namespace gui { namespace traits
         \brief The traits class template for a menu.
  
         \tparam Id              A ID type.
-        \tparam Handle          A handle type.
         \tparam String          A string type.
         \tparam Encoder         An encoder type.
         \tparam MenuObserverSet A menu observer set type.
    */
     template <
         typename Id,
-        typename Handle,
         typename String,
         typename Encoder,
         typename MenuObserverSet
@@ -34,9 +32,6 @@ namespace tetengo2 { namespace gui { namespace traits
 
         //! The ID type.
         typedef Id id_type;
-
-        //! The handle type.
-        typedef Handle handle_type;
 
         //! The string type.
         typedef String string_type;
