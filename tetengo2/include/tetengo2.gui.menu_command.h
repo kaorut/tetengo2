@@ -1,30 +1,30 @@
 /*! \file
-    \brief The definition of tetengo2::gui::popup_menu.
+    \brief The definition of tetengo2::gui::win32::menu_command.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_POPUPMENU_H)
-#define TETENGO2_GUI_WIN32_POPUPMENU_H
+#if !defined(TETENGO2_GUI_WIN32_MENUCOMMAND_H)
+#define TETENGO2_GUI_WIN32_MENUCOMMAND_H
 
 //#include <utility>
 
 #include "tetengo2.cpp0x.h"
-#include "tetengo2.gui.win32.abstract_popup_menu.h"
+#include "tetengo2.gui.menu.h"
 
 
 namespace tetengo2 { namespace gui { namespace win32
 {
     /*!
-        \brief The class template for a popup menu.
+        \brief The class template for a menu command.
 
         \tparam Traits      A traits type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class popup_menu : public abstract_popup_menu<Traits, MenuDetails>
+    class menu_command : public menu<Traits, MenuDetails>
     {
     public:
         // types
@@ -36,41 +36,44 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef MenuDetails menu_details_type;
 
         //! The base type.
-        typedef abstract_popup_menu<traits_type, menu_details_type> base_type;
+        typedef menu<traits_type, menu_details_type> base_type;
 
 
         // constructors and destructor
 
         /*!
-            \brief Creates a popup menu.
+            \brief Creates a menu command.
 
             \tparam S A string type.
 
             \param text A text.
         */
         template <typename S>
-        explicit popup_menu(S&& text)
+        explicit menu_command(S&& text)
         :
-        base_type(
-            std::forward<S>(text), menu_details_type::create_popup_menu()
-        )
+        base_type(std::forward<S>(text), menu_details_type::create_menu())
         {}
 
         /*!
-            \brief Destroys the popup menu.
+            \brief Destroys the menu command.
         */
-        virtual ~popup_menu()
+        virtual ~menu_command()
         TETENGO2_CPP0X_NOEXCEPT
         {}
 
 
     private:
+        // types
+
+        typedef typename base_type::style_type style_type;
+
+
         // virtual functions
 
         virtual const style_type& style_impl()
         const
         {
-            return menu_details_type::popup_menu_style();
+            return menu_details_type::menu_command_style();
         }
 
 

@@ -66,9 +66,6 @@
     <ClInclude Include="include\tetengo2.gui.recursive_menu_iterator.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.abstract_popup_menu.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.abstract_window.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -76,21 +73,6 @@
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.dialog.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.main_menu.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.menu.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.menu_command.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.menu_separator.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.popup_menu.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.win32.widget.h">
@@ -260,6 +242,24 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.stub.menu.h">
       <Filter>headers\tetengo2::detail::stub</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.popup_menu.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.abstract_popup_menu.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.main_menu.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu_command.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu_separator.h">
+      <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

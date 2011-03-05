@@ -8,7 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.win32.popup_menu.h"
+#include "tetengo2.gui.popup_menu.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::menu_separator.
+    \brief Test of class tetengo2::gui::menu_command.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -8,13 +8,13 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.win32.menu_separator.h"
+#include "tetengo2.gui.menu_command.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(win32)
-BOOST_AUTO_TEST_SUITE(menu_separator)
+BOOST_AUTO_TEST_SUITE(menu_command)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

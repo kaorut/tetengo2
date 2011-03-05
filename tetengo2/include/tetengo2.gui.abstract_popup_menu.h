@@ -17,7 +17,7 @@
 //#include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x.h"
-#include "tetengo2.gui.win32.menu.h"
+#include "tetengo2.gui.menu.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
@@ -83,6 +83,21 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
+        // types
+
+        typedef typename traits_type::encoder_type encoder_type;
+
+        typedef typename base_type::const_iterator const_iterator;
+
+        typedef typename base_type::iterator iterator;
+
+        typedef
+            typename base_type::const_recursive_iterator
+            const_recursive_iterator;
+
+        typedef typename base_type::recursive_iterator recursive_iterator;
+
+
         // static functions
 
         static const encoder_type& encoder()
