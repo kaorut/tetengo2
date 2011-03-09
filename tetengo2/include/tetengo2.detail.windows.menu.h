@@ -51,7 +51,7 @@ namespace tetengo2 { namespace detail { namespace windows
             std::pair<
                 ::UINT,
                 tetengo2::cpp0x::unique_ptr<
-                    std::remove_pointer< ::HMENU>::type
+                    std::remove_pointer< ::HMENU>::type, menu_deleter
                 >::type
             >
             id_handle_type;
