@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <string>
+//#include <string>
 
 #include <boost/test/unit_test.hpp>
 

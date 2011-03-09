@@ -6,12 +6,12 @@
     $Id$
 */
 
-#include <iterator>
-#include <string>
-#include <utility>
+//#include <iterator>
+//#include <string>
+//#include <utility>
 
 #include <boost/test/unit_test.hpp>
-#include <boost/utility.hpp>
+//#include <boost/utility.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.encoding.h"
