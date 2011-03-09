@@ -10,7 +10,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.encoder.h"
