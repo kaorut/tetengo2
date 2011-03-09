@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_SUITE(menu)
         );
 
         // Assertion fails.
-        //menu.insert(menu.begin(), std::move(p_child)),
+        //menu.insert(menu.begin(), std::move(p_child));
     }
 
     BOOST_AUTO_TEST_CASE(erase)

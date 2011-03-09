@@ -6,9 +6,12 @@
     $Id$
 */
 
+#include <iterator>
 #include <string>
+#include <utility>
 
 #include <boost/test/unit_test.hpp>
+#include <boost/utility.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.encoding.h"
@@ -52,10 +55,11 @@ namespace
     public:
         // constructors and destructors
 
-        concrete_popup_menu()
+        concrete_popup_menu(std::string&& text)
         :
         abstract_popup_menu_type(
-            std::string(), menu_details_type::create_popup_menu()
+            std::forward<std::string>(text),
+            menu_details_type::create_popup_menu()
         )
         {}
 
@@ -85,8 +89,65 @@ BOOST_AUTO_TEST_SUITE(abstract_popup_menu)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_popup_menu popup_menu;
+        const concrete_popup_menu popup_menu(std::string("Tetengo"));
     }
+
+    BOOST_AUTO_TEST_CASE(insert)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_popup_menu popup_menu(std::string("Tetengo"));
+        tetengo2::cpp0x::unique_ptr<abstract_popup_menu_type>::type p_child1(
+            new concrete_popup_menu(std::string("Hoge"))
+        );
+        tetengo2::cpp0x::unique_ptr<abstract_popup_menu_type>::type p_child2(
+            new concrete_popup_menu(std::string("Fuga"))
+        );
+
+        popup_menu.insert(popup_menu.end(), std::move(p_child1));
+        BOOST_CHECK_EQUAL(
+            std::distance(popup_menu.begin(), popup_menu.end()), 1
+        );
+        popup_menu.insert(popup_menu.begin(), std::move(p_child2));
+        BOOST_CHECK_EQUAL(
+            std::distance(popup_menu.begin(), popup_menu.end()), 2
+        );
+
+        BOOST_CHECK(popup_menu.begin()->text() == "Fuga");
+        BOOST_CHECK(boost::next(popup_menu.begin())->text() == "Hoge");
+    }
+
+    BOOST_AUTO_TEST_CASE(erase)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_popup_menu popup_menu(std::string("Tetengo"));
+        tetengo2::cpp0x::unique_ptr<abstract_popup_menu_type>::type p_child1(
+            new concrete_popup_menu(std::string("Hoge"))
+        );
+        tetengo2::cpp0x::unique_ptr<abstract_popup_menu_type>::type p_child2(
+            new concrete_popup_menu(std::string("Fuga"))
+        );
+        popup_menu.insert(popup_menu.end(), std::move(p_child1));
+        popup_menu.insert(popup_menu.begin(), std::move(p_child2));
+
+        popup_menu.erase(popup_menu.begin(), popup_menu.begin());
+        BOOST_CHECK_EQUAL(
+            std::distance(popup_menu.begin(), popup_menu.end()), 2
+        );
+
+        popup_menu.erase(popup_menu.begin(), boost::next(popup_menu.begin()));
+        BOOST_CHECK_EQUAL(
+            std::distance(popup_menu.begin(), popup_menu.end()), 1
+        );
+        BOOST_CHECK(popup_menu.begin()->text() == "Hoge");
+
+        popup_menu.erase(popup_menu.begin(), popup_menu.end());
+        BOOST_CHECK_EQUAL(
+            std::distance(popup_menu.begin(), popup_menu.end()), 0
+        );
+    }
+
 
 
 BOOST_AUTO_TEST_SUITE_END()
