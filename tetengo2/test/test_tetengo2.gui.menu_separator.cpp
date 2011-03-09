@@ -10,8 +10,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.menu_separator.h"
-
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.menu.h"
@@ -46,6 +44,7 @@ namespace
     typedef
         tetengo2::gui::menu_separator<menu_traits_type, menu_details_type>
         menu_separator_type;
+
 
 }
 
