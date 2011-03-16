@@ -765,6 +765,42 @@ namespace tetengo2 { namespace gui { namespace win32
             return m_destroyed;
         }
 
+        /*!
+            \brief Dispatches window messages.
+
+            \param uMsg   A message.
+            \param wParam A parameter #1.
+            \param lParam A parameter #2.
+
+            \return The result.
+        */
+        ::LRESULT window_procedure(
+            const ::UINT    uMsg,
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            typedef
+                typename message_handler_map_type::const_iterator
+                map_iterator;
+            const map_iterator found = m_message_handler_map.find(uMsg);
+            if (found != m_message_handler_map.end())
+            {
+                BOOST_FOREACH (
+                    const message_handler_type& handler, found->second
+                )
+                {
+                    const boost::optional< ::LRESULT> o_result =
+                        handler(wParam, lParam);
+                    if (o_result) return *o_result;
+                }
+            }
+
+            return ::CallWindowProcW(
+                p_default_window_procedure(), handle(), uMsg, wParam, lParam
+            );
+        }
+
 
     protected:
         // types
@@ -860,42 +896,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
-
-        /*!
-            \brief Dispatches window messages.
-
-            \param uMsg   A message.
-            \param wParam A parameter #1.
-            \param lParam A parameter #2.
-
-            \return The result.
-        */
-        ::LRESULT window_procedure(
-            const ::UINT    uMsg,
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            typedef
-                typename message_handler_map_type::const_iterator
-                map_iterator;
-            const map_iterator found = m_message_handler_map.find(uMsg);
-            if (found != m_message_handler_map.end())
-            {
-                BOOST_FOREACH (
-                    const message_handler_type& handler, found->second
-                )
-                {
-                    const boost::optional< ::LRESULT> o_result =
-                        handler(wParam, lParam);
-                    if (o_result) return *o_result;
-                }
-            }
-
-            return ::CallWindowProcW(
-                p_default_window_procedure(), handle(), uMsg, wParam, lParam
-            );
-        }
 
         /*!
             \brief Erases the background.

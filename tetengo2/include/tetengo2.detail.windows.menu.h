@@ -60,6 +60,7 @@ namespace tetengo2 { namespace detail { namespace windows
     }
 #endif
 
+
     /*!
         \brief The class for a detail implementation of a menu.
     */
