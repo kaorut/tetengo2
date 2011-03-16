@@ -288,15 +288,15 @@ namespace bobura
             );
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("OK")));
-            p_button->mouse_observer_set().clicked().connect(
-                exception_thrower("link clicked")
-            );
             //p_button->mouse_observer_set().clicked().connect(
-            //    typename boost::mpl::at<
-            //        about_dialog_message_type_list_type,
-            //        message::about_dialog::type::ok_button_mouse
-            //    >::type(*this)
+            //    exception_thrower("link clicked")
             //);
+            p_button->mouse_observer_set().clicked().connect(
+                typename boost::mpl::at<
+                    about_dialog_message_type_list_type,
+                    message::about_dialog::type::ok_button_mouse
+                >::type(*this)
+            );
 
             return std::move(p_button);
         }
