@@ -412,7 +412,12 @@ namespace bobura
         typedef
             tetengo2::gui::traits::window_traits<abstract_window_traits_type>
             window_traits_type;
-        typedef tetengo2::gui::win32::window<window_traits_type> window_type;
+        typedef tetengo2::detail::windows::widget widget_details_type;
+        typedef
+            tetengo2::gui::win32::window<
+                window_traits_type, widget_details_type
+            >
+            window_type;
         typedef
             tetengo2::gui::dialog_message_loop<message_loop_details_type>
             dialog_message_loop_type;
@@ -423,7 +428,6 @@ namespace bobura
                 message_loop_break_type
             >
             dialog_traits_type;
-        typedef tetengo2::detail::windows::widget widget_details_type;
         typedef
             tetengo2::gui::win32::dialog<
                 dialog_traits_type, widget_details_type
