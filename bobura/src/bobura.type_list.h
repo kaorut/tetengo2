@@ -37,6 +37,7 @@
 #include <tetengo2.detail.windows.menu.h>
 #include <tetengo2.detail.windows.message_loop.h>
 #include <tetengo2.detail.windows.unit.h>
+#include <tetengo2.detail.windows.widget.h>
 #include <tetengo2.encoding.locale.h>
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.abstract_popup_menu.h>
@@ -422,7 +423,12 @@ namespace bobura
                 message_loop_break_type
             >
             dialog_traits_type;
-        typedef tetengo2::gui::win32::dialog<dialog_traits_type> dialog_type;
+        typedef tetengo2::detail::windows::widget widget_details_type;
+        typedef
+            tetengo2::gui::win32::dialog<
+                dialog_traits_type, widget_details_type
+            >
+            dialog_type;
         typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
             tetengo2::gui::traits::control_traits<

@@ -32,9 +32,10 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a modal dialog.
  
-        \tparam Traits A traits type.
+        \tparam Traits        A traits type.
+        \tparam WidgetDetails A detail implementation type of a widget.
    */
-    template <typename Traits>
+    template <typename Traits, typename WidgetDetails>
     class dialog : public abstract_window<typename Traits::base_type>
     {
     public:
@@ -53,6 +54,9 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             typename traits_type::message_loop_break_type
             message_loop_break_type;
+
+        //! The detail implementation type of a widget.
+        typedef WidgetDetails widget_details_type;
 
         //! The result type.
         enum result_type
