@@ -282,17 +282,6 @@ namespace tetengo2 { namespace gui { namespace win32
             return m_handle;
         }
 
-        virtual void close_impl()
-        {
-            const ::BOOL result = ::DestroyWindow(handle());
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't destroy the dialog.")
-                );
-            }
-        }
-
 
         // functions
 
