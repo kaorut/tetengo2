@@ -58,6 +58,16 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
+        //! The detail implementation type.
+        typedef
+            typename widget_details_type::widget_details_type details_type;
+
+        //! The detail implementation pointer type.
+        typedef
+            typename widget_details_type::widget_details_ptr_type
+            details_ptr_type;
+
+
         //! The result type.
         enum result_type
         {
@@ -79,12 +89,12 @@ namespace tetengo2 { namespace gui { namespace win32
         explicit dialog(base_type& parent)
         :
         base_type(make_message_handler_map(message_handler_map_type())),
-        m_handle(
+        m_result(result_undecided),
+        m_p_details(
             widget_details_type::create_dialog<typename base_type::base_type>(
                 parent
-            ).release()
-        ),
-        m_result(result_undecided)
+            )
+        )
         {
             initialize(this);
         }
@@ -150,9 +160,9 @@ namespace tetengo2 { namespace gui { namespace win32
     private:
         // variables
 
-        const handle_type m_handle;
-
         result_type m_result;
+
+        const details_ptr_type m_p_details;
 
 
         // virtual functions
@@ -160,7 +170,7 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual handle_type handle_impl()
         const
         {
-            return m_handle;
+            return m_p_details.get();
         }
 
 
