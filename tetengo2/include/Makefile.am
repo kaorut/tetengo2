@@ -11,6 +11,7 @@ headers = \
     tetengo2.detail.stub.menu.h \
     tetengo2.detail.stub.message_loop.h \
     tetengo2.detail.stub.unit.h \
+    tetengo2.detail.stub.widget.h \
     tetengo2.encoder.h \
     tetengo2.generator.h \
     tetengo2.message_catalog.h \
@@ -71,6 +72,7 @@ extra_headers = \
     tetengo2.detail.windows.menu.h \
     tetengo2.detail.windows.message_loop.h \
     tetengo2.detail.windows.unit.h \
+    tetengo2.detail.windows.widget.h \
     tetengo2.detail.windows.windows_version.h \
     tetengo2.gui.win32.abstract_window.h \
     tetengo2.gui.win32.button.h \

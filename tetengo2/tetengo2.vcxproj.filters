@@ -261,5 +261,11 @@
     <ClInclude Include="include\tetengo2.gui.menu_separator.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.stub.widget.h">
+      <Filter>headers\tetengo2::detail::stub</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.widget.h">
+      <Filter>headers\tetengo2::detail::windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
