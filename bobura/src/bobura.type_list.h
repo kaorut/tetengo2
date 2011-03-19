@@ -448,7 +448,11 @@ namespace bobura
         typedef
             tetengo2::gui::traits::button_traits<control_traits_type>
             button_traits_type;
-        typedef tetengo2::gui::win32::button<button_traits_type> button_type;
+        typedef
+            tetengo2::gui::win32::button<
+                button_traits_type, widget_details_type
+            >
+            button_type;
     }}
 #endif
 
