@@ -240,6 +240,26 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
+        /*!
+            \brief Closes a widget.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+        */
+        template <typename Widget>
+        static void close(Widget& widget)
+        {
+            const ::BOOL result =
+                ::PostMessageW(widget.handle(), WM_CLOSE, 0, 0);
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't close the widget.")
+                );
+            }
+        }
+
 
     private:
         // static functions
