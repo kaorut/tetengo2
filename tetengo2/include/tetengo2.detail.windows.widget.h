@@ -191,6 +191,19 @@ namespace tetengo2 { namespace detail { namespace windows
             return std::move(p_widget);
         }
 
+        /*!
+            \brief Activates a widget.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+        */
+        template <typename Widget>
+        static void activate(Widget& widget)
+        {
+            ::SetActiveWindow(widget.handle());
+        }
+
 
     private:
         // static functions

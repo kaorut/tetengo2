@@ -85,7 +85,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void activate()
         {
-            ::SetActiveWindow(handle());
+            widget_details_type::activate(*this);
         }
 
         /*!
