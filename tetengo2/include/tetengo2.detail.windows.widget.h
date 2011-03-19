@@ -9,17 +9,20 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_WIDGET_H)
 #define TETENGO2_DETAIL_WINDOWS_WIDGET_H
 
+#include <cstddef>
+#include <exception>
 #include <stdexcept>
+#include <string>
 #include <type_traits>
 #include <utility>
 
+#include <boost/exception/all.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
-#include <CommCtrl.h>
 
 #include "tetengo2.cpp0x.h"
 

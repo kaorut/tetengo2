@@ -9,14 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_WINDOW_H)
 #define TETENGO2_GUI_WIN32_WINDOW_H
 
-//#include <cstddef>
 //#include <stdexcept>
-
-//#include <boost/throw_exception.hpp>
-
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.abstract_window.h"
