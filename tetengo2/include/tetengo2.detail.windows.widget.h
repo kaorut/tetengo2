@@ -84,7 +84,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            const boost::optional<const Widget&> parent =
+            const boost::optional<const Widget&>& parent =
                 boost::optional<const Widget&>()
         )
         {
@@ -143,7 +143,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_dialog(
-            const boost::optional<const Widget&> parent
+            const boost::optional<const Widget&>& parent
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
@@ -202,6 +202,42 @@ namespace tetengo2 { namespace detail { namespace windows
         static void activate(Widget& widget)
         {
             ::SetActiveWindow(widget.handle());
+        }
+
+        /*!
+            \brief Assigns a main menu on a widget.
+
+            \tparam Widget A widget type.
+            \tparam Menu   A menu type.
+
+            \param widget A widget.
+            \param menu   A menu.
+                          It may be uninitialized to remove a main menu.
+        */
+        template <typename Widget, typename Menu>
+        static void set_main_menu(
+            Widget&                             widget,
+            const boost::optional<const Menu&>& menu =
+                boost::optional<const Menu&>()
+        )
+        {
+            const ::BOOL result =
+                ::SetMenu(
+                    widget.handle(), menu ? &*menu->details()->second : NULL
+                );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set a main menu.")
+                );
+            }
+
+            if (menu && ::DrawMenuBar(widget.handle()) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't draw the main menu.")
+                );
+            }
         }
 
 

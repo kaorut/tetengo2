@@ -143,34 +143,18 @@ namespace tetengo2 { namespace gui { namespace win32
             typename cpp0x::unique_ptr<main_menu_type>::type p_main_menu
         )
         {
-            if (::SetMenu(handle(), NULL) == 0)
+            widget_details_type::set_main_menu(
+                *this, boost::optional<const main_menu_type&>()
+            );
+            
+            if (p_main_menu.get() != NULL)
             {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't unset the main menu.")
+                widget_details_type::set_main_menu(
+                    *this,
+                    boost::optional<const main_menu_type&>(*p_main_menu)
                 );
             }
-            
             m_p_main_menu = std::move(p_main_menu);
-            
-            if (m_p_main_menu.get() != NULL)
-            {
-                assert(m_p_main_menu->details());
-                if (
-                    ::SetMenu(handle(), &*m_p_main_menu->details()->second) ==
-                    0
-                )
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't set a main menu.")
-                    );
-                }
-                if (::DrawMenuBar(handle()) == 0)
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't draw the main menu.")
-                    );
-                }
-            }
         }
 
         /*!
