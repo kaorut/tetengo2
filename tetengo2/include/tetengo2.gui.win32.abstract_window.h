@@ -12,12 +12,10 @@
 //#include <algorithm>
 //#include <cassert>
 //#include <cstddef>
-//#include <stdexcept>
 //#include <utility>
 
 //#include <boost/bind.hpp>
 //#include <boost/optional.hpp>
-//#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
