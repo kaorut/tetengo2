@@ -65,7 +65,11 @@ namespace tetengo2 { namespace gui { namespace win32
         window()
         :
         base_type(message_handler_map_type()),
-        m_handle(create_window(NULL))
+        m_p_details(
+            widget_details_type::create_window<
+                typename base_type::base_type
+            >()
+        )
         {
             initialize(this);
         }
@@ -77,10 +81,14 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \throw std::runtime_error When a window cannot be created.
         */
-        explicit window(const base_type& parent)
+        explicit window(base_type& parent)
         :
         base_type(message_handler_map_type()),
-        m_handle(create_window(&parent))
+        m_p_details(
+            widget_details_type::create_window<typename base_type::base_type>(
+                parent
+            )
+        )
         {
             initialize(this);
         }
@@ -94,116 +102,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // static functions
-
-        static const string_type& window_class_name()
-        {
-            static const string_type singleton =
-                L"tetengo2::gui::win32::window";
-            return singleton;
-        }
-
-        static handle_type create_window(const base_type* const p_parent)
-        {
-            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
-            if (instance_handle == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get the instance handle!")
-                );
-            }
-
-            if (
-                !window_class_is_registered(
-                    window_class_name(), instance_handle
-                )
-            )
-            {
-                register_window_class(instance_handle);
-            }
-
-            const handle_type handle = ::CreateWindowExW(
-                WS_EX_ACCEPTFILES | WS_EX_APPWINDOW,
-                window_class_name().c_str(),
-                window_class_name().c_str(),
-                WS_OVERLAPPEDWINDOW,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                p_parent == NULL ? HWND_DESKTOP : p_parent->handle(),
-                NULL,
-                instance_handle,
-                NULL
-            );
-            if (handle == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a window!")
-                );
-            }
-
-            return handle;
-        }
-
-        static void register_window_class(const ::HINSTANCE instance_handle)
-        {
-            ::WNDCLASSEXW window_class;
-            window_class.cbSize = sizeof(::WNDCLASSEXW);
-            window_class.style = 0;
-            window_class.lpfnWndProc = p_static_window_procedure();
-            window_class.cbClsExtra = 0;
-            window_class.cbWndExtra = 0;
-            window_class.hInstance = instance_handle;
-            window_class.hIcon = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OIC_WINLOGO),
-                    IMAGE_ICON,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hIconSm = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OIC_WINLOGO),
-                    IMAGE_ICON,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hCursor = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OCR_NORMAL),
-                    IMAGE_CURSOR,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(
-                ::GetSysColorBrush(COLOR_3DFACE)
-            );
-            window_class.lpszMenuName = NULL;
-            window_class.lpszClassName = window_class_name().c_str();
-
-            const ::ATOM atom = ::RegisterClassExW(&window_class);
-            if (atom == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't register a window class!")
-                );
-            }
-        }
-
-
         // variables
 
-        const handle_type m_handle;
+        const details_ptr_type m_p_details;
 
 
         // virtual functions
@@ -211,7 +112,7 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual handle_type handle_impl()
         const
         {
-            return m_handle;
+            return m_p_details.get();
         }
 
 

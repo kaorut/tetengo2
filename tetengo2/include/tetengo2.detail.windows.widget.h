@@ -70,6 +70,65 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         /*!
+            \brief Creates a window.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget.
+                          When uninitialized, the window has no parent.
+
+            \return A unique pointer to a window.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_window(
+            const boost::optional<const Widget&> parent =
+                boost::optional<const Widget&>()
+        )
+        {
+            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+            if (instance_handle == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get the instance handle!")
+                );
+            }
+
+            if (
+                !window_class_is_registered(
+                    window_class_name(), instance_handle
+                )
+            )
+            {
+                register_window_class_for_window<Widget>(instance_handle);
+            }
+
+            widget_details_ptr_type p_widget(
+                ::CreateWindowExW(
+                    WS_EX_ACCEPTFILES | WS_EX_APPWINDOW,
+                    window_class_name().c_str(),
+                    window_class_name().c_str(),
+                    WS_OVERLAPPEDWINDOW,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent ? parent->handle() : HWND_DESKTOP,
+                    NULL,
+                    instance_handle,
+                    NULL
+                )
+            );
+            if (p_widget.get() == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a window!")
+                );
+            }
+
+            return std::move(p_widget);
+        }
+
+        /*!
             \brief Creates a dialog.
 
             \tparam Widget A widget type.
@@ -94,18 +153,18 @@ namespace tetengo2 { namespace detail { namespace windows
 
             if (
                 !window_class_is_registered(
-                    window_class_name(), instance_handle
+                    dialog_class_name(), instance_handle
                 )
             )
             {
-                register_window_class<Widget>(instance_handle);
+                register_window_class_for_dialog<Widget>(instance_handle);
             }
 
             widget_details_ptr_type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME,
-                    window_class_name().c_str(),
-                    window_class_name().c_str(),
+                    dialog_class_name().c_str(),
+                    dialog_class_name().c_str(),
                     WS_POPUPWINDOW | WS_CAPTION,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
@@ -135,6 +194,12 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static const std::wstring& window_class_name()
         {
+            static const std::wstring singleton = L"tetengo2_window";
+            return singleton;
+        }
+
+        static const std::wstring& dialog_class_name()
+        {
             static const std::wstring singleton = L"tetengo2_dialog";
             return singleton;
         }
@@ -153,7 +218,68 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         template <typename Widget>
-        static void register_window_class(const ::HINSTANCE instance_handle)
+        static void register_window_class_for_window(
+            const ::HINSTANCE instance_handle
+        )
+        {
+            ::WNDCLASSEXW window_class;
+            window_class.cbSize = sizeof(::WNDCLASSEXW);
+            window_class.style = 0;
+            window_class.lpfnWndProc = window_procedure<Widget>;
+            window_class.cbClsExtra = 0;
+            window_class.cbWndExtra = 0;
+            window_class.hInstance = instance_handle;
+            window_class.hIcon = reinterpret_cast< ::HICON>(
+                ::LoadImageW(
+                    0,
+                    MAKEINTRESOURCEW(OIC_WINLOGO),
+                    IMAGE_ICON,
+                    0,
+                    0,
+                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                )
+            );
+            window_class.hIconSm = reinterpret_cast< ::HICON>(
+                ::LoadImageW(
+                    0,
+                    MAKEINTRESOURCEW(OIC_WINLOGO),
+                    IMAGE_ICON,
+                    0,
+                    0,
+                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                )
+            );
+            window_class.hCursor = reinterpret_cast< ::HICON>(
+                ::LoadImageW(
+                    0,
+                    MAKEINTRESOURCEW(OCR_NORMAL),
+                    IMAGE_CURSOR,
+                    0,
+                    0,
+                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                )
+            );
+            window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(
+                ::GetSysColorBrush(COLOR_3DFACE)
+            );
+            window_class.lpszMenuName = NULL;
+            window_class.lpszClassName = window_class_name().c_str();
+
+            const ::ATOM atom = ::RegisterClassExW(&window_class);
+            if (atom == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error(
+                        "Can't register a window class for a window!"
+                    )
+                );
+            }
+        }
+
+        template <typename Widget>
+        static void register_window_class_for_dialog(
+            const ::HINSTANCE instance_handle
+        )
         {
             ::WNDCLASSEXW window_class;
             window_class.cbSize = sizeof(::WNDCLASSEXW);
@@ -178,13 +304,15 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::GetSysColorBrush(COLOR_3DFACE)
             );
             window_class.lpszMenuName = NULL;
-            window_class.lpszClassName = window_class_name().c_str();
+            window_class.lpszClassName = dialog_class_name().c_str();
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
             if (atom == NULL)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't register a window class!")
+                    std::runtime_error(
+                        "Can't register a window class for a dialog!"
+                    )
                 );
             }
         }
