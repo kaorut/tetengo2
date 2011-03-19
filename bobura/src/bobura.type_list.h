@@ -71,7 +71,6 @@
 #include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.traits.window_traits.h>
 #include <tetengo2.gui.unit.em.h>
-#include <tetengo2.gui.win32.abstract_window.h>
 #include <tetengo2.gui.win32.button.h>
 #include <tetengo2.gui.win32.dialog.h>
 #include <tetengo2.gui.win32.image.h>
@@ -406,9 +405,6 @@ namespace bobura
                 tetengo2::gui::window_observer_set
             >
             abstract_window_traits_type;
-        typedef
-            tetengo2::gui::win32::abstract_window<abstract_window_traits_type>
-            abstract_window_type;
         typedef
             tetengo2::gui::traits::window_traits<abstract_window_traits_type>
             window_traits_type;

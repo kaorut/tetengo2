@@ -35,7 +35,8 @@ namespace tetengo2 { namespace gui { namespace win32
         \tparam WidgetDetails A detail implementation type of a widget.
    */
     template <typename Traits, typename WidgetDetails>
-    class dialog : public abstract_window<typename Traits::base_type>
+    class dialog :
+        public abstract_window<typename Traits::base_type, WidgetDetails>
     {
     public:
         // types
@@ -43,8 +44,14 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The traits type.
         typedef Traits traits_type;
 
+        //! The detail implementation type of a widget.
+        typedef WidgetDetails widget_details_type;
+
         //! The base type.
-        typedef abstract_window<typename traits_type::base_type> base_type;
+        typedef
+            abstract_window<
+                typename traits_type::base_type, widget_details_type
+            > base_type;
 
         //! The message loop type.
         typedef typename traits_type::message_loop_type message_loop_type;
@@ -53,9 +60,6 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             typename traits_type::message_loop_break_type
             message_loop_break_type;
-
-        //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
 
         //! The detail implementation type.
         typedef
