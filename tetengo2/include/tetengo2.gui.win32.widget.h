@@ -1030,7 +1030,6 @@ namespace tetengo2 { namespace gui { namespace win32
         )
         {
             delete_current_font();
-            m_destroyed = true;
             return boost::optional< ::LRESULT>(0);
         }
 
@@ -1046,6 +1045,9 @@ namespace tetengo2 { namespace gui { namespace win32
                     )
                 );
             assert(p_widget == this);
+
+            m_destroyed = true;
+
             return boost::optional< ::LRESULT>(0);
         }
 
