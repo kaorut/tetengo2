@@ -41,9 +41,10 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a GUI widget for Win32 platforms.
 
-        \tparam Traits A traits type.
+        \tparam Traits        A traits type.
+        \tparam WidgetDetails A detail implementation type of a widget.
     */
-    template <typename Traits>
+    template <typename Traits, typename WidgetDetails>
     class widget : private boost::noncopyable
     {
     public:
@@ -94,6 +95,9 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             typename traits_type::mouse_observer_set_type
             mouse_observer_set_type;
+
+        //! The detail implementation type of a widget.
+        typedef WidgetDetails widget_details_type;
 
         //! The child type.
         typedef widget child_type;

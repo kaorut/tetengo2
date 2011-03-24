@@ -378,7 +378,12 @@ namespace bobura
                 tetengo2::gui::mouse_observer_set
             >
             widget_traits_type;
-        typedef tetengo2::gui::win32::widget<widget_traits_type> widget_type;
+        typedef tetengo2::detail::windows::widget widget_details_type;
+        typedef
+            tetengo2::gui::win32::widget<
+                widget_traits_type, widget_details_type
+            >
+            widget_type;
         typedef
             tetengo2::gui::traits::menu_traits<
                 boost::mpl::at<common_type_list, type::string>::type,
@@ -408,7 +413,6 @@ namespace bobura
         typedef
             tetengo2::gui::traits::window_traits<abstract_window_traits_type>
             window_traits_type;
-        typedef tetengo2::detail::windows::widget widget_details_type;
         typedef
             tetengo2::gui::win32::window<
                 window_traits_type, widget_details_type
