@@ -90,7 +90,11 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         base_type(
             make_message_handler_map(message_handler_map_type()),
-            create_window(parent, style)
+            widget_details_type::create_button(
+                parent,
+                style == style_default,
+                style == style_cancel
+            ).release()
         ),
         m_style(style)
         {
@@ -120,69 +124,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // static functions
-
-        static handle_type create_window(
-            const widget_type& parent,
-            const style_type   style
-        )
-        {
-            const ::DWORD create_window_style =
-                style == style_default ?
-                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
-                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON;
-            ::HMENU id = NULL;
-            if (style == style_default)
-            {
-                if (
-                    ::GetDlgItem(parent.root_ancestor().handle(), IDOK) !=
-                    NULL
-                )
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Default button already exists.")
-                    );
-                }
-                id = reinterpret_cast< ::HMENU>(IDOK);
-            }
-            else if (style == style_cancel)
-            {
-                if (
-                    ::GetDlgItem(parent.root_ancestor().handle(), IDCANCEL) !=
-                    NULL
-                )
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Cancel button already exists.")
-                    );
-                }
-                id = reinterpret_cast< ::HMENU>(IDCANCEL);
-            }
-            const handle_type handle = ::CreateWindowExW(
-                0,
-                L"Button",
-                L"tetengo2::gui::win32::button",
-                create_window_style,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                parent.handle(),
-                id,
-                ::GetModuleHandle(NULL),
-                NULL
-            );
-            if (handle == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a button!")
-                );
-            }
-
-            return handle;
-        }
-
-
         // variables
 
         const style_type m_style;

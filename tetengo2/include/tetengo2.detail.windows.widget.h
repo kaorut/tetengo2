@@ -192,6 +192,84 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Creates a button.
+
+            \tparam Widget A widget type.
+
+            \param parent     A parent widget.
+            \param is_default Set true to create a default button.
+            \param is_cancel  Set true to create a cancel button.
+
+            \return A unique pointer to a button.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_button(
+            const Widget& parent,
+            const bool    is_default,
+            const bool    is_cancel
+        )
+        {
+            assert(!is_default || !is_cancel);
+
+            const ::DWORD create_window_style =
+                is_default ?
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_DEFPUSHBUTTON :
+                WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_PUSHBUTTON;
+            ::HMENU id = NULL;
+            if (is_default)
+            {
+                if (
+                    ::GetDlgItem(parent.root_ancestor().handle(), IDOK) !=
+                    NULL
+                )
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Default button already exists.")
+                    );
+                }
+                id = reinterpret_cast< ::HMENU>(IDOK);
+            }
+            else if (is_cancel)
+            {
+                if (
+                    ::GetDlgItem(parent.root_ancestor().handle(), IDCANCEL) !=
+                    NULL
+                )
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Cancel button already exists.")
+                    );
+                }
+                id = reinterpret_cast< ::HMENU>(IDCANCEL);
+            }
+
+            widget_details_ptr_type p_widget(
+                ::CreateWindowExW(
+                    0,
+                    L"Button",
+                    L"tetengo2_button",
+                    create_window_style,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent.handle(),
+                    id,
+                    ::GetModuleHandle(NULL),
+                    NULL
+                )
+            );
+            if (p_widget.get() == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a button!")
+                );
+            }
+
+            return std::move(p_widget);
+        }
+
+        /*!
             \brief Activates a widget.
 
             \tparam Widget A widget type.
