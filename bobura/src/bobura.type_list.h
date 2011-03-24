@@ -444,7 +444,11 @@ namespace bobura
                 control_traits_type, picture_type
             >
             image_traits_type;
-        typedef tetengo2::gui::win32::image<image_traits_type> image_type;
+        typedef
+            tetengo2::gui::win32::image<
+                image_traits_type, widget_details_type
+            >
+            image_type;
         typedef
             tetengo2::gui::traits::button_traits<control_traits_type>
             button_traits_type;
