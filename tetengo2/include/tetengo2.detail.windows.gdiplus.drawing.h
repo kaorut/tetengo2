@@ -72,6 +72,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             cpp0x::unique_ptr<canvas_details_type>::type
             canvas_details_ptr_type;
 
+        //! The canvas details handle type.
+        typedef ::HDC canvas_details_handle_type;
+
 
         // static functions
 
@@ -194,18 +197,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         /*!
             \brief Creates a canvas.
 
-            \tparam DeviceContext A device context handle type.
-
-            \param device_context A device context handle.
+            \param handle A handle.
 
             \return A unique pointer to a canvas.
         */
-        template <typename DeviceContext>
         static cpp0x::unique_ptr<canvas_details_type>::type
-        create_canvas(const DeviceContext device_context)
+        create_canvas(const canvas_details_handle_type handle)
         {
             return cpp0x::unique_ptr<canvas_details_type>::type(
-                new Gdiplus::Graphics(device_context)
+                new Gdiplus::Graphics(handle)
             );
         }
 
