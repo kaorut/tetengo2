@@ -9,17 +9,10 @@
 #if !defined(TETENGO2_GUI_WIN32_LABEL_H)
 #define TETENGO2_GUI_WIN32_LABEL_H
 
-//#include <cstddef>
 //#include <stdexcept>
 //#include <utility>
 
-#include <boost/bind.hpp>
-//#include <boost/scope_exit.hpp>
-//#include <boost/throw_exception.hpp>
-
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
+//#include <boost/bind.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.measure.h"
