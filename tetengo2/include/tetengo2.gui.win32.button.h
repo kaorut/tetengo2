@@ -94,7 +94,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 parent,
                 style == style_default,
                 style == style_cancel
-            ).release()
+            )
         ),
         m_style(style)
         {

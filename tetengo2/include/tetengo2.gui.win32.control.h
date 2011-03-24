@@ -114,11 +114,12 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Creates a control.
 
             \param message_handler_map A message handler map.
-            \param handle              A handle.
+            \param p_details           A unique pointer to a detail
+                                       implementation.
         */
         control(
             message_handler_map_type&& message_handler_map,
-            const handle_type          handle
+            details_ptr_type           p_details
         )
         :
         base_type(
@@ -126,8 +127,10 @@ namespace tetengo2 { namespace gui { namespace win32
                 std::forward<message_handler_map_type>(message_handler_map)
             )
         ),
-        m_handle(handle),
-        m_p_original_window_procedure(replace_window_procedure(m_handle)),
+        m_p_details(std::move(p_details)),
+        m_p_original_window_procedure(
+            replace_window_procedure(m_p_details.get())
+        ),
         m_text_color()
         {}
 
@@ -165,7 +168,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // variables
 
-        const handle_type m_handle;
+        const details_ptr_type m_p_details;
 
         const ::WNDPROC m_p_original_window_procedure;
 
@@ -177,7 +180,7 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual handle_type handle_impl()
         const
         {
-            return m_handle;
+            return m_p_details.get();
         }
 
         virtual ::WNDPROC p_default_window_procedure()

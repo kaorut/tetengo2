@@ -70,7 +70,7 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         base_type(
             make_message_handler_map(message_handler_map_type()),
-            widget_details_type::create_label(parent).release()
+            widget_details_type::create_label(parent)
         )
         {
             initialize(this);
