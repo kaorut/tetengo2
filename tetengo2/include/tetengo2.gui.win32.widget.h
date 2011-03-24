@@ -265,21 +265,9 @@ namespace tetengo2 { namespace gui { namespace win32
         template <typename P>
         void set_position(const P& position)
         {
-            const dimension_type dim = dimension();
-            const ::BOOL result = ::MoveWindow(
-                &*details(),
-                to_pixels<int>(gui::position<P>::left(position)),
-                to_pixels<int>(gui::position<P>::top(position)),
-                to_pixels<int>(gui::dimension<dimension_type>::width(dim)),
-                to_pixels<int>(gui::dimension<dimension_type>::height(dim)),
-                visible() ? TRUE : FALSE
+            widget_details_type::set_position<dimension_type>(
+                *this, position
             );
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't move window.")
-                );
-            }
         }
 
         /*!
@@ -290,27 +278,7 @@ namespace tetengo2 { namespace gui { namespace win32
         position_type position()
         const
         {
-            ::RECT rectangle = {};
-            if (
-                ::GetWindowRect(
-                    const_cast< ::HWND>(&*details()), &rectangle
-                ) == 0
-            )
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get window rectangle.")
-                );
-            }
-
-            typedef gui::position<position_type> position_traits_type;
-            return position_traits_type::make(
-                to_unit<typename position_traits_type::left_type>(
-                    rectangle.left
-                ),
-                to_unit<typename position_traits_type::top_type>(
-                    rectangle.top
-                )
-            );
+            return widget_details_type::position<position_type>(*this);
         }
 
         /*!
@@ -336,21 +304,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            const position_type pos = position();
-            const ::BOOL result = ::MoveWindow(
-                &*details(),
-                to_pixels<int>(gui::position<position_type>::left(pos)),
-                to_pixels<int>(gui::position<position_type>::top(pos)),
-                to_pixels<int>(gui::dimension<D>::width(dimension)),
-                to_pixels<int>(gui::dimension<D>::height(dimension)),
-                visible() ? TRUE : FALSE
+            widget_details_type::set_dimension<position_type>(
+                *this, dimension
             );
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't move window.")
-                );
-            }
         }
 
         /*!
@@ -361,29 +317,7 @@ namespace tetengo2 { namespace gui { namespace win32
         dimension_type dimension()
         const
         {
-            ::RECT rectangle = {0, 0, 0, 0};
-            if (
-                ::GetWindowRect(
-                    const_cast< ::HWND>(&*details()), &rectangle
-                ) == 0
-            )
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get window rectangle.")
-                );
-            }
-
-            assert(rectangle.right - rectangle.left >= 0);
-            assert(rectangle.bottom - rectangle.top >= 0);
-            typedef gui::dimension<dimension_type> dimension_traits_type;
-            return dimension_traits_type::make(
-                to_unit<typename dimension_traits_type::width_type>(
-                    rectangle.right - rectangle.left
-                ),
-                to_unit<typename dimension_traits_type::height_type>(
-                    rectangle.bottom - rectangle.top
-                )
-            );
+            return widget_details_type::dimension<dimension_type>(*this);
         }
 
         /*!

@@ -27,6 +27,7 @@
 #include <Windows.h>
 
 #include "tetengo2.cpp0x.h"
+#include "tetengo2.gui.measure.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -337,7 +338,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CreateWindowExW(
                     0,
                     L"Static",
-                    L"tetengo2::gui::win32::label",
+                    L"tetengo2_label",
                     WS_CHILD | WS_TABSTOP | WS_VISIBLE,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
@@ -481,6 +482,149 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 ::IsWindowVisible(const_cast< ::HWND>(&*widget.details())) ==
                 TRUE;
+        }
+
+        /*!
+            \brief Sets a position.
+
+            \tparam Dimension A dimension type.
+            \tparam Widget    A widget type.
+            \tparam Position  A position type.
+
+            \param widget   A widget.
+            \param position A position.
+        */
+        template <typename Dimension, typename Widget, typename Position>
+        static void set_position(Widget& widget, const Position& position)
+        {
+            const Dimension dim = dimension<Dimension>(widget);
+            const ::BOOL result = ::MoveWindow(
+                &*widget.details(),
+                gui::to_pixels<int>(gui::position<Position>::left(position)),
+                gui::to_pixels<int>(gui::position<Position>::top(position)),
+                gui::to_pixels<int>(gui::dimension<Dimension>::width(dim)),
+                gui::to_pixels<int>(gui::dimension<Dimension>::height(dim)),
+                visible(widget) ? TRUE : FALSE
+            );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't move window.")
+                );
+            }
+        }
+
+        /*!
+            \brief Returns the position.
+
+            \tparam Position  A position type.
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \return The position.
+        */
+        template <typename Position, typename Widget>
+        static Position position(const Widget& widget)
+        {
+            ::RECT rectangle = {};
+            if (
+                ::GetWindowRect(
+                    const_cast< ::HWND>(&*widget.details()), &rectangle
+                ) == 0
+            )
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get window rectangle.")
+                );
+            }
+
+            typedef gui::position<Position> position_traits_type;
+            return position_traits_type::make(
+                gui::to_unit<typename position_traits_type::left_type>(
+                    rectangle.left
+                ),
+                gui::to_unit<typename position_traits_type::top_type>(
+                    rectangle.top
+                )
+            );
+        }
+
+        /*!
+            \brief Sets a dimension.
+
+            \tparam Position  A position type.
+            \tparam Widget    A widget type.
+            \tparam Dimension A dimension type.
+
+            \param widget   A widget.
+            \param dimension A dimension.
+        */
+        template <typename Position, typename Widget, typename Dimension>
+        static void set_dimension(Widget& widget, const Dimension& dimension)
+        {
+            assert(
+                gui::dimension<Dimension>::width(dimension) > 0 &&
+                gui::dimension<Dimension>::height(dimension) > 0
+            );
+
+            const Position pos = position<Position>(widget);
+            const ::BOOL result = ::MoveWindow(
+                &*widget.details(),
+                gui::to_pixels<int>(gui::position<Position>::left(pos)),
+                gui::to_pixels<int>(gui::position<Position>::top(pos)),
+                gui::to_pixels<int>(
+                    gui::dimension<Dimension>::width(dimension)
+                ),
+                gui::to_pixels<int>(
+                    gui::dimension<Dimension>::height(dimension)
+                ),
+                visible(widget) ? TRUE : FALSE
+            );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't move window.")
+                );
+            }
+        }
+
+        /*!
+            \brief Returns the dimension.
+
+            \tparam Dimension A dimension type.
+            \tparam Widget    A widget type.
+
+            \param widget A widget.
+
+            \return The dimension.
+        */
+        template <typename Dimension, typename Widget>
+        static Dimension dimension(const Widget& widget)
+        {
+            ::RECT rectangle = {};
+            if (
+                ::GetWindowRect(
+                    const_cast< ::HWND>(&*widget.details()), &rectangle
+                ) == 0
+            )
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get window rectangle.")
+                );
+            }
+
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
+            typedef gui::dimension<Dimension> dimension_traits_type;
+            return dimension_traits_type::make(
+                gui::to_unit<typename dimension_traits_type::width_type>(
+                    rectangle.right - rectangle.left
+                ),
+                gui::to_unit<typename dimension_traits_type::height_type>(
+                    rectangle.bottom - rectangle.top
+                )
+            );
         }
 
         /*!
