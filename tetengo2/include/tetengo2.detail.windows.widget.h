@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_WIDGET_H)
 #define TETENGO2_DETAIL_WINDOWS_WIDGET_H
 
+#include <cassert>
 #include <cstddef>
 #include <exception>
 #include <stdexcept>

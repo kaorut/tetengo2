@@ -9,13 +9,11 @@
 #if !defined(TETENGO2_GUI_WIN32_BUTTON_H)
 #define TETENGO2_GUI_WIN32_BUTTON_H
 
-//#include <cstddef>
 //#include <stdexcept>
 //#include <utility>
 
 //#include <boost/bind.hpp>
 //#include <boost/optional.hpp>
-//#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
