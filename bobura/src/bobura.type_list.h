@@ -438,7 +438,11 @@ namespace bobura
         typedef
             tetengo2::gui::traits::label_traits<control_traits_type>
             label_traits_type;
-        typedef tetengo2::gui::win32::label<label_traits_type> label_type;
+        typedef
+            tetengo2::gui::win32::label<
+                label_traits_type, widget_details_type
+            >
+            label_type;
         typedef
             tetengo2::gui::traits::image_traits<
                 control_traits_type, picture_type
