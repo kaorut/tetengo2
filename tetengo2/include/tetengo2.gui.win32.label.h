@@ -13,6 +13,7 @@
 //#include <stdexcept>
 //#include <utility>
 
+#include <boost/bind.hpp>
 //#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
@@ -105,15 +106,14 @@ namespace tetengo2 { namespace gui { namespace win32
         dimension_type calc_text_dimension()
         const
         {
-            const handle_type handle = this->handle();
-            const ::HDC hdc = ::GetDC(handle);
-            BOOST_SCOPE_EXIT((handle)(hdc))
-            {
-                ::ReleaseDC(handle, hdc);
-            } BOOST_SCOPE_EXIT_END;
-            canvas_type canvas(hdc);
-
-            return canvas.calc_text_dimension(text());
+            return widget_details_type::use_canvas<
+                canvas_type, dimension_type
+            >(
+                *this,
+                boost::bind(
+                    &canvas_type::calc_text_dimension, _1, boost::cref(text())
+                )
+            );
         }
 
         message_handler_map_type make_message_handler_map(
