@@ -271,6 +271,44 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Creates an image.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget.
+
+            \return A unique pointer to an image.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_image(const Widget& parent)
+        {
+            widget_details_ptr_type p_widget(
+                ::CreateWindowExW(
+                    0,
+                    L"Static",
+                    L"tetengo2_image",
+                    WS_CHILD | WS_TABSTOP | WS_VISIBLE,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent.handle(),
+                    NULL,
+                    ::GetModuleHandle(NULL),
+                    NULL
+                )
+            );
+            if (p_widget.get() == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create an image!")
+                );
+            }
+
+            return std::move(p_widget);
+        }
+
+        /*!
             \brief Activates a widget.
 
             \tparam Widget A widget type.
