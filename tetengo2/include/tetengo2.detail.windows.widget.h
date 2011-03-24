@@ -360,6 +360,166 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Returns whether the widget has a parent.
+        
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \retval true  When the widget has a parent.
+            \retval false Otherwise.
+        */
+        template <typename Widget>
+        static bool has_parent(const Widget& widget)
+        {
+            return ::GetParent(const_cast< ::HWND>(&*widget.details())) !=
+                NULL;
+        }
+
+        /*!
+            \brief Returns the parent.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \return The parent.
+        */
+        template <typename Widget>
+        static Widget& parent(const Widget& widget)
+        {
+            Widget* const p_parent =
+                p_widget_from<Widget>(
+                    ::GetParent(const_cast< ::HWND>(&*widget.details()))
+                );
+            assert(p_parent != NULL);
+            return *p_parent;
+        }
+
+        /*!
+            \brief Returns the root ancestor.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \return The root ancestor.
+        */
+        template <typename Widget>
+        static Widget& root_ancestor(const Widget& widget)
+        {
+            const ::HWND root_ancestor_handle =
+                ::GetAncestor(
+                    const_cast< ::HWND>(&*widget.details()), GA_ROOT
+                );
+            assert(root_ancestor_handle != NULL);
+            Widget* const p_root_ancestor =
+                p_widget_from<Widget>(root_ancestor_handle);
+            assert(p_root_ancestor != NULL);
+            return *p_root_ancestor;
+        }
+
+        /*!
+            \brief Sets an enabled status.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+            \param enabled An enabled status.
+        */
+        template <typename Widget>
+        static void set_enabled(Widget& widget, const bool enabled)
+        {
+            ::EnableWindow(&*widget.details(), enabled ? TRUE : FALSE);
+        }
+
+        /*!
+            \brief Returns the enabled status.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \return The enabled status.
+        */
+        template <typename Widget>
+        static bool enabled(const Widget& widget)
+        {
+            return
+                ::IsWindowEnabled(const_cast< ::HWND>(&*widget.details())) ==
+                TRUE;
+        }
+
+        /*!
+            \brief Sets a visible status.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+            \param visible A visible status.
+        */
+        template <typename Widget>
+        static void set_visible(Widget& widget, const bool visible)
+        {
+            ::ShowWindow(&*widget.details(), visible ? SW_SHOW : SW_HIDE);
+            if (visible)
+                ::UpdateWindow(&*widget.details());
+        }
+
+        /*!
+            \brief Returns the visible status.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \return The visible status.
+        */
+        template <typename Widget>
+        static bool visible(const Widget& widget)
+        {
+            return
+                ::IsWindowVisible(const_cast< ::HWND>(&*widget.details())) ==
+                TRUE;
+        }
+
+        /*!
+            \brief Uses a widget canvas.
+
+            \tparam Widget   A widget type.
+            \tparam Canvas   A canvas type.
+            \tparam Result   A result type.
+            \tparam Function A function type.
+
+            \param widget   A widget.
+            \param function A function.
+
+            \return A result.
+        */
+        template <
+            typename Canvas,
+            typename Result,
+            typename Widget,
+            typename Function
+        >
+        static Result use_canvas(
+            const Widget&  widget,
+            const Function function
+        )
+        {
+            const ::HWND window_handle =
+                const_cast< ::HWND>(&*widget.details());
+            const ::HDC device_context_handle = ::GetDC(window_handle);
+            BOOST_SCOPE_EXIT((window_handle)(device_context_handle))
+            {
+                ::ReleaseDC(window_handle, device_context_handle);
+            } BOOST_SCOPE_EXIT_END;
+            Canvas canvas(device_context_handle);
+
+            return function(canvas);
+        }
+
+        /*!
             \brief Activates a widget.
 
             \tparam Widget A widget type.
@@ -427,42 +587,6 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::runtime_error("Can't close the widget.")
                 );
             }
-        }
-
-        /*!
-            \brief Uses a widget canvas.
-
-            \tparam Widget   A widget type.
-            \tparam Canvas   A canvas type.
-            \tparam Result   A result type.
-            \tparam Function A function type.
-
-            \param widget   A widget.
-            \param function A function.
-
-            \return A result.
-        */
-        template <
-            typename Canvas,
-            typename Result,
-            typename Widget,
-            typename Function
-        >
-        static Result use_canvas(
-            const Widget&  widget,
-            const Function function
-        )
-        {
-            const ::HWND window_handle =
-                const_cast< ::HWND>(&*widget.details());
-            const ::HDC device_context_handle = ::GetDC(window_handle);
-            BOOST_SCOPE_EXIT((window_handle)(device_context_handle))
-            {
-                ::ReleaseDC(window_handle, device_context_handle);
-            } BOOST_SCOPE_EXIT_END;
-            Canvas canvas(device_context_handle);
-
-            return function(canvas);
         }
 
 

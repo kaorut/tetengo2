@@ -133,7 +133,7 @@ namespace tetengo2 { namespace gui { namespace win32
         bool has_parent()
         const
         {
-            return ::GetParent(const_cast< ::HWND>(&*details())) != NULL;
+            return widget_details_type::has_parent(*this);
         }
 
         /*!
@@ -148,9 +148,7 @@ namespace tetengo2 { namespace gui { namespace win32
             if (!has_parent())
                 BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
-            widget* const p_parent = p_widget_from(::GetParent(&*details()));
-            assert(p_parent != NULL);
-            return *p_parent;
+            return widget_details_type::parent(*this);
         }
 
         /*!
@@ -166,10 +164,7 @@ namespace tetengo2 { namespace gui { namespace win32
             if (!has_parent())
                 BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
-            const widget* const p_parent =
-                p_widget_from(::GetParent(&*details()));
-            assert(p_parent != NULL);
-            return *p_parent;
+            return widget_details_type::parent(*this);
         }
 
         /*!
@@ -179,13 +174,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         widget& root_ancestor()
         {
-            const ::HWND root_ancestor_handle =
-                ::GetAncestor(&*details(), GA_ROOT);
-            assert(root_ancestor_handle != NULL);
-            widget* const p_root_ancestor =
-                p_widget_from(root_ancestor_handle);
-            assert(p_root_ancestor != NULL);
-            return *p_root_ancestor;
+            return widget_details_type::root_ancestor(*this);
         }
 
         /*!
@@ -196,13 +185,7 @@ namespace tetengo2 { namespace gui { namespace win32
         const widget& root_ancestor()
         const
         {
-            const ::HWND root_ancestor_handle =
-                ::GetAncestor(const_cast< ::HWND>(&*details()), GA_ROOT);
-            assert(root_ancestor_handle != NULL);
-            const widget* const p_root_ancestor =
-                p_widget_from(root_ancestor_handle);
-            assert(p_root_ancestor != NULL);
-            return *p_root_ancestor;
+            return widget_details_type::root_ancestor(*this);
         }
 
         /*!
@@ -212,7 +195,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void set_enabled(const bool enabled)
         {
-            ::EnableWindow(&*details(), enabled ? TRUE : FALSE);
+            widget_details_type::set_enabled(*this, enabled);
         }
 
         /*!
@@ -223,7 +206,7 @@ namespace tetengo2 { namespace gui { namespace win32
         bool enabled()
         const
         {
-            return ::IsWindowEnabled(&*details()) == TRUE;
+            return widget_details_type::enabled(*this);
         }
 
         /*!
@@ -233,9 +216,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void set_visible(const bool visible)
         {
-            ::ShowWindow(&*details(), visible ? SW_SHOW : SW_HIDE);
-            if (visible)
-                ::UpdateWindow(&*details());
+            widget_details_type::set_visible(*this, visible);
         }
 
         /*!
@@ -246,8 +227,7 @@ namespace tetengo2 { namespace gui { namespace win32
         bool visible()
         const
         {
-            return
-                ::IsWindowVisible(const_cast< ::HWND>(&*details())) == TRUE;
+            return widget_details_type::visible(*this);
         }
 
         /*!
