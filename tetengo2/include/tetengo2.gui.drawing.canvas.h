@@ -84,6 +84,11 @@ namespace tetengo2 { namespace gui { namespace drawing
             typename drawing_details_type::canvas_details_ptr_type
             details_ptr_type;
 
+        //! The detail implementation handle type.
+        typedef
+            typename drawing_details_type::canvas_details_handle_type
+            details_handle_type;
+
 
         // static functions
 

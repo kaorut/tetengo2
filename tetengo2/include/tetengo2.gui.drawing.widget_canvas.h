@@ -75,8 +75,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param handle A handle.
         */
         explicit widget_canvas(
-            const typename base_type::drawing_details_type::canvas_details_handle_type
-            handle
+            const typename base_type::details_handle_type handle
         )
         :
         base_type(
