@@ -99,6 +99,15 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
+        //! The detail implementation type.
+        typedef
+            typename widget_details_type::widget_details_type details_type;
+
+        //! The detail implementation pointer type.
+        typedef
+            typename widget_details_type::widget_details_ptr_type
+            details_ptr_type;
+
         //! The child type.
         typedef widget child_type;
 
@@ -116,26 +125,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         /*!
-            \brief Returns the handle.
-            
-            \return The handle.
-
-            \throw std::runtime_error When the widget is already destroyed.
-        */
-        handle_type handle()
-        const
-        {
-            if (m_destroyed)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("This window is destroyed.")
-                );
-            }
-
-            return handle_impl();
-        }
-
-        /*!
             \brief Returns whether the widget has a parent.
             
             \retval true  When the widget has a parent.
@@ -144,7 +133,7 @@ namespace tetengo2 { namespace gui { namespace win32
         bool has_parent()
         const
         {
-            return ::GetParent(handle()) != NULL;
+            return ::GetParent(const_cast< ::HWND>(&*details())) != NULL;
         }
 
         /*!
@@ -159,7 +148,7 @@ namespace tetengo2 { namespace gui { namespace win32
             if (!has_parent())
                 BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
-            widget* const p_parent = p_widget_from(::GetParent(handle()));
+            widget* const p_parent = p_widget_from(::GetParent(&*details()));
             assert(p_parent != NULL);
             return *p_parent;
         }
@@ -178,7 +167,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
 
             const widget* const p_parent =
-                p_widget_from(::GetParent(handle()));
+                p_widget_from(::GetParent(&*details()));
             assert(p_parent != NULL);
             return *p_parent;
         }
@@ -191,7 +180,7 @@ namespace tetengo2 { namespace gui { namespace win32
         widget& root_ancestor()
         {
             const ::HWND root_ancestor_handle =
-                ::GetAncestor(handle(), GA_ROOT);
+                ::GetAncestor(&*details(), GA_ROOT);
             assert(root_ancestor_handle != NULL);
             widget* const p_root_ancestor =
                 p_widget_from(root_ancestor_handle);
@@ -208,7 +197,7 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             const ::HWND root_ancestor_handle =
-                ::GetAncestor(handle(), GA_ROOT);
+                ::GetAncestor(const_cast< ::HWND>(&*details()), GA_ROOT);
             assert(root_ancestor_handle != NULL);
             const widget* const p_root_ancestor =
                 p_widget_from(root_ancestor_handle);
@@ -223,7 +212,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void set_enabled(const bool enabled)
         {
-            ::EnableWindow(handle(), enabled ? TRUE : FALSE);
+            ::EnableWindow(&*details(), enabled ? TRUE : FALSE);
         }
 
         /*!
@@ -234,7 +223,7 @@ namespace tetengo2 { namespace gui { namespace win32
         bool enabled()
         const
         {
-            return ::IsWindowEnabled(handle()) == TRUE;
+            return ::IsWindowEnabled(&*details()) == TRUE;
         }
 
         /*!
@@ -244,9 +233,9 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         void set_visible(const bool visible)
         {
-            ::ShowWindow(handle(), visible ? SW_SHOW : SW_HIDE);
+            ::ShowWindow(&*details(), visible ? SW_SHOW : SW_HIDE);
             if (visible)
-                ::UpdateWindow(handle());
+                ::UpdateWindow(&*details());
         }
 
         /*!
@@ -257,7 +246,8 @@ namespace tetengo2 { namespace gui { namespace win32
         bool visible()
         const
         {
-            return ::IsWindowVisible(handle()) == TRUE;
+            return
+                ::IsWindowVisible(const_cast< ::HWND>(&*details())) == TRUE;
         }
 
         /*!
@@ -268,7 +258,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename cpp0x::unique_ptr<canvas_type>::type create_canvas()
         {
             return typename cpp0x::unique_ptr<canvas_type>::type(
-                new canvas_type(handle(), false)
+                new canvas_type(&*details(), false)
             );
         }
 
@@ -281,7 +271,7 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return typename cpp0x::unique_ptr<const canvas_type>::type(
-                new canvas_type(handle(), false)
+                new canvas_type(&*details(), false)
             );
         }
 
@@ -297,7 +287,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             const dimension_type dim = dimension();
             const ::BOOL result = ::MoveWindow(
-                handle(),
+                &*details(),
                 to_pixels<int>(gui::position<P>::left(position)),
                 to_pixels<int>(gui::position<P>::top(position)),
                 to_pixels<int>(gui::dimension<dimension_type>::width(dim)),
@@ -321,7 +311,11 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             ::RECT rectangle = {};
-            if (::GetWindowRect(handle(), &rectangle) == 0)
+            if (
+                ::GetWindowRect(
+                    const_cast< ::HWND>(&*details()), &rectangle
+                ) == 0
+            )
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't get window rectangle.")
@@ -364,7 +358,7 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const position_type pos = position();
             const ::BOOL result = ::MoveWindow(
-                handle(),
+                &*details(),
                 to_pixels<int>(gui::position<position_type>::left(pos)),
                 to_pixels<int>(gui::position<position_type>::top(pos)),
                 to_pixels<int>(gui::dimension<D>::width(dimension)),
@@ -388,7 +382,11 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             ::RECT rectangle = {0, 0, 0, 0};
-            if (::GetWindowRect(handle(), &rectangle) == 0)
+            if (
+                ::GetWindowRect(
+                    const_cast< ::HWND>(&*details()), &rectangle
+                ) == 0
+            )
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't get window rectangle.")
@@ -434,9 +432,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             const position_type pos = position();
             const ::LONG_PTR window_style =
-                ::GetWindowLongPtrW(handle(), GWL_STYLE);
+                ::GetWindowLongPtrW(&*details(), GWL_STYLE);
             const ::LONG_PTR extended_window_style =
-                ::GetWindowLongPtrW(handle(), GWL_EXSTYLE);
+                ::GetWindowLongPtrW(&*details(), GWL_EXSTYLE);
             const ::LONG left =
                 to_pixels< ::LONG>(gui::position<position_type>::left(pos));
             const ::LONG top =
@@ -467,7 +465,7 @@ namespace tetengo2 { namespace gui { namespace win32
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
             const ::BOOL result = ::MoveWindow(
-                handle(),
+                &*details(),
                 rectangle.left,
                 rectangle.top,
                 rectangle.right - rectangle.left,
@@ -491,7 +489,11 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             ::RECT rectangle = {0, 0, 0, 0};
-            if (::GetClientRect(handle(), &rectangle) == 0)
+            if (
+                ::GetClientRect(
+                    const_cast< ::HWND>(&*details()), &rectangle
+                ) == 0
+            )
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't get client rectangle.")
@@ -524,7 +526,7 @@ namespace tetengo2 { namespace gui { namespace win32
         void set_text(S&& text)
         {
             const ::BOOL result = ::SetWindowTextW(
-                handle(), encoder().encode(std::forward<S>(text)).c_str()
+                &*details(), encoder().encode(std::forward<S>(text)).c_str()
             );
             if (result == 0)
             {
@@ -542,11 +544,14 @@ namespace tetengo2 { namespace gui { namespace win32
         string_type text()
         const
         {
-            const int length = ::GetWindowTextLengthW(handle());
+            const int length =
+                ::GetWindowTextLengthW(const_cast< ::HWND>(&*details()));
             if (length == 0) return string_type();
 
             std::vector<wchar_t> text(length + 1, L'\0');
-            ::GetWindowTextW(handle(), text.data(), length + 1);
+            ::GetWindowTextW(
+                const_cast< ::HWND>(&*details()), text.data(), length + 1
+            );
 
             return encoder().decode(
                 std::wstring(text.begin(), text.begin() + length)
@@ -596,7 +601,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             const ::HFONT previous_font_handle =
                 reinterpret_cast< ::HFONT>(
-                    ::SendMessageW(handle(), WM_GETFONT, 0, 0)
+                    ::SendMessageW(&*details(), WM_GETFONT, 0, 0)
                 );
 
             ::LOGFONTW log_font = {
@@ -630,7 +635,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
             ::SendMessageW(
-                handle(),
+                &*details(),
                 WM_SETFONT,
                 reinterpret_cast< ::WPARAM>(font_handle),
                 MAKELPARAM(TRUE, 0)
@@ -657,7 +662,7 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             ::HFONT font_handle =
                 reinterpret_cast< ::HFONT>(
-                    ::SendMessageW(handle(), WM_GETFONT, 0, 0)
+                    ::SendMessageW(&*details(), WM_GETFONT, 0, 0)
                 );
             if (font_handle == NULL)
             {
@@ -801,8 +806,47 @@ namespace tetengo2 { namespace gui { namespace win32
             }
 
             return ::CallWindowProcW(
-                p_default_window_procedure(), handle(), uMsg, wParam, lParam
+                p_default_window_procedure(), &*details(), uMsg, wParam, lParam
             );
+        }
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        boost::optional<details_type&> details()
+        {
+            if (m_destroyed)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("This widget is destroyed.")
+                );
+            }
+
+            return details_impl();
+        }
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+
+            \throw std::runtime_error When the widget is already destroyed.
+        */
+        boost::optional<const details_type&> details()
+        const
+        {
+            if (m_destroyed)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("This widget is destroyed.")
+                );
+            }
+
+            return details_impl();
         }
 
 
@@ -929,12 +973,12 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             assert(
                 ::GetPropW(
-                    p_widget->handle(), property_key_for_cpp_instance()
+                    &*p_widget->details(), property_key_for_cpp_instance()
                 ) == NULL
             );
             const ::BOOL result =
                 ::SetPropW(
-                    p_widget->handle(),
+                    &*p_widget->details(),
                     property_key_for_cpp_instance(),
                     reinterpret_cast< ::HANDLE>(p_widget)
                 );
@@ -1015,8 +1059,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // virtual functions
 
-        virtual handle_type handle_impl()
-        const = 0;
+        virtual boost::optional<details_type&> details_impl()
+        = 0;
+
+        virtual boost::optional<const details_type&> details_impl()
+        const
+        = 0;
 
         virtual ::WNDPROC p_default_window_procedure()
         const
@@ -1080,7 +1128,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 reinterpret_cast< ::HWND>(lParam),
                 WM_TETENGO2_COMMAND,
                 wParam,
-                reinterpret_cast< ::LPARAM>(handle())
+                reinterpret_cast< ::LPARAM>(&*details())
             );
             return boost::optional< ::LRESULT>();
         }
@@ -1128,16 +1176,16 @@ namespace tetengo2 { namespace gui { namespace win32
                 return boost::optional< ::LRESULT>();
 
             ::PAINTSTRUCT paint_struct = {};
-            if (::BeginPaint(handle(), &paint_struct) == NULL)
+            if (::BeginPaint(&*details(), &paint_struct) == NULL)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't begin paint.")
                 );
             }
-            const widget& self = *this;
+            widget& self = *this;
             BOOST_SCOPE_EXIT((&self)(&paint_struct))
             {
-                ::EndPaint(self.handle(), &paint_struct);
+                ::EndPaint(&*self.details(), &paint_struct);
             } BOOST_SCOPE_EXIT_END;
             canvas_type canvas(paint_struct.hdc);
 
@@ -1164,8 +1212,7 @@ namespace tetengo2 { namespace gui { namespace win32
             const widget* const p_widget =
                 reinterpret_cast<const widget*>(
                     ::RemovePropW(
-                        handle_impl(),
-                        property_key_for_cpp_instance()
+                        &*details(), property_key_for_cpp_instance()
                     )
                 );
             assert(p_widget == this);
@@ -1179,7 +1226,7 @@ namespace tetengo2 { namespace gui { namespace win32
             std::vector<Child*> children;
 
             ::EnumChildWindows(
-                handle(),
+                &*details(),
                 enum_child_proc<Child>,
                 reinterpret_cast< ::LPARAM>(&children)
             );
@@ -1191,10 +1238,10 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             const ::HFONT font_handle =
                 reinterpret_cast< ::HFONT>(
-                ::SendMessageW(handle(), WM_GETFONT, 0, 0)
+                ::SendMessageW(&*details(), WM_GETFONT, 0, 0)
                 );
 
-            ::SendMessageW(handle(), WM_SETFONT, NULL, MAKELPARAM(0, 0));
+            ::SendMessageW(&*details(), WM_SETFONT, NULL, MAKELPARAM(0, 0));
 
             if (font_handle != NULL && ::DeleteObject(font_handle) == 0)
             {

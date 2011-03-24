@@ -117,7 +117,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent ? parent->handle() : HWND_DESKTOP,
+                    parent ?
+                        const_cast< ::HWND>(&*parent->details()) :
+                        HWND_DESKTOP,
                     NULL,
                     instance_handle,
                     NULL
@@ -175,7 +177,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent ? parent->handle() : HWND_DESKTOP,
+                    parent ?
+                        const_cast< ::HWND>(&*parent->details()) :
+                        HWND_DESKTOP,
                     NULL,
                     instance_handle,
                     NULL
@@ -221,8 +225,12 @@ namespace tetengo2 { namespace detail { namespace windows
             if (is_default)
             {
                 if (
-                    ::GetDlgItem(parent.root_ancestor().handle(), IDOK) !=
-                    NULL
+                    ::GetDlgItem(
+                        const_cast< ::HWND>(
+                            &*parent.root_ancestor().details()
+                        ),
+                        IDOK
+                    ) != NULL
                 )
                 {
                     BOOST_THROW_EXCEPTION(
@@ -234,8 +242,12 @@ namespace tetengo2 { namespace detail { namespace windows
             else if (is_cancel)
             {
                 if (
-                    ::GetDlgItem(parent.root_ancestor().handle(), IDCANCEL) !=
-                    NULL
+                    ::GetDlgItem(
+                        const_cast< ::HWND>(
+                            &*parent.root_ancestor().details()
+                        ),
+                        IDCANCEL
+                    ) != NULL
                 )
                 {
                     BOOST_THROW_EXCEPTION(
@@ -255,7 +267,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent.handle(),
+                    const_cast< ::HWND>(&*parent.details()),
                     id,
                     ::GetModuleHandle(NULL),
                     NULL
@@ -293,7 +305,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent.handle(),
+                    const_cast< ::HWND>(&*parent.details()),
                     NULL,
                     ::GetModuleHandle(NULL),
                     NULL
@@ -331,7 +343,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent.handle(),
+                    const_cast< ::HWND>(&*parent.details()),
                     NULL,
                     ::GetModuleHandle(NULL),
                     NULL
@@ -357,7 +369,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void activate(Widget& widget)
         {
-            ::SetActiveWindow(widget.handle());
+            ::SetActiveWindow(&*widget.details());
         }
 
         /*!
@@ -379,7 +391,8 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const ::BOOL result =
                 ::SetMenu(
-                    widget.handle(), menu ? &*menu->details()->second : NULL
+                    &*widget.details(),
+                    menu ? &*menu->details()->second : NULL
                 );
             if (result == 0)
             {
@@ -388,7 +401,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            if (menu && ::DrawMenuBar(widget.handle()) == 0)
+            if (menu && ::DrawMenuBar(&*widget.details()) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't draw the main menu.")
@@ -407,7 +420,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static void close(Widget& widget)
         {
             const ::BOOL result =
-                ::PostMessageW(widget.handle(), WM_CLOSE, 0, 0);
+                ::PostMessageW(&*widget.details(), WM_CLOSE, 0, 0);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -440,7 +453,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const Function function
         )
         {
-            const ::HWND window_handle = widget.handle();
+            const ::HWND window_handle =
+                const_cast< ::HWND>(&*widget.details());
             const ::HDC device_context_handle = ::GetDC(window_handle);
             BOOST_SCOPE_EXIT((window_handle)(device_context_handle))
             {

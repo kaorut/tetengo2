@@ -11,6 +11,8 @@
 
 //#include <stdexcept>
 
+//#include <boost/optional.hpp>
+
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.abstract_window.h"
 
@@ -107,10 +109,15 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // virtual functions
 
-        virtual handle_type handle_impl()
+        virtual boost::optional<details_type&> details_impl()
+        {
+            return boost::optional<details_type&>(*m_p_details);
+        }
+
+        virtual boost::optional<const details_type&> details_impl()
         const
         {
-            return m_p_details.get();
+            return boost::optional<const details_type&>(*m_p_details);
         }
 
 

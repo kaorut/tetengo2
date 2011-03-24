@@ -170,10 +170,15 @@ namespace tetengo2 { namespace gui { namespace win32
 
         // virtual functions
 
-        virtual handle_type handle_impl()
+        virtual boost::optional<details_type&> details_impl()
+        {
+            return boost::optional<details_type&>(*m_p_details);
+        }
+
+        virtual boost::optional<const details_type&> details_impl()
         const
         {
-            return m_p_details.get();
+            return boost::optional<const details_type&>(*m_p_details);
         }
 
 
@@ -209,7 +214,7 @@ namespace tetengo2 { namespace gui { namespace win32
                 const ::HWND widget_handle =
                     reinterpret_cast< ::HWND>(lParam);
                 assert(
-                    widget_handle == ::GetDlgItem(handle(), lo_wparam)
+                    widget_handle == ::GetDlgItem(&*details(), lo_wparam)
                 );
                 if (widget_handle != NULL)
                 {
