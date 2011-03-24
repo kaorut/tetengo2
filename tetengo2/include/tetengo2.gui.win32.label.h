@@ -74,7 +74,7 @@ namespace tetengo2 { namespace gui { namespace win32
         :
         base_type(
             make_message_handler_map(message_handler_map_type()),
-            create_window(parent)
+            widget_details_type::create_label(parent).release()
         )
         {
             initialize(this);
@@ -100,35 +100,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // static functions
-
-        static handle_type create_window(const widget_type& parent)
-        {
-            const handle_type handle = ::CreateWindowExW(
-                0,
-                L"Static",
-                L"tetengo2::gui::win32::label",
-                WS_CHILD | WS_TABSTOP | WS_VISIBLE,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                parent.handle(),
-                NULL,
-                ::GetModuleHandle(NULL),
-                NULL
-            );
-            if (handle == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a label!")
-                );
-            }
-
-            return handle;
-        }
-
-
         // functions
 
         dimension_type calc_text_dimension()

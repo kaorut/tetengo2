@@ -309,6 +309,44 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Creates a label.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget.
+
+            \return A unique pointer to a label.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_label(const Widget& parent)
+        {
+            widget_details_ptr_type p_widget(
+                ::CreateWindowExW(
+                    0,
+                    L"Static",
+                    L"tetengo2::gui::win32::label",
+                    WS_CHILD | WS_TABSTOP | WS_VISIBLE,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent.handle(),
+                    NULL,
+                    ::GetModuleHandle(NULL),
+                    NULL
+                )
+            );
+            if (p_widget.get() == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a label!")
+                );
+            }
+
+            return std::move(p_widget);
+        }
+
+        /*!
             \brief Activates a widget.
 
             \tparam Widget A widget type.
