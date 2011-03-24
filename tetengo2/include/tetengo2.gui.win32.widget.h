@@ -344,54 +344,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
             }
 
-            const position_type pos = position();
-            const ::LONG_PTR window_style =
-                ::GetWindowLongPtrW(&*details(), GWL_STYLE);
-            const ::LONG_PTR extended_window_style =
-                ::GetWindowLongPtrW(&*details(), GWL_EXSTYLE);
-            const ::LONG left =
-                to_pixels< ::LONG>(gui::position<position_type>::left(pos));
-            const ::LONG top =
-                to_pixels< ::LONG>(gui::position<position_type>::top(pos));
-            const ::LONG width =
-                to_pixels< ::LONG>(
-                    gui::dimension<D>::width(client_dimension)
-                );
-            const ::LONG height =
-                to_pixels< ::LONG>(
-                    gui::dimension<D>::height(client_dimension)
-                );
-            ::RECT rectangle = { left, top, left + width, top + height };
-            if (
-                ::AdjustWindowRectEx(
-                    &rectangle,
-                    static_cast< ::DWORD>(window_style),
-                    FALSE,
-                    static_cast< ::DWORD>(extended_window_style)
-                ) == 0
-            )
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't adjust window rectangle.")
-                );
-            }
-
-            assert(rectangle.right - rectangle.left >= 0);
-            assert(rectangle.bottom - rectangle.top >= 0);
-            const ::BOOL result = ::MoveWindow(
-                &*details(),
-                rectangle.left,
-                rectangle.top,
-                rectangle.right - rectangle.left,
-                rectangle.bottom - rectangle.top,
-                visible() ? TRUE : FALSE
+            widget_details_type::set_client_dimension<position_type>(
+                *this, client_dimension
             );
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't move window.")
-                );
-            }
         }
 
         /*!
@@ -402,28 +357,8 @@ namespace tetengo2 { namespace gui { namespace win32
         dimension_type client_dimension()
         const
         {
-            ::RECT rectangle = {0, 0, 0, 0};
-            if (
-                ::GetClientRect(
-                    const_cast< ::HWND>(&*details()), &rectangle
-                ) == 0
-            )
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get client rectangle.")
-                );
-            }
-
-            assert(rectangle.right - rectangle.left >= 0);
-            assert(rectangle.bottom - rectangle.top >= 0);
-            typedef gui::dimension<dimension_type> dimension_traits_type;
-            return dimension_traits_type::make(
-                to_unit<typename dimension_traits_type::width_type>(
-                    rectangle.right - rectangle.left
-                ),
-                to_unit<typename dimension_traits_type::height_type>(
-                    rectangle.bottom - rectangle.top
-                )
+            return widget_details_type::client_dimension<dimension_type>(
+                *this
             );
         }
 
@@ -433,21 +368,13 @@ namespace tetengo2 { namespace gui { namespace win32
             \tparam S A string type.
 
             \param text A text.
-
-            \throw std::runtime_error When the text cannot be set.
         */
         template <typename S>
         void set_text(S&& text)
         {
-            const ::BOOL result = ::SetWindowTextW(
-                &*details(), encoder().encode(std::forward<S>(text)).c_str()
+            widget_details_type::set_text(
+                *this, std::forward<S>(text), encoder()
             );
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't set text!")
-                );
-            }
         }
 
         /*!
@@ -458,18 +385,7 @@ namespace tetengo2 { namespace gui { namespace win32
         string_type text()
         const
         {
-            const int length =
-                ::GetWindowTextLengthW(const_cast< ::HWND>(&*details()));
-            if (length == 0) return string_type();
-
-            std::vector<wchar_t> text(length + 1, L'\0');
-            ::GetWindowTextW(
-                const_cast< ::HWND>(&*details()), text.data(), length + 1
-            );
-
-            return encoder().decode(
-                std::wstring(text.begin(), text.begin() + length)
-            );
+            return widget_details_type::text<string_type>(*this, encoder());
         }
 
         /*!

@@ -628,6 +628,180 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Sets a client dimension.
+
+            \tparam Position  A position type.
+            \tparam Widget    A widget type.
+            \tparam Dimension A dimension type.
+
+            \param widget           A widget.
+            \param client_dimension A client dimension.
+        */
+        template <typename Position, typename Widget, typename Dimension>
+        static void set_client_dimension(
+            Widget&          widget,
+            const Dimension& client_dimension
+        )
+        {
+            assert(
+                gui::dimension<Dimension>::width(client_dimension) > 0 &&
+                gui::dimension<Dimension>::height(client_dimension) > 0
+            );
+
+            const Position pos = position<Position>(widget);
+            const ::LONG_PTR window_style =
+                ::GetWindowLongPtrW(&*widget.details(), GWL_STYLE);
+            const ::LONG_PTR extended_window_style =
+                ::GetWindowLongPtrW(&*widget.details(), GWL_EXSTYLE);
+            const ::LONG left =
+                gui::to_pixels< ::LONG>(gui::position<Position>::left(pos));
+            const ::LONG top =
+                gui::to_pixels< ::LONG>(gui::position<Position>::top(pos));
+            const ::LONG width =
+                gui::to_pixels< ::LONG>(
+                    gui::dimension<Dimension>::width(client_dimension)
+                );
+            const ::LONG height =
+                gui::to_pixels< ::LONG>(
+                    gui::dimension<Dimension>::height(client_dimension)
+                );
+            ::RECT rectangle = { left, top, left + width, top + height };
+            if (
+                ::AdjustWindowRectEx(
+                    &rectangle,
+                    static_cast< ::DWORD>(window_style),
+                    FALSE,
+                    static_cast< ::DWORD>(extended_window_style)
+                ) == 0
+            )
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't adjust window rectangle.")
+                );
+            }
+
+            assert(rectangle.right - rectangle.left > 0);
+            assert(rectangle.bottom - rectangle.top > 0);
+            const ::BOOL result = ::MoveWindow(
+                &*widget.details(),
+                rectangle.left,
+                rectangle.top,
+                rectangle.right - rectangle.left,
+                rectangle.bottom - rectangle.top,
+                visible(widget) ? TRUE : FALSE
+            );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't move window.")
+                );
+            }
+        }
+
+        /*!
+            \brief Returns the client dimension.
+
+            \tparam Dimension A dimension type.
+            \tparam Widget    A widget type.
+
+            \param widget A widget.
+
+            \return The client dimension.
+        */
+        template <typename Dimension, typename Widget>
+        static Dimension client_dimension(const Widget& widget)
+        {
+            ::RECT rectangle = {};
+            if (
+                ::GetClientRect(
+                    const_cast< ::HWND>(&*widget.details()), &rectangle
+                ) == 0
+            )
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get client rectangle.")
+                );
+            }
+
+            assert(rectangle.right - rectangle.left > 0);
+            assert(rectangle.bottom - rectangle.top > 0);
+            typedef gui::dimension<Dimension> dimension_traits_type;
+            return dimension_traits_type::make(
+                gui::to_unit<typename dimension_traits_type::width_type>(
+                    rectangle.right - rectangle.left
+                ),
+                gui::to_unit<typename dimension_traits_type::height_type>(
+                    rectangle.bottom - rectangle.top
+                )
+            );
+        }
+
+        /*!
+            \brief Sets a text.
+
+            \tparam Widget  A widget type.
+            \tparam String  A string type.
+            \tparam Encoder An eocder type.
+
+            \param widget  A widget.
+            \param text    A text.
+            \param encoder An encoder.
+
+            \throw std::runtime_error When the text cannot be set.
+        */
+        template <typename Widget, typename String, typename Encoder>
+        static void set_text(
+            Widget&        widget,
+            String&&       text,
+            const Encoder& encoder
+        )
+        {
+            const ::BOOL result = ::SetWindowTextW(
+                &*widget.details(),
+                encoder.encode(std::forward<String>(text)).c_str()
+            );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set text!")
+                );
+            }
+        }
+
+        /*!
+            \brief Retuns the text.
+
+            \tparam String  A string type.
+            \tparam Widget  A widget type.
+            \tparam Encoder An eocder type.
+
+            \param widget  A widget.
+            \param encoder An encoder.
+
+            \return The text.
+        */
+        template <typename String, typename Widget, typename Encoder>
+        static String text(const Widget& widget, const Encoder& encoder)
+        {
+            const int length =
+                ::GetWindowTextLengthW(
+                    const_cast< ::HWND>(&*widget.details())
+                );
+            if (length == 0) return String();
+
+            std::vector<wchar_t> text(length + 1, L'\0');
+            ::GetWindowTextW(
+                const_cast< ::HWND>(&*widget.details()),
+                text.data(),
+                length + 1
+            );
+
+            return encoder.decode(
+                std::wstring(text.begin(), text.begin() + length)
+            );
+        }
+
+        /*!
             \brief Uses a widget canvas.
 
             \tparam Widget   A widget type.
