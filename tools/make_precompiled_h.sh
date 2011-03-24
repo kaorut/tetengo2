@@ -9,16 +9,23 @@ SOLUTIONDIR=`dirname $0`/..
 
 list()
 {
-    for f in "$1";
-    do
-        grep -h "^\#include <[a-z_\/]\+>" $f;
-    done | sort | uniq
+    echo '// The standard library headers'
     echo ''
     for f in "$1";
     do
-        grep -h "^\#include <boost\/" $f;
+        grep -h "^\#\s*include <[a-z_\/]\+>" $f;
     done |
-    grep -v "^\#include <boost\/test\/" | sort | uniq
+    ./format_include.pl | sort | uniq
+    echo ''
+    echo ''
+    echo '// Boost library headers'
+    echo ''
+    for f in "$1";
+    do
+        grep -h "^\#\s*include <boost\/" $f;
+    done |
+    grep -v "^\#\s*include <boost\/test\/" |
+    ./format_include.pl | sort | uniq
 }
 
 SOURCES=`list_sources $SOLUTIONDIR && list_test_sources $SOLUTIONDIR`
