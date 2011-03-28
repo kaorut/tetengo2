@@ -1234,7 +1234,9 @@ namespace tetengo2 { namespace detail { namespace windows
             return singleton;
         }
 
+#if !defined(DOCUMENTATION)
     public:
+#endif
         template <typename Widget>
         static Widget* p_widget_from(const ::HWND widget_handle)
         {
@@ -1284,7 +1286,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 return 0;
             }
         }
+#if !defined(DOCUMENTATION)
     private:
+#endif
 
         template <typename Child>
         static ::BOOL CALLBACK enum_child_procedure(
