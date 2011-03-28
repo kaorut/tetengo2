@@ -448,9 +448,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The children.
         */
-        std::vector<child_type*> children()
+        std::vector<child_type&> children()
         {
-            return children_impl<child_type>();
+            return widget_details_type::children<child_type>(*this);
         }
 
         /*!
@@ -458,10 +458,10 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The children.
         */
-        std::vector<const child_type*> children()
+        std::vector<const child_type&> children()
         const
         {
-            return children_impl<const child_type>();
+            return widget_details_type::children<const child_type>(*this);
         }
 
         /*!
@@ -470,6 +470,20 @@ namespace tetengo2 { namespace gui { namespace win32
         void click()
         {
             m_mouse_observer_set.clicked()();
+        }
+
+        /*!
+            \brief Erases the background.
+
+            \param canvas A canvas.
+        */
+        void erase_background(canvas_type& canvas)
+        {
+            if (!background()) return;
+
+            canvas.fill_rectangle(
+                position_type(0, 0), client_dimension(), *background()
+            );
         }
 
         /*!
@@ -650,12 +664,12 @@ namespace tetengo2 { namespace gui { namespace win32
             \brief Initializes the widget.
             
             \param p_widget A pointer to a widget.
-
-            \throw std::runtime_error When the widget cannot be initalized.
         */
         static void initialize(widget* const p_widget)
         {
-            associate_to_native_window_system(p_widget);
+            assert(p_widget != NULL);
+
+            widget_details_type::associate_to_native_window_system(*p_widget);
             p_widget->set_font(font_type::dialog_font());
         }
 
@@ -681,23 +695,6 @@ namespace tetengo2 { namespace gui { namespace win32
         {}
 
 
-        // functions
-
-        /*!
-            \brief Erases the background.
-
-            \param canvas A canvas.
-        */
-        void erase_background(canvas_type& canvas)
-        {
-            if (!background()) return;
-
-            canvas.fill_rectangle(
-                position_type(0, 0), client_dimension(), *background()
-            );
-        }
-
-
     private:
         // static functions
 
@@ -705,41 +702,6 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             static const std::wstring singleton(L"C++ Instance");
             return singleton.c_str();
-        }
-
-        static void associate_to_native_window_system(widget* const p_widget)
-        {
-            assert(
-                ::GetPropW(
-                    &*p_widget->details(), property_key_for_cpp_instance()
-                ) == NULL
-            );
-            const ::BOOL result =
-                ::SetPropW(
-                    &*p_widget->details(),
-                    property_key_for_cpp_instance(),
-                    reinterpret_cast< ::HANDLE>(p_widget)
-                );
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't set C++ instance.")
-                );
-            }
-        }
-
-        template <typename Child>
-        static ::BOOL CALLBACK enum_child_proc(
-            const ::HWND   hWnd,
-            const ::LPARAM lParam
-        )
-        {
-            std::vector<Child*>* const p_children =
-                reinterpret_cast<std::vector<Child*>*>(lParam);
-
-            p_children->push_back(p_widget_from(hWnd));
-
-            return TRUE;
         }
 
 
@@ -918,21 +880,6 @@ namespace tetengo2 { namespace gui { namespace win32
             m_destroyed = true;
 
             return boost::optional< ::LRESULT>(0);
-        }
-
-        template <typename Child>
-        std::vector<Child*> children_impl()
-        const
-        {
-            std::vector<Child*> children;
-
-            ::EnumChildWindows(
-                &*details(),
-                enum_child_proc<Child>,
-                reinterpret_cast< ::LPARAM>(&children)
-            );
-
-            return children;
         }
 
         void delete_current_font()

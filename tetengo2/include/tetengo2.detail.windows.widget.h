@@ -361,6 +361,38 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Associates a widget to the native window system.
+
+            \tparam Widget A widget type.
+            
+            \param widget A widget.
+
+            \throw std::runtime_error When the widget cannot be associated.
+        */
+        template <typename Widget>
+        static void associate_to_native_window_system(Widget& widget)
+        {
+            assert(
+                ::GetPropW(
+                    &*widget.details(),
+                    property_key_for_cpp_instance().c_str()
+                ) == NULL
+            );
+            const ::BOOL result =
+                ::SetPropW(
+                    &*widget.details(),
+                    property_key_for_cpp_instance().c_str(),
+                    reinterpret_cast< ::HANDLE>(&widget)
+                );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set C++ instance.")
+                );
+            }
+        }
+
+        /*!
             \brief Returns whether the widget has a parent.
         
             \tparam Widget A widget type.
@@ -918,6 +950,30 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Returns the children.
+
+            \tparam Child A child type.
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \return The children.
+        */
+        template <typename Child, typename Widget>
+        static std::vector<Child&> children(Widget& widget)
+        {
+            std::vector<Child&> children;
+
+            ::EnumChildWindows(
+                const_cast< ::HWND>(&*widget.details()),
+                enum_child_procedure<Child>,
+                reinterpret_cast< ::LPARAM>(&children)
+            );
+
+            return children;
+        }
+
+        /*!
             \brief Uses a widget canvas.
 
             \tparam Widget   A widget type.
@@ -1227,6 +1283,20 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
     private:
+
+        template <typename Child>
+        static ::BOOL CALLBACK enum_child_procedure(
+            const ::HWND   window_handle,
+            const ::LPARAM parameter
+        )
+        {
+            std::vector<Child&>* const p_children =
+                reinterpret_cast<std::vector<Child&>*>(parameter);
+
+            p_children->push_back(p_widget_from<Child>(window_handle));
+
+            return TRUE;
+        }
 
 
         // forbidden operations
