@@ -423,63 +423,13 @@ namespace tetengo2 { namespace gui { namespace win32
         /*!
             \brief Sets a font.
 
-            \param font a font.
+            \param font A font.
 
             \throw std::runtime_error When the font cannot be set.
         */
         void set_font(const font_type& font)
         {
-            const ::HFONT previous_font_handle =
-                reinterpret_cast< ::HFONT>(
-                    ::SendMessageW(&*details(), WM_GETFONT, 0, 0)
-                );
-
-            ::LOGFONTW log_font = {
-                -static_cast< ::LONG>(font.size()),
-                0,
-                0,
-                0,
-                font.bold() ? FW_BOLD : FW_NORMAL,
-                font.italic() ? TRUE : FALSE,
-                font.underline() ? TRUE : FALSE,
-                font.strikeout() ? TRUE : FALSE,
-                DEFAULT_CHARSET,
-                OUT_DEFAULT_PRECIS,
-                CLIP_DEFAULT_PRECIS,
-                DEFAULT_QUALITY,
-                DEFAULT_PITCH | FF_DONTCARE,
-                L""
-            };
-            assert(font.family().size() < LF_FACESIZE);
-            std::copy(
-                font.family().begin(),
-                font.family().end(),
-                log_font.lfFaceName
-            );
-            log_font.lfFaceName[font.family().size()] = L'\0';
-            const ::HFONT font_handle = ::CreateFontIndirectW(&log_font);
-            if (font_handle == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create font.")
-                );
-            }
-            ::SendMessageW(
-                &*details(),
-                WM_SETFONT,
-                reinterpret_cast< ::WPARAM>(font_handle),
-                MAKELPARAM(TRUE, 0)
-            );
-
-            if (
-                previous_font_handle != NULL &&
-                ::DeleteObject(previous_font_handle) == 0
-            )
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't delete previous font.")
-                );
-            }
+            widget_details_type::set_font(*this, font);
         }
 
         /*!
@@ -490,35 +440,7 @@ namespace tetengo2 { namespace gui { namespace win32
         font_type font()
         const
         {
-            ::HFONT font_handle =
-                reinterpret_cast< ::HFONT>(
-                    ::SendMessageW(&*details(), WM_GETFONT, 0, 0)
-                );
-            if (font_handle == NULL)
-            {
-                font_handle =
-                    reinterpret_cast< ::HFONT>(::GetStockObject(SYSTEM_FONT));
-            }
-
-            ::LOGFONTW log_font;
-            const int byte_count =
-                ::GetObjectW(font_handle, sizeof(::LOGFONTW), &log_font);
-            if (byte_count == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get log font.")
-                );
-            }
-            
-            return font_type(
-                log_font.lfFaceName,
-                log_font.lfHeight < 0 ?
-                    -log_font.lfHeight : log_font.lfHeight,
-                log_font.lfWeight >= FW_BOLD,
-                log_font.lfItalic != FALSE,
-                log_font.lfUnderline != FALSE,
-                log_font.lfStrikeOut != FALSE
-            );
+            return widget_details_type::font<font_type>(*this);
         }
 
         /*!
