@@ -9,10 +9,8 @@
 #if !defined(TETENGO2_GUI_WIN32_WIDGET_H)
 #define TETENGO2_GUI_WIN32_WIDGET_H
 
-#include <algorithm>
 #include <cassert>
 //#include <cstddef>
-#include <exception>
 #include <functional>
 #include <stdexcept>
 #include <string>
@@ -21,7 +19,6 @@
 #include <vector>
 
 #include <boost/bind.hpp>
-#include <boost/exception/all.hpp>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>

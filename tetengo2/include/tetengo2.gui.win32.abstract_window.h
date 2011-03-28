@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_WIN32_ABSTRACTWINDOW_H)
 #define TETENGO2_GUI_WIN32_ABSTRACTWINDOW_H
 
-//#include <algorithm>
+#include <algorithm>
 //#include <cassert>
 //#include <cstddef>
 //#include <utility>

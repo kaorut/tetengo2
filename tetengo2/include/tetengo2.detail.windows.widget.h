@@ -9,13 +9,15 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_WIDGET_H)
 #define TETENGO2_DETAIL_WINDOWS_WIDGET_H
 
+#include <algorithm>
 #include <cassert>
-#include <cstddef>
+//#include <cstddef>
 #include <exception>
 #include <stdexcept>
 #include <string>
-#include <type_traits>
-#include <utility>
+//#include <type_traits>
+//#include <utility>
+#include <vector>
 
 #include <boost/exception/all.hpp>
 #include <boost/optional.hpp>
