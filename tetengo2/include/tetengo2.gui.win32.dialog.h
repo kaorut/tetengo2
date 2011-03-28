@@ -218,7 +218,9 @@ namespace tetengo2 { namespace gui { namespace win32
                 );
                 if (widget_handle != NULL)
                 {
-                    p_widget_from(widget_handle)->click();
+                    widget_details_type::p_widget_from<
+                        typename base_type::base_type
+                    >(widget_handle)->click();
                 }
                 else
                 {

@@ -643,7 +643,7 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         static ::WNDPROC p_static_window_procedure()
         {
-            return static_window_procedure;
+            return widget_details_type::window_procedure<widget>;
         }
 
         /*!
@@ -657,20 +657,6 @@ namespace tetengo2 { namespace gui { namespace win32
         {
             associate_to_native_window_system(p_widget);
             p_widget->set_font(font_type::dialog_font());
-        }
-
-        /*!
-            \brief Returns the pointer to the widget.
-
-            \param widget_handle A widget handle.
-
-            \return The pointer to the widget.
-        */
-        static widget* p_widget_from(const ::HWND widget_handle)
-        {
-            return reinterpret_cast<widget*>(
-                ::GetPropW(widget_handle, property_key_for_cpp_instance())
-            );
         }
 
 
@@ -739,45 +725,6 @@ namespace tetengo2 { namespace gui { namespace win32
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't set C++ instance.")
                 );
-            }
-        }
-
-        static ::LRESULT CALLBACK static_window_procedure(
-            const ::HWND   hWnd,
-            const ::UINT   uMsg,
-            const ::WPARAM wParam,
-            const ::LPARAM lParam
-        )
-        TETENGO2_CPP0X_NOEXCEPT
-        {
-            try
-            {
-                widget* const p_widget = p_widget_from(hWnd);
-                if (p_widget != NULL)
-                {
-                    return p_widget->window_procedure(uMsg, wParam, lParam);
-                }
-                else
-                {
-                    return ::CallWindowProcW(
-                        ::DefWindowProcW, hWnd, uMsg, wParam, lParam
-                    );
-                }
-            }
-            catch (const boost::exception& e)
-            {
-                (alert_type(hWnd))(e);
-                return 0;
-            }
-            catch (const std::exception& e)
-            {
-                (alert_type(hWnd))(e);
-                return 0;
-            }
-            catch (...)
-            {
-                (alert_type(hWnd))();
-                return 0;
             }
         }
 

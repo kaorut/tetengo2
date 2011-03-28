@@ -1176,6 +1176,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return singleton;
         }
 
+    public:
         template <typename Widget>
         static Widget* p_widget_from(const ::HWND widget_handle)
         {
@@ -1225,6 +1226,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 return 0;
             }
         }
+    private:
 
 
         // forbidden operations
