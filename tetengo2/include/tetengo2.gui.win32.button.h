@@ -89,7 +89,9 @@ namespace tetengo2 { namespace gui { namespace win32
         )
         :
         base_type(
-            make_message_handler_map(message_handler_map_type()),
+            widget_details_type::make_button_message_handler_map(
+                *this, message_handler_map_type()
+            ),
             widget_details_type::create_button(
                 parent,
                 style == style_default,
@@ -127,34 +129,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         const style_type m_style;
-
-
-        // functions
-
-        message_handler_map_type make_message_handler_map(
-            message_handler_map_type&& initial_map
-        )
-        {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
-
-            map[WM_TETENGO2_COMMAND].push_back(
-                boost::bind(&button::on_tetengo2_command, this, _1, _2)
-            );
-
-            return map;
-        }
-
-        boost::optional< ::LRESULT> on_tetengo2_command(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            mouse_observer_set().clicked()();
-            
-            return boost::optional< ::LRESULT>(0);
-        }
 
 
     };

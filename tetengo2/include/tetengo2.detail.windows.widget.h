@@ -16,9 +16,11 @@
 #include <stdexcept>
 #include <string>
 //#include <type_traits>
+#include <unordered_map>
 //#include <utility>
 #include <vector>
 
+#include <boost/bind.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
@@ -73,6 +75,23 @@ namespace tetengo2 { namespace detail { namespace windows
                 widget_details_type, detail::widget_deleter
             >::type
             widget_details_ptr_type;
+
+        //! The custom message type.
+        enum message_type
+        {
+            WM_TETENGO2_COMMAND = WM_APP + 1,   //!< A command message.
+            WM_TETENGO2_CONTROL_COLOR,          //!< A control color message.
+        };
+
+        //! The message handler type.
+        typedef
+            std::function<boost::optional< ::LRESULT> (::WPARAM, ::LPARAM)>
+            message_handler_type;
+
+        //! The message handler map type.
+        typedef
+            std::unordered_map< ::UINT, std::vector<message_handler_type>>
+            message_handler_map_type;
 
 
         // static functions
@@ -1081,6 +1100,28 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
+        template <typename Button>
+        static message_handler_map_type make_button_message_handler_map(
+            Button&                    button,
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
+
+            map[WM_TETENGO2_COMMAND].push_back(
+                boost::bind(
+                    on_button_tetengo2_command<Button>,
+                    boost::ref(button),
+                    _1,
+                    _2
+                )
+            );
+
+            return map;
+        }
+
 
     private:
         // static functions
@@ -1302,6 +1343,18 @@ namespace tetengo2 { namespace detail { namespace windows
             p_children->push_back(p_widget_from<Child>(window_handle));
 
             return TRUE;
+        }
+
+        template <typename Button>
+        static boost::optional< ::LRESULT> on_button_tetengo2_command(
+            Button&         button,
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            button.mouse_observer_set().clicked()();
+            
+            return boost::optional< ::LRESULT>(0);
         }
 
 
