@@ -33,7 +33,10 @@ namespace tetengo2 { namespace gui { namespace win32
         typename WidgetDetails,
         typename MessageHandlerDetails
     >
-    class image : public control<typename Traits::base_type, WidgetDetails>
+    class image :
+        public control<
+            typename Traits::base_type, WidgetDetails, MessageHandlerDetails
+        >
     {
     public:
         // types
@@ -49,7 +52,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The base type.
         typedef
-            control<typename traits_type::base_type, widget_details_type>
+            control<
+                typename traits_type::base_type,
+                widget_details_type,
+                message_handler_details_type
+            >
             base_type;
 
         //! The widget type.
