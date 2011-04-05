@@ -448,7 +448,9 @@ namespace bobura
             label_traits_type;
         typedef
             tetengo2::gui::win32::label<
-                label_traits_type, widget_details_type
+                label_traits_type,
+                widget_details_type,
+                message_handler_details_type
             >
             label_type;
         typedef
@@ -458,7 +460,9 @@ namespace bobura
             image_traits_type;
         typedef
             tetengo2::gui::win32::image<
-                image_traits_type, widget_details_type
+                image_traits_type,
+                widget_details_type,
+                message_handler_details_type
             >
             image_type;
         typedef
