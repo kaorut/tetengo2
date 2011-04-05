@@ -9,7 +9,9 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H
 
+#include <cstddef>
 #include <functional>
+#include <stdexcept>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -17,6 +19,7 @@
 #include <boost/bind.hpp>
 #include <boost/optional.hpp>
 #include <boost/ref.hpp>
+#include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
