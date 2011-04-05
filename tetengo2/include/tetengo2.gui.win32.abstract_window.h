@@ -9,17 +9,11 @@
 #if !defined(TETENGO2_GUI_WIN32_ABSTRACTWINDOW_H)
 #define TETENGO2_GUI_WIN32_ABSTRACTWINDOW_H
 
-#include <algorithm>
 //#include <cassert>
 //#include <cstddef>
 //#include <utility>
 
-//#include <boost/bind.hpp>
 //#include <boost/optional.hpp>
-
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.widget.h"
@@ -211,7 +205,8 @@ namespace tetengo2 { namespace gui { namespace win32
         )
         :
         base_type(
-            make_message_handler_map(
+            message_handler_details_type::make_abstract_window_message_handler_map(
+                *this,
                 std::forward<message_handler_map_type>(message_handler_map)
             )
         ),
@@ -221,117 +216,11 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // static functions
-
-        static bool same_menu(
-            const typename main_menu_type::base_type::base_type& menu1,
-            ::UINT                                               menu2_id
-        )
-        {
-            return menu1.details()->first == menu2_id;
-        }
-
-        static bool same_popup_menu(
-            const typename main_menu_type::base_type::base_type& menu1,
-            ::HMENU                                              menu2_handle
-        )
-        {
-            if (!menu1.details() || menu2_handle == NULL) return false;
-            return &*menu1.details()->second == menu2_handle;
-        }
-
-
         // variables
 
         typename cpp0x::unique_ptr<main_menu_type>::type m_p_main_menu;
 
         window_observer_set_type m_window_observer_set;
-
-
-        // functions
-
-        message_handler_map_type make_message_handler_map(
-            message_handler_map_type&& initial_map
-        )
-        {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
-
-            map[WM_COMMAND].push_back(
-                boost::bind(&abstract_window::on_command, this, _1, _2)
-            );
-            map[WM_INITMENUPOPUP].push_back(
-                boost::bind(&abstract_window::on_initmenupopup, this, _1, _2)
-            );
-            map[WM_DESTROY].push_back(
-                boost::bind(&abstract_window::on_destroy, this, _1, _2)
-            );
-
-            return map;
-        }
-
-        boost::optional< ::LRESULT> on_command(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            const ::WORD source = HIWORD(wParam);
-            const ::WORD id = LOWORD(wParam);
-            if (source == 0)
-            {
-                if (!has_main_menu()) return boost::optional< ::LRESULT>();
-
-                const typename main_menu_type::recursive_iterator
-                found = std::find_if(
-                    main_menu().recursive_begin(),
-                    main_menu().recursive_end(),
-                    boost::bind(same_menu, _1, id)
-                );
-                if (found == main_menu().recursive_end())
-                    return boost::optional< ::LRESULT>();
-                found->select();
-
-                return boost::optional< ::LRESULT>(0);
-            }
-
-            return boost::optional< ::LRESULT>();
-        }
-
-        boost::optional< ::LRESULT> on_initmenupopup(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
-
-            if (!has_main_menu()) return boost::optional< ::LRESULT>();
-
-            const typename main_menu_type::recursive_iterator
-            found = std::find_if(
-                main_menu().recursive_begin(),
-                main_menu().recursive_end(),
-                boost::bind(same_popup_menu, _1, handle)
-            );
-            if (found == main_menu().recursive_end())
-                return boost::optional< ::LRESULT>();
-            found->select();
-
-            return boost::optional< ::LRESULT>(0);
-        }
-
-        boost::optional< ::LRESULT> on_destroy(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            if (m_window_observer_set.destroyed().empty())
-                return boost::optional< ::LRESULT>();
-
-            m_window_observer_set.destroyed()();
-
-            return boost::optional< ::LRESULT>();
-        }
 
 
     };

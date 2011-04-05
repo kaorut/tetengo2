@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H
 
+#include <algorithm>
 #include <cassert>
 #include <cstddef>
 #include <functional>
@@ -32,13 +33,120 @@ namespace tetengo2 { namespace detail { namespace windows
 #if !defined(DOCUMENTATION)
     namespace detail
     {
+        namespace abstract_window
+        {
+            template <typename Menu>
+            bool same_menu(const Menu& menu1, const ::UINT menu2_id)
+            {
+                return menu1.details()->first == menu2_id;
+            }
+
+            template <typename Menu>
+            bool same_popup_menu(
+                const Menu&   menu1,
+                const ::HMENU menu2_handle
+            )
+            {
+                if (!menu1.details() || menu2_handle == NULL) return false;
+                return &*menu1.details()->second == menu2_handle;
+            }
+
+            template <typename AbstractWindow>
+            boost::optional< ::LRESULT> on_command(
+                AbstractWindow& abstract_window,
+                const ::WPARAM  wParam,
+                const ::LPARAM  lParam
+            )
+            {
+                const ::WORD source = HIWORD(wParam);
+                const ::WORD id = LOWORD(wParam);
+
+                if (source != 0)
+                    return boost::optional< ::LRESULT>();
+
+                if (!abstract_window.has_main_menu())
+                    return boost::optional< ::LRESULT>();
+
+                typedef
+                    typename AbstractWindow::main_menu_type main_menu_type;
+                const typename main_menu_type::recursive_iterator
+                found = std::find_if(
+                    abstract_window.main_menu().recursive_begin(),
+                    abstract_window.main_menu().recursive_end(),
+                    boost::bind(
+                        same_menu<
+                            typename main_menu_type::base_type::base_type
+                        >,
+                        _1,
+                        id
+                    )
+                );
+                if (found == abstract_window.main_menu().recursive_end())
+                    return boost::optional< ::LRESULT>();
+                found->select();
+
+                return boost::optional< ::LRESULT>(0);
+            }
+
+            template <typename AbstractWindow>
+            boost::optional< ::LRESULT> on_initmenupopup(
+                AbstractWindow& abstract_window,
+                const ::WPARAM  wParam,
+                const ::LPARAM  lParam
+            )
+            {
+                const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
+
+                if (!abstract_window.has_main_menu())
+                    return boost::optional< ::LRESULT>();
+
+                typedef
+                    typename AbstractWindow::main_menu_type main_menu_type;
+                const typename main_menu_type::recursive_iterator
+                found = std::find_if(
+                    abstract_window.main_menu().recursive_begin(),
+                    abstract_window.main_menu().recursive_end(),
+                    boost::bind(
+                        same_popup_menu<
+                            typename main_menu_type::base_type::base_type
+                        >,
+                        _1,
+                        handle
+                    )
+                );
+                if (found == abstract_window.main_menu().recursive_end())
+                    return boost::optional< ::LRESULT>();
+                found->select();
+
+                return boost::optional< ::LRESULT>(0);
+            }
+
+            template <typename AbstractWindow>
+            boost::optional< ::LRESULT> on_destroy(
+                AbstractWindow& abstract_window,
+                const ::WPARAM  wParam,
+                const ::LPARAM  lParam
+            )
+            {
+                if (abstract_window.window_observer_set().destroyed().empty())
+                    return boost::optional< ::LRESULT>();
+
+                abstract_window.window_observer_set().destroyed()();
+
+                return boost::optional< ::LRESULT>();
+            }
+
+
+        }
+
+
         namespace dialog
         {
             template <typename Dialog, typename WidgetDetails>
             boost::optional< ::LRESULT> on_command(
-                Dialog&         dialog,
-                const ::WPARAM  wParam,
-                const ::LPARAM  lParam
+                Dialog&        dialog,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
             )
             {
                 const ::WORD hi_wparam = HIWORD(wParam);
@@ -82,9 +190,9 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             template <typename Control>
             boost::optional< ::LRESULT> on_control_color(
-                Control&        control,
-                const ::WPARAM  wParam,
-                const ::LPARAM  lParam
+                Control&       control,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
             )
             {
                 if (!control.background())
@@ -136,9 +244,9 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             template <typename Button>
             static boost::optional< ::LRESULT> on_tetengo2_command(
-                Button&         button,
-                const ::WPARAM  wParam,
-                const ::LPARAM  lParam
+                Button&        button,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
             )
             {
                 button.mouse_observer_set().clicked()();
@@ -181,6 +289,55 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
         // static functions
+
+        /*!
+            \brief Make a message handler map for an abstract window.
+
+            \tparam AbstractWindow An abstract window type.
+
+            \param abstract_window An abstract window.
+            \param initial_map     An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename AbstractWindow>
+        static message_handler_map_type
+        make_abstract_window_message_handler_map(
+            AbstractWindow&            abstract_window,
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
+
+            map[WM_COMMAND].push_back(
+                boost::bind(
+                    detail::abstract_window::on_command<AbstractWindow>,
+                    boost::ref(abstract_window),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_INITMENUPOPUP].push_back(
+                boost::bind(
+                    detail::abstract_window::on_initmenupopup<AbstractWindow>,
+                    boost::ref(abstract_window),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_DESTROY].push_back(
+                boost::bind(
+                    detail::abstract_window::on_destroy<AbstractWindow>,
+                    boost::ref(abstract_window),
+                    _1,
+                    _2
+                )
+            );
+
+            return map;
+        }
 
         /*!
             \brief Make a message handler map for a dialog.
