@@ -11,18 +11,13 @@
 
 #include <cassert>
 //#include <cstddef>
-#include <functional>
 #include <stdexcept>
-#include <string>
-#include <unordered_map>
 //#include <utility>
 #include <vector>
 
-#include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
@@ -111,6 +106,9 @@ namespace tetengo2 { namespace gui { namespace win32
         typedef
             typename widget_details_type::widget_details_ptr_type
             details_ptr_type;
+
+        //! The detail implementation type of a message handler.
+        typedef MessageHandlerDetails message_handler_details_type;
 
         //! The child type.
         typedef widget child_type;
@@ -545,6 +543,14 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
+            \brief Sets the status of the widget that it's already destroyed.
+        */
+        void set_destroyed()
+        {
+            m_destroyed = true;
+        }
+
+        /*!
             \brief Dispatches window messages.
 
             \param uMsg   A message.
@@ -623,21 +629,14 @@ namespace tetengo2 { namespace gui { namespace win32
     protected:
         // types
 
-        //! The custom message type.
-        enum message_type
-        {
-            WM_TETENGO2_COMMAND = WM_APP + 1,   //!< A command message.
-            WM_TETENGO2_CONTROL_COLOR,          //!< A control color message.
-        };
-
         //! The message handler type.
         typedef
-            std::function<boost::optional< ::LRESULT> (::WPARAM, ::LPARAM)>
+            typename message_handler_details_type::message_handler_type
             message_handler_type;
 
         //! The message handler map type.
         typedef
-            std::unordered_map< ::UINT, std::vector<message_handler_type>>
+            typename message_handler_details_type::message_handler_map_type
             message_handler_map_type;
 
 
@@ -688,7 +687,8 @@ namespace tetengo2 { namespace gui { namespace win32
         explicit widget(message_handler_map_type&& message_handler_map)
         :
         m_message_handler_map(
-            make_message_handler_map(
+            message_handler_details_type::make_widget_message_handler_map(
+                *this,
                 std::forward<message_handler_map_type>(message_handler_map)
             )
         ),
@@ -700,15 +700,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
     private:
-        // static functions
-
-        static ::LPCWSTR property_key_for_cpp_instance()
-        {
-            static const std::wstring singleton(L"C++ Instance");
-            return singleton.c_str();
-        }
-
-
         // variables
 
         const message_handler_map_type m_message_handler_map;
@@ -735,172 +726,6 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return ::DefWindowProcW;
-        }
-
-
-        // functions
-
-        message_handler_map_type make_message_handler_map(
-            message_handler_map_type&& initial_map
-        )
-        {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
-
-            map[WM_COMMAND].push_back(
-                boost::bind(&widget::on_command, this, _1, _2)
-            );
-            map[WM_ERASEBKGND].push_back(
-                boost::bind(&widget::on_erase_background, this, _1, _2)
-            );
-            map[WM_CTLCOLORBTN].push_back(
-                boost::bind(&widget::on_control_color, this, _1, _2)
-            );
-            map[WM_CTLCOLOREDIT].push_back(
-                boost::bind(&widget::on_control_color, this, _1, _2)
-            );
-            map[WM_CTLCOLORLISTBOX].push_back(
-                boost::bind(&widget::on_control_color, this, _1, _2)
-            );
-            map[WM_CTLCOLORSCROLLBAR].push_back(
-                boost::bind(&widget::on_control_color, this, _1, _2)
-            );
-            map[WM_CTLCOLORSTATIC].push_back(
-                boost::bind(&widget::on_control_color, this, _1, _2)
-            );
-            map[WM_PAINT].push_back(
-                boost::bind(&widget::on_paint, this, _1, _2)
-            );
-            map[WM_DESTROY].push_back(
-                boost::bind(&widget::on_destroy, this, _1, _2)
-            );
-            map[WM_NCDESTROY].push_back(
-                boost::bind(&widget::on_ncdestroy, this, _1, _2)
-            );
-
-            return map;
-        }
-
-        boost::optional< ::LRESULT> on_command(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            if (lParam == 0) return boost::optional< ::LRESULT>();
-
-            ::PostMessageW(
-                reinterpret_cast< ::HWND>(lParam),
-                WM_TETENGO2_COMMAND,
-                wParam,
-                reinterpret_cast< ::LPARAM>(&*details())
-            );
-            return boost::optional< ::LRESULT>();
-        }
-
-        boost::optional< ::LRESULT> on_erase_background(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            if (!background()) return boost::optional< ::LRESULT>();
-
-            canvas_type canvas(reinterpret_cast< ::HDC>(wParam));
-            erase_background(canvas);
-
-            return boost::optional< ::LRESULT>(TRUE);
-        }
-
-        boost::optional< ::LRESULT> on_control_color(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            if (lParam == 0) return boost::optional< ::LRESULT>();
-
-            const ::LRESULT result =
-                ::SendMessageW(
-                    reinterpret_cast< ::HWND>(lParam),
-                    WM_TETENGO2_CONTROL_COLOR,
-                    wParam,
-                    0
-                );
-
-            return
-                result == NULL ?
-                boost::optional< ::LRESULT>() :
-                boost::optional< ::LRESULT>(result);
-        }
-
-        boost::optional< ::LRESULT> on_paint(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            if (m_paint_observer_set.paint().empty())
-                return boost::optional< ::LRESULT>();
-
-            ::PAINTSTRUCT paint_struct = {};
-            if (::BeginPaint(&*details(), &paint_struct) == NULL)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't begin paint.")
-                );
-            }
-            widget& self = *this;
-            BOOST_SCOPE_EXIT((&self)(&paint_struct))
-            {
-                ::EndPaint(&*self.details(), &paint_struct);
-            } BOOST_SCOPE_EXIT_END;
-            canvas_type canvas(paint_struct.hdc);
-
-            m_paint_observer_set.paint()(canvas);
-
-            return boost::optional< ::LRESULT>(0);
-        }
-
-        boost::optional< ::LRESULT> on_destroy(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            delete_current_font();
-            return boost::optional< ::LRESULT>(0);
-        }
-
-        boost::optional< ::LRESULT> on_ncdestroy(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            const widget* const p_widget =
-                reinterpret_cast<const widget*>(
-                    ::RemovePropW(
-                        &*details(), property_key_for_cpp_instance()
-                    )
-                );
-            assert(p_widget == this);
-
-            m_destroyed = true;
-
-            return boost::optional< ::LRESULT>(0);
-        }
-
-        void delete_current_font()
-        {
-            const ::HFONT font_handle =
-                reinterpret_cast< ::HFONT>(
-                ::SendMessageW(&*details(), WM_GETFONT, 0, 0)
-                );
-
-            ::SendMessageW(&*details(), WM_SETFONT, NULL, MAKELPARAM(0, 0));
-
-            if (font_handle != NULL && ::DeleteObject(font_handle) == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't delete previous font.")
-                );
-            }
         }
 
 

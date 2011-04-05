@@ -1081,6 +1081,17 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
+        /*!
+            \brief Returns the window property key.
+
+            This function is for an internal use.
+        */
+        static const std::wstring& property_key_for_cpp_instance()
+        {
+            static const std::wstring singleton(L"C++ Instance");
+            return singleton;
+        }
+
 
     private:
         // static functions
@@ -1226,12 +1237,6 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::runtime_error("Can't delete system menu item.")
                 );
             }
-        }
-
-        static const std::wstring& property_key_for_cpp_instance()
-        {
-            static const std::wstring singleton(L"C++ Instance");
-            return singleton;
         }
 
 #if !defined(DOCUMENTATION)

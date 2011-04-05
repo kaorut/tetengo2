@@ -21,6 +21,7 @@
 #include <boost/bind.hpp>
 #include <boost/optional.hpp>
 #include <boost/ref.hpp>
+#include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
@@ -33,6 +34,158 @@ namespace tetengo2 { namespace detail { namespace windows
 #if !defined(DOCUMENTATION)
     namespace detail
     {
+        enum message_type
+        {
+            WM_TETENGO2_COMMAND = WM_APP + 1,
+            WM_TETENGO2_CONTROL_COLOR,
+        };
+
+
+        namespace widget
+        {
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_command(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                if (lParam == 0) return boost::optional< ::LRESULT>();
+
+                ::PostMessageW(
+                    reinterpret_cast< ::HWND>(lParam),
+                    WM_TETENGO2_COMMAND,
+                    wParam,
+                    reinterpret_cast< ::LPARAM>(&*widget.details())
+                );
+                return boost::optional< ::LRESULT>();
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_erase_background(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                if (!widget.background())
+                    return boost::optional< ::LRESULT>();
+
+                typename Widget::canvas_type canvas(
+                    reinterpret_cast< ::HDC>(wParam)
+                );
+                widget.erase_background(canvas);
+
+                return boost::optional< ::LRESULT>(TRUE);
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_control_color(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                if (lParam == 0) return boost::optional< ::LRESULT>();
+
+                const ::LRESULT result =
+                    ::SendMessageW(
+                        reinterpret_cast< ::HWND>(lParam),
+                        WM_TETENGO2_CONTROL_COLOR,
+                        wParam,
+                        0
+                    );
+
+                return
+                    result == NULL ?
+                    boost::optional< ::LRESULT>() :
+                    boost::optional< ::LRESULT>(result);
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_paint(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                if (widget.paint_observer_set().paint().empty())
+                    return boost::optional< ::LRESULT>();
+
+                ::PAINTSTRUCT paint_struct = {};
+                if (::BeginPaint(&*widget.details(), &paint_struct) == NULL)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't begin paint.")
+                    );
+                }
+                BOOST_SCOPE_EXIT((&widget)(&paint_struct))
+                {
+                    ::EndPaint(&*widget.details(), &paint_struct);
+                } BOOST_SCOPE_EXIT_END;
+                typename Widget::canvas_type canvas(paint_struct.hdc);
+
+                widget.paint_observer_set().paint()(canvas);
+
+                return boost::optional< ::LRESULT>(0);
+            }
+
+            template <typename Widget>
+            void delete_current_font(Widget& widget)
+            {
+                const ::HFONT font_handle =
+                    reinterpret_cast< ::HFONT>(
+                    ::SendMessageW(&*widget.details(), WM_GETFONT, 0, 0)
+                    );
+
+                ::SendMessageW(
+                    &*widget.details(), WM_SETFONT, NULL, MAKELPARAM(0, 0)
+                );
+
+                if (font_handle != NULL && ::DeleteObject(font_handle) == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't delete previous font.")
+                    );
+                }
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_destroy(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                delete_current_font(widget);
+                return boost::optional< ::LRESULT>(0);
+            }
+
+            template <typename Widget, typename WidgetDetails>
+            boost::optional< ::LRESULT> on_ncdestroy(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                const Widget* const p_widget =
+                    reinterpret_cast<const Widget*>(
+                        ::RemovePropW(
+                            &*widget.details(),
+                            WidgetDetails::property_key_for_cpp_instance().c_str()
+                        )
+                    );
+                assert(p_widget == &widget);
+
+                widget.set_destroyed();
+
+                return boost::optional< ::LRESULT>(0);
+            }
+
+
+        }
+
+
         namespace abstract_window
         {
             template <typename Menu>
@@ -291,6 +444,110 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         /*!
+            \brief Make a message handler map for a widget.
+
+            \tparam Widget A widget type.
+
+            \param widget      A widget.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename Widget>
+        static message_handler_map_type make_widget_message_handler_map(
+            Widget&                    widget,
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
+
+            map[WM_COMMAND].push_back(
+                boost::bind(
+                    detail::widget::on_command<Widget>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_ERASEBKGND].push_back(
+                boost::bind(
+                    detail::widget::on_erase_background<Widget>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_CTLCOLORBTN].push_back(
+                boost::bind(
+                    detail::widget::on_control_color<Widget>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_CTLCOLOREDIT].push_back(
+                boost::bind(
+                    detail::widget::on_control_color<Widget>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_CTLCOLORLISTBOX].push_back(
+                boost::bind(
+                    detail::widget::on_control_color<Widget>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_CTLCOLORSCROLLBAR].push_back(
+                boost::bind(
+                    detail::widget::on_control_color<Widget>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_CTLCOLORSTATIC].push_back(
+                boost::bind(
+                    detail::widget::on_control_color<Widget>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_PAINT].push_back(
+                boost::bind(
+                    detail::widget::on_paint<Widget>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_DESTROY].push_back(
+                boost::bind(
+                    detail::widget::on_destroy<Widget>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+            map[WM_NCDESTROY].push_back(
+                boost::bind(
+                    detail::widget::on_ncdestroy<Widget, widget_details_type>,
+                    boost::ref(widget),
+                    _1,
+                    _2
+                )
+            );
+
+            return map;
+        }
+
+        /*!
             \brief Make a message handler map for an abstract window.
 
             \tparam AbstractWindow An abstract window type.
@@ -410,7 +667,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::forward<message_handler_map_type>(initial_map)
             );
 
-            map[WM_TETENGO2_CONTROL_COLOR].push_back(
+            map[detail::WM_TETENGO2_CONTROL_COLOR].push_back(
                 boost::bind(
                     detail::control::on_control_color<Control>,
                     boost::ref(control),
@@ -442,7 +699,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::forward<message_handler_map_type>(initial_map)
             );
 
-            map[WM_TETENGO2_COMMAND].push_back(
+            map[detail::WM_TETENGO2_COMMAND].push_back(
                 boost::bind(
                     detail::button::on_tetengo2_command<Button>,
                     boost::ref(button),
@@ -494,15 +751,6 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
     private:
-        // types
-
-        enum message_type
-        {
-            WM_TETENGO2_COMMAND = WM_APP + 1,
-            WM_TETENGO2_CONTROL_COLOR,
-        };
-
-
         // forbidden operations
 
         message_handler();

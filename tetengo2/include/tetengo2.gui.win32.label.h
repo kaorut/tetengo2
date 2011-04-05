@@ -11,7 +11,7 @@
 
 //#include <stdexcept>
 
-//#include <boost/bind.hpp>
+#include <boost/bind.hpp>
 #include <boost/ref.hpp>
 
 #include "tetengo2.cpp0x.h"

@@ -11,7 +11,7 @@
 
 //#include <stdexcept>
 
-//#include <boost/bind.hpp>
+#include <boost/bind.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.control.h"
