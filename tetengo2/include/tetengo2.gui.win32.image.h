@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIN32_IMAGE_H
 
 //#include <stdexcept>
-//#include <utility>
 
 //#include <boost/bind.hpp>
 
@@ -75,7 +74,7 @@ namespace tetengo2 { namespace gui { namespace win32
         image(widget_type& parent, PictureReader& picture_reader)
         :
         base_type(
-            make_message_handler_map(message_handler_map_type()),
+            message_handler_map_type(),
             widget_details_type::create_image(parent)
         ),
         m_p_picture(picture_reader.read())
@@ -121,17 +120,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
 
         // functions
-
-        message_handler_map_type make_message_handler_map(
-            message_handler_map_type&& initial_map
-        )
-        {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
-
-            return map;
-        }
 
         void paint_picture(canvas_type& canvas)
         const

@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIN32_LABEL_H
 
 //#include <stdexcept>
-//#include <utility>
 
 //#include <boost/bind.hpp>
 
@@ -69,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace win32
         explicit label(widget_type& parent)
         :
         base_type(
-            make_message_handler_map(message_handler_map_type()),
+            message_handler_map_type(),
             widget_details_type::create_label(parent)
         )
         {
@@ -109,17 +108,6 @@ namespace tetengo2 { namespace gui { namespace win32
                     &canvas_type::calc_text_dimension, _1, boost::cref(text())
                 )
             );
-        }
-
-        message_handler_map_type make_message_handler_map(
-            message_handler_map_type&& initial_map
-        )
-        {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
-
-            return map;
         }
 
 
