@@ -91,7 +91,9 @@ namespace tetengo2 { namespace gui { namespace win32
         image(widget_type& parent, PictureReader& picture_reader)
         :
         base_type(
-            message_handler_map_type(),
+            message_handler_details_type::make_image_message_handler_map(
+                *this, message_handler_map_type()
+            ),
             widget_details_type::create_image(parent)
         ),
         m_p_picture(picture_reader.read())

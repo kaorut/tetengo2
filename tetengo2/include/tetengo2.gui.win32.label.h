@@ -86,7 +86,9 @@ namespace tetengo2 { namespace gui { namespace win32
         explicit label(widget_type& parent)
         :
         base_type(
-            message_handler_map_type(),
+            message_handler_details_type::make_label_message_handler_map(
+                *this, message_handler_map_type()
+            ),
             widget_details_type::create_label(parent)
         )
         {

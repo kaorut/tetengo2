@@ -189,6 +189,44 @@ namespace tetengo2 { namespace detail { namespace windows
             return map;
         }
 
+        /*!
+            \brief Make a message handler map for an image.
+
+            \tparam Image An image type.
+
+            \param image       An image.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename Image>
+        static message_handler_map_type make_image_message_handler_map(
+            Image&                     image,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::forward<message_handler_map_type>(initial_map);
+        }
+
+        /*!
+            \brief Make a message handler map for a label.
+
+            \tparam Label A label type.
+
+            \param label       A label.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename Label>
+        static message_handler_map_type make_label_message_handler_map(
+            Label&                     label,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::forward<message_handler_map_type>(initial_map);
+        }
+
 
     private:
         // types
