@@ -28,6 +28,60 @@ namespace tetengo2 { namespace detail { namespace windows
 #if !defined(DOCUMENTATION)
     namespace detail
     {
+        namespace control
+        {
+            template <typename Control>
+            boost::optional< ::LRESULT> on_control_color(
+                Control&        control,
+                const ::WPARAM  wParam,
+                const ::LPARAM  lParam
+            )
+            {
+                if (!control.background())
+                    return boost::optional< ::LRESULT>();
+
+                const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
+                typename Control::base_type::canvas_type canvas(
+                    device_context
+                );
+                control.erase_background(canvas);
+
+                if (control.text_color())
+                {
+                    const ::COLORREF previous_color =
+                        ::SetTextColor(
+                            device_context,
+                            RGB(
+                                control.text_color()->red(),
+                                control.text_color()->green(),
+                                control.text_color()->blue()
+                            )
+                        );
+                    if (previous_color == CLR_INVALID)
+                    {
+                        BOOST_THROW_EXCEPTION(
+                            std::runtime_error("Can't set text color.")
+                        );
+                    }
+                }
+                const int previous_background_mode =
+                    ::SetBkMode(device_context, TRANSPARENT);
+                if (previous_background_mode == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't set background mode.")
+                    );
+                }
+
+                return boost::optional< ::LRESULT>(
+                    reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))    
+                );
+            }
+
+
+        }
+
+
         namespace button
         {
             template <typename Button>
@@ -72,11 +126,43 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         /*!
+            \brief Make a message handler map for a control.
+
+            \tparam Control A control type.
+
+            \param control     A control.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename Control>
+        static message_handler_map_type make_control_message_handler_map(
+            Control&                   control,
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
+
+            map[WM_TETENGO2_CONTROL_COLOR].push_back(
+                boost::bind(
+                    detail::control::on_control_color<Control>,
+                    boost::ref(control),
+                    _1,
+                    _2
+                )
+            );
+
+            return map;
+        }
+
+        /*!
             \brief Make a message handler map for a button.
 
             \tparam Button A button type.
 
-            \param button A button.
+            \param button      A button.
             \param initial_map An initial message handler map.
 
             \return A message handler map.

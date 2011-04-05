@@ -135,7 +135,8 @@ namespace tetengo2 { namespace gui { namespace win32
         )
         :
         base_type(
-            make_message_handler_map(
+            message_handler_details_type::make_control_message_handler_map(
+                *this,
                 std::forward<message_handler_map_type>(message_handler_map)
             )
         ),
@@ -204,67 +205,6 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return m_p_original_window_procedure;
-        }
-
-
-        // functions
-
-        message_handler_map_type make_message_handler_map(
-            message_handler_map_type&& initial_map
-        )
-        {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
-
-            map[WM_TETENGO2_CONTROL_COLOR].push_back(
-                boost::bind(&control::on_control_color, this, _1, _2)
-            );
-
-            return map;
-        }
-
-        boost::optional< ::LRESULT> on_control_color(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            if (!background()) return boost::optional< ::LRESULT>();
-
-            const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
-            canvas_type canvas(device_context);
-            erase_background(canvas);
-
-            if (m_text_color)
-            {
-                const ::COLORREF previous_color =
-                    ::SetTextColor(
-                        device_context,
-                        RGB(
-                            m_text_color->red(),
-                            m_text_color->green(),
-                            m_text_color->blue()
-                        )
-                    );
-                if (previous_color == CLR_INVALID)
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't set text color.")
-                    );
-                }
-            }
-            const int previous_background_mode =
-                ::SetBkMode(device_context, TRANSPARENT);
-            if (previous_background_mode == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't set background mode.")
-                );
-            }
-
-            return boost::optional< ::LRESULT>(
-                reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))    
-            );
         }
 
 
