@@ -1301,7 +1301,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 Widget* const p_widget = p_widget_from<Widget>(hWnd);
                 if (p_widget != NULL)
                 {
-                    return p_widget->window_procedure(uMsg, wParam, lParam);
+                    return window_procedure_impl(
+                        *p_widget, uMsg, wParam, lParam
+                    );
                 }
                 else
                 {
@@ -1325,6 +1327,41 @@ namespace tetengo2 { namespace detail { namespace windows
                 (typename Widget::alert_type(hWnd))();
                 return 0;
             }
+        }
+
+        template <typename Widget>
+        static ::LRESULT window_procedure_impl(
+            const Widget&   widget,
+            const ::UINT    uMsg,
+            const ::WPARAM  wParam,
+            const ::LPARAM  lParam
+        )
+        {
+            typedef
+                typename Widget::message_handler_map_type::const_iterator
+                map_iterator;
+            const map_iterator found =
+                widget.message_handler_map().find(uMsg);
+            if (found != widget.message_handler_map().end())
+            {
+                BOOST_FOREACH (
+                    const typename Widget::message_handler_type& handler,
+                    found->second
+                )
+                {
+                    const boost::optional< ::LRESULT> o_result =
+                        handler(wParam, lParam);
+                    if (o_result) return *o_result;
+                }
+            }
+
+            return ::CallWindowProcW(
+                widget.p_default_window_procedure(),
+                const_cast< ::HWND>(&*widget.details()),
+                uMsg,
+                wParam,
+                lParam
+            );
         }
 
         template <typename Child>

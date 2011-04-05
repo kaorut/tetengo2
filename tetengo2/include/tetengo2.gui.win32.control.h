@@ -121,6 +121,12 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 #endif
 
+        virtual ::WNDPROC p_default_window_procedure()
+        const
+        {
+            return m_p_original_window_procedure;
+        }
+
 
     protected:
         // constructors
@@ -174,12 +180,6 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return boost::optional<const details_type&>(*m_p_details);
-        }
-
-        virtual ::WNDPROC p_default_window_procedure()
-        const
-        {
-            return m_p_original_window_procedure;
         }
 
 

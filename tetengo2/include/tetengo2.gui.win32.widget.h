@@ -107,6 +107,16 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The detail implementation type of a message handler.
         typedef MessageHandlerDetails message_handler_details_type;
 
+        //! The message handler type.
+        typedef
+            typename message_handler_details_type::message_handler_type
+            message_handler_type;
+
+        //! The message handler map type.
+        typedef
+            typename message_handler_details_type::message_handler_map_type
+            message_handler_map_type;
+
         //! The child type.
         typedef widget child_type;
 
@@ -556,33 +566,6 @@ namespace tetengo2 { namespace gui { namespace win32
 
             \return The result.
         */
-        ::LRESULT window_procedure(
-            const ::UINT    uMsg,
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            typedef
-                typename message_handler_map_type::const_iterator
-                map_iterator;
-            const map_iterator found = m_message_handler_map.find(uMsg);
-            if (found != m_message_handler_map.end())
-            {
-                BOOST_FOREACH (
-                    const message_handler_type& handler, found->second
-                )
-                {
-                    const boost::optional< ::LRESULT> o_result =
-                        handler(wParam, lParam);
-                    if (o_result) return *o_result;
-                }
-            }
-
-            return ::CallWindowProcW(
-                p_default_window_procedure(), &*details(), uMsg, wParam, lParam
-            );
-        }
-
         /*!
             \brief Returns the detail implementation.
 
@@ -622,21 +605,20 @@ namespace tetengo2 { namespace gui { namespace win32
             return details_impl();
         }
 
+        const message_handler_map_type& message_handler_map()
+        const
+        {
+            return m_message_handler_map;
+        }
+
+        virtual ::WNDPROC p_default_window_procedure()
+        const
+        {
+            return ::DefWindowProcW;
+        }
+
 
     protected:
-        // types
-
-        //! The message handler type.
-        typedef
-            typename message_handler_details_type::message_handler_type
-            message_handler_type;
-
-        //! The message handler map type.
-        typedef
-            typename message_handler_details_type::message_handler_map_type
-            message_handler_map_type;
-
-
         // static functions
 
         /*!
@@ -708,12 +690,6 @@ namespace tetengo2 { namespace gui { namespace win32
         virtual boost::optional<const details_type&> details_impl()
         const
         = 0;
-
-        virtual ::WNDPROC p_default_window_procedure()
-        const
-        {
-            return ::DefWindowProcW;
-        }
 
 
     };
