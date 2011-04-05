@@ -161,7 +161,7 @@ assert                                           cassert
 boost::basic_format                              boost/format.hpp
 boost::bind                                      boost/bind.hpp
 boost::checked_deleter                           boost/utility.hpp
-boost::cref                                      boost/bind.hpp
+boost::cref                                      boost/ref.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::escaped_list_separator                    boost/tokenizer.hpp
@@ -222,6 +222,7 @@ boost::program_options::wparsed_options          boost/program_options.hpp
 boost::ptr_vector                                boost/ptr_container/ptr_vector.hpp
 boost::rational                                  boost/rational.hpp
 boost::rational_cast                             boost/rational.hpp
+boost::ref                                       boost/ref.hpp
 boost::replace_all                               boost/algorithm/string.hpp
 boost::signals2::signal                          boost/signals2.hpp
 boost::swap                                      boost/swap.hpp

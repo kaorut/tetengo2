@@ -13,6 +13,7 @@
 #include <cassert>
 //#include <cstddef>
 #include <exception>
+#include <functional>
 #include <stdexcept>
 #include <string>
 //#include <type_traits>
@@ -23,6 +24,7 @@
 #include <boost/bind.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/optional.hpp>
+#include <boost/ref.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
