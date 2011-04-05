@@ -38,10 +38,17 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The base class template for a GUI widget for Win32 platforms.
 
-        \tparam Traits        A traits type.
-        \tparam WidgetDetails A detail implementation type of a widget.
+        \tparam Traits                A traits type.
+        \tparam WidgetDetails         A detail implementation type of a
+                                      widget.
+        \tparam MessageHandlerDetails A detail implementation type of a
+                                      message handler.
     */
-    template <typename Traits, typename WidgetDetails>
+    template <
+        typename Traits,
+        typename WidgetDetails,
+        typename MessageHandlerDetails
+    >
     class widget : private boost::noncopyable
     {
     public:

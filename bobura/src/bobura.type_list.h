@@ -76,7 +76,6 @@
 #include <tetengo2.gui.win32.dialog.h>
 #include <tetengo2.gui.win32.image.h>
 #include <tetengo2.gui.win32.label.h>
-#include <tetengo2.gui.win32.widget.h>
 #include <tetengo2.gui.win32.window.h>
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.meta.assoc_list.h>
@@ -383,11 +382,6 @@ namespace bobura
         typedef
             tetengo2::detail::windows::message_handler<widget_details_type>
             message_handler_details_type;
-        typedef
-            tetengo2::gui::win32::widget<
-                widget_traits_type, widget_details_type
-            >
-            widget_type;
         typedef
             tetengo2::gui::traits::menu_traits<
                 boost::mpl::at<common_type_list, type::string>::type,
