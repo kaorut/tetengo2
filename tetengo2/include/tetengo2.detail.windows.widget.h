@@ -1092,6 +1092,54 @@ namespace tetengo2 { namespace detail { namespace windows
             return singleton;
         }
 
+        /*!
+            \brief Returns a pointer to a widget by a widget handle.
+
+            This function is for an internal use.
+
+            \tparam Widget A widget type.
+
+            \param widget_handle A widget handle.
+
+            \return A pointer to a widget.
+        */
+        template <typename Widget>
+        static Widget* p_widget_from(const ::HWND widget_handle)
+        {
+            return reinterpret_cast<Widget*>(
+                ::GetPropW(
+                    widget_handle, property_key_for_cpp_instance().c_str()
+                )
+            );
+        }
+
+        template <typename Widget>
+        static ::WNDPROC replace_window_procedure(const ::HWND handle)
+        {
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(push)
+#    pragma warning(disable: 4244)
+#endif
+            const ::WNDPROC proc = window_procedure<Widget>;
+            const ::LONG_PTR result = 
+                ::SetWindowLongPtrW(
+                    handle,
+                    GWLP_WNDPROC,
+                    reinterpret_cast< ::LONG_PTR>(proc)
+                );
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(pop)
+#endif
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't replace window procedure.")
+                );
+            }
+
+            return reinterpret_cast< ::WNDPROC>(result);
+        }
+
 
     private:
         // static functions
@@ -1239,19 +1287,6 @@ namespace tetengo2 { namespace detail { namespace windows
             }
         }
 
-#if !defined(DOCUMENTATION)
-    public:
-#endif
-        template <typename Widget>
-        static Widget* p_widget_from(const ::HWND widget_handle)
-        {
-            return reinterpret_cast<Widget*>(
-                ::GetPropW(
-                    widget_handle, property_key_for_cpp_instance().c_str()
-                )
-            );
-        }
-
         template <typename Widget>
         static ::LRESULT CALLBACK window_procedure(
             const ::HWND   hWnd,
@@ -1291,9 +1326,6 @@ namespace tetengo2 { namespace detail { namespace windows
                 return 0;
             }
         }
-#if !defined(DOCUMENTATION)
-    private:
-#endif
 
         template <typename Child>
         static ::BOOL CALLBACK enum_child_procedure(

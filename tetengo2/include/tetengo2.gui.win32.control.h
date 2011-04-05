@@ -9,11 +9,9 @@
 #if !defined(TETENGO2_GUI_WIN32_CONTROL_H)
 #define TETENGO2_GUI_WIN32_CONTROL_H
 
-//#include <stdexcept>
 //#include <utility>
 
 //#include <boost/optional.hpp>
-//#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
@@ -147,43 +145,15 @@ namespace tetengo2 { namespace gui { namespace win32
         ),
         m_p_details(std::move(p_details)),
         m_p_original_window_procedure(
-            replace_window_procedure(m_p_details.get())
+            widget_details_type::replace_window_procedure<base_type>(
+                m_p_details.get()
+            )
         ),
         m_text_color()
         {}
 
 
     private:
-        // static functions
-
-        static ::WNDPROC replace_window_procedure(const ::HWND handle)
-        {
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(push)
-#    pragma warning(disable: 4244)
-#endif
-            const ::LONG_PTR result = 
-                ::SetWindowLongPtrW(
-                    handle,
-                    GWLP_WNDPROC,
-                    reinterpret_cast< ::LONG_PTR>(
-                        base_type::p_static_window_procedure()
-                    )
-                );
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(pop)
-#endif
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't replace window procedure.")
-                );
-            }
-
-            return reinterpret_cast< ::WNDPROC>(result);
-        }
-
-
         // variables
 
         const details_ptr_type m_p_details;
