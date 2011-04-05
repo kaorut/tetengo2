@@ -267,5 +267,11 @@
     <ClInclude Include="include\tetengo2.detail.windows.widget.h">
       <Filter>headers\tetengo2::detail::windows</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.stub.message_handler.h">
+      <Filter>headers\tetengo2::detail::stub</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.message_handler.h">
+      <Filter>headers\tetengo2::detail::windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

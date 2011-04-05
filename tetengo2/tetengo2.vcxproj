@@ -128,6 +128,7 @@
     <ClInclude Include="include\tetengo2.detail.stub.encoding.h" />
     <ClInclude Include="include\tetengo2.detail.stub.gui_fixture.h" />
     <ClInclude Include="include\tetengo2.detail.stub.menu.h" />
+    <ClInclude Include="include\tetengo2.detail.stub.message_handler.h" />
     <ClInclude Include="include\tetengo2.detail.stub.message_loop.h" />
     <ClInclude Include="include\tetengo2.detail.stub.unit.h" />
     <ClInclude Include="include\tetengo2.detail.stub.widget.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="include\tetengo2.detail.windows.gdiplus.gui_fixture.h" />
     <ClInclude Include="include\tetengo2.detail.windows.gui_fixture.h" />
     <ClInclude Include="include\tetengo2.detail.windows.menu.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.message_handler.h" />
     <ClInclude Include="include\tetengo2.detail.windows.message_loop.h" />
     <ClInclude Include="include\tetengo2.detail.windows.unit.h" />
     <ClInclude Include="include\tetengo2.detail.windows.widget.h" />
