@@ -10,17 +10,11 @@
 #define TETENGO2_GUI_WIN32_DIALOG_H
 
 //#include <cassert>
-//#include <cstddef>
 //#include <stdexcept>
-//#include <utility>
 
 //#include <boost/bind.hpp>
 //#include <boost/optional.hpp>
 //#include <boost/scope_exit.hpp>
-
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.abstract_window.h"
@@ -31,10 +25,17 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for a modal dialog.
  
-        \tparam Traits        A traits type.
-        \tparam WidgetDetails A detail implementation type of a widget.
+        \tparam Traits                A traits type.
+        \tparam WidgetDetails         A detail implementation type of a
+                                      widget.
+        \tparam MessageHandlerDetails A detail implementation type of a
+                                      message handler.
    */
-    template <typename Traits, typename WidgetDetails>
+    template <
+        typename Traits,
+        typename WidgetDetails,
+        typename MessageHandlerDetails
+    >
     class dialog :
         public abstract_window<typename Traits::base_type, WidgetDetails>
     {
@@ -46,6 +47,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
+
+        //! The detail implementation type of a message handler.
+        typedef MessageHandlerDetails message_handler_details_type;
 
         //! The base type.
         typedef
@@ -91,7 +95,11 @@ namespace tetengo2 { namespace gui { namespace win32
         */
         explicit dialog(base_type& parent)
         :
-        base_type(make_message_handler_map(message_handler_map_type())),
+        base_type(
+            message_handler_details_type::make_dialog_message_handler_map(
+                *this, message_handler_map_type()
+            )
+        ),
         m_result(result_undecided),
         m_p_details(
             widget_details_type::create_dialog<typename base_type::base_type>(
@@ -179,61 +187,6 @@ namespace tetengo2 { namespace gui { namespace win32
         const
         {
             return boost::optional<const details_type&>(*m_p_details);
-        }
-
-
-        // functions
-
-        message_handler_map_type make_message_handler_map(
-            message_handler_map_type&& initial_map
-        )
-        {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
-
-            map[WM_COMMAND].push_back(
-                boost::bind(&dialog::on_command, this, _1, _2)
-            );
-
-            return map;
-        }
-
-        boost::optional< ::LRESULT> on_command(
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
-        )
-        {
-            const ::WORD hi_wparam = HIWORD(wParam);
-            const ::WORD lo_wparam = LOWORD(wParam);
-            if (
-                hi_wparam == 0 &&
-                (lo_wparam == IDOK || lo_wparam == IDCANCEL)
-            )
-            {
-                const ::HWND widget_handle =
-                    reinterpret_cast< ::HWND>(lParam);
-                assert(
-                    widget_handle == ::GetDlgItem(&*details(), lo_wparam)
-                );
-                if (widget_handle != NULL)
-                {
-                    widget_details_type::p_widget_from<
-                        typename base_type::base_type
-                    >(widget_handle)->click();
-                }
-                else
-                {
-                    set_result(
-                        lo_wparam == IDOK ?
-                        result_accepted : result_canceled
-                    );
-                    close();
-                }
-                return boost::optional< ::LRESULT>(0);
-            }
-
-            return boost::optional< ::LRESULT>();
         }
 
 

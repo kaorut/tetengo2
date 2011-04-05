@@ -381,7 +381,7 @@ namespace bobura
             widget_traits_type;
         typedef tetengo2::detail::windows::widget widget_details_type;
         typedef
-            tetengo2::detail::windows::message_handler
+            tetengo2::detail::windows::message_handler<widget_details_type>
             message_handler_details_type;
         typedef
             tetengo2::gui::win32::widget<
@@ -434,7 +434,9 @@ namespace bobura
             dialog_traits_type;
         typedef
             tetengo2::gui::win32::dialog<
-                dialog_traits_type, widget_details_type
+                dialog_traits_type,
+                widget_details_type,
+                message_handler_details_type
             >
             dialog_type;
         typedef tetengo2::gui::drawing::color<unsigned char> color_type;

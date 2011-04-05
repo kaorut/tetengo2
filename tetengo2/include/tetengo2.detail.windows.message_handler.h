@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H
 
+#include <cassert>
 #include <cstddef>
 #include <functional>
 #include <stdexcept>
@@ -31,6 +32,52 @@ namespace tetengo2 { namespace detail { namespace windows
 #if !defined(DOCUMENTATION)
     namespace detail
     {
+        namespace dialog
+        {
+            template <typename Dialog, typename WidgetDetails>
+            boost::optional< ::LRESULT> on_command(
+                Dialog&         dialog,
+                const ::WPARAM  wParam,
+                const ::LPARAM  lParam
+            )
+            {
+                const ::WORD hi_wparam = HIWORD(wParam);
+                const ::WORD lo_wparam = LOWORD(wParam);
+                if (
+                    hi_wparam == 0 &&
+                    (lo_wparam == IDOK || lo_wparam == IDCANCEL)
+                )
+                {
+                    const ::HWND widget_handle =
+                        reinterpret_cast< ::HWND>(lParam);
+                    assert(
+                        widget_handle ==
+                        ::GetDlgItem(&*dialog.details(), lo_wparam)
+                    );
+                    if (widget_handle != NULL)
+                    {
+                        WidgetDetails::p_widget_from<
+                            typename Dialog::base_type::base_type
+                        >(widget_handle)->click();
+                    }
+                    else
+                    {
+                        dialog.set_result(
+                            lo_wparam == IDOK ?
+                            Dialog::result_accepted : Dialog::result_canceled
+                        );
+                        dialog.close();
+                    }
+                    return boost::optional< ::LRESULT>(0);
+                }
+
+                return boost::optional< ::LRESULT>();
+            }
+
+
+        }
+
+
         namespace control
         {
             template <typename Control>
@@ -108,12 +155,19 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
     /*!
-        \brief The class for a detail implementation of a message handler.
+        \brief The class template for a detail implementation of a message
+               handler.
+
+        \tparam WidgetDetails A detail implementation type of a widget.
     */
+    template <typename WidgetDetails>
     class message_handler
     {
     public:
         // types
+
+        //! The detail implementation type of a widget.
+        typedef WidgetDetails widget_details_type;
 
         //! The message handler type.
         typedef
@@ -127,6 +181,38 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
         // static functions
+
+        /*!
+            \brief Make a message handler map for a dialog.
+
+            \tparam Dialog A dialog type.
+
+            \param dialog      A dialog.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename Dialog>
+        static message_handler_map_type make_dialog_message_handler_map(
+            Dialog&                    dialog,
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
+
+            map[WM_COMMAND].push_back(
+                boost::bind(
+                    detail::dialog::on_command<Dialog, widget_details_type>,
+                    boost::ref(dialog),
+                    _1,
+                    _2
+                )
+            );
+
+            return map;
+        }
 
         /*!
             \brief Make a message handler map for a control.
