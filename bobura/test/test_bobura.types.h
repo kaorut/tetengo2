@@ -165,7 +165,6 @@ typedef
 
 typedef
     tetengo2::gui::traits::widget_traits<
-        const void*,
         canvas_type,
         alert_type,
         position_type,

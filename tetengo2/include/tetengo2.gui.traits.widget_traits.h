@@ -17,7 +17,6 @@ namespace tetengo2 { namespace gui { namespace traits
     /*!
         \brief The traits class template for a GUI widget.
  
-        \tparam Handle           A handle type to the native interface.
         \tparam Canvas           A canvas type.
         \tparam Alert            An alerting unary functor type.
         \tparam Position         A position type.
@@ -30,7 +29,6 @@ namespace tetengo2 { namespace gui { namespace traits
         \tparam MouseObserverSet A mouse observer set type.
    */
     template <
-        typename Handle,
         typename Canvas,
         typename Alert,
         typename Position,
@@ -45,9 +43,6 @@ namespace tetengo2 { namespace gui { namespace traits
     struct widget_traits
     {
         // types
-
-        //! The handle type.
-        typedef Handle handle_type;
 
         //! The canvas type.
         typedef Canvas canvas_type;

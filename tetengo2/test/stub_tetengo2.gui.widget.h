@@ -34,7 +34,7 @@ namespace stub_tetengo2 { namespace gui
 
         typedef Traits traits_type;
 
-        typedef typename traits_type::handle_type handle_type;
+        typedef const void* handle_type;
 
         typedef typename traits_type::canvas_type canvas_type;
 

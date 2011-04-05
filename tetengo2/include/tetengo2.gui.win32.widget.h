@@ -52,9 +52,6 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The traits type.
         typedef Traits traits_type;
 
-        //! The handle type.
-        typedef typename traits_type::handle_type handle_type;
-
         //! The canvas type.
         typedef typename traits_type::canvas_type canvas_type;
 

@@ -21,10 +21,6 @@
 //#include <boost/mpl/pair.hpp>
 //#include <boost/rational.hpp>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
-
 #include <tetengo2.encoder.h>
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog.h>
@@ -365,7 +361,6 @@ namespace bobura
             alert_type;
         typedef
             tetengo2::gui::traits::widget_traits<
-                ::HWND,
                 canvas_type,
                 alert_type,
                 position_type,
