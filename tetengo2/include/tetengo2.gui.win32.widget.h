@@ -651,16 +651,6 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Returns the static window precedure.
-            
-            \return The pointer to the static window precedure.
-        */
-        static ::WNDPROC p_static_window_procedure()
-        {
-            return widget_details_type::window_procedure<widget>;
-        }
-
-        /*!
             \brief Initializes the widget.
             
             \param p_widget A pointer to a widget.
