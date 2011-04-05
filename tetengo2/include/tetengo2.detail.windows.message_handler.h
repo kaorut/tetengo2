@@ -215,6 +215,25 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Make a message handler map for a window.
+
+            \tparam Window A window type.
+
+            \param window      A window.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename Window>
+        static message_handler_map_type make_window_message_handler_map(
+            Window&                    window,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::forward<message_handler_map_type>(initial_map);
+        }
+
+        /*!
             \brief Make a message handler map for a control.
 
             \tparam Control A control type.

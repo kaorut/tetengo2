@@ -419,7 +419,9 @@ namespace bobura
             window_traits_type;
         typedef
             tetengo2::gui::win32::window<
-                window_traits_type, widget_details_type
+                window_traits_type,
+                widget_details_type,
+                message_handler_details_type
             >
             window_type;
         typedef
