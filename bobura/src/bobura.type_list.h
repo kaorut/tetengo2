@@ -35,6 +35,7 @@
 #include <tetengo2.detail.windows.gdiplus.gui_fixture.h>
 #include <tetengo2.detail.windows.gui_fixture.h>
 #include <tetengo2.detail.windows.menu.h>
+#include <tetengo2.detail.windows.message_handler.h>
 #include <tetengo2.detail.windows.message_loop.h>
 #include <tetengo2.detail.windows.unit.h>
 #include <tetengo2.detail.windows.widget.h>
@@ -380,6 +381,9 @@ namespace bobura
             widget_traits_type;
         typedef tetengo2::detail::windows::widget widget_details_type;
         typedef
+            tetengo2::detail::windows::message_handler
+            message_handler_details_type;
+        typedef
             tetengo2::gui::win32::widget<
                 widget_traits_type, widget_details_type
             >
@@ -462,7 +466,9 @@ namespace bobura
             button_traits_type;
         typedef
             tetengo2::gui::win32::button<
-                button_traits_type, widget_details_type
+                button_traits_type,
+                widget_details_type,
+                message_handler_details_type
             >
             button_type;
     }}
