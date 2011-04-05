@@ -34,7 +34,9 @@ namespace tetengo2 { namespace gui { namespace win32
         typename MessageHandlerDetails
     >
     class window :
-        public abstract_window<typename Traits::base_type, WidgetDetails>
+        public abstract_window<
+            typename Traits::base_type, WidgetDetails, MessageHandlerDetails
+        >
     {
     public:
         // types
@@ -51,7 +53,9 @@ namespace tetengo2 { namespace gui { namespace win32
         //! The base type.
         typedef
             abstract_window<
-                typename traits_type::base_type, widget_details_type
+                typename traits_type::base_type,
+                widget_details_type,
+                message_handler_details_type
             >
             base_type;
 

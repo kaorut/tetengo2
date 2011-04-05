@@ -30,10 +30,17 @@ namespace tetengo2 { namespace gui { namespace win32
     /*!
         \brief The class template for an abstract window for Win32 platforms.
  
-        \tparam Traits        A traits type.
-        \tparam WidgetDetails A detail implementation type of a widget.
+        \tparam Traits                A traits type.
+        \tparam WidgetDetails         A detail implementation type of a
+                                      widget.
+        \tparam MessageHandlerDetails A detail implementation type of a
+                                      message handler.
    */
-    template <typename Traits, typename WidgetDetails>
+    template <
+        typename Traits,
+        typename WidgetDetails,
+        typename MessageHandlerDetails
+    >
     class abstract_window :
         public widget<typename Traits::base_type, WidgetDetails>
     {
@@ -45,6 +52,9 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
+
+        //! The detail implementation type of a message handler.
+        typedef MessageHandlerDetails message_handler_details_type;
 
         //! The base type.
         typedef
