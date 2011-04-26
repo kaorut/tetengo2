@@ -15,7 +15,6 @@
 //#include <utility>
 #include <vector>
 
-#include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
