@@ -18,10 +18,10 @@ Tetengo2 is a kind of GUI toolkit.
 
 \section requirements Requirements
 
-\arg Visual C++ 2010 (on Windows)
+\arg Visual C++ 2010 Service Pack 1 (on Windows)
 \arg g++ 4.3.4 or 4.4.5 with -std=gnu++0x option (on UNIX)
 \arg Boost 1.46.1 or later
-\arg Doxygen 1.7.3 or later
+\arg Doxygen 1.7.4 or later
 
 
 Copyright (C) 2007-2011 kaoru
