@@ -115,17 +115,30 @@ namespace tetengo2 { namespace gui
 
 
     private:
+        // types
+
+        typedef typename base_type::canvas_type canvas_type;
+
+        typedef typename base_type::dimension_type dimension_type;
+
+        typedef
+            typename message_handler_details_type::message_handler_map_type
+            message_handler_map_type;
+
+
         // functions
 
         dimension_type calc_text_dimension()
         const
         {
-            return widget_details_type::use_canvas<
+            return widget_details_type::template use_canvas<
                 canvas_type, dimension_type
             >(
                 *this,
                 boost::bind(
-                    &canvas_type::calc_text_dimension, _1, boost::cref(text())
+                    &canvas_type::calc_text_dimension,
+                    _1,
+                    boost::cref(this->text())
                 )
             );
         }

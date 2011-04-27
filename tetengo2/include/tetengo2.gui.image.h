@@ -121,6 +121,17 @@ namespace tetengo2 { namespace gui
 
 
     private:
+        // types
+
+        typedef typename base_type::canvas_type canvas_type;
+
+        typedef typename base_type::position_type position_type;
+
+        typedef
+            typename message_handler_details_type::message_handler_map_type
+            message_handler_map_type;
+
+
         // static functions
 
         static void initialize_image(image* const p_image)
@@ -144,7 +155,7 @@ namespace tetengo2 { namespace gui
         const
         {
             canvas.paint_picture(
-                *m_p_picture, position_type(0, 0), client_dimension()
+                *m_p_picture, position_type(0, 0), this->client_dimension()
             );
         }
 

@@ -80,7 +80,7 @@ namespace tetengo2 { namespace gui
         :
         base_type(message_handler_map_type()),
         m_p_details(
-            widget_details_type::create_window<
+            widget_details_type::template create_window<
                 typename base_type::base_type
             >()
         )
@@ -103,9 +103,9 @@ namespace tetengo2 { namespace gui
             )
         ),
         m_p_details(
-            widget_details_type::create_window<typename base_type::base_type>(
-                parent
-            )
+            widget_details_type::template create_window<
+                typename base_type::base_type
+            >(parent)
         )
         {
             initialize(this);
@@ -120,6 +120,13 @@ namespace tetengo2 { namespace gui
 
 
     private:
+        // types
+
+        typedef
+            typename message_handler_details_type::message_handler_map_type
+            message_handler_map_type;
+
+
         // variables
 
         const details_ptr_type m_p_details;

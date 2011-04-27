@@ -269,7 +269,7 @@ namespace tetengo2 { namespace gui
         template <typename P>
         void set_position(const P& position)
         {
-            widget_details_type::set_position<dimension_type>(
+            widget_details_type::template set_position<dimension_type>(
                 *this, position
             );
         }
@@ -282,7 +282,9 @@ namespace tetengo2 { namespace gui
         position_type position()
         const
         {
-            return widget_details_type::position<position_type>(*this);
+            return widget_details_type::template position<position_type>(
+                *this
+            );
         }
 
         /*!
@@ -308,7 +310,7 @@ namespace tetengo2 { namespace gui
                 );
             }
 
-            widget_details_type::set_dimension<position_type>(
+            widget_details_type::template set_dimension<position_type>(
                 *this, dimension
             );
         }
@@ -321,7 +323,9 @@ namespace tetengo2 { namespace gui
         dimension_type dimension()
         const
         {
-            return widget_details_type::dimension<dimension_type>(*this);
+            return widget_details_type::template dimension<dimension_type>(
+                *this
+            );
         }
 
         /*!
@@ -348,7 +352,7 @@ namespace tetengo2 { namespace gui
                 );
             }
 
-            widget_details_type::set_client_dimension<position_type>(
+            widget_details_type::template set_client_dimension<position_type>(
                 *this, client_dimension
             );
         }
@@ -361,9 +365,9 @@ namespace tetengo2 { namespace gui
         dimension_type client_dimension()
         const
         {
-            return widget_details_type::client_dimension<dimension_type>(
-                *this
-            );
+            return widget_details_type::template client_dimension<
+                dimension_type
+            >(*this);
         }
 
         /*!
@@ -389,7 +393,9 @@ namespace tetengo2 { namespace gui
         string_type text()
         const
         {
-            return widget_details_type::text<string_type>(*this, encoder());
+            return widget_details_type::template text<string_type>(
+                *this, encoder()
+            );
         }
 
         /*!
@@ -444,7 +450,7 @@ namespace tetengo2 { namespace gui
         font_type font()
         const
         {
-            return widget_details_type::font<font_type>(*this);
+            return widget_details_type::template font<font_type>(*this);
         }
 
         /*!
@@ -454,7 +460,7 @@ namespace tetengo2 { namespace gui
         */
         std::vector<child_type&> children()
         {
-            return widget_details_type::children<child_type>(*this);
+            return widget_details_type::template children<child_type>(*this);
         }
 
         /*!
@@ -465,7 +471,9 @@ namespace tetengo2 { namespace gui
         std::vector<const child_type&> children()
         const
         {
-            return widget_details_type::children<const child_type>(*this);
+            return widget_details_type::template children<const child_type>(
+                *this
+            );
         }
 
         /*!

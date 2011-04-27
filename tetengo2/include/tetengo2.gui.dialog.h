@@ -106,9 +106,9 @@ namespace tetengo2 { namespace gui
         ),
         m_result(result_undecided),
         m_p_details(
-            widget_details_type::create_dialog<typename base_type::base_type>(
-                parent
-            )
+            widget_details_type::template create_dialog<
+                typename base_type::base_type
+            >(parent)
         )
         {
             initialize(this);
@@ -152,27 +152,33 @@ namespace tetengo2 { namespace gui
         */
         result_type do_modal()
         {
-            assert(has_parent());
-            base_type& parent_window = dynamic_cast<base_type&>(parent());
+            assert(this->has_parent());
+            base_type& parent_window =
+                dynamic_cast<base_type&>(this->parent());
             parent_window.set_enabled(false);
-            BOOST_SCOPE_EXIT((&parent_window))
-            {
-                parent_window.set_enabled(true);
-                parent_window.activate();
-            } BOOST_SCOPE_EXIT_END;
 
-            window_observer_set().destroyed().connect(
+            this->window_observer_set().destroyed().connect(
                 boost::bind(message_loop_break_type(), 0)
             );
-            set_visible(true);
+            this->set_visible(true);
 
             message_loop_type()();
+
+            parent_window.set_enabled(true);
+            parent_window.activate();
 
             return result();
         }
 
 
     private:
+        // types
+
+        typedef
+            typename message_handler_details_type::message_handler_map_type
+            message_handler_map_type;
+
+
         // variables
 
         result_type m_result;
