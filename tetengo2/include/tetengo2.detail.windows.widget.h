@@ -1134,6 +1134,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Returns the window property key.
 
             This function is for an internal use.
+
+            \return The window property key.
         */
         static const std::wstring& property_key_for_cpp_instance()
         {

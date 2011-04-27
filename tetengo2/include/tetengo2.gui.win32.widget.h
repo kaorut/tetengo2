@@ -553,15 +553,6 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 
         /*!
-            \brief Dispatches window messages.
-
-            \param uMsg   A message.
-            \param wParam A parameter #1.
-            \param lParam A parameter #2.
-
-            \return The result.
-        */
-        /*!
             \brief Returns the detail implementation.
 
             \return The detail implementation.
@@ -600,6 +591,11 @@ namespace tetengo2 { namespace gui { namespace win32
             return details_impl();
         }
 
+        /*!
+            \brief Returns the message handler map.
+
+            \return The message handler map.
+        */
         const message_handler_map_type& message_handler_map()
         const
         {
