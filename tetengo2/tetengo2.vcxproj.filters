@@ -66,21 +66,6 @@
     <ClInclude Include="include\tetengo2.gui.recursive_menu_iterator.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.abstract_window.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.button.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.dialog.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.widget.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.window.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.meta.assoc_list.h">
       <Filter>headers\tetengo2::meta</Filter>
     </ClInclude>
@@ -98,12 +83,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.operators.h">
       <Filter>headers\tetengo2</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.label.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.control.h">
-      <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.unit.pixel.h">
       <Filter>headers\tetengo2::gui::unit</Filter>
@@ -133,9 +112,6 @@
       <Filter>headers\tetengo2::gui::traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.measure.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.win32.image.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.traits.image_traits.h">
@@ -272,6 +248,30 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.message_handler.h">
       <Filter>headers\tetengo2::detail::windows</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.control.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.dialog.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.image.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.label.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.window.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.abstract_window.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.button.h">
+      <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

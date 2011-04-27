@@ -20,7 +20,7 @@
 namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
-        \brief The class template for a picture reader for Win32 platforms.
+        \brief The class template for a picture reader.
 
         \tparam Picture        A picture type.
         \tparam Path           A path type.

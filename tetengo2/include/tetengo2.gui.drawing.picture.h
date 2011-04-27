@@ -21,7 +21,7 @@
 namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
-        \brief The class template for a picture for Win32 platforms.
+        \brief The class template for a picture.
 
         \tparam Size           A size type.
         \tparam DrawingDetails A detail implementation type of a drawing.

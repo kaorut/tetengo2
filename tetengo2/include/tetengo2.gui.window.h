@@ -1,24 +1,26 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::button.
+    \brief The definition of tetengo2::gui::window.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_BUTTON_H)
-#define TETENGO2_GUI_WIN32_BUTTON_H
+#if !defined(TETENGO2_GUI_WINDOW_H)
+#define TETENGO2_GUI_WINDOW_H
 
 //#include <stdexcept>
 
+//#include <boost/optional.hpp>
+
 #include "tetengo2.cpp0x.h"
-#include "tetengo2.gui.win32.control.h"
+#include "tetengo2.gui.abstract_window.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for a button for Win32 platforms.
+        \brief The class template for a window.
  
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a
@@ -31,8 +33,8 @@ namespace tetengo2 { namespace gui { namespace win32
         typename WidgetDetails,
         typename MessageHandlerDetails
     >
-    class button :
-        public control<
+    class window :
+        public abstract_window<
             typename Traits::base_type, WidgetDetails, MessageHandlerDetails
         >
     {
@@ -50,15 +52,12 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The base type.
         typedef
-            control<
+            abstract_window<
                 typename traits_type::base_type,
                 widget_details_type,
                 message_handler_details_type
             >
             base_type;
-
-        //! The widget type.
-        typedef typename base_type::base_type widget_type;
 
         //! The detail implementation type.
         typedef
@@ -69,80 +68,81 @@ namespace tetengo2 { namespace gui { namespace win32
             typename widget_details_type::widget_details_ptr_type
             details_ptr_type;
 
-        //! The style type.
-        enum style_type
-        {
-            style_normal,   //!< A normal button.
-            style_default,  //!< A default button.
-            style_cancel    //!< A cancel button.
-        };
-
 
         // constructors and destructor
 
         /*!
-            \brief Creates a button.
+            \brief Creates a top level window.
 
-            The window cannot have plural buttons with style_default. And so
-            is style_cancel. When creating a second button with style_default
-            or style_cancel, std::runtime_error is thrown.
-
-            \param parent A parent widget.
-            \param style  A style.
-
-            \throw std::runtime_error When a button cannot be created.
+            \throw std::runtime_error When a window cannot be created.
         */
-        explicit button(
-            widget_type&     parent,
-            const style_type style = style_normal
-        )
+        window()
         :
-        base_type(
-            message_handler_details_type::make_button_message_handler_map(
-                *this, message_handler_map_type()
-            ),
-            widget_details_type::create_button(
-                parent,
-                style == style_default,
-                style == style_cancel
-            )
-        ),
-        m_style(style)
+        base_type(message_handler_map_type()),
+        m_p_details(
+            widget_details_type::create_window<
+                typename base_type::base_type
+            >()
+        )
         {
             initialize(this);
         }
 
         /*!
-            \brief Destroys the button.
+            \brief Creates a owned window.
+
+            \param parent A parent window.
+
+            \throw std::runtime_error When a window cannot be created.
         */
-        virtual ~button()
-        TETENGO2_CPP0X_NOEXCEPT
-        {}
-
-
-        // functions
+        explicit window(base_type& parent)
+        :
+        base_type(
+            message_handler_details_type::make_window_message_handler_map(
+                *this, message_handler_map_type()
+            )
+        ),
+        m_p_details(
+            widget_details_type::create_window<typename base_type::base_type>(
+                parent
+            )
+        )
+        {
+            initialize(this);
+        }
 
         /*!
-            \brief Returns the style.
-
-            \return The style.
+            \brief Destroys the window.
         */
-        style_type style()
-        const
-        {
-            return m_style;
-        }
+        virtual ~window()
+        TETENGO2_CPP0X_NOEXCEPT
+        {}
 
 
     private:
         // variables
 
-        const style_type m_style;
+        const details_ptr_type m_p_details;
+
+
+        // virtual functions
+
+        virtual boost::optional<details_type&> details_impl()
+        {
+            return boost::optional<details_type&>(*m_p_details);
+        }
+
+        virtual boost::optional<const details_type&> details_impl()
+        const
+        {
+            return boost::optional<const details_type&>(*m_p_details);
+        }
 
 
     };
 
 
-}}}
+}}
+
 
 #endif

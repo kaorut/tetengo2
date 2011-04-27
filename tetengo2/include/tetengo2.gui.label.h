@@ -1,26 +1,28 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::window.
+    \brief The definition of tetengo2::gui::label.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_WINDOW_H)
-#define TETENGO2_GUI_WIN32_WINDOW_H
+#if !defined(TETENGO2_GUI_LABEL_H)
+#define TETENGO2_GUI_LABEL_H
 
 //#include <stdexcept>
 
-//#include <boost/optional.hpp>
+#include <boost/bind.hpp>
+#include <boost/ref.hpp>
 
 #include "tetengo2.cpp0x.h"
-#include "tetengo2.gui.win32.abstract_window.h"
+#include "tetengo2.gui.control.h"
+#include "tetengo2.gui.measure.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for a window for Win32 platforms.
+        \brief The class template for a label.
  
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a
@@ -33,8 +35,8 @@ namespace tetengo2 { namespace gui { namespace win32
         typename WidgetDetails,
         typename MessageHandlerDetails
     >
-    class window :
-        public abstract_window<
+    class label :
+        public control<
             typename Traits::base_type, WidgetDetails, MessageHandlerDetails
         >
     {
@@ -52,12 +54,15 @@ namespace tetengo2 { namespace gui { namespace win32
 
         //! The base type.
         typedef
-            abstract_window<
+            control<
                 typename traits_type::base_type,
                 widget_details_type,
                 message_handler_details_type
             >
             base_type;
+
+        //! The widget type.
+        typedef typename base_type::base_type widget_type;
 
         //! The detail implementation type.
         typedef
@@ -72,76 +77,64 @@ namespace tetengo2 { namespace gui { namespace win32
         // constructors and destructor
 
         /*!
-            \brief Creates a top level window.
+            \brief Creates a label.
 
-            \throw std::runtime_error When a window cannot be created.
+            \param parent A parent widget.
+
+            \throw std::runtime_error When a label cannot be created.
         */
-        window()
-        :
-        base_type(message_handler_map_type()),
-        m_p_details(
-            widget_details_type::create_window<
-                typename base_type::base_type
-            >()
-        )
-        {
-            initialize(this);
-        }
-
-        /*!
-            \brief Creates a owned window.
-
-            \param parent A parent window.
-
-            \throw std::runtime_error When a window cannot be created.
-        */
-        explicit window(base_type& parent)
+        explicit label(widget_type& parent)
         :
         base_type(
-            message_handler_details_type::make_window_message_handler_map(
+            message_handler_details_type::make_label_message_handler_map(
                 *this, message_handler_map_type()
-            )
-        ),
-        m_p_details(
-            widget_details_type::create_window<typename base_type::base_type>(
-                parent
-            )
+            ),
+            widget_details_type::create_label(parent)
         )
         {
             initialize(this);
         }
 
         /*!
-            \brief Destroys the window.
+            \brief Destroys the label.
         */
-        virtual ~window()
+        virtual ~label()
         TETENGO2_CPP0X_NOEXCEPT
         {}
 
 
-    private:
-        // variables
+        // functions
 
-        const details_ptr_type m_p_details;
-
-
-        // virtual functions
-
-        virtual boost::optional<details_type&> details_impl()
+        /*!
+            \brief Fit the dimension to the dimension of the text.
+        */
+        void fit_to_content()
         {
-            return boost::optional<details_type&>(*m_p_details);
+            set_client_dimension(calc_text_dimension());
         }
 
-        virtual boost::optional<const details_type&> details_impl()
+
+    private:
+        // functions
+
+        dimension_type calc_text_dimension()
         const
         {
-            return boost::optional<const details_type&>(*m_p_details);
+            return widget_details_type::use_canvas<
+                canvas_type, dimension_type
+            >(
+                *this,
+                boost::bind(
+                    &canvas_type::calc_text_dimension, _1, boost::cref(text())
+                )
+            );
         }
 
 
     };
 
 
-}}}
+}}
+
 
 #endif

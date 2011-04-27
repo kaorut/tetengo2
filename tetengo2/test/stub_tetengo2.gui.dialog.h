@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of stub_tetengo2::gui::win32::dialog.
+    \brief The definition of stub_tetengo2::gui::dialog.
 
     Copyright (C) 2007-2011 kaoru
 

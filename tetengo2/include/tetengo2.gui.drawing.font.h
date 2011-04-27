@@ -17,7 +17,7 @@
 namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
-        \brief The class template for a font for Win32 platforms.
+        \brief The class template for a font.
  
         \tparam String         A string type.
         \tparam Size           A size type.

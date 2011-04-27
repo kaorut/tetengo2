@@ -1,26 +1,26 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::image.
+    \brief The definition of tetengo2::gui::image.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_IMAGE_H)
-#define TETENGO2_GUI_WIN32_IMAGE_H
+#if !defined(TETENGO2_GUI_IMAGE_H)
+#define TETENGO2_GUI_IMAGE_H
 
 //#include <stdexcept>
 
 #include <boost/bind.hpp>
 
 #include "tetengo2.cpp0x.h"
-#include "tetengo2.gui.win32.control.h"
+#include "tetengo2.gui.control.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for an image for Win32 platforms.
+        \brief The class template for an image.
  
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a
@@ -152,6 +152,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
+
 
 #endif

@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::widget.
+    \brief The definition of tetengo2::gui::widget.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_WIDGET_H)
-#define TETENGO2_GUI_WIN32_WIDGET_H
+#if !defined(TETENGO2_GUI_WIDGET_H)
+#define TETENGO2_GUI_WIDGET_H
 
 #include <cassert>
 //#include <cstddef>
@@ -23,10 +23,10 @@
 #include "tetengo2.gui.measure.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The base class template for a GUI widget for Win32 platforms.
+        \brief The base class template for a GUI widget.
 
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a
@@ -680,6 +680,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
+
 
 #endif

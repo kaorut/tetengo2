@@ -16,7 +16,7 @@
 namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
-        \brief The class template for a widget canvas for Win32 platforms.
+        \brief The class template for a widget canvas.
 
         \tparam Size           A size type.
         \tparam String         A string type.

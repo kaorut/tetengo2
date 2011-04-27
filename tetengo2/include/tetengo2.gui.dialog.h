@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::dialog.
+    \brief The definition of tetengo2::gui::dialog.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_DIALOG_H)
-#define TETENGO2_GUI_WIN32_DIALOG_H
+#if !defined(TETENGO2_GUI_DIALOG_H)
+#define TETENGO2_GUI_DIALOG_H
 
 //#include <cassert>
 //#include <stdexcept>
@@ -17,10 +17,10 @@
 #include <boost/scope_exit.hpp>
 
 #include "tetengo2.cpp0x.h"
-#include "tetengo2.gui.win32.abstract_window.h"
+#include "tetengo2.gui.abstract_window.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a modal dialog.
@@ -197,6 +197,7 @@ namespace tetengo2 { namespace gui { namespace win32
     };
 
 
-}}}
+}}
+
 
 #endif

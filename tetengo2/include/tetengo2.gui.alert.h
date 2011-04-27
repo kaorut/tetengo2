@@ -23,8 +23,7 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The unary functor class template for an alert for Win32
-               platforms.
+        \brief The unary functor class template for an alert.
 
         \tparam UiEncoder        An encoder type for the user interface.
         \tparam ExceptionEncoder An encoder type for the user interface.

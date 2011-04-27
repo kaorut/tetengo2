@@ -1,28 +1,24 @@
 /*! \file
-    \brief The definition of tetengo2::gui::win32::label.
+    \brief The definition of tetengo2::gui::button.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIN32_LABEL_H)
-#define TETENGO2_GUI_WIN32_LABEL_H
+#if !defined(TETENGO2_GUI_BUTTON_H)
+#define TETENGO2_GUI_BUTTON_H
 
 //#include <stdexcept>
 
-#include <boost/bind.hpp>
-#include <boost/ref.hpp>
-
 #include "tetengo2.cpp0x.h"
-#include "tetengo2.gui.measure.h"
-#include "tetengo2.gui.win32.control.h"
+#include "tetengo2.gui.control.h"
 
 
-namespace tetengo2 { namespace gui { namespace win32
+namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for a label for Win32 platforms.
+        \brief The class template for a button.
  
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a
@@ -35,7 +31,7 @@ namespace tetengo2 { namespace gui { namespace win32
         typename WidgetDetails,
         typename MessageHandlerDetails
     >
-    class label :
+    class button :
         public control<
             typename Traits::base_type, WidgetDetails, MessageHandlerDetails
         >
@@ -73,32 +69,53 @@ namespace tetengo2 { namespace gui { namespace win32
             typename widget_details_type::widget_details_ptr_type
             details_ptr_type;
 
+        //! The style type.
+        enum style_type
+        {
+            style_normal,   //!< A normal button.
+            style_default,  //!< A default button.
+            style_cancel    //!< A cancel button.
+        };
+
 
         // constructors and destructor
 
         /*!
-            \brief Creates a label.
+            \brief Creates a button.
+
+            The window cannot have plural buttons with style_default. And so
+            is style_cancel. When creating a second button with style_default
+            or style_cancel, std::runtime_error is thrown.
 
             \param parent A parent widget.
+            \param style  A style.
 
-            \throw std::runtime_error When a label cannot be created.
+            \throw std::runtime_error When a button cannot be created.
         */
-        explicit label(widget_type& parent)
+        explicit button(
+            widget_type&     parent,
+            const style_type style = style_normal
+        )
         :
         base_type(
-            message_handler_details_type::make_label_message_handler_map(
+            message_handler_details_type::make_button_message_handler_map(
                 *this, message_handler_map_type()
             ),
-            widget_details_type::create_label(parent)
-        )
+            widget_details_type::create_button(
+                parent,
+                style == style_default,
+                style == style_cancel
+            )
+        ),
+        m_style(style)
         {
             initialize(this);
         }
 
         /*!
-            \brief Destroys the label.
+            \brief Destroys the button.
         */
-        virtual ~label()
+        virtual ~button()
         TETENGO2_CPP0X_NOEXCEPT
         {}
 
@@ -106,34 +123,34 @@ namespace tetengo2 { namespace gui { namespace win32
         // functions
 
         /*!
-            \brief Fit the dimension to the dimension of the text.
+            \brief Returns the style.
+
+            \return The style.
         */
-        void fit_to_content()
+        style_type style()
+        const
         {
-            set_client_dimension(calc_text_dimension());
+            return m_style;
         }
 
 
     private:
-        // functions
+        // types
 
-        dimension_type calc_text_dimension()
-        const
-        {
-            return widget_details_type::use_canvas<
-                canvas_type, dimension_type
-            >(
-                *this,
-                boost::bind(
-                    &canvas_type::calc_text_dimension, _1, boost::cref(text())
-                )
-            );
-        }
+        typedef
+            typename message_handler_details_type::message_handler_map_type
+            message_handler_map_type;
+
+
+        // variables
+
+        const style_type m_style;
 
 
     };
 
 
-}}}
+}}
+
 
 #endif

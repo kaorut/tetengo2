@@ -16,7 +16,7 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for a main menu for Win32 platforms.
+        \brief The class template for a main menu.
 
         \tparam Traits      A traits type.
         \tparam MenuDetails A detail implementation type of a menu.

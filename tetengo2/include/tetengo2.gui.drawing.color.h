@@ -17,7 +17,7 @@
 namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
-        \brief The class template for a color for Win32 platforms.
+        \brief The class template for a color.
 
         \tparam Value A value type.
     */
