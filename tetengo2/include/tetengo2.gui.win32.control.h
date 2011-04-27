@@ -13,10 +13,6 @@
 
 //#include <boost/optional.hpp>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
-
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.win32.widget.h"
 
