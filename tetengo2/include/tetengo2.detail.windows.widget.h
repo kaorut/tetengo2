@@ -452,6 +452,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \param widget A widget.
 
             \return The parent.
+
+            \throw std::logic_error When the widget has no parent.
         */
         template <typename Widget>
         static Widget& parent(const Widget& widget)
@@ -462,7 +464,9 @@ namespace tetengo2 { namespace detail { namespace windows
                         const_cast< ::HWND>(widget.details()->first.get())
                     )
                 );
-            assert(p_parent != NULL);
+            if (p_parent == NULL)
+                throw std::logic_error("The widget has no parent.");
+
             return *p_parent;
         }
 
@@ -474,6 +478,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \param widget A widget.
 
             \return The root ancestor.
+
+            \throw std::logic_error When the widget has no root ancestor.
         */
         template <typename Widget>
         static Widget& root_ancestor(const Widget& widget)
@@ -483,7 +489,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     const_cast< ::HWND>(widget.details()->first.get()),
                     GA_ROOT
                 );
-            assert(root_ancestor_handle != NULL);
+            if (root_ancestor_handle == NULL)
+                throw std::logic_error("The widget has no root ancestor.");
+
             Widget* const p_root_ancestor =
                 p_widget_from<Widget>(root_ancestor_handle);
             assert(p_root_ancestor != NULL);
