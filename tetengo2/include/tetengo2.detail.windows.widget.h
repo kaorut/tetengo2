@@ -71,7 +71,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 cpp0x::unique_ptr<
                     std::remove_pointer< ::HWND>::type, detail::widget_deleter
                 >::type,
-                int
+                ::WNDPROC
             >
             widget_details_type;
 
@@ -142,7 +142,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return widget_details_ptr_type(
-                new widget_details_type(std::move(p_widget), 0)
+                new widget_details_type(std::move(p_widget), ::DefWindowProcW)
             );
         }
 
@@ -206,7 +206,7 @@ namespace tetengo2 { namespace detail { namespace windows
             delete_system_menus(p_widget.get());
 
             return widget_details_ptr_type(
-                new widget_details_type(std::move(p_widget), 0)
+                new widget_details_type(std::move(p_widget), ::DefWindowProcW)
             );
         }
 
@@ -293,8 +293,13 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
+            const ::WNDPROC p_original_window_procedure =
+                replace_window_procedure<Widget>(p_widget.get());
+
             return widget_details_ptr_type(
-                new widget_details_type(std::move(p_widget), 0)
+                new widget_details_type(
+                    std::move(p_widget), p_original_window_procedure
+                )
             );
         }
 
@@ -333,8 +338,13 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
+            const ::WNDPROC p_original_window_procedure =
+                replace_window_procedure<Widget>(p_widget.get());
+
             return widget_details_ptr_type(
-                new widget_details_type(std::move(p_widget), 0)
+                new widget_details_type(
+                    std::move(p_widget), p_original_window_procedure
+                )
             );
         }
 
@@ -373,8 +383,13 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
+            const ::WNDPROC p_original_window_procedure =
+                replace_window_procedure<Widget>(p_widget.get());
+
             return widget_details_ptr_type(
-                new widget_details_type(std::move(p_widget), 0)
+                new widget_details_type(
+                    std::move(p_widget), p_original_window_procedure
+                )
             );
         }
 
@@ -1147,33 +1162,6 @@ namespace tetengo2 { namespace detail { namespace windows
             );
         }
 
-        template <typename Widget>
-        static ::WNDPROC replace_window_procedure(const ::HWND handle)
-        {
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(push)
-#    pragma warning(disable: 4244)
-#endif
-            const ::WNDPROC proc = window_procedure<Widget>;
-            const ::LONG_PTR result = 
-                ::SetWindowLongPtrW(
-                    handle,
-                    GWLP_WNDPROC,
-                    reinterpret_cast< ::LONG_PTR>(proc)
-                );
-#if defined(_WIN32) && !defined(_WIN64)
-#    pragma warning(pop)
-#endif
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't replace window procedure.")
-                );
-            }
-
-            return reinterpret_cast< ::WNDPROC>(result);
-        }
-
 
     private:
         // static functions
@@ -1390,12 +1378,39 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return ::CallWindowProcW(
-                widget.p_default_window_procedure(),
+                widget.details()->second,
                 const_cast< ::HWND>(widget.details()->first.get()),
                 uMsg,
                 wParam,
                 lParam
             );
+        }
+
+        template <typename Widget>
+        static ::WNDPROC replace_window_procedure(const ::HWND handle)
+        {
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(push)
+#    pragma warning(disable: 4244)
+#endif
+            const ::WNDPROC proc = window_procedure<Widget>;
+            const ::LONG_PTR result = 
+                ::SetWindowLongPtrW(
+                    handle,
+                    GWLP_WNDPROC,
+                    reinterpret_cast< ::LONG_PTR>(proc)
+                );
+#if defined(_WIN32) && !defined(_WIN64)
+#    pragma warning(pop)
+#endif
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't replace window procedure.")
+                );
+            }
+
+            return reinterpret_cast< ::WNDPROC>(result);
         }
 
         template <typename Child>

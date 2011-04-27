@@ -610,12 +610,6 @@ namespace tetengo2 { namespace gui { namespace win32
             return m_message_handler_map;
         }
 
-        virtual ::WNDPROC p_default_window_procedure()
-        const
-        {
-            return ::DefWindowProcW;
-        }
-
 
     protected:
         // static functions

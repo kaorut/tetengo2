@@ -121,12 +121,6 @@ namespace tetengo2 { namespace gui { namespace win32
         }
 #endif
 
-        virtual ::WNDPROC p_default_window_procedure()
-        const
-        {
-            return m_p_original_window_procedure;
-        }
-
 
     protected:
         // constructors
@@ -150,11 +144,6 @@ namespace tetengo2 { namespace gui { namespace win32
             )
         ),
         m_p_details(std::move(p_details)),
-        m_p_original_window_procedure(
-            widget_details_type::replace_window_procedure<base_type>(
-                m_p_details->first.get()
-            )
-        ),
         m_text_color()
         {}
 
@@ -163,8 +152,6 @@ namespace tetengo2 { namespace gui { namespace win32
         // variables
 
         const details_ptr_type m_p_details;
-
-        const ::WNDPROC m_p_original_window_procedure;
 
         boost::optional<color_type> m_text_color;
 
