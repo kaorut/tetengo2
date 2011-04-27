@@ -56,7 +56,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     reinterpret_cast< ::HWND>(lParam),
                     WM_TETENGO2_COMMAND,
                     wParam,
-                    reinterpret_cast< ::LPARAM>(&*widget.details())
+                    reinterpret_cast< ::LPARAM>(widget.details()->first.get())
                 );
                 return boost::optional< ::LRESULT>();
             }
@@ -113,7 +113,11 @@ namespace tetengo2 { namespace detail { namespace windows
                     return boost::optional< ::LRESULT>();
 
                 ::PAINTSTRUCT paint_struct = {};
-                if (::BeginPaint(&*widget.details(), &paint_struct) == NULL)
+                if (
+                    ::BeginPaint(
+                        widget.details()->first.get(), &paint_struct
+                    ) == NULL
+                )
                 {
                     BOOST_THROW_EXCEPTION(
                         std::runtime_error("Can't begin paint.")
@@ -121,7 +125,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
                 BOOST_SCOPE_EXIT((&widget)(&paint_struct))
                 {
-                    ::EndPaint(&*widget.details(), &paint_struct);
+                    ::EndPaint(widget.details()->first.get(), &paint_struct);
                 } BOOST_SCOPE_EXIT_END;
                 typename Widget::canvas_type canvas(paint_struct.hdc);
 
@@ -135,11 +139,16 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 const ::HFONT font_handle =
                     reinterpret_cast< ::HFONT>(
-                    ::SendMessageW(&*widget.details(), WM_GETFONT, 0, 0)
+                        ::SendMessageW(
+                            widget.details()->first.get(), WM_GETFONT, 0, 0
+                        )
                     );
 
                 ::SendMessageW(
-                    &*widget.details(), WM_SETFONT, NULL, MAKELPARAM(0, 0)
+                    widget.details()->first.get(),
+                    WM_SETFONT,
+                    NULL,
+                    MAKELPARAM(0, 0)
                 );
 
                 if (font_handle != NULL && ::DeleteObject(font_handle) == 0)
@@ -171,7 +180,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const Widget* const p_widget =
                     reinterpret_cast<const Widget*>(
                         ::RemovePropW(
-                            &*widget.details(),
+                            widget.details()->first.get(),
                             WidgetDetails::property_key_for_cpp_instance().c_str()
                         )
                     );
@@ -313,7 +322,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         reinterpret_cast< ::HWND>(lParam);
                     assert(
                         widget_handle ==
-                        ::GetDlgItem(&*dialog.details(), lo_wparam)
+                        ::GetDlgItem(dialog.details()->first.get(), lo_wparam)
                     );
                     if (widget_handle != NULL)
                     {

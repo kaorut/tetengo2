@@ -152,7 +152,7 @@ namespace tetengo2 { namespace gui { namespace win32
         m_p_details(std::move(p_details)),
         m_p_original_window_procedure(
             widget_details_type::replace_window_procedure<base_type>(
-                m_p_details.get()
+                m_p_details->first.get()
             )
         ),
         m_text_color()
