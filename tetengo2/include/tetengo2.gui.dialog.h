@@ -14,7 +14,6 @@
 
 #include <boost/bind.hpp>
 //#include <boost/optional.hpp>
-#include <boost/scope_exit.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.abstract_window.h"
