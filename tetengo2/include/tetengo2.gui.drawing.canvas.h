@@ -279,8 +279,6 @@ namespace tetengo2 { namespace gui { namespace drawing
                     )
                 );
             }
-
-            drawing_details_type::initialize_canvas(*m_p_details);
         }
 
 

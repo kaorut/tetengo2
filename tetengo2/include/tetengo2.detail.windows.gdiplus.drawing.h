@@ -204,22 +204,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static cpp0x::unique_ptr<canvas_details_type>::type
         create_canvas(const canvas_details_handle_type handle)
         {
-            return cpp0x::unique_ptr<canvas_details_type>::type(
+            cpp0x::unique_ptr<canvas_details_type>::type p_canvas(
                 new Gdiplus::Graphics(handle)
             );
-        }
-
-        /*!
-            \brief Initializes a canvas.
-
-            \param canvas A canvas.
-        */
-        static void initialize_canvas(canvas_details_type& canvas)
-        {
-            canvas.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
-            canvas.SetTextRenderingHint(
+            
+            p_canvas->SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+            p_canvas->SetTextRenderingHint(
                 Gdiplus::TextRenderingHintClearTypeGridFit
             );
+
+            return std::move(p_canvas);
         }
 
         /*!

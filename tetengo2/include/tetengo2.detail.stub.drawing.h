@@ -201,14 +201,6 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Initializes a canvas.
-
-            \param canvas A canvas.
-        */
-        static void initialize_canvas(canvas_details_type& canvas)
-        {}
-
-        /*!
             \brief Fills a rectangle region.
 
             \tparam Position   A position type.
