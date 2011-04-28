@@ -146,10 +146,8 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Shows the dialog as modal.
-
-            \return The result.
         */
-        result_type do_modal()
+        void do_modal()
         {
             assert(this->has_parent());
             base_type& parent_window =
@@ -165,8 +163,6 @@ namespace tetengo2 { namespace gui
 
             parent_window.set_enabled(true);
             parent_window.activate();
-
-            return result();
         }
 
 
