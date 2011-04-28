@@ -90,12 +90,19 @@ namespace tetengo2 { namespace gui
         template <typename PictureReader>
         image(widget_type& parent, PictureReader& picture_reader)
         :
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable: 4355)
+#endif
         base_type(
             message_handler_details_type::make_image_message_handler_map(
                 *this, message_handler_map_type()
             ),
             widget_details_type::create_image(parent)
         ),
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
         m_p_picture(picture_reader.read())
         {
             initialize_image(this);

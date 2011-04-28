@@ -98,11 +98,18 @@ namespace tetengo2 { namespace gui
         */
         explicit dialog(base_type& parent)
         :
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable: 4355)
+#endif
         base_type(
             message_handler_details_type::make_dialog_message_handler_map(
                 *this, message_handler_map_type()
             )
         ),
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
         m_result(result_undecided),
         m_p_details(
             widget_details_type::template create_dialog<

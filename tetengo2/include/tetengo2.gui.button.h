@@ -97,6 +97,10 @@ namespace tetengo2 { namespace gui
             const style_type style = style_normal
         )
         :
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable: 4355)
+#endif
         base_type(
             message_handler_details_type::make_button_message_handler_map(
                 *this, message_handler_map_type()
@@ -107,6 +111,9 @@ namespace tetengo2 { namespace gui
                 style == style_cancel
             )
         ),
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
         m_style(style)
         {
             initialize(this);

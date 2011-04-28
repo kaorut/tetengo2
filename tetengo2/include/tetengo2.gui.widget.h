@@ -636,12 +636,19 @@ namespace tetengo2 { namespace gui
         */
         explicit widget(message_handler_map_type&& message_handler_map)
         :
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable: 4355)
+#endif
         m_message_handler_map(
             message_handler_details_type::make_widget_message_handler_map(
                 *this,
                 std::forward<message_handler_map_type>(message_handler_map)
             )
         ),
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
         m_destroyed(false),
         m_p_background(),
         m_paint_observer_set(),

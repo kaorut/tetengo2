@@ -85,12 +85,19 @@ namespace tetengo2 { namespace gui
         */
         explicit label(widget_type& parent)
         :
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable: 4355)
+#endif
         base_type(
             message_handler_details_type::make_label_message_handler_map(
                 *this, message_handler_map_type()
             ),
             widget_details_type::create_label(parent)
         )
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
         {
             initialize(this);
         }
