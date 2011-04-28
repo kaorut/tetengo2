@@ -2,15 +2,7 @@
 # Copyright (C) 2007-2011 kaoru
 # $Id$
 
-headers = \
-    stub_tetengo2.gui.abstract_window.h \
-    stub_tetengo2.gui.button.h \
-    stub_tetengo2.gui.control.h \
-    stub_tetengo2.gui.dialog.h \
-    stub_tetengo2.gui.image.h \
-    stub_tetengo2.gui.label.h \
-    stub_tetengo2.gui.widget.h \
-    stub_tetengo2.gui.window.h
+headers =
 
 extra_headers =
 

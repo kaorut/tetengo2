@@ -215,14 +215,6 @@ echo Skipping the unit test...
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.abstract_window.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.button.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.control.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.dialog.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.image.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.label.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.widget.h" />
-    <ClInclude Include="test\stub_tetengo2.gui.window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res.test\messages.test\English.txt" />

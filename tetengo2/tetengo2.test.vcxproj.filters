@@ -10,9 +10,6 @@
     <Filter Include="sources">
       <UniqueIdentifier>{8268aba0-5128-4bb1-a726-694828b3f294}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\stub_tetengo2::gui">
-      <UniqueIdentifier>{2fc1d3c0-82ad-4f9e-a4df-506ffd36dcf6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resources\messages.test">
       <UniqueIdentifier>{88129b10-44cf-4601-bd33-b39fd5cfc891}</UniqueIdentifier>
     </Filter>
@@ -36,32 +33,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="test\stub_tetengo2.gui.abstract_window.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.button.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.dialog.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.widget.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.window.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.label.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.control.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="test\stub_tetengo2.gui.image.h">
-      <Filter>headers\stub_tetengo2::gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
