@@ -95,8 +95,8 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            const boost::optional<const Widget&>& parent =
-                boost::optional<const Widget&>()
+            const boost::optional<Widget&>& parent =
+                boost::optional<Widget&>()
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
@@ -158,7 +158,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         template <typename Widget>
         static widget_details_ptr_type create_dialog(
-            const boost::optional<const Widget&>& parent
+            const boost::optional<Widget&>& parent
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);

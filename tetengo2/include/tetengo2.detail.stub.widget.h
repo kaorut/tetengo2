@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_STUB_WIDGET_H
 
 #include <stdexcept>
+#include <tuple>
 #include <vector>
 
 #include <boost/optional.hpp>
@@ -28,7 +29,11 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The widget details type.
-        struct widget_details_type {};
+        typedef
+            std::tuple<
+                void* // pointer to parent
+            >
+            widget_details_type;
 
         //! The widget details pointer type.
         typedef
@@ -50,11 +55,13 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            const boost::optional<const Widget&>& parent =
-                boost::optional<const Widget&>()
+            const boost::optional<Widget&>& parent =
+                boost::optional<Widget&>()
         )
         {
-            return widget_details_ptr_type(new widget_details_type());
+            return create_details(
+                parent ? reinterpret_cast<void*>(&*parent) : NULL
+            );
         }
 
         /*!
@@ -69,10 +76,12 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static widget_details_ptr_type create_dialog(
-            const boost::optional<const Widget&>& parent
+            const boost::optional<Widget&>& parent
         )
         {
-            return widget_details_ptr_type(new widget_details_type());
+            return create_details(
+                parent ? reinterpret_cast<void*>(&*parent) : NULL
+            );
         }
 
         /*!
@@ -93,7 +102,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const bool    is_cancel
         )
         {
-            return widget_details_ptr_type(new widget_details_type());
+            return create_details(NULL);
         }
 
         /*!
@@ -108,7 +117,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_image(const Widget& parent)
         {
-            return widget_details_ptr_type(new widget_details_type());
+            return create_details(NULL);
         }
 
         /*!
@@ -123,7 +132,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_label(const Widget& parent)
         {
-            return widget_details_ptr_type(new widget_details_type());
+            return create_details(NULL);
         }
 
         /*!
@@ -152,7 +161,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return false;
+            return std::get<0>(*widget.details()) != NULL;
         }
 
         /*!
@@ -169,7 +178,10 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static Widget& parent(const Widget& widget)
         {
-            throw std::logic_error("The widget has o parent.");
+            if (!has_parent(widget))
+                throw std::logic_error("The widget has no parent.");
+
+            return *reinterpret_cast<Widget*>(std::get<0>(*widget.details()));
         }
 
         /*!
@@ -504,6 +516,16 @@ namespace tetengo2 { namespace detail { namespace stub
 
 
     private:
+        // static functions
+
+        static widget_details_ptr_type create_details(void* const p_parent)
+        {
+            return widget_details_ptr_type(
+                new widget_details_type(p_parent)
+            );
+        }
+
+
         // forbidden operations
 
         widget();
