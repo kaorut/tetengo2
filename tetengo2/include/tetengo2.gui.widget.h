@@ -237,24 +237,12 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Creates a canvas.
 
-            \return The unique pointer to a canvas.
-        */
-        typename cpp0x::unique_ptr<canvas_type>::type create_canvas()
-        {
-            return typename cpp0x::unique_ptr<canvas_type>::type(
-                new canvas_type(*details())
-            );
-        }
-
-        /*!
-            \brief Creates a canvas.
-
             \return The auto pointer to a canvas.
         */
-        typename cpp0x::unique_ptr<const canvas_type>::type create_canvas()
+        typename cpp0x::unique_ptr<canvas_type>::type create_canvas()
         const
         {
-            return typename cpp0x::unique_ptr<const canvas_type>::type(
+            return typename cpp0x::unique_ptr<canvas_type>::type(
                 new canvas_type(*details())
             );
         }

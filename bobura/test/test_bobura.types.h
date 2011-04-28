@@ -17,21 +17,22 @@
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 
-#include <stub_tetengo2.gui.button.h>
-#include <stub_tetengo2.gui.dialog.h>
-#include <stub_tetengo2.gui.image.h>
-#include <stub_tetengo2.gui.label.h>
-#include <stub_tetengo2.gui.window.h>
 #include <tetengo2.detail.stub.alert.h>
 #include <tetengo2.detail.stub.drawing.h>
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.detail.stub.gui_fixture.h>
 #include <tetengo2.detail.stub.menu.h>
+#include <tetengo2.detail.stub.message_handler.h>
 #include <tetengo2.detail.stub.message_loop.h>
 #include <tetengo2.detail.stub.unit.h>
+#include <tetengo2.detail.stub.widget.h>
 #include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.alert.h>
+#include <tetengo2.gui.button.h>
+#include <tetengo2.gui.dialog.h>
 #include <tetengo2.gui.dialog_message_loop.h>
+#include <tetengo2.gui.image.h>
+#include <tetengo2.gui.label.h>
 #include <tetengo2.gui.main_menu.h>
 #include <tetengo2.gui.menu.h>
 #include <tetengo2.gui.menu_command.h>
@@ -60,6 +61,7 @@
 #include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.traits.window_traits.h>
 #include <tetengo2.gui.unit.em.h>
+#include <tetengo2.gui.window.h>
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.encoder.h>
 #include <tetengo2.encoding.locale.h>
@@ -206,7 +208,17 @@ typedef
     tetengo2::gui::traits::window_traits<abstract_window_traits_type>
     window_traits_type;
 
-typedef stub_tetengo2::gui::window<window_traits_type> window_type;
+typedef tetengo2::detail::stub::widget widget_details_type;
+
+typedef
+    tetengo2::detail::stub::message_handler<widget_details_type>
+    message_handler_details_type;
+
+typedef
+    tetengo2::gui::window<
+        window_traits_type, widget_details_type, message_handler_details_type
+    >
+    window_type;
 
 typedef
     tetengo2::encoding::utf8<encoding_details_type>
@@ -258,7 +270,11 @@ typedef
     >
     dialog_traits_type;
 
-typedef stub_tetengo2::gui::dialog<dialog_traits_type> dialog_type;
+typedef
+    tetengo2::gui::dialog<
+        dialog_traits_type, widget_details_type, message_handler_details_type
+    >
+    dialog_type;
 
 typedef
     bobura::message::about_dialog::type_list<dialog_type>::type
@@ -274,19 +290,31 @@ typedef
     tetengo2::gui::traits::label_traits<control_traits_type>
     label_traits_type;
 
-typedef stub_tetengo2::gui::label<label_traits_type> label_type;
+typedef
+    tetengo2::gui::label<
+        label_traits_type, widget_details_type, message_handler_details_type
+    >
+    label_type;
 
 typedef
     tetengo2::gui::traits::image_traits<control_traits_type, picture_type>
     image_traits_type;
 
-typedef stub_tetengo2::gui::image<image_traits_type> image_type;
+typedef
+    tetengo2::gui::image<
+        image_traits_type, widget_details_type, message_handler_details_type
+    >
+    image_type;
 
 typedef
     tetengo2::gui::traits::button_traits<control_traits_type>
     button_traits_type;
 
-typedef stub_tetengo2::gui::button<button_traits_type> button_type;
+typedef
+    tetengo2::gui::button<
+        button_traits_type, widget_details_type, message_handler_details_type
+    >
+    button_type;
 
 typedef
     bobura::about_dialog<
