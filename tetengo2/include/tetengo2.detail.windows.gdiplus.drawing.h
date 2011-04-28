@@ -16,6 +16,7 @@
 //#include <utility>
 #include <vector>
 //#include <stdexcept>
+#include <type_traits>
 
 #include <boost/optional.hpp>
 //#include <boost/throw_exception.hpp>
@@ -71,9 +72,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         typedef
             cpp0x::unique_ptr<canvas_details_type>::type
             canvas_details_ptr_type;
-
-        //! The canvas details handle type.
-        typedef ::HDC canvas_details_handle_type;
 
 
         // static functions
@@ -197,23 +195,18 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         /*!
             \brief Creates a canvas.
 
-            \param handle A handle.
+            \tparam HandleOrWidgetDetails A handle type or a widget details
+                                          type.
+
+            \param handle_or_widget_details A handle or a widget details.
 
             \return A unique pointer to a canvas.
         */
+        template <typename HandleOrWidgetDetails>
         static cpp0x::unique_ptr<canvas_details_type>::type
-        create_canvas(const canvas_details_handle_type handle)
+        create_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
         {
-            cpp0x::unique_ptr<canvas_details_type>::type p_canvas(
-                new Gdiplus::Graphics(handle)
-            );
-            
-            p_canvas->SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
-            p_canvas->SetTextRenderingHint(
-                Gdiplus::TextRenderingHintClearTypeGridFit
-            );
-
-            return std::move(p_canvas);
+            return create_canvas_impl(handle_or_widget_details);
         }
 
         /*!
@@ -515,6 +508,53 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
     private:
         // static functions
         
+        template <typename HandleOrWidgetDetails>
+        static cpp0x::unique_ptr<canvas_details_type>::type
+        create_canvas_impl(
+            const HandleOrWidgetDetails& handle,
+            typename std::enable_if<
+                std::is_convertible<HandleOrWidgetDetails, ::HDC>::value
+            >::type* = NULL
+        )
+        {
+            cpp0x::unique_ptr<canvas_details_type>::type p_canvas(
+                new Gdiplus::Graphics(handle)
+            );
+            
+            initialize_canvas(*p_canvas);
+
+            return std::move(p_canvas);
+        }
+
+        template <typename HandleOrWidgetDetails>
+        static cpp0x::unique_ptr<canvas_details_type>::type
+        create_canvas_impl(
+            const HandleOrWidgetDetails& widget_details,
+            typename std::enable_if<
+                std::is_convertible<
+                    typename HandleOrWidgetDetails::first_type::pointer,
+                    ::HWND
+                >::value
+            >::type* = NULL
+        )
+        {
+            cpp0x::unique_ptr<canvas_details_type>::type p_canvas(
+                new Gdiplus::Graphics(widget_details.first.get())
+            );
+            
+            initialize_canvas(*p_canvas);
+
+            return std::move(p_canvas);
+        }
+
+        static void initialize_canvas(canvas_details_type& canvas)
+        {
+            canvas.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+            canvas.SetTextRenderingHint(
+                Gdiplus::TextRenderingHintClearTypeGridFit
+            );
+        }
+
         template <typename String, typename Font, typename Encoder>
         static typename cpp0x::unique_ptr<Gdiplus::Font>::type
         create_gdiplus_font(

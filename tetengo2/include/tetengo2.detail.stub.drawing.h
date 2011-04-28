@@ -89,9 +89,6 @@ namespace tetengo2 { namespace detail { namespace stub
             cpp0x::unique_ptr<canvas_details_type>::type
             canvas_details_ptr_type;
 
-        //! The canvas details handle type.
-        typedef const void* canvas_details_handle_type;
-
 
         // static functions
 
@@ -188,12 +185,16 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Creates a canvas.
 
-            \param handle A handle.
+            \tparam HandleOrWidgetDetails A handle type or a widget details
+                                          type.
+
+            \param handle_or_widget_details A handle or a widget details.
 
             \return A unique pointer to a canvas.
         */
+        template <typename HandleOrWidgetDetails>
         static cpp0x::unique_ptr<canvas_details_type>::type
-        create_canvas(const canvas_details_handle_type handle)
+        create_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
         {
             return cpp0x::unique_ptr<canvas_details_type>::type(
                 new canvas_details_type()

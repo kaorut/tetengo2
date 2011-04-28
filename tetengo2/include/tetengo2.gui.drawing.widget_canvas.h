@@ -72,14 +72,20 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a widget canvas.
             
-            \param handle A handle.
+            \tparam HandleOrWidgetDetails A handle type or a widget details
+                                          type.
+
+            \param handle_or_widget_details A handle or a widget details.
         */
+        template <typename HandleOrWidgetDetails>
         explicit widget_canvas(
-            const typename base_type::details_handle_type handle
+            const HandleOrWidgetDetails& handle_or_widget_details
         )
         :
         base_type(
-            base_type::drawing_details_type::create_canvas(handle)
+            base_type::drawing_details_type::create_canvas(
+                handle_or_widget_details
+            )
         )
         {}
 
