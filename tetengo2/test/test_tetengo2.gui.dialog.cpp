@@ -143,7 +143,6 @@ namespace
         >
         widget_traits_type;
 
-
     typedef
         tetengo2::gui::traits::menu_traits<
             std::wstring,
