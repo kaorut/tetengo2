@@ -114,14 +114,19 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Returns the main menu.
 
-            When the abstract window does not have a main menu, the result is
-            undefined.
-
             \return The main menu.
+
+            \throw std::logic_error When the abstract window does not have a
+                                    main menu.
         */
         main_menu_type& main_menu()
         {
-            assert(has_main_menu());
+            if(!has_main_menu())
+            {
+                throw std::logic_error(
+                    "The abstract window does not have a main menu."
+                );
+            }
 
             return *m_p_main_menu;
         }
@@ -129,15 +134,20 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Returns the main menu.
 
-            When the abstract window does not have a main menu, the result is
-            undefined.
-
             \return The main menu.
+
+            \throw std::logic_error When the abstract window does not have a
+                                    main menu.
         */
         const main_menu_type& main_menu()
         const
         {
-            assert(has_main_menu());
+            if(!has_main_menu())
+            {
+                throw std::logic_error(
+                    "The abstract window does not have a main menu."
+                );
+            }
 
             return *m_p_main_menu;
         }
