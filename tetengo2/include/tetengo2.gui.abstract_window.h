@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_ABSTRACTWINDOW_H)
 #define TETENGO2_GUI_ABSTRACTWINDOW_H
 
-//#include <cassert>
 //#include <cstddef>
+//#include <stdexcept>
 //#include <utility>
 
 //#include <boost/optional.hpp>

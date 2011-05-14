@@ -67,7 +67,6 @@
 ::LONG                                           Windows.h
 ::LONG_PTR                                       Windows.h
 ::LPARAM                                         Windows.h
-::LPCWSTR                                        Windows.h
 ::LPWSTR                                         Windows.h
 ::LRESULT                                        Windows.h
 ::LoadImageW                                     Windows.h
@@ -246,6 +245,7 @@ std::find_if                                     algorithm
 std::for_each                                    algorithm
 std::forward                                     utility
 std::function                                    functional
+std::get                                         tuple
 std::getline                                     string
 std::greater                                     functional
 std::has_facet                                   locale
