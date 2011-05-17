@@ -188,7 +188,7 @@ namespace
         m_p_details(new details_type())
         {}
 
-        ~concrete_window()
+        virtual ~concrete_window()
         TETENGO2_CPP0X_NOEXCEPT
         {}
 
