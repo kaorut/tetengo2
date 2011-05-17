@@ -197,12 +197,6 @@ namespace
         tetengo2::gui::traits::window_traits<abstract_window_traits_type>
         window_traits_type;
 
-    typedef tetengo2::detail::stub::widget widget_details_type;
-
-    typedef
-        tetengo2::detail::stub::message_handler<widget_details_type>
-        message_handler_details_type;
-
     typedef
         tetengo2::gui::window<
             window_traits_type,
