@@ -210,7 +210,19 @@ BOOST_AUTO_TEST_SUITE(control)
 
     BOOST_AUTO_TEST_CASE(set_text_color)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_control control;
+
+        control.set_text_color(color_type(0x12, 0x34, 0x56));
+
+        BOOST_CHECK(
+            *control.text_color() == color_type(0x12, 0x34, 0x56)
+        );
+
+        control.set_text_color();
+
+        BOOST_CHECK(!control.text_color());
     }
 
 
