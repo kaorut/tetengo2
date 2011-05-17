@@ -29,6 +29,11 @@ Depends on  : (none)
 Description : Change pointer check style.
 ------------------------------------------------------------------------------
 Number      : 00000093
+Added on    : 2011/05/17
+Depends on  : (none)
+Description : Add picture() and set_picture() to tetengo2::gui::image.
+------------------------------------------------------------------------------
+Number      : 00000094
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
