@@ -34,6 +34,11 @@ Depends on  : (none)
 Description : Add picture() and set_picture() to tetengo2::gui::image.
 ------------------------------------------------------------------------------
 Number      : 00000094
+Added on    : 2011/05/17
+Depends on  : (none)
+Description : Reorder member functions; From const to non-const.
+------------------------------------------------------------------------------
+Number      : 00000095
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
