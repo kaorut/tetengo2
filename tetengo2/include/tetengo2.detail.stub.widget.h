@@ -34,10 +34,14 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The widget details type.
         typedef
             std::tuple<
-                void*, // pointer to parent
-                std::pair<std::ptrdiff_t, std::ptrdiff_t>, // position
-                std::pair<std::size_t, std::size_t> // dimension and client
-                                                    // dimension
+                // details_p_parent: pointer to parent
+                void*,
+                
+                // details_position: position
+                std::pair<std::ptrdiff_t, std::ptrdiff_t>,
+                
+                // details_dimension: dimension and client dimension
+                std::pair<std::size_t, std::size_t>
             >
             widget_details_type;
 
@@ -167,7 +171,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return std::get<0>(*widget.details()) != NULL;
+            return std::get<details_p_parent>(*widget.details()) != NULL;
         }
 
         /*!
@@ -187,7 +191,9 @@ namespace tetengo2 { namespace detail { namespace stub
             if (!has_parent(widget))
                 throw std::logic_error("The widget has no parent.");
 
-            return *reinterpret_cast<Widget*>(std::get<0>(*widget.details()));
+            return *reinterpret_cast<Widget*>(
+                std::get<details_p_parent>(*widget.details())
+            );
         }
 
         /*!
@@ -275,7 +281,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void set_position(Widget& widget, const Position& position)
         {
             typedef gui::position<Position> position_traits_type;
-            std::get<1>(*widget.details()) =
+            std::get<details_position>(*widget.details()) =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(
                         position_traits_type::left(position)
@@ -302,10 +308,10 @@ namespace tetengo2 { namespace detail { namespace stub
             typedef gui::position<Position> position_traits_type;
             return position_traits_type::make(
                 gui::to_unit<typename position_traits_type::left_type>(
-                    std::get<1>(*widget.details()).first
+                    std::get<details_position>(*widget.details()).first
                 ),
                 gui::to_unit<typename position_traits_type::top_type>(
-                    std::get<1>(*widget.details()).second
+                    std::get<details_position>(*widget.details()).second
                 )
             );
         }
@@ -324,7 +330,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void set_dimension(Widget& widget, const Dimension& dimension)
         {
             typedef gui::dimension<Dimension> dimension_traits_type;
-            std::get<2>(*widget.details()) =
+            std::get<details_dimension>(*widget.details()) =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(
                         dimension_traits_type::width(dimension)
@@ -351,10 +357,10 @@ namespace tetengo2 { namespace detail { namespace stub
             typedef gui::dimension<Dimension> dimension_traits_type;
             return dimension_traits_type::make(
                 gui::to_unit<typename dimension_traits_type::width_type>(
-                    std::get<2>(*widget.details()).first
+                    std::get<details_dimension>(*widget.details()).first
                 ),
                 gui::to_unit<typename dimension_traits_type::height_type>(
-                    std::get<2>(*widget.details()).second
+                    std::get<details_dimension>(*widget.details()).second
                 )
             );
         }
@@ -376,7 +382,7 @@ namespace tetengo2 { namespace detail { namespace stub
         )
         {
             typedef gui::dimension<Dimension> dimension_traits_type;
-            std::get<2>(*widget.details()) =
+            std::get<details_dimension>(*widget.details()) =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(
                         dimension_traits_type::width(client_dimension)
@@ -403,10 +409,10 @@ namespace tetengo2 { namespace detail { namespace stub
             typedef gui::dimension<Dimension> dimension_traits_type;
             return dimension_traits_type::make(
                 gui::to_unit<typename dimension_traits_type::width_type>(
-                    std::get<2>(*widget.details()).first
+                    std::get<details_dimension>(*widget.details()).first
                 ),
                 gui::to_unit<typename dimension_traits_type::height_type>(
-                    std::get<2>(*widget.details()).second
+                    std::get<details_dimension>(*widget.details()).second
                 )
             );
         }
@@ -576,6 +582,16 @@ namespace tetengo2 { namespace detail { namespace stub
 
 
     private:
+        // types
+
+        enum details
+        {
+            details_p_parent = 0,
+            details_position,
+            details_dimension,
+        };
+
+
         // static functions
 
         static widget_details_ptr_type create_details(void* const p_parent)
