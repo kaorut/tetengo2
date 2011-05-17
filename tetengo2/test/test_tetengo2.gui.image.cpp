@@ -246,7 +246,7 @@ BOOST_AUTO_TEST_SUITE(image)
 
         image.fit_to_content();
 
-        dimension_type dimension = image.client_dimension();
+        const dimension_type dimension = image.client_dimension();
         const dimension_type answer_dimension(
             unit_size_type::from_pixels(123),
             unit_size_type::from_pixels(456)
