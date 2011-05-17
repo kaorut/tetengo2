@@ -302,6 +302,16 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
+    BOOST_AUTO_TEST_CASE(click)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(erase_background)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(paint_observer_set)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
@@ -317,22 +327,27 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(p_static_window_procedure)
+    BOOST_AUTO_TEST_CASE(set_destroyed)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(details)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(message_handler_map)
+    {
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(encoder)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(initialize)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(p_widget_from)
-    {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
-    }
-
-    BOOST_AUTO_TEST_CASE(window_procedure)
     {
         BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
