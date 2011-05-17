@@ -43,7 +43,6 @@
 #include "tetengo2.gui.window.h"
 #include "tetengo2.gui.window_observer_set.h"
 
-#include "tetengo2.gui.window.h"
 #include "tetengo2.gui.button.h"
 
 
