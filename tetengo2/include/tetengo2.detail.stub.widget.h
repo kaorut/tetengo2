@@ -9,10 +9,10 @@
 #if !defined(TETENGO2_DETAIL_STUB_WIDGET_H)
 #define TETENGO2_DETAIL_STUB_WIDGET_H
 
-#include <cstddef>
+//#include <cstddef>
 #include <stdexcept>
 #include <tuple>
-#include <utility>
+//#include <utility>
 #include <vector>
 
 #include <boost/optional.hpp>
