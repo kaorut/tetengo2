@@ -148,7 +148,7 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Reads a picture.
 
-            \tparam Path    A path type.
+            \tparam Path A path type.
 
             \param path A path.
 
@@ -159,7 +159,7 @@ namespace tetengo2 { namespace detail { namespace stub
         read_picture(const Path& path)
         {
             return cpp0x::unique_ptr<picture_details_type>::type(
-                new picture_details_type(0, 0)
+                new picture_details_type(123, 456)
             );
         }
 
