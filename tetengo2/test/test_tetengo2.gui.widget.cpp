@@ -153,10 +153,14 @@ namespace
     class concrete_widget : public widget_type
     {
     public:
-        concrete_widget()
+        explicit concrete_widget(widget_type* const p_parent = NULL)
         :
         widget_type(message_handler_map_type()),
-        m_p_details(new widget_details_type::widget_details_type())
+        m_p_details(
+            new widget_details_type::widget_details_type(
+                p_parent, std::make_pair(0, 0), std::make_pair(1, 1)
+            )
+        )
         {}
 
         virtual ~concrete_widget()
@@ -199,17 +203,65 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(has_parent)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            BOOST_CHECK(!widget.has_parent());
+        }
+        {
+            concrete_widget parent;
+            const concrete_widget widget(&parent);
+
+            BOOST_CHECK(widget.has_parent());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(parent)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            BOOST_CHECK_THROW(widget.parent(), std::logic_error);
+        }
+        {
+            concrete_widget parent;
+            const concrete_widget widget(&parent);
+
+            BOOST_CHECK_EQUAL(&widget.parent(), &parent);
+        }
+        {
+            concrete_widget parent;
+            concrete_widget widget(&parent);
+
+            BOOST_CHECK_EQUAL(&widget.parent(), &parent);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(root_ancestor)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            BOOST_CHECK_THROW(widget.root_ancestor(), std::logic_error);
+        }
+        {
+            concrete_widget parent;
+            const concrete_widget widget(&parent);
+
+            widget.root_ancestor();
+        }
+        {
+            concrete_widget parent;
+            concrete_widget widget(&parent);
+
+            widget.root_ancestor();
+        }
     }
 
     BOOST_AUTO_TEST_CASE(set_enabled)

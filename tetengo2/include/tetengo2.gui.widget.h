@@ -145,12 +145,12 @@ namespace tetengo2 { namespace gui
 
             \return The parent.
 
-            \throw std::runtime_error When the widget has no parent.
+            \throw std::logic_error When the widget has no parent.
         */
         widget& parent()
         {
             if (!has_parent())
-                BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
+                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
 
             return widget_details_type::parent(*this);
         }
@@ -160,13 +160,13 @@ namespace tetengo2 { namespace gui
 
             \return The parent.
 
-            \throw std::runtime_error When the widget has no parent.
+            \throw std::logic_error When the widget has no parent.
         */
         const widget& parent()
         const
         {
             if (!has_parent())
-                BOOST_THROW_EXCEPTION(std::runtime_error("Has no parent."));
+                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
 
             return widget_details_type::parent(*this);
         }
@@ -178,6 +178,9 @@ namespace tetengo2 { namespace gui
         */
         widget& root_ancestor()
         {
+            if (!has_parent())
+                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
+
             return widget_details_type::root_ancestor(*this);
         }
 
@@ -189,6 +192,9 @@ namespace tetengo2 { namespace gui
         const widget& root_ancestor()
         const
         {
+            if (!has_parent())
+                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
+
             return widget_details_type::root_ancestor(*this);
         }
 

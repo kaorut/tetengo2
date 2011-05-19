@@ -210,7 +210,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static Widget& root_ancestor(const Widget& widget)
         {
-            throw std::logic_error("The widget has no root ancestor.");
+            return parent(widget);
         }
 
         /*!
