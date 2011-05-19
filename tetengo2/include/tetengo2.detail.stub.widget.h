@@ -37,6 +37,12 @@ namespace tetengo2 { namespace detail { namespace stub
                 // details_p_parent: pointer to parent
                 void*,
                 
+                // details_enabled: enabled status
+                bool,
+
+                // details_visible: visible status
+                bool,
+
                 // details_position: position
                 std::pair<std::ptrdiff_t, std::ptrdiff_t>,
                 
@@ -223,7 +229,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void set_enabled(Widget& widget, const bool enabled)
-        {}
+        {
+            std::get<details_enabled>(*widget.details()) = enabled;
+        }
 
         /*!
             \brief Returns the enabled status.
@@ -237,7 +245,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool enabled(const Widget& widget)
         {
-            return false;
+            return std::get<details_enabled>(*widget.details());
         }
 
         /*!
@@ -250,7 +258,9 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void set_visible(Widget& widget, const bool visible)
-        {}
+        {
+            std::get<details_visible>(*widget.details()) = visible;
+        }
 
         /*!
             \brief Returns the visible status.
@@ -264,7 +274,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static bool visible(const Widget& widget)
         {
-            return false;
+            return std::get<details_visible>(*widget.details());
         }
 
         /*!
@@ -587,6 +597,8 @@ namespace tetengo2 { namespace detail { namespace stub
         enum details
         {
             details_p_parent = 0,
+            details_enabled,
+            details_visible,
             details_position,
             details_dimension,
         };
@@ -598,7 +610,11 @@ namespace tetengo2 { namespace detail { namespace stub
         {
             return widget_details_ptr_type(
                 new widget_details_type(
-                    p_parent, std::make_pair(0, 0), std::make_pair(1, 1)
+                    p_parent,
+                    true,
+                    true,
+                    std::make_pair(0, 0),
+                    std::make_pair(1, 1)
                 )
             );
         }

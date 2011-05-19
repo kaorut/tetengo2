@@ -158,7 +158,11 @@ namespace
         widget_type(message_handler_map_type()),
         m_p_details(
             new widget_details_type::widget_details_type(
-                p_parent, std::make_pair(0, 0), std::make_pair(1, 1)
+                p_parent,
+                true,
+                true,
+                std::make_pair(0, 0),
+                std::make_pair(1, 1)
             )
         )
         {}
@@ -266,22 +270,88 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(set_enabled)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_widget widget;
+
+            widget.set_enabled(true);
+
+            BOOST_CHECK(widget.enabled());
+        }
+        {
+            concrete_widget widget;
+
+            widget.set_enabled(false);
+
+            BOOST_CHECK(!widget.enabled());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(enabled)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const concrete_widget widget;
+
+            BOOST_CHECK(widget.enabled());
+        }
+        {
+            concrete_widget widget;
+
+            widget.set_enabled(true);
+
+            BOOST_CHECK(widget.enabled());
+        }
+        {
+            concrete_widget widget;
+
+            widget.set_enabled(false);
+
+            BOOST_CHECK(!widget.enabled());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(set_visible)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_widget widget;
+
+            widget.set_visible(true);
+
+            BOOST_CHECK(widget.visible());
+        }
+        {
+            concrete_widget widget;
+
+            widget.set_visible(false);
+
+            BOOST_CHECK(!widget.visible());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(visible)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const concrete_widget widget;
+
+            BOOST_CHECK(widget.visible());
+        }
+        {
+            concrete_widget widget;
+
+            widget.set_visible(true);
+
+            BOOST_CHECK(widget.visible());
+        }
+        {
+            concrete_widget widget;
+
+            widget.set_visible(false);
+
+            BOOST_CHECK(!widget.visible());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(create_canvas)
