@@ -47,7 +47,10 @@ namespace tetengo2 { namespace detail { namespace stub
                 std::pair<std::ptrdiff_t, std::ptrdiff_t>,
                 
                 // details_dimension: dimension and client dimension
-                std::pair<std::size_t, std::size_t>
+                std::pair<std::size_t, std::size_t>,
+
+                // details_text: text
+                std::wstring
             >
             widget_details_type;
 
@@ -446,7 +449,9 @@ namespace tetengo2 { namespace detail { namespace stub
             String&&       text,
             const Encoder& encoder
         )
-        {}
+        {
+            std::get<details_text>(*widget.details()) = encoder.encode(text);
+        }
 
         /*!
             \brief Retuns the text.
@@ -463,7 +468,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename String, typename Widget, typename Encoder>
         static String text(const Widget& widget, const Encoder& encoder)
         {
-            return String();
+            return encoder.decode(std::get<details_text>(*widget.details()));
         }
 
         /*!
@@ -601,6 +606,7 @@ namespace tetengo2 { namespace detail { namespace stub
             details_visible,
             details_position,
             details_dimension,
+            details_text,
         };
 
 
@@ -614,7 +620,8 @@ namespace tetengo2 { namespace detail { namespace stub
                     true,
                     true,
                     std::make_pair(0, 0),
-                    std::make_pair(1, 1)
+                    std::make_pair(1, 1),
+                    std::wstring()
                 )
             );
         }

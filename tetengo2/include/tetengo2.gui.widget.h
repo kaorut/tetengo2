@@ -211,8 +211,6 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Returns the enabled status.
 
-            It returns true in the state just after the widget is constructed.
-
             \return The enabled status.
         */
         bool enabled()
@@ -233,8 +231,6 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Returns the visible status.
-
-            It returns true in the state just after the widget is constructed.
 
             \return The visible status.
         */

@@ -27,6 +27,7 @@
 #include "tetengo2.gui.drawing.color.h"
 #include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.drawing.picture.h"
+#include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.gui.menu_observer_set.h"
 #include "tetengo2.gui.mouse_observer_set.h"
@@ -150,6 +151,10 @@ namespace
         >
         widget_type;
 
+    typedef
+        tetengo2::gui::drawing::transparent_background<drawing_details_type>
+        transparent_background_type;
+
     class concrete_widget : public widget_type
     {
     public:
@@ -162,7 +167,8 @@ namespace
                 true,
                 true,
                 std::make_pair(0, 0),
-                std::make_pair(1, 1)
+                std::make_pair(1, 1),
+                string_type()
             )
         )
         {}
@@ -290,11 +296,8 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(enabled)
     {
-        {
-            const concrete_widget widget;
+        BOOST_TEST_PASSPOINT();
 
-            BOOST_CHECK(widget.enabled());
-        }
         {
             concrete_widget widget;
 
@@ -333,11 +336,8 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(visible)
     {
-        {
-            const concrete_widget widget;
+        BOOST_TEST_PASSPOINT();
 
-            BOOST_CHECK(widget.visible());
-        }
         {
             concrete_widget widget;
 
@@ -356,57 +356,149 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(create_canvas)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_widget widget;
+
+        widget.create_canvas();
     }
 
     BOOST_AUTO_TEST_CASE(set_position)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_position(position_type(123, 456));
+
+        const position_type position = widget.position();
+        BOOST_CHECK(position == position_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(position)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_position(position_type(123, 456));
+
+        const position_type position = widget.position();
+        BOOST_CHECK(position == position_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(set_dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_dimension(dimension_type(123, 456));
+
+        const dimension_type dimension = widget.dimension();
+        BOOST_CHECK(dimension == dimension_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_dimension(dimension_type(123, 456));
+
+        const dimension_type dimension = widget.dimension();
+        BOOST_CHECK(dimension == dimension_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(set_client_dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_client_dimension(dimension_type(123, 456));
+
+        const dimension_type client_dimension = widget.client_dimension();
+        BOOST_CHECK(client_dimension == dimension_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(client_dimension)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_client_dimension(dimension_type(123, 456));
+
+        const dimension_type client_dimension = widget.client_dimension();
+        BOOST_CHECK(client_dimension == dimension_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(set_text)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_text(L"Tetengo");
+
+        BOOST_CHECK(widget.text() == L"Tetengo");
     }
 
     BOOST_AUTO_TEST_CASE(text)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_text(L"Tetengo");
+
+        BOOST_CHECK(widget.text() == L"Tetengo");
     }
 
     BOOST_AUTO_TEST_CASE(set_background)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_widget widget;
+
+            tetengo2::cpp0x::unique_ptr<background_type>::type p_background;
+            widget.set_background(std::move(p_background));
+        }
+        {
+            concrete_widget widget;
+
+            tetengo2::cpp0x::unique_ptr<background_type>::type p_background(
+                new transparent_background_type()
+            );
+            widget.set_background(std::move(p_background));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(background)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_widget widget;
+
+            tetengo2::cpp0x::unique_ptr<background_type>::type p_background;
+            widget.set_background(std::move(p_background));
+
+            BOOST_CHECK(!widget.background());
+        }
+        {
+            concrete_widget widget;
+
+            tetengo2::cpp0x::unique_ptr<background_type>::type p_background(
+                new transparent_background_type()
+            );
+            widget.set_background(std::move(p_background));
+
+            BOOST_CHECK(widget.background());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(set_font)
