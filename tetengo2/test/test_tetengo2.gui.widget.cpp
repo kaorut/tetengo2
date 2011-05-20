@@ -178,10 +178,18 @@ namespace
                 string_type(),
                 details_font_type(
                     std::wstring(), 12, false, false, false, false
-                )
+                ),
+                std::vector<void*>()
             )
         )
-        {}
+        {
+            if (p_parent != NULL)
+            {
+                std::get<7>(*p_parent->details()).push_back(
+                    m_p_details.get()
+                );
+            }
+        }
 
         virtual ~concrete_widget()
         TETENGO2_CPP0X_NOEXCEPT
@@ -527,6 +535,8 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(font)
     {
+        BOOST_TEST_PASSPOINT();
+
         concrete_widget widget;
 
         const font_type font(
@@ -539,7 +549,20 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(children)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            BOOST_CHECK(widget.children().empty());
+        }
+        {
+            concrete_widget widget;
+            const concrete_widget child1(&widget);
+            const concrete_widget child2(&widget);
+
+            BOOST_CHECK_EQUAL(widget.children().size(), 2);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(click)

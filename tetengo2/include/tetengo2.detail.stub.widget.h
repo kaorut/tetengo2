@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_STUB_WIDGET_H
 
 //#include <cstddef>
+#include <functional>
 #include <stdexcept>
 #include <string>
 #include <tuple>
@@ -54,7 +55,10 @@ namespace tetengo2 { namespace detail { namespace stub
                 std::wstring,
 
                 // details_font: font
-                std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>
+                std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>,
+
+                // details_children: children
+                std::vector<void*>
             >
             widget_details_type;
 
@@ -82,9 +86,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 boost::optional<Widget&>()
         )
         {
-            return create_details(
-                parent ? reinterpret_cast<void*>(&*parent) : NULL
-            );
+            return create_details<Widget>(parent ? &*parent : NULL);
         }
 
         /*!
@@ -102,9 +104,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const boost::optional<Widget&>& parent
         )
         {
-            return create_details(
-                parent ? reinterpret_cast<void*>(&*parent) : NULL
-            );
+            return create_details<Widget>(parent ? &*parent : NULL);
         }
 
         /*!
@@ -125,7 +125,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const bool    is_cancel
         )
         {
-            return create_details(NULL);
+            return create_details<Widget>(NULL);
         }
 
         /*!
@@ -140,7 +140,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_image(const Widget& parent)
         {
-            return create_details(NULL);
+            return create_details<Widget>(NULL);
         }
 
         /*!
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_label(const Widget& parent)
         {
-            return create_details(NULL);
+            return create_details<Widget>(NULL);
         }
 
         /*!
@@ -536,9 +536,27 @@ namespace tetengo2 { namespace detail { namespace stub
             \return The children.
         */
         template <typename Child, typename Widget>
-        static std::vector<Child&> children(Widget& widget)
+        static std::vector<
+            typename tetengo2::cpp0x::reference_wrapper<Child>::type
+        > children(
+            Widget& widget
+        )
         {
-            return std::vector<Child&>();
+            const std::vector<void*>& children_as_void =
+                std::get<details_children>(*widget.details());
+            std::vector<
+                typename tetengo2::cpp0x::reference_wrapper<Child>::type
+            > children;
+            children.reserve(children_as_void.size());
+
+            std::transform(
+                children_as_void.begin(),
+                children_as_void.end(),
+                std::back_inserter(children),
+                as_child<Child>
+            );
+
+            return children;
         }
 
         /*!
@@ -624,6 +642,7 @@ namespace tetengo2 { namespace detail { namespace stub
             details_dimension,
             details_text,
             details_font,
+            details_children
         };
 
         typedef
@@ -633,9 +652,10 @@ namespace tetengo2 { namespace detail { namespace stub
 
         // static functions
 
-        static widget_details_ptr_type create_details(void* const p_parent)
+        template <typename Widget>
+        static widget_details_ptr_type create_details(Widget* const p_parent)
         {
-            return widget_details_ptr_type(
+            widget_details_ptr_type p_details = widget_details_ptr_type(
                 new widget_details_type(
                     p_parent,
                     true,
@@ -645,9 +665,26 @@ namespace tetengo2 { namespace detail { namespace stub
                     std::wstring(),
                     details_font_type(
                         std::wstring(), 12, false, false, false, false
-                    )
+                    ),
+                    std::vector<void*>()
                 )
             );
+
+            if (p_parent != NULL)
+            {
+                std::get<details_children>(*p_parent->details()).push_back(
+                    p_details.get()
+                );
+            }
+
+            return std::move(p_details);
+        }
+
+        template <typename Child>
+        static typename tetengo2::cpp0x::reference_wrapper<Child>::type
+        as_child(void* const pointer)
+        {
+            return tetengo2::cpp0x::ref(*reinterpret_cast<Child*>(pointer));
         }
 
 

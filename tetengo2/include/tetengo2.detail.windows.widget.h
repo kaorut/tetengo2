@@ -13,6 +13,7 @@
 #include <cassert>
 //#include <cstddef>
 #include <exception>
+#include <functional>
 #include <stdexcept>
 #include <string>
 //#include <type_traits>
@@ -1019,9 +1020,15 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The children.
         */
         template <typename Child, typename Widget>
-        static std::vector<Child&> children(Widget& widget)
+        static std::vector<
+            typename tetengo2::cpp0x::reference_wrapper<Child>::type
+        > children(
+            Widget& widget
+        )
         {
-            std::vector<Child&> children;
+            std::vector<
+                typename tetengo2::cpp0x::reference_wrapper<Child>::type
+            > children;
 
             ::EnumChildWindows(
                 const_cast< ::HWND>(widget.details()->first.get()),
@@ -1429,10 +1436,18 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::LPARAM parameter
         )
         {
-            std::vector<Child&>* const p_children =
-                reinterpret_cast<std::vector<Child&>*>(parameter);
+            std::vector<
+                typename tetengo2::cpp0x::reference_wrapper<Child>::type
+            >* const p_children =
+                reinterpret_cast<
+                    std::vector<
+                        typename tetengo2::cpp0x::reference_wrapper<Child>::type
+                    >*
+                >(parameter);
 
-            p_children->push_back(p_widget_from<Child>(window_handle));
+            p_children->push_back(
+                tetengo2::cpp0x::ref(*p_widget_from<Child>(window_handle))
+            );
 
             return TRUE;
         }
