@@ -155,6 +155,10 @@ namespace
         tetengo2::gui::drawing::transparent_background<drawing_details_type>
         transparent_background_type;
 
+    typedef
+        std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>
+        details_font_type;
+
     class concrete_widget : public widget_type
     {
     public:
@@ -168,7 +172,10 @@ namespace
                 true,
                 std::make_pair(0, 0),
                 std::make_pair(1, 1),
-                string_type()
+                string_type(),
+                details_font_type(
+                    std::wstring(), 12, false, false, false, false
+                )
             )
         )
         {}
@@ -503,12 +510,28 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(set_font)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        const font_type font(
+            font_type::dialog_font().family(), 42, false, true, false, true
+        );
+        widget.set_font(font);
+
+        BOOST_CHECK(widget.font() == font);
     }
 
     BOOST_AUTO_TEST_CASE(font)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        concrete_widget widget;
+
+        const font_type font(
+            font_type::dialog_font().family(), 42, false, true, false, true
+        );
+        widget.set_font(font);
+
+        BOOST_CHECK(widget.font() == font);
     }
 
     BOOST_AUTO_TEST_CASE(children)

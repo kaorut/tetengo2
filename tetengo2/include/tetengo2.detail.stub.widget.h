@@ -50,7 +50,10 @@ namespace tetengo2 { namespace detail { namespace stub
                 std::pair<std::size_t, std::size_t>,
 
                 // details_text: text
-                std::wstring
+                std::wstring,
+
+                // details_font: font
+                std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>
             >
             widget_details_type;
 
@@ -484,7 +487,17 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget, typename Font>
         static void set_font(Widget& widget, const Font& font)
-        {}
+        {
+            std::get<details_font>(*widget.details()) =
+                details_font_type(
+                    font.family(),
+                    font.size(),
+                    font.bold(),
+                    font.italic(),
+                    font.underline(),
+                    font.strikeout()
+                );
+        }
 
         /*!
             \brief Retuns the font.
@@ -499,13 +512,15 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font, typename Widget>
         static Font font(const Widget& widget)
         {
+            const details_font_type& font =
+                std::get<details_font>(*widget.details());
             return Font(
-                Font::dialog_font.family(),
-                Font::dialog_font.size(),
-                Font::dialog_font.bold(),
-                Font::dialog_font.italic(),
-                Font::dialog_font.underline(),
-                Font::dialog_font.strikeout()
+                std::get<0>(font),
+                std::get<1>(font),
+                std::get<2>(font),
+                std::get<3>(font),
+                std::get<4>(font),
+                std::get<5>(font)
             );
         }
 
@@ -607,7 +622,12 @@ namespace tetengo2 { namespace detail { namespace stub
             details_position,
             details_dimension,
             details_text,
+            details_font,
         };
+
+        typedef
+            std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>
+            details_font_type;
 
 
         // static functions
@@ -621,7 +641,10 @@ namespace tetengo2 { namespace detail { namespace stub
                     true,
                     std::make_pair(0, 0),
                     std::make_pair(1, 1),
-                    std::wstring()
+                    std::wstring(),
+                    details_font_type(
+                        std::wstring(), 12, false, false, false, false
+                    )
                 )
             );
         }
