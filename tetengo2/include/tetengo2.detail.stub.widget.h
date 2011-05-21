@@ -120,12 +120,12 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static widget_details_ptr_type create_button(
-            const Widget& parent,
-            const bool    is_default,
-            const bool    is_cancel
+            Widget&    parent,
+            const bool is_default,
+            const bool is_cancel
         )
         {
-            return create_details<Widget>(NULL);
+            return create_details<Widget>(&parent);
         }
 
         /*!
@@ -138,9 +138,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to an image.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_image(const Widget& parent)
+        static widget_details_ptr_type create_image(Widget& parent)
         {
-            return create_details<Widget>(NULL);
+            return create_details<Widget>(&parent);
         }
 
         /*!
@@ -153,9 +153,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to a label.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_label(const Widget& parent)
+        static widget_details_ptr_type create_label(Widget& parent)
         {
-            return create_details<Widget>(NULL);
+            return create_details<Widget>(&parent);
         }
 
         /*!
@@ -169,7 +169,15 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static void associate_to_native_window_system(Widget& widget)
-        {}
+        {
+            if (widget.has_parent())
+            {
+                std::get<details_children>(
+                    *widget.parent().details()
+                ).push_back(reinterpret_cast<void*>(&widget));
+            }
+
+        }
 
         /*!
             \brief Returns whether the widget has a parent.
@@ -669,13 +677,6 @@ namespace tetengo2 { namespace detail { namespace stub
                     std::vector<void*>()
                 )
             );
-
-            if (p_parent != NULL)
-            {
-                std::get<details_children>(*p_parent->details()).push_back(
-                    p_details.get()
-                );
-            }
 
             return std::move(p_details);
         }

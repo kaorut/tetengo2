@@ -186,7 +186,9 @@ namespace
         :
         abstract_window_type(message_handler_map_type()),
         m_p_details(new details_type())
-        {}
+        {
+            initialize(this);
+        }
 
         virtual ~concrete_window()
         TETENGO2_CPP0X_NOEXCEPT

@@ -12,6 +12,7 @@
 //#include <tuple>
 //#include <utility>
 
+#include <boost/bind.hpp>
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -183,12 +184,7 @@ namespace
             )
         )
         {
-            if (p_parent != NULL)
-            {
-                std::get<7>(*p_parent->details()).push_back(
-                    m_p_details.get()
-                );
-            }
+            initialize(this);
         }
 
         virtual ~concrete_widget()
@@ -558,10 +554,20 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
         {
             concrete_widget widget;
-            const concrete_widget child1(&widget);
-            const concrete_widget child2(&widget);
+            concrete_widget child1(&widget);
+            child1.set_text(L"hoge");
+            concrete_widget child2(&widget);
+            child2.set_text(L"fuga");
 
             BOOST_CHECK_EQUAL(widget.children().size(), 2);
+            BOOST_CHECK(
+                widget.children()[0].get().text() == L"hoge" ||
+                widget.children()[1].get().text() == L"hoge"
+            );
+            BOOST_CHECK(
+                widget.children()[0].get().text() == L"fuga" ||
+                widget.children()[1].get().text() == L"fuga"
+            );
         }
     }
 

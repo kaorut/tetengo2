@@ -165,7 +165,9 @@ namespace
                 new widget_details_type::widget_details_type()
             )
         )
-        {}
+        {
+            initialize(this);
+        }
 
         virtual ~concrete_control()
         TETENGO2_CPP0X_NOEXCEPT
