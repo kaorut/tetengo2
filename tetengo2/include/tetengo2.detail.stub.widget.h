@@ -9,8 +9,9 @@
 #if !defined(TETENGO2_DETAIL_STUB_WIDGET_H)
 #define TETENGO2_DETAIL_STUB_WIDGET_H
 
+#include <algorithm>
 //#include <cstddef>
-#include <functional>
+#include <iterator>
 #include <stdexcept>
 #include <string>
 #include <tuple>

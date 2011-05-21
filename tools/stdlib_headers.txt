@@ -222,6 +222,7 @@ boost::ptr_vector                                boost/ptr_container/ptr_vector.
 boost::rational                                  boost/rational.hpp
 boost::rational_cast                             boost/rational.hpp
 boost::ref                                       boost/ref.hpp
+boost::reference_wrapper                         boost/ref.hpp
 boost::replace_all                               boost/algorithm/string.hpp
 boost::signals2::signal                          boost/signals2.hpp
 boost::swap                                      boost/swap.hpp
@@ -236,6 +237,7 @@ std::basic_ostringstream                         sstream
 std::basic_string                                string
 std::codecvt                                     locale
 std::copy                                        algorithm
+std::cref                                        functional
 std::default_delete                              memory
 std::distance                                    iterator
 std::enable_if                                   type_traits
@@ -272,6 +274,8 @@ std::ostringstream                               sstream
 std::out_of_range                                stdexcept
 std::pair                                        utility
 std::ptrdiff_t                                   cstddef
+std::ref                                         functional
+std::reference_wrapper                           functional
 std::remove_pointer                              type_traits
 std::runtime_error                               stdexcept
 std::size_t                                      cstddef

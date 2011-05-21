@@ -11,7 +11,7 @@
 
 #include <cstddef>
 #include <exception>
-#include <functional>
+//#include <functional>
 #include <stdexcept>
 
 #include <boost/exception/all.hpp>

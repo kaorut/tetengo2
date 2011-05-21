@@ -12,7 +12,7 @@
 //#include <stdexcept>
 
 #include <boost/bind.hpp>
-#include <boost/ref.hpp>
+//#include <boost/ref.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.control.h"

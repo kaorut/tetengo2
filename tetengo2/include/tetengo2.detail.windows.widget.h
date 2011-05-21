@@ -13,7 +13,6 @@
 #include <cassert>
 //#include <cstddef>
 #include <exception>
-#include <functional>
 #include <stdexcept>
 #include <string>
 //#include <type_traits>

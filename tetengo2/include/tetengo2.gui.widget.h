@@ -11,7 +11,6 @@
 
 #include <cassert>
 //#include <cstddef>
-#include <functional>
 #include <stdexcept>
 //#include <utility>
 #include <vector>
