@@ -559,7 +559,7 @@ BOOST_AUTO_TEST_SUITE(widget)
             concrete_widget child2(&widget);
             child2.set_text(L"fuga");
 
-            BOOST_CHECK_EQUAL(widget.children().size(), 2);
+            BOOST_CHECK_EQUAL(widget.children().size(), 2U);
             BOOST_CHECK(
                 widget.children()[0].get().text() == L"hoge" ||
                 widget.children()[1].get().text() == L"hoge"
