@@ -589,7 +589,14 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(erase_background)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_widget widget;
+
+        const tetengo2::cpp0x::unique_ptr<canvas_type>::type p_canvas(
+            widget.create_canvas()
+        );
+        widget.erase_background(*p_canvas);
     }
 
     BOOST_AUTO_TEST_CASE(paint_observer_set)

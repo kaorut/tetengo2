@@ -499,6 +499,7 @@ namespace tetengo2 { namespace gui
             \param canvas A canvas.
         */
         void erase_background(canvas_type& canvas)
+        const
         {
             if (!background()) return;
 
