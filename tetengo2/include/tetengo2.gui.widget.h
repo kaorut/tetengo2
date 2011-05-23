@@ -638,6 +638,9 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Initializes the widget.
             
+            This function must be called in the constructor and only in the
+            constructor.
+
             \param p_widget A pointer to a widget.
         */
         static void initialize(widget* const p_widget)

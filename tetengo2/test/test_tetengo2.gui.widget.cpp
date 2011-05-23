@@ -166,6 +166,11 @@ namespace
     class concrete_widget : public widget_type
     {
     public:
+        static const encoder_type& test_encoder()
+        {
+            return encoder();
+        }
+
         explicit concrete_widget(widget_type* const p_parent = NULL)
         :
         widget_type(message_handler_map_type()),
@@ -601,42 +606,101 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(paint_observer_set)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            widget.paint_observer_set();
+        }
+        {
+            concrete_widget widget;
+
+            widget.paint_observer_set();
+        }
     }
 
     BOOST_AUTO_TEST_CASE(mouse_observer_set)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            widget.mouse_observer_set();
+        }
+        {
+            concrete_widget widget;
+
+            widget.mouse_observer_set();
+        }
     }
 
     BOOST_AUTO_TEST_CASE(destroyed)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            BOOST_CHECK(!widget.destroyed());
+        }
+        {
+            concrete_widget widget;
+            widget.set_destroyed();
+
+            BOOST_CHECK(widget.destroyed());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(set_destroyed)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_destroyed();
     }
 
     BOOST_AUTO_TEST_CASE(details)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            widget.details();
+        }
+        {
+            concrete_widget widget;
+
+            widget.details();
+        }
     }
 
     BOOST_AUTO_TEST_CASE(message_handler_map)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_widget widget;
+
+        widget.message_handler_map();
     }
 
     BOOST_AUTO_TEST_CASE(encoder)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        // encoder() is called in test_encoder().
+        concrete_widget::test_encoder();
     }
 
     BOOST_AUTO_TEST_CASE(initialize)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        // initialize() is called in the constructor of concrete_widget.
+        const concrete_widget widget;
     }
 
 
