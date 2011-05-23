@@ -573,7 +573,18 @@ BOOST_AUTO_TEST_SUITE(widget)
 
     BOOST_AUTO_TEST_CASE(click)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            widget.click();
+        }
+        {
+            concrete_widget widget;
+
+            widget.click();
+        }
     }
 
     BOOST_AUTO_TEST_CASE(erase_background)

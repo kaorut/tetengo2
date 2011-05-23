@@ -480,6 +480,15 @@ namespace tetengo2 { namespace gui
             \brief Clicks this widget.
         */
         void click()
+        const
+        {
+            m_mouse_observer_set.clicked()();
+        }
+
+        /*!
+            \brief Clicks this widget.
+        */
+        void click()
         {
             m_mouse_observer_set.clicked()();
         }
