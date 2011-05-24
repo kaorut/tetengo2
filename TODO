@@ -17,11 +17,6 @@ Added on    : 2011/02/21
 Depends on  : (none)
 Description : Remove tetengo2::generator. Stop using std::unary_function.
 ------------------------------------------------------------------------------
-Number      : 00000092
-Added on    : 2011/04/27
-Depends on  : (none)
-Description : Change pointer check style.
-------------------------------------------------------------------------------
 Number      : 00000093
 Added on    : 2011/05/17
 Depends on  : (none)
