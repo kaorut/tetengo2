@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000090
-Added on    : 2011/02/18
-Depends on  : 00000072
-Description : Replace boost::ptr_vector<T> to std::vector<std::unique_ptr<T>>.
-------------------------------------------------------------------------------
 Number      : 00000091
 Added on    : 2011/02/21
 Depends on  : (none)
