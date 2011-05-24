@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H
 
-#include <cstddef>
-
 //#include <boost/optional.hpp>
 
 #include "tetengo2.cpp0x.h"
@@ -74,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         details_impl()
         {
             return
-                m_p_details.get() == NULL ?
+                !m_p_details ?
                 boost::optional<details_type&>() :
                 boost::optional<details_type&>(*m_p_details);
         }
@@ -84,7 +82,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         const
         {
             return
-                m_p_details.get() == NULL ?
+                !m_p_details ?
                 boost::optional<const details_type&>() :
                 boost::optional<const details_type&>(*m_p_details);
         }

@@ -167,7 +167,7 @@ namespace tetengo2 { namespace gui
             typename cpp0x::unique_ptr<base_type>::type p_menu
         )
         {
-            if (p_menu.get() == NULL)
+            if (!p_menu)
             {
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument(

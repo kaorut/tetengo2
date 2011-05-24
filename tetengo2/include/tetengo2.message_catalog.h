@@ -56,7 +56,7 @@ namespace tetengo2
         ~message_catalog()
         TETENGO2_CPP0X_NOEXCEPT
         {
-            if (m_p_messages != NULL && m_catalog_id >= 0)
+            if (m_p_messages && m_catalog_id >= 0)
                 m_p_messages->close(m_catalog_id);
         }
 
@@ -82,7 +82,7 @@ namespace tetengo2
         )
         const
         {
-            if (m_p_messages == NULL || m_catalog_id < 0)
+            if (!m_p_messages || m_catalog_id < 0)
                 return std::forward<S>(default_text);
 
             return m_p_messages->get(m_catalog_id, 0, 0, default_text);
@@ -123,7 +123,7 @@ namespace tetengo2
             const std::locale&         locale
         )
         {
-            return p_messages != NULL ? p_messages->open("", locale) : -1;
+            return p_messages ? p_messages->open("", locale) : -1;
         }
 
 

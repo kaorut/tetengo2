@@ -100,7 +100,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
-            if (instance_handle == NULL)
+            if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't get the instance handle!")
@@ -134,7 +134,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     NULL
                 )
             );
-            if (p_widget.get() == NULL)
+            if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a window!")
@@ -162,7 +162,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
-            if (instance_handle == NULL)
+            if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't get the instance handle!")
@@ -196,7 +196,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     NULL
                 )
             );
-            if (p_widget.get() == NULL)
+            if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a dialog!")
@@ -243,7 +243,7 @@ namespace tetengo2 { namespace detail { namespace windows
                             parent.root_ancestor().details()->first.get()
                         ),
                         IDOK
-                    ) != NULL
+                    )
                 )
                 {
                     BOOST_THROW_EXCEPTION(
@@ -260,7 +260,7 @@ namespace tetengo2 { namespace detail { namespace windows
                             parent.root_ancestor().details()->first.get()
                         ),
                         IDCANCEL
-                    ) != NULL
+                    )
                 )
                 {
                     BOOST_THROW_EXCEPTION(
@@ -286,7 +286,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     NULL
                 )
             );
-            if (p_widget.get() == NULL)
+            if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a button!")
@@ -331,7 +331,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     NULL
                 )
             );
-            if (p_widget.get() == NULL)
+            if (!p_widget.get())
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create an image!")
@@ -376,7 +376,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     NULL
                 )
             );
-            if (p_widget.get() == NULL)
+            if (!p_widget.get())
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a label!")
@@ -406,10 +406,10 @@ namespace tetengo2 { namespace detail { namespace windows
         static void associate_to_native_window_system(Widget& widget)
         {
             assert(
-                ::GetPropW(
+                !::GetPropW(
                     widget.details()->first.get(),
                     property_key_for_cpp_instance().c_str()
-                ) == NULL
+                )
             );
             const ::BOOL result =
                 ::SetPropW(
@@ -441,7 +441,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return
                 ::GetParent(
                     const_cast< ::HWND>(widget.details()->first.get())
-                ) != NULL;
+                );
         }
 
         /*!
@@ -464,7 +464,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         const_cast< ::HWND>(widget.details()->first.get())
                     )
                 );
-            if (p_parent == NULL)
+            if (!p_parent)
                 throw std::logic_error("The widget has no parent.");
 
             return *p_parent;
@@ -489,12 +489,12 @@ namespace tetengo2 { namespace detail { namespace windows
                     const_cast< ::HWND>(widget.details()->first.get()),
                     GA_ROOT
                 );
-            if (root_ancestor_handle == NULL)
+            if (!root_ancestor_handle)
                 throw std::logic_error("The widget has no root ancestor.");
 
             Widget* const p_root_ancestor =
                 p_widget_from<Widget>(root_ancestor_handle);
-            assert(p_root_ancestor != NULL);
+            assert(p_root_ancestor);
             return *p_root_ancestor;
         }
 
@@ -935,7 +935,7 @@ namespace tetengo2 { namespace detail { namespace windows
             );
             log_font.lfFaceName[font.family().size()] = L'\0';
             const ::HFONT font_handle = ::CreateFontIndirectW(&log_font);
-            if (font_handle == NULL)
+            if (!font_handle)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create font.")
@@ -949,7 +949,7 @@ namespace tetengo2 { namespace detail { namespace windows
             );
 
             if (
-                previous_font_handle != NULL &&
+                previous_font_handle &&
                 ::DeleteObject(previous_font_handle) == 0
             )
             {
@@ -981,7 +981,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         0
                     )
                 );
-            if (font_handle == NULL)
+            if (!font_handle)
             {
                 font_handle =
                     reinterpret_cast< ::HFONT>(::GetStockObject(SYSTEM_FONT));
@@ -1256,7 +1256,7 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.lpszClassName = window_class_name().c_str();
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
-            if (atom == NULL)
+            if (!atom)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error(
@@ -1297,7 +1297,7 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.lpszClassName = dialog_class_name().c_str();
 
             const ::ATOM atom = ::RegisterClassExW(&window_class);
-            if (atom == NULL)
+            if (!atom)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error(
@@ -1310,7 +1310,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static void delete_system_menus(const ::HWND widget_handle)
         {
             const ::HMENU menu_handle = ::GetSystemMenu(widget_handle, FALSE);
-            if (menu_handle == NULL) return;
+            if (!menu_handle) return;
 
             if (
                 ::DeleteMenu(menu_handle, SC_SIZE, MF_BYCOMMAND) == 0 ||
@@ -1337,7 +1337,7 @@ namespace tetengo2 { namespace detail { namespace windows
             try
             {
                 Widget* const p_widget = p_widget_from<Widget>(hWnd);
-                if (p_widget != NULL)
+                if (p_widget)
                 {
                     return window_procedure_impl(
                         *p_widget, uMsg, wParam, lParam

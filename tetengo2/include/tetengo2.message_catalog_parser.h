@@ -10,7 +10,6 @@
 #define TETENGO2_MESSAGECATALOGPARSER_H
 
 #include <algorithm>
-#include <cstddef>
 #include <iterator>
 #include <locale>
 #include <stdexcept>
@@ -150,13 +149,13 @@ namespace tetengo2
         bool preread()
         const
         {
-            if (m_p_preread_entry.get() != NULL) return true;
+            if (m_p_preread_entry) return true;
 
             while (m_input_stream.good())
             {
                 typename cpp0x::unique_ptr<entry_type>::type p_entry =
                     parse(get_line());
-                if (p_entry.get() != NULL)
+                if (p_entry)
                 {
                     m_p_preread_entry = std::move(p_entry);
                     return true;

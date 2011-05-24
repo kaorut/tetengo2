@@ -105,7 +105,7 @@ namespace tetengo2 { namespace detail { namespace windows
             menu_details_ptr_type p_menu(
                 new menu_details_type(get_and_increment_id(), ::CreateMenu())
             );
-            if (p_menu->second == NULL)
+            if (!p_menu->second)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a main menu.")
@@ -127,7 +127,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     get_and_increment_id(), ::CreatePopupMenu()
                 )
             );
-            if (p_menu->second == NULL)
+            if (!p_menu->second)
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a popup menu.")

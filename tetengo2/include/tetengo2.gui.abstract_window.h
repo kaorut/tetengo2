@@ -108,7 +108,7 @@ namespace tetengo2 { namespace gui
         bool has_main_menu()
         const
         {
-            return m_p_main_menu.get() != NULL;
+            return m_p_main_menu;
         }
 
         /*!
@@ -168,7 +168,7 @@ namespace tetengo2 { namespace gui
                 *this, boost::optional<const main_menu_type&>()
             );
             
-            if (p_main_menu.get() != NULL)
+            if (p_main_menu)
             {
                 widget_details_type::set_main_menu(
                     *this,

@@ -419,7 +419,7 @@ namespace tetengo2 { namespace gui
         const
         {
             return
-                m_p_background.get() != NULL ?
+                m_p_background ?
                 boost::optional<const background_type&>(*m_p_background) :
                 boost::optional<const background_type&>();
         }
@@ -645,7 +645,7 @@ namespace tetengo2 { namespace gui
         */
         static void initialize(widget* const p_widget)
         {
-            assert(p_widget != NULL);
+            assert(p_widget);
 
             widget_details_type::associate_to_native_window_system(*p_widget);
             p_widget->set_font(font_type::dialog_font());

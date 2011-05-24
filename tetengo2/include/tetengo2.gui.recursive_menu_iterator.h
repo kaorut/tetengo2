@@ -103,7 +103,7 @@ namespace tetengo2 { namespace gui
         */
         void increment()
         {
-            assert(m_p_menu != NULL);
+            assert(m_p_menu);
 
             if (
                 m_parents.top().second <
@@ -116,7 +116,7 @@ namespace tetengo2 { namespace gui
                 return;
             }
 
-            if (m_parents.top().first == NULL)
+            if (!m_parents.top().first)
             {
                 m_p_menu = NULL;
                 return;

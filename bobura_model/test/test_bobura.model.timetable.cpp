@@ -6,7 +6,7 @@
     $Id$
 */
 
-//#include <cstddef>
+#include <cstddef>
 //#include <stdexcept>
 #include <string>
 //#include <utility>

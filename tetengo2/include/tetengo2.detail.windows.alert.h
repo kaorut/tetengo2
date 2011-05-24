@@ -63,7 +63,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::GetAncestor(widget_handle, GA_ROOT);
 
             if (
-                root_handle == NULL ||
+                !root_handle ||
                 ::IsWindow(root_handle) == 0 ||
                 ::IsWindowVisible(root_handle) == 0 ||
                 ::IsWindowEnabled(root_handle) == 0
@@ -141,10 +141,10 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::HINSTANCE handle = ::LoadLibraryW(L"COMCTL32.DLL");
             BOOST_SCOPE_EXIT((handle))
             {
-                if (handle != NULL)
+                if (handle)
                     ::FreeLibrary(handle);
             } BOOST_SCOPE_EXIT_END;
-            if (handle == NULL)
+            if (!handle)
             {
                 show_message_box(widget_handle, caption, text1, text2);
                 return;
@@ -155,7 +155,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 reinterpret_cast<task_dialog_ptr_type>(
                     ::GetProcAddress(handle, "TaskDialog")
                 );
-            if (p_task_dialog == NULL)
+            if (!p_task_dialog)
             {
                 show_message_box(widget_handle, caption, text1, text2);
                 return;

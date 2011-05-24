@@ -97,7 +97,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     );
 
                 return
-                    result == NULL ?
+                    !result ?
                     boost::optional< ::LRESULT>() :
                     boost::optional< ::LRESULT>(result);
             }
@@ -114,9 +114,9 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 ::PAINTSTRUCT paint_struct = {};
                 if (
-                    ::BeginPaint(
+                    !::BeginPaint(
                         widget.details()->first.get(), &paint_struct
-                    ) == NULL
+                    )
                 )
                 {
                     BOOST_THROW_EXCEPTION(
@@ -151,7 +151,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     MAKELPARAM(0, 0)
                 );
 
-                if (font_handle != NULL && ::DeleteObject(font_handle) == 0)
+                if (font_handle && ::DeleteObject(font_handle) == 0)
                 {
                     BOOST_THROW_EXCEPTION(
                         std::runtime_error("Can't delete previous font.")
@@ -209,7 +209,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::HMENU menu2_handle
             )
             {
-                if (!menu1.details() || menu2_handle == NULL) return false;
+                if (!menu1.details() || !menu2_handle) return false;
                 return &*menu1.details()->second == menu2_handle;
             }
 
@@ -324,7 +324,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         widget_handle ==
                         ::GetDlgItem(dialog.details()->first.get(), lo_wparam)
                     );
-                    if (widget_handle != NULL)
+                    if (widget_handle)
                     {
                         WidgetDetails::p_widget_from<
                             typename Dialog::base_type::base_type

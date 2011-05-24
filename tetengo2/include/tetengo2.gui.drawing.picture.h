@@ -79,7 +79,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         :
         m_p_details(std::move(p_details))
         {
-            if (m_p_details.get() == NULL)
+            if (!m_p_details.get())
             {
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument(
@@ -113,7 +113,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         boost::optional<details_type&> details()
         {
             return
-                m_p_details.get() == NULL ?
+                !m_p_details ?
                 boost::optional<details_type&>() :
                 boost::optional<details_type&>(*m_p_details);
         }
@@ -127,7 +127,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         const
         {
             return
-                m_p_details.get() == NULL ?
+                !m_p_details ?
                 boost::optional<const details_type&>() :
                 boost::optional<const details_type&>(*m_p_details);
         }

@@ -10,7 +10,6 @@
 #define BOBURA_MODEL_STATION_H
 
 #include <cassert>
-#include <cstddef>
 #include <utility>
 
 #include <boost/operators.hpp>
@@ -91,7 +90,7 @@ namespace bobura { namespace model
         const grade_type& grade()
         const
         {
-            assert(m_p_grade != NULL);
+            assert(m_p_grade);
             return *m_p_grade;
         }
 

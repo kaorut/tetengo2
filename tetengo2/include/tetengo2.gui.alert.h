@@ -86,7 +86,7 @@ namespace tetengo2 { namespace gui
             {
                 const std::exception* const p_std_exception =
                     dynamic_cast<const std::exception*>(&exception);
-                if (p_std_exception != NULL)
+                if (p_std_exception)
                 {
                     const char* const* const p_file =
                         boost::get_error_info<boost::throw_file>(
@@ -107,11 +107,11 @@ namespace tetengo2 { namespace gui
                             typeid(*p_std_exception).name()
                         ),
                         exception_encoder().decode(p_std_exception->what()),
-                        p_file != NULL ?
+                        p_file ?
                             exception_encoder().decode(*p_file) :
                             string_type(),
-                        p_line != NULL ? *p_line : 0,
-                        p_function != NULL ?
+                        p_line ? *p_line : 0,
+                        p_function ?
                             exception_encoder().decode(*p_function) :
                             string_type(),
                         ui_encoder()
