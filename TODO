@@ -33,6 +33,11 @@ Depends on  : (none)
 Description : Implement test_bobura::message::*.
 ------------------------------------------------------------------------------
 Number      : 00000097
+Added on    : 2011/05/24
+Depends on  : (none)
+Description : Replace boost::bind to std::bind.
+------------------------------------------------------------------------------
+Number      : 00000098
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
