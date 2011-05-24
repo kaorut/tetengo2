@@ -13,10 +13,11 @@
 //#include <cstddef>
 #include <stdexcept>
 //#include <utility>
+#include <vector>
 
+#include <boost/iterator/indirect_iterator.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x.h"
@@ -52,11 +53,22 @@ namespace tetengo2 { namespace gui
             menu_observer_set_type;
 
         //! The iterator type.
-        typedef typename boost::ptr_vector<menu>::iterator iterator;
+        typedef
+            boost::indirect_iterator<
+                typename std::vector<
+                    typename cpp0x::unique_ptr<menu>::type
+                >::iterator
+            >
+            iterator;
 
         //! The const iterator type.
         typedef
-            typename boost::ptr_vector<menu>::const_iterator const_iterator;
+            boost::indirect_iterator<
+                typename std::vector<
+                    typename cpp0x::unique_ptr<menu>::type
+                >::const_iterator
+            >
+            const_iterator;
 
         //! The recursive iterator type.
         typedef recursive_menu_iterator<menu> recursive_iterator;
@@ -312,9 +324,11 @@ namespace tetengo2 { namespace gui
     private:
         // static functions
 
-        static boost::ptr_vector<menu>& empty_children()
+        static std::vector<typename cpp0x::unique_ptr<menu>::type>&
+        empty_children()
         {
-            static boost::ptr_vector<menu> singleton;
+            static std::vector<typename cpp0x::unique_ptr<menu>::type>
+            singleton;
             assert(singleton.empty());
             return singleton;
         }
@@ -337,23 +351,23 @@ namespace tetengo2 { namespace gui
         virtual const_iterator begin_impl()
         const
         {
-            return empty_children().begin();
+            return const_iterator(empty_children().begin());
         }
 
         virtual iterator begin_impl()
         {
-            return empty_children().begin();
+            return iterator(empty_children().begin());
         }
 
         virtual const_iterator end_impl()
         const
         {
-            return empty_children().end();
+            return const_iterator(empty_children().end());
         }
 
         virtual iterator end_impl()
         {
-            return empty_children().end();
+            return iterator(empty_children().end());
         }
 
         virtual const_recursive_iterator recursive_begin_impl()

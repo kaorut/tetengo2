@@ -46,6 +46,7 @@
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/interprocess/smart_ptr/unique_ptr.hpp>
+#include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/transform_iterator.hpp>
@@ -84,8 +85,8 @@
 #include <boost/operators.hpp>
 #include <boost/optional.hpp>
 #include <boost/program_options.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/rational.hpp>
+#include <boost/ref.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/signals2.hpp>
 #include <boost/swap.hpp>

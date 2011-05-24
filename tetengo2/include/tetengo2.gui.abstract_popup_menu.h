@@ -12,8 +12,8 @@
 //#include <cstddef>
 //#include <stdexcept>
 //#include <utility>
+//#include <vector>
 
-//#include <boost/ptr_container/ptr_vector.hpp>
 //#include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x.h"
@@ -113,7 +113,7 @@ namespace tetengo2 { namespace gui
 
         // variables
 
-        boost::ptr_vector<base_type> m_children;
+        std::vector<typename cpp0x::unique_ptr<base_type>::type> m_children;
 
 
         // virtual functions
@@ -121,23 +121,23 @@ namespace tetengo2 { namespace gui
         virtual const_iterator begin_impl()
         const
         {
-            return m_children.begin();
+            return const_iterator(m_children.begin());
         }
 
         virtual iterator begin_impl()
         {
-            return m_children.begin();
+            return iterator(m_children.begin());
         }
 
         virtual const_iterator end_impl()
         const
         {
-            return m_children.end();
+            return const_iterator(m_children.end());
         }
 
         virtual iterator end_impl()
         {
-            return m_children.end();
+            return iterator(m_children.end());
         }
 
         virtual const_recursive_iterator recursive_begin_impl()
@@ -178,14 +178,14 @@ namespace tetengo2 { namespace gui
 
             menu_details_type::insert_menu(*this, offset, *p_menu, encoder());
 
-            m_children.insert(offset, p_menu.release());
+            m_children.insert(offset.base(), std::move(p_menu));
         }
 
         virtual void erase_impl(const iterator first, const iterator last)
         {
             menu_details_type::erase_menus(*this, first, last);
 
-            m_children.erase(first, last);
+            m_children.erase(first.base(), last.base());
         }
 
 
