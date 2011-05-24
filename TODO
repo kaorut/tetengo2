@@ -7,12 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000072
-Added on    : 2011/01/12
-Depends on  : 00000083
-Description : Modify tetengo2::gui::win32::* into tetengo2::gui::*,
-              tetengo2::detail::windows::* and tetengo2::detail::stub::*.
-------------------------------------------------------------------------------
 Number      : 00000090
 Added on    : 2011/02/18
 Depends on  : 00000072
@@ -39,6 +33,16 @@ Depends on  : (none)
 Description : Reorder member functions; From const to non-const.
 ------------------------------------------------------------------------------
 Number      : 00000095
+Added on    : 2011/05/24
+Depends on  : (none)
+Description : Implement test_bobura::command::*.
+------------------------------------------------------------------------------
+Number      : 00000096
+Added on    : 2011/05/24
+Depends on  : (none)
+Description : Implement test_bobura::message::*.
+------------------------------------------------------------------------------
+Number      : 00000097
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
