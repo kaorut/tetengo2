@@ -80,15 +80,15 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Creates an image.
 
-            \tparam PictureReader A picture reader type.
-
-            \param parent         A parent widget.
-            \param picture_reader A picture reader.
+            \param parent    A parent widget.
+            \param p_picture A unique pointer to a picture.
 
             \throw std::runtime_error When an image cannot be created.
         */
-        template <typename PictureReader>
-        image(widget_type& parent, PictureReader& picture_reader)
+        image(
+            widget_type& parent,
+            typename cpp0x::unique_ptr<picture_type>::type p_picture
+        )
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -103,7 +103,7 @@ namespace tetengo2 { namespace gui
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_p_picture(picture_reader.read())
+        m_p_picture(std::move(p_picture))
         {
             initialize_image(this);
         }
@@ -214,6 +214,8 @@ namespace tetengo2 { namespace gui
         void paint_picture(canvas_type& canvas)
         const
         {
+            if (!m_p_picture) return;
+
             canvas.paint_picture(
                 *m_p_picture, position_type(0, 0), this->client_dimension()
             );

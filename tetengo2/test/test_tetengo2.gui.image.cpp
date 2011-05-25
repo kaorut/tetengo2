@@ -226,9 +226,17 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        picture_reader_type picture_reader("image_file");
-        const image_type image(parent, picture_reader);
+        {
+            window_type parent;
+            const image_type image(
+                parent, tetengo2::cpp0x::unique_ptr<picture_type>::type()
+            );
+        }
+        {
+            window_type parent;
+            picture_reader_type picture_reader("image_file");
+            const image_type image(parent, picture_reader.read());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(has_picture)
@@ -238,7 +246,16 @@ BOOST_AUTO_TEST_SUITE(image)
         {
             window_type parent;
             picture_reader_type picture_reader("image_file");
-            const image_type image(parent, picture_reader);
+            const image_type image(
+                parent, tetengo2::cpp0x::unique_ptr<picture_type>::type()
+            );
+
+            BOOST_CHECK(!image.has_picture());
+        }
+        {
+            window_type parent;
+            picture_reader_type picture_reader("image_file");
+            const image_type image(parent, picture_reader.read());
 
             BOOST_CHECK(image.has_picture());
         }
@@ -251,14 +268,32 @@ BOOST_AUTO_TEST_SUITE(image)
         {
             window_type parent;
             picture_reader_type picture_reader("image_file");
-            const image_type image(parent, picture_reader);
+            const image_type image(
+                parent, tetengo2::cpp0x::unique_ptr<picture_type>::type()
+            );
+
+            BOOST_CHECK_THROW(image.picture(), std::logic_error);
+        }
+        {
+            window_type parent;
+            picture_reader_type picture_reader("image_file");
+            image_type image(
+                parent, tetengo2::cpp0x::unique_ptr<picture_type>::type()
+            );
+
+            BOOST_CHECK_THROW(image.picture(), std::logic_error);
+        }
+        {
+            window_type parent;
+            picture_reader_type picture_reader("image_file");
+            const image_type image(parent, picture_reader.read());
 
             image.picture();
         }
         {
             window_type parent;
             picture_reader_type picture_reader("image_file");
-            image_type image(parent, picture_reader);
+            image_type image(parent, picture_reader.read());
 
             image.picture();
         }
@@ -269,10 +304,18 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
+        image_type image(
+            parent, tetengo2::cpp0x::unique_ptr<picture_type>::type()
+        );
+
         picture_reader_type picture_reader("image_file");
-        image_type image(parent, picture_reader);
+        image.set_picture(picture_reader.read());
+
+        BOOST_CHECK(image.has_picture());
 
         image.set_picture(tetengo2::cpp0x::unique_ptr<picture_type>::type());
+
+        BOOST_CHECK(!image.has_picture());
     }
 
     BOOST_AUTO_TEST_CASE(fit_to_content)
@@ -281,7 +324,7 @@ BOOST_AUTO_TEST_SUITE(image)
 
         window_type parent;
         picture_reader_type picture_reader("image_file");
-        image_type image(parent, picture_reader);
+        image_type image(parent, picture_reader.read());
 
         image.fit_to_content();
 

@@ -212,7 +212,7 @@ namespace bobura
                 )
             );
             typename tetengo2::cpp0x::unique_ptr<image_type>::type p_image(
-                new image_type(*this, picture_reader)
+                new image_type(*this, picture_reader.read())
             );
 
             return std::move(p_image);
