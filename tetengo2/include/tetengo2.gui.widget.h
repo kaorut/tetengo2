@@ -50,7 +50,7 @@ namespace tetengo2 { namespace gui
         //! The canvas type.
         typedef typename traits_type::canvas_type canvas_type;
 
-        //! The alerting unary functor type.
+        //! The alert type.
         typedef typename traits_type::alert_type alert_type;
 
         //! The position type.

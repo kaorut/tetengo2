@@ -23,7 +23,7 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The unary functor class template for an alert.
+        \brief The class template for an alert.
 
         \tparam UiEncoder        An encoder type for the user interface.
         \tparam ExceptionEncoder An encoder type for the user interface.
@@ -34,8 +34,7 @@ namespace tetengo2 { namespace gui
         typename ExceptionEncoder,
         typename AlertDetails
     >
-    class alert :
-        public std::unary_function<std::exception, void>
+    class alert : public std::unary_function<std::exception, void>
     {
     public:
         // types

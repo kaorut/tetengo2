@@ -14,11 +14,6 @@ headers = \
     tetengo2.detail.stub.unit.h \
     tetengo2.detail.stub.widget.h \
     tetengo2.encoder.h \
-    tetengo2.generator.h \
-    tetengo2.message_catalog.h \
-    tetengo2.message_catalog_parser.h \
-    tetengo2.messages.h \
-    tetengo2.text.h \
     tetengo2.encoding.encoding.h \
     tetengo2.encoding.ascii.h \
     tetengo2.encoding.locale.h \
@@ -68,8 +63,12 @@ headers = \
     tetengo2.gui.widget.h \
     tetengo2.gui.window.h \
     tetengo2.gui.window_observer_set.h \
+    tetengo2.message_catalog.h \
+    tetengo2.message_catalog_parser.h \
+    tetengo2.messages.h \
     tetengo2.meta.assoc_list.h \
-    tetengo2.operators.h
+    tetengo2.operators.h \
+    tetengo2.text.h
 
 extra_headers = \
     tetengo2.detail.windows.alert.h \

@@ -39,9 +39,6 @@
     <ClInclude Include="include\tetengo2.encoder.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.generator.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.message_catalog.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>

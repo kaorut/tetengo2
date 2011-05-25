@@ -9,11 +9,6 @@ extra_headers =
 sources = \
     master.cpp \
     test_tetengo2.encoder.cpp \
-    test_tetengo2.generator.cpp \
-    test_tetengo2.message_catalog.cpp \
-    test_tetengo2.message_catalog_parser.cpp \
-    test_tetengo2.messages.cpp \
-    test_tetengo2.text.cpp \
     test_tetengo2.encoding.encoding.cpp \
     test_tetengo2.encoding.ascii.cpp \
     test_tetengo2.encoding.locale.cpp \
@@ -54,8 +49,12 @@ sources = \
     test_tetengo2.gui.widget.cpp \
     test_tetengo2.gui.window.cpp \
     test_tetengo2.gui.window_observer_set.cpp \
+    test_tetengo2.message_catalog.cpp \
+    test_tetengo2.message_catalog_parser.cpp \
+    test_tetengo2.messages.cpp \
     test_tetengo2.meta.assoc_list.cpp \
-    test_tetengo2.operators.cpp
+    test_tetengo2.operators.cpp \
+    test_tetengo2.text.cpp
 
 extra_sources =
 

@@ -9,8 +9,6 @@
 #if !defined(BOBURA_MESSAGE_ABOUTDIALOG_H)
 #define BOBURA_MESSAGE_ABOUTDIALOG_H
 
-#include <tetengo2.generator.h>
-
 
 namespace bobura { namespace message { namespace about_dialog
 {
@@ -20,7 +18,7 @@ namespace bobura { namespace message { namespace about_dialog
         \tparam Dialog A dialog type.
     */
     template <typename Dialog>
-    class ok_button_mouse : public tetengo2::generator<void>
+    class ok_button_mouse
     {
     public:
         // types

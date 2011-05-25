@@ -15,7 +15,6 @@
 #include <utility>
 
 #include <tetengo2.cpp0x.h>
-#include <tetengo2.generator.h>
 #include <tetengo2.text.h>
 
 
@@ -27,7 +26,7 @@ namespace bobura { namespace message { namespace main_window
         \tparam Command A command type.
     */
     template <typename Command>
-    class menu : public tetengo2::generator<void>
+    class menu
     {
     public:
         // types

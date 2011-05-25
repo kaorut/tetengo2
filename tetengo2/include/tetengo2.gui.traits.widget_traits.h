@@ -18,7 +18,7 @@ namespace tetengo2 { namespace gui { namespace traits
         \brief The traits class template for a GUI widget.
  
         \tparam Canvas           A canvas type.
-        \tparam Alert            An alerting unary functor type.
+        \tparam Alert            An alert type.
         \tparam Position         A position type.
         \tparam Dimension        A dimension type.
         \tparam String           A string type.
@@ -47,7 +47,7 @@ namespace tetengo2 { namespace gui { namespace traits
         //! The canvas type.
         typedef Canvas canvas_type;
 
-        //! The alerting unary functor type.
+        //! The alert type.
         typedef Alert alert_type;
 
         //! The position type.

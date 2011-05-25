@@ -232,7 +232,6 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.encoding.encoding.cpp" />
     <ClCompile Include="test\test_tetengo2.encoding.locale.cpp" />
     <ClCompile Include="test\test_tetengo2.encoding.utf8.cpp" />
-    <ClCompile Include="test\test_tetengo2.generator.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.abstract_popup_menu.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.abstract_window.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.alert.cpp" />

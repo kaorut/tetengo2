@@ -149,7 +149,6 @@
     <ClInclude Include="include\tetengo2.encoding.encoding.h" />
     <ClInclude Include="include\tetengo2.encoding.locale.h" />
     <ClInclude Include="include\tetengo2.encoding.utf8.h" />
-    <ClInclude Include="include\tetengo2.generator.h" />
     <ClInclude Include="include\tetengo2.gui.abstract_popup_menu.h" />
     <ClInclude Include="include\tetengo2.gui.abstract_window.h" />
     <ClInclude Include="include\tetengo2.gui.alert.h" />

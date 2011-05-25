@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_MESSAGELOOP_H)
 #define TETENGO2_GUI_MESSAGELOOP_H
 
-#include "tetengo2.generator.h"
-
 
 namespace tetengo2 { namespace gui
 {
@@ -21,7 +19,7 @@ namespace tetengo2 { namespace gui
                                    loop.
     */
     template <typename MessageLoopDetails>
-    class message_loop : public tetengo2::generator<int>
+    class message_loop
     {
     public:
         // types

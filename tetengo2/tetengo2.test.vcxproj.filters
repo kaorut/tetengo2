@@ -82,9 +82,6 @@
     <ClCompile Include="test\test_tetengo2.gui.recursive_menu_iterator.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.generator.cpp">
-      <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp">
       <Filter>sources\test_tetengo2::meta</Filter>
     </ClCompile>
