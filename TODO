@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000091
-Added on    : 2011/02/21
-Depends on  : (none)
-Description : Remove tetengo2::generator. Stop using std::unary_function.
-------------------------------------------------------------------------------
 Number      : 00000093
 Added on    : 2011/05/17
 Depends on  : (none)
