@@ -119,6 +119,59 @@ namespace tetengo2 { namespace gui
         // functions
 
         /*!
+            \brief Checks whether a picture is set.
+
+            \retval true  When a picture is set.
+            \retval false Otherwise.
+        */
+        bool has_picture()
+        const
+        {
+            return m_p_picture;
+        }
+
+        /*!
+            \brief Returns the picture.
+
+            \return The picture.
+
+            \throw std::logic_error When no picture is set.
+        */
+        const picture_type& picture()
+        const
+        {
+            if (!m_p_picture)
+                throw std::logic_error("No picture is set.");
+
+            return *m_p_picture;
+        }
+
+        /*!
+            \brief Returns the picture.
+
+            \return The picture.
+        */
+        picture_type& picture()
+        {
+            if (!m_p_picture)
+                throw std::logic_error("No picture is set.");
+
+            return *m_p_picture;
+        }
+
+        /*!
+            \brief Sets a picture.
+
+            \param p_picture A unique pointer to a picture.
+        */
+        void set_picture(
+            typename cpp0x::unique_ptr<picture_type>::type p_picture
+        )
+        {
+            m_p_picture = std::move(p_picture);
+        }
+
+        /*!
             \brief Fit the dimension to the dimension of the picture.
         */
         void fit_to_content()
@@ -153,7 +206,7 @@ namespace tetengo2 { namespace gui
 
         // variables
 
-        const typename cpp0x::unique_ptr<picture_type>::type m_p_picture;
+        typename cpp0x::unique_ptr<picture_type>::type m_p_picture;
 
 
         // functions

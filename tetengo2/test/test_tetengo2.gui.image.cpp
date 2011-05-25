@@ -13,6 +13,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.drawing.h"
@@ -228,6 +229,50 @@ BOOST_AUTO_TEST_SUITE(image)
         window_type parent;
         picture_reader_type picture_reader("image_file");
         const image_type image(parent, picture_reader);
+    }
+
+    BOOST_AUTO_TEST_CASE(has_picture)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type parent;
+            picture_reader_type picture_reader("image_file");
+            const image_type image(parent, picture_reader);
+
+            BOOST_CHECK(image.has_picture());
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(picture)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type parent;
+            picture_reader_type picture_reader("image_file");
+            const image_type image(parent, picture_reader);
+
+            image.picture();
+        }
+        {
+            window_type parent;
+            picture_reader_type picture_reader("image_file");
+            image_type image(parent, picture_reader);
+
+            image.picture();
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(set_picture)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        picture_reader_type picture_reader("image_file");
+        image_type image(parent, picture_reader);
+
+        image.set_picture(tetengo2::cpp0x::unique_ptr<picture_type>::type());
     }
 
     BOOST_AUTO_TEST_CASE(fit_to_content)
