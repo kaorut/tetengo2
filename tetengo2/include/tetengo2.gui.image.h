@@ -80,15 +80,11 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Creates an image.
 
-            \param parent    A parent widget.
-            \param p_picture A unique pointer to a picture.
+            \param parent A parent widget.
 
             \throw std::runtime_error When an image cannot be created.
         */
-        image(
-            widget_type& parent,
-            typename cpp0x::unique_ptr<picture_type>::type p_picture
-        )
+        image(widget_type& parent)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -103,7 +99,7 @@ namespace tetengo2 { namespace gui
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_p_picture(std::move(p_picture))
+        m_p_picture()
         {
             initialize_image(this);
         }

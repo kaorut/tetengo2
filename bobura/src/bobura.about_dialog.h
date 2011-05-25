@@ -205,15 +205,17 @@ namespace bobura
         typename tetengo2::cpp0x::unique_ptr<image_type>::type
         create_application_image()
         {
+            typename tetengo2::cpp0x::unique_ptr<image_type>::type p_image(
+                new image_type(*this)
+            );
+
             picture_reader_type picture_reader(
                 m_settings.image_directory_path() /
                 typename picture_reader_type::path_type::string_type(
                     TETENGO2_TEXT("kuma.png")
                 )
             );
-            typename tetengo2::cpp0x::unique_ptr<image_type>::type p_image(
-                new image_type(*this, picture_reader.read())
-            );
+            p_image->set_picture(picture_reader.read());
 
             return std::move(p_image);
         }
