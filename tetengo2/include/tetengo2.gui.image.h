@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_IMAGE_H
 
 //#include <stdexcept>
+//#include <utility>
 
 #include <boost/bind.hpp>
 
