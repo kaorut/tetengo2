@@ -12,7 +12,6 @@
 //#include <stdexcept>
 
 #include <boost/bind.hpp>
-//#include <boost/ref.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.control.h"
@@ -145,7 +144,7 @@ namespace tetengo2 { namespace gui
                 boost::bind(
                     &canvas_type::calc_text_dimension,
                     _1,
-                    boost::cref(this->text())
+                    tetengo2::cpp0x::cref(this->text())
                 )
             );
         }

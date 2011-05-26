@@ -12,7 +12,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
-#include <functional>
+//#include <functional>
 #include <stdexcept>
 #include <unordered_map>
 #include <utility>
@@ -20,13 +20,14 @@
 
 #include <boost/bind.hpp>
 #include <boost/optional.hpp>
-#include <boost/ref.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
+
+#include "tetengo2.cpp0x.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -475,7 +476,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_COMMAND].push_back(
                 boost::bind(
                     detail::widget::on_command<Widget>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -483,7 +484,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_ERASEBKGND].push_back(
                 boost::bind(
                     detail::widget::on_erase_background<Widget>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -491,7 +492,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLORBTN].push_back(
                 boost::bind(
                     detail::widget::on_control_color<Widget>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -499,7 +500,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLOREDIT].push_back(
                 boost::bind(
                     detail::widget::on_control_color<Widget>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -507,7 +508,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLORLISTBOX].push_back(
                 boost::bind(
                     detail::widget::on_control_color<Widget>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -515,7 +516,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLORSCROLLBAR].push_back(
                 boost::bind(
                     detail::widget::on_control_color<Widget>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -523,7 +524,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLORSTATIC].push_back(
                 boost::bind(
                     detail::widget::on_control_color<Widget>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -531,7 +532,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_PAINT].push_back(
                 boost::bind(
                     detail::widget::on_paint<Widget>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -539,7 +540,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_DESTROY].push_back(
                 boost::bind(
                     detail::widget::on_destroy<Widget>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -547,7 +548,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_NCDESTROY].push_back(
                 boost::bind(
                     detail::widget::on_ncdestroy<Widget, widget_details_type>,
-                    boost::ref(widget),
+                    tetengo2::cpp0x::ref(widget),
                     _1,
                     _2
                 )
@@ -580,7 +581,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_COMMAND].push_back(
                 boost::bind(
                     detail::abstract_window::on_command<AbstractWindow>,
-                    boost::ref(abstract_window),
+                    tetengo2::cpp0x::ref(abstract_window),
                     _1,
                     _2
                 )
@@ -588,7 +589,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_INITMENUPOPUP].push_back(
                 boost::bind(
                     detail::abstract_window::on_initmenupopup<AbstractWindow>,
-                    boost::ref(abstract_window),
+                    tetengo2::cpp0x::ref(abstract_window),
                     _1,
                     _2
                 )
@@ -596,7 +597,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_DESTROY].push_back(
                 boost::bind(
                     detail::abstract_window::on_destroy<AbstractWindow>,
-                    boost::ref(abstract_window),
+                    tetengo2::cpp0x::ref(abstract_window),
                     _1,
                     _2
                 )
@@ -628,7 +629,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_COMMAND].push_back(
                 boost::bind(
                     detail::dialog::on_command<Dialog, widget_details_type>,
-                    boost::ref(dialog),
+                    tetengo2::cpp0x::ref(dialog),
                     _1,
                     _2
                 )
@@ -679,7 +680,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[detail::WM_TETENGO2_CONTROL_COLOR].push_back(
                 boost::bind(
                     detail::control::on_control_color<Control>,
-                    boost::ref(control),
+                    tetengo2::cpp0x::ref(control),
                     _1,
                     _2
                 )
@@ -711,7 +712,7 @@ namespace tetengo2 { namespace detail { namespace windows
             map[detail::WM_TETENGO2_COMMAND].push_back(
                 boost::bind(
                     detail::button::on_tetengo2_command<Button>,
-                    boost::ref(button),
+                    tetengo2::cpp0x::ref(button),
                     _1,
                     _2
                 )
