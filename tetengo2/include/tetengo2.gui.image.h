@@ -12,8 +12,6 @@
 //#include <stdexcept>
 //#include <utility>
 
-#include <boost/bind.hpp>
-
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.control.h"
 
@@ -196,7 +194,11 @@ namespace tetengo2 { namespace gui
             initialize(p_image);
 
             p_image->paint_observer_set().paint().connect(
-                boost::bind(&image::paint_picture, p_image, _1)
+                TETENGO2_CPP0X_BIND(
+                    &image::paint_picture,
+                    p_image,
+                    TETENGO2_CPP0X_PLACEHOLDERS_1
+                )
             );
         }
 

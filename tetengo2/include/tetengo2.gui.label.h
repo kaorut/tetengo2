@@ -11,8 +11,6 @@
 
 //#include <stdexcept>
 
-#include <boost/bind.hpp>
-
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.control.h"
 #include "tetengo2.gui.measure.h"
@@ -141,9 +139,9 @@ namespace tetengo2 { namespace gui
                 canvas_type, dimension_type
             >(
                 *this,
-                boost::bind(
+                TETENGO2_CPP0X_BIND(
                     &canvas_type::calc_text_dimension,
-                    _1,
+                    TETENGO2_CPP0X_PLACEHOLDERS_1,
                     tetengo2::cpp0x::cref(this->text())
                 )
             );

@@ -235,6 +235,7 @@ std::advance                                     iterator
 std::back_inserter                               iterator
 std::basic_ostringstream                         sstream
 std::basic_string                                string
+std::bind                                        functional
 std::codecvt                                     locale
 std::copy                                        algorithm
 std::cref                                        functional
@@ -273,6 +274,16 @@ std::numeric_limits                              limits
 std::ostringstream                               sstream
 std::out_of_range                                stdexcept
 std::pair                                        utility
+std::placeholders::_1                            functional
+std::placeholders::_10                           functional
+std::placeholders::_2                            functional
+std::placeholders::_3                            functional
+std::placeholders::_4                            functional
+std::placeholders::_5                            functional
+std::placeholders::_6                            functional
+std::placeholders::_7                            functional
+std::placeholders::_8                            functional
+std::placeholders::_9                            functional
 std::ptrdiff_t                                   cstddef
 std::ref                                         functional
 std::reference_wrapper                           functional

@@ -15,10 +15,11 @@
 #include <utility>
 #include <vector>
 
-#include <boost/bind.hpp>
 #include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility.hpp>
+//#include <boost/utility.hpp>
+
+#include <tetengo2.cpp0x.h>
 
 
 namespace bobura { namespace model
@@ -173,7 +174,9 @@ namespace bobura { namespace model
             std::for_each(
                 m_trains.begin(),
                 m_trains.end(),
-                boost::bind(insert_train_stop, _1, offset)
+                TETENGO2_CPP0X_BIND(
+                    insert_train_stop, TETENGO2_CPP0X_PLACEHOLDERS_1, offset
+                )
             );
         }
 
@@ -211,7 +214,12 @@ namespace bobura { namespace model
             std::for_each(
                 m_trains.begin(),
                 m_trains.end(),
-                boost::bind(erase_train_stops, _1, first_offset, last_offset)
+                TETENGO2_CPP0X_BIND(
+                    erase_train_stops,
+                    TETENGO2_CPP0X_PLACEHOLDERS_1,
+                    first_offset,
+                    last_offset
+                )
             );
         }
 

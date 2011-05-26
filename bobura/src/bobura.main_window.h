@@ -11,7 +11,6 @@
 
 #include <utility>
 
-#include <boost/bind.hpp>
 #include <boost/mpl/at.hpp>
 
 #include <tetengo2.cpp0x.h>
@@ -182,7 +181,7 @@ namespace bobura
         void set_message_observers()
         {
             this->window_observer_set().destroyed().connect(
-                boost::bind(message_loop_break_type(), 0)
+                TETENGO2_CPP0X_BIND(message_loop_break_type(), 0)
             );
 
             this->paint_observer_set().paint().connect(

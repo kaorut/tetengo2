@@ -20,7 +20,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/bind.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/noncopyable.hpp>
@@ -201,7 +200,9 @@ namespace tetengo2
                 directory_iterator_type(path),
                 directory_iterator_type(),
                 std::back_inserter(catalog_files),
-                boost::bind(&directory_entry_type::path, _1)
+                TETENGO2_CPP0X_BIND(
+                    &directory_entry_type::path, TETENGO2_CPP0X_PLACEHOLDERS_1
+                )
             );
             std::sort(
                 catalog_files.begin(),

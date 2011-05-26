@@ -12,7 +12,6 @@
 //#include <cassert>
 //#include <stdexcept>
 
-#include <boost/bind.hpp>
 //#include <boost/optional.hpp>
 
 #include "tetengo2.cpp0x.h"
@@ -162,7 +161,7 @@ namespace tetengo2 { namespace gui
             parent_window.set_enabled(false);
 
             this->window_observer_set().destroyed().connect(
-                boost::bind(message_loop_break_type(), 0)
+                TETENGO2_CPP0X_BIND(message_loop_break_type(), 0)
             );
             this->set_visible(true);
 
