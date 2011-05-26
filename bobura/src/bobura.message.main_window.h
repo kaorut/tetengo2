@@ -126,7 +126,6 @@ namespace bobura { namespace message { namespace main_window
         void operator()(canvas_type& canvas)
         const
         {
-#if defined(_MSC_VER)
             picture_reader_type reader(
                 m_image_directory_path /
                 typename path_type::string_type(TETENGO2_TEXT("kumakuma.jpg"))
@@ -135,15 +134,13 @@ namespace bobura { namespace message { namespace main_window
                 typename canvas_type::picture_type
             >::type p_pic2(reader.read());
             canvas.paint_picture(*p_pic2, position_type(0, 0));
-#endif
 
             const font_type& dialog_font = font_type::dialog_font();
             canvas.draw_text(dialog_font.family(), position_type(2, 2));
 
-#if defined(_MSC_VER)
             canvas.set_font(
                 font_type(
-                    string_type(TETENGO2_TEXT("‚Ý‚©‚¿‚á‚ñ")),
+                    string_type(TETENGO2_TEXT("Times New Roman")),
                     64,
                     false,
                     true,
@@ -152,9 +149,9 @@ namespace bobura { namespace message { namespace main_window
                 )
             );
             canvas.draw_text(
-                string_type(TETENGO2_TEXT("‚ ‚¢‚¤‚¦‚¨")), position_type(4, 4)
+                string_type(TETENGO2_TEXT("Hello, world")),
+                position_type(4, 4)
             );
-#endif
         }
 
 
