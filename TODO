@@ -23,6 +23,16 @@ Depends on  : (none)
 Description : Implement test_bobura::message::*.
 ------------------------------------------------------------------------------
 Number      : 00000098
+Added on    : 2011/05/26
+Depends on  : (none)
+Description : Replace pointers holding references to reference wrappers.
+------------------------------------------------------------------------------
+Number      : 00000099
+Added on    : 2011/05/26
+Depends on  : (none)
+Description : Make base class destructors protected.
+------------------------------------------------------------------------------
+Number      : 00000100
 Added on    : 2011/mm/yy
 Depends on  : (none)
 Description : 
