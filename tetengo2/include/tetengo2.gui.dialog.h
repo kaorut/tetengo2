@@ -57,7 +57,8 @@ namespace tetengo2 { namespace gui
                 typename traits_type::base_type,
                 widget_details_type,
                 message_handler_details_type
-            > base_type;
+            >
+            base_type;
 
         //! The message loop type.
         typedef typename traits_type::message_loop_type message_loop_type;
@@ -130,16 +131,6 @@ namespace tetengo2 { namespace gui
         // functions
 
         /*!
-            \brief Sets the result.
-
-            \param result A result.
-        */
-        void set_result(const result_type result)
-        {
-            m_result = result;
-        }
-
-        /*!
             \brief Returns the result.
 
             \return The result.
@@ -148,6 +139,16 @@ namespace tetengo2 { namespace gui
         const
         {
             return m_result;
+        }
+
+        /*!
+            \brief Sets the result.
+
+            \param result A result.
+        */
+        void set_result(const result_type result)
+        {
+            m_result = result;
         }
 
         /*!
@@ -189,15 +190,15 @@ namespace tetengo2 { namespace gui
 
         // virtual functions
 
-        virtual boost::optional<details_type&> details_impl()
-        {
-            return boost::optional<details_type&>(*m_p_details);
-        }
-
         virtual boost::optional<const details_type&> details_impl()
         const
         {
             return boost::optional<const details_type&>(*m_p_details);
+        }
+
+        virtual boost::optional<details_type&> details_impl()
+        {
+            return boost::optional<details_type&>(*m_p_details);
         }
 
 

@@ -233,30 +233,6 @@ BOOST_AUTO_TEST_SUITE(dialog)
         );
     }
 
-    BOOST_AUTO_TEST_CASE(set_result)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        {
-            window_type parent;
-            dialog_type dialog(static_cast<window_type::base_type&>(parent));
-
-            dialog.set_result(dialog_type::result_undecided);
-        }
-        {
-            window_type parent;
-            dialog_type dialog(static_cast<window_type::base_type&>(parent));
-
-            dialog.set_result(dialog_type::result_accepted);
-        }
-        {
-            window_type parent;
-            dialog_type dialog(static_cast<window_type::base_type&>(parent));
-
-            dialog.set_result(dialog_type::result_canceled);
-        }
-    }
-
     BOOST_AUTO_TEST_CASE(result)
     {
         BOOST_TEST_PASSPOINT();
@@ -292,6 +268,30 @@ BOOST_AUTO_TEST_SUITE(dialog)
             dialog.set_result(dialog_type::result_canceled);
 
             BOOST_CHECK_EQUAL(dialog.result(), dialog_type::result_canceled);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(set_result)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type parent;
+            dialog_type dialog(static_cast<window_type::base_type&>(parent));
+
+            dialog.set_result(dialog_type::result_undecided);
+        }
+        {
+            window_type parent;
+            dialog_type dialog(static_cast<window_type::base_type&>(parent));
+
+            dialog.set_result(dialog_type::result_accepted);
+        }
+        {
+            window_type parent;
+            dialog_type dialog(static_cast<window_type::base_type&>(parent));
+
+            dialog.set_result(dialog_type::result_canceled);
         }
     }
 

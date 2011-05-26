@@ -194,15 +194,15 @@ namespace
         TETENGO2_CPP0X_NOEXCEPT
         {}
 
-        virtual boost::optional<details_type&> details_impl()
-        {
-            return boost::optional<details_type&>(*m_p_details);
-        }
-
         virtual boost::optional<const details_type&> details_impl()
         const
         {
             return boost::optional<const details_type&>(*m_p_details);
+        }
+
+        virtual boost::optional<details_type&> details_impl()
+        {
+            return boost::optional<details_type&>(*m_p_details);
         }
 
 
@@ -263,12 +263,12 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_window window;
+            const concrete_window window;
 
             BOOST_CHECK_THROW(window.main_menu(), std::logic_error);
         }
         {
-            const concrete_window window;
+            concrete_window window;
 
             BOOST_CHECK_THROW(window.main_menu(), std::logic_error);
         }
@@ -283,17 +283,6 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
             window.main_menu();
 
             const abstract_window_type& const_window = window;
-            const_window.main_menu();
-       }
-       {
-            concrete_window window;
-            const abstract_window_type& const_window = window;
-
-            tetengo2::cpp0x::unique_ptr<main_menu_type>::type p_main_menu(
-                new main_menu_type()
-            );
-            window.set_main_menu(std::move(p_main_menu));
-
             const_window.main_menu();
         }
     }
@@ -320,12 +309,12 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_window window;
+            const concrete_window window;
 
             window.window_observer_set();
         }
         {
-            const concrete_window window;
+            concrete_window window;
 
             window.window_observer_set();
         }

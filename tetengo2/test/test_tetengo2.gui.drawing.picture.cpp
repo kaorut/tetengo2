@@ -84,13 +84,13 @@ BOOST_AUTO_TEST_SUITE(picture)
 
         {
             const canvas_type canvas(42);
-            picture_type picture(dimension_type(123, 456), canvas);
+            const picture_type picture(dimension_type(123, 456), canvas);
 
             picture.details();
         }
         {
             const canvas_type canvas(42);
-            const picture_type picture(dimension_type(123, 456), canvas);
+            picture_type picture(dimension_type(123, 456), canvas);
 
             picture.details();
         }

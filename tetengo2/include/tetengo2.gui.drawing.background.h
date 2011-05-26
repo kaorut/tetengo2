@@ -59,7 +59,8 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        boost::optional<details_type&> details()
+        boost::optional<const details_type&> details()
+        const
         {
             return details_impl();
         }
@@ -69,8 +70,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        boost::optional<const details_type&> details()
-        const
+        boost::optional<details_type&> details()
         {
             return details_impl();
         }

@@ -228,19 +228,6 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \return The detail implementation.
         */
-        boost::optional<details_type&> details()
-        {
-            return
-                !m_p_details.get() ?
-                boost::optional<details_type&>() :
-                boost::optional<details_type&>(*m_p_details);
-        }
-
-        /*!
-            \brief Returns the detail implementation.
-
-            \return The detail implementation.
-        */
         boost::optional<const details_type&> details()
         const
         {
@@ -248,6 +235,19 @@ namespace tetengo2 { namespace gui { namespace drawing
                 !m_p_details.get() ?
                 boost::optional<const details_type&>() :
                 boost::optional<const details_type&>(*m_p_details);
+        }
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        boost::optional<details_type&> details()
+        {
+            return
+                !m_p_details.get() ?
+                boost::optional<details_type&>() :
+                boost::optional<details_type&>(*m_p_details);
         }
 
         

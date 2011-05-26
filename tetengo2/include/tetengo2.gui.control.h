@@ -169,15 +169,15 @@ namespace tetengo2 { namespace gui
 
         // virtual functions
 
-        virtual boost::optional<details_type&> details_impl()
-        {
-            return boost::optional<details_type&>(*m_p_details);
-        }
-
         virtual boost::optional<const details_type&> details_impl()
         const
         {
             return boost::optional<const details_type&>(*m_p_details);
+        }
+
+        virtual boost::optional<details_type&> details_impl()
+        {
+            return boost::optional<details_type&>(*m_p_details);
         }
 
 

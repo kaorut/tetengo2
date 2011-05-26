@@ -200,13 +200,13 @@ namespace
     private:
         tetengo2::cpp0x::unique_ptr<details_type>::type m_p_details;
 
-        virtual boost::optional<details_type&> details_impl()
+        virtual boost::optional<const details_type&> details_impl()
+        const
         {
             return *m_p_details;
         }
 
-        virtual boost::optional<const details_type&> details_impl()
-        const
+        virtual boost::optional<details_type&> details_impl()
         {
             return *m_p_details;
         }
@@ -293,26 +293,6 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(set_enabled)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        {
-            concrete_widget widget;
-
-            widget.set_enabled(true);
-
-            BOOST_CHECK(widget.enabled());
-        }
-        {
-            concrete_widget widget;
-
-            widget.set_enabled(false);
-
-            BOOST_CHECK(!widget.enabled());
-        }
-    }
-
     BOOST_AUTO_TEST_CASE(enabled)
     {
         BOOST_TEST_PASSPOINT();
@@ -333,23 +313,23 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(set_visible)
+    BOOST_AUTO_TEST_CASE(set_enabled)
     {
         BOOST_TEST_PASSPOINT();
 
         {
             concrete_widget widget;
 
-            widget.set_visible(true);
+            widget.set_enabled(true);
 
-            BOOST_CHECK(widget.visible());
+            BOOST_CHECK(widget.enabled());
         }
         {
             concrete_widget widget;
 
-            widget.set_visible(false);
+            widget.set_enabled(false);
 
-            BOOST_CHECK(!widget.visible());
+            BOOST_CHECK(!widget.enabled());
         }
     }
 
@@ -373,25 +353,24 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(create_canvas)
+    BOOST_AUTO_TEST_CASE(set_visible)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_widget widget;
+        {
+            concrete_widget widget;
 
-        widget.create_canvas();
-    }
+            widget.set_visible(true);
 
-    BOOST_AUTO_TEST_CASE(set_position)
-    {
-        BOOST_TEST_PASSPOINT();
+            BOOST_CHECK(widget.visible());
+        }
+        {
+            concrete_widget widget;
 
-        concrete_widget widget;
+            widget.set_visible(false);
 
-        widget.set_position(position_type(123, 456));
-
-        const position_type position = widget.position();
-        BOOST_CHECK(position == position_type(123, 456));
+            BOOST_CHECK(!widget.visible());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(position)
@@ -406,16 +385,16 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_CHECK(position == position_type(123, 456));
     }
 
-    BOOST_AUTO_TEST_CASE(set_dimension)
+    BOOST_AUTO_TEST_CASE(set_position)
     {
         BOOST_TEST_PASSPOINT();
 
         concrete_widget widget;
 
-        widget.set_dimension(dimension_type(123, 456));
+        widget.set_position(position_type(123, 456));
 
-        const dimension_type dimension = widget.dimension();
-        BOOST_CHECK(dimension == dimension_type(123, 456));
+        const position_type position = widget.position();
+        BOOST_CHECK(position == position_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(dimension)
@@ -430,16 +409,16 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_CHECK(dimension == dimension_type(123, 456));
     }
 
-    BOOST_AUTO_TEST_CASE(set_client_dimension)
+    BOOST_AUTO_TEST_CASE(set_dimension)
     {
         BOOST_TEST_PASSPOINT();
 
         concrete_widget widget;
 
-        widget.set_client_dimension(dimension_type(123, 456));
+        widget.set_dimension(dimension_type(123, 456));
 
-        const dimension_type client_dimension = widget.client_dimension();
-        BOOST_CHECK(client_dimension == dimension_type(123, 456));
+        const dimension_type dimension = widget.dimension();
+        BOOST_CHECK(dimension == dimension_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(client_dimension)
@@ -454,15 +433,16 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_CHECK(client_dimension == dimension_type(123, 456));
     }
 
-    BOOST_AUTO_TEST_CASE(set_text)
+    BOOST_AUTO_TEST_CASE(set_client_dimension)
     {
         BOOST_TEST_PASSPOINT();
 
         concrete_widget widget;
 
-        widget.set_text(L"Tetengo");
+        widget.set_client_dimension(dimension_type(123, 456));
 
-        BOOST_CHECK(widget.text() == L"Tetengo");
+        const dimension_type client_dimension = widget.client_dimension();
+        BOOST_CHECK(client_dimension == dimension_type(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(text)
@@ -476,24 +456,15 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_CHECK(widget.text() == L"Tetengo");
     }
 
-    BOOST_AUTO_TEST_CASE(set_background)
+    BOOST_AUTO_TEST_CASE(set_text)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            concrete_widget widget;
+        concrete_widget widget;
 
-            tetengo2::cpp0x::unique_ptr<background_type>::type p_background;
-            widget.set_background(std::move(p_background));
-        }
-        {
-            concrete_widget widget;
+        widget.set_text(L"Tetengo");
 
-            tetengo2::cpp0x::unique_ptr<background_type>::type p_background(
-                new transparent_background_type()
-            );
-            widget.set_background(std::move(p_background));
-        }
+        BOOST_CHECK(widget.text() == L"Tetengo");
     }
 
     BOOST_AUTO_TEST_CASE(background)
@@ -520,7 +491,27 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(set_font)
+    BOOST_AUTO_TEST_CASE(set_background)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_widget widget;
+
+            tetengo2::cpp0x::unique_ptr<background_type>::type p_background;
+            widget.set_background(std::move(p_background));
+        }
+        {
+            concrete_widget widget;
+
+            tetengo2::cpp0x::unique_ptr<background_type>::type p_background(
+                new transparent_background_type()
+            );
+            widget.set_background(std::move(p_background));
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(font)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -534,7 +525,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         BOOST_CHECK(widget.font() == font);
     }
 
-    BOOST_AUTO_TEST_CASE(font)
+    BOOST_AUTO_TEST_CASE(set_font)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -576,6 +567,27 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(erase_background)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_widget widget;
+
+        const tetengo2::cpp0x::unique_ptr<canvas_type>::type p_canvas(
+            widget.create_canvas()
+        );
+        widget.erase_background(*p_canvas);
+    }
+
+    BOOST_AUTO_TEST_CASE(create_canvas)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_widget widget;
+
+        widget.create_canvas();
+    }
+
     BOOST_AUTO_TEST_CASE(click)
     {
         BOOST_TEST_PASSPOINT();
@@ -590,18 +602,6 @@ BOOST_AUTO_TEST_SUITE(widget)
 
             widget.click();
         }
-    }
-
-    BOOST_AUTO_TEST_CASE(erase_background)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const concrete_widget widget;
-
-        const tetengo2::cpp0x::unique_ptr<canvas_type>::type p_canvas(
-            widget.create_canvas()
-        );
-        widget.erase_background(*p_canvas);
     }
 
     BOOST_AUTO_TEST_CASE(paint_observer_set)

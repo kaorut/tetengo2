@@ -44,19 +44,19 @@ namespace tetengo2 { namespace gui
         //! The base type.
         typedef menu<traits_type, menu_details_type> base_type;
 
-        //! The iterator type.
-        typedef typename base_type::iterator iterator;
-
         //! The const iterator type.
         typedef typename base_type::const_iterator const_iterator;
 
-        //! The recursive iterator type.
-        typedef typename base_type::recursive_iterator recursive_iterator;
+        //! The iterator type.
+        typedef typename base_type::iterator iterator;
 
         //! The const recursive iterator type.
         typedef
             typename base_type::const_recursive_iterator
             const_recursive_iterator;
+
+        //! The recursive iterator type.
+        typedef typename base_type::recursive_iterator recursive_iterator;
 
         //! The detail implementation type.
         typedef typename menu_details_type::menu_details_type details_type;

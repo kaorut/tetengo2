@@ -96,15 +96,6 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // virtual functions
 
-        virtual boost::optional<details_type&>
-        details_impl()
-        {
-            return
-                !m_p_details ?
-                boost::optional<details_type&>() :
-                boost::optional<details_type&>(*m_p_details);
-        }
-
         virtual boost::optional<const details_type&>
         details_impl()
         const
@@ -113,6 +104,15 @@ namespace tetengo2 { namespace gui { namespace drawing
                 !m_p_details ?
                 boost::optional<const details_type&>() :
                 boost::optional<const details_type&>(*m_p_details);
+        }
+
+        virtual boost::optional<details_type&>
+        details_impl()
+        {
+            return
+                !m_p_details ?
+                boost::optional<details_type&>() :
+                boost::optional<details_type&>(*m_p_details);
         }
 
 

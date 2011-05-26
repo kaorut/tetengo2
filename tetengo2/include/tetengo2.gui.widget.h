@@ -147,7 +147,8 @@ namespace tetengo2 { namespace gui
 
             \throw std::logic_error When the widget has no parent.
         */
-        widget& parent()
+        const widget& parent()
+        const
         {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
@@ -162,26 +163,12 @@ namespace tetengo2 { namespace gui
 
             \throw std::logic_error When the widget has no parent.
         */
-        const widget& parent()
-        const
+        widget& parent()
         {
             if (!has_parent())
                 BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
 
             return widget_details_type::parent(*this);
-        }
-
-        /*!
-            \brief Returns the root ancestor.
-
-            \return The root ancestor.
-        */
-        widget& root_ancestor()
-        {
-            if (!has_parent())
-                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
-
-            return widget_details_type::root_ancestor(*this);
         }
 
         /*!
@@ -199,13 +186,16 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Sets an enabled status.
+            \brief Returns the root ancestor.
 
-            \param enabled An enabled status.
+            \return The root ancestor.
         */
-        void set_enabled(const bool enabled)
+        widget& root_ancestor()
         {
-            widget_details_type::set_enabled(*this, enabled);
+            if (!has_parent())
+                BOOST_THROW_EXCEPTION(std::logic_error("Has no parent."));
+
+            return widget_details_type::root_ancestor(*this);
         }
 
         /*!
@@ -220,13 +210,13 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Sets a visible status.
+            \brief Sets an enabled status.
 
-            \param visible A visible status.
+            \param enabled An enabled status.
         */
-        void set_visible(const bool visible)
+        void set_enabled(const bool enabled)
         {
-            widget_details_type::set_visible(*this, visible);
+            widget_details_type::set_enabled(*this, enabled);
         }
 
         /*!
@@ -241,15 +231,25 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Creates a canvas.
+            \brief Sets a visible status.
 
-            \return The auto pointer to a canvas.
+            \param visible A visible status.
         */
-        typename cpp0x::unique_ptr<canvas_type>::type create_canvas()
+        void set_visible(const bool visible)
+        {
+            widget_details_type::set_visible(*this, visible);
+        }
+
+        /*!
+            \brief Returns the position.
+
+            \return The position.
+        */
+        position_type position()
         const
         {
-            return typename cpp0x::unique_ptr<canvas_type>::type(
-                new canvas_type(*details())
+            return widget_details_type::template position<position_type>(
+                *this
             );
         }
 
@@ -269,14 +269,14 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Returns the position.
+            \brief Returns the dimension.
 
-            \return The position.
+            \return The dimension.
         */
-        position_type position()
+        dimension_type dimension()
         const
         {
-            return widget_details_type::template position<position_type>(
+            return widget_details_type::template dimension<dimension_type>(
                 *this
             );
         }
@@ -310,16 +310,16 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Returns the dimension.
+            \brief Returns the client dimension.
 
-            \return The dimension.
+            \return The client dimension.
         */
-        dimension_type dimension()
+        dimension_type client_dimension()
         const
         {
-            return widget_details_type::template dimension<dimension_type>(
-                *this
-            );
+            return widget_details_type::template client_dimension<
+                dimension_type
+            >(*this);
         }
 
         /*!
@@ -352,16 +352,16 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Returns the client dimension.
+            \brief Retuns the text.
 
-            \return The client dimension.
+            \return The text.
         */
-        dimension_type client_dimension()
+        string_type text()
         const
         {
-            return widget_details_type::template client_dimension<
-                dimension_type
-            >(*this);
+            return widget_details_type::template text<string_type>(
+                *this, encoder()
+            );
         }
 
         /*!
@@ -377,34 +377,6 @@ namespace tetengo2 { namespace gui
             widget_details_type::set_text(
                 *this, std::forward<S>(text), encoder()
             );
-        }
-
-        /*!
-            \brief Retuns the text.
-
-            \return The text.
-        */
-        string_type text()
-        const
-        {
-            return widget_details_type::template text<string_type>(
-                *this, encoder()
-            );
-        }
-
-        /*!
-            \brief Sets a background.
-
-            When p_background points to NULL, the system default background is
-            used.
-
-            \param p_background A unique pointer to a background.
-        */
-        void set_background(
-            typename cpp0x::unique_ptr<background_type>::type p_background
-        )
-        {
-            m_p_background = std::move(p_background);
         }
 
         /*!
@@ -425,15 +397,18 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Sets a font.
+            \brief Sets a background.
 
-            \param font A font.
+            When p_background points to NULL, the system default background is
+            used.
 
-            \throw std::runtime_error When the font cannot be set.
+            \param p_background A unique pointer to a background.
         */
-        void set_font(const font_type& font)
+        void set_background(
+            typename cpp0x::unique_ptr<background_type>::type p_background
+        )
         {
-            widget_details_type::set_font(*this, font);
+            m_p_background = std::move(p_background);
         }
 
         /*!
@@ -448,15 +423,15 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Returns the children.
+            \brief Sets a font.
 
-            \return The children.
+            \param font A font.
+
+            \throw std::runtime_error When the font cannot be set.
         */
-        std::vector<
-            typename tetengo2::cpp0x::reference_wrapper<child_type>::type
-        > children()
+        void set_font(const font_type& font)
         {
-            return widget_details_type::template children<child_type>(*this);
+            widget_details_type::set_font(*this, font);
         }
 
         /*!
@@ -477,20 +452,15 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
-            \brief Clicks this widget.
-        */
-        void click()
-        const
-        {
-            m_mouse_observer_set.clicked()();
-        }
+            \brief Returns the children.
 
-        /*!
-            \brief Clicks this widget.
+            \return The children.
         */
-        void click()
+        std::vector<
+            typename tetengo2::cpp0x::reference_wrapper<child_type>::type
+        > children()
         {
-            m_mouse_observer_set.clicked()();
+            return widget_details_type::template children<child_type>(*this);
         }
 
         /*!
@@ -506,6 +476,36 @@ namespace tetengo2 { namespace gui
             canvas.fill_rectangle(
                 position_type(0, 0), client_dimension(), *background()
             );
+        }
+
+        /*!
+            \brief Creates a canvas.
+
+            \return The auto pointer to a canvas.
+        */
+        typename cpp0x::unique_ptr<canvas_type>::type create_canvas()
+        const
+        {
+            return typename cpp0x::unique_ptr<canvas_type>::type(
+                new canvas_type(*details())
+            );
+        }
+
+        /*!
+            \brief Clicks this widget.
+        */
+        void click()
+        const
+        {
+            m_mouse_observer_set.clicked()();
+        }
+
+        /*!
+            \brief Clicks this widget.
+        */
+        void click()
+        {
+            m_mouse_observer_set.clicked()();
         }
 
         /*!
@@ -577,7 +577,8 @@ namespace tetengo2 { namespace gui
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        boost::optional<details_type&> details()
+        boost::optional<const details_type&> details()
+        const
         {
             if (m_destroyed)
             {
@@ -596,8 +597,7 @@ namespace tetengo2 { namespace gui
 
             \throw std::runtime_error When the widget is already destroyed.
         */
-        boost::optional<const details_type&> details()
-        const
+        boost::optional<details_type&> details()
         {
             if (m_destroyed)
             {
@@ -697,11 +697,11 @@ namespace tetengo2 { namespace gui
 
         // virtual functions
 
-        virtual boost::optional<details_type&> details_impl()
-        = 0;
-
         virtual boost::optional<const details_type&> details_impl()
         const
+        = 0;
+
+        virtual boost::optional<details_type&> details_impl()
         = 0;
 
 

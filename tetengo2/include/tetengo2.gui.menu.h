@@ -52,15 +52,6 @@ namespace tetengo2 { namespace gui
             typename traits_type::menu_observer_set_type
             menu_observer_set_type;
 
-        //! The iterator type.
-        typedef
-            boost::indirect_iterator<
-                typename std::vector<
-                    typename cpp0x::unique_ptr<menu>::type
-                >::iterator
-            >
-            iterator;
-
         //! The const iterator type.
         typedef
             boost::indirect_iterator<
@@ -70,11 +61,20 @@ namespace tetengo2 { namespace gui
             >
             const_iterator;
 
-        //! The recursive iterator type.
-        typedef recursive_menu_iterator<menu> recursive_iterator;
+        //! The iterator type.
+        typedef
+            boost::indirect_iterator<
+                typename std::vector<
+                    typename cpp0x::unique_ptr<menu>::type
+                >::iterator
+            >
+            iterator;
 
         //! The const recursive iterator type.
         typedef recursive_menu_iterator<const menu> const_recursive_iterator;
+
+        //! The recursive iterator type.
+        typedef recursive_menu_iterator<menu> recursive_iterator;
 
         //! The detail implementation type of a menu.
         typedef MenuDetails menu_details_type;
@@ -278,19 +278,6 @@ namespace tetengo2 { namespace gui
 
             \return The detail implementation.
         */
-        boost::optional<details_type&> details()
-        {
-            return
-                !m_p_details.get() ?
-                boost::optional<details_type&>() :
-                boost::optional<details_type&>(*m_p_details);
-        }
-
-        /*!
-            \brief Returns the detail implementation.
-
-            \return The detail implementation.
-        */
         boost::optional<const details_type&> details()
         const
         {
@@ -298,6 +285,19 @@ namespace tetengo2 { namespace gui
                 !m_p_details.get() ?
                 boost::optional<const details_type&>() :
                 boost::optional<const details_type&>(*m_p_details);
+        }
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        boost::optional<details_type&> details()
+        {
+            return
+                !m_p_details.get() ?
+                boost::optional<details_type&>() :
+                boost::optional<details_type&>(*m_p_details);
         }
 
 

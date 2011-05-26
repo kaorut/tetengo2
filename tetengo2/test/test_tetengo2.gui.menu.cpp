@@ -218,6 +218,22 @@ BOOST_AUTO_TEST_SUITE(menu)
         //menu.erase(menu.begin(), menu.begin());
     }
 
+    BOOST_AUTO_TEST_CASE(details)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_menu menu(std::string("Tetengo"));
+
+            menu.details();
+        }
+        {
+            concrete_menu menu(std::string("Tetengo"));
+
+            menu.details();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

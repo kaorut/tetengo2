@@ -119,7 +119,8 @@ namespace tetengo2 { namespace gui
             \throw std::logic_error When the abstract window does not have a
                                     main menu.
         */
-        main_menu_type& main_menu()
+        const main_menu_type& main_menu()
+        const
         {
             if(!has_main_menu())
             {
@@ -139,8 +140,7 @@ namespace tetengo2 { namespace gui
             \throw std::logic_error When the abstract window does not have a
                                     main menu.
         */
-        const main_menu_type& main_menu()
-        const
+        main_menu_type& main_menu()
         {
             if(!has_main_menu())
             {
