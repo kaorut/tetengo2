@@ -6,7 +6,14 @@
     $Id$
 */
 
+#include <string>
+#include <utility>
+#include <vector>
+
+#include <boost/filesystem/path.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include "test_bobura.types.h"
 
 #include "bobura.command.about.h"
 
@@ -18,7 +25,16 @@ BOOST_AUTO_TEST_SUITE(about)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        const message_catalog_type message_catalog;
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
+        const bobura::command::about<about_dialog_type> about(
+            parent, message_catalog,settings
+        );
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
