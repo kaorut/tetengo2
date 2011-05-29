@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000094
-Added on    : 2011/05/17
-Depends on  : (none)
-Description : Reorder member functions; From const to non-const.
-------------------------------------------------------------------------------
 Number      : 00000095
 Added on    : 2011/05/24
 Depends on  : (none)
