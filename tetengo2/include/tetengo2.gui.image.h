@@ -197,7 +197,7 @@ namespace tetengo2 { namespace gui
                 TETENGO2_CPP0X_BIND(
                     &image::paint_picture,
                     p_image,
-                    TETENGO2_CPP0X_PLACEHOLDERS_1
+                    tetengo2::cpp0x::placeholders_1()
                 )
             );
         }

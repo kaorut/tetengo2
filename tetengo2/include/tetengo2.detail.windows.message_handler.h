@@ -239,7 +239,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         same_menu<
                             typename main_menu_type::base_type::base_type
                         >,
-                        TETENGO2_CPP0X_PLACEHOLDERS_1,
+                        tetengo2::cpp0x::placeholders_1(),
                         id
                     )
                 );
@@ -272,7 +272,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         same_popup_menu<
                             typename main_menu_type::base_type::base_type
                         >,
-                        TETENGO2_CPP0X_PLACEHOLDERS_1,
+                        tetengo2::cpp0x::placeholders_1(),
                         handle
                     )
                 );
@@ -476,80 +476,80 @@ namespace tetengo2 { namespace detail { namespace windows
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_command<Widget>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_ERASEBKGND].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_erase_background<Widget>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_CTLCOLORBTN].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_control_color<Widget>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_CTLCOLOREDIT].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_control_color<Widget>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_CTLCOLORLISTBOX].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_control_color<Widget>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_CTLCOLORSCROLLBAR].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_control_color<Widget>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_CTLCOLORSTATIC].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_control_color<Widget>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_PAINT].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_paint<Widget>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_DESTROY].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_destroy<Widget>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_NCDESTROY].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_ncdestroy<Widget, widget_details_type>,
                     tetengo2::cpp0x::ref(widget),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
 
@@ -581,24 +581,24 @@ namespace tetengo2 { namespace detail { namespace windows
                 TETENGO2_CPP0X_BIND(
                     detail::abstract_window::on_command<AbstractWindow>,
                     tetengo2::cpp0x::ref(abstract_window),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_INITMENUPOPUP].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::abstract_window::on_initmenupopup<AbstractWindow>,
                     tetengo2::cpp0x::ref(abstract_window),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
             map[WM_DESTROY].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::abstract_window::on_destroy<AbstractWindow>,
                     tetengo2::cpp0x::ref(abstract_window),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
 
@@ -629,8 +629,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 TETENGO2_CPP0X_BIND(
                     detail::dialog::on_command<Dialog, widget_details_type>,
                     tetengo2::cpp0x::ref(dialog),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
 
@@ -680,8 +680,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 TETENGO2_CPP0X_BIND(
                     detail::control::on_control_color<Control>,
                     tetengo2::cpp0x::ref(control),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
 
@@ -712,8 +712,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 TETENGO2_CPP0X_BIND(
                     detail::button::on_tetengo2_command<Button>,
                     tetengo2::cpp0x::ref(button),
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
-                    TETENGO2_CPP0X_PLACEHOLDERS_2
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
                 )
             );
 

@@ -175,7 +175,9 @@ namespace bobura { namespace model
                 m_trains.begin(),
                 m_trains.end(),
                 TETENGO2_CPP0X_BIND(
-                    insert_train_stop, TETENGO2_CPP0X_PLACEHOLDERS_1, offset
+                    insert_train_stop,
+                    tetengo2::cpp0x::placeholders_1(),
+                    offset
                 )
             );
         }
@@ -216,7 +218,7 @@ namespace bobura { namespace model
                 m_trains.end(),
                 TETENGO2_CPP0X_BIND(
                     erase_train_stops,
-                    TETENGO2_CPP0X_PLACEHOLDERS_1,
+                    tetengo2::cpp0x::placeholders_1(),
                     first_offset,
                     last_offset
                 )
