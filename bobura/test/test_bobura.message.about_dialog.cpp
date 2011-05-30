@@ -8,6 +8,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "test_bobura.types.h"
+
 #include "bobura.message.about_dialog.h"
 
 
@@ -19,12 +21,24 @@ BOOST_AUTO_TEST_SUITE(ok_button_mouse_observer)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        dialog_type dialog(parent);
+        const bobura::message::about_dialog::ok_button_mouse<dialog_type>
+        observer(dialog);
     }
 
     BOOST_AUTO_TEST_CASE(clicked)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        dialog_type dialog(parent);
+        const bobura::message::about_dialog::ok_button_mouse<dialog_type>
+        observer(dialog);
+
+        observer();
     }
 
 
