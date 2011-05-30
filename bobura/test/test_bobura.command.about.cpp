@@ -33,13 +33,24 @@ BOOST_AUTO_TEST_SUITE(about)
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
         const bobura::command::about<about_dialog_type> about(
-            parent, message_catalog,settings
+            parent, message_catalog, settings
         );
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        const message_catalog_type message_catalog;
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
+        bobura::command::about<about_dialog_type> about(
+            parent, message_catalog, settings
+        );
+
+        about();
     }
 
 
