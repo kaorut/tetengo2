@@ -8,6 +8,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "test_bobura.types.h"
+
 #include "bobura.command.exit.h"
 
 
@@ -18,12 +20,20 @@ BOOST_AUTO_TEST_SUITE(exit)
 
     BOOST_AUTO_TEST_CASE(construction)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        const bobura::command::exit<window_type> exit(window);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        BOOST_TEST_PASSPOINT();
+
+        window_type window;
+        bobura::command::exit<window_type> exit(window);
+
+        exit();
     }
 
 
