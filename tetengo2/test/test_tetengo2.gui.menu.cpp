@@ -48,7 +48,7 @@ namespace
     class concrete_menu : public menu_type
     {
     public:
-        // constructors and destructors
+        // constructors and destructor
 
         concrete_menu(std::string&& text)
         :

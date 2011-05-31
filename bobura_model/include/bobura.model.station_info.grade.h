@@ -32,16 +32,6 @@ namespace bobura { namespace model { namespace station_info
         typedef GradeName name_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the grade.
-        */
-        virtual ~grade()
-        TETENGO2_CPP0X_NOEXCEPT
-        {}
-
-
         // functions
 
         /*!
@@ -57,12 +47,19 @@ namespace bobura { namespace model { namespace station_info
 
 
     protected:
-        // constructors
+        // constructors and destructor
 
         /*!
             \brief Creates a grade.
         */
         grade()
+        {}
+
+        /*!
+            \brief Destroys the grade.
+        */
+        virtual ~grade()
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 
@@ -106,20 +103,14 @@ namespace bobura { namespace model { namespace station_info
         }
 
 
+    private:
         // constructors and destructor
 
-        /*!
-            \brief Destroys the local.
-        */
-        virtual ~local()
-        TETENGO2_CPP0X_NOEXCEPT
+        local()
         {}
 
-
-    private:
-        // constructors
-
-        local()
+        virtual ~local()
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 
@@ -167,20 +158,14 @@ namespace bobura { namespace model { namespace station_info
         }
 
 
+    private:
         // constructors and destructor
 
-        /*!
-            \brief Destroys the principal.
-        */
-        virtual ~principal()
-        TETENGO2_CPP0X_NOEXCEPT
+        principal()
         {}
 
-
-    private:
-        // constructors
-
-        principal()
+        virtual ~principal()
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 
@@ -228,20 +213,14 @@ namespace bobura { namespace model { namespace station_info
         }
 
 
+    private:
         // constructors and destructor
 
-        /*!
-            \brief Destroys the local terminal.
-        */
-        virtual ~local_terminal()
-        TETENGO2_CPP0X_NOEXCEPT
+        local_terminal()
         {}
 
-
-    private:
-        // constructors
-
-        local_terminal()
+        virtual ~local_terminal()
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 
@@ -289,20 +268,14 @@ namespace bobura { namespace model { namespace station_info
         }
 
 
+    private:
         // constructors and destructor
 
-        /*!
-            \brief Destroys the principal terminal.
-        */
-        virtual ~principal_terminal()
-        TETENGO2_CPP0X_NOEXCEPT
+        principal_terminal()
         {}
 
-
-    private:
-        // constructors
-
-        principal_terminal()
+        virtual ~principal_terminal()
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

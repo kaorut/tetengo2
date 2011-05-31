@@ -55,7 +55,7 @@ namespace
     class concrete_popup_menu : public abstract_popup_menu_type
     {
     public:
-        // constructors and destructors
+        // constructors and destructor
 
         concrete_popup_menu(std::string&& text)
         :
