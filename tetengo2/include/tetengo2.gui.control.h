@@ -72,16 +72,6 @@ namespace tetengo2 { namespace gui
             details_ptr_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the control.
-        */
-        virtual ~control()
-        TETENGO2_CPP0X_NOEXCEPT
-        {}
-
-
         // functions
 
         /*!
@@ -127,7 +117,7 @@ namespace tetengo2 { namespace gui
             message_handler_map_type;
 
 
-        // constructors
+        // constructors and destructor
 
         /*!
             \brief Creates a control.
@@ -156,6 +146,13 @@ namespace tetengo2 { namespace gui
 #endif
         m_p_details(std::move(p_details)),
         m_text_color()
+        {}
+
+        /*!
+            \brief Destroys the control.
+        */
+        virtual ~control()
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

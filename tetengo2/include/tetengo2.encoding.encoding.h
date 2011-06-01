@@ -34,7 +34,7 @@ namespace tetengo2 { namespace encoding
 
 
     protected:
-        // constructors
+        // constructors and destructor
 
         /*!
             \brief Creates an encoding.

@@ -79,16 +79,6 @@ namespace tetengo2 { namespace gui
             details_ptr_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the abstract window.
-        */
-        virtual ~abstract_window()
-        TETENGO2_CPP0X_NOEXCEPT
-        {}
-
-
         // functions
 
         /*!
@@ -217,7 +207,7 @@ namespace tetengo2 { namespace gui
             message_handler_map_type;
 
 
-        // constructors
+        // constructors and destructor
 
         /*!
             \brief Creates an abstract window.
@@ -243,6 +233,13 @@ namespace tetengo2 { namespace gui
 #endif
         m_p_main_menu(),
         m_window_observer_set()
+        {}
+
+        /*!
+            \brief Destroys the abstract window.
+        */
+        virtual ~abstract_window()
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

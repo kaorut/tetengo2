@@ -331,7 +331,7 @@ namespace bobura { namespace model { namespace train_info
         }
 
 
-        // constructors
+        // constructors and destructor
 
         time()
         :

@@ -77,7 +77,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
 
     protected:
-        // constructors
+        // constructors and destructor
 
         /*!
             \brief Creates a background.

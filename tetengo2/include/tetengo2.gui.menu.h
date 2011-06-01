@@ -302,7 +302,7 @@ namespace tetengo2 { namespace gui
 
 
     protected:
-        // constructors
+        // constructors and destructor
 
         /*!
             \brief Creates a menu.

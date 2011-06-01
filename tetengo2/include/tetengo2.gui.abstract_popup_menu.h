@@ -67,18 +67,8 @@ namespace tetengo2 { namespace gui
             details_ptr_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Destroys the abstract_popup_menu.
-        */
-        virtual ~abstract_popup_menu()
-        TETENGO2_CPP0X_NOEXCEPT
-        {}
-
-
     protected:
-        // constructors
+        // constructors and destructor
 
         /*!
             \brief Creates a abstract_popup_menu.
@@ -93,6 +83,13 @@ namespace tetengo2 { namespace gui
         :
         base_type(std::forward<S>(text), std::move(p_details)),
         m_children()
+        {}
+
+        /*!
+            \brief Destroys the abstract_popup_menu.
+        */
+        virtual ~abstract_popup_menu()
+        TETENGO2_CPP0X_NOEXCEPT
         {}
 
 

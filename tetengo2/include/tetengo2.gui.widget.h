@@ -652,7 +652,7 @@ namespace tetengo2 { namespace gui
         }
 
 
-        // constructors
+        // constructors and destructor
 
         /*!
             \brief Creates a widget.

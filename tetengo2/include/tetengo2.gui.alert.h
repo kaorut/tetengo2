@@ -54,7 +54,7 @@ namespace tetengo2 { namespace gui
             widget_handle_type;
 
 
-        // constructors
+        // constructors and destructor
 
         /*!
             \brief Creates an alert.
