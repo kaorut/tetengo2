@@ -9,6 +9,8 @@
 #if !defined(BOBURA_COMMAND_ABOUT_H)
 #define BOBURA_COMMAND_ABOUT_H
 
+#include <tetengo2.cpp0x.h>
+
 
 namespace bobura { namespace command
 {
@@ -55,9 +57,9 @@ namespace bobura { namespace command
             const settings_type&        settings
         )
         :
-        m_p_parent(&parent),
-        m_p_message_catalog(&message_catalog),
-        m_p_settings(&settings)
+        m_parent(parent),
+        m_message_catalog(message_catalog),
+        m_settings(settings)
         {}
 
 
@@ -69,7 +71,7 @@ namespace bobura { namespace command
         void operator()()
         {
             about_dialog_type(
-                *m_p_parent, *m_p_message_catalog, *m_p_settings
+                m_parent, m_message_catalog, m_settings
             ).do_modal();
         }
 
@@ -77,11 +79,16 @@ namespace bobura { namespace command
     private:
         // variables
 
-        abstract_window_type* m_p_parent;
+        typename tetengo2::cpp0x::reference_wrapper<
+            abstract_window_type
+        >::type m_parent;
 
-        const message_catalog_type* m_p_message_catalog;
+        typename tetengo2::cpp0x::reference_wrapper<
+            const message_catalog_type
+        >::type m_message_catalog;
 
-        const settings_type* m_p_settings;
+        typename tetengo2::cpp0x::reference_wrapper<const settings_type>::type
+        m_settings;
 
 
     };

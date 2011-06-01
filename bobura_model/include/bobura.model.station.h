@@ -14,6 +14,8 @@
 
 #include <boost/operators.hpp>
 
+#include <tetengo2.cpp0x.h>
+
 
 namespace bobura { namespace model
 {
@@ -50,7 +52,7 @@ namespace bobura { namespace model
         station(N&& name, const grade_type& grade)
         :
         m_name(std::forward<N>(name)),
-        m_p_grade(&grade)
+        m_grade(grade)
         {}
 
 
@@ -68,7 +70,7 @@ namespace bobura { namespace model
         friend bool operator==(const station& one, const station& another)
         {
             return one.m_name == another.m_name &&
-                   one.m_p_grade == another.m_p_grade;
+                   &one.m_grade.get() == &another.m_grade.get();
         }
 
         /*!
@@ -90,8 +92,7 @@ namespace bobura { namespace model
         const grade_type& grade()
         const
         {
-            assert(m_p_grade);
-            return *m_p_grade;
+            return m_grade;
         }
 
 
@@ -100,7 +101,8 @@ namespace bobura { namespace model
 
         name_type m_name;
 
-        const grade_type* m_p_grade;
+        typename tetengo2::cpp0x::reference_wrapper<const grade_type>::type
+        m_grade;
 
 
     };
