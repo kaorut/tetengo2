@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000098
-Added on    : 2011/05/26
-Depends on  : (none)
-Description : Replace pointers holding references to reference wrappers.
-------------------------------------------------------------------------------
 Number      : 00000100
 Added on    : 2011/mm/yy
 Depends on  : (none)
