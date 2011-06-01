@@ -9,7 +9,6 @@
 #if !defined(BOBURA_MODEL_STATION_H)
 #define BOBURA_MODEL_STATION_H
 
-#include <cassert>
 #include <utility>
 
 #include <boost/operators.hpp>
