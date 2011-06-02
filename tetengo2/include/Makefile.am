@@ -5,6 +5,7 @@
 headers = \
     tetengo2.cpp0x.h \
     tetengo2.detail.stub.alert.h \
+    tetengo2.detail.stub.cursor.h \
     tetengo2.detail.stub.drawing.h \
     tetengo2.detail.stub.encoding.h \
     tetengo2.detail.stub.gui_fixture.h \
@@ -23,6 +24,7 @@ headers = \
     tetengo2.gui.alert.h \
     tetengo2.gui.button.h \
     tetengo2.gui.control.h \
+    tetengo2.gui.cursor.h \
     tetengo2.gui.dialog.h \
     tetengo2.gui.dialog_message_loop.h \
     tetengo2.gui.drawing.background.h \
@@ -49,6 +51,7 @@ headers = \
     tetengo2.gui.paint_observer_set.h \
     tetengo2.gui.popup_menu.h \
     tetengo2.gui.recursive_menu_iterator.h \
+    tetengo2.gui.system_cursor.h \
     tetengo2.gui.traits.abstract_window_traits.h \
     tetengo2.gui.traits.button_traits.h \
     tetengo2.gui.traits.control_traits.h \
@@ -72,6 +75,7 @@ headers = \
 
 extra_headers = \
     tetengo2.detail.windows.alert.h \
+    tetengo2.detail.windows.cursor.h \
     tetengo2.detail.windows.encoding.h \
     tetengo2.detail.windows.font.h \
     tetengo2.detail.windows.gdiplus.drawing.h \

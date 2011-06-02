@@ -18,6 +18,7 @@ sources = \
     test_tetengo2.gui.alert.cpp \
     test_tetengo2.gui.button.cpp \
     test_tetengo2.gui.control.cpp \
+    test_tetengo2.gui.cursor.cpp \
     test_tetengo2.gui.dialog.cpp \
     test_tetengo2.gui.dialog_message_loop.cpp \
     test_tetengo2.gui.drawing.background.cpp \
@@ -44,6 +45,7 @@ sources = \
     test_tetengo2.gui.paint_observer_set.cpp \
     test_tetengo2.gui.popup_menu.cpp \
     test_tetengo2.gui.recursive_menu_iterator.cpp \
+    test_tetengo2.gui.system_cursor.cpp \
     test_tetengo2.gui.unit.em.cpp \
     test_tetengo2.gui.unit.pixel.cpp \
     test_tetengo2.gui.widget.cpp \
