@@ -97,7 +97,7 @@ namespace tetengo2 { namespace gui
             C&& text_color /* = boost::optional<color_type>() */
         )
         {
-            m_text_color = text_color;
+            m_text_color = std::forward<C>(text_color);
         }
 
 #if !defined(DOCUMENTATION)
