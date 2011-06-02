@@ -250,7 +250,7 @@ namespace tetengo2 { namespace gui { namespace drawing
                 boost::optional<details_type&>(*m_p_details);
         }
 
-        
+
     protected:
         // constructors and destructor
 

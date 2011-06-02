@@ -50,13 +50,13 @@ namespace tetengo2 { namespace detail { namespace windows
         VER_SET_CONDITION(condition, VER_SERVICEPACKMINOR, op);
 
         return ::VerifyVersionInfoW(
-            &info, 
+            &info,
             VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR |
                 VER_SERVICEPACKMINOR,
             condition
         ) != 0;
     }
-    
+
     /*!
         \brief Returns whether the system is running on Windows Vista or
                later.

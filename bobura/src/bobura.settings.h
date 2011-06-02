@@ -122,7 +122,7 @@ namespace bobura
             boost::program_options::options_description options(
                 "bobura"
             );
-            
+
             options.add_options()
             ("help,h", "help")
             (

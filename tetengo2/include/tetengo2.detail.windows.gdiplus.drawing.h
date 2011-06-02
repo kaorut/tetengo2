@@ -507,7 +507,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
     private:
         // static functions
-        
+
         template <typename HandleOrWidgetDetails>
         static cpp0x::unique_ptr<canvas_details_type>::type
         create_canvas_impl(
@@ -520,7 +520,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             cpp0x::unique_ptr<canvas_details_type>::type p_canvas(
                 new Gdiplus::Graphics(handle)
             );
-            
+
             initialize_canvas(*p_canvas);
 
             return std::move(p_canvas);
@@ -541,7 +541,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             cpp0x::unique_ptr<canvas_details_type>::type p_canvas(
                 new Gdiplus::Graphics(widget_details.first.get())
             );
-            
+
             initialize_canvas(*p_canvas);
 
             return std::move(p_canvas);

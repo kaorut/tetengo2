@@ -30,7 +30,7 @@ namespace
             value += another.value;
             return *this;
         }
-    
+
 
     };
 
@@ -49,7 +49,7 @@ namespace
             value -= another.value;
             return *this;
         }
-    
+
 
     };
 

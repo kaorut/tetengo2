@@ -572,7 +572,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        > 
+        >
         about_dialog_type_list;
 
 
@@ -629,7 +629,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        > 
+        >
         main_window_type_list;
 
 

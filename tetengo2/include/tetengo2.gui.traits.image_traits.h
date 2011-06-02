@@ -14,7 +14,7 @@ namespace tetengo2 { namespace gui { namespace traits
 {
     /*!
         \brief The traits class template for an image.
- 
+
         \tparam ControlTraits A traits type for a control.
         \tparam Picture       A picture type.
    */

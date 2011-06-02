@@ -44,7 +44,7 @@ namespace
         ui_encoder_type;
 
     typedef tetengo2::detail::stub::drawing drawing_details_type;
-    
+
     typedef
         tetengo2::gui::drawing::background<drawing_details_type>
         background_type;

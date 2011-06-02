@@ -59,7 +59,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::TranslateMessage(&message);
                 ::DispatchMessageW(&message);
             }
-        
+
         }
 
         /*!

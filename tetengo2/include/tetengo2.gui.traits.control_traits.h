@@ -14,7 +14,7 @@ namespace tetengo2 { namespace gui { namespace traits
 {
     /*!
         \brief The traits class template for a control.
- 
+
         \tparam WidgetTraits A traits type for a GUI widget.
         \tparam Color        A color type.
    */

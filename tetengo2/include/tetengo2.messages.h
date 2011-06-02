@@ -171,7 +171,7 @@ namespace tetengo2
 
             message_catalog_type message_catalog;
             read_message_catalog(*catalog_file, message_catalog);
-            
+
             return boost::optional<message_catalog_type>(
                 std::move(message_catalog)
             );
@@ -227,7 +227,7 @@ namespace tetengo2
         }
 
         static catalog_file_mappings_type read_catalog_file_mappings(
-            const path_type& message_catalog_directory    
+            const path_type& message_catalog_directory
         )
         {
             catalog_file_mappings_type mappings;
@@ -278,10 +278,10 @@ namespace tetengo2
         mutable bool m_open;
 
         const boost::optional<message_catalog_type> m_message_catalog;
-        
+
 
         // virtual functions
-        
+
         virtual catalog do_open(
             const std::string& catalog_name,
             const std::locale& locale
@@ -300,7 +300,7 @@ namespace tetengo2
             m_open = true;
             return 1;
         }
-        
+
         virtual string_type do_get(
             const catalog      catalog_id,
             const int          set,
@@ -311,7 +311,7 @@ namespace tetengo2
         {
             if (catalog_id < 0)
                 return default_message;
-            
+
             if (!m_open)
             {
                 BOOST_THROW_EXCEPTION(

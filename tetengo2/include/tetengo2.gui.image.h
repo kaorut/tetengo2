@@ -20,7 +20,7 @@ namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for an image.
- 
+
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a
                                       widget.

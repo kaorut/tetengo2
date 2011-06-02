@@ -14,7 +14,7 @@ namespace tetengo2 { namespace gui { namespace traits
 {
     /*!
         \brief The traits class template for a dialog.
- 
+
         \tparam AbstractWindowTraits A traits type for an abstract window.
         \tparam MessageLoop          A message loop type.
         \tparam MessageLoopBreak     A message loop break type.

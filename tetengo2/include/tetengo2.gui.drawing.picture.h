@@ -55,7 +55,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         /*!
             \brief Creates a picture based on a canvas.
-            
+
             \tparam Dimension A dimension type.
             \tparam Canvas    A canvas type.
 

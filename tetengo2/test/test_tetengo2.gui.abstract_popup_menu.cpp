@@ -65,7 +65,7 @@ namespace
         )
         {}
 
-        
+
     private:
         // virtual functions
 

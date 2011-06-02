@@ -21,7 +21,7 @@ namespace tetengo2 { namespace gui { namespace unit
 {
     /*!
         \brief The class template for a EM height unit.
- 
+
         \tparam Value       A value type.
         \tparam PixelValue  A em value type.
         \tparam UnitDetails A detail implementation type of a unit.
@@ -102,7 +102,7 @@ namespace tetengo2 { namespace gui { namespace unit
             em temp(*this);
 
             temp.m_value += another.m_value;
-            
+
             boost::swap(temp, *this);
             return *this;
         }
@@ -119,7 +119,7 @@ namespace tetengo2 { namespace gui { namespace unit
             em temp(*this);
 
             temp.m_value += another;
-            
+
             boost::swap(temp, *this);
             return *this;
         }
@@ -136,7 +136,7 @@ namespace tetengo2 { namespace gui { namespace unit
             em temp(*this);
 
             temp.m_value -= another.m_value;
-            
+
             boost::swap(temp, *this);
             return *this;
         }
@@ -153,7 +153,7 @@ namespace tetengo2 { namespace gui { namespace unit
             em temp(*this);
 
             temp.m_value -= another;
-            
+
             boost::swap(temp, *this);
             return *this;
         }

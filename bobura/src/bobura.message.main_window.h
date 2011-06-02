@@ -22,7 +22,7 @@ namespace bobura { namespace message { namespace main_window
 {
     /*!
         \brief The class for a menu observer of the main window.
-        
+
         \tparam Command A command type.
     */
     template <typename Command>
@@ -71,7 +71,7 @@ namespace bobura { namespace message { namespace main_window
 
     /*!
         \brief The class template for a paint observer of the main window.
-        
+
         \tparam Canvas        A canvas type.
         \tparam Position      A position type.
         \tparam PictureReader A picture reader type.

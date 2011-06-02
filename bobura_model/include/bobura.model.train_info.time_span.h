@@ -107,7 +107,7 @@ namespace bobura { namespace model { namespace train_info
             time_span temp(*this);
 
             temp.m_seconds += another.m_seconds;
-            
+
             boost::swap(temp, *this);
             return *this;
         }
@@ -124,7 +124,7 @@ namespace bobura { namespace model { namespace train_info
             time_span temp(*this);
 
             temp.m_seconds -= another.m_seconds;
-            
+
             boost::swap(temp, *this);
             return *this;
         }

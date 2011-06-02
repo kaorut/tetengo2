@@ -39,7 +39,7 @@ namespace tetengo2 { namespace detail { namespace stub
             std::tuple<
                 // details_p_parent: pointer to parent
                 void*,
-                
+
                 // details_enabled: enabled status
                 bool,
 
@@ -48,7 +48,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
                 // details_position: position
                 std::pair<std::ptrdiff_t, std::ptrdiff_t>,
-                
+
                 // details_dimension: dimension and client dimension
                 std::pair<std::size_t, std::size_t>,
 
@@ -163,7 +163,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Associates a widget to the native window system.
 
             \tparam Widget A widget type.
-            
+
             \param widget A widget.
 
             \throw std::runtime_error When the widget cannot be associated.
@@ -182,7 +182,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
         /*!
             \brief Returns whether the widget has a parent.
-        
+
             \tparam Widget A widget type.
 
             \param widget A widget.

@@ -48,7 +48,7 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list_end
             >>>>
             type;
-                
+
 
     };
 

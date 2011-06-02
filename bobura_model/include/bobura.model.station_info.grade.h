@@ -130,7 +130,7 @@ namespace bobura { namespace model { namespace station_info
 
     /*!
         \brief The class for a principal station grade.
- 
+
         \tparam GradeName A grade name type.
    */
     template <typename GradeName>

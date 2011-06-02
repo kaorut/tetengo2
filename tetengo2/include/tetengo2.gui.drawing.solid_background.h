@@ -21,7 +21,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
         \brief The class template for a solid background.
-        
+
         \tparam Color          A color type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */

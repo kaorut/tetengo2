@@ -45,10 +45,10 @@ namespace bobura
 
         //! The main window type.
         typedef MainWindow main_window_type;
-        
+
         //! The message loop type.
         typedef MessageLoop message_loop_type;
-        
+
         //! The message loop break type.
         typedef MessageLoopBreak message_loop_break_type;
 

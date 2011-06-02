@@ -53,7 +53,7 @@ namespace bobura { namespace message
                 tetengo2::meta::assoc_list_end
                 >>
                 type;
-                
+
 
         };
     }
@@ -81,7 +81,7 @@ namespace bobura { namespace message
                 tetengo2::meta::assoc_list_end
                 >
                 type;
-                
+
 
         };
     }

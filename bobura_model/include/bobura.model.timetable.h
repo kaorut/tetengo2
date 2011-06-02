@@ -343,7 +343,7 @@ namespace bobura { namespace model
             {
                 return false;
             }
-            
+
             if (
                 position != m_station_locations.end() &&
                 !station_location.before(*position)

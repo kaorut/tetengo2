@@ -19,7 +19,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
         \brief The class template for a transparent background.
-        
+
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
     template <typename DrawingDetails>

@@ -394,7 +394,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
 
                 return boost::optional< ::LRESULT>(
-                    reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))    
+                    reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))
                 );
             }
 
@@ -412,7 +412,7 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 button.mouse_observer_set().clicked()();
-            
+
                 return boost::optional< ::LRESULT>(0);
             }
 

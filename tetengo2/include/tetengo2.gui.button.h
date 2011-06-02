@@ -19,7 +19,7 @@ namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a button.
- 
+
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a
                                       widget.

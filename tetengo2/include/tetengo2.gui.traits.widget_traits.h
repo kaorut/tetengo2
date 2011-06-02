@@ -16,7 +16,7 @@ namespace tetengo2 { namespace gui { namespace traits
 {
     /*!
         \brief The traits class template for a GUI widget.
- 
+
         \tparam Canvas           A canvas type.
         \tparam Alert            An alert type.
         \tparam Position         A position type.

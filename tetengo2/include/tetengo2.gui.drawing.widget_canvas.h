@@ -71,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         /*!
             \brief Creates a widget canvas.
-            
+
             \tparam HandleOrWidgetDetails A handle type or a widget details
                                           type.
 

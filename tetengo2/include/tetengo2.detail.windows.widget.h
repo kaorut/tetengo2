@@ -397,7 +397,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Associates a widget to the native window system.
 
             \tparam Widget A widget type.
-            
+
             \param widget A widget.
 
             \throw std::runtime_error When the widget cannot be associated.
@@ -427,7 +427,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         /*!
             \brief Returns whether the widget has a parent.
-        
+
             \tparam Widget A widget type.
 
             \param widget A widget.
@@ -996,7 +996,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::runtime_error("Can't get log font.")
                 );
             }
-            
+
             return Font(
                 log_font.lfFaceName,
                 log_font.lfHeight < 0 ?
@@ -1410,7 +1410,7 @@ namespace tetengo2 { namespace detail { namespace windows
 #    pragma warning(disable: 4244)
 #endif
             const ::WNDPROC proc = window_procedure<Widget>;
-            const ::LONG_PTR result = 
+            const ::LONG_PTR result =
                 ::SetWindowLongPtrW(
                     handle,
                     GWLP_WNDPROC,

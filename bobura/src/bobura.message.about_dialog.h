@@ -14,7 +14,7 @@ namespace bobura { namespace message { namespace about_dialog
 {
      /*!
         \brief The class template for a mouse observer of the OK button.
-        
+
         \tparam Dialog A dialog type.
     */
     template <typename Dialog>

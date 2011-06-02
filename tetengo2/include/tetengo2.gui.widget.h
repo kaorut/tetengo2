@@ -130,7 +130,7 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Returns whether the widget has a parent.
-            
+
             \retval true  When the widget has a parent.
             \retval false Otherwise.
         */
@@ -637,7 +637,7 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Initializes the widget.
-            
+
             This function must be called in the constructor and only in the
             constructor.
 

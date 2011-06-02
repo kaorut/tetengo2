@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_SUITE(stop)
         typedef
             bobura::model::train_info::stop<time_type, std::string>
             stop_type;
-        
+
         {
             const stop_type stop(time_type(0), time_type(0), "");
 
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_SUITE(stop)
         typedef
             bobura::model::train_info::stop<time_type, std::string>
             stop_type;
-        
+
         {
             const stop_type stop1(time_type(1), time_type(2), "1");
             const stop_type stop2(time_type(1), time_type(2), "1");
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_SUITE(stop)
         typedef
             bobura::model::train_info::stop<time_type, std::string>
             stop_type;
-        
+
         {
             const stop_type stop(time_type(1), time_type(2), "1");
 
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_SUITE(stop)
         typedef
             bobura::model::train_info::stop<time_type, std::string>
             stop_type;
-        
+
         {
             const stop_type stop(time_type(1), time_type(2), "1");
 
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_SUITE(stop)
         typedef
             bobura::model::train_info::stop<time_type, std::string>
             stop_type;
-        
+
         {
             const stop_type stop(time_type(1), time_type(2), "1");
 

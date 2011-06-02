@@ -21,7 +21,7 @@ namespace tetengo2 { namespace gui { namespace unit
 {
     /*!
         \brief The class template for a pixel unit.
- 
+
         \tparam Value      A value type.
         \tparam PixelValue A pixel value type.
    */
@@ -94,7 +94,7 @@ namespace tetengo2 { namespace gui { namespace unit
             pixel temp(*this);
 
             temp.m_value += another.m_value;
-            
+
             boost::swap(temp, *this);
             return *this;
         }
@@ -111,7 +111,7 @@ namespace tetengo2 { namespace gui { namespace unit
             pixel temp(*this);
 
             temp.m_value += another;
-            
+
             boost::swap(temp, *this);
             return *this;
         }
@@ -128,7 +128,7 @@ namespace tetengo2 { namespace gui { namespace unit
             pixel temp(*this);
 
             temp.m_value -= another.m_value;
-            
+
             boost::swap(temp, *this);
             return *this;
         }
@@ -145,7 +145,7 @@ namespace tetengo2 { namespace gui { namespace unit
             pixel temp(*this);
 
             temp.m_value -= another;
-            
+
             boost::swap(temp, *this);
             return *this;
         }

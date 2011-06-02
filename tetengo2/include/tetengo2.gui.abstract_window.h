@@ -23,7 +23,7 @@ namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for an abstract window.
- 
+
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a
                                       widget.
@@ -157,7 +157,7 @@ namespace tetengo2 { namespace gui
             widget_details_type::set_main_menu(
                 *this, boost::optional<const main_menu_type&>()
             );
-            
+
             if (p_main_menu)
             {
                 widget_details_type::set_main_menu(

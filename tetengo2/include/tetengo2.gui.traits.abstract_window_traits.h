@@ -14,7 +14,7 @@ namespace tetengo2 { namespace gui { namespace traits
 {
     /*!
         \brief The traits class template for an abstract window.
- 
+
         \tparam WidgetTraits      A traits type for a GUI widget.
         \tparam MainMenu          A main menu type.
         \tparam WindowObserverSet A window observer set type.

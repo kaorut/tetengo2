@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_SUITE(picture)
         }
         {
             picture_type::details_ptr_type p_details;
-            
+
             BOOST_CHECK_THROW(
                 const picture_type picture(std::move(p_details)),
                 std::invalid_argument
