@@ -20,14 +20,11 @@ namespace tetengo2 { namespace detail { namespace stub
     public:
         // types
 
+        //! The cursor details type.
+        typedef void* cursor_details_type;
+
 
         // static functions
-
-
-    private:
-        // forbidden operations
-
-        cursor();
 
 
     };

@@ -20,7 +20,7 @@ namespace tetengo2 { namespace gui
         \tparam CursorDetails A detail implementation type of a cursor.
     */
     template <typename CursorDetails>
-    class system_cursor : public cursor
+    class system_cursor : public cursor<CursorDetails>
     {
     public:
         // types
