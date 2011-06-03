@@ -9,11 +9,11 @@
 #if !defined(TETENGO2_GUI_LINKLABEL_H)
 #define TETENGO2_GUI_LINKLABEL_H
 
-//#include <stdexcept>
+#include <cassert>
+#include <utility>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.label.h"
-#include "tetengo2.gui.measure.h"
 
 
 namespace tetengo2 { namespace gui
@@ -61,6 +61,18 @@ namespace tetengo2 { namespace gui
         //! The widget type.
         typedef typename base_type::base_type::base_type widget_type;
 
+        //! The font type.
+        typedef typename base_type::font_type font_type;
+
+        //! The system cursor type.
+        typedef typename base_type::system_cursor_type system_cursor_type;
+
+        //! The cursor type.
+        typedef typename base_type::cursor_type cursor_type;
+
+        //! The color type.
+        typedef typename base_type::color_type color_type;
+
         //! The detail implementation type.
         typedef
             typename widget_details_type::widget_details_type details_type;
@@ -83,7 +95,9 @@ namespace tetengo2 { namespace gui
         explicit link_label(widget_type& parent)
         :
         base_type(parent)
-        {}
+        {
+            initialize(this);
+        }
 
         /*!
             \brief Destroys the link label.
@@ -93,7 +107,32 @@ namespace tetengo2 { namespace gui
         {}
 
 
-        // functions
+    private:
+        // static functions
+
+        static void initialize(link_label* const p_link_label)
+        {
+            assert(p_link_label);
+
+            const font_type original_font = p_link_label->font();
+            p_link_label->set_font(
+                font_type(
+                    original_font.family(),
+                    original_font.size(),
+                    original_font.bold(),
+                    original_font.italic(),
+                    true,
+                    original_font.strikeout()
+                )
+            );
+
+            p_link_label->set_text_color(color_type(0, 0, 255));
+
+            typename cpp0x::unique_ptr<cursor_type>::type p_cursor(
+                new system_cursor_type(system_cursor_type::style_hand)
+            );
+            p_link_label->set_cursor(std::move(p_cursor));
+        }
 
 
     };
