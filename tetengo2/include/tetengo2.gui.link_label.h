@@ -61,6 +61,9 @@ namespace tetengo2 { namespace gui
         //! The widget type.
         typedef typename base_type::base_type::base_type widget_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The font type.
         typedef typename base_type::font_type font_type;
 
@@ -94,7 +97,8 @@ namespace tetengo2 { namespace gui
         */
         explicit link_label(widget_type& parent)
         :
-        base_type(parent)
+        base_type(parent),
+        m_target()
         {
             initialize(this);
         }
@@ -107,7 +111,58 @@ namespace tetengo2 { namespace gui
         {}
 
 
+        // functions
+
+        /*!
+            \brief Returns the target.
+
+            \return The target.
+        */
+        const string_type& target()
+        const
+        {
+            return m_target;
+        }
+
+        /*!
+            \brief Sets a target.
+
+            \tparam S A string type.
+
+            \param target a target.
+        */
+        template <typename S>
+        void set_target(S&& target)
+        {
+            m_target = std::forward<S>(target);
+        }
+
+
     private:
+        // types
+
+        class clicked
+        {
+        public:
+            clicked(link_label& self)
+            :
+            m_self(self)
+            {}
+
+            void operator()()
+            const
+            {
+                widget_details_type::open_target(m_self, m_self.target());
+            }
+
+
+        private:
+            const link_label& m_self;
+
+
+        };
+
+
         // static functions
 
         static void initialize(link_label* const p_link_label)
@@ -132,7 +187,16 @@ namespace tetengo2 { namespace gui
                 new system_cursor_type(system_cursor_type::style_hand)
             );
             p_link_label->set_cursor(std::move(p_cursor));
+
+            p_link_label->mouse_observer_set().clicked().connect(
+                clicked(*p_link_label)
+            );
         }
+
+
+        // variables
+
+        string_type m_target;
 
 
     };

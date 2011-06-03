@@ -286,6 +286,7 @@ namespace bobura
                     TETENGO2_TEXT("http://www.tetengo.org/")
                 )
             );
+            p_label->set_target(p_label->text());
             typename tetengo2::cpp0x::unique_ptr<background_type>::type
             p_background(new transparent_background_type());
             p_label->set_background(std::move(p_background));

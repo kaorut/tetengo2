@@ -638,6 +638,19 @@ namespace tetengo2 { namespace detail { namespace stub
         static void close(Widget& widget)
         {}
 
+        /*!
+            \brief Opens a target.
+
+            \tparam Widget A widget type.
+            \tparam String A string type.
+
+            \param widget A widget.
+            \param target A target.
+        */
+        template <typename Widget, typename String>
+        static void open_target(Widget& widget, const String& target)
+        {}
+
 
     private:
         // types

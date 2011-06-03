@@ -38,6 +38,7 @@ namespace tetengo2 { namespace detail { namespace windows
         gui_fixture()
         {
             setup_common_controls();
+            setup_com();
         }
 
 
@@ -61,6 +62,21 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't initialize common controls!")
+                );
+            }
+        }
+
+        static void setup_com()
+        {
+            if (
+                ::CoInitializeEx(
+                    NULL,
+                    COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE
+                ) != S_OK
+            )
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't initlaize COM.")
                 );
             }
         }

@@ -390,6 +390,18 @@ namespace tetengo2 { namespace detail { namespace windows
 
         namespace control
         {
+            template <typename Button>
+            static boost::optional< ::LRESULT> on_tetengo2_command(
+                Button&        button,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                button.mouse_observer_set().clicked()();
+
+                return boost::optional< ::LRESULT>(0);
+            }
+
             template <typename Control>
             boost::optional< ::LRESULT> on_control_color(
                 Control&       control,
@@ -436,24 +448,6 @@ namespace tetengo2 { namespace detail { namespace windows
                 return boost::optional< ::LRESULT>(
                     reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))
                 );
-            }
-
-
-        }
-
-
-        namespace button
-        {
-            template <typename Button>
-            static boost::optional< ::LRESULT> on_tetengo2_command(
-                Button&        button,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
-            {
-                button.mouse_observer_set().clicked()();
-
-                return boost::optional< ::LRESULT>(0);
             }
 
 
@@ -724,6 +718,15 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::forward<message_handler_map_type>(initial_map)
             );
 
+            map[detail::WM_TETENGO2_COMMAND].push_back(
+                TETENGO2_CPP0X_BIND(
+                    detail::control::on_tetengo2_command<Control>,
+                    tetengo2::cpp0x::ref(control),
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
+                )
+            );
+
             map[detail::WM_TETENGO2_CONTROL_COLOR].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::control::on_control_color<Control>,
@@ -752,20 +755,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
-
-            map[detail::WM_TETENGO2_COMMAND].push_back(
-                TETENGO2_CPP0X_BIND(
-                    detail::button::on_tetengo2_command<Button>,
-                    tetengo2::cpp0x::ref(button),
-                    tetengo2::cpp0x::placeholders_1(),
-                    tetengo2::cpp0x::placeholders_2()
-                )
-            );
-
-            return map;
+            return std::forward<message_handler_map_type>(initial_map);
         }
 
         /*!

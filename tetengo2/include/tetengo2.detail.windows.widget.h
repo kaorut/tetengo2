@@ -1145,6 +1145,36 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Opens a target.
+
+            \tparam Widget A widget type.
+            \tparam String A string type.
+
+            \param widget A widget.
+            \param target A target.
+        */
+        template <typename Widget, typename String>
+        static void open_target(Widget& widget, const String& target)
+        {
+            const ::HINSTANCE result =
+                ::ShellExecuteW(
+                    widget.has_parent() ?
+                        &*widget.root_ancestor().details()->first : NULL,
+                    L"open",
+                    target.c_str(),
+                    NULL,
+                    NULL,
+                    SW_SHOWNORMAL
+                );
+            if (reinterpret_cast< ::UINT_PTR>(result) <= 32)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't open target.")
+                );
+            }
+        }
+
+        /*!
             \brief Returns the window property key.
 
             This function is for an internal use.
