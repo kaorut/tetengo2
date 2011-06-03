@@ -131,6 +131,10 @@ namespace
         std::pair<unit_difference_type, unit_difference_type> position_type;
 
     typedef
+        tetengo2::gui::system_cursor<tetengo2::detail::stub::cursor>
+        system_cursor_type;
+
+    typedef
         tetengo2::gui::traits::widget_traits<
             canvas_type,
             alert_type,
@@ -140,7 +144,7 @@ namespace
             ui_encoder_type,
             background_type,
             font_type,
-            tetengo2::gui::system_cursor<tetengo2::detail::stub::cursor>,
+            system_cursor_type,
             tetengo2::gui::paint_observer_set<canvas_type>,
             tetengo2::gui::mouse_observer_set
         >

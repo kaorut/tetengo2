@@ -127,6 +127,10 @@ namespace
         std::pair<unit_difference_type, unit_difference_type> position_type;
 
     typedef
+        tetengo2::gui::system_cursor<tetengo2::detail::stub::cursor>
+        system_cursor_type;
+
+    typedef
         tetengo2::gui::traits::widget_traits<
             canvas_type,
             alert_type,
@@ -136,7 +140,7 @@ namespace
             ui_encoder_type,
             background_type,
             font_type,
-            tetengo2::gui::system_cursor<tetengo2::detail::stub::cursor>,
+            system_cursor_type,
             tetengo2::gui::paint_observer_set<canvas_type>,
             tetengo2::gui::mouse_observer_set
         >
@@ -540,6 +544,40 @@ BOOST_AUTO_TEST_SUITE(widget)
         widget.set_font(font);
 
         BOOST_CHECK(widget.font() == font);
+    }
+
+    BOOST_AUTO_TEST_CASE(cursor)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_widget widget;
+
+        const widget_type::cursor_type& cursor = widget.cursor();
+
+        BOOST_REQUIRE(dynamic_cast<const system_cursor_type*>(&cursor));
+
+        BOOST_CHECK(
+            dynamic_cast<const system_cursor_type&>(cursor).style() ==
+            system_cursor_type::style_default
+        );
+    }
+
+    BOOST_AUTO_TEST_CASE(set_cursor)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        tetengo2::cpp0x::unique_ptr<widget_type::cursor_type>::type p_cursor(
+            new system_cursor_type(system_cursor_type::style_hand)
+        );
+        widget.set_cursor(std::move(p_cursor));
+
+        const widget_type::cursor_type& cursor = widget.cursor();
+        BOOST_CHECK(
+            dynamic_cast<const system_cursor_type&>(cursor).style() ==
+            system_cursor_type::style_hand
+        );
     }
 
     BOOST_AUTO_TEST_CASE(children)

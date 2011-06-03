@@ -441,6 +441,29 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
+            \brief Returns the cursor.
+
+            \return The cursor.
+        */
+        const cursor_type& cursor()
+        const
+        {
+            return *m_p_cursor;
+        }
+
+        /*!
+            \brief Sets a cursor.
+
+            \param p_cursor A unique pointer to a cursor.
+        */
+        void set_cursor(
+            typename cpp0x::unique_ptr<cursor_type>::type p_cursor
+        )
+        {
+            m_p_cursor = std::move(p_cursor);
+        }
+
+        /*!
             \brief Returns the constant children.
 
             \return The children.
@@ -682,12 +705,24 @@ namespace tetengo2 { namespace gui
 #endif
         m_destroyed(false),
         m_p_background(),
+        m_p_cursor(create_initial_cursor()),
         m_paint_observer_set(),
         m_mouse_observer_set()
         {}
 
 
     private:
+        // static functions
+
+        static typename cpp0x::unique_ptr<cursor_type>::type
+        create_initial_cursor()
+        {
+            return typename cpp0x::unique_ptr<cursor_type>::type(
+                new system_cursor_type(system_cursor_type::style_default)
+            );
+        }
+
+
         // variables
 
         const message_handler_map_type m_message_handler_map;
@@ -695,6 +730,8 @@ namespace tetengo2 { namespace gui
         bool m_destroyed;
 
         typename cpp0x::unique_ptr<background_type>::type m_p_background;
+
+        typename cpp0x::unique_ptr<cursor_type>::type m_p_cursor;
 
         paint_observer_set_type m_paint_observer_set;
 

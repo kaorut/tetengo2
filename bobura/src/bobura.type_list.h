@@ -362,6 +362,9 @@ namespace bobura
             >
             alert_type;
         typedef
+            tetengo2::gui::system_cursor<tetengo2::detail::windows::cursor>
+            system_cursor_type;
+        typedef
             tetengo2::gui::traits::widget_traits<
                 canvas_type,
                 alert_type,
@@ -371,9 +374,7 @@ namespace bobura
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 background_type,
                 font_type,
-                tetengo2::gui::system_cursor<
-                    tetengo2::detail::windows::cursor
-                >,
+                system_cursor_type,
                 tetengo2::gui::paint_observer_set<canvas_type>,
                 tetengo2::gui::mouse_observer_set
             >
