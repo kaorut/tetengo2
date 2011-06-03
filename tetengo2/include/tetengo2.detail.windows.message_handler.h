@@ -103,6 +103,27 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Widget>
+            boost::optional< ::LRESULT> on_set_cursor(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                if (
+                    LOWORD(lParam) != HTCLIENT || HIWORD(lParam) == 0
+                )
+                {
+                    return boost::optional< ::LRESULT>(FALSE);
+                }
+
+                ::SetCursor(
+                    const_cast< ::HCURSOR>(&*widget.cursor().details())
+                );
+
+                return boost::optional< ::LRESULT>(TRUE);
+            }
+
+            template <typename Widget>
             boost::optional< ::LRESULT> on_paint(
                 Widget&        widget,
                 const ::WPARAM wParam,
@@ -523,6 +544,14 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CTLCOLORSTATIC].push_back(
                 TETENGO2_CPP0X_BIND(
                     detail::widget::on_control_color<Widget>,
+                    tetengo2::cpp0x::ref(widget),
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
+                )
+            );
+            map[WM_SETCURSOR].push_back(
+                TETENGO2_CPP0X_BIND(
+                    detail::widget::on_set_cursor<Widget>,
                     tetengo2::cpp0x::ref(widget),
                     tetengo2::cpp0x::placeholders_1(),
                     tetengo2::cpp0x::placeholders_2()

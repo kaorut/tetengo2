@@ -67,13 +67,30 @@ namespace tetengo2 { namespace detail { namespace windows
             \param style A style.
 
             \return A unique pointer to a system cursor.
+
+            \throw std::runtime_error When a system cursor cannot be created.
         */
         template <typename SystemCursor>
         static cursor_details_ptr_type create_system_cursor(
             const typename SystemCursor::style_type style
         )
         {
-            return cursor_details_ptr_type(new cursor_details_type());
+            cursor_details_ptr_type p_cursor(
+                reinterpret_cast< ::HCURSOR>(
+                    ::LoadImageW(
+                        0,
+                        MAKEINTRESOURCEW(OCR_HAND),
+                        IMAGE_CURSOR,
+                        0,
+                        0,
+                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                    )
+                )
+            );
+            if (!p_cursor)
+                throw std::runtime_error("Can't create a system cursor.");
+
+            return std::move(p_cursor);
         }
 
 
