@@ -45,6 +45,7 @@
 ::GetWindowTextW                                 Windows.h
 ::HANDLE                                         Windows.h
 ::HBRUSH                                         Windows.h
+::HCURSOR                                        Windows.h
 ::HDC                                            Windows.h
 ::HFONT                                          Windows.h
 ::HICON                                          Windows.h
@@ -90,6 +91,7 @@
 ::SendMessageW                                   Windows.h
 ::SetActiveWindow                                Windows.h
 ::SetBkMode                                      Windows.h
+::SetCursor                                      Windows.h
 ::SetMenu                                        Windows.h
 ::SetPropW                                       Windows.h
 ::SetTextColor                                   Windows.h
@@ -122,6 +124,7 @@ BOOST_FOREACH                                    boost/foreach.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
+BOOST_REQUIRE                                    boost/test/unit_test.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
 BOOST_TEST_MODULE                                boost/test/unit_test.hpp

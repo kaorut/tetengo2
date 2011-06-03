@@ -9,7 +9,9 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_CURSOR_H)
 #define TETENGO2_DETAIL_WINDOWS_CURSOR_H
 
+#include <stdexcept>
 #include <type_traits>
+#include <utility>
 
 #define NOMINMAX
 #define OEMRESOURCE

@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_SYSTEMCURSOR_H)
 #define TETENGO2_GUI_SYSTEMCURSOR_H
 
+//#include <boost/optional.hpp>
+
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.cursor.h"
 
