@@ -58,7 +58,7 @@ namespace tetengo2 { namespace gui
 
             \param style A style.
         */
-        system_cursor(const style_type style)
+        explicit system_cursor(const style_type style)
         :
         m_style(style),
         m_p_details(
