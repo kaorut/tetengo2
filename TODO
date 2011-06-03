@@ -12,16 +12,6 @@ Added on    : 2011/06/02
 Depends on  : 00000101
 Description : Create tetengo2::gui::link_label.
 ------------------------------------------------------------------------------
-Number      : 00000101
-Added on    : 2011/06/02
-Depends on  : 00000102
-Description : Create tetengo2::gui::widget::cursor() and set_cursor().
-------------------------------------------------------------------------------
-Number      : 00000102
-Added on    : 2011/06/02
-Depends on  : (none)
-Description : Create tetengo2::gui::cursor, system_cursor.
-------------------------------------------------------------------------------
 Number      : 00000103
 Added on    : 2011/mm/dd
 Depends on  : (none)
