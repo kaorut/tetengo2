@@ -77,6 +77,12 @@ namespace tetengo2 { namespace gui
         //! The font type.
         typedef typename traits_type::font_type font_type;
 
+        //! The system cursor type.
+        typedef typename traits_type::system_cursor_type system_cursor_type;
+
+        //! The cursor type.
+        typedef typename system_cursor_type::base_type cursor_type;
+
         //! The paint observer set type.
         typedef
             typename traits_type::paint_observer_set_type

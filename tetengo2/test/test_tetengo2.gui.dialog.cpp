@@ -12,9 +12,10 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.alert.h"
+#include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"
+#include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.message_loop.h"
@@ -34,6 +35,7 @@
 #include "tetengo2.gui.message_loop_break.h"
 #include "tetengo2.gui.mouse_observer_set.h"
 #include "tetengo2.gui.paint_observer_set.h"
+#include "tetengo2.gui.system_cursor.h"
 #include "tetengo2.gui.traits.abstract_window_traits.h"
 #include "tetengo2.gui.traits.dialog_traits.h"
 #include "tetengo2.gui.traits.menu_traits.h"
@@ -138,6 +140,7 @@ namespace
             ui_encoder_type,
             background_type,
             font_type,
+            tetengo2::gui::system_cursor<tetengo2::detail::stub::cursor>,
             tetengo2::gui::paint_observer_set<canvas_type>,
             tetengo2::gui::mouse_observer_set
         >

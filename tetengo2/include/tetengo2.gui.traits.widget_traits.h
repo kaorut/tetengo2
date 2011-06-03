@@ -25,6 +25,7 @@ namespace tetengo2 { namespace gui { namespace traits
         \tparam Encoder          An encoder type.
         \tparam Background       A background type.
         \tparam Font             A font type.
+        \tparam SystemCursor     A system cursor type.
         \tparam PaintObserverSet A paint observer set type.
         \tparam MouseObserverSet A mouse observer set type.
    */
@@ -37,6 +38,7 @@ namespace tetengo2 { namespace gui { namespace traits
         typename Encoder,
         typename Background,
         typename Font,
+        typename SystemCursor,
         typename PaintObserverSet,
         typename MouseObserverSet
     >
@@ -74,6 +76,9 @@ namespace tetengo2 { namespace gui { namespace traits
 
         //! The font type.
         typedef Font font_type;
+
+        //! The system cursor type.
+        typedef SystemCursor system_cursor_type;
 
         //! The paint observer set type.
         typedef PaintObserverSet paint_observer_set_type;

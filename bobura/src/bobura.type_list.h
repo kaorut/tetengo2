@@ -26,6 +26,7 @@
 #include <tetengo2.message_catalog.h>
 #include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.detail.windows.alert.h>
+#include <tetengo2.detail.windows.cursor.h>
 #include <tetengo2.detail.windows.encoding.h>
 #include <tetengo2.detail.windows.gdiplus.drawing.h>
 #include <tetengo2.detail.windows.gdiplus.gui_fixture.h>
@@ -62,6 +63,7 @@
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
 #include <tetengo2.gui.popup_menu.h>
+#include <tetengo2.gui.system_cursor.h>
 #include <tetengo2.gui.traits.abstract_window_traits.h>
 #include <tetengo2.gui.traits.button_traits.h>
 #include <tetengo2.gui.traits.control_traits.h>
@@ -369,6 +371,9 @@ namespace bobura
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 background_type,
                 font_type,
+                tetengo2::gui::system_cursor<
+                    tetengo2::detail::windows::cursor
+                >,
                 tetengo2::gui::paint_observer_set<canvas_type>,
                 tetengo2::gui::mouse_observer_set
             >
