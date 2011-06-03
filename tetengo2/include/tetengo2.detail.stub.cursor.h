@@ -23,7 +23,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The cursor details type.
-        typedef void* cursor_details_type;
+        typedef int cursor_details_type;
 
         //! The cursor details pointer type.
         typedef
