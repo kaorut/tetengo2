@@ -65,6 +65,12 @@ namespace bobura
         //! The background type.
         typedef typename base_type::background_type background_type;
 
+        //! The system cursor type.
+        typedef typename base_type::system_cursor_type system_cursor_type;
+
+        //! The cursor type.
+        typedef typename base_type::cursor_type cursor_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -278,6 +284,9 @@ namespace bobura
             typename tetengo2::cpp0x::unique_ptr<background_type>::type
             p_background(new transparent_background_type());
             p_label->set_background(std::move(p_background));
+            typename tetengo2::cpp0x::unique_ptr<cursor_type>::type
+            p_cursor(new system_cursor_type(system_cursor_type::style_hand));
+            p_label->set_cursor(std::move(p_cursor));
 
             return std::move(p_label);
         }
@@ -290,9 +299,6 @@ namespace bobura
             );
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("OK")));
-            //p_button->mouse_observer_set().clicked().connect(
-            //    exception_thrower("link clicked")
-            //);
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     about_dialog_message_type_list_type,
