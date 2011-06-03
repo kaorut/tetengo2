@@ -34,6 +34,7 @@
 #include <tetengo2.gui.dialog_message_loop.h>
 #include <tetengo2.gui.image.h>
 #include <tetengo2.gui.label.h>
+#include <tetengo2.gui.link_label.h>
 #include <tetengo2.gui.main_menu.h>
 #include <tetengo2.gui.menu.h>
 #include <tetengo2.gui.menu_command.h>
@@ -59,6 +60,7 @@
 #include <tetengo2.gui.traits.dialog_traits.h>
 #include <tetengo2.gui.traits.image_traits.h>
 #include <tetengo2.gui.traits.label_traits.h>
+#include <tetengo2.gui.traits.link_label_traits.h>
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.traits.window_traits.h>
@@ -304,6 +306,18 @@ typedef
     label_type;
 
 typedef
+    tetengo2::gui::traits::link_label_traits<label_traits_type>
+    link_label_traits_type;
+
+typedef
+    tetengo2::gui::link_label<
+        link_label_traits_type,
+        widget_details_type,
+        message_handler_details_type
+    >
+    link_label_type;
+
+typedef
     tetengo2::gui::traits::image_traits<control_traits_type, picture_type>
     image_traits_type;
 
@@ -329,6 +343,7 @@ typedef
         message_catalog_type,
         settings_type,
         label_type,
+        link_label_type,
         image_type,
         button_type,
         picture_reader_type,

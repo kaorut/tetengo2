@@ -34,6 +34,7 @@ namespace bobura
         \tparam MessageCatalog             A message catalog type.
         \tparam Settings                   A settings type.
         \tparam Label                      A label type.
+        \tparam LinkLabel                  A link label type.
         \tparam Image                      An image type.
         \tparam Button                     A button type.
         \tparam PictureReader              A picture reader type.
@@ -45,6 +46,7 @@ namespace bobura
         typename MessageCatalog,
         typename Settings,
         typename Label,
+        typename LinkLabel,
         typename Image,
         typename Button,
         typename PictureReader,
@@ -79,6 +81,9 @@ namespace bobura
 
         //! The label type.
         typedef Label label_type;
+
+        //! The link label type.
+        typedef LinkLabel link_label_type;
 
         //! The image type.
         typedef Image image_type;
@@ -172,7 +177,7 @@ namespace bobura
         typename tetengo2::cpp0x::unique_ptr<label_type>::type
         m_p_copyright_label;
 
-        typename tetengo2::cpp0x::unique_ptr<label_type>::type
+        typename tetengo2::cpp0x::unique_ptr<link_label_type>::type
         m_p_link_label;
 
         typename tetengo2::cpp0x::unique_ptr<button_type>::type
@@ -269,12 +274,12 @@ namespace bobura
             return std::move(p_label);
         }
 
-        typename tetengo2::cpp0x::unique_ptr<label_type>::type
+        typename tetengo2::cpp0x::unique_ptr<link_label_type>::type
         create_link_label()
         {
-            typename tetengo2::cpp0x::unique_ptr<label_type>::type p_label(
-                new label_type(*this)
-            );
+            typename tetengo2::cpp0x::unique_ptr<
+                link_label_type
+            >::type p_label(new link_label_type(*this));
 
             p_label->set_text(
                 typename base_type::string_type(
@@ -284,9 +289,6 @@ namespace bobura
             typename tetengo2::cpp0x::unique_ptr<background_type>::type
             p_background(new transparent_background_type());
             p_label->set_background(std::move(p_background));
-            typename tetengo2::cpp0x::unique_ptr<cursor_type>::type
-            p_cursor(new system_cursor_type(system_cursor_type::style_hand));
-            p_label->set_cursor(std::move(p_cursor));
 
             return std::move(p_label);
         }

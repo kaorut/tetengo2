@@ -53,6 +53,7 @@
 #include <tetengo2.gui.fixture.h>
 #include <tetengo2.gui.image.h>
 #include <tetengo2.gui.label.h>
+#include <tetengo2.gui.link_label.h>
 #include <tetengo2.gui.main_menu.h>
 #include <tetengo2.gui.menu.h>
 #include <tetengo2.gui.menu_command.h>
@@ -70,6 +71,7 @@
 #include <tetengo2.gui.traits.dialog_traits.h>
 #include <tetengo2.gui.traits.image_traits.h>
 #include <tetengo2.gui.traits.label_traits.h>
+#include <tetengo2.gui.traits.link_label_traits.h>
 #include <tetengo2.gui.traits.menu_traits.h>
 #include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.traits.window_traits.h>
@@ -255,6 +257,7 @@ namespace bobura
         struct menu_separator; //!< The menu separator type;
         struct dialog;         //!< The dialog type.
         struct label;          //!< The label type.
+        struct link_label;     //!< The link label type.
         struct image;          //!< The image type.
         struct button;         //!< The button type.
         struct transparent_background; //!< The transparent background type.
@@ -453,6 +456,16 @@ namespace bobura
             >
             label_type;
         typedef
+            tetengo2::gui::traits::link_label_traits<label_traits_type>
+            link_label_traits_type;
+        typedef
+            tetengo2::gui::link_label<
+                link_label_traits_type,
+                widget_details_type,
+                message_handler_details_type
+            >
+            link_label_type;
+        typedef
             tetengo2::gui::traits::image_traits<
                 control_traits_type, picture_type
             >
@@ -534,6 +547,8 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::label, detail::ui::label_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::link_label, detail::ui::link_label_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::image, detail::ui::image_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
@@ -543,7 +558,7 @@ namespace bobura
                 detail::ui::transparent_background_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -566,6 +581,7 @@ namespace bobura
                     >::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<ui_type_list, type::label>::type,
+                    boost::mpl::at<ui_type_list, type::link_label>::type,
                     boost::mpl::at<ui_type_list, type::image>::type,
                     boost::mpl::at<ui_type_list, type::button>::type,
                     boost::mpl::at<ui_type_list, type::picture_reader>::type,
