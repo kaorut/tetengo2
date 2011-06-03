@@ -81,7 +81,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 reinterpret_cast< ::HCURSOR>(
                     ::LoadImageW(
                         0,
-                        MAKEINTRESOURCEW(OCR_HAND),
+                        MAKEINTRESOURCEW(
+                            translate_style<SystemCursor>(style)
+                        ),
                         IMAGE_CURSOR,
                         0,
                         0,
@@ -93,6 +95,22 @@ namespace tetengo2 { namespace detail { namespace windows
                 throw std::runtime_error("Can't create a system cursor.");
 
             return std::move(p_cursor);
+        }
+
+
+    private:
+        // static functions
+
+        template <typename SystemCursor>
+        static ::WORD translate_style(
+            const typename SystemCursor::style_type style
+        )
+        {
+            switch (style)
+            {
+            case SystemCursor::style_hand: return OCR_HAND;
+            default: return OCR_NORMAL;
+            }
         }
 
 
