@@ -8,7 +8,21 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.cursor.h"
+
 #include "tetengo2.gui.system_cursor.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        tetengo2::gui::system_cursor<tetengo2::detail::stub::cursor>
+        cursor_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -20,9 +34,29 @@ BOOST_AUTO_TEST_SUITE(system_cursor)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const cursor_type cursor(cursor_type::style_default);
+        }
+        {
+            const cursor_type cursor(cursor_type::style_hand);
+        }
     }
 
+    BOOST_AUTO_TEST_CASE(style)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const cursor_type cursor(cursor_type::style_default);
+
+            BOOST_CHECK(cursor.style() == cursor_type::style_default);
+        }
+        {
+            const cursor_type cursor(cursor_type::style_hand);
+
+            BOOST_CHECK(cursor.style() == cursor_type::style_hand);
+        }
+    }
 
 
 BOOST_AUTO_TEST_SUITE_END()
