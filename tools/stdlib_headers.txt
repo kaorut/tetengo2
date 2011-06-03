@@ -23,6 +23,7 @@
 ::FreeLibrary                                    Windows.h
 ::GetAncestor                                    Windows.h
 ::GetClassInfoExW                                Windows.h
+::GetClassLongPtrW                               Windows.h
 ::GetClientRect                                  Windows.h
 ::GetCommandLineW                                Windows.h
 ::GetDC                                          Windows.h
