@@ -39,6 +39,7 @@ headers = \
     tetengo2.gui.fixture.h \
     tetengo2.gui.image.h \
     tetengo2.gui.label.h \
+    tetengo2.gui.link_label.h \
     tetengo2.gui.measure.h \
     tetengo2.gui.main_menu.h \
     tetengo2.gui.menu.h \
@@ -58,6 +59,7 @@ headers = \
     tetengo2.gui.traits.dialog_traits.h \
     tetengo2.gui.traits.image_traits.h \
     tetengo2.gui.traits.label_traits.h \
+    tetengo2.gui.traits.link_label_traits.h \
     tetengo2.gui.traits.menu_traits.h \
     tetengo2.gui.traits.widget_traits.h \
     tetengo2.gui.traits.window_traits.h \

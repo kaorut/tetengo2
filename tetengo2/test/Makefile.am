@@ -33,6 +33,7 @@ sources = \
     test_tetengo2.gui.fixture.cpp \
     test_tetengo2.gui.image.cpp \
     test_tetengo2.gui.label.cpp \
+    test_tetengo2.gui.link_label.cpp \
     test_tetengo2.gui.measure.cpp \
     test_tetengo2.gui.main_menu.cpp \
     test_tetengo2.gui.menu.cpp \
