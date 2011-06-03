@@ -110,8 +110,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     );
                 if (!cursor_handle)
                 {
-                    throw std::runtime_error(
-                        "Can't get default cursor handle."
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't get default cursor handle.")
                     );
                 }
 

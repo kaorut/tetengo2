@@ -12,6 +12,8 @@
 //#include <stdexcept>
 //#include <utility>
 
+//#include <boost/throw_exception.hpp>
+
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.control.h"
 
@@ -136,7 +138,7 @@ namespace tetengo2 { namespace gui
         const
         {
             if (!m_p_picture)
-                throw std::logic_error("No picture is set.");
+                BOOST_THROW_EXCEPTION(std::logic_error("No picture is set."));
 
             return *m_p_picture;
         }
@@ -149,7 +151,7 @@ namespace tetengo2 { namespace gui
         picture_type& picture()
         {
             if (!m_p_picture)
-                throw std::logic_error("No picture is set.");
+                BOOST_THROW_EXCEPTION(std::logic_error("No picture is set."));
 
             return *m_p_picture;
         }

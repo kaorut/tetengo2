@@ -13,6 +13,8 @@
 #include <type_traits>
 #include <utility>
 
+#include <boost/throw_exception.hpp>
+
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
@@ -92,7 +94,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 )
             );
             if (!p_cursor)
-                throw std::runtime_error("Can't create a system cursor.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a system cursor.")
+                );
+            }
 
             return std::move(p_cursor);
         }

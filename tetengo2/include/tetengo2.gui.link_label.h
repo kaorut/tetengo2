@@ -9,8 +9,9 @@
 #if !defined(TETENGO2_GUI_LINKLABEL_H)
 #define TETENGO2_GUI_LINKLABEL_H
 
-#include <cassert>
-#include <utility>
+//#include <cassert>
+//#include <stdexcept>
+//#include <utility>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.label.h"

@@ -14,6 +14,7 @@
 
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/operators.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "tetengo2.encoding.encoding.h"
 
@@ -110,7 +111,11 @@ namespace tetengo2 { namespace encoding
         )
         {
             if (ascii_char < 0 || 0x80 <= ascii_char)
-                throw std::invalid_argument("Not ASCII code.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Not ASCII code.")
+                );
+            }
 
             return ascii_char;
         }

@@ -465,7 +465,11 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
             if (!p_parent)
-                throw std::logic_error("The widget has no parent.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The widget has no parent.")
+                );
+            }
 
             return *p_parent;
         }
@@ -490,7 +494,11 @@ namespace tetengo2 { namespace detail { namespace windows
                     GA_ROOT
                 );
             if (!root_ancestor_handle)
-                throw std::logic_error("The widget has no root ancestor.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The widget has no root ancestor.")
+                );
+            }
 
             Widget* const p_root_ancestor =
                 p_widget_from<Widget>(root_ancestor_handle);

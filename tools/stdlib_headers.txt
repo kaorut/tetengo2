@@ -4,6 +4,7 @@
 ::BeginPaint                                     Windows.h
 ::COLORREF                                       Windows.h
 ::CallWindowProcW                                Windows.h
+::CoInitializeEx                                 Windows.h,ObjBase.h
 ::CreateFontIndirectW                            Windows.h
 ::CreateMenu                                     Windows.h
 ::CreatePopupMenu                                Windows.h
@@ -98,11 +99,13 @@
 ::SetTextColor                                   Windows.h
 ::SetWindowLongPtrW                              Windows.h
 ::SetWindowTextW                                 Windows.h
+::ShellExecuteW                                  Windows.h
 ::ShowWindow                                     Windows.h
 ::SystemParametersInfoW                          Windows.h
 ::TaskDialog                                     Windows.h,CommCtrl.h
 ::TranslateMessage                               Windows.h
 ::UINT                                           Windows.h
+::UINT_PTR                                       Windows.h
 ::ULONG_PTR                                      Windows.h
 ::UpdateWindow                                   Windows.h
 ::VerifyVersionInfoW                             Windows.h

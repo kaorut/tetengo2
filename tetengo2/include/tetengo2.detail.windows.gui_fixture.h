@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_WINDOWS_GUIFIXTURE_H
 
+#include <cstddef>
 #include <stdexcept>
 
 #include <boost/noncopyable.hpp>
@@ -18,6 +19,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 #include <CommCtrl.h>
+#include <ObjBase.h>
 
 #include "tetengo2.cpp0x.h"
 

@@ -14,6 +14,7 @@
 //#include <utility>
 
 //#include <boost/optional.hpp>
+//#include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.widget.h"
@@ -114,8 +115,10 @@ namespace tetengo2 { namespace gui
         {
             if(!has_main_menu())
             {
-                throw std::logic_error(
-                    "The abstract window does not have a main menu."
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error(
+                        "The abstract window does not have a main menu."
+                    )
                 );
             }
 
@@ -134,8 +137,10 @@ namespace tetengo2 { namespace gui
         {
             if(!has_main_menu())
             {
-                throw std::logic_error(
-                    "The abstract window does not have a main menu."
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error(
+                        "The abstract window does not have a main menu."
+                    )
                 );
             }
 

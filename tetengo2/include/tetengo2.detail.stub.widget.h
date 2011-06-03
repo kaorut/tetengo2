@@ -19,6 +19,7 @@
 #include <vector>
 
 #include <boost/optional.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.measure.h"
@@ -211,7 +212,11 @@ namespace tetengo2 { namespace detail { namespace stub
         static Widget& parent(const Widget& widget)
         {
             if (!has_parent(widget))
-                throw std::logic_error("The widget has no parent.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The widget has no parent.")
+                );
+            }
 
             return *reinterpret_cast<Widget*>(
                 std::get<details_p_parent>(*widget.details())
