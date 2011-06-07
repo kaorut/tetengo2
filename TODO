@@ -8,6 +8,12 @@
 \verbatim
 ------------------------------------------------------------------------------
 Number      : 00000103
+Added on    : 2011/06/08
+Depends on  : (none)
+Description : Add conversion constructors and assign operators to
+              tetengo2::gui::unit::*.
+------------------------------------------------------------------------------
+Number      : 00000104
 Added on    : 2011/mm/dd
 Depends on  : (none)
 Description : 
