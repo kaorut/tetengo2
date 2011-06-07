@@ -247,7 +247,6 @@ namespace bobura
             );
 
             p_label->set_text(title.str());
-            p_label->set_text_color(color_type(255, 0, 0));
             typename tetengo2::cpp0x::unique_ptr<background_type>::type
             p_background(new transparent_background_type());
             p_label->set_background(std::move(p_background));
@@ -317,18 +316,17 @@ namespace bobura
             typedef typename about_dialog::dimension_type dimension_type;
             typedef typename about_dialog::position_type position_type;
 
-            //m_p_application_image->fit_to_content();
-            m_p_application_image->set_dimension(dimension_type(10, 10));
-            m_p_application_image->set_position(position_type(0, 0));
-
+            m_p_application_image->fit_to_content();
+            m_p_application_image->set_position(position_type(2, 1));
+            
             m_p_title_label->fit_to_content();
-            m_p_title_label->set_position(position_type(2, 1));
+            m_p_title_label->set_position(position_type(6, 1));
 
             m_p_copyright_label->fit_to_content();
-            m_p_copyright_label->set_position(position_type(2, 3));
+            m_p_copyright_label->set_position(position_type(6, 3));
 
             m_p_link_label->fit_to_content();
-            m_p_link_label->set_position(position_type(2, 5));
+            m_p_link_label->set_position(position_type(6, 5));
 
             m_p_ok_button->set_dimension(dimension_type(8, 2));
             m_p_ok_button->set_position(position_type(26, 7));
