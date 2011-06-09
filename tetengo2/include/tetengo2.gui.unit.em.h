@@ -64,6 +64,21 @@ namespace tetengo2 { namespace gui { namespace unit
             );
         }
 
+        /*!
+            \brief Returns an EM height unit made from another unit.
+
+            \tparam U A unit type.
+
+            \param value A value in another unit.
+
+            \return An EM height unit.
+        */
+        template <typename U>
+        static em from(const U& value)
+        {
+            return from_pixels(value.to_pixels());
+        }
+
 
         // constructors and destructor
 

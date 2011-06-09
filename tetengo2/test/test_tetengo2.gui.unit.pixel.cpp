@@ -17,6 +17,10 @@ namespace
 
     typedef tetengo2::gui::unit::pixel<int, int> unit_type;
 
+    typedef
+        tetengo2::gui::unit::pixel<unsigned short, unsigned short>
+        another_unit_type;
+
 
 }
 
@@ -32,6 +36,16 @@ BOOST_AUTO_TEST_SUITE(pixel)
         BOOST_TEST_PASSPOINT();
 
         const unit_type unit = unit_type::from_pixels(123);
+
+        BOOST_CHECK_EQUAL(unit.value(), 123);
+    }
+
+    BOOST_AUTO_TEST_CASE(from)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const another_unit_type another_unit(123);
+        const unit_type unit = unit_type::from(another_unit);
 
         BOOST_CHECK_EQUAL(unit.value(), 123);
     }
