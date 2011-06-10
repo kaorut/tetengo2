@@ -21,12 +21,6 @@ namespace
         tetengo2::gui::unit::em<int, int, tetengo2::detail::stub::unit>
         unit_type;
 
-    typedef
-        tetengo2::gui::unit::em<
-            unsigned short, unsigned short, tetengo2::detail::stub::unit
-        >
-        another_unit_type;
-
 
 }
 
@@ -46,83 +40,45 @@ BOOST_AUTO_TEST_SUITE(em)
         BOOST_CHECK_EQUAL(unit.value(), 123);
     }
 
-    BOOST_AUTO_TEST_CASE(from)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const another_unit_type another_unit(123);
-        const unit_type unit = unit_type::from(another_unit);
-
-        BOOST_CHECK_EQUAL(unit.value(), 123);
-    }
-
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
 
-        const unit_type unit(123);
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_plus_assign)
-    {
-        BOOST_TEST_PASSPOINT();
-
         {
-            unit_type unit1(456);
-            const unit_type unit2(123);
-
-            unit1 += unit2;
-
-            BOOST_CHECK_EQUAL(unit1.value(), 579);
+            const int value = 123;
+            const unit_type unit(value);
         }
         {
-            BOOST_TEST_PASSPOINT();
-
-            unit_type unit1(456);
-
-            unit1 += 123;
-
-            BOOST_CHECK_EQUAL(unit1.value(), 579);
+            const unit_type unit(123);
         }
     }
 
-    BOOST_AUTO_TEST_CASE(operator_minus_assign)
+    BOOST_AUTO_TEST_CASE(add)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            unit_type unit1(456);
-            const unit_type unit2(123);
+        unit_type unit1(456);
 
-            unit1 -= unit2;
+        unit1.add(123);
 
-            BOOST_CHECK_EQUAL(unit1.value(), 333);
-        }
-        {
-            unit_type unit1(456);
+        BOOST_CHECK_EQUAL(unit1.value(), 579);
+    }
 
-            unit1 -= 123;
+    BOOST_AUTO_TEST_CASE(subtract)
+    {
+        BOOST_TEST_PASSPOINT();
 
-            BOOST_CHECK_EQUAL(unit1.value(), 333);
-        }
+        unit_type unit1(456);
+
+        unit1.subtract(123);
+
+        BOOST_CHECK_EQUAL(unit1.value(), 333);
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            const unit_type unit1(123);
-            const unit_type unit2(123);
-
-            BOOST_CHECK(unit1 == unit2);
-        }
-        {
-            const unit_type unit1(456);
-            const unit_type unit2(123);
-
-            BOOST_CHECK(unit1 != unit2);
-        }
         {
             const unit_type unit1(123);
 
@@ -139,34 +95,18 @@ BOOST_AUTO_TEST_SUITE(em)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            const unit_type unit1(123);
-            const unit_type unit2(456);
+        const unit_type unit1(123);
 
-            BOOST_CHECK(unit1 < unit2);
-        }
-        {
-            const unit_type unit1(456);
-            const unit_type unit2(123);
-
-            BOOST_CHECK(unit1 > unit2);
-        }
-        {
-            const unit_type unit1(123);
-
-            BOOST_CHECK(unit1 < 456);
-        }
+        BOOST_CHECK(unit1 < 456);
     }
 
     BOOST_AUTO_TEST_CASE(operator_greater)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            const unit_type unit1(456);
+        const unit_type unit1(456);
 
-            BOOST_CHECK(unit1 > 123);
-        }
+        BOOST_CHECK(unit1 > 123);
     }
 
     BOOST_AUTO_TEST_CASE(value)

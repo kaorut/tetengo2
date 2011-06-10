@@ -8,25 +8,120 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.unit.h"
-
 #include "tetengo2.gui.unit.unit.h"
 
 
-/*
 namespace
 {
     // types
 
-    typedef
-        tetengo2::gui::unit::unit<int, int, tetengo2::detail::stub::unit>
-        unit_type;
-
-    typedef
-        tetengo2::gui::unit::unit<
-            unsigned short, unsigned short, tetengo2::detail::stub::unit
+    template <typename Value, typename PixelValue>
+    class concrete_unit :
+        public tetengo2::gui::unit::unit<
+            concrete_unit<Value, PixelValue>, Value
         >
-        another_unit_type;
+    {
+    public:
+        // types
+
+        typedef Value value_type;
+
+        typedef PixelValue pixel_value_type;
+
+        struct unit_details_type {};
+
+
+        // static functions
+
+        static concrete_unit from_pixels(const pixel_value_type value)
+        {
+            return concrete_unit(value / 7);
+        }
+
+
+        // constructors and destructor
+
+        explicit concrete_unit(const value_type& value)
+        :
+        m_value(value)
+        {}
+
+        explicit concrete_unit(value_type&& value)
+        :
+        m_value(std::forward<value_type>(value))
+        {}
+
+
+        // functions
+
+        concrete_unit& add(const value_type& another)
+        {
+            concrete_unit temp(*this);
+
+            temp.m_value += another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        concrete_unit& subtract(const value_type& another)
+        {
+            concrete_unit temp(*this);
+
+            temp.m_value -= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        friend bool operator==(
+            const concrete_unit& one,
+            const value_type&    another
+        )
+        {
+            return one.m_value == another;
+        }
+
+        friend bool operator<(
+            const concrete_unit& one,
+            const value_type&    another
+        )
+        {
+            return one.m_value < another;
+        }
+
+        friend bool operator>(
+            const concrete_unit& one,
+            const value_type&    another
+        )
+        {
+            return one.m_value > another;
+        }
+
+        const value_type& value()
+        const
+        {
+            return m_value;
+        }
+
+        pixel_value_type to_pixels()
+        const
+        {
+            return m_value * 7;
+        }
+
+
+    private:
+        // variables
+
+        value_type m_value;
+
+
+    };
+
+    typedef concrete_unit<int, int> unit_type;
+
+    typedef concrete_unit<unsigned short, unsigned short> another_unit_type;
 
 
 }
@@ -38,15 +133,6 @@ BOOST_AUTO_TEST_SUITE(unit)
 BOOST_AUTO_TEST_SUITE(unit)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(from_pixels)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const unit_type unit = unit_type::from_pixels(123 * 12);
-
-        BOOST_CHECK_EQUAL(unit.value(), 123);
-    }
-
     BOOST_AUTO_TEST_CASE(from)
     {
         BOOST_TEST_PASSPOINT();
@@ -55,13 +141,6 @@ BOOST_AUTO_TEST_SUITE(unit)
         const unit_type unit = unit_type::from(another_unit);
 
         BOOST_CHECK_EQUAL(unit.value(), 123);
-    }
-
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const unit_type unit(123);
     }
 
     BOOST_AUTO_TEST_CASE(operator_plus_assign)
@@ -170,27 +249,8 @@ BOOST_AUTO_TEST_SUITE(unit)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(value)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const unit_type unit(123);
-
-        BOOST_CHECK_EQUAL(unit.value(), 123);
-    }
-
-    BOOST_AUTO_TEST_CASE(to_pixels)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const unit_type unit(123);
-
-        BOOST_CHECK_EQUAL(unit.to_pixels(), 123 * 12);
-    }
-
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
-*/
