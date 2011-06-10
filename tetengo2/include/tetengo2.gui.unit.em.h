@@ -114,12 +114,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         em& operator+=(const em& another)
         {
-            em temp(*this);
-
-            temp.m_value += another.m_value;
-
-            boost::swap(temp, *this);
-            return *this;
+            return operator+=(another.m_value);
         }
 
         /*!
@@ -148,12 +143,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         em& operator-=(const em& another)
         {
-            em temp(*this);
-
-            temp.m_value -= another.m_value;
-
-            boost::swap(temp, *this);
-            return *this;
+            return operator-=(another.m_value);
         }
 
         /*!
@@ -184,7 +174,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         friend bool operator==(const em& one, const em& another)
         {
-            return one.m_value == another.m_value;
+            return operator==(one, another.m_value);
         }
 
         /*!
@@ -212,7 +202,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         friend bool operator<(const em& one, const em& another)
         {
-            return one.m_value < another.m_value;
+            return operator<(one, another.m_value);
         }
 
         /*!
