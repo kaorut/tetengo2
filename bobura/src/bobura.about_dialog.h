@@ -315,18 +315,28 @@ namespace bobura
         {
             typedef typename about_dialog::dimension_type dimension_type;
             typedef typename about_dialog::position_type position_type;
+            typedef
+                typename tetengo2::gui::position<position_type>::left_type
+                left_type;
 
             m_p_application_image->fit_to_content();
             m_p_application_image->set_position(position_type(2, 1));
             
+            const left_type label_left =
+                left_type(2) +
+                tetengo2::gui::dimension<dimension_type>::width(
+                    m_p_application_image->dimension()
+                ) +
+                left_type(1);
+
             m_p_title_label->fit_to_content();
-            m_p_title_label->set_position(position_type(6, 1));
+            m_p_title_label->set_position(position_type(label_left, 1));
 
             m_p_copyright_label->fit_to_content();
-            m_p_copyright_label->set_position(position_type(6, 3));
+            m_p_copyright_label->set_position(position_type(label_left, 3));
 
             m_p_link_label->fit_to_content();
-            m_p_link_label->set_position(position_type(6, 5));
+            m_p_link_label->set_position(position_type(label_left, 5));
 
             m_p_ok_button->set_dimension(dimension_type(8, 2));
             m_p_ok_button->set_position(position_type(26, 7));

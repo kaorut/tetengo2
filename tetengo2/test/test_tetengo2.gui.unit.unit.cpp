@@ -165,13 +165,40 @@ BOOST_AUTO_TEST_SUITE(unit)
             BOOST_CHECK_EQUAL(unit1.value(), 579);
         }
         {
-            BOOST_TEST_PASSPOINT();
-
             unit_type unit1(456);
 
             unit1 += 123;
 
             BOOST_CHECK_EQUAL(unit1.value(), 579);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_plus)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const unit_type unit1(456);
+            const unit_type unit2(123);
+
+            const unit_type unit3 = unit1 + unit2;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 579);
+        }
+        {
+            const unit_type unit1(456);
+            const another_unit_type unit2(123);
+
+            const unit_type unit3 = unit1 + unit2;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 579);
+        }
+        {
+            const unit_type unit1(456);
+
+            const unit_type unit3 = unit1 + 123;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 579);
         }
     }
 
@@ -201,6 +228,35 @@ BOOST_AUTO_TEST_SUITE(unit)
             unit1 -= 123;
 
             BOOST_CHECK_EQUAL(unit1.value(), 333);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_minus)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const unit_type unit1(456);
+            const unit_type unit2(123);
+
+            const unit_type unit3 = unit1 - unit2;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 333);
+        }
+        {
+            const unit_type unit1(456);
+            const another_unit_type unit2(123);
+
+            const unit_type unit3 = unit1 - unit2;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 333);
+        }
+        {
+            const unit_type unit1(456);
+
+            const unit_type unit3 = unit1 - 123;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 333);
         }
     }
 

@@ -92,15 +92,54 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Adds another value in unit.
+            \brief Adds another value.
 
-            \param another Another value in unit.
+            \param another Another value.
 
             \return This object.
         */
         concrete_unit_type& operator+=(const value_type& another)
         {
             return this_as_concrete().add(another);
+        }
+
+        /*!
+            \brief Adds units.
+
+            \tparam U A unit type.
+
+            \param one     One unit.
+            \param another Another unit.
+
+            \return A unit.
+        */
+        template <typename U>
+        friend concrete_unit_type operator+(
+            const concrete_unit_type&              one,
+            const unit<U, typename U::value_type>& another
+        )
+        {
+            return operator+(concrete_unit_type(one), another);
+        }
+
+        /*!
+            \brief Adds units.
+
+            \tparam U A unit type.
+
+            \param one     One unit.
+            \param another Another unit.
+
+            \return A unit.
+        */
+        template <typename U>
+        friend concrete_unit_type operator+(
+            concrete_unit_type&&                   one,
+            const unit<U, typename U::value_type>& another
+        )
+        {
+            one += another;
+            return std::forward<concrete_unit_type>(one);
         }
 
         /*!
@@ -133,15 +172,54 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Subtracts another value in unit.
+            \brief Subtracts another value.
 
-            \param another Another value in unit.
+            \param another Another value.
 
             \return This object.
         */
         concrete_unit_type& operator-=(const value_type& another)
         {
             return this_as_concrete().subtract(another);
+        }
+
+        /*!
+            \brief Subtracts units.
+
+            \tparam U A unit type.
+
+            \param one     One unit.
+            \param another Another unit.
+
+            \return A unit.
+        */
+        template <typename U>
+        friend concrete_unit_type operator-(
+            const concrete_unit_type&              one,
+            const unit<U, typename U::value_type>& another
+        )
+        {
+            return operator-(concrete_unit_type(one), another);
+        }
+
+        /*!
+            \brief Subtracts units.
+
+            \tparam U A unit type.
+
+            \param one     One unit.
+            \param another Another unit.
+
+            \return A unit.
+        */
+        template <typename U>
+        friend concrete_unit_type operator-(
+            concrete_unit_type&&                   one,
+            const unit<U, typename U::value_type>& another
+        )
+        {
+            one -= another;
+            return std::forward<concrete_unit_type>(one);
         }
 
         /*!
