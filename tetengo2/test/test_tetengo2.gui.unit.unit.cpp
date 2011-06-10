@@ -28,8 +28,6 @@ namespace
 
         typedef PixelValue pixel_value_type;
 
-        struct unit_details_type {};
-
 
         // static functions
 

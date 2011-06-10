@@ -14,7 +14,7 @@
 #include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
-#include "tetengo2.operators.h"
+#include "tetengo2.gui.unit.unit.h"
 
 
 namespace tetengo2 { namespace gui { namespace unit
@@ -26,11 +26,7 @@ namespace tetengo2 { namespace gui { namespace unit
         \tparam PixelValue A pixel value type.
    */
     template <typename Value, typename PixelValue>
-    class pixel :
-        private boost::totally_ordered<pixel<Value, PixelValue>>,
-        private boost::totally_ordered<pixel<Value, PixelValue>, Value>,
-        private tetengo2::additive<pixel<Value, PixelValue>>,
-        private tetengo2::additive<pixel<Value, PixelValue>, Value>
+    class pixel : public unit<pixel<Value, PixelValue>, Value>
     {
     public:
         // types
@@ -54,21 +50,6 @@ namespace tetengo2 { namespace gui { namespace unit
         static pixel from_pixels(const pixel_value_type value)
         {
             return pixel(value_type(value));
-        }
-
-        /*!
-            \brief Returns an EM height unit made from another unit.
-
-            \tparam U A unit type.
-
-            \param value A value in another unit.
-
-            \return An EM height unit.
-        */
-        template <typename U>
-        static pixel from(const U& value)
-        {
-            return from_pixels(value.to_pixels());
         }
 
 
@@ -98,51 +79,17 @@ namespace tetengo2 { namespace gui { namespace unit
         // functions
 
         /*!
-            \brief Adds another pixel unit.
-
-            \param another Another pixel unit.
-
-            \return This object.
-        */
-        pixel& operator+=(const pixel& another)
-        {
-            pixel temp(*this);
-
-            temp.m_value += another.m_value;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
-
-        /*!
             \brief Adds another value in pixel unit.
 
             \param another Another value in pixel unit.
 
             \return This object.
         */
-        pixel& operator+=(const value_type& another)
+        pixel& add(const value_type& another)
         {
             pixel temp(*this);
 
             temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
-
-        /*!
-            \brief Subtracts another pixel unit.
-
-            \param another Another pixel unit.
-
-            \return This object.
-        */
-        pixel& operator-=(const pixel& another)
-        {
-            pixel temp(*this);
-
-            temp.m_value -= another.m_value;
 
             boost::swap(temp, *this);
             return *this;
@@ -155,7 +102,7 @@ namespace tetengo2 { namespace gui { namespace unit
 
             \return This object.
         */
-        pixel& operator-=(const value_type& another)
+        pixel& subtract(const value_type& another)
         {
             pixel temp(*this);
 
@@ -163,20 +110,6 @@ namespace tetengo2 { namespace gui { namespace unit
 
             boost::swap(temp, *this);
             return *this;
-        }
-
-        /*!
-            \brief Checks whether one pixel unit is equal to another.
-
-            \param one     One pixel unit.
-            \param another Another pixel unit.
-
-            \retval true  When the one is equal to the other.
-            \retval false Otherwise.
-        */
-        friend bool operator==(const pixel& one, const pixel& another)
-        {
-            return one.m_value == another.m_value;
         }
 
         /*!
@@ -191,20 +124,6 @@ namespace tetengo2 { namespace gui { namespace unit
         friend bool operator==(const pixel& one, const value_type& another)
         {
             return one.m_value == another;
-        }
-
-        /*!
-            \brief Checks whether one pixel unit is less than another.
-
-            \param one     One pixel unit.
-            \param another Another pixel unit.
-
-            \retval true  When the one is less than the other.
-            \retval false Otherwise.
-        */
-        friend bool operator<(const pixel& one, const pixel& another)
-        {
-            return one.m_value < another.m_value;
         }
 
         /*!
