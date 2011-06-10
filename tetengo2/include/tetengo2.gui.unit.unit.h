@@ -9,10 +9,7 @@
 #if !defined(TETENGO2_GUI_UNIT_UNIT_H)
 #define TETENGO2_GUI_UNIT_UNIT_H
 
-//#include <utility>
-
 #include <boost/operators.hpp>
-#include <boost/swap.hpp>
 
 #include "tetengo2.operators.h"
 

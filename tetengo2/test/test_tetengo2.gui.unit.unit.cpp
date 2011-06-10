@@ -6,6 +6,9 @@
     $Id$
 */
 
+//#include <utility>
+
+#include <boost/swap.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.gui.unit.unit.h"

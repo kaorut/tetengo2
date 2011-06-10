@@ -11,7 +11,6 @@
 
 //#include <utility>
 
-#include <boost/operators.hpp>
 #include <boost/swap.hpp>
 
 #include "tetengo2.gui.unit.unit.h"
