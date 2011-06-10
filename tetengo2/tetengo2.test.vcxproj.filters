@@ -205,5 +205,8 @@
     <ClCompile Include="test\test_tetengo2.gui.link_label.cpp">
       <Filter>sources\test_tetengo2::gui</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.unit.unit.cpp">
+      <Filter>sources\test_tetengo2::gui::unit</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

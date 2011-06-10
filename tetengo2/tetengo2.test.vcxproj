@@ -268,6 +268,7 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.gui.system_cursor.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.em.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.unit.unit.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.window.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.window_observer_set.cpp" />

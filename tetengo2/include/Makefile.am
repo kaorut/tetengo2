@@ -65,6 +65,7 @@ headers = \
     tetengo2.gui.traits.window_traits.h \
     tetengo2.gui.unit.em.h \
     tetengo2.gui.unit.pixel.h \
+    tetengo2.gui.unit.unit.h \
     tetengo2.gui.widget.h \
     tetengo2.gui.window.h \
     tetengo2.gui.window_observer_set.h \

@@ -49,6 +49,7 @@ sources = \
     test_tetengo2.gui.system_cursor.cpp \
     test_tetengo2.gui.unit.em.cpp \
     test_tetengo2.gui.unit.pixel.cpp \
+    test_tetengo2.gui.unit.unit.cpp \
     test_tetengo2.gui.widget.cpp \
     test_tetengo2.gui.window.cpp \
     test_tetengo2.gui.window_observer_set.cpp \
