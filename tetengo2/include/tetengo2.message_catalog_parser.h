@@ -19,6 +19,7 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/spirit/include/qi.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
 
@@ -112,6 +113,8 @@ namespace tetengo2
     private:
         // types
 
+        typedef typename input_stream_type::char_type input_char_type;
+
         typedef
             boost::escaped_list_separator<
                 typename input_string_type::value_type
@@ -143,6 +146,30 @@ namespace tetengo2
         mutable typename cpp0x::unique_ptr<entry_type>::type
         m_p_preread_entry;
 
+        struct string_holder
+        {
+            string_holder(input_string_type& content)
+            :
+            m_content(content)
+            {}
+
+            void operator()(
+                const std::vector<input_char_type>& characters,
+                boost::spirit::qi::unused_type,
+                boost::spirit::qi::unused_type
+            )
+            const
+            {
+                m_content.append(characters.begin(), characters.end());
+            }
+
+
+        private:
+            input_string_type& m_content;
+
+        
+        };
+
 
         // functions
 
@@ -168,24 +195,32 @@ namespace tetengo2
         input_string_type get_line()
         const
         {
+            namespace qi = boost::spirit::qi;
+
             input_string_type line;
             for (;;)
             {
                 input_string_type got_line;
                 std::getline(m_input_stream, got_line);
                 if (got_line.empty()) break;
+
+                input_string_type trimmed;
                 if (
-                    got_line[got_line.length() - 1] !=
-                    static_cast<typename input_stream_type::char_type>(
-                        TETENGO2_TEXT('\\')
-                    )
+                    !qi::parse(
+                        got_line.begin(),
+                        got_line.end(),
+                        (*(qi::char_ - (qi::lit('\\') >> qi::eoi)))[
+                            string_holder(trimmed)
+                        ]
+                    ) ||
+                    trimmed.length() == got_line.length()
                 )
                 {
                     line.append(got_line);
                     break;
                 }
 
-                line.append(got_line.begin(), got_line.end() - 1);
+                line.append(trimmed);
             }
 
             remove_comment(line);
