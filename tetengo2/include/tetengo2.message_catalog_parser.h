@@ -18,6 +18,7 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/iterator/indirect_iterator.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/throw_exception.hpp>
@@ -146,26 +147,27 @@ namespace tetengo2
         mutable typename cpp0x::unique_ptr<entry_type>::type
         m_p_preread_entry;
 
-        struct string_holder
+        template <typename T>
+        struct content_holder
         {
-            string_holder(input_string_type& content)
+            content_holder(T& content)
             :
             m_content(content)
             {}
 
             void operator()(
-                const std::vector<input_char_type>& characters,
+                const T& content,
                 boost::spirit::qi::unused_type,
                 boost::spirit::qi::unused_type
             )
             const
             {
-                m_content.append(characters.begin(), characters.end());
+                m_content = content;
             }
 
 
         private:
-            input_string_type& m_content;
+            T& m_content;
 
         
         };
@@ -204,23 +206,25 @@ namespace tetengo2
                 std::getline(m_input_stream, got_line);
                 if (got_line.empty()) break;
 
-                input_string_type trimmed;
+                std::vector<input_char_type> parsed;
                 if (
                     !qi::parse(
                         got_line.begin(),
                         got_line.end(),
                         (*(qi::char_ - (qi::lit('\\') >> qi::eoi)))[
-                            string_holder(trimmed)
+                            content_holder<std::vector<input_char_type>>(
+                                parsed
+                            )
                         ]
                     ) ||
-                    trimmed.length() == got_line.length()
+                    parsed.size() == got_line.length()
                 )
                 {
                     line.append(got_line);
                     break;
                 }
 
-                line.append(trimmed);
+                line.append(parsed.begin(), parsed.end());
             }
 
             remove_comment(line);
@@ -252,17 +256,16 @@ namespace tetengo2
 
                 ++position;
             }
-
-            boost::replace_all(
-                line,
-                input_string_type(TETENGO2_TEXT("\\#")),
-                input_string_type(TETENGO2_TEXT("#"))
-            );
         }
 
         void replace_special_characters(input_string_type& line)
         const
         {
+            boost::replace_all(
+                line,
+                input_string_type(TETENGO2_TEXT("\\#")),
+                input_string_type(TETENGO2_TEXT("#"))
+            );
             boost::replace_all(
                 line,
                 input_string_type(TETENGO2_TEXT("\\t")),
