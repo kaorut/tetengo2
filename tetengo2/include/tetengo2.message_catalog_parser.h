@@ -18,8 +18,11 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/foreach.hpp>
+#include <boost/fusion/include/all.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
@@ -130,23 +133,6 @@ namespace tetengo2
             >
             tokenizer_type;
 
-
-        // static functions
-
-        static const encoder_type& encoder()
-        {
-            static const encoder_type singleton;
-            return singleton;
-        }
-
-
-        // variables
-
-        mutable input_stream_type& m_input_stream;
-
-        mutable typename cpp0x::unique_ptr<entry_type>::type
-        m_p_preread_entry;
-
         template <typename T>
         struct content_holder
         {
@@ -171,6 +157,70 @@ namespace tetengo2
 
         
         };
+
+        typedef
+            boost::fusion::vector2<
+                std::vector<input_char_type>,
+                std::vector<
+                    boost::fusion::vector3<
+                        input_char_type,
+                        boost::optional<input_char_type>,
+                        std::vector<input_char_type>
+                    >
+                >
+            >
+            remove_comment_parsed_content_type;
+
+
+        // static functions
+
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
+
+        static input_string_type to_string(
+            const remove_comment_parsed_content_type& parsed
+        )
+        {
+            const std::vector<input_char_type>& element0 =
+                boost::fusion::at_c<0>(parsed);
+            input_string_type string(element0.begin(), element0.end());
+
+            typedef
+                boost::fusion::vector3<
+                    input_char_type,
+                    boost::optional<input_char_type>,
+                    std::vector<input_char_type>
+                >
+                element1i_type;
+            const std::vector<element1i_type>& element1 =
+                boost::fusion::at_c<1>(parsed);
+            for (std::size_t i = 0; i < element1.size(); ++i)
+            {
+                const element1i_type& element1i = element1[i];
+
+                string.push_back(boost::fusion::at_c<0>(element1i));
+
+                if (boost::fusion::at_c<1>(element1i))
+                    string.push_back(*boost::fusion::at_c<1>(element1i));
+
+                const std::vector<input_char_type> element1i2 =
+                    boost::fusion::at_c<2>(element1i);
+                string.append(element1i2.begin(), element1i2.end());
+            }
+
+            return string;
+        }
+
+
+        // variables
+
+        mutable input_stream_type& m_input_stream;
+
+        mutable typename cpp0x::unique_ptr<entry_type>::type
+        m_p_preread_entry;
 
 
         // functions
@@ -206,25 +256,23 @@ namespace tetengo2
                 std::getline(m_input_stream, got_line);
                 if (got_line.empty()) break;
 
+                typename input_string_type::iterator got_line_begin =
+                    got_line.begin();
                 std::vector<input_char_type> parsed;
-                if (
-                    !qi::parse(
-                        got_line.begin(),
+                const bool result =
+                    qi::parse(
+                        got_line_begin,
                         got_line.end(),
                         (*(qi::char_ - (qi::lit('\\') >> qi::eoi)))[
                             content_holder<std::vector<input_char_type>>(
                                 parsed
                             )
                         ]
-                    ) ||
-                    parsed.size() == got_line.length()
-                )
-                {
-                    line.append(got_line);
-                    break;
-                }
+                    );
+                assert(result);
 
                 line.append(parsed.begin(), parsed.end());
+                if (got_line_begin == got_line.end()) break;
             }
 
             remove_comment(line);
@@ -236,26 +284,29 @@ namespace tetengo2
         void remove_comment(input_string_type& line)
         const
         {
-            typename input_string_type::size_type position = 0;
-            for (;;)
-            {
-                position = line.find('#', position);
-                if (position == input_string_type::npos) break;
+            namespace qi = boost::spirit::qi;
 
-                if (
-                    position == 0 ||
-                    line[position - 1] !=
-                        static_cast<typename input_stream_type::char_type>(
-                            TETENGO2_TEXT('\\')
+            remove_comment_parsed_content_type parsed;
+            const bool result =
+                qi::parse(
+                    line.begin(),
+                    line.end(),
+                    (
+                        *(qi::char_ - '\\' - '#') >>
+                        *(
+                            qi::char_('\\') >>
+                            -qi::char_('#') >>
+                            *(qi::char_ - '\\' - '#')
                         )
-                )
-                {
-                    line = line.substr(0, position);
-                    break;
-                }
+                    )[
+                        content_holder<remove_comment_parsed_content_type>(
+                            parsed
+                        )
+                    ]
+                );
 
-                ++position;
-            }
+            if (result)
+                line = to_string(parsed);
         }
 
         void replace_special_characters(input_string_type& line)
