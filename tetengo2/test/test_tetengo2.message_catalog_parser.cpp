@@ -152,6 +152,10 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             BOOST_CHECK(entry4.first == "Key4");
             BOOST_CHECK(entry4.second == "Value\"4\"");
 
+            const entry_type entry5 = parser.next();
+            BOOST_CHECK(entry5.first == "Key5'");
+            BOOST_CHECK(entry5.second == "Value5");
+
             const entry_type entry7 = parser.next();
             BOOST_CHECK(entry7.first == "Key7");
             BOOST_CHECK(entry7.second == "");

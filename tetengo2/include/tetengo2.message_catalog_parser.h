@@ -26,6 +26,7 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/tokenizer.hpp>
+#include <boost/variant.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.text.h"
@@ -171,6 +172,19 @@ namespace tetengo2
             >
             remove_comment_parsed_content_type;
 
+        typedef
+            boost::fusion::vector2<
+                std::vector<input_char_type>,
+                std::vector<
+                    boost::fusion::vector3<
+                        input_char_type,
+                        boost::optional<input_char_type>,
+                        std::vector<input_char_type>
+                    >
+                >
+            >
+            parse_parsed_content_type;
+
 
         // static functions
 
@@ -178,6 +192,12 @@ namespace tetengo2
         {
             static const encoder_type singleton;
             return singleton;
+        }
+
+        template <typename T>
+        static content_holder<T> make_content_holder(T& content)
+        {
+            return content_holder<T>(content);
         }
 
         static input_string_type to_string(
@@ -271,11 +291,7 @@ namespace tetengo2
                                     boost::spirit::qi::eoi
                                 )
                             )
-                        )[
-                            content_holder<std::vector<input_char_type>>(
-                                parsed
-                            )
-                        ]
+                        )[make_content_holder(parsed)]
                     );
                 assert(result);
 
@@ -284,7 +300,6 @@ namespace tetengo2
             }
 
             remove_comment(line);
-            replace_special_characters(line);
 
             return line;
         }
@@ -316,15 +331,166 @@ namespace tetengo2
                                 input_char_type(TETENGO2_TEXT('#'))
                             )
                         )
-                    )[
-                        content_holder<remove_comment_parsed_content_type>(
-                            parsed
-                        )
-                    ]
+                    )[make_content_holder(parsed)]
                 );
 
             if (result)
                 line = to_string(parsed);
+        }
+
+        typename cpp0x::unique_ptr<entry_type>::type parse(
+            const input_string_type& line
+        )
+        const
+        {
+            parse_parsed_content_type parsed_key;
+            boost::variant<
+                parse_parsed_content_type, std::vector<input_char_type>
+            > parsed_value;
+            const bool result =
+                boost::spirit::qi::parse(
+                    line.begin(),
+                    line.end(),
+                    (
+                        (
+                            boost::spirit::qi::lit('\'') >>
+                            *(
+                                boost::spirit::qi::char_ -
+                                input_char_type(TETENGO2_TEXT('\\')) -
+                                input_char_type(TETENGO2_TEXT('\''))
+                            ) >>
+                            *(
+                                boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('\\'))
+                                ) >>
+                                -boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('\''))
+                                ) >>
+                                *(
+                                    boost::spirit::qi::char_ -
+                                    input_char_type(TETENGO2_TEXT('\\')) -
+                                    input_char_type(TETENGO2_TEXT('\''))
+                                )
+                            ) >>
+                            boost::spirit::qi::lit('\'')
+                        ) |
+                        (
+                            boost::spirit::qi::lit('"') >>
+                            *(
+                                boost::spirit::qi::char_ -
+                                input_char_type(TETENGO2_TEXT('\\')) -
+                                input_char_type(TETENGO2_TEXT('"'))
+                            ) >>
+                            *(
+                                boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('\\'))
+                                ) >>
+                                -boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('"'))
+                                ) >>
+                                *(
+                                    boost::spirit::qi::char_ -
+                                    input_char_type(TETENGO2_TEXT('\\')) -
+                                    input_char_type(TETENGO2_TEXT('"'))
+                                )
+                            ) >>
+                            boost::spirit::qi::lit('"')
+                        ) |
+                        (
+                            *(
+                                boost::spirit::qi::char_ -
+                                input_char_type(TETENGO2_TEXT('\\')) -
+                                input_char_type(TETENGO2_TEXT('='))
+                            ) >>
+                            *(
+                                boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('\\'))
+                                ) >>
+                                -boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('='))
+                                ) >>
+                                *(
+                                    boost::spirit::qi::char_ -
+                                    input_char_type(TETENGO2_TEXT('\\')) -
+                                    input_char_type(TETENGO2_TEXT('='))
+                                )
+                            )
+                        )
+                    )[make_content_holder(parsed_key)] >>
+                    boost::spirit::qi::lit('=') >>
+                    (
+                        (
+                            boost::spirit::qi::lit('\'') >>
+                            *(
+                                boost::spirit::qi::char_ -
+                                input_char_type(TETENGO2_TEXT('\\')) -
+                                input_char_type(TETENGO2_TEXT('\''))
+                            ) >>
+                            *(
+                                boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('\\'))
+                                ) >>
+                                -boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('\''))
+                                ) >>
+                                *(
+                                    boost::spirit::qi::char_ -
+                                    input_char_type(TETENGO2_TEXT('\\')) -
+                                    input_char_type(TETENGO2_TEXT('\''))
+                                )
+                            ) >>
+                            -boost::spirit::qi::lit('\'')
+                        ) |
+                        (
+                            boost::spirit::qi::lit('"') >>
+                            *(
+                                boost::spirit::qi::char_ -
+                                input_char_type(TETENGO2_TEXT('\\')) -
+                                input_char_type(TETENGO2_TEXT('"'))
+                            ) >>
+                            *(
+                                boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('\\'))
+                                ) >>
+                                -boost::spirit::qi::char_(
+                                    input_char_type(TETENGO2_TEXT('"'))
+                                ) >>
+                                *(
+                                    boost::spirit::qi::char_ -
+                                    input_char_type(TETENGO2_TEXT('\\')) -
+                                    input_char_type(TETENGO2_TEXT('"'))
+                                )
+                            ) >>
+                            -boost::spirit::qi::lit('"')
+                        ) |
+                        (*boost::spirit::qi::char_)
+                    )[make_content_holder(parsed_value)]
+            );
+            if (!result)
+                return typename cpp0x::unique_ptr<entry_type>::type();
+
+            input_string_type key = to_string(parsed_key);
+            input_string_type value;
+            if (
+                const parse_parsed_content_type* const p_value0 =
+                    boost::get<parse_parsed_content_type>(&parsed_value)
+            )
+            {
+                value = to_string(*p_value0);
+            }
+            else
+            {
+                const std::vector<input_char_type>* const p_value1 =
+                    boost::get<std::vector<input_char_type>>(&parsed_value);
+                assert(p_value1);
+                value.assign(p_value1->begin(), p_value1->end());
+            }
+            replace_special_characters(key);
+            replace_special_characters(value);
+
+            return typename cpp0x::unique_ptr<entry_type>::type(
+                new entry_type(encoder().decode(key), encoder().decode(value))
+            );
         }
 
         void replace_special_characters(input_string_type& line)
@@ -337,6 +503,21 @@ namespace tetengo2
             );
             boost::replace_all(
                 line,
+                input_string_type(TETENGO2_TEXT("\\=")),
+                input_string_type(TETENGO2_TEXT("="))
+            );
+            boost::replace_all(
+                line,
+                input_string_type(TETENGO2_TEXT("\\'")),
+                input_string_type(TETENGO2_TEXT("'"))
+            );
+            boost::replace_all(
+                line,
+                input_string_type(TETENGO2_TEXT("\\\"")),
+                input_string_type(TETENGO2_TEXT("\""))
+            );
+            boost::replace_all(
+                line,
                 input_string_type(TETENGO2_TEXT("\\t")),
                 input_string_type(TETENGO2_TEXT("\t"))
             );
@@ -344,35 +525,6 @@ namespace tetengo2
                 line,
                 input_string_type(TETENGO2_TEXT("\\n")),
                 input_string_type(TETENGO2_TEXT("\n"))
-            );
-        }
-
-        typename cpp0x::unique_ptr<entry_type>::type parse(
-            const input_string_type& line
-        )
-        const
-        {
-            const tokenizer_type tokenizer(
-                line,
-                separator_type(
-                    input_string_type(TETENGO2_TEXT("\\")),
-                    input_string_type(TETENGO2_TEXT("=")),
-                    input_string_type(TETENGO2_TEXT("\"'"))
-                )
-            );
-            std::vector<input_string_type> tokens;
-            tokens.reserve(2);
-            std::copy(
-                tokenizer.begin(), tokenizer.end(), std::back_inserter(tokens)
-            );
-
-            if (tokens.size() < 2)
-                return typename cpp0x::unique_ptr<entry_type>::type();
-
-            return typename cpp0x::unique_ptr<entry_type>::type(
-                new entry_type(
-                    encoder().decode(tokens[0]), encoder().decode(tokens[1])
-                )
             );
         }
 
