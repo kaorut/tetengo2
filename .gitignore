@@ -15,6 +15,7 @@ depcomp
 doc/
 doc.test/
 install-sh
+ipch/
 Makefile
 Makefile.in
 missing
