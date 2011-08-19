@@ -45,6 +45,7 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
+#include <boost/fusion/include/all.hpp>
 #include <boost/interprocess/smart_ptr/unique_ptr.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
@@ -89,10 +90,11 @@
 #include <boost/ref.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/signals2.hpp>
+#include <boost/spirit/include/qi.hpp>
 #include <boost/swap.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/tokenizer.hpp>
 #include <boost/utility.hpp>
+#include <boost/variant.hpp>
 
 
 #if defined(_MSC_VER)

@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_MESSAGECATALOGPARSER_H)
 #define TETENGO2_MESSAGECATALOGPARSER_H
 
-#include <algorithm>
-#include <iterator>
+#include <cassert>
+#include <cstddef>
 #include <locale>
 #include <stdexcept>
 #include <string>
@@ -18,14 +18,11 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/foreach.hpp>
 #include <boost/fusion/include/all.hpp>
-#include <boost/iterator/indirect_iterator.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/tokenizer.hpp>
 #include <boost/variant.hpp>
 
 #include "tetengo2.cpp0x.h"
@@ -119,20 +116,6 @@ namespace tetengo2
         // types
 
         typedef typename input_stream_type::char_type input_char_type;
-
-        typedef
-            boost::escaped_list_separator<
-                typename input_string_type::value_type
-            >
-            separator_type;
-
-        typedef
-            boost::tokenizer<
-                separator_type,
-                typename input_string_type::const_iterator,
-                input_string_type
-            >
-            tokenizer_type;
 
         template <typename T>
         struct content_holder
