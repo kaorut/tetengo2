@@ -247,8 +247,6 @@ namespace tetengo2
         input_string_type get_line()
         const
         {
-            namespace qi = boost::spirit::qi;
-
             input_string_type line;
             for (;;)
             {
@@ -260,10 +258,20 @@ namespace tetengo2
                     got_line.begin();
                 std::vector<input_char_type> parsed;
                 const bool result =
-                    qi::parse(
+                    boost::spirit::qi::parse(
                         got_line_begin,
                         got_line.end(),
-                        (*(qi::char_ - (qi::lit('\\') >> qi::eoi)))[
+                        (
+                            *(
+                                boost::spirit::qi::char_ -
+                                (
+                                    boost::spirit::qi::lit(
+                                        input_char_type(TETENGO2_TEXT('\\'))
+                                    ) >>
+                                    boost::spirit::qi::eoi
+                                )
+                            )
+                        )[
                             content_holder<std::vector<input_char_type>>(
                                 parsed
                             )
@@ -284,19 +292,29 @@ namespace tetengo2
         void remove_comment(input_string_type& line)
         const
         {
-            namespace qi = boost::spirit::qi;
-
             remove_comment_parsed_content_type parsed;
             const bool result =
-                qi::parse(
+                boost::spirit::qi::parse(
                     line.begin(),
                     line.end(),
                     (
-                        *(qi::char_ - '\\' - '#') >>
                         *(
-                            qi::char_('\\') >>
-                            -qi::char_('#') >>
-                            *(qi::char_ - '\\' - '#')
+                            boost::spirit::qi::char_ -
+                            input_char_type(TETENGO2_TEXT('\\')) -
+                            input_char_type(TETENGO2_TEXT('#'))
+                        ) >>
+                        *(
+                            boost::spirit::qi::char_(
+                                input_char_type(TETENGO2_TEXT('\\'))
+                            ) >>
+                            -boost::spirit::qi::char_(
+                                input_char_type(TETENGO2_TEXT('#'))
+                            ) >>
+                            *(
+                                boost::spirit::qi::char_ -
+                                input_char_type(TETENGO2_TEXT('\\')) -
+                                input_char_type(TETENGO2_TEXT('#'))
+                            )
                         )
                     )[
                         content_holder<remove_comment_parsed_content_type>(
