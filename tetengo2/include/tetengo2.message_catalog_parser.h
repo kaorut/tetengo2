@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <cstddef>
+#include <iterator>
 #include <locale>
 #include <stdexcept>
 #include <string>
@@ -22,6 +23,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
@@ -148,6 +150,19 @@ namespace tetengo2
                 std::vector<
                     boost::fusion::vector3<
                         input_char_type,
+                        boost::optional<input_string_type>,
+                        std::vector<input_char_type>
+                    >
+                >
+            >
+            get_line_parsed_content_type;
+
+        typedef
+            boost::fusion::vector2<
+                std::vector<input_char_type>,
+                std::vector<
+                    boost::fusion::vector3<
+                        input_char_type,
                         boost::optional<input_char_type>,
                         std::vector<input_char_type>
                     >
@@ -181,6 +196,40 @@ namespace tetengo2
         static content_holder<T> make_content_holder(T& content)
         {
             return content_holder<T>(content);
+        }
+
+        static input_string_type to_string(
+            const get_line_parsed_content_type& parsed
+        )
+        {
+            const std::vector<input_char_type>& element0 =
+                boost::fusion::at_c<0>(parsed);
+            input_string_type string(element0.begin(), element0.end());
+
+            typedef
+                boost::fusion::vector3<
+                    input_char_type,
+                    boost::optional<input_string_type>,
+                    std::vector<input_char_type>
+                >
+                element1i_type;
+            const std::vector<element1i_type>& element1 =
+                boost::fusion::at_c<1>(parsed);
+            for (std::size_t i = 0; i < element1.size(); ++i)
+            {
+                const element1i_type& element1i = element1[i];
+
+                string.push_back(boost::fusion::at_c<0>(element1i));
+
+                if (boost::fusion::at_c<1>(element1i))
+                    string.append(*boost::fusion::at_c<1>(element1i));
+
+                const std::vector<input_char_type> element1i2 =
+                    boost::fusion::at_c<2>(element1i);
+                string.append(element1i2.begin(), element1i2.end());
+            }
+
+            return string;
         }
 
         static input_string_type to_string(
@@ -251,40 +300,93 @@ namespace tetengo2
         const
         {
             using boost::spirit::qi::char_;
-            using boost::spirit::qi::lit;
-            using boost::spirit::qi::eoi;
+            using boost::spirit::qi::eol;
+            using boost::spirit::qi::string;
 
             input_string_type line;
-            for (;;)
+            typedef
+                boost::spirit::multi_pass<
+                    std::istreambuf_iterator<input_char_type>
+                >
+                input_stream_iterator_type;
+            input_stream_iterator_type first =
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<input_char_type>(m_input_stream)
+                );
+            const input_stream_iterator_type last =
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<input_char_type>()
+                );
+            for(;;)
             {
-                input_string_type got_line;
-                std::getline(m_input_stream, got_line);
-                if (got_line.empty()) break;
+                if (first == last)
+                {
+                    m_input_stream.setstate(std::ios_base::eofbit);
+                    break;
+                }
 
-                typename input_string_type::iterator got_line_begin =
-                    got_line.begin();
-                std::vector<input_char_type> parsed;
+                get_line_parsed_content_type parsed;
+                const input_stream_iterator_type original_first = first;
                 const bool result =
                     boost::spirit::qi::parse(
-                        got_line_begin,
-                        got_line.end(),
+                        first,
+                        last,
                         (
                             *(
                                 char_ -
-                                (
-                                    lit(
-                                        input_char_type(TETENGO2_TEXT('\\'))
-                                    ) >> eoi
+                                input_char_type(TETENGO2_TEXT('\\')) -
+                                eol
+                            ) >>
+                            *(
+                                char_(input_char_type(TETENGO2_TEXT('\\'))) >>
+                                -(
+                                    string(
+                                        input_string_type(
+                                            TETENGO2_TEXT("\r\n")
+                                        )
+                                    ) |
+                                    string(
+                                        input_string_type(TETENGO2_TEXT("\r"))
+                                    ) |
+                                    string(
+                                        input_string_type(TETENGO2_TEXT("\n"))
+                                    )
+                                ) >>
+                                *(
+                                    char_ -
+                                    input_char_type(TETENGO2_TEXT('\\')) -
+                                    eol
                                 )
                             )
-                        )[make_content_holder(parsed)]
+                        )[make_content_holder(parsed)] >>
+                        -eol
                     );
                 assert(result);
 
-                line.append(parsed.begin(), parsed.end());
-                if (got_line_begin == got_line.end()) break;
+                const input_string_type xxx(original_first, first);
+                const input_string_type got_line = to_string(parsed);
+                if (!got_line.empty())
+                {
+                    line = got_line;
+                    break;
+                }
             }
 
+            boost::replace_all(
+                line,
+                input_string_type(TETENGO2_TEXT("\\\r\n")),
+                input_string_type()
+            );
+            boost::replace_all(
+                line,
+                input_string_type(TETENGO2_TEXT("\\\r")),
+                input_string_type()
+            );
+            boost::replace_all(
+                line,
+                input_string_type(TETENGO2_TEXT("\\\n")),
+                input_string_type()
+            );
             remove_comment(line);
 
             return line;
