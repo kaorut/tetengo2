@@ -250,6 +250,10 @@ namespace tetengo2
         input_string_type get_line()
         const
         {
+            using boost::spirit::qi::char_;
+            using boost::spirit::qi::lit;
+            using boost::spirit::qi::eoi;
+
             input_string_type line;
             for (;;)
             {
@@ -266,12 +270,11 @@ namespace tetengo2
                         got_line.end(),
                         (
                             *(
-                                boost::spirit::qi::char_ -
+                                char_ -
                                 (
-                                    boost::spirit::qi::lit(
+                                    lit(
                                         input_char_type(TETENGO2_TEXT('\\'))
-                                    ) >>
-                                    boost::spirit::qi::eoi
+                                    ) >> eoi
                                 )
                             )
                         )[make_content_holder(parsed)]
@@ -290,6 +293,8 @@ namespace tetengo2
         void remove_comment(input_string_type& line)
         const
         {
+            using boost::spirit::qi::char_;
+
             remove_comment_parsed_content_type parsed;
             const bool result =
                 boost::spirit::qi::parse(
@@ -297,19 +302,15 @@ namespace tetengo2
                     line.end(),
                     (
                         *(
-                            boost::spirit::qi::char_ -
+                            char_ -
                             input_char_type(TETENGO2_TEXT('\\')) -
                             input_char_type(TETENGO2_TEXT('#'))
                         ) >>
                         *(
-                            boost::spirit::qi::char_(
-                                input_char_type(TETENGO2_TEXT('\\'))
-                            ) >>
-                            -boost::spirit::qi::char_(
-                                input_char_type(TETENGO2_TEXT('#'))
-                            ) >>
+                            char_(input_char_type(TETENGO2_TEXT('\\'))) >>
+                            -char_(input_char_type(TETENGO2_TEXT('#'))) >>
                             *(
-                                boost::spirit::qi::char_ -
+                                char_ -
                                 input_char_type(TETENGO2_TEXT('\\')) -
                                 input_char_type(TETENGO2_TEXT('#'))
                             )
@@ -326,6 +327,9 @@ namespace tetengo2
         )
         const
         {
+            using boost::spirit::qi::char_;
+            using boost::spirit::qi::lit;
+                
             parse_parsed_content_type parsed_key;
             boost::variant<
                 parse_parsed_content_type, std::vector<input_char_type>
@@ -336,117 +340,101 @@ namespace tetengo2
                     line.end(),
                     (
                         (
-                            boost::spirit::qi::lit('\'') >>
+                            lit(input_char_type(TETENGO2_TEXT('\''))) >>
                             *(
-                                boost::spirit::qi::char_ -
+                                char_ -
                                 input_char_type(TETENGO2_TEXT('\\')) -
                                 input_char_type(TETENGO2_TEXT('\''))
                             ) >>
                             *(
-                                boost::spirit::qi::char_(
-                                    input_char_type(TETENGO2_TEXT('\\'))
-                                ) >>
-                                -boost::spirit::qi::char_(
+                                char_(input_char_type(TETENGO2_TEXT('\\'))) >>
+                                -char_(
                                     input_char_type(TETENGO2_TEXT('\''))
                                 ) >>
                                 *(
-                                    boost::spirit::qi::char_ -
+                                    char_ -
                                     input_char_type(TETENGO2_TEXT('\\')) -
                                     input_char_type(TETENGO2_TEXT('\''))
                                 )
                             ) >>
-                            boost::spirit::qi::lit('\'')
+                            lit(input_char_type(TETENGO2_TEXT('\'')))
                         ) |
                         (
-                            boost::spirit::qi::lit('"') >>
+                            lit(input_char_type(TETENGO2_TEXT('"'))) >>
                             *(
-                                boost::spirit::qi::char_ -
+                                char_ -
                                 input_char_type(TETENGO2_TEXT('\\')) -
                                 input_char_type(TETENGO2_TEXT('"'))
                             ) >>
                             *(
-                                boost::spirit::qi::char_(
-                                    input_char_type(TETENGO2_TEXT('\\'))
-                                ) >>
-                                -boost::spirit::qi::char_(
-                                    input_char_type(TETENGO2_TEXT('"'))
-                                ) >>
+                                char_(input_char_type(TETENGO2_TEXT('\\'))) >>
+                                -char_(input_char_type(TETENGO2_TEXT('"'))) >>
                                 *(
-                                    boost::spirit::qi::char_ -
+                                    char_ -
                                     input_char_type(TETENGO2_TEXT('\\')) -
                                     input_char_type(TETENGO2_TEXT('"'))
                                 )
                             ) >>
-                            boost::spirit::qi::lit('"')
+                            lit(input_char_type(TETENGO2_TEXT('"')))
                         ) |
                         (
                             *(
-                                boost::spirit::qi::char_ -
+                                char_ -
                                 input_char_type(TETENGO2_TEXT('\\')) -
                                 input_char_type(TETENGO2_TEXT('='))
                             ) >>
                             *(
-                                boost::spirit::qi::char_(
-                                    input_char_type(TETENGO2_TEXT('\\'))
-                                ) >>
-                                -boost::spirit::qi::char_(
-                                    input_char_type(TETENGO2_TEXT('='))
-                                ) >>
+                                char_(input_char_type(TETENGO2_TEXT('\\'))) >>
+                                -char_(input_char_type(TETENGO2_TEXT('='))) >>
                                 *(
-                                    boost::spirit::qi::char_ -
+                                    char_ -
                                     input_char_type(TETENGO2_TEXT('\\')) -
                                     input_char_type(TETENGO2_TEXT('='))
                                 )
                             )
                         )
                     )[make_content_holder(parsed_key)] >>
-                    boost::spirit::qi::lit('=') >>
+                    lit(input_char_type(TETENGO2_TEXT('='))) >>
                     (
                         (
-                            boost::spirit::qi::lit('\'') >>
+                            lit(input_char_type(TETENGO2_TEXT('\''))) >>
                             *(
-                                boost::spirit::qi::char_ -
+                                char_ -
                                 input_char_type(TETENGO2_TEXT('\\')) -
                                 input_char_type(TETENGO2_TEXT('\''))
                             ) >>
                             *(
-                                boost::spirit::qi::char_(
-                                    input_char_type(TETENGO2_TEXT('\\'))
-                                ) >>
-                                -boost::spirit::qi::char_(
+                                char_(input_char_type(TETENGO2_TEXT('\\'))) >>
+                                -char_(
                                     input_char_type(TETENGO2_TEXT('\''))
                                 ) >>
                                 *(
-                                    boost::spirit::qi::char_ -
+                                    char_ -
                                     input_char_type(TETENGO2_TEXT('\\')) -
                                     input_char_type(TETENGO2_TEXT('\''))
                                 )
                             ) >>
-                            -boost::spirit::qi::lit('\'')
+                            -lit(input_char_type(TETENGO2_TEXT('\'')))
                         ) |
                         (
-                            boost::spirit::qi::lit('"') >>
+                            lit(input_char_type(TETENGO2_TEXT('"'))) >>
                             *(
-                                boost::spirit::qi::char_ -
+                                char_ -
                                 input_char_type(TETENGO2_TEXT('\\')) -
                                 input_char_type(TETENGO2_TEXT('"'))
                             ) >>
                             *(
-                                boost::spirit::qi::char_(
-                                    input_char_type(TETENGO2_TEXT('\\'))
-                                ) >>
-                                -boost::spirit::qi::char_(
-                                    input_char_type(TETENGO2_TEXT('"'))
-                                ) >>
+                                char_(input_char_type(TETENGO2_TEXT('\\'))) >>
+                                -char_(input_char_type(TETENGO2_TEXT('"'))) >>
                                 *(
-                                    boost::spirit::qi::char_ -
+                                    char_ -
                                     input_char_type(TETENGO2_TEXT('\\')) -
                                     input_char_type(TETENGO2_TEXT('"'))
                                 )
                             ) >>
-                            -boost::spirit::qi::lit('"')
+                            -lit(input_char_type(TETENGO2_TEXT('"')))
                         ) |
-                        (*boost::spirit::qi::char_)
+                        (*char_)
                     )[make_content_holder(parsed_value)]
             );
             if (!result)
