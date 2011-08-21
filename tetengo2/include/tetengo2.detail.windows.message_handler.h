@@ -50,7 +50,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
-                if (lParam == 0) return boost::optional< ::LRESULT>();
+                if (lParam == 0) return boost::none;
 
                 ::PostMessageW(
                     reinterpret_cast< ::HWND>(lParam),
@@ -58,7 +58,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     wParam,
                     reinterpret_cast< ::LPARAM>(widget.details()->first.get())
                 );
-                return boost::optional< ::LRESULT>();
+                return boost::none;
             }
 
             template <typename Widget>
@@ -69,14 +69,14 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 if (!widget.background())
-                    return boost::optional< ::LRESULT>();
+                    return boost::none;
 
                 typename Widget::canvas_type canvas(
                     reinterpret_cast< ::HDC>(wParam)
                 );
                 widget.erase_background(canvas);
 
-                return boost::optional< ::LRESULT>(TRUE);
+                return boost::make_optional< ::LRESULT>(TRUE);
             }
 
             template <typename Widget>
@@ -86,7 +86,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
-                if (lParam == 0) return boost::optional< ::LRESULT>();
+                if (lParam == 0) return boost::none;
 
                 const ::LRESULT result =
                     ::SendMessageW(
@@ -96,10 +96,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         0
                     );
 
-                return
-                    !result ?
-                    boost::optional< ::LRESULT>() :
-                    boost::optional< ::LRESULT>(result);
+                return boost::make_optional(result, result);
             }
 
             ::HCURSOR default_cursor_handle(const ::HWND window_handle)
@@ -132,14 +129,14 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::SetCursor(
                         default_cursor_handle(&*widget.details()->first)
                     );
-                    return boost::optional< ::LRESULT>(FALSE);
+                    return boost::make_optional< ::LRESULT>(FALSE);
                 }
 
                 ::SetCursor(
                     const_cast< ::HCURSOR>(&*widget.cursor().details())
                 );
 
-                return boost::optional< ::LRESULT>(TRUE);
+                return boost::make_optional< ::LRESULT>(TRUE);
             }
 
             template <typename Widget>
@@ -150,7 +147,7 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 if (widget.paint_observer_set().paint().empty())
-                    return boost::optional< ::LRESULT>();
+                    return boost::none;
 
                 ::PAINTSTRUCT paint_struct = {};
                 if (
@@ -171,7 +168,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 widget.paint_observer_set().paint()(canvas);
 
-                return boost::optional< ::LRESULT>(0);
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
@@ -207,7 +204,7 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 delete_current_font(widget);
-                return boost::optional< ::LRESULT>(0);
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget, typename WidgetDetails>
@@ -228,7 +225,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 widget.set_destroyed();
 
-                return boost::optional< ::LRESULT>(0);
+                return boost::make_optional< ::LRESULT>(0);
             }
 
 
@@ -264,10 +261,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::WORD id = LOWORD(wParam);
 
                 if (source != 0)
-                    return boost::optional< ::LRESULT>();
+                    return boost::none;
 
                 if (!abstract_window.has_main_menu())
-                    return boost::optional< ::LRESULT>();
+                    return boost::none;
 
                 typedef
                     typename AbstractWindow::main_menu_type main_menu_type;
@@ -284,10 +281,10 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
                 if (found == abstract_window.main_menu().recursive_end())
-                    return boost::optional< ::LRESULT>();
+                    return boost::none;
                 found->select();
 
-                return boost::optional< ::LRESULT>(0);
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename AbstractWindow>
@@ -300,7 +297,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
 
                 if (!abstract_window.has_main_menu())
-                    return boost::optional< ::LRESULT>();
+                    return boost::none;
 
                 typedef
                     typename AbstractWindow::main_menu_type main_menu_type;
@@ -317,10 +314,10 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 );
                 if (found == abstract_window.main_menu().recursive_end())
-                    return boost::optional< ::LRESULT>();
+                    return boost::none;
                 found->select();
 
-                return boost::optional< ::LRESULT>(0);
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename AbstractWindow>
@@ -331,11 +328,11 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 if (abstract_window.window_observer_set().destroyed().empty())
-                    return boost::optional< ::LRESULT>();
+                    return boost::none;
 
                 abstract_window.window_observer_set().destroyed()();
 
-                return boost::optional< ::LRESULT>();
+                return boost::none;
             }
 
 
@@ -378,10 +375,10 @@ namespace tetengo2 { namespace detail { namespace windows
                         );
                         dialog.close();
                     }
-                    return boost::optional< ::LRESULT>(0);
+                    return boost::make_optional< ::LRESULT>(0);
                 }
 
-                return boost::optional< ::LRESULT>();
+                return boost::none;
             }
 
 
@@ -399,7 +396,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 button.mouse_observer_set().clicked()();
 
-                return boost::optional< ::LRESULT>(0);
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Control>
@@ -410,7 +407,7 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 if (!control.background())
-                    return boost::optional< ::LRESULT>();
+                    return boost::none;
 
                 const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
                 typename Control::base_type::canvas_type canvas(
@@ -445,7 +442,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     );
                 }
 
-                return boost::optional< ::LRESULT>(
+                return boost::make_optional(
                     reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))
                 );
             }

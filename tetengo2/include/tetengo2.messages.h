@@ -167,14 +167,12 @@ namespace tetengo2
             const boost::optional<path_type> catalog_file =
                 select_catalog_file(path, locale);
             if (!catalog_file)
-                return boost::optional<message_catalog_type>();
+                return boost::none;
 
             message_catalog_type message_catalog;
             read_message_catalog(*catalog_file, message_catalog);
 
-            return boost::optional<message_catalog_type>(
-                std::move(message_catalog)
-            );
+            return boost::make_optional(std::move(message_catalog));
         }
 
         static const boost::optional<path_type> select_catalog_file(
@@ -223,7 +221,7 @@ namespace tetengo2
             if (found != catalog_file_mappings.end())
                 return path / found->second;
 
-            return boost::optional<path_type>();
+            return boost::none;
         }
 
         static catalog_file_mappings_type read_catalog_file_mappings(

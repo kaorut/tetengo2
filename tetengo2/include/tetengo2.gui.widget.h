@@ -396,10 +396,9 @@ namespace tetengo2 { namespace gui
         boost::optional<const background_type&> background()
         const
         {
-            return
-                m_p_background ?
-                boost::optional<const background_type&>(*m_p_background) :
-                boost::optional<const background_type&>();
+            return boost::make_optional<const background_type&>(
+                m_p_background, *m_p_background
+            );
         }
 
         /*!

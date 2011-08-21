@@ -92,9 +92,9 @@ namespace tetengo2 { namespace gui
 
             \param text_color A text color.
         */
-        template <typename C /* = boost::optional<color_type>() */>
+        template <typename C /* = boost::optional<color_type> */>
         void set_text_color(
-            C&& text_color /* = boost::optional<color_type>() */
+            C&& text_color /* = boost::none */
         )
         {
             m_text_color = std::forward<C>(text_color);
@@ -103,7 +103,7 @@ namespace tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
         void set_text_color()
         {
-            m_text_color = boost::optional<color_type>();
+            m_text_color = boost::none;
         }
 #endif
 
@@ -169,12 +169,12 @@ namespace tetengo2 { namespace gui
         virtual boost::optional<const details_type&> details_impl()
         const
         {
-            return boost::optional<const details_type&>(*m_p_details);
+            return boost::make_optional<const details_type&>(*m_p_details);
         }
 
         virtual boost::optional<details_type&> details_impl()
         {
-            return boost::optional<details_type&>(*m_p_details);
+            return boost::make_optional<details_type&>(*m_p_details);
         }
 
 

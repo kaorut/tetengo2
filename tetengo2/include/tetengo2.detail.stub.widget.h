@@ -84,8 +84,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>& parent =
-                boost::optional<Widget&>()
+            const boost::optional<Widget&>& parent = boost::none
         )
         {
             return create_details<Widget>(parent ? &*parent : NULL);
@@ -627,8 +626,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget, typename Menu>
         static void set_main_menu(
             Widget&                             widget,
-            const boost::optional<const Menu&>& menu =
-                boost::optional<const Menu&>()
+            const boost::optional<const Menu&>& menu = boost::none
         )
         {}
 

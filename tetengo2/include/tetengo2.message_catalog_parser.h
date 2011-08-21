@@ -294,9 +294,7 @@ namespace tetengo2
 
             if (!result)
             {
-                return boost::optional<
-                    std::pair<input_string_type, input_string_type>
-                >();
+                return boost::none;
             }
 
             input_string_type value;

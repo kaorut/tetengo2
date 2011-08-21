@@ -167,7 +167,7 @@ namespace tetengo2 { namespace gui
             {
                 widget_details_type::set_main_menu(
                     *this,
-                    boost::optional<const main_menu_type&>(*p_main_menu)
+                    boost::make_optional<const main_menu_type&>(*p_main_menu)
                 );
             }
             m_p_main_menu = std::move(p_main_menu);

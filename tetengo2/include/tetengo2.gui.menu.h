@@ -281,10 +281,9 @@ namespace tetengo2 { namespace gui
         boost::optional<const details_type&> details()
         const
         {
-            return
-                !m_p_details.get() ?
-                boost::optional<const details_type&>() :
-                boost::optional<const details_type&>(*m_p_details);
+            return boost::make_optional<const details_type&>(
+                m_p_details, *m_p_details
+            );
         }
 
         /*!
@@ -294,10 +293,9 @@ namespace tetengo2 { namespace gui
         */
         boost::optional<details_type&> details()
         {
-            return
-                !m_p_details.get() ?
-                boost::optional<details_type&>() :
-                boost::optional<details_type&>(*m_p_details);
+            return boost::make_optional<details_type&>(
+                m_p_details, *m_p_details
+            );
         }
 
 

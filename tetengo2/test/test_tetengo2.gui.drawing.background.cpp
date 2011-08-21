@@ -35,13 +35,13 @@ namespace
         details_impl()
         const
         {
-            return boost::optional<const background_type::details_type&>();
+            return boost::none;
         }
 
         virtual boost::optional<background_type::details_type&>
         details_impl()
         {
-            return boost::optional<background_type::details_type&>();
+            return boost::none;
         }
 
 
