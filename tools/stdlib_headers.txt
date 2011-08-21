@@ -220,6 +220,7 @@ boost::mpl::vector                               boost/mpl/vector.hpp
 boost::mpl::void_                                boost/mpl/void.hpp
 boost::next                                      boost/utility.hpp
 boost::noncopyable                               boost/noncopyable.hpp
+boost::none                                      boost/optional.hpp
 boost::optional                                  boost/optional.hpp
 boost::prior                                     boost/utility.hpp
 boost::program_options::notify                   boost/program_options.hpp
