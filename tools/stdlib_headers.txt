@@ -186,6 +186,7 @@ boost::get_error_info                            boost/exception/all.hpp
 boost::indirect_iterator                         boost/iterator/indirect_iterator.hpp
 boost::interprocess::unique_ptr                  boost/interprocess/smart_ptr/unique_ptr.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
+boost::make_optional                             boost/optional.hpp
 boost::make_transform_iterator                   boost/iterator/transform_iterator.hpp
 boost::mpl::at                                   boost/mpl/at.hpp
 boost::mpl::begin                                boost/mpl/begin.hpp
@@ -235,8 +236,9 @@ boost::ref                                       boost/ref.hpp
 boost::reference_wrapper                         boost/ref.hpp
 boost::replace_all                               boost/algorithm/string.hpp
 boost::signals2::signal                          boost/signals2.hpp
+boost::spirit::make_default_multi_pass           boost/spirit/include/support_multi_pass.hpp
+boost::spirit::multi_pass                        boost/spirit/include/support_multi_pass.hpp
 boost::spirit::qi::char_                         boost/spirit/include/qi.hpp
-boost::spirit::qi::eoi                           boost/spirit/include/qi.hpp
 boost::spirit::qi::lit                           boost/spirit/include/qi.hpp
 boost::spirit::qi::parse                         boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
@@ -264,15 +266,16 @@ std::for_each                                    algorithm
 std::forward                                     utility
 std::function                                    functional
 std::get                                         tuple
-std::getline                                     string
 std::greater                                     functional
 std::has_facet                                   locale
 std::invalid_argument                            stdexcept
+std::ios_base::eofbit                            ios
 std::ios_base::failure                           ios
 std::is_arithmetic                               type_traits
 std::is_convertible                              type_traits
 std::is_same                                     type_traits
 std::istream                                     istream
+std::istreambuf_iterator                         iterator
 std::istringstream                               sstream
 std::locale                                      locale
 std::locale::classic                             locale

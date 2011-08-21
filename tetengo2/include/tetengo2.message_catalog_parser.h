@@ -11,13 +11,13 @@
 
 #include <cassert>
 #include <cstddef>
+#include <ios>
 #include <iterator>
 #include <locale>
 #include <stdexcept>
 #include <string>
 #include <utility>
 #include <vector>
-#include <memory>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/fusion/include/all.hpp>
