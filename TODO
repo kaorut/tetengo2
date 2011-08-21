@@ -17,6 +17,11 @@ Added on    : 2011/08/20
 Depends on  : (none)
 Description : Create tetengo2::cpp0x::make_unique().
 ------------------------------------------------------------------------------
+Number      : 00000105
+Added on    : 2011/08/21
+Depends on  : (none)
+Description : Use boost::make_optional().
+------------------------------------------------------------------------------
 Number      : 00000106
 Added on    : 2011/mm/dd
 Depends on  : (none)
