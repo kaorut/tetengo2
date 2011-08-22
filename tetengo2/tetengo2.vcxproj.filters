@@ -291,5 +291,8 @@
     <ClInclude Include="include\tetengo2.gui.unit.unit.h">
       <Filter>headers\tetengo2::gui::unit</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.unique.h">
+      <Filter>headers\tetengo2</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

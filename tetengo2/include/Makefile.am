@@ -74,7 +74,8 @@ headers = \
     tetengo2.messages.h \
     tetengo2.meta.assoc_list.h \
     tetengo2.operators.h \
-    tetengo2.text.h
+    tetengo2.text.h \
+    tetengo2.unique.h
 
 extra_headers = \
     tetengo2.detail.windows.alert.h \

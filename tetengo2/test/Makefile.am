@@ -58,7 +58,8 @@ sources = \
     test_tetengo2.messages.cpp \
     test_tetengo2.meta.assoc_list.cpp \
     test_tetengo2.operators.cpp \
-    test_tetengo2.text.cpp
+    test_tetengo2.text.cpp \
+    test_tetengo2.unique.cpp
 
 extra_sources =
 

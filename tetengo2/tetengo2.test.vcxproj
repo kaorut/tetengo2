@@ -282,6 +282,7 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp" />
     <ClCompile Include="test\test_tetengo2.operators.cpp" />
     <ClCompile Include="test\test_tetengo2.text.cpp" />
+    <ClCompile Include="test\test_tetengo2.unique.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
