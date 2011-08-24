@@ -21,6 +21,7 @@
 #include <tetengo2.cpp0x.h>
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
+#include <tetengo2.unique.h>
 
 #include "bobura.message.type_list.h"
 
@@ -217,7 +218,7 @@ namespace bobura
         create_application_image()
         {
             typename tetengo2::cpp0x::unique_ptr<image_type>::type p_image(
-                new image_type(*this)
+                tetengo2::make_unique<image_type>(*this)
             );
 
             picture_reader_type picture_reader(
@@ -243,12 +244,16 @@ namespace bobura
                     typename base_type::string_type(TETENGO2_TEXT("0.0.0"));
 
             typename tetengo2::cpp0x::unique_ptr<label_type>::type p_label(
-                new label_type(*this)
+                tetengo2::make_unique<label_type>(*this)
             );
 
             p_label->set_text(title.str());
             typename tetengo2::cpp0x::unique_ptr<background_type>::type
-            p_background(new transparent_background_type());
+            p_background(
+                tetengo2::unique_ptr_upcast<background_type>(
+                    tetengo2::make_unique<transparent_background_type>()
+                )
+            );
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
@@ -258,7 +263,7 @@ namespace bobura
         create_copyright_label()
         {
             typename tetengo2::cpp0x::unique_ptr<label_type>::type p_label(
-                new label_type(*this)
+                tetengo2::make_unique<label_type>(*this)
             );
 
             p_label->set_text(
@@ -267,7 +272,11 @@ namespace bobura
                 )
             );
             typename tetengo2::cpp0x::unique_ptr<background_type>::type
-            p_background(new transparent_background_type());
+            p_background(
+                tetengo2::unique_ptr_upcast<background_type>(
+                    tetengo2::make_unique<transparent_background_type>()
+                )
+            );
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
@@ -276,9 +285,8 @@ namespace bobura
         typename tetengo2::cpp0x::unique_ptr<link_label_type>::type
         create_link_label()
         {
-            typename tetengo2::cpp0x::unique_ptr<
-                link_label_type
-            >::type p_label(new link_label_type(*this));
+            typename tetengo2::cpp0x::unique_ptr<link_label_type>::type
+            p_label(tetengo2::make_unique<link_label_type>(*this));
 
             p_label->set_text(
                 typename base_type::string_type(
@@ -287,7 +295,11 @@ namespace bobura
             );
             p_label->set_target(p_label->text());
             typename tetengo2::cpp0x::unique_ptr<background_type>::type
-            p_background(new transparent_background_type());
+            p_background(
+                tetengo2::unique_ptr_upcast<background_type>(
+                    tetengo2::make_unique<transparent_background_type>()
+                )
+            );
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
@@ -297,7 +309,9 @@ namespace bobura
         create_ok_button()
         {
             typename tetengo2::cpp0x::unique_ptr<button_type>::type p_button(
-                new button_type(*this, button_type::style_default)
+                tetengo2::make_unique<button_type>(
+                    *this, button_type::style_default
+                )
             );
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("OK")));

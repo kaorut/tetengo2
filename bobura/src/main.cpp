@@ -27,6 +27,7 @@
 
 #include <tetengo2.cpp0x.h>
 #include <tetengo2.text.h>
+#include <tetengo2.unique.h>
 
 #include "bobura.type_list.h"
 
@@ -70,13 +71,19 @@ namespace
 
     void set_locale(const boost::filesystem::path& message_directory_path)
     {
-        const std::locale global_locale(
-            std::locale(""),
-            new boost::mpl::at<
+        typedef
+            boost::mpl::at<
                 bobura::type_list, bobura::type::messages_facet
-            >::type(
+            >::type
+            messages_facet_type;
+        tetengo2::cpp0x::unique_ptr<messages_facet_type>::type
+        p_messages_facet(
+            tetengo2::make_unique<messages_facet_type>(
                 message_directory_path, std::locale(ui_locale_name().c_str())
             )
+        );
+        const std::locale global_locale(
+            std::locale(""), p_messages_facet.release()
         );
 
         std::locale::global(global_locale);
