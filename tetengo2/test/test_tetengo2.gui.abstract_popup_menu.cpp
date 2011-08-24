@@ -20,6 +20,7 @@
 #include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.menu_observer_set.h"
 #include "tetengo2.gui.traits.menu_traits.h"
+#include "tetengo2.unique.h"
 
 #include "tetengo2.gui.abstract_popup_menu.h"
 
@@ -100,10 +101,18 @@ BOOST_AUTO_TEST_SUITE(abstract_popup_menu)
 
         concrete_popup_menu popup_menu(std::string("Tetengo"));
         tetengo2::cpp0x::unique_ptr<menu_type>::type p_child1(
-            new concrete_popup_menu(std::string("Hoge"))
+            tetengo2::unique_ptr_upcast<menu_type>(
+                tetengo2::make_unique<concrete_popup_menu>(
+                    std::string("Hoge")
+                )
+            )
         );
         tetengo2::cpp0x::unique_ptr<menu_type>::type p_child2(
-            new concrete_popup_menu(std::string("Fuga"))
+            tetengo2::unique_ptr_upcast<menu_type>(
+                tetengo2::make_unique<concrete_popup_menu>(
+                    std::string("Fuga")
+                )
+            )
         );
 
         popup_menu.insert(popup_menu.end(), std::move(p_child1));
@@ -125,10 +134,18 @@ BOOST_AUTO_TEST_SUITE(abstract_popup_menu)
 
         concrete_popup_menu popup_menu(std::string("Tetengo"));
         tetengo2::cpp0x::unique_ptr<menu_type>::type p_child1(
-            new concrete_popup_menu(std::string("Hoge"))
+            tetengo2::unique_ptr_upcast<menu_type>(
+                tetengo2::make_unique<concrete_popup_menu>(
+                    std::string("Hoge")
+                )
+            )
         );
         tetengo2::cpp0x::unique_ptr<menu_type>::type p_child2(
-            new concrete_popup_menu(std::string("Fuga"))
+            tetengo2::unique_ptr_upcast<menu_type>(
+                tetengo2::make_unique<concrete_popup_menu>(
+                    std::string("Fuga")
+                )
+            )
         );
         popup_menu.insert(popup_menu.end(), std::move(p_child1));
         popup_menu.insert(popup_menu.begin(), std::move(p_child2));

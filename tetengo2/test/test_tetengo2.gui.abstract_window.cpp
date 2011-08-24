@@ -41,6 +41,7 @@
 #include "tetengo2.gui.traits.widget_traits.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.window_observer_set.h"
+#include "tetengo2.unique.h"
 
 #include "tetengo2.gui.abstract_window.h"
 
@@ -192,7 +193,7 @@ namespace
         concrete_window()
         :
         abstract_window_type(message_handler_map_type()),
-        m_p_details(new details_type())
+        m_p_details(tetengo2::make_unique<details_type>())
         {
             initialize(this);
         }
@@ -257,7 +258,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
             concrete_window window;
 
             tetengo2::cpp0x::unique_ptr<main_menu_type>::type p_main_menu(
-                new main_menu_type()
+                tetengo2::make_unique<main_menu_type>()
             );
             window.set_main_menu(std::move(p_main_menu));
 
@@ -283,7 +284,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
             concrete_window window;
 
             tetengo2::cpp0x::unique_ptr<main_menu_type>::type p_main_menu(
-                new main_menu_type()
+                tetengo2::make_unique<main_menu_type>()
             );
             window.set_main_menu(std::move(p_main_menu));
 
@@ -301,12 +302,12 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         concrete_window window;
 
         tetengo2::cpp0x::unique_ptr<main_menu_type>::type p_main_menu(
-            new main_menu_type()
+            tetengo2::make_unique<main_menu_type>()
         );
         window.set_main_menu(std::move(p_main_menu));
 
         tetengo2::cpp0x::unique_ptr<main_menu_type>::type p_main_menu2(
-            new main_menu_type()
+            tetengo2::make_unique<main_menu_type>()
         );
         window.set_main_menu(std::move(p_main_menu2));
     }

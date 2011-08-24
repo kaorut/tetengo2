@@ -22,6 +22,7 @@
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.text.h"
+#include "tetengo2.unique.h"
 
 #include "tetengo2.gui.drawing.canvas.h"
 
@@ -84,7 +85,7 @@ namespace
     {
         concrete_canvas()
         :
-        canvas_type(canvas_details_ptr_type(new canvas_details_type()))
+        canvas_type(tetengo2::make_unique<canvas_details_type>())
         {}
 
 

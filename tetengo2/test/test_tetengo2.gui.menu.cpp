@@ -18,6 +18,7 @@
 #include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.menu_observer_set.h"
 #include "tetengo2.gui.traits.menu_traits.h"
+#include "tetengo2.unique.h"
 
 #include "tetengo2.gui.menu.h"
 
@@ -201,7 +202,9 @@ BOOST_AUTO_TEST_SUITE(menu)
 
         concrete_menu menu(std::string("Tetengo"));
         tetengo2::cpp0x::unique_ptr<menu_type>::type p_child(
-            new concrete_menu(std::string("Hoge"))
+            tetengo2::unique_ptr_upcast<menu_type>(
+                tetengo2::make_unique<concrete_menu>(std::string("Hoge"))
+            )
         );
 
         // Assertion fails.

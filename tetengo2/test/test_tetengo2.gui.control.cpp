@@ -35,6 +35,7 @@
 #include "tetengo2.gui.traits.control_traits.h"
 #include "tetengo2.gui.traits.widget_traits.h"
 #include "tetengo2.gui.unit.em.h"
+#include "tetengo2.unique.h"
 
 #include "tetengo2.gui.control.h"
 
@@ -169,7 +170,9 @@ namespace
         control_type(
             message_handler_map_type(),
             widget_details_type::widget_details_ptr_type(
-                new widget_details_type::widget_details_type()
+                tetengo2::make_unique<
+                    widget_details_type::widget_details_type
+                >()
             )
         )
         {

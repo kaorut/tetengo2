@@ -21,7 +21,7 @@
 #include "tetengo2.gui.menu_observer_set.h"
 #include "tetengo2.gui.popup_menu.h"
 #include "tetengo2.gui.traits.menu_traits.h"
-
+#include "tetengo2.unique.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
 
@@ -74,25 +74,27 @@ namespace
     tetengo2::cpp0x::unique_ptr<menu_type>::type create_menu()
     {
         tetengo2::cpp0x::unique_ptr<menu_type>::type p_menu(
-            new popup_menu_type("0")
+            tetengo2::unique_ptr_upcast<menu_type>(
+                tetengo2::make_unique<popup_menu_type>("0")
+            )
         );
 
         p_menu->insert(
             p_menu->end(),
-            tetengo2::cpp0x::unique_ptr<menu_type>::type(
-                new popup_menu_type("1")
+            tetengo2::unique_ptr_upcast<menu_type>(
+                tetengo2::make_unique<popup_menu_type>("1")
             )
         );
         p_menu->begin()->insert(
             p_menu->begin()->end(),
-            tetengo2::cpp0x::unique_ptr<menu_type>::type(
-                new popup_menu_type("2")
+            tetengo2::unique_ptr_upcast<menu_type>(
+                tetengo2::make_unique<popup_menu_type>("2")
             )
         );
         p_menu->insert(
             p_menu->end(),
-            tetengo2::cpp0x::unique_ptr<menu_type>::type(
-                new popup_menu_type("3")
+            tetengo2::unique_ptr_upcast<menu_type>(
+                tetengo2::make_unique<popup_menu_type>("3")
             )
         );
 

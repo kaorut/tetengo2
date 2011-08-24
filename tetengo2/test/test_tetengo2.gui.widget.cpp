@@ -40,6 +40,7 @@
 #include "tetengo2.gui.system_cursor.h"
 #include "tetengo2.gui.traits.widget_traits.h"
 #include "tetengo2.gui.unit.em.h"
+#include "tetengo2.unique.h"
 
 #include "tetengo2.gui.widget.h"
 
@@ -182,7 +183,7 @@ namespace
         :
         widget_type(message_handler_map_type()),
         m_p_details(
-            new widget_details_type::widget_details_type(
+            tetengo2::make_unique<widget_details_type::widget_details_type>(
                 p_parent,
                 true,
                 true,
@@ -490,7 +491,9 @@ BOOST_AUTO_TEST_SUITE(widget)
             concrete_widget widget;
 
             tetengo2::cpp0x::unique_ptr<background_type>::type p_background(
-                new transparent_background_type()
+                tetengo2::unique_ptr_upcast<background_type>(
+                    tetengo2::make_unique<transparent_background_type>()
+                )
             );
             widget.set_background(std::move(p_background));
 
@@ -512,7 +515,9 @@ BOOST_AUTO_TEST_SUITE(widget)
             concrete_widget widget;
 
             tetengo2::cpp0x::unique_ptr<background_type>::type p_background(
-                new transparent_background_type()
+                tetengo2::unique_ptr_upcast<background_type>(
+                    tetengo2::make_unique<transparent_background_type>()
+                )
             );
             widget.set_background(std::move(p_background));
         }
@@ -569,7 +574,11 @@ BOOST_AUTO_TEST_SUITE(widget)
         concrete_widget widget;
 
         tetengo2::cpp0x::unique_ptr<widget_type::cursor_type>::type p_cursor(
-            new system_cursor_type(system_cursor_type::style_hand)
+            tetengo2::unique_ptr_upcast<widget_type::cursor_type>(
+                tetengo2::make_unique<system_cursor_type>(
+                    system_cursor_type::style_hand
+                )
+            )
         );
         widget.set_cursor(std::move(p_cursor));
 

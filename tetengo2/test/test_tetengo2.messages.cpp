@@ -20,6 +20,7 @@
 #include "tetengo2.encoder.h"
 #include "tetengo2.message_catalog_parser.h"
 #include "tetengo2.encoding.locale.h"
+#include "tetengo2.unique.h"
 
 #include "tetengo2.messages.h"
 
@@ -76,9 +77,9 @@ namespace
             std::locale::global(
                 std::locale(
                     locale,
-                    new messages_type(
+                    tetengo2::make_unique<messages_type>(
                         boost::filesystem::path("messages.test"), locale
-                    )
+                    ).release()
                 )
             )
         )
