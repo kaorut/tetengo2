@@ -21,7 +21,7 @@ Tetengo2 is a kind of GUI toolkit.
 \arg Visual C++ 2010 Service Pack 1 (on Windows)
 \arg g++ 4.3.4 or 4.4.5 with -std=gnu++0x option (on UNIX)
 \arg Boost 1.47.0 or later
-\arg Doxygen 1.7.5 or later
+\arg Doxygen 1.7.5.1 or later
 
 
 Copyright (C) 2007-2011 kaoru
