@@ -421,7 +421,7 @@ BOOST_AUTO_TEST_SUITE(unique)
     BOOST_AUTO_TEST_CASE(unique_ptr_upcast)
     {
         const tetengo2::cpp0x::unique_ptr<Base>::type p(
-            tetengo2::unique_ptr_upcast<Base, Derived>(
+            tetengo2::unique_ptr_upcast<Base>(
                 tetengo2::make_unique<Derived>()
             )
         );

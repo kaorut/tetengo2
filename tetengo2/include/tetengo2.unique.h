@@ -483,16 +483,16 @@ namespace tetengo2
         This cast operation is not necessary for std::unique_ptr but
         boost::interprocess::unique_ptr requires it.
 
-        \tparam Base A base type.
-        \tparam Derived A derived type.
+        \tparam Base       A base type.
+        \tparam DerivedPtr A derived smart pointer type.
 
-        \param p_derived A unique pointer to a derived type.
+        \param p_derived A smart pointer to a derived type.
 
         \return A unique pointer to base type.
     */
-    template <typename Base, typename Derived>
+    template <typename Base, typename DerivedPtr>
     typename tetengo2::cpp0x::unique_ptr<Base>::type unique_ptr_upcast(
-        typename tetengo2::cpp0x::unique_ptr<Derived>::type&& p_derived
+        DerivedPtr&& p_derived
     )
     {
         return typename tetengo2::cpp0x::unique_ptr<Base>::type(
