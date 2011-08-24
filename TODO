@@ -12,11 +12,6 @@ Added on    : 2011/07/15
 Depends on  : (none)
 Description : Introduce namespace concept to the message catalog.
 ------------------------------------------------------------------------------
-Number      : 00000105
-Added on    : 2011/08/20
-Depends on  : (none)
-Description : Create tetengo2::cpp0x::make_unique().
-------------------------------------------------------------------------------
 Number      : 00000107
 Added on    : 2011/mm/dd
 Depends on  : (none)
