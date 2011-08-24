@@ -23,6 +23,7 @@
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -680,8 +681,8 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Widget>
         static widget_details_ptr_type create_details(Widget* const p_parent)
         {
-            widget_details_ptr_type p_details = widget_details_ptr_type(
-                new widget_details_type(
+            widget_details_ptr_type p_details =
+                make_unique<widget_details_type>(
                     p_parent,
                     true,
                     true,
@@ -692,8 +693,7 @@ namespace tetengo2 { namespace detail { namespace stub
                         std::wstring(), 12, false, false, false, false
                     ),
                     std::vector<void*>()
-                )
-            );
+                );
 
             return std::move(p_details);
         }

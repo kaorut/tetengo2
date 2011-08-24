@@ -26,6 +26,7 @@
 #include <Windows.h>
 
 #include "tetengo2.cpp0x.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -103,7 +104,9 @@ namespace tetengo2 { namespace detail { namespace windows
         static menu_details_ptr_type create_main_menu()
         {
             menu_details_ptr_type p_menu(
-                new menu_details_type(get_and_increment_id(), ::CreateMenu())
+                make_unique<menu_details_type>(
+                    get_and_increment_id(), ::CreateMenu()
+                )
             );
             if (!p_menu->second)
             {
@@ -123,7 +126,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static menu_details_ptr_type create_popup_menu()
         {
             menu_details_ptr_type p_menu(
-                new menu_details_type(
+                make_unique<menu_details_type>(
                     get_and_increment_id(), ::CreatePopupMenu()
                 )
             );
@@ -144,10 +147,8 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static menu_details_ptr_type create_menu()
         {
-            return menu_details_ptr_type(
-                new menu_details_type(
-                    get_and_increment_id(), static_cast< ::HMENU>(NULL)
-                )
+            return make_unique<menu_details_type>(
+                get_and_increment_id(), static_cast< ::HMENU>(NULL)
             );
         }
 

@@ -17,6 +17,7 @@
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -105,9 +106,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static cpp0x::unique_ptr<background_details_type>::type
         create_solid_background(const Color& color)
         {
-            return cpp0x::unique_ptr<background_details_type>::type(
-                new background_details_type()
-            );
+            return make_unique<background_details_type>();
         }
 
         /*!
@@ -140,9 +139,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 gui::dimension<Dimension>::width(dimension);
             const std::size_t height =
                 gui::dimension<Dimension>::height(dimension);
-            return cpp0x::unique_ptr<picture_details_type>::type(
-                new picture_details_type(width, height)
-            );
+            return make_unique<picture_details_type>(width, height);
         }
 
         /*!
@@ -158,9 +155,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static cpp0x::unique_ptr<picture_details_type>::type
         read_picture(const Path& path)
         {
-            return cpp0x::unique_ptr<picture_details_type>::type(
-                new picture_details_type(123, 456)
-            );
+            return make_unique<picture_details_type>(123, 456);
         }
 
         /*!
@@ -196,9 +191,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static cpp0x::unique_ptr<canvas_details_type>::type
         create_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
         {
-            return cpp0x::unique_ptr<canvas_details_type>::type(
-                new canvas_details_type()
-            );
+            return make_unique<canvas_details_type>();
         }
 
         /*!

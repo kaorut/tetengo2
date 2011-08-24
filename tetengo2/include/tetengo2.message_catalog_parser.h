@@ -30,6 +30,7 @@
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.text.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2
@@ -486,11 +487,9 @@ namespace tetengo2
             replace_special_characters(parsed->first);
             replace_special_characters(parsed->second);
 
-            return typename cpp0x::unique_ptr<entry_type>::type(
-                new entry_type(
-                    encoder().decode(parsed->first),
-                    encoder().decode(parsed->second)
-                )
+            return make_unique<entry_type>(
+                encoder().decode(parsed->first),
+                encoder().decode(parsed->second)
             );
         }
 

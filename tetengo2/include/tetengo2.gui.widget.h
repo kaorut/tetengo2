@@ -21,6 +21,7 @@
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace gui
@@ -514,9 +515,7 @@ namespace tetengo2 { namespace gui
         typename cpp0x::unique_ptr<canvas_type>::type create_canvas()
         const
         {
-            return typename cpp0x::unique_ptr<canvas_type>::type(
-                new canvas_type(*details())
-            );
+            return make_unique<canvas_type>(*details());
         }
 
         /*!
@@ -717,7 +716,11 @@ namespace tetengo2 { namespace gui
         create_initial_cursor()
         {
             return typename cpp0x::unique_ptr<cursor_type>::type(
-                new system_cursor_type(system_cursor_type::style_default)
+                unique_ptr_upcast<cursor_type>(
+                    make_unique<system_cursor_type>(
+                        system_cursor_type::style_default
+                    )
+                )
             );
         }
 

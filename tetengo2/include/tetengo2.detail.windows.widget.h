@@ -31,6 +31,7 @@
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -140,8 +141,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return widget_details_ptr_type(
-                new widget_details_type(std::move(p_widget), ::DefWindowProcW)
+            return make_unique<widget_details_type>(
+                std::move(p_widget), &::DefWindowProcW
             );
         }
 
@@ -204,8 +205,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
             delete_system_menus(p_widget.get());
 
-            return widget_details_ptr_type(
-                new widget_details_type(std::move(p_widget), ::DefWindowProcW)
+            return make_unique<widget_details_type>(
+                std::move(p_widget), &::DefWindowProcW
             );
         }
 
@@ -295,10 +296,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::WNDPROC p_original_window_procedure =
                 replace_window_procedure<Widget>(p_widget.get());
 
-            return widget_details_ptr_type(
-                new widget_details_type(
-                    std::move(p_widget), p_original_window_procedure
-                )
+            return make_unique<widget_details_type>(
+                std::move(p_widget), p_original_window_procedure
             );
         }
 
@@ -340,10 +339,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::WNDPROC p_original_window_procedure =
                 replace_window_procedure<Widget>(p_widget.get());
 
-            return widget_details_ptr_type(
-                new widget_details_type(
-                    std::move(p_widget), p_original_window_procedure
-                )
+            return make_unique<widget_details_type>(
+                std::move(p_widget), p_original_window_procedure
             );
         }
 
@@ -385,10 +382,8 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::WNDPROC p_original_window_procedure =
                 replace_window_procedure<Widget>(p_widget.get());
 
-            return widget_details_ptr_type(
-                new widget_details_type(
-                    std::move(p_widget), p_original_window_procedure
-                )
+            return make_unique<widget_details_type>(
+                std::move(p_widget), p_original_window_procedure
             );
         }
 

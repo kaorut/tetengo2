@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_STUB_CURSOR_H
 
 #include "tetengo2.cpp0x.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -47,7 +48,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const typename SystemCursor::style_type style
         )
         {
-            return cursor_details_ptr_type(new cursor_details_type());
+            return make_unique<cursor_details_type>();
         }
 
 
