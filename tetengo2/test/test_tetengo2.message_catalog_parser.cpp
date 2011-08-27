@@ -72,6 +72,8 @@ namespace
         "Key10=\\\n"
         "Value\\\n"
         "10\n"
+        " 'Key11' = Value11 \n"
+        "\t \tKey12 \t =\t \t\"Value12\" \t "
     );
 
 
@@ -171,6 +173,14 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             const entry_type entry10 = parser.next();
             BOOST_CHECK(entry10.first == "Key10");
             BOOST_CHECK(entry10.second == "Value10");
+
+            const entry_type entry11 = parser.next();
+            BOOST_CHECK(entry11.first == "Key11");
+            BOOST_CHECK(entry11.second == " Value11 ");
+
+            const entry_type entry12 = parser.next();
+            BOOST_CHECK(entry12.first == "\t \tKey12 \t ");
+            BOOST_CHECK(entry12.second == "Value12");
 
             BOOST_CHECK_THROW(parser.next(), std::runtime_error);
         }

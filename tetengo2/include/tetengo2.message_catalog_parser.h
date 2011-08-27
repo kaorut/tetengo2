@@ -225,6 +225,8 @@ namespace tetengo2
             using boost::spirit::qi::char_;
             using boost::spirit::qi::lit;
 
+            static const input_char_type space = TETENGO2_TEXT(' ');
+            static const input_char_type tab = TETENGO2_TEXT('\t');
             static const input_char_type escape = TETENGO2_TEXT('\\');
             static const input_char_type s_quot = TETENGO2_TEXT('\'');
             static const input_char_type d_quot = TETENGO2_TEXT('"');
@@ -239,6 +241,7 @@ namespace tetengo2
                     last,
                     (
                         (
+                            *(lit(space) | lit(tab)) >>
                             lit(s_quot) >>
                             *(char_ - escape - s_quot) >>
                             *(
@@ -246,9 +249,11 @@ namespace tetengo2
                                 -char_(s_quot) >>
                                 *(char_ - escape - s_quot)
                             ) >>
-                            lit(s_quot)
+                            lit(s_quot) >>
+                            *(lit(space) | lit(tab))
                         ) |
                         (
+                            *(lit(space) | lit(tab)) >>
                             lit(d_quot) >>
                             *(char_ - escape - d_quot) >>
                             *(
@@ -256,7 +261,8 @@ namespace tetengo2
                                 -char_(d_quot) >>
                                 *(char_ - escape - d_quot)
                             ) >>
-                            lit(d_quot)
+                            lit(d_quot) >>
+                            *(lit(space) | lit(tab))
                         ) |
                         (
                             *(char_ - escape - splitter) >>
@@ -270,6 +276,7 @@ namespace tetengo2
                     lit(splitter) >>
                     (
                         (
+                            *(lit(space) | lit(tab)) >>
                             lit(s_quot) >>
                             *(char_ - escape - s_quot) >>
                             *(
@@ -277,9 +284,11 @@ namespace tetengo2
                                 -char_(s_quot) >>
                                 *(char_ - escape - s_quot)
                             ) >>
-                            -lit(s_quot)
+                            -lit(s_quot) >>
+                            *(lit(space) | lit(tab))
                         ) |
                         (
+                            *(lit(space) | lit(tab)) >>
                             lit(d_quot) >>
                             *(char_ - escape - d_quot) >>
                             *(
@@ -287,7 +296,8 @@ namespace tetengo2
                                 -char_(d_quot) >>
                                 *(char_ - escape - d_quot)
                             ) >>
-                            -lit(d_quot)
+                            -lit(d_quot) >>
+                            *(lit(space) | lit(tab))
                         ) |
                         (*char_)
                     )[make_content_holder(parsed_value)]
