@@ -14,9 +14,9 @@
 #include <ios>
 #include <iterator>
 #include <locale>
-#include <map>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -121,9 +121,12 @@ namespace tetengo2
     private:
         // types
 
-        typedef std::map<string_type, string_type> catalog_file_mappings_type;
+        typedef
+            std::unordered_map<string_type, string_type>
+            catalog_file_mappings_type;
 
-        typedef std::map<string_type, string_type> message_catalog_type;
+        typedef
+            std::unordered_map<string_type, string_type> message_catalog_type;
 
         typedef boost::filesystem::directory_iterator directory_iterator_type;
 
