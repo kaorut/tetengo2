@@ -78,6 +78,21 @@ namespace tetengo2
         typedef LocaleNameEncoder locale_name_encoder_type;
 
 
+        // static functions
+
+        /*!
+            \brief Removes namespaces.
+
+            \param key A key.
+
+            \return The key in which the namespace part is removed.
+        */
+        static string_type remove_namespace(const string_type& key)
+        {
+            const std::size_t offset = key.rfind(TETENGO2_TEXT(':'));
+            return offset == string_type::npos ? key : key.substr(offset + 1);
+        }
+
         // constructors and destructor
 
         /*!
@@ -308,7 +323,7 @@ namespace tetengo2
         const
         {
             if (catalog_id < 0)
-                return default_message;
+                return remove_namespace(default_message);
 
             if (!m_open)
             {
@@ -321,7 +336,7 @@ namespace tetengo2
                 m_message_catalog->find(default_message);
 
             return found != m_message_catalog->end() ?
-                found->second : default_message;
+                found->second : remove_namespace(default_message);
         }
 
         virtual void do_close(const catalog catalog_id)

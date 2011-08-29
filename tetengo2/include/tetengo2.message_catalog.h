@@ -66,16 +66,19 @@ namespace tetengo2
         /*!
             \brief Returns the localized text.
 
+            When no corresponding value to the key is found, it returns the
+            key in which the namespace part is removed.
+            Namespaces and the other are separated by colons (':').
+
             \tparam S A string type.
 
-            \param default_text A default text. It is also used as a key of
-                                the message catalog.
+            \param key A key.
 
             \return The localized text.
         */
         template <typename S>
         string_type get(
-            S&& default_text,
+            S&& key,
             typename std::enable_if<
                 std::is_convertible<S&&, string_type>::value
             >::type* = NULL
@@ -83,22 +86,22 @@ namespace tetengo2
         const
         {
             if (!m_p_messages || m_catalog_id < 0)
-                return std::forward<S>(default_text);
+                return messages_type::remove_namespace(key);
 
-            return m_p_messages->get(m_catalog_id, 0, 0, default_text);
+            return m_p_messages->get(m_catalog_id, 0, 0, key);
         }
 
 #if !defined(DOCUMENTATION)
         template <typename S>
         string_type get(
-            S&& default_text,
+            S&& key,
             typename std::enable_if<
                 !std::is_convertible<S&&, string_type>::value
             >::type* = NULL
         )
         const
         {
-            return get(string_type(std::forward<S>(default_text)));
+            return get(string_type(std::forward<S>(key)));
         }
 
 #endif

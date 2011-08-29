@@ -1,3 +1,4 @@
 # Message Catalog for English
 
 Language=English
+Name:Space:Hello=Hi

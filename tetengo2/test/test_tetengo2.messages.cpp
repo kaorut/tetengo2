@@ -265,6 +265,14 @@ BOOST_AUTO_TEST_SUITE(messages)
                 BOOST_CHECK(
                     messages.get(catalog_id, 0, 0, "Language") == "English"
                 );
+                BOOST_CHECK(
+                    messages.get(catalog_id, 0, 0, "Name:Space:Hello") ==
+                    "Hi"
+                );
+                BOOST_CHECK(
+                    messages.get(catalog_id, 0, 0, "Name:Space:ByeBye") ==
+                    "ByeBye"
+                );
             }
             {
                 const set_global_locale global_locale(locale_ja);
@@ -290,6 +298,14 @@ BOOST_AUTO_TEST_SUITE(messages)
                 BOOST_CHECK(
                     messages.get(catalog_id, 0, 0, "Language") == "Japanese"
                 );
+                BOOST_CHECK(
+                    messages.get(catalog_id, 0, 0, "Name:Space:Hello") ==
+                    "Konnichiwa"
+                );
+                BOOST_CHECK(
+                    messages.get(catalog_id, 0, 0, "Name:Space:ByeBye") ==
+                    "ByeBye"
+                );
             }
             {
                 const set_global_locale global_locale(locale_zh);
@@ -302,6 +318,14 @@ BOOST_AUTO_TEST_SUITE(messages)
 
                 BOOST_CHECK(
                     messages.get(catalog_id, 0, 0, "Language") == "Language"
+                );
+                BOOST_CHECK(
+                    messages.get(catalog_id, 0, 0, "Name:Space:Hello") ==
+                    "Hello"
+                );
+                BOOST_CHECK(
+                    messages.get(catalog_id, 0, 0, "Name:Space:ByeBye") ==
+                    "ByeBye"
                 );
             }
         }
