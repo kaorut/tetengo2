@@ -189,7 +189,9 @@ namespace bobura
 
         void initialize_dialog(const abstract_window_type& parent)
         {
-            set_text(m_message_catalog.get(TETENGO2_TEXT("About")));
+            set_text(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:About:About"))
+            );
 
             this->set_client_dimension(
                 typename about_dialog::dimension_type(36, 10)
@@ -239,8 +241,10 @@ namespace bobura
             std::basic_ostringstream<char_type> title;
             title <<
                 boost::basic_format<char_type>(TETENGO2_TEXT("%s  %s %s")) %
-                    m_message_catalog.get(TETENGO2_TEXT("Bobura")) %
-                    m_message_catalog.get(TETENGO2_TEXT("version")) %
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")) %
+                    m_message_catalog.get(
+                        TETENGO2_TEXT("Dialog:About:version")
+                    ) %
                     typename base_type::string_type(TETENGO2_TEXT("0.0.0"));
 
             typename tetengo2::cpp0x::unique_ptr<label_type>::type p_label(
@@ -314,7 +318,9 @@ namespace bobura
                 )
             );
 
-            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("OK")));
+            p_button->set_text(
+                m_message_catalog.get(TETENGO2_TEXT("Common:OK"))
+            );
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     about_dialog_message_type_list_type,
