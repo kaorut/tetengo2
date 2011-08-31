@@ -87,7 +87,7 @@
     \brief The namespace for size units.
 */
 
-/*! \namespace tetengo2::gui::json
+/*! \namespace tetengo2::json
     \brief The namespace for JSON parsers and builders.
 */
 
