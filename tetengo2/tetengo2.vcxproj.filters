@@ -34,6 +34,9 @@
     <Filter Include="headers\tetengo2::detail::windows::gdiplus">
       <UniqueIdentifier>{bb8d439b-5590-41af-b3e6-4f1f4c47d349}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::json">
+      <UniqueIdentifier>{7c6b6e30-2234-4de7-897f-5a58ac567517}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.encoder.h">

@@ -31,6 +31,9 @@
     <Filter Include="sources\test_tetengo2::gui::drawing">
       <UniqueIdentifier>{0dfc00c9-8439-4893-a77d-0a7bbb07e83f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_tetengo2::json">
+      <UniqueIdentifier>{b8773047-d16e-45e7-afae-0fae03880103}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
