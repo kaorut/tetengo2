@@ -23,7 +23,6 @@
 #include <iterator>
 #include <limits>
 #include <locale>
-#include <map>
 #include <memory>
 #include <sstream>
 #include <stack>

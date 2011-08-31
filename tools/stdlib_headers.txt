@@ -284,7 +284,6 @@ std::locale::global                              locale
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
 std::make_tuple                                  tuple
-std::map                                         map
 std::mbstate_t                                   cwchar
 std::messages                                    locale
 std::messages_base::catalog                      locale

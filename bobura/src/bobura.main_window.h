@@ -9,7 +9,7 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
-#include <utility>
+//#include <utility>
 
 #include <boost/mpl/at.hpp>
 

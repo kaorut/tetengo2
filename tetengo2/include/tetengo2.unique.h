@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_UNIQUE_H)
 #define TETENGO2_UNIQUE_H
 
+#include <utility>
+
 #include "tetengo2.cpp0x.h"
 
 
@@ -480,8 +482,8 @@ namespace tetengo2
     /*!
         \brief Upcasts a unique pointer.
 
-        This cast operation is not necessary for std::unique_ptr but
-        boost::interprocess::unique_ptr requires it.
+        This cast operation is not necessary for std :: unique_ptr but
+        boost :: interprocess :: unique_ptr requires it.
 
         \tparam Base       A base type.
         \tparam DerivedPtr A derived smart pointer type.

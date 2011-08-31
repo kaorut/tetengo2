@@ -10,6 +10,7 @@
 #define TETENGO2_MESSAGES_H
 
 #include <algorithm>
+#include <cstddef>
 //#include <functional>
 #include <ios>
 #include <iterator>
