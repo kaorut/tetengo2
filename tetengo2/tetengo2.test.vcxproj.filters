@@ -214,5 +214,8 @@
     <ClCompile Include="test\test_tetengo2.unique.cpp">
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.json.grammar.cpp">
+      <Filter>sources\test_tetengo2::json</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

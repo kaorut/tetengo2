@@ -297,5 +297,8 @@
     <ClInclude Include="include\tetengo2.unique.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.json.grammar.h">
+      <Filter>headers\tetengo2::json</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
