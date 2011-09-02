@@ -59,12 +59,52 @@ namespace tetengo2 { namespace json
         */
         grammar()
         :
-        grammar::base_type(m_json, "json")
+        grammar::base_type(m_json_text, "json")
         {
             namespace qi = boost::spirit::qi;
 
-            m_json = qi::string("dummy");
+            // 2. JSON Grammar
+            m_json_text =
+                qi::string("dummy");
+            m_begin_array =
+                qi::char_(char_type(TETENGO2_TEXT('[')));
+            m_begin_object =
+                qi::char_(char_type(TETENGO2_TEXT('{')));
+            m_end_array =
+                qi::char_(char_type(TETENGO2_TEXT(']')));
+            m_end_object =
+                qi::char_(char_type(TETENGO2_TEXT('}')));
+            m_name_separator =
+                qi::char_(char_type(TETENGO2_TEXT(':')));
+            m_value_separator =
+                qi::char_(char_type(TETENGO2_TEXT(',')));
 
+            // 2.1. Values
+            m_value =
+                m_false |
+                m_null |
+                m_true |
+                m_object |
+                m_array |
+                m_number |
+                m_string;
+            m_false =
+                qi::string(string_type(TETENGO2_TEXT("false")));
+            m_null =
+                qi::string(string_type(TETENGO2_TEXT("null")));
+            m_true =
+                qi::string(string_type(TETENGO2_TEXT("true")));
+
+            // 2.2. Objects
+
+
+            // 2.3. Arrays
+            //m_array =
+            //    m_begin_array >>
+            //    -(m_value >> *(m_value_separator >> m_value)) >>
+            //    m_end_array;
+
+            // 2.4. Numbers
             m_number =
                 -m_minus >> m_int >> -m_frac >> -m_exp;
             m_decimal_point =
@@ -90,8 +130,7 @@ namespace tetengo2 { namespace json
             m_zero =
                 qi::char_(char_type(TETENGO2_TEXT('0')));
 
-
-
+            // 2.5. Strings
             m_string =
                 m_quotation_mark >> *m_char >> m_quotation_mark;
             m_char =
@@ -127,6 +166,17 @@ namespace tetengo2 { namespace json
         // functions
 
         /*!
+            \brief Returns the parser for a value.
+
+            \return The parser for a value.
+        */
+        const rule_type& value()
+        const
+        {
+            return m_value;
+        }
+
+        /*!
             \brief Returns the parser for a number.
 
             \return The parser for a number.
@@ -158,7 +208,31 @@ namespace tetengo2 { namespace json
 
         // variables
 
-        rule_type m_json;
+        rule_type m_json_text;
+
+        char_rule_type m_begin_array;
+
+        char_rule_type m_begin_object;
+
+        char_rule_type m_end_array;
+
+        char_rule_type m_end_object;
+
+        char_rule_type m_name_separator;
+
+        char_rule_type m_value_separator;
+
+        rule_type m_value;
+
+        rule_type m_false;
+
+        rule_type m_null;
+
+        rule_type m_true;
+
+        rule_type m_object;
+
+        rule_type m_array;
 
         rule_type m_number;
 
