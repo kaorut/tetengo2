@@ -80,7 +80,7 @@ namespace tetengo2 { namespace json
                         qi::char_(char_type(TETENGO2_TEXT('r'))) |
                         qi::char_(char_type(TETENGO2_TEXT('t'))) |
                         (
-                            qi::char_(char_type(TETENGO2_TEXT('n'))) >>
+                            qi::char_(char_type(TETENGO2_TEXT('u'))) >>
                             qi::repeat(4)[qi::xdigit]
                         )
                     )

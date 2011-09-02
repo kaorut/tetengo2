@@ -70,6 +70,109 @@ BOOST_AUTO_TEST_SUITE(grammar)
             BOOST_CHECK(result);
             BOOST_CHECK(output == "\"hoge\"");
         }
+        {
+            const std::wstring input(L"\"hoge\"");
+
+            const tetengo2::json::grammar<std::wstring::const_iterator> g;
+            std::wstring output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(result);
+            BOOST_CHECK(output == L"\"hoge\"");
+        }
+        {
+            const std::string input("\"hoge\"fuga");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(!result);
+        }
+        {
+            const std::string input("\"hoge");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(!result);
+        }
+        {
+            const std::string input("hoge");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(!result);
+        }
+        {
+            const std::string input("\"a\\\"a\"");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(result);
+            BOOST_CHECK(output == "\"a\\\"a\"");
+        }
+        {
+            const std::string input("\"a\"a\"");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(!result);
+        }
+        {
+            const std::string input("\"\\n\\u12ABXYZ\"");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(result);
+            BOOST_CHECK(output == "\"\\n\\u12ABXYZ\"");
+        }
+        {
+            const std::string input("\"\\m\\u12ABXYZ\"");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(!result);
+        }
+        {
+            const std::string input("\"\\n\\u12PQXYZ\"");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(!result);
+        }
+        {
+            const std::string input("\"\\n\\u12\"");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.string(), output);
+
+            BOOST_CHECK(!result);
+        }
     }
 
 
