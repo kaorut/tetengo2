@@ -65,7 +65,7 @@ namespace tetengo2 { namespace json
 
             // 2. JSON Grammar
             m_json_text =
-                qi::string("dummy");
+                m_object | m_array;
             m_begin_array =
                 m_ws >> qi::char_(char_type(TETENGO2_TEXT('['))) >> m_ws;
             m_begin_object =
@@ -176,6 +176,17 @@ namespace tetengo2 { namespace json
 
 
         // functions
+
+        /*!
+            \brief Returns the parser for a JSON text.
+
+            \return The parser for a JSON text.
+        */
+        const rule_type& json_text()
+        const
+        {
+            return m_json_text;
+        }
 
         /*!
             \brief Returns the parser for a value.
