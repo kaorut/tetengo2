@@ -67,17 +67,24 @@ namespace tetengo2 { namespace json
             m_json_text =
                 qi::string("dummy");
             m_begin_array =
-                qi::char_(char_type(TETENGO2_TEXT('[')));
+                m_ws >> qi::char_(char_type(TETENGO2_TEXT('['))) >> m_ws;
             m_begin_object =
-                qi::char_(char_type(TETENGO2_TEXT('{')));
+                m_ws >> qi::char_(char_type(TETENGO2_TEXT('{'))) >> m_ws;
             m_end_array =
-                qi::char_(char_type(TETENGO2_TEXT(']')));
+                m_ws >> qi::char_(char_type(TETENGO2_TEXT(']'))) >> m_ws;
             m_end_object =
-                qi::char_(char_type(TETENGO2_TEXT('}')));
+                m_ws >> qi::char_(char_type(TETENGO2_TEXT('}'))) >> m_ws;
             m_name_separator =
-                qi::char_(char_type(TETENGO2_TEXT(':')));
+                m_ws >> qi::char_(char_type(TETENGO2_TEXT(':'))) >> m_ws;
             m_value_separator =
-                qi::char_(char_type(TETENGO2_TEXT(',')));
+                m_ws >> qi::char_(char_type(TETENGO2_TEXT(','))) >> m_ws;
+            m_ws =
+                *(
+                    qi::char_(char_type(TETENGO2_TEXT(' '))) |
+                    qi::char_(char_type(TETENGO2_TEXT('\t'))) |
+                    qi::char_(char_type(TETENGO2_TEXT('\n'))) |
+                    qi::char_(char_type(TETENGO2_TEXT('\r')))
+                );
 
             // 2.1. Values
             m_value =
@@ -99,10 +106,10 @@ namespace tetengo2 { namespace json
 
 
             // 2.3. Arrays
-            //m_array =
-            //    m_begin_array >>
-            //    -(m_value >> *(m_value_separator >> m_value)) >>
-            //    m_end_array;
+            m_array =
+                m_begin_array >>
+                -(m_value >> *(m_value_separator >> m_value)) >>
+                m_end_array;
 
             // 2.4. Numbers
             m_number =
@@ -177,6 +184,17 @@ namespace tetengo2 { namespace json
         }
 
         /*!
+            \brief Returns the parser for an array.
+
+            \return The parser for an array.
+        */
+        const rule_type& array()
+        const
+        {
+            return m_array;
+        }
+
+        /*!
             \brief Returns the parser for a number.
 
             \return The parser for a number.
@@ -210,17 +228,19 @@ namespace tetengo2 { namespace json
 
         rule_type m_json_text;
 
-        char_rule_type m_begin_array;
+        rule_type m_begin_array;
 
-        char_rule_type m_begin_object;
+        rule_type m_begin_object;
 
-        char_rule_type m_end_array;
+        rule_type m_end_array;
 
-        char_rule_type m_end_object;
+        rule_type m_end_object;
 
-        char_rule_type m_name_separator;
+        rule_type m_name_separator;
 
-        char_rule_type m_value_separator;
+        rule_type m_value_separator;
+
+        rule_type m_ws;
 
         rule_type m_value;
 

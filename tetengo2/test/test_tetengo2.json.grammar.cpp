@@ -28,9 +28,7 @@ namespace
     {
         ForwardIterator mutable_first = first;
         const bool result =
-            boost::spirit::qi::phrase_parse(
-                mutable_first, last, parser, boost::spirit::qi::space, output
-            );
+            boost::spirit::qi::parse(mutable_first, last, parser, output);
         return result && mutable_first == last;
     }
 }
@@ -103,7 +101,7 @@ BOOST_AUTO_TEST_SUITE(grammar)
             BOOST_CHECK(!result);
         }
         {
-            const std::string input("\"hoge\"");
+            const std::string input("42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
             std::string output;
@@ -114,7 +112,7 @@ BOOST_AUTO_TEST_SUITE(grammar)
             BOOST_CHECK(output == input);
         }
         {
-            const std::string input("42");
+            const std::string input("\"hoge\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
             std::string output;
@@ -123,6 +121,97 @@ BOOST_AUTO_TEST_SUITE(grammar)
 
             BOOST_CHECK(result);
             BOOST_CHECK(output == input);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(array)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const std::string input("[]");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.array(), output);
+
+            BOOST_CHECK(result);
+            BOOST_CHECK(output == input);
+        }
+        {
+            const std::string input("[42]");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.array(), output);
+
+            BOOST_CHECK(result);
+            BOOST_CHECK(output == input);
+        }
+        {
+            const std::string input("[42, 42]");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.array(), output);
+
+            BOOST_CHECK(result);
+            BOOST_CHECK(output == input);
+        }
+        {
+            const std::string input("[42, 42, 42]");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.array(), output);
+
+            BOOST_CHECK(result);
+            BOOST_CHECK(output == input);
+        }
+        {
+            const std::string input("[\n  42\n,\t42]");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.array(), output);
+
+            BOOST_CHECK(result);
+            BOOST_CHECK(output == input);
+        }
+        {
+            const std::string input("[42");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.array(), output);
+
+            BOOST_CHECK(!result);
+        }
+        {
+            const std::string input("[42,]");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.array(), output);
+
+            BOOST_CHECK(!result);
+        }
+        {
+            const std::string input("{}");
+
+            const tetengo2::json::grammar<std::string::const_iterator> g;
+            std::string output;
+            const bool result =
+                full_match(input.begin(), input.end(), g.array(), output);
+
+            BOOST_CHECK(!result);
         }
     }
 
@@ -336,17 +425,6 @@ BOOST_AUTO_TEST_SUITE(grammar)
 
             BOOST_CHECK(result);
             BOOST_CHECK(output == input);
-        }
-        {
-            const std::string input("   \"ho   ge\"   ");
-
-            const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
-            const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
-
-            BOOST_CHECK(result);
-            BOOST_CHECK(output == "\"ho   ge\"");
         }
         {
             const std::string input("\"hoge\"fuga");
