@@ -103,7 +103,12 @@ namespace tetengo2 { namespace json
                 qi::string(string_type(TETENGO2_TEXT("true")));
 
             // 2.2. Objects
-
+            m_object =
+                m_begin_object >>
+                -(m_member >> *(m_value_separator >> m_member)) >>
+                m_end_object;
+            m_member =
+                m_string >> m_name_separator >> m_value;
 
             // 2.3. Arrays
             m_array =
@@ -184,6 +189,28 @@ namespace tetengo2 { namespace json
         }
 
         /*!
+            \brief Returns the parser for an object.
+
+            \return The parser for an object.
+        */
+        const rule_type& object()
+        const
+        {
+            return m_object;
+        }
+
+        /*!
+            \brief Returns the parser for a member.
+
+            \return The parser for a member.
+        */
+        const rule_type& member()
+        const
+        {
+            return m_member;
+        }
+
+        /*!
             \brief Returns the parser for an array.
 
             \return The parser for an array.
@@ -251,6 +278,8 @@ namespace tetengo2 { namespace json
         rule_type m_true;
 
         rule_type m_object;
+
+        rule_type m_member;
 
         rule_type m_array;
 
