@@ -14,7 +14,7 @@ Description : Create tetengo2::json::push_parser.
 ------------------------------------------------------------------------------
 Number      : 00000108
 Added on    : 2011/09/02
-Depends on  : (none)
+Depends on  : 00000107
 Description : Create tetengo2::json::pull_parser.
 ------------------------------------------------------------------------------
 Number      : 00000109
