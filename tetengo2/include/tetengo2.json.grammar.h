@@ -65,6 +65,33 @@ namespace tetengo2 { namespace json
 
             m_json = qi::string("dummy");
 
+            m_number =
+                -m_minus >> m_int >> -m_frac >> -m_exp;
+            m_decimal_point =
+                qi::char_(char_type(TETENGO2_TEXT('.')));
+            m_digit1to9 =
+                qi::char_(
+                    char_type(TETENGO2_TEXT('1')),
+                    char_type(TETENGO2_TEXT('9'))
+                );
+            m_e =
+                qi::char_(char_type(TETENGO2_TEXT('e'))) |
+                qi::char_(char_type(TETENGO2_TEXT('E')));
+            m_exp =
+                m_e >> (m_minus | m_plus) >> +qi::digit;
+            m_frac =
+                m_decimal_point >> +qi::digit;
+            m_int =
+                m_zero | (m_digit1to9 >> *qi::digit);
+            m_minus =
+                qi::char_(char_type(TETENGO2_TEXT('-')));
+            m_plus =
+                qi::char_(char_type(TETENGO2_TEXT('+')));
+            m_zero =
+                qi::char_(char_type(TETENGO2_TEXT('0')));
+
+
+
             m_string =
                 m_quotation_mark >> *m_char >> m_quotation_mark;
             m_char =
@@ -86,9 +113,9 @@ namespace tetengo2 { namespace json
                     )
                 );
             m_escape =
-                char_type(TETENGO2_TEXT('\\'));
+                qi::char_(char_type(TETENGO2_TEXT('\\')));
             m_quotation_mark =
-                char_type(TETENGO2_TEXT('"'));
+                qi::char_(char_type(TETENGO2_TEXT('"')));
             m_unescaped =
                 qi::char_ -
                 qi::char_(char_type(0x00), char_type(0x19)) -
@@ -99,6 +126,22 @@ namespace tetengo2 { namespace json
 
         // functions
 
+        /*!
+            \brief Returns the parser for a number.
+
+            \return The parser for a number.
+        */
+        const rule_type& number()
+        const
+        {
+            return m_number;
+        }
+
+        /*!
+            \brief Returns the parser for a string.
+
+            \return The parser for a string.
+        */
         const rule_type& string()
         const
         {
@@ -116,6 +159,26 @@ namespace tetengo2 { namespace json
         // variables
 
         rule_type m_json;
+
+        rule_type m_number;
+
+        char_rule_type m_decimal_point;
+
+        char_rule_type m_digit1to9;
+
+        char_rule_type m_e;
+
+        rule_type m_exp;
+
+        rule_type m_frac;
+
+        rule_type m_int;
+
+        char_rule_type m_minus;
+
+        char_rule_type m_plus;
+
+        char_rule_type m_zero;
 
         rule_type m_string;
 
