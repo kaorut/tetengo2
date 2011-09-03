@@ -66,6 +66,7 @@ namespace tetengo2 { namespace json
             // 2. JSON Grammar
             m_json_text =
                 m_object | m_array;
+            m_json_text.name("JSON-text");
             m_begin_array =
                 m_ws >> qi::char_(char_type(TETENGO2_TEXT('['))) >> m_ws;
             m_begin_object =
@@ -95,6 +96,7 @@ namespace tetengo2 { namespace json
                 m_array |
                 m_number |
                 m_string;
+            m_value.name("value");
             m_false =
                 qi::string(string_type(TETENGO2_TEXT("false")));
             m_null =
@@ -107,18 +109,22 @@ namespace tetengo2 { namespace json
                 m_begin_object >>
                 -(m_member >> *(m_value_separator >> m_member)) >>
                 m_end_object;
+            m_object.name("object");
             m_member =
                 m_string >> m_name_separator >> m_value;
+            m_member.name("member");
 
             // 2.3. Arrays
             m_array =
                 m_begin_array >>
                 -(m_value >> *(m_value_separator >> m_value)) >>
                 m_end_array;
+            m_array.name("array");
 
             // 2.4. Numbers
             m_number =
                 -m_minus >> m_int >> -m_frac >> -m_exp;
+            m_number.name("number");
             m_decimal_point =
                 qi::char_(char_type(TETENGO2_TEXT('.')));
             m_digit1to9 =
@@ -145,6 +151,7 @@ namespace tetengo2 { namespace json
             // 2.5. Strings
             m_string =
                 m_quotation_mark >> *m_char >> m_quotation_mark;
+            m_string.name("string");
             m_char =
                 m_unescaped |
                 (
