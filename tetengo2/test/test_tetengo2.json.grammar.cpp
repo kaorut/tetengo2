@@ -31,19 +31,7 @@ namespace
         return result && mutable_first == last;
     }
 
-    template <typename ForwardIterator, typename Parser, typename Attribute>
-    bool full_match(
-        const ForwardIterator first,
-        const ForwardIterator last,
-        const Parser&         parser,
-        Attribute&            output
-    )
-    {
-        ForwardIterator mutable_first = first;
-        const bool result =
-            boost::spirit::qi::parse(mutable_first, last, parser, output);
-        return result && mutable_first == last;
-    }
+
 }
 
 
@@ -141,31 +129,26 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("{}");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.json_text(), output);
+                full_match(input.begin(), input.end(), g.json_text());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("[]");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.json_text(), output);
+                full_match(input.begin(), input.end(), g.json_text());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.json_text(), output);
+                full_match(input.begin(), input.end(), g.json_text());
 
             BOOST_CHECK(!result);
         }
@@ -173,9 +156,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.json_text(), output);
+                full_match(input.begin(), input.end(), g.json_text());
 
             BOOST_CHECK(!result);
         }
@@ -194,64 +176,53 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("false");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.value(), output);
+                full_match(input.begin(), input.end(), g.value());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("null");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.value(), output);
+                full_match(input.begin(), input.end(), g.value());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("true");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.value(), output);
+                full_match(input.begin(), input.end(), g.value());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("{}");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.value(), output);
+                full_match(input.begin(), input.end(), g.value());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("[]");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.value(), output);
+                full_match(input.begin(), input.end(), g.value());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("hoge");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.value(), output);
+                full_match(input.begin(), input.end(), g.value());
 
             BOOST_CHECK(!result);
         }
@@ -259,23 +230,19 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.value(), output);
+                full_match(input.begin(), input.end(), g.value());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("\"hoge\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.value(), output);
+                full_match(input.begin(), input.end(), g.value());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
     }
 
@@ -292,34 +259,28 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("{}");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.object(), output);
+                full_match(input.begin(), input.end(), g.object());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("{\"hoge\": 42}");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.object(), output);
+                full_match(input.begin(), input.end(), g.object());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("{\"hoge\": 42, \"hoge\": 42}");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.object(), output);
+                full_match(input.begin(), input.end(), g.object());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input(
@@ -327,31 +288,26 @@ BOOST_AUTO_TEST_SUITE(grammar)
             );
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.object(), output);
+                full_match(input.begin(), input.end(), g.object());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("{\n  \"hoge\": 42\n,\t\"hoge\": 42}");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.object(), output);
+                full_match(input.begin(), input.end(), g.object());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("{\"hoge\": 42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.object(), output);
+                full_match(input.begin(), input.end(), g.object());
 
             BOOST_CHECK(!result);
         }
@@ -359,9 +315,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("{\"hoge\": 42,}");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.object(), output);
+                full_match(input.begin(), input.end(), g.object());
 
             BOOST_CHECK(!result);
         }
@@ -369,9 +324,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("[]");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.object(), output);
+                full_match(input.begin(), input.end(), g.object());
 
             BOOST_CHECK(!result);
         }
@@ -390,31 +344,26 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("\"hoge\": 42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.member(), output);
+                full_match(input.begin(), input.end(), g.member());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("\"hoge\"\t:\n\n42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.member(), output);
+                full_match(input.begin(), input.end(), g.member());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("42: \"hoge\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.member(), output);
+                full_match(input.begin(), input.end(), g.member());
 
             BOOST_CHECK(!result);
         }
@@ -422,9 +371,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("\"hoge\": 42: 42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.member(), output);
+                full_match(input.begin(), input.end(), g.member());
 
             BOOST_CHECK(!result);
         }
@@ -432,9 +380,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("\"hoge\":");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.member(), output);
+                full_match(input.begin(), input.end(), g.member());
 
             BOOST_CHECK(!result);
         }
@@ -453,64 +400,53 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("[]");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.array(), output);
+                full_match(input.begin(), input.end(), g.array());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("[42]");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.array(), output);
+                full_match(input.begin(), input.end(), g.array());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("[42, 42]");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.array(), output);
+                full_match(input.begin(), input.end(), g.array());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("[42, 42, 42]");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.array(), output);
+                full_match(input.begin(), input.end(), g.array());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("[\n  42\n,\t42]");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.array(), output);
+                full_match(input.begin(), input.end(), g.array());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("[42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.array(), output);
+                full_match(input.begin(), input.end(), g.array());
 
             BOOST_CHECK(!result);
         }
@@ -518,9 +454,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("[42,]");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.array(), output);
+                full_match(input.begin(), input.end(), g.array());
 
             BOOST_CHECK(!result);
         }
@@ -528,9 +463,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("{}");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.array(), output);
+                full_match(input.begin(), input.end(), g.array());
 
             BOOST_CHECK(!result);
         }
@@ -549,31 +483,26 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("0");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("02");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(!result);
         }
@@ -581,31 +510,26 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("-42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("-0");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("-02");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(!result);
         }
@@ -613,20 +537,17 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("42.42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("42.42.42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(!result);
         }
@@ -634,53 +555,44 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("42e+42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("42.42e+42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("42E+42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("42e-42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("42e+42.42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(!result);
         }
@@ -688,9 +600,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("42e+42e+42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(!result);
         }
@@ -698,9 +609,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("42f+42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(!result);
         }
@@ -708,9 +618,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("42e*42");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(!result);
         }
@@ -718,9 +627,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("42e");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.number(), output);
+                full_match(input.begin(), input.end(), g.number());
 
             BOOST_CHECK(!result);
         }
@@ -739,31 +647,26 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("\"hoge\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::wstring input(L"\"hoge\"");
 
             const tetengo2::json::grammar<std::wstring::const_iterator> g;
-            std::wstring output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("\"hoge\"fuga");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(!result);
         }
@@ -771,9 +674,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("\"hoge");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(!result);
         }
@@ -781,9 +683,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("hoge");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(!result);
         }
@@ -791,20 +692,17 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("\"a\\\"a\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("\"a\"a\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(!result);
         }
@@ -812,20 +710,17 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("\"\\n\\u12ABXYZ\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(result);
-            BOOST_CHECK(output == input);
         }
         {
             const std::string input("\"\\m\\u12ABXYZ\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(!result);
         }
@@ -833,9 +728,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("\"\\n\\u12PQXYZ\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(!result);
         }
@@ -843,9 +737,8 @@ BOOST_AUTO_TEST_SUITE(grammar)
             const std::string input("\"\\n\\u12\"");
 
             const tetengo2::json::grammar<std::string::const_iterator> g;
-            std::string output;
             const bool result =
-                full_match(input.begin(), input.end(), g.string(), output);
+                full_match(input.begin(), input.end(), g.string());
 
             BOOST_CHECK(!result);
         }

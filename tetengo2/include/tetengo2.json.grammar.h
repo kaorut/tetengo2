@@ -51,6 +51,22 @@ namespace tetengo2 { namespace json
         //! The rule type.
         typedef boost::spirit::qi::rule<iterator, string_type ()> rule_type;
 
+        //! The structure type type.
+        enum structure_type_type
+        {
+            structure_type_object, //!< An object.
+            structure_type_member, //!< A member.
+            structure_type_array,  //!< An array.
+        };
+
+        //! The value type type.
+        enum value_type_type
+        {
+            value_type_string,  //!< A string.
+            value_type_integer, //!< An integer.
+            value_type_float,   //!< A floating point number.
+        };
+
 
         // constructors and destructor
 
@@ -106,19 +122,23 @@ namespace tetengo2 { namespace json
 
             // 2.2. Objects
             m_object =
-                m_begin_object >>
+                m_begin_object[object_begun] >>
                 -(m_member >> *(m_value_separator >> m_member)) >>
-                m_end_object;
+                m_end_object[object_ended];
             m_object.name("object");
             m_member =
-                m_string >> m_name_separator >> m_value;
+                qi::eps[member_begun] >>
+                m_string >>
+                m_name_separator >>
+                m_value >>
+                qi::eps[member_begun];
             m_member.name("member");
 
             // 2.3. Arrays
             m_array =
-                m_begin_array >>
+                m_begin_array[array_begun] >>
                 -(m_value >> *(m_value_separator >> m_value)) >>
-                m_end_array;
+                m_end_array[array_ended];
             m_array.name("array");
 
             // 2.4. Numbers
@@ -267,6 +287,39 @@ namespace tetengo2 { namespace json
 
         typedef
             boost::spirit::qi::rule<iterator, char_type ()> char_rule_type;
+
+
+        // static functions
+
+        static void object_begun(const boost::spirit::qi::unused_type&)
+        {
+
+        }
+
+        static void object_ended(const boost::spirit::qi::unused_type&)
+        {
+
+        }
+
+        static void member_begun(const boost::spirit::qi::unused_type&)
+        {
+
+        }
+
+        static void member_ended(const boost::spirit::qi::unused_type&)
+        {
+
+        }
+
+        static void array_begun(const boost::spirit::qi::unused_type&)
+        {
+
+        }
+
+        static void array_ended(const boost::spirit::qi::unused_type&)
+        {
+
+        }
 
 
         // variables
