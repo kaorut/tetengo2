@@ -406,17 +406,15 @@ namespace tetengo2 { namespace json
                 ];
             m_object.name("object");
             m_member =
-                qi::eps[
+                m_string[
                     TETENGO2_CPP0X_BIND(
                         &grammar::member_begun,
                         this,
                         tetengo2::cpp0x::placeholders_1
                     )
                 ] >>
-                m_string >>
                 m_name_separator >>
-                m_value >>
-                qi::eps[
+                m_value[
                     TETENGO2_CPP0X_BIND(
                         &grammar::member_ended,
                         this,
