@@ -9,12 +9,10 @@
 #if !defined(TETENGO2_JSON_GRAMMAR_H)
 #define TETENGO2_JSON_GRAMMAR_H
 
-#include <cassert>
 #include <string>
 
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
-#include <boost/utility.hpp>
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.text.h"

@@ -8,9 +8,9 @@
 
 #include <cassert>
 #include <stdexcept>
-#include <string>
+//#include <string>
 
-#include <boost/spirit/include/qi.hpp>
+//#include <boost/spirit/include/qi.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.cpp0x.h"

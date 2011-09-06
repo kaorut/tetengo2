@@ -239,9 +239,12 @@ boost::replace_all                               boost/algorithm/string.hpp
 boost::signals2::signal                          boost/signals2.hpp
 boost::spirit::make_default_multi_pass           boost/spirit/include/support_multi_pass.hpp
 boost::spirit::multi_pass                        boost/spirit/include/support_multi_pass.hpp
+boost::spirit::qi                                boost/spirit/include/qi.hpp
 boost::spirit::qi::char_                         boost/spirit/include/qi.hpp
+boost::spirit::qi::grammar                       boost/spirit/include/qi.hpp
 boost::spirit::qi::lit                           boost/spirit/include/qi.hpp
 boost::spirit::qi::parse                         boost/spirit/include/qi.hpp
+boost::spirit::qi::rule                          boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
 boost::swap                                      boost/swap.hpp
 boost::throw_file                                boost/exception/all.hpp
@@ -311,6 +314,7 @@ std::size_t                                      cstddef
 std::sort                                        algorithm
 std::stack                                       stack
 std::string                                      string
+std::string::const_iterator                      string
 std::transform                                   algorithm
 std::tuple                                       tuple
 std::unary_function                              functional
@@ -319,3 +323,4 @@ std::unordered_map                               unordered_map
 std::use_facet                                   locale
 std::vector                                      vector
 std::wstring                                     string
+std::wstring::const_iterator                     string
