@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <cassert>
+#include <stdexcept>
 #include <string>
 
 #include <boost/spirit/include/qi.hpp>
@@ -80,17 +82,40 @@ namespace
                 output += "AE, ";
                 break;
             }
+        default:
+            {
+                assert(false);
+                throw std::logic_error("Must not come here.");
+            }
         }
     }
 
-    template <typename Grammar>
     void on_value(
-        std::string&                                 output,
-        const typename Grammar::strucuture_type_type type,
-        const std::string&                           parsed
+        std::string&                        output,
+        const grammar_type::value_type_type type,
+        const std::string&                  parsed
     )
     {
+        switch (type)
+        {
+        case grammar_type::value_type_string:
+            {
+                output += "S:";
+                break;
+            }
+        case grammar_type::value_type_number:
+            {
+                output += "N:";
+                break;
+            }
+        default:
+            {
+                assert(false);
+                throw std::logic_error("Must not come here.");
+            }
+        }
 
+        output += parsed + ", ";
     }
 
 
@@ -118,14 +143,21 @@ BOOST_AUTO_TEST_SUITE(grammar)
 
             grammar_type g;
             std::string output;
-            std::function<void (grammar_type::structure_type_type)> f =
+            g.add_structure_observer(
                 TETENGO2_CPP0X_BIND(
                     on_structure,
                     tetengo2::cpp0x::ref(output),
                     tetengo2::cpp0x::placeholders_1()
-                );
-
-            g.add_structure_observer(f);
+                )
+            );
+            g.add_value_observer(
+                TETENGO2_CPP0X_BIND(
+                    on_value,
+                    tetengo2::cpp0x::ref(output),
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
+                )
+            );
 
             const bool result = full_match(input.begin(), input.end(), g);
             BOOST_CHECK(result);

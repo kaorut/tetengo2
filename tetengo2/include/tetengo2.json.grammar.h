@@ -63,9 +63,8 @@ namespace tetengo2 { namespace json
         //! The value type type.
         enum value_type_type
         {
-            value_type_string,  //!< A string.
-            value_type_integer, //!< An integer.
-            value_type_float,   //!< A floating point number.
+            value_type_string, //!< A string.
+            value_type_number, //!< A number.
         };
 
         //! The rule type.
@@ -322,9 +321,10 @@ namespace tetengo2 { namespace json
             m_structure_observers(structure_type_object_end);
         }
 
-        void member_begun(const boost::spirit::qi::unused_type&)
+        void member_begun(const string_type& attribute)
         {
             m_structure_observers(structure_type_member_begin);
+            m_value_observers(value_type_string, attribute);
         }
 
         void member_ended(const boost::spirit::qi::unused_type&)
@@ -340,6 +340,16 @@ namespace tetengo2 { namespace json
         void array_ended(const boost::spirit::qi::unused_type&)
         {
             m_structure_observers(structure_type_array_end);
+        }
+
+        void string_passed(const string_type& attribute)
+        {
+            m_value_observers(value_type_string, attribute);
+        }
+
+        void number_passed(const string_type& attribute)
+        {
+            m_value_observers(value_type_number, attribute);
         }
 
         void define_rules()
@@ -377,8 +387,20 @@ namespace tetengo2 { namespace json
                 m_true |
                 m_object |
                 m_array |
-                m_number |
-                m_string;
+                m_number[
+                    TETENGO2_CPP0X_BIND(
+                        &grammar::number_passed,
+                        this,
+                        tetengo2::cpp0x::placeholders_1()
+                    )
+                ] |
+                m_string[
+                    TETENGO2_CPP0X_BIND(
+                        &grammar::string_passed,
+                        this,
+                        tetengo2::cpp0x::placeholders_1()
+                    )
+                ];
             m_value.name("value");
             m_false =
                 qi::string(string_type(TETENGO2_TEXT("false")));
@@ -393,7 +415,7 @@ namespace tetengo2 { namespace json
                     TETENGO2_CPP0X_BIND(
                         &grammar::object_begun,
                         this,
-                        tetengo2::cpp0x::placeholders_1
+                        tetengo2::cpp0x::placeholders_1()
                     )
                 ] >>
                 -(m_member >> *(m_value_separator >> m_member)) >>
@@ -401,7 +423,7 @@ namespace tetengo2 { namespace json
                     TETENGO2_CPP0X_BIND(
                         &grammar::object_ended,
                         this,
-                        tetengo2::cpp0x::placeholders_1
+                        tetengo2::cpp0x::placeholders_1()
                     )
                 ];
             m_object.name("object");
@@ -410,7 +432,7 @@ namespace tetengo2 { namespace json
                     TETENGO2_CPP0X_BIND(
                         &grammar::member_begun,
                         this,
-                        tetengo2::cpp0x::placeholders_1
+                        tetengo2::cpp0x::placeholders_1()
                     )
                 ] >>
                 m_name_separator >>
@@ -418,7 +440,7 @@ namespace tetengo2 { namespace json
                     TETENGO2_CPP0X_BIND(
                         &grammar::member_ended,
                         this,
-                        tetengo2::cpp0x::placeholders_1
+                        tetengo2::cpp0x::placeholders_1()
                     )
                 ];
             m_member.name("member");
@@ -429,7 +451,7 @@ namespace tetengo2 { namespace json
                     TETENGO2_CPP0X_BIND(
                         &grammar::array_begun,
                         this,
-                        tetengo2::cpp0x::placeholders_1
+                        tetengo2::cpp0x::placeholders_1()
                     )
                 ] >>
                 -(m_value >> *(m_value_separator >> m_value)) >>
@@ -437,7 +459,7 @@ namespace tetengo2 { namespace json
                     TETENGO2_CPP0X_BIND(
                         &grammar::array_ended,
                         this,
-                        tetengo2::cpp0x::placeholders_1
+                        tetengo2::cpp0x::placeholders_1()
                     )
                 ];
             m_array.name("array");
