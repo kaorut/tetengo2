@@ -63,8 +63,10 @@ namespace tetengo2 { namespace json
         //! The value type type.
         enum value_type_type
         {
-            value_type_string, //!< A string.
-            value_type_number, //!< A number.
+            value_type_string,  //!< A string.
+            value_type_number,  //!< A number.
+            value_type_boolean, //!< A boolean.
+            value_type_null,    //!< A null.
         };
 
         //! The rule type.
@@ -352,6 +354,16 @@ namespace tetengo2 { namespace json
             m_value_observers(value_type_number, attribute);
         }
 
+        void boolean_passed(const string_type& attribute)
+        {
+            m_value_observers(value_type_boolean, attribute);
+        }
+
+        void null_passed(const string_type& attribute)
+        {
+            m_value_observers(value_type_null, attribute);
+        }
+
         void define_rules()
         {
             namespace qi = boost::spirit::qi;
@@ -382,9 +394,27 @@ namespace tetengo2 { namespace json
 
             // 2.1. Values
             m_value =
-                m_false |
-                m_null |
-                m_true |
+                m_false[
+                    TETENGO2_CPP0X_BIND(
+                        &grammar::boolean_passed,
+                        this,
+                        tetengo2::cpp0x::placeholders_1()
+                    )
+                ] |
+                m_null[
+                    TETENGO2_CPP0X_BIND(
+                        &grammar::null_passed,
+                        this,
+                        tetengo2::cpp0x::placeholders_1()
+                    )
+                ] |
+                m_true[
+                    TETENGO2_CPP0X_BIND(
+                        &grammar::boolean_passed,
+                        this,
+                        tetengo2::cpp0x::placeholders_1()
+                    )
+                ] |
                 m_object |
                 m_array |
                 m_number[

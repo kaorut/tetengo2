@@ -108,6 +108,16 @@ namespace
                 output += "N:";
                 break;
             }
+        case grammar_type::value_type_boolean:
+            {
+                output += "B:";
+                break;
+            }
+        case grammar_type::value_type_null:
+            {
+                output += "L:";
+                break;
+            }
         default:
             {
                 assert(false);
@@ -163,12 +173,76 @@ BOOST_AUTO_TEST_SUITE(grammar)
             BOOST_CHECK(result);
             BOOST_CHECK(output == "OB, OE, ");
         }
+        {
+            const std::string input(
+                "{\n"
+                "    \"hoge\": 42,\n"
+                "    \"fuga\": [42, 42, 42]\n"
+                "}\n"
+            );
+
+            grammar_type g;
+            std::string output;
+            g.add_structure_observer(
+                TETENGO2_CPP0X_BIND(
+                    on_structure,
+                    tetengo2::cpp0x::ref(output),
+                    tetengo2::cpp0x::placeholders_1()
+                )
+            );
+            g.add_value_observer(
+                TETENGO2_CPP0X_BIND(
+                    on_value,
+                    tetengo2::cpp0x::ref(output),
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
+                )
+            );
+
+            const bool result = full_match(input.begin(), input.end(), g);
+            BOOST_CHECK(result);
+            BOOST_CHECK(
+                output ==
+                "OB, "
+                "MB, S:\"hoge\", N:42, ME, "
+                "MB, S:\"fuga\", AB, N:42, N:42, N:42, AE, ME, "
+                "OE, "
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(add_value_observer)
     {
         BOOST_TEST_PASSPOINT();
 
+        {
+            const std::string input("[\"hoge\", 42, true, false, null]");
+
+            grammar_type g;
+            std::string output;
+            g.add_structure_observer(
+                TETENGO2_CPP0X_BIND(
+                    on_structure,
+                    tetengo2::cpp0x::ref(output),
+                    tetengo2::cpp0x::placeholders_1()
+                )
+            );
+            g.add_value_observer(
+                TETENGO2_CPP0X_BIND(
+                    on_value,
+                    tetengo2::cpp0x::ref(output),
+                    tetengo2::cpp0x::placeholders_1(),
+                    tetengo2::cpp0x::placeholders_2()
+                )
+            );
+
+            const bool result = full_match(input.begin(), input.end(), g);
+            BOOST_CHECK(result);
+            BOOST_CHECK(
+                output ==
+                "AB, S:\"hoge\", N:42, B:true, B:false, L:null, AE, "
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(parse)
