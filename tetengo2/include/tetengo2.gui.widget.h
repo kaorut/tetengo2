@@ -651,16 +651,6 @@ namespace tetengo2 { namespace gui
 
 
     protected:
-        // types
-
-        typedef
-            typename tetengo2::gui::position<position_type>::left_type
-            left_type;
-
-        typedef
-            typename tetengo2::gui::position<position_type>::top_type
-            top_type;
-
         // static functions
 
         /*!
@@ -722,6 +712,17 @@ namespace tetengo2 { namespace gui
 
 
     private:
+        // types
+
+        typedef
+            typename tetengo2::gui::position<position_type>::left_type
+            left_type;
+
+        typedef
+            typename tetengo2::gui::position<position_type>::top_type
+            top_type;
+
+
         // static functions
 
         static typename cpp0x::unique_ptr<cursor_type>::type
