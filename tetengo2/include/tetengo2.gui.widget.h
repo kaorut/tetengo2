@@ -398,7 +398,7 @@ namespace tetengo2 { namespace gui
         const
         {
             return boost::make_optional<const background_type&>(
-                m_p_background, *m_p_background
+                static_cast<bool>(m_p_background), *m_p_background
             );
         }
 
@@ -503,7 +503,9 @@ namespace tetengo2 { namespace gui
             if (!background()) return;
 
             canvas.fill_rectangle(
-                position_type(0, 0), client_dimension(), *background()
+                position_type(left_type(0), top_type(0)),
+                client_dimension(),
+                *background()
             );
         }
 
@@ -649,6 +651,16 @@ namespace tetengo2 { namespace gui
 
 
     protected:
+        // types
+
+        typedef
+            typename tetengo2::gui::position<position_type>::left_type
+            left_type;
+
+        typedef
+            typename tetengo2::gui::position<position_type>::top_type
+            top_type;
+
         // static functions
 
         /*!

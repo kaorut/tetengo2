@@ -16,6 +16,7 @@
 
 #include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.control.h"
+#include "tetengo2.gui.measure.h"
 
 
 namespace tetengo2 { namespace gui
@@ -124,7 +125,7 @@ namespace tetengo2 { namespace gui
         bool has_picture()
         const
         {
-            return m_p_picture;
+            return static_cast<bool>(m_p_picture);
         }
 
         /*!
@@ -185,6 +186,14 @@ namespace tetengo2 { namespace gui
         typedef typename base_type::position_type position_type;
 
         typedef
+            typename tetengo2::gui::position<position_type>::left_type
+            left_type;
+
+        typedef
+            typename tetengo2::gui::position<position_type>::top_type
+            top_type;
+
+        typedef
             typename message_handler_details_type::message_handler_map_type
             message_handler_map_type;
 
@@ -218,7 +227,9 @@ namespace tetengo2 { namespace gui
             if (!m_p_picture) return;
 
             canvas.paint_picture(
-                *m_p_picture, position_type(0, 0), this->client_dimension()
+                *m_p_picture,
+                position_type(left_type(0), top_type(0)),
+                this->client_dimension()
             );
         }
 

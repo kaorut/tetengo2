@@ -34,6 +34,7 @@
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.drawing.widget_canvas.h"
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.menu_observer_set.h"
 #include "tetengo2.gui.mouse_observer_set.h"
 #include "tetengo2.gui.paint_observer_set.h"
@@ -222,6 +223,27 @@ namespace
 
     };
 
+    position_type make_position(
+        const std::ptrdiff_t left,
+        const std::ptrdiff_t top
+    )
+    {
+        typedef tetengo2::gui::position<position_type>::left_type left_type;
+        typedef tetengo2::gui::position<position_type>::top_type top_type;
+        return position_type(left_type(left), top_type(top));
+    }
+
+    dimension_type make_dimension(
+        const std::size_t width,
+        const std::size_t height
+    )
+    {
+        typedef
+            tetengo2::gui::dimension<dimension_type>::width_type width_type;
+        typedef
+            tetengo2::gui::dimension<dimension_type>::height_type height_type;
+        return dimension_type(width_type(width), height_type(height));
+    }
 
 }
 
@@ -387,10 +409,10 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        widget.set_position(position_type(123, 456));
+        widget.set_position(make_position(123, 456));
 
         const position_type position = widget.position();
-        BOOST_CHECK(position == position_type(123, 456));
+        BOOST_CHECK(position == make_position(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(set_position)
@@ -399,10 +421,10 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        widget.set_position(position_type(123, 456));
+        widget.set_position(make_position(123, 456));
 
         const position_type position = widget.position();
-        BOOST_CHECK(position == position_type(123, 456));
+        BOOST_CHECK(position == make_position(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(dimension)
@@ -411,10 +433,10 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        widget.set_dimension(dimension_type(123, 456));
+        widget.set_dimension(make_dimension(123, 456));
 
         const dimension_type dimension = widget.dimension();
-        BOOST_CHECK(dimension == dimension_type(123, 456));
+        BOOST_CHECK(dimension == make_dimension(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(set_dimension)
@@ -423,10 +445,10 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        widget.set_dimension(dimension_type(123, 456));
+        widget.set_dimension(make_dimension(123, 456));
 
         const dimension_type dimension = widget.dimension();
-        BOOST_CHECK(dimension == dimension_type(123, 456));
+        BOOST_CHECK(dimension == make_dimension(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(client_dimension)
@@ -435,10 +457,10 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        widget.set_client_dimension(dimension_type(123, 456));
+        widget.set_client_dimension(make_dimension(123, 456));
 
         const dimension_type client_dimension = widget.client_dimension();
-        BOOST_CHECK(client_dimension == dimension_type(123, 456));
+        BOOST_CHECK(client_dimension == make_dimension(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(set_client_dimension)
@@ -447,10 +469,10 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        widget.set_client_dimension(dimension_type(123, 456));
+        widget.set_client_dimension(make_dimension(123, 456));
 
         const dimension_type client_dimension = widget.client_dimension();
-        BOOST_CHECK(client_dimension == dimension_type(123, 456));
+        BOOST_CHECK(client_dimension == make_dimension(123, 456));
     }
 
     BOOST_AUTO_TEST_CASE(text)

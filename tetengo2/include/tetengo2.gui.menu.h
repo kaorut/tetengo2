@@ -282,7 +282,7 @@ namespace tetengo2 { namespace gui
         const
         {
             return boost::make_optional<const details_type&>(
-                m_p_details, *m_p_details
+                static_cast<bool>(m_p_details), *m_p_details
             );
         }
 
@@ -294,7 +294,7 @@ namespace tetengo2 { namespace gui
         boost::optional<details_type&> details()
         {
             return boost::make_optional<details_type&>(
-                m_p_details, *m_p_details
+                static_cast<bool>(m_p_details), *m_p_details
             );
         }
 

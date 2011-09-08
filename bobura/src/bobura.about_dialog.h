@@ -142,6 +142,29 @@ namespace bobura
 
 
     private:
+        // types
+
+        typedef typename about_dialog::dimension_type dimension_type;
+
+        typedef
+            typename tetengo2::gui::dimension<dimension_type>::width_type
+            width_type;
+
+        typedef
+            typename tetengo2::gui::dimension<dimension_type>::height_type
+            height_type;
+
+        typedef typename about_dialog::position_type position_type;
+
+        typedef
+            typename tetengo2::gui::position<position_type>::left_type
+            left_type;
+
+        typedef
+            typename tetengo2::gui::position<position_type>::top_type
+            top_type;
+
+
         // static functions
 
         struct exception_thrower
@@ -194,14 +217,12 @@ namespace bobura
             );
 
             this->set_client_dimension(
-                typename about_dialog::dimension_type(36, 10)
+                dimension_type(width_type(36), height_type(10))
             );
 
-            typedef
-                tetengo2::gui::position<typename about_dialog::position_type>
-                pos_type;
+            typedef tetengo2::gui::position<position_type> pos_type;
             this->set_position(
-                typename about_dialog::position_type(
+                position_type(
                     pos_type::left(parent.position()) + 6,
                     pos_type::top(parent.position()) + 6
                 )
@@ -333,14 +354,10 @@ namespace bobura
 
         void locate_controls()
         {
-            typedef typename about_dialog::dimension_type dimension_type;
-            typedef typename about_dialog::position_type position_type;
-            typedef
-                typename tetengo2::gui::position<position_type>::left_type
-                left_type;
-
             m_p_application_image->fit_to_content();
-            m_p_application_image->set_position(position_type(2, 1));
+            m_p_application_image->set_position(
+                position_type(left_type(2), top_type(1))
+            );
             
             const left_type label_left =
                 left_type(2) +
@@ -350,16 +367,26 @@ namespace bobura
                 left_type(1);
 
             m_p_title_label->fit_to_content();
-            m_p_title_label->set_position(position_type(label_left, 1));
+            m_p_title_label->set_position(
+                position_type(label_left, top_type(1))
+            );
 
             m_p_copyright_label->fit_to_content();
-            m_p_copyright_label->set_position(position_type(label_left, 3));
+            m_p_copyright_label->set_position(
+                position_type(label_left, top_type(3))
+            );
 
             m_p_link_label->fit_to_content();
-            m_p_link_label->set_position(position_type(label_left, 5));
+            m_p_link_label->set_position(position_type(
+                label_left, top_type(5))
+            );
 
-            m_p_ok_button->set_dimension(dimension_type(8, 2));
-            m_p_ok_button->set_position(position_type(26, 7));
+            m_p_ok_button->set_dimension(
+                dimension_type(width_type(8), height_type(2))
+            );
+            m_p_ok_button->set_position(
+                position_type(left_type(26), top_type(7))
+            );
         }
 
 

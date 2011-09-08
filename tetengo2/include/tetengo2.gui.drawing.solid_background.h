@@ -101,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         const
         {
             return boost::make_optional<const details_type&>(
-                m_p_details, *m_p_details
+                static_cast<bool>(m_p_details), *m_p_details
             );
         }
 
@@ -109,7 +109,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         details_impl()
         {
             return boost::make_optional<details_type&>(
-                m_p_details, *m_p_details
+                static_cast<bool>(m_p_details), *m_p_details
             );
         }
 

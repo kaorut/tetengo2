@@ -15,6 +15,7 @@
 #include <utility>
 
 #include <tetengo2.cpp0x.h>
+#include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 
 
@@ -133,10 +134,14 @@ namespace bobura { namespace message { namespace main_window
             const typename tetengo2::cpp0x::unique_ptr<
                 typename canvas_type::picture_type
             >::type p_pic2(reader.read());
-            canvas.paint_picture(*p_pic2, position_type(0, 0));
+            canvas.paint_picture(
+                *p_pic2, position_type(left_type(0), top_type(0))
+            );
 
             const font_type& dialog_font = font_type::dialog_font();
-            canvas.draw_text(dialog_font.family(), position_type(2, 2));
+            canvas.draw_text(
+                dialog_font.family(), position_type(left_type(2), top_type(2))
+            );
 
             canvas.set_font(
                 font_type(
@@ -150,7 +155,7 @@ namespace bobura { namespace message { namespace main_window
             );
             canvas.draw_text(
                 string_type(TETENGO2_TEXT("Hello, world")),
-                position_type(4, 4)
+                position_type(left_type(4), top_type(4))
             );
         }
 
@@ -159,6 +164,14 @@ namespace bobura { namespace message { namespace main_window
         // types
 
         typedef typename canvas_type::string_type string_type;
+
+        typedef
+            typename tetengo2::gui::position<position_type>::left_type
+            left_type;
+
+        typedef
+            typename tetengo2::gui::position<position_type>::top_type
+            top_type;
 
         typedef typename canvas_type::font_type font_type;
 

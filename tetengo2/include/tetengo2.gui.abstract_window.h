@@ -99,7 +99,7 @@ namespace tetengo2 { namespace gui
         bool has_main_menu()
         const
         {
-            return m_p_main_menu;
+            return static_cast<bool>(m_p_main_menu);
         }
 
         /*!
