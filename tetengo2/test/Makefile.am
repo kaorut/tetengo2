@@ -54,6 +54,7 @@ sources = \
     test_tetengo2.gui.window.cpp \
     test_tetengo2.gui.window_observer_set.cpp \
     test_tetengo2.json.grammar.cpp \
+    test_tetengo2.json.push_parser.cpp \
     test_tetengo2.message_catalog.cpp \
     test_tetengo2.message_catalog_parser.cpp \
     test_tetengo2.messages.cpp \

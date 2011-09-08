@@ -217,5 +217,8 @@
     <ClCompile Include="test\test_tetengo2.json.grammar.cpp">
       <Filter>sources\test_tetengo2::json</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.json.push_parser.cpp">
+      <Filter>sources\test_tetengo2::json</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

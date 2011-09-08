@@ -202,6 +202,7 @@
     <ClInclude Include="include\tetengo2.gui.window.h" />
     <ClInclude Include="include\tetengo2.gui.window_observer_set.h" />
     <ClInclude Include="include\tetengo2.json.grammar.h" />
+    <ClInclude Include="include\tetengo2.json.push_parser.h" />
     <ClInclude Include="include\tetengo2.messages.h" />
     <ClInclude Include="include\tetengo2.message_catalog.h" />
     <ClInclude Include="include\tetengo2.message_catalog_parser.h" />
