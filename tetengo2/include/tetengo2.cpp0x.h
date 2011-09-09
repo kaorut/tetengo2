@@ -26,7 +26,7 @@
         )
 #       define TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED 1
 #   else
-#       define TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED 0
+#       error This version of compiler is no longer supported.
 #   endif
 #endif
 
