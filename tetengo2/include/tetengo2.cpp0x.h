@@ -15,54 +15,6 @@
 #define TETENGO2_CPP0X_NOEXCEPT throw ()
 
 
-/* unique_ptr ***************************************************************/
-
-#if !defined(DOCUMENTATION)
-#   if \
-        (defined(_MSC_VER) && _MSC_VER >= 1600) || \
-        ( \
-            defined(__GNUC__) && defined(__GNUC_MINOR__) && \
-            __GNUC__ >= 4 && __GNUC_MINOR__ >= 4 \
-        )
-#       define TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED 1
-#   else
-#       error This version of compiler is no longer supported.
-#   endif
-#endif
-
-#include <memory>
-#if !TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED
-#   include <boost/interprocess/smart_ptr/unique_ptr.hpp>
-#   include <boost/utility.hpp>
-#endif
-
-namespace tetengo2 { namespace cpp0x
-{
-#if TETENGO2_CPP0X_STD_UNIQUEPTR_SUPPORTED || defined(DOCUMENTATION)
-    /*!
-        \brief The meta function for unique pointer implementation.
-
-        \tparam T       A type.
-        \tparam Deleter A deleter type.
-    */
-    template <typename T, typename Deleter = std::default_delete<T>>
-    struct unique_ptr
-    {
-        //! The unique pointer implementation type.
-        typedef std::unique_ptr<T, Deleter> type;
-    };
-#else
-    template <typename T, typename Deleter = boost::checked_deleter<T>>
-    struct unique_ptr
-    {
-        typedef boost::interprocess::unique_ptr<T, Deleter> type;
-    };
-#endif
-
-
-}}
-
-
 /* bind *********************************************************************/
 
 #if !defined(DOCUMENTATION)
