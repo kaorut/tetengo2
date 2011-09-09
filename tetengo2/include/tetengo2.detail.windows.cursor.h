@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_CURSOR_H)
 #define TETENGO2_DETAIL_WINDOWS_CURSOR_H
 
+#include <memory>
 #include <stdexcept>
 #include <type_traits>
 #include <utility>
@@ -18,8 +19,6 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
-
-#include "tetengo2.cpp0x.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -55,9 +54,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         //! The cursor details pointer type.
         typedef
-            cpp0x::unique_ptr<
-                cursor_details_type, detail::cursor_deleter
-            >::type
+            std::unique_ptr<cursor_details_type, detail::cursor_deleter>
             cursor_details_ptr_type;
 
 

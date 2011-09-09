@@ -10,13 +10,13 @@
 #define TETENGO2_GUI_ABSTRACTPOPUPMENU_H
 
 //#include <cstddef>
+#include <memory>
 //#include <stdexcept>
 //#include <utility>
 //#include <vector>
 
 //#include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.menu.h"
 #include "tetengo2.gui.recursive_menu_iterator.h"
 
@@ -110,7 +110,7 @@ namespace tetengo2 { namespace gui
 
         // variables
 
-        std::vector<typename cpp0x::unique_ptr<base_type>::type> m_children;
+        std::vector<std::unique_ptr<base_type>> m_children;
 
 
         // virtual functions
@@ -160,8 +160,8 @@ namespace tetengo2 { namespace gui
         }
 
         virtual void insert_impl(
-            const iterator                              offset,
-            typename cpp0x::unique_ptr<base_type>::type p_menu
+            const iterator             offset,
+            std::unique_ptr<base_type> p_menu
         )
         {
             if (!p_menu)

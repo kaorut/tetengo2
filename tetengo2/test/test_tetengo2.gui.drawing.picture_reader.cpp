@@ -7,6 +7,7 @@
 */
 
 //#include <cstddef>
+#include <memory>
 
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
@@ -59,9 +60,7 @@ BOOST_AUTO_TEST_SUITE(picture_reader)
         const boost::filesystem::path path;
         picture_reader_type reader(path);
 
-        const tetengo2::cpp0x::unique_ptr<picture_type>::type p_picture(
-            reader.read()
-        );
+        const std::unique_ptr<picture_type> p_picture(reader.read());
     }
 
 

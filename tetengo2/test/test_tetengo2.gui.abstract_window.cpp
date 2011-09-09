@@ -7,6 +7,7 @@
 */
 
 //#include <cstddef>
+#include <memory>
 //#include <stdexcept>
 //#include <string>
 //#include <utility>
@@ -14,7 +15,6 @@
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"
@@ -257,7 +257,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         {
             concrete_window window;
 
-            tetengo2::cpp0x::unique_ptr<main_menu_type>::type p_main_menu(
+            std::unique_ptr<main_menu_type> p_main_menu(
                 tetengo2::make_unique<main_menu_type>()
             );
             window.set_main_menu(std::move(p_main_menu));
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         {
             concrete_window window;
 
-            tetengo2::cpp0x::unique_ptr<main_menu_type>::type p_main_menu(
+            std::unique_ptr<main_menu_type> p_main_menu(
                 tetengo2::make_unique<main_menu_type>()
             );
             window.set_main_menu(std::move(p_main_menu));
@@ -301,12 +301,12 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
 
         concrete_window window;
 
-        tetengo2::cpp0x::unique_ptr<main_menu_type>::type p_main_menu(
+        std::unique_ptr<main_menu_type> p_main_menu(
             tetengo2::make_unique<main_menu_type>()
         );
         window.set_main_menu(std::move(p_main_menu));
 
-        tetengo2::cpp0x::unique_ptr<main_menu_type>::type p_main_menu2(
+        std::unique_ptr<main_menu_type> p_main_menu2(
             tetengo2::make_unique<main_menu_type>()
         );
         window.set_main_menu(std::move(p_main_menu2));

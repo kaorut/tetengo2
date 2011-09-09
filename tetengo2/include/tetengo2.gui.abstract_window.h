@@ -10,13 +10,13 @@
 #define TETENGO2_GUI_ABSTRACTWINDOW_H
 
 //#include <cstddef>
+#include <memory>
 //#include <stdexcept>
 //#include <utility>
 
 //#include <boost/optional.hpp>
 //#include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.widget.h"
 
 
@@ -155,9 +155,7 @@ namespace tetengo2 { namespace gui
 
             \param p_main_menu A unique pointer to a main menu.
         */
-        void set_main_menu(
-            typename cpp0x::unique_ptr<main_menu_type>::type p_main_menu
-        )
+        void set_main_menu(std::unique_ptr<main_menu_type> p_main_menu)
         {
             widget_details_type::set_main_menu(
                 *this, boost::optional<const main_menu_type&>()
@@ -251,7 +249,7 @@ namespace tetengo2 { namespace gui
     private:
         // variables
 
-        typename cpp0x::unique_ptr<main_menu_type>::type m_p_main_menu;
+        std::unique_ptr<main_menu_type> m_p_main_menu;
 
         window_observer_set_type m_window_observer_set;
 

@@ -6,9 +6,9 @@
     $Id$
 */
 
-#include <boost/test/unit_test.hpp>
+#include <memory>
 
-#include "tetengo2.cpp0x.h"
+#include <boost/test/unit_test.hpp>
 
 #include "tetengo2.unique.h"
 
@@ -281,14 +281,12 @@ BOOST_AUTO_TEST_SUITE(unique)
     BOOST_AUTO_TEST_CASE(make_unique)
     {
         {
-            const tetengo2::cpp0x::unique_ptr<Class0>::type p(
-                tetengo2::make_unique<Class0>()
-            );
+            const std::unique_ptr<Class0> p(tetengo2::make_unique<Class0>());
 
             BOOST_CHECK(p);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class1>::type p(
+            const std::unique_ptr<Class1> p(
                 tetengo2::make_unique<Class1>(42)
             );
 
@@ -296,7 +294,7 @@ BOOST_AUTO_TEST_SUITE(unique)
             BOOST_CHECK_EQUAL(p->m_value1, 42);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class2>::type p(
+            const std::unique_ptr<Class2> p(
                 tetengo2::make_unique<Class2>(12, 34)
             );
 
@@ -305,7 +303,7 @@ BOOST_AUTO_TEST_SUITE(unique)
             BOOST_CHECK_EQUAL(p->m_value2, 34);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class3>::type p(
+            const std::unique_ptr<Class3> p(
                 tetengo2::make_unique<Class3>(12, 34, 56)
             );
 
@@ -315,7 +313,7 @@ BOOST_AUTO_TEST_SUITE(unique)
             BOOST_CHECK_EQUAL(p->m_value3, 56);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class4>::type p(
+            const std::unique_ptr<Class4> p(
                 tetengo2::make_unique<Class4>(12, 34, 56, 78)
             );
 
@@ -326,7 +324,7 @@ BOOST_AUTO_TEST_SUITE(unique)
             BOOST_CHECK_EQUAL(p->m_value4, 78);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class5>::type p(
+            const std::unique_ptr<Class5> p(
                 tetengo2::make_unique<Class5>(12, 34, 56, 78, 90)
             );
 
@@ -338,7 +336,7 @@ BOOST_AUTO_TEST_SUITE(unique)
             BOOST_CHECK_EQUAL(p->m_value5, 90);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class6>::type p(
+            const std::unique_ptr<Class6> p(
                 tetengo2::make_unique<Class6>(12, 34, 56, 78, 90, 12)
             );
 
@@ -351,7 +349,7 @@ BOOST_AUTO_TEST_SUITE(unique)
             BOOST_CHECK_EQUAL(p->m_value6, 12);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class7>::type p(
+            const std::unique_ptr<Class7> p(
                 tetengo2::make_unique<Class7>(12, 34, 56, 78, 90, 12, 34)
             );
 
@@ -365,7 +363,7 @@ BOOST_AUTO_TEST_SUITE(unique)
             BOOST_CHECK_EQUAL(p->m_value7, 34);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class8>::type p(
+            const std::unique_ptr<Class8> p(
                 tetengo2::make_unique<Class8>(12, 34, 56, 78, 90, 12, 34, 56)
             );
 
@@ -380,7 +378,7 @@ BOOST_AUTO_TEST_SUITE(unique)
             BOOST_CHECK_EQUAL(p->m_value8, 56);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class9>::type p(
+            const std::unique_ptr<Class9> p(
                 tetengo2::make_unique<Class9>(
                     12, 34, 56, 78, 90, 12, 34, 56, 78
                 )
@@ -398,7 +396,7 @@ BOOST_AUTO_TEST_SUITE(unique)
             BOOST_CHECK_EQUAL(p->m_value9, 78);
         }
         {
-            const tetengo2::cpp0x::unique_ptr<Class10>::type p(
+            const std::unique_ptr<Class10> p(
                 tetengo2::make_unique<Class10>(
                     12, 34, 56, 78, 90, 12, 34, 56, 78, 90
                 )
@@ -420,7 +418,7 @@ BOOST_AUTO_TEST_SUITE(unique)
 
     BOOST_AUTO_TEST_CASE(unique_ptr_upcast)
     {
-        const tetengo2::cpp0x::unique_ptr<Base>::type p(
+        const std::unique_ptr<Base> p(
             tetengo2::unique_ptr_upcast<Base>(
                 tetengo2::make_unique<Derived>()
             )

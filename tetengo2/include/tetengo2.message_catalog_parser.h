@@ -14,6 +14,7 @@
 #include <ios>
 #include <iterator>
 #include <locale>
+#include <memory>
 #include <stdexcept>
 #include <string>
 //#include <utility>
@@ -28,7 +29,6 @@
 #include <boost/throw_exception.hpp>
 #include <boost/variant.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
@@ -108,7 +108,7 @@ namespace tetengo2
             if (!has_next())
                 BOOST_THROW_EXCEPTION(std::runtime_error("No next entry."));
 
-            const typename cpp0x::unique_ptr<entry_type>::type p_entry(
+            const std::unique_ptr<entry_type> p_entry(
                 std::move(m_p_preread_entry)
             );
             m_p_preread_entry.reset();
@@ -399,8 +399,7 @@ namespace tetengo2
 
         mutable input_stream_type& m_input_stream;
 
-        mutable typename cpp0x::unique_ptr<entry_type>::type
-        m_p_preread_entry;
+        mutable std::unique_ptr<entry_type> m_p_preread_entry;
 
 
         // functions
@@ -412,8 +411,7 @@ namespace tetengo2
 
             while (m_input_stream.good())
             {
-                typename cpp0x::unique_ptr<entry_type>::type p_entry =
-                    parse(get_line());
+                std::unique_ptr<entry_type> p_entry = parse(get_line());
                 if (p_entry)
                 {
                     m_p_preread_entry = std::move(p_entry);
@@ -480,9 +478,7 @@ namespace tetengo2
                 line = *parsed;
         }
 
-        typename cpp0x::unique_ptr<entry_type>::type parse(
-            const input_string_type& line
-        )
+        std::unique_ptr<entry_type> parse(const input_string_type& line)
         const
         {
             boost::optional<
@@ -492,7 +488,7 @@ namespace tetengo2
                     line.begin(), line.end(), TETENGO2_TEXT('=')
                 );
             if (!parsed)
-                return typename cpp0x::unique_ptr<entry_type>::type();
+                return std::unique_ptr<entry_type>();
 
             replace_special_characters(parsed->first);
             replace_special_characters(parsed->second);

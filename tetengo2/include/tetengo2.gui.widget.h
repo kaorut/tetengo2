@@ -11,6 +11,7 @@
 
 #include <cassert>
 //#include <cstddef>
+#include <memory>
 #include <stdexcept>
 //#include <utility>
 #include <vector>
@@ -410,9 +411,7 @@ namespace tetengo2 { namespace gui
 
             \param p_background A unique pointer to a background.
         */
-        void set_background(
-            typename cpp0x::unique_ptr<background_type>::type p_background
-        )
+        void set_background(std::unique_ptr<background_type> p_background)
         {
             m_p_background = std::move(p_background);
         }
@@ -456,9 +455,7 @@ namespace tetengo2 { namespace gui
 
             \param p_cursor A unique pointer to a cursor.
         */
-        void set_cursor(
-            typename cpp0x::unique_ptr<cursor_type>::type p_cursor
-        )
+        void set_cursor(std::unique_ptr<cursor_type> p_cursor)
         {
             m_p_cursor = std::move(p_cursor);
         }
@@ -514,7 +511,7 @@ namespace tetengo2 { namespace gui
 
             \return The auto pointer to a canvas.
         */
-        typename cpp0x::unique_ptr<canvas_type>::type create_canvas()
+        std::unique_ptr<canvas_type> create_canvas()
         const
         {
             return make_unique<canvas_type>(*details());
@@ -725,14 +722,11 @@ namespace tetengo2 { namespace gui
 
         // static functions
 
-        static typename cpp0x::unique_ptr<cursor_type>::type
-        create_initial_cursor()
+        static std::unique_ptr<cursor_type> create_initial_cursor()
         {
-            return typename cpp0x::unique_ptr<cursor_type>::type(
-                unique_ptr_upcast<cursor_type>(
-                    make_unique<system_cursor_type>(
-                        system_cursor_type::style_default
-                    )
+            return std::unique_ptr<cursor_type>(
+                make_unique<system_cursor_type>(
+                    system_cursor_type::style_default
                 )
             );
         }
@@ -744,9 +738,9 @@ namespace tetengo2 { namespace gui
 
         bool m_destroyed;
 
-        typename cpp0x::unique_ptr<background_type>::type m_p_background;
+        std::unique_ptr<background_type> m_p_background;
 
-        typename cpp0x::unique_ptr<cursor_type>::type m_p_cursor;
+        std::unique_ptr<cursor_type> m_p_cursor;
 
         paint_observer_set_type m_paint_observer_set;
 

@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <memory>
+
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
@@ -74,9 +76,7 @@ BOOST_AUTO_TEST_SUITE(paint)
         > paint(boost::filesystem::path("image_path"));
 
         const window_type window;
-        tetengo2::cpp0x::unique_ptr<canvas_type>::type p_canvas(
-            window.create_canvas()
-        );
+        std::unique_ptr<canvas_type> p_canvas(window.create_canvas());
         paint(*p_canvas);
     }
 

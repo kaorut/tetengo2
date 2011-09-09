@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_IMAGE_H)
 #define TETENGO2_GUI_IMAGE_H
 
+#include <memory>
 //#include <stdexcept>
 //#include <utility>
 
@@ -162,9 +163,7 @@ namespace tetengo2 { namespace gui
 
             \param p_picture A unique pointer to a picture.
         */
-        void set_picture(
-            typename cpp0x::unique_ptr<picture_type>::type p_picture
-        )
+        void set_picture(std::unique_ptr<picture_type> p_picture)
         {
             m_p_picture = std::move(p_picture);
         }
@@ -216,7 +215,7 @@ namespace tetengo2 { namespace gui
 
         // variables
 
-        typename cpp0x::unique_ptr<picture_type>::type m_p_picture;
+        std::unique_ptr<picture_type> m_p_picture;
 
 
         // functions

@@ -12,6 +12,7 @@
 #include <cassert>
 //#include <cstddef>
 #include <limits>
+#include <memory>
 #include <string>
 //#include <utility>
 #include <vector>
@@ -34,7 +35,6 @@
 #undef min
 #undef max
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.windows.font.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
@@ -55,7 +55,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
         //! The background details pointer type.
         typedef
-            cpp0x::unique_ptr<background_details_type>::type
+            std::unique_ptr<background_details_type>
             background_details_ptr_type;
 
         //! The picture details type.
@@ -63,16 +63,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
         //! The picture details pointer type.
         typedef
-            cpp0x::unique_ptr<picture_details_type>::type
-            picture_details_ptr_type;
+            std::unique_ptr<picture_details_type> picture_details_ptr_type;
 
         //! The canvas details type.
         typedef Gdiplus::Graphics canvas_details_type;
 
         //! The canvas details pointer type.
-        typedef
-            cpp0x::unique_ptr<canvas_details_type>::type
-            canvas_details_ptr_type;
+        typedef std::unique_ptr<canvas_details_type> canvas_details_ptr_type;
 
 
         // static functions
@@ -87,17 +84,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return A unique pointer to a solid background.
         */
         template <typename Color>
-        static cpp0x::unique_ptr<background_details_type>::type
+        static std::unique_ptr<background_details_type>
         create_solid_background(const Color& color)
         {
-            return unique_ptr_upcast<background_details_type>(
-                make_unique<Gdiplus::SolidBrush>(
-                    Gdiplus::Color(
-                        color.alpha(),
-                        color.red(),
-                        color.green(),
-                        color.blue()
-                    )
+            return make_unique<Gdiplus::SolidBrush>(
+                Gdiplus::Color(
+                    color.alpha(), color.red(), color.green(), color.blue()
                 )
             );
         }
@@ -107,10 +99,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             \return A unique pointer to a transparent background.
         */
-        static cpp0x::unique_ptr<background_details_type>::type
+        static std::unique_ptr<background_details_type>
         create_transparent_background()
         {
-            return cpp0x::unique_ptr<background_details_type>::type();
+            return std::unique_ptr<background_details_type>();
         }
 
         /*!
@@ -125,20 +117,20 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return A unique pointer to a picture.
         */
         template <typename Dimension, typename Canvas>
-        static cpp0x::unique_ptr<picture_details_type>::type
-        create_picture(const Dimension& dimension, const Canvas& canvas)
+        static std::unique_ptr<picture_details_type> create_picture(
+            const Dimension& dimension,
+            const Canvas&    canvas
+        )
         {
-            cpp0x::unique_ptr<picture_details_type>::type p_picture(
-                unique_ptr_upcast<picture_details_type>(
-                    make_unique<Gdiplus::Bitmap>(
-                        to_pixels< ::INT>(
-                            gui::dimension<Dimension>::width(dimension)
-                        ),
-                        to_pixels< ::INT>(
-                            gui::dimension<Dimension>::height(dimension)
-                        ),
-                        &const_cast<Canvas&>(canvas).gdiplus_graphics()
-                    )
+            std::unique_ptr<picture_details_type> p_picture(
+                make_unique<Gdiplus::Bitmap>(
+                    to_pixels< ::INT>(
+                        gui::dimension<Dimension>::width(dimension)
+                    ),
+                    to_pixels< ::INT>(
+                        gui::dimension<Dimension>::height(dimension)
+                    ),
+                    &const_cast<Canvas&>(canvas).gdiplus_graphics()
                 )
             );
 
@@ -155,13 +147,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return A unique pointer to a picture.
         */
         template <typename Path>
-        static cpp0x::unique_ptr<picture_details_type>::type
-        read_picture(const Path& path)
+        static std::unique_ptr<picture_details_type> read_picture(
+            const Path& path
+        )
         {
-            cpp0x::unique_ptr<picture_details_type>::type p_picture(
-                unique_ptr_upcast<picture_details_type>(
-                    make_unique<Gdiplus::Bitmap>(path.c_str())
-                )
+            std::unique_ptr<picture_details_type> p_picture(
+                make_unique<Gdiplus::Bitmap>(path.c_str())
             );
             if (p_picture->GetLastStatus() != S_OK)
             {
@@ -208,8 +199,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return A unique pointer to a canvas.
         */
         template <typename HandleOrWidgetDetails>
-        static cpp0x::unique_ptr<canvas_details_type>::type
-        create_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
+        static std::unique_ptr<canvas_details_type> create_canvas(
+            const HandleOrWidgetDetails& handle_or_widget_details
+        )
         {
             return create_canvas_impl(handle_or_widget_details);
         }
@@ -359,8 +351,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const Gdiplus::InstalledFontCollection font_collection;
-            const typename cpp0x::unique_ptr<Gdiplus::Font>::type
-            p_gdiplus_font(
+            const std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
                 create_gdiplus_font<String>(font, font_collection, encoder)
             );
 
@@ -428,8 +419,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             const Gdiplus::InstalledFontCollection font_collection;
-            const typename cpp0x::unique_ptr<Gdiplus::Font>::type
-            p_gdiplus_font(
+            const std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
                 create_gdiplus_font<String>(font, font_collection, encoder)
             );
             const Gdiplus::SolidBrush brush(
@@ -514,18 +504,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         // static functions
 
         template <typename HandleOrWidgetDetails>
-        static cpp0x::unique_ptr<canvas_details_type>::type
-        create_canvas_impl(
+        static std::unique_ptr<canvas_details_type> create_canvas_impl(
             const HandleOrWidgetDetails& handle,
             typename std::enable_if<
                 std::is_convertible<HandleOrWidgetDetails, ::HDC>::value
             >::type* = NULL
         )
         {
-            cpp0x::unique_ptr<canvas_details_type>::type p_canvas(
-                unique_ptr_upcast<canvas_details_type>(
-                    make_unique<Gdiplus::Graphics>(handle)
-                )
+            std::unique_ptr<canvas_details_type> p_canvas(
+                make_unique<Gdiplus::Graphics>(handle)
             );
 
             initialize_canvas(*p_canvas);
@@ -534,8 +521,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         template <typename HandleOrWidgetDetails>
-        static cpp0x::unique_ptr<canvas_details_type>::type
-        create_canvas_impl(
+        static std::unique_ptr<canvas_details_type> create_canvas_impl(
             const HandleOrWidgetDetails& widget_details,
             typename std::enable_if<
                 std::is_convertible<
@@ -545,10 +531,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             >::type* = NULL
         )
         {
-            cpp0x::unique_ptr<canvas_details_type>::type p_canvas(
-                unique_ptr_upcast<canvas_details_type>(
-                    make_unique<Gdiplus::Graphics>(widget_details.first.get())
-                )
+            std::unique_ptr<canvas_details_type> p_canvas(
+                make_unique<Gdiplus::Graphics>(widget_details.first.get())
             );
 
             initialize_canvas(*p_canvas);
@@ -565,8 +549,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         template <typename String, typename Font, typename Encoder>
-        static typename cpp0x::unique_ptr<Gdiplus::Font>::type
-        create_gdiplus_font(
+        static std::unique_ptr<Gdiplus::Font> create_gdiplus_font(
             const Font&                    font,
             const Gdiplus::FontCollection& font_collection,
             const Encoder&                 encoder,
@@ -601,7 +584,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 fallback_level < 2 ?
                 get_font_style(font) :
                 get_font_style(Font::dialog_font());
-            typename cpp0x::unique_ptr<Gdiplus::Font>::type p_gdiplus_font(
+            typename std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
                 make_unique<Gdiplus::Font>(
                     &gdiplus_font_family,
                     font_size,

@@ -9,7 +9,8 @@
 #if !defined(TETENGO2_DETAIL_STUB_CURSOR_H)
 #define TETENGO2_DETAIL_STUB_CURSOR_H
 
-#include "tetengo2.cpp0x.h"
+#include <memory>
+
 #include "tetengo2.unique.h"
 
 
@@ -27,9 +28,7 @@ namespace tetengo2 { namespace detail { namespace stub
         typedef int cursor_details_type;
 
         //! The cursor details pointer type.
-        typedef
-            cpp0x::unique_ptr<cursor_details_type>::type
-            cursor_details_ptr_type;
+        typedef std::unique_ptr<cursor_details_type> cursor_details_ptr_type;
 
 
         // static functions

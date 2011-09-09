@@ -10,10 +10,10 @@
 #define TETENGO2_GUI_LINKLABEL_H
 
 //#include <cassert>
+#include <memory>
 //#include <stdexcept>
 //#include <utility>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.gui.label.h"
 #include "tetengo2.unique.h"
 
@@ -185,11 +185,9 @@ namespace tetengo2 { namespace gui
 
             p_link_label->set_text_color(color_type(0, 0, 255));
 
-            typename cpp0x::unique_ptr<cursor_type>::type p_cursor(
-                unique_ptr_upcast<cursor_type>(
-                    make_unique<system_cursor_type>(
-                        system_cursor_type::style_hand
-                    )
+            std::unique_ptr<cursor_type> p_cursor(
+                make_unique<system_cursor_type>(
+                    system_cursor_type::style_hand
                 )
             );
             p_link_label->set_cursor(std::move(p_cursor));

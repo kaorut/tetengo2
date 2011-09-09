@@ -6,12 +6,12 @@
     $Id$
 */
 
+#include <memory>
 //#include <string>
 //#include <utility>
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.encoder.h"
@@ -71,31 +71,22 @@ namespace
 
     // functions
 
-    tetengo2::cpp0x::unique_ptr<menu_type>::type create_menu()
+    std::unique_ptr<menu_type> create_menu()
     {
-        tetengo2::cpp0x::unique_ptr<menu_type>::type p_menu(
-            tetengo2::unique_ptr_upcast<menu_type>(
-                tetengo2::make_unique<popup_menu_type>("0")
-            )
+        std::unique_ptr<menu_type> p_menu(
+            tetengo2::make_unique<popup_menu_type>("0")
         );
 
         p_menu->insert(
-            p_menu->end(),
-            tetengo2::unique_ptr_upcast<menu_type>(
-                tetengo2::make_unique<popup_menu_type>("1")
-            )
+            p_menu->end(), tetengo2::make_unique<popup_menu_type>("1")
         );
         p_menu->begin()->insert(
             p_menu->begin()->end(),
-            tetengo2::unique_ptr_upcast<menu_type>(
-                tetengo2::make_unique<popup_menu_type>("2")
-            )
+            tetengo2::make_unique<popup_menu_type>("2")
         );
         p_menu->insert(
             p_menu->end(),
-            tetengo2::unique_ptr_upcast<menu_type>(
-                tetengo2::make_unique<popup_menu_type>("3")
-            )
+            tetengo2::make_unique<popup_menu_type>("3")
         );
 
         return std::move(p_menu);
@@ -117,9 +108,7 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
             const iterator_type iterator;
         }
         {
-            const tetengo2::cpp0x::unique_ptr<menu_type>::type p_menu(
-                create_menu()
-            );
+            const std::unique_ptr<menu_type> p_menu(create_menu());
 
             const iterator_type iterator(p_menu.get());
         }
@@ -130,9 +119,7 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::cpp0x::unique_ptr<menu_type>::type p_menu(
-                create_menu()
-            );
+            const std::unique_ptr<menu_type> p_menu(create_menu());
 
             iterator_type iterator(p_menu.get());
 

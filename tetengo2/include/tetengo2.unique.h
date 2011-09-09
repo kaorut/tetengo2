@@ -9,9 +9,8 @@
 #if !defined(TETENGO2_UNIQUE_H)
 #define TETENGO2_UNIQUE_H
 
+#include <memory>
 #include <utility>
-
-#include "tetengo2.cpp0x.h"
 
 
 namespace tetengo2
@@ -24,9 +23,9 @@ namespace tetengo2
         \return A unique pointer
     */
     template <typename T>
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique()
+    std::unique_ptr<T> make_unique()
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(new T());
+        return std::unique_ptr<T>(new T());
     }
 
     /*!
@@ -40,11 +39,9 @@ namespace tetengo2
         \return A unique pointer
     */
     template <typename T, typename A1>
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(A1&& arg1)
+    std::unique_ptr<T> make_unique(A1&& arg1)
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
-            new T(std::forward<A1>(arg1))
-        );
+        return std::unique_ptr<T>(new T(std::forward<A1>(arg1)));
     }
 
     /*!
@@ -60,12 +57,9 @@ namespace tetengo2
         \return A unique pointer
     */
     template <typename T, typename A1, typename A2>
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(
-        A1&& arg1,
-        A2&& arg2
-    )
+    std::unique_ptr<T> make_unique(A1&& arg1, A2&& arg2)
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
+        return std::unique_ptr<T>(
             new T(std::forward<A1>(arg1), std::forward<A2>(arg2))
         );
     }
@@ -85,13 +79,9 @@ namespace tetengo2
         \return A unique pointer
     */
     template <typename T, typename A1, typename A2, typename A3>
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(
-        A1&& arg1,
-        A2&& arg2,
-        A3&& arg3
-    )
+    std::unique_ptr<T> make_unique(A1&& arg1, A2&& arg2, A3&& arg3)
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
+        return std::unique_ptr<T>(
             new T(
                 std::forward<A1>(arg1),
                 std::forward<A2>(arg2),
@@ -117,14 +107,9 @@ namespace tetengo2
         \return A unique pointer
     */
     template <typename T, typename A1, typename A2, typename A3, typename A4>
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(
-        A1&& arg1,
-        A2&& arg2,
-        A3&& arg3,
-        A4&& arg4
-    )
+    std::unique_ptr<T> make_unique(A1&& arg1, A2&& arg2, A3&& arg3, A4&& arg4)
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
+        return std::unique_ptr<T>(
             new T(
                 std::forward<A1>(arg1),
                 std::forward<A2>(arg2),
@@ -160,7 +145,7 @@ namespace tetengo2
         typename A4,
         typename A5
     >
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(
+    std::unique_ptr<T> make_unique(
         A1&& arg1,
         A2&& arg2,
         A3&& arg3,
@@ -168,7 +153,7 @@ namespace tetengo2
         A5&& arg5
     )
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
+        return std::unique_ptr<T>(
             new T(
                 std::forward<A1>(arg1),
                 std::forward<A2>(arg2),
@@ -208,7 +193,7 @@ namespace tetengo2
         typename A5,
         typename A6
     >
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(
+    std::unique_ptr<T> make_unique(
         A1&& arg1,
         A2&& arg2,
         A3&& arg3,
@@ -217,7 +202,7 @@ namespace tetengo2
         A6&& arg6
     )
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
+        return std::unique_ptr<T>(
             new T(
                 std::forward<A1>(arg1),
                 std::forward<A2>(arg2),
@@ -261,7 +246,7 @@ namespace tetengo2
         typename A6,
         typename A7
     >
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(
+    std::unique_ptr<T> make_unique(
         A1&& arg1,
         A2&& arg2,
         A3&& arg3,
@@ -271,7 +256,7 @@ namespace tetengo2
         A7&& arg7
     )
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
+        return std::unique_ptr<T>(
             new T(
                 std::forward<A1>(arg1),
                 std::forward<A2>(arg2),
@@ -319,7 +304,7 @@ namespace tetengo2
         typename A7,
         typename A8
     >
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(
+    std::unique_ptr<T> make_unique(
         A1&& arg1,
         A2&& arg2,
         A3&& arg3,
@@ -330,7 +315,7 @@ namespace tetengo2
         A8&& arg8
     )
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
+        return std::unique_ptr<T>(
             new T(
                 std::forward<A1>(arg1),
                 std::forward<A2>(arg2),
@@ -382,7 +367,7 @@ namespace tetengo2
         typename A8,
         typename A9
     >
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(
+    std::unique_ptr<T> make_unique(
         A1&& arg1,
         A2&& arg2,
         A3&& arg3,
@@ -394,7 +379,7 @@ namespace tetengo2
         A9&& arg9
     )
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
+        return std::unique_ptr<T>(
             new T(
                 std::forward<A1>(arg1),
                 std::forward<A2>(arg2),
@@ -450,7 +435,7 @@ namespace tetengo2
         typename A9,
         typename A10
     >
-    typename tetengo2::cpp0x::unique_ptr<T>::type make_unique(
+    std::unique_ptr<T> make_unique(
         A1&&  arg1,
         A2&&  arg2,
         A3&&  arg3,
@@ -463,7 +448,7 @@ namespace tetengo2
         A10&& arg10
     )
     {
-        return typename tetengo2::cpp0x::unique_ptr<T>::type(
+        return std::unique_ptr<T>(
             new T(
                 std::forward<A1>(arg1),
                 std::forward<A2>(arg2),
@@ -493,13 +478,9 @@ namespace tetengo2
         \return A unique pointer to base type.
     */
     template <typename Base, typename DerivedPtr>
-    typename tetengo2::cpp0x::unique_ptr<Base>::type unique_ptr_upcast(
-        DerivedPtr&& p_derived
-    )
+    std::unique_ptr<Base> unique_ptr_upcast(DerivedPtr&& p_derived)
     {
-        return typename tetengo2::cpp0x::unique_ptr<Base>::type(
-            p_derived.release()
-        );
+        return std::unique_ptr<Base>(p_derived.release());
     }
 
 

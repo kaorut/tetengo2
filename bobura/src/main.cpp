@@ -10,6 +10,7 @@
 //#include <cstddef>
 //#include <exception>
 //#include <locale>
+#include <memory>
 //#include <stdexcept>
 //#include <string>
 //#include <utility>
@@ -25,7 +26,6 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include <tetengo2.cpp0x.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
@@ -76,8 +76,7 @@ namespace
                 bobura::type_list, bobura::type::messages_facet
             >::type
             messages_facet_type;
-        tetengo2::cpp0x::unique_ptr<messages_facet_type>::type
-        p_messages_facet(
+        std::unique_ptr<messages_facet_type> p_messages_facet(
             tetengo2::make_unique<messages_facet_type>(
                 message_directory_path, std::locale(ui_locale_name().c_str())
             )

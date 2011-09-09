@@ -9,6 +9,7 @@
 #if !defined(BOBURA_ABOUTDIALOG_H)
 #define BOBURA_ABOUTDIALOG_H
 
+#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -18,7 +19,6 @@
 #include <boost/mpl/at.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <tetengo2.cpp0x.h>
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -192,20 +192,15 @@ namespace bobura
 
         const settings_type& m_settings;
 
-        typename tetengo2::cpp0x::unique_ptr<image_type>::type
-        m_p_application_image;
+        std::unique_ptr<image_type> m_p_application_image;
 
-        typename tetengo2::cpp0x::unique_ptr<label_type>::type
-        m_p_title_label;
+        std::unique_ptr<label_type> m_p_title_label;
 
-        typename tetengo2::cpp0x::unique_ptr<label_type>::type
-        m_p_copyright_label;
+        std::unique_ptr<label_type> m_p_copyright_label;
 
-        typename tetengo2::cpp0x::unique_ptr<link_label_type>::type
-        m_p_link_label;
+        std::unique_ptr<link_label_type> m_p_link_label;
 
-        typename tetengo2::cpp0x::unique_ptr<button_type>::type
-        m_p_ok_button;
+        std::unique_ptr<button_type> m_p_ok_button;
 
 
         // functions
@@ -237,10 +232,9 @@ namespace bobura
             locate_controls();
         }
 
-        typename tetengo2::cpp0x::unique_ptr<image_type>::type
-        create_application_image()
+        std::unique_ptr<image_type> create_application_image()
         {
-            typename tetengo2::cpp0x::unique_ptr<image_type>::type p_image(
+            std::unique_ptr<image_type> p_image(
                 tetengo2::make_unique<image_type>(*this)
             );
 
@@ -255,8 +249,7 @@ namespace bobura
             return std::move(p_image);
         }
 
-        typename tetengo2::cpp0x::unique_ptr<label_type>::type
-        create_title_label()
+        std::unique_ptr<label_type> create_title_label()
         {
             typedef typename base_type::string_type::value_type char_type;
             std::basic_ostringstream<char_type> title;
@@ -268,26 +261,22 @@ namespace bobura
                     ) %
                     typename base_type::string_type(TETENGO2_TEXT("0.0.0"));
 
-            typename tetengo2::cpp0x::unique_ptr<label_type>::type p_label(
+            std::unique_ptr<label_type> p_label(
                 tetengo2::make_unique<label_type>(*this)
             );
 
             p_label->set_text(title.str());
-            typename tetengo2::cpp0x::unique_ptr<background_type>::type
-            p_background(
-                tetengo2::unique_ptr_upcast<background_type>(
-                    tetengo2::make_unique<transparent_background_type>()
-                )
+            std::unique_ptr<background_type> p_background(
+                tetengo2::make_unique<transparent_background_type>()
             );
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
         }
 
-        typename tetengo2::cpp0x::unique_ptr<label_type>::type
-        create_copyright_label()
+        std::unique_ptr<label_type> create_copyright_label()
         {
-            typename tetengo2::cpp0x::unique_ptr<label_type>::type p_label(
+            std::unique_ptr<label_type> p_label(
                 tetengo2::make_unique<label_type>(*this)
             );
 
@@ -296,22 +285,19 @@ namespace bobura
                     TETENGO2_TEXT("Copyright (C) 2007-2011 kaoru")
                 )
             );
-            typename tetengo2::cpp0x::unique_ptr<background_type>::type
-            p_background(
-                tetengo2::unique_ptr_upcast<background_type>(
-                    tetengo2::make_unique<transparent_background_type>()
-                )
+            std::unique_ptr<background_type> p_background(
+                tetengo2::make_unique<transparent_background_type>()
             );
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
         }
 
-        typename tetengo2::cpp0x::unique_ptr<link_label_type>::type
-        create_link_label()
+        std::unique_ptr<link_label_type> create_link_label()
         {
-            typename tetengo2::cpp0x::unique_ptr<link_label_type>::type
-            p_label(tetengo2::make_unique<link_label_type>(*this));
+            std::unique_ptr<link_label_type> p_label(
+                tetengo2::make_unique<link_label_type>(*this)
+            );
 
             p_label->set_text(
                 typename base_type::string_type(
@@ -319,21 +305,17 @@ namespace bobura
                 )
             );
             p_label->set_target(p_label->text());
-            typename tetengo2::cpp0x::unique_ptr<background_type>::type
-            p_background(
-                tetengo2::unique_ptr_upcast<background_type>(
-                    tetengo2::make_unique<transparent_background_type>()
-                )
+            std::unique_ptr<background_type> p_background(
+                tetengo2::make_unique<transparent_background_type>()
             );
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
         }
 
-        typename tetengo2::cpp0x::unique_ptr<button_type>::type
-        create_ok_button()
+        std::unique_ptr<button_type> create_ok_button()
         {
-            typename tetengo2::cpp0x::unique_ptr<button_type>::type p_button(
+            std::unique_ptr<button_type> p_button(
                 tetengo2::make_unique<button_type>(
                     *this, button_type::style_default
                 )

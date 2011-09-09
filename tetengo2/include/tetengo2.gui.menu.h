@@ -11,6 +11,7 @@
 
 //#include <cassert>
 //#include <cstddef>
+#include <memory>
 #include <stdexcept>
 //#include <utility>
 #include <vector>
@@ -55,18 +56,14 @@ namespace tetengo2 { namespace gui
         //! The const iterator type.
         typedef
             boost::indirect_iterator<
-                typename std::vector<
-                    typename cpp0x::unique_ptr<menu>::type
-                >::const_iterator
+                typename std::vector<std::unique_ptr<menu>>::const_iterator
             >
             const_iterator;
 
         //! The iterator type.
         typedef
             boost::indirect_iterator<
-                typename std::vector<
-                    typename cpp0x::unique_ptr<menu>::type
-                >::iterator
+                typename std::vector<std::unique_ptr<menu>>::iterator
             >
             iterator;
 
@@ -252,10 +249,7 @@ namespace tetengo2 { namespace gui
             \param offset An offset where a menu is inserted.
             \param p_menu A unique pointer to a menu. It must not be NULL.
         */
-        void insert(
-            const iterator                         offset,
-            typename cpp0x::unique_ptr<menu>::type p_menu
-        )
+        void insert(const iterator offset, std::unique_ptr<menu> p_menu)
         {
             insert_impl(offset, std::move(p_menu));
         }
@@ -322,11 +316,9 @@ namespace tetengo2 { namespace gui
     private:
         // static functions
 
-        static std::vector<typename cpp0x::unique_ptr<menu>::type>&
-        empty_children()
+        static std::vector<std::unique_ptr<menu>>& empty_children()
         {
-            static std::vector<typename cpp0x::unique_ptr<menu>::type>
-            singleton;
+            static std::vector<std::unique_ptr<menu>> singleton;
             assert(singleton.empty());
             return singleton;
         }
@@ -391,8 +383,8 @@ namespace tetengo2 { namespace gui
         }
 
         virtual void insert_impl(
-            const iterator                         offset,
-            typename cpp0x::unique_ptr<menu>::type p_menu
+            const iterator        offset,
+            std::unique_ptr<menu> p_menu
         )
         {
             assert(false);

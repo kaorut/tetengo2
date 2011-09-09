@@ -13,6 +13,7 @@
 #include <cassert>
 #include <cstddef>
 #include <iterator>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <type_traits>
@@ -25,7 +26,6 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.unique.h"
 
 
@@ -51,9 +51,9 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef
             std::pair<
                 ::UINT,
-                tetengo2::cpp0x::unique_ptr<
-                    std::remove_pointer< ::HMENU>::type, menu_deleter
-                >::type
+                std::unique_ptr<
+                    typename std::remove_pointer< ::HMENU>::type, menu_deleter
+                >
             >
             id_handle_type;
 
@@ -74,8 +74,7 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef detail::id_handle_type menu_details_type;
 
         //! The menu details pointer type.
-        typedef
-            cpp0x::unique_ptr<menu_details_type>::type menu_details_ptr_type;
+        typedef std::unique_ptr<menu_details_type> menu_details_ptr_type;
 
         //! The style tag type.
         struct style_tag

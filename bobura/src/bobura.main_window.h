@@ -9,11 +9,11 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
+#include <memory>
 //#include <utility>
 
 #include <boost/mpl/at.hpp>
 
-#include <tetengo2.cpp0x.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
@@ -135,12 +135,9 @@ namespace bobura
             command_type&&                    command
         )
         {
-            typename tetengo2::cpp0x::unique_ptr<menu_type>::type
-            p_menu_command(
-                tetengo2::unique_ptr_upcast<menu_type>(
-                    tetengo2::make_unique<menu_command_type>(
-                        std::forward<typename menu_type::string_type>(text)
-                    )
+            std::unique_ptr<menu_type> p_menu_command(
+                tetengo2::make_unique<menu_command_type>(
+                    std::forward<typename menu_type::string_type>(text)
                 )
             );
 
@@ -156,11 +153,8 @@ namespace bobura
 
         static void append_menu_separator(menu_type& popup_menu)
         {
-            typename tetengo2::cpp0x::unique_ptr<menu_type>::type
-            p_menu_separator(
-                tetengo2::unique_ptr_upcast<menu_type>(
-                    tetengo2::make_unique<menu_separator_type>()
-                )
+            std::unique_ptr<menu_type> p_menu_separator(
+                tetengo2::make_unique<menu_separator_type>()
             );
             popup_menu.insert(popup_menu.end(), std::move(p_menu_separator));
         }
@@ -199,16 +193,14 @@ namespace bobura
 
         void set_menus()
         {
-            typename tetengo2::cpp0x::unique_ptr<main_menu_type>::type
-            p_main_menu(tetengo2::make_unique<main_menu_type>());
+            std::unique_ptr<main_menu_type> p_main_menu(
+                tetengo2::make_unique<main_menu_type>()
+            );
 
             {
-                typename tetengo2::cpp0x::unique_ptr<menu_type>::type
-                p_popup_menu(
-                    tetengo2::unique_ptr_upcast<menu_type>(
-                        tetengo2::make_unique<popup_menu_type>(
-                            m_message_catalog.get(TETENGO2_TEXT("Menu:&File"))
-                        )
+                std::unique_ptr<menu_type> p_popup_menu(
+                    tetengo2::make_unique<popup_menu_type>(
+                        m_message_catalog.get(TETENGO2_TEXT("Menu:&File"))
                     )
                 );
 
@@ -262,12 +254,9 @@ namespace bobura
                 );
             }
             {
-                typename tetengo2::cpp0x::unique_ptr<menu_type>::type
-                p_popup_menu(
-                    tetengo2::unique_ptr_upcast<menu_type>(
-                        tetengo2::make_unique<popup_menu_type>(
-                            m_message_catalog.get(TETENGO2_TEXT("Menu:&Edit"))
-                        )
+                std::unique_ptr<menu_type> p_popup_menu(
+                    tetengo2::make_unique<popup_menu_type>(
+                        m_message_catalog.get(TETENGO2_TEXT("Menu:&Edit"))
                     )
                 );
 
@@ -342,12 +331,10 @@ namespace bobura
                 );
             }
             {
-                typename tetengo2::cpp0x::unique_ptr<menu_type>::type
+                std::unique_ptr<menu_type>
                 p_popup_menu(
-                    tetengo2::unique_ptr_upcast<menu_type>(
-                        tetengo2::make_unique<popup_menu_type>(
-                            m_message_catalog.get(TETENGO2_TEXT("Menu:&Help"))
-                        )
+                    tetengo2::make_unique<popup_menu_type>(
+                        m_message_catalog.get(TETENGO2_TEXT("Menu:&Help"))
                     )
                 );
 

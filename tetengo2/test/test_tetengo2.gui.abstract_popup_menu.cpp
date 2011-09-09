@@ -7,13 +7,13 @@
 */
 
 //#include <iterator>
+#include <memory>
 //#include <string>
 //#include <utility>
 
 #include <boost/test/unit_test.hpp>
 //#include <boost/utility.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.encoder.h"
@@ -100,19 +100,11 @@ BOOST_AUTO_TEST_SUITE(abstract_popup_menu)
         BOOST_TEST_PASSPOINT();
 
         concrete_popup_menu popup_menu(std::string("Tetengo"));
-        tetengo2::cpp0x::unique_ptr<menu_type>::type p_child1(
-            tetengo2::unique_ptr_upcast<menu_type>(
-                tetengo2::make_unique<concrete_popup_menu>(
-                    std::string("Hoge")
-                )
-            )
+        std::unique_ptr<menu_type> p_child1(
+            tetengo2::make_unique<concrete_popup_menu>(std::string("Hoge"))
         );
-        tetengo2::cpp0x::unique_ptr<menu_type>::type p_child2(
-            tetengo2::unique_ptr_upcast<menu_type>(
-                tetengo2::make_unique<concrete_popup_menu>(
-                    std::string("Fuga")
-                )
-            )
+        std::unique_ptr<menu_type> p_child2(
+            tetengo2::make_unique<concrete_popup_menu>(std::string("Fuga"))
         );
 
         popup_menu.insert(popup_menu.end(), std::move(p_child1));
@@ -133,19 +125,11 @@ BOOST_AUTO_TEST_SUITE(abstract_popup_menu)
         BOOST_TEST_PASSPOINT();
 
         concrete_popup_menu popup_menu(std::string("Tetengo"));
-        tetengo2::cpp0x::unique_ptr<menu_type>::type p_child1(
-            tetengo2::unique_ptr_upcast<menu_type>(
-                tetengo2::make_unique<concrete_popup_menu>(
-                    std::string("Hoge")
-                )
-            )
+        std::unique_ptr<menu_type> p_child1(
+            tetengo2::make_unique<concrete_popup_menu>(std::string("Hoge"))
         );
-        tetengo2::cpp0x::unique_ptr<menu_type>::type p_child2(
-            tetengo2::unique_ptr_upcast<menu_type>(
-                tetengo2::make_unique<concrete_popup_menu>(
-                    std::string("Fuga")
-                )
-            )
+        std::unique_ptr<menu_type> p_child2(
+            tetengo2::make_unique<concrete_popup_menu>(std::string("Fuga"))
         );
         popup_menu.insert(popup_menu.end(), std::move(p_child1));
         popup_menu.insert(popup_menu.begin(), std::move(p_child2));

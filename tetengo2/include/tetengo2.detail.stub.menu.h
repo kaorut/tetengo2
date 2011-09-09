@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_STUB_MENU_H)
 #define TETENGO2_DETAIL_STUB_MENU_H
 
-#include "tetengo2.cpp0x.h"
+#include <memory>
 
 
 namespace tetengo2 { namespace detail { namespace stub
@@ -26,8 +26,7 @@ namespace tetengo2 { namespace detail { namespace stub
         struct menu_details_type {};
 
         //! The menu details pointer type.
-        typedef
-            cpp0x::unique_ptr<menu_details_type>::type menu_details_ptr_type;
+        typedef std::unique_ptr<menu_details_type> menu_details_ptr_type;
 
         //! The style tag type.
         struct style_tag {};

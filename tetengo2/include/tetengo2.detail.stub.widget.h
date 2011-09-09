@@ -12,6 +12,7 @@
 #include <algorithm>
 //#include <cstddef>
 #include <iterator>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <tuple>
@@ -66,9 +67,7 @@ namespace tetengo2 { namespace detail { namespace stub
             widget_details_type;
 
         //! The widget details pointer type.
-        typedef
-            cpp0x::unique_ptr<widget_details_type>::type
-            widget_details_ptr_type;
+        typedef std::unique_ptr<widget_details_type> widget_details_ptr_type;
 
 
         // static functions
@@ -597,9 +596,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const Function function
         )
         {
-            const typename cpp0x::unique_ptr<Canvas>::type p_canvas(
-                widget.create_canvas()
-            );
+            const std::unique_ptr<Canvas> p_canvas(widget.create_canvas());
             return function(*p_canvas);
         }
 

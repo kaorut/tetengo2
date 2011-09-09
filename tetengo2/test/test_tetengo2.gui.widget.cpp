@@ -7,6 +7,7 @@
 */
 
 //#include <cstddef>
+#include <memory>
 //#include <stdexcept>
 //#include <string>
 //#include <tuple>
@@ -16,7 +17,6 @@
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"
@@ -207,7 +207,7 @@ namespace
 
 
     private:
-        tetengo2::cpp0x::unique_ptr<details_type>::type m_p_details;
+        std::unique_ptr<details_type> m_p_details;
 
         virtual boost::optional<const details_type&> details_impl()
         const
@@ -504,7 +504,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            tetengo2::cpp0x::unique_ptr<background_type>::type p_background;
+            std::unique_ptr<background_type> p_background;
             widget.set_background(std::move(p_background));
 
             BOOST_CHECK(!widget.background());
@@ -512,10 +512,8 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            tetengo2::cpp0x::unique_ptr<background_type>::type p_background(
-                tetengo2::unique_ptr_upcast<background_type>(
-                    tetengo2::make_unique<transparent_background_type>()
-                )
+            std::unique_ptr<background_type> p_background(
+                tetengo2::make_unique<transparent_background_type>()
             );
             widget.set_background(std::move(p_background));
 
@@ -530,16 +528,14 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            tetengo2::cpp0x::unique_ptr<background_type>::type p_background;
+            std::unique_ptr<background_type> p_background;
             widget.set_background(std::move(p_background));
         }
         {
             concrete_widget widget;
 
-            tetengo2::cpp0x::unique_ptr<background_type>::type p_background(
-                tetengo2::unique_ptr_upcast<background_type>(
-                    tetengo2::make_unique<transparent_background_type>()
-                )
+            std::unique_ptr<background_type> p_background(
+                tetengo2::make_unique<transparent_background_type>()
             );
             widget.set_background(std::move(p_background));
         }
@@ -595,11 +591,9 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        tetengo2::cpp0x::unique_ptr<widget_type::cursor_type>::type p_cursor(
-            tetengo2::unique_ptr_upcast<widget_type::cursor_type>(
-                tetengo2::make_unique<system_cursor_type>(
-                    system_cursor_type::style_hand
-                )
+        std::unique_ptr<widget_type::cursor_type> p_cursor(
+            tetengo2::make_unique<system_cursor_type>(
+                system_cursor_type::style_hand
             )
         );
         widget.set_cursor(std::move(p_cursor));
@@ -645,9 +639,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         const concrete_widget widget;
 
-        const tetengo2::cpp0x::unique_ptr<canvas_type>::type p_canvas(
-            widget.create_canvas()
-        );
+        const std::unique_ptr<canvas_type> p_canvas(widget.create_canvas());
         widget.erase_background(*p_canvas);
     }
 

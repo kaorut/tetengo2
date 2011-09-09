@@ -13,6 +13,7 @@
 #include <cassert>
 //#include <cstddef>
 #include <exception>
+#include <memory>
 #include <stdexcept>
 #include <string>
 //#include <type_traits>
@@ -69,17 +70,16 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The widget details type.
         typedef
             std::pair<
-                cpp0x::unique_ptr<
-                    std::remove_pointer< ::HWND>::type, detail::widget_deleter
-                >::type,
+                std::unique_ptr<
+                    typename std::remove_pointer< ::HWND>::type,
+                    detail::widget_deleter
+                >,
                 ::WNDPROC
             >
             widget_details_type;
 
         //! The widget details pointer type.
-        typedef
-            cpp0x::unique_ptr<widget_details_type>::type
-            widget_details_ptr_type;
+        typedef std::unique_ptr<widget_details_type> widget_details_ptr_type;
 
 
         // static functions

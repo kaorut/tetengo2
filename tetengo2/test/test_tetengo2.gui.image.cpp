@@ -7,6 +7,7 @@
 */
 
 //#include <cstddef>
+#include <memory>
 //#include <stdexcept>
 //#include <string>
 //#include <utility>
@@ -14,7 +15,6 @@
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp0x.h"
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_SUITE(image)
 
         BOOST_CHECK(image.has_picture());
 
-        image.set_picture(tetengo2::cpp0x::unique_ptr<picture_type>::type());
+        image.set_picture(std::unique_ptr<picture_type>());
 
         BOOST_CHECK(!image.has_picture());
     }
