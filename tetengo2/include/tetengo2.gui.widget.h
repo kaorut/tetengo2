@@ -724,10 +724,8 @@ namespace tetengo2 { namespace gui
 
         static std::unique_ptr<cursor_type> create_initial_cursor()
         {
-            return std::unique_ptr<cursor_type>(
-                make_unique<system_cursor_type>(
-                    system_cursor_type::style_default
-                )
+            return make_unique<system_cursor_type>(
+                system_cursor_type::style_default
             );
         }
 

@@ -584,7 +584,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 fallback_level < 2 ?
                 get_font_style(font) :
                 get_font_style(Font::dialog_font());
-            typename std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
+            std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
                 make_unique<Gdiplus::Font>(
                     &gdiplus_font_family,
                     font_size,

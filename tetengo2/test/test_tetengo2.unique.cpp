@@ -416,17 +416,6 @@ BOOST_AUTO_TEST_SUITE(unique)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(unique_ptr_upcast)
-    {
-        const std::unique_ptr<Base> p(
-            tetengo2::unique_ptr_upcast<Base>(
-                tetengo2::make_unique<Derived>()
-            )
-        );
-
-        BOOST_CHECK(p);
-    }
-
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

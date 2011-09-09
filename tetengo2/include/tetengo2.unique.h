@@ -464,25 +464,6 @@ namespace tetengo2
         );
     }
 
-    /*!
-        \brief Upcasts a unique pointer.
-
-        This cast operation is not necessary for std :: unique_ptr but
-        boost :: interprocess :: unique_ptr requires it.
-
-        \tparam Base       A base type.
-        \tparam DerivedPtr A derived smart pointer type.
-
-        \param p_derived A smart pointer to a derived type.
-
-        \return A unique pointer to base type.
-    */
-    template <typename Base, typename DerivedPtr>
-    std::unique_ptr<Base> unique_ptr_upcast(DerivedPtr&& p_derived)
-    {
-        return std::unique_ptr<Base>(p_derived.release());
-    }
-
 
 }
 
