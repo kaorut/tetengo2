@@ -10,7 +10,7 @@
 #define TETENGO2_DETAIL_STUB_DRAWING_H
 
 //#include <cstddef>
-#include <memory>
+//#include <memory>
 #include <stdexcept>
 //#include <utility>
 #include <vector>

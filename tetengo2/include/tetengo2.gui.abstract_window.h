@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_ABSTRACTWINDOW_H
 
 //#include <cstddef>
-#include <memory>
+//#include <memory>
 //#include <stdexcept>
 //#include <utility>
 

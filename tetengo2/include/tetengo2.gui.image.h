@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_IMAGE_H)
 #define TETENGO2_GUI_IMAGE_H
 
-#include <memory>
+//#include <memory>
 //#include <stdexcept>
 //#include <utility>
 

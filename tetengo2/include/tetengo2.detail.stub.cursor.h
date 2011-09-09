@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_STUB_CURSOR_H)
 #define TETENGO2_DETAIL_STUB_CURSOR_H
 
-#include <memory>
+//#include <memory>
 
 #include "tetengo2.unique.h"
 

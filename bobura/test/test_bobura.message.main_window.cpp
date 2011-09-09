@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <memory>
+//#include <memory>
 
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>

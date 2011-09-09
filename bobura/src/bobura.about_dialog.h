@@ -9,7 +9,7 @@
 #if !defined(BOBURA_ABOUTDIALOG_H)
 #define BOBURA_ABOUTDIALOG_H
 
-#include <memory>
+//#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <string>
