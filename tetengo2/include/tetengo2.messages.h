@@ -218,8 +218,7 @@ namespace tetengo2
                 directory_iterator_type(),
                 std::back_inserter(catalog_files),
                 TETENGO2_CPP0X_BIND(
-                    &directory_entry_type::path,
-                    tetengo2::cpp0x::placeholders_1()
+                    &directory_entry_type::path, cpp0x::placeholders_1()
                 )
             );
             std::sort(

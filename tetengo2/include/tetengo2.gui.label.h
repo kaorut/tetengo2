@@ -141,8 +141,8 @@ namespace tetengo2 { namespace gui
                 *this,
                 TETENGO2_CPP0X_BIND(
                     &canvas_type::calc_text_dimension,
-                    tetengo2::cpp0x::placeholders_1(),
-                    tetengo2::cpp0x::cref(this->text())
+                    cpp0x::placeholders_1(),
+                    cpp0x::cref(this->text())
                 )
             );
         }

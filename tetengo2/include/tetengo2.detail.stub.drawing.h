@@ -278,12 +278,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&             encoder
         )
         {
+            typedef typename gui::dimension<Dimension>::width_type width_type;
             typedef
-                typename tetengo2::gui::dimension<Dimension>::width_type
-                width_type;
-            typedef
-                typename tetengo2::gui::dimension<Dimension>::height_type
-                height_type;
+                typename gui::dimension<Dimension>::height_type height_type;
             return Dimension(width_type(123), height_type(456));
         }
 

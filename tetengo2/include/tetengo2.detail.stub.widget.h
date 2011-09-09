@@ -549,17 +549,13 @@ namespace tetengo2 { namespace detail { namespace stub
             \return The children.
         */
         template <typename Child, typename Widget>
-        static std::vector<
-            typename tetengo2::cpp0x::reference_wrapper<Child>::type
-        > children(
-            Widget& widget
-        )
+        static std::vector<typename cpp0x::reference_wrapper<Child>::type>
+        children(Widget& widget)
         {
             const std::vector<void*>& children_as_void =
                 std::get<details_children>(*widget.details());
-            std::vector<
-                typename tetengo2::cpp0x::reference_wrapper<Child>::type
-            > children;
+            std::vector<typename cpp0x::reference_wrapper<Child>::type>
+            children;
             children.reserve(children_as_void.size());
 
             std::transform(
@@ -696,10 +692,11 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         template <typename Child>
-        static typename tetengo2::cpp0x::reference_wrapper<Child>::type
-        as_child(void* const pointer)
+        static typename cpp0x::reference_wrapper<Child>::type as_child(
+            void* const pointer
+        )
         {
-            return tetengo2::cpp0x::ref(*reinterpret_cast<Child*>(pointer));
+            return cpp0x::ref(*reinterpret_cast<Child*>(pointer));
         }
 
 

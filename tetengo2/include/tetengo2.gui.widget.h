@@ -465,11 +465,8 @@ namespace tetengo2 { namespace gui
 
             \return The children.
         */
-        std::vector<
-            typename tetengo2::cpp0x::reference_wrapper<
-                const child_type
-            >::type
-        > children()
+        std::vector<typename cpp0x::reference_wrapper<const child_type>::type>
+        children()
         const
         {
             return widget_details_type::template children<const child_type>(
@@ -482,9 +479,8 @@ namespace tetengo2 { namespace gui
 
             \return The children.
         */
-        std::vector<
-            typename tetengo2::cpp0x::reference_wrapper<child_type>::type
-        > children()
+        std::vector<typename cpp0x::reference_wrapper<child_type>::type>
+        children()
         {
             return widget_details_type::template children<child_type>(*this);
         }
@@ -711,13 +707,9 @@ namespace tetengo2 { namespace gui
     private:
         // types
 
-        typedef
-            typename tetengo2::gui::position<position_type>::left_type
-            left_type;
+        typedef typename gui::position<position_type>::left_type left_type;
 
-        typedef
-            typename tetengo2::gui::position<position_type>::top_type
-            top_type;
+        typedef typename gui::position<position_type>::top_type top_type;
 
 
         // static functions

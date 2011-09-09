@@ -27,8 +27,8 @@ namespace tetengo2 { namespace gui { namespace unit
     class unit :
         private boost::totally_ordered<ConcreteUnit>,
         private boost::totally_ordered<ConcreteUnit, Value>,
-        private tetengo2::additive<ConcreteUnit>,
-        private tetengo2::additive<ConcreteUnit, Value>
+        private additive<ConcreteUnit>,
+        private additive<ConcreteUnit, Value>
     {
     public:
         // types

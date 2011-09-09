@@ -257,8 +257,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename Font>
         static Font make_dialog_font()
         {
-            const ::LOGFONTW log_font =
-                tetengo2::detail::windows::get_message_font();
+            const ::LOGFONTW log_font = get_message_font();
 
             assert(log_font.lfHeight < 0);
             return Font(

@@ -44,9 +44,10 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Value, typename PixelValue>
         static Value pixels_to_em(const PixelValue pixel_value)
         {
-            const ::LOGFONTW& message_font =
-                tetengo2::detail::windows::get_message_font();
-            return to_value<Value, PixelValue>(pixel_value, -message_font.lfHeight);
+            const ::LOGFONTW& message_font = get_message_font();
+            return to_value<Value, PixelValue>(
+                pixel_value, -message_font.lfHeight
+            );
         }
 
         /*!
@@ -62,9 +63,10 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename PixelValue, typename Value>
         static PixelValue em_to_pixels(const Value& value)
         {
-            const ::LOGFONTW& message_font =
-                tetengo2::detail::windows::get_message_font();
-            return to_pixel_value<PixelValue, Value>(value * -message_font.lfHeight);
+            const ::LOGFONTW& message_font = get_message_font();
+            return to_pixel_value<PixelValue, Value>(
+                value * -message_font.lfHeight
+            );
         }
 
 

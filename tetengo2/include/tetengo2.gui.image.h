@@ -184,13 +184,9 @@ namespace tetengo2 { namespace gui
 
         typedef typename base_type::position_type position_type;
 
-        typedef
-            typename tetengo2::gui::position<position_type>::left_type
-            left_type;
+        typedef typename gui::position<position_type>::left_type left_type;
 
-        typedef
-            typename tetengo2::gui::position<position_type>::top_type
-            top_type;
+        typedef typename gui::position<position_type>::top_type top_type;
 
         typedef
             typename message_handler_details_type::message_handler_map_type
@@ -205,9 +201,7 @@ namespace tetengo2 { namespace gui
 
             p_image->paint_observer_set().paint().connect(
                 TETENGO2_CPP0X_BIND(
-                    &image::paint_picture,
-                    p_image,
-                    tetengo2::cpp0x::placeholders_1()
+                    &image::paint_picture, p_image, cpp0x::placeholders_1()
                 )
             );
         }

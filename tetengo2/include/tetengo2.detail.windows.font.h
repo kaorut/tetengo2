@@ -30,7 +30,7 @@ namespace tetengo2 { namespace detail { namespace windows
     inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
     {
         const ::UINT metrics_size =
-            tetengo2::detail::windows::on_windows_vista_or_later() ?
+            on_windows_vista_or_later() ?
             sizeof(::NONCLIENTMETRICSW) :
             sizeof(::NONCLIENTMETRICSW) - sizeof(int);
         metrics.cbSize = metrics_size;

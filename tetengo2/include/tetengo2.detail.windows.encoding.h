@@ -50,8 +50,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static utf8_string_type pivot_to_utf8(const pivot_type& pivot)
         {
             const ::DWORD flags =
-                tetengo2::detail::windows::on_windows_vista_or_later() ?
-                WC_ERR_INVALID_CHARS : 0;
+                on_windows_vista_or_later() ? WC_ERR_INVALID_CHARS : 0;
 
             const int string_length =
                 ::WideCharToMultiByte(
