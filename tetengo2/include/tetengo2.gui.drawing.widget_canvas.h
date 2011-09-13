@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_DRAWING_WIDGETCANVAS_H)
 #define TETENGO2_GUI_DRAWING_WIDGETCANVAS_H
 
-#include "tetengo2.cpp0x.h"
+#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.drawing.canvas.h"
 
 

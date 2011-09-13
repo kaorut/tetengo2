@@ -9,7 +9,7 @@
 #if !defined(BOBURA_COMMAND_EXIT_H)
 #define BOBURA_COMMAND_EXIT_H
 
-#include <tetengo2.cpp0x.h>
+#include <tetengo2.cpp11.h>
 
 
 namespace bobura { namespace command

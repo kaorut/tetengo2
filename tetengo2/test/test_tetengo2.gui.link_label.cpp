@@ -12,7 +12,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp0x.h"
+#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"

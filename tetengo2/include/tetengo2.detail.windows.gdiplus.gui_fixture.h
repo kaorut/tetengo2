@@ -28,7 +28,7 @@
 #undef min
 #undef max
 
-#include "tetengo2.cpp0x.h"
+#include "tetengo2.cpp11.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus

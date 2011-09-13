@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of C++0x alternatives for tetengo2.
+    \brief The definition of C++11 alternatives for tetengo2.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -11,7 +11,7 @@
 
 /* noexcept *****************************************************************/
 
-//! The alternative to the C++0x keyword noexcept.
+//! The alternative to the C++11 keyword noexcept.
 #define TETENGO2_CPP11_NOEXCEPT throw ()
 
 
