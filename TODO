@@ -17,12 +17,6 @@ Added on    : 2011/09/02
 Depends on  : 00000107
 Description : Create tetengo2::json::pull_parser.
 ------------------------------------------------------------------------------
-Number      : 00000109
-Added on    : 2011/09/09
-Depends on  : (none)
-Description : Rename the names using C++0x to C++11.
-              Remove the workarounds for g++ 4.3.
-------------------------------------------------------------------------------
 Number      : 00000110
 Added on    : 2011/mm/dd
 Depends on  : (none)
