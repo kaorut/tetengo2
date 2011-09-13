@@ -61,7 +61,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the background.
         */
         virtual ~solid_background()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

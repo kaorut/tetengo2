@@ -59,7 +59,7 @@ namespace bobura { namespace model { namespace station_info
             \brief Destroys the grade.
         */
         virtual ~grade()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -110,7 +110,7 @@ namespace bobura { namespace model { namespace station_info
         {}
 
         virtual ~local()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -165,7 +165,7 @@ namespace bobura { namespace model { namespace station_info
         {}
 
         virtual ~principal()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -220,7 +220,7 @@ namespace bobura { namespace model { namespace station_info
         {}
 
         virtual ~local_terminal()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -275,7 +275,7 @@ namespace bobura { namespace model { namespace station_info
         {}
 
         virtual ~principal_terminal()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

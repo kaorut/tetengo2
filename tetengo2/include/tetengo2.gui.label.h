@@ -103,7 +103,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the label.
         */
         virtual ~label()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -139,10 +139,10 @@ namespace tetengo2 { namespace gui
                 canvas_type, dimension_type
             >(
                 *this,
-                TETENGO2_CPP0X_BIND(
+                TETENGO2_CPP11_BIND(
                     &canvas_type::calc_text_dimension,
-                    cpp0x::placeholders_1(),
-                    cpp0x::cref(this->text())
+                    cpp11::placeholders_1(),
+                    cpp11::cref(this->text())
                 )
             );
         }

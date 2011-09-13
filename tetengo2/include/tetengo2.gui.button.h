@@ -123,7 +123,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the button.
         */
         virtual ~button()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

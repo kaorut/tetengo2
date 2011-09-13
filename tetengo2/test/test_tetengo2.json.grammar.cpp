@@ -154,18 +154,18 @@ BOOST_AUTO_TEST_SUITE(grammar)
             grammar_type g;
             std::string output;
             g.add_structure_observer(
-                TETENGO2_CPP0X_BIND(
+                TETENGO2_CPP11_BIND(
                     on_structure,
-                    tetengo2::cpp0x::ref(output),
-                    tetengo2::cpp0x::placeholders_1()
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1()
                 )
             );
             g.add_value_observer(
-                TETENGO2_CPP0X_BIND(
+                TETENGO2_CPP11_BIND(
                     on_value,
-                    tetengo2::cpp0x::ref(output),
-                    tetengo2::cpp0x::placeholders_1(),
-                    tetengo2::cpp0x::placeholders_2()
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2()
                 )
             );
 
@@ -184,18 +184,18 @@ BOOST_AUTO_TEST_SUITE(grammar)
             grammar_type g;
             std::string output;
             g.add_structure_observer(
-                TETENGO2_CPP0X_BIND(
+                TETENGO2_CPP11_BIND(
                     on_structure,
-                    tetengo2::cpp0x::ref(output),
-                    tetengo2::cpp0x::placeholders_1()
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1()
                 )
             );
             g.add_value_observer(
-                TETENGO2_CPP0X_BIND(
+                TETENGO2_CPP11_BIND(
                     on_value,
-                    tetengo2::cpp0x::ref(output),
-                    tetengo2::cpp0x::placeholders_1(),
-                    tetengo2::cpp0x::placeholders_2()
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2()
                 )
             );
 
@@ -221,18 +221,18 @@ BOOST_AUTO_TEST_SUITE(grammar)
             grammar_type g;
             std::string output;
             g.add_structure_observer(
-                TETENGO2_CPP0X_BIND(
+                TETENGO2_CPP11_BIND(
                     on_structure,
-                    tetengo2::cpp0x::ref(output),
-                    tetengo2::cpp0x::placeholders_1()
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1()
                 )
             );
             g.add_value_observer(
-                TETENGO2_CPP0X_BIND(
+                TETENGO2_CPP11_BIND(
                     on_value,
-                    tetengo2::cpp0x::ref(output),
-                    tetengo2::cpp0x::placeholders_1(),
-                    tetengo2::cpp0x::placeholders_2()
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2()
                 )
             );
 

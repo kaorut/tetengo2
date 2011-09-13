@@ -110,7 +110,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the link label.
         */
         virtual ~link_label()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

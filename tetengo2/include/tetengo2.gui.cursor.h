@@ -47,7 +47,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the cursor.
         */
         virtual ~cursor()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

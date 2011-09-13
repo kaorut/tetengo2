@@ -6,13 +6,13 @@
     $Id$
 */
 
-#if !defined(TETENGO2_CPP0X_H)
-#define TETENGO2_CPP0X_H
+#if !defined(TETENGO2_CPP11_H)
+#define TETENGO2_CPP11_H
 
 /* noexcept *****************************************************************/
 
 //! The alternative to the C++0x keyword noexcept.
-#define TETENGO2_CPP0X_NOEXCEPT throw ()
+#define TETENGO2_CPP11_NOEXCEPT throw ()
 
 
 /* bind *********************************************************************/
@@ -24,27 +24,27 @@
             defined(__GNUC__) && defined(__GNUC_MINOR__) && \
             __GNUC__ >= 4 && __GNUC_MINOR__ >= 5 \
         )
-#       define TETENGO2_CPP0X_STD_BIND_SUPPORTED 1
+#       define TETENGO2_CPP11_STD_BIND_SUPPORTED 1
 #   else
-#       define TETENGO2_CPP0X_STD_BIND_SUPPORTED 0
+#       define TETENGO2_CPP11_STD_BIND_SUPPORTED 0
 #   endif
 #endif
 
 #include <functional>
-#if !TETENGO2_CPP0X_STD_BIND_SUPPORTED
+#if !TETENGO2_CPP11_STD_BIND_SUPPORTED
 #   include <boost/bind.hpp>
 #endif
 
-#if TETENGO2_CPP0X_STD_BIND_SUPPORTED || defined(DOCUMENTATION)
+#if TETENGO2_CPP11_STD_BIND_SUPPORTED || defined(DOCUMENTATION)
     //! The alternative to std::bind.
-#   define TETENGO2_CPP0X_BIND std::bind
+#   define TETENGO2_CPP11_BIND std::bind
 #else
-#   define TETENGO2_CPP0X_BIND boost::bind
+#   define TETENGO2_CPP11_BIND boost::bind
 #endif
 
-namespace tetengo2 { namespace cpp0x
+namespace tetengo2 { namespace cpp11
 {
-#if TETENGO2_CPP0X_STD_BIND_SUPPORTED || defined(DOCUMENTATION)
+#if TETENGO2_CPP11_STD_BIND_SUPPORTED || defined(DOCUMENTATION)
     /*!
         \brief The function for the placeholder #1 for bind().
 
@@ -222,20 +222,20 @@ namespace tetengo2 { namespace cpp0x
             defined(__GNUC__) && defined(__GNUC_MINOR__) && \
             __GNUC__ >= 4 && __GNUC_MINOR__ >= 3 \
         )
-#       define TETENGO2_CPP0X_STD_REFERENCEWRAPPER_SUPPORTED 1
+#       define TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED 1
 #   else
-#       define TETENGO2_CPP0X_STD_REFERENCEWRAPPER_SUPPORTED 0
+#       define TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED 0
 #   endif
 #endif
 
 // <functional> is included above.
-#if !TETENGO2_CPP0X_STD_REFERENCEWRAPPER_SUPPORTED
+#if !TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED
 #   include <boost/ref.hpp>
 #endif
 
-namespace tetengo2 { namespace cpp0x
+namespace tetengo2 { namespace cpp11
 {
-#if TETENGO2_CPP0X_STD_REFERENCEWRAPPER_SUPPORTED || defined(DOCUMENTATION)
+#if TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED || defined(DOCUMENTATION)
     /*!
         \brief The meta function for reference wrapper implementation.
 

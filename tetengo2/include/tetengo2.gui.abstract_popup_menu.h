@@ -90,7 +90,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the abstract_popup_menu.
         */
         virtual ~abstract_popup_menu()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

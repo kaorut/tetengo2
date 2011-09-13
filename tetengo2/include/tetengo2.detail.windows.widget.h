@@ -1021,11 +1021,11 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The children.
         */
         template <typename Child, typename Widget>
-        static std::vector<typename cpp0x::reference_wrapper<Child>::type>
+        static std::vector<typename cpp11::reference_wrapper<Child>::type>
         children(Widget& widget)
         {
             std::vector<
-                typename cpp0x::reference_wrapper<Child>::type
+                typename cpp11::reference_wrapper<Child>::type
             > children;
 
             ::EnumChildWindows(
@@ -1360,7 +1360,7 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::WPARAM wParam,
             const ::LPARAM lParam
         )
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {
             try
             {
@@ -1463,16 +1463,16 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::LPARAM parameter
         )
         {
-            std::vector<typename cpp0x::reference_wrapper<Child>::type>* const
+            std::vector<typename cpp11::reference_wrapper<Child>::type>* const
             p_children =
                 reinterpret_cast<
                     std::vector<
-                        typename cpp0x::reference_wrapper<Child>::type
+                        typename cpp11::reference_wrapper<Child>::type
                     >*
                 >(parameter);
 
             p_children->push_back(
-                cpp0x::ref(*p_widget_from<Child>(window_handle))
+                cpp11::ref(*p_widget_from<Child>(window_handle))
             );
 
             return TRUE;

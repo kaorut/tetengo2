@@ -58,7 +58,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the menu command.
         */
         virtual ~menu_command()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

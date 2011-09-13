@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the system cursor.
         */
         virtual ~system_cursor()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

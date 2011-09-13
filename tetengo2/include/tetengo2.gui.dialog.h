@@ -124,7 +124,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the dialog.
         */
         virtual ~dialog()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -162,7 +162,7 @@ namespace tetengo2 { namespace gui
             parent_window.set_enabled(false);
 
             this->window_observer_set().destroyed().connect(
-                TETENGO2_CPP0X_BIND(message_loop_break_type(), 0)
+                TETENGO2_CPP11_BIND(message_loop_break_type(), 0)
             );
             this->set_visible(true);
 

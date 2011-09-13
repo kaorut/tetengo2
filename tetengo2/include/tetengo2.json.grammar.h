@@ -393,34 +393,34 @@ namespace tetengo2 { namespace json
             // 2.1. Values
             m_value =
                 m_false[
-                    TETENGO2_CPP0X_BIND(
+                    TETENGO2_CPP11_BIND(
                         &grammar::boolean_passed,
                         this,
-                        cpp0x::placeholders_1()
+                        cpp11::placeholders_1()
                     )
                 ] |
                 m_null[
-                    TETENGO2_CPP0X_BIND(
-                        &grammar::null_passed, this, cpp0x::placeholders_1()
+                    TETENGO2_CPP11_BIND(
+                        &grammar::null_passed, this, cpp11::placeholders_1()
                     )
                 ] |
                 m_true[
-                    TETENGO2_CPP0X_BIND(
+                    TETENGO2_CPP11_BIND(
                         &grammar::boolean_passed,
                         this,
-                        cpp0x::placeholders_1()
+                        cpp11::placeholders_1()
                     )
                 ] |
                 m_object |
                 m_array |
                 m_number[
-                    TETENGO2_CPP0X_BIND(
-                        &grammar::number_passed, this, cpp0x::placeholders_1()
+                    TETENGO2_CPP11_BIND(
+                        &grammar::number_passed, this, cpp11::placeholders_1()
                     )
                 ] |
                 m_string[
-                    TETENGO2_CPP0X_BIND(
-                        &grammar::string_passed, this, cpp0x::placeholders_1()
+                    TETENGO2_CPP11_BIND(
+                        &grammar::string_passed, this, cpp11::placeholders_1()
                     )
                 ];
             m_value.name("value");
@@ -434,27 +434,27 @@ namespace tetengo2 { namespace json
             // 2.2. Objects
             m_object =
                 m_begin_object[
-                    TETENGO2_CPP0X_BIND(
-                        &grammar::object_begun, this, cpp0x::placeholders_1()
+                    TETENGO2_CPP11_BIND(
+                        &grammar::object_begun, this, cpp11::placeholders_1()
                     )
                 ] >>
                 -(m_member >> *(m_value_separator >> m_member)) >>
                 m_end_object[
-                    TETENGO2_CPP0X_BIND(
-                        &grammar::object_ended, this, cpp0x::placeholders_1()
+                    TETENGO2_CPP11_BIND(
+                        &grammar::object_ended, this, cpp11::placeholders_1()
                     )
                 ];
             m_object.name("object");
             m_member =
                 m_string[
-                    TETENGO2_CPP0X_BIND(
-                        &grammar::member_begun, this, cpp0x::placeholders_1()
+                    TETENGO2_CPP11_BIND(
+                        &grammar::member_begun, this, cpp11::placeholders_1()
                     )
                 ] >>
                 m_name_separator >>
                 m_value[
-                    TETENGO2_CPP0X_BIND(
-                        &grammar::member_ended, this, cpp0x::placeholders_1()
+                    TETENGO2_CPP11_BIND(
+                        &grammar::member_ended, this, cpp11::placeholders_1()
                     )
                 ];
             m_member.name("member");
@@ -462,14 +462,14 @@ namespace tetengo2 { namespace json
             // 2.3. Arrays
             m_array =
                 m_begin_array[
-                    TETENGO2_CPP0X_BIND(
-                        &grammar::array_begun, this, cpp0x::placeholders_1()
+                    TETENGO2_CPP11_BIND(
+                        &grammar::array_begun, this, cpp11::placeholders_1()
                     )
                 ] >>
                 -(m_value >> *(m_value_separator >> m_value)) >>
                 m_end_array[
-                    TETENGO2_CPP0X_BIND(
-                        &grammar::array_ended, this, cpp0x::placeholders_1()
+                    TETENGO2_CPP11_BIND(
+                        &grammar::array_ended, this, cpp11::placeholders_1()
                     )
                 ];
             m_array.name("array");

@@ -79,15 +79,15 @@ namespace bobura { namespace command
     private:
         // variables
 
-        typename tetengo2::cpp0x::reference_wrapper<
+        typename tetengo2::cpp11::reference_wrapper<
             abstract_window_type
         >::type m_parent;
 
-        typename tetengo2::cpp0x::reference_wrapper<
+        typename tetengo2::cpp11::reference_wrapper<
             const message_catalog_type
         >::type m_message_catalog;
 
-        typename tetengo2::cpp0x::reference_wrapper<const settings_type>::type
+        typename tetengo2::cpp11::reference_wrapper<const settings_type>::type
         m_settings;
 
 

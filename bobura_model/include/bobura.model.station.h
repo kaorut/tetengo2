@@ -100,7 +100,7 @@ namespace bobura { namespace model
 
         name_type m_name;
 
-        typename tetengo2::cpp0x::reference_wrapper<const grade_type>::type
+        typename tetengo2::cpp11::reference_wrapper<const grade_type>::type
         m_grade;
 
 

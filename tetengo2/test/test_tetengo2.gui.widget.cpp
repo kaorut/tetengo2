@@ -202,7 +202,7 @@ namespace
         }
 
         virtual ~concrete_widget()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

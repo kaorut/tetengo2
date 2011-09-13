@@ -199,7 +199,7 @@ namespace
         }
 
         virtual ~concrete_window()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
         virtual boost::optional<const details_type&> details_impl()

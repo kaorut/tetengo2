@@ -111,7 +111,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the image.
         */
         virtual ~image()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -200,8 +200,8 @@ namespace tetengo2 { namespace gui
             initialize(p_image);
 
             p_image->paint_observer_set().paint().connect(
-                TETENGO2_CPP0X_BIND(
-                    &image::paint_picture, p_image, cpp0x::placeholders_1()
+                TETENGO2_CPP11_BIND(
+                    &image::paint_picture, p_image, cpp11::placeholders_1()
                 )
             );
         }

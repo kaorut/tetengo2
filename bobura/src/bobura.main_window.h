@@ -104,7 +104,7 @@ namespace bobura
             \brief Destroys the main window.
         */
         virtual ~main_window()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -180,7 +180,7 @@ namespace bobura
         void set_message_observers()
         {
             this->window_observer_set().destroyed().connect(
-                TETENGO2_CPP0X_BIND(message_loop_break_type(), 0)
+                TETENGO2_CPP11_BIND(message_loop_break_type(), 0)
             );
 
             this->paint_observer_set().paint().connect(

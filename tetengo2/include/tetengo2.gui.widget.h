@@ -130,7 +130,7 @@ namespace tetengo2 { namespace gui
             \brief Destroys the widget.
         */
         virtual ~widget()
-        TETENGO2_CPP0X_NOEXCEPT
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
@@ -465,7 +465,7 @@ namespace tetengo2 { namespace gui
 
             \return The children.
         */
-        std::vector<typename cpp0x::reference_wrapper<const child_type>::type>
+        std::vector<typename cpp11::reference_wrapper<const child_type>::type>
         children()
         const
         {
@@ -479,7 +479,7 @@ namespace tetengo2 { namespace gui
 
             \return The children.
         */
-        std::vector<typename cpp0x::reference_wrapper<child_type>::type>
+        std::vector<typename cpp11::reference_wrapper<child_type>::type>
         children()
         {
             return widget_details_type::template children<child_type>(*this);

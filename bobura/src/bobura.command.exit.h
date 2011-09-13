@@ -56,7 +56,7 @@ namespace bobura { namespace command
     private:
         // variables
 
-        typename tetengo2::cpp0x::reference_wrapper<window_type>::type
+        typename tetengo2::cpp11::reference_wrapper<window_type>::type
         m_window;
 
 
