@@ -144,7 +144,7 @@ BOOST_AUTO_TEST_SUITE(grammar)
         const grammar_type grammar;
     }
 
-    BOOST_AUTO_TEST_CASE(add_structure_observer)
+    BOOST_AUTO_TEST_CASE(structure_passed)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -153,14 +153,14 @@ BOOST_AUTO_TEST_SUITE(grammar)
 
             grammar_type g;
             std::string output;
-            g.add_structure_observer(
+            g.structure_passed().connect(
                 TETENGO2_CPP11_BIND(
                     on_structure,
                     tetengo2::cpp11::ref(output),
                     tetengo2::cpp11::placeholders_1()
                 )
             );
-            g.add_value_observer(
+            g.value_passed().connect(
                 TETENGO2_CPP11_BIND(
                     on_value,
                     tetengo2::cpp11::ref(output),
@@ -183,14 +183,14 @@ BOOST_AUTO_TEST_SUITE(grammar)
 
             grammar_type g;
             std::string output;
-            g.add_structure_observer(
+            g.structure_passed().connect(
                 TETENGO2_CPP11_BIND(
                     on_structure,
                     tetengo2::cpp11::ref(output),
                     tetengo2::cpp11::placeholders_1()
                 )
             );
-            g.add_value_observer(
+            g.value_passed().connect(
                 TETENGO2_CPP11_BIND(
                     on_value,
                     tetengo2::cpp11::ref(output),
@@ -211,7 +211,7 @@ BOOST_AUTO_TEST_SUITE(grammar)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(add_value_observer)
+    BOOST_AUTO_TEST_CASE(value_passed)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -220,14 +220,14 @@ BOOST_AUTO_TEST_SUITE(grammar)
 
             grammar_type g;
             std::string output;
-            g.add_structure_observer(
+            g.structure_passed().connect(
                 TETENGO2_CPP11_BIND(
                     on_structure,
                     tetengo2::cpp11::ref(output),
                     tetengo2::cpp11::placeholders_1()
                 )
             );
-            g.add_value_observer(
+            g.value_passed().connect(
                 TETENGO2_CPP11_BIND(
                     on_value,
                     tetengo2::cpp11::ref(output),

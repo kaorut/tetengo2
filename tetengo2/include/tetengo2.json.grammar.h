@@ -67,6 +67,18 @@ namespace tetengo2 { namespace json
             value_type_null,    //!< A null.
         };
 
+        //! The structure signal type.
+        typedef
+            boost::signals2::signal<void (structure_type_type)>
+            structure_signal_type;
+
+        //! The value signal type.
+        typedef
+            boost::signals2::signal<
+                void (value_type_type, const string_type&)
+            >
+            value_signal_type;
+
         //! The rule type.
         typedef boost::spirit::qi::rule<iterator, string_type ()> rule_type;
 
@@ -79,8 +91,8 @@ namespace tetengo2 { namespace json
         grammar()
         :
         grammar::base_type(m_json_text, "json"),
-        m_structure_observers(),
-        m_value_observers(),
+        m_structure_passed(),
+        m_value_passed(),
         m_json_text(),
         m_begin_array(),
         m_begin_object(),
@@ -119,40 +131,55 @@ namespace tetengo2 { namespace json
         // functions
         
         /*!
-            \brief Adds a structure observer.
+            \brief Returns the structure signal.
 
-            The observers are called when the parser parses the beginning and
+            The signal is called when the parser parses the beginning and
             the ending tokens of an object, a member and an array structure.
 
-            The structure observer must have a signiture
-            void (structure_type_type).
-
-            \tparam Observer A structure observer type.
-
-            \param observer A structure observer.
+            \return The structure signal.
         */
-        template <typename Observer>
-        void add_structure_observer(const Observer observer)
+        const structure_signal_type& structure_passed()
+        const
         {
-            m_structure_observers.connect(observer);
+            return m_structure_passed;
         }
 
         /*!
-            \brief Adds a value observer.
+            \brief Returns the structure signal.
 
-            The observers are called when the parser parses a value.
+            The signal is called when the parser parses the beginning and
+            the ending tokens of an object, a member and an array structure.
 
-            The structure observer must have a signiture
-            void (value_type_type, const string_type&).
-
-            \tparam Observer A structure observer type.
-
-            \param observer A value observer.
+            \return The structure signal.
         */
-        template <typename Observer>
-        void add_value_observer(const Observer observer)
+        structure_signal_type& structure_passed()
         {
-            m_value_observers.connect(observer);
+            return m_structure_passed;
+        }
+
+        /*!
+            \brief Returns the value signal.
+
+            The signal is called when the parser parses a value.
+
+            \return The value signal.
+        */
+        const value_signal_type& value_passed()
+        const
+        {
+            return m_value_passed;
+        }
+
+        /*!
+            \brief Returns the value signal.
+
+            The signal is called when the parser parses a value.
+
+            \return The value signal.
+        */
+        value_signal_type& value_passed()
+        {
+            return m_value_passed;
         }
 
         /*!
@@ -242,11 +269,9 @@ namespace tetengo2 { namespace json
 
         // variables
 
-        boost::signals2::signal<void (structure_type_type)>
-        m_structure_observers;
+        structure_signal_type m_structure_passed;
 
-        boost::signals2::signal<void (value_type_type, const string_type&)>
-        m_value_observers;
+        value_signal_type m_value_passed;
 
         rule_type m_json_text;
 
@@ -313,53 +338,53 @@ namespace tetengo2 { namespace json
 
         void object_begun(const boost::spirit::qi::unused_type&)
         {
-            m_structure_observers(structure_type_object_begin);
+            m_structure_passed(structure_type_object_begin);
         }
 
         void object_ended(const boost::spirit::qi::unused_type&)
         {
-            m_structure_observers(structure_type_object_end);
+            m_structure_passed(structure_type_object_end);
         }
 
         void member_begun(const string_type& attribute)
         {
-            m_structure_observers(structure_type_member_begin);
-            m_value_observers(value_type_string, attribute);
+            m_structure_passed(structure_type_member_begin);
+            m_value_passed(value_type_string, attribute);
         }
 
         void member_ended(const boost::spirit::qi::unused_type&)
         {
-            m_structure_observers(structure_type_member_end);
+            m_structure_passed(structure_type_member_end);
         }
 
         void array_begun(const boost::spirit::qi::unused_type&)
         {
-            m_structure_observers(structure_type_array_begin);
+            m_structure_passed(structure_type_array_begin);
         }
 
         void array_ended(const boost::spirit::qi::unused_type&)
         {
-            m_structure_observers(structure_type_array_end);
+            m_structure_passed(structure_type_array_end);
         }
 
         void string_passed(const string_type& attribute)
         {
-            m_value_observers(value_type_string, attribute);
+            m_value_passed(value_type_string, attribute);
         }
 
         void number_passed(const string_type& attribute)
         {
-            m_value_observers(value_type_number, attribute);
+            m_value_passed(value_type_number, attribute);
         }
 
         void boolean_passed(const string_type& attribute)
         {
-            m_value_observers(value_type_boolean, attribute);
+            m_value_passed(value_type_boolean, attribute);
         }
 
         void null_passed(const string_type& attribute)
         {
-            m_value_observers(value_type_null, attribute);
+            m_value_passed(value_type_null, attribute);
         }
 
         void define_rules()
