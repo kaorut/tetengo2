@@ -7,9 +7,12 @@
 */
 
 #include <string>
+#include <utility>
 
+#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.json.grammar.h"
 #include "tetengo2.unique.h"
 
@@ -28,14 +31,30 @@ namespace
         >
         push_parser_type;
 
+    typedef
+        std::pair<
+            push_parser_type::structure_type,
+            boost::optional<push_parser_type::value_type>
+        >
+        parsed_structure_type;
+
 
     // functions
 
     void observer0(
-        push_parser_type::structure_type    structure,
-        const push_parser_type::value_type& value
-        )
+        push_parser_type::structure_type                     structure,
+        const boost::optional<push_parser_type::value_type>& value
+    )
     {}
+
+    void observer1(
+        push_parser_type::structure_type                     structure,
+        const boost::optional<push_parser_type::value_type>& value,
+        std::vector<parsed_structure_type>&                  parsed_structures
+    )
+    {
+        parsed_structures.push_back(std::make_pair(structure, value));
+    }
 
 
 }
@@ -104,6 +123,26 @@ BOOST_AUTO_TEST_SUITE(push_parser)
     {
         BOOST_TEST_PASSPOINT();
 
+        {
+            const std::string input ;
+            std::vector<parsed_structure_type> parsed_structures;
+
+            push_parser_type parser(
+                input.begin(),
+                input.end(),
+                tetengo2::make_unique<grammar_type>()
+            );
+            parser.structure_passed().connect(
+                TETENGO2_CPP11_BIND(
+                    observer1,
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2(),
+                    tetengo2::cpp11::ref(parsed_structures)
+                )
+            );
+
+            BOOST_CHECK(!parser.parse());
+        }
     }
 
     

@@ -10,10 +10,13 @@
 #define TETENGO2_JSON_PUSHPARSER_H
 
 #include <memory>
+#include <stdexcept>
 #include <string>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/signals2.hpp>
+#include <boost/spirit/include/qi.hpp>
 #include <boost/variant.hpp>
 
 
@@ -72,7 +75,9 @@ namespace tetengo2 { namespace json
 
         //! The signal type.
         typedef
-            boost::signals2::signal<void (structure_type, const value_type&)>
+            boost::signals2::signal<
+                void (structure_type, const boost::optional<value_type>&)
+            >
             signal_type;
 
 
@@ -94,7 +99,10 @@ namespace tetengo2 { namespace json
         m_first(first),
         m_last(last),
         m_p_grammar(std::move(p_grammar))
-        {}
+        {
+            if (!m_p_grammar)
+                throw std::invalid_argument("The grammar is NULL.");
+        }
 
 
         // functions
@@ -122,11 +130,17 @@ namespace tetengo2 { namespace json
 
         /*!
             \brief Parses the range.
+
+            \retval true  When the parsing is finished successfully.
+            \retval false Otherwise.
         */
-        void parse()
+        bool parse()
         const
         {
-
+            iterator first = m_first;
+            const bool result =
+                boost::spirit::qi::parse(first, m_last, *m_p_grammar);
+            return result && first == m_last;
         }
 
 
