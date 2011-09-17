@@ -9,9 +9,12 @@
 #if !defined(TETENGO2_JSON_PUSHPARSER_H)
 #define TETENGO2_JSON_PUSHPARSER_H
 
-#include <utility>
+#include <memory>
+#include <string>
 
 #include <boost/noncopyable.hpp>
+#include <boost/signals2.hpp>
+#include <boost/variant.hpp>
 
 
 namespace tetengo2 { namespace json
@@ -21,8 +24,15 @@ namespace tetengo2 { namespace json
 
         \tparam ForwardIterator A forward iterator type.
         \tparam Grammar         A grammar type.
+        \tparam Integer         An integer type.
+        \tparam Float           A floating point number type.
     */
-    template <typename ForwardIterator, typename Grammar>
+    template <
+        typename ForwardIterator,
+        typename Grammar,
+        typename Integer,
+        typename Float
+    >
     class push_parser : private boost::noncopyable
     {
     public:
@@ -34,29 +44,82 @@ namespace tetengo2 { namespace json
         //! The grammar type.
         typedef Grammar grammar_type;
 
+        //! The integer type.
+        typedef Integer integer_type;
+
+        //! The floating point number type.
+        typedef Float float_type;
+
+        //! The structure type.
+        enum structure_type
+        {
+            structure_object_begin, //!< An object begin.
+            structure_object_end,   //!< An object end.
+            structure_member_begin, //!< A member begin.
+            structure_member_end,   //!< A member end.
+            structure_array_begin,  //!< An array begin.
+            structure_array_end,    //!< An array end.
+            structure_value,        //!< A value.
+        };
+
+        //! The string type.
+        typedef std::basic_string<typename iterator::value_type> string_type;
+
+        //! The value type.
+        typedef
+            boost::variant<bool, void*, integer_type, float_type, string_type>
+            value_type;
+
+        //! The signal type.
+        typedef
+            boost::signals2::signal<void (structure_type, const value_type&)>
+            signal_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a push parser.
 
-            \tparam G A grammar type.
-
-            \param first   A first iterator to a parsed range.
-            \param last    A last iterator to a parsed range.
-            \param grammar A grammer.
+            \param first     A first iterator to a parsed range.
+            \param last      A last iterator to a parsed range.
+            \param p_grammar A unique pointer to a grammer.
         */
-        template <typename G>
-        push_parser(const iterator first, const iterator last, G&& grammar)
+        push_parser(
+            const iterator                first,
+            const iterator                last,
+            std::unique_ptr<grammar_type> p_grammar
+        )
         :
         m_first(first),
         m_last(last),
-        m_grammer(std::forward<G>(grammar))
+        m_p_grammar(std::move(p_grammar))
         {}
 
 
         // functions
         
+        /*!
+            \brief Returns the signal.
+            
+            \return The signal.
+        */
+        const signal_type& structure_passed()
+        const
+        {
+            return m_signal;
+        }
+
+        /*!
+            \brief Returns the signal.
+            
+            \return The signal.
+        */
+        signal_type& structure_passed()
+        {
+            return m_signal;
+        }
+
         /*!
             \brief Parses the range.
         */
@@ -74,7 +137,9 @@ namespace tetengo2 { namespace json
 
         const iterator m_last;
 
-        grammar_type m_grammar;
+        const std::unique_ptr<grammar_type> m_p_grammar;
+
+        signal_type m_signal;
 
     
     };
