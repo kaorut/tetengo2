@@ -42,13 +42,13 @@ namespace
     // functions
 
     void observer0(
-        push_parser_type::structure_type                     structure,
+        const push_parser_type::structure_type               structure,
         const boost::optional<push_parser_type::value_type>& value
     )
     {}
 
     void observer1(
-        push_parser_type::structure_type                     structure,
+        const push_parser_type::structure_type               structure,
         const boost::optional<push_parser_type::value_type>& value,
         std::vector<parsed_structure_type>&                  parsed_structures
     )
@@ -124,8 +124,8 @@ BOOST_AUTO_TEST_SUITE(push_parser)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::string input ;
-            std::vector<parsed_structure_type> parsed_structures;
+            const std::string input;
+            std::vector<parsed_structure_type> parsed;
 
             push_parser_type parser(
                 input.begin(),
@@ -137,11 +137,75 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                     observer1,
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(parsed_structures)
+                    tetengo2::cpp11::ref(parsed)
                 )
             );
 
             BOOST_CHECK(!parser.parse());
+        }
+        {
+            const std::string input = "[]";
+            std::vector<parsed_structure_type> parsed;
+
+            push_parser_type parser(
+                input.begin(),
+                input.end(),
+                tetengo2::make_unique<grammar_type>()
+            );
+            parser.structure_passed().connect(
+                TETENGO2_CPP11_BIND(
+                    observer1,
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2(),
+                    tetengo2::cpp11::ref(parsed)
+                )
+            );
+
+            BOOST_CHECK(parser.parse());
+            BOOST_CHECK_EQUAL(parsed.size(), 2);
+
+            BOOST_CHECK_EQUAL(
+                parsed[0].first, push_parser_type::structure_array_begin
+            );
+
+            BOOST_CHECK_EQUAL(
+                parsed[1].first, push_parser_type::structure_array_end
+            );
+        }
+        {
+            const std::string input =
+                "["
+                "    false,"
+                "    null,"
+                "    true,"
+                "    \"hoge\""
+                "]";
+            std::vector<parsed_structure_type> parsed;
+
+            push_parser_type parser(
+                input.begin(),
+                input.end(),
+                tetengo2::make_unique<grammar_type>()
+            );
+            parser.structure_passed().connect(
+                TETENGO2_CPP11_BIND(
+                    observer1,
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2(),
+                    tetengo2::cpp11::ref(parsed)
+                )
+            );
+
+            BOOST_CHECK(parser.parse());
+            BOOST_CHECK_EQUAL(parsed.size(), 6);
+
+            BOOST_CHECK_EQUAL(
+                parsed[0].first, push_parser_type::structure_array_begin
+            );
+
+            BOOST_CHECK_EQUAL(
+                parsed[5].first, push_parser_type::structure_array_end
+            );
         }
     }
 

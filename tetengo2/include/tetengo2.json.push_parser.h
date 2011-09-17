@@ -19,6 +19,8 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/variant.hpp>
 
+#include "tetengo2.cpp11.h"
+
 
 namespace tetengo2 { namespace json
 {
@@ -102,6 +104,22 @@ namespace tetengo2 { namespace json
         {
             if (!m_p_grammar)
                 throw std::invalid_argument("The grammar is NULL.");
+
+            m_p_grammar->structure_passed().connect(
+                TETENGO2_CPP11_BIND(
+                    &push_parser::observe_structure,
+                    this,
+                    cpp11::placeholders_1()
+                )
+            );
+            m_p_grammar->value_passed().connect(
+                TETENGO2_CPP11_BIND(
+                    &push_parser::observe_value,
+                    this,
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
         }
 
 
@@ -145,6 +163,33 @@ namespace tetengo2 { namespace json
 
 
     private:
+        // static functions
+
+        structure_type to_structure(
+            typename grammar_type::structure_type_type grammar_structure_type
+        )
+        {
+            switch(grammar_structure_type)
+            {
+            case grammar_type::structure_type_object_begin:
+                return structure_object_begin;
+            case grammar_type::structure_type_object_end:
+                return structure_object_end;
+            case grammar_type::structure_type_member_begin:
+                return structure_member_begin;
+            case grammar_type::structure_type_member_end:
+                return structure_member_end;
+            case grammar_type::structure_type_array_begin:
+                return structure_array_begin;
+            case grammar_type::structure_type_array_end:
+                return structure_array_end;
+            default:
+                assert(false);
+                throw std::logic_error("Must not come here.");
+            }
+        }
+
+
         // variables
 
         const iterator m_first;
@@ -155,7 +200,25 @@ namespace tetengo2 { namespace json
 
         signal_type m_signal;
 
-    
+
+        // functions
+
+        void observe_structure(
+            const typename grammar_type::structure_type_type structure_type
+        )
+        {
+            m_signal(to_structure(structure_type), boost::none);
+        }
+
+        void observe_value(
+            const typename grammar_type::value_type_type value_type,
+            const string_type&                           value
+        )
+        {
+            m_signal(structure_value, boost::none);
+        }
+
+
     };
 
 
