@@ -13,13 +13,16 @@
 #include <stdexcept>
 #include <string>
 
+#include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
+#include <boost/utility.hpp>
 #include <boost/variant.hpp>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace json
@@ -189,6 +192,68 @@ namespace tetengo2 { namespace json
             }
         }
 
+        value_type to_value(
+            const typename grammar_type::value_type_type value_type,
+            const string_type&                           string_value
+        )
+        {
+            switch (value_type)
+            {
+            case grammar_type::value_type_string:
+                return to_string(string_value);
+            case grammar_type::value_type_number:
+                return to_number(string_value);
+            case grammar_type::value_type_boolean:
+                return to_boolean(string_value);
+            case grammar_type::value_type_null:
+                return to_null(string_value);
+            default:
+                assert(false);
+                throw std::logic_error("Must not come here.");
+            }
+        }
+
+        string_type to_string(const string_type& string_value)
+        {
+            assert(string_value.length() >= 2);
+
+            return string_type(
+                boost::next(string_value.begin()),
+                boost::prior(string_value.end())
+            );
+        }
+
+        value_type to_number(const string_type& string_value)
+        {
+            return
+                string_value.find(TETENGO2_TEXT(".")) == string_type::npos ?
+                to_number_impl<integer_type>(string_value) :
+                to_number_impl<float_type>(string_value);
+        }
+
+        template <typename T>
+        T to_number_impl(const string_type& string_value)
+        {
+            return boost::lexical_cast<T>(string_value);
+        }
+
+        bool to_boolean(const string_type& string_value)
+        {
+            assert(
+                string_value == string_type(TETENGO2_TEXT("true")) ||
+                string_value == string_type(TETENGO2_TEXT("false"))
+            );
+
+            return string_value == string_type(TETENGO2_TEXT("true"));
+        }
+
+        void* to_null(const string_type& string_value)
+        {
+            assert(string_value == string_type(TETENGO2_TEXT("null")));
+
+            return NULL;
+        }
+
 
         // variables
 
@@ -215,7 +280,10 @@ namespace tetengo2 { namespace json
             const string_type&                           value
         )
         {
-            m_signal(structure_value, boost::none);
+            m_signal(
+                structure_value,
+                boost::make_optional(to_value(value_type, value))
+            );
         }
 
 

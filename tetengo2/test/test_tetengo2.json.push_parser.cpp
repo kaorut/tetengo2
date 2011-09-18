@@ -11,6 +11,7 @@
 
 #include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/variant.hpp>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.json.grammar.h"
@@ -202,6 +203,34 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK_EQUAL(
                 parsed[0].first, push_parser_type::structure_array_begin
             );
+
+            BOOST_CHECK_EQUAL(
+                parsed[1].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[1].second);
+            BOOST_CHECK_EQUAL(parsed[1].second->which(), 0);
+            BOOST_CHECK(!boost::get<bool>(*parsed[1].second));
+
+            BOOST_CHECK_EQUAL(
+                parsed[2].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[2].second);
+            BOOST_CHECK_EQUAL(parsed[2].second->which(), 1);
+            BOOST_CHECK(!boost::get<void*>(*parsed[2].second));
+
+            BOOST_CHECK_EQUAL(
+                parsed[3].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[3].second);
+            BOOST_CHECK_EQUAL(parsed[3].second->which(), 0);
+            BOOST_CHECK(boost::get<bool>(*parsed[3].second));
+
+            BOOST_CHECK_EQUAL(
+                parsed[4].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[4].second);
+            BOOST_CHECK_EQUAL(parsed[4].second->which(), 4);
+            BOOST_CHECK(boost::get<std::string>(*parsed[4].second) == "hoge");
 
             BOOST_CHECK_EQUAL(
                 parsed[5].first, push_parser_type::structure_array_end
