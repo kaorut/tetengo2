@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_JSON_PUSHPARSER_H)
 #define TETENGO2_JSON_PUSHPARSER_H
 
+#include <cmath>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -225,16 +226,53 @@ namespace tetengo2 { namespace json
 
         value_type to_number(const string_type& string_value)
         {
-            return
-                string_value.find(TETENGO2_TEXT(".")) == string_type::npos ?
-                to_number_impl<integer_type>(string_value) :
-                to_number_impl<float_type>(string_value);
+            const typename string_type::size_type exp_index =
+                string_value.find_first_of("eE");
+            if (exp_index != string_type::npos)
+                return to_number_exp(string_value, exp_index);
+
+            const typename string_type::size_type fp_index =
+                string_value.find('.');
+            if (fp_index != string_type::npos)
+                return to_number_impl<float_type>(string_value);
+
+            return to_number_impl<integer_type>(string_value);
         }
 
         template <typename T>
-        T to_number_impl(const string_type& string_value)
+        boost::variant<T> to_number_impl(const string_type& string_value)
         {
-            return boost::lexical_cast<T>(string_value);
+            try
+            {
+                return boost::lexical_cast<T>(string_value);
+            }
+            catch (const boost::bad_lexical_cast&)
+            {
+                return boost::variant<T>(0);
+            }
+        }
+
+        boost::variant<float_type> to_number_exp(
+            const string_type&                    string_value,
+            const typename string_type::size_type exp_index
+        )
+        {
+            try
+            {
+                const float_type fraction =
+                    boost::lexical_cast<float_type>(
+                        string_value.substr(0, exp_index)
+                    );
+                const float_type exp =
+                    boost::lexical_cast<float_type>(
+                        string_value.substr(exp_index + 1)
+                    );
+                return fraction * std::pow(10.0, exp);
+            }
+            catch (const boost::bad_lexical_cast&)
+            {
+                return boost::variant<float_type>(0);
+            }
         }
 
         bool to_boolean(const string_type& string_value)

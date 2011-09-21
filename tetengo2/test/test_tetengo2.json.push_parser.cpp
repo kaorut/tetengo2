@@ -236,6 +236,93 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 parsed[5].first, push_parser_type::structure_array_end
             );
         }
+        {
+            const std::string input =
+                "["
+                "    42,"
+                "    -42,"
+                "    42.42,"
+                "    42e+2,"
+                "    4200e-2,"
+                "    42.42e+2"
+                "]";
+            std::vector<parsed_structure_type> parsed;
+
+            push_parser_type parser(
+                input.begin(),
+                input.end(),
+                tetengo2::make_unique<grammar_type>()
+            );
+            parser.structure_passed().connect(
+                TETENGO2_CPP11_BIND(
+                    observer1,
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2(),
+                    tetengo2::cpp11::ref(parsed)
+                )
+            );
+
+            BOOST_CHECK(parser.parse());
+            BOOST_CHECK_EQUAL(parsed.size(), 8);
+
+            BOOST_CHECK_EQUAL(
+                parsed[0].first, push_parser_type::structure_array_begin
+            );
+
+            BOOST_CHECK_EQUAL(
+                parsed[1].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[1].second);
+            BOOST_CHECK_EQUAL(parsed[1].second->which(), 2);
+            BOOST_CHECK_EQUAL(boost::get<int>(*parsed[1].second), 42);
+
+            BOOST_CHECK_EQUAL(
+                parsed[2].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[2].second);
+            BOOST_CHECK_EQUAL(parsed[2].second->which(), 2);
+            BOOST_CHECK_EQUAL(boost::get<int>(*parsed[2].second), -42);
+
+            BOOST_CHECK_EQUAL(
+                parsed[3].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[3].second);
+            BOOST_CHECK_EQUAL(parsed[3].second->which(), 3);
+            BOOST_CHECK_CLOSE(
+                boost::get<double>(*parsed[3].second), 42.42, 0.001
+            );
+
+            BOOST_CHECK_EQUAL(
+                parsed[4].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[4].second);
+            BOOST_CHECK_EQUAL(parsed[4].second->which(), 3);
+            BOOST_CHECK_CLOSE(
+                boost::get<double>(*parsed[4].second), 4200.0, 0.001
+            );
+
+            BOOST_CHECK_EQUAL(
+                parsed[5].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[5].second);
+            BOOST_CHECK_EQUAL(parsed[5].second->which(), 3);
+            BOOST_CHECK_CLOSE(
+                boost::get<double>(*parsed[5].second), 42.0, 0.001
+            );
+
+            BOOST_CHECK_EQUAL(
+                parsed[6].first, push_parser_type::structure_value
+            );
+            BOOST_CHECK(parsed[6].second);
+            BOOST_CHECK_EQUAL(parsed[6].second->which(), 3);
+            BOOST_CHECK_CLOSE(
+                boost::get<double>(*parsed[6].second), 4242.0, 0.001
+            );
+
+            BOOST_CHECK_EQUAL(
+                parsed[7].first, push_parser_type::structure_array_end
+            );
+        }
     }
 
     
