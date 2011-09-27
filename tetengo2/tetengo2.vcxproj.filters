@@ -306,5 +306,8 @@
     <ClInclude Include="include\tetengo2.cpp11.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.concurrent.consumer.h">
+      <Filter>headers\tetengo2::concurrent</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

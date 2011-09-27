@@ -231,6 +231,7 @@ echo Skipping the unit test...
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="test\master.cpp" />
+    <ClCompile Include="test\test_tetengo2.concurrent.consumer.cpp" />
     <ClCompile Include="test\test_tetengo2.encoder.cpp" />
     <ClCompile Include="test\test_tetengo2.encoding.ascii.cpp" />
     <ClCompile Include="test\test_tetengo2.encoding.encoding.cpp" />

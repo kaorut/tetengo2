@@ -8,6 +8,7 @@ extra_headers =
 
 sources = \
     master.cpp \
+    test_tetengo2.concurrent.consumer.cpp \
     test_tetengo2.encoder.cpp \
     test_tetengo2.encoding.encoding.cpp \
     test_tetengo2.encoding.ascii.cpp \
