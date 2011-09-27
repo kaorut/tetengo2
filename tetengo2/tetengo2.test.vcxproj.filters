@@ -34,6 +34,9 @@
     <Filter Include="sources\test_tetengo2::json">
       <UniqueIdentifier>{b8773047-d16e-45e7-afae-0fae03880103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_tetengo2::concurrent">
+      <UniqueIdentifier>{d98ed1d5-d905-4e7b-a1b1-4249b8fb5ffb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">

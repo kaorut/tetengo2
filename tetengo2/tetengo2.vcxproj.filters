@@ -37,6 +37,9 @@
     <Filter Include="headers\tetengo2::json">
       <UniqueIdentifier>{7c6b6e30-2234-4de7-897f-5a58ac567517}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::concurrent">
+      <UniqueIdentifier>{d05b3433-0495-4046-adb4-cfb72b402d56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.encoder.h">
