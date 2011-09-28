@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_CONCURRENT_CONSUMER_H)
 #define TETENGO2_CONCURRENT_CONSUMER_H
 
+#include <stdexcept>
+
 #include <boost/noncopyable.hpp>
 
 
@@ -49,14 +51,31 @@ namespace tetengo2 { namespace concurrent
         // functions
         
         /*!
-            \brief Takes a value.
+            \brief Checks whether the channel is empty.
+
+            \retval true  When the channel is empty.
+            \retval false Otherwise.
+        */
+        bool empty()
+        const
+        {
+            return m_channel.empty();
+        }
+
+        /*!
+            \brief Pops and return a value.
 
             It extracts a value from the channel and the channel is shrinked.
 
             \return A value.
+
+            \throw std::logic_error When the channel is empty.
         */
         value_type pop()
         {
+            if (empty())
+                throw std::logic_error("The channel is empty.");
+
             return m_channel.pop();
         }
 

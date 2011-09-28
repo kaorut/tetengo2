@@ -21,10 +21,16 @@ namespace
     class channel_type : private boost::noncopyable
     {
     public:
-        channel_type()
+        channel_type(const bool empty)
         :
-        m_values(make_values())
+        m_values(make_values(empty))
         {}
+
+        bool empty()
+        const
+        {
+            return m_values.empty();
+        }
 
         int pop()
         {
@@ -34,13 +40,16 @@ namespace
         }
 
     private:
-        static std::queue<int> make_values()
+        static std::queue<int> make_values(const bool empty)
         {
             std::queue<int> queue;
 
-            queue.push(123);
-            queue.push(456);
-            queue.push(789);
+            if (!empty)
+            {
+                queue.push(123);
+                queue.push(456);
+                queue.push(789);
+            }
 
             return queue;
         }
@@ -62,20 +71,47 @@ BOOST_AUTO_TEST_SUITE(consumer)
     {
         BOOST_TEST_PASSPOINT();
 
-        channel_type channel; 
+        channel_type channel(true); 
         const consumer_type consumer(channel);
+    }
+
+    BOOST_AUTO_TEST_CASE(empty)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            channel_type channel(false); 
+            consumer_type consumer(channel);
+
+            BOOST_CHECK(!consumer.empty());
+        }
+        {
+            channel_type channel(true); 
+            consumer_type consumer(channel);
+
+            BOOST_CHECK(consumer.empty());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(pop)
     {
         BOOST_TEST_PASSPOINT();
 
-        channel_type channel; 
-        consumer_type consumer(channel);
+        {
+            channel_type channel(false); 
+            consumer_type consumer(channel);
 
-        BOOST_CHECK_EQUAL(consumer.pop(), 123);
-        BOOST_CHECK_EQUAL(consumer.pop(), 456);
-        BOOST_CHECK_EQUAL(consumer.pop(), 789);
+            BOOST_CHECK_EQUAL(consumer.pop(), 123);
+            BOOST_CHECK_EQUAL(consumer.pop(), 456);
+            BOOST_CHECK_EQUAL(consumer.pop(), 789);
+            BOOST_CHECK_THROW(consumer.pop(), std::logic_error);
+        }
+        {
+            channel_type channel(true); 
+            consumer_type consumer(channel);
+
+            BOOST_CHECK_THROW(consumer.pop(), std::logic_error);
+        }
     }
 
     
