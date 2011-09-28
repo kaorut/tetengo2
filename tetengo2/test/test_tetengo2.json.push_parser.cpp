@@ -6,12 +6,13 @@
     $Id$
 */
 
-#include <string>
-#include <utility>
+//#include <string>
+//#include <utility>
+#include <vector>
 
-#include <boost/optional.hpp>
+//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
-#include <boost/variant.hpp>
+//#include <boost/variant.hpp>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.json.grammar.h"

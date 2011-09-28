@@ -119,6 +119,7 @@ BOOST_AUTO_TEST_CASE                             boost/test/unit_test.hpp
 BOOST_AUTO_TEST_SUITE                            boost/test/unit_test.hpp
 BOOST_AUTO_TEST_SUITE_END                        boost/test/unit_test.hpp
 BOOST_CHECK                                      boost/test/unit_test.hpp
+BOOST_CHECK_CLOSE                                boost/test/unit_test.hpp
 BOOST_CHECK_EQUAL                                boost/test/unit_test.hpp
 BOOST_CHECK_GE                                   boost/test/unit_test.hpp
 BOOST_CHECK_LT                                   boost/test/unit_test.hpp
@@ -164,9 +165,9 @@ Gdiplus::TextRenderingHintClearTypeGridFit       GdiPlus.h,Windows.h
 Gdiplus::UnitPixel                               GdiPlus.h,Windows.h
 NULL                                             cstddef
 assert                                           cassert
+boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::basic_format                              boost/format.hpp
 boost::bind                                      boost/bind.hpp
-boost::checked_deleter                           boost/utility.hpp
 boost::cref                                      boost/ref.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
@@ -184,8 +185,8 @@ boost::fusion::vector3                           boost/fusion/include/all.hpp
 boost::get                                       boost/variant.hpp
 boost::get_error_info                            boost/exception/all.hpp
 boost::indirect_iterator                         boost/iterator/indirect_iterator.hpp
-boost::interprocess::unique_ptr                  boost/interprocess/smart_ptr/unique_ptr.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
+boost::lexical_cast                              boost/lexical_cast.hpp
 boost::make_optional                             boost/optional.hpp
 boost::make_transform_iterator                   boost/iterator/transform_iterator.hpp
 boost::mpl::at                                   boost/mpl/at.hpp
@@ -260,7 +261,6 @@ std::bind                                        functional
 std::codecvt                                     locale
 std::copy                                        algorithm
 std::cref                                        functional
-std::default_delete                              memory
 std::distance                                    iterator
 std::enable_if                                   type_traits
 std::endl                                        iomanip
@@ -305,7 +305,9 @@ std::placeholders::_6                            functional
 std::placeholders::_7                            functional
 std::placeholders::_8                            functional
 std::placeholders::_9                            functional
+std::pow                                         cmath
 std::ptrdiff_t                                   cstddef
+std::queue                                       queue
 std::ref                                         functional
 std::reference_wrapper                           functional
 std::remove_pointer                              type_traits

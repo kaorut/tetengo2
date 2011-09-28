@@ -9,10 +9,13 @@
 #if !defined(TETENGO2_JSON_PUSHPARSER_H)
 #define TETENGO2_JSON_PUSHPARSER_H
 
+#include <cassert>
 #include <cmath>
+#include <cstddef>
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <utility>
 
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>

@@ -851,15 +851,6 @@ BOOST_AUTO_TEST_SUITE(grammar)
             BOOST_CHECK(result);
         }
         {
-            const std::wstring input(L"\"hoge\"");
-
-            const wide_grammar_type g;
-            const bool result =
-                full_match(input.begin(), input.end(), g.string());
-
-            BOOST_CHECK(result);
-        }
-        {
             const std::string input("\"hoge\"fuga");
 
             const grammar_type g;

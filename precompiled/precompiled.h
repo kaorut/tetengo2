@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <cstddef>
 #include <cwchar>
 #include <exception>
@@ -24,6 +25,7 @@
 #include <limits>
 #include <locale>
 #include <memory>
+#include <queue>
 #include <sstream>
 #include <stack>
 #include <stdexcept>
@@ -45,11 +47,11 @@
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/fusion/include/all.hpp>
-#include <boost/interprocess/smart_ptr/unique_ptr.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/transform_iterator.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/aux_/na.hpp>
