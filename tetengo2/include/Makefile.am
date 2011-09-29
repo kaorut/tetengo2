@@ -4,6 +4,7 @@
 
 headers = \
     tetengo2.concurrent.consumer.h \
+    tetengo2.concurrent.producer.h \
     tetengo2.cpp11.h \
     tetengo2.detail.stub.alert.h \
     tetengo2.detail.stub.cursor.h \

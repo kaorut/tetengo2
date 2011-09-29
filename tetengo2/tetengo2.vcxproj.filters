@@ -309,5 +309,8 @@
     <ClInclude Include="include\tetengo2.concurrent.consumer.h">
       <Filter>headers\tetengo2::concurrent</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.concurrent.producer.h">
+      <Filter>headers\tetengo2::concurrent</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

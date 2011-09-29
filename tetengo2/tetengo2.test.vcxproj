@@ -232,6 +232,7 @@ echo Skipping the unit test...
     </ClCompile>
     <ClCompile Include="test\master.cpp" />
     <ClCompile Include="test\test_tetengo2.concurrent.consumer.cpp" />
+    <ClCompile Include="test\test_tetengo2.concurrent.producer.cpp" />
     <ClCompile Include="test\test_tetengo2.encoder.cpp" />
     <ClCompile Include="test\test_tetengo2.encoding.ascii.cpp" />
     <ClCompile Include="test\test_tetengo2.encoding.encoding.cpp" />
