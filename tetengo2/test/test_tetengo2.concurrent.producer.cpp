@@ -21,6 +21,8 @@ namespace
     class channel_type : private boost::noncopyable
     {
     public:
+        typedef int value_type;
+
         channel_type(const bool empty)
         :
         m_values(make_values(empty))
@@ -37,6 +39,11 @@ namespace
             const int result = m_values.front();
             m_values.pop();
             return result;
+        }
+
+        void push(int value)
+        {
+            m_values.push(value);
         }
 
     private:
@@ -57,6 +64,16 @@ namespace
         std::queue<int> m_values;
     };
 
+    void generate(channel_type& channel)
+    {
+        for (int count = 0; ; ++count)
+        {
+            if (count > 4) return;
+
+            channel.push(count * 10 + 10);
+        }
+    }
+
     typedef tetengo2::concurrent::producer<channel_type> producer_type;
 
 
@@ -71,14 +88,42 @@ BOOST_AUTO_TEST_SUITE(producer)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        channel_type channel(true);
+        producer_type producer(channel, generate);
+        producer.join();
     }
 
-    BOOST_AUTO_TEST_CASE(empty)
+    BOOST_AUTO_TEST_CASE(join)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            channel_type channel(true);
+            producer_type producer(channel, generate);
+            producer.join();
+
+            BOOST_CHECK_EQUAL(channel.pop(), 10);
+            BOOST_CHECK_EQUAL(channel.pop(), 20);
+            BOOST_CHECK_EQUAL(channel.pop(), 30);
+            BOOST_CHECK_EQUAL(channel.pop(), 40);
+            BOOST_CHECK_EQUAL(channel.pop(), 50);
+            BOOST_CHECK(channel.empty());
+        }
+        {
+            channel_type channel(false);
+            producer_type producer(channel, generate);
+            producer.join();
+
+            BOOST_CHECK_EQUAL(channel.pop(), 123);
+            BOOST_CHECK_EQUAL(channel.pop(), 456);
+            BOOST_CHECK_EQUAL(channel.pop(), 789);
+            BOOST_CHECK_EQUAL(channel.pop(), 10);
+            BOOST_CHECK_EQUAL(channel.pop(), 20);
+            BOOST_CHECK_EQUAL(channel.pop(), 30);
+            BOOST_CHECK_EQUAL(channel.pop(), 40);
+            BOOST_CHECK_EQUAL(channel.pop(), 50);
+            BOOST_CHECK(channel.empty());
+        }
     }
 
     

@@ -22,6 +22,8 @@ namespace
     class channel_type : private boost::noncopyable
     {
     public:
+        typedef int value_type;
+
         channel_type(const bool empty)
         :
         m_values(make_values(empty))
@@ -38,6 +40,11 @@ namespace
             const int result = m_values.front();
             m_values.pop();
             return result;
+        }
+
+        void push(int value)
+        {
+            m_values.push(value);
         }
 
     private:

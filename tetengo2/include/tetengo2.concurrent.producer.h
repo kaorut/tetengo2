@@ -10,6 +10,9 @@
 #define TETENGO2_CONCURRENT_PRODUCER_H
 
 #include <boost/noncopyable.hpp>
+#include <boost/thread.hpp>
+
+#include "tetengo2.cpp11.h"
 
 
 namespace tetengo2 { namespace concurrent
@@ -28,17 +31,29 @@ namespace tetengo2 { namespace concurrent
         //! The channel type.
         typedef Channel channel_type;
 
+        //! The value type.
+        typedef typename channel_type::value_type value_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a producer.
 
-            \param channel A channel.
+            \tparam Generator A generator type.
+                              It must be a unary function, which returns void,
+                              and whose parameter is a channel.
+
+            \param channel   A channel.
+            \param generator A generator.
         */
-        explicit producer(channel_type& channel)
+        template <typename Generator>
+        explicit producer(channel_type& channel, const Generator& generator)
         :
-        m_channel(channel)
+        m_channel(channel),
+        m_thread(
+            TETENGO2_CPP11_BIND(generator, tetengo2::cpp11::ref(m_channel))
+        )
         {}
 
 
@@ -49,7 +64,7 @@ namespace tetengo2 { namespace concurrent
         */
         void join()
         {
-
+            m_thread.join();
         }
 
 
@@ -57,6 +72,8 @@ namespace tetengo2 { namespace concurrent
         // variables
 
         channel_type& m_channel;
+
+        boost::thread m_thread;
 
 
     };
