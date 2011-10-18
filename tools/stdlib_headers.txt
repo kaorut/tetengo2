@@ -248,6 +248,7 @@ boost::spirit::qi::parse                         boost/spirit/include/qi.hpp
 boost::spirit::qi::rule                          boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
 boost::swap                                      boost/swap.hpp
+boost::thread                                    boost/thread.hpp
 boost::throw_file                                boost/exception/all.hpp
 boost::throw_function                            boost/exception/all.hpp
 boost::throw_line                                boost/exception/all.hpp
