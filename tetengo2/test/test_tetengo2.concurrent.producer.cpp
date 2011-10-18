@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_SUITE(producer)
         BOOST_TEST_PASSPOINT();
 
         channel_type channel(true);
-        producer_type producer(channel, generate);
+        producer_type producer(generate, channel);
         producer.join();
     }
 
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_SUITE(producer)
 
         {
             channel_type channel(true);
-            producer_type producer(channel, generate);
+            producer_type producer(generate, channel);
             producer.join();
 
             BOOST_CHECK_EQUAL(channel.pop(), 10);
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_SUITE(producer)
         }
         {
             channel_type channel(false);
-            producer_type producer(channel, generate);
+            producer_type producer(generate, channel);
             producer.join();
 
             BOOST_CHECK_EQUAL(channel.pop(), 123);

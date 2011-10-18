@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             );
 
             BOOST_CHECK(parser.parse());
-            BOOST_CHECK_EQUAL(parsed.size(), 2);
+            BOOST_CHECK_EQUAL(parsed.size(), 2U);
 
             BOOST_CHECK_EQUAL(
                 parsed[0].first, push_parser_type::structure_array_begin
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             );
 
             BOOST_CHECK(parser.parse());
-            BOOST_CHECK_EQUAL(parsed.size(), 6);
+            BOOST_CHECK_EQUAL(parsed.size(), 6U);
 
             BOOST_CHECK_EQUAL(
                 parsed[0].first, push_parser_type::structure_array_begin
@@ -264,7 +264,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             );
 
             BOOST_CHECK(parser.parse());
-            BOOST_CHECK_EQUAL(parsed.size(), 8);
+            BOOST_CHECK_EQUAL(parsed.size(), 8U);
 
             BOOST_CHECK_EQUAL(
                 parsed[0].first, push_parser_type::structure_array_begin
