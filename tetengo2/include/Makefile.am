@@ -3,6 +3,7 @@
 # $Id$
 
 headers = \
+    tetengo2.concurrent.channel.h \
     tetengo2.concurrent.consumer.h \
     tetengo2.concurrent.producer.h \
     tetengo2.cpp11.h \

@@ -8,6 +8,7 @@ extra_headers =
 
 sources = \
     master.cpp \
+    test_tetengo2.concurrent.channel.cpp \
     test_tetengo2.concurrent.consumer.cpp \
     test_tetengo2.concurrent.producer.cpp \
     test_tetengo2.encoder.cpp \

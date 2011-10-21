@@ -229,5 +229,8 @@
     <ClCompile Include="test\test_tetengo2.concurrent.producer.cpp">
       <Filter>sources\test_tetengo2::concurrent</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.concurrent.channel.cpp">
+      <Filter>sources\test_tetengo2::concurrent</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
