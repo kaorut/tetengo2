@@ -168,6 +168,7 @@ assert                                           cassert
 boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::basic_format                              boost/format.hpp
 boost::bind                                      boost/bind.hpp
+boost::condition_variable                        boost/thread.hpp
 boost::cref                                      boost/ref.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
@@ -219,6 +220,7 @@ boost::mpl::size                                 boost/mpl/size.hpp
 boost::mpl::value_type                           boost/mpl/value_type.hpp
 boost::mpl::vector                               boost/mpl/vector.hpp
 boost::mpl::void_                                boost/mpl/void.hpp
+boost::mutex                                     boost/thread.hpp
 boost::next                                      boost/utility.hpp
 boost::noncopyable                               boost/noncopyable.hpp
 boost::none                                      boost/optional.hpp
@@ -249,10 +251,12 @@ boost::spirit::qi::rule                          boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
 boost::swap                                      boost/swap.hpp
 boost::thread                                    boost/thread.hpp
+boost::thread_interrupted                        boost/thread.hpp
 boost::throw_file                                boost/exception/all.hpp
 boost::throw_function                            boost/exception/all.hpp
 boost::throw_line                                boost/exception/all.hpp
 boost::totally_ordered                           boost/operators.hpp
+boost::unique_lock                               boost/thread.hpp
 boost::variant                                   boost/variant.hpp
 std::advance                                     iterator
 std::back_inserter                               iterator

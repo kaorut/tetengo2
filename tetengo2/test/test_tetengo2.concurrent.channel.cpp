@@ -6,9 +6,8 @@
     $Id$
 */
 
-#include <queue>
+#include <cstddef>
 
-//#include <boost/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.concurrent.channel.h"

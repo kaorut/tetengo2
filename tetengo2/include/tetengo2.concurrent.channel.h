@@ -10,6 +10,7 @@
 #define TETENGO2_CONCURRENT_CHANNEL_H
 
 #include <queue>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/thread.hpp>
