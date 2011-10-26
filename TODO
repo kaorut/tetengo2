@@ -12,11 +12,6 @@ Added on    : 2011/09/02
 Depends on  : 00000110, 00000111, 00000112
 Description : Create tetengo2::json::pull_parser.
 ------------------------------------------------------------------------------
-Number      : 00000110
-Added on    : 2011/09/26
-Depends on  : (none)
-Description : Create tetengo2::concurrent::producer.
-------------------------------------------------------------------------------
 Number      : 00000111
 Added on    : 2011/09/28
 Depends on  : (none)
