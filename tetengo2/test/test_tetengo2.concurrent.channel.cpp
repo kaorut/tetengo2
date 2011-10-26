@@ -14,6 +14,16 @@
 #include "tetengo2.concurrent.channel.h"
 
 
+namespace
+{
+    // types
+
+    typedef tetengo2::concurrent::channel<int, std::size_t> channel_type;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(concurrent)
 BOOST_AUTO_TEST_SUITE(channel)
@@ -23,23 +33,35 @@ BOOST_AUTO_TEST_SUITE(channel)
     {
         BOOST_TEST_PASSPOINT();
 
-        const tetengo2::concurrent::channel<int, std::size_t> c(5);
+        const channel_type channel(3);
     }
 
     BOOST_AUTO_TEST_CASE(insert)
     {
         BOOST_TEST_PASSPOINT();
 
-        tetengo2::concurrent::channel<int, std::size_t> c(5);
+        channel_type channel(3);
 
-        c.insert(42);
+        channel.insert(12);
+        channel.insert(34);
+        channel.insert(56);
     }
 
     BOOST_AUTO_TEST_CASE(take)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            channel_type channel(3);
+
+            channel.insert(12);
+            channel.insert(34);
+            channel.insert(56);
+
+            BOOST_CHECK_EQUAL(channel.take(), 12);
+            BOOST_CHECK_EQUAL(channel.take(), 34);
+            BOOST_CHECK_EQUAL(channel.take(), 56);
+        }
     }
 
     

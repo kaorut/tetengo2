@@ -14,6 +14,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/thread.hpp>
 
+#include "tetengo2.cpp11.h"
+
 
 namespace tetengo2 { namespace concurrent
 {
@@ -46,7 +48,9 @@ namespace tetengo2 { namespace concurrent
         channel(const size_type capacity)
         :
         m_mutex(),
-        m_condition_variable()
+        m_condition_variable(),
+        m_queue(),
+        m_capacity(capacity)
         {}
 
 
@@ -65,7 +69,13 @@ namespace tetengo2 { namespace concurrent
         void insert(V&& value)
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
+            m_condition_variable.wait(
+                lock, TETENGO2_CPP11_BIND(&channel::can_insert, this)
+            );
 
+            m_queue.push(value);
+
+            m_condition_variable.notify_all();
         }
 
         /*!
@@ -78,8 +88,16 @@ namespace tetengo2 { namespace concurrent
         value_type take()
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
+            m_condition_variable.wait(
+                lock, TETENGO2_CPP11_BIND(&channel::can_take, this)
+            );
 
-            return value_type();
+            const value_type value = std::move(m_queue.front());
+            m_queue.pop();
+
+            m_condition_variable.notify_all();
+
+            return value;
         }
 
 
@@ -90,12 +108,32 @@ namespace tetengo2 { namespace concurrent
 
         typedef boost::condition_variable condition_variable_type;
 
+        typedef std::queue<value_type> queue_type;
+
 
         // variables
 
         mutex_type m_mutex;
 
         condition_variable_type m_condition_variable;
+
+        queue_type m_queue;
+
+        const size_type m_capacity;
+
+
+        // functions
+
+        bool can_insert()
+        const
+        {
+            return m_queue.size() < m_capacity;
+        }
+
+        bool can_take()
+        {
+            return !m_queue.empty();
+        }
 
 
     };
