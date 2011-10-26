@@ -60,9 +60,6 @@ namespace tetengo2 { namespace concurrent
         
         /*!
             \brief Joins the producing thread.
-
-            \throw boost::thread_interrupted When the producing thread is
-                                             interrupted.
         */
         void join()
         {
