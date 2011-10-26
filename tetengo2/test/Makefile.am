@@ -83,6 +83,7 @@ tetengo2_test_CPPFLAGS = \
     -I$(top_srcdir)/tetengo2/include
 tetengo2_test_LDFLAGS = $(BOOST_LDFLAGS)
 tetengo2_test_LDADD = \
+    $(BOOST_DATE_TIME_LIB) \
     $(BOOST_FILESYSTEM_LIB) \
     $(BOOST_PROGRAM_OPTIONS_LIB) \
     $(BOOST_SYSTEM_LIB) \

@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_CONCURRENT_CHANNEL_H)
 #define TETENGO2_CONCURRENT_CHANNEL_H
 
+#include <queue>
+
 #include <boost/noncopyable.hpp>
 #include <boost/thread.hpp>
 
@@ -42,6 +44,9 @@ namespace tetengo2 { namespace concurrent
             \param capacity A capacity.
         */
         channel(const size_type capacity)
+        :
+        m_mutex(),
+        m_condition_variable()
         {}
 
 
@@ -58,7 +63,10 @@ namespace tetengo2 { namespace concurrent
         */
         template <typename V>
         void insert(V&& value)
-        {}
+        {
+            boost::unique_lock<mutex_type> lock(m_mutex);
+
+        }
 
         /*!
             \brief Takes a value.
@@ -69,12 +77,25 @@ namespace tetengo2 { namespace concurrent
         */
         value_type take()
         {
+            boost::unique_lock<mutex_type> lock(m_mutex);
+
             return value_type();
         }
 
 
     private:
+        // types
+
+        typedef boost::mutex mutex_type;
+
+        typedef boost::condition_variable condition_variable_type;
+
+
         // variables
+
+        mutex_type m_mutex;
+
+        condition_variable_type m_condition_variable;
 
 
     };

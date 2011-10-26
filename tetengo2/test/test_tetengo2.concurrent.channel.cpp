@@ -23,14 +23,16 @@ BOOST_AUTO_TEST_SUITE(channel)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const tetengo2::concurrent::channel<int, std::size_t> c(5);
     }
 
     BOOST_AUTO_TEST_CASE(insert)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        tetengo2::concurrent::channel<int, std::size_t> c(5);
+
+        c.insert(42);
     }
 
     BOOST_AUTO_TEST_CASE(take)
