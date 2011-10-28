@@ -10,6 +10,9 @@
 //#include <stdexcept>
 
 #include <boost/test/unit_test.hpp>
+#include <boost/thread.hpp>
+
+#include "tetengo2.cpp11.h"
 
 #include "tetengo2.concurrent.channel.h"
 
@@ -19,6 +22,18 @@ namespace
     // types
 
     typedef tetengo2::concurrent::channel<int, std::size_t> channel_type;
+
+
+    // functions
+
+    void produce(channel_type& channel)
+    {
+        channel.insert(12);
+        channel.insert(34);
+        channel.insert(56);
+
+        channel.finish_insertion();
+    }
 
 
 }
@@ -118,6 +133,21 @@ BOOST_AUTO_TEST_SUITE(channel)
             channel.take();
 
             BOOST_CHECK(channel.has_no_more());
+        }
+        {
+            channel_type channel(3);
+
+            boost::thread producing_thread(
+                produce, tetengo2::cpp11::ref(channel)
+            );
+
+            BOOST_CHECK_EQUAL(channel.take(), 12);
+            BOOST_CHECK_EQUAL(channel.take(), 34);
+            BOOST_CHECK_EQUAL(channel.take(), 56);
+
+            BOOST_CHECK(channel.has_no_more());
+
+            producing_thread.join();
         }
     }
 

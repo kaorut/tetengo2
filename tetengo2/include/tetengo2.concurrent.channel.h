@@ -76,15 +76,15 @@ namespace tetengo2 { namespace concurrent
         void insert(V&& value)
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
+            m_condition_variable.wait(
+                lock, TETENGO2_CPP11_BIND(&channel::can_insert, this)
+            );
             if (can_take() && !m_queue.back())
             {
                 BOOST_THROW_EXCEPTION(
                     std::logic_error("The insertion is already finished.")
                 );
             }
-            m_condition_variable.wait(
-                lock, TETENGO2_CPP11_BIND(&channel::can_insert, this)
-            );
 
             m_queue.push(boost::make_optional(queue_element_type(value)));
 
@@ -103,15 +103,15 @@ namespace tetengo2 { namespace concurrent
         value_type take()
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
+            m_condition_variable.wait(
+                lock, TETENGO2_CPP11_BIND(&channel::can_take, this)
+            );
             if (has_no_more_impl())
             {
                 BOOST_THROW_EXCEPTION(
                     std::logic_error("The channel has no more element.")
                 );
             }
-            m_condition_variable.wait(
-                lock, TETENGO2_CPP11_BIND(&channel::can_take, this)
-            );
 
             const value_type value =
                 std::move(boost::get<value_type>(*m_queue.front()));
@@ -132,15 +132,15 @@ namespace tetengo2 { namespace concurrent
         void finish_insertion()
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
+            m_condition_variable.wait(
+                lock, TETENGO2_CPP11_BIND(&channel::can_insert, this)
+            );
             if (can_take() && !m_queue.back())
             {
                 BOOST_THROW_EXCEPTION(
                     std::logic_error("The insertion is already finished.")
                 );
             }
-            m_condition_variable.wait(
-                lock, TETENGO2_CPP11_BIND(&channel::can_insert, this)
-            );
 
             m_queue.push(boost::none);
 
