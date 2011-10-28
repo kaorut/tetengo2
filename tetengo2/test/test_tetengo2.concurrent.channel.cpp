@@ -7,6 +7,7 @@
 */
 
 #include <cstddef>
+//#include <stdexcept>
 
 #include <boost/test/unit_test.hpp>
 
@@ -50,16 +51,73 @@ BOOST_AUTO_TEST_SUITE(channel)
     {
         BOOST_TEST_PASSPOINT();
 
+        channel_type channel(3);
+
+        channel.insert(12);
+        channel.insert(34);
+        channel.insert(56);
+
+        BOOST_CHECK_EQUAL(channel.take(), 12);
+        BOOST_CHECK_EQUAL(channel.take(), 34);
+        BOOST_CHECK_EQUAL(channel.take(), 56);
+    }
+
+    BOOST_AUTO_TEST_CASE(finish_insertion)
+    {
+        BOOST_TEST_PASSPOINT();
+
         {
             channel_type channel(3);
 
             channel.insert(12);
-            channel.insert(34);
-            channel.insert(56);
+
+            channel.finish_insertion();
+
+            BOOST_CHECK_THROW(channel.insert(34), std::logic_error);
+        }
+        {
+            channel_type channel(3);
+
+            channel.insert(12);
+
+            channel.finish_insertion();
 
             BOOST_CHECK_EQUAL(channel.take(), 12);
-            BOOST_CHECK_EQUAL(channel.take(), 34);
-            BOOST_CHECK_EQUAL(channel.take(), 56);
+            BOOST_CHECK_THROW(channel.take(), std::logic_error);
+        }
+        {
+            channel_type channel(3);
+
+            channel.insert(12);
+
+            channel.finish_insertion();
+            BOOST_CHECK_THROW(channel.finish_insertion(), std::logic_error);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(has_no_more)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            channel_type channel(3);
+
+            channel.finish_insertion();
+
+            BOOST_CHECK(channel.has_no_more());
+        }
+        {
+            channel_type channel(3);
+
+            channel.insert(12);
+
+            channel.finish_insertion();
+
+            BOOST_CHECK(!channel.has_no_more());
+
+            channel.take();
+
+            BOOST_CHECK(channel.has_no_more());
         }
     }
 
