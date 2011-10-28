@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <utility>
 
+#include <boost/exception_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/thread.hpp>
@@ -68,8 +69,8 @@ namespace tetengo2 { namespace concurrent
 
             \param value A value.
 
-            \throw std::logic_error          When the channel is already
-                                             closed.
+            \throw std::logic_error          When the insertion is already
+                                             finished.
             \throw boost::thread_interrupted When the thread is interrupted.
         */
         template <typename V>
@@ -86,7 +87,40 @@ namespace tetengo2 { namespace concurrent
                 );
             }
 
-            m_queue.push(boost::make_optional(queue_element_type(value)));
+            m_queue.push(
+                boost::make_optional(
+                    queue_element_type(std::forward<V>(value))
+                )
+            );
+
+            m_condition_variable.notify_all();
+        }
+
+        /*!
+            \brief Inserts an exception.
+
+            \param p_exception A pointer to an exceptoin.
+
+            \throw std::logic_error          When the insertion is already
+                                             finished.
+            \throw boost::thread_interrupted When the thread is interrupted.
+        */
+        void insert_exception(const boost::exception_ptr& p_exception)
+        {
+            boost::unique_lock<mutex_type> lock(m_mutex);
+            m_condition_variable.wait(
+                lock, TETENGO2_CPP11_BIND(&channel::can_insert, this)
+            );
+            if (can_take() && !m_queue.back())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The insertion is already finished.")
+                );
+            }
+
+            m_queue.push(
+                boost::make_optional(queue_element_type(p_exception))
+            );
 
             m_condition_variable.notify_all();
         }
@@ -96,8 +130,10 @@ namespace tetengo2 { namespace concurrent
 
             \return A value.
 
-            \throw std::logic_error          When the channel is already
-                                             closed.
+            \throw unspecified               An exception inserted with
+                                             insert_exception().
+            \throw std::logic_error          When the channel has no more
+                                             element.
             \throw boost::thread_interrupted When the thread is interrupted.
         */
         value_type take()
@@ -113,20 +149,37 @@ namespace tetengo2 { namespace concurrent
                 );
             }
 
-            const value_type value =
-                std::move(boost::get<value_type>(*m_queue.front()));
-            m_queue.pop();
+            if (m_queue.front()->which() == 0)
+            {
+                const value_type value =
+                    std::move(boost::get<value_type>(*m_queue.front()));
+                m_queue.pop();
 
-            m_condition_variable.notify_all();
+                m_condition_variable.notify_all();
 
-            return value;
+                return value;
+            }
+            else
+            {
+                assert(m_queue.front()->which() == 1);
+
+                const boost::exception_ptr p_exception =
+                    std::move(
+                        boost::get<boost::exception_ptr>(*m_queue.front())
+                    );
+                m_queue.pop();
+
+                m_condition_variable.notify_all();
+
+                boost::rethrow_exception(p_exception);
+            }
         }
 
         /*!
             \brief Finishes the insertion.
 
-            \throw std::logic_error          When the insertion_finished is
-                                             already finished.
+            \throw std::logic_error          When the insertion is already
+                                             finished.
             \throw boost::thread_interrupted When the thread is interrupted.
         */
         void finish_insertion()
@@ -148,9 +201,9 @@ namespace tetengo2 { namespace concurrent
         }
 
         /*!
-            \brief Checks whether the channel is closed.
+            \brief Checks whether the channel has no more element.
 
-            \retval true  When the channel is closed.
+            \retval true  When the channel has no more element.
             \retval false Otherwise.
         */
         bool has_no_more()
@@ -169,7 +222,9 @@ namespace tetengo2 { namespace concurrent
 
         typedef boost::condition_variable condition_variable_type;
 
-        typedef boost::variant<value_type> queue_element_type;
+        typedef
+            boost::variant<value_type, boost::exception_ptr>
+            queue_element_type;
 
         typedef std::queue<boost::optional<queue_element_type>> queue_type;
 

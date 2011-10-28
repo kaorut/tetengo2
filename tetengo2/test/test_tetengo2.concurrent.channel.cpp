@@ -9,6 +9,7 @@
 #include <cstddef>
 //#include <stdexcept>
 
+#include <boost/exception_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/thread.hpp>
 
@@ -22,6 +23,11 @@ namespace
     // types
 
     typedef tetengo2::concurrent::channel<int, std::size_t> channel_type;
+
+    struct test_exception : public std::runtime_error
+    {
+        test_exception() : std::runtime_error("fuga") {}
+    };
 
 
     // functions
@@ -62,19 +68,65 @@ BOOST_AUTO_TEST_SUITE(channel)
         channel.insert(56);
     }
 
-    BOOST_AUTO_TEST_CASE(take)
+    BOOST_AUTO_TEST_CASE(insert_exception)
     {
         BOOST_TEST_PASSPOINT();
 
         channel_type channel(3);
 
-        channel.insert(12);
-        channel.insert(34);
-        channel.insert(56);
+        channel.insert_exception(
+            boost::copy_exception(std::runtime_error("hoge"))
+        );
+    }
 
-        BOOST_CHECK_EQUAL(channel.take(), 12);
-        BOOST_CHECK_EQUAL(channel.take(), 34);
-        BOOST_CHECK_EQUAL(channel.take(), 56);
+    BOOST_AUTO_TEST_CASE(take)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            channel_type channel(3);
+
+            channel.insert(12);
+            channel.insert(34);
+            channel.insert(56);
+
+            BOOST_CHECK_EQUAL(channel.take(), 12);
+            BOOST_CHECK_EQUAL(channel.take(), 34);
+            BOOST_CHECK_EQUAL(channel.take(), 56);
+        }
+        {
+            channel_type channel(3);
+
+            channel.insert_exception(
+                boost::copy_exception(std::runtime_error("hoge"))
+            );
+            channel.insert_exception(boost::copy_exception(test_exception()));
+
+            try
+            {
+                channel.take();
+            }
+            catch (const std::runtime_error& e)
+            {
+                BOOST_CHECK(std::string(e.what()) == "hoge");
+            }
+            catch (...)
+            {
+                BOOST_ERROR("Unknown exception.");
+            }
+            try
+            {
+                channel.take();
+            }
+            catch (const test_exception& e)
+            {
+                BOOST_CHECK(std::string(e.what()) == test_exception().what());
+            }
+            catch (...)
+            {
+                BOOST_ERROR("Unknown exception.");
+            }
+        }
     }
 
     BOOST_AUTO_TEST_CASE(finish_insertion)
