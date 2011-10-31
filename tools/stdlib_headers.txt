@@ -125,6 +125,7 @@ BOOST_CHECK_GE                                   boost/test/unit_test.hpp
 BOOST_CHECK_LT                                   boost/test/unit_test.hpp
 BOOST_CHECK_NO_THROW                             boost/test/unit_test.hpp
 BOOST_CHECK_THROW                                boost/test/unit_test.hpp
+BOOST_ERROR                                      boost/test/unit_test.hpp
 BOOST_FOREACH                                    boost/foreach.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
@@ -169,10 +170,12 @@ boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::basic_format                              boost/format.hpp
 boost::bind                                      boost/bind.hpp
 boost::condition_variable                        boost/thread.hpp
+boost::copy_exception                            boost/exception_ptr.hpp
 boost::cref                                      boost/ref.hpp
 boost::diagnostic_information                    boost/exception/all.hpp
 boost::equality_comparable                       boost/operators.hpp
 boost::exception                                 boost/exception/all.hpp
+boost::exception_ptr                             boost/exception_ptr.hpp
 boost::filesystem::directory_entry               boost/filesystem.hpp
 boost::filesystem::directory_iterator            boost/filesystem.hpp
 boost::filesystem::exists                        boost/filesystem.hpp
@@ -225,6 +228,7 @@ boost::next                                      boost/utility.hpp
 boost::noncopyable                               boost/noncopyable.hpp
 boost::none                                      boost/optional.hpp
 boost::optional                                  boost/optional.hpp
+boost::posix_time::milliseconds                  boost/date_time/posix_time/posix_time.hpp
 boost::prior                                     boost/utility.hpp
 boost::program_options::notify                   boost/program_options.hpp
 boost::program_options::options_description      boost/program_options.hpp
@@ -239,6 +243,7 @@ boost::rational_cast                             boost/rational.hpp
 boost::ref                                       boost/ref.hpp
 boost::reference_wrapper                         boost/ref.hpp
 boost::replace_all                               boost/algorithm/string.hpp
+boost::rethrow_exception                         boost/exception_ptr.hpp
 boost::signals2::signal                          boost/signals2.hpp
 boost::spirit::make_default_multi_pass           boost/spirit/include/support_multi_pass.hpp
 boost::spirit::multi_pass                        boost/spirit/include/support_multi_pass.hpp
@@ -250,6 +255,7 @@ boost::spirit::qi::parse                         boost/spirit/include/qi.hpp
 boost::spirit::qi::rule                          boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
 boost::swap                                      boost/swap.hpp
+boost::this_thread::sleep                        boost/thread.hpp
 boost::thread                                    boost/thread.hpp
 boost::thread_interrupted                        boost/thread.hpp
 boost::throw_file                                boost/exception/all.hpp

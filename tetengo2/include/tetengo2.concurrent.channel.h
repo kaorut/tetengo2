@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_CONCURRENT_CHANNEL_H)
 #define TETENGO2_CONCURRENT_CHANNEL_H
 
+#include <cassert>
 #include <queue>
 #include <stdexcept>
 #include <utility>
@@ -210,7 +211,9 @@ namespace tetengo2 { namespace concurrent
         const
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
-
+            m_condition_variable.wait(
+                lock, TETENGO2_CPP11_BIND(&channel::can_take, this)
+            );
             return has_no_more_impl();
         }
 
@@ -233,7 +236,7 @@ namespace tetengo2 { namespace concurrent
 
         mutable mutex_type m_mutex;
 
-        condition_variable_type m_condition_variable;
+        mutable condition_variable_type m_condition_variable;
 
         queue_type m_queue;
 
@@ -255,6 +258,7 @@ namespace tetengo2 { namespace concurrent
         }
 
         bool can_take()
+        const
         {
             return !m_queue.empty();
         }

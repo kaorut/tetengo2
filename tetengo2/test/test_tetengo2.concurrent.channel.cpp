@@ -8,10 +8,12 @@
 
 #include <cstddef>
 //#include <stdexcept>
+#include <string>
 
-#include <boost/exception_ptr.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+//#include <boost/exception_ptr.hpp>
 #include <boost/test/unit_test.hpp>
-#include <boost/thread.hpp>
+//#include <boost/thread.hpp>
 
 #include "tetengo2.cpp11.h"
 
@@ -34,10 +36,14 @@ namespace
 
     void produce(channel_type& channel)
     {
+        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
         channel.insert(12);
+        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
         channel.insert(34);
+        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
         channel.insert(56);
 
+        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
         channel.finish_insertion();
     }
 
