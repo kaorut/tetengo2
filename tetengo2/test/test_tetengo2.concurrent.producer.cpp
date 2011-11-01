@@ -25,25 +25,41 @@ namespace
 
         channel_type(const bool empty)
         :
-        m_values(make_values(empty))
+        m_values(make_values(empty)),
+        m_exceptions()
         {}
 
-        bool empty()
-        const
+        void insert(int value)
         {
-            return m_values.empty();
+            m_values.push(value);
         }
 
-        int pop()
+        void insert_exception(const boost::exception_ptr& p_exception)
         {
+            m_exceptions.push(p_exception);
+        }
+
+        int take()
+        {
+            if (!m_exceptions.empty())
+            {
+                const boost::exception_ptr p_exception = m_exceptions.front();
+                m_exceptions.pop();
+                boost::rethrow_exception(p_exception);
+            }
+
             const int result = m_values.front();
             m_values.pop();
             return result;
         }
 
-        void push(int value)
+        void finish_insertion()
+        {}
+
+        bool has_no_more()
+        const
         {
-            m_values.push(value);
+            return m_values.empty() && m_exceptions.empty();
         }
 
     private:
@@ -62,6 +78,9 @@ namespace
         }
 
         std::queue<int> m_values;
+
+        std::queue<boost::exception_ptr> m_exceptions;
+
     };
 
     void generate(channel_type& channel)
@@ -70,8 +89,13 @@ namespace
         {
             if (count > 4) return;
 
-            channel.push(count * 10 + 10);
+            channel.insert(count * 10 + 10);
         }
+    }
+
+    void throw_exception(channel_type& channel)
+    {
+        throw std::runtime_error("test exception");
     }
 
     typedef tetengo2::concurrent::producer<channel_type> producer_type;
@@ -102,27 +126,35 @@ BOOST_AUTO_TEST_SUITE(producer)
             producer_type producer(generate, channel);
             producer.join();
 
-            BOOST_CHECK_EQUAL(channel.pop(), 10);
-            BOOST_CHECK_EQUAL(channel.pop(), 20);
-            BOOST_CHECK_EQUAL(channel.pop(), 30);
-            BOOST_CHECK_EQUAL(channel.pop(), 40);
-            BOOST_CHECK_EQUAL(channel.pop(), 50);
-            BOOST_CHECK(channel.empty());
+            BOOST_CHECK_EQUAL(channel.take(), 10);
+            BOOST_CHECK_EQUAL(channel.take(), 20);
+            BOOST_CHECK_EQUAL(channel.take(), 30);
+            BOOST_CHECK_EQUAL(channel.take(), 40);
+            BOOST_CHECK_EQUAL(channel.take(), 50);
+            BOOST_CHECK(channel.has_no_more());
         }
         {
             channel_type channel(false);
             producer_type producer(generate, channel);
             producer.join();
 
-            BOOST_CHECK_EQUAL(channel.pop(), 123);
-            BOOST_CHECK_EQUAL(channel.pop(), 456);
-            BOOST_CHECK_EQUAL(channel.pop(), 789);
-            BOOST_CHECK_EQUAL(channel.pop(), 10);
-            BOOST_CHECK_EQUAL(channel.pop(), 20);
-            BOOST_CHECK_EQUAL(channel.pop(), 30);
-            BOOST_CHECK_EQUAL(channel.pop(), 40);
-            BOOST_CHECK_EQUAL(channel.pop(), 50);
-            BOOST_CHECK(channel.empty());
+            BOOST_CHECK_EQUAL(channel.take(), 123);
+            BOOST_CHECK_EQUAL(channel.take(), 456);
+            BOOST_CHECK_EQUAL(channel.take(), 789);
+            BOOST_CHECK_EQUAL(channel.take(), 10);
+            BOOST_CHECK_EQUAL(channel.take(), 20);
+            BOOST_CHECK_EQUAL(channel.take(), 30);
+            BOOST_CHECK_EQUAL(channel.take(), 40);
+            BOOST_CHECK_EQUAL(channel.take(), 50);
+            BOOST_CHECK(channel.has_no_more());
+        }
+        {
+            channel_type channel(true);
+            producer_type producer(throw_exception, channel);
+            producer.join();
+
+            BOOST_CHECK_THROW(channel.take(), std::exception);
+            BOOST_CHECK(channel.has_no_more());
         }
     }
 

@@ -9,12 +9,14 @@
 #if !defined(TETENGO2_CONCURRENT_PRODUCER_H)
 #define TETENGO2_CONCURRENT_PRODUCER_H
 
+#include <cassert>
 //#include <functional>
 
 #include <boost/noncopyable.hpp>
 #include <boost/thread.hpp>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace concurrent
@@ -50,10 +52,17 @@ namespace tetengo2 { namespace concurrent
             channel_type&        channel
         )
         :
-        m_thread(
+        m_p_thread(),
+        m_thread_procedure_impl(
             TETENGO2_CPP11_BIND(generator, tetengo2::cpp11::ref(channel))
-        )
-        {}
+        ),
+        m_channel(channel)
+        {
+            m_p_thread =
+                tetengo2::make_unique<boost::thread>(
+                    TETENGO2_CPP11_BIND(&producer::thread_procedure, this)
+                );
+        }
 
 
         // functions
@@ -63,14 +72,48 @@ namespace tetengo2 { namespace concurrent
         */
         void join()
         {
-            m_thread.join();
+            try
+            {
+                assert(m_p_thread);
+                m_p_thread->join();
+            }
+            catch (const boost::thread_interrupted& e)
+            {
+                m_channel.insert_exception(boost::copy_exception(e));
+                m_channel.finish_insertion();
+            }
         }
 
 
     private:
         // variables
 
-        boost::thread m_thread;
+        std::unique_ptr<boost::thread> m_p_thread;
+
+        std::function<void ()> m_thread_procedure_impl;
+
+        channel_type& m_channel;
+
+
+        // functions
+
+        void thread_procedure()
+        {
+            try
+            {
+                m_thread_procedure_impl();
+            }
+            catch (const std::exception& e)
+            {
+                m_channel.insert_exception(boost::copy_exception(e));
+                m_channel.finish_insertion();
+            }
+            catch (...)
+            {
+                m_channel.insert_exception(boost::current_exception());
+                m_channel.finish_insertion();
+            }
+        }
 
 
     };
