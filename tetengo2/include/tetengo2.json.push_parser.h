@@ -70,12 +70,15 @@ namespace tetengo2 { namespace json
             boost::variant<bool, void*, integer_type, float_type, string_type>
             value_type;
 
-        //! The signal type.
+        //! The structure signal type.
         typedef
-            boost::signals2::signal<
-                void (const string_type&, const boost::optional<value_type>&)
-            >
-            signal_type;
+            boost::signals2::signal<void (const string_type&)>
+            structure_signal_type;
+
+        //! The value signal type.
+        typedef
+            boost::signals2::signal<void (const value_type&)>
+            value_signal_type;
 
 
         // constructors and destructor
@@ -95,19 +98,29 @@ namespace tetengo2 { namespace json
         :
         m_first(first),
         m_last(last),
-        m_p_grammar(std::move(p_grammar))
+        m_p_grammar(std::move(p_grammar)),
+        m_on_structure_begin(),
+        m_on_structure_end(),
+        m_on_value()
         {
             if (!m_p_grammar)
                 throw std::invalid_argument("The grammar is NULL.");
 
-            m_p_grammar->structure_passed().connect(
+            m_p_grammar->on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
-                    &push_parser::observe_structure,
+                    &push_parser::observe_structure_begin,
                     this,
                     cpp11::placeholders_1()
                 )
             );
-            m_p_grammar->value_passed().connect(
+            m_p_grammar->on_structure_end().connect(
+                TETENGO2_CPP11_BIND(
+                    &push_parser::observe_structure_end,
+                    this,
+                    cpp11::placeholders_1()
+                )
+            );
+            m_p_grammar->on_value().connect(
                 TETENGO2_CPP11_BIND(
                     &push_parser::observe_value,
                     this,
@@ -121,24 +134,66 @@ namespace tetengo2 { namespace json
         // functions
         
         /*!
-            \brief Returns the signal.
+            \brief Returns the structure begin signal.
             
-            \return The signal.
+            \return The structure begin signal.
         */
-        const signal_type& structure_passed()
+        const structure_signal_type& on_structure_begin()
         const
         {
-            return m_signal;
+            return m_on_structure_begin;
         }
 
         /*!
-            \brief Returns the signal.
+            \brief Returns the structure begin signal.
             
-            \return The signal.
+            \return The structure begin signal.
         */
-        signal_type& structure_passed()
+        structure_signal_type& on_structure_begin()
         {
-            return m_signal;
+            return m_on_structure_begin;
+        }
+
+        /*!
+            \brief Returns the structure end signal.
+            
+            \return The structure end signal.
+        */
+        const structure_signal_type& on_structure_end()
+        const
+        {
+            return m_on_structure_end;
+        }
+
+        /*!
+            \brief Returns the structure end signal.
+            
+            \return The structure end signal.
+        */
+        structure_signal_type& on_structure_end()
+        {
+            return m_on_structure_end;
+        }
+
+        /*!
+            \brief Returns the value signal.
+            
+            \return The value signal.
+        */
+        const value_signal_type& on_value()
+        const
+        {
+            return m_on_value;
+        }
+
+        /*!
+            \brief Returns the value signal.
+            
+            \return The value signal.
+        */
+        value_signal_type& on_value()
+        {
+            return m_on_value;
         }
 
         /*!
@@ -268,14 +323,23 @@ namespace tetengo2 { namespace json
 
         const std::unique_ptr<grammar_type> m_p_grammar;
 
-        signal_type m_signal;
+        structure_signal_type m_on_structure_begin;
+
+        structure_signal_type m_on_structure_end;
+
+        value_signal_type m_on_value;
 
 
         // functions
 
-        void observe_structure(const string_type& structure_name)
+        void observe_structure_begin(const string_type& structure_name)
         {
-            m_signal(structure_name, boost::none);
+            m_on_structure_begin(structure_name);
+        }
+
+        void observe_structure_end(const string_type& structure_name)
+        {
+            m_on_structure_end(structure_name);
         }
 
         void observe_value(
@@ -283,10 +347,7 @@ namespace tetengo2 { namespace json
             const string_type&                           value
         )
         {
-            m_signal(
-                string_type(TETENGO2_TEXT("value")),
-                boost::make_optional(to_value(value_type, value))
-            );
+            m_on_value(to_value(value_type, value));
         }
 
 

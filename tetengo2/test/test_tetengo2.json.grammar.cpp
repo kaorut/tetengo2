@@ -45,19 +45,28 @@ namespace
         return result && mutable_first == last;
     }
 
-    void on_structure(std::string& output, const std::string& type)
+    void structure_begun(std::string& output, const std::string& type)
     {
-        if      (type == "object begin")
+        if      (type == "object")
             output += "OB, ";
-        else if (type == "object end")
-            output += "OE, ";
-        else if (type == "member begin")
+        else if (type == "member")
             output += "MB, ";
-        else if (type == "member end")
-            output += "ME, ";
-        else if (type == "array begin")
+        else if (type == "array")
             output += "AB, ";
-        else if (type == "array end")
+        else
+        {
+            assert(false);
+            throw std::logic_error("Must not come here.");
+        }
+    }
+
+    void structure_ended(std::string& output, const std::string& type)
+    {
+        if      (type == "object")
+            output += "OE, ";
+        else if (type == "member")
+            output += "ME, ";
+        else if (type == "array")
             output += "AE, ";
         else
         {
@@ -66,7 +75,7 @@ namespace
         }
     }
 
-    void on_value(
+    void value_passed(
         std::string&                        output,
         const grammar_type::value_type_type type,
         const std::string&                  parsed
@@ -120,7 +129,7 @@ BOOST_AUTO_TEST_SUITE(grammar)
         const grammar_type grammar;
     }
 
-    BOOST_AUTO_TEST_CASE(structure_passed)
+    BOOST_AUTO_TEST_CASE(on_structure_begin_end)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -129,16 +138,23 @@ BOOST_AUTO_TEST_SUITE(grammar)
 
             grammar_type g;
             std::string output;
-            g.structure_passed().connect(
+            g.on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
-                    on_structure,
+                    structure_begun,
                     tetengo2::cpp11::ref(output),
                     tetengo2::cpp11::placeholders_1()
                 )
             );
-            g.value_passed().connect(
+            g.on_structure_end().connect(
                 TETENGO2_CPP11_BIND(
-                    on_value,
+                    structure_ended,
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1()
+                )
+            );
+            g.on_value().connect(
+                TETENGO2_CPP11_BIND(
+                    value_passed,
                     tetengo2::cpp11::ref(output),
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2()
@@ -159,16 +175,23 @@ BOOST_AUTO_TEST_SUITE(grammar)
 
             grammar_type g;
             std::string output;
-            g.structure_passed().connect(
+            g.on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
-                    on_structure,
+                    structure_begun,
                     tetengo2::cpp11::ref(output),
                     tetengo2::cpp11::placeholders_1()
                 )
             );
-            g.value_passed().connect(
+            g.on_structure_end().connect(
                 TETENGO2_CPP11_BIND(
-                    on_value,
+                    structure_ended,
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1()
+                )
+            );
+            g.on_value().connect(
+                TETENGO2_CPP11_BIND(
+                    value_passed,
                     tetengo2::cpp11::ref(output),
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2()
@@ -187,7 +210,7 @@ BOOST_AUTO_TEST_SUITE(grammar)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(value_passed)
+    BOOST_AUTO_TEST_CASE(on_value)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -196,16 +219,23 @@ BOOST_AUTO_TEST_SUITE(grammar)
 
             grammar_type g;
             std::string output;
-            g.structure_passed().connect(
+            g.on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
-                    on_structure,
+                    structure_begun,
                     tetengo2::cpp11::ref(output),
                     tetengo2::cpp11::placeholders_1()
                 )
             );
-            g.value_passed().connect(
+            g.on_structure_end().connect(
                 TETENGO2_CPP11_BIND(
-                    on_value,
+                    structure_ended,
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1()
+                )
+            );
+            g.on_value().connect(
+                TETENGO2_CPP11_BIND(
+                    value_passed,
                     tetengo2::cpp11::ref(output),
                     tetengo2::cpp11::placeholders_1(),
                     tetengo2::cpp11::placeholders_2()

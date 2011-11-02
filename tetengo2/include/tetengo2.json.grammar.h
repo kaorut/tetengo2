@@ -80,8 +80,9 @@ namespace tetengo2 { namespace json
         grammar()
         :
         grammar::base_type(m_json_text, "json"),
-        m_structure_passed(),
-        m_value_passed(),
+        m_on_structure_begin(),
+        m_on_structure_end(),
+        m_on_value(),
         m_json_text(),
         m_begin_array(),
         m_begin_object(),
@@ -120,30 +121,57 @@ namespace tetengo2 { namespace json
         // functions
         
         /*!
-            \brief Returns the structure signal.
+            \brief Returns the structure begin signal.
 
-            The signal is called when the parser parses the beginning and
-            the ending tokens of an object, a member and an array structure.
+            The signal is called when the parser parses the beginning tokens
+            of an object, a member and an array structure.
 
             \return The structure signal.
         */
-        const structure_signal_type& structure_passed()
+        const structure_signal_type& on_structure_begin()
         const
         {
-            return m_structure_passed;
+            return m_on_structure_begin;
         }
 
         /*!
-            \brief Returns the structure signal.
+            \brief Returns the structure begin signal.
 
-            The signal is called when the parser parses the beginning and
-            the ending tokens of an object, a member and an array structure.
+            The signal is called when the parser parses the beginning tokens
+            of an object, a member and an array structure.
 
             \return The structure signal.
         */
-        structure_signal_type& structure_passed()
+        structure_signal_type& on_structure_begin()
         {
-            return m_structure_passed;
+            return m_on_structure_begin;
+        }
+
+        /*!
+            \brief Returns the structure end signal.
+
+            The signal is called when the parser parses the ending tokens of
+            an object, a member and an array structure.
+
+            \return The structure signal.
+        */
+        const structure_signal_type& on_structure_end()
+        const
+        {
+            return m_on_structure_end;
+        }
+
+        /*!
+            \brief Returns the structure end signal.
+
+            The signal is called when the parser parses the ending tokens of
+            an object, a member and an array structure.
+
+            \return The structure signal.
+        */
+        structure_signal_type& on_structure_end()
+        {
+            return m_on_structure_end;
         }
 
         /*!
@@ -153,10 +181,10 @@ namespace tetengo2 { namespace json
 
             \return The value signal.
         */
-        const value_signal_type& value_passed()
+        const value_signal_type& on_value()
         const
         {
-            return m_value_passed;
+            return m_on_value;
         }
 
         /*!
@@ -166,9 +194,9 @@ namespace tetengo2 { namespace json
 
             \return The value signal.
         */
-        value_signal_type& value_passed()
+        value_signal_type& on_value()
         {
-            return m_value_passed;
+            return m_on_value;
         }
 
         /*!
@@ -258,9 +286,11 @@ namespace tetengo2 { namespace json
 
         // variables
 
-        structure_signal_type m_structure_passed;
+        structure_signal_type m_on_structure_begin;
 
-        value_signal_type m_value_passed;
+        structure_signal_type m_on_structure_end;
+
+        value_signal_type m_on_value;
 
         rule_type m_json_text;
 
@@ -327,53 +357,53 @@ namespace tetengo2 { namespace json
 
         void object_begun(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(string_type(TETENGO2_TEXT("object begin")));
+            m_on_structure_begin(string_type(TETENGO2_TEXT("object")));
         }
 
         void object_ended(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(string_type(TETENGO2_TEXT("object end")));
+            m_on_structure_end(string_type(TETENGO2_TEXT("object")));
         }
 
         void member_begun(const string_type& attribute)
         {
-            m_structure_passed(string_type(TETENGO2_TEXT("member begin")));
-            m_value_passed(value_type_string, attribute);
+            m_on_structure_begin(string_type(TETENGO2_TEXT("member")));
+            m_on_value(value_type_string, attribute);
         }
 
         void member_ended(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(string_type(TETENGO2_TEXT("member end")));
+            m_on_structure_end(string_type(TETENGO2_TEXT("member")));
         }
 
         void array_begun(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(string_type(TETENGO2_TEXT("array begin")));
+            m_on_structure_begin(string_type(TETENGO2_TEXT("array")));
         }
 
         void array_ended(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(string_type(TETENGO2_TEXT("array end")));
+            m_on_structure_end(string_type(TETENGO2_TEXT("array")));
         }
 
         void string_passed(const string_type& attribute)
         {
-            m_value_passed(value_type_string, attribute);
+            m_on_value(value_type_string, attribute);
         }
 
         void number_passed(const string_type& attribute)
         {
-            m_value_passed(value_type_number, attribute);
+            m_on_value(value_type_number, attribute);
         }
 
         void boolean_passed(const string_type& attribute)
         {
-            m_value_passed(value_type_boolean, attribute);
+            m_on_value(value_type_boolean, attribute);
         }
 
         void null_passed(const string_type& attribute)
         {
-            m_value_passed(value_type_null, attribute);
+            m_on_value(value_type_null, attribute);
         }
 
         void define_rules()
