@@ -19,7 +19,6 @@
 
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/utility.hpp>
