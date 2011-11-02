@@ -47,17 +47,6 @@ namespace tetengo2 { namespace json
         //! The string type.
         typedef std::basic_string<char_type> string_type;
 
-        //! The structure type type.
-        enum structure_type_type
-        {
-            structure_type_object_begin, //!< An object begin.
-            structure_type_object_end,   //!< An object end.
-            structure_type_member_begin, //!< A member begin.
-            structure_type_member_end,   //!< A member end.
-            structure_type_array_begin,  //!< An array begin.
-            structure_type_array_end,    //!< An array end.
-        };
-
         //! The value type type.
         enum value_type_type
         {
@@ -69,7 +58,7 @@ namespace tetengo2 { namespace json
 
         //! The structure signal type.
         typedef
-            boost::signals2::signal<void (structure_type_type)>
+            boost::signals2::signal<void (const std::string&)>
             structure_signal_type;
 
         //! The value signal type.
@@ -338,33 +327,33 @@ namespace tetengo2 { namespace json
 
         void object_begun(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(structure_type_object_begin);
+            m_structure_passed(string_type(TETENGO2_TEXT("object begin")));
         }
 
         void object_ended(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(structure_type_object_end);
+            m_structure_passed(string_type(TETENGO2_TEXT("object end")));
         }
 
         void member_begun(const string_type& attribute)
         {
-            m_structure_passed(structure_type_member_begin);
+            m_structure_passed(string_type(TETENGO2_TEXT("member begin")));
             m_value_passed(value_type_string, attribute);
         }
 
         void member_ended(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(structure_type_member_end);
+            m_structure_passed(string_type(TETENGO2_TEXT("member end")));
         }
 
         void array_begun(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(structure_type_array_begin);
+            m_structure_passed(string_type(TETENGO2_TEXT("array begin")));
         }
 
         void array_ended(const boost::spirit::qi::unused_type&)
         {
-            m_structure_passed(structure_type_array_end);
+            m_structure_passed(string_type(TETENGO2_TEXT("array end")));
         }
 
         void string_passed(const string_type& attribute)

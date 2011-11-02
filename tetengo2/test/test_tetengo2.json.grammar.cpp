@@ -45,48 +45,24 @@ namespace
         return result && mutable_first == last;
     }
 
-    void on_structure(
-        std::string&                            output,
-        const grammar_type::structure_type_type type
-    )
+    void on_structure(std::string& output, const std::string& type)
     {
-        switch (type)
+        if      (type == "object begin")
+            output += "OB, ";
+        else if (type == "object end")
+            output += "OE, ";
+        else if (type == "member begin")
+            output += "MB, ";
+        else if (type == "member end")
+            output += "ME, ";
+        else if (type == "array begin")
+            output += "AB, ";
+        else if (type == "array end")
+            output += "AE, ";
+        else
         {
-        case grammar_type::structure_type_object_begin:
-            {
-                output += "OB, ";
-                break;
-            }
-        case grammar_type::structure_type_object_end:
-            {
-                output += "OE, ";
-                break;
-            }
-        case grammar_type::structure_type_member_begin:
-            {
-                output += "MB, ";
-                break;
-            }
-        case grammar_type::structure_type_member_end:
-            {
-                output += "ME, ";
-                break;
-            }
-        case grammar_type::structure_type_array_begin:
-            {
-                output += "AB, ";
-                break;
-            }
-        case grammar_type::structure_type_array_end:
-            {
-                output += "AE, ";
-                break;
-            }
-        default:
-            {
-                assert(false);
-                throw std::logic_error("Must not come here.");
-            }
+            assert(false);
+            throw std::logic_error("Must not come here.");
         }
     }
 

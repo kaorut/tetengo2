@@ -160,30 +160,6 @@ namespace tetengo2 { namespace json
     private:
         // static functions
 
-        string_type to_structure(
-            typename grammar_type::structure_type_type grammar_structure_type
-        )
-        {
-            switch(grammar_structure_type)
-            {
-            case grammar_type::structure_type_object_begin:
-                return string_type(TETENGO2_TEXT("object begin"));
-            case grammar_type::structure_type_object_end:
-                return string_type(TETENGO2_TEXT("object end"));
-            case grammar_type::structure_type_member_begin:
-                return string_type(TETENGO2_TEXT("member begin"));
-            case grammar_type::structure_type_member_end:
-                return string_type(TETENGO2_TEXT("object end"));
-            case grammar_type::structure_type_array_begin:
-                return string_type(TETENGO2_TEXT("array begin"));
-            case grammar_type::structure_type_array_end:
-                return string_type(TETENGO2_TEXT("array end"));
-            default:
-                assert(false);
-                throw std::logic_error("Must not come here.");
-            }
-        }
-
         value_type to_value(
             const typename grammar_type::value_type_type value_type,
             const string_type&                           string_value
@@ -297,11 +273,9 @@ namespace tetengo2 { namespace json
 
         // functions
 
-        void observe_structure(
-            const typename grammar_type::structure_type_type structure_type
-        )
+        void observe_structure(const string_type& structure_name)
         {
-            m_signal(to_structure(structure_type), boost::none);
+            m_signal(structure_name, boost::none);
         }
 
         void observe_value(
