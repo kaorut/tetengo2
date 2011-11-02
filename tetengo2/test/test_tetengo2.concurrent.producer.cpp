@@ -153,7 +153,7 @@ BOOST_AUTO_TEST_SUITE(producer)
             producer_type producer(throw_exception, channel);
             producer.join();
 
-            BOOST_CHECK_THROW(channel.take(), std::exception);
+            BOOST_CHECK_THROW(channel.take(), std::runtime_error);
             BOOST_CHECK(channel.has_no_more());
         }
     }

@@ -52,17 +52,18 @@ namespace tetengo2 { namespace concurrent
             channel_type&        channel
         )
         :
-        m_p_thread(),
         m_thread_procedure_impl(
             TETENGO2_CPP11_BIND(generator, tetengo2::cpp11::ref(channel))
         ),
-        m_channel(channel)
-        {
-            m_p_thread =
-                tetengo2::make_unique<boost::thread>(
-                    TETENGO2_CPP11_BIND(&producer::thread_procedure, this)
-                );
-        }
+        m_channel(channel),
+        m_thread(
+            TETENGO2_CPP11_BIND(
+                &producer::thread_procedure,
+                m_thread_procedure_impl,
+                tetengo2::cpp11::ref(channel)
+            )
+        )
+        {}
 
 
         // functions
@@ -74,8 +75,7 @@ namespace tetengo2 { namespace concurrent
         {
             try
             {
-                assert(m_p_thread);
-                m_p_thread->join();
+                m_thread.join();
             }
             catch (const boost::thread_interrupted& e)
             {
@@ -86,34 +86,32 @@ namespace tetengo2 { namespace concurrent
 
 
     private:
-        // variables
+        // static functions
 
-        std::unique_ptr<boost::thread> m_p_thread;
+        static void thread_procedure(
+            const std::function<void ()> thread_procedure_impl,
+            channel_type&                channel
+        )
+        {
+            try
+            {
+                thread_procedure_impl();
+            }
+            catch (...)
+            {
+                channel.insert_exception(boost::current_exception());
+                channel.finish_insertion();
+            }
+        }
+
+
+        // variables
 
         std::function<void ()> m_thread_procedure_impl;
 
         channel_type& m_channel;
 
-
-        // functions
-
-        void thread_procedure()
-        {
-            try
-            {
-                m_thread_procedure_impl();
-            }
-            catch (const std::exception& e)
-            {
-                m_channel.insert_exception(boost::copy_exception(e));
-                m_channel.finish_insertion();
-            }
-            catch (...)
-            {
-                m_channel.insert_exception(boost::current_exception());
-                m_channel.finish_insertion();
-            }
-        }
+        boost::thread m_thread;
 
 
     };
