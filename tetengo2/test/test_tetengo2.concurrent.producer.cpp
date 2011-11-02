@@ -7,7 +7,9 @@
 */
 
 #include <queue>
+#include <stdexcept>
 
+//#include <boost/exception_ptr.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
 
