@@ -14,12 +14,18 @@ Description : Create tetengo2::json::pull_parser.
 ------------------------------------------------------------------------------
 Number      : 00000113
 Added on    : 2011/11/01
-Depends on  : (none)
+Depends on  : 00000114
 Description : Make a namespace tetengo2::text.
               Move tetengo2::encoder, tetengo2::encoding::*, tetengo2::json::*
               to tetengo2::text.
 ------------------------------------------------------------------------------
 Number      : 00000114
+Added on    : 2011/11/03
+Depends on  : (none)
+Description : Make tetengo2::json::push_parser suitable for more general
+              usage.
+------------------------------------------------------------------------------
+Number      : 00000115
 Added on    : 2011/mm/dd
 Depends on  : (none)
 Description : 
