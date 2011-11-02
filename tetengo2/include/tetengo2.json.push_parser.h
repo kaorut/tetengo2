@@ -62,18 +62,6 @@ namespace tetengo2 { namespace json
         //! The floating point number type.
         typedef Float float_type;
 
-        //! The structure type.
-        enum structure_type
-        {
-            structure_object_begin, //!< An object begin.
-            structure_object_end,   //!< An object end.
-            structure_member_begin, //!< A member begin.
-            structure_member_end,   //!< A member end.
-            structure_array_begin,  //!< An array begin.
-            structure_array_end,    //!< An array end.
-            structure_value,        //!< A value.
-        };
-
         //! The string type.
         typedef std::basic_string<typename iterator::value_type> string_type;
 
@@ -85,7 +73,7 @@ namespace tetengo2 { namespace json
         //! The signal type.
         typedef
             boost::signals2::signal<
-                void (structure_type, const boost::optional<value_type>&)
+                void (const string_type&, const boost::optional<value_type>&)
             >
             signal_type;
 
@@ -172,24 +160,24 @@ namespace tetengo2 { namespace json
     private:
         // static functions
 
-        structure_type to_structure(
+        string_type to_structure(
             typename grammar_type::structure_type_type grammar_structure_type
         )
         {
             switch(grammar_structure_type)
             {
             case grammar_type::structure_type_object_begin:
-                return structure_object_begin;
+                return string_type(TETENGO2_TEXT("object begin"));
             case grammar_type::structure_type_object_end:
-                return structure_object_end;
+                return string_type(TETENGO2_TEXT("object end"));
             case grammar_type::structure_type_member_begin:
-                return structure_member_begin;
+                return string_type(TETENGO2_TEXT("member begin"));
             case grammar_type::structure_type_member_end:
-                return structure_member_end;
+                return string_type(TETENGO2_TEXT("object end"));
             case grammar_type::structure_type_array_begin:
-                return structure_array_begin;
+                return string_type(TETENGO2_TEXT("array begin"));
             case grammar_type::structure_type_array_end:
-                return structure_array_end;
+                return string_type(TETENGO2_TEXT("array end"));
             default:
                 assert(false);
                 throw std::logic_error("Must not come here.");
@@ -322,7 +310,7 @@ namespace tetengo2 { namespace json
         )
         {
             m_signal(
-                structure_value,
+                string_type(TETENGO2_TEXT("value")),
                 boost::make_optional(to_value(value_type, value))
             );
         }

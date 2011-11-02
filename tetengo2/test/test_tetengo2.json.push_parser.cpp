@@ -34,23 +34,20 @@ namespace
         push_parser_type;
 
     typedef
-        std::pair<
-            push_parser_type::structure_type,
-            boost::optional<push_parser_type::value_type>
-        >
+        std::pair<std::string, boost::optional<push_parser_type::value_type>>
         parsed_structure_type;
 
 
     // functions
 
     void observer0(
-        const push_parser_type::structure_type               structure,
+        const std::string&                                   structure,
         const boost::optional<push_parser_type::value_type>& value
     )
     {}
 
     void observer1(
-        const push_parser_type::structure_type               structure,
+        const std::string&                                   structure,
         const boost::optional<push_parser_type::value_type>& value,
         std::vector<parsed_structure_type>&                  parsed_structures
     )
@@ -166,13 +163,9 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK(parser.parse());
             BOOST_CHECK_EQUAL(parsed.size(), 2U);
 
-            BOOST_CHECK_EQUAL(
-                parsed[0].first, push_parser_type::structure_array_begin
-            );
+            BOOST_CHECK(parsed[0].first == "array begin");
 
-            BOOST_CHECK_EQUAL(
-                parsed[1].first, push_parser_type::structure_array_end
-            );
+            BOOST_CHECK(parsed[1].first == "array end");
         }
         {
             const std::string input =
@@ -201,41 +194,29 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK(parser.parse());
             BOOST_CHECK_EQUAL(parsed.size(), 6U);
 
-            BOOST_CHECK_EQUAL(
-                parsed[0].first, push_parser_type::structure_array_begin
-            );
+            BOOST_CHECK(parsed[0].first == "array begin");
 
-            BOOST_CHECK_EQUAL(
-                parsed[1].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[1].first == "value");
             BOOST_CHECK(parsed[1].second);
             BOOST_CHECK_EQUAL(parsed[1].second->which(), 0);
             BOOST_CHECK(!boost::get<bool>(*parsed[1].second));
 
-            BOOST_CHECK_EQUAL(
-                parsed[2].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[2].first == "value");
             BOOST_CHECK(parsed[2].second);
             BOOST_CHECK_EQUAL(parsed[2].second->which(), 1);
             BOOST_CHECK(!boost::get<void*>(*parsed[2].second));
 
-            BOOST_CHECK_EQUAL(
-                parsed[3].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[3].first == "value");
             BOOST_CHECK(parsed[3].second);
             BOOST_CHECK_EQUAL(parsed[3].second->which(), 0);
             BOOST_CHECK(boost::get<bool>(*parsed[3].second));
 
-            BOOST_CHECK_EQUAL(
-                parsed[4].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[4].first == "value");
             BOOST_CHECK(parsed[4].second);
             BOOST_CHECK_EQUAL(parsed[4].second->which(), 4);
             BOOST_CHECK(boost::get<std::string>(*parsed[4].second) == "hoge");
 
-            BOOST_CHECK_EQUAL(
-                parsed[5].first, push_parser_type::structure_array_end
-            );
+            BOOST_CHECK(parsed[5].first == "array end");
         }
         {
             const std::string input =
@@ -266,63 +247,47 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK(parser.parse());
             BOOST_CHECK_EQUAL(parsed.size(), 8U);
 
-            BOOST_CHECK_EQUAL(
-                parsed[0].first, push_parser_type::structure_array_begin
-            );
+            BOOST_CHECK(parsed[0].first == "array begin");
 
-            BOOST_CHECK_EQUAL(
-                parsed[1].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[1].first == "value");
             BOOST_CHECK(parsed[1].second);
             BOOST_CHECK_EQUAL(parsed[1].second->which(), 2);
             BOOST_CHECK_EQUAL(boost::get<int>(*parsed[1].second), 42);
 
-            BOOST_CHECK_EQUAL(
-                parsed[2].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[2].first == "value");
             BOOST_CHECK(parsed[2].second);
             BOOST_CHECK_EQUAL(parsed[2].second->which(), 2);
             BOOST_CHECK_EQUAL(boost::get<int>(*parsed[2].second), -42);
 
-            BOOST_CHECK_EQUAL(
-                parsed[3].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[3].first == "value");
             BOOST_CHECK(parsed[3].second);
             BOOST_CHECK_EQUAL(parsed[3].second->which(), 3);
             BOOST_CHECK_CLOSE(
                 boost::get<double>(*parsed[3].second), 42.42, 0.001
             );
 
-            BOOST_CHECK_EQUAL(
-                parsed[4].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[4].first == "value");
             BOOST_CHECK(parsed[4].second);
             BOOST_CHECK_EQUAL(parsed[4].second->which(), 3);
             BOOST_CHECK_CLOSE(
                 boost::get<double>(*parsed[4].second), 4200.0, 0.001
             );
 
-            BOOST_CHECK_EQUAL(
-                parsed[5].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[5].first == "value");
             BOOST_CHECK(parsed[5].second);
             BOOST_CHECK_EQUAL(parsed[5].second->which(), 3);
             BOOST_CHECK_CLOSE(
                 boost::get<double>(*parsed[5].second), 42.0, 0.001
             );
 
-            BOOST_CHECK_EQUAL(
-                parsed[6].first, push_parser_type::structure_value
-            );
+            BOOST_CHECK(parsed[6].first == "value");
             BOOST_CHECK(parsed[6].second);
             BOOST_CHECK_EQUAL(parsed[6].second->which(), 3);
             BOOST_CHECK_CLOSE(
                 boost::get<double>(*parsed[6].second), 4242.0, 0.001
             );
 
-            BOOST_CHECK_EQUAL(
-                parsed[7].first, push_parser_type::structure_array_end
-            );
+            BOOST_CHECK(parsed[7].first == "array end");
         }
     }
 
