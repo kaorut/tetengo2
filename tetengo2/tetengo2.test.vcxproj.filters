@@ -232,5 +232,8 @@
     <ClCompile Include="test\test_tetengo2.concurrent.channel.cpp">
       <Filter>sources\test_tetengo2::concurrent</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.json.pull_parser.cpp">
+      <Filter>sources\test_tetengo2::json</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
