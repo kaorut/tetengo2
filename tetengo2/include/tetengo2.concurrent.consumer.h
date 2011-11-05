@@ -19,20 +19,19 @@ namespace tetengo2 { namespace concurrent
     /*!
         \brief The class template for a consumer.
 
-        \tparam Value   A value type.
         \tparam Channel A channel type.
     */
-    template <typename Value, typename Channel>
+    template <typename Channel>
     class consumer : private boost::noncopyable
     {
     public:
         // types
 
-        //! The value type.
-        typedef Value value_type;
-
         //! The channel type.
         typedef Channel channel_type;
+
+        //! The value type.
+        typedef typename channel_type::value_type value_type;
 
 
         // constructors and destructor

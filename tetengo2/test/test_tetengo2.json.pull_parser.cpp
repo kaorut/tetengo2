@@ -8,12 +8,23 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.json.grammar.h"
+#include "tetengo2.json.push_parser.h"
+
 #include "tetengo2.json.pull_parser.h"
 
 
 namespace
 {
     // types
+
+    typedef std::string::const_iterator iterator;
+
+    typedef
+        tetengo2::json::push_parser<
+            iterator, tetengo2::json::grammar<iterator>, int, double
+        >
+        push_parser_type;
 
 
 }

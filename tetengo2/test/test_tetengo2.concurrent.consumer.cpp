@@ -65,7 +65,7 @@ namespace
         std::queue<int> m_values;
     };
 
-    typedef tetengo2::concurrent::consumer<int, channel_type> consumer_type;
+    typedef tetengo2::concurrent::consumer<channel_type> consumer_type;
 
 
 }
