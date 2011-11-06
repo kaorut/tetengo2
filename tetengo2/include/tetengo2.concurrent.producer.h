@@ -13,7 +13,6 @@
 
 #include <boost/exception_ptr.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/scope_exit.hpp>
 #include <boost/thread.hpp>
 
 #include "tetengo2.cpp11.h"
@@ -74,18 +73,15 @@ namespace tetengo2 { namespace concurrent
         */
         void join()
         {
-            channel_type* const p_channel = &m_channel;
-            BOOST_SCOPE_EXIT((p_channel))
-            {
-                p_channel->finish_insertion();
-            } BOOST_SCOPE_EXIT_END;
             try
             {
                 m_thread.join();
+                m_channel.finish_insertion();
             }
             catch (const boost::thread_interrupted& e)
             {
                 m_channel.insert_exception(boost::copy_exception(e));
+                m_channel.finish_insertion();
             }
         }
 
@@ -98,18 +94,15 @@ namespace tetengo2 { namespace concurrent
             channel_type&                channel
         )
         {
-            channel_type* const p_channel = &channel;
-            BOOST_SCOPE_EXIT((p_channel))
-            {
-                p_channel->finish_insertion();
-            } BOOST_SCOPE_EXIT_END;
             try
             {
                 thread_procedure_impl();
+                channel.finish_insertion();
             }
             catch (...)
             {
                 channel.insert_exception(boost::current_exception());
+                channel.finish_insertion();
             }
         }
 
