@@ -47,16 +47,35 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::string json_text;
-        std::unique_ptr<push_parser_type> p_push_parser(
-            tetengo2::make_unique<push_parser_type>(
-                json_text.begin(),
-                json_text.end(),
-                tetengo2::make_unique<grammar_type>()
-            )
-        );
+        {
+            std::string json_text;
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
 
-        const pull_parser_type pull_parser(std::move(p_push_parser), 3);
+            const pull_parser_type pull_parser(std::move(p_push_parser), 3);
+        }
+        {
+            std::string json_text;
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            BOOST_CHECK_THROW(
+                const pull_parser_type pull_parser(
+                    std::move(p_push_parser), 0
+                ),
+                std::invalid_argument
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(has_next)
@@ -97,7 +116,60 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            std::string json_text;
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            BOOST_CHECK_THROW(pull_parser.next(), std::logic_error);
+        }
+        {
+            std::string json_text = "{}";
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type element =
+                    pull_parser.next();
+                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_begin
+                        >
+                    >(element).name() == "object"
+                );
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type element =
+                    pull_parser.next();
+                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_end
+                        >
+                    >(element).name() == "object"
+                );
+            }
+            BOOST_CHECK(!pull_parser.has_next());
+        }
     }
 
 

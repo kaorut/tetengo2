@@ -51,6 +51,8 @@ namespace tetengo2 { namespace concurrent
             \brief Creates a channel.
 
             \param capacity A capacity.
+
+            \throw std::invalid_argument When capacity is equal to 0.
         */
         channel(const size_type capacity)
         :
@@ -58,7 +60,14 @@ namespace tetengo2 { namespace concurrent
         m_condition_variable(),
         m_queue(),
         m_capacity(capacity)
-        {}
+        {
+            if (capacity == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Capacity is zero.")
+                );
+            }
+        }
 
 
         // functions

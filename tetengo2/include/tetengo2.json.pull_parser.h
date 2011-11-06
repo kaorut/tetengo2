@@ -131,6 +131,8 @@ namespace tetengo2 { namespace json
             \param p_push_parser    A unique pointer to a push parser.
             \param channel_capacity A channel capacity.
                                     It must be greater than 0.
+
+            \throw std::invalid_argument When channel_capacity is equal to 0.
         */
         pull_parser(
             std::unique_ptr<push_parser_type> p_push_parser,
