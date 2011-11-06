@@ -208,7 +208,7 @@ namespace tetengo2 { namespace json
 
         static void generate(channel_type& channel)
         {
-            channel.finish_insertion();
+
         }
 
 
