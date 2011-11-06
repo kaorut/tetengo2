@@ -63,7 +63,18 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        std::string text;
+        std::unique_ptr<push_parser_type> p_push_parser(
+            tetengo2::make_unique<push_parser_type>(
+                text.begin(),
+                text.end(),
+                tetengo2::make_unique<grammar_type>()
+            )
+        );
+
+        const pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+        pull_parser.has_next();
     }
 
     BOOST_AUTO_TEST_CASE(next)
