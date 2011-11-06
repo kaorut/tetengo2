@@ -10,6 +10,7 @@
 #include <stdexcept>
 //#include <string>
 
+#include <boost/exception/all.hpp>
 //#include <boost/spirit/include/qi.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -56,7 +57,7 @@ namespace
         else
         {
             assert(false);
-            throw std::logic_error("Must not come here.");
+            BOOST_THROW_EXCEPTION(std::logic_error("Must not come here."));
         }
     }
 
@@ -71,7 +72,7 @@ namespace
         else
         {
             assert(false);
-            throw std::logic_error("Must not come here.");
+            BOOST_THROW_EXCEPTION(std::logic_error("Must not come here."));
         }
     }
 
@@ -106,7 +107,9 @@ namespace
         default:
             {
                 assert(false);
-                throw std::logic_error("Must not come here.");
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("Must not come here.")
+                );
             }
         }
 

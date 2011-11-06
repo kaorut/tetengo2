@@ -11,6 +11,7 @@
 
 #include <stdexcept>
 
+#include <boost/exception/all.hpp>
 #include <boost/noncopyable.hpp>
 
 
@@ -55,10 +56,10 @@ namespace tetengo2 { namespace concurrent
             \retval true  When the channel is empty.
             \retval false Otherwise.
         */
-        bool empty()
+        bool has_no_more()
         const
         {
-            return m_channel.empty();
+            return m_channel.has_no_more();
         }
 
         /*!
@@ -70,12 +71,16 @@ namespace tetengo2 { namespace concurrent
 
             \throw std::logic_error When the channel is empty.
         */
-        value_type pop()
+        value_type take()
         {
-            if (empty())
-                throw std::logic_error("The channel is empty.");
+            if (has_no_more())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The channel is empty.")
+                );
+            }
 
-            return m_channel.pop();
+            return m_channel.take();
         }
 
 

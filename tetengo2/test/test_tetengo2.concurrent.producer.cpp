@@ -9,6 +9,7 @@
 #include <queue>
 #include <stdexcept>
 
+#include <boost/exception/all.hpp>
 //#include <boost/exception_ptr.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
@@ -97,7 +98,7 @@ namespace
 
     void throw_exception(channel_type& channel)
     {
-        throw std::runtime_error("test exception");
+        BOOST_THROW_EXCEPTION(std::runtime_error("test exception"));
     }
 
     typedef tetengo2::concurrent::producer<channel_type> producer_type;

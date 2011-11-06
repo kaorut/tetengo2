@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+#include <boost/exception/all.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/variant.hpp>
 
@@ -170,27 +171,33 @@ namespace tetengo2 { namespace json
         bool has_next()
         const
         {
-            return false;
+            return !m_consumer.has_no_more();
         }
 
         /*!
             \brief Returns a next element.
 
             \return A next element.
+
+            \throw std::logic_error When the parser has no more element.
         */
         element_type next()
         {
-            return element_type();
+            if (!has_next())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The parser has no more element.")
+                );
+            }
+
+            return m_consumer.take();
         }
 
 
     private:
         // types
 
-        typedef int channel_element_type;
-
-        typedef
-            concurrent::channel<channel_element_type, size_type> channel_type;
+        typedef concurrent::channel<element_type, size_type> channel_type;
 
         typedef concurrent::producer<channel_type> producer_type;
 

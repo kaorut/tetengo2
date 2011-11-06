@@ -17,6 +17,7 @@
 #include <string>
 #include <utility>
 
+#include <boost/exception/all.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
@@ -103,7 +104,11 @@ namespace tetengo2 { namespace json
         m_on_value()
         {
             if (!m_p_grammar)
-                throw std::invalid_argument("The grammar is NULL.");
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("The grammar is NULL.")
+                );
+            }
 
             m_p_grammar->on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
@@ -231,7 +236,9 @@ namespace tetengo2 { namespace json
                 return to_null(string_value);
             default:
                 assert(false);
-                throw std::logic_error("Must not come here.");
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("Must not come here.")
+                );
             }
         }
 
