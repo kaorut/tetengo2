@@ -74,9 +74,10 @@ namespace tetengo2 { namespace concurrent
         */
         void join()
         {
-            BOOST_SCOPE_EXIT((&m_channel))
+            channel_type* const p_channel = &m_channel;
+            BOOST_SCOPE_EXIT((p_channel))
             {
-                m_channel.finish_insertion();
+                p_channel->finish_insertion();
             } BOOST_SCOPE_EXIT_END;
             try
             {
@@ -97,9 +98,10 @@ namespace tetengo2 { namespace concurrent
             channel_type&                channel
         )
         {
-            BOOST_SCOPE_EXIT((&channel))
+            channel_type* const p_channel = &channel;
+            BOOST_SCOPE_EXIT((p_channel))
             {
-                channel.finish_insertion();
+                p_channel->finish_insertion();
             } BOOST_SCOPE_EXIT_END;
             try
             {
