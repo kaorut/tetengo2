@@ -6,10 +6,14 @@
     $Id$
 */
 
+#include <memory>
+#include <utility>
+
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.json.grammar.h"
 #include "tetengo2.json.push_parser.h"
+#include "tetengo2.unique.h"
 
 #include "tetengo2.json.pull_parser.h"
 
@@ -20,11 +24,15 @@ namespace
 
     typedef std::string::const_iterator iterator;
 
+    typedef tetengo2::json::grammar<iterator> grammar_type;
+
     typedef
-        tetengo2::json::push_parser<
-            iterator, tetengo2::json::grammar<iterator>, int, double
-        >
+        tetengo2::json::push_parser<iterator, grammar_type, int, double>
         push_parser_type;
+
+    typedef
+        tetengo2::json::pull_parser<push_parser_type, std::size_t>
+        pull_parser_type;
 
 
 }
@@ -39,7 +47,16 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        std::string text;
+        std::unique_ptr<push_parser_type> p_push_parser(
+            tetengo2::make_unique<push_parser_type>(
+                text.begin(),
+                text.end(),
+                tetengo2::make_unique<grammar_type>()
+            )
+        );
+
+        const pull_parser_type pull_parser(std::move(p_push_parser), 3);
     }
 
     
