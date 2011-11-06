@@ -59,7 +59,21 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
         const pull_parser_type pull_parser(std::move(p_push_parser), 3);
     }
 
-    
+    BOOST_AUTO_TEST_CASE(has_next)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+    BOOST_AUTO_TEST_CASE(next)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
+
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

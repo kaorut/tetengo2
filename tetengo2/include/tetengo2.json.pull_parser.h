@@ -9,14 +9,17 @@
 #if !defined(TETENGO2_JSON_PULLPARSER_H)
 #define TETENGO2_JSON_PULLPARSER_H
 
+#include <cassert>
 #include <memory>
 #include <utility>
 
 #include <boost/noncopyable.hpp>
+#include <boost/variant.hpp>
 
 #include "tetengo2.concurrent.channel.h"
 #include "tetengo2.concurrent.consumer.h"
 #include "tetengo2.concurrent.producer.h"
+#include "tetengo2.cpp11.h"
 
 
 namespace tetengo2 { namespace json
@@ -36,8 +39,86 @@ namespace tetengo2 { namespace json
         //! The push parser type.
         typedef PushParser push_parser_type;
 
+        //! The string type.
+        typedef typename push_parser_type::string_type string_type;
+
+        //! The value type.
+        typedef typename push_parser_type::value_type value_type;
+
         //! The size type.
         typedef Size size_type;
+
+        //! The structure kind type.
+        enum structure_kind_type
+        {
+            structure_kind_begin,
+            structure_kind_end,
+        };
+
+        //! The structure type.
+        template <structure_kind_type Kind>
+        class structure_type
+        {
+            // static functions
+
+            /*!
+                \brief Returns the kind.
+
+                \return The kind.
+            */
+            static structure_kind_type kind()
+            {
+                return Kind;
+            }
+
+
+            // constructors
+
+            /*!
+                \brief Creates a structure type.
+
+                \tparam S A string type.
+
+                \param name A name.
+            */
+            template <typename S>
+            structure_type(S&& name)
+            :
+            m_name(std::forward<S>(name))
+            {}
+
+
+            // functions
+
+            /*!
+                \brief Returns the name.
+
+                \return The name.
+            */
+            const string_type& name()
+            const
+            {
+                return m_name;
+            }
+
+
+        private:
+            // variables
+
+            string_type m_name;
+
+
+        };
+
+
+        //! The element type.
+        typedef
+            boost::variant<
+                structure_type<structure_kind_begin>,
+                structure_type<structure_kind_end>,
+                value_type
+            >
+            element_type;
 
 
         // constructors and destructor
@@ -57,11 +138,50 @@ namespace tetengo2 { namespace json
         :
         m_p_push_parser(std::move(p_push_parser)),
         m_channel(channel_capacity),
-        m_producer(generate, m_channel)
+        m_producer(generate, m_channel),
+        m_consumer(m_channel)
         {}
+
+        /*!
+            \brief Destroys the pull parser.
+        */
+        ~pull_parser()
+        TETENGO2_CPP11_NOEXCEPT
+        {
+            try
+            {
+                m_producer.join();
+            }
+            catch (...)
+            {
+                assert(false);
+            }
+        }
 
 
         // functions
+
+        /*!
+            \brief Returns whether the parser has a next element.
+
+            \retval true  When the parser has a next element.
+            \retval false Otherwise.
+        */
+        bool has_next()
+        const
+        {
+            return false;
+        }
+
+        /*!
+            \brief Returns a next element.
+
+            \return A next element.
+        */
+        element_type next()
+        {
+            return element_type();
+        }
 
 
     private:
@@ -92,6 +212,8 @@ namespace tetengo2 { namespace json
         channel_type m_channel;
 
         producer_type m_producer;
+
+        consumer_type m_consumer;
 
         
     };
