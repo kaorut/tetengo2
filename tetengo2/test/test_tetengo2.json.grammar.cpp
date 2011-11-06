@@ -10,9 +10,9 @@
 #include <stdexcept>
 //#include <string>
 
-#include <boost/exception/all.hpp>
 //#include <boost/spirit/include/qi.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp11.h"
 

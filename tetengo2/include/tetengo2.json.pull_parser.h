@@ -9,13 +9,14 @@
 #if !defined(TETENGO2_JSON_PULLPARSER_H)
 #define TETENGO2_JSON_PULLPARSER_H
 
-#include <cassert>
-#include <memory>
-#include <utility>
+//#include <cassert>
+//#include <memory>
+//#include <stdexcept>
+//#include <utility>
 
-#include <boost/exception/all.hpp>
-#include <boost/noncopyable.hpp>
-#include <boost/variant.hpp>
+//#include <boost/noncopyable.hpp>
+//#include <boost/throw_exception.hpp>
+//#include <boost/variant.hpp>
 
 #include "tetengo2.concurrent.channel.h"
 #include "tetengo2.concurrent.consumer.h"

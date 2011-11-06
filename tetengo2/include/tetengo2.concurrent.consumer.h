@@ -11,8 +11,8 @@
 
 #include <stdexcept>
 
-#include <boost/exception/all.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 
 namespace tetengo2 { namespace concurrent

@@ -17,11 +17,11 @@
 #include <string>
 #include <utility>
 
-#include <boost/exception/all.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 #include <boost/variant.hpp>
 

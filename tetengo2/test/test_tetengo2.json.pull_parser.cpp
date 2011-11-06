@@ -6,10 +6,14 @@
     $Id$
 */
 
-#include <memory>
-#include <utility>
+//#include <cstddef>
+//#include <memory>
+//#include <stdexcept>
+//#include <string>
+//#include <utility>
 
 #include <boost/test/unit_test.hpp>
+//#include <boost/variant.hpp>
 
 #include "tetengo2.json.grammar.h"
 #include "tetengo2.json.push_parser.h"

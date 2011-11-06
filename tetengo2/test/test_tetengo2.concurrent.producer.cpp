@@ -9,10 +9,10 @@
 #include <queue>
 #include <stdexcept>
 
-#include <boost/exception/all.hpp>
 //#include <boost/exception_ptr.hpp>
 //#include <boost/noncopyable.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "tetengo2.concurrent.producer.h"
 
