@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_SUITE(channel)
             channel.insert(12);
 
             channel.finish_insertion();
-            BOOST_CHECK_THROW(channel.finish_insertion(), std::logic_error);
+            channel.finish_insertion();
         }
     }
 

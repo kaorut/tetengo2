@@ -164,8 +164,6 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Finishes the insertion.
 
-            \throw std::logic_error          When the insertion is already
-                                             finished.
             \throw boost::thread_interrupted When the thread is interrupted.
         */
         void finish_insertion()
@@ -174,12 +172,6 @@ namespace tetengo2 { namespace concurrent
             m_condition_variable.wait(
                 lock, TETENGO2_CPP11_BIND(&channel::can_insert, this)
             );
-            if (can_take() && !m_queue.back())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The insertion is already finished.")
-                );
-            }
 
             m_queue.push(boost::none);
 
