@@ -75,6 +75,7 @@ namespace tetengo2 { namespace concurrent
         {
             try
             {
+                m_channel.finish_insertion();
                 m_thread.join();
             }
             catch (const boost::thread_interrupted& e)

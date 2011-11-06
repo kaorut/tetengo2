@@ -153,7 +153,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             channel.finish_insertion();
 
-            BOOST_CHECK_THROW(channel.insert(34), std::logic_error);
+            channel.insert(34);
         }
         {
             channel_type channel(3);
@@ -171,6 +171,7 @@ BOOST_AUTO_TEST_SUITE(channel)
             channel.insert(12);
 
             channel.finish_insertion();
+
             channel.finish_insertion();
         }
     }

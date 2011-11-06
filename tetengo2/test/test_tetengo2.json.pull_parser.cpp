@@ -176,6 +176,20 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
         }
         {
             const std::string json_text(
+                "[42, 42]"
+            );
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+        }
+        {
+            const std::string json_text(
                 "{\n"
                 "    \"hoge\": 42,\n"
                 "    \"fuga\": [42, 42, 42]\n"

@@ -92,9 +92,12 @@ namespace tetengo2 { namespace concurrent
             );
             if (can_take() && !m_queue.back())
             {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The insertion is already finished.")
-                );
+                m_condition_variable.notify_all();
+
+                return;
+                //BOOST_THROW_EXCEPTION(
+                //    std::logic_error("The insertion is already finished.")
+                //);
             }
 
             m_queue.push(
@@ -181,6 +184,12 @@ namespace tetengo2 { namespace concurrent
             m_condition_variable.wait(
                 lock, TETENGO2_CPP11_BIND(&channel::can_insert, this)
             );
+            if (can_take() && !m_queue.back())
+            {
+                m_condition_variable.notify_all();
+
+                return;
+            }
 
             m_queue.push(boost::none);
 
