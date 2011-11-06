@@ -60,6 +60,7 @@ namespace tetengo2 { namespace json
         template <structure_kind_type Kind>
         class structure_type
         {
+        public:
             // static functions
 
             /*!
@@ -139,7 +140,14 @@ namespace tetengo2 { namespace json
         :
         m_p_push_parser(std::move(p_push_parser)),
         m_channel(channel_capacity),
-        m_producer(generate, m_channel),
+        m_producer(
+            TETENGO2_CPP11_BIND(
+                generate,
+                tetengo2::cpp11::placeholders_1(),
+                tetengo2::cpp11::ref(*m_p_push_parser)
+            ),
+            m_channel
+        ),
         m_consumer(m_channel)
         {}
 
@@ -206,9 +214,59 @@ namespace tetengo2 { namespace json
 
         // static functions
 
-        static void generate(channel_type& channel)
+        static void generate(
+            channel_type&     channel,
+            push_parser_type& push_parser
+        )
         {
+            push_parser.on_structure_begin().connect(
+                TETENGO2_CPP11_BIND(
+                    on_structure_begin,
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::ref(channel)
+                )
+            );
+            push_parser.on_structure_end().connect(
+                TETENGO2_CPP11_BIND(
+                    on_structure_end,
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::ref(channel)
+                )
+            );
+            push_parser.on_value().connect(
+                TETENGO2_CPP11_BIND(
+                    on_value,
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::ref(channel)
+                )
+            );
 
+            push_parser.parse();
+        }
+
+        static void on_structure_begin(
+            const string_type& name,
+            channel_type&      channel
+        )
+        {
+            channel.insert(
+                element_type(structure_type<structure_kind_begin>(name))
+            );
+        }
+
+        static void on_structure_end(
+            const string_type& name,
+            channel_type&      channel
+        )
+        {
+            channel.insert(
+                element_type(structure_type<structure_kind_end>(name))
+            );
+        }
+
+        static void on_value(const value_type& value, channel_type& channel)
+        {
+            channel.insert(element_type(value));
         }
 
 
