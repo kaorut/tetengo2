@@ -15,6 +15,17 @@ Description : Make a namespace tetengo2::text.
               to tetengo2::text.
 ------------------------------------------------------------------------------
 Number      : 00000115
+Added on    : 2011/11/08
+Depends on  : (none)
+Description : Create a namespace tetengo2::message.
+              Move tetengo2::message_catalog* to tetengo2::message.
+------------------------------------------------------------------------------
+Number      : 00000116
+Added on    : 2011/11/08
+Depends on  : (none)
+Description : Change the message catalogs to JSON.
+------------------------------------------------------------------------------
+Number      : 00000117
 Added on    : 2011/mm/dd
 Depends on  : (none)
 Description : 
