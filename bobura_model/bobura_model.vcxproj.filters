@@ -7,13 +7,13 @@
     <Filter Include="headers\bobura::model">
       <UniqueIdentifier>{a1a15d0d-e802-4f69-9c67-4db223541f52}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\bobura::model::station_info">
+    <Filter Include="headers\bobura::model\station_info">
       <UniqueIdentifier>{2ef3bd9c-9d1a-4680-82af-a20c9ec722e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\bobura::model::timetable_info">
+    <Filter Include="headers\bobura::model\timetable_info">
       <UniqueIdentifier>{a0387706-2d3c-42d7-acb0-047cbe3982f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\bobura::model::train_info">
+    <Filter Include="headers\bobura::model\train_info">
       <UniqueIdentifier>{2048f72f-086e-4d8b-92da-3f32579e64aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -28,19 +28,19 @@
       <Filter>headers\bobura::model</Filter>
     </ClInclude>
     <ClInclude Include="include\bobura.model.station_info.grade.h">
-      <Filter>headers\bobura::model::station_info</Filter>
+      <Filter>headers\bobura::model\station_info</Filter>
     </ClInclude>
     <ClInclude Include="include\bobura.model.timetable_info.station_location.h">
-      <Filter>headers\bobura::model::timetable_info</Filter>
+      <Filter>headers\bobura::model\timetable_info</Filter>
     </ClInclude>
     <ClInclude Include="include\bobura.model.train_info.stop.h">
-      <Filter>headers\bobura::model::train_info</Filter>
+      <Filter>headers\bobura::model\train_info</Filter>
     </ClInclude>
     <ClInclude Include="include\bobura.model.train_info.time_span.h">
-      <Filter>headers\bobura::model::train_info</Filter>
+      <Filter>headers\bobura::model\train_info</Filter>
     </ClInclude>
     <ClInclude Include="include\bobura.model.train_info.time.h">
-      <Filter>headers\bobura::model::train_info</Filter>
+      <Filter>headers\bobura::model\train_info</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

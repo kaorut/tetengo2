@@ -10,12 +10,6 @@
     <Filter Include="headers\bobura">
       <UniqueIdentifier>{331196ef-56c9-4373-868d-94eb01451bd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\bobura::command">
-      <UniqueIdentifier>{70024d0f-a754-44dd-b562-b95d72a46525}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="headers\bobura::message">
-      <UniqueIdentifier>{a708a07f-8972-43b3-8115-9a955ced00b8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resources">
       <UniqueIdentifier>{1a283181-6f05-4efd-abfe-aa839069ca0d}</UniqueIdentifier>
     </Filter>
@@ -27,6 +21,12 @@
     </Filter>
     <Filter Include="resources\images">
       <UniqueIdentifier>{bc4e3f8a-8e28-42fd-b9f2-02ca4e2c7f21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\bobura\command">
+      <UniqueIdentifier>{70024d0f-a754-44dd-b562-b95d72a46525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\bobura\message">
+      <UniqueIdentifier>{a708a07f-8972-43b3-8115-9a955ced00b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,13 +46,13 @@
       <Filter>headers\bobura</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.command.about.h">
-      <Filter>headers\bobura::command</Filter>
+      <Filter>headers\bobura\command</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.command.exit.h">
-      <Filter>headers\bobura::command</Filter>
+      <Filter>headers\bobura\command</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.command.nop.h">
-      <Filter>headers\bobura::command</Filter>
+      <Filter>headers\bobura\command</Filter>
     </ClInclude>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
@@ -61,22 +61,22 @@
       <Filter>resources\win32</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.command.type_list.h">
-      <Filter>headers\bobura::command</Filter>
+      <Filter>headers\bobura\command</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.command.type_list_impl.h">
-      <Filter>headers\bobura::command</Filter>
+      <Filter>headers\bobura\command</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.message.type_list.h">
-      <Filter>headers\bobura::message</Filter>
+      <Filter>headers\bobura\message</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.message.type_list_impl.h">
-      <Filter>headers\bobura::message</Filter>
+      <Filter>headers\bobura\message</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.message.about_dialog.h">
-      <Filter>headers\bobura::message</Filter>
+      <Filter>headers\bobura\message</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.message.main_window.h">
-      <Filter>headers\bobura::message</Filter>
+      <Filter>headers\bobura\message</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,13 +10,13 @@
     <Filter Include="sources\test_bobura::model">
       <UniqueIdentifier>{5a72901f-746e-4461-813c-f9faa955c965}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\test_bobura::station_info">
+    <Filter Include="sources\test_bobura::model\station_info">
       <UniqueIdentifier>{ce7be5d7-5ef4-4649-9802-63b98639ffa7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\test_bobura::timetable_info">
+    <Filter Include="sources\test_bobura::model\timetable_info">
       <UniqueIdentifier>{f53396a3-f4f3-4d22-b284-be1f5e413674}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\test_bobura::train_info">
+    <Filter Include="sources\test_bobura::model\train_info">
       <UniqueIdentifier>{16ceeaa5-6324-4a0a-a827-b2775ced8ce3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -42,19 +42,19 @@
       <Filter>sources\test_bobura::model</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.model.station_info.grade.cpp">
-      <Filter>sources\test_bobura::station_info</Filter>
+      <Filter>sources\test_bobura::model\station_info</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.model.timetable_info.station_location.cpp">
-      <Filter>sources\test_bobura::timetable_info</Filter>
+      <Filter>sources\test_bobura::model\timetable_info</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.model.train_info.stop.cpp">
-      <Filter>sources\test_bobura::train_info</Filter>
+      <Filter>sources\test_bobura::model\train_info</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.model.train_info.time_span.cpp">
-      <Filter>sources\test_bobura::train_info</Filter>
+      <Filter>sources\test_bobura::model\train_info</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.model.train_info.time.cpp">
-      <Filter>sources\test_bobura::train_info</Filter>
+      <Filter>sources\test_bobura::model\train_info</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
