@@ -11,11 +11,6 @@ sources = \
     test_tetengo2.concurrent.channel.cpp \
     test_tetengo2.concurrent.consumer.cpp \
     test_tetengo2.concurrent.producer.cpp \
-    test_tetengo2.encoder.cpp \
-    test_tetengo2.encoding.encoding.cpp \
-    test_tetengo2.encoding.ascii.cpp \
-    test_tetengo2.encoding.locale.cpp \
-    test_tetengo2.encoding.utf8.cpp \
     test_tetengo2.gui.abstract_popup_menu.cpp \
     test_tetengo2.gui.abstract_window.cpp \
     test_tetengo2.gui.alert.cpp \
@@ -65,6 +60,11 @@ sources = \
     test_tetengo2.meta.assoc_list.cpp \
     test_tetengo2.operators.cpp \
     test_tetengo2.text.cpp \
+    test_tetengo2.text.encoder.cpp \
+    test_tetengo2.text.encoding.encoding.cpp \
+    test_tetengo2.text.encoding.ascii.cpp \
+    test_tetengo2.text.encoding.locale.cpp \
+    test_tetengo2.text.encoding.utf8.cpp \
     test_tetengo2.unique.cpp
 
 extra_sources =
