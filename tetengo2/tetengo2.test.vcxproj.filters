@@ -37,6 +37,9 @@
     <Filter Include="sources\test_tetengo2\meta">
       <UniqueIdentifier>{f39296db-b0dc-4492-8ec6-1fca151306fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_tetengo2\text">
+      <UniqueIdentifier>{d1e42f93-440c-4693-9838-11c03ad47ae6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">

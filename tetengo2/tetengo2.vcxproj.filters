@@ -43,6 +43,9 @@
     <Filter Include="headers\tetengo2\meta">
       <UniqueIdentifier>{c7f1a761-d684-452e-9d9f-fa0fedff1c57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2\text">
+      <UniqueIdentifier>{b6e90a66-3b58-4f27-b92b-f77cf3b4b069}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.encoder.h">

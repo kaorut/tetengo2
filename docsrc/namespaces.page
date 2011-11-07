@@ -99,3 +99,7 @@
     \brief The namespace for metaprogramming.
 */
 
+/*! \namespace tetengo2::text
+    \brief The namespace for text processings.
+*/
+
