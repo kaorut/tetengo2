@@ -27,7 +27,6 @@
 #include <tetengo2.detail.stub.message_loop.h>
 #include <tetengo2.detail.stub.unit.h>
 #include <tetengo2.detail.stub.widget.h>
-#include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.button.h>
 #include <tetengo2.gui.dialog.h>
@@ -67,8 +66,9 @@
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.window.h>
 #include <tetengo2.gui.window_observer_set.h>
-#include <tetengo2.encoder.h>
-#include <tetengo2.encoding.locale.h>
+#include <tetengo2.text.encoder.h>
+#include <tetengo2.text.encoding.locale.h>
+#include <tetengo2.text.encoding.utf8.h>
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog.h>
 #include <tetengo2.message_catalog_parser.h>

@@ -15,7 +15,7 @@
 
 //#include <boost/operators.hpp>
 
-#include "tetengo2.encoding.locale.h"
+#include "tetengo2.text.encoding.locale.h"
 
 
 namespace tetengo2

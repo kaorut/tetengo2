@@ -21,7 +21,6 @@
 //#include <boost/mpl/pair.hpp>
 //#include <boost/rational.hpp>
 
-#include <tetengo2.encoder.h>
 #include <tetengo2.messages.h>
 #include <tetengo2.message_catalog.h>
 #include <tetengo2.message_catalog_parser.h>
@@ -36,8 +35,6 @@
 #include <tetengo2.detail.windows.message_loop.h>
 #include <tetengo2.detail.windows.unit.h>
 #include <tetengo2.detail.windows.widget.h>
-#include <tetengo2.encoding.locale.h>
-#include <tetengo2.encoding.utf8.h>
 #include <tetengo2.gui.abstract_popup_menu.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.button.h>
@@ -79,6 +76,9 @@
 #include <tetengo2.gui.window.h>
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.meta.assoc_list.h>
+#include <tetengo2.text.encoder.h>
+#include <tetengo2.text.encoding.locale.h>
+#include <tetengo2.text.encoding.utf8.h>
 
 #include "bobura.about_dialog.h"
 #include "bobura.bobura.h"

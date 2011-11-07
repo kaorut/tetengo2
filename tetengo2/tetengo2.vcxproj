@@ -149,11 +149,6 @@
     <ClInclude Include="include\tetengo2.detail.windows.unit.h" />
     <ClInclude Include="include\tetengo2.detail.windows.widget.h" />
     <ClInclude Include="include\tetengo2.detail.windows.windows_version.h" />
-    <ClInclude Include="include\tetengo2.encoder.h" />
-    <ClInclude Include="include\tetengo2.encoding.ascii.h" />
-    <ClInclude Include="include\tetengo2.encoding.encoding.h" />
-    <ClInclude Include="include\tetengo2.encoding.locale.h" />
-    <ClInclude Include="include\tetengo2.encoding.utf8.h" />
     <ClInclude Include="include\tetengo2.gui.abstract_popup_menu.h" />
     <ClInclude Include="include\tetengo2.gui.abstract_window.h" />
     <ClInclude Include="include\tetengo2.gui.alert.h" />
@@ -212,6 +207,11 @@
     <ClInclude Include="include\tetengo2.message_catalog_parser.h" />
     <ClInclude Include="include\tetengo2.meta.assoc_list.h" />
     <ClInclude Include="include\tetengo2.operators.h" />
+    <ClInclude Include="include\tetengo2.text.encoder.h" />
+    <ClInclude Include="include\tetengo2.text.encoding.ascii.h" />
+    <ClInclude Include="include\tetengo2.text.encoding.encoding.h" />
+    <ClInclude Include="include\tetengo2.text.encoding.locale.h" />
+    <ClInclude Include="include\tetengo2.text.encoding.utf8.h" />
     <ClInclude Include="include\tetengo2.text.h" />
     <ClInclude Include="include\tetengo2.unique.h" />
   </ItemGroup>

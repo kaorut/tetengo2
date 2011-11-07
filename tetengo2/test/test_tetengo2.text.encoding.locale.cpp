@@ -15,7 +15,7 @@
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.text.h"
 
-#include "tetengo2.encoding.locale.h"
+#include "tetengo2.text.encoding.locale.h"
 
 
 namespace

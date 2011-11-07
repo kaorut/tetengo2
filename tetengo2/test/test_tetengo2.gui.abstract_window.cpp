@@ -23,8 +23,6 @@
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.widget.h"
-#include "tetengo2.encoder.h"
-#include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.alert.h"
 #include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.gui.drawing.font.h"
@@ -41,6 +39,8 @@
 #include "tetengo2.gui.traits.widget_traits.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.window_observer_set.h"
+#include "tetengo2.text.encoder.h"
+#include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
 
 #include "tetengo2.gui.abstract_window.h"

@@ -22,9 +22,6 @@
     <Filter Include="headers\tetengo2\detail\windows\gdiplus">
       <UniqueIdentifier>{bb8d439b-5590-41af-b3e6-4f1f4c47d349}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\tetengo2\encoding">
-      <UniqueIdentifier>{8e2047ca-496a-4bcb-8e9c-a7144f52ceea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="headers\tetengo2\gui">
       <UniqueIdentifier>{962a8c8d-06e6-47d2-8a66-81b1b2816322}</UniqueIdentifier>
     </Filter>
@@ -46,11 +43,11 @@
     <Filter Include="headers\tetengo2\text">
       <UniqueIdentifier>{b6e90a66-3b58-4f27-b92b-f77cf3b4b069}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2\text\encoding">
+      <UniqueIdentifier>{8e2047ca-496a-4bcb-8e9c-a7144f52ceea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\tetengo2.encoder.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.message_catalog.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
@@ -62,15 +59,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.text.h">
       <Filter>headers\tetengo2</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.encoding.ascii.h">
-      <Filter>headers\tetengo2\encoding</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.encoding.encoding.h">
-      <Filter>headers\tetengo2\encoding</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.encoding.locale.h">
-      <Filter>headers\tetengo2\encoding</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.recursive_menu_iterator.h">
       <Filter>headers\tetengo2\gui</Filter>
@@ -140,9 +128,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.windows.encoding.h">
       <Filter>headers\tetengo2\detail\windows</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.encoding.utf8.h">
-      <Filter>headers\tetengo2\encoding</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.detail.stub.unit.h">
       <Filter>headers\tetengo2\detail\stub</Filter>
@@ -323,6 +308,21 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.json.pull_parser.h">
       <Filter>headers\tetengo2\json</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.text.encoder.h">
+      <Filter>headers\tetengo2\text</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.text.encoding.ascii.h">
+      <Filter>headers\tetengo2\text\encoding</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.text.encoding.encoding.h">
+      <Filter>headers\tetengo2\text\encoding</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.text.encoding.locale.h">
+      <Filter>headers\tetengo2\text\encoding</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.text.encoding.utf8.h">
+      <Filter>headers\tetengo2\text\encoding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

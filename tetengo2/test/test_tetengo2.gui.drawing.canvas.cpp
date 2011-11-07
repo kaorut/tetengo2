@@ -16,12 +16,12 @@
 
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.encoder.h"
-#include "tetengo2.encoding.locale.h"
 #include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.text.h"
+#include "tetengo2.text.encoder.h"
+#include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
 
 #include "tetengo2.gui.drawing.canvas.h"

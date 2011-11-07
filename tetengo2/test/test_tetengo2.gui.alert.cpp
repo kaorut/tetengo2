@@ -15,8 +15,8 @@
 
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.encoder.h"
-#include "tetengo2.encoding.locale.h"
+#include "tetengo2.text.encoder.h"
+#include "tetengo2.text.encoding.locale.h"
 
 #include "tetengo2.gui.alert.h"
 
