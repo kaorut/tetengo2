@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::encoder.
+    \brief Test of class tetengo2::text::encoder.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -23,7 +23,8 @@ namespace
 
     typedef tetengo2::encoding::ascii<encoding_details_type> encoding_type;
 
-    typedef tetengo2::encoder<encoding_type, encoding_type> encoder_type;
+    typedef
+        tetengo2::text::encoder<encoding_type, encoding_type> encoder_type;
 
 }
 

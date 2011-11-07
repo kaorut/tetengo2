@@ -39,7 +39,7 @@ namespace
         message_catalog_encoding_type;
 
     typedef
-        tetengo2::encoder<
+        tetengo2::text::encoder<
             internal_encoding_type, message_catalog_encoding_type
         >
         message_catalog_encoder_type;
@@ -49,7 +49,9 @@ namespace
         locale_name_encoding_type;
 
     typedef
-        tetengo2::encoder<internal_encoding_type, locale_name_encoding_type>
+        tetengo2::text::encoder<
+            internal_encoding_type, locale_name_encoding_type
+        >
         locale_name_encoder_type;
 
     typedef

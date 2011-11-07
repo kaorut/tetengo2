@@ -41,7 +41,7 @@ namespace
         encoding_type;
 
     typedef
-        tetengo2::encoder<internal_encoding_type, encoding_type>
+        tetengo2::text::encoder<internal_encoding_type, encoding_type>
         encoder_type;
 
     typedef

@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::encoder.
+    \brief The definition of tetengo2::text::encoder.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_ENCODER_H)
-#define TETENGO2_ENCODER_H
+#if !defined(TETENGO2_TEXT_ENCODER_H)
+#define TETENGO2_TEXT_ENCODER_H
 
 //#include <cstddef>
 //#include <type_traits>
@@ -18,7 +18,7 @@
 #include "tetengo2.text.encoding.locale.h"
 
 
-namespace tetengo2
+namespace tetengo2 { namespace text
 {
     /*!
         \brief The class template for an encoder.
@@ -281,6 +281,7 @@ namespace tetengo2
     };
 
 
-}
+}}
+
 
 #endif

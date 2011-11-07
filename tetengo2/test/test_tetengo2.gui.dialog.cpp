@@ -63,7 +63,7 @@ namespace
         ui_encoding_type;
 
     typedef
-        tetengo2::encoder<internal_encoding_type, ui_encoding_type>
+        tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>
         ui_encoder_type;
 
     typedef
@@ -71,7 +71,9 @@ namespace
         exception_encoding_type;
 
     typedef
-        tetengo2::encoder<internal_encoding_type, exception_encoding_type>
+        tetengo2::text::encoder<
+            internal_encoding_type, exception_encoding_type
+        >
         exception_encoder_type;
 
     typedef tetengo2::detail::stub::drawing drawing_details_type;

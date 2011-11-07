@@ -94,7 +94,7 @@ typedef
     ui_encoding_type;
 
 typedef
-    tetengo2::encoder<internal_encoding_type, ui_encoding_type>
+    tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>
     ui_encoder_type;
 
 typedef
@@ -102,7 +102,7 @@ typedef
     exception_encoding_type;
 
 typedef
-    tetengo2::encoder<internal_encoding_type, exception_encoding_type>
+    tetengo2::text::encoder<internal_encoding_type, exception_encoding_type>
     exception_encoder_type;
 
 typedef bobura::settings<std::wstring, boost::filesystem::path> settings_type;
@@ -238,7 +238,7 @@ typedef
     locale_name_encoding_type;
 
 typedef
-    tetengo2::encoder<internal_encoding_type, message_catalog_encoding_type>
+    tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>
     message_catalog_encoder_type;
 
 typedef
@@ -248,7 +248,7 @@ typedef
     message_catalog_parser_type;
 
 typedef
-    tetengo2::encoder<internal_encoding_type, locale_name_encoding_type>
+    tetengo2::text::encoder<internal_encoding_type, locale_name_encoding_type>
     locale_name_encoder_type;
 
 typedef

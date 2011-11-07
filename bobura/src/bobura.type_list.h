@@ -165,7 +165,7 @@ namespace bobura
             tetengo2::encoding::locale<std::string, encoding_details_type>
             locale_name_encoding_type;
         typedef
-            tetengo2::encoder<
+            tetengo2::text::encoder<
                 internal_encoding_type, message_catalog_encoding_type
             >
             message_catalog_encoder_type;
@@ -177,7 +177,7 @@ namespace bobura
             >
             message_catalog_parser_type;
         typedef
-            tetengo2::encoder<
+            tetengo2::text::encoder<
                 internal_encoding_type, locale_name_encoding_type
             >
             locale_name_encoder_type;
@@ -196,7 +196,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::ui_encoder,
-                tetengo2::encoder<
+                tetengo2::text::encoder<
                     detail::locale::internal_encoding_type,
                     detail::locale::ui_encoding_type
                 >
@@ -204,7 +204,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::exception_encoder,
-                tetengo2::encoder<
+                tetengo2::text::encoder<
                     detail::locale::internal_encoding_type,
                     detail::locale::exception_encoding_type
                 >
