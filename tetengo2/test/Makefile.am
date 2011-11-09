@@ -52,8 +52,6 @@ sources = \
     test_tetengo2.gui.window.cpp \
     test_tetengo2.gui.window_observer_set.cpp \
     test_tetengo2.json.grammar.cpp \
-    test_tetengo2.json.pull_parser.cpp \
-    test_tetengo2.json.push_parser.cpp \
     test_tetengo2.message_catalog.cpp \
     test_tetengo2.message_catalog_parser.cpp \
     test_tetengo2.messages.cpp \
@@ -65,6 +63,8 @@ sources = \
     test_tetengo2.text.encoding.ascii.cpp \
     test_tetengo2.text.encoding.locale.cpp \
     test_tetengo2.text.encoding.utf8.cpp \
+    test_tetengo2.text.pull_parser.cpp \
+    test_tetengo2.text.push_parser.cpp \
     test_tetengo2.unique.cpp
 
 extra_sources =
