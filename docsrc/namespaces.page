@@ -71,10 +71,6 @@
     \brief The namespace for the detail implementations using GDI+.
 */
 
-/*! \namespace tetengo2::encoding
-    \brief The namespace for encodings.
-*/
-
 /*! \namespace tetengo2::gui
     \brief The namespace for GUI.
 */
@@ -101,5 +97,9 @@
 
 /*! \namespace tetengo2::text
     \brief The namespace for text processings.
+*/
+
+/*! \namespace tetengo2::text::encoding
+    \brief The namespace for encodings.
 */
 
