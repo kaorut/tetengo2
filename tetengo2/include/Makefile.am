@@ -67,7 +67,6 @@ headers = \
     tetengo2.gui.widget.h \
     tetengo2.gui.window.h \
     tetengo2.gui.window_observer_set.h \
-    tetengo2.json.grammar.h \
     tetengo2.message_catalog.h \
     tetengo2.message_catalog_parser.h \
     tetengo2.messages.h \
@@ -79,6 +78,7 @@ headers = \
     tetengo2.text.encoding.ascii.h \
     tetengo2.text.encoding.locale.h \
     tetengo2.text.encoding.utf8.h \
+    tetengo2.text.grammar.json.h \
     tetengo2.text.pull_parser.h \
     tetengo2.text.push_parser.h \
     tetengo2.unique.h
