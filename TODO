@@ -7,13 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000113
-Added on    : 2011/11/01
-Depends on  : 00000114
-Description : Make a namespace tetengo2::text.
-              Move tetengo2::encoder, tetengo2::encoding::*, tetengo2::json::*
-              to tetengo2::text.
-------------------------------------------------------------------------------
 Number      : 00000115
 Added on    : 2011/11/08
 Depends on  : (none)
