@@ -87,6 +87,10 @@
     \brief The namespace for size units.
 */
 
+/*! \namespace tetengo2::message
+    \brief The namespace for message catalog processings.
+*/
+
 /*! \namespace tetengo2::meta
     \brief The namespace for metaprogramming.
 */

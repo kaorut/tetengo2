@@ -46,6 +46,9 @@
     <Filter Include="headers\tetengo2\text\grammar">
       <UniqueIdentifier>{7c6b6e30-2234-4de7-897f-5a58ac567517}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2\message">
+      <UniqueIdentifier>{9bee3c30-6bf6-40f6-a5f2-01adaecdee2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.message_catalog.h">
