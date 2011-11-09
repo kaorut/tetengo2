@@ -51,15 +51,15 @@ namespace tetengo2 { namespace concurrent
         // functions
         
         /*!
-            \brief Checks whether the channel is empty.
+            \brief Checks whether the channel is closed.
 
-            \retval true  When the channel is empty.
+            \retval true  When the channel is closed.
             \retval false Otherwise.
         */
-        bool has_no_more()
+        bool closed()
         const
         {
-            return m_channel.has_no_more();
+            return m_channel.closed();
         }
 
         /*!
@@ -69,14 +69,14 @@ namespace tetengo2 { namespace concurrent
 
             \return A value.
 
-            \throw std::logic_error When the channel is empty.
+            \throw std::logic_error When the channel is closed.
         */
         value_type take()
         {
-            if (has_no_more())
+            if (closed())
             {
                 BOOST_THROW_EXCEPTION(
-                    std::logic_error("The channel is empty.")
+                    std::logic_error("The channel is already closed.")
                 );
             }
 

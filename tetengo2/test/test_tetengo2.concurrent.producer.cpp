@@ -56,10 +56,10 @@ namespace
             return result;
         }
 
-        void finish_insertion()
+        void close()
         {}
 
-        bool has_no_more()
+        bool closed()
         const
         {
             return m_values.empty() && m_exceptions.empty();
@@ -134,7 +134,7 @@ BOOST_AUTO_TEST_SUITE(producer)
             BOOST_CHECK_EQUAL(channel.take(), 30);
             BOOST_CHECK_EQUAL(channel.take(), 40);
             BOOST_CHECK_EQUAL(channel.take(), 50);
-            BOOST_CHECK(channel.has_no_more());
+            BOOST_CHECK(channel.closed());
         }
         {
             channel_type channel(false);
@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_SUITE(producer)
             BOOST_CHECK_EQUAL(channel.take(), 30);
             BOOST_CHECK_EQUAL(channel.take(), 40);
             BOOST_CHECK_EQUAL(channel.take(), 50);
-            BOOST_CHECK(channel.has_no_more());
+            BOOST_CHECK(channel.closed());
         }
         {
             channel_type channel(true);
@@ -157,7 +157,7 @@ BOOST_AUTO_TEST_SUITE(producer)
             producer.join();
 
             BOOST_CHECK_THROW(channel.take(), std::runtime_error);
-            BOOST_CHECK(channel.has_no_more());
+            BOOST_CHECK(channel.closed());
         }
     }
 

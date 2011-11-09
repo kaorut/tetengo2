@@ -75,13 +75,13 @@ namespace tetengo2 { namespace concurrent
         {
             try
             {
-                m_channel.finish_insertion();
+                m_channel.close();
                 m_thread.join();
             }
             catch (const boost::thread_interrupted& e)
             {
                 m_channel.insert_exception(boost::copy_exception(e));
-                m_channel.finish_insertion();
+                m_channel.close();
             }
         }
 
@@ -97,12 +97,12 @@ namespace tetengo2 { namespace concurrent
             try
             {
                 thread_procedure_impl();
-                channel.finish_insertion();
+                channel.close();
             }
             catch (...)
             {
                 channel.insert_exception(boost::current_exception());
-                channel.finish_insertion();
+                channel.close();
             }
         }
 

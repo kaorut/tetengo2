@@ -29,7 +29,7 @@ namespace
         m_values(make_values(empty))
         {}
 
-        bool has_no_more()
+        bool closed()
         const
         {
             return m_values.empty();
@@ -48,11 +48,11 @@ namespace
         }
 
     private:
-        static std::queue<int> make_values(const bool has_no_more)
+        static std::queue<int> make_values(const bool closed)
         {
             std::queue<int> queue;
 
-            if (!has_no_more)
+            if (!closed)
             {
                 queue.push(123);
                 queue.push(456);
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_SUITE(consumer)
         const consumer_type consumer(channel);
     }
 
-    BOOST_AUTO_TEST_CASE(has_no_more)
+    BOOST_AUTO_TEST_CASE(closed)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -91,13 +91,13 @@ BOOST_AUTO_TEST_SUITE(consumer)
             channel_type channel(false); 
             consumer_type consumer(channel);
 
-            BOOST_CHECK(!consumer.has_no_more());
+            BOOST_CHECK(!consumer.closed());
         }
         {
             channel_type channel(true); 
             consumer_type consumer(channel);
 
-            BOOST_CHECK(consumer.has_no_more());
+            BOOST_CHECK(consumer.closed());
         }
     }
 

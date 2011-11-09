@@ -182,7 +182,7 @@ namespace tetengo2 { namespace text
         bool has_next()
         const
         {
-            return !m_consumer.has_no_more();
+            return !m_consumer.closed();
         }
 
         /*!

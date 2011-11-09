@@ -75,12 +75,12 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Inserts a value.
 
+            The values inserted after a close() call are just discarded.
+
             \tparam V A value type.
 
             \param value A value.
 
-            \throw std::logic_error          When the insertion is already
-                                             finished.
             \throw boost::thread_interrupted When the thread is interrupted.
         */
         template <typename V>
@@ -93,11 +93,7 @@ namespace tetengo2 { namespace concurrent
             if (can_take() && !m_queue.back())
             {
                 m_condition_variable.notify_all();
-
                 return;
-                //BOOST_THROW_EXCEPTION(
-                //    std::logic_error("The insertion is already finished.")
-                //);
             }
 
             m_queue.push(
@@ -112,10 +108,10 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Inserts an exception.
 
+            The exceptions inserted after a close() call are just discarded.
+
             \param p_exception A pointer to an exceptoin.
 
-            \throw std::logic_error          When the insertion is already
-                                             finished.
             \throw boost::thread_interrupted When the thread is interrupted.
         */
         void insert_exception(const boost::exception_ptr& p_exception)
@@ -130,8 +126,8 @@ namespace tetengo2 { namespace concurrent
 
             \throw unspecified               An exception inserted with
                                              insert_exception().
-            \throw std::logic_error          When the channel has no more
-                                             element.
+            \throw std::logic_error          When the channel is already
+                                             closed.
             \throw boost::thread_interrupted When the thread is interrupted.
         */
         value_type take()
@@ -140,10 +136,10 @@ namespace tetengo2 { namespace concurrent
             m_condition_variable.wait(
                 lock, TETENGO2_CPP11_BIND(&channel::can_take, this)
             );
-            if (has_no_more_impl())
+            if (closed_impl())
             {
                 BOOST_THROW_EXCEPTION(
-                    std::logic_error("The channel has no more element.")
+                    std::logic_error("The channel is already closed.")
                 );
             }
 
@@ -174,11 +170,11 @@ namespace tetengo2 { namespace concurrent
         }
 
         /*!
-            \brief Finishes the insertion.
+            \brief Closes the channel.
 
             \throw boost::thread_interrupted When the thread is interrupted.
         */
-        void finish_insertion()
+        void close()
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
             m_condition_variable.wait(
@@ -187,7 +183,6 @@ namespace tetengo2 { namespace concurrent
             if (can_take() && !m_queue.back())
             {
                 m_condition_variable.notify_all();
-
                 return;
             }
 
@@ -197,19 +192,19 @@ namespace tetengo2 { namespace concurrent
         }
 
         /*!
-            \brief Checks whether the channel has no more element.
+            \brief Checks whether the channel is closed.
 
-            \retval true  When the channel has no more element.
+            \retval true  When the channel is closed.
             \retval false Otherwise.
         */
-        bool has_no_more()
+        bool closed()
         const
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
             m_condition_variable.wait(
                 lock, TETENGO2_CPP11_BIND(&channel::can_take, this)
             );
-            return has_no_more_impl();
+            return closed_impl();
         }
 
 
@@ -240,7 +235,7 @@ namespace tetengo2 { namespace concurrent
 
         // functions
 
-        bool has_no_more_impl()
+        bool closed_impl()
         const
         {
             return !m_queue.empty() && !m_queue.front();

@@ -44,7 +44,7 @@ namespace
         channel.insert(56);
 
         boost::this_thread::sleep(boost::posix_time::milliseconds(100));
-        channel.finish_insertion();
+        channel.close();
     }
 
 
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(finish_insertion)
+    BOOST_AUTO_TEST_CASE(close)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -151,7 +151,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             channel.insert(12);
 
-            channel.finish_insertion();
+            channel.close();
 
             channel.insert(34);
         }
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             channel.insert(12);
 
-            channel.finish_insertion();
+            channel.close();
 
             BOOST_CHECK_EQUAL(channel.take(), 12);
             BOOST_CHECK_THROW(channel.take(), std::logic_error);
@@ -170,35 +170,35 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             channel.insert(12);
 
-            channel.finish_insertion();
+            channel.close();
 
-            channel.finish_insertion();
+            channel.close();
         }
     }
 
-    BOOST_AUTO_TEST_CASE(has_no_more)
+    BOOST_AUTO_TEST_CASE(closed)
     {
         BOOST_TEST_PASSPOINT();
 
         {
             channel_type channel(3);
 
-            channel.finish_insertion();
+            channel.close();
 
-            BOOST_CHECK(channel.has_no_more());
+            BOOST_CHECK(channel.closed());
         }
         {
             channel_type channel(3);
 
             channel.insert(12);
 
-            channel.finish_insertion();
+            channel.close();
 
-            BOOST_CHECK(!channel.has_no_more());
+            BOOST_CHECK(!channel.closed());
 
             channel.take();
 
-            BOOST_CHECK(channel.has_no_more());
+            BOOST_CHECK(channel.closed());
         }
         {
             channel_type channel(3);
@@ -211,7 +211,7 @@ BOOST_AUTO_TEST_SUITE(channel)
             BOOST_CHECK_EQUAL(channel.take(), 34);
             BOOST_CHECK_EQUAL(channel.take(), 56);
 
-            BOOST_CHECK(channel.has_no_more());
+            BOOST_CHECK(channel.closed());
 
             producing_thread.join();
         }
