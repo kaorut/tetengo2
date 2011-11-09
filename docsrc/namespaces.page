@@ -87,10 +87,6 @@
     \brief The namespace for size units.
 */
 
-/*! \namespace tetengo2::json
-    \brief The namespace for JSON parsers and builders.
-*/
-
 /*! \namespace tetengo2::meta
     \brief The namespace for metaprogramming.
 */
@@ -101,5 +97,9 @@
 
 /*! \namespace tetengo2::text::encoding
     \brief The namespace for encodings.
+*/
+
+/*! \namespace tetengo2::text::grammar
+    \brief The namespace for grammars.
 */
 

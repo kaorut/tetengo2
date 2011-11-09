@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::json::grammar.
+    \brief The definition of tetengo2::text::grammar::json.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_JSON_GRAMMAR_H)
-#define TETENGO2_JSON_GRAMMAR_H
+#if !defined(TETENGO2_TEXT_GRAMMAR_JSON_H)
+#define TETENGO2_TEXT_GRAMMAR_JSON_H
 
 #include <string>
 
@@ -18,10 +18,10 @@
 #include "tetengo2.text.h"
 
 
-namespace tetengo2 { namespace json
+namespace tetengo2 { namespace text { namespace grammar
 {
     /*!
-        \brief The class template for a grammar.
+        \brief The class template for a grammar of JSON.
 
         The grammar of JSON is based on RFC4627.
         http://www.ietf.org/rfc/rfc4627.txt
@@ -29,7 +29,7 @@ namespace tetengo2 { namespace json
         \tparam ForwardIterator A forward iterator type.
     */
     template <typename ForwardIterator>
-    class grammar :
+    class json :
         public boost::spirit::qi::grammar<
             ForwardIterator,
             std::basic_string<typename ForwardIterator::value_type> ()
@@ -75,11 +75,11 @@ namespace tetengo2 { namespace json
         // constructors and destructor
 
         /*!
-            \brief Creates a grammar.
+            \brief Creates a grammar of JSON.
         */
-        grammar()
+        json()
         :
-        grammar::base_type(m_json_text, "json"),
+        json::base_type(m_json_text, "json"),
         m_on_structure_begin(),
         m_on_structure_end(),
         m_on_value(),
@@ -438,33 +438,29 @@ namespace tetengo2 { namespace json
             m_value =
                 m_false[
                     TETENGO2_CPP11_BIND(
-                        &grammar::boolean_passed,
-                        this,
-                        cpp11::placeholders_1()
+                        &json::boolean_passed, this, cpp11::placeholders_1()
                     )
                 ] |
                 m_null[
                     TETENGO2_CPP11_BIND(
-                        &grammar::null_passed, this, cpp11::placeholders_1()
+                        &json::null_passed, this, cpp11::placeholders_1()
                     )
                 ] |
                 m_true[
                     TETENGO2_CPP11_BIND(
-                        &grammar::boolean_passed,
-                        this,
-                        cpp11::placeholders_1()
+                        &json::boolean_passed, this, cpp11::placeholders_1()
                     )
                 ] |
                 m_object |
                 m_array |
                 m_number[
                     TETENGO2_CPP11_BIND(
-                        &grammar::number_passed, this, cpp11::placeholders_1()
+                        &json::number_passed, this, cpp11::placeholders_1()
                     )
                 ] |
                 m_string[
                     TETENGO2_CPP11_BIND(
-                        &grammar::string_passed, this, cpp11::placeholders_1()
+                        &json::string_passed, this, cpp11::placeholders_1()
                     )
                 ];
             m_value.name("value");
@@ -479,26 +475,26 @@ namespace tetengo2 { namespace json
             m_object =
                 m_begin_object[
                     TETENGO2_CPP11_BIND(
-                        &grammar::object_begun, this, cpp11::placeholders_1()
+                        &json::object_begun, this, cpp11::placeholders_1()
                     )
                 ] >>
                 -(m_member >> *(m_value_separator >> m_member)) >>
                 m_end_object[
                     TETENGO2_CPP11_BIND(
-                        &grammar::object_ended, this, cpp11::placeholders_1()
+                        &json::object_ended, this, cpp11::placeholders_1()
                     )
                 ];
             m_object.name("object");
             m_member =
                 m_string[
                     TETENGO2_CPP11_BIND(
-                        &grammar::member_begun, this, cpp11::placeholders_1()
+                        &json::member_begun, this, cpp11::placeholders_1()
                     )
                 ] >>
                 m_name_separator >>
                 m_value[
                     TETENGO2_CPP11_BIND(
-                        &grammar::member_ended, this, cpp11::placeholders_1()
+                        &json::member_ended, this, cpp11::placeholders_1()
                     )
                 ];
             m_member.name("member");
@@ -507,13 +503,13 @@ namespace tetengo2 { namespace json
             m_array =
                 m_begin_array[
                     TETENGO2_CPP11_BIND(
-                        &grammar::array_begun, this, cpp11::placeholders_1()
+                        &json::array_begun, this, cpp11::placeholders_1()
                     )
                 ] >>
                 -(m_value >> *(m_value_separator >> m_value)) >>
                 m_end_array[
                     TETENGO2_CPP11_BIND(
-                        &grammar::array_ended, this, cpp11::placeholders_1()
+                        &json::array_ended, this, cpp11::placeholders_1()
                     )
                 ];
             m_array.name("array");
@@ -582,7 +578,7 @@ namespace tetengo2 { namespace json
     };
 
 
-}}
+}}}
 
 
 #endif

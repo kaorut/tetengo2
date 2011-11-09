@@ -15,7 +15,7 @@
 #include <boost/test/unit_test.hpp>
 //#include <boost/variant.hpp>
 
-#include "tetengo2.json.grammar.h"
+#include "tetengo2.text.grammar.json.h"
 #include "tetengo2.text.push_parser.h"
 #include "tetengo2.unique.h"
 
@@ -28,7 +28,7 @@ namespace
 
     typedef std::string::const_iterator iterator;
 
-    typedef tetengo2::json::grammar<iterator> grammar_type;
+    typedef tetengo2::text::grammar::json<iterator> grammar_type;
 
     typedef
         tetengo2::text::push_parser<iterator, grammar_type, int, double>

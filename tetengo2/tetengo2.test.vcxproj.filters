@@ -28,9 +28,6 @@
     <Filter Include="sources\test_tetengo2\gui\unit">
       <UniqueIdentifier>{8d96695a-f7cd-4028-8ef8-ba34b2d12a1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\test_tetengo2\json">
-      <UniqueIdentifier>{b8773047-d16e-45e7-afae-0fae03880103}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\test_tetengo2\meta">
       <UniqueIdentifier>{f39296db-b0dc-4492-8ec6-1fca151306fb}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,9 @@
     </Filter>
     <Filter Include="sources\test_tetengo2\text\encoding">
       <UniqueIdentifier>{4058f1f3-8208-4f79-b93b-1dc39d1c6236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_tetengo2\text\grammar">
+      <UniqueIdentifier>{b8773047-d16e-45e7-afae-0fae03880103}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -205,9 +205,6 @@
     <ClCompile Include="test\test_tetengo2.unique.cpp">
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.json.grammar.cpp">
-      <Filter>sources\test_tetengo2\json</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.concurrent.consumer.cpp">
       <Filter>sources\test_tetengo2\concurrent</Filter>
     </ClCompile>
@@ -237,6 +234,9 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.text.push_parser.cpp">
       <Filter>sources\test_tetengo2\text</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.text.grammar.json.cpp">
+      <Filter>sources\test_tetengo2\text\grammar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

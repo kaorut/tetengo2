@@ -34,9 +34,6 @@
     <Filter Include="headers\tetengo2\gui\unit">
       <UniqueIdentifier>{0468b3a4-d43c-4d49-841e-dc96e1bb257a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\tetengo2\json">
-      <UniqueIdentifier>{7c6b6e30-2234-4de7-897f-5a58ac567517}</UniqueIdentifier>
-    </Filter>
     <Filter Include="headers\tetengo2\meta">
       <UniqueIdentifier>{c7f1a761-d684-452e-9d9f-fa0fedff1c57}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,9 @@
     </Filter>
     <Filter Include="headers\tetengo2\text\encoding">
       <UniqueIdentifier>{8e2047ca-496a-4bcb-8e9c-a7144f52ceea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\tetengo2\text\grammar">
+      <UniqueIdentifier>{7c6b6e30-2234-4de7-897f-5a58ac567517}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -288,9 +288,6 @@
     <ClInclude Include="include\tetengo2.unique.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.json.grammar.h">
-      <Filter>headers\tetengo2\json</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.cpp11.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
@@ -323,6 +320,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.text.push_parser.h">
       <Filter>headers\tetengo2\text</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.text.grammar.json.h">
+      <Filter>headers\tetengo2\text\grammar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

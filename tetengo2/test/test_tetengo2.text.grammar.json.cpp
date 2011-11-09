@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::json::grammar.
+    \brief Test of class tetengo2::text::grammar::json.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -16,7 +16,7 @@
 
 #include "tetengo2.cpp11.h"
 
-#include "tetengo2.json.grammar.h"
+#include "tetengo2.text.grammar.json.h"
 
 
 namespace
@@ -24,11 +24,11 @@ namespace
     // types
 
     typedef
-        tetengo2::json::grammar<std::string::const_iterator>
+        tetengo2::text::grammar::json<std::string::const_iterator>
         grammar_type;
 
     typedef
-        tetengo2::json::grammar<std::wstring::const_iterator>
+        tetengo2::text::grammar::json<std::wstring::const_iterator>
         wide_grammar_type;
 
     // functions
@@ -121,8 +121,9 @@ namespace
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(json)
+BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(grammar)
+BOOST_AUTO_TEST_SUITE(json)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -943,6 +944,7 @@ BOOST_AUTO_TEST_SUITE(grammar)
     }
 
     
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

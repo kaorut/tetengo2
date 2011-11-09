@@ -15,7 +15,7 @@
 //#include <boost/variant.hpp>
 
 #include "tetengo2.cpp11.h"
-#include "tetengo2.json.grammar.h"
+#include "tetengo2.text.grammar.json.h"
 #include "tetengo2.unique.h"
 
 #include "tetengo2.text.push_parser.h"
@@ -25,7 +25,9 @@ namespace
 {
     // types
 
-    typedef tetengo2::json::grammar<std::string::const_iterator> grammar_type;
+    typedef
+        tetengo2::text::grammar::json<std::string::const_iterator>
+        grammar_type;
 
     typedef
         tetengo2::text::push_parser<

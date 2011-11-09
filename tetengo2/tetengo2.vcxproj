@@ -199,7 +199,6 @@
     <ClInclude Include="include\tetengo2.gui.widget.h" />
     <ClInclude Include="include\tetengo2.gui.window.h" />
     <ClInclude Include="include\tetengo2.gui.window_observer_set.h" />
-    <ClInclude Include="include\tetengo2.json.grammar.h" />
     <ClInclude Include="include\tetengo2.messages.h" />
     <ClInclude Include="include\tetengo2.message_catalog.h" />
     <ClInclude Include="include\tetengo2.message_catalog_parser.h" />
@@ -210,6 +209,7 @@
     <ClInclude Include="include\tetengo2.text.encoding.encoding.h" />
     <ClInclude Include="include\tetengo2.text.encoding.locale.h" />
     <ClInclude Include="include\tetengo2.text.encoding.utf8.h" />
+    <ClInclude Include="include\tetengo2.text.grammar.json.h" />
     <ClInclude Include="include\tetengo2.text.h" />
     <ClInclude Include="include\tetengo2.text.pull_parser.h" />
     <ClInclude Include="include\tetengo2.text.push_parser.h" />
