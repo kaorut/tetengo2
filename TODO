@@ -18,12 +18,6 @@ Added on    : 2011/11/08
 Depends on  : (none)
 Description : Change the message catalogs to JSON.
 ------------------------------------------------------------------------------
-Number      : 00000117
-Added on    : 2011/11/10
-Depends on  : (none)
-Description : Change the names; tetengo2::channel::finish_insertion() to
-              close(), and has_no_more() to closed().
-------------------------------------------------------------------------------
 Number      : 00000118
 Added on    : 2011/mm/dd
 Depends on  : (none)
