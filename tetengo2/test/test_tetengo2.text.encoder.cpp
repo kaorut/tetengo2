@@ -30,6 +30,7 @@ namespace
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(encoder)
     // test cases
 
@@ -114,5 +115,6 @@ BOOST_AUTO_TEST_SUITE(encoder)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
