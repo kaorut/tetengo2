@@ -275,8 +275,6 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.gui.window.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.window_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.json.grammar.cpp" />
-    <ClCompile Include="test\test_tetengo2.json.pull_parser.cpp" />
-    <ClCompile Include="test\test_tetengo2.json.push_parser.cpp" />
     <ClCompile Include="test\test_tetengo2.messages.cpp" />
     <ClCompile Include="test\test_tetengo2.message_catalog.cpp" />
     <ClCompile Include="test\test_tetengo2.message_catalog_parser.cpp" />
@@ -288,6 +286,8 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.text.encoding.encoding.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.locale.cpp" />
     <ClCompile Include="test\test_tetengo2.text.encoding.utf8.cpp" />
+    <ClCompile Include="test\test_tetengo2.text.pull_parser.cpp" />
+    <ClCompile Include="test\test_tetengo2.text.push_parser.cpp" />
     <ClCompile Include="test\test_tetengo2.unique.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

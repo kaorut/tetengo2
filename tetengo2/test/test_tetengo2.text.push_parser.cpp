@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::json::push_parser.
+    \brief Test of class tetengo2::text::push_parser.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -18,7 +18,7 @@
 #include "tetengo2.json.grammar.h"
 #include "tetengo2.unique.h"
 
-#include "tetengo2.json.push_parser.h"
+#include "tetengo2.text.push_parser.h"
 
 
 namespace
@@ -28,7 +28,7 @@ namespace
     typedef tetengo2::json::grammar<std::string::const_iterator> grammar_type;
 
     typedef
-        tetengo2::json::push_parser<
+        tetengo2::text::push_parser<
             std::string::const_iterator, grammar_type, int, double
         >
         push_parser_type;
@@ -69,7 +69,7 @@ namespace
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(json)
+BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(push_parser)
     // test cases
 

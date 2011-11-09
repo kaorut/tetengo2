@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::json::push_parser.
+    \brief The definition of tetengo2::text::push_parser.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -29,7 +29,7 @@
 #include "tetengo2.text.h"
 
 
-namespace tetengo2 { namespace json
+namespace tetengo2 { namespace text
 {
     /*!
         \brief The class template for a push parser.

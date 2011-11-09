@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::json::pull_parser.
+    \brief Test of class tetengo2::text::pull_parser.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -16,10 +16,10 @@
 //#include <boost/variant.hpp>
 
 #include "tetengo2.json.grammar.h"
-#include "tetengo2.json.push_parser.h"
+#include "tetengo2.text.push_parser.h"
 #include "tetengo2.unique.h"
 
-#include "tetengo2.json.pull_parser.h"
+#include "tetengo2.text.pull_parser.h"
 
 
 namespace
@@ -31,11 +31,11 @@ namespace
     typedef tetengo2::json::grammar<iterator> grammar_type;
 
     typedef
-        tetengo2::json::push_parser<iterator, grammar_type, int, double>
+        tetengo2::text::push_parser<iterator, grammar_type, int, double>
         push_parser_type;
 
     typedef
-        tetengo2::json::pull_parser<push_parser_type, std::size_t>
+        tetengo2::text::pull_parser<push_parser_type, std::size_t>
         pull_parser_type;
 
 
@@ -43,7 +43,7 @@ namespace
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(json)
+BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(pull_parser)
     // test cases
 

@@ -291,9 +291,6 @@
     <ClInclude Include="include\tetengo2.json.grammar.h">
       <Filter>headers\tetengo2\json</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.json.push_parser.h">
-      <Filter>headers\tetengo2\json</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.cpp11.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
@@ -305,9 +302,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.concurrent.channel.h">
       <Filter>headers\tetengo2\concurrent</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.json.pull_parser.h">
-      <Filter>headers\tetengo2\json</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.text.encoder.h">
       <Filter>headers\tetengo2\text</Filter>
@@ -323,6 +317,12 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.text.encoding.utf8.h">
       <Filter>headers\tetengo2\text\encoding</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.text.pull_parser.h">
+      <Filter>headers\tetengo2\text</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.text.push_parser.h">
+      <Filter>headers\tetengo2\text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
