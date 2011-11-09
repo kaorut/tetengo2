@@ -33,11 +33,11 @@ namespace
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
     typedef
-        tetengo2::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
         internal_encoding_type;
 
     typedef
-        tetengo2::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
         ui_encoding_type;
 
     typedef

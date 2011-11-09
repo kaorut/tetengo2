@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::encoding::ascii.
+    \brief The definition of tetengo2::text::encoding::ascii.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_ENCODING_ASCII_H)
-#define TETENGO2_ENCODING_ASCII_H
+#if !defined(TETENGO2_TEXT_ENCODING_ASCII_H)
+#define TETENGO2_TEXT_ENCODING_ASCII_H
 
 #include <stdexcept>
 #include <string>
@@ -19,7 +19,7 @@
 #include "tetengo2.text.encoding.encoding.h"
 
 
-namespace tetengo2 { namespace encoding
+namespace tetengo2 { namespace text { namespace encoding
 {
     /*!
         \brief The class template for an ASCII encoding.
@@ -124,7 +124,7 @@ namespace tetengo2 { namespace encoding
     };
 
 
-}}
+}}}
 
 
 #endif

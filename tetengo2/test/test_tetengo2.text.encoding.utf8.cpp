@@ -21,12 +21,14 @@ namespace
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
-    typedef tetengo2::encoding::utf8<encoding_details_type> encoding_type;
+    typedef
+        tetengo2::text::encoding::utf8<encoding_details_type> encoding_type;
 
 
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(encoding)
 BOOST_AUTO_TEST_SUITE(utf8)
     // test cases
@@ -72,6 +74,7 @@ BOOST_AUTO_TEST_SUITE(utf8)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

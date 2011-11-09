@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::encoding::utf8.
+    \brief The definition of tetengo2::text::encoding::utf8.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_ENCODING_UTF8_H)
-#define TETENGO2_ENCODING_UTF8_H
+#if !defined(TETENGO2_TEXT_ENCODING_UTF8_H)
+#define TETENGO2_TEXT_ENCODING_UTF8_H
 
 #include <string>
 
@@ -16,7 +16,7 @@
 #include "tetengo2.text.encoding.encoding.h"
 
 
-namespace tetengo2 { namespace encoding
+namespace tetengo2 { namespace text { namespace encoding
 {
     /*!
         \brief The class template for a UTF-8 encoding.
@@ -90,7 +90,7 @@ namespace tetengo2 { namespace encoding
     };
 
 
-}}
+}}}
 
 
 #endif

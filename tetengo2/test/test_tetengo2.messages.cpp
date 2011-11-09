@@ -32,11 +32,11 @@ namespace
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
     typedef
-        tetengo2::encoding::locale<std::string, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         internal_encoding_type;
 
     typedef
-        tetengo2::encoding::locale<std::string, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         message_catalog_encoding_type;
 
     typedef
@@ -46,7 +46,7 @@ namespace
         message_catalog_encoder_type;
 
     typedef
-        tetengo2::encoding::locale<std::string, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         locale_name_encoding_type;
 
     typedef

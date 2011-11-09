@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::encoding::locale.
+    \brief The definition of tetengo2::text::encoding::locale.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_ENCODING_LOCALE_H)
-#define TETENGO2_ENCODING_LOCALE_H
+#if !defined(TETENGO2_TEXT_ENCODING_LOCALE_H)
+#define TETENGO2_TEXT_ENCODING_LOCALE_H
 
 #include <cassert>
 #include <cstddef>
@@ -26,7 +26,7 @@
 #include "tetengo2.text.encoding.encoding.h"
 
 
-namespace tetengo2 { namespace encoding
+namespace tetengo2 { namespace text { namespace encoding
 {
     /*!
         \brief The class template for an encoding based on a locale.
@@ -424,7 +424,7 @@ namespace tetengo2 { namespace encoding
     };
 
 
-}}
+}}}
 
 
 #endif

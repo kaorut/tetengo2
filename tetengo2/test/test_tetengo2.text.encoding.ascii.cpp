@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::encoding::ascii.
+    \brief Test of class tetengo2::text::encoding::ascii.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -22,7 +22,8 @@ namespace
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
-    typedef tetengo2::encoding::ascii<encoding_details_type> encoding_type;
+    typedef
+        tetengo2::text::encoding::ascii<encoding_details_type> encoding_type;
 
 
     // variables
@@ -55,6 +56,7 @@ namespace
 }
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(encoding)
 BOOST_AUTO_TEST_SUITE(ascii)
     // test cases
@@ -132,6 +134,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

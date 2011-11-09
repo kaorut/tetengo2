@@ -1,16 +1,16 @@
 /*! \file
-    \brief The definition of tetengo2::encoding::encoding.
+    \brief The definition of tetengo2::text::encoding::encoding.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_ENCODING_ENCODING_H)
-#define TETENGO2_ENCODING_ENCODING_H
+#if !defined(TETENGO2_TEXT_ENCODING_ENCODING_H)
+#define TETENGO2_TEXT_ENCODING_ENCODING_H
 
 
-namespace tetengo2 { namespace encoding
+namespace tetengo2 { namespace text { namespace encoding
 {
     /*!
         \brief The class template for a encoding.
@@ -46,7 +46,7 @@ namespace tetengo2 { namespace encoding
     };
 
 
-}}
+}}}
 
 
 #endif

@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::encoding::locale.
+    \brief Test of class tetengo2::text::encoding::locale.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -25,11 +25,11 @@ namespace
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
     typedef
-        tetengo2::encoding::locale<std::string, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         multibyte_encoding_type;
 
     typedef
-        tetengo2::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
         wide_encoding_type;
 
 
@@ -78,6 +78,7 @@ namespace
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(encoding)
 BOOST_AUTO_TEST_SUITE(locale)
     // test cases
@@ -235,6 +236,7 @@ BOOST_AUTO_TEST_SUITE(locale)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

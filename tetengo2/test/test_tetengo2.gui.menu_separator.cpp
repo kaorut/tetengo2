@@ -25,7 +25,7 @@ namespace
     // types
 
     typedef
-        tetengo2::encoding::locale<
+        tetengo2::text::encoding::locale<
             std::string, tetengo2::detail::stub::encoding
         >
         encoding_type;
