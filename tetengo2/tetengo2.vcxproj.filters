@@ -51,15 +51,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\tetengo2.message_catalog.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.message_catalog_parser.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.messages.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.text.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
@@ -326,6 +317,15 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.text.grammar.json.h">
       <Filter>headers\tetengo2\text\grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.message.message_catalog.h">
+      <Filter>headers\tetengo2\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.message.message_catalog_parser.h">
+      <Filter>headers\tetengo2\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.message.messages.h">
+      <Filter>headers\tetengo2\message</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

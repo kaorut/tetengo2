@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::messages.
+    \brief Test of class tetengo2::message::messages.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -17,12 +17,12 @@
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.message_catalog_parser.h"
+#include "tetengo2.message.message_catalog_parser.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
 
-#include "tetengo2.messages.h"
+#include "tetengo2.message.messages.h"
 
 
 namespace
@@ -56,13 +56,13 @@ namespace
         locale_name_encoder_type;
 
     typedef
-        tetengo2::message_catalog_parser<
+        tetengo2::message::message_catalog_parser<
             std::istream, std::string, message_catalog_encoder_type
         >
         message_catalog_parser_type;
 
     typedef
-        tetengo2::messages<
+        tetengo2::message::messages<
             boost::filesystem::path,
             message_catalog_parser_type,
             locale_name_encoder_type
@@ -144,6 +144,7 @@ namespace
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
+BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(messages)
     // test cases
 
@@ -403,5 +404,6 @@ BOOST_AUTO_TEST_SUITE(messages)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

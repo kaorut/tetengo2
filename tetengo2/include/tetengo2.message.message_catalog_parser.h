@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::message_catalog_parser.
+    \brief The definition of tetengo2::message::message_catalog_parser.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_MESSAGECATALOGPARSER_H)
-#define TETENGO2_MESSAGECATALOGPARSER_H
+#if !defined(TETENGO2_MESSAGE_MESSAGECATALOGPARSER_H)
+#define TETENGO2_MESSAGE_MESSAGECATALOGPARSER_H
 
 #include <cassert>
 #include <cstddef>
@@ -33,7 +33,7 @@
 #include "tetengo2.unique.h"
 
 
-namespace tetengo2
+namespace tetengo2 { namespace message
 {
     /*!
         \brief The class template for a message catalog parser.
@@ -503,6 +503,7 @@ namespace tetengo2
     };
 
 
-}
+}}
+
 
 #endif

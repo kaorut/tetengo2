@@ -67,15 +67,6 @@
     <ClCompile Include="..\precompiled\precompiled.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.message_catalog.cpp">
-      <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.message_catalog_parser.cpp">
-      <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.messages.cpp">
-      <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.text.cpp">
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>
@@ -240,6 +231,15 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.text.grammar.json.cpp">
       <Filter>sources\test_tetengo2\text\grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.message.message_catalog.cpp">
+      <Filter>sources\test_tetengo2\message</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp">
+      <Filter>sources\test_tetengo2\message</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.message.messages.cpp">
+      <Filter>sources\test_tetengo2\message</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

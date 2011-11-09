@@ -66,12 +66,12 @@
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.window.h>
 #include <tetengo2.gui.window_observer_set.h>
+#include <tetengo2.message.messages.h>
+#include <tetengo2.message.message_catalog.h>
+#include <tetengo2.message.message_catalog_parser.h>
 #include <tetengo2.text.encoder.h>
 #include <tetengo2.text.encoding.locale.h>
 #include <tetengo2.text.encoding.utf8.h>
-#include <tetengo2.messages.h>
-#include <tetengo2.message_catalog.h>
-#include <tetengo2.message_catalog_parser.h>
 
 #include "bobura.about_dialog.h"
 #include "bobura.bobura.h"
@@ -244,7 +244,7 @@ typedef
     message_catalog_encoder_type;
 
 typedef
-    tetengo2::message_catalog_parser<
+    tetengo2::message::message_catalog_parser<
         std::istream, std::wstring, message_catalog_encoder_type
     >
     message_catalog_parser_type;
@@ -254,14 +254,15 @@ typedef
     locale_name_encoder_type;
 
 typedef
-    tetengo2::messages<
+    tetengo2::message::messages<
         boost::filesystem::path,
         message_catalog_parser_type,
         locale_name_encoder_type
     >
     messages_type;
 
-typedef tetengo2::message_catalog<messages_type> message_catalog_type;
+typedef
+    tetengo2::message::message_catalog<messages_type> message_catalog_type;
 
 typedef tetengo2::detail::stub::message_loop message_loop_details_type;
 

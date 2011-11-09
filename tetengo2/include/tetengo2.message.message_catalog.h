@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::message_catalog.
+    \brief The definition of tetengo2::message::message_catalog.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_MESSAGECATALOG_H)
-#define TETENGO2_MESSAGECATALOG_H
+#if !defined(TETENGO2_MESSAGE_MESSAGECATALOG_H)
+#define TETENGO2_MESSAGE_MESSAGECATALOG_H
 
 #include <cstddef>
 #include <locale>
@@ -19,7 +19,7 @@
 #include "tetengo2.cpp11.h"
 
 
-namespace tetengo2
+namespace tetengo2 { namespace message
 {
     /*!
         \brief The class template for a message catalog.
@@ -140,6 +140,7 @@ namespace tetengo2
     };
 
 
-}
+}}
+
 
 #endif

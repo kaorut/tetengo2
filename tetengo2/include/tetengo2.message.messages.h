@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::messages.
+    \brief The definition of tetengo2::message::messages.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_MESSAGES_H)
-#define TETENGO2_MESSAGES_H
+#if !defined(TETENGO2_MESSAGE_MESSAGES_H)
+#define TETENGO2_MESSAGE_MESSAGES_H
 
 #include <algorithm>
 #include <cstddef>
@@ -31,7 +31,7 @@
 #include "tetengo2.text.h"
 
 
-namespace tetengo2
+namespace tetengo2 { namespace message
 {
     /*!
         \brief The class template for a messages facet.
@@ -361,6 +361,7 @@ namespace tetengo2
     };
 
 
-}
+}}
+
 
 #endif

@@ -21,9 +21,6 @@
 //#include <boost/mpl/pair.hpp>
 //#include <boost/rational.hpp>
 
-#include <tetengo2.messages.h>
-#include <tetengo2.message_catalog.h>
-#include <tetengo2.message_catalog_parser.h>
 #include <tetengo2.detail.windows.alert.h>
 #include <tetengo2.detail.windows.cursor.h>
 #include <tetengo2.detail.windows.encoding.h>
@@ -75,6 +72,9 @@
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.window.h>
 #include <tetengo2.gui.window_observer_set.h>
+#include <tetengo2.message.messages.h>
+#include <tetengo2.message.message_catalog.h>
+#include <tetengo2.message.message_catalog_parser.h>
 #include <tetengo2.meta.assoc_list.h>
 #include <tetengo2.text.encoder.h>
 #include <tetengo2.text.encoding.locale.h>
@@ -174,7 +174,7 @@ namespace bobura
             >
             message_catalog_encoder_type;
         typedef
-            tetengo2::message_catalog_parser<
+            tetengo2::message::message_catalog_parser<
                 std::istream,
                 boost::mpl::at<common_type_list, type::string>::type,
                 message_catalog_encoder_type
@@ -186,7 +186,7 @@ namespace bobura
             >
             locale_name_encoder_type;
         typedef
-            tetengo2::messages<
+            tetengo2::message::messages<
                 boost::mpl::at<common_type_list, type::path>::type,
                 message_catalog_parser_type,
                 locale_name_encoder_type
@@ -235,7 +235,9 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::message_catalog,
-                tetengo2::message_catalog<detail::locale::messages_type>
+                tetengo2::message::message_catalog<
+                    detail::locale::messages_type
+                >
             >,
         tetengo2::meta::assoc_list_end
         >>>>>>>
