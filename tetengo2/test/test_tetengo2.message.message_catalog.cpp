@@ -68,7 +68,9 @@ namespace
         >
         messages_type;
 
-    typedef tetengo2::message::message_catalog<messages_type> message_catalog_type;
+    typedef
+        tetengo2::message::message_catalog<messages_type>
+        message_catalog_type;
 
     struct set_global_locale
     {
