@@ -245,6 +245,7 @@ xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
   <ItemGroup>
     <None Include="res\images\kuma.png" />
     <None Include="res\images\kumakuma.jpg" />
+    <None Include="res\messages\Japanese.txt" />
     <None Include="res\messages\_catalogs.txt" />
     <None Include="res\win32\kuma.ico" />
   </ItemGroup>

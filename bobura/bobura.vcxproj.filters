@@ -98,6 +98,9 @@
     <None Include="res\win32\COMCTL32.DLL.Win32.manifest">
       <Filter>resources\win32</Filter>
     </None>
+    <None Include="res\messages\Japanese.txt">
+      <Filter>resources\messages</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\win32\bobura.rc">
