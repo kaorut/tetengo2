@@ -177,9 +177,6 @@ namespace tetengo2 { namespace concurrent
         void close()
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
-            m_condition_variable.wait(
-                lock, TETENGO2_CPP11_BIND(&channel::can_insert, this)
-            );
             if (can_take() && !m_queue.back())
             {
                 m_condition_variable.notify_all();
@@ -187,6 +184,7 @@ namespace tetengo2 { namespace concurrent
             }
 
             m_queue.push(boost::none);
+            assert(m_queue.size() <= m_capacity + 1);
 
             m_condition_variable.notify_all();
         }
