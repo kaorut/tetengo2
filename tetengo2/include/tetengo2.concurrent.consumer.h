@@ -80,7 +80,9 @@ namespace tetengo2 { namespace concurrent
                 );
             }
 
-            return m_channel.take();
+            const value_type value = m_channel.peek();
+            m_channel.take();
+            return value;
         }
 
 

@@ -137,9 +137,9 @@ BOOST_AUTO_TEST_SUITE(channel)
             channel.insert(34);
             channel.insert(56);
 
-            BOOST_CHECK_EQUAL(channel.take(), 12);
-            BOOST_CHECK_EQUAL(channel.take(), 34);
-            BOOST_CHECK_EQUAL(channel.take(), 56);
+            channel.take();
+            channel.take();
+            channel.take();
         }
         {
             channel_type channel(3);
@@ -149,30 +149,8 @@ BOOST_AUTO_TEST_SUITE(channel)
             );
             channel.insert_exception(boost::copy_exception(test_exception()));
 
-            try
-            {
-                channel.take();
-            }
-            catch (const std::runtime_error& e)
-            {
-                BOOST_CHECK(std::string(e.what()) == "hoge");
-            }
-            catch (...)
-            {
-                BOOST_ERROR("Unknown exception.");
-            }
-            try
-            {
-                channel.take();
-            }
-            catch (const test_exception& e)
-            {
-                BOOST_CHECK(std::string(e.what()) == test_exception().what());
-            }
-            catch (...)
-            {
-                BOOST_ERROR("Unknown exception.");
-            }
+            channel.take();
+            channel.take();
         }
     }
 
@@ -196,8 +174,9 @@ BOOST_AUTO_TEST_SUITE(channel)
 
             channel.close();
 
-            BOOST_CHECK_EQUAL(channel.take(), 12);
-            BOOST_CHECK_THROW(channel.take(), std::logic_error);
+            BOOST_CHECK_EQUAL(channel.peek(), 12);
+            channel.take();
+            BOOST_CHECK_THROW(channel.peek(), std::logic_error);
         }
         {
             channel_type channel(3);
@@ -241,9 +220,12 @@ BOOST_AUTO_TEST_SUITE(channel)
                 produce, tetengo2::cpp11::ref(channel)
             );
 
-            BOOST_CHECK_EQUAL(channel.take(), 12);
-            BOOST_CHECK_EQUAL(channel.take(), 34);
-            BOOST_CHECK_EQUAL(channel.take(), 56);
+            BOOST_CHECK_EQUAL(channel.peek(), 12);
+            channel.take();
+            BOOST_CHECK_EQUAL(channel.peek(), 34);
+            channel.take();
+            BOOST_CHECK_EQUAL(channel.peek(), 56);
+            channel.take();
 
             BOOST_CHECK(channel.closed());
 

@@ -35,11 +35,15 @@ namespace
             return m_values.empty();
         }
 
-        int take()
+        int peek()
+        const
         {
-            const int result = m_values.front();
+            return m_values.front();
+        }
+
+        void take()
+        {
             m_values.pop();
-            return result;
         }
 
         void insert(int value)

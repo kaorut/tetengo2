@@ -163,15 +163,11 @@ namespace tetengo2 { namespace concurrent
         /*!
             \brief Takes a value.
 
-            \return A value.
-
-            \throw unspecified               An exception inserted with
-                                             insert_exception().
             \throw std::logic_error          When the channel is already
                                              closed.
             \throw boost::thread_interrupted When the thread is interrupted.
         */
-        value_type take()
+        void take()
         {
             boost::unique_lock<mutex_type> lock(m_mutex);
             m_condition_variable.wait(
@@ -184,30 +180,9 @@ namespace tetengo2 { namespace concurrent
                 );
             }
 
-            if (m_queue.front()->which() == 0)
-            {
-                const value_type value =
-                    std::move(boost::get<value_type>(*m_queue.front()));
-                m_queue.pop();
+            m_queue.pop();
 
-                m_condition_variable.notify_all();
-
-                return value;
-            }
-            else
-            {
-                assert(m_queue.front()->which() == 1);
-
-                const boost::exception_ptr p_exception =
-                    std::move(
-                        boost::get<boost::exception_ptr>(*m_queue.front())
-                    );
-                m_queue.pop();
-
-                m_condition_variable.notify_all();
-
-                boost::rethrow_exception(p_exception);
-            }
+            m_condition_variable.notify_all();
         }
 
         /*!
