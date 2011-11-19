@@ -63,6 +63,28 @@ namespace tetengo2 { namespace concurrent
         }
 
         /*!
+            \brief Peeks a value.
+
+            It just peeks a value, doesn't extract the one.
+
+            \return A value.
+
+            \throw std::logic_error When the channel is closed.
+        */
+        const value_type& peek()
+        const
+        {
+            if (closed())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The channel is already closed.")
+                );
+            }
+
+            return m_channel.peek();
+        }
+
+        /*!
             \brief Pops and return a value.
 
             It extracts a value from the channel and the channel is shrinked.

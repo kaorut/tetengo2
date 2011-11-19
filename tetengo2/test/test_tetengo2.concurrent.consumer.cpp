@@ -35,7 +35,7 @@ namespace
             return m_values.empty();
         }
 
-        int peek()
+        const int& peek()
         const
         {
             return m_values.front();
@@ -105,6 +105,24 @@ BOOST_AUTO_TEST_SUITE(consumer)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(peek)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            channel_type channel(false); 
+            consumer_type consumer(channel);
+
+            BOOST_CHECK_EQUAL(consumer.peek(), 123);
+        }
+        {
+            channel_type channel(true); 
+            consumer_type consumer(channel);
+
+            BOOST_CHECK_THROW(consumer.take(), std::logic_error);
+        }
+    }
+    
     BOOST_AUTO_TEST_CASE(take)
     {
         BOOST_TEST_PASSPOINT();
