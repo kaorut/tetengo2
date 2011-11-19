@@ -118,6 +118,277 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(peek)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const std::string json_text;
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            BOOST_CHECK_THROW(pull_parser.peek(), std::logic_error);
+        }
+        {
+            const std::string json_text(
+                "{}"
+            );
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_begin
+                        >
+                    >(element).name() == "object"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_end
+                        >
+                    >(element).name() == "object"
+                );
+                pull_parser.next();
+            }
+            BOOST_CHECK(!pull_parser.has_next());
+        }
+        {
+            const std::string json_text(
+                "{\n"
+                "    \"hoge\": 42,\n"
+                "    \"fuga\": [42, 42, 42]\n"
+                "}\n"
+            );
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_begin
+                        >
+                    >(element).name() == "object"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_begin
+                        >
+                    >(element).name() == "member"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_CHECK(
+                    boost::get<std::string>(
+                        boost::get<pull_parser_type::value_type>(element)
+                    ) == "hoge"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_CHECK_EQUAL(
+                    boost::get<int>(
+                        boost::get<pull_parser_type::value_type>(element)
+                    ),
+                    42
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_end
+                        >
+                    >(element).name() == "member"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_begin
+                        >
+                    >(element).name() == "member"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_CHECK(
+                    boost::get<std::string>(
+                        boost::get<pull_parser_type::value_type>(element)
+                    ) == "fuga"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 0);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_begin
+                        >
+                    >(element).name() == "array"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_CHECK_EQUAL(
+                    boost::get<int>(
+                        boost::get<pull_parser_type::value_type>(element)
+                    ),
+                    42
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_CHECK_EQUAL(
+                    boost::get<int>(
+                        boost::get<pull_parser_type::value_type>(element)
+                    ),
+                    42
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 2);
+                BOOST_CHECK_EQUAL(
+                    boost::get<int>(
+                        boost::get<pull_parser_type::value_type>(element)
+                    ),
+                    42
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_end
+                        >
+                    >(element).name() == "array"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_end
+                        >
+                    >(element).name() == "member"
+                );
+                pull_parser.next();
+            }
+            {
+                BOOST_CHECK(pull_parser.has_next());
+                const pull_parser_type::element_type& element =
+                    pull_parser.peek();
+                BOOST_CHECK_EQUAL(element.which(), 1);
+                BOOST_CHECK(
+                    boost::get<
+                        pull_parser_type::structure_type<
+                            pull_parser_type::structure_kind_end
+                        >
+                    >(element).name() == "object"
+                );
+                pull_parser.next();
+            }
+            BOOST_CHECK(!pull_parser.has_next());
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(next)
     {
         BOOST_TEST_PASSPOINT();
@@ -150,239 +421,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
 
             pull_parser_type pull_parser(std::move(p_push_parser), 3);
 
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "object"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "object"
-                );
-            }
-            BOOST_CHECK(!pull_parser.has_next());
-        }
-        {
-            const std::string json_text(
-                "[42, 42]"
-            );
-            std::unique_ptr<push_parser_type> p_push_parser(
-                tetengo2::make_unique<push_parser_type>(
-                    json_text.begin(),
-                    json_text.end(),
-                    tetengo2::make_unique<grammar_type>()
-                )
-            );
-
-            pull_parser_type pull_parser(std::move(p_push_parser), 3);
-        }
-        {
-            const std::string json_text(
-                "{\n"
-                "    \"hoge\": 42,\n"
-                "    \"fuga\": [42, 42, 42]\n"
-                "}\n"
-            );
-            std::unique_ptr<push_parser_type> p_push_parser(
-                tetengo2::make_unique<push_parser_type>(
-                    json_text.begin(),
-                    json_text.end(),
-                    tetengo2::make_unique<grammar_type>()
-                )
-            );
-
-            pull_parser_type pull_parser(std::move(p_push_parser), 3);
-
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "object"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "member"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK(
-                    boost::get<std::string>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    ) == "hoge"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK_EQUAL(
-                    boost::get<int>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    ),
-                    42
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "member"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "member"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK(
-                    boost::get<std::string>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    ) == "fuga"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "array"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK_EQUAL(
-                    boost::get<int>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    ),
-                    42
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK_EQUAL(
-                    boost::get<int>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    ),
-                    42
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK_EQUAL(
-                    boost::get<int>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    ),
-                    42
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "array"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "member"
-                );
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type element =
-                    pull_parser.next();
-                BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "object"
-                );
-            }
+            pull_parser.next();
+            pull_parser.next();
             BOOST_CHECK(!pull_parser.has_next());
         }
     }

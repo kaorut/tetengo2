@@ -186,13 +186,16 @@ namespace tetengo2 { namespace text
         }
 
         /*!
-            \brief Returns a next element.
+            \brief Peeks a next element.
+
+            It just peeks a next element, doesn't extract the one.
 
             \return A next element.
 
             \throw std::logic_error When the parser has no more element.
         */
-        element_type next()
+        const element_type& peek()
+        const
         {
             if (!has_next())
             {
@@ -201,9 +204,24 @@ namespace tetengo2 { namespace text
                 );
             }
 
-            element_type element = m_consumer.peek();
+            return m_consumer.peek();
+        }
+
+        /*!
+            \brief Removes a next element.
+
+            \throw std::logic_error When the parser has no more element.
+        */
+        void next()
+        {
+            if (!has_next())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The parser has no more element.")
+                );
+            }
+
             m_consumer.take();
-            return element;
         }
 
 
