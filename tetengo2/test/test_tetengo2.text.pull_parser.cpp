@@ -156,11 +156,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "object"
+                    boost::get<pull_parser_type::structure_begin_type>(
+                        element
+                    ).name() == "object"
                 );
                 pull_parser.next();
             }
@@ -170,11 +168,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "object"
+                    boost::get<pull_parser_type::structure_end_type>(
+                        element
+                    ).name() == "object"
                 );
                 pull_parser.next();
             }
@@ -203,11 +199,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "object"
+                    boost::get<pull_parser_type::structure_begin_type>(
+                        element
+                    ).name() == "object"
                 );
                 pull_parser.next();
             }
@@ -217,11 +211,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "member"
+                    boost::get<pull_parser_type::structure_begin_type>(
+                        element
+                    ).name() == "member"
                 );
                 pull_parser.next();
             }
@@ -256,11 +248,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "member"
+                    boost::get<pull_parser_type::structure_end_type>(
+                        element
+                    ).name() == "member"
                 );
                 pull_parser.next();
             }
@@ -270,11 +260,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "member"
+                    boost::get<pull_parser_type::structure_begin_type>(
+                        element
+                    ).name() == "member"
                 );
                 pull_parser.next();
             }
@@ -296,11 +284,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_begin
-                        >
-                    >(element).name() == "array"
+                    boost::get<pull_parser_type::structure_begin_type>(
+                        element
+                    ).name() == "array"
                 );
                 pull_parser.next();
             }
@@ -349,11 +335,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "array"
+                    boost::get<pull_parser_type::structure_end_type>(
+                        element
+                    ).name() == "array"
                 );
                 pull_parser.next();
             }
@@ -363,11 +347,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "member"
+                    boost::get<pull_parser_type::structure_end_type>(
+                        element
+                    ).name() == "member"
                 );
                 pull_parser.next();
             }
@@ -377,11 +359,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 BOOST_CHECK(
-                    boost::get<
-                        pull_parser_type::structure_type<
-                            pull_parser_type::structure_kind_end
-                        >
-                    >(element).name() == "object"
+                    boost::get<pull_parser_type::structure_end_type>(
+                        element
+                    ).name() == "object"
                 );
                 pull_parser.next();
             }

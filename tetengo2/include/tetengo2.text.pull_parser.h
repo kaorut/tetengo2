@@ -59,7 +59,7 @@ namespace tetengo2 { namespace text
 
         //! The structure type.
         template <structure_kind_type Kind>
-        class structure_type
+        class structure
         {
         public:
             // static functions
@@ -85,7 +85,7 @@ namespace tetengo2 { namespace text
                 \param name A name.
             */
             template <typename S>
-            structure_type(S&& name)
+            structure(S&& name)
             :
             m_name(std::forward<S>(name))
             {}
@@ -113,13 +113,16 @@ namespace tetengo2 { namespace text
 
         };
 
+        //! The beginning structure type.
+        typedef structure<structure_kind_begin> structure_begin_type;
+
+        //! The ending structure type.
+        typedef structure<structure_kind_end> structure_end_type;
 
         //! The element type.
         typedef
             boost::variant<
-                structure_type<structure_kind_begin>,
-                structure_type<structure_kind_end>,
-                value_type
+                structure_begin_type, structure_end_type, value_type
             >
             element_type;
 
@@ -224,6 +227,26 @@ namespace tetengo2 { namespace text
             m_consumer.take();
         }
 
+        /*!
+            \brief Removes a next element and its children.
+
+            \throw std::logic_error When the parser has no more element.
+        */
+        void skip_next()
+        {
+            const element_type element = peek();
+            next();
+
+            if (element.which() == 1 || element.which() == 2)
+                return;
+            assert(element.which() == 0);
+
+            skip_next();
+
+            const element_type& end_element = peek();
+            next();
+        }
+
 
     private:
         // types
@@ -272,9 +295,7 @@ namespace tetengo2 { namespace text
             channel_type&      channel
         )
         {
-            channel.insert(
-                element_type(structure_type<structure_kind_begin>(name))
-            );
+            channel.insert(element_type(structure_begin_type(name)));
         }
 
         static void on_structure_end(
@@ -282,9 +303,7 @@ namespace tetengo2 { namespace text
             channel_type&      channel
         )
         {
-            channel.insert(
-                element_type(structure_type<structure_kind_end>(name))
-            );
+            channel.insert(element_type(structure_end_type(name)));
         }
 
         static void on_value(const value_type& value, channel_type& channel)
