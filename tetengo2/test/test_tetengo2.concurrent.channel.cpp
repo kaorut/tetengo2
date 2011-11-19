@@ -92,6 +92,40 @@ BOOST_AUTO_TEST_SUITE(channel)
         );
     }
 
+    BOOST_AUTO_TEST_CASE(peek)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            channel_type channel(3);
+
+            channel.insert(12);
+            channel.insert(34);
+
+            BOOST_CHECK_EQUAL(channel.peek(), 12);
+        }
+        {
+            channel_type channel(3);
+
+            channel.insert_exception(
+                boost::copy_exception(std::runtime_error("hoge"))
+            );
+
+            try
+            {
+                channel.peek();
+            }
+            catch (const std::runtime_error& e)
+            {
+                BOOST_CHECK(std::string(e.what()) == "hoge");
+            }
+            catch (...)
+            {
+                BOOST_ERROR("Unknown exception.");
+            }
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(take)
     {
         BOOST_TEST_PASSPOINT();

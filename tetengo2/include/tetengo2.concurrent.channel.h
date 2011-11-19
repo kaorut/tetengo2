@@ -120,6 +120,47 @@ namespace tetengo2 { namespace concurrent
         }
 
         /*!
+            \brief Peeks a value.
+
+            It just peeks a value, doesn't extract the one.
+
+            \return A value.
+
+            \throw unspecified               An exception inserted with
+                                             insert_exception().
+            \throw std::logic_error          When the channel is already
+                                             closed.
+            \throw boost::thread_interrupted When the thread is interrupted.
+        */
+        const value_type& peek()
+        const
+        {
+            boost::unique_lock<mutex_type> lock(m_mutex);
+            m_condition_variable.wait(
+                lock, TETENGO2_CPP11_BIND(&channel::can_take, this)
+            );
+            if (closed_impl())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("The channel is already closed.")
+                );
+            }
+
+            if (m_queue.front()->which() == 0)
+            {
+                return boost::get<value_type>(*m_queue.front());
+            }
+            else
+            {
+                assert(m_queue.front()->which() == 1);
+
+                boost::rethrow_exception(
+                    boost::get<boost::exception_ptr>(*m_queue.front())
+                );
+            }
+        }
+
+        /*!
             \brief Takes a value.
 
             \return A value.
