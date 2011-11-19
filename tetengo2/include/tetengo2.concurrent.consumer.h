@@ -85,15 +85,13 @@ namespace tetengo2 { namespace concurrent
         }
 
         /*!
-            \brief Pops and return a value.
+            \brief Takes a value.
 
             It extracts a value from the channel and the channel is shrinked.
 
-            \return A value.
-
             \throw std::logic_error When the channel is closed.
         */
-        value_type take()
+        void take()
         {
             if (closed())
             {
@@ -102,9 +100,7 @@ namespace tetengo2 { namespace concurrent
                 );
             }
 
-            const value_type value = m_channel.peek();
             m_channel.take();
-            return value;
         }
 
 

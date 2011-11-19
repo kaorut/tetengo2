@@ -201,7 +201,9 @@ namespace tetengo2 { namespace text
                 );
             }
 
-            return m_consumer.take();
+            element_type element = m_consumer.peek();
+            m_consumer.take();
+            return element;
         }
 
 
