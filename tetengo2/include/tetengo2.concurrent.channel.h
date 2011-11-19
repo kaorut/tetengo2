@@ -54,7 +54,7 @@ namespace tetengo2 { namespace concurrent
 
             \throw std::invalid_argument When capacity is equal to 0.
         */
-        channel(const size_type capacity)
+        explicit channel(const size_type capacity)
         :
         m_mutex(),
         m_condition_variable(),
