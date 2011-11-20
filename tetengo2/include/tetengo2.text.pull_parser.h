@@ -235,16 +235,31 @@ namespace tetengo2 { namespace text
         void skip_next()
         {
             const element_type element = peek();
-            next();
 
             if (element.which() == 1 || element.which() == 2)
+            {
+                next();
                 return;
+            }
             assert(element.which() == 0);
 
-            skip_next();
-
-            const element_type& end_element = peek();
             next();
+
+            while (has_next())
+            {
+                const element_type& next_element = peek();
+                if (
+                    next_element.which() == 1 &&
+                    boost::get<structure_end_type>(next_element).name() ==
+                        boost::get<structure_begin_type>(element).name()
+                )
+                {
+                    next();
+                    return;
+                }
+
+                skip_next();
+            }
         }
 
 

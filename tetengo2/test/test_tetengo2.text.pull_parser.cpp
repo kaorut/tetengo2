@@ -407,6 +407,112 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(skip_next)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const std::string json_text;
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            BOOST_CHECK_THROW(pull_parser.skip_next(), std::logic_error);
+        }
+        {
+            const std::string json_text(
+                "[42]"
+            );
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            pull_parser.next();
+            pull_parser.skip_next();
+            const pull_parser_type::element_type& element =
+                pull_parser.peek();
+            BOOST_CHECK_EQUAL(element.which(), 1);
+            BOOST_CHECK(
+                boost::get<pull_parser_type::structure_end_type>(
+                    element
+                ).name() == "array"
+            );
+        }
+        {
+            const std::string json_text(
+                "[42]"
+            );
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            pull_parser.next();
+            pull_parser.next();
+            pull_parser.skip_next();
+            BOOST_CHECK(!pull_parser.has_next());
+        }
+        {
+            const std::string json_text(
+                "[42]"
+            );
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            pull_parser.skip_next();
+            BOOST_CHECK(!pull_parser.has_next());
+        }
+        {
+            const std::string json_text(
+                "[12, [34, 56], 78]"
+            );
+            std::unique_ptr<push_parser_type> p_push_parser(
+                tetengo2::make_unique<push_parser_type>(
+                    json_text.begin(),
+                    json_text.end(),
+                    tetengo2::make_unique<grammar_type>()
+                )
+            );
+
+            pull_parser_type pull_parser(std::move(p_push_parser), 3);
+
+            pull_parser.next();
+            pull_parser.next();
+            pull_parser.skip_next();
+            const pull_parser_type::element_type& element =
+                pull_parser.peek();
+            BOOST_CHECK_EQUAL(element.which(), 2);
+            const pull_parser_type::value_type& value =
+                boost::get<pull_parser_type::value_type>(element);
+            BOOST_CHECK_EQUAL(value.which(), 2);
+            BOOST_CHECK(boost::get<int>(value) == 78);
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
