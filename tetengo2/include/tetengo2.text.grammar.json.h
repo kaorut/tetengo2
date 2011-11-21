@@ -56,9 +56,19 @@ namespace tetengo2 { namespace text { namespace grammar
             value_type_null,    //!< A null.
         };
 
+        //! The attribute type.
+        typedef
+            std::tuple<string_type, value_type_type, const string_type&>
+            structure_attribute_type;
+
         //! The structure signal type.
         typedef
-            boost::signals2::signal<void (const std::string&)>
+            boost::signals2::signal<
+                void (
+                    const std::string&,
+                    const std::vector<structure_attribute_type>&
+                )
+            >
             structure_signal_type;
 
         //! The value signal type.
@@ -357,33 +367,57 @@ namespace tetengo2 { namespace text { namespace grammar
 
         void object_begun(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_begin(string_type(TETENGO2_TEXT("object")));
+            m_on_structure_begin(
+                string_type(TETENGO2_TEXT("object")),
+                std::vector<structure_attribute_type>()
+            );
         }
 
         void object_ended(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_end(string_type(TETENGO2_TEXT("object")));
+            m_on_structure_end(
+                string_type(TETENGO2_TEXT("object")),
+                std::vector<structure_attribute_type>()
+            );
         }
 
         void member_begun(const string_type& attribute)
         {
-            m_on_structure_begin(string_type(TETENGO2_TEXT("member")));
-            m_on_value(value_type_string, attribute);
+            m_on_structure_begin(
+                string_type(TETENGO2_TEXT("member")),
+                std::vector<structure_attribute_type>(
+                    1,
+                    structure_attribute_type(
+                        string_type(TETENGO2_TEXT("name")),
+                        value_type_string,
+                        attribute
+                    )
+                )
+            );
         }
 
         void member_ended(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_end(string_type(TETENGO2_TEXT("member")));
+            m_on_structure_end(
+                string_type(TETENGO2_TEXT("member")),
+                std::vector<structure_attribute_type>()
+            );
         }
 
         void array_begun(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_begin(string_type(TETENGO2_TEXT("array")));
+            m_on_structure_begin(
+                string_type(TETENGO2_TEXT("array")),
+                std::vector<structure_attribute_type>()
+            );
         }
 
         void array_ended(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_end(string_type(TETENGO2_TEXT("array")));
+            m_on_structure_end(
+                string_type(TETENGO2_TEXT("array")),
+                std::vector<structure_attribute_type>()
+            );
         }
 
         void string_passed(const string_type& attribute)

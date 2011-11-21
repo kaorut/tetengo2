@@ -27,9 +27,8 @@ namespace
         tetengo2::text::grammar::json<std::string::const_iterator>
         grammar_type;
 
-    typedef
-        tetengo2::text::grammar::json<std::wstring::const_iterator>
-        wide_grammar_type;
+    typedef grammar_type::structure_attribute_type structure_attribute_type;
+
 
     // functions
 
@@ -46,14 +45,38 @@ namespace
         return result && mutable_first == last;
     }
 
-    void structure_begun(std::string& output, const std::string& type)
+    void structure_attribute_passed(
+        std::string&                    output,
+        const structure_attribute_type& structure_attribute
+    );
+
+    void structure_begun(
+        std::string&                                 output,
+        const std::string&                           type,
+        const std::vector<structure_attribute_type>& structure_attributes
+    )
     {
         if      (type == "object")
+        {
             output += "OB, ";
+        }
         else if (type == "member")
+        {
             output += "MB, ";
+            std::for_each(
+                structure_attributes.begin(),
+                structure_attributes.end(),
+                TETENGO2_CPP11_BIND(
+                    structure_attribute_passed,
+                    tetengo2::cpp11::ref(output),
+                    tetengo2::cpp11::placeholders_1()
+                )
+            );
+        }
         else if (type == "array")
+        {
             output += "AB, ";
+        }
         else
         {
             assert(false);
@@ -64,11 +87,17 @@ namespace
     void structure_ended(std::string& output, const std::string& type)
     {
         if      (type == "object")
+        {
             output += "OE, ";
+        }
         else if (type == "member")
+        {
             output += "ME, ";
+        }
         else if (type == "array")
+        {
             output += "AE, ";
+        }
         else
         {
             assert(false);
@@ -116,6 +145,18 @@ namespace
         output += parsed + ", ";
     }
 
+    void structure_attribute_passed(
+        std::string&                    output,
+        const structure_attribute_type& structure_attribute
+    )
+    {
+        value_passed(
+            output,
+            std::get<1>(structure_attribute),
+            std::get<2>(structure_attribute)
+        );
+    }
+
 
 }
 
@@ -146,7 +187,8 @@ BOOST_AUTO_TEST_SUITE(json)
                 TETENGO2_CPP11_BIND(
                     structure_begun,
                     tetengo2::cpp11::ref(output),
-                    tetengo2::cpp11::placeholders_1()
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2()
                 )
             );
             g.on_structure_end().connect(
@@ -183,7 +225,8 @@ BOOST_AUTO_TEST_SUITE(json)
                 TETENGO2_CPP11_BIND(
                     structure_begun,
                     tetengo2::cpp11::ref(output),
-                    tetengo2::cpp11::placeholders_1()
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2()
                 )
             );
             g.on_structure_end().connect(
@@ -227,7 +270,8 @@ BOOST_AUTO_TEST_SUITE(json)
                 TETENGO2_CPP11_BIND(
                     structure_begun,
                     tetengo2::cpp11::ref(output),
-                    tetengo2::cpp11::placeholders_1()
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2()
                 )
             );
             g.on_structure_end().connect(

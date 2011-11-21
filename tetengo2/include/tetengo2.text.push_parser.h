@@ -70,9 +70,14 @@ namespace tetengo2 { namespace text
             boost::variant<bool, void*, integer_type, float_type, string_type>
             value_type;
 
+        //! The attribute type.
+        typedef std::pair<string_type, value_type> attribute_type;
+
         //! The structure signal type.
         typedef
-            boost::signals2::signal<void (const string_type&)>
+            boost::signals2::signal<
+                void (const string_type&, const std::vector<attribute_type>&)
+            >
             structure_signal_type;
 
         //! The value signal type.
@@ -114,7 +119,8 @@ namespace tetengo2 { namespace text
                 TETENGO2_CPP11_BIND(
                     &push_parser::observe_structure_begin,
                     this,
-                    cpp11::placeholders_1()
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
                 )
             );
             m_p_grammar->on_structure_end().connect(
@@ -219,7 +225,40 @@ namespace tetengo2 { namespace text
     private:
         // static functions
 
-        value_type to_value(
+        static std::vector<attribute_type> to_attributes(
+            const std::vector<
+                typename grammar_type::structure_attribute_type
+            >& structure_attributes
+        )
+        {
+            std::vector<attribute_type> attributes;
+            attributes.reserve(structure_attributes.size());
+
+            std::transform(
+                structure_attributes.begin(),
+                structure_attributes.end(),
+                std::back_inserter(attributes),
+                to_attribute
+            );
+
+            return attributes;
+        }
+
+        static attribute_type to_attribute(
+            const typename grammar_type::structure_attribute_type&
+            structure_attribute
+        )
+        {
+            return attribute_type(
+                std::get<0>(structure_attribute),
+                to_value(
+                    std::get<1>(structure_attribute),
+                    std::get<2>(structure_attribute)
+                )
+            );
+        }
+
+        static value_type to_value(
             const typename grammar_type::value_type_type value_type,
             const string_type&                           string_value
         )
@@ -242,7 +281,7 @@ namespace tetengo2 { namespace text
             }
         }
 
-        string_type to_string(const string_type& string_value)
+        static string_type to_string(const string_type& string_value)
         {
             assert(string_value.length() >= 2);
 
@@ -252,7 +291,7 @@ namespace tetengo2 { namespace text
             );
         }
 
-        value_type to_number(const string_type& string_value)
+        static value_type to_number(const string_type& string_value)
         {
             const typename string_type::size_type exp_index =
                 string_value.find_first_of("eE");
@@ -268,7 +307,9 @@ namespace tetengo2 { namespace text
         }
 
         template <typename T>
-        boost::variant<T> to_number_impl(const string_type& string_value)
+        static boost::variant<T> to_number_impl(
+            const string_type& string_value
+        )
         {
             try
             {
@@ -280,7 +321,7 @@ namespace tetengo2 { namespace text
             }
         }
 
-        boost::variant<float_type> to_number_exp(
+        static boost::variant<float_type> to_number_exp(
             const string_type&                    string_value,
             const typename string_type::size_type exp_index
         )
@@ -303,7 +344,7 @@ namespace tetengo2 { namespace text
             }
         }
 
-        bool to_boolean(const string_type& string_value)
+        static bool to_boolean(const string_type& string_value)
         {
             assert(
                 string_value == string_type(TETENGO2_TEXT("true")) ||
@@ -313,7 +354,7 @@ namespace tetengo2 { namespace text
             return string_value == string_type(TETENGO2_TEXT("true"));
         }
 
-        void* to_null(const string_type& string_value)
+        static void* to_null(const string_type& string_value)
         {
             assert(string_value == string_type(TETENGO2_TEXT("null")));
 
@@ -338,14 +379,21 @@ namespace tetengo2 { namespace text
 
         // functions
 
-        void observe_structure_begin(const string_type& structure_name)
+        void observe_structure_begin(
+            const string_type& structure_name,
+            const std::vector<
+                typename grammar_type::structure_attribute_type
+            >&                 structure_attributes
+        )
         {
-            m_on_structure_begin(structure_name);
+            m_on_structure_begin(
+                structure_name, to_attributes(structure_attributes)
+            );
         }
 
         void observe_structure_end(const string_type& structure_name)
         {
-            m_on_structure_end(structure_name);
+            m_on_structure_end(structure_name, std::vector<attribute_type>());
         }
 
         void observe_value(
