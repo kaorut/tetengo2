@@ -14,6 +14,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
+#include "tetengo2.cpp11.h"
+
 
 namespace tetengo2 { namespace concurrent
 {
@@ -46,6 +48,21 @@ namespace tetengo2 { namespace concurrent
         :
         m_channel(channel)
         {}
+
+        /*!
+            \brief Destroys the consumer.
+        */
+        ~consumer()
+        TETENGO2_CPP11_NOEXCEPT
+        {
+            try
+            {
+                while (!closed())
+                    take();
+            }
+            catch (...)
+            {}
+        }
 
 
         // functions

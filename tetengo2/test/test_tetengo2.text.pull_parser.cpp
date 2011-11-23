@@ -222,18 +222,6 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK(
-                    boost::get<std::string>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    ) == "hoge"
-                );
-                pull_parser.next();
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 2);
                 BOOST_CHECK_EQUAL(
                     boost::get<int>(
                         boost::get<pull_parser_type::value_type>(element)
@@ -263,18 +251,6 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                     boost::get<pull_parser_type::structure_begin_type>(
                         element
                     ).name() == "member"
-                );
-                pull_parser.next();
-            }
-            {
-                BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
-                BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK(
-                    boost::get<std::string>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    ) == "fuga"
                 );
                 pull_parser.next();
             }

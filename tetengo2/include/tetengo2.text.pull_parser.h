@@ -157,22 +157,6 @@ namespace tetengo2 { namespace text
         m_consumer(m_channel)
         {}
 
-        /*!
-            \brief Destroys the pull parser.
-        */
-        ~pull_parser()
-        TETENGO2_CPP11_NOEXCEPT
-        {
-            try
-            {
-                m_producer.join();
-            }
-            catch (...)
-            {
-                assert(false);
-            }
-        }
-
 
         // functions
 
