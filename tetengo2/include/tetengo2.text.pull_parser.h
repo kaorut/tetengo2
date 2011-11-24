@@ -87,7 +87,8 @@ namespace tetengo2 { namespace text
                 \tparam S  A string type.
                 \tparam AM A attribute map type.
 
-                \param name A name.
+                \param name          A name.
+                \param attribute_map A attribute map.
             */
             template <typename S, typename AM>
             structure(S&& name, AM&& attribute_map)
