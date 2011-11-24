@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "title":     "Message Catalog for English",
+        "copyright": "Copyright (C) 2007-2011 kaoru"
+    },
+    
+    "body":
+    {
+        "Language": "English",
+        
+        "Name:Space:Hello": "Hi"
+    }
+}

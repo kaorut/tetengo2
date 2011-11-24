@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "title":     "Message Catalog for Japanese",
+        "copyright": "Copyright (C) 2007-2011 kaoru"
+    },
+    
+    "body":
+    {
+        "Language": "Japanese",
+        
+        "Name:Space:Hello": "Konnichiwa"
+    }
+}
