@@ -192,9 +192,9 @@ namespace tetengo2 { namespace text
         }
 
         /*!
-            \brief Peeks a next element.
+            \brief Peeks the next element.
 
-            It just peeks a next element, doesn't extract the one.
+            It just peeks the next element, doesn't extract the one.
 
             \return A next element.
 
@@ -214,7 +214,7 @@ namespace tetengo2 { namespace text
         }
 
         /*!
-            \brief Removes a next element.
+            \brief Removes the next element.
 
             \throw std::logic_error When the parser has no more element.
         */
@@ -231,7 +231,7 @@ namespace tetengo2 { namespace text
         }
 
         /*!
-            \brief Removes a next element and its children.
+            \brief Removes the next element and its children.
 
             \throw std::logic_error When the parser has no more element.
         */
