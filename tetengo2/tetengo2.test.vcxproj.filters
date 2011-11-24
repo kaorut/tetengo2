@@ -241,5 +241,8 @@
     <ClCompile Include="test\test_tetengo2.message.messages.cpp">
       <Filter>sources\test_tetengo2\message</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.message.message_catalog_parser_j.cpp">
+      <Filter>sources\test_tetengo2\message</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

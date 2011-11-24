@@ -54,6 +54,7 @@ sources = \
     test_tetengo2.message.messages.cpp \
     test_tetengo2.message.message_catalog.cpp \
     test_tetengo2.message.message_catalog_parser.cpp \
+    test_tetengo2.message.message_catalog_parser_j.cpp \
     test_tetengo2.meta.assoc_list.cpp \
     test_tetengo2.operators.cpp \
     test_tetengo2.text.cpp \
