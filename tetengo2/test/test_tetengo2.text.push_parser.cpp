@@ -35,7 +35,7 @@ namespace
         >
         push_parser_type;
 
-    typedef push_parser_type::attribute_type attribute_type;
+    typedef push_parser_type::attribute_map_type attribute_map_type;
 
     typedef
         std::pair<std::string, boost::optional<push_parser_type::value_type>>
@@ -45,14 +45,14 @@ namespace
     // functions
 
     void structure_observer0(
-        const std::string&                 structure,
-        const std::vector<attribute_type>& attributes
+        const std::string&        structure,
+        const attribute_map_type& attribute_map
     )
     {}
 
     void structure_observer1(
         const std::string&                  structure,
-        const std::vector<attribute_type>&  attributes,
+        const attribute_map_type&           attribute_map,
         std::vector<parsed_structure_type>& parsed_structures
     )
     {

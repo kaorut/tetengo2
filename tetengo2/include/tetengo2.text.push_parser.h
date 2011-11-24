@@ -15,8 +15,10 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <utility>
 
+#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
@@ -70,13 +72,14 @@ namespace tetengo2 { namespace text
             boost::variant<bool, void*, integer_type, float_type, string_type>
             value_type;
 
-        //! The attribute type.
-        typedef std::pair<string_type, value_type> attribute_type;
+        //! The attribute map type.
+        typedef
+            std::unordered_map<string_type, value_type> attribute_map_type;
 
         //! The structure signal type.
         typedef
             boost::signals2::signal<
-                void (const string_type&, const std::vector<attribute_type>&)
+                void (const string_type&, const attribute_map_type&)
             >
             structure_signal_type;
 
@@ -225,31 +228,31 @@ namespace tetengo2 { namespace text
     private:
         // static functions
 
-        static std::vector<attribute_type> to_attributes(
+        static attribute_map_type to_attribute_map(
             const std::vector<
                 typename grammar_type::structure_attribute_type
             >& structure_attributes
         )
         {
-            std::vector<attribute_type> attributes;
-            attributes.reserve(structure_attributes.size());
+            attribute_map_type attribute_map;
 
-            std::transform(
-                structure_attributes.begin(),
-                structure_attributes.end(),
-                std::back_inserter(attributes),
-                to_attribute
-            );
+            BOOST_FOREACH(
+                const typename grammar_type::structure_attribute_type& sa,
+                structure_attributes
+            )
+            {
+                attribute_map.insert(to_attribute(sa));
+            }
 
-            return attributes;
+            return attribute_map;
         }
 
-        static attribute_type to_attribute(
+        static typename attribute_map_type::value_type to_attribute(
             const typename grammar_type::structure_attribute_type&
             structure_attribute
         )
         {
-            return attribute_type(
+            return typename attribute_map_type::value_type(
                 std::get<0>(structure_attribute),
                 to_value(
                     std::get<1>(structure_attribute),
@@ -387,13 +390,13 @@ namespace tetengo2 { namespace text
         )
         {
             m_on_structure_begin(
-                structure_name, to_attributes(structure_attributes)
+                structure_name, to_attribute_map(structure_attributes)
             );
         }
 
         void observe_structure_end(const string_type& structure_name)
         {
-            m_on_structure_end(structure_name, std::vector<attribute_type>());
+            m_on_structure_end(structure_name, attribute_map_type());
         }
 
         void observe_value(

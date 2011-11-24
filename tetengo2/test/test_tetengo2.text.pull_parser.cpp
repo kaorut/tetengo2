@@ -213,14 +213,13 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                         element
                     );
                 BOOST_CHECK(structure.name() == "member");
-                BOOST_CHECK_EQUAL(structure.attributes().size(), 1U);
-                BOOST_CHECK(structure.attributes()[0].first == "name");
-                BOOST_CHECK_EQUAL(
-                    structure.attributes()[0].second.which(), 4
-                );
-                const std::string attribute =
-                    boost::get<std::string>(structure.attributes()[0].second);
-                BOOST_CHECK(attribute == "hoge");
+                const pull_parser_type::attribute_map_type::const_iterator
+                attribute = structure.attribute_map().find("name");
+                BOOST_CHECK(attribute != structure.attribute_map().end());
+                BOOST_CHECK_EQUAL(attribute->second.which(), 4);
+                const std::string attribute_value =
+                    boost::get<std::string>(attribute->second);
+                BOOST_CHECK(attribute_value == "hoge");
                 pull_parser.next();
             }
             {
@@ -257,14 +256,13 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                         element
                     );
                 BOOST_CHECK(structure.name() == "member");
-                BOOST_CHECK_EQUAL(structure.attributes().size(), 1U);
-                BOOST_CHECK(structure.attributes()[0].first == "name");
-                BOOST_CHECK_EQUAL(
-                    structure.attributes()[0].second.which(), 4
-                );
-                const std::string attribute =
-                    boost::get<std::string>(structure.attributes()[0].second);
-                BOOST_CHECK(attribute == "fuga");
+                const pull_parser_type::attribute_map_type::const_iterator
+                attribute = structure.attribute_map().find("name");
+                BOOST_CHECK(attribute != structure.attribute_map().end());
+                BOOST_CHECK_EQUAL(attribute->second.which(), 4);
+                const std::string attribute_value =
+                    boost::get<std::string>(attribute->second);
+                BOOST_CHECK(attribute_value == "fuga");
                 pull_parser.next();
             }
             {
