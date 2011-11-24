@@ -47,6 +47,9 @@ namespace tetengo2 { namespace text
         //! The value type.
         typedef typename push_parser_type::value_type value_type;
 
+        //! The attribute type.
+        typedef typename push_parser_type::attribute_type attribute_type;
+
         //! The size type.
         typedef Size size_type;
 
@@ -80,14 +83,16 @@ namespace tetengo2 { namespace text
             /*!
                 \brief Creates a structure type.
 
-                \tparam S A string type.
+                \tparam S  A string type.
+                \tparam AV A attribute vector type.
 
                 \param name A name.
             */
-            template <typename S>
-            structure(S&& name)
+            template <typename S, typename AV>
+            structure(S&& name, AV&& attributes)
             :
-            m_name(std::forward<S>(name))
+            m_name(std::forward<S>(name)),
+            m_attributes(std::forward<AV>(attributes))
             {}
 
 
@@ -104,11 +109,24 @@ namespace tetengo2 { namespace text
                 return m_name;
             }
 
+            /*!
+                \brief Returns the attributes.
+
+                \return The attributes.
+            */
+            const std::vector<attribute_type> attributes()
+            const
+            {
+                return m_attributes;
+            }
+
 
         private:
             // variables
 
             string_type m_name;
+
+            std::vector<attribute_type> m_attributes;
 
 
         };
@@ -268,6 +286,7 @@ namespace tetengo2 { namespace text
                 TETENGO2_CPP11_BIND(
                     on_structure_begin,
                     tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::placeholders_2(),
                     tetengo2::cpp11::ref(channel)
                 )
             );
@@ -290,11 +309,14 @@ namespace tetengo2 { namespace text
         }
 
         static void on_structure_begin(
-            const string_type& name,
-            channel_type&      channel
+            const string_type&                 name,
+            const std::vector<attribute_type>& attributes,
+            channel_type&                      channel
         )
         {
-            channel.insert(element_type(structure_begin_type(name)));
+            channel.insert(
+                element_type(structure_begin_type(name, attributes))
+            );
         }
 
         static void on_structure_end(
@@ -302,7 +324,11 @@ namespace tetengo2 { namespace text
             channel_type&      channel
         )
         {
-            channel.insert(element_type(structure_end_type(name)));
+            channel.insert(
+                element_type(
+                    structure_end_type(name, std::vector<attribute_type>())
+                )
+            );
         }
 
         static void on_value(const value_type& value, channel_type& channel)
