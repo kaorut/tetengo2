@@ -10,6 +10,8 @@
 #define TETENGO2_TEXT_GRAMMAR_JSON_H
 
 #include <string>
+#include <tuple>
+#include <vector>
 
 #include <boost/signals2.hpp>
 #include <boost/spirit/include/qi.hpp>

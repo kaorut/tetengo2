@@ -15,8 +15,10 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <tuple>
 #include <unordered_map>
 #include <utility>
+#include <vector>
 
 #include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
