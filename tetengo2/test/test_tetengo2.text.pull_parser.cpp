@@ -155,11 +155,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
+                const pull_parser_type::structure_begin_type& structure =
                     boost::get<pull_parser_type::structure_begin_type>(
                         element
-                    ).name() == "object"
-                );
+                    );
+                BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             {
@@ -167,11 +167,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
-                    boost::get<pull_parser_type::structure_end_type>(
-                        element
-                    ).name() == "object"
-                );
+                const pull_parser_type::structure_end_type& structure =
+                    boost::get<pull_parser_type::structure_end_type>(element);
+                BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             BOOST_CHECK(!pull_parser.has_next());
@@ -198,11 +196,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
+                const pull_parser_type::structure_begin_type& structure =
                     boost::get<pull_parser_type::structure_begin_type>(
                         element
-                    ).name() == "object"
-                );
+                    );
+                BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             {
@@ -210,11 +208,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
+                const pull_parser_type::structure_begin_type& structure =
                     boost::get<pull_parser_type::structure_begin_type>(
                         element
-                    ).name() == "member"
-                );
+                    );
+                BOOST_CHECK(structure.name() == "member");
                 pull_parser.next();
             }
             {
@@ -222,12 +220,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK_EQUAL(
+                const int& value =
                     boost::get<int>(
                         boost::get<pull_parser_type::value_type>(element)
-                    ),
-                    42
-                );
+                    );
+                BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
@@ -235,11 +232,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
+                const pull_parser_type::structure_end_type& structure =
                     boost::get<pull_parser_type::structure_end_type>(
                         element
-                    ).name() == "member"
-                );
+                    );
+                BOOST_CHECK(structure.name() == "member");
                 pull_parser.next();
             }
             {
@@ -247,11 +244,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
+                const pull_parser_type::structure_begin_type& structure =
                     boost::get<pull_parser_type::structure_begin_type>(
                         element
-                    ).name() == "member"
-                );
+                    );
+                BOOST_CHECK(structure.name() == "member");
                 pull_parser.next();
             }
             {
@@ -259,11 +256,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
-                BOOST_CHECK(
+                const pull_parser_type::structure_begin_type& structure =
                     boost::get<pull_parser_type::structure_begin_type>(
                         element
-                    ).name() == "array"
-                );
+                    );
+                BOOST_CHECK(structure.name() == "array");
                 pull_parser.next();
             }
             {
@@ -271,12 +268,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK_EQUAL(
+                const int& value =
                     boost::get<int>(
                         boost::get<pull_parser_type::value_type>(element)
-                    ),
-                    42
-                );
+                    );
+                BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
@@ -284,12 +280,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK_EQUAL(
+                const int& value =
                     boost::get<int>(
                         boost::get<pull_parser_type::value_type>(element)
-                    ),
-                    42
-                );
+                    );
+                BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
@@ -297,12 +292,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                BOOST_CHECK_EQUAL(
+                const int& value =
                     boost::get<int>(
                         boost::get<pull_parser_type::value_type>(element)
-                    ),
-                    42
-                );
+                    );
+                BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
@@ -310,11 +304,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
-                    boost::get<pull_parser_type::structure_end_type>(
-                        element
-                    ).name() == "array"
-                );
+                const pull_parser_type::structure_end_type& structure =
+                    boost::get<pull_parser_type::structure_end_type>(element);
+                BOOST_CHECK(structure.name() == "array");
                 pull_parser.next();
             }
             {
@@ -322,11 +314,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
-                    boost::get<pull_parser_type::structure_end_type>(
-                        element
-                    ).name() == "member"
-                );
+                const pull_parser_type::structure_end_type& structure =
+                    boost::get<pull_parser_type::structure_end_type>(element);
+                BOOST_CHECK(structure.name() == "member");
                 pull_parser.next();
             }
             {
@@ -334,11 +324,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
                 const pull_parser_type::element_type& element =
                     pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
-                BOOST_CHECK(
-                    boost::get<pull_parser_type::structure_end_type>(
-                        element
-                    ).name() == "object"
-                );
+                const pull_parser_type::structure_end_type& structure =
+                    boost::get<pull_parser_type::structure_end_type>(element);
+                BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             BOOST_CHECK(!pull_parser.has_next());
@@ -420,11 +408,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             const pull_parser_type::element_type& element =
                 pull_parser.peek();
             BOOST_CHECK_EQUAL(element.which(), 1);
-            BOOST_CHECK(
-                boost::get<pull_parser_type::structure_end_type>(
-                    element
-                ).name() == "array"
-            );
+            const pull_parser_type::structure_end_type& structure =
+                boost::get<pull_parser_type::structure_end_type>(element);
+            BOOST_CHECK(structure.name() == "array");
         }
         {
             const std::string json_text(
@@ -482,10 +468,11 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             const pull_parser_type::element_type& element =
                 pull_parser.peek();
             BOOST_CHECK_EQUAL(element.which(), 2);
-            const pull_parser_type::value_type& value =
-                boost::get<pull_parser_type::value_type>(element);
-            BOOST_CHECK_EQUAL(value.which(), 2);
-            BOOST_CHECK(boost::get<int>(value) == 78);
+            const int& value =
+                boost::get<int>(
+                    boost::get<pull_parser_type::value_type>(element)
+                );
+            BOOST_CHECK_EQUAL(value, 78);
         }
     }
 
