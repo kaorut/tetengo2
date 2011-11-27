@@ -75,24 +75,21 @@ namespace
     );
 
     const std::string catalog1(
-        "Key1=Value1\n"
+        "{\n"
+        "    \"body\":\n"
+        "    {\n"
+        "        \"Key1\": \"Value1\"\n"
+        "    }\n"
+        "}\n"
     );
 
     const std::string catalog2(
-        "Key\\=1=Value1\n"
-        "'Key=2'=Value2\n"
-        "Key3='Value3\n"
-        "Key4=Value\\\"4\\\"\n"
-        "Key5'='Value5\n"
-        "#Key6=Value6\n"
-        "Key7=#Value7\n"
-        "Key\\#8=Value\\#8\n"
-        "Key\\t9=Value\\n9\n"
-        "Key10=\\\n"
-        "Value\\\n"
-        "10\n"
-        " 'Key11' = Value11 \n"
-        "\t \tKey12 \t =\t \t\"Value12\" \t "
+        "{\n"
+        "    \"body\":\n"
+        "    {\n"
+        "        \"Key1\": \"Value1\"\n"
+        "    }\n"
+        "}\n"
     );
 
 
