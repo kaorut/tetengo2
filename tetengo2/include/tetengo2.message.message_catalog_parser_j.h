@@ -27,23 +27,21 @@ namespace tetengo2 { namespace message
     /*!
         \brief The class template for a message catalog parser.
 
-        \tparam InputStream An input stream type.
-        \tparam String      A string type.
-        \tparam Encoder     An encoder type.
+        \tparam PullParser A pull parser type.
+        \tparam String     A string type.
+        \tparam Encoder    An encoder type.
     */
-    template <typename InputStream, typename String, typename Encoder>
+    template <typename PullParser, typename String, typename Encoder>
     class message_catalog_parser_j : private boost::noncopyable
     {
     public:
         // types
 
-        //! The input stream type.
-        typedef InputStream input_stream_type;
+        //! The pull parser type.
+        typedef PullParser pull_parser_type;
 
         //! The input string type.
-        typedef
-            std::basic_string<typename input_stream_type::char_type>
-            input_string_type;
+        typedef typename pull_parser_type::string_type input_string_type;
 
         //! The string type.
         typedef String string_type;
@@ -60,11 +58,13 @@ namespace tetengo2 { namespace message
         /*!
             \brief Creates a message catalog parser.
 
-            \param input_stream An input stream.
+            \param p_pull_parser A unique pointer to a pull parser.
         */
-        explicit message_catalog_parser_j(input_stream_type& input_stream)
+        explicit message_catalog_parser_j(
+            std::unique_ptr<pull_parser_type> p_pull_parser
+        )
         :
-        m_input_stream(input_stream),
+        m_p_pull_parser(std::move(p_pull_parser)),
         m_p_preread_entry()
         {
             m_input_stream.imbue(std::locale::classic());
@@ -117,7 +117,7 @@ namespace tetengo2 { namespace message
 
         // variables
 
-        mutable input_stream_type& m_input_stream;
+        std::unique_ptr<pull_parser_type>& m_p_pull_parser;
 
         mutable std::unique_ptr<entry_type> m_p_preread_entry;
 

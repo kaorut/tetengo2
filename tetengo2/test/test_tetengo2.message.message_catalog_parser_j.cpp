@@ -14,6 +14,9 @@
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
+#include "tetengo2.text.grammar.json.h"
+#include "tetengo2.text.pull_parser.h"
+#include "tetengo2.text.push_parser.h"
 
 #include "tetengo2.message.message_catalog_parser_j.h"
 
@@ -21,6 +24,23 @@
 namespace
 {
     // types
+
+    typedef
+        tetengo2::text::grammar::json<std::string::const_iterator>
+        grammar_type;
+
+    typedef
+        tetengo2::text::push_parser<
+            std::string::const_iterator,
+            grammar_type,
+            int,
+            double
+        >
+        push_parser_type;
+
+    typedef
+        tetengo2::text::pull_parser<push_parser_type, std::size_t>
+        pull_parser_type;
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
@@ -40,7 +60,7 @@ namespace
 
     typedef
         tetengo2::message::message_catalog_parser_j<
-            std::istream, std::string, message_catalog_encoder_type
+            pull_parser_type, std::string, message_catalog_encoder_type
         >
         message_catalog_parser_type;
 
