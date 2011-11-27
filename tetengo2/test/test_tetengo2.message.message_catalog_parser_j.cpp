@@ -17,6 +17,7 @@
 #include "tetengo2.text.grammar.json.h"
 #include "tetengo2.text.pull_parser.h"
 #include "tetengo2.text.push_parser.h"
+#include "tetengo2.unique.h"
 
 #include "tetengo2.message.message_catalog_parser_j.h"
 
@@ -95,6 +96,26 @@ namespace
     );
 
 
+    // functions
+
+    std::unique_ptr<pull_parser_type> create_pull_parser(
+        const std::string& input
+    )
+    {
+        std::unique_ptr<grammar_type> p_grammar =
+            tetengo2::make_unique<grammar_type>();
+
+        std::unique_ptr<push_parser_type> p_push_parser =
+            tetengo2::make_unique<push_parser_type>(
+                input.begin(), input.end(), std::move(p_grammar)
+            );
+
+        return tetengo2::make_unique<pull_parser_type>(
+            std::move(p_push_parser), 3
+        );
+    }
+
+
 }
 
 
@@ -107,7 +128,10 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser_j)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const std::unique_ptr<message_catalog_parser_type> p_parser =
+            tetengo2::make_unique<message_catalog_parser_type>(
+                create_pull_parser(catalog0)
+            );
     }
 
     BOOST_AUTO_TEST_CASE(has_next)

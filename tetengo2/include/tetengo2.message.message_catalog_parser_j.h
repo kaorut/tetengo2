@@ -66,9 +66,7 @@ namespace tetengo2 { namespace message
         :
         m_p_pull_parser(std::move(p_pull_parser)),
         m_p_preread_entry()
-        {
-            m_input_stream.imbue(std::locale::classic());
-        }
+        {}
 
 
         // functions
@@ -117,7 +115,7 @@ namespace tetengo2 { namespace message
 
         // variables
 
-        std::unique_ptr<pull_parser_type>& m_p_pull_parser;
+        std::unique_ptr<pull_parser_type> m_p_pull_parser;
 
         mutable std::unique_ptr<entry_type> m_p_preread_entry;
 
