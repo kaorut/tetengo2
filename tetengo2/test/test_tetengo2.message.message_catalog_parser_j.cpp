@@ -7,8 +7,6 @@
 */
 
 #include <istream>
-#include <sstream>
-//#include <stdexcept>
 //#include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -89,102 +87,21 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser_j)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            std::istringstream input_stream(catalog0);
-            const message_catalog_parser_type parser(input_stream);
-        }
-        {
-            std::istringstream input_stream(catalog1);
-            const message_catalog_parser_type parser(input_stream);
-        }
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(has_next)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            std::istringstream input_stream(catalog0);
-            const message_catalog_parser_type parser(input_stream);
-
-            BOOST_CHECK(!parser.has_next());
-        }
-        {
-            std::istringstream input_stream(catalog1);
-            message_catalog_parser_type parser(input_stream);
-
-            BOOST_CHECK(parser.has_next());
-
-            parser.next();
-
-            BOOST_CHECK(!parser.has_next());
-        }
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(next)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            std::istringstream input_stream(catalog1);
-            message_catalog_parser_type parser(input_stream);
-
-            const entry_type entry = parser.next();
-            BOOST_CHECK(entry.first == "Key1");
-            BOOST_CHECK(entry.second == "Value1");
-
-            BOOST_CHECK_THROW(parser.next(), std::runtime_error);
-        }
-        {
-            std::istringstream input_stream(catalog2);
-            message_catalog_parser_type parser(input_stream);
-
-            const entry_type entry1 = parser.next();
-            BOOST_CHECK(entry1.first == "Key=1");
-            BOOST_CHECK(entry1.second == "Value1");
-
-            const entry_type entry2 = parser.next();
-            BOOST_CHECK(entry2.first == "Key=2");
-            BOOST_CHECK(entry2.second == "Value2");
-
-            const entry_type entry3 = parser.next();
-            BOOST_CHECK(entry3.first == "Key3");
-            BOOST_CHECK(entry3.second == "Value3");
-
-            const entry_type entry4 = parser.next();
-            BOOST_CHECK(entry4.first == "Key4");
-            BOOST_CHECK(entry4.second == "Value\"4\"");
-
-            const entry_type entry5 = parser.next();
-            BOOST_CHECK(entry5.first == "Key5'");
-            BOOST_CHECK(entry5.second == "Value5");
-
-            const entry_type entry7 = parser.next();
-            BOOST_CHECK(entry7.first == "Key7");
-            BOOST_CHECK(entry7.second == "");
-
-            const entry_type entry8 = parser.next();
-            BOOST_CHECK(entry8.first == "Key#8");
-            BOOST_CHECK(entry8.second == "Value#8");
-
-            const entry_type entry9 = parser.next();
-            BOOST_CHECK(entry9.first == "Key\t9");
-            BOOST_CHECK(entry9.second == "Value\n9");
-
-            const entry_type entry10 = parser.next();
-            BOOST_CHECK(entry10.first == "Key10");
-            BOOST_CHECK(entry10.second == "Value10");
-
-            const entry_type entry11 = parser.next();
-            BOOST_CHECK(entry11.first == "Key11");
-            BOOST_CHECK(entry11.second == " Value11 ");
-
-            const entry_type entry12 = parser.next();
-            BOOST_CHECK(entry12.first == "\t \tKey12 \t ");
-            BOOST_CHECK(entry12.second == "Value12");
-
-            BOOST_CHECK_THROW(parser.next(), std::runtime_error);
-        }
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 
