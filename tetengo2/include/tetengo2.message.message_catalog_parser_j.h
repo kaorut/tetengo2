@@ -16,6 +16,7 @@
 //#include <utility>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.text.h"
@@ -65,7 +66,8 @@ namespace tetengo2 { namespace message
         )
         :
         m_p_pull_parser(std::move(p_pull_parser)),
-        m_p_preread_entry()
+        m_p_preread_entry(),
+        m_preamble_read_succeeded()
         {}
 
 
@@ -104,6 +106,23 @@ namespace tetengo2 { namespace message
 
 
     private:
+        // types
+
+        typedef
+            typename pull_parser_type::attribute_map_type attribute_map_type;
+
+        typedef typename pull_parser_type::element_type element_type;
+
+        typedef
+            typename pull_parser_type::structure_begin_type
+            structure_begin_type;
+
+        typedef
+            typename pull_parser_type::structure_end_type structure_end_type;
+
+        typedef typename pull_parser_type::value_type value_type;
+
+
         // static functions
 
         static const encoder_type& encoder()
@@ -119,6 +138,8 @@ namespace tetengo2 { namespace message
 
         mutable std::unique_ptr<entry_type> m_p_preread_entry;
 
+        mutable boost::optional<bool> m_preamble_read_succeeded;
+
 
         // functions
 
@@ -127,17 +148,177 @@ namespace tetengo2 { namespace message
         {
             if (m_p_preread_entry) return true;
 
-            //while (m_input_stream.good())
-            //{
-            //    std::unique_ptr<entry_type> p_entry = parse(get_line());
-            //    if (p_entry)
-            //    {
-            //        m_p_preread_entry = std::move(p_entry);
-            //        return true;
-            //    }
-            //}
+            if (!m_preamble_read_succeeded)
+                skip_preamble();
+            assert(m_preamble_read_succeeded);
+            if (!*m_preamble_read_succeeded)
+                return false;
 
-            return false;
+            m_p_preread_entry = next_entry();
+            if (!m_p_preread_entry)
+                return false;
+
+            return true;
+        }
+
+        void skip_preamble()
+        const
+        {
+            if (
+                !next_is<structure_begin_type>(
+                    input_string_type(TETENGO2_TEXT("object"))
+                )
+            )
+            {
+                m_preamble_read_succeeded = boost::make_optional(false);
+                return;
+            }
+            m_p_pull_parser->next();
+
+            if (
+                next_is<structure_begin_type>(
+                    input_string_type(TETENGO2_TEXT("member")),
+                    input_string_type(TETENGO2_TEXT("header"))
+                )
+            )
+            {
+                m_p_pull_parser->skip_next();
+            }
+
+            if (
+                !next_is<structure_begin_type>(
+                    input_string_type(TETENGO2_TEXT("member")),
+                    input_string_type(TETENGO2_TEXT("body"))
+                )
+            )
+            {
+                m_preamble_read_succeeded = boost::make_optional(false);
+                return;
+            }
+            m_p_pull_parser->next();
+
+            if (
+                !next_is<structure_begin_type>(
+                    input_string_type(TETENGO2_TEXT("object"))
+                )
+            )
+            {
+                m_preamble_read_succeeded = boost::make_optional(false);
+                return;
+            }
+            m_p_pull_parser->next();
+
+            m_preamble_read_succeeded = boost::make_optional(true);
+            return;
+        }
+
+        std::unique_ptr<entry_type> next_entry()
+        const
+        {
+            input_string_type key;
+            input_string_type value;
+
+            {
+                if (!m_p_pull_parser->has_next())
+                    return std::unique_ptr<entry_type>();
+                const element_type& element = m_p_pull_parser->peek();
+                if (element.which() != 0)
+                    return std::unique_ptr<entry_type>();
+
+                const structure_begin_type& structure =
+                    boost::get<structure_begin_type>(element);
+                key = get_attribute(structure);
+                if (key.empty())
+                    return std::unique_ptr<entry_type>();
+
+                m_p_pull_parser->next();
+            }
+            {
+                if (!m_p_pull_parser->has_next())
+                    return std::unique_ptr<entry_type>();
+                const element_type& element = m_p_pull_parser->peek();
+                if (element.which() != 2)
+                    return std::unique_ptr<entry_type>();
+
+                const value_type& parsed_value =
+                    boost::get<value_type>(element);
+                if (parsed_value.which() != 4)
+                    return std::unique_ptr<entry_type>();
+
+                value = boost::get<input_string_type>(parsed_value);
+
+                m_p_pull_parser->next();
+            }
+            {
+                if (!m_p_pull_parser->has_next())
+                    return std::unique_ptr<entry_type>();
+                const element_type& element = m_p_pull_parser->peek();
+                if (element.which() != 1)
+                    return std::unique_ptr<entry_type>();
+
+                m_p_pull_parser->next();
+            }
+
+            return tetengo2::make_unique<entry_type>(key, value);
+        }
+
+        template <typename Structure>
+        bool next_is(
+            const input_string_type& name,
+            const input_string_type& attribute = input_string_type()
+        )
+        const
+        {
+            if (!m_p_pull_parser->has_next())
+                return false;
+
+            const element_type& element = m_p_pull_parser->peek();
+            if (!is_structure(element, static_cast<const Structure*>(NULL)))
+                return false;
+
+            const Structure structure = boost::get<Structure>(element);
+            if (structure.name() != name)
+                return false;
+            if (!attribute.empty())
+            {
+                if (get_attribute(structure) != attribute)
+                    return false;
+            }
+
+            return true;
+        }
+
+        bool is_structure(
+            const element_type&               element,
+            const structure_begin_type* const
+        )
+        const
+        {
+            return element.which() == 0;
+        }
+
+        bool is_structure(
+            const element_type&             element,
+            const structure_end_type* const
+        )
+        const
+        {
+            return element.which() == 1;
+        }
+
+        input_string_type get_attribute(const structure_begin_type& structure)
+        const
+        {
+            const typename attribute_map_type::const_iterator found =
+                structure.attribute_map().find(
+                    input_string_type(TETENGO2_TEXT("name"))
+                );
+            if (found == structure.attribute_map().end())
+                return input_string_type();
+            if (found->second.which() != 4)
+                return input_string_type();
+            
+            return boost::get<input_string_type>(found->second);
         }
 
 

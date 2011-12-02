@@ -76,7 +76,7 @@ namespace
 
     const std::string catalog1(
         "{\n"
-        "    \"body\":\n"
+        "    \"header\":\n"
         "    {\n"
         "        \"Key1\": \"Value1\"\n"
         "    }\n"
@@ -87,7 +87,30 @@ namespace
         "{\n"
         "    \"body\":\n"
         "    {\n"
+        "    }\n"
+        "}\n"
+    );
+
+    const std::string catalog3(
+        "{\n"
+        "    \"body\":\n"
+        "    {\n"
         "        \"Key1\": \"Value1\"\n"
+        "    }\n"
+        "}\n"
+    );
+
+    const std::string catalog4(
+        "{\n"
+        "    \"header\":\n"
+        "    {\n"
+        "        \"Key1\": \"Value1\",\n"
+        "        \"Key2\": [12, 34, 56]\n"
+        "    },\n"
+        "    \"body\":\n"
+        "    {\n"
+        "        \"Key1\": \"Value1\",\n"
+        "        \"Key2\": \"Value2\"\n"
         "    }\n"
         "}\n"
     );
@@ -135,7 +158,46 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser_j)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog0)
+                );
+
+            BOOST_CHECK(!p_parser->has_next());
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog1)
+                );
+
+            BOOST_CHECK(!p_parser->has_next());
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog2)
+                );
+
+            BOOST_CHECK(!p_parser->has_next());
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog3)
+                );
+
+            BOOST_CHECK(p_parser->has_next());
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog4)
+                );
+
+            BOOST_CHECK(p_parser->has_next());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(next)

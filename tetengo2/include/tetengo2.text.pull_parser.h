@@ -246,20 +246,23 @@ namespace tetengo2 { namespace text
                 return;
             }
             assert(element.which() == 0);
+            const string_type& structure_begin_name =
+                boost::get<structure_begin_type>(element).name();
 
             next();
 
             while (has_next())
             {
                 const element_type& next_element = peek();
-                if (
-                    next_element.which() == 1 &&
-                    boost::get<structure_end_type>(next_element).name() ==
-                        boost::get<structure_begin_type>(element).name()
-                )
+                if (next_element.which() == 1)
                 {
-                    next();
-                    return;
+                    const string_type& structure_end_name =
+                        boost::get<structure_end_type>(next_element).name();
+                    if (structure_end_name == structure_begin_name)
+                    {
+                        next();
+                        return;
+                    }
                 }
 
                 skip_next();
