@@ -90,12 +90,12 @@ namespace tetengo2 { namespace message
 
             \return The next entry.
 
-            \throw std::runtime_error No next entry exists.
+            \throw std::logic_error No next entry exists.
         */
         entry_type next()
         {
             if (!has_next())
-                BOOST_THROW_EXCEPTION(std::runtime_error("No next entry."));
+                BOOST_THROW_EXCEPTION(std::logic_error("No next entry."));
 
             const std::unique_ptr<entry_type> p_entry(
                 std::move(m_p_preread_entry)

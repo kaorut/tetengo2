@@ -204,7 +204,61 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser_j)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog0)
+                );
+
+            BOOST_CHECK_THROW(p_parser->next(), std::logic_error);
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog1)
+                );
+
+            BOOST_CHECK_THROW(p_parser->next(), std::logic_error);
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog2)
+                );
+
+            BOOST_CHECK_THROW(p_parser->next(), std::logic_error);
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog3)
+                );
+
+            {
+                const entry_type entry = p_parser->next();
+                BOOST_CHECK(entry.first == "Key1");
+                BOOST_CHECK(entry.second == "Value1");
+            }
+            BOOST_CHECK(!p_parser->has_next());
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog4)
+                );
+
+            {
+                const entry_type entry = p_parser->next();
+                BOOST_CHECK(entry.first == "Key1");
+                BOOST_CHECK(entry.second == "Value1");
+            }
+            {
+                const entry_type entry = p_parser->next();
+                BOOST_CHECK(entry.first == "Key2");
+                BOOST_CHECK(entry.second == "Value2");
+            }
+            BOOST_CHECK(!p_parser->has_next());
+        }
     }
 
 
