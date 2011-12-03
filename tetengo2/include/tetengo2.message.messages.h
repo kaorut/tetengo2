@@ -25,6 +25,7 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp11.h"
@@ -162,6 +163,14 @@ namespace tetengo2 { namespace message
 
         };
 
+        typedef
+            typename message_catalog_parser_type::pull_parser_type
+            pull_parser_type;
+
+        typedef typename pull_parser_type::push_parser_type push_parser_type;
+
+        typedef typename push_parser_type::grammar_type grammar_type;
+
 
         // static functions
 
@@ -175,7 +184,7 @@ namespace tetengo2 { namespace message
         catalog_file_mappings_filename()
         {
             static const typename path_type::string_type singleton(
-                TETENGO2_TEXT("_catalogs.txt")
+                TETENGO2_TEXT("_catalogs.json")
             );
             return singleton;
         }
@@ -263,7 +272,9 @@ namespace tetengo2 { namespace message
                 );
             }
 
-            message_catalog_parser_type parser(input_stream);
+            message_catalog_parser_type parser(
+                create_pull_parser(input_stream)
+            );
             while (parser.has_next())
                 mappings.insert(parser.next());
 
@@ -283,9 +294,34 @@ namespace tetengo2 { namespace message
                 );
             }
 
-            message_catalog_parser_type parser(input_stream);
+            message_catalog_parser_type parser(
+                create_pull_parser(input_stream)
+            );
             while (parser.has_next())
                 message_catalog.insert(parser.next());
+        }
+
+        static std::unique_ptr<pull_parser_type> create_pull_parser(
+            std::istream& input_stream
+        )
+        {
+            std::unique_ptr<grammar_type> p_grammar =
+                tetengo2::make_unique<grammar_type>();
+            
+            std::unique_ptr<push_parser_type> p_push_parser =
+                tetengo2::make_unique<push_parser_type>(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>(input_stream)
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>()
+                    ),
+                    std::move(p_grammar)
+                );
+
+            return tetengo2::make_unique<pull_parser_type>(
+                std::move(p_push_parser), 5
+            );
         }
 
 

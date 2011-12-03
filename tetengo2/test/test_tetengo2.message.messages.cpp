@@ -13,13 +13,17 @@
 //#include <string>
 
 //#include <boost/filesystem.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.message.message_catalog_parser.h"
+#include "tetengo2.message.message_catalog_parser_j.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
+#include "tetengo2.text.grammar.json.h"
+#include "tetengo2.text.pull_parser.h"
+#include "tetengo2.text.push_parser.h"
 #include "tetengo2.unique.h"
 
 #include "tetengo2.message.messages.h"
@@ -28,6 +32,20 @@
 namespace
 {
     // types
+
+    typedef
+        boost::spirit::multi_pass<std::istreambuf_iterator<char>>
+        iterator_type;
+
+    typedef tetengo2::text::grammar::json<iterator_type> grammar_type;
+
+    typedef
+        tetengo2::text::push_parser<iterator_type, grammar_type, int, double>
+        push_parser_type;
+
+    typedef
+        tetengo2::text::pull_parser<push_parser_type, std::size_t>
+        pull_parser_type;
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
@@ -56,8 +74,8 @@ namespace
         locale_name_encoder_type;
 
     typedef
-        tetengo2::message::message_catalog_parser<
-            std::istream, std::string, message_catalog_encoder_type
+        tetengo2::message::message_catalog_parser_j<
+            pull_parser_type, std::string, message_catalog_encoder_type
         >
         message_catalog_parser_type;
 
