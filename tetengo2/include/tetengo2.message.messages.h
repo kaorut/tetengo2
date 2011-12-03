@@ -13,8 +13,10 @@
 #include <cstddef>
 //#include <functional>
 #include <ios>
+#include <istream>
 #include <iterator>
 #include <locale>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <unordered_map>

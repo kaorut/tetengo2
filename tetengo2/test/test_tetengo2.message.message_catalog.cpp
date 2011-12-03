@@ -6,12 +6,14 @@
     $Id$
 */
 
-#include <istream>
+//#include <cstddef>
+//#include <iterator>
 //#include <locale>
 //#include <stdexcept>
 //#include <string>
 
 //#include <boost/filesystem.hpp>
+//#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.encoding.h"

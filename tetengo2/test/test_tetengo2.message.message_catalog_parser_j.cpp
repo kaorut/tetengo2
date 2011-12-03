@@ -6,8 +6,11 @@
     $Id$
 */
 
-#include <istream>
+//#include <cstddef>
+//#include <memory>
+//#include <stdexcept>
 //#include <string>
+//#include <utility>
 
 #include <boost/test/unit_test.hpp>
 

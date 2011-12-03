@@ -9,15 +9,16 @@
 #if !defined(TETENGO2_MESSAGE_MESSAGECATALOGPARSERJ_H)
 #define TETENGO2_MESSAGE_MESSAGECATALOGPARSERJ_H
 
-#include <locale>
+#include <cassert>
+#include <cstddef>
 //#include <memory>
 #include <stdexcept>
-#include <string>
 //#include <utility>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/variant.hpp>
 
 #include "tetengo2.text.h"
 #include "tetengo2.unique.h"
