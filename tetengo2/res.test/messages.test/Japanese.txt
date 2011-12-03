@@ -1,4 +1,0 @@
-# Message Catalog for Japanese
-
-Language=Japanese
-Name:Space:Hello=Konnichiwa
