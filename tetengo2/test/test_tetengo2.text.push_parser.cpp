@@ -268,7 +268,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
                 "    false,"
                 "    null,"
                 "    true,"
-                "    \"hoge\""
+                "    \"hoge\\tfuga\""
                 "]";
             std::vector<parsed_structure_type> parsed;
 
@@ -324,7 +324,9 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK(parsed[4].first == "value");
             BOOST_CHECK(parsed[4].second);
             BOOST_CHECK_EQUAL(parsed[4].second->which(), 4);
-            BOOST_CHECK(boost::get<std::string>(*parsed[4].second) == "hoge");
+            BOOST_CHECK(
+                boost::get<std::string>(*parsed[4].second) == "hoge\tfuga"
+            );
 
             BOOST_CHECK(parsed[5].first == "array");
         }

@@ -20,6 +20,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/algorithm/string.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
@@ -289,11 +290,53 @@ namespace tetengo2 { namespace text
         static string_type to_string(const string_type& string_value)
         {
             assert(string_value.length() >= 2);
-
-            return string_type(
+            string_type string(
                 boost::next(string_value.begin()),
                 boost::prior(string_value.end())
             );
+
+            boost::replace_all(
+                string,
+                string_type(TETENGO2_TEXT("\\\"")),
+                string_type(TETENGO2_TEXT("\""))
+            );
+            boost::replace_all(
+                string,
+                string_type(TETENGO2_TEXT("\\\\")),
+                string_type(TETENGO2_TEXT("\\"))
+            );
+            boost::replace_all(
+                string,
+                string_type(TETENGO2_TEXT("\\/")),
+                string_type(TETENGO2_TEXT("/"))
+            );
+            boost::replace_all(
+                string,
+                string_type(TETENGO2_TEXT("\\b")),
+                string_type(TETENGO2_TEXT("\b"))
+            );
+            boost::replace_all(
+                string,
+                string_type(TETENGO2_TEXT("\\f")),
+                string_type(TETENGO2_TEXT("\f"))
+            );
+            boost::replace_all(
+                string,
+                string_type(TETENGO2_TEXT("\\n")),
+                string_type(TETENGO2_TEXT("\n"))
+            );
+            boost::replace_all(
+                string,
+                string_type(TETENGO2_TEXT("\\r")),
+                string_type(TETENGO2_TEXT("\r"))
+            );
+            boost::replace_all(
+                string,
+                string_type(TETENGO2_TEXT("\\t")),
+                string_type(TETENGO2_TEXT("\t"))
+            );
+
+            return string;
         }
 
         static value_type to_number(const string_type& string_value)
