@@ -68,10 +68,13 @@
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.message.messages.h>
 #include <tetengo2.message.message_catalog.h>
-#include <tetengo2.message.message_catalog_parser.h>
+#include <tetengo2.message.message_catalog_parser_j.h>
 #include <tetengo2.text.encoder.h>
 #include <tetengo2.text.encoding.locale.h>
 #include <tetengo2.text.encoding.utf8.h>
+#include <tetengo2.text.grammar.json.h>
+#include <tetengo2.text.pull_parser.h>
+#include <tetengo2.text.push_parser.h>
 
 #include "bobura.about_dialog.h"
 #include "bobura.bobura.h"
@@ -230,6 +233,20 @@ typedef
     window_type;
 
 typedef
+    tetengo2::text::grammar::json<std::string::const_iterator>
+    grammar_type;
+
+typedef
+    tetengo2::text::push_parser<
+        std::string::const_iterator, grammar_type, int, double
+    >
+    push_parser_type;
+
+typedef
+    tetengo2::text::pull_parser<push_parser_type, std::size_t>
+    pull_parser_type;
+
+typedef
     tetengo2::text::encoding::utf8<encoding_details_type>
     message_catalog_encoding_type;
 
@@ -244,8 +261,8 @@ typedef
     message_catalog_encoder_type;
 
 typedef
-    tetengo2::message::message_catalog_parser<
-        std::istream, std::wstring, message_catalog_encoder_type
+    tetengo2::message::message_catalog_parser_j<
+        pull_parser_type, std::wstring, message_catalog_encoder_type
     >
     message_catalog_parser_type;
 
