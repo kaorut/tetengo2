@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::message::message_catalog_parser_j.
+    \brief The definition of tetengo2::message::message_catalog_parser.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_MESSAGE_MESSAGECATALOGPARSERJ_H)
-#define TETENGO2_MESSAGE_MESSAGECATALOGPARSERJ_H
+#if !defined(TETENGO2_MESSAGE_MESSAGECATALOGPARSER_H)
+#define TETENGO2_MESSAGE_MESSAGECATALOGPARSER_H
 
 #include <cassert>
 #include <cstddef>
@@ -34,7 +34,7 @@ namespace tetengo2 { namespace message
         \tparam Encoder    An encoder type.
     */
     template <typename PullParser, typename String, typename Encoder>
-    class message_catalog_parser_j : private boost::noncopyable
+    class message_catalog_parser : private boost::noncopyable
     {
     public:
         // types
@@ -62,7 +62,7 @@ namespace tetengo2 { namespace message
 
             \param p_pull_parser A unique pointer to a pull parser.
         */
-        explicit message_catalog_parser_j(
+        explicit message_catalog_parser(
             std::unique_ptr<pull_parser_type> p_pull_parser
         )
         :

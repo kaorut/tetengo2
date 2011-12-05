@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::message::message_catalog_parser_j.
+    \brief Test of class tetengo2::message::message_catalog_parser.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -22,7 +22,7 @@
 #include "tetengo2.text.push_parser.h"
 #include "tetengo2.unique.h"
 
-#include "tetengo2.message.message_catalog_parser_j.h"
+#include "tetengo2.message.message_catalog_parser.h"
 
 
 namespace
@@ -63,7 +63,7 @@ namespace
         message_catalog_encoder_type;
 
     typedef
-        tetengo2::message::message_catalog_parser_j<
+        tetengo2::message::message_catalog_parser<
             pull_parser_type, std::string, message_catalog_encoder_type
         >
         message_catalog_parser_type;
@@ -144,7 +144,7 @@ namespace
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(message)
-BOOST_AUTO_TEST_SUITE(message_catalog_parser_j)
+BOOST_AUTO_TEST_SUITE(message_catalog_parser)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

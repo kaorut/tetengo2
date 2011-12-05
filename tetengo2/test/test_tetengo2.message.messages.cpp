@@ -19,7 +19,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.message.message_catalog_parser_j.h"
+#include "tetengo2.message.message_catalog_parser.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.text.grammar.json.h"
@@ -75,7 +75,7 @@ namespace
         locale_name_encoder_type;
 
     typedef
-        tetengo2::message::message_catalog_parser_j<
+        tetengo2::message::message_catalog_parser<
             pull_parser_type, std::string, message_catalog_encoder_type
         >
         message_catalog_parser_type;

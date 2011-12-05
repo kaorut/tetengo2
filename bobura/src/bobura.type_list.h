@@ -76,7 +76,7 @@
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.message.messages.h>
 #include <tetengo2.message.message_catalog.h>
-#include <tetengo2.message.message_catalog_parser_j.h>
+#include <tetengo2.message.message_catalog_parser.h>
 #include <tetengo2.meta.assoc_list.h>
 #include <tetengo2.text.encoder.h>
 #include <tetengo2.text.encoding.locale.h>
@@ -216,7 +216,7 @@ namespace bobura
             >
             message_catalog_encoder_type;
         typedef
-            tetengo2::message::message_catalog_parser_j<
+            tetengo2::message::message_catalog_parser<
                 boost::mpl::at<common_type_list, type::pull_parser>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 message_catalog_encoder_type
