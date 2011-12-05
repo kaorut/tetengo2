@@ -11,6 +11,7 @@
 
 //#include <cstddef>
 //#include <istream>
+#include <iterator>
 //#include <string>
 #include <tuple>
 //#include <utility>
@@ -20,6 +21,7 @@
 //#include <boost/mpl/insert_range.hpp>
 //#include <boost/mpl/pair.hpp>
 //#include <boost/rational.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.detail.windows.alert.h>
 #include <tetengo2.detail.windows.cursor.h>
@@ -74,11 +76,14 @@
 #include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.message.messages.h>
 #include <tetengo2.message.message_catalog.h>
-#include <tetengo2.message.message_catalog_parser.h>
+#include <tetengo2.message.message_catalog_parser_j.h>
 #include <tetengo2.meta.assoc_list.h>
 #include <tetengo2.text.encoder.h>
 #include <tetengo2.text.encoding.locale.h>
 #include <tetengo2.text.encoding.utf8.h>
+#include <tetengo2.text.grammar.json.h>
+#include <tetengo2.text.pull_parser.h>
+#include <tetengo2.text.push_parser.h>
 
 #include "bobura.about_dialog.h"
 #include "bobura.bobura.h"
@@ -97,15 +102,38 @@ namespace bobura
         struct difference;     //!< The difference type.
         struct size;           //!< The size type.
         struct string;         //!< The string type.
+        struct io_string;      //!< The I/O string.
         struct path;           //!< The path type.
-        struct settings;       //! The settings type.
+        struct json_grammar;   //!< The JSON grammar type.
+        struct push_parser;    //!< The push parser type.
+        struct pull_parser;    //!< The pull parser_type.
+        struct settings;       //!< The settings type.
     }
 
 #if !defined(DOCUMENTATION)
     namespace detail { namespace common
     {
+        typedef std::ptrdiff_t difference_type;
+        typedef std::size_t size_type;
         typedef std::wstring string_type;
+        typedef std::string io_string_type;
         typedef boost::filesystem::path path_type;
+        typedef
+            boost::spirit::multi_pass<std::istreambuf_iterator<
+                io_string_type::value_type>
+            >
+            input_stream_iterator_type;
+        typedef
+            tetengo2::text::grammar::json<input_stream_iterator_type>
+            json_grammar_type;
+        typedef
+            tetengo2::text::push_parser<
+                input_stream_iterator_type, json_grammar_type, int, double
+            >
+            push_parser_type;
+        typedef
+            tetengo2::text::pull_parser<push_parser_type, size_type>
+            pull_parser_type;
         typedef settings<string_type, path_type> settings_type;
     }}
 #endif
@@ -113,17 +141,31 @@ namespace bobura
     //! The common type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::difference, std::ptrdiff_t>,
+            boost::mpl::pair<
+                type::difference, detail::common::difference_type
+            >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::size, std::size_t>,
+            boost::mpl::pair<type::size, detail::common::size_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::string, detail::common::string_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::path, detail::common::path_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::json_grammar, detail::common::json_grammar_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::push_parser, detail::common::push_parser_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::pull_parser, detail::common::pull_parser_type
+            >,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::settings, detail::common::settings_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>>>
         common_type_list;
 
 
@@ -174,8 +216,8 @@ namespace bobura
             >
             message_catalog_encoder_type;
         typedef
-            tetengo2::message::message_catalog_parser<
-                std::istream,
+            tetengo2::message::message_catalog_parser_j<
+                boost::mpl::at<common_type_list, type::pull_parser>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 message_catalog_encoder_type
             >
