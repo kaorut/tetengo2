@@ -235,9 +235,6 @@
     <ClCompile Include="test\test_tetengo2.message.message_catalog.cpp">
       <Filter>sources\test_tetengo2\message</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp">
-      <Filter>sources\test_tetengo2\message</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.message.messages.cpp">
       <Filter>sources\test_tetengo2\message</Filter>
     </ClCompile>

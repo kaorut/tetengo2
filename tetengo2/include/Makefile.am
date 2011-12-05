@@ -69,7 +69,6 @@ headers = \
     tetengo2.gui.window_observer_set.h \
     tetengo2.message.messages.h \
     tetengo2.message.message_catalog.h \
-    tetengo2.message.message_catalog_parser.h \
     tetengo2.message.message_catalog_parser_j.h \
     tetengo2.meta.assoc_list.h \
     tetengo2.operators.h \
