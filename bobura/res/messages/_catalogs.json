@@ -1,0 +1,12 @@
+{
+    "header":
+    {
+        "title":     "Mappings between locale names and catalog file names",
+        "copyright": "Copyright (C) 2007-2011 kaoru"
+    },
+    
+    "body":
+    {
+        "Japanese_Japan": "Japanese.json"
+    }
+}
