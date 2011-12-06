@@ -278,7 +278,10 @@ namespace tetengo2 { namespace message
                 create_pull_parser(input_stream)
             );
             while (parser.has_next())
-                mappings.insert(parser.next());
+            {
+                mappings.insert(parser.peek());
+                parser.next();
+            }
 
             return mappings;
         }
@@ -300,7 +303,10 @@ namespace tetengo2 { namespace message
                 create_pull_parser(input_stream)
             );
             while (parser.has_next())
-                message_catalog.insert(parser.next());
+            {
+                message_catalog.insert(parser.peek());
+                parser.next();
+            }
         }
 
         static std::unique_ptr<pull_parser_type> create_pull_parser(

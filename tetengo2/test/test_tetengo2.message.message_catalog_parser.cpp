@@ -203,6 +203,56 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(peek)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog0)
+                );
+
+            BOOST_CHECK_THROW(p_parser->peek(), std::logic_error);
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog1)
+                );
+
+            BOOST_CHECK_THROW(p_parser->peek(), std::logic_error);
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog2)
+                );
+
+            BOOST_CHECK_THROW(p_parser->peek(), std::logic_error);
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog3)
+                );
+
+            const entry_type& entry = p_parser->peek();
+            BOOST_CHECK(entry.first == "Key1");
+            BOOST_CHECK(entry.second == "Value1");
+        }
+        {
+            const std::unique_ptr<message_catalog_parser_type> p_parser =
+                tetengo2::make_unique<message_catalog_parser_type>(
+                    create_pull_parser(catalog4)
+                );
+
+            const entry_type& entry = p_parser->peek();
+            BOOST_CHECK(entry.first == "Key1");
+            BOOST_CHECK(entry.second == "Value1");
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(next)
     {
         BOOST_TEST_PASSPOINT();
@@ -238,9 +288,10 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
                 );
 
             {
-                const entry_type entry = p_parser->next();
+                const entry_type& entry = p_parser->peek();
                 BOOST_CHECK(entry.first == "Key1");
                 BOOST_CHECK(entry.second == "Value1");
+                p_parser->next();
             }
             BOOST_CHECK(!p_parser->has_next());
         }
@@ -251,14 +302,16 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
                 );
 
             {
-                const entry_type entry = p_parser->next();
+                const entry_type& entry = p_parser->peek();
                 BOOST_CHECK(entry.first == "Key1");
                 BOOST_CHECK(entry.second == "Value1");
+                p_parser->next();
             }
             {
-                const entry_type entry = p_parser->next();
+                const entry_type& entry = p_parser->peek();
                 BOOST_CHECK(entry.first == "Key2");
                 BOOST_CHECK(entry.second == "Value2");
+                p_parser->next();
             }
             BOOST_CHECK(!p_parser->has_next());
         }

@@ -87,22 +87,32 @@ namespace tetengo2 { namespace message
         }
 
         /*!
-            \brief Returns the next entry.
+            \brief Peeks the next entry.
 
             \return The next entry.
 
             \throw std::logic_error No next entry exists.
         */
-        entry_type next()
+        const entry_type& peek()
+        const
         {
             if (!has_next())
                 BOOST_THROW_EXCEPTION(std::logic_error("No next entry."));
 
-            const std::unique_ptr<entry_type> p_entry(
-                std::move(m_p_preread_entry)
-            );
+            return *m_p_preread_entry;
+        }
+
+        /*!
+            \brief Removes the next entry.
+
+            \throw std::logic_error No next entry exists.
+        */
+        void next()
+        {
+            if (!has_next())
+                BOOST_THROW_EXCEPTION(std::logic_error("No next entry."));
+
             m_p_preread_entry.reset();
-            return *p_entry;
         }
 
 
