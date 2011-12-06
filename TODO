@@ -7,12 +7,27 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000116
-Added on    : 2011/11/08
-Depends on  : (none)
-Description : Change the message catalogs to JSON.
-------------------------------------------------------------------------------
 Number      : 00000118
+Added on    : 2011/12/07
+Depends on  : (none)
+Description : Create bobura::command::load_file.
+------------------------------------------------------------------------------
+Number      : 00000119
+Added on    : 2011/12/07
+Depends on  : 00000118
+Description : Create tetengo2::gui::file_chooser.
+------------------------------------------------------------------------------
+Number      : 00000120
+Added on    : 2011/12/07
+Depends on  : 00000118
+Description : Create bobura::model::serializer.
+------------------------------------------------------------------------------
+Number      : 00000121
+Added on    : 2011/12/07
+Depends on  : 00000118, 00000119, 00000120
+Description : Create a member for the model in bobura::bobura.
+------------------------------------------------------------------------------
+Number      : 00000122
 Added on    : 2011/mm/dd
 Depends on  : (none)
 Description : 
