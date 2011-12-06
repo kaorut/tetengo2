@@ -10,10 +10,9 @@
 #define BOBURA_TYPELIST_H
 
 //#include <cstddef>
-//#include <istream>
-#include <iterator>
+//#include <iterator>
 //#include <string>
-#include <tuple>
+//#include <tuple>
 //#include <utility>
 
 //#include <boost/filesystem.hpp>
@@ -21,7 +20,7 @@
 //#include <boost/mpl/insert_range.hpp>
 //#include <boost/mpl/pair.hpp>
 //#include <boost/rational.hpp>
-#include <boost/spirit/include/support_multi_pass.hpp>
+//#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.detail.windows.alert.h>
 #include <tetengo2.detail.windows.cursor.h>
