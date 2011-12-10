@@ -17,6 +17,7 @@ namespace bobura { namespace command
         struct command;        //!< The command type.
         struct about;          //!< The about type.
         struct exit;           //!< The exit type.
+        struct load_from_file; //!< The load-from-file type.
         struct nop;            //!< The nop type.
     }
 

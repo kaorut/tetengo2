@@ -17,6 +17,7 @@
 
 #include "bobura.command.about.h"
 #include "bobura.command.exit.h"
+#include "bobura.command.load_from_file.h"
 #include "bobura.command.nop.h"
 #include "bobura.command.type_list.h"
 
@@ -44,9 +45,11 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::exit, exit<Window>>,
             tetengo2::meta::assoc_list<
+                boost::mpl::pair<type::load_from_file, load_from_file>,
+            tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::nop, nop>,
             tetengo2::meta::assoc_list_end
-            >>>>
+            >>>>>
             type;
 
 

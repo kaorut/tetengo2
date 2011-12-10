@@ -219,7 +219,7 @@ namespace bobura
                         TETENGO2_TEXT("Menu:File:&Open...\tCtrl+O")
                     ),
                     typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
+                        command_type_list_type, command::type::load_from_file
                     >::type()
                 );
                 append_menu_command(
