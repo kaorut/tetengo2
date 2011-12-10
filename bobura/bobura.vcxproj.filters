@@ -78,6 +78,9 @@
     <ClInclude Include="src\bobura.message.main_window.h">
       <Filter>headers\bobura\message</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.load_from_file.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\messages\_catalogs.txt">

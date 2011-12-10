@@ -12,6 +12,7 @@ sources = \
     test_bobura.bobura.cpp \
     test_bobura.command.about.cpp \
     test_bobura.command.exit.cpp \
+    test_bobura.command.load_from_file.cpp \
     test_bobura.command.nop.cpp \
     test_bobura.main_window.cpp \
     test_bobura.message.about_dialog.cpp \

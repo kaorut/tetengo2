@@ -227,6 +227,7 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_bobura.bobura.cpp" />
     <ClCompile Include="test\test_bobura.command.about.cpp" />
     <ClCompile Include="test\test_bobura.command.exit.cpp" />
+    <ClCompile Include="test\test_bobura.command.load_from_file.cpp" />
     <ClCompile Include="test\test_bobura.command.nop.cpp" />
     <ClCompile Include="test\test_bobura.main_window.cpp" />
     <ClCompile Include="test\test_bobura.message.about_dialog.cpp" />

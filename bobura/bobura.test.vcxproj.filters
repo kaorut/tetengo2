@@ -62,5 +62,8 @@
     <ClCompile Include="test\test_bobura.message.main_window.cpp">
       <Filter>sources\test_bobura\message</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.command.load_from_file.cpp">
+      <Filter>sources\test_bobura\command</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
