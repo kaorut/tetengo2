@@ -244,5 +244,8 @@
     <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp">
       <Filter>sources\test_tetengo2\message</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.common_dialog.open_file.cpp">
+      <Filter>sources\test_tetengo2\gui\common_dialog</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

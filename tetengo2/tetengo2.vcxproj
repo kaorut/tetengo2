@@ -153,6 +153,7 @@
     <ClInclude Include="include\tetengo2.gui.abstract_window.h" />
     <ClInclude Include="include\tetengo2.gui.alert.h" />
     <ClInclude Include="include\tetengo2.gui.button.h" />
+    <ClInclude Include="include\tetengo2.gui.common_dialog.open_file.h" />
     <ClInclude Include="include\tetengo2.gui.control.h" />
     <ClInclude Include="include\tetengo2.gui.cursor.h" />
     <ClInclude Include="include\tetengo2.gui.dialog.h" />
