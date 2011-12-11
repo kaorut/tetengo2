@@ -22,6 +22,7 @@
 #include <ObjBase.h>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.detail.windows.windows_version.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -39,6 +40,7 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         gui_fixture()
         {
+            check_platform();
             setup_common_controls();
             setup_com();
         }
@@ -46,6 +48,18 @@ namespace tetengo2 { namespace detail { namespace windows
 
     private:
         // static functions
+
+        static void check_platform()
+        {
+            if (!on_windows_vista_or_later())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error(
+                        "This program can't run on this platform."
+                    )
+                );
+            }
+        }
 
         static void setup_common_controls()
         {
