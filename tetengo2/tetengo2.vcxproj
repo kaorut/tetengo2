@@ -127,6 +127,7 @@
     <ClInclude Include="include\tetengo2.concurrent.producer.h" />
     <ClInclude Include="include\tetengo2.cpp11.h" />
     <ClInclude Include="include\tetengo2.detail.stub.alert.h" />
+    <ClInclude Include="include\tetengo2.detail.stub.common_dialog.h" />
     <ClInclude Include="include\tetengo2.detail.stub.cursor.h" />
     <ClInclude Include="include\tetengo2.detail.stub.drawing.h" />
     <ClInclude Include="include\tetengo2.detail.stub.encoding.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="include\tetengo2.detail.stub.unit.h" />
     <ClInclude Include="include\tetengo2.detail.stub.widget.h" />
     <ClInclude Include="include\tetengo2.detail.windows.alert.h" />
+    <ClInclude Include="include\tetengo2.detail.windows.common_dialog.h" />
     <ClInclude Include="include\tetengo2.detail.windows.cursor.h" />
     <ClInclude Include="include\tetengo2.detail.windows.encoding.h" />
     <ClInclude Include="include\tetengo2.detail.windows.font.h" />
