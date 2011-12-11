@@ -15,9 +15,9 @@
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 #include <CommCtrl.h>
 #include <ObjBase.h>
 
