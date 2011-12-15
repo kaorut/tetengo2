@@ -14,7 +14,7 @@ namespace tetengo2 { namespace detail { namespace stub
 {
     /*!
         \brief The class template for a detail implementation of a file open
-                   dialog box.
+                   dialog.
         
         \tparam Widget  A widget type.
         \tparam String  A string type.
@@ -48,7 +48,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // constructors and destructor
 
         /*!
-            \brief Creates a detail implementation of a file open dialog box.
+            \brief Creates a detail implementation of a file open dialog.
 
             \param parent A parent widget.
         */
@@ -71,7 +71,7 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Shows the dialog box as modal.
+            \brief Shows the dialog as modal.
         */
         void do_modal()
         {}

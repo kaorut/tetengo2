@@ -15,12 +15,12 @@
 namespace tetengo2 { namespace gui { namespace common_dialog
 {
     /*!
-        \brief The class template for a file open dialog box.
+        \brief The class template for a file open dialog.
 
         \tparam String              A string type.
         \tparam Path                A path type.
         \tparam CommonDialogDetails A detail implementation type of common
-                                    dialog boxes.
+                                    dialogs.
     */
     template <typename String, typename Path, typename CommonDialogDetails>
     class file_open : private boost::noncopyable
@@ -34,14 +34,14 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         //! The path type.
         typedef Path path_type;
 
-        //! The detail implementation type of common dialog boxes.
+        //! The detail implementation type of common dialogs.
         typedef CommonDialogDetails common_dialog_details_type;
 
 
         // constructors and destructor
 
         /*!
-            \brief Creates a file open dialog box.
+            \brief Creates a file open dialog.
         */
         file_open()
         {}
