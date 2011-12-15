@@ -55,16 +55,37 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \brief Creates a file open dialog.
         */
         file_open()
+        :
+        m_result()
         {}
 
 
         // functions
 
+        /*!
+            \brief Returns the result.
+
+            \return The result.
+        */
+        const path_type& result()
+        const
+        {
+            return m_result;
+        }
+
+        /*!
+            \brief Shows the dialog as model.
+        */
+        void do_modal()
+        {
+
+        }
 
 
     private:
         // variables
 
+        path_type m_result;
 
 
     };
