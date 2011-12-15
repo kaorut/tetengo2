@@ -15,7 +15,7 @@ sources = \
     test_tetengo2.gui.abstract_window.cpp \
     test_tetengo2.gui.alert.cpp \
     test_tetengo2.gui.button.cpp \
-    test_tetengo2.gui.common_dialog.open_file.cpp \
+    test_tetengo2.gui.common_dialog.file_open.cpp \
     test_tetengo2.gui.control.cpp \
     test_tetengo2.gui.cursor.cpp \
     test_tetengo2.gui.dialog.cpp \

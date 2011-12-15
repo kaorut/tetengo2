@@ -22,7 +22,7 @@ headers = \
     tetengo2.gui.abstract_window.h \
     tetengo2.gui.alert.h \
     tetengo2.gui.button.h \
-    tetengo2.gui.common_dialog.open_file.h \
+    tetengo2.gui.common_dialog.file_open.h \
     tetengo2.gui.control.h \
     tetengo2.gui.cursor.h \
     tetengo2.gui.dialog.h \

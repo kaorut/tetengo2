@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::common_dialog::open_file.
+    \brief The definition of tetengo2::gui::common_dialog::file_open.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_COMMONDIALOG_OPENFILE_H)
-#define TETENGO2_GUI_COMMONDIALOG_OPENFILE_H
+#if !defined(TETENGO2_GUI_COMMONDIALOG_FILEOPEN_H)
+#define TETENGO2_GUI_COMMONDIALOG_FILEOPEN_H
 
 #include <boost/noncopyable.hpp>
 
@@ -15,7 +15,7 @@
 namespace tetengo2 { namespace gui { namespace common_dialog
 {
     /*!
-        \brief The class template for a open-file dialog box.
+        \brief The class template for a file open dialog box.
 
         \tparam String              A string type.
         \tparam Path                A path type.
@@ -23,7 +23,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                                     dialog boxes.
     */
     template <typename String, typename Path, typename CommonDialogDetails>
-    class open_file : private boost::noncopyable
+    class file_open : private boost::noncopyable
     {
     public:
         // types
@@ -41,9 +41,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         // constructors and destructor
 
         /*!
-            \brief Creates a open-file dialog box.
+            \brief Creates a file open dialog box.
         */
-        open_file()
+        file_open()
         {}
 
 

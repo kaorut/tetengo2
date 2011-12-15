@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::common_dialog::open_file.
+    \brief Test of class tetengo2::gui::common_dialog::file_open.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -8,7 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.common_dialog.open_file.h"
+#include "tetengo2.gui.common_dialog.file_open.h"
 
 
 namespace
@@ -22,7 +22,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(common_dialog)
-BOOST_AUTO_TEST_SUITE(open_file)
+BOOST_AUTO_TEST_SUITE(file_open)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
