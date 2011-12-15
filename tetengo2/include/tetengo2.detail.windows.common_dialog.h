@@ -9,84 +9,65 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H)
 #define TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H
 
+#include <memory>
+
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
+
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
 {
     /*!
-        \brief The class template for a detail implementation of a file open
-                   dialog.
-        
-        \tparam Widget  A widget type.
-        \tparam String  A string type.
-        \tparam Path    A path type.
-        \tparam Encoder An encoder type.
+        \brief The class for a detail implementation of dialogs.
     */
-    template <
-        typename Widget,
-        typename String,
-        typename Path,
-        typename Encoder
-    >
-    class file_open
+    class common_dialog
     {
     public:
         // types
 
-        //! The widget type.
-        typedef Widget widget_type;
+        //! The file open dialog details type.
+        struct file_open_dialog_details_type {};
 
-        //! The string type.
-        typedef String string_type;
+        //! The file open dialog details pointer type.
+        typedef
+            std::unique_ptr<file_open_dialog_details_type>
+            file_open_dialog_details_ptr_type;
 
-        //! The path type.
-        typedef Path path_type;
-
-        //! The encoder type.
-        typedef Encoder encoder_type;
-
-
-        // constructors and destructor
+        
+        // static functions
 
         /*!
-            \brief Creates a detail implementation of a file open dialog.
+            \brief Creates a file open dialog.
 
-            \param parent A parent widget.
+            \tparam Widget A widget type.
         */
-        file_open(widget_type& parent)
-        :
-        m_parent(parent),
-        m_path()
-        {}
-
-
-        // functions
-
-        /*!
-            \brief Returns the result.
-        */
-        const path_type& result()
-        const
+        template <typename Widget>
+        static file_open_dialog_details_ptr_type create_file_open_dialog(
+            Widget& parent
+        )
         {
-            return m_result;
+            return make_unique<file_open_dialog_details_type>();
         }
 
         /*!
-            \brief Shows the dialog as modal.
+            \brief Shows a file open dialog and return a path.
+
+            \tparam Path A path type.
+
+            \param dialog A pointer to a file open dialog.
+
+            \return The path.
         */
-        void do_modal()
-        {}
-
-
-    private:
-        // variables
-
-        widget_type& m_parent;
-
-        path_type m_path;
+        template <typename Path>
+        static Path show_file_open_dialog(
+            file_open_dialog_details_type& dialog
+        )
+        {
+            return Path();
+        }
 
 
     };
