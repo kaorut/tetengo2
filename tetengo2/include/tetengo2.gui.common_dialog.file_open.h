@@ -17,16 +17,25 @@ namespace tetengo2 { namespace gui { namespace common_dialog
     /*!
         \brief The class template for a file open dialog.
 
+        \tparam Widget              A widget type.
         \tparam String              A string type.
         \tparam Path                A path type.
         \tparam CommonDialogDetails A detail implementation type of common
                                     dialogs.
     */
-    template <typename String, typename Path, typename CommonDialogDetails>
+    template <
+        typename Widget,
+        typename String,
+        typename Path,
+        typename CommonDialogDetails
+    >
     class file_open : private boost::noncopyable
     {
     public:
         // types
+
+        //! The widget type.
+        typedef Widget widget_type;
 
         //! The string type.
         typedef String string_type;
@@ -53,9 +62,14 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         /*!
             \brief Creates a file open dialog.
+
+            \param parent A parent widget.
         */
-        file_open()
+        file_open(widget_type& parent)
         :
+        m_p_details(
+            common_dialog_details_type::create_file_open_dialog(parent)
+        ),
         m_result()
         {}
 
@@ -81,9 +95,32 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         }
 
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        const details_type& details()
+        const
+        {
+            return *m_p_details;
+        }
+
+        /*!
+            \brief Returns the detail implementation.
+
+            \return The detail implementation.
+        */
+        details_type& details()
+        {
+            return *m_p_details;
+        }
+
 
     private:
         // variables
+
+        details_ptr_type m_p_details;
 
         path_type m_result;
 
