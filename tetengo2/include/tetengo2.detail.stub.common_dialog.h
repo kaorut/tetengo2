@@ -62,7 +62,7 @@ namespace tetengo2 { namespace detail { namespace stub
             file_open_dialog_details_type& dialog
         )
         {
-            return Path();
+            return Path(L"hoge.txt");
         }
 
 

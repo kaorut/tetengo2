@@ -66,7 +66,7 @@ namespace tetengo2 { namespace detail { namespace windows
             file_open_dialog_details_type& dialog
         )
         {
-            return Path();
+            return Path(L"hoge.txt");
         }
 
 

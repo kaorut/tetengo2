@@ -249,21 +249,50 @@ BOOST_AUTO_TEST_SUITE(file_open)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            concrete_widget parent;
+            const file_open_type file_open(parent);
+
+            BOOST_CHECK(file_open.result() == boost::filesystem::path());
+        }
+        {
+            concrete_widget parent;
+            file_open_type file_open(parent);
+
+            file_open.do_modal();
+
+            BOOST_CHECK(
+                file_open.result() == boost::filesystem::path(L"hoge.txt")
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(do_modal)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        concrete_widget parent;
+        file_open_type file_open(parent);
+
+        file_open.do_modal();
     }
 
     BOOST_AUTO_TEST_CASE(details)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            concrete_widget parent;
+            const file_open_type file_open(parent);
+
+            file_open.details();
+        }
+        {
+            concrete_widget parent;
+            file_open_type file_open(parent);
+
+            file_open.details();
+        }
     }
 
 
