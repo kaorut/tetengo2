@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H)
 #define TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H
 
-#include <memory>
+//#include <memory>
 
 #define NOMINMAX
 #define OEMRESOURCE
