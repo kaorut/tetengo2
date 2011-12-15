@@ -37,6 +37,17 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         //! The detail implementation type of common dialogs.
         typedef CommonDialogDetails common_dialog_details_type;
 
+        //! The detail implementation type.
+        typedef
+            typename common_dialog_details_type::file_open_dialog_details_type
+            details_type;
+
+        //! The detail implementaiton pointer type;
+
+        typedef
+            typename common_dialog_details_type::file_open_dialog_details_ptr_type
+            details_ptr_type;
+
 
         // constructors and destructor
 
