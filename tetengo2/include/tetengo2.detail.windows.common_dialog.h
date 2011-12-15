@@ -43,6 +43,10 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Creates a file open dialog.
 
             \tparam Widget A widget type.
+
+            \param parent A parent widget.
+
+            \return A unique pointer to a file open dialog.
         */
         template <typename Widget>
         static file_open_dialog_details_ptr_type create_file_open_dialog(
