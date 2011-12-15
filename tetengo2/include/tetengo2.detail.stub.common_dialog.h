@@ -11,6 +11,8 @@
 
 #include <memory>
 
+#include "tetengo2.unique.h"
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
