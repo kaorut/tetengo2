@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_DETAIL_STUB_COMMONDIALOG_H)
 #define TETENGO2_DETAIL_STUB_COMMONDIALOG_H
 
+#include <memory>
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
