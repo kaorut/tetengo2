@@ -6,7 +6,15 @@
     $Id$
 */
 
+#include <string>
+
+#include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include <tetengo2.detail.stub.common_dialog.h>
+#include <tetengo2.gui.common_dialog.file_open.h>
+
+#include "test_bobura.types.h"
 
 #include "bobura.command.load_from_file.h"
 
@@ -20,7 +28,10 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
     {
         BOOST_TEST_PASSPOINT();
 
-        bobura::command::load_from_file load_from_file;
+        window_type parent;
+        bobura::command::load_from_file<file_open_type> load_from_file(
+            parent
+        );
 
         load_from_file();
     }

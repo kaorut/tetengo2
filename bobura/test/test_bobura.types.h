@@ -17,6 +17,7 @@
 //#include <boost/mpl/at.hpp>
 
 #include <tetengo2.detail.stub.alert.h>
+#include <tetengo2.detail.stub.common_dialog.h>
 #include <tetengo2.detail.stub.cursor.h>
 #include <tetengo2.detail.stub.drawing.h>
 #include <tetengo2.detail.stub.encoding.h>
@@ -28,6 +29,7 @@
 #include <tetengo2.detail.stub.widget.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.button.h>
+#include <tetengo2.gui.common_dialog.file_open.h>
 #include <tetengo2.gui.dialog.h>
 #include <tetengo2.gui.dialog_message_loop.h>
 #include <tetengo2.gui.image.h>
@@ -280,6 +282,15 @@ typedef
 typedef
     tetengo2::message::message_catalog<messages_type> message_catalog_type;
 
+typedef
+    tetengo2::gui::common_dialog::file_open<
+        window_type::base_type,
+        std::wstring,
+        boost::filesystem::path,
+        tetengo2::detail::stub::common_dialog
+    >
+    file_open_type;
+
 typedef tetengo2::detail::stub::message_loop message_loop_details_type;
 
 typedef
@@ -372,7 +383,9 @@ typedef
     about_dialog_type;
 
 typedef
-    bobura::command::type_list<window_type, about_dialog_type>::type
+    bobura::command::type_list<
+        window_type, file_open_type, about_dialog_type
+    >::type
     command_type_list_type;
 
 typedef
