@@ -42,9 +42,7 @@ namespace bobura { namespace command
         explicit load_from_file(window_type& window)
         :
         m_window(window)
-        {
-
-        }
+        {}
 
 
         // functions
@@ -55,7 +53,10 @@ namespace bobura { namespace command
         void operator()()
         const
         {
-        
+            file_open_dialog_type dialog(m_window);
+            dialog.do_modal();
+
+            dialog.result();
         }
 
 
