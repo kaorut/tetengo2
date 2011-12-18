@@ -48,7 +48,6 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
-#include <boost/fusion/include/all.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -109,6 +108,7 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
+#include <atlbase.h>
 #include <CommCtrl.h>
 #if !defined(min) && !defined(DOCUMENTATION)
 #   define min(a, b) ((a) < (b) ? (a) : (b))
@@ -119,6 +119,7 @@
 #include <GdiPlus.h>
 #undef min
 #undef max
+#include <ShObjIdl.h>
 
 #endif
 

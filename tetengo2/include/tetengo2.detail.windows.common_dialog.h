@@ -9,9 +9,10 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H)
 #define TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H
 
+#include <cstddef>
 //#include <memory>
 #include <stdexcept>
-#include <utility>
+//#include <utility>
 
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
@@ -19,8 +20,9 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
-#include <ShObjIdl.h>
 #include <atlbase.h>
+#include <ObjBase.h>
+#include <ShObjIdl.h>
 
 #include "tetengo2.unique.h"
 

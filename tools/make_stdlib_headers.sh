@@ -14,5 +14,5 @@ do
          "$f" \
          "$SOLUTIONDIR/tools/stdlib_headers.txt" \
          "show_progress" | \
-         grep -v '^[A-Z]\+\:';
+         grep -v '^[A-Z]\+\: ';
 done | sort | uniq

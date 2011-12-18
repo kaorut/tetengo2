@@ -6,9 +6,6 @@
     $Id$
 */
 
-#include <string>
-
-#include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.detail.stub.common_dialog.h>
