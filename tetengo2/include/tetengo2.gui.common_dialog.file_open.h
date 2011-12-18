@@ -20,6 +20,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         \tparam Widget              A widget type.
         \tparam String              A string type.
         \tparam Path                A path type.
+        \tparam Encoder             An encoder type.
         \tparam CommonDialogDetails A detail implementation type of common
                                     dialogs.
     */
@@ -27,6 +28,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         typename Widget,
         typename String,
         typename Path,
+        typename Encoder,
         typename CommonDialogDetails
     >
     class file_open : private boost::noncopyable
@@ -42,6 +44,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         //! The path type.
         typedef Path path_type;
+
+        //! The encoder type.
+        typedef Encoder encoder_type;
 
         //! The detail implementation type of common dialogs.
         typedef CommonDialogDetails common_dialog_details_type;
@@ -68,7 +73,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         file_open(widget_type& parent)
         :
         m_p_details(
-            common_dialog_details_type::create_file_open_dialog(parent)
+            common_dialog_details_type::create_file_open_dialog(
+                parent, encoder()
+            )
         ),
         m_result()
         {}
@@ -94,7 +101,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         {
             m_result =
                 common_dialog_details_type::template show_file_open_dialog<
-                    path_type>(*m_p_details);
+                    path_type>(*m_p_details, encoder());
         }
 
         /*!
@@ -120,6 +127,15 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
 
     private:
+        // static functions
+
+        static const encoder_type& encoder()
+        {
+            static const encoder_type singleton;
+            return singleton;
+        }
+
+
         // variables
 
         details_ptr_type m_p_details;

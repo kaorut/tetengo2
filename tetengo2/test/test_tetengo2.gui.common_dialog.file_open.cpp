@@ -172,6 +172,7 @@ namespace
             widget_type,
             std::wstring,
             boost::filesystem::path,
+            ui_encoder_type,
             tetengo2::detail::stub::common_dialog
         >
         file_open_type;

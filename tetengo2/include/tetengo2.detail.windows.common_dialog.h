@@ -50,15 +50,18 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Creates a file open dialog.
 
-            \tparam Widget A widget type.
+            \tparam Widget  A widget type.
+            \tparam Encoder An encoder type.
 
-            \param parent A parent widget.
+            \param parent  A parent widget.
+            \param encoder An encoder.
 
             \return A unique pointer to a file open dialog.
         */
-        template <typename Widget>
+        template <typename Widget, typename Encoder>
         static file_open_dialog_details_ptr_type create_file_open_dialog(
-            Widget& parent
+            Widget& parent,
+            const Encoder&                 encoder
         )
         {
             ATL::CComPtr< ::IFileOpenDialog> p_dialog;
@@ -81,14 +84,17 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Shows a file open dialog and return a path.
 
             \tparam Path A path type.
+            \tparam Encoder An encoder type.
 
-            \param dialog A pointer to a file open dialog.
+            \param dialog  A file open dialog.
+            \param encoder An encoder.
 
             \return The path.
         */
-        template <typename Path>
+        template <typename Path, typename Encoder>
         static Path show_file_open_dialog(
-            file_open_dialog_details_type& dialog
+            file_open_dialog_details_type& dialog,
+            const Encoder&                 encoder
         )
         {
             const ::HRESULT showing_result =
@@ -119,7 +125,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoTaskMemFree(file_name);
             } BOOST_SCOPE_EXIT_END;
 
-            return Path(file_name);
+            return Path(encoder.decode(file_name));
         }
 
 
