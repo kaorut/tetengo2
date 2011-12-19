@@ -81,9 +81,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         /*!
             \brief Creates a file open dialog.
 
-            \param title   A title.
-            \param filters A file filters.
-            \param parent  A parent widget.
+            \param title        A title.
+            \param file_filters A file filters.
+            \param parent       A parent widget.
         */
         file_open(
             const string_type&       title,
