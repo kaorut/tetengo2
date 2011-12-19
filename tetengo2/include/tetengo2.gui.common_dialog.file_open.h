@@ -74,7 +74,10 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         :
         m_p_details(
             common_dialog_details_type::create_file_open_dialog(
-                parent, encoder()
+                parent,
+                string_type(L"Open"),
+                std::vector<std::pair<string_type, string_type>>(),
+                encoder()
             )
         ),
         m_result()
