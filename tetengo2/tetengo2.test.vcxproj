@@ -221,11 +221,6 @@ echo Skipping the unit test...
     <ClInclude Include="..\precompiled\precompiled.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res.test\messages.test\English.txt" />
-    <None Include="res.test\messages.test\Japanese.txt" />
-    <None Include="res.test\messages.test\_catalogs.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\precompiled\precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -290,6 +285,11 @@ echo Skipping the unit test...
     <ClCompile Include="test\test_tetengo2.text.pull_parser.cpp" />
     <ClCompile Include="test\test_tetengo2.text.push_parser.cpp" />
     <ClCompile Include="test\test_tetengo2.unique.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res.test\messages.test\English.json" />
+    <None Include="res.test\messages.test\Japanese.json" />
+    <None Include="res.test\messages.test\_catalogs.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

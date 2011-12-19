@@ -385,7 +385,7 @@ typedef
 
 typedef
     bobura::command::type_list<
-        window_type, file_open_type, about_dialog_type
+        window_type, file_open_type, about_dialog_type, message_catalog_type
     >::type
     command_type_list_type;
 

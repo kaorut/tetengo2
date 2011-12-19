@@ -220,7 +220,7 @@ namespace bobura
                     ),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::load_from_file
-                    >::type(*this)
+                    >::type(*this, m_message_catalog)
                 );
                 append_menu_command(
                     *p_popup_menu,

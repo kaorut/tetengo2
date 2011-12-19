@@ -690,6 +690,9 @@ namespace bobura
                 >::type,
                 boost::mpl::at<
                     about_dialog_type_list, type::about_dialog
+                >::type,
+                boost::mpl::at<
+                    locale_type_list, type::message_catalog
                 >::type
             >::type
             command_type_list;

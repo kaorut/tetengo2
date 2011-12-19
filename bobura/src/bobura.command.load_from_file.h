@@ -11,7 +11,6 @@
 
 #include <utility>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 
 
@@ -21,8 +20,9 @@ namespace bobura { namespace command
         \brief The class template for a load-from-file command.
 
         \tparam FileOpenDialog A file open dialog type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename FileOpenDialog>
+    template <typename FileOpenDialog, typename MessageCatalog>
     class load_from_file
     {
     public:
@@ -34,6 +34,9 @@ namespace bobura { namespace command
         //! The window type.
         typedef typename file_open_dialog_type::widget_type window_type;
 
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
 
         // constructors and destructor
 
@@ -41,10 +44,15 @@ namespace bobura { namespace command
             \brief Creates a load-from-file command.
 
             \param window A parent window.
+            \param message_catalog
         */
-        explicit load_from_file(window_type& window)
+        load_from_file(
+            window_type&                window,
+            const message_catalog_type& message_catalog
+        )
         :
-        m_window(window)
+        m_window(window),
+        m_message_catalog(message_catalog)
         {}
 
 
@@ -57,7 +65,7 @@ namespace bobura { namespace command
         const
         {
             file_open_dialog_type dialog(
-                string_type(TETENGO2_TEXT("Open")),
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpen:Open")),
                 make_file_filters(),
                 m_window
             );
@@ -73,34 +81,41 @@ namespace bobura { namespace command
         typedef typename window_type::string_type string_type;
 
 
-        // static functions
 
-        static typename file_open_dialog_type::file_filters_type
+        // variables
+
+        window_type& m_window;
+
+        const message_catalog_type& m_message_catalog;
+
+
+        // functions
+
+        typename file_open_dialog_type::file_filters_type
         make_file_filters()
+        const
         {
             typename file_open_dialog_type::file_filters_type filters;
 
             filters.push_back(
                 std::make_pair(
-                    string_type(TETENGO2_TEXT("Timetable Files")),
+                    m_message_catalog.get(
+                        TETENGO2_TEXT("Dialog:FileOpen:Timetable Files")
+                    ),
                     string_type(TETENGO2_TEXT("*.btt"))
                 )
             );
             filters.push_back(
                 std::make_pair(
-                    string_type(TETENGO2_TEXT("All Files")),
+                    m_message_catalog.get(
+                        TETENGO2_TEXT("Dialog:FileOpen:All Files")
+                    ),
                     string_type(TETENGO2_TEXT("*.*"))
                 )
             );
 
             return filters;
         }
-
-
-        // variables
-
-        typename tetengo2::cpp11::reference_wrapper<window_type>::type
-        m_window;
 
 
     };

@@ -53,17 +53,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res.test\messages.test\_catalogs.txt">
-      <Filter>resources\messages.test</Filter>
-    </None>
-    <None Include="res.test\messages.test\English.txt">
-      <Filter>resources\messages.test</Filter>
-    </None>
-    <None Include="res.test\messages.test\Japanese.txt">
-      <Filter>resources\messages.test</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="test\master.cpp">
       <Filter>sources</Filter>
     </ClCompile>
@@ -247,5 +236,16 @@
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp">
       <Filter>sources\test_tetengo2\gui\common_dialog</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res.test\messages.test\_catalogs.json">
+      <Filter>resources\messages.test</Filter>
+    </None>
+    <None Include="res.test\messages.test\English.json">
+      <Filter>resources\messages.test</Filter>
+    </None>
+    <None Include="res.test\messages.test\Japanese.json">
+      <Filter>resources\messages.test</Filter>
+    </None>
   </ItemGroup>
 </Project>
