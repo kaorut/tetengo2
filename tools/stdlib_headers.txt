@@ -3,6 +3,7 @@
 ::BOOL                                           Windows.h
 ::BeginPaint                                     Windows.h
 ::COLORREF                                       Windows.h
+::COMDLG_FILTERSPEC                              Windows.h,ShTypes.h
 ::CallWindowProcW                                Windows.h
 ::CoInitializeEx                                 Windows.h,ObjBase.h
 ::CoTaskMemFree                                  Windows.h,ObjBase.h

@@ -292,7 +292,7 @@ sub is_std_or_boost_header
 	return 1 if $header_name =~ /^CommCtrl\.h$/;
 	return 1 if $header_name =~ /^GdiPlus\.h$/;
 	return 1 if $header_name =~ /^ObjBase\.h$/;
-	return 1 if $header_name =~ /^ShObjIdl\.h$/;
+	return 1 if $header_name =~ /^Sh[a-zA-Z0-9]+\.h$/;
 	
 	return 0;
 }

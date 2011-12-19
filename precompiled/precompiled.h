@@ -120,6 +120,7 @@
 #undef min
 #undef max
 #include <ShObjIdl.h>
+#include <ShTypes.h>
 
 #endif
 

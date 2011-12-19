@@ -14,6 +14,7 @@
 #include <iterator>
 //#include <memory>
 #include <stdexcept>
+#include <string>
 #include <tuple>
 //#include <utility>
 #include <vector>
@@ -27,6 +28,7 @@
 #include <atlbase.h>
 #include <ObjBase.h>
 #include <ShObjIdl.h>
+#include <ShTypes.h>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"

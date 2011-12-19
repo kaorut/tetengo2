@@ -9,6 +9,8 @@
 #if !defined(BOBURA_COMMAND_LOADFROMFILE_H)
 #define BOBURA_COMMAND_LOADFROMFILE_H
 
+#include <utility>
+
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 
