@@ -9,7 +9,12 @@
 #if !defined(TETENGO2_GUI_COMMONDIALOG_FILEOPEN_H)
 #define TETENGO2_GUI_COMMONDIALOG_FILEOPEN_H
 
+#include <utility>
+#include <vector>
+
 #include <boost/noncopyable.hpp>
+
+#include "tetengo2.text.h"
 
 
 namespace tetengo2 { namespace gui { namespace common_dialog
@@ -62,22 +67,33 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             typename common_dialog_details_type::file_open_dialog_details_ptr_type
             details_ptr_type;
 
+        //! The file filter type.
+        typedef std::pair<string_type, string_type> file_filter_type;
+
+        //! The file filters type.
+        typedef std::vector<file_filter_type> file_filters_type;
+
+
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a file open dialog.
 
-            \param parent A parent widget.
+            \param title   A title.
+            \param filters A file filters.
+            \param parent  A parent widget.
         */
-        file_open(widget_type& parent)
+        file_open(
+            const string_type&       title,
+            const file_filters_type& file_filters,
+            widget_type&             parent
+        )
         :
         m_p_details(
             common_dialog_details_type::create_file_open_dialog(
-                parent,
-                string_type(L"Open"),
-                std::vector<std::pair<string_type, string_type>>(),
-                encoder()
+                parent, title, file_filters, encoder()
             )
         ),
         m_result()

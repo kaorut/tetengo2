@@ -233,6 +233,18 @@ namespace
     };
 
 
+    // functions
+
+    file_open_type::file_filters_type make_file_filters()
+    {
+        file_open_type::file_filters_type filters;
+
+        filters.push_back(std::make_pair(L"All Files", L"*.*"));
+
+        return filters;
+    }
+
+
 }
 
 
@@ -246,8 +258,24 @@ BOOST_AUTO_TEST_SUITE(file_open)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget parent;
-        const file_open_type file_open(parent);
+        {
+            concrete_widget parent;
+            const file_open_type file_open(
+                std::wstring(), make_file_filters(), parent
+            );
+        }
+        {
+            concrete_widget parent;
+            const file_open_type file_open(
+                L"hoge", file_open_type::file_filters_type(), parent
+            );
+        }
+        {
+            concrete_widget parent;
+            const file_open_type file_open(
+                L"hoge", make_file_filters(), parent
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(result)
@@ -256,13 +284,15 @@ BOOST_AUTO_TEST_SUITE(file_open)
 
         {
             concrete_widget parent;
-            const file_open_type file_open(parent);
+            const file_open_type file_open(
+                L"hoge", make_file_filters(), parent
+            );
 
             BOOST_CHECK(file_open.result() == boost::filesystem::path());
         }
         {
             concrete_widget parent;
-            file_open_type file_open(parent);
+            file_open_type file_open(L"hoge", make_file_filters(), parent);
 
             file_open.do_modal();
 
@@ -277,7 +307,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
         BOOST_TEST_PASSPOINT();
 
         concrete_widget parent;
-        file_open_type file_open(parent);
+        file_open_type file_open(L"hoge", make_file_filters(), parent);
 
         file_open.do_modal();
     }
@@ -288,13 +318,15 @@ BOOST_AUTO_TEST_SUITE(file_open)
 
         {
             concrete_widget parent;
-            const file_open_type file_open(parent);
+            const file_open_type file_open(
+                L"hoge", make_file_filters(), parent
+            );
 
             file_open.details();
         }
         {
             concrete_widget parent;
-            file_open_type file_open(parent);
+            file_open_type file_open(L"hoge", make_file_filters(), parent);
 
             file_open.details();
         }

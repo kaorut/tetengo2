@@ -10,6 +10,7 @@
 #define BOBURA_COMMAND_LOADFROMFILE_H
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.text.h>
 
 
 namespace bobura { namespace command
@@ -53,7 +54,11 @@ namespace bobura { namespace command
         void operator()()
         const
         {
-            file_open_dialog_type dialog(m_window);
+            file_open_dialog_type dialog(
+                string_type(TETENGO2_TEXT("Open")),
+                make_file_filters(),
+                m_window
+            );
             dialog.do_modal();
 
             dialog.result();
@@ -61,6 +66,35 @@ namespace bobura { namespace command
 
 
     private:
+        // types
+
+        typedef typename window_type::string_type string_type;
+
+
+        // static functions
+
+        static typename file_open_dialog_type::file_filters_type
+        make_file_filters()
+        {
+            typename file_open_dialog_type::file_filters_type filters;
+
+            filters.push_back(
+                std::make_pair(
+                    string_type(TETENGO2_TEXT("Timetable Files")),
+                    string_type(TETENGO2_TEXT("*.btt"))
+                )
+            );
+            filters.push_back(
+                std::make_pair(
+                    string_type(TETENGO2_TEXT("All Files")),
+                    string_type(TETENGO2_TEXT("*.*"))
+                )
+            );
+
+            return filters;
+        }
+
+
         // variables
 
         typename tetengo2::cpp11::reference_wrapper<window_type>::type
