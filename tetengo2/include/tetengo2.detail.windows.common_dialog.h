@@ -41,75 +41,27 @@ namespace tetengo2 { namespace detail { namespace windows
     {
         // types
 
+        struct release_iunknown
+        {
+            void operator()(::IUnknown* p_unknown)
+            const
+            {
+                if (p_unknown)
+                {
+                    p_unknown->Release();
+                    p_unknown = NULL;
+                }
+            }
+
+        };
+
+        typedef
+            std::unique_ptr< ::IFileOpenDialog, release_iunknown>
+            file_open_dialog_ptr_type;
+
         typedef std::pair<std::wstring, std::wstring> native_filter_type;
 
         typedef std::vector<native_filter_type> native_filters_type;
-
-
-        // functions
-
-        template <typename String, typename Encoder>
-        native_filter_type to_native_filter(
-            const std::pair<String, String>& filter,
-            const Encoder&                   encoder
-        )
-        {
-            return native_filter_type(
-                encoder.encode(filter.first), encoder.encode(filter.second)
-            );
-        }
-
-        template <typename String, typename Encoder>
-        native_filters_type to_native_filters(
-            const std::vector<std::pair<String, String>>& filters,
-            const Encoder&                                encoder
-        )
-        {
-            native_filters_type native_filters;
-            native_filters.reserve(filters.size());
-
-            std::transform(
-                filters.begin(),
-                filters.end(),
-                std::back_inserter(native_filters),
-                TETENGO2_CPP11_BIND(
-                    to_native_filter<String, Encoder>,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::cref(encoder)
-                )
-            );
-
-            return native_filters;
-        }
-
-        ::COMDLG_FILTERSPEC to_filterspec(
-            const native_filter_type& native_filter
-        )
-        {
-            ::COMDLG_FILTERSPEC filterspec = {};
-
-            filterspec.pszName = native_filter.first.c_str();
-            filterspec.pszSpec = native_filter.second.c_str();
-
-            return filterspec;
-        }
-
-        std::vector< ::COMDLG_FILTERSPEC> to_filterspecs(
-            const native_filters_type& native_filters
-        )
-        {
-            std::vector< ::COMDLG_FILTERSPEC> filterspecs;
-            filterspecs.reserve(native_filters.size());
-
-            std::transform(
-                native_filters.begin(),
-                native_filters.end(),
-                std::back_inserter(filterspecs),
-                to_filterspec
-            );
-
-            return filterspecs;
-        }
 
 
     }
@@ -126,7 +78,7 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The file open dialog details type.
         typedef
             std::tuple<
-                ATL::CComPtr< ::IFileOpenDialog>,
+                detail::file_open_dialog_ptr_type,
                 ::HWND,
                 std::wstring,
                 detail::native_filters_type
@@ -164,22 +116,26 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                                encoder
         )
         {
-            ATL::CComPtr< ::IFileOpenDialog> p_dialog;
-
+            ::IFileOpenDialog* p_raw_dialog = NULL;
             const ::HRESULT creation_result =
-                p_dialog.CoCreateInstance(__uuidof(::FileOpenDialog));
+                ::CoCreateInstance(
+                    __uuidof(::FileOpenDialog),
+                    NULL,
+                    CLSCTX_INPROC_SERVER,
+                    IID_PPV_ARGS(&p_raw_dialog)
+                );
             if (!SUCCEEDED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't create a file open dialog.")
                 );
             }
-
+            detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
             return tetengo2::make_unique<file_open_dialog_details_type>(
-                p_dialog,
+                std::move(p_dialog),
                 parent.details()->first.get(),
                 encoder.encode(title),
-                detail::to_native_filters(filters, encoder)
+                to_native_filters(filters, encoder)
             );
         }
 
@@ -203,7 +159,7 @@ namespace tetengo2 { namespace detail { namespace windows
             std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
 
             std::vector< ::COMDLG_FILTERSPEC> filterspecs =
-                detail::to_filterspecs(std::get<3>(dialog));
+                to_filterspecs(std::get<3>(dialog));
             std::get<0>(dialog)->SetFileTypes(
                 static_cast< ::UINT>(filterspecs.size()), filterspecs.data()
             );
@@ -213,15 +169,17 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!SUCCEEDED(showing_result))
                 return Path();
 
-            ATL::CComPtr< ::IShellItem> p_item;
+            ::IShellItem* p_raw_item = NULL;
             const ::HRESULT result_result =
-                std::get<0>(dialog)->GetResult(&p_item);
+                std::get<0>(dialog)->GetResult(&p_raw_item);
             if (!SUCCEEDED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
                     std::runtime_error("Can't get the result.")
                 );
             }
+            const std::unique_ptr< ::IShellItem, detail::release_iunknown>
+            p_item(p_raw_item);
 
             wchar_t* file_name = NULL;
             const ::HRESULT file_title_result =
@@ -238,6 +196,73 @@ namespace tetengo2 { namespace detail { namespace windows
             } BOOST_SCOPE_EXIT_END;
 
             return Path(encoder.decode(file_name));
+        }
+
+
+    private:
+        // static functions
+
+        template <typename String, typename Encoder>
+        static detail::native_filter_type to_native_filter(
+            const std::pair<String, String>& filter,
+            const Encoder&                   encoder
+        )
+        {
+            return detail::native_filter_type(
+                encoder.encode(filter.first), encoder.encode(filter.second)
+            );
+        }
+
+        template <typename String, typename Encoder>
+        static detail::native_filters_type to_native_filters(
+            const std::vector<std::pair<String, String>>& filters,
+            const Encoder&                                encoder
+        )
+        {
+            detail::native_filters_type native_filters;
+            native_filters.reserve(filters.size());
+
+            std::transform(
+                filters.begin(),
+                filters.end(),
+                std::back_inserter(native_filters),
+                TETENGO2_CPP11_BIND(
+                    to_native_filter<String, Encoder>,
+                    tetengo2::cpp11::placeholders_1(),
+                    tetengo2::cpp11::cref(encoder)
+                )
+            );
+
+            return native_filters;
+        }
+
+        static ::COMDLG_FILTERSPEC to_filterspec(
+            const detail::native_filter_type& native_filter
+        )
+        {
+            ::COMDLG_FILTERSPEC filterspec = {};
+
+            filterspec.pszName = native_filter.first.c_str();
+            filterspec.pszSpec = native_filter.second.c_str();
+
+            return filterspec;
+        }
+
+        static std::vector< ::COMDLG_FILTERSPEC> to_filterspecs(
+            const detail::native_filters_type& native_filters
+        )
+        {
+            std::vector< ::COMDLG_FILTERSPEC> filterspecs;
+            filterspecs.reserve(native_filters.size());
+
+            std::transform(
+                native_filters.begin(),
+                native_filters.end(),
+                std::back_inserter(filterspecs),
+                to_filterspec
+            );
+
+            return filterspecs;
         }
 
 
