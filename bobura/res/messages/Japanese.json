@@ -13,9 +13,10 @@
         "App:Bobura": "鉄道系アプリケーション建設予定地",
         
         
-        "Dialog:FileOpen:Open":            "開く",
-        "Dialog:FileOpen:Timetable Files": "時刻表ファイル",
-        "Dialog:FileOpen:All Files":       "すべてのファイル",
+        "Dialog:FileOpen:Open":                         "開く",
+        "Dialog:FileOpen:Timetable Files":              "時刻表ファイル",
+        "Dialog:FileOpen:Timetable Files (Compressed)": "時刻表ファイル（圧縮）",
+        "Dialog:FileOpen:All Files":                    "すべてのファイル",
         
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",
