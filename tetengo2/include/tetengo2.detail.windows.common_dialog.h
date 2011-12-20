@@ -121,7 +121,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CoCreateInstance(
                     __uuidof(::FileOpenDialog),
                     NULL,
-                    CLSCTX_INPROC_SERVER,
+                    CLSCTX_ALL,
                     IID_PPV_ARGS(&p_raw_dialog)
                 );
             if (!SUCCEEDED(creation_result))
