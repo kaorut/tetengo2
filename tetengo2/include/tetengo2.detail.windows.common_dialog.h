@@ -25,10 +25,10 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
-#include <atlbase.h>
 #include <ObjBase.h>
 #include <ShObjIdl.h>
 #include <ShTypes.h>
+#include <Unknwn.h>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"

@@ -108,7 +108,6 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
-#include <atlbase.h>
 #include <CommCtrl.h>
 #if !defined(min) && !defined(DOCUMENTATION)
 #   define min(a, b) ((a) < (b) ? (a) : (b))
@@ -121,6 +120,7 @@
 #undef max
 #include <ShObjIdl.h>
 #include <ShTypes.h>
+#include <Unknwn.h>
 
 #endif
 
