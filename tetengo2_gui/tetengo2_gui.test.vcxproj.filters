@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{c66cfaa4-f144-4f1d-9772-da91a5247fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{8268aba0-5128-4bb1-a726-694828b3f294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_tetengo2::gui">
+      <UniqueIdentifier>{59301210-ebbf-402c-810c-fd57df94353f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_tetengo2::gui\drawing">
+      <UniqueIdentifier>{0dfc00c9-8439-4893-a77d-0a7bbb07e83f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\test_tetengo2::gui\unit">
+      <UniqueIdentifier>{8d96695a-f7cd-4028-8ef8-ba34b2d12a1a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\precompiled\precompiled.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test\master.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\precompiled\precompiled.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

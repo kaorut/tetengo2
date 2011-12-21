@@ -13,6 +13,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tetengo2", "tetengo2\teteng
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tetengo2.test", "tetengo2\tetengo2.test.vcxproj", "{0915BC63-77EA-4D80-A703-248BA03078AA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tetengo2_gui", "tetengo2_gui\tetengo2_gui.vcxproj", "{1E7B0400-1602-4F86-9F6D-D92F00222499}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tetengo2_gui.test", "tetengo2_gui\tetengo2_gui.test.vcxproj", "{F4C93F60-2D5C-4AE6-B4F1-DB265452561C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -69,6 +73,22 @@ Global
 		{0915BC63-77EA-4D80-A703-248BA03078AA}.Release|Win32.Build.0 = Release|Win32
 		{0915BC63-77EA-4D80-A703-248BA03078AA}.Release|x64.ActiveCfg = Release|x64
 		{0915BC63-77EA-4D80-A703-248BA03078AA}.Release|x64.Build.0 = Release|x64
+		{1E7B0400-1602-4F86-9F6D-D92F00222499}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1E7B0400-1602-4F86-9F6D-D92F00222499}.Debug|Win32.Build.0 = Debug|Win32
+		{1E7B0400-1602-4F86-9F6D-D92F00222499}.Debug|x64.ActiveCfg = Debug|x64
+		{1E7B0400-1602-4F86-9F6D-D92F00222499}.Debug|x64.Build.0 = Debug|x64
+		{1E7B0400-1602-4F86-9F6D-D92F00222499}.Release|Win32.ActiveCfg = Release|Win32
+		{1E7B0400-1602-4F86-9F6D-D92F00222499}.Release|Win32.Build.0 = Release|Win32
+		{1E7B0400-1602-4F86-9F6D-D92F00222499}.Release|x64.ActiveCfg = Release|x64
+		{1E7B0400-1602-4F86-9F6D-D92F00222499}.Release|x64.Build.0 = Release|x64
+		{F4C93F60-2D5C-4AE6-B4F1-DB265452561C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F4C93F60-2D5C-4AE6-B4F1-DB265452561C}.Debug|Win32.Build.0 = Debug|Win32
+		{F4C93F60-2D5C-4AE6-B4F1-DB265452561C}.Debug|x64.ActiveCfg = Debug|x64
+		{F4C93F60-2D5C-4AE6-B4F1-DB265452561C}.Debug|x64.Build.0 = Debug|x64
+		{F4C93F60-2D5C-4AE6-B4F1-DB265452561C}.Release|Win32.ActiveCfg = Release|Win32
+		{F4C93F60-2D5C-4AE6-B4F1-DB265452561C}.Release|Win32.Build.0 = Release|Win32
+		{F4C93F60-2D5C-4AE6-B4F1-DB265452561C}.Release|x64.ActiveCfg = Release|x64
+		{F4C93F60-2D5C-4AE6-B4F1-DB265452561C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
