@@ -97,6 +97,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget  A widget type.
             \tparam String  A string type.
+            \tparam Filters A filters type.
             \tparam Encoder An encoder type.
 
             \param parent  A parent widget.
@@ -108,12 +109,17 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return A unique pointer to a file open dialog.
         */
-        template <typename Widget, typename String, typename Encoder>
+        template <
+            typename Widget,
+            typename String,
+            typename Filters,
+            typename Encoder
+        >
         static file_open_dialog_details_ptr_type create_file_open_dialog(
-            Widget&                                       parent,
-            const String&                                 title,
-            const std::vector<std::pair<String, String>>& filters,
-            const Encoder&                                encoder
+            Widget&        parent,
+            String&&       title,
+            Filters&&      filters,
+            const Encoder& encoder
         )
         {
             ::IFileOpenDialog* p_raw_dialog = NULL;
@@ -134,7 +140,7 @@ namespace tetengo2 { namespace detail { namespace windows
             return tetengo2::make_unique<file_open_dialog_details_type>(
                 std::move(p_dialog),
                 parent.details()->first.get(),
-                encoder.encode(title),
+                encoder.encode(std::forward<String>(title)),
                 to_native_filters(filters, encoder)
             );
         }

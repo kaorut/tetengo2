@@ -74,26 +74,27 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         typedef std::vector<file_filter_type> file_filters_type;
 
 
-
-
         // constructors and destructor
 
         /*!
             \brief Creates a file open dialog.
 
+            \tparam S  A string type.
+            \tparam FF A file filters type.
+
             \param title        A title.
             \param file_filters A file filters.
             \param parent       A parent widget.
         */
-        file_open(
-            const string_type&       title,
-            const file_filters_type& file_filters,
-            widget_type&             parent
-        )
+        template <typename S, typename FF>
+        file_open(S&& title, FF&& file_filters, widget_type& parent)
         :
         m_p_details(
             common_dialog_details_type::create_file_open_dialog(
-                parent, title, file_filters, encoder()
+                parent,
+                std::forward<S>(title),
+                std::forward<FF>(file_filters),
+                encoder()
             )
         ),
         m_result()

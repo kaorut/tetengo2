@@ -43,6 +43,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget  A widget type.
             \tparam String  A string type.
+            \tparam Filters A filters type.
             \tparam Encoder An encoder type.
 
             \param parent  A parent widget.
@@ -54,12 +55,17 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return A unique pointer to a file open dialog.
         */
-        template <typename Widget, typename String, typename Encoder>
+        template <
+            typename Widget,
+            typename String,
+            typename Filters,
+            typename Encoder
+        >
         static file_open_dialog_details_ptr_type create_file_open_dialog(
-            Widget&                                       parent,
-            const String&                                 title,
-            const std::vector<std::pair<String, String>>& filters,
-            const Encoder&                                encoder
+            Widget&        parent,
+            String&&       title,
+            Filters&&      filters,
+            const Encoder& encoder
         )
         {
             return make_unique<file_open_dialog_details_type>();
