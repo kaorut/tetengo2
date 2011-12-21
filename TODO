@@ -24,6 +24,16 @@ Description : Split the project tetengo2 into tetengo2, tetengo2_detail and
               tetengo2_gui.
 ------------------------------------------------------------------------------
 Number      : 00000123
+Added on    : 2011/12/22
+Depends on  : (none)
+Description : Support keyboard shortcuts using the menu commands.
+------------------------------------------------------------------------------
+Number      : 00000124
+Added on    : 2011/12/22
+Depends on  : (none)
+Description : Update the copyright year into 2012.
+------------------------------------------------------------------------------
+Number      : 00000125
 Added on    : 2011/mm/dd
 Depends on  : (none)
 Description : 
