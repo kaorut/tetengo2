@@ -21,6 +21,8 @@ AC_CONFIG_FILES([
     tetengo2/include/Makefile
     tetengo2/test/Makefile
     tetengo2/res.test/Makefile
+    tetengo2_detail/Makefile
+    tetengo2_detail/include/Makefile
     tetengo2_gui/Makefile
     tetengo2_gui/include/Makefile
     tetengo2_gui/test/Makefile

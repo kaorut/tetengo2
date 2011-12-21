@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{08d6ba5f-e68c-480d-9720-41e488251b7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\tetengo2::detail">
+      <UniqueIdentifier>{962a8c8d-06e6-47d2-8a66-81b1b2816322}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\tetengo2::detail\stub">
+      <UniqueIdentifier>{ec77ce78-8f8b-4143-b3d0-fdf250201d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\tetengo2::detail\windows">
+      <UniqueIdentifier>{7fff864c-722e-40fe-95ec-6be896ae7240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\tetengo2::detail\windows\gdiplus">
+      <UniqueIdentifier>{0468b3a4-d43c-4d49-841e-dc96e1bb257a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

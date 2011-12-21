@@ -33,9 +33,6 @@ tetengo2_gui_test_LDADD = \
     $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 tetengo2_gui_test_SOURCES = $(headers) $(sources)
 
-clean-local:
-	-rm -rf messages.test
-
 $(top_srcdir)/precompiled/precompiled.h.gch: $(top_srcdir)/precompiled/precompiled.h
 	pushd $(top_srcdir)/precompiled; $(MAKE) all; popd
 
