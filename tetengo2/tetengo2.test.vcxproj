@@ -84,11 +84,7 @@
       <BrowseInformation>true</BrowseInformation>
       <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <GenerateMapFile>true</GenerateMapFile>
-      <MapExports>true</MapExports>
-    </Link>
+    <Link />
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 xcopy /y /i "$(ProjectDir)res.test\messages.test" "$(OutDir)\messages.test"
@@ -109,11 +105,7 @@ echo Skipping the unit test...
       <BrowseInformation>true</BrowseInformation>
       <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <GenerateMapFile>true</GenerateMapFile>
-      <MapExports>true</MapExports>
-    </Link>
+    <Link />
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 xcopy /y /i "$(ProjectDir)res.test\messages.test" "$(OutDir)\messages.test"
@@ -134,13 +126,7 @@ echo Skipping the unit test...
       <BrowseInformation>true</BrowseInformation>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
-    <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateMapFile>true</GenerateMapFile>
-      <MapExports>true</MapExports>
-    </Link>
+    <Link />
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 xcopy /y /i "$(ProjectDir)res.test\messages.test" "$(OutDir)\messages.test"
@@ -161,13 +147,7 @@ echo Skipping the unit test...
       <BrowseInformation>true</BrowseInformation>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
-    <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateMapFile>true</GenerateMapFile>
-      <MapExports>true</MapExports>
-    </Link>
+    <Link />
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 xcopy /y /i "$(ProjectDir)res.test\messages.test" "$(OutDir)\messages.test"
