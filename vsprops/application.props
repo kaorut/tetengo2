@@ -5,6 +5,10 @@
   <PropertyGroup>
     <IntDir>$(ProjectDir)obj\$(Configuration).$(Platform)\</IntDir>
   </PropertyGroup>
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

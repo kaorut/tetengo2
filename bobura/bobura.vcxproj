@@ -90,9 +90,7 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
 xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
 </Command>
     </PostBuildEvent>
-    <ResourceCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
+    <ResourceCompile />
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
     </Manifest>
@@ -112,9 +110,7 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
 xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
 </Command>
     </PostBuildEvent>
-    <ResourceCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
+    <ResourceCompile />
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
     </Manifest>
@@ -134,9 +130,7 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
 xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
 </Command>
     </PostBuildEvent>
-    <ResourceCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
+    <ResourceCompile />
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
     </Manifest>
@@ -156,9 +150,7 @@ xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
 xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
 </Command>
     </PostBuildEvent>
-    <ResourceCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
+    <ResourceCompile />
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
     </Manifest>
