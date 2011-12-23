@@ -15,6 +15,7 @@
       <DisableSpecificWarnings>4100;4127;4146;4180;4251;4275;4373;4503;4510;4512;4610;4800;4819</DisableSpecificWarnings>
       <AdditionalOptions>/Zm256 /bigobj %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />
