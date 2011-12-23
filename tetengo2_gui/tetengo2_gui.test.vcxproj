@@ -100,7 +100,6 @@
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-xcopy /y /i "$(ProjectDir)res.test\messages.test" "$(OutDir)\messages.test"
 call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
 cd "$(OutDir)" &amp;
 if "%BOBURA_CONFIG%" == "1" (
@@ -134,7 +133,6 @@ echo Skipping the unit test...
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-xcopy /y /i "$(ProjectDir)res.test\messages.test" "$(OutDir)\messages.test"
 call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
 cd "$(OutDir)" &amp;
 if "%BOBURA_CONFIG%" == "1" (
@@ -170,7 +168,6 @@ echo Skipping the unit test...
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-xcopy /y /i "$(ProjectDir)res.test\messages.test" "$(OutDir)\messages.test"
 call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
 cd "$(OutDir)" &amp;
 if "%BOBURA_CONFIG%" == "1" (
@@ -206,7 +203,6 @@ echo Skipping the unit test...
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-xcopy /y /i "$(ProjectDir)res.test\messages.test" "$(OutDir)\messages.test"
 call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
 cd "$(OutDir)" &amp;
 if "%BOBURA_CONFIG%" == "1" (
