@@ -82,76 +82,32 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PostBuildEvent>
-      <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
-xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
-</Command>
-    </PostBuildEvent>
+    <ClCompile />
+    <Link />
+    <PostBuildEvent />
     <ResourceCompile />
-    <Manifest>
-      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
-    </Manifest>
+    <Manifest />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PostBuildEvent>
-      <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
-xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
-</Command>
-    </PostBuildEvent>
+    <ClCompile />
+    <Link />
+    <PostBuildEvent />
     <ResourceCompile />
-    <Manifest>
-      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
-    </Manifest>
+    <Manifest />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PostBuildEvent>
-      <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
-xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
-</Command>
-    </PostBuildEvent>
+    <ClCompile />
+    <Link />
+    <PostBuildEvent />
     <ResourceCompile />
-    <Manifest>
-      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
-    </Manifest>
+    <Manifest />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PostBuildEvent>
-      <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
-xcopy /y /i "$(ProjectDir)res\messages" "$(OutDir)\messages"
-xcopy /y /i "$(ProjectDir)res\images" "$(OutDir)\images"
-</Command>
-    </PostBuildEvent>
+    <ClCompile />
+    <Link />
+    <PostBuildEvent />
     <ResourceCompile />
-    <Manifest>
-      <AdditionalManifestFiles>$(ProjectDir)res\win32\COMCTL32.DLL.$(PlatformName).manifest</AdditionalManifestFiles>
-    </Manifest>
+    <Manifest />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h" />
