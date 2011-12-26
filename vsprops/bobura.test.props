@@ -5,11 +5,9 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)tetengo2\include;$(SolutionDir)tetengo2\test</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)tetengo2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
+    <Link />
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
