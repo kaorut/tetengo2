@@ -81,7 +81,8 @@ tetengo2_test_DEPENDENCIES = \
 tetengo2_test_CPPFLAGS = \
     $(PRECOMPILE_CPPFLAGS) \
     $(BOOST_CPPFLAGS) \
-    -I$(top_srcdir)/tetengo2/include
+    -I$(top_srcdir)/tetengo2/include \
+    -I$(top_srcdir)/tetengo2_detail/include
 tetengo2_test_LDFLAGS = $(BOOST_LDFLAGS)
 tetengo2_test_LDADD = \
     $(BOOST_DATE_TIME_LIB) \
