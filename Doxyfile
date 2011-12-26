@@ -640,6 +640,8 @@ INPUT                  = docsrc \
                          bobura/src \
                          bobura_model/include \
                          tetengo2/include \
+                         tetengo2_detail/include \
+                         tetengo2_gui/include \
                          TODO
 
 # This tag can be used to specify the character encoding of the source files
