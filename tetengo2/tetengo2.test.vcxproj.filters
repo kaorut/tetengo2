@@ -19,15 +19,6 @@
     <Filter Include="sources\test_tetengo2\concurrent">
       <UniqueIdentifier>{d98ed1d5-d905-4e7b-a1b1-4249b8fb5ffb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\test_tetengo2\gui">
-      <UniqueIdentifier>{59301210-ebbf-402c-810c-fd57df94353f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sources\test_tetengo2\gui\drawing">
-      <UniqueIdentifier>{0dfc00c9-8439-4893-a77d-0a7bbb07e83f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sources\test_tetengo2\gui\unit">
-      <UniqueIdentifier>{8d96695a-f7cd-4028-8ef8-ba34b2d12a1a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\test_tetengo2\meta">
       <UniqueIdentifier>{f39296db-b0dc-4492-8ec6-1fca151306fb}</UniqueIdentifier>
     </Filter>
@@ -70,131 +61,11 @@
     <ClCompile Include="test\test_tetengo2.text.cpp">
       <Filter>sources\test_tetengo2</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.recursive_menu_iterator.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.meta.assoc_list.cpp">
       <Filter>sources\test_tetengo2\meta</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.window_observer_set.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.paint_observer_set.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu_observer_set.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.mouse_observer_set.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.operators.cpp">
       <Filter>sources\test_tetengo2</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp">
-      <Filter>sources\test_tetengo2\gui\unit</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.measure.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.color.cpp">
-      <Filter>sources\test_tetengo2\gui\drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp">
-      <Filter>sources\test_tetengo2\gui\drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.unit.em.cpp">
-      <Filter>sources\test_tetengo2\gui\unit</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.font.cpp">
-      <Filter>sources\test_tetengo2\gui\drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.transparent_background.cpp">
-      <Filter>sources\test_tetengo2\gui\drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.solid_background.cpp">
-      <Filter>sources\test_tetengo2\gui\drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.picture_reader.cpp">
-      <Filter>sources\test_tetengo2\gui\drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.picture.cpp">
-      <Filter>sources\test_tetengo2\gui\drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.widget_canvas.cpp">
-      <Filter>sources\test_tetengo2\gui\drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.drawing.canvas.cpp">
-      <Filter>sources\test_tetengo2\gui\drawing</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.alert.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.fixture.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.message_loop.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.message_loop_break.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.dialog_message_loop.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.popup_menu.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.abstract_popup_menu.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.main_menu.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu_command.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu_separator.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.window.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.abstract_window.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.button.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.control.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.dialog.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.image.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.label.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.widget.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.system_cursor.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.cursor.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.link_label.cpp">
-      <Filter>sources\test_tetengo2\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.unit.unit.cpp">
-      <Filter>sources\test_tetengo2\gui\unit</Filter>
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.unique.cpp">
       <Filter>sources\test_tetengo2</Filter>

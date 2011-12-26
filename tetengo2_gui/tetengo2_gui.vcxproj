@@ -18,6 +18,58 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\tetengo2.gui.abstract_popup_menu.h" />
+    <ClInclude Include="include\tetengo2.gui.abstract_window.h" />
+    <ClInclude Include="include\tetengo2.gui.alert.h" />
+    <ClInclude Include="include\tetengo2.gui.button.h" />
+    <ClInclude Include="include\tetengo2.gui.control.h" />
+    <ClInclude Include="include\tetengo2.gui.cursor.h" />
+    <ClInclude Include="include\tetengo2.gui.dialog.h" />
+    <ClInclude Include="include\tetengo2.gui.dialog_message_loop.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.background.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.canvas.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.color.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.font.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.picture.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.picture_reader.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.solid_background.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.transparent_background.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.widget_canvas.h" />
+    <ClInclude Include="include\tetengo2.gui.fixture.h" />
+    <ClInclude Include="include\tetengo2.gui.image.h" />
+    <ClInclude Include="include\tetengo2.gui.label.h" />
+    <ClInclude Include="include\tetengo2.gui.link_label.h" />
+    <ClInclude Include="include\tetengo2.gui.main_menu.h" />
+    <ClInclude Include="include\tetengo2.gui.measure.h" />
+    <ClInclude Include="include\tetengo2.gui.menu.h" />
+    <ClInclude Include="include\tetengo2.gui.menu_command.h" />
+    <ClInclude Include="include\tetengo2.gui.menu_observer_set.h" />
+    <ClInclude Include="include\tetengo2.gui.menu_separator.h" />
+    <ClInclude Include="include\tetengo2.gui.message_loop.h" />
+    <ClInclude Include="include\tetengo2.gui.message_loop_break.h" />
+    <ClInclude Include="include\tetengo2.gui.mouse_observer_set.h" />
+    <ClInclude Include="include\tetengo2.gui.paint_observer_set.h" />
+    <ClInclude Include="include\tetengo2.gui.popup_menu.h" />
+    <ClInclude Include="include\tetengo2.gui.recursive_menu_iterator.h" />
+    <ClInclude Include="include\tetengo2.gui.system_cursor.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.abstract_window_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.button_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.control_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.dialog_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.image_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.label_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.link_label_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.menu_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.widget_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.traits.window_traits.h" />
+    <ClInclude Include="include\tetengo2.gui.unit.em.h" />
+    <ClInclude Include="include\tetengo2.gui.unit.pixel.h" />
+    <ClInclude Include="include\tetengo2.gui.unit.unit.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.h" />
+    <ClInclude Include="include\tetengo2.gui.window.h" />
+    <ClInclude Include="include\tetengo2.gui.window_observer_set.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1E7B0400-1602-4F86-9F6D-D92F00222499}</ProjectGuid>
     <RootNamespace>tetengo2</RootNamespace>
