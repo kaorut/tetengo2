@@ -33,7 +33,8 @@ bobura_test_CPPFLAGS = \
     -I$(top_srcdir)/bobura/src \
     -I$(top_srcdir)/bobura_model/include \
     -I$(top_srcdir)/tetengo2/include \
-    -I$(top_srcdir)/tetengo2_detail/include
+    -I$(top_srcdir)/tetengo2_detail/include \
+    -I$(top_srcdir)/tetengo2_gui/include
 bobura_test_LDFLAGS = $(BOOST_LDFLAGS)
 bobura_test_LDADD = \
     $(BOOST_FILESYSTEM_LIB) \
