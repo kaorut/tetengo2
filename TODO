@@ -19,7 +19,7 @@ Description : Create a member for the model in bobura::bobura.
 ------------------------------------------------------------------------------
 Number      : 00000123
 Added on    : 2011/12/22
-Depends on  : (none)
+Depends on  : 00000125
 Description : Support keyboard shortcuts using the menu commands.
 ------------------------------------------------------------------------------
 Number      : 00000124
@@ -28,6 +28,11 @@ Depends on  : (none)
 Description : Update the copyright year into 2012.
 ------------------------------------------------------------------------------
 Number      : 00000125
+Added on    : 2011/12/27
+Depends on  : (none)
+Description : Classify the classes in tetengo2::gui.
+------------------------------------------------------------------------------
+Number      : 00000126
 Added on    : 2011/mm/dd
 Depends on  : (none)
 Description : 
