@@ -17,12 +17,6 @@ Added on    : 2011/12/07
 Depends on  : 00000118, 00000119, 00000120
 Description : Create a member for the model in bobura::bobura.
 ------------------------------------------------------------------------------
-Number      : 00000122
-Added on    : 2011/12/07
-Depends on  : (none)
-Description : Split the project tetengo2 into tetengo2, tetengo2_detail and
-              tetengo2_gui.
-------------------------------------------------------------------------------
 Number      : 00000123
 Added on    : 2011/12/22
 Depends on  : (none)
