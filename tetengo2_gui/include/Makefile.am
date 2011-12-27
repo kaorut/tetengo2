@@ -3,7 +3,6 @@
 # $Id$
 
 headers = \
-    tetengo2.gui.abstract_popup_menu.h \
     tetengo2.gui.abstract_window.h \
     tetengo2.gui.alert.h \
     tetengo2.gui.button.h \
@@ -26,17 +25,18 @@ headers = \
     tetengo2.gui.label.h \
     tetengo2.gui.link_label.h \
     tetengo2.gui.measure.h \
-    tetengo2.gui.main_menu.h \
-    tetengo2.gui.menu.h \
-    tetengo2.gui.menu_command.h \
+    tetengo2.gui.menu.abstract_popup_menu.h \
+    tetengo2.gui.menu.main_menu.h \
+    tetengo2.gui.menu.menu.h \
+    tetengo2.gui.menu.menu_command.h \
+    tetengo2.gui.menu.menu_separator.h \
+    tetengo2.gui.menu.popup_menu.h \
+    tetengo2.gui.menu.recursive_menu_iterator.h \
     tetengo2.gui.menu_observer_set.h \
-    tetengo2.gui.menu_separator.h \
     tetengo2.gui.message_loop.h \
     tetengo2.gui.message_loop_break.h \
     tetengo2.gui.mouse_observer_set.h \
     tetengo2.gui.paint_observer_set.h \
-    tetengo2.gui.popup_menu.h \
-    tetengo2.gui.recursive_menu_iterator.h \
     tetengo2.gui.system_cursor.h \
     tetengo2.gui.traits.abstract_window_traits.h \
     tetengo2.gui.traits.button_traits.h \

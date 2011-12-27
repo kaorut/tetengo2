@@ -19,11 +19,11 @@
     <Filter Include="headers\tetengo2::gui\common_dialog">
       <UniqueIdentifier>{95a7e728-7c9e-4e49-b065-b100bac96239}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::gui\menu">
+      <UniqueIdentifier>{d07a0aba-dab6-4925-b2cf-57d1b6750a3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\tetengo2.gui.abstract_popup_menu.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.abstract_window.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -57,22 +57,10 @@
     <ClInclude Include="include\tetengo2.gui.link_label.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.main_menu.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.measure.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.menu.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.menu_command.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.menu_observer_set.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.menu_separator.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.message_loop.h">
@@ -85,12 +73,6 @@
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.paint_observer_set.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.popup_menu.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.recursive_menu_iterator.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.system_cursor.h">
@@ -173,6 +155,27 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.common_dialog.file_open.h">
       <Filter>headers\tetengo2::gui\common_dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.abstract_popup_menu.h">
+      <Filter>headers\tetengo2::gui\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.main_menu.h">
+      <Filter>headers\tetengo2::gui\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.menu.h">
+      <Filter>headers\tetengo2::gui\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.menu_command.h">
+      <Filter>headers\tetengo2::gui\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.menu_separator.h">
+      <Filter>headers\tetengo2::gui\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.popup_menu.h">
+      <Filter>headers\tetengo2::gui\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.recursive_menu_iterator.h">
+      <Filter>headers\tetengo2::gui\menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

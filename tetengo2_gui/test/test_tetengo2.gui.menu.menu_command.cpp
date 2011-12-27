@@ -17,7 +17,7 @@
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 
-#include "tetengo2.gui.menu_command.h"
+#include "tetengo2.gui.menu.menu_command.h"
 
 
 namespace

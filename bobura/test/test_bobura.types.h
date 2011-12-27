@@ -35,10 +35,11 @@
 #include <tetengo2.gui.image.h>
 #include <tetengo2.gui.label.h>
 #include <tetengo2.gui.link_label.h>
-#include <tetengo2.gui.main_menu.h>
-#include <tetengo2.gui.menu.h>
-#include <tetengo2.gui.menu_command.h>
-#include <tetengo2.gui.menu_separator.h>
+#include <tetengo2.gui.menu.main_menu.h>
+#include <tetengo2.gui.menu.menu.h>
+#include <tetengo2.gui.menu.menu_command.h>
+#include <tetengo2.gui.menu.menu_separator.h>
+#include <tetengo2.gui.menu.popup_menu.h>
 #include <tetengo2.gui.message_loop.h>
 #include <tetengo2.gui.message_loop_break.h>
 #include <tetengo2.gui.drawing.background.h>
@@ -52,7 +53,6 @@
 #include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.mouse_observer_set.h>
 #include <tetengo2.gui.paint_observer_set.h>
-#include <tetengo2.gui.popup_menu.h>
 #include <tetengo2.gui.system_cursor.h>
 #include <tetengo2.gui.traits.abstract_window_traits.h>
 #include <tetengo2.gui.traits.button_traits.h>
