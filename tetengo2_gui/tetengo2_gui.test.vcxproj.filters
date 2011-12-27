@@ -16,6 +16,9 @@
     <Filter Include="sources\test_tetengo2::gui\unit">
       <UniqueIdentifier>{8d96695a-f7cd-4028-8ef8-ba34b2d12a1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_tetengo2::gui\common_dialog">
+      <UniqueIdentifier>{5438d723-b0ff-4efa-a1bb-05da08348ce1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp">
       <Filter>sources\test_tetengo2::gui\unit</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp">
+      <Filter>sources\test_tetengo2::gui\common_dialog</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

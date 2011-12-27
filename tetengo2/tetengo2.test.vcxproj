@@ -97,7 +97,6 @@
     <ClCompile Include="test\test_tetengo2.concurrent.channel.cpp" />
     <ClCompile Include="test\test_tetengo2.concurrent.consumer.cpp" />
     <ClCompile Include="test\test_tetengo2.concurrent.producer.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp" />
     <ClCompile Include="test\test_tetengo2.message.messages.cpp" />
     <ClCompile Include="test\test_tetengo2.message.message_catalog.cpp" />
     <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp" />

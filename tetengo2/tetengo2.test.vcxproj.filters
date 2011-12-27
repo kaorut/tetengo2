@@ -34,9 +34,6 @@
     <Filter Include="sources\test_tetengo2\message">
       <UniqueIdentifier>{ee0f7809-eda3-47e4-92d1-265eb88ba4bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\test_tetengo2\gui\common_dialog">
-      <UniqueIdentifier>{20e00db8-c788-4ec3-9656-6af0f565bfb4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
@@ -103,9 +100,6 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp">
       <Filter>sources\test_tetengo2\message</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp">
-      <Filter>sources\test_tetengo2\gui\common_dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -87,5 +87,11 @@
     <ClInclude Include="include\tetengo2.detail.windows.gdiplus.gui_fixture.h">
       <Filter>headers\tetengo2::detail\windows\gdiplus</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.stub.common_dialog.h">
+      <Filter>headers\tetengo2::detail\stub</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.common_dialog.h">
+      <Filter>headers\tetengo2::detail\windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -16,6 +16,9 @@
     <Filter Include="headers\tetengo2::gui\unit">
       <UniqueIdentifier>{0468b3a4-d43c-4d49-841e-dc96e1bb257a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::gui\common_dialog">
+      <UniqueIdentifier>{95a7e728-7c9e-4e49-b065-b100bac96239}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.gui.abstract_popup_menu.h">
@@ -167,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.unit.pixel.h">
       <Filter>headers\tetengo2::gui\unit</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.common_dialog.file_open.h">
+      <Filter>headers\tetengo2::gui\common_dialog</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
