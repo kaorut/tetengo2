@@ -92,6 +92,7 @@
     <ClInclude Include="src\bobura.bobura.h" />
     <ClInclude Include="src\bobura.command.about.h" />
     <ClInclude Include="src\bobura.command.exit.h" />
+    <ClInclude Include="src\bobura.command.load_from_file.h" />
     <ClInclude Include="src\bobura.command.nop.h" />
     <ClInclude Include="src\bobura.command.type_list.h" />
     <ClInclude Include="src\bobura.command.type_list_impl.h" />
@@ -109,8 +110,8 @@
   <ItemGroup>
     <None Include="res\images\kuma.png" />
     <None Include="res\images\kumakuma.jpg" />
-    <None Include="res\messages\Japanese.txt" />
-    <None Include="res\messages\_catalogs.txt" />
+    <None Include="res\messages\Japanese.json" />
+    <None Include="res\messages\_catalogs.json" />
     <None Include="res\win32\kuma.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@
 //#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.detail.windows.alert.h>
+#include <tetengo2.detail.windows.common_dialog.h>
 #include <tetengo2.detail.windows.cursor.h>
 #include <tetengo2.detail.windows.encoding.h>
 #include <tetengo2.detail.windows.gdiplus.drawing.h>
@@ -36,6 +37,7 @@
 #include <tetengo2.gui.abstract_popup_menu.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.button.h>
+#include <tetengo2.gui.common_dialog.file_open.h>
 #include <tetengo2.gui.dialog.h>
 #include <tetengo2.gui.dialog_message_loop.h>
 #include <tetengo2.gui.drawing.background.h>
@@ -609,11 +611,36 @@ namespace bobura
         ui_type_list;
 
 
+    /**** Common Dialog *****************************************************/
+
+    namespace type
+    {
+        struct file_open_dialog; //!< The file open dialog type.
+    }
+
+    //! The type list for the commong dialogs.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::file_open_dialog,
+                tetengo2::gui::common_dialog::file_open<
+                    boost::mpl::at<ui_type_list, type::window>::type,
+                    boost::mpl::at<common_type_list, type::string>::type,
+                    boost::mpl::at<common_type_list, type::path>::type,
+                    boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                    tetengo2::detail::windows::common_dialog
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        common_dialog_type_list;
+
+
     /**** About Dialog ******************************************************/
 
     namespace type
     {
-        struct about_dialog;   //! The about dialog type.
+        struct about_dialog;   //!< The about dialog type.
     }
 
     //! The type list for the about dialog.
@@ -659,7 +686,13 @@ namespace bobura
             command::type_list<
                 boost::mpl::at<ui_type_list, type::window>::type,
                 boost::mpl::at<
+                    common_dialog_type_list, type::file_open_dialog
+                >::type,
+                boost::mpl::at<
                     about_dialog_type_list, type::about_dialog
+                >::type,
+                boost::mpl::at<
+                    locale_type_list, type::message_catalog
                 >::type
             >::type
             command_type_list;

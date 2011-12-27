@@ -158,6 +158,7 @@ sub scan_source
 				$code_line =~ /(boost::[a-zA-Z0-9_\:]*)/ ||
 				$code_line =~ /(BOOST_[A-Z0-9_]*)/ ||
 				$code_line =~ /[^a-zA-Z0-9_\:](::[A-Z][a-zA-Z0-9_\:]*)/ ||
+				$code_line =~ /(ATL::[a-zA-Z0-9_\:]*)/ ||
 				$code_line =~ /(Gdiplus::[a-zA-Z0-9_\:]*)/
 			)
 			{
@@ -287,9 +288,12 @@ sub is_std_or_boost_header
 	return 1 if $header_name =~ /^[a-z0-9_\/]+$/;
 	return 1 if $header_name =~ /^boost\/.+\.hpp$/;
 	return 1 if $header_name =~ /^Windows\.h$/;
+	return 1 if $header_name =~ /^atlbase\.h$/;
 	return 1 if $header_name =~ /^CommCtrl\.h$/;
 	return 1 if $header_name =~ /^GdiPlus\.h$/;
 	return 1 if $header_name =~ /^ObjBase\.h$/;
+	return 1 if $header_name =~ /^Sh[a-zA-Z0-9]+\.h$/;
+	return 1 if $header_name =~ /^Unknwn\.h$/;
 	
 	return 0;
 }

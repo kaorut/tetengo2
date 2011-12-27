@@ -75,6 +75,10 @@
     \brief The namespace for GUI.
 */
 
+/*! \namespace tetengo2::gui::common_dialog
+    \brief The namespace for common dialog boxes.
+*/
+
 /*! \namespace tetengo2::gui::drawing
     \brief The namespace for drawing components.
 */

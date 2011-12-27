@@ -63,7 +63,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Run the message loop for a dialog box.
+            \brief Run the message loop for a dialog.
 
             \return The exit status code.
         */

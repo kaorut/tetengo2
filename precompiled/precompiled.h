@@ -48,7 +48,6 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
-#include <boost/fusion/include/all.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -119,6 +118,9 @@
 #include <GdiPlus.h>
 #undef min
 #undef max
+#include <ShObjIdl.h>
+#include <ShTypes.h>
+#include <Unknwn.h>
 
 #endif
 

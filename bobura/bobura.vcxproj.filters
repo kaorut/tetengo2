@@ -78,11 +78,11 @@
     <ClInclude Include="src\bobura.message.main_window.h">
       <Filter>headers\bobura\message</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.load_from_file.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\messages\_catalogs.txt">
-      <Filter>resources\messages</Filter>
-    </None>
     <None Include="res\win32\kuma.ico">
       <Filter>resources\win32</Filter>
     </None>
@@ -98,7 +98,10 @@
     <None Include="res\win32\COMCTL32.DLL.Win32.manifest">
       <Filter>resources\win32</Filter>
     </None>
-    <None Include="res\messages\Japanese.txt">
+    <None Include="res\messages\_catalogs.json">
+      <Filter>resources\messages</Filter>
+    </None>
+    <None Include="res\messages\Japanese.json">
       <Filter>resources\messages</Filter>
     </None>
   </ItemGroup>

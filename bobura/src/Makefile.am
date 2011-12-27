@@ -7,6 +7,7 @@ extra_headers = \
     bobura.bobura.h \
     bobura.command.about.h \
     bobura.command.exit.h \
+    bobura.command.load_from_file.h \
     bobura.command.nop.h \
     bobura.command.type_list.h \
     bobura.command.type_list_impl.h \

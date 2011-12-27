@@ -206,9 +206,7 @@ namespace bobura
 
                 append_menu_command(
                     *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:File:&New\tCtrl+N")
-                    ),
+                    m_message_catalog.get(TETENGO2_TEXT("Menu:File:&New")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
@@ -216,17 +214,15 @@ namespace bobura
                 append_menu_command(
                     *p_popup_menu,
                     m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:File:&Open...\tCtrl+O")
+                        TETENGO2_TEXT("Menu:File:&Open...")
                     ),
                     typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
+                        command_type_list_type, command::type::load_from_file
+                    >::type(*this, m_message_catalog)
                 );
                 append_menu_command(
                     *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:File:&Save\tCtrl+S")
-                    ),
+                    m_message_catalog.get(TETENGO2_TEXT("Menu:File:&Save")),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type()
@@ -254,83 +250,6 @@ namespace bobura
                 );
             }
             {
-                std::unique_ptr<menu_type> p_popup_menu(
-                    tetengo2::make_unique<popup_menu_type>(
-                        m_message_catalog.get(TETENGO2_TEXT("Menu:&Edit"))
-                    )
-                );
-
-                append_menu_command(
-                    *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:Edit:&Undo\tCtrl+Z")
-                    ),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:Edit:&Redo\tCtrl+Y")
-                    ),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_separator(*p_popup_menu);
-                append_menu_command(
-                    *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:Edit:Cu&t\tCtrl+X")
-                    ),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:Edit:&Copy\tCtrl+C")
-                    ),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:Edit:&Paste\tCtrl+V")
-                    ),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_separator(*p_popup_menu);
-                append_menu_command(
-                    *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:Edit:&Find...\tCtrl+F")
-                    ),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-                append_menu_command(
-                    *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:Edit:&Replace...\tCtrl+H")
-                    ),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
-                );
-
-                p_main_menu->insert(
-                    p_main_menu->end(), std::move(p_popup_menu)
-                );
-            }
-            {
                 std::unique_ptr<menu_type>
                 p_popup_menu(
                     tetengo2::make_unique<popup_menu_type>(
@@ -341,7 +260,7 @@ namespace bobura
                 append_menu_command(
                     *p_popup_menu,
                     m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:Help:&About...")
+                        TETENGO2_TEXT("Menu:Help:&About")
                     ),
                     typename boost::mpl::at<
                         command_type_list_type, command::type::about

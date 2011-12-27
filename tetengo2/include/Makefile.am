@@ -7,6 +7,8 @@ headers = \
     tetengo2.concurrent.consumer.h \
     tetengo2.concurrent.producer.h \
     tetengo2.cpp11.h \
+    tetengo2.detail.stub.common_dialog.h \
+    tetengo2.gui.common_dialog.file_open.h \
     tetengo2.message.messages.h \
     tetengo2.message.message_catalog.h \
     tetengo2.message.message_catalog_parser.h \
@@ -23,7 +25,8 @@ headers = \
     tetengo2.text.push_parser.h \
     tetengo2.unique.h
 
-extra_headers =
+extra_headers = \
+    tetengo2.detail.windows.common_dialog.h
 
 pkginclude_HEADERS = $(headers)
 EXTRA_DIST = $(extra_headers)

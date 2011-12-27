@@ -34,22 +34,14 @@
     <Filter Include="sources\test_tetengo2\message">
       <UniqueIdentifier>{ee0f7809-eda3-47e4-92d1-265eb88ba4bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_tetengo2\gui\common_dialog">
+      <UniqueIdentifier>{20e00db8-c788-4ec3-9656-6af0f565bfb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res.test\messages.test\_catalogs.txt">
-      <Filter>resources\messages.test</Filter>
-    </None>
-    <None Include="res.test\messages.test\English.txt">
-      <Filter>resources\messages.test</Filter>
-    </None>
-    <None Include="res.test\messages.test\Japanese.txt">
-      <Filter>resources\messages.test</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\master.cpp">
@@ -112,5 +104,19 @@
     <ClCompile Include="test\test_tetengo2.message.message_catalog_parser.cpp">
       <Filter>sources\test_tetengo2\message</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp">
+      <Filter>sources\test_tetengo2\gui\common_dialog</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res.test\messages.test\_catalogs.json">
+      <Filter>resources\messages.test</Filter>
+    </None>
+    <None Include="res.test\messages.test\English.json">
+      <Filter>resources\messages.test</Filter>
+    </None>
+    <None Include="res.test\messages.test\Japanese.json">
+      <Filter>resources\messages.test</Filter>
+    </None>
   </ItemGroup>
 </Project>

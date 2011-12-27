@@ -31,7 +31,7 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Run the message loop for a dialog box.
+            \brief Run the message loop for a dialog.
 
             \return The exit code.
         */

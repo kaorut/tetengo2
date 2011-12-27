@@ -221,6 +221,7 @@ namespace tetengo2 { namespace detail { namespace windows
                             WidgetDetails::property_key_for_cpp_instance().c_str()
                         )
                     );
+                p_widget;
                 assert(p_widget == &widget);
 
                 widget.set_destroyed();

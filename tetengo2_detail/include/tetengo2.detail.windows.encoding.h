@@ -76,6 +76,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     NULL,
                     NULL
                 );
+            converted_length;
             assert(converted_length == string_length);
 
             return utf8_string_type(
@@ -112,6 +113,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     pivot.data(),
                     pivot_length
                 );
+            converted_length;
             assert(converted_length == pivot_length);
 
             return pivot_type(pivot.begin(), pivot.begin() + pivot_length);
