@@ -79,6 +79,7 @@ namespace
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(paint_observer_set)
     // test cases
 
@@ -87,18 +88,21 @@ BOOST_AUTO_TEST_SUITE(paint_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::paint_observer_set<canvas_type> observer_set;
+            const tetengo2::gui::message::paint_observer_set<canvas_type>
+            observer_set;
 
             observer_set.paint();
         }
         {
-            tetengo2::gui::paint_observer_set<canvas_type> observer_set;
+            tetengo2::gui::message::paint_observer_set<canvas_type>
+            observer_set;
 
             observer_set.paint();
         }
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

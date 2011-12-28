@@ -48,7 +48,7 @@ namespace
         tetengo2::gui::traits::menu_traits<
             std::string,
             encoder_type,
-            tetengo2::gui::menu_observer_set
+            tetengo2::gui::message::menu_observer_set
         >
         menu_traits_type;
 

@@ -139,8 +139,8 @@ namespace
             background_type,
             font_type,
             system_cursor_type,
-            tetengo2::gui::paint_observer_set<canvas_type>,
-            tetengo2::gui::mouse_observer_set
+            tetengo2::gui::message::paint_observer_set<canvas_type>,
+            tetengo2::gui::message::mouse_observer_set
         >
         widget_traits_type;
 

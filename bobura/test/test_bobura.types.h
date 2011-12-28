@@ -188,8 +188,8 @@ typedef
         background_type,
         font_type,
         system_cursor_type,
-        tetengo2::gui::paint_observer_set<canvas_type>,
-        tetengo2::gui::mouse_observer_set
+        tetengo2::gui::message::paint_observer_set<canvas_type>,
+        tetengo2::gui::message::mouse_observer_set
     >
     widget_traits_type;
 
@@ -197,7 +197,7 @@ typedef
     tetengo2::gui::traits::menu_traits<
         std::wstring,
         ui_encoder_type,
-        tetengo2::gui::menu_observer_set
+        tetengo2::gui::message::menu_observer_set
     >
     menu_traits_type;
 
@@ -214,7 +214,7 @@ typedef
     tetengo2::gui::traits::abstract_window_traits<
         widget_traits_type,
         main_menu_type,
-        tetengo2::gui::window_observer_set
+        tetengo2::gui::message::window_observer_set
     >
     abstract_window_traits_type;
 
@@ -296,11 +296,11 @@ typedef
 typedef tetengo2::detail::stub::message_loop message_loop_details_type;
 
 typedef
-    tetengo2::gui::dialog_message_loop<message_loop_details_type>
+    tetengo2::gui::message::dialog_message_loop<message_loop_details_type>
     dialog_message_loop_type;
 
 typedef
-    tetengo2::gui::message_loop_break<message_loop_details_type>
+    tetengo2::gui::message::message_loop_break<message_loop_details_type>
     message_loop_break_type;
 
 typedef
@@ -428,7 +428,8 @@ typedef
     main_window_type;
 
 typedef
-    tetengo2::gui::message_loop<message_loop_details_type> message_loop_type;
+    tetengo2::gui::message::message_loop<message_loop_details_type>
+    message_loop_type;
 
 typedef
     bobura::bobura<

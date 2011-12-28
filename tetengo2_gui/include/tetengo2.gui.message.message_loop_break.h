@@ -6,13 +6,13 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MESSAGELOOPBREAK_H)
-#define TETENGO2_GUI_MESSAGELOOPBREAK_H
+#if !defined(TETENGO2_GUI_MESSAGE_MESSAGELOOPBREAK_H)
+#define TETENGO2_GUI_MESSAGE_MESSAGELOOPBREAK_H
 
 #include <functional>
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace message
 {
     /*!
         \brief The class template for a message loop break.
@@ -47,6 +47,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
+
 
 #endif

@@ -13,6 +13,7 @@
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(window_observer_set)
     // test cases
 
@@ -21,18 +22,19 @@ BOOST_AUTO_TEST_SUITE(window_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::window_observer_set observer_set;
+            const tetengo2::gui::message::window_observer_set observer_set;
 
             observer_set.destroyed();
         }
         {
-            tetengo2::gui::window_observer_set observer_set;
+            tetengo2::gui::message::window_observer_set observer_set;
 
             observer_set.destroyed();
         }
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

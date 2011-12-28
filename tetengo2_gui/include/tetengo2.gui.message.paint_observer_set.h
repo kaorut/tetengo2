@@ -6,14 +6,14 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_PAINTOBSERVERSET_H)
-#define TETENGO2_GUI_PAINTOBSERVERSET_H
+#if !defined(TETENGO2_GUI_MESSAGE_PAINTOBSERVERSET_H)
+#define TETENGO2_GUI_MESSAGE_PAINTOBSERVERSET_H
 
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace message
 {
     /*!
         \brief The class template for a paint observer set.
@@ -75,6 +75,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
+
 
 #endif

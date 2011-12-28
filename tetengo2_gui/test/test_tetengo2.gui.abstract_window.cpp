@@ -145,8 +145,8 @@ namespace
             background_type,
             font_type,
             system_cursor_type,
-            tetengo2::gui::paint_observer_set<canvas_type>,
-            tetengo2::gui::mouse_observer_set
+            tetengo2::gui::message::paint_observer_set<canvas_type>,
+            tetengo2::gui::message::mouse_observer_set
         >
         widget_traits_type;
 
@@ -154,7 +154,7 @@ namespace
         tetengo2::gui::traits::menu_traits<
             std::wstring,
             ui_encoder_type,
-            tetengo2::gui::menu_observer_set
+            tetengo2::gui::message::menu_observer_set
         >
         menu_traits_type;
 
@@ -172,7 +172,7 @@ namespace
         tetengo2::gui::traits::abstract_window_traits<
             widget_traits_type,
             main_menu_type,
-            tetengo2::gui::window_observer_set
+            tetengo2::gui::message::window_observer_set
         >
         abstract_window_traits_type;
 

@@ -6,14 +6,14 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WINDOWOBSERVERSET_H)
-#define TETENGO2_GUI_WINDOWOBSERVERSET_H
+#if !defined(TETENGO2_GUI_MESSAGE_WINDOWOBSERVERSET_H)
+#define TETENGO2_GUI_MESSAGE_WINDOWOBSERVERSET_H
 
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace message
 {
     /*!
         \brief The class for a window observer set.
@@ -65,6 +65,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
+
 
 #endif

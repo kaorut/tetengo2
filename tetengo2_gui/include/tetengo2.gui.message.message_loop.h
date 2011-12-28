@@ -6,11 +6,11 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MESSAGELOOP_H)
-#define TETENGO2_GUI_MESSAGELOOP_H
+#if !defined(TETENGO2_GUI_MESSAGE_MESSAGELOOP_H)
+#define TETENGO2_GUI_MESSAGE_MESSAGELOOP_H
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace message
 {
     /*!
         \brief The class template for a message loop.
@@ -45,6 +45,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
+
 
 #endif
