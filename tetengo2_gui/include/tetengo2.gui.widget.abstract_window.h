@@ -18,7 +18,7 @@
 //#include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp11.h"
-#include "tetengo2.gui.widget.h"
+#include "tetengo2.gui.widget.widget.h"
 
 
 namespace tetengo2 { namespace gui

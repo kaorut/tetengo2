@@ -8,13 +8,9 @@ extra_headers =
 
 sources = \
     master.cpp \
-    test_tetengo2.gui.abstract_window.cpp \
     test_tetengo2.gui.alert.cpp \
-    test_tetengo2.gui.button.cpp \
     test_tetengo2.gui.common_dialog.file_open.cpp \
-    test_tetengo2.gui.control.cpp \
     test_tetengo2.gui.cursor.cpp \
-    test_tetengo2.gui.dialog.cpp \
     test_tetengo2.gui.drawing.background.cpp \
     test_tetengo2.gui.drawing.canvas.cpp \
     test_tetengo2.gui.drawing.color.cpp \
@@ -25,9 +21,6 @@ sources = \
     test_tetengo2.gui.drawing.transparent_background.cpp \
     test_tetengo2.gui.drawing.widget_canvas.cpp \
     test_tetengo2.gui.fixture.cpp \
-    test_tetengo2.gui.image.cpp \
-    test_tetengo2.gui.label.cpp \
-    test_tetengo2.gui.link_label.cpp \
     test_tetengo2.gui.measure.cpp \
     test_tetengo2.gui.menu.abstract_popup_menu.cpp \
     test_tetengo2.gui.menu.main_menu.cpp \
@@ -47,8 +40,15 @@ sources = \
     test_tetengo2.gui.unit.em.cpp \
     test_tetengo2.gui.unit.pixel.cpp \
     test_tetengo2.gui.unit.unit.cpp \
-    test_tetengo2.gui.widget.cpp \
-    test_tetengo2.gui.window.cpp
+    test_tetengo2.gui.widget.abstract_window.cpp \
+    test_tetengo2.gui.widget.button.cpp \
+    test_tetengo2.gui.widget.control.cpp \
+    test_tetengo2.gui.widget.dialog.cpp \
+    test_tetengo2.gui.widget.image.cpp \
+    test_tetengo2.gui.widget.label.cpp \
+    test_tetengo2.gui.widget.link_label.cpp \
+    test_tetengo2.gui.widget.widget.cpp \
+    test_tetengo2.gui.widget.window.cpp
 
 extra_sources =
 

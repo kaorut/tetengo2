@@ -15,8 +15,8 @@
 //#include <utility>
 
 #include "tetengo2.cpp11.h"
-#include "tetengo2.gui.label.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.gui.widget.label.h"
 
 
 namespace tetengo2 { namespace gui

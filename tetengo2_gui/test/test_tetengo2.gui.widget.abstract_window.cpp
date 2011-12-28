@@ -43,7 +43,7 @@
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
 
-#include "tetengo2.gui.abstract_window.h"
+#include "tetengo2.gui.widget.abstract_window.h"
 
 
 namespace

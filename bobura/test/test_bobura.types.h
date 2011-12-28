@@ -28,12 +28,7 @@
 #include <tetengo2.detail.stub.unit.h>
 #include <tetengo2.detail.stub.widget.h>
 #include <tetengo2.gui.alert.h>
-#include <tetengo2.gui.button.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
-#include <tetengo2.gui.dialog.h>
-#include <tetengo2.gui.image.h>
-#include <tetengo2.gui.label.h>
-#include <tetengo2.gui.link_label.h>
 #include <tetengo2.gui.menu.main_menu.h>
 #include <tetengo2.gui.menu.menu.h>
 #include <tetengo2.gui.menu.menu_command.h>
@@ -66,7 +61,12 @@
 #include <tetengo2.gui.traits.widget_traits.h>
 #include <tetengo2.gui.traits.window_traits.h>
 #include <tetengo2.gui.unit.em.h>
-#include <tetengo2.gui.window.h>
+#include <tetengo2.gui.widget.button.h>
+#include <tetengo2.gui.widget.dialog.h>
+#include <tetengo2.gui.widget.image.h>
+#include <tetengo2.gui.widget.label.h>
+#include <tetengo2.gui.widget.link_label.h>
+#include <tetengo2.gui.widget.window.h>
 #include <tetengo2.message.messages.h>
 #include <tetengo2.message.message_catalog.h>
 #include <tetengo2.message.message_catalog_parser.h>

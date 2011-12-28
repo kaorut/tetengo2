@@ -41,11 +41,11 @@
 #include "tetengo2.gui.traits.widget_traits.h"
 #include "tetengo2.gui.traits.window_traits.h"
 #include "tetengo2.gui.unit.em.h"
-#include "tetengo2.gui.window.h"
+#include "tetengo2.gui.widget.window.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 
-#include "tetengo2.gui.dialog.h"
+#include "tetengo2.gui.widget.dialog.h"
 
 
 namespace

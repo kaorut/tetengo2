@@ -3,13 +3,9 @@
 # $Id$
 
 headers = \
-    tetengo2.gui.abstract_window.h \
     tetengo2.gui.alert.h \
-    tetengo2.gui.button.h \
     tetengo2.gui.common_dialog.file_open.h \
-    tetengo2.gui.control.h \
     tetengo2.gui.cursor.h \
-    tetengo2.gui.dialog.h \
     tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.canvas.h \
     tetengo2.gui.drawing.color.h \
@@ -20,9 +16,6 @@ headers = \
     tetengo2.gui.drawing.transparent_background.h \
     tetengo2.gui.drawing.widget_canvas.h \
     tetengo2.gui.fixture.h \
-    tetengo2.gui.image.h \
-    tetengo2.gui.label.h \
-    tetengo2.gui.link_label.h \
     tetengo2.gui.measure.h \
     tetengo2.gui.menu.abstract_popup_menu.h \
     tetengo2.gui.menu.main_menu.h \
@@ -52,8 +45,15 @@ headers = \
     tetengo2.gui.unit.em.h \
     tetengo2.gui.unit.pixel.h \
     tetengo2.gui.unit.unit.h \
-    tetengo2.gui.widget.h \
-    tetengo2.gui.window.h
+    tetengo2.gui.widget.abstract_window.h \
+    tetengo2.gui.widget.button.h \
+    tetengo2.gui.widget.control.h \
+    tetengo2.gui.widget.dialog.h \
+    tetengo2.gui.widget.image.h \
+    tetengo2.gui.widget.label.h \
+    tetengo2.gui.widget.link_label.h \
+    tetengo2.gui.widget.widget.h \
+    tetengo2.gui.widget.window.h
 
 extra_headers =
 

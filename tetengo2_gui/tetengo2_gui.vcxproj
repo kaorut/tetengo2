@@ -19,13 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\tetengo2.gui.abstract_window.h" />
     <ClInclude Include="include\tetengo2.gui.alert.h" />
-    <ClInclude Include="include\tetengo2.gui.button.h" />
     <ClInclude Include="include\tetengo2.gui.common_dialog.file_open.h" />
-    <ClInclude Include="include\tetengo2.gui.control.h" />
     <ClInclude Include="include\tetengo2.gui.cursor.h" />
-    <ClInclude Include="include\tetengo2.gui.dialog.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.background.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.canvas.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.color.h" />
@@ -36,9 +32,6 @@
     <ClInclude Include="include\tetengo2.gui.drawing.transparent_background.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.widget_canvas.h" />
     <ClInclude Include="include\tetengo2.gui.fixture.h" />
-    <ClInclude Include="include\tetengo2.gui.image.h" />
-    <ClInclude Include="include\tetengo2.gui.label.h" />
-    <ClInclude Include="include\tetengo2.gui.link_label.h" />
     <ClInclude Include="include\tetengo2.gui.measure.h" />
     <ClInclude Include="include\tetengo2.gui.menu.abstract_popup_menu.h" />
     <ClInclude Include="include\tetengo2.gui.menu.main_menu.h" />
@@ -68,8 +61,15 @@
     <ClInclude Include="include\tetengo2.gui.unit.em.h" />
     <ClInclude Include="include\tetengo2.gui.unit.pixel.h" />
     <ClInclude Include="include\tetengo2.gui.unit.unit.h" />
-    <ClInclude Include="include\tetengo2.gui.widget.h" />
-    <ClInclude Include="include\tetengo2.gui.window.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.abstract_window.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.button.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.control.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.dialog.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.image.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.label.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.link_label.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.widget.h" />
+    <ClInclude Include="include\tetengo2.gui.widget.window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1E7B0400-1602-4F86-9F6D-D92F00222499}</ProjectGuid>

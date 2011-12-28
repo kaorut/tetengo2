@@ -40,7 +40,7 @@
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 
-#include "tetengo2.gui.window.h"
+#include "tetengo2.gui.widget.window.h"
 
 
 namespace
