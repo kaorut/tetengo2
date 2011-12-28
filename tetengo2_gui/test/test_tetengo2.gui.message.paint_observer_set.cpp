@@ -21,7 +21,7 @@
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 
-#include "tetengo2.gui.paint_observer_set.h"
+#include "tetengo2.gui.message.paint_observer_set.h"
 
 
 namespace

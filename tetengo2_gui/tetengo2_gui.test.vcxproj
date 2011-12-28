@@ -101,7 +101,6 @@
     <ClCompile Include="test\test_tetengo2.gui.control.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.cursor.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.dialog.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.dialog_message_loop.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.color.cpp" />
@@ -123,18 +122,19 @@
     <ClCompile Include="test\test_tetengo2.gui.menu.menu_separator.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu.popup_menu.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.menu.recursive_menu_iterator.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.menu_observer_set.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.message_loop.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.message_loop_break.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.mouse_observer_set.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.paint_observer_set.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.dialog_message_loop.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.menu_observer_set.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.message_loop.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.message_loop_break.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.mouse_observer_set.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.paint_observer_set.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.message.window_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.system_cursor.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.em.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.unit.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.window.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.window_observer_set.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

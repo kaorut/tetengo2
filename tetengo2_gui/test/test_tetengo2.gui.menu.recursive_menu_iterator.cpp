@@ -16,7 +16,7 @@
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.gui.menu.abstract_popup_menu.h"
 #include "tetengo2.gui.menu.menu.h"
-#include "tetengo2.gui.menu_observer_set.h"
+#include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.menu.popup_menu.h"
 #include "tetengo2.gui.traits.menu_traits.h"
 #include "tetengo2.text.encoder.h"

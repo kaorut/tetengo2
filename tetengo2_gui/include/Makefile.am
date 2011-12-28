@@ -10,7 +10,6 @@ headers = \
     tetengo2.gui.control.h \
     tetengo2.gui.cursor.h \
     tetengo2.gui.dialog.h \
-    tetengo2.gui.dialog_message_loop.h \
     tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.canvas.h \
     tetengo2.gui.drawing.color.h \
@@ -32,11 +31,13 @@ headers = \
     tetengo2.gui.menu.menu_separator.h \
     tetengo2.gui.menu.popup_menu.h \
     tetengo2.gui.menu.recursive_menu_iterator.h \
-    tetengo2.gui.menu_observer_set.h \
-    tetengo2.gui.message_loop.h \
-    tetengo2.gui.message_loop_break.h \
-    tetengo2.gui.mouse_observer_set.h \
-    tetengo2.gui.paint_observer_set.h \
+    tetengo2.gui.message.dialog_message_loop.h \
+    tetengo2.gui.message.menu_observer_set.h \
+    tetengo2.gui.message.message_loop.h \
+    tetengo2.gui.message.message_loop_break.h \
+    tetengo2.gui.message.mouse_observer_set.h \
+    tetengo2.gui.message.paint_observer_set.h \
+    tetengo2.gui.message.window_observer_set.h \
     tetengo2.gui.system_cursor.h \
     tetengo2.gui.traits.abstract_window_traits.h \
     tetengo2.gui.traits.button_traits.h \
@@ -52,8 +53,7 @@ headers = \
     tetengo2.gui.unit.pixel.h \
     tetengo2.gui.unit.unit.h \
     tetengo2.gui.widget.h \
-    tetengo2.gui.window.h \
-    tetengo2.gui.window_observer_set.h
+    tetengo2.gui.window.h
 
 extra_headers =
 

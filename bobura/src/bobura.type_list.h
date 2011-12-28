@@ -38,7 +38,6 @@
 #include <tetengo2.gui.button.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
 #include <tetengo2.gui.dialog.h>
-#include <tetengo2.gui.dialog_message_loop.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
@@ -54,13 +53,15 @@
 #include <tetengo2.gui.menu.main_menu.h>
 #include <tetengo2.gui.menu.menu.h>
 #include <tetengo2.gui.menu.menu_command.h>
-#include <tetengo2.gui.menu_observer_set.h>
 #include <tetengo2.gui.menu.menu_separator.h>
 #include <tetengo2.gui.menu.popup_menu.h>
-#include <tetengo2.gui.message_loop.h>
-#include <tetengo2.gui.message_loop_break.h>
-#include <tetengo2.gui.mouse_observer_set.h>
-#include <tetengo2.gui.paint_observer_set.h>
+#include <tetengo2.gui.message.dialog_message_loop.h>
+#include <tetengo2.gui.message.menu_observer_set.h>
+#include <tetengo2.gui.message.message_loop.h>
+#include <tetengo2.gui.message.message_loop_break.h>
+#include <tetengo2.gui.message.mouse_observer_set.h>
+#include <tetengo2.gui.message.paint_observer_set.h>
+#include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.system_cursor.h>
 #include <tetengo2.gui.traits.abstract_window_traits.h>
 #include <tetengo2.gui.traits.button_traits.h>
@@ -74,7 +75,6 @@
 #include <tetengo2.gui.traits.window_traits.h>
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.window.h>
-#include <tetengo2.gui.window_observer_set.h>
 #include <tetengo2.message.messages.h>
 #include <tetengo2.message.message_catalog.h>
 #include <tetengo2.message.message_catalog_parser.h>

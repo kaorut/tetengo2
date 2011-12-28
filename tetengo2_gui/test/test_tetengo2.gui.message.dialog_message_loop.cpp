@@ -10,7 +10,7 @@
 
 #include "tetengo2.detail.stub.message_loop.h"
 
-#include "tetengo2.gui.dialog_message_loop.h"
+#include "tetengo2.gui.message.dialog_message_loop.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)

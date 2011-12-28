@@ -22,6 +22,9 @@
     <Filter Include="headers\tetengo2::gui\menu">
       <UniqueIdentifier>{d07a0aba-dab6-4925-b2cf-57d1b6750a3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::gui\message">
+      <UniqueIdentifier>{f605fed4-6dad-4c8b-94ed-887c91e119e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.gui.abstract_window.h">
@@ -42,9 +45,6 @@
     <ClInclude Include="include\tetengo2.gui.dialog.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.dialog_message_loop.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.fixture.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -60,21 +60,6 @@
     <ClInclude Include="include\tetengo2.gui.measure.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.menu_observer_set.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.message_loop.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.message_loop_break.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.mouse_observer_set.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.paint_observer_set.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.system_cursor.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
@@ -82,9 +67,6 @@
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.window.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.window_observer_set.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.drawing.background.h">
@@ -176,6 +158,27 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.menu.recursive_menu_iterator.h">
       <Filter>headers\tetengo2::gui\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.dialog_message_loop.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.menu_observer_set.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.message_loop.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.message_loop_break.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.mouse_observer_set.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.paint_observer_set.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.message.window_observer_set.h">
+      <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
