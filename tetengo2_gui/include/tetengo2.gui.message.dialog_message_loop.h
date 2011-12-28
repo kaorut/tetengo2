@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::dialog_message_loop.
+    \brief The definition of tetengo2::gui::message::dialog_message_loop.
 
     Copyright (C) 2007-2011 kaoru
 

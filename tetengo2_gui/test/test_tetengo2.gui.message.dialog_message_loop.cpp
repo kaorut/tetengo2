@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::dialog_message_loop.
+    \brief Test of class tetengo2::gui::message::dialog_message_loop.
 
     Copyright (C) 2007-2011 kaoru
 

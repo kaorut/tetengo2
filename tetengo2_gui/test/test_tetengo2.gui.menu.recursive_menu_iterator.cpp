@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::recursive_menu_iterator.
+    \brief Test of class tetengo2::gui::menu::recursive_menu_iterator.
 
     Copyright (C) 2007-2011 kaoru
 

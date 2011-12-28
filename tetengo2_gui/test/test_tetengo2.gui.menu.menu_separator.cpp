@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::menu_separator.
+    \brief Test of class tetengo2::gui::menu::menu_separator.
 
     Copyright (C) 2007-2011 kaoru
 

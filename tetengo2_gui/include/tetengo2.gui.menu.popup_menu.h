@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::popup_menu.
+    \brief The definition of tetengo2::gui::menu::popup_menu.
 
     Copyright (C) 2007-2011 kaoru
 

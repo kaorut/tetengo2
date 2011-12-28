@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::mouse_observer_set.
+    \brief Test of class tetengo2::gui::message::mouse_observer_set.
 
     Copyright (C) 2007-2011 kaoru
 

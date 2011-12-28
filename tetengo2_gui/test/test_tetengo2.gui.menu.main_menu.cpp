@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::main_menu.
+    \brief Test of class tetengo2::gui::menu::main_menu.
 
     Copyright (C) 2007-2011 kaoru
 

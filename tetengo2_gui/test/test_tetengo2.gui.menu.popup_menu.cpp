@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::popup_menu.
+    \brief Test of class tetengo2::gui::menu::popup_menu.
 
     Copyright (C) 2007-2011 kaoru
 

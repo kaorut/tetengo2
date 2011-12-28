@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu_separator.
+    \brief The definition of tetengo2::gui::menu::menu_separator.
 
     Copyright (C) 2007-2011 kaoru
 

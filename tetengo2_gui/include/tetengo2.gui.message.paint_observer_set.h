@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::paint_observer_set.
+    \brief The definition of tetengo2::gui::message::paint_observer_set.
 
     Copyright (C) 2007-2011 kaoru
 
