@@ -229,7 +229,7 @@ typedef
     message_handler_details_type;
 
 typedef
-    tetengo2::gui::window<
+    tetengo2::gui::widget::window<
         window_traits_type, widget_details_type, message_handler_details_type
     >
     window_type;
@@ -312,7 +312,7 @@ typedef
     dialog_traits_type;
 
 typedef
-    tetengo2::gui::dialog<
+    tetengo2::gui::widget::dialog<
         dialog_traits_type, widget_details_type, message_handler_details_type
     >
     dialog_type;
@@ -332,7 +332,7 @@ typedef
     label_traits_type;
 
 typedef
-    tetengo2::gui::label<
+    tetengo2::gui::widget::label<
         label_traits_type, widget_details_type, message_handler_details_type
     >
     label_type;
@@ -342,7 +342,7 @@ typedef
     link_label_traits_type;
 
 typedef
-    tetengo2::gui::link_label<
+    tetengo2::gui::widget::link_label<
         link_label_traits_type,
         widget_details_type,
         message_handler_details_type
@@ -354,7 +354,7 @@ typedef
     image_traits_type;
 
 typedef
-    tetengo2::gui::image<
+    tetengo2::gui::widget::image<
         image_traits_type, widget_details_type, message_handler_details_type
     >
     image_type;
@@ -364,7 +364,7 @@ typedef
     button_traits_type;
 
 typedef
-    tetengo2::gui::button<
+    tetengo2::gui::widget::button<
         button_traits_type, widget_details_type, message_handler_details_type
     >
     button_type;

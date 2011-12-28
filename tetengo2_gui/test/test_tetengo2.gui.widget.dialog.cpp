@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::dialog.
+    \brief Test of class tetengo2::gui::widget::dialog.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -189,7 +189,7 @@ namespace
         message_handler_details_type;
 
     typedef
-        tetengo2::gui::window<
+        tetengo2::gui::widget::window<
             window_traits_type,
             widget_details_type,
             message_handler_details_type
@@ -215,7 +215,7 @@ namespace
         dialog_traits_type;
 
     typedef
-        tetengo2::gui::dialog<
+        tetengo2::gui::widget::dialog<
             dialog_traits_type,
             widget_details_type,
             message_handler_details_type
@@ -230,6 +230,7 @@ namespace
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(widget)
 BOOST_AUTO_TEST_SUITE(dialog)
     // test cases
 
@@ -316,6 +317,7 @@ BOOST_AUTO_TEST_SUITE(dialog)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

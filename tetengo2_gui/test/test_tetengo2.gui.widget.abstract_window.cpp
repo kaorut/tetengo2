@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::abstract_window.
+    \brief Test of class tetengo2::gui::widget::abstract_window.
 
     Copyright (C) 2007-2011 kaoru
 
@@ -183,7 +183,7 @@ namespace
         message_handler_details_type;
 
     typedef
-        tetengo2::gui::abstract_window<
+        tetengo2::gui::widget::abstract_window<
             abstract_window_traits_type,
             widget_details_type,
             message_handler_details_type
@@ -229,6 +229,7 @@ namespace
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(widget)
 BOOST_AUTO_TEST_SUITE(abstract_window)
     // test cases
 
@@ -341,6 +342,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

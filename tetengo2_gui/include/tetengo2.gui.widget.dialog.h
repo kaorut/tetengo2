@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::dialog.
+    \brief The definition of tetengo2::gui::widget::dialog.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_DIALOG_H)
-#define TETENGO2_GUI_DIALOG_H
+#if !defined(TETENGO2_GUI_WIDGET_DIALOG_H)
+#define TETENGO2_GUI_WIDGET_DIALOG_H
 
 //#include <cassert>
 //#include <stdexcept>
@@ -18,7 +18,7 @@
 #include "tetengo2.gui.widget.abstract_window.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The class template for a modal dialog.
@@ -205,7 +205,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

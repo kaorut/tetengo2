@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::link_label.
+    \brief The definition of tetengo2::gui::widget::link_label.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_LINKLABEL_H)
-#define TETENGO2_GUI_LINKLABEL_H
+#if !defined(TETENGO2_GUI_WIDGET_LINKLABEL_H)
+#define TETENGO2_GUI_WIDGET_LINKLABEL_H
 
 //#include <cassert>
 //#include <memory>
@@ -19,7 +19,7 @@
 #include "tetengo2.gui.widget.label.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The class template for a link label.
@@ -207,7 +207,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::image.
+    \brief The definition of tetengo2::gui::widget::image.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_IMAGE_H)
-#define TETENGO2_GUI_IMAGE_H
+#if !defined(TETENGO2_GUI_WIDGET_IMAGE_H)
+#define TETENGO2_GUI_WIDGET_IMAGE_H
 
 //#include <memory>
 //#include <stdexcept>
@@ -20,7 +20,7 @@
 #include "tetengo2.gui.widget.control.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The class template for an image.
@@ -230,7 +230,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

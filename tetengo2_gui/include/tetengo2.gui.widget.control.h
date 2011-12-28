@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::control.
+    \brief The definition of tetengo2::gui::widget::control.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_CONTROL_H)
-#define TETENGO2_GUI_CONTROL_H
+#if !defined(TETENGO2_GUI_WIDGET_CONTROL_H)
+#define TETENGO2_GUI_WIDGET_CONTROL_H
 
 //#include <utility>
 
@@ -17,7 +17,7 @@
 #include "tetengo2.gui.widget.widget.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The class template for a control.
@@ -181,7 +181,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

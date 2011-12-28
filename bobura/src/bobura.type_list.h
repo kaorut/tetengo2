@@ -467,7 +467,7 @@ namespace bobura
             tetengo2::gui::traits::window_traits<abstract_window_traits_type>
             window_traits_type;
         typedef
-            tetengo2::gui::window<
+            tetengo2::gui::widget::window<
                 window_traits_type,
                 widget_details_type,
                 message_handler_details_type
@@ -484,7 +484,7 @@ namespace bobura
             >
             dialog_traits_type;
         typedef
-            tetengo2::gui::dialog<
+            tetengo2::gui::widget::dialog<
                 dialog_traits_type,
                 widget_details_type,
                 message_handler_details_type
@@ -500,7 +500,7 @@ namespace bobura
             tetengo2::gui::traits::label_traits<control_traits_type>
             label_traits_type;
         typedef
-            tetengo2::gui::label<
+            tetengo2::gui::widget::label<
                 label_traits_type,
                 widget_details_type,
                 message_handler_details_type
@@ -510,7 +510,7 @@ namespace bobura
             tetengo2::gui::traits::link_label_traits<label_traits_type>
             link_label_traits_type;
         typedef
-            tetengo2::gui::link_label<
+            tetengo2::gui::widget::link_label<
                 link_label_traits_type,
                 widget_details_type,
                 message_handler_details_type
@@ -522,7 +522,7 @@ namespace bobura
             >
             image_traits_type;
         typedef
-            tetengo2::gui::image<
+            tetengo2::gui::widget::image<
                 image_traits_type,
                 widget_details_type,
                 message_handler_details_type
@@ -532,7 +532,7 @@ namespace bobura
             tetengo2::gui::traits::button_traits<control_traits_type>
             button_traits_type;
         typedef
-            tetengo2::gui::button<
+            tetengo2::gui::widget::button<
                 button_traits_type,
                 widget_details_type,
                 message_handler_details_type

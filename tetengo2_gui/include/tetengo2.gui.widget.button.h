@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::button.
+    \brief The definition of tetengo2::gui::widget::button.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_BUTTON_H)
-#define TETENGO2_GUI_BUTTON_H
+#if !defined(TETENGO2_GUI_WIDGET_BUTTON_H)
+#define TETENGO2_GUI_WIDGET_BUTTON_H
 
 //#include <stdexcept>
 
@@ -15,7 +15,7 @@
 #include "tetengo2.gui.widget.control.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The class template for a button.
@@ -157,7 +157,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

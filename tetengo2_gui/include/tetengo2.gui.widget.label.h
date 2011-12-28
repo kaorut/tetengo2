@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::label.
+    \brief The definition of tetengo2::gui::widget::label.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_LABEL_H)
-#define TETENGO2_GUI_LABEL_H
+#if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
+#define TETENGO2_GUI_WIDGET_LABEL_H
 
 //#include <stdexcept>
 
@@ -16,7 +16,7 @@
 #include "tetengo2.gui.widget.control.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The class template for a label.
@@ -151,7 +151,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::abstract_window.
+    \brief The definition of tetengo2::gui::widget::abstract_window.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_ABSTRACTWINDOW_H)
-#define TETENGO2_GUI_ABSTRACTWINDOW_H
+#if !defined(TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H)
+#define TETENGO2_GUI_WIDGET_ABSTRACTWINDOW_H
 
 //#include <cstddef>
 //#include <memory>
@@ -21,7 +21,7 @@
 #include "tetengo2.gui.widget.widget.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The class template for an abstract window.
@@ -258,7 +258,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

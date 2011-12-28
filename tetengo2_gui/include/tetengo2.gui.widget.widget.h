@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::widget.
+    \brief The definition of tetengo2::gui::widget::widget.
 
     Copyright (C) 2007-2011 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIDGET_H)
-#define TETENGO2_GUI_WIDGET_H
+#if !defined(TETENGO2_GUI_WIDGET_WIDGET_H)
+#define TETENGO2_GUI_WIDGET_WIDGET_H
 
 #include <cassert>
 //#include <cstddef>
@@ -25,7 +25,7 @@
 #include "tetengo2.unique.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
         \brief The base class template for a GUI widget.
@@ -750,7 +750,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif
