@@ -20,7 +20,7 @@
 #include <boost/utility.hpp>
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
         \brief The class template for a recursive menu iterator.
@@ -150,6 +150,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
+
 
 #endif

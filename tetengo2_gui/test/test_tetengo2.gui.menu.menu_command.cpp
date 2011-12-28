@@ -42,7 +42,7 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu_command<menu_traits_type, menu_details_type>
+        tetengo2::gui::menu::menu_command<menu_traits_type, menu_details_type>
         menu_command_type;
 
 
@@ -51,6 +51,7 @@ namespace
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(menu)
 BOOST_AUTO_TEST_SUITE(menu_command)
     // test cases
 
@@ -73,6 +74,7 @@ BOOST_AUTO_TEST_SUITE(menu_command)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

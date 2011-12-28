@@ -193,10 +193,11 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu<menu_traits_type, menu_details_type> menu_type;
+        tetengo2::gui::menu::menu<menu_traits_type, menu_details_type>
+        menu_type;
 
     typedef
-        tetengo2::gui::main_menu<menu_traits_type, menu_details_type>
+        tetengo2::gui::menu::main_menu<menu_traits_type, menu_details_type>
         main_menu_type;
 
     typedef

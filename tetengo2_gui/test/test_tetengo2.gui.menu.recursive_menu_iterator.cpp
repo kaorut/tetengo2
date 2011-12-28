@@ -55,19 +55,21 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu<menu_traits_type, menu_details_type> menu_type;
+        tetengo2::gui::menu::menu<menu_traits_type, menu_details_type>
+        menu_type;
 
     typedef
-        tetengo2::gui::abstract_popup_menu<
+        tetengo2::gui::menu::abstract_popup_menu<
             menu_traits_type, menu_details_type
         >
         abstract_popup_menu_type;
 
     typedef
-        tetengo2::gui::popup_menu<menu_traits_type, menu_details_type>
+        tetengo2::gui::menu::popup_menu<menu_traits_type, menu_details_type>
         popup_menu_type;
 
-    typedef tetengo2::gui::recursive_menu_iterator<menu_type> iterator_type;
+    typedef
+        tetengo2::gui::menu::recursive_menu_iterator<menu_type> iterator_type;
 
 
     // functions
@@ -98,6 +100,7 @@ namespace
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
+BOOST_AUTO_TEST_SUITE(menu)
 BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
     // test cases
 
@@ -137,6 +140,7 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

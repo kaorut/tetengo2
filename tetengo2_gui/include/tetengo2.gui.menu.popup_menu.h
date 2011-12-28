@@ -15,7 +15,7 @@
 #include "tetengo2.gui.menu.abstract_popup_menu.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
         \brief The class template for a popup menu.
@@ -82,7 +82,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

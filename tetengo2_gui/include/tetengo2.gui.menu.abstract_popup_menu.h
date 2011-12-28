@@ -22,7 +22,7 @@
 #include "tetengo2.gui.menu.recursive_menu_iterator.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
         \brief The base class template for a abstract_popup_menu.
@@ -190,7 +190,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

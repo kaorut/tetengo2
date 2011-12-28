@@ -13,7 +13,7 @@
 #include "tetengo2.gui.menu.menu.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
         \brief The class template for a menu separator.
@@ -77,7 +77,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

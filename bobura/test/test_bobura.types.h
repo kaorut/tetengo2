@@ -203,10 +203,11 @@ typedef
 
 typedef tetengo2::detail::stub::menu menu_details_type;
 
-typedef tetengo2::gui::menu<menu_traits_type, menu_details_type> menu_type;
+typedef
+    tetengo2::gui::menu::menu<menu_traits_type, menu_details_type> menu_type;
 
 typedef
-    tetengo2::gui::main_menu<menu_traits_type, menu_details_type>
+    tetengo2::gui::menu::main_menu<menu_traits_type, menu_details_type>
     main_menu_type;
 
 typedef
@@ -401,15 +402,15 @@ typedef
     main_window_message_type_list_type;
 
 typedef
-    tetengo2::gui::menu_command<menu_traits_type, menu_details_type>
+    tetengo2::gui::menu::menu_command<menu_traits_type, menu_details_type>
     menu_command_type;
 
 typedef
-    tetengo2::gui::popup_menu<menu_traits_type, menu_details_type>
+    tetengo2::gui::menu::popup_menu<menu_traits_type, menu_details_type>
     popup_menu_type;
 
 typedef
-    tetengo2::gui::menu_separator<menu_traits_type, menu_details_type>
+    tetengo2::gui::menu::menu_separator<menu_traits_type, menu_details_type>
     menu_separator_type;
 
 typedef
