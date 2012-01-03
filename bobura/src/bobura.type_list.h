@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of bobura::type_list.
 
-    Copyright (C) 2007-2011 kaoru
+    Copyright (C) 2007-2012 kaoru
 
     $Id$
 */

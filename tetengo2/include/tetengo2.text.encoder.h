@@ -1,7 +1,7 @@
 /*! \file
     \brief The definition of tetengo2::text::encoder.
 
-    Copyright (C) 2007-2011 kaoru
+    Copyright (C) 2007-2012 kaoru
 
     $Id$
 */

@@ -1,7 +1,7 @@
 /*! \file
     \brief The type list for test_bobura.
 
-    Copyright (C) 2007-2011 kaoru
+    Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
