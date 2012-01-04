@@ -29,18 +29,18 @@
 #include "tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.gui.menu.main_menu.h"
 #include "tetengo2.gui.menu.menu.h"
+#include "tetengo2.gui.menu.menu_traits.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
 #include "tetengo2.gui.message.window_observer_set.h"
-#include "tetengo2.gui.traits.abstract_window_traits.h"
-#include "tetengo2.gui.traits.button_traits.h"
-#include "tetengo2.gui.traits.control_traits.h"
-#include "tetengo2.gui.traits.menu_traits.h"
-#include "tetengo2.gui.traits.widget_traits.h"
-#include "tetengo2.gui.traits.window_traits.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.widget.abstract_window.h"
+#include "tetengo2.gui.widget.traits.abstract_window_traits.h"
+#include "tetengo2.gui.widget.traits.button_traits.h"
+#include "tetengo2.gui.widget.traits.control_traits.h"
+#include "tetengo2.gui.widget.traits.widget_traits.h"
+#include "tetengo2.gui.widget.traits.window_traits.h"
 #include "tetengo2.gui.widget.window.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
@@ -137,7 +137,7 @@ namespace
         system_cursor_type;
 
     typedef
-        tetengo2::gui::traits::widget_traits<
+        tetengo2::gui::widget::traits::widget_traits<
             canvas_type,
             alert_type,
             position_type,
@@ -155,11 +155,13 @@ namespace
     typedef tetengo2::gui::drawing::color<unsigned char> color_type;
 
     typedef
-        tetengo2::gui::traits::control_traits<widget_traits_type, color_type>
+        tetengo2::gui::widget::traits::control_traits<
+            widget_traits_type, color_type
+        >
         control_traits_type;
 
     typedef
-        tetengo2::gui::traits::button_traits<control_traits_type>
+        tetengo2::gui::widget::traits::button_traits<control_traits_type>
         button_traits_type;
 
     typedef tetengo2::detail::stub::widget widget_details_type;
@@ -177,7 +179,7 @@ namespace
         button_type;
 
     typedef
-        tetengo2::gui::traits::menu_traits<
+        tetengo2::gui::menu::menu_traits<
             std::wstring,
             ui_encoder_type,
             tetengo2::gui::message::menu_observer_set
@@ -195,7 +197,7 @@ namespace
         main_menu_type;
 
     typedef
-        tetengo2::gui::traits::abstract_window_traits<
+        tetengo2::gui::widget::traits::abstract_window_traits<
             widget_traits_type,
             main_menu_type,
             tetengo2::gui::message::window_observer_set
@@ -203,7 +205,9 @@ namespace
         abstract_window_traits_type;
 
     typedef
-        tetengo2::gui::traits::window_traits<abstract_window_traits_type>
+        tetengo2::gui::widget::traits::window_traits<
+            abstract_window_traits_type
+        >
         window_traits_type;
 
     typedef

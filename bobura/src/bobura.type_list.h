@@ -50,6 +50,7 @@
 #include <tetengo2.gui.menu.menu.h>
 #include <tetengo2.gui.menu.menu_command.h>
 #include <tetengo2.gui.menu.menu_separator.h>
+#include <tetengo2.gui.menu.menu_traits.h>
 #include <tetengo2.gui.menu.popup_menu.h>
 #include <tetengo2.gui.message.dialog_message_loop.h>
 #include <tetengo2.gui.message.menu_observer_set.h>
@@ -58,22 +59,21 @@
 #include <tetengo2.gui.message.mouse_observer_set.h>
 #include <tetengo2.gui.message.paint_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
-#include <tetengo2.gui.traits.abstract_window_traits.h>
-#include <tetengo2.gui.traits.button_traits.h>
-#include <tetengo2.gui.traits.control_traits.h>
-#include <tetengo2.gui.traits.dialog_traits.h>
-#include <tetengo2.gui.traits.image_traits.h>
-#include <tetengo2.gui.traits.label_traits.h>
-#include <tetengo2.gui.traits.link_label_traits.h>
-#include <tetengo2.gui.traits.menu_traits.h>
-#include <tetengo2.gui.traits.widget_traits.h>
-#include <tetengo2.gui.traits.window_traits.h>
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.widget.button.h>
 #include <tetengo2.gui.widget.dialog.h>
 #include <tetengo2.gui.widget.image.h>
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
+#include <tetengo2.gui.widget.traits.abstract_window_traits.h>
+#include <tetengo2.gui.widget.traits.button_traits.h>
+#include <tetengo2.gui.widget.traits.control_traits.h>
+#include <tetengo2.gui.widget.traits.dialog_traits.h>
+#include <tetengo2.gui.widget.traits.image_traits.h>
+#include <tetengo2.gui.widget.traits.label_traits.h>
+#include <tetengo2.gui.widget.traits.link_label_traits.h>
+#include <tetengo2.gui.widget.traits.widget_traits.h>
+#include <tetengo2.gui.widget.traits.window_traits.h>
 #include <tetengo2.gui.widget.window.h>
 #include <tetengo2.message.messages.h>
 #include <tetengo2.message.message_catalog.h>
@@ -421,7 +421,7 @@ namespace bobura
             >
             system_cursor_type;
         typedef
-            tetengo2::gui::traits::widget_traits<
+            tetengo2::gui::widget::traits::widget_traits<
                 canvas_type,
                 alert_type,
                 position_type,
@@ -440,7 +440,7 @@ namespace bobura
             tetengo2::detail::windows::message_handler<widget_details_type>
             message_handler_details_type;
         typedef
-            tetengo2::gui::traits::menu_traits<
+            tetengo2::gui::menu::menu_traits<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 tetengo2::gui::message::menu_observer_set
@@ -461,14 +461,16 @@ namespace bobura
             >
             main_menu_type;
         typedef
-            tetengo2::gui::traits::abstract_window_traits<
+            tetengo2::gui::widget::traits::abstract_window_traits<
                 widget_traits_type,
                 main_menu_type,
                 tetengo2::gui::message::window_observer_set
             >
             abstract_window_traits_type;
         typedef
-            tetengo2::gui::traits::window_traits<abstract_window_traits_type>
+            tetengo2::gui::widget::traits::window_traits<
+                abstract_window_traits_type
+            >
             window_traits_type;
         typedef
             tetengo2::gui::widget::window<
@@ -483,7 +485,7 @@ namespace bobura
             >
             dialog_message_loop_type;
         typedef
-            tetengo2::gui::traits::dialog_traits<
+            tetengo2::gui::widget::traits::dialog_traits<
                 abstract_window_traits_type,
                 dialog_message_loop_type,
                 message_loop_break_type
@@ -498,12 +500,12 @@ namespace bobura
             dialog_type;
         typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
-            tetengo2::gui::traits::control_traits<
+            tetengo2::gui::widget::traits::control_traits<
                 widget_traits_type, color_type
             >
             control_traits_type;
         typedef
-            tetengo2::gui::traits::label_traits<control_traits_type>
+            tetengo2::gui::widget::traits::label_traits<control_traits_type>
             label_traits_type;
         typedef
             tetengo2::gui::widget::label<
@@ -513,7 +515,7 @@ namespace bobura
             >
             label_type;
         typedef
-            tetengo2::gui::traits::link_label_traits<label_traits_type>
+            tetengo2::gui::widget::traits::link_label_traits<label_traits_type>
             link_label_traits_type;
         typedef
             tetengo2::gui::widget::link_label<
@@ -523,7 +525,7 @@ namespace bobura
             >
             link_label_type;
         typedef
-            tetengo2::gui::traits::image_traits<
+            tetengo2::gui::widget::traits::image_traits<
                 control_traits_type, picture_type
             >
             image_traits_type;
@@ -535,7 +537,7 @@ namespace bobura
             >
             image_type;
         typedef
-            tetengo2::gui::traits::button_traits<control_traits_type>
+            tetengo2::gui::widget::traits::button_traits<control_traits_type>
             button_traits_type;
         typedef
             tetengo2::gui::widget::button<

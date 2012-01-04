@@ -1,16 +1,16 @@
 /*! \file
-    \brief The definition of tetengo2::gui::traits::control_traits.
+    \brief The definition of tetengo2::gui::widget::traits::control_traits.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_TRAITS_CONTROLTRAITS_H)
-#define TETENGO2_GUI_TRAITS_CONTROLTRAITS_H
+#if !defined(TETENGO2_GUI_WIDGET_TRAITS_CONTROLTRAITS_H)
+#define TETENGO2_GUI_WIDGET_TRAITS_CONTROLTRAITS_H
 
 
-namespace tetengo2 { namespace gui { namespace traits
+namespace tetengo2 { namespace gui { namespace widget { namespace traits
 {
     /*!
         \brief The traits class template for a control.
@@ -33,7 +33,7 @@ namespace tetengo2 { namespace gui { namespace traits
     };
 
 
-}}}
+}}}}
 
 
 #endif

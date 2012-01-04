@@ -36,9 +36,9 @@
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
-#include "tetengo2.gui.traits.widget_traits.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.widget.abstract_window.h"
+#include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
@@ -135,7 +135,7 @@ namespace
         system_cursor_type;
 
     typedef
-        tetengo2::gui::traits::widget_traits<
+        tetengo2::gui::widget::traits::widget_traits<
             canvas_type,
             alert_type,
             position_type,

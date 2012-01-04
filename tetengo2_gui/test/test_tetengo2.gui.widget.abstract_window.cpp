@@ -31,14 +31,14 @@
 #include "tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.gui.menu.main_menu.h"
 #include "tetengo2.gui.menu.menu.h"
+#include "tetengo2.gui.menu.menu_traits.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
 #include "tetengo2.gui.message.window_observer_set.h"
-#include "tetengo2.gui.traits.abstract_window_traits.h"
-#include "tetengo2.gui.traits.menu_traits.h"
-#include "tetengo2.gui.traits.widget_traits.h"
 #include "tetengo2.gui.unit.em.h"
+#include "tetengo2.gui.widget.traits.abstract_window_traits.h"
+#include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
@@ -135,7 +135,7 @@ namespace
         system_cursor_type;
 
     typedef
-        tetengo2::gui::traits::widget_traits<
+        tetengo2::gui::widget::traits::widget_traits<
             canvas_type,
             alert_type,
             position_type,
@@ -151,7 +151,7 @@ namespace
         widget_traits_type;
 
     typedef
-        tetengo2::gui::traits::menu_traits<
+        tetengo2::gui::menu::menu_traits<
             std::wstring,
             ui_encoder_type,
             tetengo2::gui::message::menu_observer_set
@@ -169,7 +169,7 @@ namespace
         main_menu_type;
 
     typedef
-        tetengo2::gui::traits::abstract_window_traits<
+        tetengo2::gui::widget::traits::abstract_window_traits<
             widget_traits_type,
             main_menu_type,
             tetengo2::gui::message::window_observer_set

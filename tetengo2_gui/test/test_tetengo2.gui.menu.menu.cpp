@@ -14,8 +14,8 @@
 
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.menu.h"
+#include "tetengo2.gui.menu.menu_traits.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
-#include "tetengo2.gui.traits.menu_traits.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
@@ -37,7 +37,7 @@ namespace
         tetengo2::text::encoder<encoding_type, encoding_type> encoder_type;
 
     typedef
-        tetengo2::gui::traits::menu_traits<
+        tetengo2::gui::menu::menu_traits<
             std::string,
             encoder_type,
             tetengo2::gui::message::menu_observer_set

@@ -10,9 +10,6 @@
     <Filter Include="headers\tetengo2::gui\drawing">
       <UniqueIdentifier>{ec77ce78-8f8b-4143-b3d0-fdf250201d84}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\tetengo2::gui\traits">
-      <UniqueIdentifier>{7fff864c-722e-40fe-95ec-6be896ae7240}</UniqueIdentifier>
-    </Filter>
     <Filter Include="headers\tetengo2::gui\unit">
       <UniqueIdentifier>{0468b3a4-d43c-4d49-841e-dc96e1bb257a}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="headers\tetengo2::gui\cursor">
       <UniqueIdentifier>{ba750395-8784-4e73-ac24-1f82418fbc0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\tetengo2::gui\widget\traits">
+      <UniqueIdentifier>{8ec3aa1c-a5da-4244-9d69-a90c4f8397ce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -68,36 +68,6 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.drawing.transparent_background.h">
       <Filter>headers\tetengo2::gui\drawing</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.abstract_window_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.window_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.button_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.control_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.dialog_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.image_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.label_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.link_label_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.menu_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.traits.widget_traits.h">
-      <Filter>headers\tetengo2::gui\traits</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.unit.em.h">
       <Filter>headers\tetengo2::gui\unit</Filter>
@@ -185,6 +155,36 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.cursor.system_cursor.h">
       <Filter>headers\tetengo2::gui\cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.menu.menu_traits.h">
+      <Filter>headers\tetengo2::gui\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.abstract_window_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.button_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.control_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.dialog_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.image_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.label_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.link_label_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.widget_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.widget.traits.window_traits.h">
+      <Filter>headers\tetengo2::gui\widget\traits</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

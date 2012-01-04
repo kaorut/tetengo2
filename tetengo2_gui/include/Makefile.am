@@ -23,6 +23,7 @@ headers = \
     tetengo2.gui.menu.menu.h \
     tetengo2.gui.menu.menu_command.h \
     tetengo2.gui.menu.menu_separator.h \
+    tetengo2.gui.menu.menu_traits.h \
     tetengo2.gui.menu.popup_menu.h \
     tetengo2.gui.menu.recursive_menu_iterator.h \
     tetengo2.gui.message.dialog_message_loop.h \
@@ -32,16 +33,6 @@ headers = \
     tetengo2.gui.message.mouse_observer_set.h \
     tetengo2.gui.message.paint_observer_set.h \
     tetengo2.gui.message.window_observer_set.h \
-    tetengo2.gui.traits.abstract_window_traits.h \
-    tetengo2.gui.traits.button_traits.h \
-    tetengo2.gui.traits.control_traits.h \
-    tetengo2.gui.traits.dialog_traits.h \
-    tetengo2.gui.traits.image_traits.h \
-    tetengo2.gui.traits.label_traits.h \
-    tetengo2.gui.traits.link_label_traits.h \
-    tetengo2.gui.traits.menu_traits.h \
-    tetengo2.gui.traits.widget_traits.h \
-    tetengo2.gui.traits.window_traits.h \
     tetengo2.gui.unit.em.h \
     tetengo2.gui.unit.pixel.h \
     tetengo2.gui.unit.unit.h \
@@ -52,6 +43,15 @@ headers = \
     tetengo2.gui.widget.image.h \
     tetengo2.gui.widget.label.h \
     tetengo2.gui.widget.link_label.h \
+    tetengo2.gui.widget.traits.abstract_window_traits.h \
+    tetengo2.gui.widget.traits.button_traits.h \
+    tetengo2.gui.widget.traits.control_traits.h \
+    tetengo2.gui.widget.traits.dialog_traits.h \
+    tetengo2.gui.widget.traits.image_traits.h \
+    tetengo2.gui.widget.traits.label_traits.h \
+    tetengo2.gui.widget.traits.link_label_traits.h \
+    tetengo2.gui.widget.traits.widget_traits.h \
+    tetengo2.gui.widget.traits.window_traits.h \
     tetengo2.gui.widget.widget.h \
     tetengo2.gui.widget.window.h
 
