@@ -174,7 +174,7 @@ typedef
     canvas_type;
 
 typedef
-    tetengo2::gui::system_cursor<tetengo2::detail::stub::cursor>
+    tetengo2::gui::cursor::system_cursor<tetengo2::detail::stub::cursor>
     system_cursor_type;
 
 typedef

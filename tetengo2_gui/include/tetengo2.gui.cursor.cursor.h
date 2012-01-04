@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::cursor.
+    \brief The definition of tetengo2::gui::cursor::cursor.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_CURSOR_H)
-#define TETENGO2_GUI_CURSOR_H
+#if !defined(TETENGO2_GUI_CURSOR_CURSOR_H)
+#define TETENGO2_GUI_CURSOR_CURSOR_H
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
@@ -15,7 +15,7 @@
 #include "tetengo2.cpp11.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace cursor
 {
     /*!
         \brief The class template for a cursor.
@@ -98,7 +98,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif

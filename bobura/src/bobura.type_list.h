@@ -416,7 +416,9 @@ namespace bobura
             >
             alert_type;
         typedef
-            tetengo2::gui::system_cursor<tetengo2::detail::windows::cursor>
+            tetengo2::gui::cursor::system_cursor<
+                tetengo2::detail::windows::cursor
+            >
             system_cursor_type;
         typedef
             tetengo2::gui::traits::widget_traits<

@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::system_cursor.
+    \brief The definition of tetengo2::gui::cursor::system_cursor.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_SYSTEMCURSOR_H)
-#define TETENGO2_GUI_SYSTEMCURSOR_H
+#if !defined(TETENGO2_GUI_CURSOR_SYSTEMCURSOR_H)
+#define TETENGO2_GUI_CURSOR_SYSTEMCURSOR_H
 
 //#include <boost/optional.hpp>
 
@@ -15,7 +15,7 @@
 #include "tetengo2.gui.cursor.cursor.h"
 
 
-namespace tetengo2 { namespace gui
+namespace tetengo2 { namespace gui { namespace cursor
 {
     /*!
         \brief The class template for a system cursor.
@@ -115,7 +115,7 @@ namespace tetengo2 { namespace gui
     };
 
 
-}}
+}}}
 
 
 #endif
