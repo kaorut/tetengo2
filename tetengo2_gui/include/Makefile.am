@@ -5,7 +5,8 @@
 headers = \
     tetengo2.gui.alert.h \
     tetengo2.gui.common_dialog.file_open.h \
-    tetengo2.gui.cursor.h \
+    tetengo2.gui.cursor.cursor.h \
+    tetengo2.gui.cursor.system_cursor.h \
     tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.canvas.h \
     tetengo2.gui.drawing.color.h \
@@ -31,7 +32,6 @@ headers = \
     tetengo2.gui.message.mouse_observer_set.h \
     tetengo2.gui.message.paint_observer_set.h \
     tetengo2.gui.message.window_observer_set.h \
-    tetengo2.gui.system_cursor.h \
     tetengo2.gui.traits.abstract_window_traits.h \
     tetengo2.gui.traits.button_traits.h \
     tetengo2.gui.traits.control_traits.h \

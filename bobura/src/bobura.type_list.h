@@ -36,6 +36,7 @@
 #include <tetengo2.detail.windows.widget.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
+#include <tetengo2.gui.cursor.system_cursor.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
@@ -57,7 +58,6 @@
 #include <tetengo2.gui.message.mouse_observer_set.h>
 #include <tetengo2.gui.message.paint_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
-#include <tetengo2.gui.system_cursor.h>
 #include <tetengo2.gui.traits.abstract_window_traits.h>
 #include <tetengo2.gui.traits.button_traits.h>
 #include <tetengo2.gui.traits.control_traits.h>

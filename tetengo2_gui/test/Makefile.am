@@ -10,7 +10,8 @@ sources = \
     master.cpp \
     test_tetengo2.gui.alert.cpp \
     test_tetengo2.gui.common_dialog.file_open.cpp \
-    test_tetengo2.gui.cursor.cpp \
+    test_tetengo2.gui.cursor.cursor.cpp \
+    test_tetengo2.gui.cursor.system_cursor.cpp \
     test_tetengo2.gui.drawing.background.cpp \
     test_tetengo2.gui.drawing.canvas.cpp \
     test_tetengo2.gui.drawing.color.cpp \
@@ -36,7 +37,6 @@ sources = \
     test_tetengo2.gui.message.mouse_observer_set.cpp \
     test_tetengo2.gui.message.paint_observer_set.cpp \
     test_tetengo2.gui.message.window_observer_set.cpp \
-    test_tetengo2.gui.system_cursor.cpp \
     test_tetengo2.gui.unit.em.cpp \
     test_tetengo2.gui.unit.pixel.cpp \
     test_tetengo2.gui.unit.unit.cpp \

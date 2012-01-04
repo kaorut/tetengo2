@@ -96,7 +96,8 @@
     <ClCompile Include="test\master.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.alert.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.cursor.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.cursor.cursor.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.cursor.system_cursor.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.color.cpp" />
@@ -122,7 +123,6 @@
     <ClCompile Include="test\test_tetengo2.gui.message.mouse_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.paint_observer_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.message.window_observer_set.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.system_cursor.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.em.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.pixel.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.unit.unit.cpp" />

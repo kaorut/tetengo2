@@ -28,21 +28,18 @@
     <Filter Include="headers\tetengo2::gui\widget">
       <UniqueIdentifier>{5c2aa99a-658e-44bb-b1f9-8ae6f5ab06bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\tetengo2::gui\cursor">
+      <UniqueIdentifier>{ba750395-8784-4e73-ac24-1f82418fbc0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\tetengo2.gui.alert.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.cursor.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.fixture.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.measure.h">
-      <Filter>headers\tetengo2::gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.system_cursor.h">
       <Filter>headers\tetengo2::gui</Filter>
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.drawing.background.h">
@@ -182,6 +179,12 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.widget.window.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.cursor.cursor.h">
+      <Filter>headers\tetengo2::gui\cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.cursor.system_cursor.h">
+      <Filter>headers\tetengo2::gui\cursor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

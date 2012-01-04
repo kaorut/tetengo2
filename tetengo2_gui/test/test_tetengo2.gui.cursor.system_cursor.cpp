@@ -10,7 +10,7 @@
 
 #include "tetengo2.detail.stub.cursor.h"
 
-#include "tetengo2.gui.system_cursor.h"
+#include "tetengo2.gui.cursor.system_cursor.h"
 
 
 namespace

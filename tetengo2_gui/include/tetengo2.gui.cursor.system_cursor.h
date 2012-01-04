@@ -12,7 +12,7 @@
 //#include <boost/optional.hpp>
 
 #include "tetengo2.cpp11.h"
-#include "tetengo2.gui.cursor.h"
+#include "tetengo2.gui.cursor.cursor.h"
 
 
 namespace tetengo2 { namespace gui

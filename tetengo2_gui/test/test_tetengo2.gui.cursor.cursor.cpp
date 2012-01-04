@@ -11,7 +11,7 @@
 
 #include "tetengo2.detail.stub.cursor.h"
 
-#include "tetengo2.gui.cursor.h"
+#include "tetengo2.gui.cursor.cursor.h"
 
 
 namespace
