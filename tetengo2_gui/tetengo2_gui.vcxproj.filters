@@ -150,9 +150,6 @@
     <ClInclude Include="include\tetengo2.gui.widget.window.h">
       <Filter>headers\tetengo2::gui\widget</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.gui.cursor.cursor.h">
-      <Filter>headers\tetengo2::gui\cursor</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.gui.cursor.system_cursor.h">
       <Filter>headers\tetengo2::gui\cursor</Filter>
     </ClInclude>
@@ -185,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="include\tetengo2.gui.widget.traits.window_traits.h">
       <Filter>headers\tetengo2::gui\widget\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.cursor.cursor_base.h">
+      <Filter>headers\tetengo2::gui\cursor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

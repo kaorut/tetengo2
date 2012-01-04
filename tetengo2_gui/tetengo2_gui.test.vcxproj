@@ -96,7 +96,7 @@
     <ClCompile Include="test\master.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.alert.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp" />
-    <ClCompile Include="test\test_tetengo2.gui.cursor.cursor.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.cursor.cursor_base.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.cursor.system_cursor.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.canvas.cpp" />

@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::cursor::cursor.
+    \brief The definition of tetengo2::gui::cursor::cursor_base.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -18,12 +18,12 @@
 namespace tetengo2 { namespace gui { namespace cursor
 {
     /*!
-        \brief The class template for a cursor.
+        \brief The class template for a cursor base.
 
         \tparam CursorDetails A detail implementation type of a cursor.
     */
     template <typename CursorDetails>
-    class cursor : private boost::noncopyable
+    class cursor_base : private boost::noncopyable
     {
     public:
         // types
@@ -44,9 +44,9 @@ namespace tetengo2 { namespace gui { namespace cursor
         // constructors and destructor
 
         /*!
-            \brief Destroys the cursor.
+            \brief Destroys the cursor_base.
         */
-        virtual ~cursor()
+        virtual ~cursor_base()
         TETENGO2_CPP11_NOEXCEPT
         {}
 
@@ -79,9 +79,9 @@ namespace tetengo2 { namespace gui { namespace cursor
         // constructors and destructor
 
         /*!
-            \brief Creates a cursor.
+            \brief Creates a cursor base.
         */
-        cursor()
+        cursor_base()
         {}
 
 

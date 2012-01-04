@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::cursor::cursor.
+    \brief Test of class tetengo2::gui::cursor::cursor_base.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -11,7 +11,7 @@
 
 #include "tetengo2.detail.stub.cursor.h"
 
-#include "tetengo2.gui.cursor.cursor.h"
+#include "tetengo2.gui.cursor.cursor_base.h"
 
 
 namespace
@@ -19,7 +19,7 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::cursor::cursor<tetengo2::detail::stub::cursor>
+        tetengo2::gui::cursor::cursor_base<tetengo2::detail::stub::cursor>
         cursor_type;
 
     class concrete_cursor_type : public cursor_type
@@ -54,7 +54,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(cursor)
-BOOST_AUTO_TEST_SUITE(cursor)
+BOOST_AUTO_TEST_SUITE(cursor_base)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

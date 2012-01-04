@@ -161,10 +161,10 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.window.cpp">
       <Filter>sources\test_tetengo2::gui\widget</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.cursor.cursor.cpp">
+    <ClCompile Include="test\test_tetengo2.gui.cursor.system_cursor.cpp">
       <Filter>sources\test_tetengo2::gui\cursor</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.cursor.system_cursor.cpp">
+    <ClCompile Include="test\test_tetengo2.gui.cursor.cursor_base.cpp">
       <Filter>sources\test_tetengo2::gui\cursor</Filter>
     </ClCompile>
   </ItemGroup>

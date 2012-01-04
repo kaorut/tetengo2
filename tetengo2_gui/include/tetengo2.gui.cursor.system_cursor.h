@@ -12,7 +12,7 @@
 //#include <boost/optional.hpp>
 
 #include "tetengo2.cpp11.h"
-#include "tetengo2.gui.cursor.cursor.h"
+#include "tetengo2.gui.cursor.cursor_base.h"
 
 
 namespace tetengo2 { namespace gui { namespace cursor
@@ -23,7 +23,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         \tparam CursorDetails A detail implementation type of a cursor.
     */
     template <typename CursorDetails>
-    class system_cursor : public cursor<CursorDetails>
+    class system_cursor : public cursor_base<CursorDetails>
     {
     public:
         // types
@@ -32,7 +32,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         typedef CursorDetails cursor_details_type;
 
         //! The base type.
-        typedef cursor<cursor_details_type> base_type;
+        typedef cursor_base<cursor_details_type> base_type;
 
         //! The detail implementation type.
         typedef
