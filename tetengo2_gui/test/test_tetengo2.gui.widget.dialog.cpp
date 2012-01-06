@@ -28,7 +28,6 @@
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.gui.menu.menu_bar.h"
-#include "tetengo2.gui.menu.menu_base.h"
 #include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.message.dialog_message_loop.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
@@ -161,10 +160,6 @@ namespace
         menu_traits_type;
 
     typedef tetengo2::detail::stub::menu menu_details_type;
-
-    typedef
-        tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type>
-        menu_base_type;
 
     typedef
         tetengo2::gui::menu::menu_bar<menu_traits_type, menu_details_type>

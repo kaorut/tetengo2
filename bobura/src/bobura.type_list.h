@@ -48,7 +48,6 @@
 #include <tetengo2.gui.menu.abstract_popup.h>
 #include <tetengo2.gui.menu.command.h>
 #include <tetengo2.gui.menu.menu_bar.h>
-#include <tetengo2.gui.menu.menu_base.h>
 #include <tetengo2.gui.menu.popup.h>
 #include <tetengo2.gui.menu.separator.h>
 #include <tetengo2.gui.menu.traits.h>
@@ -445,11 +444,6 @@ namespace bobura
             >
             menu_traits_type;
         typedef tetengo2::detail::windows::menu menu_details_type;
-        typedef
-            tetengo2::gui::menu::menu_base<
-                menu_traits_type, menu_details_type
-            >
-            menu_base_type;
         typedef
             tetengo2::gui::menu::abstract_popup<
                 menu_traits_type, menu_details_type
