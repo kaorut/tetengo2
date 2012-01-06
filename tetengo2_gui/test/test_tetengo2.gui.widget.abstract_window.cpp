@@ -165,13 +165,13 @@ namespace
         menu_type;
 
     typedef
-        tetengo2::gui::menu::main_menu<menu_traits_type, menu_details_type>
-        main_menu_type;
+        tetengo2::gui::menu::menu_bar<menu_traits_type, menu_details_type>
+        menu_bar_type;
 
     typedef
         tetengo2::gui::widget::traits::abstract_window_traits<
             widget_traits_type,
-            main_menu_type,
+            menu_bar_type,
             tetengo2::gui::message::window_observer_set
         >
         abstract_window_traits_type;
@@ -249,71 +249,71 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         window.activate();
     }
 
-    BOOST_AUTO_TEST_CASE(has_main_menu)
+    BOOST_AUTO_TEST_CASE(has_menu_bar)
     {
         BOOST_TEST_PASSPOINT();
 
         {
             const concrete_window window;
 
-            BOOST_CHECK(!window.has_main_menu());
+            BOOST_CHECK(!window.has_menu_bar());
         }
         {
             concrete_window window;
 
-            std::unique_ptr<main_menu_type> p_main_menu(
-                tetengo2::make_unique<main_menu_type>()
+            std::unique_ptr<menu_bar_type> p_menu_bar(
+                tetengo2::make_unique<menu_bar_type>()
             );
-            window.set_main_menu(std::move(p_main_menu));
+            window.set_menu_bar(std::move(p_menu_bar));
 
-            BOOST_CHECK(window.has_main_menu());
+            BOOST_CHECK(window.has_menu_bar());
        }
     }
 
-    BOOST_AUTO_TEST_CASE(main_menu)
+    BOOST_AUTO_TEST_CASE(menu_bar)
     {
         BOOST_TEST_PASSPOINT();
 
         {
             const concrete_window window;
 
-            BOOST_CHECK_THROW(window.main_menu(), std::logic_error);
+            BOOST_CHECK_THROW(window.menu_bar(), std::logic_error);
         }
         {
             concrete_window window;
 
-            BOOST_CHECK_THROW(window.main_menu(), std::logic_error);
+            BOOST_CHECK_THROW(window.menu_bar(), std::logic_error);
         }
         {
             concrete_window window;
 
-            std::unique_ptr<main_menu_type> p_main_menu(
-                tetengo2::make_unique<main_menu_type>()
+            std::unique_ptr<menu_bar_type> p_menu_bar(
+                tetengo2::make_unique<menu_bar_type>()
             );
-            window.set_main_menu(std::move(p_main_menu));
+            window.set_menu_bar(std::move(p_menu_bar));
 
-            window.main_menu();
+            window.menu_bar();
 
             const abstract_window_type& const_window = window;
-            const_window.main_menu();
+            const_window.menu_bar();
         }
     }
 
-    BOOST_AUTO_TEST_CASE(set_main_menu)
+    BOOST_AUTO_TEST_CASE(set_menu_bar)
     {
         BOOST_TEST_PASSPOINT();
 
         concrete_window window;
 
-        std::unique_ptr<main_menu_type> p_main_menu(
-            tetengo2::make_unique<main_menu_type>()
+        std::unique_ptr<menu_bar_type> p_menu_bar(
+            tetengo2::make_unique<menu_bar_type>()
         );
-        window.set_main_menu(std::move(p_main_menu));
+        window.set_menu_bar(std::move(p_menu_bar));
 
-        std::unique_ptr<main_menu_type> p_main_menu2(
-            tetengo2::make_unique<main_menu_type>()
+        std::unique_ptr<menu_bar_type> p_menu_bar2(
+            tetengo2::make_unique<menu_bar_type>()
         );
-        window.set_main_menu(std::move(p_main_menu2));
+        window.set_menu_bar(std::move(p_menu_bar2));
     }
 
     BOOST_AUTO_TEST_CASE(window_observer_set)

@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::menu::main_menu.
+    \brief Test of class tetengo2::gui::menu::menu_bar.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -44,8 +44,8 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu::main_menu<menu_traits_type, menu_details_type>
-        main_menu_type;
+        tetengo2::gui::menu::menu_bar<menu_traits_type, menu_details_type>
+        menu_bar_type;
 
 
 }
@@ -54,24 +54,24 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(menu)
-BOOST_AUTO_TEST_SUITE(main_menu)
+BOOST_AUTO_TEST_SUITE(menu_bar)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
 
-        const main_menu_type main_menu;
+        const menu_bar_type menu_bar;
     }
 
     BOOST_AUTO_TEST_CASE(style)
     {
         BOOST_TEST_PASSPOINT();
 
-        const main_menu_type main_menu;
+        const menu_bar_type menu_bar;
 
         BOOST_CHECK(
-            &main_menu.style() == &menu_details_type::main_menu_style()
+            &menu_bar.style() == &menu_details_type::menu_bar_style()
         );
     }
 

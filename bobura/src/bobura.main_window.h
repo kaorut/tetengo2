@@ -111,9 +111,9 @@ namespace bobura
     private:
         //types
 
-        typedef typename base_type::main_menu_type main_menu_type;
+        typedef typename base_type::menu_bar_type menu_bar_type;
 
-        typedef typename main_menu_type::base_type::base_type menu_type;
+        typedef typename menu_bar_type::base_type::base_type menu_type;
 
         typedef
             typename menu_type::menu_observer_set_type menu_observer_set_type;
@@ -193,8 +193,8 @@ namespace bobura
 
         void set_menus()
         {
-            std::unique_ptr<main_menu_type> p_main_menu(
-                tetengo2::make_unique<main_menu_type>()
+            std::unique_ptr<menu_bar_type> p_menu_bar(
+                tetengo2::make_unique<menu_bar_type>()
             );
 
             {
@@ -245,8 +245,8 @@ namespace bobura
                     >::type(*this)
                 );
 
-                p_main_menu->insert(
-                    p_main_menu->end(), std::move(p_popup_menu)
+                p_menu_bar->insert(
+                    p_menu_bar->end(), std::move(p_popup_menu)
                 );
             }
             {
@@ -267,12 +267,12 @@ namespace bobura
                     >::type(*this, m_message_catalog, m_settings)
                 );
 
-                p_main_menu->insert(
-                    p_main_menu->end(), std::move(p_popup_menu)
+                p_menu_bar->insert(
+                    p_menu_bar->end(), std::move(p_popup_menu)
                 );
             }
 
-            this->set_main_menu(std::move(p_main_menu));
+            this->set_menu_bar(std::move(p_menu_bar));
         }
 
 

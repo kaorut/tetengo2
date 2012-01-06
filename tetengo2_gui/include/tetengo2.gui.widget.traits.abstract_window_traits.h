@@ -16,12 +16,12 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \brief The traits class template for an abstract window.
 
         \tparam WidgetTraits      A traits type for a GUI widget.
-        \tparam MainMenu          A main menu type.
+        \tparam MenuBar           A menu bar type.
         \tparam WindowObserverSet A window observer set type.
    */
     template <
         typename WidgetTraits,
-        typename MainMenu,
+        typename MenuBar,
         typename WindowObserverSet
     >
     struct abstract_window_traits
@@ -31,8 +31,8 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //! The base type.
         typedef WidgetTraits base_type;
 
-        //! The main menu type.
-        typedef MainMenu main_menu_type;
+        //! The menu bar type.
+        typedef MenuBar menu_bar_type;
 
         //! The window observer set type.
         typedef WindowObserverSet window_observer_set_type;

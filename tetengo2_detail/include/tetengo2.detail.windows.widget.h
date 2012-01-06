@@ -1087,17 +1087,17 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Assigns a main menu on a widget.
+            \brief Assigns a menu bar on a widget.
 
             \tparam Widget A widget type.
             \tparam Menu   A menu type.
 
             \param widget A widget.
             \param menu   A menu.
-                          It may be uninitialized to remove a main menu.
+                          It may be uninitialized to remove a menu bar.
         */
         template <typename Widget, typename Menu>
-        static void set_main_menu(
+        static void set_menu_bar(
             Widget&                             widget,
             const boost::optional<const Menu&>& menu = boost::none
         )
@@ -1110,14 +1110,14 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't set a main menu.")
+                    std::runtime_error("Can't set a menu bar.")
                 );
             }
 
             if (menu && ::DrawMenuBar(widget.details()->first.get()) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't draw the main menu.")
+                    std::runtime_error("Can't draw the menu bar.")
                 );
             }
         }

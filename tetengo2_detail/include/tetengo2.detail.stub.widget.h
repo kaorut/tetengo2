@@ -608,17 +608,17 @@ namespace tetengo2 { namespace detail { namespace stub
         {}
 
         /*!
-            \brief Assigns a main menu on a widget.
+            \brief Assigns a menu bar on a widget.
 
             \tparam Widget A widget type.
             \tparam Menu   A menu type.
 
             \param widget A widget.
             \param menu   A menu.
-                          It may be uninitialized to remove a main menu.
+                          It may be uninitialized to remove a menu bar.
         */
         template <typename Widget, typename Menu>
-        static void set_main_menu(
+        static void set_menu_bar(
             Widget&                             widget,
             const boost::optional<const Menu&>& menu = boost::none
         )

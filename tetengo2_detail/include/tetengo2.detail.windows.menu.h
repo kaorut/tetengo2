@@ -96,11 +96,11 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         /*!
-            \brief Creates a main menu.
+            \brief Creates a menu bar.
 
-            \return A unque pointer to a main menu.
+            \return A unque pointer to a menu bar.
         */
-        static menu_details_ptr_type create_main_menu()
+        static menu_details_ptr_type create_menu_bar()
         {
             menu_details_ptr_type p_menu(
                 make_unique<menu_details_type>(
@@ -110,7 +110,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_menu->second)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a main menu.")
+                    std::runtime_error("Can't create a menu bar.")
                 );
             }
 
@@ -224,13 +224,13 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Returns the main menu style.
+            \brief Returns the menu bar style.
 
-            \return The main menu style.
+            \return The menu bar style.
         */
-        static const style_tag& main_menu_style()
+        static const style_tag& menu_bar_style()
         {
-            static const main_menu_style_tag singleton;
+            static const menu_bar_style_tag singleton;
             return singleton;
         }
 
@@ -271,7 +271,7 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // types
 
-        struct main_menu_style_tag : public style_tag
+        struct menu_bar_style_tag : public style_tag
         {
             virtual void set_style(
                 const menu_details_type& details,
@@ -282,7 +282,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 assert(false);
                 BOOST_THROW_EXCEPTION(
-                    std::logic_error("A main menu cannot be inserted.")
+                    std::logic_error("A menu bar cannot be inserted.")
                 );
             }
         };

@@ -63,8 +63,8 @@ namespace tetengo2 { namespace gui { namespace widget
             >
             base_type;
 
-        //! The main menu type.
-        typedef typename traits_type::main_menu_type main_menu_type;
+        //! The menu bar type.
+        typedef typename traits_type::menu_bar_type menu_bar_type;
 
         //! The window observer set type.
         typedef
@@ -92,84 +92,84 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
-            \brief Returns true when the abstract window has a main menu.
+            \brief Returns true when the abstract window has a menu bar.
 
-            \retval true  When the abstract window has a main menu.
+            \retval true  When the abstract window has a menu bar.
             \retval false Otherwise.
         */
-        bool has_main_menu()
+        bool has_menu_bar()
         const
         {
-            return static_cast<bool>(m_p_main_menu);
+            return static_cast<bool>(m_p_menu_bar);
         }
 
         /*!
-            \brief Returns the main menu.
+            \brief Returns the menu bar.
 
-            \return The main menu.
+            \return The menu bar.
 
             \throw std::logic_error When the abstract window does not have a
                                     main menu.
         */
-        const main_menu_type& main_menu()
+        const menu_bar_type& menu_bar()
         const
         {
-            if(!has_main_menu())
+            if(!has_menu_bar())
             {
                 BOOST_THROW_EXCEPTION(
                     std::logic_error(
-                        "The abstract window does not have a main menu."
+                        "The abstract window does not have a menu bar."
                     )
                 );
             }
 
-            return *m_p_main_menu;
+            return *m_p_menu_bar;
         }
 
         /*!
-            \brief Returns the main menu.
+            \brief Returns the menu bar.
 
-            \return The main menu.
+            \return The menu bar.
 
             \throw std::logic_error When the abstract window does not have a
                                     main menu.
         */
-        main_menu_type& main_menu()
+        menu_bar_type& menu_bar()
         {
-            if(!has_main_menu())
+            if(!has_menu_bar())
             {
                 BOOST_THROW_EXCEPTION(
                     std::logic_error(
-                        "The abstract window does not have a main menu."
+                        "The abstract window does not have a menu bar."
                     )
                 );
             }
 
-            return *m_p_main_menu;
+            return *m_p_menu_bar;
         }
 
         /*!
-            \brief Sets a main menu.
+            \brief Sets a menu bar.
 
-            When p_main_menu is NULL, the currently associated main menu is
+            When p_menu_bar is NULL, the currently associated main menu is
             destroyed.
 
-            \param p_main_menu A unique pointer to a main menu.
+            \param p_menu_bar A unique pointer to a menu bar.
         */
-        void set_main_menu(std::unique_ptr<main_menu_type> p_main_menu)
+        void set_menu_bar(std::unique_ptr<menu_bar_type> p_menu_bar)
         {
-            widget_details_type::set_main_menu(
-                *this, boost::optional<const main_menu_type&>()
+            widget_details_type::set_menu_bar(
+                *this, boost::optional<const menu_bar_type&>()
             );
 
-            if (p_main_menu)
+            if (p_menu_bar)
             {
-                widget_details_type::set_main_menu(
+                widget_details_type::set_menu_bar(
                     *this,
-                    boost::make_optional<const main_menu_type&>(*p_main_menu)
+                    boost::make_optional<const menu_bar_type&>(*p_menu_bar)
                 );
             }
-            m_p_main_menu = std::move(p_main_menu);
+            m_p_menu_bar = std::move(p_menu_bar);
         }
 
         /*!
@@ -235,7 +235,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_p_main_menu(),
+        m_p_menu_bar(),
         m_window_observer_set()
         {}
 
@@ -250,7 +250,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // variables
 
-        std::unique_ptr<main_menu_type> m_p_main_menu;
+        std::unique_ptr<menu_bar_type> m_p_menu_bar;
 
         window_observer_set_type m_window_observer_set;
 

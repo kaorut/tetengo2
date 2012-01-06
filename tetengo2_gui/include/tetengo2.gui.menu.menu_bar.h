@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu::main_menu.
+    \brief The definition of tetengo2::gui::menu::menu_bar.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -16,13 +16,13 @@
 namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
-        \brief The class template for a main menu.
+        \brief The class template for a menu bar.
 
         \tparam Traits      A traits type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class main_menu : public abstract_popup<Traits, MenuDetails>
+    class menu_bar : public abstract_popup<Traits, MenuDetails>
     {
     public:
         // types
@@ -40,17 +40,17 @@ namespace tetengo2 { namespace gui { namespace menu
         // constructors and destructor
 
         /*!
-            \brief Creates a main menu.
+            \brief Creates a menu bar.
         */
-        main_menu()
+        menu_bar()
         :
-        base_type(string_type(), menu_details_type::create_main_menu())
+        base_type(string_type(), menu_details_type::create_menu_bar())
         {}
 
         /*!
-            \brief Destroys the main menu.
+            \brief Destroys the menu bar.
         */
-        virtual ~main_menu()
+        virtual ~menu_bar()
         TETENGO2_CPP11_NOEXCEPT
         {}
 
@@ -68,7 +68,7 @@ namespace tetengo2 { namespace gui { namespace menu
         virtual const style_type& style_impl()
         const
         {
-            return menu_details_type::main_menu_style();
+            return menu_details_type::menu_bar_style();
         }
 
 

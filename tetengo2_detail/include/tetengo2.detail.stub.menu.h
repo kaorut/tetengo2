@@ -35,11 +35,11 @@ namespace tetengo2 { namespace detail { namespace stub
         // static functions
 
         /*!
-            \brief Creates a main menu.
+            \brief Creates a menu bar.
 
-            \return A unque pointer to a main menu.
+            \return A unque pointer to a menu bar.
         */
-        static menu_details_ptr_type create_main_menu()
+        static menu_details_ptr_type create_menu_bar()
         {
             return menu_details_ptr_type();
         }
@@ -110,11 +110,11 @@ namespace tetengo2 { namespace detail { namespace stub
         {}
 
         /*!
-            \brief Returns the main menu style.
+            \brief Returns the menu bar style.
 
-            \return The main menu style.
+            \return The menu bar style.
         */
-        static const style_tag& main_menu_style()
+        static const style_tag& menu_bar_style()
         {
             static const style_tag singleton = style_tag();
             return singleton;

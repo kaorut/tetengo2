@@ -194,13 +194,13 @@ namespace
         menu_type;
 
     typedef
-        tetengo2::gui::menu::main_menu<menu_traits_type, menu_details_type>
-        main_menu_type;
+        tetengo2::gui::menu::menu_bar<menu_traits_type, menu_details_type>
+        menu_bar_type;
 
     typedef
         tetengo2::gui::widget::traits::abstract_window_traits<
             widget_traits_type,
-            main_menu_type,
+            menu_bar_type,
             tetengo2::gui::message::window_observer_set
         >
         abstract_window_traits_type;
