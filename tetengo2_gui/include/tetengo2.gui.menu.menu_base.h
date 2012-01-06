@@ -22,7 +22,7 @@
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp11.h"
-#include "tetengo2.gui.menu.recursive_menu_iterator.h"
+#include "tetengo2.gui.menu.recursive_iterator.h"
 
 
 namespace tetengo2 { namespace gui { namespace menu

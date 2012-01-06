@@ -18,14 +18,14 @@ headers = \
     tetengo2.gui.drawing.widget_canvas.h \
     tetengo2.gui.fixture.h \
     tetengo2.gui.measure.h \
-    tetengo2.gui.menu.abstract_popup_menu.h \
-    tetengo2.gui.menu.main_menu.h \
-    tetengo2.gui.menu.menu.h \
-    tetengo2.gui.menu.menu_command.h \
-    tetengo2.gui.menu.menu_separator.h \
-    tetengo2.gui.menu.menu_traits.h \
-    tetengo2.gui.menu.popup_menu.h \
-    tetengo2.gui.menu.recursive_menu_iterator.h \
+    tetengo2.gui.menu.abstract_popup.h \
+    tetengo2.gui.menu.command.h \
+    tetengo2.gui.menu.menu_bar.h \
+    tetengo2.gui.menu.menu_base.h \
+    tetengo2.gui.menu.popup.h \
+    tetengo2.gui.menu.recursive_iterator.h \
+    tetengo2.gui.menu.separator.h \
+    tetengo2.gui.menu.traits.h \
     tetengo2.gui.message.dialog_message_loop.h \
     tetengo2.gui.message.menu_observer_set.h \
     tetengo2.gui.message.message_loop.h \

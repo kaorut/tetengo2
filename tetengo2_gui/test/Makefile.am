@@ -23,13 +23,13 @@ sources = \
     test_tetengo2.gui.drawing.widget_canvas.cpp \
     test_tetengo2.gui.fixture.cpp \
     test_tetengo2.gui.measure.cpp \
-    test_tetengo2.gui.menu.abstract_popup_menu.cpp \
-    test_tetengo2.gui.menu.main_menu.cpp \
-    test_tetengo2.gui.menu.menu.cpp \
-    test_tetengo2.gui.menu.menu_command.cpp \
-    test_tetengo2.gui.menu.menu_separator.cpp \
-    test_tetengo2.gui.menu.popup_menu.cpp \
-    test_tetengo2.gui.menu.recursive_menu_iterator.cpp \
+    test_tetengo2.gui.menu.abstract_popup.cpp \
+    test_tetengo2.gui.menu.command.cpp \
+    test_tetengo2.gui.menu.menu_bar.cpp \
+    test_tetengo2.gui.menu.menu_base.cpp \
+    test_tetengo2.gui.menu.popup.cpp \
+    test_tetengo2.gui.menu.recursive_iterator.cpp \
+    test_tetengo2.gui.menu.separator.cpp \
     test_tetengo2.gui.message.dialog_message_loop.cpp \
     test_tetengo2.gui.message.menu_observer_set.cpp \
     test_tetengo2.gui.message.message_loop.cpp \

@@ -10,7 +10,7 @@
 #define TETENGO2_GUI_MENU_MAINMENU_H
 
 #include "tetengo2.cpp11.h"
-#include "tetengo2.gui.menu.abstract_popup_menu.h"
+#include "tetengo2.gui.menu.abstract_popup.h"
 
 
 namespace tetengo2 { namespace gui { namespace menu

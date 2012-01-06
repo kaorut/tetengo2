@@ -16,13 +16,13 @@
 
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.menu.h"
-#include "tetengo2.gui.menu.menu_traits.h"
+#include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
 
-#include "tetengo2.gui.menu.abstract_popup_menu.h"
+#include "tetengo2.gui.menu.abstract_popup.h"
 
 
 namespace

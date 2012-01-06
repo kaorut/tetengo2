@@ -92,27 +92,6 @@
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_open.cpp">
       <Filter>sources\test_tetengo2::gui\common_dialog</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu.abstract_popup_menu.cpp">
-      <Filter>sources\test_tetengo2::gui\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu.main_menu.cpp">
-      <Filter>sources\test_tetengo2::gui\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu.menu.cpp">
-      <Filter>sources\test_tetengo2::gui\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu.menu_command.cpp">
-      <Filter>sources\test_tetengo2::gui\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu.menu_separator.cpp">
-      <Filter>sources\test_tetengo2::gui\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu.popup_menu.cpp">
-      <Filter>sources\test_tetengo2::gui\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_tetengo2.gui.menu.recursive_menu_iterator.cpp">
-      <Filter>sources\test_tetengo2::gui\menu</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.message.dialog_message_loop.cpp">
       <Filter>sources\test_tetengo2::gui\message</Filter>
     </ClCompile>
@@ -166,6 +145,27 @@
     </ClCompile>
     <ClCompile Include="test\test_tetengo2.gui.cursor.system.cpp">
       <Filter>sources\test_tetengo2::gui\cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.menu.abstract_popup.cpp">
+      <Filter>sources\test_tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.menu.command.cpp">
+      <Filter>sources\test_tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.menu.menu_bar.cpp">
+      <Filter>sources\test_tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.menu.menu_base.cpp">
+      <Filter>sources\test_tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.menu.popup.cpp">
+      <Filter>sources\test_tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.menu.recursive_iterator.cpp">
+      <Filter>sources\test_tetengo2::gui\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.menu.separator.cpp">
+      <Filter>sources\test_tetengo2::gui\menu</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
