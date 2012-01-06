@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MENU_MAINMENU_H)
-#define TETENGO2_GUI_MENU_MAINMENU_H
+#if !defined(TETENGO2_GUI_MENU_MENUBAR_H)
+#define TETENGO2_GUI_MENU_MENUBAR_H
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.menu.abstract_popup.h"

@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MENU_ABSTRACTPOPUPMENU_H)
-#define TETENGO2_GUI_MENU_ABSTRACTPOPUPMENU_H
+#if !defined(TETENGO2_GUI_MENU_ABSTRACTPOPUP_H)
+#define TETENGO2_GUI_MENU_ABSTRACTPOPUP_H
 
 //#include <cstddef>
 //#include <memory>

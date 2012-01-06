@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MENU_MENUTRAITS_H)
-#define TETENGO2_GUI_MENU_MENUTRAITS_H
+#if !defined(TETENGO2_GUI_MENU_TRAITS_H)
+#define TETENGO2_GUI_MENU_MENURAITS_H
 
 
 namespace tetengo2 { namespace gui { namespace menu

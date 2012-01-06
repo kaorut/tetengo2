@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MENU_POPUPMENU_H)
-#define TETENGO2_GUI_MENU_POPUPMENU_H
+#if !defined(TETENGO2_GUI_MENU_POPUP_H)
+#define TETENGO2_GUI_MENU_POPUP_H
 
 //#include <utility>
 

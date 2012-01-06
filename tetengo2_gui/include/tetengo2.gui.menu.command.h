@@ -6,8 +6,8 @@
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MENU_MENUCOMMAND_H)
-#define TETENGO2_GUI_MENU_MENUCOMMAND_H
+#if !defined(TETENGO2_GUI_MENU_COMMAND_H)
+#define TETENGO2_GUI_MENU_COMMAND_H
 
 //#include <utility>
 
