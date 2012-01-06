@@ -36,7 +36,7 @@
 #include <tetengo2.detail.windows.widget.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
-#include <tetengo2.gui.cursor.system_cursor.h>
+#include <tetengo2.gui.cursor.system.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
@@ -416,9 +416,7 @@ namespace bobura
             >
             alert_type;
         typedef
-            tetengo2::gui::cursor::system_cursor<
-                tetengo2::detail::windows::cursor
-            >
+            tetengo2::gui::cursor::system<tetengo2::detail::windows::cursor>
             system_cursor_type;
         typedef
             tetengo2::gui::widget::traits::widget_traits<

@@ -11,7 +11,7 @@ sources = \
     test_tetengo2.gui.alert.cpp \
     test_tetengo2.gui.common_dialog.file_open.cpp \
     test_tetengo2.gui.cursor.cursor_base.cpp \
-    test_tetengo2.gui.cursor.system_cursor.cpp \
+    test_tetengo2.gui.cursor.system.cpp \
     test_tetengo2.gui.drawing.background.cpp \
     test_tetengo2.gui.drawing.canvas.cpp \
     test_tetengo2.gui.drawing.color.cpp \

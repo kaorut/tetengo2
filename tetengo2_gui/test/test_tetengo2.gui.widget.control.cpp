@@ -20,7 +20,7 @@
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.widget.h"
 #include "tetengo2.gui.alert.h"
-#include "tetengo2.gui.cursor.system_cursor.h"
+#include "tetengo2.gui.cursor.system.h"
 #include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.gui.drawing.color.h"
 #include "tetengo2.gui.drawing.font.h"
@@ -125,7 +125,7 @@ namespace
         std::pair<unit_difference_type, unit_difference_type> position_type;
 
     typedef
-        tetengo2::gui::cursor::system_cursor<tetengo2::detail::stub::cursor>
+        tetengo2::gui::cursor::system<tetengo2::detail::stub::cursor>
         system_cursor_type;
 
     typedef

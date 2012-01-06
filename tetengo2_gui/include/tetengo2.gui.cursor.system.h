@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::cursor::system_cursor.
+    \brief The definition of tetengo2::gui::cursor::system.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -23,7 +23,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         \tparam CursorDetails A detail implementation type of a cursor.
     */
     template <typename CursorDetails>
-    class system_cursor : public cursor_base<CursorDetails>
+    class system : public cursor_base<CursorDetails>
     {
     public:
         // types
@@ -58,11 +58,11 @@ namespace tetengo2 { namespace gui { namespace cursor
 
             \param style A style.
         */
-        explicit system_cursor(const style_type style)
+        explicit system(const style_type style)
         :
         m_style(style),
         m_p_details(
-            cursor_details_type::template create_system_cursor<system_cursor>(
+            cursor_details_type::template create_system_cursor<system>(
                 style
             )
         )
@@ -71,7 +71,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         /*!
             \brief Destroys the system cursor.
         */
-        virtual ~system_cursor()
+        virtual ~system()
         TETENGO2_CPP11_NOEXCEPT
         {}
 

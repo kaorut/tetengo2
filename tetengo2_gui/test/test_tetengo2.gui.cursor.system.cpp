@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::cursor::system_cursor.
+    \brief Test of class tetengo2::gui::cursor::system.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -10,7 +10,7 @@
 
 #include "tetengo2.detail.stub.cursor.h"
 
-#include "tetengo2.gui.cursor.system_cursor.h"
+#include "tetengo2.gui.cursor.system.h"
 
 
 namespace
@@ -18,7 +18,7 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::cursor::system_cursor<tetengo2::detail::stub::cursor>
+        tetengo2::gui::cursor::system<tetengo2::detail::stub::cursor>
         cursor_type;
 
 
@@ -28,7 +28,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(cursor)
-BOOST_AUTO_TEST_SUITE(system_cursor)
+BOOST_AUTO_TEST_SUITE(system)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

@@ -6,7 +6,7 @@ headers = \
     tetengo2.gui.alert.h \
     tetengo2.gui.common_dialog.file_open.h \
     tetengo2.gui.cursor.cursor_base.h \
-    tetengo2.gui.cursor.system_cursor.h \
+    tetengo2.gui.cursor.system.h \
     tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.canvas.h \
     tetengo2.gui.drawing.color.h \
