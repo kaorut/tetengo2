@@ -45,7 +45,7 @@ namespace
         encoder_type;
 
     typedef
-        tetengo2::gui::menu::menu_traits<
+        tetengo2::gui::menu::traits<
             std::string,
             encoder_type,
             tetengo2::gui::message::menu_observer_set

@@ -437,7 +437,7 @@ namespace bobura
             tetengo2::detail::windows::message_handler<widget_details_type>
             message_handler_details_type;
         typedef
-            tetengo2::gui::menu::menu_traits<
+            tetengo2::gui::menu::traits<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 tetengo2::gui::message::menu_observer_set

@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu::menu_traits.
+    \brief The definition of tetengo2::gui::menu::traits.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -24,7 +24,7 @@ namespace tetengo2 { namespace gui { namespace menu
         typename Encoder,
         typename MenuObserverSet
     >
-    struct menu_traits
+    struct traits
     {
         //types
 
