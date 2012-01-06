@@ -70,11 +70,10 @@ namespace tetengo2 { namespace gui { namespace menu
             iterator;
 
         //! The const recursive iterator type.
-        typedef
-            recursive_menu_iterator<const menu_base> const_recursive_iterator;
+        typedef recursive_iterator<const menu_base> const_recursive_iterator;
 
         //! The recursive iterator type.
-        typedef recursive_menu_iterator<menu_base> recursive_iterator;
+        typedef recursive_iterator<menu_base> recursive_iterator;
 
         //! The detail implementation type of a menu.
         typedef MenuDetails menu_details_type;

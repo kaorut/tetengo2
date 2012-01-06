@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu::recursive_menu_iterator.
+    \brief The definition of tetengo2::gui::menu::recursive_iterator.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -23,14 +23,14 @@
 namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
-        \brief The class template for a recursive menu iterator.
+        \brief The class template for a recursive iterator.
 
         \tparam MenuBase A menu base type.
     */
     template <typename MenuBase>
-    class recursive_menu_iterator :
+    class recursive_iterator :
         public boost::iterator_facade<
-            recursive_menu_iterator<MenuBase>,
+            recursive_iterator<MenuBase>,
             MenuBase,
             boost::forward_traversal_tag
         >
@@ -45,9 +45,9 @@ namespace tetengo2 { namespace gui { namespace menu
         // constructors and destructor
 
         /*!
-            \brief Creates a recursive menu iterator.
+            \brief Creates a recursive iterator.
         */
-        recursive_menu_iterator()
+        recursive_iterator()
         :
         m_p_menu(NULL),
         m_parents()
@@ -58,11 +58,11 @@ namespace tetengo2 { namespace gui { namespace menu
         }
 
         /*!
-            \brief Creates a recursive menu iterator.
+            \brief Creates a recursive iterator.
 
             \param p_menu A pointer to a menu.
         */
-        explicit recursive_menu_iterator(menu_base_type* const p_menu)
+        explicit recursive_iterator(menu_base_type* const p_menu)
         :
         m_p_menu(p_menu),
         m_parents()
@@ -89,12 +89,12 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Returns whether this iterator is equal to another.
 
-            \param another Another recursive menu iterator.
+            \param another Another recursive iterator.
 
             \retval true  When this iterator is equal to another.
             \retval false Otherwise.
         */
-        bool equal(const recursive_menu_iterator& another)
+        bool equal(const recursive_iterator& another)
         const
         {
             return m_p_menu == another.m_p_menu;
