@@ -269,7 +269,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 typedef
                     typename AbstractWindow::menu_bar_type menu_bar_type;
-                const typename menu_bar_type::recursive_iterator
+                const typename menu_bar_type::recursive_iterator_type
                 found = std::find_if(
                     abstract_window.menu_bar().recursive_begin(),
                     abstract_window.menu_bar().recursive_end(),
@@ -302,7 +302,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 typedef
                     typename AbstractWindow::menu_bar_type menu_bar_type;
-                const typename menu_bar_type::recursive_iterator
+                const typename menu_bar_type::recursive_iterator_type
                 found = std::find_if(
                     abstract_window.menu_bar().recursive_begin(),
                     abstract_window.menu_bar().recursive_end(),

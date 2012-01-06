@@ -53,11 +53,13 @@ namespace tetengo2 { namespace gui { namespace menu
 
         //! The const recursive iterator type.
         typedef
-            typename base_type::const_recursive_iterator
-            const_recursive_iterator;
+            typename base_type::const_recursive_iterator_type
+            const_recursive_iterator_type;
 
         //! The recursive iterator type.
-        typedef typename base_type::recursive_iterator recursive_iterator;
+        typedef
+            typename base_type::recursive_iterator_type
+            recursive_iterator_type;
 
         //! The detail implementation type.
         typedef typename menu_details_type::menu_details_type details_type;
@@ -138,26 +140,26 @@ namespace tetengo2 { namespace gui { namespace menu
             return iterator(m_children.end());
         }
 
-        virtual const_recursive_iterator recursive_begin_impl()
+        virtual const_recursive_iterator_type recursive_begin_impl()
         const
         {
-            return const_recursive_iterator(this);
+            return const_recursive_iterator_type(this);
         }
 
-        virtual recursive_iterator recursive_begin_impl()
+        virtual recursive_iterator_type recursive_begin_impl()
         {
-            return recursive_iterator(this);
+            return recursive_iterator_type(this);
         }
 
-        virtual const_recursive_iterator recursive_end_impl()
+        virtual const_recursive_iterator_type recursive_end_impl()
         const
         {
-            return const_recursive_iterator();
+            return const_recursive_iterator_type();
         }
 
-        virtual recursive_iterator recursive_end_impl()
+        virtual recursive_iterator_type recursive_end_impl()
         {
-            return recursive_iterator();
+            return recursive_iterator_type();
         }
 
         virtual void insert_impl(

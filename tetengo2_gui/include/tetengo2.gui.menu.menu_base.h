@@ -70,10 +70,11 @@ namespace tetengo2 { namespace gui { namespace menu
             iterator;
 
         //! The const recursive iterator type.
-        typedef recursive_iterator<const menu_base> const_recursive_iterator;
+        typedef
+            recursive_iterator<const menu_base> const_recursive_iterator_type;
 
         //! The recursive iterator type.
-        typedef recursive_iterator<menu_base> recursive_iterator;
+        typedef recursive_iterator<menu_base> recursive_iterator_type;
 
         //! The detail implementation type of a menu.
         typedef MenuDetails menu_details_type;
@@ -203,7 +204,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The recursive first immutable iterator.
         */
-        const_recursive_iterator recursive_begin()
+        const_recursive_iterator_type recursive_begin()
         const
         {
             return recursive_begin_impl();
@@ -217,7 +218,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The recursive first mutable iterator.
         */
-        recursive_iterator recursive_begin()
+        recursive_iterator_type recursive_begin()
         {
             return recursive_begin_impl();
         }
@@ -228,7 +229,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The recursive last immutable iterator.
         */
-        const_recursive_iterator recursive_end()
+        const_recursive_iterator_type recursive_end()
         const
         {
             return recursive_end_impl();
@@ -240,7 +241,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The recursive last mutable iterator.
         */
-        recursive_iterator recursive_end()
+        recursive_iterator_type recursive_end()
         {
             return recursive_end_impl();
         }
@@ -362,26 +363,26 @@ namespace tetengo2 { namespace gui { namespace menu
             return iterator(empty_children().end());
         }
 
-        virtual const_recursive_iterator recursive_begin_impl()
+        virtual const_recursive_iterator_type recursive_begin_impl()
         const
         {
-            return const_recursive_iterator();
+            return const_recursive_iterator_type();
         }
 
-        virtual recursive_iterator recursive_begin_impl()
+        virtual recursive_iterator_type recursive_begin_impl()
         {
-            return recursive_iterator();
+            return recursive_iterator_type();
         }
 
-        virtual const_recursive_iterator recursive_end_impl()
+        virtual const_recursive_iterator_type recursive_end_impl()
         const
         {
-            return const_recursive_iterator();
+            return const_recursive_iterator_type();
         }
 
-        virtual recursive_iterator recursive_end_impl()
+        virtual recursive_iterator_type recursive_end_impl()
         {
-            return recursive_iterator();
+            return recursive_iterator_type();
         }
 
         virtual void insert_impl(
