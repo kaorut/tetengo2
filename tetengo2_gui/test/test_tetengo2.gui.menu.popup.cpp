@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::menu::popup_menu.
+    \brief Test of class tetengo2::gui::menu::popup.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -44,7 +44,7 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu::popup_menu<menu_traits_type, menu_details_type>
+        tetengo2::gui::menu::popup<menu_traits_type, menu_details_type>
         popup_menu_type;
 
 
@@ -54,7 +54,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(menu)
-BOOST_AUTO_TEST_SUITE(popup_menu)
+BOOST_AUTO_TEST_SUITE(popup)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

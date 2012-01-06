@@ -82,7 +82,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(menu)
-BOOST_AUTO_TEST_SUITE(menu)
+BOOST_AUTO_TEST_SUITE(menu_base)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

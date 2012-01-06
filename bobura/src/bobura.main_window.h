@@ -133,7 +133,7 @@ namespace bobura
         static void append_menu_command(
             menu_base_type&                        popup_menu,
             typename menu_base_type::string_type&& text,
-            command_type&&                    command
+            command_type&&                         command
         )
         {
             std::unique_ptr<menu_base_type> p_menu_command(
