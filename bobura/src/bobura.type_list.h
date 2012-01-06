@@ -46,12 +46,12 @@
 #include <tetengo2.gui.drawing.widget_canvas.h>
 #include <tetengo2.gui.fixture.h>
 #include <tetengo2.gui.menu.abstract_popup.h>
+#include <tetengo2.gui.menu.command.h>
 #include <tetengo2.gui.menu.menu_bar.h>
 #include <tetengo2.gui.menu.menu_base.h>
-#include <tetengo2.gui.menu.command.h>
+#include <tetengo2.gui.menu.popup.h>
 #include <tetengo2.gui.menu.separator.h>
 #include <tetengo2.gui.menu.traits.h>
-#include <tetengo2.gui.menu.popup.h>
 #include <tetengo2.gui.message.dialog_message_loop.h>
 #include <tetengo2.gui.message.menu_observer_set.h>
 #include <tetengo2.gui.message.message_loop.h>
