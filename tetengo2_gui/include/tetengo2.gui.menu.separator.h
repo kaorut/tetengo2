@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu::menu_separator.
+    \brief The definition of tetengo2::gui::menu::separator.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -24,7 +24,7 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class menu_separator : public menu_base<Traits, MenuDetails>
+    class separator : public menu_base<Traits, MenuDetails>
     {
     public:
         // types
@@ -44,7 +44,7 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Creates a menu separator.
         */
-        menu_separator()
+        separator()
         :
         base_type(string_type(), menu_details_type::create_menu())
         {}
@@ -52,7 +52,7 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Destroys the menu separator.
         */
-        virtual ~menu_separator()
+        virtual ~separator()
         TETENGO2_CPP11_NOEXCEPT
         {}
 

@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::menu::menu_separator.
+    \brief Test of class tetengo2::gui::menu::separator.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -44,7 +44,7 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu::menu_separator<
+        tetengo2::gui::menu::separator<
             menu_traits_type, menu_details_type
         >
         menu_separator_type;
@@ -56,7 +56,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(menu)
-BOOST_AUTO_TEST_SUITE(menu_separator)
+BOOST_AUTO_TEST_SUITE(separator)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)

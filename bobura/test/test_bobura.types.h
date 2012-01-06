@@ -410,7 +410,7 @@ typedef
     popup_menu_type;
 
 typedef
-    tetengo2::gui::menu::menu_separator<menu_traits_type, menu_details_type>
+    tetengo2::gui::menu::separator<menu_traits_type, menu_details_type>
     menu_separator_type;
 
 typedef
