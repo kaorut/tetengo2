@@ -24,7 +24,7 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class popup_menu : public abstract_popup_menu<Traits, MenuDetails>
+    class popup_menu : public abstract_popup<Traits, MenuDetails>
     {
     public:
         // types
@@ -36,7 +36,7 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef MenuDetails menu_details_type;
 
         //! The base type.
-        typedef abstract_popup_menu<traits_type, menu_details_type> base_type;
+        typedef abstract_popup<traits_type, menu_details_type> base_type;
 
 
         // constructors and destructor

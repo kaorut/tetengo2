@@ -59,7 +59,7 @@ namespace
         menu_type;
 
     typedef
-        tetengo2::gui::menu::abstract_popup_menu<
+        tetengo2::gui::menu::abstract_popup<
             menu_traits_type, menu_details_type
         >
         abstract_popup_menu_type;

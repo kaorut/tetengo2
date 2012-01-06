@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu::abstract_popup_menu.
+    \brief The definition of tetengo2::gui::menu::abstract_popup.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -25,13 +25,13 @@
 namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
-        \brief The base class template for a abstract_popup_menu.
+        \brief The base class template for an abstract popup menu.
 
         \tparam Traits      A traits type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class abstract_popup_menu : public menu<Traits, MenuDetails>
+    class abstract_popup : public menu<Traits, MenuDetails>
     {
     public:
         // types
@@ -72,7 +72,7 @@ namespace tetengo2 { namespace gui { namespace menu
         // constructors and destructor
 
         /*!
-            \brief Creates a abstract_popup_menu.
+            \brief Creates an abstract popup menu.
 
             \tparam S A string type.
 
@@ -80,16 +80,16 @@ namespace tetengo2 { namespace gui { namespace menu
             \param p_details A unique pointer to a detail implementation.
         */
         template <typename S>
-        abstract_popup_menu(S&& text, details_ptr_type p_details)
+        abstract_popup(S&& text, details_ptr_type p_details)
         :
         base_type(std::forward<S>(text), std::move(p_details)),
         m_children()
         {}
 
         /*!
-            \brief Destroys the abstract_popup_menu.
+            \brief Destroys the abstract_popup.
         */
-        virtual ~abstract_popup_menu()
+        virtual ~abstract_popup()
         TETENGO2_CPP11_NOEXCEPT
         {}
 
