@@ -24,7 +24,7 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class command : public menu<Traits, MenuDetails>
+    class command : public menu_base<Traits, MenuDetails>
     {
     public:
         // types
@@ -36,7 +36,7 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef MenuDetails menu_details_type;
 
         //! The base type.
-        typedef menu<traits_type, menu_details_type> base_type;
+        typedef menu_base<traits_type, menu_details_type> base_type;
 
 
         // constructors and destructor

@@ -25,19 +25,21 @@ namespace tetengo2 { namespace gui { namespace menu
     /*!
         \brief The class template for a recursive menu iterator.
 
-        \tparam Menu A menu type.
+        \tparam MenuBase A menu base type.
     */
-    template <typename Menu>
+    template <typename MenuBase>
     class recursive_menu_iterator :
         public boost::iterator_facade<
-            recursive_menu_iterator<Menu>, Menu, boost::forward_traversal_tag
+            recursive_menu_iterator<MenuBase>,
+            MenuBase,
+            boost::forward_traversal_tag
         >
     {
     public:
         // types
 
-        //! The menu type.
-        typedef Menu menu_type;
+        //! The menu base type.
+        typedef MenuBase menu_base_type;
 
 
         // constructors and destructor
@@ -51,7 +53,7 @@ namespace tetengo2 { namespace gui { namespace menu
         m_parents()
         {
             m_parents.push(
-                parent_and_index_type(static_cast<menu_type*>(NULL), 0)
+                parent_and_index_type(static_cast<menu_base_type*>(NULL), 0)
             );
         }
 
@@ -60,13 +62,13 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \param p_menu A pointer to a menu.
         */
-        explicit recursive_menu_iterator(menu_type* const p_menu)
+        explicit recursive_menu_iterator(menu_base_type* const p_menu)
         :
         m_p_menu(p_menu),
         m_parents()
         {
             m_parents.push(
-                parent_and_index_type(static_cast<menu_type*>(NULL), 0)
+                parent_and_index_type(static_cast<menu_base_type*>(NULL), 0)
             );
         }
 
@@ -78,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The value.
         */
-        menu_type& dereference()
+        menu_base_type& dereference()
         const
         {
             return *m_p_menu;
@@ -133,16 +135,17 @@ namespace tetengo2 { namespace gui { namespace menu
         // types
 
         typedef
-            typename menu_type::const_iterator::difference_type
+            typename menu_base_type::const_iterator::difference_type
             menu_difference_type;
 
         typedef
-            std::pair<menu_type*, menu_difference_type> parent_and_index_type;
+            std::pair<menu_base_type*, menu_difference_type>
+            parent_and_index_type;
 
 
         // variables
 
-        menu_type* m_p_menu;
+        menu_base_type* m_p_menu;
 
         std::stack<parent_and_index_type> m_parents;
 

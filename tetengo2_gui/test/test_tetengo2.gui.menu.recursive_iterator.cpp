@@ -55,8 +55,8 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu::menu<menu_traits_type, menu_details_type>
-        menu_type;
+        tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type>
+        menu_base_type;
 
     typedef
         tetengo2::gui::menu::abstract_popup<
@@ -69,14 +69,15 @@ namespace
         popup_menu_type;
 
     typedef
-        tetengo2::gui::menu::recursive_menu_iterator<menu_type> iterator_type;
+        tetengo2::gui::menu::recursive_menu_iterator<menu_base_type>
+        iterator_type;
 
 
     // functions
 
-    std::unique_ptr<menu_type> create_menu()
+    std::unique_ptr<menu_base_type> create_menu()
     {
-        std::unique_ptr<menu_type> p_menu(
+        std::unique_ptr<menu_base_type> p_menu(
             tetengo2::make_unique<popup_menu_type>("0")
         );
 
@@ -112,7 +113,7 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
             const iterator_type iterator;
         }
         {
-            const std::unique_ptr<menu_type> p_menu(create_menu());
+            const std::unique_ptr<menu_base_type> p_menu(create_menu());
 
             const iterator_type iterator(p_menu.get());
         }
@@ -123,7 +124,7 @@ BOOST_AUTO_TEST_SUITE(recursive_menu_iterator)
         BOOST_TEST_PASSPOINT();
 
         {
-            const std::unique_ptr<menu_type> p_menu(create_menu());
+            const std::unique_ptr<menu_base_type> p_menu(create_menu());
 
             iterator_type iterator(p_menu.get());
 

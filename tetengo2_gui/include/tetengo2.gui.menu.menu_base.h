@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu::menu.
+    \brief The definition of tetengo2::gui::menu::menu_base.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -28,13 +28,13 @@
 namespace tetengo2 { namespace gui { namespace menu
 {
     /*!
-        \brief The base class template for a menu.
+        \brief The base class template for a menu base.
 
         \tparam Traits      A traits type.
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class menu : boost::noncopyable
+    class menu_base : boost::noncopyable
     {
     public:
         // types
@@ -56,22 +56,25 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The const iterator type.
         typedef
             boost::indirect_iterator<
-                typename std::vector<std::unique_ptr<menu>>::const_iterator
+                typename std::vector<
+                    std::unique_ptr<menu_base>
+                >::const_iterator
             >
             const_iterator;
 
         //! The iterator type.
         typedef
             boost::indirect_iterator<
-                typename std::vector<std::unique_ptr<menu>>::iterator
+                typename std::vector<std::unique_ptr<menu_base>>::iterator
             >
             iterator;
 
         //! The const recursive iterator type.
-        typedef recursive_menu_iterator<const menu> const_recursive_iterator;
+        typedef
+            recursive_menu_iterator<const menu_base> const_recursive_iterator;
 
         //! The recursive iterator type.
-        typedef recursive_menu_iterator<menu> recursive_iterator;
+        typedef recursive_menu_iterator<menu_base> recursive_iterator;
 
         //! The detail implementation type of a menu.
         typedef MenuDetails menu_details_type;
@@ -91,9 +94,9 @@ namespace tetengo2 { namespace gui { namespace menu
         // constructors and destructor
 
         /*!
-            \brief Destroys the menu.
+            \brief Destroys the menu base.
         */
-        virtual ~menu()
+        virtual ~menu_base()
         TETENGO2_CPP11_NOEXCEPT
         {}
 
@@ -249,7 +252,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \param offset An offset where a menu is inserted.
             \param p_menu A unique pointer to a menu. It must not be NULL.
         */
-        void insert(const iterator offset, std::unique_ptr<menu> p_menu)
+        void insert(const iterator offset, std::unique_ptr<menu_base> p_menu)
         {
             insert_impl(offset, std::move(p_menu));
         }
@@ -297,7 +300,7 @@ namespace tetengo2 { namespace gui { namespace menu
         // constructors and destructor
 
         /*!
-            \brief Creates a menu.
+            \brief Creates a menu base.
 
             \tparam S A string type.
 
@@ -305,7 +308,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \param p_details A unique pointer to a detail implementation.
         */
         template <typename S>
-        menu(S&& text, details_ptr_type p_details)
+        menu_base(S&& text, details_ptr_type p_details)
         :
         m_text(std::forward<S>(text)),
         m_menu_observer_set(),
@@ -316,9 +319,9 @@ namespace tetengo2 { namespace gui { namespace menu
     private:
         // static functions
 
-        static std::vector<std::unique_ptr<menu>>& empty_children()
+        static std::vector<std::unique_ptr<menu_base>>& empty_children()
         {
-            static std::vector<std::unique_ptr<menu>> singleton;
+            static std::vector<std::unique_ptr<menu_base>> singleton;
             assert(singleton.empty());
             return singleton;
         }
@@ -383,8 +386,8 @@ namespace tetengo2 { namespace gui { namespace menu
         }
 
         virtual void insert_impl(
-            const iterator        offset,
-            std::unique_ptr<menu> p_menu
+            const iterator             offset,
+            std::unique_ptr<menu_base> p_menu
         )
         {
             assert(false);

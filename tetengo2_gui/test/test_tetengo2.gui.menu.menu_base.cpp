@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::menu::menu.
+    \brief Test of class tetengo2::gui::menu::menu_base.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -47,17 +47,17 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu::menu<menu_traits_type, menu_details_type>
-        menu_type;
+        tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type>
+        menu_base_type;
 
-    class concrete_menu : public menu_type
+    class concrete_menu : public menu_base_type
     {
     public:
         // constructors and destructor
 
         concrete_menu(std::string&& text)
         :
-        menu_type(
+        menu_base_type(
             std::forward<std::string>(text), menu_details_type::create_menu()
         )
         {}
@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_SUITE(menu)
         BOOST_TEST_PASSPOINT();
 
         concrete_menu menu(std::string("Tetengo"));
-        std::unique_ptr<menu_type> p_child(
+        std::unique_ptr<menu_base_type> p_child(
             tetengo2::make_unique<concrete_menu>(std::string("Hoge"))
         );
 

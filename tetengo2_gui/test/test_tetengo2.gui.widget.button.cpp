@@ -189,8 +189,8 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu::menu<menu_traits_type, menu_details_type>
-        menu_type;
+        tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type>
+        menu_base_type;
 
     typedef
         tetengo2::gui::menu::menu_bar<menu_traits_type, menu_details_type>

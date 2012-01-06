@@ -235,15 +235,15 @@ namespace tetengo2 { namespace detail { namespace windows
 
         namespace abstract_window
         {
-            template <typename Menu>
-            bool same_menu(const Menu& menu1, const ::UINT menu2_id)
+            template <typename MenuBase>
+            bool same_menu(const MenuBase& menu1, const ::UINT menu2_id)
             {
                 return menu1.details()->first == menu2_id;
             }
 
-            template <typename Menu>
+            template <typename MenuBase>
             bool same_popup_menu(
-                const Menu&   menu1,
+                const MenuBase&   menu1,
                 const ::HMENU menu2_handle
             )
             {

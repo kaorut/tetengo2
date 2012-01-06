@@ -54,7 +54,7 @@ namespace
         >
         abstract_popup_menu_type;
 
-    typedef abstract_popup_menu_type::base_type menu_type;
+    typedef abstract_popup_menu_type::base_type menu_base_type;
 
     class concrete_popup_menu : public abstract_popup_menu_type
     {
@@ -104,10 +104,10 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
         BOOST_TEST_PASSPOINT();
 
         concrete_popup_menu popup_menu(std::string("Tetengo"));
-        std::unique_ptr<menu_type> p_child1(
+        std::unique_ptr<menu_base_type> p_child1(
             tetengo2::make_unique<concrete_popup_menu>(std::string("Hoge"))
         );
-        std::unique_ptr<menu_type> p_child2(
+        std::unique_ptr<menu_base_type> p_child2(
             tetengo2::make_unique<concrete_popup_menu>(std::string("Fuga"))
         );
 
@@ -129,10 +129,10 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
         BOOST_TEST_PASSPOINT();
 
         concrete_popup_menu popup_menu(std::string("Tetengo"));
-        std::unique_ptr<menu_type> p_child1(
+        std::unique_ptr<menu_base_type> p_child1(
             tetengo2::make_unique<concrete_popup_menu>(std::string("Hoge"))
         );
-        std::unique_ptr<menu_type> p_child2(
+        std::unique_ptr<menu_base_type> p_child2(
             tetengo2::make_unique<concrete_popup_menu>(std::string("Fuga"))
         );
         popup_menu.insert(popup_menu.end(), std::move(p_child1));

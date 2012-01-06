@@ -156,7 +156,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam PopupMenu       A popup menu type.
             \tparam ForwardIterator An forward iterator type.
-            \tparam Menu            A menu type.
+            \tparam MenuBase        A menu base type.
             \tparam Encoder         An encoder type.
 
             \param popup_menu A popup menu to which a menu is inserted.
@@ -167,13 +167,13 @@ namespace tetengo2 { namespace detail { namespace windows
         template <
             typename PopupMenu,
             typename ForwardIterator,
-            typename Menu,
+            typename MenuBase,
             typename Encoder
         >
         static void insert_menu(
             PopupMenu&            popup_menu,
             const ForwardIterator offset,
-            Menu&                 menu,
+            MenuBase&             menu,
             const Encoder&        encoder
         )
         {

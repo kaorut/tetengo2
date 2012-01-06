@@ -446,8 +446,10 @@ namespace bobura
             menu_traits_type;
         typedef tetengo2::detail::windows::menu menu_details_type;
         typedef
-            tetengo2::gui::menu::menu<menu_traits_type, menu_details_type>
-            menu_type;
+            tetengo2::gui::menu::menu_base<
+                menu_traits_type, menu_details_type
+            >
+            menu_base_type;
         typedef
             tetengo2::gui::menu::abstract_popup<
                 menu_traits_type, menu_details_type

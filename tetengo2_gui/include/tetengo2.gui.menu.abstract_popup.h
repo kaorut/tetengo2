@@ -31,7 +31,7 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class abstract_popup : public menu<Traits, MenuDetails>
+    class abstract_popup : public menu_base<Traits, MenuDetails>
     {
     public:
         // types
@@ -43,7 +43,7 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef MenuDetails menu_details_type;
 
         //! The base type.
-        typedef menu<traits_type, menu_details_type> base_type;
+        typedef menu_base<traits_type, menu_details_type> base_type;
 
         //! The const iterator type.
         typedef typename base_type::const_iterator const_iterator;
