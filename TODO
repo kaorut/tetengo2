@@ -22,16 +22,6 @@ Added on    : 2011/12/22
 Depends on  : 00000125
 Description : Support keyboard shortcuts using the menu commands.
 ------------------------------------------------------------------------------
-Number      : 00000124
-Added on    : 2011/12/22
-Depends on  : (none)
-Description : Update the copyright year into 2012.
-------------------------------------------------------------------------------
-Number      : 00000125
-Added on    : 2011/12/27
-Depends on  : (none)
-Description : Classify the classes in tetengo2::gui.
-------------------------------------------------------------------------------
 Number      : 00000126
 Added on    : 2012/mm/dd
 Depends on  : (none)
