@@ -586,7 +586,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu_command,
-                tetengo2::gui::menu::menu_command<
+                tetengo2::gui::menu::command<
                     detail::ui::menu_traits_type,
                     detail::ui::menu_details_type
                 >

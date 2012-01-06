@@ -406,7 +406,7 @@ typedef
     main_window_message_type_list_type;
 
 typedef
-    tetengo2::gui::menu::menu_command<menu_traits_type, menu_details_type>
+    tetengo2::gui::menu::command<menu_traits_type, menu_details_type>
     menu_command_type;
 
 typedef

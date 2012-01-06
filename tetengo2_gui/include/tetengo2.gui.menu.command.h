@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::menu::menu_command.
+    \brief The definition of tetengo2::gui::menu::command.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -24,7 +24,7 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam MenuDetails A detail implementation type of a menu.
    */
     template <typename Traits, typename MenuDetails>
-    class menu_command : public menu<Traits, MenuDetails>
+    class command : public menu<Traits, MenuDetails>
     {
     public:
         // types
@@ -49,7 +49,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \param text A text.
         */
         template <typename S>
-        explicit menu_command(S&& text)
+        explicit command(S&& text)
         :
         base_type(std::forward<S>(text), menu_details_type::create_menu())
         {}
@@ -57,7 +57,7 @@ namespace tetengo2 { namespace gui { namespace menu
         /*!
             \brief Destroys the menu command.
         */
-        virtual ~menu_command()
+        virtual ~command()
         TETENGO2_CPP11_NOEXCEPT
         {}
 
