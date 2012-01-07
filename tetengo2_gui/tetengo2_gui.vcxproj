@@ -52,6 +52,7 @@
     <ClInclude Include="include\tetengo2.gui.unit.em.h" />
     <ClInclude Include="include\tetengo2.gui.unit.pixel.h" />
     <ClInclude Include="include\tetengo2.gui.unit.unit.h" />
+    <ClInclude Include="include\tetengo2.gui.virtual_key.h" />
     <ClInclude Include="include\tetengo2.gui.widget.abstract_window.h" />
     <ClInclude Include="include\tetengo2.gui.widget.button.h" />
     <ClInclude Include="include\tetengo2.gui.widget.control.h" />

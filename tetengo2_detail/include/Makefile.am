@@ -13,6 +13,7 @@ headers = \
     tetengo2.detail.stub.message_handler.h \
     tetengo2.detail.stub.message_loop.h \
     tetengo2.detail.stub.unit.h \
+    tetengo2.detail.stub.virtual_key.h \
     tetengo2.detail.stub.widget.h
 
 extra_headers = \
@@ -28,6 +29,7 @@ extra_headers = \
     tetengo2.detail.windows.message_handler.h \
     tetengo2.detail.windows.message_loop.h \
     tetengo2.detail.windows.unit.h \
+    tetengo2.detail.windows.virtual_key.h \
     tetengo2.detail.windows.widget.h \
     tetengo2.detail.windows.windows_version.h
 

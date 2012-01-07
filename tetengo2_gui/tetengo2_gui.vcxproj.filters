@@ -186,5 +186,8 @@
     <ClInclude Include="include\tetengo2.gui.menu.separator.h">
       <Filter>headers\tetengo2::gui\menu</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.virtual_key.h">
+      <Filter>headers\tetengo2::gui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -36,6 +36,7 @@ headers = \
     tetengo2.gui.unit.em.h \
     tetengo2.gui.unit.pixel.h \
     tetengo2.gui.unit.unit.h \
+    tetengo2.gui.virtual_key.h \
     tetengo2.gui.widget.abstract_window.h \
     tetengo2.gui.widget.button.h \
     tetengo2.gui.widget.control.h \
