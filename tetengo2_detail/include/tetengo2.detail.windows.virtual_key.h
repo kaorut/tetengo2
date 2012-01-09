@@ -9,18 +9,25 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_VIRTUALKEY_H)
 #define TETENGO2_DETAIL_WINDOWS_VIRTUALKEY_H
 
+#include <utility>
+
 #include <boost/noncopyable.hpp>
 
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include "tetengo2.text.h"
+
 
 namespace tetengo2 { namespace detail { namespace windows
 {
     /*!
-        \brief The class for a detail implementation of virtual keys.
+        \brief The class template for a detail implementation of virtual keys.
+
+        \tparam String A string type.
     */
+    template <typename String>
     class virtual_key : private boost::noncopyable
     {
     public:
@@ -29,12 +36,21 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The code type.
         typedef unsigned char code_type;
 
+        //! The string type.
+        typedef String string_type;
+
+        //! The code and string type.
+        typedef std::pair<code_type, string_type> code_and_string_type;
+
 
         // static functions
 
-        //! Returns the key code for 'A'.
-        //! \return The key code.
-        static code_type char_a() { return 'A'; }
+        //! Returns the key code and string for 'A'.
+        //! \return The key code and string.
+        static code_and_string_type char_a()
+        {
+            return code_and_string_type('A', string_type(TETENGO2_TEXT("A")));
+        }
 
 
     private:

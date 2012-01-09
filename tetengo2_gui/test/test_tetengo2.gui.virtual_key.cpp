@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <string>
+
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.virtual_key.h"
@@ -18,7 +20,11 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::virtual_key<tetengo2::detail::stub::virtual_key>
+        tetengo2::detail::stub::virtual_key<std::string>
+        virtual_key_details_type;
+
+    typedef
+        tetengo2::gui::virtual_key<virtual_key_details_type>
         virtual_key_type;
 
 
@@ -35,6 +41,26 @@ BOOST_AUTO_TEST_SUITE(virtual_key)
         BOOST_TEST_PASSPOINT();
 
         virtual_key_type::char_a();
+    }
+
+    BOOST_AUTO_TEST_CASE(code)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_CHECK_EQUAL(
+            virtual_key_type::char_a().code(),
+            virtual_key_details_type::char_a().first
+        );
+    }
+
+    BOOST_AUTO_TEST_CASE(string)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_CHECK(
+            virtual_key_type::char_a().to_string() ==
+            virtual_key_details_type::char_a().second
+        );
     }
 
 
