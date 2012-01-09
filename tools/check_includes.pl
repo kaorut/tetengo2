@@ -25,6 +25,9 @@ my(@special_header_directories) = (
 	$ARGV[0].'/bobura_model/test',
 	$ARGV[0].'/tetengo2/include',
 	$ARGV[0].'/tetengo2/test',
+	$ARGV[0].'/tetengo2_detail/include',
+	$ARGV[0].'/tetengo2_gui/include',
+	$ARGV[0].'/tetengo2_gui/test',
 );
 
 my($show_progress) = $ARGV[3] ne '';
