@@ -162,21 +162,21 @@ namespace tetengo2 { namespace detail { namespace windows
             );
         }
 
-        //! Returns the key code and string for Right.
-        //! \return The key code and string.
-        static code_and_string_type right()
-        {
-            return code_and_string_type(
-                VK_RIGHT, string_type(TETENGO2_TEXT("Right"))
-            );
-        }
-
         //! Returns the key code and string for Up.
         //! \return The key code and string.
         static code_and_string_type up()
         {
             return code_and_string_type(
                 VK_UP, string_type(TETENGO2_TEXT("Up"))
+            );
+        }
+
+        //! Returns the key code and string for Right.
+        //! \return The key code and string.
+        static code_and_string_type right()
+        {
+            return code_and_string_type(
+                VK_RIGHT, string_type(TETENGO2_TEXT("Right"))
             );
         }
 
@@ -457,6 +457,114 @@ namespace tetengo2 { namespace detail { namespace windows
         static code_and_string_type char_z()
         {
             return code_and_string_type('Z', string_type(TETENGO2_TEXT("Z")));
+        }
+
+        //! Returns the key code and string for F1.
+        //! \return The key code and string.
+        static code_and_string_type f1()
+        {
+            return code_and_string_type(
+                VK_F1, string_type(TETENGO2_TEXT("F1"))
+            );
+        }
+
+        //! Returns the key code and string for F2.
+        //! \return The key code and string.
+        static code_and_string_type f2()
+        {
+            return code_and_string_type(
+                VK_F2, string_type(TETENGO2_TEXT("F2"))
+            );
+        }
+
+        //! Returns the key code and string for F3.
+        //! \return The key code and string.
+        static code_and_string_type f3()
+        {
+            return code_and_string_type(
+                VK_F3, string_type(TETENGO2_TEXT("F3"))
+            );
+        }
+
+        //! Returns the key code and string for F4.
+        //! \return The key code and string.
+        static code_and_string_type f4()
+        {
+            return code_and_string_type(
+                VK_F4, string_type(TETENGO2_TEXT("F4"))
+            );
+        }
+
+        //! Returns the key code and string for F5.
+        //! \return The key code and string.
+        static code_and_string_type f5()
+        {
+            return code_and_string_type(
+                VK_F5, string_type(TETENGO2_TEXT("F5"))
+            );
+        }
+
+        //! Returns the key code and string for F6.
+        //! \return The key code and string.
+        static code_and_string_type f6()
+        {
+            return code_and_string_type(
+                VK_F6, string_type(TETENGO2_TEXT("F6"))
+            );
+        }
+
+        //! Returns the key code and string for F7.
+        //! \return The key code and string.
+        static code_and_string_type f7()
+        {
+            return code_and_string_type(
+                VK_F7, string_type(TETENGO2_TEXT("F7"))
+            );
+        }
+
+        //! Returns the key code and string for F8.
+        //! \return The key code and string.
+        static code_and_string_type f8()
+        {
+            return code_and_string_type(
+                VK_F8, string_type(TETENGO2_TEXT("F8"))
+            );
+        }
+
+        //! Returns the key code and string for F9.
+        //! \return The key code and string.
+        static code_and_string_type f9()
+        {
+            return code_and_string_type(
+                VK_F9, string_type(TETENGO2_TEXT("F9"))
+            );
+        }
+
+        //! Returns the key code and string for F10.
+        //! \return The key code and string.
+        static code_and_string_type f10()
+        {
+            return code_and_string_type(
+                VK_F10, string_type(TETENGO2_TEXT("F10"))
+            );
+        }
+
+        //! Returns the key code and string for F11.
+        //! \return The key code and string.
+        static code_and_string_type f11()
+        {
+            return code_and_string_type(
+                VK_F11, string_type(TETENGO2_TEXT("F11"))
+            );
+        }
+
+        //! Returns the key code and string for F12.
+        //! \return The key code and string.
+        static code_and_string_type f12()
+        {
+            return code_and_string_type(
+                VK_F12, string_type(TETENGO2_TEXT("F12"))
+            );
         }
 
 
