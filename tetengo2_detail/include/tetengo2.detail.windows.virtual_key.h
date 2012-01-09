@@ -191,7 +191,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         //! Returns the key code and string for Insert.
         //! \return The key code and string.
-        static code_and_string_type up()
+        static code_and_string_type insert()
         {
             return code_and_string_type(
                 VK_INSERT, string_type(TETENGO2_TEXT("Ins"))
@@ -282,6 +282,181 @@ namespace tetengo2 { namespace detail { namespace windows
         static code_and_string_type char_a()
         {
             return code_and_string_type('A', string_type(TETENGO2_TEXT("A")));
+        }
+
+        //! Returns the key code and string for 'B'.
+        //! \return The key code and string.
+        static code_and_string_type char_b()
+        {
+            return code_and_string_type('B', string_type(TETENGO2_TEXT("B")));
+        }
+
+        //! Returns the key code and string for 'C'.
+        //! \return The key code and string.
+        static code_and_string_type char_c()
+        {
+            return code_and_string_type('C', string_type(TETENGO2_TEXT("C")));
+        }
+
+        //! Returns the key code and string for 'D'.
+        //! \return The key code and string.
+        static code_and_string_type char_d()
+        {
+            return code_and_string_type('D', string_type(TETENGO2_TEXT("D")));
+        }
+
+        //! Returns the key code and string for 'E'.
+        //! \return The key code and string.
+        static code_and_string_type char_e()
+        {
+            return code_and_string_type('E', string_type(TETENGO2_TEXT("E")));
+        }
+
+        //! Returns the key code and string for 'F'.
+        //! \return The key code and string.
+        static code_and_string_type char_f()
+        {
+            return code_and_string_type('F', string_type(TETENGO2_TEXT("F")));
+        }
+
+        //! Returns the key code and string for 'G'.
+        //! \return The key code and string.
+        static code_and_string_type char_g()
+        {
+            return code_and_string_type('G', string_type(TETENGO2_TEXT("G")));
+        }
+
+        //! Returns the key code and string for 'H'.
+        //! \return The key code and string.
+        static code_and_string_type char_h()
+        {
+            return code_and_string_type('H', string_type(TETENGO2_TEXT("H")));
+        }
+
+        //! Returns the key code and string for 'I'.
+        //! \return The key code and string.
+        static code_and_string_type char_i()
+        {
+            return code_and_string_type('I', string_type(TETENGO2_TEXT("I")));
+        }
+
+        //! Returns the key code and string for 'J'.
+        //! \return The key code and string.
+        static code_and_string_type char_j()
+        {
+            return code_and_string_type('J', string_type(TETENGO2_TEXT("J")));
+        }
+
+        //! Returns the key code and string for 'K'.
+        //! \return The key code and string.
+        static code_and_string_type char_k()
+        {
+            return code_and_string_type('K', string_type(TETENGO2_TEXT("K")));
+        }
+
+        //! Returns the key code and string for 'L'.
+        //! \return The key code and string.
+        static code_and_string_type char_l()
+        {
+            return code_and_string_type('L', string_type(TETENGO2_TEXT("L")));
+        }
+
+        //! Returns the key code and string for 'M'.
+        //! \return The key code and string.
+        static code_and_string_type char_m()
+        {
+            return code_and_string_type('M', string_type(TETENGO2_TEXT("M")));
+        }
+
+        //! Returns the key code and string for 'N'.
+        //! \return The key code and string.
+        static code_and_string_type char_n()
+        {
+            return code_and_string_type('N', string_type(TETENGO2_TEXT("N")));
+        }
+
+        //! Returns the key code and string for 'O'.
+        //! \return The key code and string.
+        static code_and_string_type char_o()
+        {
+            return code_and_string_type('O', string_type(TETENGO2_TEXT("O")));
+        }
+
+        //! Returns the key code and string for 'P'.
+        //! \return The key code and string.
+        static code_and_string_type char_p()
+        {
+            return code_and_string_type('P', string_type(TETENGO2_TEXT("P")));
+        }
+
+        //! Returns the key code and string for 'Q'.
+        //! \return The key code and string.
+        static code_and_string_type char_q()
+        {
+            return code_and_string_type('Q', string_type(TETENGO2_TEXT("Q")));
+        }
+
+        //! Returns the key code and string for 'R'.
+        //! \return The key code and string.
+        static code_and_string_type char_r()
+        {
+            return code_and_string_type('R', string_type(TETENGO2_TEXT("R")));
+        }
+
+        //! Returns the key code and string for 'S'.
+        //! \return The key code and string.
+        static code_and_string_type char_s()
+        {
+            return code_and_string_type('S', string_type(TETENGO2_TEXT("S")));
+        }
+
+        //! Returns the key code and string for 'T'.
+        //! \return The key code and string.
+        static code_and_string_type char_t()
+        {
+            return code_and_string_type('T', string_type(TETENGO2_TEXT("T")));
+        }
+
+        //! Returns the key code and string for 'U'.
+        //! \return The key code and string.
+        static code_and_string_type char_u()
+        {
+            return code_and_string_type('U', string_type(TETENGO2_TEXT("U")));
+        }
+
+        //! Returns the key code and string for 'V'.
+        //! \return The key code and string.
+        static code_and_string_type char_v()
+        {
+            return code_and_string_type('V', string_type(TETENGO2_TEXT("V")));
+        }
+
+        //! Returns the key code and string for 'W'.
+        //! \return The key code and string.
+        static code_and_string_type char_w()
+        {
+            return code_and_string_type('W', string_type(TETENGO2_TEXT("W")));
+        }
+
+        //! Returns the key code and string for 'X'.
+        //! \return The key code and string.
+        static code_and_string_type char_x()
+        {
+            return code_and_string_type('X', string_type(TETENGO2_TEXT("X")));
+        }
+
+        //! Returns the key code and string for 'Y'.
+        //! \return The key code and string.
+        static code_and_string_type char_y()
+        {
+            return code_and_string_type('Y', string_type(TETENGO2_TEXT("Y")));
+        }
+
+        //! Returns the key code and string for 'Z'.
+        //! \return The key code and string.
+        static code_and_string_type char_z()
+        {
+            return code_and_string_type('Z', string_type(TETENGO2_TEXT("Z")));
         }
 
 
