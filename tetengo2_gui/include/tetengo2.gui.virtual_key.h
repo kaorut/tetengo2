@@ -471,6 +471,102 @@ namespace tetengo2 { namespace gui
             return singleton;
         }
 
+        //! Returns the virtual key for F1.
+        //! \return The virtual key.
+        static const virtual_key& f1()
+        {
+            static const virtual_key singleton(details_type::f1());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F2.
+        //! \return The virtual key.
+        static const virtual_key& f2()
+        {
+            static const virtual_key singleton(details_type::f2());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F3.
+        //! \return The virtual key.
+        static const virtual_key& f3()
+        {
+            static const virtual_key singleton(details_type::f3());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F4.
+        //! \return The virtual key.
+        static const virtual_key& f4()
+        {
+            static const virtual_key singleton(details_type::f4());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F5.
+        //! \return The virtual key.
+        static const virtual_key& f5()
+        {
+            static const virtual_key singleton(details_type::f5());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F6.
+        //! \return The virtual key.
+        static const virtual_key& f6()
+        {
+            static const virtual_key singleton(details_type::f6());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F7.
+        //! \return The virtual key.
+        static const virtual_key& f7()
+        {
+            static const virtual_key singleton(details_type::f7());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F8.
+        //! \return The virtual key.
+        static const virtual_key& f8()
+        {
+            static const virtual_key singleton(details_type::f8());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F9.
+        //! \return The virtual key.
+        static const virtual_key& f9()
+        {
+            static const virtual_key singleton(details_type::f9());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F10.
+        //! \return The virtual key.
+        static const virtual_key& f10()
+        {
+            static const virtual_key singleton(details_type::f10());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F11.
+        //! \return The virtual key.
+        static const virtual_key& f11()
+        {
+            static const virtual_key singleton(details_type::f11());
+            return singleton;
+        }
+
+        //! Returns the virtual key for F12.
+        //! \return The virtual key.
+        static const virtual_key& f12()
+        {
+            static const virtual_key singleton(details_type::f12());
+            return singleton;
+        }
+
 
         // functions
 
