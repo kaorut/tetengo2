@@ -183,6 +183,294 @@ namespace tetengo2 { namespace gui
             return singleton;
         }
 
+        //! Returns the virtual key for '0'.
+        //! \return The virtual key.
+        static const virtual_key& char_0()
+        {
+            static const virtual_key singleton(details_type::char_0());
+            return singleton;
+        }
+
+        //! Returns the virtual key for '1'.
+        //! \return The virtual key.
+        static const virtual_key& char_1()
+        {
+            static const virtual_key singleton(details_type::char_1());
+            return singleton;
+        }
+
+        //! Returns the virtual key for '2'.
+        //! \return The virtual key.
+        static const virtual_key& char_2()
+        {
+            static const virtual_key singleton(details_type::char_2());
+            return singleton;
+        }
+
+        //! Returns the virtual key for '3'.
+        //! \return The virtual key.
+        static const virtual_key& char_3()
+        {
+            static const virtual_key singleton(details_type::char_3());
+            return singleton;
+        }
+
+        //! Returns the virtual key for '4'.
+        //! \return The virtual key.
+        static const virtual_key& char_4()
+        {
+            static const virtual_key singleton(details_type::char_4());
+            return singleton;
+        }
+
+        //! Returns the virtual key for '5'.
+        //! \return The virtual key.
+        static const virtual_key& char_5()
+        {
+            static const virtual_key singleton(details_type::char_5());
+            return singleton;
+        }
+
+        //! Returns the virtual key for '6'.
+        //! \return The virtual key.
+        static const virtual_key& char_6()
+        {
+            static const virtual_key singleton(details_type::char_6());
+            return singleton;
+        }
+
+        //! Returns the virtual key for '7'.
+        //! \return The virtual key.
+        static const virtual_key& char_7()
+        {
+            static const virtual_key singleton(details_type::char_7());
+            return singleton;
+        }
+
+        //! Returns the virtual key for '8'.
+        //! \return The virtual key.
+        static const virtual_key& char_8()
+        {
+            static const virtual_key singleton(details_type::char_8());
+            return singleton;
+        }
+
+        //! Returns the virtual key for '9'.
+        //! \return The virtual key.
+        static const virtual_key& char_9()
+        {
+            static const virtual_key singleton(details_type::char_9());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'A'.
+        //! \return The virtual key.
+        static const virtual_key& char_a()
+        {
+            static const virtual_key singleton(details_type::char_a());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'B'.
+        //! \return The virtual key.
+        static const virtual_key& char_b()
+        {
+            static const virtual_key singleton(details_type::char_b());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'C'.
+        //! \return The virtual key.
+        static const virtual_key& char_c()
+        {
+            static const virtual_key singleton(details_type::char_c());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'D'.
+        //! \return The virtual key.
+        static const virtual_key& char_d()
+        {
+            static const virtual_key singleton(details_type::char_d());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'E'.
+        //! \return The virtual key.
+        static const virtual_key& char_e()
+        {
+            static const virtual_key singleton(details_type::char_e());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'F'.
+        //! \return The virtual key.
+        static const virtual_key& char_f()
+        {
+            static const virtual_key singleton(details_type::char_f());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'G'.
+        //! \return The virtual key.
+        static const virtual_key& char_g()
+        {
+            static const virtual_key singleton(details_type::char_g());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'H'.
+        //! \return The virtual key.
+        static const virtual_key& char_h()
+        {
+            static const virtual_key singleton(details_type::char_h());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'I'.
+        //! \return The virtual key.
+        static const virtual_key& char_i()
+        {
+            static const virtual_key singleton(details_type::char_i());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'J'.
+        //! \return The virtual key.
+        static const virtual_key& char_j()
+        {
+            static const virtual_key singleton(details_type::char_j());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'K'.
+        //! \return The virtual key.
+        static const virtual_key& char_k()
+        {
+            static const virtual_key singleton(details_type::char_k());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'L'.
+        //! \return The virtual key.
+        static const virtual_key& char_l()
+        {
+            static const virtual_key singleton(details_type::char_l());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'M'.
+        //! \return The virtual key.
+        static const virtual_key& char_m()
+        {
+            static const virtual_key singleton(details_type::char_m());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'N'.
+        //! \return The virtual key.
+        static const virtual_key& char_n()
+        {
+            static const virtual_key singleton(details_type::char_n());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'O'.
+        //! \return The virtual key.
+        static const virtual_key& char_o()
+        {
+            static const virtual_key singleton(details_type::char_o());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'P'.
+        //! \return The virtual key.
+        static const virtual_key& char_p()
+        {
+            static const virtual_key singleton(details_type::char_p());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'Q'.
+        //! \return The virtual key.
+        static const virtual_key& char_q()
+        {
+            static const virtual_key singleton(details_type::char_q());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'R'.
+        //! \return The virtual key.
+        static const virtual_key& char_r()
+        {
+            static const virtual_key singleton(details_type::char_r());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'S'.
+        //! \return The virtual key.
+        static const virtual_key& char_s()
+        {
+            static const virtual_key singleton(details_type::char_s());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'T'.
+        //! \return The virtual key.
+        static const virtual_key& char_t()
+        {
+            static const virtual_key singleton(details_type::char_t());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'U'.
+        //! \return The virtual key.
+        static const virtual_key& char_u()
+        {
+            static const virtual_key singleton(details_type::char_u());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'V'.
+        //! \return The virtual key.
+        static const virtual_key& char_v()
+        {
+            static const virtual_key singleton(details_type::char_v());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'W'.
+        //! \return The virtual key.
+        static const virtual_key& char_w()
+        {
+            static const virtual_key singleton(details_type::char_w());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'X'.
+        //! \return The virtual key.
+        static const virtual_key& char_x()
+        {
+            static const virtual_key singleton(details_type::char_x());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'Y'.
+        //! \return The virtual key.
+        static const virtual_key& char_y()
+        {
+            static const virtual_key singleton(details_type::char_y());
+            return singleton;
+        }
+
+        //! Returns the virtual key for 'Z'.
+        //! \return The virtual key.
+        static const virtual_key& char_z()
+        {
+            static const virtual_key singleton(details_type::char_z());
+            return singleton;
+        }
+
 
         // functions
 
