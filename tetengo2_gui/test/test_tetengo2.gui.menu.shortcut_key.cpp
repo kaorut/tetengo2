@@ -8,6 +8,9 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.detail.stub.virtual_key.h"
+#include "tetengo2.gui.virtual_key.h"
+
 #include "tetengo2.gui.menu.shortcut_key.h"
 
 
@@ -16,7 +19,14 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::menu::shortcut_key<int>
+        tetengo2::detail::stub::virtual_key<std::string>
+        virtual_key_details_type;
+
+    typedef
+        tetengo2::gui::virtual_key<virtual_key_details_type> virtual_key_type;
+
+    typedef
+        tetengo2::gui::menu::shortcut_key<virtual_key_type>
         shortcut_key_type;
 
 
@@ -33,7 +43,135 @@ BOOST_AUTO_TEST_SUITE(shortcut_key)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, false, false
+            );
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, false, false
+            );
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, false, true
+            );
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, true, false
+            );
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, true, true
+            );
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), true, false, false
+            );
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), true, false, true
+            );
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), true, true, false
+            );
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), true, true, true
+            );
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(key)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, false, false
+            );
+
+            BOOST_CHECK_EQUAL(
+                shortcut_key.key().code(), virtual_key_type::char_a().code()
+            );
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::enter(), false, false, false
+            );
+
+            BOOST_CHECK_EQUAL(
+                shortcut_key.key().code(), virtual_key_type::enter().code()
+            );
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(shift)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, false, false
+            );
+
+            BOOST_CHECK(!shortcut_key.shift());
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), true, false, false
+            );
+
+            BOOST_CHECK(shortcut_key.shift());
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(control)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, false, false
+            );
+
+            BOOST_CHECK(!shortcut_key.control());
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, true, false
+            );
+
+            BOOST_CHECK(shortcut_key.control());
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(meta)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, false, false
+            );
+
+            BOOST_CHECK(!shortcut_key.meta());
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, false, true
+            );
+
+            BOOST_CHECK(shortcut_key.meta());
+        }
     }
 
 

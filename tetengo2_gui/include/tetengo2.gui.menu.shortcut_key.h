@@ -33,13 +33,86 @@ namespace tetengo2 { namespace gui { namespace menu
 
         /*!
             \brief Creates a shortcut key.
+
+            \param key     A key.
+            \param shift   True when a shift key is required.
+            \param control True when a control key is required.
+            \param meta    True when a meta key is required.
         */
-        shortcut_key()
+        shortcut_key(
+            const virtual_key_type& key,
+            const bool              shift,
+            const bool              control,
+            const bool              meta
+        )
+        :
+        m_key(key),
+        m_shift(shift),
+        m_control(control),
+        m_meta(meta)
         {}
+
+        
+        // functions
+
+        /*!
+            \brief Returns the key.
+
+            \return The key.
+        */
+        const virtual_key_type& key()
+        const
+        {
+            return m_key;
+        }
+
+        /*!
+            \brief Returns the shift key state.
+
+            \retval true  When a shift key is required.
+            \retval false Otherwise.
+        */
+        bool shift()
+        const
+        {
+            return m_shift;
+        }
+
+        /*!
+            \brief Returns the control key state.
+
+            \retval true  When a control key is required.
+            \retval false Otherwise.
+        */
+        bool control()
+        const
+        {
+            return m_control;
+        }
+
+        /*!
+            \brief Returns the meta key state.
+
+            \retval true  When a meta key is required.
+            \retval false Otherwise.
+        */
+        bool meta()
+        const
+        {
+            return m_meta;
+        }
 
 
     private:
         // types
+
+        const virtual_key_type& m_key;
+
+        const bool m_shift;
+
+        const bool m_control;
+
+        const bool m_meta;
 
 
     };
