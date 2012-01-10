@@ -16,11 +16,13 @@ namespace tetengo2 { namespace gui { namespace menu
         \brief The traits class template for a menu.
 
         \tparam String          A string type.
+        \tparam ShortcutKey     A shortcut key type.
         \tparam Encoder         An encoder type.
         \tparam MenuObserverSet A menu observer set type.
    */
     template <
         typename String,
+        typename ShortcutKey,
         typename Encoder,
         typename MenuObserverSet
     >
@@ -30,6 +32,9 @@ namespace tetengo2 { namespace gui { namespace menu
 
         //! The string type.
         typedef String string_type;
+
+        //! The shortcut key type.
+        typedef ShortcutKey shortcut_key_type;
 
         //! The encoder type.
         typedef Encoder encoder_type;

@@ -26,6 +26,7 @@
 #include <tetengo2.detail.stub.message_handler.h>
 #include <tetengo2.detail.stub.message_loop.h>
 #include <tetengo2.detail.stub.unit.h>
+#include <tetengo2.detail.stub.virtual_key.h>
 #include <tetengo2.detail.stub.widget.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
@@ -42,6 +43,7 @@
 #include <tetengo2.gui.menu.menu_bar.h>
 #include <tetengo2.gui.menu.popup.h>
 #include <tetengo2.gui.menu.separator.h>
+#include <tetengo2.gui.menu.shortcut_key.h>
 #include <tetengo2.gui.menu.traits.h>
 #include <tetengo2.gui.message.dialog_message_loop.h>
 #include <tetengo2.gui.message.menu_observer_set.h>
@@ -51,6 +53,7 @@
 #include <tetengo2.gui.message.paint_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.unit.em.h>
+#include <tetengo2.gui.virtual_key.h>
 #include <tetengo2.gui.widget.button.h>
 #include <tetengo2.gui.widget.dialog.h>
 #include <tetengo2.gui.widget.image.h>
@@ -193,8 +196,17 @@ typedef
     widget_traits_type;
 
 typedef
+    tetengo2::gui::menu::shortcut_key<
+        tetengo2::gui::virtual_key<
+            tetengo2::detail::stub::virtual_key<std::wstring>
+        >
+    >
+    shortcut_key_type;
+
+typedef
     tetengo2::gui::menu::traits<
         std::wstring,
+        shortcut_key_type,
         ui_encoder_type,
         tetengo2::gui::message::menu_observer_set
     >

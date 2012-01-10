@@ -19,6 +19,7 @@
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.unit.h"
+#include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.detail.stub.widget.h"
 #include "tetengo2.gui.alert.h"
 #include "tetengo2.gui.cursor.system.h"
@@ -27,12 +28,14 @@
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.gui.menu.menu_bar.h"
+#include "tetengo2.gui.menu.shortcut_key.h"
 #include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
 #include "tetengo2.gui.message.window_observer_set.h"
 #include "tetengo2.gui.unit.em.h"
+#include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.gui.widget.traits.window_traits.h"
@@ -147,8 +150,17 @@ namespace
         widget_traits_type;
 
     typedef
+        tetengo2::gui::menu::shortcut_key<
+            tetengo2::gui::virtual_key<
+                tetengo2::detail::stub::virtual_key<std::wstring>
+            >
+        >
+        shortcut_key_type;
+
+    typedef
         tetengo2::gui::menu::traits<
             std::wstring,
+            shortcut_key_type,
             ui_encoder_type,
             tetengo2::gui::message::menu_observer_set
         >

@@ -33,6 +33,7 @@
 #include <tetengo2.detail.windows.message_handler.h>
 #include <tetengo2.detail.windows.message_loop.h>
 #include <tetengo2.detail.windows.unit.h>
+#include <tetengo2.detail.windows.virtual_key.h>
 #include <tetengo2.detail.windows.widget.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
@@ -50,6 +51,7 @@
 #include <tetengo2.gui.menu.menu_bar.h>
 #include <tetengo2.gui.menu.popup.h>
 #include <tetengo2.gui.menu.separator.h>
+#include <tetengo2.gui.menu.shortcut_key.h>
 #include <tetengo2.gui.menu.traits.h>
 #include <tetengo2.gui.message.dialog_message_loop.h>
 #include <tetengo2.gui.message.menu_observer_set.h>
@@ -59,6 +61,7 @@
 #include <tetengo2.gui.message.paint_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.unit.em.h>
+#include <tetengo2.gui.virtual_key.h>
 #include <tetengo2.gui.widget.button.h>
 #include <tetengo2.gui.widget.dialog.h>
 #include <tetengo2.gui.widget.image.h>
@@ -437,8 +440,18 @@ namespace bobura
             tetengo2::detail::windows::message_handler<widget_details_type>
             message_handler_details_type;
         typedef
+            tetengo2::gui::menu::shortcut_key<
+                tetengo2::gui::virtual_key<
+                    tetengo2::detail::windows::virtual_key<
+                        boost::mpl::at<common_type_list, type::string>::type
+                    >
+                >
+            >
+            shortcut_key_type;
+        typedef
             tetengo2::gui::menu::traits<
                 boost::mpl::at<common_type_list, type::string>::type,
+                shortcut_key_type,
                 boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 tetengo2::gui::message::menu_observer_set
             >

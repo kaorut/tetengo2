@@ -14,11 +14,14 @@
 
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.menu.h"
+#include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.gui.menu.abstract_popup.h"
 #include "tetengo2.gui.menu.menu_base.h"
 #include "tetengo2.gui.menu.popup.h"
+#include "tetengo2.gui.menu.shortcut_key.h"
 #include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
+#include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
@@ -31,6 +34,14 @@ namespace
     // types
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
+
+    typedef
+        tetengo2::gui::menu::shortcut_key<
+            tetengo2::gui::virtual_key<
+                tetengo2::detail::stub::virtual_key<std::string>
+            >
+        >
+        shortcut_key_type;
 
     typedef
         tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
@@ -47,6 +58,7 @@ namespace
     typedef
         tetengo2::gui::menu::traits<
             std::string,
+            shortcut_key_type,
             encoder_type,
             tetengo2::gui::message::menu_observer_set
         >
