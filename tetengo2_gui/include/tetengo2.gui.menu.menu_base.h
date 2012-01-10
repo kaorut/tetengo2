@@ -45,6 +45,9 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The string type.
         typedef typename traits_type::string_type string_type;
 
+        //! The shortcut key type.
+        typedef typename traits_type::shortcut_key_type shortcut_key_type;
+
         //! The encoder type.
         typedef typename traits_type::encoder_type encoder_type;
 
@@ -329,7 +332,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // variables
 
-        string_type m_text;
+        const string_type m_text;
 
         menu_observer_set_type m_menu_observer_set;
 
