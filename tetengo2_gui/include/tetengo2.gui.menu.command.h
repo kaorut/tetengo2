@@ -38,6 +38,9 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The base type.
         typedef menu_base<traits_type, menu_details_type> base_type;
 
+        //! The shortcut key type.
+        typedef typename base_type::shortcut_key_type shortcut_key_type;
+
 
         // constructors and destructor
 
@@ -46,12 +49,21 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \tparam S A string type.
 
-            \param text A text.
+            \param text           A text.
+            \param p_shortcut_key A unique pointer to a shortcut key.
         */
         template <typename S>
-        explicit command(S&& text)
+        command(
+            S&&                                text,
+            std::unique_ptr<shortcut_key_type> p_shortcut_key =
+                std::unique_ptr<shortcut_key_type>()
+        )
         :
-        base_type(std::forward<S>(text), menu_details_type::create_menu())
+        base_type(
+            std::forward<S>(text),
+            std::move(p_shortcut_key),
+            menu_details_type::create_menu()
+        )
         {}
 
         /*!

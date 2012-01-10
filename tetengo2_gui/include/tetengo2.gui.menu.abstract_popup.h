@@ -45,6 +45,9 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The base type.
         typedef menu_base<traits_type, menu_details_type> base_type;
 
+        //! The shortcut key type.
+        typedef typename base_type::shortcut_key_type shortcut_key_type;
+
         //! The const iterator type.
         typedef typename base_type::const_iterator const_iterator;
 
@@ -84,7 +87,11 @@ namespace tetengo2 { namespace gui { namespace menu
         template <typename S>
         abstract_popup(S&& text, details_ptr_type p_details)
         :
-        base_type(std::forward<S>(text), std::move(p_details)),
+        base_type(
+            std::forward<S>(text),
+            std::unique_ptr<shortcut_key_type>(),
+            std::move(p_details)
+        ),
         m_children()
         {}
 

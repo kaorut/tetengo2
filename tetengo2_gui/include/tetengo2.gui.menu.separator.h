@@ -38,6 +38,9 @@ namespace tetengo2 { namespace gui { namespace menu
         //! The base type.
         typedef menu_base<traits_type, menu_details_type> base_type;
 
+        //! The shortcut key type.
+        typedef typename base_type::shortcut_key_type shortcut_key_type;
+
 
         // constructors and destructor
 
@@ -46,7 +49,11 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         separator()
         :
-        base_type(string_type(), menu_details_type::create_menu())
+        base_type(
+            string_type(),
+            std::unique_ptr<shortcut_key_type>(),
+            menu_details_type::create_menu()
+        )
         {}
 
         /*!

@@ -127,6 +127,37 @@ namespace tetengo2 { namespace gui { namespace menu
         {
             return style_impl();
         }
+        
+        /*!
+            \brief Checks whether the menu has a shortucut key.
+
+            \retval true  When the menu has a shortcut key.
+        */
+        bool has_shortcut_key()
+        const
+        {
+            return static_cast<bool>(m_p_shortcut_key);
+        }
+
+        /*!
+            \brief Returns the shortcut key.
+
+            \return The shortcut key.
+
+            \throw std::logic_error When the menu has no shortcut key.
+        */
+        const shortcut_key_type& shortcut_key()
+        const
+        {
+            if (!has_shortcut_key())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error("This menu has no shortcut key.")
+                );
+            }
+
+            return *m_p_shortcut_key;
+        }
 
         /*!
             \brief Selects this menu.
@@ -307,13 +338,19 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \tparam S A string type.
 
-            \param text      A text.
-            \param p_details A unique pointer to a detail implementation.
+            \param text           A text.
+            \param p_shortcut_key A unique pointer to a shortcut key.
+            \param p_details      A unique pointer to a detail implementation.
         */
         template <typename S>
-        menu_base(S&& text, details_ptr_type p_details)
+        menu_base(
+            S&&                                text,
+            std::unique_ptr<shortcut_key_type> p_shortcut_key,
+            details_ptr_type                   p_details
+        )
         :
         m_text(std::forward<S>(text)),
+        m_p_shortcut_key(std::move(p_shortcut_key)),
         m_menu_observer_set(),
         m_p_details(std::move(p_details))
         {}
@@ -333,6 +370,8 @@ namespace tetengo2 { namespace gui { namespace menu
         // variables
 
         const string_type m_text;
+
+        const std::unique_ptr<shortcut_key_type> m_p_shortcut_key;
 
         menu_observer_set_type m_menu_observer_set;
 

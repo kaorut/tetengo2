@@ -31,12 +31,13 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::menu::shortcut_key<
-            tetengo2::gui::virtual_key<
-                tetengo2::detail::stub::virtual_key<std::string>
-            >
+        tetengo2::gui::virtual_key<
+            tetengo2::detail::stub::virtual_key<std::string>
         >
-        shortcut_key_type;
+        virtual_key_type;
+
+    typedef
+        tetengo2::gui::menu::shortcut_key<virtual_key_type> shortcut_key_type;
 
     typedef
         tetengo2::text::encoding::locale<
@@ -67,10 +68,16 @@ namespace
     public:
         // constructors and destructor
 
-        concrete_menu(std::string&& text)
+        concrete_menu(
+            std::string&&                      text,
+            std::unique_ptr<shortcut_key_type> p_shortcut_key_type =
+                std::unique_ptr<shortcut_key_type>()
+        )
         :
         menu_base_type(
-            std::forward<std::string>(text), menu_details_type::create_menu()
+            std::forward<std::string>(text),
+            std::move(p_shortcut_key_type),
+            menu_details_type::create_menu()
         )
         {}
 
@@ -122,6 +129,55 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         BOOST_CHECK(
             &menu.style() == &menu_details_type::menu_command_style()
         );
+    }
+
+    BOOST_AUTO_TEST_CASE(has_shortcut_key)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_menu menu(std::string("Tetengo"));
+
+            BOOST_CHECK(!menu.has_shortcut_key());
+        }
+        {
+            const concrete_menu menu(
+                std::string("Tetengo"),
+                tetengo2::make_unique<shortcut_key_type>(
+                    virtual_key_type::char_a(), false, true, false
+                )
+            );
+
+            BOOST_CHECK(menu.has_shortcut_key());
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(shortcut_key)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_menu menu(std::string("Tetengo"));
+
+            BOOST_CHECK_THROW(menu.shortcut_key(), std::logic_error);
+        }
+        {
+            const concrete_menu menu(
+                std::string("Tetengo"),
+                tetengo2::make_unique<shortcut_key_type>(
+                    virtual_key_type::char_a(), false, true, false
+                )
+            );
+
+            const shortcut_key_type& shortcut_key = menu.shortcut_key();
+            BOOST_CHECK_EQUAL(
+                shortcut_key.key().code(),
+                virtual_key_type::char_a().code()
+            );
+            BOOST_CHECK(!shortcut_key.shift());
+            BOOST_CHECK(shortcut_key.control());
+            BOOST_CHECK(!shortcut_key.meta());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(select)
