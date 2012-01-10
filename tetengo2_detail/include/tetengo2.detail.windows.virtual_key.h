@@ -567,6 +567,32 @@ namespace tetengo2 { namespace detail { namespace windows
             );
         }
 
+        /*!
+            \brief Returns the string representation of combined keys.
+
+            \tparam InputIterator An input iterator type.
+
+            \param first The first position of the combined keys.
+            \param last  The last position of the combined keys.
+
+            \return The string representation of combined keys.
+        */
+        template <typename InputIterator>
+        static string_type to_combined_string(
+            const InputIterator first,
+            const InputIterator last
+        )
+        {
+            string_type string;
+            for (InputIterator i = first; i != last; ++i)
+            {
+                if (i != first)
+                    string += string_type(TETENGO2_TEXT("+"));
+                string += i->get().to_string();
+            }
+            return string;
+        }
+
 
     private:
         // forbidden operations

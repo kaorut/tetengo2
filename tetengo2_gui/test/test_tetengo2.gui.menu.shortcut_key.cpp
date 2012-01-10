@@ -174,6 +174,33 @@ BOOST_AUTO_TEST_SUITE(shortcut_key)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(to_string)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_a(), false, false, false
+            );
+
+            BOOST_CHECK(shortcut_key.to_string() == "A");
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_b(), false, true, false
+            );
+
+            BOOST_CHECK(shortcut_key.to_string() == "Ctrl+B");
+        }
+        {
+            const shortcut_key_type shortcut_key(
+                virtual_key_type::char_c(), true, false, true
+            );
+
+            BOOST_CHECK(shortcut_key.to_string() == "Shift+Alt+C");
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

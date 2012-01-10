@@ -11,6 +11,8 @@
 
 #include <boost/noncopyable.hpp>
 
+#include "tetengo2.cpp11.h"
+
 
 namespace tetengo2 { namespace gui { namespace menu
 {
@@ -27,6 +29,9 @@ namespace tetengo2 { namespace gui { namespace menu
 
         //! The virtual key type.
         typedef VirtualKey virtual_key_type;
+
+        //! The string type.
+        typedef typename virtual_key_type::string_type string_type;
 
 
         // constructors and destructor
@@ -102,9 +107,42 @@ namespace tetengo2 { namespace gui { namespace menu
             return m_meta;
         }
 
+        /*!
+            \brief Returns the string representation.
+
+            \return The string representation.
+        */
+        string_type to_string()
+        const
+        {
+            std::vector<
+                typename cpp11::reference_wrapper<
+                    const virtual_key_type
+                >::type
+            > keys;
+            
+            if (m_shift)
+                keys.push_back(cpp11::cref(virtual_key_type::shift()));
+            if (m_control)
+                keys.push_back(cpp11::cref(virtual_key_type::control()));
+            if (m_meta)
+                keys.push_back(cpp11::cref(virtual_key_type::meta()));
+            keys.push_back(cpp11::cref(m_key));
+
+            return virtual_key_details_type::to_combined_string(
+                keys.begin(), keys.end()
+            );
+        }
+
 
     private:
         // types
+
+        typedef
+            typename virtual_key_type::details_type virtual_key_details_type;
+
+
+        // variables
 
         const virtual_key_type& m_key;
 
