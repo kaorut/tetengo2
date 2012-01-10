@@ -22,11 +22,6 @@ Added on    : 2011/12/22
 Depends on  : 00000126, 00000127, 00000128, 00000129, 00000130
 Description : Support keyboard shortcuts using the menu commands.
 ------------------------------------------------------------------------------
-Number      : 00000126
-Added on    : 2012/01/07
-Depends on  : (none)
-Description : Create tetengo2::gui::virtual_key_code.
-------------------------------------------------------------------------------
 Number      : 00000127
 Added on    : 2012/01/07
 Depends on  : (none)
