@@ -112,44 +112,20 @@ BOOST_AUTO_TEST_SUITE(virtual_key)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK_EQUAL(
-            virtual_key_type::backspace().code(),
-            virtual_key_details_type::backspace().first
-        );
-        BOOST_CHECK_EQUAL(
-            virtual_key_type::char_0().code(),
-            virtual_key_details_type::char_0().first
-        );
-        BOOST_CHECK_EQUAL(
-            virtual_key_type::char_a().code(),
-            virtual_key_details_type::char_a().first
-        );
-        BOOST_CHECK_EQUAL(
-            virtual_key_type::f1().code(),
-            virtual_key_details_type::f1().first
-        );
+        BOOST_CHECK_EQUAL(virtual_key_type::backspace().code(), 0x08);
+        BOOST_CHECK_EQUAL(virtual_key_type::char_0().code(), '0');
+        BOOST_CHECK_EQUAL(virtual_key_type::char_a().code(), 'A');
+        BOOST_CHECK_EQUAL(virtual_key_type::f1().code(), 0x70);
     }
 
     BOOST_AUTO_TEST_CASE(string)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK(
-            virtual_key_type::backspace().to_string() ==
-            virtual_key_details_type::backspace().second
-        );
-        BOOST_CHECK(
-            virtual_key_type::char_0().to_string() ==
-            virtual_key_details_type::char_0().second
-        );
-        BOOST_CHECK(
-            virtual_key_type::char_a().to_string() ==
-            virtual_key_details_type::char_a().second
-        );
-        BOOST_CHECK(
-            virtual_key_type::f1().to_string() ==
-            virtual_key_details_type::f1().second
-        );
+        BOOST_CHECK(virtual_key_type::backspace().to_string() == "BackSpace");
+        BOOST_CHECK(virtual_key_type::char_0().to_string() == "0");
+        BOOST_CHECK(virtual_key_type::char_a().to_string() == "A");
+        BOOST_CHECK(virtual_key_type::f1().to_string() == "F1");
     }
 
 
