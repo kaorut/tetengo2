@@ -587,7 +587,7 @@ namespace tetengo2 { namespace gui
             const virtual_key& another
         )
         {
-            return one.code() == another.code();
+            return one.m_code == another.m_code;
         }
 
         /*!

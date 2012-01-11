@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_MENU_SHORTCUTKEY_H
 
 #include <boost/noncopyable.hpp>
+#include <boost/operators.hpp>
 
 #include "tetengo2.cpp11.h"
 
@@ -22,7 +23,9 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam VirtualKey A virtual key type.
    */
     template <typename VirtualKey>
-    class shortcut_key : private boost::noncopyable
+    class shortcut_key :
+        private boost::noncopyable,
+        private boost::equality_comparable<shortcut_key<VirtualKey>>
     {
     public:
         // types
@@ -59,6 +62,27 @@ namespace tetengo2 { namespace gui { namespace menu
 
         
         // functions
+
+        /*!
+            \brief Checks whether one shortcut key is equal to another.
+
+            \param one     One shortcut key.
+            \param another Another shortcut key.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(
+            const shortcut_key& one,
+            const shortcut_key& another
+        )
+        {
+            return
+                one.m_key == another.m_key &&
+                one.m_shift == another.m_shift &&
+                one.m_control == another.m_control &&
+                one.m_meta == another.m_meta;
+        }
 
         /*!
             \brief Returns the key.

@@ -90,6 +90,62 @@ BOOST_AUTO_TEST_SUITE(shortcut_key)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const shortcut_key_type shortcut_key1(
+                virtual_key_type::char_a(), false, false, false
+            );
+            const shortcut_key_type shortcut_key2(
+                virtual_key_type::char_a(), false, false, false
+            );
+
+            BOOST_CHECK(shortcut_key1 == shortcut_key2);
+        }
+        {
+            const shortcut_key_type shortcut_key1(
+                virtual_key_type::char_a(), false, false, false
+            );
+            const shortcut_key_type shortcut_key2(
+                virtual_key_type::char_b(), false, false, false
+            );
+
+            BOOST_CHECK(shortcut_key1 != shortcut_key2);
+        }
+        {
+            const shortcut_key_type shortcut_key1(
+                virtual_key_type::char_a(), false, false, false
+            );
+            const shortcut_key_type shortcut_key2(
+                virtual_key_type::char_a(), true, false, false
+            );
+
+            BOOST_CHECK(shortcut_key1 != shortcut_key2);
+        }
+        {
+            const shortcut_key_type shortcut_key1(
+                virtual_key_type::char_a(), false, false, false
+            );
+            const shortcut_key_type shortcut_key2(
+                virtual_key_type::char_a(), false, true, false
+            );
+
+            BOOST_CHECK(shortcut_key1 != shortcut_key2);
+        }
+        {
+            const shortcut_key_type shortcut_key1(
+                virtual_key_type::char_a(), false, false, false
+            );
+            const shortcut_key_type shortcut_key2(
+                virtual_key_type::char_a(), false, false, true
+            );
+
+            BOOST_CHECK(shortcut_key1 != shortcut_key2);
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(key)
     {
         BOOST_TEST_PASSPOINT();
