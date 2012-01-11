@@ -108,6 +108,14 @@ BOOST_AUTO_TEST_SUITE(virtual_key)
         virtual_key_type::f12();
     }
 
+    BOOST_AUTO_TEST_CASE(operator_equal)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_CHECK(virtual_key_type::char_a() == virtual_key_type::char_a());
+        BOOST_CHECK(virtual_key_type::char_a() != virtual_key_type::char_b());
+    }
+
     BOOST_AUTO_TEST_CASE(code)
     {
         BOOST_TEST_PASSPOINT();

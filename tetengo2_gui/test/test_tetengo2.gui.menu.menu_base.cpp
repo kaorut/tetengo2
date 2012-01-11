@@ -170,10 +170,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
             );
 
             const shortcut_key_type& shortcut_key = menu.shortcut_key();
-            BOOST_CHECK_EQUAL(
-                shortcut_key.key().code(),
-                virtual_key_type::char_a().code()
-            );
+            BOOST_CHECK(shortcut_key.key() == virtual_key_type::char_a());
             BOOST_CHECK(!shortcut_key.shift());
             BOOST_CHECK(shortcut_key.control());
             BOOST_CHECK(!shortcut_key.meta());

@@ -12,6 +12,7 @@
 #include <utility>
 
 #include <boost/noncopyable.hpp>
+#include <boost/operators.hpp>
 
 
 namespace tetengo2 { namespace gui
@@ -22,7 +23,9 @@ namespace tetengo2 { namespace gui
         \tparam Details A detail implementation type.
     */
     template <typename Details>
-    class virtual_key
+    class virtual_key :
+        private boost::noncopyable,
+        private boost::equality_comparable<virtual_key<Details>>
     {
     public:
         // types
@@ -569,6 +572,23 @@ namespace tetengo2 { namespace gui
 
 
         // functions
+
+        /*!
+            \brief Checks whether one virtual key is equal to another.
+
+            \param one     One virtual key.
+            \param another Another virtual key.
+
+            \retval true  When the one is equal to the other.
+            \retval false Otherwise.
+        */
+        friend bool operator==(
+            const virtual_key& one,
+            const virtual_key& another
+        )
+        {
+            return one.code() == another.code();
+        }
 
         /*!
             \brief Returns the code.

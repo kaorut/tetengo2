@@ -99,18 +99,14 @@ BOOST_AUTO_TEST_SUITE(shortcut_key)
                 virtual_key_type::char_a(), false, false, false
             );
 
-            BOOST_CHECK_EQUAL(
-                shortcut_key.key().code(), virtual_key_type::char_a().code()
-            );
+            BOOST_CHECK(shortcut_key.key() == virtual_key_type::char_a());
         }
         {
             const shortcut_key_type shortcut_key(
                 virtual_key_type::enter(), false, false, false
             );
 
-            BOOST_CHECK_EQUAL(
-                shortcut_key.key().code(), virtual_key_type::enter().code()
-            );
+            BOOST_CHECK(shortcut_key.key() == virtual_key_type::enter());
         }
     }
 
