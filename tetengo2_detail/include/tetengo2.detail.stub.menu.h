@@ -28,6 +28,14 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The menu details pointer type.
         typedef std::unique_ptr<menu_details_type> menu_details_ptr_type;
 
+        //! The shortcut key table details type.
+        struct shortcut_key_table_details_type {};
+
+        //! The shortcut key table details pointer type.
+        typedef
+            std::unique_ptr<shortcut_key_table_details_type>
+            shortcut_key_table_details_ptr_type;
+
         //! The style tag type.
         struct style_tag {};
 
@@ -62,6 +70,25 @@ namespace tetengo2 { namespace detail { namespace stub
         static menu_details_ptr_type create_menu()
         {
             return menu_details_ptr_type();
+        }
+
+        /*!
+            \brief Creates a shortcut key table.
+
+            \tparam InputIterator An input iterator type.
+
+            \param first A first position among shortcut keys.
+            \param last  A last position among shortcut keys.
+
+            \return A unique pointer to a shortcut key table.
+        */
+        template <typename InputIterator>
+        static shortcut_key_table_details_ptr_type create_shortcut_key_table(
+            const InputIterator first,
+            const InputIterator last
+        )
+        {
+            return make_unique<shortcut_key_table_details_type>();
         }
 
         /*!

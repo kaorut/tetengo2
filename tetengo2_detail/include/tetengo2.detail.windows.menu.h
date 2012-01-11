@@ -58,6 +58,18 @@ namespace tetengo2 { namespace detail { namespace windows
             >
             id_handle_type;
 
+        struct accelerator_table_deleter
+        {
+            void operator()(const ::HACCEL accelerator_table_handle)
+            const
+            {
+                if (accelerator_table_handle)
+                    ::DestroyAcceleratorTable(accelerator_table_handle);
+            }
+
+
+        };
+
 
     }
 #endif
@@ -76,6 +88,17 @@ namespace tetengo2 { namespace detail { namespace windows
 
         //! The menu details pointer type.
         typedef std::unique_ptr<menu_details_type> menu_details_ptr_type;
+
+        //! The shortcut key table details type.
+        typedef
+            std::remove_pointer< ::HACCEL>::type shortcut_key_table_details_type;
+
+        //! The shortcut key table details pointer type.
+        typedef
+            std::unique_ptr<
+                shortcut_key_table_details_type, detail::accelerator_table_deleter
+            >
+            shortcut_key_table_details_ptr_type;
 
         //! The style tag type.
         struct style_tag
@@ -149,6 +172,40 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             return make_unique<menu_details_type>(
                 get_and_increment_id(), static_cast< ::HMENU>(NULL)
+            );
+        }
+        
+        /*!
+            \brief Creates a shortcut key table.
+
+            \tparam ForwardIterator A forward iterator type.
+
+            \param first A first position among shortcut key table entries.
+            \param last  A last position among shortcut key table entries.
+
+            \return A unique pointer to a shortcut key table.
+        */
+        template <typename ForwardIterator>
+        static shortcut_key_table_details_ptr_type create_shortcut_key_table(
+            const ForwardIterator first,
+            const ForwardIterator last
+        )
+        {
+            std::vector< ::ACCEL> accelerators;
+            accelerators.reserve(std::distance(first, last));
+
+
+            const ::HACCEL accelerator_table_handle =
+                ::CreateAcceleratorTableW(
+                    accelerators.data(), accelerators.size()
+                );
+            if (!accelerator_table_handle)
+            {
+                BOOST_THROW_EXCEPTION("Can't create a shortcut key table.");
+            }
+
+            return make_unique<shortcut_key_table_details_type>(
+                accelerator_table_handle
             );
         }
 
