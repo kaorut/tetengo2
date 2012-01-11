@@ -9,7 +9,6 @@
 #if !defined(TETENGO2_GUI_MENU_SHORTCUTKEY_H)
 #define TETENGO2_GUI_MENU_SHORTCUTKEY_H
 
-#include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
 
 #include "tetengo2.cpp11.h"
@@ -24,7 +23,6 @@ namespace tetengo2 { namespace gui { namespace menu
    */
     template <typename VirtualKey>
     class shortcut_key :
-        private boost::noncopyable,
         private boost::equality_comparable<shortcut_key<VirtualKey>>
     {
     public:
@@ -54,7 +52,7 @@ namespace tetengo2 { namespace gui { namespace menu
             const bool              meta
         )
         :
-        m_key(key),
+        m_key(tetengo2::cpp11::cref(key)),
         m_shift(shift),
         m_control(control),
         m_meta(meta)
@@ -78,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace menu
         )
         {
             return
-                one.m_key == another.m_key &&
+                one.m_key.get() == another.m_key.get() &&
                 one.m_shift == another.m_shift &&
                 one.m_control == another.m_control &&
                 one.m_meta == another.m_meta;
@@ -92,7 +90,7 @@ namespace tetengo2 { namespace gui { namespace menu
         const virtual_key_type& key()
         const
         {
-            return m_key;
+            return m_key.get();
         }
 
         /*!
@@ -168,13 +166,15 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // variables
 
-        const virtual_key_type& m_key;
+        typename tetengo2::cpp11::reference_wrapper<
+            const virtual_key_type
+        >::type m_key;
 
-        const bool m_shift;
+        bool m_shift;
 
-        const bool m_control;
+        bool m_control;
 
-        const bool m_meta;
+        bool m_meta;
 
 
     };
