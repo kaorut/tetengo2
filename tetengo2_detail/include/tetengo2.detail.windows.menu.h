@@ -26,6 +26,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
 
@@ -179,8 +180,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::MENUITEMINFOW menu_info = {};
             menu_info.cbSize = sizeof(::MENUITEMINFO);
-            std::vector< ::WCHAR> duplicated_text =
-                duplicate_text(menu.text(), encoder);
+            std::vector< ::WCHAR> duplicated_text = make_text(menu, encoder);
             menu.style().set_style(
                 *menu.details(), menu_info, duplicated_text
             );
@@ -348,12 +348,18 @@ namespace tetengo2 { namespace detail { namespace windows
             return id++;
         }
 
-        template <typename String, typename Encoder>
-        static std::vector< ::WCHAR> duplicate_text(
-            const String&  text,
-            const Encoder& encoder
+        template <typename MenuBase, typename Encoder>
+        static std::vector< ::WCHAR> make_text(
+            const MenuBase& menu,
+            const Encoder&  encoder
         )
         {
+            typename MenuBase::string_type text = menu.text();
+            if (menu.has_shortcut_key())
+            {
+                text += typename MenuBase::string_type(TETENGO2_TEXT("\t"));
+                text += menu.shortcut_key().to_string();
+            }
             const std::wstring native_string = encoder.encode(text);
 
             std::vector< ::WCHAR> duplicated;
