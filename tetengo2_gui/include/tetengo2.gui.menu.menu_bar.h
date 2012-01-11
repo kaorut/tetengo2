@@ -88,7 +88,7 @@ namespace tetengo2 { namespace gui { namespace menu
         {
             m_p_shortcut_key_table =
                 make_unique<shortcut_key_table_type>(
-                    recursive_begin(), recursive_end()
+                    this->recursive_begin(), this->recursive_end()
                 );
         }
 

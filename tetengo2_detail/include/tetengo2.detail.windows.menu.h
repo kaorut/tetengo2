@@ -218,7 +218,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const ::HACCEL accelerator_table_handle =
                 ::CreateAcceleratorTableW(
-                    accelerators.data(), accelerators.size()
+                    accelerators.data(), static_cast<int>(accelerators.size())
                 );
             if (!accelerator_table_handle)
             {
