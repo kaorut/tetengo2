@@ -88,7 +88,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const InputIterator last
         )
         {
-            return menu_details_ptr_type();
+            return shortcut_key_table_details_ptr_type();
         }
 
         /*!
