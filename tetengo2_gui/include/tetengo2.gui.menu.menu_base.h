@@ -136,7 +136,7 @@ namespace tetengo2 { namespace gui { namespace menu
         bool has_shortcut_key()
         const
         {
-            return static_cast<bool>(m_p_shortcut_key);
+            return m_shortcut_key;
         }
 
         /*!
@@ -156,7 +156,7 @@ namespace tetengo2 { namespace gui { namespace menu
                 );
             }
 
-            return *m_p_shortcut_key;
+            return *m_shortcut_key;
         }
 
         /*!
@@ -334,23 +334,37 @@ namespace tetengo2 { namespace gui { namespace menu
         // constructors and destructor
 
         /*!
-            \brief Creates a menu base.
+            \brief Creates a menu base without a shortcut key.
+
+            \tparam S  A string type.
+            \tparam SK A shortcut key type.
+
+            \param text         A text.
+            \param shortcut_key A shortcut key.
+            \param p_details    A unique pointer to a detail implementation.
+        */
+        template <typename S>
+        menu_base(S&& text, details_ptr_type p_details)
+        :
+        m_text(std::forward<S>(text)),
+        m_shortcut_key(),
+        m_menu_observer_set(),
+        m_p_details(std::move(p_details))
+        {}
+
+        /*!
+            \brief Creates a menu base with a shortcut key.
 
             \tparam S A string type.
 
-            \param text           A text.
-            \param p_shortcut_key A unique pointer to a shortcut key.
-            \param p_details      A unique pointer to a detail implementation.
+            \param text      A text.
+            \param p_details A unique pointer to a detail implementation.
         */
-        template <typename S>
-        menu_base(
-            S&&                                text,
-            std::unique_ptr<shortcut_key_type> p_shortcut_key,
-            details_ptr_type                   p_details
-        )
+        template <typename S, typename SK>
+        menu_base(S&& text, SK&& shortcut_key, details_ptr_type p_details)
         :
         m_text(std::forward<S>(text)),
-        m_p_shortcut_key(std::move(p_shortcut_key)),
+        m_shortcut_key(std::forward<SK>(shortcut_key)),
         m_menu_observer_set(),
         m_p_details(std::move(p_details))
         {}
@@ -371,7 +385,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
         const string_type m_text;
 
-        const std::unique_ptr<shortcut_key_type> m_p_shortcut_key;
+        const boost::optional<shortcut_key_type> m_shortcut_key;
 
         menu_observer_set_type m_menu_observer_set;
 

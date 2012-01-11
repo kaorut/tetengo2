@@ -68,15 +68,22 @@ namespace
     public:
         // constructors and destructor
 
+        concrete_menu(std::string&& text)
+        :
+        menu_base_type(
+            std::forward<std::string>(text),
+            menu_details_type::create_menu()
+        )
+        {}
+
         concrete_menu(
-            std::string&&                      text,
-            std::unique_ptr<shortcut_key_type> p_shortcut_key_type =
-                std::unique_ptr<shortcut_key_type>()
+            std::string&&       text,
+            shortcut_key_type&& shortcut_key_type
         )
         :
         menu_base_type(
             std::forward<std::string>(text),
-            std::move(p_shortcut_key_type),
+            shortcut_key_type,
             menu_details_type::create_menu()
         )
         {}
@@ -143,7 +150,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         {
             const concrete_menu menu(
                 std::string("Tetengo"),
-                tetengo2::make_unique<shortcut_key_type>(
+                shortcut_key_type(
                     virtual_key_type::char_a(), false, true, false
                 )
             );
@@ -164,7 +171,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         {
             const concrete_menu menu(
                 std::string("Tetengo"),
-                tetengo2::make_unique<shortcut_key_type>(
+                shortcut_key_type(
                     virtual_key_type::char_a(), false, true, false
                 )
             );

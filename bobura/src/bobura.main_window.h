@@ -137,15 +137,36 @@ namespace bobura
         static void append_menu_command(
             menu_base_type&                        popup_menu,
             typename menu_base_type::string_type&& text,
+            command_type&&                         command
+        )
+        {
+            std::unique_ptr<menu_base_type> p_menu_command(
+                tetengo2::make_unique<menu_command_type>(
+                    std::forward<typename menu_base_type::string_type>(text)
+                )
+            );
+
+            p_menu_command->menu_observer_set().selected().connect(
+                typename boost::mpl::at<
+                    main_window_message_type_list_type,
+                    message::main_window::type::menu
+                >::type(std::forward<command_type>(command))
+            );
+
+            popup_menu.insert(popup_menu.end(), std::move(p_menu_command));
+        }
+
+        static void append_menu_command(
+            menu_base_type&                        popup_menu,
+            typename menu_base_type::string_type&& text,
             command_type&&                         command,
-            std::unique_ptr<shortcut_key_type>     p_shortcut_key =
-                std::unique_ptr<shortcut_key_type>()
+            shortcut_key_type&&                    shortcut_key
         )
         {
             std::unique_ptr<menu_base_type> p_menu_command(
                 tetengo2::make_unique<menu_command_type>(
                     std::forward<typename menu_base_type::string_type>(text),
-                    std::move(p_shortcut_key)
+                    std::forward<shortcut_key_type>(shortcut_key)
                 )
             );
 
@@ -218,7 +239,7 @@ namespace bobura
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type(),
-                    tetengo2::make_unique<shortcut_key_type>(
+                    shortcut_key_type(
                         virtual_key_type::char_n(), false, true, false
                     )
                 );
@@ -230,7 +251,7 @@ namespace bobura
                     typename boost::mpl::at<
                         command_type_list_type, command::type::load_from_file
                     >::type(*this, m_message_catalog),
-                    tetengo2::make_unique<shortcut_key_type>(
+                    shortcut_key_type(
                         virtual_key_type::char_o(), false, true, false
                     )
                 );
@@ -240,7 +261,7 @@ namespace bobura
                     typename boost::mpl::at<
                         command_type_list_type, command::type::nop
                     >::type(),
-                    tetengo2::make_unique<shortcut_key_type>(
+                    shortcut_key_type(
                         virtual_key_type::char_s(), false, true, false
                     )
                 );

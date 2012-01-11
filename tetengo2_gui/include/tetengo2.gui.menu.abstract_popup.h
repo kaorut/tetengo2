@@ -87,11 +87,7 @@ namespace tetengo2 { namespace gui { namespace menu
         template <typename S>
         abstract_popup(S&& text, details_ptr_type p_details)
         :
-        base_type(
-            std::forward<S>(text),
-            std::unique_ptr<shortcut_key_type>(),
-            std::move(p_details)
-        ),
+        base_type(std::forward<S>(text), std::move(p_details)),
         m_children()
         {}
 
