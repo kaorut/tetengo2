@@ -207,10 +207,16 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             std::vector< ::ACCEL> accelerators;
-            accelerators.reserve(std::distance(first, last));
-            assert(1 <= accelerators.size() && accelerators.size() <= 32767);
+            for (ForwardIterator i = first; i != last; ++i)
+            {
+                if (!i->has_shortcut_key()) continue;
 
-            ::HACCEL accelerator_table_handle =
+                accelerators.push_back(to_accel(*i));
+            }
+            if (accelerators.empty())
+                return shortcut_key_table_details_ptr_type();
+
+            const ::HACCEL accelerator_table_handle =
                 ::CreateAcceleratorTableW(
                     accelerators.data(), accelerators.size()
                 );
@@ -414,6 +420,27 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
         // static functions
+
+        template <typename MenuBase>
+        static ::ACCEL to_accel(const MenuBase& menu)
+        {
+            const typename MenuBase::shortcut_key_type& shortcut_key =
+                menu.shortcut_key();
+
+            ::ACCEL accel = {};
+
+            if (shortcut_key.shift())   accel.fVirt |= FSHIFT;
+            if (shortcut_key.control()) accel.fVirt |= FCONTROL;
+            if (shortcut_key.meta())    accel.fVirt |= FALT;
+            accel.fVirt |= FVIRTKEY;
+            
+            accel.key = shortcut_key.key().code();
+
+            assert(menu.details());
+            accel.cmd = static_cast< ::WORD>(menu.details()->first);
+
+            return accel;
+        }
 
         static ::UINT get_and_increment_id()
         {

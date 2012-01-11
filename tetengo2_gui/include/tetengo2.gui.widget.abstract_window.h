@@ -151,6 +151,8 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Sets a menu bar.
 
+            The shortcut key table of the menu bar is updated.
+
             When p_menu_bar is NULL, the currently associated main menu is
             destroyed.
 
@@ -164,6 +166,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             if (p_menu_bar)
             {
+                p_menu_bar->update_shortcut_key_table();
                 widget_details_type::set_menu_bar(
                     *this,
                     boost::make_optional<const menu_bar_type&>(*p_menu_bar)

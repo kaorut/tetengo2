@@ -9,8 +9,11 @@
 #if !defined(TETENGO2_GUI_MENU_MENUBAR_H)
 #define TETENGO2_GUI_MENU_MENUBAR_H
 
+#include <memory>
+
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.menu.abstract_popup.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace gui { namespace menu
@@ -53,7 +56,7 @@ namespace tetengo2 { namespace gui { namespace menu
         menu_bar()
         :
         base_type(string_type(), menu_details_type::create_menu_bar()),
-        m_shortcut_key_table()
+        m_p_shortcut_key_table(make_unique<shortcut_key_table_type>())
         {}
 
         /*!
@@ -62,6 +65,32 @@ namespace tetengo2 { namespace gui { namespace menu
         virtual ~menu_bar()
         TETENGO2_CPP11_NOEXCEPT
         {}
+
+
+        // functions
+
+        /*!
+            \brief Returns the shortcut key table.
+
+            \return The shortcut key table.
+        */
+        const shortcut_key_table_type& shortcut_key_table()
+        const
+        {
+            assert(m_p_shortcut_key_table);
+            return *m_p_shortcut_key_table;
+        }
+
+        /*!
+            \brief Updates the shortcut key table.
+        */
+        void update_shortcut_key_table()
+        {
+            m_p_shortcut_key_table =
+                make_unique<shortcut_key_table_type>(
+                    recursive_begin(), recursive_end()
+                );
+        }
 
 
     private:
@@ -74,7 +103,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // variables
 
-        shortcut_key_table_type m_shortcut_key_table;
+        std::unique_ptr<shortcut_key_table_type> m_p_shortcut_key_table;
 
 
         // virtual functions
