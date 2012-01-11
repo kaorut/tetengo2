@@ -26,6 +26,7 @@ headers = \
     tetengo2.gui.menu.recursive_iterator.h \
     tetengo2.gui.menu.separator.h \
     tetengo2.gui.menu.shortcut_key.h \
+    tetengo2.gui.menu.shortcut_key_table.h \
     tetengo2.gui.menu.traits.h \
     tetengo2.gui.message.dialog_message_loop.h \
     tetengo2.gui.message.menu_observer_set.h \
