@@ -149,7 +149,7 @@ namespace tetengo2 { namespace gui { namespace menu
                 keys.push_back(cpp11::cref(virtual_key_type::control()));
             if (m_meta)
                 keys.push_back(cpp11::cref(virtual_key_type::meta()));
-            keys.push_back(cpp11::cref(m_key));
+            keys.push_back(m_key);
 
             return virtual_key_details_type::to_combined_string(
                 keys.begin(), keys.end()
@@ -166,9 +166,7 @@ namespace tetengo2 { namespace gui { namespace menu
 
         // variables
 
-        typename tetengo2::cpp11::reference_wrapper<
-            const virtual_key_type
-        >::type m_key;
+        typename cpp11::reference_wrapper<const virtual_key_type>::type m_key;
 
         bool m_shift;
 
