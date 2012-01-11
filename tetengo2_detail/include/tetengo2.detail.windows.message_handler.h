@@ -258,11 +258,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM  lParam
             )
             {
-                const ::WORD source = HIWORD(wParam);
                 const ::WORD id = LOWORD(wParam);
-
-                if (source != 0)
-                    return boost::none;
 
                 if (!abstract_window.has_menu_bar())
                     return boost::none;

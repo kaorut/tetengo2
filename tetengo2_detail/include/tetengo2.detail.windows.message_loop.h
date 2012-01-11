@@ -33,9 +33,14 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Run the message loop.
 
+            \tparam AbstractWindow An abstract window type.
+
+            \param window A window.
+
             \return The exit status code.
         */
-        static int loop()
+        template <typename AbstractWindow>
+        static int loop(AbstractWindow& window)
         {
             ::MSG message;
             for (;;)
@@ -54,6 +59,18 @@ namespace tetengo2 { namespace detail { namespace windows
                     BOOST_THROW_EXCEPTION(
                         std::runtime_error(error_text.str())
                     );
+                }
+
+                if (
+                    shortcut_keys_defined(window) &&
+                    ::TranslateAcceleratorW(
+                        window.details()->first.get(),
+                        accelerator_table_handle(window),
+                        &message
+                    )
+                )
+                {
+                    continue;
                 }
 
                 ::TranslateMessage(&message);
@@ -115,6 +132,28 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
     private:
+        // static functions
+
+        template <typename AbstractWindow>
+        static bool shortcut_keys_defined(AbstractWindow& window)
+        {
+            if (!window.has_menu_bar())
+                return false;
+            if (!window.menu_bar().shortcut_key_table().details())
+                return false;
+
+            return true;
+        }
+
+        template <typename AbstractWindow>
+        static ::HACCEL accelerator_table_handle(AbstractWindow& window)
+        {
+            return const_cast< ::HACCEL>(
+                &*window.menu_bar().shortcut_key_table().details()
+            );
+        }
+
+
         // forbidden operations
 
         message_loop();

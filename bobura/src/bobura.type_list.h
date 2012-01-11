@@ -69,6 +69,7 @@
 #include <tetengo2.gui.widget.image.h>
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
+#include <tetengo2.gui.widget.abstract_window.h>
 #include <tetengo2.gui.widget.traits.abstract_window_traits.h>
 #include <tetengo2.gui.widget.traits.button_traits.h>
 #include <tetengo2.gui.widget.traits.control_traits.h>
@@ -296,8 +297,6 @@ namespace bobura
     namespace type
     {
         struct gui_fixture;    //!< The GUI fixture type.
-        struct message_loop;   //!< The message loop type.
-        struct message_loop_break; //!< The message loop break type.
         struct position;       //!< The position type.
         struct dimension;      //!< The dimension type.
         struct picture;        //!< The picture type.
@@ -313,6 +312,8 @@ namespace bobura
         struct link_label;     //!< The link label type.
         struct image;          //!< The image type.
         struct button;         //!< The button type.
+        struct message_loop;   //!< The message loop type.
+        struct message_loop_break; //!< The message loop break type.
         struct transparent_background; //!< The transparent background type.
     }
 
@@ -330,16 +331,6 @@ namespace bobura
                gui_fixture_details_tuple_type
             >
             gui_fixture_type;
-        typedef
-            tetengo2::detail::windows::message_loop message_loop_details_type;
-        typedef
-            tetengo2::gui::message::message_loop<message_loop_details_type>
-            message_loop_type;
-        typedef
-            tetengo2::gui::message::message_loop_break<
-                message_loop_details_type
-            >
-            message_loop_break_type;
         typedef tetengo2::detail::windows::unit unit_details_type;
         typedef
             tetengo2::gui::unit::em<
@@ -487,6 +478,13 @@ namespace bobura
             >
             abstract_window_traits_type;
         typedef
+            tetengo2::gui::widget::abstract_window<
+                abstract_window_traits_type,
+                widget_details_type,
+                message_handler_details_type
+            >
+            abstract_window_type;
+        typedef
             tetengo2::gui::widget::traits::window_traits<
                 abstract_window_traits_type
             >
@@ -498,6 +496,18 @@ namespace bobura
                 message_handler_details_type
             >
             window_type;
+        typedef
+            tetengo2::detail::windows::message_loop message_loop_details_type;
+        typedef
+            tetengo2::gui::message::message_loop<
+                abstract_window_type, message_loop_details_type
+            >
+            message_loop_type;
+        typedef
+            tetengo2::gui::message::message_loop_break<
+                message_loop_details_type
+            >
+            message_loop_break_type;
         typedef
             tetengo2::gui::message::dialog_message_loop<
                 message_loop_details_type
@@ -573,14 +583,6 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::gui_fixture, detail::ui::gui_fixture_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::message_loop, detail::ui::message_loop_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::message_loop_break, detail::ui::message_loop_break_type
-            >,
-        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::position, detail::ui::position_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::dimension, detail::ui::dimension_type>,
@@ -630,6 +632,14 @@ namespace bobura
             boost::mpl::pair<type::image, detail::ui::image_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::message_loop, detail::ui::message_loop_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::message_loop_break, detail::ui::message_loop_break_type
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::transparent_background,

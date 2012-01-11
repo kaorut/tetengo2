@@ -23,9 +23,14 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Run the message loop.
 
+            \tparam AbstractWindow An abstract window type.
+
+            \param window A window.
+
             \return The exit code.
         */
-        static int loop()
+        template <typename AbstractWindow>
+        static int loop(AbstractWindow& window)
         {
             return 0;
         }

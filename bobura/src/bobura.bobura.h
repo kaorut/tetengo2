@@ -85,7 +85,7 @@ namespace bobura
             main_window_type main_window(message_catalog, m_settings);
             main_window.set_visible(true);
 
-            return message_loop_type()();
+            return message_loop_type(main_window)();
         }
 
 

@@ -13,6 +13,7 @@
 #include <utility>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 
 #include "tetengo2.cpp11.h"
 
@@ -126,9 +127,10 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The detail implementation.
         */
-        const details_type& details()
+        boost::optional<const details_type&> details()
         const
         {
+            if (!m_p_details) return boost::none;
             return *m_p_details;
         }
 
@@ -137,8 +139,9 @@ namespace tetengo2 { namespace gui { namespace menu
 
             \return The detail implementation.
         */
-        details_type& details()
+        boost::optional<details_type&> details()
         {
+            if (!m_p_details) return boost::none;
             return *m_p_details;
         }
 
