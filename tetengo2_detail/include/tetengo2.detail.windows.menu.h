@@ -91,12 +91,14 @@ namespace tetengo2 { namespace detail { namespace windows
 
         //! The shortcut key table details type.
         typedef
-            std::remove_pointer< ::HACCEL>::type shortcut_key_table_details_type;
+            std::remove_pointer< ::HACCEL>::type
+            shortcut_key_table_details_type;
 
         //! The shortcut key table details pointer type.
         typedef
             std::unique_ptr<
-                shortcut_key_table_details_type, detail::accelerator_table_deleter
+                shortcut_key_table_details_type,
+                detail::accelerator_table_deleter
             >
             shortcut_key_table_details_ptr_type;
 
@@ -176,6 +178,19 @@ namespace tetengo2 { namespace detail { namespace windows
         }
         
         /*!
+            \brief Creates an empty shortcut key table.
+
+            \tparam Entry A shortcut key table entry type.
+
+            \return A unique pointer to a shortcut key table.
+        */
+        template <typename Entry>
+        static shortcut_key_table_details_ptr_type create_shortcut_key_table()
+        {
+            return shortcut_key_table_details_ptr_type();
+        }
+
+        /*!
             \brief Creates a shortcut key table.
 
             \tparam ForwardIterator A forward iterator type.
@@ -193,18 +208,20 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             std::vector< ::ACCEL> accelerators;
             accelerators.reserve(std::distance(first, last));
+            assert(1 <= accelerators.size() && accelerators.size() <= 32767);
 
-
-            const ::HACCEL accelerator_table_handle =
+            ::HACCEL accelerator_table_handle =
                 ::CreateAcceleratorTableW(
                     accelerators.data(), accelerators.size()
                 );
             if (!accelerator_table_handle)
             {
-                BOOST_THROW_EXCEPTION("Can't create a shortcut key table.");
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a shortcut key table.")
+                );
             }
 
-            return make_unique<shortcut_key_table_details_type>(
+            return shortcut_key_table_details_ptr_type(
                 accelerator_table_handle
             );
         }

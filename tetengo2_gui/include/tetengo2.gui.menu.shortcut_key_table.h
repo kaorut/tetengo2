@@ -66,6 +66,19 @@ namespace tetengo2 { namespace gui { namespace menu
         // constructors and destructor
 
         /*!
+            \brief Creates an empty shortcut key table.
+        */
+        shortcut_key_table()
+        :
+        m_entries(),
+        m_p_details(
+            menu_details_type::template create_shortcut_key_table<
+                entry_type
+            >()
+        )
+        {}
+
+        /*!
             \brief Creates a shortcut key table.
 
             \tparam ForwardIterator A forward iterator type.

@@ -67,9 +67,7 @@ namespace
 
     typedef
         tetengo2::gui::menu::shortcut_key_table<
-            shortcut_key_type,
-            menu_base_type,
-            tetengo2::detail::stub::menu
+            shortcut_key_type, menu_base_type, menu_details_type
         >
         shortcut_key_table_type;
 
@@ -161,6 +159,9 @@ BOOST_AUTO_TEST_SUITE(shortcut_key_table)
     {
         BOOST_TEST_PASSPOINT();
 
+        {
+            const shortcut_key_table_type shortcut_key_table;
+        }
         {
             const std::vector<std::unique_ptr<concrete_menu>> menus =
                 make_menus0();

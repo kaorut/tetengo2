@@ -73,6 +73,19 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Creates an empty shortcut key table.
+
+            \tparam Entry A shortcut key table entry type.
+
+            \return A unique pointer to a shortcut key table.
+        */
+        template <typename Entry>
+        static shortcut_key_table_details_ptr_type create_shortcut_key_table()
+        {
+            return shortcut_key_table_details_ptr_type();
+        }
+
+        /*!
             \brief Creates a shortcut key table.
 
             \tparam InputIterator An input iterator type.

@@ -29,7 +29,9 @@
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.gui.menu.menu_bar.h"
+#include "tetengo2.gui.menu.menu_base.h"
 #include "tetengo2.gui.menu.shortcut_key.h"
+#include "tetengo2.gui.menu.shortcut_key_table.h"
 #include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
@@ -200,7 +202,19 @@ namespace
     typedef tetengo2::detail::stub::menu menu_details_type;
 
     typedef
-        tetengo2::gui::menu::menu_bar<menu_traits_type, menu_details_type>
+        tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type>
+        menu_base_type;
+
+    typedef
+        tetengo2::gui::menu::shortcut_key_table<
+            shortcut_key_type, menu_base_type, menu_details_type
+        >
+        shortcut_key_table_type;
+
+    typedef
+        tetengo2::gui::menu::menu_bar<
+            menu_traits_type, shortcut_key_table_type, menu_details_type
+        >
         menu_bar_type;
 
     typedef

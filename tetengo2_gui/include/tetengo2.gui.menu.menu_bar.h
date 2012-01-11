@@ -18,10 +18,15 @@ namespace tetengo2 { namespace gui { namespace menu
     /*!
         \brief The class template for a menu bar.
 
-        \tparam Traits      A traits type.
-        \tparam MenuDetails A detail implementation type of a menu.
+        \tparam Traits           A traits type.
+        \tparam ShortcutKeyTable A shortcut key table type.
+        \tparam MenuDetails      A detail implementation type of a menu.
    */
-    template <typename Traits, typename MenuDetails>
+    template <
+        typename Traits,
+        typename ShortcutKeyTable,
+        typename MenuDetails
+    >
     class menu_bar : public abstract_popup<Traits, MenuDetails>
     {
     public:
@@ -29,6 +34,9 @@ namespace tetengo2 { namespace gui { namespace menu
 
         //! The traits type.
         typedef Traits traits_type;
+
+        //! The shortcut key table type.
+        typedef ShortcutKeyTable shortcut_key_table_type;
 
         //! The detail implementation type of a menu.
         typedef MenuDetails menu_details_type;
@@ -44,7 +52,8 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         menu_bar()
         :
-        base_type(string_type(), menu_details_type::create_menu_bar())
+        base_type(string_type(), menu_details_type::create_menu_bar()),
+        m_shortcut_key_table()
         {}
 
         /*!
@@ -61,6 +70,11 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef typename base_type::string_type string_type;
 
         typedef typename base_type::style_type style_type;
+
+
+        // variables
+
+        shortcut_key_table_type m_shortcut_key_table;
 
 
         // virtual functions
