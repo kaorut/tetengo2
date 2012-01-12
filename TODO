@@ -17,23 +17,6 @@ Added on    : 2011/12/07
 Depends on  : 00000118, 00000119, 00000120
 Description : Create a member for the model in bobura::bobura.
 ------------------------------------------------------------------------------
-Number      : 00000123
-Added on    : 2011/12/22
-Depends on  : 00000126, 00000127, 00000128, 00000129, 00000130
-Description : Support keyboard shortcuts using the menu commands.
-------------------------------------------------------------------------------
-Number      : 00000129
-Added on    : 2012/01/07
-Depends on  : (none)
-Description : Create
-              tetengo2::gui::menu::menu_bar::update_shortcut_key_table() and
-              shortcut_key_table().
-------------------------------------------------------------------------------
-Number      : 00000130
-Added on    : 2012/01/07
-Depends on  : (none)
-Description : Pass a shortcut key table to message loops.
-------------------------------------------------------------------------------
 Number      : 00000131
 Added on    : 2012/mm/dd
 Depends on  : (none)
