@@ -71,7 +71,9 @@ namespace bobura { namespace command
             );
             dialog.do_modal();
 
-            dialog.result();
+            const file_open_dialog_type::path_type path = dialog.result();
+            if (path.empty()) return;
+
         }
 
 
