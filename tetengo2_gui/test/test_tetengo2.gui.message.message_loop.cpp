@@ -6,6 +6,11 @@
     $Id$
 */
 
+//#include <cstddef>
+//#include <string>
+//#include <utility>
+
+//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.alert.h"

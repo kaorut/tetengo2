@@ -9,7 +9,8 @@
 #if !defined(TETENGO2_GUI_MENU_MENUBAR_H)
 #define TETENGO2_GUI_MENU_MENUBAR_H
 
-#include <memory>
+//#include <cassert>
+//#include <memory>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.gui.menu.abstract_popup.h"

@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_MENU_SHORTCUTKEY_H)
 #define TETENGO2_GUI_MENU_SHORTCUTKEY_H
 
+#include <vector>
+
 #include <boost/operators.hpp>
 
 #include "tetengo2.cpp11.h"

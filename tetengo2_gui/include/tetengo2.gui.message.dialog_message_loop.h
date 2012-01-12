@@ -22,7 +22,7 @@ namespace tetengo2 { namespace gui { namespace message
                                    loop.
     */
     template <typename AbstractWindow, typename MessageLoopDetails>
-    class dialog_message_loop
+    class dialog_message_loop : private boost::noncopyable
     {
     public:
         // types

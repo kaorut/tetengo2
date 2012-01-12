@@ -11,6 +11,7 @@
 
 #include <iterator>
 #include <utility>
+#include <vector>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>

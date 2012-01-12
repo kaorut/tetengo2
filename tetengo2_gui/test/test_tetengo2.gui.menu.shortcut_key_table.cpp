@@ -6,9 +6,13 @@
     $Id$
 */
 
-#include <memory>
+//#include <iterator>
+//#include <memory>
+//#include <string>
+//#include <utility>
+//#include <vector>
 
-#include <boost/iterator/indirect_iterator.hpp>
+//#include <boost/iterator/indirect_iterator.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.encoding.h"
