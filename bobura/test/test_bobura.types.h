@@ -41,11 +41,11 @@
 #include <tetengo2.gui.fixture.h>
 #include <tetengo2.gui.menu.command.h>
 #include <tetengo2.gui.menu.menu_bar.h>
-#include "tetengo2.gui.menu.menu_base.h"
+#include <tetengo2.gui.menu.menu_base.h>
 #include <tetengo2.gui.menu.popup.h>
 #include <tetengo2.gui.menu.separator.h>
 #include <tetengo2.gui.menu.shortcut_key.h>
-#include "tetengo2.gui.menu.shortcut_key_table.h"
+#include <tetengo2.gui.menu.shortcut_key_table.h>
 #include <tetengo2.gui.menu.traits.h>
 #include <tetengo2.gui.message.dialog_message_loop.h>
 #include <tetengo2.gui.message.menu_observer_set.h>
@@ -87,7 +87,16 @@
 #include "bobura.command.type_list_impl.h"
 #include "bobura.main_window.h"
 #include "bobura.message.type_list_impl.h"
+#include "bobura.model.station.h"
+#include "bobura.model.train.h"
+#include "bobura.model.station_info.grade.h"
+#include "bobura.model.timetable.h"
+#include "bobura.model.timetable_info.station_location.h"
+#include "bobura.model.train_info.stop.h"
+#include "bobura.model.train_info.time.h"
+#include "bobura.model.train_info.time_span.h"
 #include "bobura.settings.h"
+#include "bobura.timetable_model.h"
 
 
 // types
@@ -115,6 +124,37 @@ typedef
     exception_encoder_type;
 
 typedef bobura::settings<std::wstring, boost::filesystem::path> settings_type;
+
+typedef bobura::model::station_info::local<std::wstring> local_type;
+
+typedef bobura::model::station<std::wstring, local_type> station_type;
+
+typedef
+    bobura::model::timetable_info::station_location<
+        station_type, std::size_t
+    >
+    station_location_type;
+
+typedef
+    bobura::model::train_info::time<
+        std::size_t,
+        bobura::model::train_info::time_span<std::ptrdiff_t>
+    >
+    time_type;
+
+typedef
+    bobura::model::train_info::stop<time_type, std::wstring>
+    stop_type;
+
+typedef
+    bobura::model::train<std::wstring, std::string, stop_type>
+    train_type;
+
+typedef
+    bobura::model::timetable<station_location_type, train_type>
+    timetable_type;
+
+typedef bobura::timetable_model<timetable_type> model_type;
 
 typedef
     tetengo2::detail::stub::alert<std::string, ui_encoder_type>
@@ -473,6 +513,7 @@ typedef
 typedef
     bobura::bobura<
         settings_type,
+        model_type,
         message_catalog_type,
         main_window_type,
         message_loop_type,

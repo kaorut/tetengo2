@@ -18,6 +18,7 @@ namespace bobura
         \brief The class template for a bobura application.
 
         \tparam Settings        A settings type.
+        \tparam Model           A model type.
         \tparam MessageCatalog  A message catalog type.
         \tparam MainWindow      A main window type.
         \tparam MessageLoop     A message loop type.
@@ -26,6 +27,7 @@ namespace bobura
     */
     template <
         typename Settings,
+        typename Model,
         typename MessageCatalog,
         typename MainWindow,
         typename MessageLoop,
@@ -39,6 +41,9 @@ namespace bobura
 
         //! The settings type.
         typedef Settings settings_type;
+
+        //! The model type.
+        typedef Model model_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -66,7 +71,8 @@ namespace bobura
         explicit bobura(const settings_type& settings)
         :
         m_gui_fixture(),
-        m_settings(settings)
+        m_settings(settings),
+        m_model()
         {}
 
 
@@ -95,6 +101,8 @@ namespace bobura
         const gui_fixture_type m_gui_fixture;
 
         const settings_type& m_settings;
+
+        model_type m_model;
 
 
     };

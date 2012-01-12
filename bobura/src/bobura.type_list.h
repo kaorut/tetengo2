@@ -93,10 +93,19 @@
 
 #include "bobura.about_dialog.h"
 #include "bobura.bobura.h"
-#include "bobura.main_window.h"
-#include "bobura.settings.h"
 #include "bobura.command.type_list_impl.h"
+#include "bobura.main_window.h"
 #include "bobura.message.type_list_impl.h"
+#include "bobura.model.station.h"
+#include "bobura.model.train.h"
+#include "bobura.model.station_info.grade.h"
+#include "bobura.model.timetable.h"
+#include "bobura.model.timetable_info.station_location.h"
+#include "bobura.model.train_info.stop.h"
+#include "bobura.model.train_info.time.h"
+#include "bobura.model.train_info.time_span.h"
+#include "bobura.settings.h"
+#include "bobura.timetable_model.h"
 
 
 namespace bobura
@@ -173,6 +182,71 @@ namespace bobura
         tetengo2::meta::assoc_list_end
         >>>>>>>>
         common_type_list;
+
+
+    /**** Model *************************************************************/
+
+    namespace type
+    {
+        struct timetable;      //!< The timetable type.
+    }
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace model
+    {
+        typedef
+            ::bobura::model::station_info::local<
+                boost::mpl::at<common_type_list, type::string>::type
+            >
+            local_type;
+        typedef
+            ::bobura::model::station<
+                boost::mpl::at<common_type_list, type::string>::type,
+                local_type
+            >
+            station_type;
+        typedef
+            ::bobura::model::timetable_info::station_location<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<common_type_list, type::size>::type
+            >
+            station_location_type;
+        typedef
+            ::bobura::model::train_info::time<
+                boost::mpl::at<common_type_list, type::size>::type,
+                ::bobura::model::train_info::time_span<
+                    boost::mpl::at<common_type_list, type::difference>::type
+                >
+            >
+            time_type;
+        typedef
+            ::bobura::model::train_info::stop<
+                time_type,
+                boost::mpl::at<common_type_list, type::string>::type
+            >
+            stop_type;
+        typedef
+            ::bobura::model::train<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<common_type_list, type::string>::type,
+                stop_type
+            >
+            train_type;
+        typedef
+            ::bobura::model::timetable<station_location_type, train_type>
+            timetable_type;
+    }}
+#endif
+
+    //! The common type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::timetable, detail::model::timetable_type
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        model_type_list;
 
 
     /**** Locale ************************************************************/
@@ -715,7 +789,7 @@ namespace bobura
 
     namespace type
     {
-        struct main_window;    //! The main window type.
+        struct main_window;    //!< The main window type.
     }
 
 #if !defined(DOCUMENTATION)
@@ -778,8 +852,19 @@ namespace bobura
 
     namespace type
     {
-        struct application;    //! The application type.
+        struct application;    //!< The application type.
     }
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace bobura
+    {
+        typedef
+            ::bobura::timetable_model<
+                boost::mpl::at<model_type_list, type::timetable>::type
+            >
+            model_type;
+    }}
+#endif
 
     //! The type list for the application.
     typedef
@@ -788,6 +873,7 @@ namespace bobura
                 type::application,
                 bobura<
                     boost::mpl::at<common_type_list, type::settings>::type,
+                    detail::bobura::model_type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,
