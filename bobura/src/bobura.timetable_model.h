@@ -9,7 +9,11 @@
 #if !defined(BOBURA_TIMETABLEMODEL_H)
 #define BOBURA_TIMETABLEMODEL_H
 
+#include <memory>
+
 #include <boost/noncopyable.hpp>
+
+#include <tetengo2.unique.h>
 
 
 namespace bobura
@@ -35,6 +39,8 @@ namespace bobura
             \brief Creates a model.
         */
         timetable_model()
+        :
+        m_p_timetable(tetengo2::make_unique<timetable_type>())
         {}
 
 
@@ -43,6 +49,8 @@ namespace bobura
 
     private:
         // variables
+
+        std::unique_ptr<timetable_type> m_p_timetable;
 
 
     };
