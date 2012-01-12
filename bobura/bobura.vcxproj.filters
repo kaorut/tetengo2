@@ -81,6 +81,9 @@
     <ClInclude Include="src\bobura.command.load_from_file.h">
       <Filter>headers\bobura\command</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.timetable_model.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">

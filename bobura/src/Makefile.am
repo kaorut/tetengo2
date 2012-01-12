@@ -17,6 +17,7 @@ extra_headers = \
     bobura.message.type_list.h \
     bobura.message.type_list_impl.h \
     bobura.settings.h \
+    bobura.timetable_model.h \
     bobura.type_list.h
 
 extra_sources = \

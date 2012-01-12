@@ -17,7 +17,8 @@ sources = \
     test_bobura.main_window.cpp \
     test_bobura.message.about_dialog.cpp \
     test_bobura.message.main_window.cpp \
-    test_bobura.settings.cpp
+    test_bobura.settings.cpp \
+    test_bobura.timetable_model.cpp
 
 extra_sources =
 

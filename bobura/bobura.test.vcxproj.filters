@@ -65,5 +65,8 @@
     <ClCompile Include="test\test_bobura.command.load_from_file.cpp">
       <Filter>sources\test_bobura\command</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.timetable_model.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
