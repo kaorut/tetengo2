@@ -166,7 +166,7 @@ namespace tetengo2 { namespace gui { namespace widget
             );
             this->set_visible(true);
 
-            message_loop_type()();
+            message_loop_type(*this)();
 
             parent_window.set_enabled(true);
             parent_window.activate();

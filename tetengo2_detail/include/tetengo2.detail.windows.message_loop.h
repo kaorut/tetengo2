@@ -82,9 +82,14 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Run the message loop for a dialog.
 
+            \tparam AbstractWindow An abstract window type.
+
+            \param dialog A dialog.
+
             \return The exit status code.
         */
-        static int dialog_loop()
+        template <typename AbstractWindow>
+        static int dialog_loop(AbstractWindow& dialog)
         {
             ::MSG message;
             for (;;)
@@ -110,6 +115,18 @@ namespace tetengo2 { namespace detail { namespace windows
                     ::IsDialogMessageW(
                         ::GetAncestor(message.hwnd, GA_ROOT), &message
                     ) != 0
+                )
+                {
+                    continue;
+                }
+
+                if (
+                    shortcut_keys_defined(dialog) &&
+                    ::TranslateAcceleratorW(
+                        dialog.details()->first.get(),
+                        accelerator_table_handle(dialog),
+                        &message
+                    )
                 )
                 {
                     continue;

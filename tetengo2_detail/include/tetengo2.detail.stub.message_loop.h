@@ -38,9 +38,14 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Run the message loop for a dialog.
 
-            \return The exit code.
+            \tparam AbstractWindow An abstract window type.
+
+            \param dialog A dialog.
+
+            \return The exit status code.
         */
-        static int dialog_loop()
+        template <typename AbstractWindow>
+        static int dialog_loop(AbstractWindow& dialog)
         {
             return 0;
         }

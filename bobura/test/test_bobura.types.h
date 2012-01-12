@@ -327,7 +327,9 @@ typedef
 typedef tetengo2::detail::stub::message_loop message_loop_details_type;
 
 typedef
-    tetengo2::gui::message::dialog_message_loop<message_loop_details_type>
+    tetengo2::gui::message::dialog_message_loop<
+        abstract_window_type, message_loop_details_type
+    >
     dialog_message_loop_type;
 
 typedef

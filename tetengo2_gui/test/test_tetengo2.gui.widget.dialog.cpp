@@ -41,6 +41,7 @@
 #include "tetengo2.gui.message.window_observer_set.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.virtual_key.h"
+#include "tetengo2.gui.widget.abstract_window.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
 #include "tetengo2.gui.widget.traits.dialog_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
@@ -199,17 +200,25 @@ namespace
         >
         abstract_window_traits_type;
 
-    typedef
-        tetengo2::gui::widget::traits::window_traits<
-            abstract_window_traits_type
-        >
-        window_traits_type;
-
     typedef tetengo2::detail::stub::widget widget_details_type;
 
     typedef
         tetengo2::detail::stub::message_handler<widget_details_type>
         message_handler_details_type;
+
+    typedef
+        tetengo2::gui::widget::abstract_window<
+            abstract_window_traits_type,
+            widget_details_type,
+            message_handler_details_type
+        >
+        abstract_window_type;
+
+    typedef
+        tetengo2::gui::widget::traits::window_traits<
+            abstract_window_traits_type
+        >
+        window_traits_type;
 
     typedef
         tetengo2::gui::widget::window<
@@ -222,7 +231,9 @@ namespace
     typedef tetengo2::detail::stub::message_loop message_loop_details_type;
 
     typedef
-        tetengo2::gui::message::dialog_message_loop<message_loop_details_type>
+        tetengo2::gui::message::dialog_message_loop<
+            abstract_window_type, message_loop_details_type
+        >
         dialog_message_loop_type;
 
     typedef

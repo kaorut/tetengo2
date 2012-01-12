@@ -510,7 +510,7 @@ namespace bobura
             message_loop_break_type;
         typedef
             tetengo2::gui::message::dialog_message_loop<
-                message_loop_details_type
+                abstract_window_type, message_loop_details_type
             >
             dialog_message_loop_type;
         typedef
