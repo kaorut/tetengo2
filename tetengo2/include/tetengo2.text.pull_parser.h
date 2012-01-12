@@ -169,8 +169,8 @@ namespace tetengo2 { namespace text
         m_producer(
             TETENGO2_CPP11_BIND(
                 generate,
-                tetengo2::cpp11::placeholders_1(),
-                tetengo2::cpp11::ref(*m_p_push_parser)
+                cpp11::placeholders_1(),
+                cpp11::ref(*m_p_push_parser)
             ),
             m_channel
         ),
@@ -290,23 +290,21 @@ namespace tetengo2 { namespace text
             push_parser.on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
                     on_structure_begin,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::placeholders_2(),
-                    tetengo2::cpp11::ref(channel)
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2(),
+                    cpp11::ref(channel)
                 )
             );
             push_parser.on_structure_end().connect(
                 TETENGO2_CPP11_BIND(
                     on_structure_end,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::ref(channel)
+                    cpp11::placeholders_1(),
+                    cpp11::ref(channel)
                 )
             );
             push_parser.on_value().connect(
                 TETENGO2_CPP11_BIND(
-                    on_value,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::ref(channel)
+                    on_value, cpp11::placeholders_1(), cpp11::ref(channel)
                 )
             );
 

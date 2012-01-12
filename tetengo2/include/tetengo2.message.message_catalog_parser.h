@@ -270,7 +270,7 @@ namespace tetengo2 { namespace message
                 m_p_pull_parser->next();
             }
 
-            return tetengo2::make_unique<entry_type>(
+            return make_unique<entry_type>(
                 encoder().decode(key), encoder().decode(value)
             );
         }

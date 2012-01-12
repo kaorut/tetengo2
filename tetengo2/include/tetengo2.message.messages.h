@@ -314,10 +314,10 @@ namespace tetengo2 { namespace message
         )
         {
             std::unique_ptr<grammar_type> p_grammar =
-                tetengo2::make_unique<grammar_type>();
+                make_unique<grammar_type>();
             
             std::unique_ptr<push_parser_type> p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
+                make_unique<push_parser_type>(
                     boost::spirit::make_default_multi_pass(
                         std::istreambuf_iterator<char>(input_stream)
                     ),
@@ -327,7 +327,7 @@ namespace tetengo2 { namespace message
                     std::move(p_grammar)
                 );
 
-            return tetengo2::make_unique<pull_parser_type>(
+            return make_unique<pull_parser_type>(
                 std::move(p_push_parser), 5
             );
         }

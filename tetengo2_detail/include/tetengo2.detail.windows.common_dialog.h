@@ -137,7 +137,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
             detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
-            return tetengo2::make_unique<file_open_dialog_details_type>(
+            return make_unique<file_open_dialog_details_type>(
                 std::move(p_dialog),
                 parent.details()->first.get(),
                 encoder.encode(std::forward<String>(title)),
@@ -234,8 +234,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::back_inserter(native_filters),
                 TETENGO2_CPP11_BIND(
                     to_native_filter<String, Encoder>,
-                    tetengo2::cpp11::placeholders_1(),
-                    tetengo2::cpp11::cref(encoder)
+                    cpp11::placeholders_1(),
+                    cpp11::cref(encoder)
                 )
             );
 

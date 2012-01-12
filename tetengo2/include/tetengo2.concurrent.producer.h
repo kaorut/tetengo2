@@ -53,14 +53,14 @@ namespace tetengo2 { namespace concurrent
         )
         :
         m_thread_procedure_impl(
-            TETENGO2_CPP11_BIND(generator, tetengo2::cpp11::ref(channel))
+            TETENGO2_CPP11_BIND(generator, cpp11::ref(channel))
         ),
         m_channel(channel),
         m_thread(
             TETENGO2_CPP11_BIND(
                 &producer::thread_procedure,
                 m_thread_procedure_impl,
-                tetengo2::cpp11::ref(channel)
+                cpp11::ref(channel)
             )
         )
         {}

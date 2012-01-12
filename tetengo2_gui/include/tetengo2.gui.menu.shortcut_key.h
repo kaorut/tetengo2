@@ -54,7 +54,7 @@ namespace tetengo2 { namespace gui { namespace menu
             const bool              meta
         )
         :
-        m_key(tetengo2::cpp11::cref(key)),
+        m_key(cpp11::cref(key)),
         m_shift(shift),
         m_control(control),
         m_meta(meta)
