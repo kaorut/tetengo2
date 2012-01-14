@@ -12,11 +12,6 @@ Added on    : 2011/12/07
 Depends on  : 00000118
 Description : Create bobura::model::serializer.
 ------------------------------------------------------------------------------
-Number      : 00000121
-Added on    : 2011/12/07
-Depends on  : 00000118, 00000119, 00000120
-Description : Create a member for the model in bobura::bobura.
-------------------------------------------------------------------------------
 Number      : 00000131
 Added on    : 2012/01/13
 Depends on  : (none)
@@ -28,6 +23,11 @@ Depends on  : 00000131
 Description : Add observer_set() to bobura::model::*.
 ------------------------------------------------------------------------------
 Number      : 00000133
+Added on    : 2012/01/13
+Depends on  : (none)
+Description : Create bobura::command::list.
+------------------------------------------------------------------------------
+Number      : 00000134
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
