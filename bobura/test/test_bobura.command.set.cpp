@@ -20,45 +20,34 @@ BOOST_AUTO_TEST_SUITE(set)
     {
         BOOST_TEST_PASSPOINT();
 
+        model_type model;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
         main_window_type main_window(message_catalog, settings);
         const command_set_type command_set(
-            main_window, settings, message_catalog
+            model, main_window, settings, message_catalog
         );
     }
 
-    BOOST_AUTO_TEST_CASE(exit)
+    BOOST_AUTO_TEST_CASE(members)
     {
         BOOST_TEST_PASSPOINT();
 
+        model_type model;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
         main_window_type main_window(message_catalog, settings);
         const command_set_type command_set(
-            main_window, settings, message_catalog
+            model, main_window, settings, message_catalog
         );
 
-        command_set.nop();
-    }
-
-    BOOST_AUTO_TEST_CASE(nop)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
-        const settings_type settings(std::move(arguments), std::move(path));
-        main_window_type main_window(message_catalog, settings);
-        const command_set_type command_set(
-            main_window, settings, message_catalog
-        );
-
+        command_set.about();
+        command_set.exit();
+        command_set.load_from_file();
         command_set.nop();
     }
 

@@ -116,13 +116,12 @@ namespace bobura
             \return The exit status code.
         */
         int run()
-        const
         {
             const message_catalog_type message_catalog;
 
             main_window_type main_window(message_catalog, m_settings);
             const command_set_type command_set(
-                main_window, m_settings, message_catalog
+                m_model, main_window, m_settings, message_catalog
             );
             main_window.set_menu_bar(
                 build_main_window_menu(command_set, message_catalog)
@@ -171,18 +170,16 @@ namespace bobura
                         virtual_key_type::char_n(), false, true, false
                     )
                 );
-                //append_menu_command(
-                //    *p_popup_menu,
-                //    message_catalog.get(
-                //        TETENGO2_TEXT("Menu:File:&Open...")
-                //    ),
-                //    typename boost::mpl::at<
-                //        command_type_list_type, command::type::load_from_file
-                //    >::type(*this, message_catalog),
-                //    shortcut_key_type(
-                //        virtual_key_type::char_o(), false, true, false
-                //    )
-                //);
+                append_menu_command(
+                    *p_popup_menu,
+                    message_catalog.get(
+                        TETENGO2_TEXT("Menu:File:&Open...")
+                    ),
+                    command_set.load_from_file(),
+                    shortcut_key_type(
+                        virtual_key_type::char_o(), false, true, false
+                    )
+                );
                 append_menu_command(
                     *p_popup_menu,
                     message_catalog.get(TETENGO2_TEXT("Menu:File:&Save")),

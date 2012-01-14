@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_SUITE(bobura)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        const bobura_type bobura(settings);
+        bobura_type bobura(settings);
 
         BOOST_CHECK_EQUAL(bobura.run(), 0);
     }

@@ -508,6 +508,7 @@ typedef
 typedef
     bobura::command::set<
         command_type_list_type,
+        model_type,
         main_window_type,
         settings_type,
         message_catalog_type

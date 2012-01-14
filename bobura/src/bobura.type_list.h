@@ -892,6 +892,7 @@ namespace bobura
                     boost::mpl::at<
                         command_type_list_type_list, type::command_type_list
                     >::type,
+                    boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<
                         main_window_type_list, type::main_window
                     >::type,
