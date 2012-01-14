@@ -621,7 +621,7 @@ namespace tetengo2 { namespace gui
 
         // constructors
 
-        virtual_key(code_and_string_type&& code_and_string)
+        explicit virtual_key(code_and_string_type&& code_and_string)
         :
         m_code(code_and_string.first),
         m_string(std::move(code_and_string.second))

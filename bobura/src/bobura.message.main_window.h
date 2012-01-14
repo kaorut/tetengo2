@@ -106,7 +106,7 @@ namespace bobura { namespace message { namespace main_window
             \param image_directory_path An image directory path.
         */
         template <typename P>
-        paint(
+        explicit paint(
             P&& image_directory_path,
             typename std::enable_if<
                 std::is_convertible<P, path_type>::value

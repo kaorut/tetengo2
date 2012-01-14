@@ -52,7 +52,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \param text A text.
         */
         template <typename S>
-        command(S&& text)
+        explicit command(S&& text)
         :
         base_type(std::forward<S>(text), menu_details_type::create_menu())
         {}
