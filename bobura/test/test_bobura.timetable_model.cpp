@@ -28,9 +28,21 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
     {
         BOOST_TEST_PASSPOINT();
 
-        model_type model;
+        {
+            model_type model;
 
-        model.reset_timetable(tetengo2::make_unique<timetable_type>(L"hoge"));
+            model.reset_timetable(
+                tetengo2::make_unique<timetable_type>(L"hoge")
+            );
+        }
+        {
+            model_type model;
+
+            BOOST_CHECK_THROW(
+                model.reset_timetable(std::unique_ptr<timetable_type>()),
+                std::invalid_argument
+            );
+        }
     }
 
 

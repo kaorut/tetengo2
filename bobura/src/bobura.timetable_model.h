@@ -10,9 +10,11 @@
 #define BOBURA_TIMETABLEMODEL_H
 
 //#include <memory>
+#include <stdexcept>
 //#include <utility>
 
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.unique.h>
 
@@ -53,9 +55,18 @@ namespace bobura
             \brief Resets a timetable.
 
             \param p_timetable A unique pointer to a timetable.
+
+            \throw std::invalid_argument When p_timetable is NULL.
         */
         void reset_timetable(std::unique_ptr<timetable_type> p_timetable)
         {
+            if (!p_timetable)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Timetable is NULL.")
+                );
+            }
+
             m_p_timetable = std::move(p_timetable);
         }
 
