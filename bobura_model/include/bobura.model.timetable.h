@@ -27,15 +27,21 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a timetable.
 
+        \tparam String          A string type.
         \tparam StationLocation A station location type.
         \tparam Train           A train type.
     */
-    template <typename StationLocation, typename Train>
+    template <typename String, typename StationLocation, typename Train>
     class timetable :
-        private boost::equality_comparable<timetable<StationLocation, Train>>
+        private boost::equality_comparable<
+            timetable<String, StationLocation, Train>
+        >
     {
     public:
         // types
+
+        //! The string type.
+        typedef String string_type;
 
         //! The station location type.
         typedef StationLocation station_location_type;
@@ -54,9 +60,15 @@ namespace bobura { namespace model
 
         /*!
             \brief Creates a timetalble.
+
+            \tparam S A string type.
+
+            \param title A title.
         */
-        timetable()
+        template <typename S>
+        explicit timetable(S&& title)
         :
+        m_title(std::forward<S>(title)),
         m_station_locations(),
         m_trains()
         {}
@@ -64,13 +76,16 @@ namespace bobura { namespace model
         /*!
             \brief Creates a timetalble.
 
+            \tparam S   A string type.
             \tparam SLs A station locations type.
 
+            \param title             A title.
             \param station_locations The station locations
         */
-        template <typename SLs>
-        explicit timetable(SLs&& station_locations)
+        template <typename S, typename SLs>
+        timetable(S&& title, SLs&& station_locations)
         :
+        m_title(std::forward<S>(title)),
         m_station_locations(std::forward<SLs>(station_locations)),
         m_trains()
         {}
@@ -78,19 +93,23 @@ namespace bobura { namespace model
         /*!
             \brief Creates a timetalble.
 
+            \tparam S             A string type.
             \tparam InputIterator An input iterator for station locations.
 
+            \param title                  A title.
             \param station_location_first The first iterator among station
                                           locations.
             \param station_location_last  The last iterator among station
                                           locations.
         */
-        template <typename InputIterator>
+        template <typename S, typename InputIterator>
         timetable(
+            S&&                 title,
             const InputIterator station_location_first,
             const InputIterator station_location_last
         )
         :
+        m_title(std::forward<S>(title)),
         m_station_locations(station_location_first, station_location_last),
         m_trains()
         {}
@@ -111,6 +130,30 @@ namespace bobura { namespace model
         {
             return one.m_station_locations == another.m_station_locations &&
                 one.m_trains == another.m_trains;
+        }
+
+        /*!
+            \brief Returns the title.
+
+            \return The title.
+        */
+        const string_type& title()
+        const
+        {
+            return m_title;
+        }
+
+        /*!
+            \brief Sets a title.
+
+            \tparam S A string type.
+
+            \param title A title.
+        */
+        template <typename S>
+        void set_title(S&& title)
+        {
+            m_title = std::forward<S>(title);
         }
 
         /*!
@@ -321,6 +364,8 @@ namespace bobura { namespace model
 
 
         // variables
+
+        string_type m_title;
 
         station_locations_type m_station_locations;
 

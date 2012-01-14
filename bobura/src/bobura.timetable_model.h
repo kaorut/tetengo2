@@ -41,7 +41,9 @@ namespace bobura
         */
         timetable_model()
         :
-        m_p_timetable(tetengo2::make_unique<timetable_type>())
+        m_p_timetable(
+            tetengo2::make_unique<timetable_type>(string_type())
+        )
         {}
 
 
@@ -59,6 +61,11 @@ namespace bobura
 
 
     private:
+        // types
+
+        typedef typename timetable_type::string_type string_type;
+
+
         // variables
 
         std::unique_ptr<timetable_type> m_p_timetable;

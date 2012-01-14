@@ -152,7 +152,7 @@ typedef
     train_type;
 
 typedef
-    bobura::model::timetable<station_location_type, train_type>
+    bobura::model::timetable<std::wstring, station_location_type, train_type>
     timetable_type;
 
 typedef bobura::timetable_model<timetable_type> model_type;

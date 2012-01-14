@@ -234,7 +234,11 @@ namespace bobura
             >
             train_type;
         typedef
-            ::bobura::model::timetable<station_location_type, train_type>
+            ::bobura::model::timetable<
+                boost::mpl::at<common_type_list, type::string>::type,
+                station_location_type,
+                train_type
+            >
             timetable_type;
     }}
 #endif

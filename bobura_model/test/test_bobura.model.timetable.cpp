@@ -24,6 +24,33 @@
 #include "bobura.model.timetable.h"
 
 
+namespace
+{
+    // types
+
+    typedef bobura::model::station_info::local<std::wstring> local_type;
+    typedef bobura::model::station<std::wstring, local_type> station_type;
+    typedef
+        bobura::model::timetable_info::station_location<
+            station_type, std::size_t
+        >
+        station_location_type;
+    typedef
+        bobura::model::train_info::time<
+            std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
+        >
+        time_type;
+    typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
+    typedef
+        bobura::model::train<std::string, std::string, stop_type> train_type;
+    typedef
+        bobura::model::timetable<
+            std::string, station_location_type, train_type
+        >
+        timetable_type;
+
+}
+
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(model)
 BOOST_AUTO_TEST_SUITE(timetable)
@@ -33,31 +60,9 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            >
-            station_location_type;
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
-        typedef
-            bobura::model::timetable<station_location_type, train_type>
-            timetable_type;
 
         {
-            const timetable_type timetable;
+            const timetable_type timetable("hoge");
 
             BOOST_CHECK(timetable.station_locations().empty());
         }
@@ -72,37 +77,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 station_locations
             );
 
-            const timetable_type timetable(std::move(station_locations2));
-
-            BOOST_CHECK(timetable.station_locations() == station_locations);
-        }
-        {
-            timetable_type::station_locations_type station_locations;
-            station_locations.push_back(
-                station_location_type(
-                    station_type(L"A", local_type::instance()), 1
-                )
-            );
-            station_locations.push_back(
-                station_location_type(
-                    station_type(L"B", local_type::instance()), 2
-                )
-            );
-
-            const timetable_type timetable(station_locations);
-
-            BOOST_CHECK(timetable.station_locations() == station_locations);
-        }
-        {
-            timetable_type::station_locations_type station_locations;
-            station_locations.push_back(
-                station_location_type(
-                    station_type(L"A", local_type::instance()), 1
-                )
-            );
-
             const timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", std::move(station_locations2)
             );
 
             BOOST_CHECK(timetable.station_locations() == station_locations);
@@ -120,8 +96,39 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 )
             );
 
+            const timetable_type timetable("hoge", station_locations);
+
+            BOOST_CHECK(timetable.station_locations() == station_locations);
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", local_type::instance()), 1
+                )
+            );
+
             const timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
+            );
+
+            BOOST_CHECK(timetable.station_locations() == station_locations);
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", local_type::instance()), 1
+                )
+            );
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"B", local_type::instance()), 2
+                )
+            );
+
+            const timetable_type timetable(
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK(timetable.station_locations() == station_locations);
@@ -132,33 +139,10 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            >
-            station_location_type;
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
-        typedef
-            bobura::model::timetable<station_location_type, train_type>
-            timetable_type;
-
         {
-            const timetable_type timetable1;
+            const timetable_type timetable1("hoge");
 
-            const timetable_type timetable2;
+            const timetable_type timetable2("hoge");
 
             BOOST_CHECK(timetable1 == timetable2);
         }
@@ -171,7 +155,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable1(
-                station_locations1.begin(), station_locations1.end()
+                "hoge", station_locations1.begin(), station_locations1.end()
             );
 
             timetable_type::station_locations_type station_locations2;
@@ -182,7 +166,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable2(
-                station_locations2.begin(), station_locations2.end()
+                "hoge", station_locations2.begin(), station_locations2.end()
             );
 
             BOOST_CHECK(timetable1 == timetable2);
@@ -196,7 +180,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable1(
-                station_locations1.begin(), station_locations1.end()
+                "hoge", station_locations1.begin(), station_locations1.end()
             );
 
             timetable_type::station_locations_type station_locations2;
@@ -207,7 +191,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable2(
-                station_locations2.begin(), station_locations2.end()
+                "hoge", station_locations2.begin(), station_locations2.end()
             );
 
             BOOST_CHECK(timetable1 != timetable2);
@@ -221,7 +205,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable1(
-                station_locations1.begin(), station_locations1.end()
+                "hoge", station_locations1.begin(), station_locations1.end()
             );
 
             timetable_type::station_locations_type station_locations2;
@@ -237,7 +221,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable2(
-                station_locations2.begin(), station_locations2.end()
+                "hoge", station_locations2.begin(), station_locations2.end()
             );
 
             BOOST_CHECK(timetable1 != timetable2);
@@ -256,7 +240,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable1(
-                station_locations1.begin(), station_locations1.end()
+                "hoge", station_locations1.begin(), station_locations1.end()
             );
 
             timetable_type::station_locations_type station_locations2;
@@ -272,7 +256,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable2(
-                station_locations2.begin(), station_locations2.end()
+                "hoge", station_locations2.begin(), station_locations2.end()
             );
 
             BOOST_CHECK(timetable1 == timetable2);
@@ -283,31 +267,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            >
-            station_location_type;
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
-        typedef
-            bobura::model::timetable<station_location_type, train_type>
-            timetable_type;
-
         {
-            const timetable_type timetable;
+            const timetable_type timetable("hoge");
 
             const timetable_type::station_locations_type&
             station_locations = timetable.station_locations();
@@ -323,7 +284,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK(timetable.station_locations() == station_locations);
@@ -342,7 +303,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK(timetable.station_locations() == station_locations);
@@ -352,29 +313,6 @@ BOOST_AUTO_TEST_SUITE(timetable)
     BOOST_AUTO_TEST_CASE(insert_station_location)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            >
-            station_location_type;
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
-        typedef
-            bobura::model::timetable<station_location_type, train_type>
-            timetable_type;
 
         {
             timetable_type::station_locations_type station_locations;
@@ -390,7 +328,9 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                station_locations.begin(), station_locations.begin() + 1
+                "hoge",
+                station_locations.begin(),
+                station_locations.begin() + 1
             );
 
             timetable.insert_station_location(
@@ -400,7 +340,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(timetable.station_locations() == station_locations);
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -419,7 +359,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -447,7 +387,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -474,7 +414,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 2U);
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -522,7 +462,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(station_locations[3].meterage(), 4U);
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
 
             timetable.insert_train(
                 timetable.trains().end(), train_type("1", "x")
@@ -611,29 +551,6 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            >
-            station_location_type;
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
-        typedef
-            bobura::model::timetable<station_location_type, train_type>
-            timetable_type;
-
         {
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
@@ -648,7 +565,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             timetable.erase_station_locations(
@@ -672,7 +589,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             timetable.erase_station_locations(
@@ -703,7 +620,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             timetable.erase_station_locations(
@@ -746,7 +663,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             timetable.erase_station_locations(
@@ -784,7 +701,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             train_type::stops_type stops;
@@ -820,7 +737,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             train_type::stops_type stops;
@@ -848,31 +765,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            >
-            station_location_type;
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
-        typedef
-            bobura::model::timetable<station_location_type, train_type>
-            timetable_type;
-
         {
-            const timetable_type timetable;
+            const timetable_type timetable("hoge");
 
             const timetable_type::trains_type& trains =
                 timetable.trains();
@@ -880,7 +774,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(trains.empty());
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_train(
                 timetable.trains().end(), train_type("1", "x")
             );
@@ -893,7 +787,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "x");
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_train(
                 timetable.trains().end(), train_type("1", "x")
             );
@@ -916,31 +810,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            >
-            station_location_type;
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
-        typedef
-            bobura::model::timetable<station_location_type, train_type>
-            timetable_type;
-
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_train(
                 timetable.trains().end(), train_type("1", "x")
             );
@@ -953,7 +824,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "x");
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_train(
                 timetable.trains().end(), train_type("1", "x")
             );
@@ -971,7 +842,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[1].note(),  "y");
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_train(
                 timetable.trains().end(), train_type("2", "y")
             );
@@ -1007,7 +878,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                station_locations.begin(), station_locations.end()
+                "hoge", station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK_THROW(
@@ -1018,7 +889,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
 
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), ""));
@@ -1035,31 +906,10 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
     BOOST_AUTO_TEST_CASE(erase_trains)
     {
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
-        typedef
-            bobura::model::timetable_info::station_location<
-                station_type, std::size_t
-            >
-            station_location_type;
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
-        typedef
-            bobura::model::timetable<station_location_type, train_type>
-            timetable_type;
+        BOOST_TEST_PASSPOINT();
 
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_train(
                 timetable.trains().end(), train_type("1", "x")
             );
@@ -1077,7 +927,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(trains.empty());
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_train(
                 timetable.trains().end(), train_type("1", "x")
             );
@@ -1097,7 +947,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "y");
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_train(
                 timetable.trains().end(), train_type("1", "x")
             );
@@ -1119,7 +969,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[1].note(),  "y");
         }
         {
-            timetable_type timetable;
+            timetable_type timetable("hoge");
             timetable.insert_train(
                 timetable.trains().end(), train_type("1", "x")
             );
