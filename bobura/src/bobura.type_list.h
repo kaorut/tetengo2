@@ -792,15 +792,17 @@ namespace bobura
         about_dialog_type_list;
 
 
-    /**** Command ***********************************************************/
+    /**** Main Window *******************************************************/
 
     namespace type
     {
-        struct command_set;    //!< The command set type.
+        struct main_window;    //!< The main window type.
+        struct main_window_message_type_list; //!< The main window message
+                                              //!< type list.
     }
 
 #if !defined(DOCUMENTATION)
-    namespace detail { namespace command
+    namespace detail { namespace main_window
     {
         typedef
             ::bobura::command::type_list<
@@ -816,37 +818,11 @@ namespace bobura
                     locale_type_list, type::message_catalog
                 >::type
             >::type
-            type_list;
-    }}
-#endif
-
-    typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::command_set,
-                command::set<detail::command::type_list>
-            >,
-        tetengo2::meta::assoc_list_end
-        >
-        command_type_list;
-
-
-    /**** Main Window *******************************************************/
-
-    namespace type
-    {
-        struct main_window;    //!< The main window type.
-        struct main_window_message_type_list; //!< The main window message
-                                              //!< type list.
-    }
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace main_window
-    {
+            command_type_list;
         typedef
             message::main_window::type_list<
                 boost::mpl::at<
-                    detail::command::type_list,
+                    detail::main_window::command_type_list,
                     ::bobura::command::type::command
                 >::type,
                 boost::mpl::at<ui_type_list, type::canvas>::type,
@@ -882,6 +858,50 @@ namespace bobura
         tetengo2::meta::assoc_list_end
         >>
         main_window_type_list;
+
+
+    /**** Command ***********************************************************/
+
+    namespace type
+    {
+        struct command_set;    //!< The command set type.
+    }
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace command
+    {
+        typedef
+            ::bobura::command::type_list<
+                boost::mpl::at<ui_type_list, type::window>::type,
+                boost::mpl::at<
+                    common_dialog_type_list, type::file_open_dialog
+                >::type,
+                boost::mpl::at<
+                    about_dialog_type_list, type::about_dialog
+                >::type,
+                boost::mpl::at<model_type_list, type::model>::type,
+                boost::mpl::at<
+                    locale_type_list, type::message_catalog
+                >::type
+            >::type
+            type_list;
+    }}
+#endif
+
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::command_set,
+                command::set<
+                    detail::command::type_list,
+                    boost::mpl::at<
+                        main_window_type_list, type::main_window
+                    >::type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        command_type_list;
 
 
     /**** The Application ***************************************************/

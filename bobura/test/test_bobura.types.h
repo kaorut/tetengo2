@@ -472,8 +472,6 @@ typedef
     >::type
     command_type_list_type;
 
-typedef bobura::command::set<command_type_list_type> command_set_type;
-
 typedef
     bobura::message::main_window::type_list<
         boost::mpl::at<
@@ -506,6 +504,10 @@ typedef
         main_window_message_type_list_type
     >
     main_window_type;
+
+typedef
+    bobura::command::set<command_type_list_type, main_window_type>
+    command_set_type;
 
 typedef
     tetengo2::gui::message::message_loop<

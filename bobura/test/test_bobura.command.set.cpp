@@ -20,14 +20,38 @@ BOOST_AUTO_TEST_SUITE(set)
     {
         BOOST_TEST_PASSPOINT();
 
-        const command_set_type command_set;
+        const message_catalog_type message_catalog;
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
+        main_window_type main_window(message_catalog, settings);
+        const command_set_type command_set(main_window);
+    }
+
+    BOOST_AUTO_TEST_CASE(exit)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const message_catalog_type message_catalog;
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
+        main_window_type main_window(message_catalog, settings);
+        const command_set_type command_set(main_window);
+
+        command_set.nop();
     }
 
     BOOST_AUTO_TEST_CASE(nop)
     {
         BOOST_TEST_PASSPOINT();
 
-        const command_set_type command_set;
+        const message_catalog_type message_catalog;
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
+        main_window_type main_window(message_catalog, settings);
+        const command_set_type command_set(main_window);
 
         command_set.nop();
     }

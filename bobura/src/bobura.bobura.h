@@ -120,8 +120,8 @@ namespace bobura
         {
             const message_catalog_type message_catalog;
 
-            const command_set_type command_set;
             main_window_type main_window(message_catalog, m_settings);
+            const command_set_type command_set(main_window);
             main_window.set_menu_bar(
                 build_main_window_menu(
                     command_set, main_window, m_settings, message_catalog
@@ -201,13 +201,11 @@ namespace bobura
                     command_set.nop()
                 );
                 append_menu_separator(*p_popup_menu);
-                //append_menu_command(
-                //    *p_popup_menu,
-                //    message_catalog.get(TETENGO2_TEXT("Menu:File:E&xit")),
-                //    typename boost::mpl::at<
-                //        command_type_list_type, command::type::exit
-                //    >::type(main_window)
-                //);
+                append_menu_command(
+                    *p_popup_menu,
+                    message_catalog.get(TETENGO2_TEXT("Menu:File:E&xit")),
+                    command_set.exit()
+                );
 
                 p_menu_bar->insert(
                     p_menu_bar->end(), std::move(p_popup_menu)
