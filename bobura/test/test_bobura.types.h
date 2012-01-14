@@ -84,6 +84,7 @@
 
 #include "bobura.about_dialog.h"
 #include "bobura.bobura.h"
+#include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.main_window.h"
 #include "bobura.message.type_list_impl.h"
@@ -471,6 +472,8 @@ typedef
     >::type
     command_type_list_type;
 
+typedef bobura::command::set<command_type_list_type> command_set_type;
+
 typedef
     bobura::message::main_window::type_list<
         boost::mpl::at<
@@ -503,6 +506,7 @@ typedef
         menu_command_type,
         popup_menu_type,
         menu_separator_type,
+        command_set_type,
         command_type_list_type,
         main_window_message_type_list_type
     >
@@ -519,6 +523,7 @@ typedef
         settings_type,
         model_type,
         message_catalog_type,
+        command_set_type,
         main_window_type,
         message_loop_type,
         message_loop_break_type,

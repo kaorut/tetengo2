@@ -93,6 +93,7 @@
 
 #include "bobura.about_dialog.h"
 #include "bobura.bobura.h"
+#include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.main_window.h"
 #include "bobura.message.type_list_impl.h"
@@ -786,18 +787,18 @@ namespace bobura
         about_dialog_type_list;
 
 
-    /**** Main Window *******************************************************/
+    /**** Command ***********************************************************/
 
     namespace type
     {
-        struct main_window;    //!< The main window type.
+        struct command_set;    //!< The command set type.
     }
 
 #if !defined(DOCUMENTATION)
-    namespace detail { namespace main_window
+    namespace detail { namespace command
     {
         typedef
-            command::type_list<
+            ::bobura::command::type_list<
                 boost::mpl::at<ui_type_list, type::window>::type,
                 boost::mpl::at<
                     common_dialog_type_list, type::file_open_dialog
@@ -810,11 +811,36 @@ namespace bobura
                     locale_type_list, type::message_catalog
                 >::type
             >::type
-            command_type_list;
+            type_list;
+    }}
+#endif
+
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::command_set,
+                command::set<detail::command::type_list>
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        command_type_list;
+
+
+    /**** Main Window *******************************************************/
+
+    namespace type
+    {
+        struct main_window;    //!< The main window type.
+    }
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace main_window
+    {
         typedef
             message::main_window::type_list<
                 boost::mpl::at<
-                    command_type_list, command::type::command
+                    detail::command::type_list,
+                    ::bobura::command::type::command
                 >::type,
                 boost::mpl::at<ui_type_list, type::canvas>::type,
                 boost::mpl::at<ui_type_list, type::position>::type,
@@ -841,7 +867,10 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::menu_command>::type,
                     boost::mpl::at<ui_type_list, type::popup_menu>::type,
                     boost::mpl::at<ui_type_list, type::menu_separator>::type,
-                    detail::main_window::command_type_list,
+                    boost::mpl::at<
+                        command_type_list, type::command_set
+                    >::type,
+                    detail::command::type_list,
                     detail::main_window::message_type_list
                 >
             >,
@@ -867,6 +896,9 @@ namespace bobura
                     boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
+                    >::type,
+                    boost::mpl::at<
+                        command_type_list, type::command_set
                     >::type,
                     boost::mpl::at<
                         main_window_type_list, type::main_window

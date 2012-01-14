@@ -20,6 +20,7 @@ namespace bobura
         \tparam Settings        A settings type.
         \tparam Model           A model type.
         \tparam MessageCatalog  A message catalog type.
+        \tparam CommandSet      A command set type.
         \tparam MainWindow      A main window type.
         \tparam MessageLoop     A message loop type.
         \tparam MessageLoopBreak A message loop break type.
@@ -29,6 +30,7 @@ namespace bobura
         typename Settings,
         typename Model,
         typename MessageCatalog,
+        typename CommandSet,
         typename MainWindow,
         typename MessageLoop,
         typename MessageLoopBreak,
@@ -47,6 +49,9 @@ namespace bobura
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
+
+        //! The command set type.
+        typedef CommandSet command_set_type;
 
         //! The main window type.
         typedef MainWindow main_window_type;
@@ -88,7 +93,10 @@ namespace bobura
         {
             const message_catalog_type message_catalog;
 
-            main_window_type main_window(message_catalog, m_settings);
+            const command_set_type command_set;
+            main_window_type main_window(
+                message_catalog, m_settings, command_set
+            );
             main_window.set_visible(true);
 
             return message_loop_type(main_window)();

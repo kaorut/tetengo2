@@ -33,6 +33,7 @@ namespace bobura
         \tparam MenuCommand               A menu command type.
         \tparam PopupMenu                 A popup menu type.
         \tparam MenuSeparator             A menu separator type.
+        \tparam CommandSet                A command set type.
         \tparam CommandTypeList           A command type.
         \tparam MainWindowMessageTypeList A message type.
     */
@@ -44,6 +45,7 @@ namespace bobura
         typename MenuCommand,
         typename PopupMenu,
         typename MenuSeparator,
+        typename CommandSet,
         typename CommandTypeList,
         typename MainWindowMessageTypeList
     >
@@ -73,6 +75,9 @@ namespace bobura
         //! The menu separator type.
         typedef MenuSeparator menu_separator_type;
 
+        //! The command set type.
+        typedef CommandSet command_set_type;
+
         //! The command type list type.
         typedef CommandTypeList command_type_list_type;
 
@@ -90,14 +95,15 @@ namespace bobura
         */
         main_window(
             const message_catalog_type& message_catalog,
-            const settings_type&        settings
+            const settings_type&        settings,
+            const command_set_type&     command_set
         )
         :
         base_type(),
         m_message_catalog(message_catalog),
         m_settings(settings)
         {
-            initialize_window();
+            initialize_window(command_set);
         }
 
         /*!
@@ -137,7 +143,7 @@ namespace bobura
         static void append_menu_command(
             menu_base_type&                        popup_menu,
             typename menu_base_type::string_type&& text,
-            command_type&&                         command
+            const command_type&                    command
         )
         {
             std::unique_ptr<menu_base_type> p_menu_command(
@@ -150,7 +156,7 @@ namespace bobura
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::menu
-                >::type(std::forward<command_type>(command))
+                >::type(command)
             );
 
             popup_menu.insert(popup_menu.end(), std::move(p_menu_command));
@@ -159,7 +165,7 @@ namespace bobura
         static void append_menu_command(
             menu_base_type&                        popup_menu,
             typename menu_base_type::string_type&& text,
-            command_type&&                         command,
+            const command_type&                    command,
             shortcut_key_type&&                    shortcut_key
         )
         {
@@ -174,7 +180,7 @@ namespace bobura
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::menu
-                >::type(std::forward<command_type>(command))
+                >::type(command)
             );
 
             popup_menu.insert(popup_menu.end(), std::move(p_menu_command));
@@ -198,10 +204,10 @@ namespace bobura
 
         // functions
 
-        void initialize_window()
+        void initialize_window(const command_set_type& command_set)
         {
             set_message_observers();
-            set_menus();
+            set_menus(command_set);
 
             set_text(m_message_catalog.get(TETENGO2_TEXT("App:Bobura")));
         }
@@ -220,7 +226,7 @@ namespace bobura
             );
         }
 
-        void set_menus()
+        void set_menus(const command_set_type& command_set)
         {
             std::unique_ptr<menu_bar_type> p_menu_bar(
                 tetengo2::make_unique<menu_bar_type>()
@@ -236,9 +242,7 @@ namespace bobura
                 append_menu_command(
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:&New")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type(),
+                    command_set.nop(),
                     shortcut_key_type(
                         virtual_key_type::char_n(), false, true, false
                     )
@@ -258,9 +262,7 @@ namespace bobura
                 append_menu_command(
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:&Save")),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type(),
+                    command_set.nop(),
                     shortcut_key_type(
                         virtual_key_type::char_s(), false, true, false
                     )
@@ -270,9 +272,7 @@ namespace bobura
                     m_message_catalog.get(
                         TETENGO2_TEXT("Menu:File:Save &As...")
                     ),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::nop
-                    >::type()
+                    command_set.nop()
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(

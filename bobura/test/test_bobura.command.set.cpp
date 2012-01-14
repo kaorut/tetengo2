@@ -10,8 +10,6 @@
 
 #include "test_bobura.types.h"
 
-#include "bobura.command.set.h"
-
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
@@ -22,14 +20,14 @@ BOOST_AUTO_TEST_SUITE(set)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::command::set<command_type_list_type> command_set;
+        const command_set_type command_set;
     }
 
     BOOST_AUTO_TEST_CASE(nop)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::command::set<command_type_list_type> command_set;
+        const command_set_type command_set;
 
         command_set.nop();
     }
