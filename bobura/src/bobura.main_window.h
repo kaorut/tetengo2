@@ -243,18 +243,18 @@ namespace bobura
                         virtual_key_type::char_n(), false, true, false
                     )
                 );
-                append_menu_command(
-                    *p_popup_menu,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Menu:File:&Open...")
-                    ),
-                    typename boost::mpl::at<
-                        command_type_list_type, command::type::load_from_file
-                    >::type(*this, m_message_catalog),
-                    shortcut_key_type(
-                        virtual_key_type::char_o(), false, true, false
-                    )
-                );
+                //append_menu_command(
+                //    *p_popup_menu,
+                //    m_message_catalog.get(
+                //        TETENGO2_TEXT("Menu:File:&Open...")
+                //    ),
+                //    typename boost::mpl::at<
+                //        command_type_list_type, command::type::load_from_file
+                //    >::type(*this, m_message_catalog),
+                //    shortcut_key_type(
+                //        virtual_key_type::char_o(), false, true, false
+                //    )
+                //);
                 append_menu_command(
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:&Save")),

@@ -188,7 +188,7 @@ namespace bobura
 
     namespace type
     {
-        struct timetable;      //!< The timetable type.
+        struct model;          //!< The model type.
     }
 
 #if !defined(DOCUMENTATION)
@@ -242,7 +242,8 @@ namespace bobura
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::timetable, detail::model::timetable_type
+                type::model,
+                ::bobura::timetable_model<detail::model::timetable_type>
             >,
         tetengo2::meta::assoc_list_end
         >
@@ -804,6 +805,7 @@ namespace bobura
                 boost::mpl::at<
                     about_dialog_type_list, type::about_dialog
                 >::type,
+                boost::mpl::at<model_type_list, type::model>::type,
                 boost::mpl::at<
                     locale_type_list, type::message_catalog
                 >::type
@@ -855,17 +857,6 @@ namespace bobura
         struct application;    //!< The application type.
     }
 
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace bobura
-    {
-        typedef
-            ::bobura::timetable_model<
-                boost::mpl::at<model_type_list, type::timetable>::type
-            >
-            model_type;
-    }}
-#endif
-
     //! The type list for the application.
     typedef
         tetengo2::meta::assoc_list<
@@ -873,7 +864,7 @@ namespace bobura
                 type::application,
                 bobura<
                     boost::mpl::at<common_type_list, type::settings>::type,
-                    detail::bobura::model_type,
+                    boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,

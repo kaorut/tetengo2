@@ -26,9 +26,14 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
+        model_type model;
         const message_catalog_type message_catalog;
-        bobura::command::load_from_file<file_open_type, message_catalog_type>
-        load_from_file(parent, message_catalog);
+        bobura::command::load_from_file<
+            file_open_type,
+            model_type,
+            message_catalog_type
+        >
+        load_from_file(parent, model, message_catalog);
 
         load_from_file();
     }

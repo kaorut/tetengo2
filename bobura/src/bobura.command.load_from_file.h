@@ -20,9 +20,14 @@ namespace bobura { namespace command
         \brief The class template for a load-from-file command.
 
         \tparam FileOpenDialog A file open dialog type.
+        \tparam Model          A model type.
         \tparam MessageCatalog A message catalog type.
     */
-    template <typename FileOpenDialog, typename MessageCatalog>
+    template <
+        typename FileOpenDialog,
+        typename Model,
+        typename MessageCatalog
+    >
     class load_from_file
     {
     public:
@@ -34,6 +39,9 @@ namespace bobura { namespace command
         //! The window type.
         typedef typename file_open_dialog_type::widget_type window_type;
 
+        //! The model type.
+        typedef Model model_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -43,15 +51,18 @@ namespace bobura { namespace command
         /*!
             \brief Creates a load-from-file command.
 
-            \param window A parent window.
-            \param message_catalog
+            \param window          A parent window.
+            \param model           A model.
+            \param message_catalog A message catalog.
         */
         load_from_file(
             window_type&                window,
+            model_type&                 model,
             const message_catalog_type& message_catalog
         )
         :
         m_window(window),
+        m_model(model),
         m_message_catalog(message_catalog)
         {}
 
@@ -84,10 +95,11 @@ namespace bobura { namespace command
         typedef typename window_type::string_type string_type;
 
 
-
         // variables
 
         window_type& m_window;
+
+        model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
 
