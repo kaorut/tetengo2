@@ -28,10 +28,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        const command_set_type command_set;
-        const main_window_type main_window(
-            message_catalog, settings, command_set
-        );
+        const main_window_type main_window(message_catalog, settings);
     }
 
 

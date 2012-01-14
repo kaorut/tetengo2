@@ -121,9 +121,7 @@ namespace bobura
             const message_catalog_type message_catalog;
 
             const command_set_type command_set;
-            main_window_type main_window(
-                message_catalog, m_settings, command_set
-            );
+            main_window_type main_window(message_catalog, m_settings);
             main_window.set_menu_bar(
                 build_main_window_menu(
                     command_set, main_window, m_settings, message_catalog

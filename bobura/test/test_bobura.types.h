@@ -503,11 +503,6 @@ typedef
         message_catalog_type,
         settings_type,
         message_loop_break_type,
-        menu_command_type,
-        popup_menu_type,
-        menu_separator_type,
-        command_set_type,
-        command_type_list_type,
         main_window_message_type_list_type
     >
     main_window_type;

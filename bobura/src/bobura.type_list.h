@@ -871,13 +871,6 @@ namespace bobura
                     boost::mpl::at<
                         ui_type_list, type::message_loop_break
                     >::type,
-                    boost::mpl::at<ui_type_list, type::menu_command>::type,
-                    boost::mpl::at<ui_type_list, type::popup_menu>::type,
-                    boost::mpl::at<ui_type_list, type::menu_separator>::type,
-                    boost::mpl::at<
-                        command_type_list, type::command_set
-                    >::type,
-                    detail::command::type_list,
                     detail::main_window::message_type_list
                 >
             >,
