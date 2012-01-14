@@ -8,6 +8,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "test_bobura.types.h"
+
 #include "bobura.command.set.h"
 
 
@@ -20,7 +22,16 @@ BOOST_AUTO_TEST_SUITE(set)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const bobura::command::set<command_type_list_type> command_set;
+    }
+
+    BOOST_AUTO_TEST_CASE(nop)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const bobura::command::set<command_type_list_type> command_set;
+
+        command_set.nop();
     }
 
 
