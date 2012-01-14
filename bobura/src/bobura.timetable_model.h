@@ -10,6 +10,7 @@
 #define BOBURA_TIMETABLEMODEL_H
 
 #include <memory>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 
@@ -45,6 +46,16 @@ namespace bobura
 
 
         // functions
+
+        /*!
+            \brief Resets a timetable.
+
+            \param p_timetable A unique pointer to a timetable.
+        */
+        void reset_timetable(std::unique_ptr<timetable_type> p_timetable)
+        {
+            m_p_timetable = std::move(p_timetable);
+        }
 
 
     private:

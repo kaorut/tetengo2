@@ -8,6 +8,10 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.unique.h>
+
+#include "test_bobura.types.h"
+
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(timetable_model)
@@ -17,7 +21,16 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const model_type model;
+    }
+
+    BOOST_AUTO_TEST_CASE(reset_timetable)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        model_type model;
+
+        model.reset_timetable(tetengo2::make_unique<timetable_type>());
     }
 
 
