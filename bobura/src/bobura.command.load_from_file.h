@@ -90,7 +90,7 @@ namespace bobura { namespace command
 
             std::unique_ptr<timetable_type> p_timetable =
                 tetengo2::make_unique<timetable_type>(
-                    path.string<string_type>()
+                    path.template string<string_type>()
                 );
             m_model.reset_timetable(std::move(p_timetable));
         }
