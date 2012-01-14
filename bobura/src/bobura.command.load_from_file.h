@@ -9,9 +9,11 @@
 #if !defined(BOBURA_COMMAND_LOADFROMFILE_H)
 #define BOBURA_COMMAND_LOADFROMFILE_H
 
+#include <memory>
 #include <utility>
 
 #include <tetengo2.text.h>
+#include <tetengo2.unique.h>
 
 
 namespace bobura { namespace command
@@ -86,6 +88,11 @@ namespace bobura { namespace command
                 dialog.result();
             if (path.empty()) return;
 
+            std::unique_ptr<timetable_type> p_timetable =
+                tetengo2::make_unique<timetable_type>(
+                    path.string<string_type>()
+                );
+            m_model.reset_timetable(std::move(p_timetable));
         }
 
 
@@ -93,6 +100,8 @@ namespace bobura { namespace command
         // types
 
         typedef typename window_type::string_type string_type;
+
+        typedef typename model_type::timetable_type timetable_type;
 
 
         // variables
