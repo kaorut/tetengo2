@@ -10,7 +10,9 @@
 #define BOBURA_BOBURA_H
 
 #include <memory>
+#include <utility>
 
+#include <boost/mpl/at.hpp>
 #include <boost/noncopyable.hpp>
 
 

@@ -9,8 +9,8 @@
 #if !defined(BOBURA_TIMETABLEMODEL_H)
 #define BOBURA_TIMETABLEMODEL_H
 
-#include <memory>
-#include <utility>
+//#include <memory>
+//#include <utility>
 
 #include <boost/noncopyable.hpp>
 

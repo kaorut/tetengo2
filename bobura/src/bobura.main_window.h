@@ -9,9 +9,6 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
-//#include <memory>
-//#include <utility>
-
 #include <boost/mpl/at.hpp>
 
 #include <tetengo2.text.h>
