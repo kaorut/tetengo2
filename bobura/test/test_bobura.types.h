@@ -87,6 +87,7 @@
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.main_window.h"
+#include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
@@ -155,7 +156,13 @@ typedef
     bobura::model::timetable<std::wstring, station_location_type, train_type>
     timetable_type;
 
-typedef bobura::timetable_model<timetable_type> model_type;
+typedef
+    bobura::message::timetable_model_observer_set
+    timetable_model_observer_set_type;
+
+typedef
+    bobura::timetable_model<timetable_type, timetable_model_observer_set_type>
+    model_type;
 
 typedef
     tetengo2::detail::stub::alert<std::string, ui_encoder_type>

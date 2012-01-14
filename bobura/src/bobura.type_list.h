@@ -96,6 +96,7 @@
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.main_window.h"
+#include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
@@ -240,6 +241,9 @@ namespace bobura
                 train_type
             >
             timetable_type;
+        typedef
+            ::bobura::message::timetable_model_observer_set
+            timetable_model_observer_set_type;
     }}
 #endif
 
@@ -248,7 +252,10 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::model,
-                ::bobura::timetable_model<detail::model::timetable_type>
+                ::bobura::timetable_model<
+                    detail::model::timetable_type,
+                    detail::model::timetable_model_observer_set_type
+                >
             >,
         tetengo2::meta::assoc_list_end
         >

@@ -45,6 +45,22 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const model_type model;
+
+            model.observer_set();
+        }
+        {
+            model_type model;
+
+            model.observer_set();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

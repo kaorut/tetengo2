@@ -24,9 +24,10 @@ namespace bobura
    /*!
         \brief The class template for a model.
 
-        \tparam Timetable A timetable type.
+        \tparam Timetable   A timetable type.
+        \tparam ObserverSet A observer set.
     */
-    template <typename Timetable>
+    template <typename Timetable, typename ObserverSet>
     class timetable_model : private boost::noncopyable
     {
     public:
@@ -34,6 +35,9 @@ namespace bobura
 
         //! The timetable type.
         typedef Timetable timetable_type;
+
+        //! The observer set type.
+        typedef ObserverSet observer_set_type;
 
 
         // constructors and destructor
@@ -45,7 +49,8 @@ namespace bobura
         :
         m_p_timetable(
             tetengo2::make_unique<timetable_type>(string_type())
-        )
+        ),
+        m_observer_set()
         {}
 
 
@@ -68,6 +73,29 @@ namespace bobura
             }
 
             m_p_timetable = std::move(p_timetable);
+
+            m_observer_set.reset()();
+        }
+
+        /*!
+            \brief Returns the observer set.
+
+            \return The observer set.
+        */
+        const observer_set_type& observer_set()
+        const
+        {
+            return m_observer_set;
+        }
+
+        /*!
+            \brief Returns the observer set.
+
+            \return The observer set.
+        */
+        observer_set_type& observer_set()
+        {
+            return m_observer_set;
         }
 
 
@@ -80,6 +108,8 @@ namespace bobura
         // variables
 
         std::unique_ptr<timetable_type> m_p_timetable;
+
+        observer_set_type m_observer_set;
 
 
     };
