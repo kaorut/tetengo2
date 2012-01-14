@@ -380,6 +380,7 @@ namespace bobura
         struct canvas;         //!< The canvas type.
         struct alert;          //!< The alert type.
         struct window;         //!< The window type.
+        struct menu_bar;       //!< The menu bar type.
         struct popup_menu;     //!< The popup menu type.
         struct menu_command;   //!< The menu command type.
         struct menu_separator; //!< The menu separator type;
@@ -676,6 +677,10 @@ namespace bobura
             boost::mpl::pair<type::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::menu_bar, detail::ui::menu_bar_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::popup_menu,
                 tetengo2::gui::menu::popup<
                     detail::ui::menu_traits_type,
@@ -722,7 +727,7 @@ namespace bobura
                 detail::ui::transparent_background_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -831,6 +836,8 @@ namespace bobura
     namespace type
     {
         struct main_window;    //!< The main window type.
+        struct main_window_message_type_list; //!< The main window message
+                                              //!< type list.
     }
 
 #if !defined(DOCUMENTATION)
@@ -874,8 +881,13 @@ namespace bobura
                     detail::main_window::message_type_list
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::main_window_message_type_list,
+                detail::main_window::message_type_list
+            >,
         tetengo2::meta::assoc_list_end
-        >
+        >>
         main_window_type_list;
 
 
@@ -903,6 +915,14 @@ namespace bobura
                     boost::mpl::at<
                         main_window_type_list, type::main_window
                     >::type,
+                    boost::mpl::at<
+                        main_window_type_list,
+                        type::main_window_message_type_list
+                    >::type,
+                    boost::mpl::at<ui_type_list, type::menu_bar>::type,
+                    boost::mpl::at<ui_type_list, type::menu_command>::type,
+                    boost::mpl::at<ui_type_list, type::popup_menu>::type,
+                    boost::mpl::at<ui_type_list, type::menu_separator>::type,
                     boost::mpl::at<ui_type_list, type::message_loop>::type,
                     boost::mpl::at<
                         ui_type_list, type::message_loop_break

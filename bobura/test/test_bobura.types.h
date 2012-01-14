@@ -525,6 +525,11 @@ typedef
         message_catalog_type,
         command_set_type,
         main_window_type,
+        main_window_message_type_list_type,
+        menu_bar_type,
+        menu_command_type,
+        popup_menu_type,
+        menu_separator_type,
         message_loop_type,
         message_loop_break_type,
         tetengo2::gui::fixture<tetengo2::detail::stub::gui_fixture>
