@@ -25,7 +25,9 @@ BOOST_AUTO_TEST_SUITE(set)
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
         main_window_type main_window(message_catalog, settings);
-        const command_set_type command_set(main_window);
+        const command_set_type command_set(
+            main_window, settings, message_catalog
+        );
     }
 
     BOOST_AUTO_TEST_CASE(exit)
@@ -37,7 +39,9 @@ BOOST_AUTO_TEST_SUITE(set)
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
         main_window_type main_window(message_catalog, settings);
-        const command_set_type command_set(main_window);
+        const command_set_type command_set(
+            main_window, settings, message_catalog
+        );
 
         command_set.nop();
     }
@@ -51,7 +55,9 @@ BOOST_AUTO_TEST_SUITE(set)
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
         main_window_type main_window(message_catalog, settings);
-        const command_set_type command_set(main_window);
+        const command_set_type command_set(
+            main_window, settings, message_catalog
+        );
 
         command_set.nop();
     }

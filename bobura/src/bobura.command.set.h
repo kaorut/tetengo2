@@ -20,10 +20,17 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a command set.
 
-        \tparam TypeList   A command type list type.
-        \tparam MainWindow A main window type.
+        \tparam TypeList       A command type list type.
+        \tparam MainWindow     A main window type.
+        \tparam Settings       A settings type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename TypeList, typename MainWindow>
+    template <
+        typename TypeList,
+        typename MainWindow,
+        typename Settings,
+        typename MessageCatalog
+    >
     class set : private boost::noncopyable
     {
     public:
@@ -40,22 +47,46 @@ namespace bobura { namespace command
         //! The main window type.
         typedef MainWindow main_window_type;
 
+        //! The settings type.
+        typedef Settings settings_type;
+
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
+
 
         // constructors
 
         /*!
             \brief Creates a command set.
 
-            \param main_window A main window.
+            \param main_window     A main window.
+            \param settings        Settings.
+            \param message_catalog A message catalog.
         */
-        set(main_window_type& main_window)
+        set(
+            main_window_type&           main_window,
+            const settings_type&        settings,
+            const message_catalog_type& message_catalog
+        )
         :
+        m_about(make_about(main_window, message_catalog, settings)),
         m_exit(make_exit(main_window)),
         m_nop(make_nop())
         {}
 
 
         // functions
+
+        /*!
+            \brief Returns the command about.
+
+            \return The command.
+        */
+        const command_type& about()
+        const
+        {
+            return m_about;
+        }
 
         /*!
             \brief Returns the command exit.
@@ -83,12 +114,25 @@ namespace bobura { namespace command
     private:
         // types
 
+        const command_type m_about;
+
         const command_type m_exit;
 
         const command_type m_nop;
 
 
         // static functions
+
+        static command_type make_about(
+            main_window_type&           main_window,
+            const message_catalog_type& message_catalog,
+            const settings_type&        settings
+        )
+        {
+            return typename boost::mpl::at<type_list_type, type::about>::type(
+                main_window, message_catalog, settings
+            );
+        }
 
         static command_type make_exit(main_window_type& main_window)
         {

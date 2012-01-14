@@ -121,11 +121,11 @@ namespace bobura
             const message_catalog_type message_catalog;
 
             main_window_type main_window(message_catalog, m_settings);
-            const command_set_type command_set(main_window);
+            const command_set_type command_set(
+                main_window, m_settings, message_catalog
+            );
             main_window.set_menu_bar(
-                build_main_window_menu(
-                    command_set, main_window, m_settings, message_catalog
-                )
+                build_main_window_menu(command_set, message_catalog)
             );
             main_window.set_visible(true);
 
@@ -149,8 +149,6 @@ namespace bobura
 
         static std::unique_ptr<menu_bar_type> build_main_window_menu(
             const command_set_type&     command_set,
-            main_window_type&           main_window,
-            const settings_type&        settings,
             const message_catalog_type& message_catalog
         )
         {
@@ -219,15 +217,13 @@ namespace bobura
                     )
                 );
 
-                //append_menu_command(
-                //    *p_popup_menu,
-                //    message_catalog.get(
-                //        TETENGO2_TEXT("Menu:Help:&About")
-                //    ),
-                //    typename boost::mpl::at<
-                //        command_type_list_type, command::type::about
-                //    >::type(main_window, message_catalog, settings)
-                //);
+                append_menu_command(
+                    *p_popup_menu,
+                    message_catalog.get(
+                        TETENGO2_TEXT("Menu:Help:&About")
+                    ),
+                    command_set.about()
+                );
 
                 p_menu_bar->insert(
                     p_menu_bar->end(), std::move(p_popup_menu)

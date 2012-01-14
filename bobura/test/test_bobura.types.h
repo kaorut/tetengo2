@@ -506,7 +506,12 @@ typedef
     main_window_type;
 
 typedef
-    bobura::command::set<command_type_list_type, main_window_type>
+    bobura::command::set<
+        command_type_list_type,
+        main_window_type,
+        settings_type,
+        message_catalog_type
+    >
     command_set_type;
 
 typedef
