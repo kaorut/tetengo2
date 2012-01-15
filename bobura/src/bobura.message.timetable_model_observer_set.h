@@ -16,17 +16,23 @@
 namespace bobura { namespace message
 {
     /*!
-        \brief The class for a timetable model observer set.
+        \brief The class template for a timetable model observer set.
     */
+    template <typename Timetable>
     class timetable_model_observer_set : private boost::noncopyable
     {
     public:
         // types
 
+        //! The timetable type.
+        typedef Timetable timetable_type;
+
         /*!
             \brief The observer type of reset.
+
+            \param timetable A timetable.
         */
-        typedef void reset_type();
+        typedef void reset_type(const timetable_type& timetable);
 
         //! The signal type of reset.
         typedef boost::signals2::signal<reset_type> reset_signal_type;

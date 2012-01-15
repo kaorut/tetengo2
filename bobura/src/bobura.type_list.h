@@ -242,7 +242,7 @@ namespace bobura
             >
             timetable_type;
         typedef
-            ::bobura::message::timetable_model_observer_set
+            ::bobura::message::timetable_model_observer_set<timetable_type>
             timetable_model_observer_set_type;
     }}
 #endif

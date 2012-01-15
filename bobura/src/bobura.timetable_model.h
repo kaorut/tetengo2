@@ -74,7 +74,7 @@ namespace bobura
 
             m_p_timetable = std::move(p_timetable);
 
-            m_observer_set.reset()();
+            m_observer_set.reset()(*m_p_timetable);
         }
 
         /*!
