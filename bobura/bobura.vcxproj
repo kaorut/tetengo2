@@ -100,6 +100,7 @@
     <ClInclude Include="src\bobura.main_window.h" />
     <ClInclude Include="src\bobura.message.about_dialog.h" />
     <ClInclude Include="src\bobura.message.main_window.h" />
+    <ClInclude Include="src\bobura.message.timetable_model.h" />
     <ClInclude Include="src\bobura.message.timetable_model_observer_set.h" />
     <ClInclude Include="src\bobura.message.type_list.h" />
     <ClInclude Include="src\bobura.message.type_list_impl.h" />

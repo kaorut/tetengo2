@@ -90,6 +90,9 @@
     <ClInclude Include="src\bobura.message.timetable_model_observer_set.h">
       <Filter>headers\bobura\message</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.message.timetable_model.h">
+      <Filter>headers\bobura\message</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">

@@ -14,6 +14,7 @@ extra_headers = \
     bobura.main_window.h \
     bobura.message.about_dialog.h \
     bobura.message.main_window.h \
+    bobura.message.timetable_model.h \
     bobura.message.timetable_model_observer_set.h \
     bobura.message.type_list.h \
     bobura.message.type_list_impl.h \

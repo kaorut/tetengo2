@@ -74,5 +74,8 @@
     <ClCompile Include="test\test_bobura.message.timetable_model_observer_set.cpp">
       <Filter>sources\test_bobura\message</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.message.timetable_model.cpp">
+      <Filter>sources\test_bobura\message</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

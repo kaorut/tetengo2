@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::message::ok_button_mouse_observer.
+    \brief The definition of bobura::message::about_dialog.
 
     Copyright (C) 2007-2012 kaoru
 
