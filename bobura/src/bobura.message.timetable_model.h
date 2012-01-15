@@ -15,9 +15,10 @@ namespace bobura { namespace message { namespace timetable_model
      /*!
         \brief The class template for a timetable model observer of reset.
 
-        \tparam Timetable A timetable type.
+        \tparam Timetable  A timetable type.
+        \tparam MainWindow A main window type.
     */
-    template <typename Timetable>
+    template <typename Timetable, typename MainWindow>
     class reset
     {
     public:
@@ -26,13 +27,20 @@ namespace bobura { namespace message { namespace timetable_model
         //! The timetable type.
         typedef Timetable timetable_type;
 
+        //! The main window type.
+        typedef MainWindow main_window_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a timetable model observer of resetn.
+
+            \param main_window A main window.
         */
-        reset()
+        reset(main_window_type& main_window)
+        :
+        m_main_window(main_window)
         {}
 
 
@@ -46,12 +54,14 @@ namespace bobura { namespace message { namespace timetable_model
         void operator()(const timetable_type& timetable)
         const
         {
-
+            m_main_window.set_text(timetable.title());
         }
 
 
     private:
         // variables
+
+        main_window_type& m_main_window;
 
 
     };
