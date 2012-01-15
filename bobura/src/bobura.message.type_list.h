@@ -12,6 +12,14 @@
 
 namespace bobura { namespace message
 {
+    namespace timetable_model
+    {
+        namespace type
+        {
+            struct reset;      //!< The reset observer type.
+        }
+    }
+
     namespace main_window
     {
         namespace type

@@ -161,7 +161,15 @@ typedef
     timetable_model_observer_set_type;
 
 typedef
-    bobura::timetable_model<timetable_type, timetable_model_observer_set_type>
+    bobura::message::timetable_model::type_list<timetable_type>::type
+    timetable_model_message_type_list_type;
+
+typedef
+    bobura::timetable_model<
+        timetable_type,
+        timetable_model_observer_set_type,
+        timetable_model_message_type_list_type
+    >
     model_type;
 
 typedef

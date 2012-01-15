@@ -13,12 +13,18 @@
 namespace bobura { namespace message { namespace timetable_model
 {
      /*!
-        \brief The class for a timetable model observer of reset.
+        \brief The class template for a timetable model observer of reset.
+
+        \tparam Timetable A timetable type.
     */
+    template <typename Timetable>
     class reset
     {
     public:
         // types
+
+        //! The timetable type.
+        typedef Timetable timetable_type;
 
 
         // constructors and destructor
@@ -34,8 +40,10 @@ namespace bobura { namespace message { namespace timetable_model
 
         /*!
             \brief Called when the timetable model is reset.
+
+            \param timetable A timetable.
         */
-        void operator()()
+        void operator()(const timetable_type& timetable)
         const
         {
 

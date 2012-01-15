@@ -244,6 +244,11 @@ namespace bobura
         typedef
             ::bobura::message::timetable_model_observer_set<timetable_type>
             timetable_model_observer_set_type;
+        typedef
+            ::bobura::message::timetable_model::type_list<
+                timetable_type
+            >::type
+            timetable_model_message_type_list;
     }}
 #endif
 
@@ -254,7 +259,8 @@ namespace bobura
                 type::model,
                 ::bobura::timetable_model<
                     detail::model::timetable_type,
-                    detail::model::timetable_model_observer_set_type
+                    detail::model::timetable_model_observer_set_type,
+                    detail::model::timetable_model_message_type_list
                 >
             >,
         tetengo2::meta::assoc_list_end

@@ -23,16 +23,19 @@ BOOST_AUTO_TEST_SUITE(reset)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::message::timetable_model::reset observer;
+        const bobura::message::timetable_model::reset<timetable_type>
+        observer;
     }
 
     BOOST_AUTO_TEST_CASE(clicked)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::message::timetable_model::reset observer;
+        const bobura::message::timetable_model::reset<timetable_type>
+        observer;
 
-        observer();
+        const timetable_type timetable(L"hoge");
+        observer(timetable);
     }
 
 

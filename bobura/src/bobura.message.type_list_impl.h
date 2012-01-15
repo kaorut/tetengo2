@@ -15,11 +15,38 @@
 
 #include "bobura.message.about_dialog.h"
 #include "bobura.message.main_window.h"
+#include "bobura.message.timetable_model.h"
 #include "bobura.message.type_list.h"
 
 
 namespace bobura { namespace message
 {
+    namespace timetable_model
+    {
+        /*!
+            \brief The meta function for the type list of the timetable model
+                   messages.
+
+            \tparam Timetable A timetable type.
+        */
+        template <typename Timetable>
+        class type_list
+        {
+        public:
+            // types
+
+            //! The type list for the timetable model.
+            typedef
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::reset, reset<Timetable>>,
+                tetengo2::meta::assoc_list_end
+                >
+                type;
+
+
+        };
+    }
+
     namespace main_window
     {
         /*!
