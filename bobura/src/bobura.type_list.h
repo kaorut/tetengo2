@@ -191,6 +191,7 @@ namespace bobura
     namespace type
     {
         struct model;          //!< The model type.
+        struct model_message_type_list; //!< The model message type list type.
     }
 
 #if !defined(DOCUMENTATION)
@@ -244,11 +245,6 @@ namespace bobura
         typedef
             ::bobura::message::timetable_model_observer_set<timetable_type>
             timetable_model_observer_set_type;
-        typedef
-            ::bobura::message::timetable_model::type_list<
-                timetable_type
-            >::type
-            timetable_model_message_type_list;
     }}
 #endif
 
@@ -259,12 +255,18 @@ namespace bobura
                 type::model,
                 ::bobura::timetable_model<
                     detail::model::timetable_type,
-                    detail::model::timetable_model_observer_set_type,
-                    detail::model::timetable_model_message_type_list
+                    detail::model::timetable_model_observer_set_type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::model_message_type_list,
+                ::bobura::message::timetable_model::type_list<
+                    detail::model::timetable_type
+                >::type
+            >,
         tetengo2::meta::assoc_list_end
-        >
+        >>
         model_type_list;
 
 
@@ -939,6 +941,9 @@ namespace bobura
                 bobura<
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<model_type_list, type::model>::type,
+                    boost::mpl::at<
+                        model_type_list, type::model_message_type_list
+                    >::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,

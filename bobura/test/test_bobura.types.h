@@ -161,16 +161,15 @@ typedef
     timetable_model_observer_set_type;
 
 typedef
-    bobura::message::timetable_model::type_list<timetable_type>::type
-    timetable_model_message_type_list_type;
-
-typedef
     bobura::timetable_model<
         timetable_type,
-        timetable_model_observer_set_type,
-        timetable_model_message_type_list_type
+        timetable_model_observer_set_type
     >
     model_type;
+
+typedef
+    bobura::message::timetable_model::type_list<timetable_type>::type
+    timetable_model_message_type_list_type;
 
 typedef
     tetengo2::detail::stub::alert<std::string, ui_encoder_type>
@@ -540,6 +539,7 @@ typedef
     bobura::bobura<
         settings_type,
         model_type,
+        timetable_model_message_type_list_type,
         message_catalog_type,
         command_set_type,
         main_window_type,

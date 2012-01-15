@@ -15,6 +15,8 @@
 #include <boost/mpl/at.hpp>
 #include <boost/noncopyable.hpp>
 
+#include "bobura.message.type_list.h"
+
 
 namespace bobura
 {
@@ -38,6 +40,7 @@ namespace bobura
     template <
         typename Settings,
         typename Model,
+        typename ModelMessageTypeList,
         typename MessageCatalog,
         typename CommandSet,
         typename MainWindow,
@@ -61,6 +64,9 @@ namespace bobura
         //! The model type.
         typedef Model model_type;
 
+        //! The model message type list type.
+        typedef ModelMessageTypeList model_messagetype_list_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -70,7 +76,7 @@ namespace bobura
         //! The main window type.
         typedef MainWindow main_window_type;
 
-        //! The message type list type.
+        //! The main window message type list type.
         typedef MainWindowMessageTypeList main_window_message_type_list_type;
 
         //! The menu bar type.
@@ -125,6 +131,7 @@ namespace bobura
             const command_set_type command_set(
                 m_model, main_window, m_settings, message_catalog
             );
+            set_message_observers(m_model, main_window);
             main_window.set_menu_bar(
                 build_main_window_menu(command_set, message_catalog)
             );
@@ -147,6 +154,19 @@ namespace bobura
 
 
         // static functions
+
+        static void set_message_observers(
+            model_type&       model,
+            main_window_type& main_window
+        )
+        {
+            model.observer_set().reset().connect(
+                typename boost::mpl::at<
+                    model_messagetype_list_type,
+                    message::timetable_model::type::reset
+                >::type()
+            );
+        }
 
         static std::unique_ptr<menu_bar_type> build_main_window_menu(
             const command_set_type&     command_set,

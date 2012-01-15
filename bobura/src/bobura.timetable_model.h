@@ -18,8 +18,6 @@
 
 #include <tetengo2.unique.h>
 
-#include "bobura.message.type_list.h"
-
 
 namespace bobura
 {
@@ -28,13 +26,8 @@ namespace bobura
 
         \tparam Timetable       A timetable type.
         \tparam ObserverSet     A observer set.
-        \tparam MessageTypeList A message type list.
     */
-    template <
-        typename Timetable,
-        typename ObserverSet,
-        typename MessageTypeList
-    >
+    template <typename Timetable, typename ObserverSet>
     class timetable_model : private boost::noncopyable
     {
     public:
@@ -45,9 +38,6 @@ namespace bobura
 
         //! The observer set type.
         typedef ObserverSet observer_set_type;
-
-        //! The message type list type.
-        typedef MessageTypeList message_type_list_type;
 
 
         // constructors and destructor
@@ -61,9 +51,7 @@ namespace bobura
             tetengo2::make_unique<timetable_type>(string_type())
         ),
         m_observer_set()
-        {
-            set_message_observers();
-        }
+        {}
 
 
         // functions
@@ -122,20 +110,6 @@ namespace bobura
         std::unique_ptr<timetable_type> m_p_timetable;
 
         observer_set_type m_observer_set;
-
-
-        // functions
-
-        void set_message_observers()
-        {
-            m_observer_set.reset().connect(
-                typename boost::mpl::at<
-                    message_type_list_type,
-                    message::timetable_model::type::reset
-                >::type()
-            );
-        }
-
 
 
     };
