@@ -14,7 +14,6 @@
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
-#include "bobura.command.type_list.h"
 #include "bobura.message.type_list.h"
 
 
