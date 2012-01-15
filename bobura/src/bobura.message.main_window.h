@@ -10,7 +10,6 @@
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
 //#include <cstddef>
-#include <functional>
 #include <memory>
 //#include <type_traits>
 //#include <utility>

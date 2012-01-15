@@ -6,6 +6,9 @@
     $Id$
 */
 
+//#include <memory>
+//#include <stdexcept>
+
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.unique.h>

@@ -9,8 +9,8 @@
 #if !defined(BOBURA_COMMAND_LOADFROMFILE_H)
 #define BOBURA_COMMAND_LOADFROMFILE_H
 
-#include <memory>
-#include <utility>
+//#include <memory>
+//#include <utility>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
