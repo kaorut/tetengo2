@@ -78,7 +78,7 @@ namespace bobura { namespace message { namespace main_window
         \tparam PictureReader A picture reader type.
     */
     template <typename Canvas, typename Position, typename PictureReader>
-    class paint : public std::unary_function<Canvas, void>
+    class paint
     {
     public:
         // types
