@@ -16,7 +16,7 @@
 #include <tetengo2.cpp11.h>
 
 
-namespace bobura { namespace model { namespace serialize
+namespace bobura { namespace model { namespace serializer
 {
     /*!
         \brief The class template for a reader.
