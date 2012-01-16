@@ -3,6 +3,7 @@
 # $Id$
 
 headers = \
+    bobura.model.serializer.reader.h \
     bobura.model.station.h \
     bobura.model.station_info.grade.h \
     bobura.model.timetable.h \

@@ -16,6 +16,9 @@
     <Filter Include="headers\bobura::model\train_info">
       <UniqueIdentifier>{2048f72f-086e-4d8b-92da-3f32579e64aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\bobura::model\serializer">
+      <UniqueIdentifier>{cbf093e3-6fa9-4f79-8928-372a64c88336}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\bobura.model.station.h">
@@ -41,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="include\bobura.model.train_info.time.h">
       <Filter>headers\bobura::model\train_info</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.serializer.reader.h">
+      <Filter>headers\bobura::model\serializer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

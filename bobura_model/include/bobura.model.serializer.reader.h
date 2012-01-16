@@ -1,113 +1,84 @@
 /*! \file
-    \brief The definition of bobura::model::station.
+    \brief The definition of bobura::model::serializer::reader.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_MODEL_STATION_H)
-#define BOBURA_MODEL_STATION_H
+#if !defined(BOBURA_MODEL_SERIALIZER_READER_H)
+#define BOBURA_MODEL_SERIALIZER_READER_H
 
-#include <utility>
+#include <memory>
 
-#include <boost/operators.hpp>
+#include <boost/noncopyable.hpp>
 
 #include <tetengo2.cpp11.h>
 
 
-namespace bobura { namespace model
+namespace bobura { namespace model { namespace serialize
 {
     /*!
-        \brief The class template for a station.
+        \brief The class template for a reader.
 
-        \tparam Name  A name type.
-        \tparam Grade A grade type.
+        \tparam Timetable A timetable type.
     */
-    template <typename Name, typename Grade>
-    class station : private boost::equality_comparable<station<Name, Grade>>
+    template <typename Timetable>
+    class reader : private boost::noncopyable
     {
     public:
         // types
 
-        //! The name type.
-        typedef Name name_type;
-
-        //! The grade type.
-        typedef Grade grade_type;
+        //! The timetable type.
+        typedef Timetable timetable_type;
 
 
         // constructors and destructor
 
         /*!
-            \brief Creates a station.
-
-            \tparam N A name type.
-
-            \param name  A name.
-            \param grade A grade.
+            \brief Destroys the reader.
         */
-        template <typename N>
-        station(N&& name, const grade_type& grade)
-        :
-        m_name(std::forward<N>(name)),
-        m_grade(grade)
+        virtual ~reader()
+        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
         // functions
 
         /*!
-            \brief Checks whether one station is equal to another.
+            \brief Reads a timetable.
 
-            \param one     One station.
-            \param another Another station.
+            When it cannot read a timetable, it returns NULL.
 
-            \retval true  When the one is equal to the other.
-            \retval false Otherwise.
+            \return A unique pointer to a timetable.
         */
-        friend bool operator==(const station& one, const station& another)
+        std::unique_ptr<timetable_type> read()
         {
-            return one.m_name == another.m_name &&
-                   &one.m_grade.get() == &another.m_grade.get();
+            return read_impl();
         }
+
+
+    protected:
+        // constructors
 
         /*!
-            \brief Returns the name.
-
-            \return The name.
+            \brief Creates a reader.
         */
-        const name_type& name()
-        const
-        {
-            return m_name;
-        }
-
-        /*!
-            \brief Returns the grade.
-
-            \return The grade.
-        */
-        const grade_type& grade()
-        const
-        {
-            return m_grade;
-        }
+        reader()
+        {}
 
 
     private:
-        // variables
+        // virtual functions
 
-        name_type m_name;
-
-        typename tetengo2::cpp11::reference_wrapper<const grade_type>::type
-        m_grade;
+        virtual std::unique_ptr<timetable_type> read_impl()
+        = 0;
 
 
     };
 
 
-}}
+}}}
 
 
 #endif

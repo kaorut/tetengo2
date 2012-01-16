@@ -19,6 +19,9 @@
     <Filter Include="sources\test_bobura::model\train_info">
       <UniqueIdentifier>{16ceeaa5-6324-4a0a-a827-b2775ced8ce3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_bobura::model\serializer">
+      <UniqueIdentifier>{ff621378-3126-41e9-90ef-93d52bfec4d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
@@ -55,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="test\test_bobura.model.train_info.time.cpp">
       <Filter>sources\test_bobura::model\train_info</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.serializer.reader.cpp">
+      <Filter>sources\test_bobura::model\serializer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
