@@ -334,14 +334,12 @@ namespace tetengo2 { namespace gui { namespace menu
         // constructors and destructor
 
         /*!
-            \brief Creates a menu base without a shortcut key.
+            \brief Creates a menu base with a shortcut key.
 
-            \tparam S  A string type.
-            \tparam SK A shortcut key type.
+            \tparam S A string type.
 
-            \param text         A text.
-            \param shortcut_key A shortcut key.
-            \param p_details    A unique pointer to a detail implementation.
+            \param text      A text.
+            \param p_details A unique pointer to a detail implementation.
         */
         template <typename S>
         menu_base(S&& text, details_ptr_type p_details)
@@ -353,12 +351,14 @@ namespace tetengo2 { namespace gui { namespace menu
         {}
 
         /*!
-            \brief Creates a menu base with a shortcut key.
+            \brief Creates a menu base without a shortcut key.
 
-            \tparam S A string type.
+            \tparam S  A string type.
+            \tparam SK A shortcut key type.
 
-            \param text      A text.
-            \param p_details A unique pointer to a detail implementation.
+            \param text         A text.
+            \param shortcut_key A shortcut key.
+            \param p_details    A unique pointer to a detail implementation.
         */
         template <typename S, typename SK>
         menu_base(S&& text, SK&& shortcut_key, details_ptr_type p_details)

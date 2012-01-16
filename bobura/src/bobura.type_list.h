@@ -813,6 +813,7 @@ namespace bobura
         struct command_type_list; //!< The command type list.
     }
 
+    //! The type list for the command type list.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -898,6 +899,7 @@ namespace bobura
         struct command_set;    //!< The command set type.
     }
 
+    //! The type list for the command set.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
