@@ -48,5 +48,8 @@
     <ClInclude Include="include\bobura.model.serializer.reader.h">
       <Filter>headers\bobura::model\serializer</Filter>
     </ClInclude>
+    <ClInclude Include="include\bobura.model.serializer.json_reader.h">
+      <Filter>headers\bobura::model\serializer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

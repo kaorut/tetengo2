@@ -82,6 +82,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemGroup>
+    <ClInclude Include="include\bobura.model.serializer.json_reader.h" />
     <ClInclude Include="include\bobura.model.serializer.reader.h" />
     <ClInclude Include="include\bobura.model.station.h" />
     <ClInclude Include="include\bobura.model.station_info.grade.h" />

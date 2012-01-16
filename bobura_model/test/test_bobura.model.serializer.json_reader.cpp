@@ -65,14 +65,14 @@ BOOST_AUTO_TEST_SUITE(json_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_reader json_reader;
+        const reader_type json_reader;
     }
 
     BOOST_AUTO_TEST_CASE(read)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_reader json_reader;
+        reader_type json_reader;
         const std::unique_ptr<timetable_type> p_timetable = json_reader.read();
     }
 
