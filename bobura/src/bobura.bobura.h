@@ -25,6 +25,8 @@ namespace bobura
 
         \tparam Settings                  A settings type.
         \tparam Model                     A model type.
+        \tparam ModelMessageTypeList      A model message type list.
+        \tparam Reader                    A reader type.
         \tparam MessageCatalog            A message catalog type.
         \tparam CommandSet                A command set type.
         \tparam MainWindow                A main window type.
@@ -41,6 +43,7 @@ namespace bobura
         typename Settings,
         typename Model,
         typename ModelMessageTypeList,
+        typename Reader,
         typename MessageCatalog,
         typename CommandSet,
         typename MainWindow,
@@ -66,6 +69,9 @@ namespace bobura
 
         //! The model message type list type.
         typedef ModelMessageTypeList model_messagetype_list_type;
+
+        //! The reader type.
+        typedef Reader reader_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -127,9 +133,10 @@ namespace bobura
         {
             const message_catalog_type message_catalog;
 
+            reader_type reader;
             main_window_type main_window(message_catalog, m_settings);
             const command_set_type command_set(
-                m_model, main_window, m_settings, message_catalog
+                m_model, reader, main_window, m_settings, message_catalog
             );
             set_message_observers(m_model, main_window);
             main_window.set_menu_bar(

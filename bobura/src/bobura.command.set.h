@@ -22,6 +22,7 @@ namespace bobura { namespace command
 
         \tparam TypeList       A command type list type.
         \tparam Model          A model type.
+        \tparam Reader         A reader type.
         \tparam MainWindow     A main window type.
         \tparam Settings       A settings type.
         \tparam MessageCatalog A message catalog type.
@@ -29,6 +30,7 @@ namespace bobura { namespace command
     template <
         typename TypeList,
         typename Model,
+        typename Reader,
         typename MainWindow,
         typename Settings,
         typename MessageCatalog
@@ -49,6 +51,9 @@ namespace bobura { namespace command
         //! The model type.
         typedef Model model_type;
 
+        //! The reader type.
+        typedef Reader reader_type;
+
         //! The main window type.
         typedef MainWindow main_window_type;
 
@@ -65,12 +70,14 @@ namespace bobura { namespace command
             \brief Creates a command set.
 
             \param model           A model.
+            \param reader          A reader.
             \param main_window     A main window.
             \param settings        Settings.
             \param message_catalog A message catalog.
         */
         set(
             model_type&                 model,
+            reader_type&                reader,
             main_window_type&           main_window,
             const settings_type&        settings,
             const message_catalog_type& message_catalog
@@ -79,7 +86,7 @@ namespace bobura { namespace command
         m_about(make_about(main_window, message_catalog, settings)),
         m_exit(make_exit(main_window)),
         m_load_from_file(
-            make_load_from_file(main_window, model, message_catalog)
+            make_load_from_file(main_window, model, reader, message_catalog)
         ),
         m_nop(make_nop())
         {}
@@ -165,14 +172,15 @@ namespace bobura { namespace command
         }
 
         static command_type make_load_from_file(
-            main_window_type&           main_window,
-            model_type&                 model,
-            const message_catalog_type& message_catalog
+            main_window_type&            main_window,
+            model_type&                  model,
+            reader_type&                 reader,
+            const message_catalog_type&  message_catalog
         )
         {
             return typename boost::mpl::at<
                 type_list_type, type::load_from_file
-            >::type(main_window, model, message_catalog);
+            >::type(main_window, model, reader, message_catalog);
         }
 
         static command_type make_nop()

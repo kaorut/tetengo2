@@ -89,6 +89,7 @@
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
+#include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
@@ -472,12 +473,15 @@ typedef
     >
     about_dialog_type;
 
+typedef bobura::model::serializer::json_reader<timetable_type> reader_type;
+
 typedef
     bobura::command::type_list<
         window_type,
         file_open_type,
         about_dialog_type,
         model_type,
+        reader_type,
         message_catalog_type
     >::type
     command_type_list_type;
@@ -525,6 +529,7 @@ typedef
     bobura::command::set<
         command_type_list_type,
         model_type,
+        reader_type,
         main_window_type,
         settings_type,
         message_catalog_type
@@ -542,6 +547,7 @@ typedef
         settings_type,
         model_type,
         timetable_model_message_type_list_type,
+        reader_type,
         message_catalog_type,
         command_set_type,
         main_window_type,

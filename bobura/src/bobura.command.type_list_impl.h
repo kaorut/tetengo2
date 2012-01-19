@@ -31,6 +31,7 @@ namespace bobura { namespace command
         \tparam FileOpenDialog A file open dialog type.
         \tparam AboutDialog    An about dialog type.
         \tparam Model          A model type.
+        \tparam Reader         A reader type.
         \tparam MessageCatalog A message catalog type.
     */
     template <
@@ -38,6 +39,7 @@ namespace bobura { namespace command
         typename FileOpenDialog,
         typename AboutDialog,
         typename Model,
+        typename Reader,
         typename MessageCatalog
     >
     class type_list
@@ -56,7 +58,9 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
                     type::load_from_file,
-                    load_from_file<FileOpenDialog, Model, MessageCatalog>
+                    load_from_file<
+                        FileOpenDialog, Model, Reader, MessageCatalog
+                    >
             >,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::nop, nop>,

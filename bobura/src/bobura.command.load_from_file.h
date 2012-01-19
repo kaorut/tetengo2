@@ -26,11 +26,13 @@ namespace bobura { namespace command
 
         \tparam FileOpenDialog A file open dialog type.
         \tparam Model          A model type.
+        \tparam Reader         A reader type.
         \tparam MessageCatalog A message catalog type.
     */
     template <
         typename FileOpenDialog,
         typename Model,
+        typename Reader,
         typename MessageCatalog
     >
     class load_from_file
@@ -47,6 +49,9 @@ namespace bobura { namespace command
         //! The model type.
         typedef Model model_type;
 
+        //! The reader type.
+        typedef Reader reader_type;
+
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -58,16 +63,19 @@ namespace bobura { namespace command
 
             \param window          A parent window.
             \param model           A model.
+            \param reader          A reader.
             \param message_catalog A message catalog.
         */
         load_from_file(
-            window_type&                window,
-            model_type&                 model,
-            const message_catalog_type& message_catalog
+            window_type&                 window,
+            model_type&                  model,
+            reader_type&                 reader,
+            const message_catalog_type&  message_catalog
         )
         :
         m_window(window),
         m_model(model),
+        m_reader(reader),
         m_message_catalog(message_catalog)
         {}
 
@@ -98,9 +106,10 @@ namespace bobura { namespace command
                 return;
 
             std::unique_ptr<timetable_type> p_timetable =
-                tetengo2::make_unique<timetable_type>(
-                    path.template string<string_type>()
-                );
+                m_reader.read(input_stream);
+            if (!p_timetable)
+                return;
+
             m_model.reset_timetable(std::move(p_timetable));
         }
 
@@ -118,6 +127,8 @@ namespace bobura { namespace command
         window_type& m_window;
 
         model_type& m_model;
+
+        reader_type& m_reader;
 
         const message_catalog_type& m_message_catalog;
 

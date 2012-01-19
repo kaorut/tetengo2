@@ -98,6 +98,7 @@
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
+#include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
@@ -192,6 +193,7 @@ namespace bobura
     {
         struct model;          //!< The model type.
         struct timetable;      //!< The timetable type.
+        struct reader;         //!< The reader type.
     }
 
 #if !defined(DOCUMENTATION)
@@ -260,8 +262,15 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::timetable, detail::model::timetable_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::reader,
+                ::bobura::model::serializer::json_reader<
+                    detail::model::timetable_type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         model_type_list;
 
 
@@ -819,7 +828,7 @@ namespace bobura
             boost::mpl::pair<
                 type::command_type_list,
                 ::bobura::command::type_list<
-                boost::mpl::at<ui_type_list, type::window>::type,
+                    boost::mpl::at<ui_type_list, type::window>::type,
                     boost::mpl::at<
                         common_dialog_type_list, type::file_open_dialog
                     >::type,
@@ -827,6 +836,7 @@ namespace bobura
                         about_dialog_type_list, type::about_dialog
                     >::type,
                     boost::mpl::at<model_type_list, type::model>::type,
+                    boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type
@@ -909,6 +919,7 @@ namespace bobura
                         command_type_list_type_list, type::command_type_list
                     >::type,
                     boost::mpl::at<model_type_list, type::model>::type,
+                    boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
                         main_window_type_list, type::main_window
                     >::type,
@@ -953,6 +964,7 @@ namespace bobura
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<model_type_list, type::model>::type,
                     detail::application::model_message_type_list,
+                    boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,
