@@ -9,8 +9,11 @@
 #if !defined(BOBURA_COMMAND_LOADFROMFILE_H)
 #define BOBURA_COMMAND_LOADFROMFILE_H
 
+#include <ios>
 //#include <memory>
 //#include <utility>
+
+#include <boost/filesystem/fstream.hpp>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -87,6 +90,12 @@ namespace bobura { namespace command
             const typename file_open_dialog_type::path_type path =
                 dialog.result();
             if (path.empty()) return;
+
+            boost::filesystem::ifstream input_stream(
+                path, std::ios_base::binary
+            );
+            if (!input_stream)
+                return;
 
             std::unique_ptr<timetable_type> p_timetable =
                 tetengo2::make_unique<timetable_type>(
