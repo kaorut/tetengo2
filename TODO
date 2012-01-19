@@ -23,6 +23,11 @@ Depends on  : 00000120
 Description : Create bobura::model::serializer::json_writer.
 ------------------------------------------------------------------------------
 Number      : 00000137
+Added on    : 2012/01/20
+Depends on  : (none)
+Description : Create tetengo2::gui::common_dialog::message_box.
+------------------------------------------------------------------------------
+Number      : 00000138
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
