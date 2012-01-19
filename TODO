@@ -7,21 +7,10 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000120
-Added on    : 2011/12/07
-Depends on  : 00000134
-Description : Create bobura::model::serializer.
-------------------------------------------------------------------------------
 Number      : 00000132
 Added on    : 2012/01/13
 Depends on  : 00000131
 Description : Add observer_set() to bobura::model::*.
-------------------------------------------------------------------------------
-Number      : 00000134
-Added on    : 2012/01/16
-Depends on  : (none)
-Description : Modify bobura::model::timetable so it can hold both up and down
-              trains.
 ------------------------------------------------------------------------------
 Number      : 00000135
 Added on    : 2012/01/16
