@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_SERIALIZER_READER_H
 
 #include <cstddef>
+#include <istream>
 #include <memory>
 
 #include <boost/noncopyable.hpp>
@@ -51,11 +52,13 @@ namespace bobura { namespace model { namespace serializer
 
             When it cannot read a timetable, it returns NULL.
 
+            \param input_stream An input stream.
+
             \return A unique pointer to a timetable.
         */
-        std::unique_ptr<timetable_type> read()
+        std::unique_ptr<timetable_type> read(std::istream& input_stream)
         {
-            return read_impl();
+            return read_impl(input_stream);
         }
 
 
@@ -72,7 +75,9 @@ namespace bobura { namespace model { namespace serializer
     private:
         // virtual functions
 
-        virtual std::unique_ptr<timetable_type> read_impl()
+        virtual std::unique_ptr<timetable_type> read_impl(
+            std::istream& input_stream
+        )
         = 0;
 
 

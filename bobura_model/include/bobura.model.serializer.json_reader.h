@@ -57,7 +57,9 @@ namespace bobura { namespace model { namespace serializer
     private:
         // virtual functions
 
-        virtual std::unique_ptr<timetable_type> read_impl()
+        virtual std::unique_ptr<timetable_type> read_impl(
+            std::istream& input_stream
+        )
         {
             return std::unique_ptr<timetable_type>();
         }

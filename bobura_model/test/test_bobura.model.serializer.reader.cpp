@@ -7,7 +7,9 @@
 */
 
 //#include <cstddef>
+//#include <istream>
 //#include <memory>
+#include <sstream>
 #include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -66,7 +68,9 @@ namespace
 
 
     private:
-        virtual std::unique_ptr<timetable_type> read_impl()
+        virtual std::unique_ptr<timetable_type> read_impl(
+            std::istream& input_stream
+        )
         {
             return std::unique_ptr<timetable_type>();
         }
@@ -94,7 +98,9 @@ BOOST_AUTO_TEST_SUITE(reader)
         BOOST_TEST_PASSPOINT();
 
         concrete_reader reader;
-        const std::unique_ptr<timetable_type> p_timetable = reader.read();
+        std::istringstream input_stream("hoge");
+        const std::unique_ptr<timetable_type> p_timetable =
+            reader.read(input_stream);
     }
 
 

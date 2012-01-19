@@ -53,6 +53,12 @@ namespace
     typedef
         bobura::model::serializer::json_reader<timetable_type> reader_type;
 
+
+    // variables
+
+    const std::string json0;
+
+
 }
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
@@ -73,7 +79,11 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         BOOST_TEST_PASSPOINT();
 
         reader_type json_reader;
-        const std::unique_ptr<timetable_type> p_timetable = json_reader.read();
+        {
+            std::istringstream input_stream(json0);
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(input_stream);
+        }
     }
 
 
