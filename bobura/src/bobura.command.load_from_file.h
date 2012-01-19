@@ -149,16 +149,16 @@ namespace bobura { namespace command
                     string_type(TETENGO2_TEXT("*.btt"))
                 )
             );
-            filters.push_back(
-                std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT(
-                            "Dialog:FileOpen:Timetable Files (Compressed)"
-                        )
-                    ),
-                    string_type(TETENGO2_TEXT("*.btt.bz2"))
-                )
-            );
+            //filters.push_back(
+            //    std::make_pair(
+            //        m_message_catalog.get(
+            //            TETENGO2_TEXT(
+            //                "Dialog:FileOpen:Timetable Files (Compressed)"
+            //            )
+            //        ),
+            //        string_type(TETENGO2_TEXT("*.btt.bz2"))
+            //    )
+            //);
             filters.push_back(
                 std::make_pair(
                     m_message_catalog.get(

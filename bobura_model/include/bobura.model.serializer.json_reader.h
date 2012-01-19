@@ -12,6 +12,8 @@
 //#include <memory>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.text.h>
+#include <tetengo2.unique.h>
 
 #include "bobura.model.serializer.reader.h"
 
@@ -55,13 +57,20 @@ namespace bobura { namespace model { namespace serializer
 
 
     private:
+        // types
+
+        typedef typename timetable_type::string_type string_type;
+
+
         // virtual functions
 
         virtual std::unique_ptr<timetable_type> read_impl(
             std::istream& input_stream
         )
         {
-            return std::unique_ptr<timetable_type>();
+            return tetengo2::make_unique<timetable_type>(
+                string_type(TETENGO2_TEXT("hoge"))
+            );
         }
 
 
