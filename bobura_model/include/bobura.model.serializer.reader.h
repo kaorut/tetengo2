@@ -9,6 +9,7 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_READER_H)
 #define BOBURA_MODEL_SERIALIZER_READER_H
 
+#include <cstddef>
 #include <memory>
 
 #include <boost/noncopyable.hpp>
