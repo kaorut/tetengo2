@@ -70,7 +70,8 @@ namespace bobura { namespace model
         :
         m_title(std::forward<S>(title)),
         m_station_locations(),
-        m_trains()
+        m_down_trains(),
+        m_up_trains()
         {}
 
         /*!
@@ -87,7 +88,8 @@ namespace bobura { namespace model
         :
         m_title(std::forward<S>(title)),
         m_station_locations(std::forward<SLs>(station_locations)),
-        m_trains()
+        m_down_trains(),
+        m_up_trains()
         {}
 
         /*!
@@ -111,7 +113,8 @@ namespace bobura { namespace model
         :
         m_title(std::forward<S>(title)),
         m_station_locations(station_location_first, station_location_last),
-        m_trains()
+        m_down_trains(),
+        m_up_trains()
         {}
 
 
@@ -129,7 +132,8 @@ namespace bobura { namespace model
         friend bool operator==(const timetable& one, const timetable& another)
         {
             return one.m_station_locations == another.m_station_locations &&
-                one.m_trains == another.m_trains;
+                one.m_down_trains == another.m_down_trains &&
+                one.m_up_trains == another.m_up_trains;
         }
 
         /*!
@@ -215,8 +219,17 @@ namespace bobura { namespace model
             );
 
             std::for_each(
-                m_trains.begin(),
-                m_trains.end(),
+                m_down_trains.begin(),
+                m_down_trains.end(),
+                TETENGO2_CPP11_BIND(
+                    insert_train_stop,
+                    tetengo2::cpp11::placeholders_1(),
+                    offset
+                )
+            );
+            std::for_each(
+                m_up_trains.begin(),
+                m_up_trains.end(),
                 TETENGO2_CPP11_BIND(
                     insert_train_stop,
                     tetengo2::cpp11::placeholders_1(),
@@ -255,8 +268,18 @@ namespace bobura { namespace model
             );
 
             std::for_each(
-                m_trains.begin(),
-                m_trains.end(),
+                m_down_trains.begin(),
+                m_down_trains.end(),
+                TETENGO2_CPP11_BIND(
+                    erase_train_stops,
+                    tetengo2::cpp11::placeholders_1(),
+                    first_offset,
+                    last_offset
+                )
+            );
+            std::for_each(
+                m_up_trains.begin(),
+                m_up_trains.end(),
                 TETENGO2_CPP11_BIND(
                     erase_train_stops,
                     tetengo2::cpp11::placeholders_1(),
@@ -267,66 +290,103 @@ namespace bobura { namespace model
         }
 
         /*!
-            \brief Returns the trains.
+            \brief Returns the down trains.
 
-            \return The trains
+            \return The down trains
         */
-        const trains_type& trains()
+        const trains_type& down_trains()
         const
         {
-            return m_trains;
+            return m_down_trains;
         }
 
         /*!
-            \brief Inserts a train.
+            \brief Returns the up trains.
+
+            \return The up trains
+        */
+        const trains_type& up_trains()
+        const
+        {
+            return m_up_trains;
+        }
+
+        /*!
+            \brief Inserts a down train.
 
             The count of train stops must coincide with the one of the station
             locations.
 
             \tparam T A train type.
 
-            \param position A position where a train is inserted.
-            \param train    A train.
+            \param position A position where a down train is inserted.
+            \param train    A down train.
 
             \throw std::invalid_argument When the count of the stops of a
                                          train does not coincide with the one
                                          of the station locations.
         */
         template <typename T>
-        void insert_train(
+        void insert_down_train(
             const typename trains_type::const_iterator position,
             T&&                                        train
         )
         {
-            if (train.stops().size() != m_station_locations.size())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument(
-                        "The count of the train stops does not coincide with "
-                        "the one of the station locations."
-                    )
-                );
-            }
-
-            m_trains.insert(
-                to_mutable(position, m_trains), std::forward<T>(train)
+            insert_train_impl(
+                m_down_trains, position, std::forward<T>(train)
             );
         }
 
         /*!
-            \brief Erases the trains.
+            \brief Inserts a up train.
+
+            The count of train stops must coincide with the one of the station
+            locations.
+
+            \tparam T A train type.
+
+            \param position A position where a up train is inserted.
+            \param train    A up train.
+
+            \throw std::invalid_argument When the count of the stops of a
+                                         train does not coincide with the one
+                                         of the station locations.
+        */
+        template <typename T>
+        void insert_up_train(
+            const typename trains_type::const_iterator position,
+            T&&                                        train
+        )
+        {
+            insert_train_impl(m_up_trains, position, std::forward<T>(train));
+        }
+
+        /*!
+            \brief Erases the down trains.
 
             \param first A first iterator among the erased trains.
             \param last  A last iterator among the erased trains.
         */
-        void erase_trains(
+        void erase_down_trains(
             const typename trains_type::const_iterator first,
             const typename trains_type::const_iterator last
         )
         {
-            m_trains.erase(
-                to_mutable(first, m_trains), to_mutable(last, m_trains)
-            );
+            erase_trains_impl(m_down_trains, first, last);
+        }
+
+        /*!
+            \brief Erases the up trains.
+
+            \param first A first iterator among the erased trains.
+            \param last  A last iterator among the erased trains.
+        */
+        void erase_up_trains(
+            const typename trains_type::const_iterator first,
+            const typename trains_type::const_iterator last
+        )
+        {
+            erase_trains_impl(m_up_trains, first, last);
         }
 
 
@@ -366,6 +426,22 @@ namespace bobura { namespace model
             );
         }
 
+        template <typename Container>
+        static typename Container::iterator to_mutable(
+            const typename Container::const_iterator const_iter,
+            Container&                               container
+        )
+        {
+            typename Container::iterator mutable_iter = container.begin();
+            std::advance(
+                mutable_iter,
+                std::distance<typename Container::const_iterator>(
+                    container.begin(), const_iter
+                )
+            );
+            return mutable_iter;
+        }
+
 
         // variables
 
@@ -373,15 +449,16 @@ namespace bobura { namespace model
 
         station_locations_type m_station_locations;
 
-        trains_type m_trains;
+        trains_type m_down_trains;
+
+        trains_type m_up_trains;
 
 
         // functions
 
         bool can_insert_to(
-            const typename station_locations_type::const_iterator
-                                         position,
-            const station_location_type& station_location
+            const typename station_locations_type::const_iterator position,
+            const station_location_type&                          station_location
         )
         const
         {
@@ -404,20 +481,35 @@ namespace bobura { namespace model
             return true;
         }
 
-        template <typename Container>
-        typename Container::iterator to_mutable(
-            const typename Container::const_iterator const_iter,
-            Container&                               container
+        template <typename T>
+        void insert_train_impl(
+            trains_type&                               trains,
+            const typename trains_type::const_iterator position,
+            T&&                                        train
         )
         {
-            typename Container::iterator mutable_iter = container.begin();
-            std::advance(
-                mutable_iter,
-                std::distance<typename Container::const_iterator>(
-                    container.begin(), const_iter
-                )
+            if (train.stops().size() != m_station_locations.size())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument(
+                        "The count of the train stops does not coincide with "
+                        "the one of the station locations."
+                    )
+                );
+            }
+
+            trains.insert(
+                to_mutable(position, trains), std::forward<T>(train)
             );
-            return mutable_iter;
+        }
+
+        void erase_trains_impl(
+            trains_type&                               trains,
+            const typename trains_type::const_iterator first,
+            const typename trains_type::const_iterator last
+        )
+        {
+            trains.erase(to_mutable(first, trains), to_mutable(last, trains));
         }
 
 

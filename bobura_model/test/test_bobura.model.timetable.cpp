@@ -464,8 +464,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
         {
             timetable_type timetable("hoge");
 
-            timetable.insert_train(
-                timetable.trains().end(), train_type("1", "x")
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("1", "x")
             );
 
             timetable.insert_station_location(
@@ -476,25 +476,27 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_CHECK_EQUAL(
-                timetable.trains()[0].stops().size(),
+                timetable.down_trains()[0].stops().size(),
                 timetable.station_locations().size()
             );
             BOOST_CHECK(
-                timetable.trains()[0].stops()[0].arrival() ==
+                timetable.down_trains()[0].stops()[0].arrival() ==
                 time_type::uninitialized()
             );
             BOOST_CHECK(
-                timetable.trains()[0].stops()[0].departure() ==
+                timetable.down_trains()[0].stops()[0].departure() ==
                 time_type::uninitialized()
             );
-            BOOST_CHECK(timetable.trains()[0].stops()[0].platform().empty());
+            BOOST_CHECK(
+                timetable.down_trains()[0].stops()[0].platform().empty()
+            );
 
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(1), time_type(2), "a"));
             stops.push_back(stop_type(time_type(3), time_type(4), "b"));
 
-            timetable.insert_train(
-                timetable.trains().end(),
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
                 train_type("2", "y", stops.begin(), stops.begin() + 1)
             );
 
@@ -506,21 +508,23 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_CHECK_EQUAL(
-                timetable.trains()[1].stops().size(),
+                timetable.down_trains()[1].stops().size(),
                 timetable.station_locations().size()
             );
             BOOST_CHECK(
-                timetable.trains()[1].stops()[1].arrival() ==
+                timetable.down_trains()[1].stops()[1].arrival() ==
                 time_type::uninitialized()
             );
             BOOST_CHECK(
-                timetable.trains()[1].stops()[1].departure() ==
+                timetable.down_trains()[1].stops()[1].departure() ==
                 time_type::uninitialized()
             );
-            BOOST_CHECK(timetable.trains()[1].stops()[1].platform().empty());
+            BOOST_CHECK(
+                timetable.down_trains()[1].stops()[1].platform().empty()
+            );
 
-            timetable.insert_train(
-                timetable.trains().end(),
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
                 train_type("3", "z", stops.begin(), stops.end())
             );
 
@@ -532,18 +536,110 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_CHECK_EQUAL(
-                timetable.trains()[2].stops().size(),
+                timetable.down_trains()[2].stops().size(),
                 timetable.station_locations().size()
             );
             BOOST_CHECK(
-                timetable.trains()[2].stops()[1].arrival() ==
+                timetable.down_trains()[2].stops()[1].arrival() ==
                 time_type::uninitialized()
             );
             BOOST_CHECK(
-                timetable.trains()[2].stops()[1].departure() ==
+                timetable.down_trains()[2].stops()[1].departure() ==
                 time_type::uninitialized()
             );
-            BOOST_CHECK(timetable.trains()[2].stops()[1].platform().empty());
+            BOOST_CHECK(
+                timetable.down_trains()[2].stops()[1].platform().empty()
+            );
+        }
+        {
+            timetable_type timetable("hoge");
+
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("1", "x")
+            );
+
+            timetable.insert_station_location(
+                timetable.station_locations().end(),
+                station_location_type(
+                    station_type(L"A", local_type::instance()), 1
+                )
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.up_trains()[0].stops().size(),
+                timetable.station_locations().size()
+            );
+            BOOST_CHECK(
+                timetable.up_trains()[0].stops()[0].arrival() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(
+                timetable.up_trains()[0].stops()[0].departure() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(
+                timetable.up_trains()[0].stops()[0].platform().empty()
+            );
+
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+
+            timetable.insert_up_train(
+                timetable.up_trains().end(),
+                train_type("2", "y", stops.begin(), stops.begin() + 1)
+            );
+
+            timetable.insert_station_location(
+                timetable.station_locations().end(),
+                station_location_type(
+                    station_type(L"C", local_type::instance()), 3
+                )
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.up_trains()[1].stops().size(),
+                timetable.station_locations().size()
+            );
+            BOOST_CHECK(
+                timetable.up_trains()[1].stops()[1].arrival() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(
+                timetable.up_trains()[1].stops()[1].departure() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(
+                timetable.up_trains()[1].stops()[1].platform().empty()
+            );
+
+            timetable.insert_up_train(
+                timetable.up_trains().end(),
+                train_type("3", "z", stops.begin(), stops.end())
+            );
+
+            timetable.insert_station_location(
+                timetable.station_locations().begin() + 1,
+                station_location_type(
+                    station_type(L"B", local_type::instance()), 2
+                )
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.up_trains()[2].stops().size(),
+                timetable.station_locations().size()
+            );
+            BOOST_CHECK(
+                timetable.up_trains()[2].stops()[1].arrival() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(
+                timetable.up_trains()[2].stops()[1].departure() ==
+                time_type::uninitialized()
+            );
+            BOOST_CHECK(
+                timetable.up_trains()[2].stops()[1].platform().empty()
+            );
         }
     }
 
@@ -708,8 +804,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             stops.push_back(stop_type(time_type(1), time_type(2), "a"));
             stops.push_back(stop_type(time_type(3), time_type(4), "b"));
 
-            timetable.insert_train(
-                timetable.trains().end(),
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
                 train_type("1", "x", stops.begin(), stops.end())
             );
 
@@ -719,7 +815,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_CHECK_EQUAL(
-                timetable.trains()[0].stops().size(),
+                timetable.down_trains()[0].stops().size(),
                 timetable.station_locations().size()
             );
         }
@@ -744,8 +840,44 @@ BOOST_AUTO_TEST_SUITE(timetable)
             stops.push_back(stop_type(time_type(1), time_type(2), "a"));
             stops.push_back(stop_type(time_type(3), time_type(4), "b"));
 
-            timetable.insert_train(
-                timetable.trains().end(),
+            timetable.insert_up_train(
+                timetable.up_trains().end(),
+                train_type("1", "x", stops.begin(), stops.end())
+            );
+
+            timetable.erase_station_locations(
+                timetable.station_locations().begin(),
+                timetable.station_locations().end()
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.up_trains()[0].stops().size(),
+                timetable.station_locations().size()
+            );
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", local_type::instance()), 1
+                )
+            );
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"B", local_type::instance()), 2
+                )
+            );
+
+            timetable_type timetable(
+                "hoge", station_locations.begin(), station_locations.end()
+            );
+
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+
+            timetable.insert_down_train(
+                timetable.down_trains().end(),
                 train_type("1", "x", stops.begin(), stops.end())
             );
 
@@ -755,13 +887,49 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_CHECK_EQUAL(
-                timetable.trains()[0].stops().size(),
+                timetable.down_trains()[0].stops().size(),
+                timetable.station_locations().size()
+            );
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", local_type::instance()), 1
+                )
+            );
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"B", local_type::instance()), 2
+                )
+            );
+
+            timetable_type timetable(
+                "hoge", station_locations.begin(), station_locations.end()
+            );
+
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
+            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+
+            timetable.insert_up_train(
+                timetable.up_trains().end(),
+                train_type("1", "x", stops.begin(), stops.end())
+            );
+
+            timetable.erase_station_locations(
+                timetable.station_locations().begin(),
+                timetable.station_locations().begin() + 1
+            );
+
+            BOOST_CHECK_EQUAL(
+                timetable.up_trains()[0].stops().size(),
                 timetable.station_locations().size()
             );
         }
     }
 
-    BOOST_AUTO_TEST_CASE(trains)
+    BOOST_AUTO_TEST_CASE(down_trains)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -769,18 +937,18 @@ BOOST_AUTO_TEST_SUITE(timetable)
             const timetable_type timetable("hoge");
 
             const timetable_type::trains_type& trains =
-                timetable.trains();
+                timetable.down_trains();
 
             BOOST_CHECK(trains.empty());
         }
         {
             timetable_type timetable("hoge");
-            timetable.insert_train(
-                timetable.trains().end(), train_type("1", "x")
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("1", "x")
             );
 
             const timetable_type::trains_type& trains =
-                timetable.trains();
+                timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -788,15 +956,15 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable("hoge");
-            timetable.insert_train(
-                timetable.trains().end(), train_type("1", "x")
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("1", "x")
             );
-            timetable.insert_train(
-                timetable.trains().end(), train_type("2", "y")
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("2", "y")
             );
 
             const timetable_type::trains_type& trains =
-                timetable.trains();
+                timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -806,18 +974,26 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(insert_train)
+    BOOST_AUTO_TEST_CASE(up_trains)
     {
         BOOST_TEST_PASSPOINT();
 
         {
+            const timetable_type timetable("hoge");
+
+            const timetable_type::trains_type& trains =
+                timetable.up_trains();
+
+            BOOST_CHECK(trains.empty());
+        }
+        {
             timetable_type timetable("hoge");
-            timetable.insert_train(
-                timetable.trains().end(), train_type("1", "x")
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("1", "x")
             );
 
             const timetable_type::trains_type& trains =
-                timetable.trains();
+                timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -825,15 +1001,52 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable("hoge");
-            timetable.insert_train(
-                timetable.trains().end(), train_type("1", "x")
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("1", "x")
             );
-            timetable.insert_train(
-                timetable.trains().end(), train_type("2", "y")
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("2", "y")
             );
 
             const timetable_type::trains_type& trains =
-                timetable.trains();
+                timetable.up_trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 2U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "2");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(insert_down_train)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("1", "x")
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.down_trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 1U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+        }
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("1", "x")
+            );
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("2", "y")
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -843,21 +1056,21 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable("hoge");
-            timetable.insert_train(
-                timetable.trains().end(), train_type("2", "y")
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("2", "y")
             );
-            timetable.insert_train(
-                timetable.trains().end(), train_type("4", "w")
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("4", "w")
             );
-            timetable.insert_train(
-                timetable.trains().begin(), train_type("1", "x")
+            timetable.insert_down_train(
+                timetable.down_trains().begin(), train_type("1", "x")
             );
-            timetable.insert_train(
-                timetable.trains().begin() + 2, train_type("3", "z")
+            timetable.insert_down_train(
+                timetable.down_trains().begin() + 2, train_type("3", "z")
             );
 
             const timetable_type::trains_type& trains =
-                timetable.trains();
+                timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 4U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -882,8 +1095,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             BOOST_CHECK_THROW(
-                timetable.insert_train(
-                    timetable.trains().end(), train_type("1", "x")
+                timetable.insert_down_train(
+                    timetable.down_trains().end(), train_type("1", "x")
                 ),
                 std::invalid_argument
             );
@@ -895,8 +1108,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
             stops.push_back(stop_type(time_type(0), time_type(0), ""));
 
             BOOST_CHECK_THROW(
-                timetable.insert_train(
-                    timetable.trains().end(),
+                timetable.insert_down_train(
+                    timetable.down_trains().end(),
                     train_type("1", "x", stops.begin(), stops.end())
                 ),
                 std::invalid_argument
@@ -904,63 +1117,34 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(erase_trains)
+    BOOST_AUTO_TEST_CASE(insert_up_train)
     {
         BOOST_TEST_PASSPOINT();
 
         {
             timetable_type timetable("hoge");
-            timetable.insert_train(
-                timetable.trains().end(), train_type("1", "x")
-            );
-            timetable.insert_train(
-                timetable.trains().end(), train_type("2", "y")
-            );
-
-            timetable.erase_trains(
-                timetable.trains().begin(), timetable.trains().end()
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("1", "x")
             );
 
             const timetable_type::trains_type& trains =
-                timetable.trains();
-
-            BOOST_CHECK(trains.empty());
-        }
-        {
-            timetable_type timetable("hoge");
-            timetable.insert_train(
-                timetable.trains().end(), train_type("1", "x")
-            );
-            timetable.insert_train(
-                timetable.trains().end(), train_type("2", "y")
-            );
-
-            timetable.erase_trains(
-                timetable.trains().begin(), timetable.trains().begin() + 1
-            );
-
-            const timetable_type::trains_type& trains =
-                timetable.trains();
+                timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "2");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "y");
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
         }
         {
             timetable_type timetable("hoge");
-            timetable.insert_train(
-                timetable.trains().end(), train_type("1", "x")
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("1", "x")
             );
-            timetable.insert_train(
-                timetable.trains().end(), train_type("2", "y")
-            );
-
-            timetable.erase_trains(
-                timetable.trains().begin(), timetable.trains().begin()
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("2", "y")
             );
 
             const timetable_type::trains_type& trains =
-                timetable.trains();
+                timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
@@ -970,22 +1154,245 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable("hoge");
-            timetable.insert_train(
-                timetable.trains().end(), train_type("1", "x")
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("2", "y")
             );
-            timetable.insert_train(
-                timetable.trains().end(), train_type("2", "y")
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("4", "w")
             );
-            timetable.insert_train(
-                timetable.trains().end(), train_type("3", "z")
+            timetable.insert_up_train(
+                timetable.up_trains().begin(), train_type("1", "x")
             );
-
-            timetable.erase_trains(
-                timetable.trains().begin() + 1, timetable.trains().begin() + 2
+            timetable.insert_up_train(
+                timetable.up_trains().begin() + 2, train_type("3", "z")
             );
 
             const timetable_type::trains_type& trains =
-                timetable.trains();
+                timetable.up_trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 4U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "2");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+            BOOST_CHECK_EQUAL(trains[2].number(), "3");
+            BOOST_CHECK_EQUAL(trains[2].note(),  "z");
+            BOOST_CHECK_EQUAL(trains[3].number(), "4");
+            BOOST_CHECK_EQUAL(trains[3].note(),  "w");
+        }
+        {
+            timetable_type::station_locations_type station_locations;
+            station_locations.push_back(
+                station_location_type(
+                    station_type(L"A", local_type::instance()), 1
+                )
+            );
+
+            timetable_type timetable(
+                "hoge", station_locations.begin(), station_locations.end()
+            );
+
+            BOOST_CHECK_THROW(
+                timetable.insert_up_train(
+                    timetable.up_trains().end(), train_type("1", "x")
+                ),
+                std::invalid_argument
+            );
+        }
+        {
+            timetable_type timetable("hoge");
+
+            train_type::stops_type stops;
+            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+
+            BOOST_CHECK_THROW(
+                timetable.insert_up_train(
+                    timetable.up_trains().end(),
+                    train_type("1", "x", stops.begin(), stops.end())
+                ),
+                std::invalid_argument
+            );
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(erase_down_trains)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("1", "x")
+            );
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("2", "y")
+            );
+
+            timetable.erase_down_trains(
+                timetable.down_trains().begin(), timetable.down_trains().end()
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.down_trains();
+
+            BOOST_CHECK(trains.empty());
+        }
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("1", "x")
+            );
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("2", "y")
+            );
+
+            timetable.erase_down_trains(
+                timetable.down_trains().begin(),
+                timetable.down_trains().begin() + 1
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.down_trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 1U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "2");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "y");
+        }
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("1", "x")
+            );
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("2", "y")
+            );
+
+            timetable.erase_down_trains(
+                timetable.down_trains().begin(),
+                timetable.down_trains().begin()
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.down_trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 2U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "2");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+        }
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("1", "x")
+            );
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("2", "y")
+            );
+            timetable.insert_down_train(
+                timetable.down_trains().end(), train_type("3", "z")
+            );
+
+            timetable.erase_down_trains(
+                timetable.down_trains().begin() + 1,
+                timetable.down_trains().begin() + 2
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.down_trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 2U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "3");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "z");
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(erase_up_trains)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("1", "x")
+            );
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("2", "y")
+            );
+
+            timetable.erase_up_trains(
+                timetable.up_trains().begin(), timetable.up_trains().end()
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.up_trains();
+
+            BOOST_CHECK(trains.empty());
+        }
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("1", "x")
+            );
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("2", "y")
+            );
+
+            timetable.erase_up_trains(
+                timetable.up_trains().begin(),
+                timetable.up_trains().begin() + 1
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.up_trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 1U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "2");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "y");
+        }
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("1", "x")
+            );
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("2", "y")
+            );
+
+            timetable.erase_up_trains(
+                timetable.up_trains().begin(), timetable.up_trains().begin()
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.up_trains();
+
+            BOOST_CHECK_EQUAL(trains.size(), 2U);
+            BOOST_CHECK_EQUAL(trains[0].number(), "1");
+            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK_EQUAL(trains[1].number(), "2");
+            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+        }
+        {
+            timetable_type timetable("hoge");
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("1", "x")
+            );
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("2", "y")
+            );
+            timetable.insert_up_train(
+                timetable.up_trains().end(), train_type("3", "z")
+            );
+
+            timetable.erase_up_trains(
+                timetable.up_trains().begin() + 1,
+                timetable.up_trains().begin() + 2
+            );
+
+            const timetable_type::trains_type& trains =
+                timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
             BOOST_CHECK_EQUAL(trains[0].number(), "1");
