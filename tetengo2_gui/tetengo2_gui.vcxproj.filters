@@ -195,5 +195,8 @@
     <ClInclude Include="include\tetengo2.gui.menu.shortcut_key_table.h">
       <Filter>headers\tetengo2::gui\menu</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.common_dialog.message_box.h">
+      <Filter>headers\tetengo2::gui\common_dialog</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
