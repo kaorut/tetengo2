@@ -204,10 +204,10 @@ namespace bobura { namespace model
                 );
             }
 
-            const typename train_type::stops_type::difference_type offset =
-                std::distance<typename station_locations_type::const_iterator>(
-                    m_station_locations.begin(), position
-                );
+            const difference_type offset =
+                std::distance<
+                    typename station_locations_type::const_iterator
+                >(m_station_locations.begin(), position);
 
             m_station_locations.insert(
                 to_mutable(position, m_station_locations),
@@ -240,16 +240,14 @@ namespace bobura { namespace model
             const typename station_locations_type::const_iterator last
         )
         {
-            const typename train_type::stops_type::difference_type
-            first_offset =
-                std::distance<typename station_locations_type::const_iterator>(
-                    m_station_locations.begin(), first
-                );
-            const typename train_type::stops_type::difference_type
-            last_offset =
-                std::distance<typename station_locations_type::const_iterator>(
-                    m_station_locations.begin(), last
-                );
+            const difference_type first_offset =
+                std::distance<
+                    typename station_locations_type::const_iterator
+                >(m_station_locations.begin(), first);
+            const difference_type last_offset =
+                std::distance<
+                    typename station_locations_type::const_iterator
+                >(m_station_locations.begin(), last);
 
             m_station_locations.erase(
                 to_mutable(first, m_station_locations),
@@ -333,11 +331,17 @@ namespace bobura { namespace model
 
 
     private:
+        // types
+
+        typedef
+            typename train_type::stops_type::difference_type difference_type;
+
+
         // static functions
 
         static void insert_train_stop(
-            train_type&                                            train,
-            const typename train_type::stops_type::difference_type offset
+            train_type&           train,
+            const difference_type offset
         )
         {
             train.insert_stop(
@@ -351,9 +355,9 @@ namespace bobura { namespace model
         }
 
         static void erase_train_stops(
-            train_type&                                            train,
-            const typename train_type::stops_type::difference_type first_offset,
-            const typename train_type::stops_type::difference_type last_offset
+            train_type&           train,
+            const difference_type first_offset,
+            const difference_type last_offset
         )
         {
             train.erase_stops(
