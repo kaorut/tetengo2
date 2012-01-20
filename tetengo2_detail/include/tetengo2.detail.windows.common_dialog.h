@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H
 
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 #include <iterator>
 //#include <memory>
@@ -76,13 +77,22 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // types
 
-        //! The message box style type.
-        enum message_box_style_type
+        //! The message box button style type.
+        enum message_box_button_style_type
         {
-            message_box_style_ok,            //!< With OK button.
-            message_box_style_ok_cancel,     //!< With OK and Cancel button.
-            message_box_style_yes_no_cancel, //!< With Yes, No and Cancel
-                                             //!< button.
+            message_box_button_style_ok,            //!< With OK button.
+            message_box_button_style_ok_cancel,     //!< With OK and Cancel
+                                                    //!< button.
+            message_box_button_style_yes_no_cancel, //!< With Yes, No and Cancel
+                                                    //!< button.
+        };
+
+        //! The message box icon style type.
+        enum message_box_icon_style_type
+        {
+            message_box_icon_style_error,       //!< Error.
+            message_box_icon_style_warning,     //!< Warning.
+            message_box_icon_style_information, //!< Information.
         };
 
         //! The message box button id type.
@@ -101,7 +111,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::wstring,
                 std::wstring,
                 std::wstring,
-                message_box_style_type
+                message_box_button_style_type,
+                message_box_icon_style_type
             >
             message_box_details_type;
 
@@ -134,23 +145,25 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam String  A string type.
             \tparam Encoder An encoder type.
 
-            \param parent      A parent widget.
-            \param title       A title.
-            \param instruction An instruction.
-            \param details     Details.
-            \param style       A style.
-            \param encoder     An encoder.
+            \param parent       A parent widget.
+            \param title        A title.
+            \param instruction  An instruction.
+            \param details      Details.
+            \param button_style A button style.
+            \param icon_style   An icon style.
+            \param encoder      An encoder.
 
             \return A unique pointer to a message box.
         */
         template <typename Widget, typename String, typename Encoder>
         static message_box_details_ptr_type create_message_box(
-            Widget&                      parent,
-            String&&                     title,
-            String&&                     instruction,
-            String&&                     details,
-            const message_box_style_type style,
-            const Encoder&               encoder
+            Widget&                             parent,
+            String&&                            title,
+            String&&                            instruction,
+            String&&                            details,
+            const message_box_button_style_type button_style,
+            const message_box_icon_style_type   icon_style,
+            const Encoder&                      encoder
         )
         {
             return make_unique<message_box_details_type>(
@@ -158,7 +171,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 encoder.encode(std::forward<String>(title)),
                 encoder.encode(std::forward<String>(instruction)),
                 encoder.encode(std::forward<String>(details)),
-                style
+                button_style,
+                icon_style
             );
         }
 
@@ -181,8 +195,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::get<1>(message_box).c_str(),
                     std::get<2>(message_box).c_str(),
                     std::get<3>(message_box).c_str(),
-                    TDCBF_OK_BUTTON | TDCBF_CANCEL_BUTTON,
-                    TD_WARNING_ICON,
+                    to_task_dialog_common_buttons(std::get<4>(message_box)),
+                    to_task_dialog_icon(std::get<5>(message_box)),
                     &selected_button
                 );
             if (result != S_OK)
@@ -192,7 +206,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return message_box_button_cancel;
+            return to_message_box_button_id(selected_button);
         }
 
         /*!
@@ -310,6 +324,52 @@ namespace tetengo2 { namespace detail { namespace windows
 
     private:
         // static functions
+
+        static ::TASKDIALOG_COMMON_BUTTON_FLAGS to_task_dialog_common_buttons(
+            const message_box_button_style_type style
+        )
+        {
+            switch (style)
+            {
+            case message_box_button_style_ok_cancel:
+                return TDCBF_OK_BUTTON | TDCBF_CANCEL_BUTTON;
+            case message_box_button_style_yes_no_cancel:
+                return
+                    TDCBF_YES_BUTTON | TDCBF_NO_BUTTON | TDCBF_CANCEL_BUTTON;
+            default:
+                assert(style == message_box_button_style_ok);
+                return TDCBF_OK_BUTTON;
+            }
+        }
+
+        static ::PCWSTR to_task_dialog_icon(
+            const message_box_icon_style_type style
+        )
+        {
+            switch (style)
+            {
+            case message_box_icon_style_error:   return TD_ERROR_ICON;
+            case message_box_icon_style_warning: return TD_WARNING_ICON;
+            default:
+                assert(style == message_box_icon_style_information);
+                return TD_INFORMATION_ICON;
+            }
+        }
+
+        static message_box_button_id_type to_message_box_button_id(
+            const int win32_button_id
+        )
+        {
+            switch (win32_button_id)
+            {
+            case IDOK:  return message_box_button_ok;
+            case IDYES: return message_box_button_yes;
+            case IDNO:  return message_box_button_no;
+            default:
+                assert(win32_button_id == IDCANCEL);
+                return message_box_button_cancel;
+            }
+        }
 
         template <typename String, typename Encoder>
         static detail::native_filter_type to_native_filter(

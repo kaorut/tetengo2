@@ -87,7 +87,8 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                 std::forward<S>(title),
                 std::forward<S>(instruction),
                 std::forward<S>(details),
-                common_dialog_details_type::message_box_style_ok_cancel,
+                common_dialog_details_type::message_box_button_style_ok_cancel,
+                common_dialog_details_type::message_box_icon_style_warning,
                 encoder()
             )
         )

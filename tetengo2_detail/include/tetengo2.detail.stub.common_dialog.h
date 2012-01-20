@@ -24,13 +24,22 @@ namespace tetengo2 { namespace detail { namespace stub
     public:
         // types
 
-        //! The message box style type.
-        enum message_box_style_type
+        //! The message box button style type.
+        enum message_box_button_style_type
         {
-            message_box_style_ok,            //!< With OK button.
-            message_box_style_ok_cancel,     //!< With OK and Cancel button.
-            message_box_style_yes_no_cancel, //!< With Yes, No and Cancel
-                                             //!< button.
+            message_box_button_style_ok,            //!< With OK button.
+            message_box_button_style_ok_cancel,     //!< With OK and Cancel
+                                                    //!< button.
+            message_box_button_style_yes_no_cancel, //!< With Yes, No and Cancel
+                                                    //!< button.
+        };
+
+        //! The message box icon style type.
+        enum message_box_icon_style_type
+        {
+            message_box_icon_style_error,       //!< Error.
+            message_box_icon_style_warning,     //!< Warning.
+            message_box_icon_style_information, //!< Information.
         };
 
         //! The message box button id type.
@@ -68,23 +77,25 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam String  A string type.
             \tparam Encoder An encoder type.
 
-            \param parent      A parent widget.
-            \param title       A title.
-            \param instruction An instruction.
-            \param details     Details.
-            \param style       A style.
-            \param encoder     An encoder.
+            \param parent       A parent widget.
+            \param title        A title.
+            \param instruction  An instruction.
+            \param details      Details.
+            \param button style A button style.
+            \param icon_style   An icon style.
+            \param encoder      An encoder.
 
             \return A unique pointer to a message box.
         */
         template <typename Widget, typename String, typename Encoder>
         static message_box_details_ptr_type create_message_box(
-            Widget&                      parent,
-            String&&                     title,
-            String&&                     instruction,
-            String&&                     details,
-            const message_box_style_type style,
-            const Encoder&               encoder
+            Widget&                             parent,
+            String&&                            title,
+            String&&                            instruction,
+            String&&                            details,
+            const message_box_button_style_type button_style,
+            const message_box_icon_style_type   icon_style,
+            const Encoder&                      encoder
         )
         {
             return make_unique<message_box_details_type>();
