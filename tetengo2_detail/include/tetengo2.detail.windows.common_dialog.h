@@ -188,15 +188,24 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             int selected_button = 0;
+            const ::HWND parent_window_handle = std::get<0>(message_box);
+            const std::wstring title = std::get<1>(message_box).c_str();
+            const std::wstring main_content =
+                std::get<2>(message_box).c_str();
+            const std::wstring sub_content = std::get<3>(message_box).c_str();
+            const message_box_button_style_type button_style =
+                std::get<4>(message_box);
+            const message_box_icon_style_type icon_style =
+                std::get<5>(message_box);
             const ::HRESULT result =
                 ::TaskDialog(
-                    std::get<0>(message_box),
+                    parent_window_handle,
                     NULL,
-                    std::get<1>(message_box).c_str(),
-                    std::get<2>(message_box).c_str(),
-                    std::get<3>(message_box).c_str(),
-                    to_task_dialog_common_buttons(std::get<4>(message_box)),
-                    to_task_dialog_icon(std::get<5>(message_box)),
+                    title.c_str(),
+                    main_content.c_str(),
+                    sub_content.empty() ? NULL : sub_content.c_str(),
+                    to_task_dialog_common_buttons(button_style),
+                    to_task_dialog_icon(icon_style),
                     &selected_button
                 );
             if (result != S_OK)
