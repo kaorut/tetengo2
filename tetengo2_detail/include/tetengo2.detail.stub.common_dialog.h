@@ -42,7 +42,7 @@ namespace tetengo2 { namespace detail { namespace stub
             message_box_icon_style_information, //!< Information.
         };
 
-        //! The message box button id type.
+        //! The message box button ID type.
         enum message_box_button_id_type
         {
             message_box_button_ok,     //!< OK button.

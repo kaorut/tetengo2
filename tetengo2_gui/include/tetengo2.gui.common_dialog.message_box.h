@@ -9,10 +9,12 @@
 #if !defined(TETENGO2_GUI_COMMONDIALOG_MESSAGEBOX_H)
 #define TETENGO2_GUI_COMMONDIALOG_MESSAGEBOX_H
 
+#include <stdexcept>
 #include <utility>
 #include <vector>
 
 #include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 #include "tetengo2.text.h"
 
@@ -57,10 +59,34 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             details_type;
 
         //! The detail implementaiton pointer type;
-
         typedef
             typename common_dialog_details_type::message_box_details_ptr_type
             details_ptr_type;
+
+        //! The button style type.
+        enum button_style_type
+        {
+            button_style_ok,            //!< With OK button.
+            button_style_ok_cancel,     //!< With OK and Cancel button.
+            button_style_yes_no_cancel, //!< With Yes, No and Cancel button.
+        };
+
+        //! The icon style type.
+        enum icon_style_type
+        {
+            icon_style_error,       //!< Error.
+            icon_style_warning,     //!< Warning.
+            icon_style_information, //!< Information.
+        };
+
+        //! The button ID type.
+        enum button_id_type
+        {
+            button_ok,     //!< OK button.
+            button_yes,    //!< Yes button.
+            button_no,     //!< No button.
+            button_cancel, //!< Cancel button.
+        };
 
 
         // constructors and destructor
@@ -71,24 +97,30 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \tparam S A string type.
 
             \param title        A title.
+            \param main_content A main content.
+            \param sub_content  A sub content.
+            \param button_style A button style.
+            \param icon_style   An icon style.
             \param parent       A parent widget.
         */
         template <typename S>
         message_box(
-            S&&          title,
-            S&&          instruction,
-            S&&          details,
-            widget_type& parent
+            S&&                     title,
+            S&&                     main_content,
+            S&&                     sub_content,
+            const button_style_type button_style,
+            const icon_style_type   icon_style,
+            widget_type&            parent
         )
         :
         m_p_details(
             common_dialog_details_type::create_message_box(
                 parent,
                 std::forward<S>(title),
-                std::forward<S>(instruction),
-                std::forward<S>(details),
-                common_dialog_details_type::message_box_button_style_ok_cancel,
-                common_dialog_details_type::message_box_icon_style_warning,
+                std::forward<S>(main_content),
+                std::forward<S>(sub_content),
+                to_details_button_style(button_style),
+                to_details_icon_style(icon_style),
                 encoder()
             )
         )
@@ -99,10 +131,14 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         /*!
             \brief Shows the dialog as model.
+
+            \return The selected button id.
         */
-        void do_modal()
+        button_id_type do_modal()
         {
-            common_dialog_details_type::show_message_box(*m_p_details);
+            return to_button_id(
+                common_dialog_details_type::show_message_box(*m_p_details)
+            );
         }
 
         /*!
@@ -129,6 +165,73 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
     private:
         // static functions
+
+        static typename common_dialog_details_type::message_box_button_style_type
+        to_details_button_style(const button_style_type style)
+        {
+            switch (style)
+            {
+            case button_style_ok:
+                return
+                    common_dialog_details_type::message_box_button_style_ok;
+            case button_style_ok_cancel:
+                return
+                    common_dialog_details_type::message_box_button_style_ok_cancel;
+            case button_style_yes_no_cancel:
+                return
+                    common_dialog_details_type::message_box_button_style_yes_no_cancel;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Invalid button style.")
+                );
+            }
+        }
+
+        static typename common_dialog_details_type::message_box_icon_style_type
+        to_details_icon_style(const icon_style_type style)
+        {
+            switch (style)
+            {
+            case icon_style_error:
+                return
+                    common_dialog_details_type::message_box_icon_style_error;
+            case icon_style_warning:
+                return
+                    common_dialog_details_type::message_box_icon_style_warning;
+            case icon_style_information:
+                return
+                    common_dialog_details_type::message_box_icon_style_information;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Invalid icon style.")
+                );
+            }
+        }
+
+        static button_id_type to_button_id(
+            const typename common_dialog_details_type::message_box_button_id_type
+            details_button_id
+        )
+        {
+            switch (details_button_id)
+            {
+            case common_dialog_details_type::message_box_button_ok:
+                return button_ok;
+            case common_dialog_details_type::message_box_button_yes:
+                return button_yes;
+            case common_dialog_details_type::message_box_button_no:
+                return button_no;
+            case common_dialog_details_type::message_box_button_cancel:
+                return button_cancel;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Invalid button ID.")
+                );
+            }
+        }
 
         static const encoder_type& encoder()
         {

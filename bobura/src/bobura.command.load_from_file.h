@@ -93,12 +93,17 @@ namespace bobura { namespace command
         void operator()()
         const
         {
-            message_box_type(
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_window
-            ).do_modal();
+            const typename message_box_type::button_id_type selected_button =
+                message_box_type(
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    message_box_type::button_style_yes_no_cancel,
+                    message_box_type::icon_style_warning,
+                    m_window
+                ).do_modal();
+            if (selected_button == message_box_type::button_cancel)
+                return;
 
             file_open_dialog_type dialog(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpen:Open")),

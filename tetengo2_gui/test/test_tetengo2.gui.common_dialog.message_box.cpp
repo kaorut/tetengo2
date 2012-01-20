@@ -247,10 +247,15 @@ BOOST_AUTO_TEST_SUITE(message_box)
         {
             concrete_widget parent;
             const std::wstring title;
-            const std::wstring instruction;
-            const std::wstring details;
+            const std::wstring main_content;
+            const std::wstring sub_content;
             const message_box_type message_box(
-                title, instruction, details, parent
+                title,
+                main_content,
+                sub_content,
+                message_box_type::button_style_ok,
+                message_box_type::icon_style_warning,
+                parent
             );
         }
     }
@@ -261,9 +266,16 @@ BOOST_AUTO_TEST_SUITE(message_box)
 
         concrete_widget parent;
         const std::wstring title;
-        const std::wstring instruction;
-        const std::wstring details;
-        message_box_type message_box(title, instruction, details, parent);
+        const std::wstring main_content;
+        const std::wstring sub_content;
+        message_box_type message_box(
+            title,
+            main_content,
+            sub_content,
+            message_box_type::button_style_ok,
+            message_box_type::icon_style_warning,
+            parent
+        );
 
         message_box.do_modal();
     }
@@ -275,10 +287,15 @@ BOOST_AUTO_TEST_SUITE(message_box)
         {
             concrete_widget parent;
             const std::wstring title;
-            const std::wstring instruction;
-            const std::wstring details;
+            const std::wstring main_content;
+            const std::wstring sub_content;
             const message_box_type message_box(
-                title, instruction, details, parent
+                title,
+                main_content,
+                sub_content,
+                message_box_type::button_style_ok,
+                message_box_type::icon_style_warning,
+                parent
             );
 
             message_box.details();
@@ -286,9 +303,16 @@ BOOST_AUTO_TEST_SUITE(message_box)
         {
             concrete_widget parent;
             const std::wstring title;
-            const std::wstring instruction;
-            const std::wstring details;
-            message_box_type message_box(title, instruction, details, parent);
+            const std::wstring main_content;
+            const std::wstring sub_content;
+            message_box_type message_box(
+                title,
+                main_content,
+                sub_content,
+                message_box_type::button_style_ok,
+                message_box_type::icon_style_warning,
+                parent
+            );
 
             message_box.details();
         }

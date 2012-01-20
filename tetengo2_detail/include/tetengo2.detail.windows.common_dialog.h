@@ -95,7 +95,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_box_icon_style_information, //!< Information.
         };
 
-        //! The message box button id type.
+        //! The message box button ID type.
         enum message_box_button_id_type
         {
             message_box_button_ok,     //!< OK button.
@@ -147,8 +147,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \param parent       A parent widget.
             \param title        A title.
-            \param instruction  An instruction.
-            \param details      Details.
+            \param main_content A main content.
+            \param sub_content  A sub content.
             \param button_style A button style.
             \param icon_style   An icon style.
             \param encoder      An encoder.
@@ -159,8 +159,8 @@ namespace tetengo2 { namespace detail { namespace windows
         static message_box_details_ptr_type create_message_box(
             Widget&                             parent,
             String&&                            title,
-            String&&                            instruction,
-            String&&                            details,
+            String&&                            main_content,
+            String&&                            sub_content,
             const message_box_button_style_type button_style,
             const message_box_icon_style_type   icon_style,
             const Encoder&                      encoder
@@ -169,8 +169,8 @@ namespace tetengo2 { namespace detail { namespace windows
             return make_unique<message_box_details_type>(
                 parent.details()->first.get(),
                 encoder.encode(std::forward<String>(title)),
-                encoder.encode(std::forward<String>(instruction)),
-                encoder.encode(std::forward<String>(details)),
+                encoder.encode(std::forward<String>(main_content)),
+                encoder.encode(std::forward<String>(sub_content)),
                 button_style,
                 icon_style
             );
@@ -331,14 +331,18 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             switch (style)
             {
+            case message_box_button_style_ok:
+                return TDCBF_OK_BUTTON;
             case message_box_button_style_ok_cancel:
                 return TDCBF_OK_BUTTON | TDCBF_CANCEL_BUTTON;
             case message_box_button_style_yes_no_cancel:
                 return
                     TDCBF_YES_BUTTON | TDCBF_NO_BUTTON | TDCBF_CANCEL_BUTTON;
             default:
-                assert(style == message_box_button_style_ok);
-                return TDCBF_OK_BUTTON;
+                assert(false);
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Invalid button style.")
+                );
             }
         }
 
@@ -348,11 +352,17 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             switch (style)
             {
-            case message_box_icon_style_error:   return TD_ERROR_ICON;
-            case message_box_icon_style_warning: return TD_WARNING_ICON;
-            default:
-                assert(style == message_box_icon_style_information);
+            case message_box_icon_style_error:
+                return TD_ERROR_ICON;
+            case message_box_icon_style_warning:
+                return TD_WARNING_ICON;
+            case message_box_icon_style_information:
                 return TD_INFORMATION_ICON;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Invalid icon style.")
+                );
             }
         }
 
@@ -362,12 +372,15 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             switch (win32_button_id)
             {
-            case IDOK:  return message_box_button_ok;
-            case IDYES: return message_box_button_yes;
-            case IDNO:  return message_box_button_no;
+            case IDOK:     return message_box_button_ok;
+            case IDCANCEL: return message_box_button_cancel;
+            case IDYES:    return message_box_button_yes;
+            case IDNO:     return message_box_button_no;
             default:
-                assert(win32_button_id == IDCANCEL);
-                return message_box_button_cancel;
+                assert(false);
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("Invalid button ID.")
+                );
             }
         }
 
