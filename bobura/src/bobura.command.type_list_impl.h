@@ -28,6 +28,7 @@ namespace bobura { namespace command
         \brief The meta function for the type list of the commands.
 
         \tparam Window         A window type.
+        \tparam MessageBox     A message box type.
         \tparam FileOpenDialog A file open dialog type.
         \tparam AboutDialog    An about dialog type.
         \tparam Model          A model type.
@@ -36,6 +37,7 @@ namespace bobura { namespace command
     */
     template <
         typename Window,
+        typename MessageBox,
         typename FileOpenDialog,
         typename AboutDialog,
         typename Model,
@@ -59,7 +61,11 @@ namespace bobura { namespace command
                 boost::mpl::pair<
                     type::load_from_file,
                     load_from_file<
-                        FileOpenDialog, Model, Reader, MessageCatalog
+                        MessageBox,
+                        FileOpenDialog,
+                        Model,
+                        Reader,
+                        MessageCatalog
                     >
             >,
             tetengo2::meta::assoc_list<

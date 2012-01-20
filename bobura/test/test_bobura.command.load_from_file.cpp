@@ -30,6 +30,7 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         reader_type reader;
         const message_catalog_type message_catalog;
         bobura::command::load_from_file<
+            message_box_type,
             file_open_type,
             model_type,
             reader_type,

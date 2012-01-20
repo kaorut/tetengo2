@@ -24,12 +24,14 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a load-from-file command.
 
+        \tparam MessageBox     A message box type.
         \tparam FileOpenDialog A file open dialog type.
         \tparam Model          A model type.
         \tparam Reader         A reader type.
         \tparam MessageCatalog A message catalog type.
     */
     template <
+        typename MessageBox,
         typename FileOpenDialog,
         typename Model,
         typename Reader,
@@ -39,6 +41,9 @@ namespace bobura { namespace command
     {
     public:
         // types
+
+        //! The message box type.
+        typedef MessageBox message_box_type;
 
         //! The file open dialog type.
         typedef FileOpenDialog file_open_dialog_type;

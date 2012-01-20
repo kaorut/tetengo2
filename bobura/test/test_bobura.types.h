@@ -30,6 +30,7 @@
 #include <tetengo2.detail.stub.widget.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
+#include <tetengo2.gui.common_dialog.message_box.h>
 #include <tetengo2.gui.cursor.system.h>
 #include <tetengo2.gui.drawing.background.h>
 #include <tetengo2.gui.drawing.color.h>
@@ -367,6 +368,15 @@ typedef
     tetengo2::message::message_catalog<messages_type> message_catalog_type;
 
 typedef
+    tetengo2::gui::common_dialog::message_box<
+        window_type::base_type,
+        std::wstring,
+        ui_encoder_type,
+        tetengo2::detail::stub::common_dialog
+    >
+    message_box_type;
+
+typedef
     tetengo2::gui::common_dialog::file_open<
         window_type::base_type,
         std::wstring,
@@ -478,6 +488,7 @@ typedef bobura::model::serializer::json_reader<timetable_type> reader_type;
 typedef
     bobura::command::type_list<
         window_type,
+        message_box_type,
         file_open_type,
         about_dialog_type,
         model_type,
