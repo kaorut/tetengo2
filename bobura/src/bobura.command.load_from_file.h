@@ -93,6 +93,13 @@ namespace bobura { namespace command
         void operator()()
         const
         {
+            message_box_type(
+                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                m_window
+            ).do_modal();
+
             file_open_dialog_type dialog(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpen:Open")),
                 make_file_filters(),

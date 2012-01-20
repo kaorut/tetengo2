@@ -101,9 +101,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         void do_modal()
         {
-            common_dialog_details_type::show_message_box(
-                *m_p_details, encoder()
-            );
+            common_dialog_details_type::show_message_box(*m_p_details);
         }
 
         /*!

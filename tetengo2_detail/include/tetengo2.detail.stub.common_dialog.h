@@ -24,14 +24,6 @@ namespace tetengo2 { namespace detail { namespace stub
     public:
         // types
 
-        //! The message box details type.
-        struct message_box_details_type {};
-
-        //! The message box details pointer type.
-        typedef
-            std::unique_ptr<message_box_details_type>
-            message_box_details_ptr_type;
-
         //! The message box style type.
         enum message_box_style_type
         {
@@ -49,6 +41,14 @@ namespace tetengo2 { namespace detail { namespace stub
             message_box_button_no,     //!< No button.
             message_box_button_cancel, //!< Cancel button.
         };
+
+        //! The message box details type.
+        struct message_box_details_type {};
+
+        //! The message box details pointer type.
+        typedef
+            std::unique_ptr<message_box_details_type>
+            message_box_details_ptr_type;
 
         //! The file open dialog details type.
         struct file_open_dialog_details_type {};
@@ -93,17 +93,12 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Shows a message box and return a button id.
 
-            \tparam Encoder An encoder type.
-
             \param message_box A message box.
-            \param encoder     An encoder.
 
             \return The path.
         */
-        template <typename Encoder>
         static message_box_button_id_type show_message_box(
-            message_box_details_type& message_box,
-            const Encoder&            encoder
+            message_box_details_type& message_box
         )
         {
             return message_box_button_cancel;

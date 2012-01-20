@@ -25,6 +25,7 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
+#include <CommCtrl.h>
 #include <ObjBase.h>
 #include <ShObjIdl.h>
 #include <ShTypes.h>
@@ -75,14 +76,6 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // types
 
-        //! The message box details type.
-        struct message_box_details_type {};
-
-        //! The message box details pointer type.
-        typedef
-            std::unique_ptr<message_box_details_type>
-            message_box_details_ptr_type;
-
         //! The message box style type.
         enum message_box_style_type
         {
@@ -100,6 +93,22 @@ namespace tetengo2 { namespace detail { namespace windows
             message_box_button_no,     //!< No button.
             message_box_button_cancel, //!< Cancel button.
         };
+
+        //! The message box details type.
+        typedef
+            std::tuple<
+                ::HWND,
+                std::wstring,
+                std::wstring,
+                std::wstring,
+                message_box_style_type
+            >
+            message_box_details_type;
+
+        //! The message box details pointer type.
+        typedef
+            std::unique_ptr<message_box_details_type>
+            message_box_details_ptr_type;
 
         //! The file open dialog details type.
         typedef
@@ -144,25 +153,45 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&               encoder
         )
         {
-            return make_unique<message_box_details_type>();
+            return make_unique<message_box_details_type>(
+                parent.details()->first.get(),
+                encoder.encode(std::forward<String>(title)),
+                encoder.encode(std::forward<String>(instruction)),
+                encoder.encode(std::forward<String>(details)),
+                style
+            );
         }
 
         /*!
             \brief Shows a message box and return a button id.
 
-            \tparam Encoder An encoder type.
-
             \param message_box A message box.
-            \param encoder     An encoder.
 
             \return The path.
         */
-        template <typename Encoder>
         static message_box_button_id_type show_message_box(
-            message_box_details_type& message_box,
-            const Encoder&            encoder
+            message_box_details_type& message_box
         )
         {
+            int selected_button = 0;
+            const ::HRESULT result =
+                ::TaskDialog(
+                    std::get<0>(message_box),
+                    NULL,
+                    std::get<1>(message_box).c_str(),
+                    std::get<2>(message_box).c_str(),
+                    std::get<3>(message_box).c_str(),
+                    TDCBF_OK_BUTTON | TDCBF_CANCEL_BUTTON,
+                    TD_WARNING_ICON,
+                    &selected_button
+                );
+            if (result != S_OK)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't show a message box.")
+                );
+            }
+
             return message_box_button_cancel;
         }
 
