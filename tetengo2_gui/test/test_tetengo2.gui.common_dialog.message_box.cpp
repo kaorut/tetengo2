@@ -244,42 +244,54 @@ BOOST_AUTO_TEST_SUITE(message_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        //{
-        //    concrete_widget parent;
-        //    const message_box_type message_box(
-        //        std::wstring(), parent
-        //    );
-        //}
+        {
+            concrete_widget parent;
+            const std::wstring title;
+            const std::wstring instruction;
+            const std::wstring details;
+            const message_box_type message_box(
+                title, instruction, details, parent
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(do_modal)
     {
         BOOST_TEST_PASSPOINT();
 
-        //concrete_widget parent;
-        //message_box_type message_box(L"hoge", make_file_filters(), parent);
+        concrete_widget parent;
+        const std::wstring title;
+        const std::wstring instruction;
+        const std::wstring details;
+        message_box_type message_box(title, instruction, details, parent);
 
-        //message_box.do_modal();
+        message_box.do_modal();
     }
 
     BOOST_AUTO_TEST_CASE(details)
     {
         BOOST_TEST_PASSPOINT();
 
-        //{
-        //    concrete_widget parent;
-        //    const message_box_type message_box(
-        //        L"hoge", make_file_filters(), parent
-        //    );
+        {
+            concrete_widget parent;
+            const std::wstring title;
+            const std::wstring instruction;
+            const std::wstring details;
+            const message_box_type message_box(
+                title, instruction, details, parent
+            );
 
-        //    message_box.details();
-        //}
-        //{
-        //    concrete_widget parent;
-        //    message_box_type message_box(L"hoge", make_file_filters(), parent);
+            message_box.details();
+        }
+        {
+            concrete_widget parent;
+            const std::wstring title;
+            const std::wstring instruction;
+            const std::wstring details;
+            message_box_type message_box(title, instruction, details, parent);
 
-        //    message_box.details();
-        //}
+            message_box.details();
+        }
     }
 
 

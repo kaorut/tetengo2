@@ -75,6 +75,32 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // types
 
+        //! The message box details type.
+        struct message_box_details_type {};
+
+        //! The message box details pointer type.
+        typedef
+            std::unique_ptr<message_box_details_type>
+            message_box_details_ptr_type;
+
+        //! The message box style type.
+        enum message_box_style_type
+        {
+            message_box_style_ok,            //!< With OK button.
+            message_box_style_ok_cancel,     //!< With OK and Cancel button.
+            message_box_style_yes_no_cancel, //!< With Yes, No and Cancel
+                                             //!< button.
+        };
+
+        //! The message box button id type.
+        enum message_box_button_id_type
+        {
+            message_box_button_ok,     //!< OK button.
+            message_box_button_yes,    //!< Yes button.
+            message_box_button_no,     //!< No button.
+            message_box_button_cancel, //!< Cancel button.
+        };
+
         //! The file open dialog details type.
         typedef
             std::tuple<
@@ -91,6 +117,54 @@ namespace tetengo2 { namespace detail { namespace windows
 
         
         // static functions
+
+        /*!
+            \brief Creates a message box.
+
+            \tparam Widget  A widget type.
+            \tparam String  A string type.
+            \tparam Encoder An encoder type.
+
+            \param parent      A parent widget.
+            \param title       A title.
+            \param instruction An instruction.
+            \param details     Details.
+            \param style       A style.
+            \param encoder     An encoder.
+
+            \return A unique pointer to a message box.
+        */
+        template <typename Widget, typename String, typename Encoder>
+        static message_box_details_ptr_type create_message_box(
+            Widget&                      parent,
+            String&&                     title,
+            String&&                     instruction,
+            String&&                     details,
+            const message_box_style_type style,
+            const Encoder&               encoder
+        )
+        {
+            return make_unique<message_box_details_type>();
+        }
+
+        /*!
+            \brief Shows a message box and return a button id.
+
+            \tparam Encoder An encoder type.
+
+            \param message_box A message box.
+            \param encoder     An encoder.
+
+            \return The path.
+        */
+        template <typename Encoder>
+        static message_box_button_id_type show_message_box(
+            message_box_details_type& message_box,
+            const Encoder&            encoder
+        )
+        {
+            return message_box_button_cancel;
+        }
 
         /*!
             \brief Creates a file open dialog.
@@ -148,7 +222,7 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Shows a file open dialog and return a path.
 
-            \tparam Path A path type.
+            \tparam Path    A path type.
             \tparam Encoder An encoder type.
 
             \param dialog  A file open dialog.

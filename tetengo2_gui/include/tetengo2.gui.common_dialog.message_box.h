@@ -74,15 +74,22 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \param parent       A parent widget.
         */
         template <typename S>
-        message_box(S&& title, widget_type& parent)
+        message_box(
+            S&&          title,
+            S&&          instruction,
+            S&&          details,
+            widget_type& parent
+        )
         :
         m_p_details(
-            //common_dialog_details_type::create_message_box_dialog(
-            //    parent,
-            //    std::forward<S>(title),
-            //    std::forward<FF>(file_filters),
-            //    encoder()
-            //)
+            common_dialog_details_type::create_message_box(
+                parent,
+                std::forward<S>(title),
+                std::forward<S>(instruction),
+                std::forward<S>(details),
+                common_dialog_details_type::message_box_style_ok_cancel,
+                encoder()
+            )
         )
         {}
 
@@ -94,7 +101,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         void do_modal()
         {
-
+            common_dialog_details_type::show_message_box(
+                *m_p_details, encoder()
+            );
         }
 
         /*!
