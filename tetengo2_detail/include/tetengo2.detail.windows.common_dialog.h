@@ -187,7 +187,6 @@ namespace tetengo2 { namespace detail { namespace windows
             message_box_details_type& message_box
         )
         {
-            int selected_button = 0;
             const ::HWND parent_window_handle = std::get<0>(message_box);
             const std::wstring title = std::get<1>(message_box).c_str();
             const std::wstring main_content =
@@ -203,7 +202,6 @@ namespace tetengo2 { namespace detail { namespace windows
             ::TASKDIALOGCONFIG config = {};
             config.cbSize = sizeof(::TASKDIALOGCONFIG);
             config.hwndParent = parent_window_handle;
-            config.dwFlags = 0;
             config.dwCommonButtons =
                 to_task_dialog_common_buttons(button_style);
             config.pszWindowTitle = title.c_str();
@@ -214,6 +212,7 @@ namespace tetengo2 { namespace detail { namespace windows
             config.cButtons = static_cast< ::UINT>(custom_buttons.size());
             config.pButtons = custom_buttons.data();
 
+            int selected_button = 0;
             const ::HRESULT result =
                 ::TaskDialogIndirect(&config, &selected_button, NULL, NULL);
             if (result != S_OK)

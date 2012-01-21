@@ -95,6 +95,7 @@ namespace bobura { namespace command
         {
             const typename message_box_type::button_id_type selected_button =
                 message_box_type(
+                    m_window,
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                     m_message_catalog.get(
                         TETENGO2_TEXT(
@@ -103,8 +104,7 @@ namespace bobura { namespace command
                     ),
                     string_type(),
                     message_box_type::button_style_yes_no_cancel,
-                    message_box_type::icon_style_warning,
-                    m_window
+                    message_box_type::icon_style_warning
                 ).do_modal();
             if (selected_button == message_box_type::button_cancel)
                 return;

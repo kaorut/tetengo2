@@ -250,12 +250,12 @@ BOOST_AUTO_TEST_SUITE(message_box)
             const std::wstring main_content;
             const std::wstring sub_content;
             const message_box_type message_box(
+                parent,
                 title,
                 main_content,
                 sub_content,
                 message_box_type::button_style_ok,
-                message_box_type::icon_style_warning,
-                parent
+                message_box_type::icon_style_warning
             );
         }
     }
@@ -269,12 +269,12 @@ BOOST_AUTO_TEST_SUITE(message_box)
         const std::wstring main_content;
         const std::wstring sub_content;
         message_box_type message_box(
+            parent,
             title,
             main_content,
             sub_content,
             message_box_type::button_style_ok,
-            message_box_type::icon_style_warning,
-            parent
+            message_box_type::icon_style_warning
         );
 
         message_box.do_modal();
@@ -290,12 +290,12 @@ BOOST_AUTO_TEST_SUITE(message_box)
             const std::wstring main_content;
             const std::wstring sub_content;
             const message_box_type message_box(
+                parent,
                 title,
                 main_content,
                 sub_content,
                 message_box_type::button_style_ok,
-                message_box_type::icon_style_warning,
-                parent
+                message_box_type::icon_style_warning
             );
 
             message_box.details();
@@ -306,12 +306,12 @@ BOOST_AUTO_TEST_SUITE(message_box)
             const std::wstring main_content;
             const std::wstring sub_content;
             message_box_type message_box(
+                parent,
                 title,
                 main_content,
                 sub_content,
                 message_box_type::button_style_ok,
-                message_box_type::icon_style_warning,
-                parent
+                message_box_type::icon_style_warning
             );
 
             message_box.details();

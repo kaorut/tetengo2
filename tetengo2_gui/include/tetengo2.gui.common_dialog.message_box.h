@@ -96,21 +96,21 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             \tparam S A string type.
 
+            \param parent       A parent widget.
             \param title        A title.
             \param main_content A main content.
             \param sub_content  A sub content.
             \param button_style A button style.
             \param icon_style   An icon style.
-            \param parent       A parent widget.
         */
         template <typename S>
         message_box(
+            widget_type&            parent,
             S&&                     title,
             S&&                     main_content,
             S&&                     sub_content,
             const button_style_type button_style,
-            const icon_style_type   icon_style,
-            widget_type&            parent
+            const icon_style_type   icon_style
         )
         :
         m_p_details(
