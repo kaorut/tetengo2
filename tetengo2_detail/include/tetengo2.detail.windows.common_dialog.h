@@ -80,11 +80,8 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The message box button style type.
         enum message_box_button_style_type
         {
-            message_box_button_style_ok,            //!< With OK button.
-            message_box_button_style_ok_cancel,     //!< With OK and Cancel
-                                                    //!< button.
-            message_box_button_style_yes_no_cancel, //!< With Yes, No and Cancel
-                                                    //!< button.
+            message_box_button_style_ok,     //!< With OK button.
+            message_box_button_style_yes_no, //!< With Yes and No button.
         };
 
         //! The message box icon style type.
@@ -111,6 +108,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::wstring,
                 std::wstring,
                 std::wstring,
+                bool,
                 message_box_button_style_type,
                 message_box_icon_style_type
             >
@@ -149,6 +147,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \param title        A title.
             \param main_content A main content.
             \param sub_content  A sub content.
+            \param cancellable  Whether the message box is cancellable.
             \param button_style A button style.
             \param icon_style   An icon style.
             \param encoder      An encoder.
@@ -161,6 +160,7 @@ namespace tetengo2 { namespace detail { namespace windows
             String&&                            title,
             String&&                            main_content,
             String&&                            sub_content,
+            const bool                          cancellable,
             const message_box_button_style_type button_style,
             const message_box_icon_style_type   icon_style,
             const Encoder&                      encoder
@@ -171,6 +171,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 encoder.encode(std::forward<String>(title)),
                 encoder.encode(std::forward<String>(main_content)),
                 encoder.encode(std::forward<String>(sub_content)),
+                cancellable,
                 button_style,
                 icon_style
             );
@@ -192,10 +193,11 @@ namespace tetengo2 { namespace detail { namespace windows
             const std::wstring main_content =
                 std::get<2>(message_box).c_str();
             const std::wstring sub_content = std::get<3>(message_box).c_str();
+            const bool cancellable = std::get<4>(message_box);
             const message_box_button_style_type button_style =
-                std::get<4>(message_box);
-            const message_box_icon_style_type icon_style =
                 std::get<5>(message_box);
+            const message_box_icon_style_type icon_style =
+                std::get<6>(message_box);
 
             std::vector< ::TASKDIALOG_BUTTON> custom_buttons;
 
@@ -203,7 +205,7 @@ namespace tetengo2 { namespace detail { namespace windows
             config.cbSize = sizeof(::TASKDIALOGCONFIG);
             config.hwndParent = parent_window_handle;
             config.dwCommonButtons =
-                to_task_dialog_common_buttons(button_style);
+                to_task_dialog_common_buttons(button_style, cancellable);
             config.pszWindowTitle = title.c_str();
             config.pszMainIcon = to_task_dialog_icon(icon_style);
             config.pszMainInstruction = main_content.c_str();
@@ -342,24 +344,30 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         static ::TASKDIALOG_COMMON_BUTTON_FLAGS to_task_dialog_common_buttons(
-            const message_box_button_style_type style
+            const message_box_button_style_type style,
+            const bool                          cancellable
         )
         {
+            ::TASKDIALOG_COMMON_BUTTON_FLAGS flags = 0;
             switch (style)
             {
             case message_box_button_style_ok:
-                return TDCBF_OK_BUTTON;
-            case message_box_button_style_ok_cancel:
-                return TDCBF_OK_BUTTON | TDCBF_CANCEL_BUTTON;
-            case message_box_button_style_yes_no_cancel:
-                return
-                    TDCBF_YES_BUTTON | TDCBF_NO_BUTTON | TDCBF_CANCEL_BUTTON;
+                flags = TDCBF_OK_BUTTON;
+                break;
+            case message_box_button_style_yes_no:
+                flags = TDCBF_YES_BUTTON | TDCBF_NO_BUTTON;
+                break;
             default:
                 assert(false);
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument("Invalid button style.")
                 );
             }
+
+            if (cancellable)
+                flags |= TDCBF_CANCEL_BUTTON;
+
+            return flags;
         }
 
         static ::PCWSTR to_task_dialog_icon(

@@ -87,6 +87,10 @@
     \brief The namespace for common dialog boxes.
 */
 
+/*! \namespace tetengo2::gui::common_dialog::message_box_style
+    \brief The namespace for message box styles.
+*/
+
 /*! \namespace tetengo2::gui::cursor
     \brief The namespace for cursors.
 */

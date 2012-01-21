@@ -103,7 +103,7 @@ namespace bobura { namespace command
                         )
                     ),
                     string_type(),
-                    message_box_type::button_style_yes_no_cancel,
+                    typename message_box_type::button_style_yes_no_type(true),
                     message_box_type::icon_style_warning
                 ).do_modal();
             if (selected_button == message_box_type::button_cancel)

@@ -176,6 +176,12 @@ namespace
         message_box_type;
 
     typedef
+        tetengo2::gui::common_dialog::message_box_style::button_style_ok<
+            std::wstring
+        >
+        button_style_type;
+
+    typedef
         std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>
         details_font_type;
 
@@ -249,12 +255,13 @@ BOOST_AUTO_TEST_SUITE(message_box)
             const std::wstring title;
             const std::wstring main_content;
             const std::wstring sub_content;
+            const button_style_type button_style(true);
             const message_box_type message_box(
                 parent,
                 title,
                 main_content,
                 sub_content,
-                message_box_type::button_style_ok,
+                button_style,
                 message_box_type::icon_style_warning
             );
         }
@@ -273,7 +280,7 @@ BOOST_AUTO_TEST_SUITE(message_box)
             title,
             main_content,
             sub_content,
-            message_box_type::button_style_ok,
+            button_style_type(true),
             message_box_type::icon_style_warning
         );
 
@@ -294,7 +301,7 @@ BOOST_AUTO_TEST_SUITE(message_box)
                 title,
                 main_content,
                 sub_content,
-                message_box_type::button_style_ok,
+                button_style_type(true),
                 message_box_type::icon_style_warning
             );
 
@@ -310,7 +317,7 @@ BOOST_AUTO_TEST_SUITE(message_box)
                 title,
                 main_content,
                 sub_content,
-                message_box_type::button_style_ok,
+                button_style_type(true),
                 message_box_type::icon_style_warning
             );
 

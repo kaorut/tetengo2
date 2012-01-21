@@ -27,11 +27,8 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The message box button style type.
         enum message_box_button_style_type
         {
-            message_box_button_style_ok,            //!< With OK button.
-            message_box_button_style_ok_cancel,     //!< With OK and Cancel
-                                                    //!< button.
-            message_box_button_style_yes_no_cancel, //!< With Yes, No and Cancel
-                                                    //!< button.
+            message_box_button_style_ok,     //!< With OK button.
+            message_box_button_style_yes_no, //!< With Yes and No button.
         };
 
         //! The message box icon style type.
@@ -79,9 +76,10 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param parent       A parent widget.
             \param title        A title.
-            \param instruction  An instruction.
-            \param details      Details.
-            \param button style A button style.
+            \param main_content A main content.
+            \param sub_content  A sub content.
+            \param cancellable  Whether the message box is cancellable.
+            \param button_style A button style.
             \param icon_style   An icon style.
             \param encoder      An encoder.
 
@@ -93,6 +91,7 @@ namespace tetengo2 { namespace detail { namespace stub
             String&&                            title,
             String&&                            instruction,
             String&&                            details,
+            const bool                          cancellable,
             const message_box_button_style_type button_style,
             const message_box_icon_style_type   icon_style,
             const Encoder&                      encoder
