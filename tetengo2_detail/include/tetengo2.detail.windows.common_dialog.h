@@ -197,17 +197,25 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::get<4>(message_box);
             const message_box_icon_style_type icon_style =
                 std::get<5>(message_box);
+
+            std::vector< ::TASKDIALOG_BUTTON> custom_buttons;
+
+            ::TASKDIALOGCONFIG config = {};
+            config.cbSize = sizeof(::TASKDIALOGCONFIG);
+            config.hwndParent = parent_window_handle;
+            config.dwFlags = 0;
+            config.dwCommonButtons =
+                to_task_dialog_common_buttons(button_style);
+            config.pszWindowTitle = title.c_str();
+            config.pszMainIcon = to_task_dialog_icon(icon_style);
+            config.pszMainInstruction = main_content.c_str();
+            config.pszContent =
+                sub_content.empty() ? NULL : sub_content.c_str();
+            config.cButtons = static_cast< ::UINT>(custom_buttons.size());
+            config.pButtons = custom_buttons.data();
+
             const ::HRESULT result =
-                ::TaskDialog(
-                    parent_window_handle,
-                    NULL,
-                    title.c_str(),
-                    main_content.c_str(),
-                    sub_content.empty() ? NULL : sub_content.c_str(),
-                    to_task_dialog_common_buttons(button_style),
-                    to_task_dialog_icon(icon_style),
-                    &selected_button
-                );
+                ::TaskDialogIndirect(&config, &selected_button, NULL, NULL);
             if (result != S_OK)
             {
                 BOOST_THROW_EXCEPTION(
