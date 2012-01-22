@@ -20,6 +20,7 @@
 //#include <utility>
 #include <vector>
 
+#include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -81,7 +82,7 @@ namespace tetengo2 { namespace detail { namespace windows
         enum message_box_button_style_type
         {
             message_box_button_style_ok,     //!< With OK button.
-            message_box_button_style_yes_no, //!< With Yes and No button.
+            message_box_button_style_yes_no, //!< With Yes and No buttons.
         };
 
         //! The message box icon style type.
@@ -140,37 +141,53 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Creates a message box.
 
             \tparam Widget  A widget type.
-            \tparam String  A string type.
+            \tparam String1 A string type #1.
+            \tparam String2 A string type #2.
+            \tparam String3 A string type #3.
+            \tparam String4 A string type #4.
             \tparam Encoder An encoder type.
 
-            \param parent       A parent widget.
-            \param title        A title.
-            \param main_content A main content.
-            \param sub_content  A sub content.
-            \param cancellable  Whether the message box is cancellable.
-            \param button_style A button style.
-            \param icon_style   An icon style.
-            \param encoder      An encoder.
+            \param parent                      A parent widget.
+            \param title                       A title.
+            \param main_content                A main content.
+            \param sub_content                 A sub content.
+            \param cancellable                 Whether the message box is
+                                               cancellable.
+            \param button_style                A button style.
+            \param icon_style                  An icon style.
+            \param custom_ok_button_label      A custom OK button label.
+            \param custom_yes_no_button_labels A custom Yes and No button
+                                               labels.
+            \param encoder                     An encoder.
 
             \return A unique pointer to a message box.
         */
-        template <typename Widget, typename String, typename Encoder>
+        template <
+            typename Widget,
+            typename String1,
+            typename String2,
+            typename String3,
+            typename String4,
+            typename Encoder
+        >
         static message_box_details_ptr_type create_message_box(
-            Widget&                             parent,
-            String&&                            title,
-            String&&                            main_content,
-            String&&                            sub_content,
-            const bool                          cancellable,
-            const message_box_button_style_type button_style,
-            const message_box_icon_style_type   icon_style,
-            const Encoder&                      encoder
+            Widget&                                             parent,
+            String1&&                                           title,
+            String2&&                                           main_content,
+            String3&&                                           sub_content,
+            const bool                                          cancellable,
+            const message_box_button_style_type                 button_style,
+            const message_box_icon_style_type                   icon_style,
+            const boost::optional<String4>&                     custom_ok_button_label,
+            const boost::optional<std::pair<String4, String4>>& custom_yes_no_button_labels,
+            const Encoder&                                      encoder
         )
         {
             return make_unique<message_box_details_type>(
                 parent.details()->first.get(),
-                encoder.encode(std::forward<String>(title)),
-                encoder.encode(std::forward<String>(main_content)),
-                encoder.encode(std::forward<String>(sub_content)),
+                encoder.encode(std::forward<String1>(title)),
+                encoder.encode(std::forward<String2>(main_content)),
+                encoder.encode(std::forward<String3>(sub_content)),
                 cancellable,
                 button_style,
                 icon_style

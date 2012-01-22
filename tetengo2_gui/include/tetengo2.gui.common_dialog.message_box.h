@@ -323,6 +323,8 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                 button_style.cancellable(),
                 to_details_button_style(button_style.style()),
                 to_details_icon_style(icon_style),
+                button_style.ok_button_label(),
+                button_style.yes_no_button_labels(),
                 encoder()
             )
         )

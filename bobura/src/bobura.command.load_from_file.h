@@ -105,8 +105,8 @@ namespace bobura { namespace command
                     string_type(),
                     message_box_type::button_style_type::yes_no(
                         true,
-                        string_type(TETENGO2_TEXT("•Û‘¶‚·‚é(&S)")),
-                        string_type(TETENGO2_TEXT("•Û‘¶‚µ‚È‚¢(&D)"))
+                        string_type(TETENGO2_TEXT("&Save")),
+                        string_type(TETENGO2_TEXT("&Don't save"))
                     ),
                     message_box_type::icon_style_warning
                 ).do_modal();
