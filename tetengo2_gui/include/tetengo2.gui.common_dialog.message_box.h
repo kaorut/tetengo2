@@ -15,6 +15,7 @@
 #include <vector>
 
 #include <boost/noncopyable.hpp>
+#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.cpp11.h"
@@ -43,18 +44,98 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             enum style_type
             {
                 style_ok,     //!< With OK button.
-                style_yes_no, //!< With Yes and No button.
+                style_yes_no, //!< With Yes and No buttons.
             };
 
 
-            // constructors and destructors
+            // static functions
 
             /*!
-                \brief Destroys the button style.
+                \brief Makes a OK button style with a standard label.
+
+                \param cancellable Whether the message box is cancellable.
+
+                \return A button style.
             */
-            virtual ~button_style()
-            TETENGO2_CPP11_NOEXCEPT
-            {}
+            static button_style ok(const bool cancellable)
+            {
+                return button_style(
+                    style_ok, cancellable, boost::none, boost::none
+                );
+            }
+
+            /*!
+                \brief Makes an OK button style with a custom label.
+
+                \tparam S A string type.
+
+                \param cancellable     Whether the message box is cancellable.
+                \param ok_button_label An OK button label.
+
+                \return A button style.
+            */
+            template <typename S>
+            static button_style ok(
+                const bool cancellable,
+                S&&        ok_button_label
+            )
+            {
+                return button_style(
+                    style_ok,
+                    cancellable,
+                    boost::make_optional<string_type>(
+                        std::forward<S>(ok_button_label)
+                    ),
+                    boost::none
+                );
+            }
+
+            /*!
+                \brief Makes a Yes and No button style with standard labels.
+
+                \param cancellable Whether the message box is cancellable.
+
+                \return A button style.
+            */
+            static button_style yes_no(const bool cancellable)
+            {
+                return button_style(
+                    style_yes_no, cancellable, boost::none, boost::none
+                );
+            }
+
+            /*!
+                \brief Makes a OK button style with a custom label.
+
+                \tparam S1 A string type #1.
+                \tparam S2 A string type #2.
+
+                \param cancellable      Whether the message box is
+                                        cancellable.
+                \param yes_button_label A Yes button label.
+                \param no_button_label  A No button label.
+
+                \return A button style.
+            */
+            template <typename S1, typename S2>
+            static button_style yes_no(
+                const bool cancellable,
+                S1&&       yes_button_label,
+                S2&&       no_button_label
+            )
+            {
+                return button_style(
+                    style_yes_no,
+                    cancellable,
+                    boost::none,
+                    boost::make_optional<std::pair<string_type, string_type>>(
+                        std::pair<string_type, string_type>(
+                            std::forward<S1>(yes_button_label),
+                            std::forward<S2>(no_button_label)
+                        )
+                    )
+                );
+            }
 
 
             // functions
@@ -87,10 +168,10 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
                 \return The OK button label.
             */
-            const string_type& ok_button_label()
+            const boost::optional<string_type>& ok_button_label()
             const
             {
-                return ok_button_label_impl();
+                return m_ok_button_label;
             }
 
             /*!
@@ -98,209 +179,46 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
                 \return The Yes button labels.
             */
-            const std::pair<string_type, string_type>& yes_no_button_labels()
-            const
-            {
-                return yes_no_button_labels_impl();
-            }
-
-
-        protected:
-            // constructors
-
-            /*!
-                \brief Creates a button style.
-
-                \param style       A style.
-                \param cancellable Whether the message box is cancellable.
-            */
-            button_style(const style_type& style, const bool cancellable)
-            :
-            m_style(style),
-            m_cancellable(cancellable)
-            {}
-
-
-        private:
-            // variables
-
-            style_type m_style;
-
-            bool m_cancellable;
-
-
-            // virtual functions
-
-            virtual const string_type& ok_button_label_impl()
-            const
-            {
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::logic_error("Not implemented."));
-            }
-
-            virtual const std::pair<string_type, string_type>&
-            yes_no_button_labels_impl()
-            const
-            {
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::logic_error("Not implemented."));
-            }
-
-
-        };
-
-
-        /*!
-            \brief The class template for having a OK button.
-
-            \tparam String A string type.
-        */
-        template <typename String>
-        class button_style_ok : public button_style<String>
-        {
-        public:
-            // types
-
-            //! The string type.
-            typedef String string_type;
-
-            //! The base type.
-            typedef button_style<string_type> base_type;
-
-
-            // constructors and destructors
-
-            /*!
-                \brief Creates a button style without a button label.
-
-                \param cancellable Whether the message box is cancellable.
-            */
-            button_style_ok(const bool cancellable)
-            :
-            base_type(base_type::style_ok, cancellable),
-            m_ok_button_label()
-            {}
-
-            /*!
-                \brief Creates a button style with a button label.
-
-                \tparam S A string type.
-
-                \param cancellable     Whether the message box is cancellable.
-                \param ok_button_label A OK button label.
-            */
-            template <typename S>
-            button_style_ok(const bool cancellable, S&& ok_button_label)
-            :
-            base_type(base_type::style_ok, cancellable),
-            m_ok_button_label()
-            {}
-
-            /*!
-                \brief Destroys the button style.
-            */
-            virtual ~button_style_ok()
-            TETENGO2_CPP11_NOEXCEPT
-            {}
-
-
-        private:
-            // variables
-
-            string_type m_ok_button_label;
-
-
-            // virtual functions
-
-            virtual const string_type& ok_button_label_impl()
-            const
-            {
-                return m_ok_button_label;
-            }
-
-
-        };
-
-
-        /*!
-            \brief The class template for having a Yes and a No buttons.
-
-            \tparam String A string type.
-        */
-        template <typename String>
-        class button_style_yes_no : public button_style<String>
-        {
-        public:
-            // types
-
-            //! The string type.
-            typedef String string_type;
-
-            //! The base type.
-            typedef button_style<string_type> base_type;
-
-
-            // constructors and destructors
-
-            /*!
-                \brief Creates a button style without a button label.
-
-                \param cancellable Whether the message box is cancellable.
-            */
-            button_style_yes_no(const bool cancellable)
-            :
-            base_type(base_type::style_yes_no, cancellable),
-            m_yes_no_button_labels()
-            {}
-
-            /*!
-                \brief Creates a button style with a button label.
-
-                \tparam S1 A string type #1.
-                \tparam S2 A string type #2.
-
-                \param cancellable     Whether the message box is cancellable.
-                \param ok_button_label A OK button label.
-            */
-            template <typename S1, typename S2>
-            button_style_yes_no(
-                const bool cancellable,
-                S1&&       yes_button_label,
-                S2&&       no_button_label
-            )
-            :
-            base_type(base_type::style_ok, cancellable),
-            m_yes_no_button_labels(
-                std::forward<S1>(yes_button_label),
-                std::forward<S2>(no_button_label)
-            )
-            {}
-
-            /*!
-                \brief Destroys the button style.
-            */
-            virtual ~button_style_yes_no()
-            TETENGO2_CPP11_NOEXCEPT
-            {}
-
-
-        private:
-            // variables
-
-            std::pair<string_type, string_type> m_yes_no_button_labels;
-
-
-            // virtual functions
-
-            virtual const std::pair<string_type, string_type>&
-            yes_no_button_labels_impl()
+            const boost::optional<std::pair<string_type, string_type>>&
+            yes_no_button_labels()
             const
             {
                 return m_yes_no_button_labels;
             }
 
 
+        private:
+            // constructors
+
+            button_style(
+                const style_type&                   style,
+                const bool                          cancellable,
+                const boost::optional<string_type>& ok_button_label,
+                const boost::optional<std::pair<string_type, string_type>>&
+                                                    yes_no_button_labels
+            )
+            :
+            m_style(style),
+            m_cancellable(cancellable),
+            m_ok_button_label(ok_button_label),
+            m_yes_no_button_labels(yes_no_button_labels)
+            {}
+
+
+            // variables
+
+            style_type m_style;
+
+            bool m_cancellable;
+
+            boost::optional<string_type> m_ok_button_label;
+
+            boost::optional<std::pair<string_type, string_type>>
+            m_yes_no_button_labels;
+
+
         };
+
 
 
     }
@@ -351,16 +269,6 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         //! The button style type.
         typedef
             message_box_style::button_style<string_type> button_style_type;
-
-        //! The button style OK type.
-        typedef
-            message_box_style::button_style_ok<string_type>
-            button_style_ok_type;
-
-        //! The button style Yes and No type.
-        typedef
-            message_box_style::button_style_yes_no<string_type>
-            button_style_yes_no_type;
 
         //! The icon style type.
         enum icon_style_type

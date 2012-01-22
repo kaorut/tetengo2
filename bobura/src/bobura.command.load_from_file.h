@@ -103,7 +103,11 @@ namespace bobura { namespace command
                         )
                     ),
                     string_type(),
-                    typename message_box_type::button_style_yes_no_type(true),
+                    message_box_type::button_style_type::yes_no(
+                        true,
+                        string_type(TETENGO2_TEXT("•Û‘¶‚·‚é(&S)")),
+                        string_type(TETENGO2_TEXT("•Û‘¶‚µ‚È‚¢(&D)"))
+                    ),
                     message_box_type::icon_style_warning
                 ).do_modal();
             if (selected_button == message_box_type::button_cancel)
