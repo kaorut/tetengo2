@@ -95,6 +95,7 @@
 ::NONCLIENTMETRICSW                              Windows.h
 ::OSVERSIONINFOEXW                               Windows.h
 ::PAINTSTRUCT                                    Windows.h
+::PCWSTR                                         Windows.h
 ::PostMessageW                                   Windows.h
 ::PostQuitMessage                                Windows.h
 ::RECT                                           Windows.h
@@ -114,7 +115,11 @@
 ::ShellExecuteW                                  Windows.h
 ::ShowWindow                                     Windows.h
 ::SystemParametersInfoW                          Windows.h
+::TASKDIALOGCONFIG                               Windows.h,CommCtrl.h
+::TASKDIALOG_BUTTON                              Windows.h,CommCtrl.h
+::TASKDIALOG_COMMON_BUTTON_FLAGS                 Windows.h,CommCtrl.h
 ::TaskDialog                                     Windows.h,CommCtrl.h
+::TaskDialogIndirect                             Windows.h,CommCtrl.h
 ::TranslateAcceleratorW                          Windows.h
 ::TranslateMessage                               Windows.h
 ::UINT                                           Windows.h
@@ -324,12 +329,14 @@ std::get                                         tuple
 std::greater                                     functional
 std::has_facet                                   locale
 std::invalid_argument                            stdexcept
+std::ios_base::binary                            ios
 std::ios_base::failure                           ios
 std::is_arithmetic                               type_traits
 std::is_convertible                              type_traits
 std::is_same                                     type_traits
 std::istream                                     istream
 std::istreambuf_iterator                         iterator
+std::istringstream                               sstream
 std::locale                                      locale
 std::locale::classic                             locale
 std::locale::global                              locale

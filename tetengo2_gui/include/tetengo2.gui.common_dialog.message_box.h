@@ -12,7 +12,6 @@
 #include <cassert>
 #include <stdexcept>
 #include <utility>
-#include <vector>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>

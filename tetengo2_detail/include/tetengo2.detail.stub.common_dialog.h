@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_STUB_COMMONDIALOG_H
 
 //#include <memory>
+//#include <utility>
 
 #include <boost/optional.hpp>
 

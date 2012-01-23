@@ -9,6 +9,7 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_JSONREADER_H)
 #define BOBURA_MODEL_SERIALIZER_JSONREADER_H
 
+//#include <istream>
 //#include <memory>
 
 #include <tetengo2.cpp11.h>
