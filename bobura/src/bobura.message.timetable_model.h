@@ -16,9 +16,10 @@ namespace bobura { namespace message { namespace timetable_model
         \brief The class template for a timetable model observer of reset.
 
         \tparam Timetable  A timetable type.
+        \tparam Path       A path type.
         \tparam MainWindow A main window type.
     */
-    template <typename Timetable, typename MainWindow>
+    template <typename Timetable, typename Path, typename MainWindow>
     class reset
     {
     public:
@@ -26,6 +27,9 @@ namespace bobura { namespace message { namespace timetable_model
 
         //! The timetable type.
         typedef Timetable timetable_type;
+
+        //! The path type.
+        typedef Path path_type;
 
         //! The main window type.
         typedef MainWindow main_window_type;
@@ -50,15 +54,26 @@ namespace bobura { namespace message { namespace timetable_model
             \brief Called when the timetable model is reset.
 
             \param timetable A timetable.
+            \param path      A path.
         */
-        void operator()(const timetable_type& timetable)
+        void operator()(
+            const timetable_type& timetable,
+            const path_type&      path
+        )
         const
         {
-            m_main_window.set_text(timetable.title());
+            m_main_window.set_title(
+                path.filename().template string<string_type>()
+            );
         }
 
 
     private:
+        // types
+
+        typedef typename main_window_type::string_type string_type;
+
+
         // variables
 
         main_window_type& m_main_window;

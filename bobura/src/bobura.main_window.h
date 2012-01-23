@@ -10,6 +10,7 @@
 #define BOBURA_MAINWINDOW_H
 
 #include <boost/mpl/at.hpp>
+#include <boost/optional.hpp>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -42,6 +43,9 @@ namespace bobura
 
         //! The base type.
         typedef Window base_type;
+
+        //! The string type.
+        typedef typename base_type::string_type string_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -84,6 +88,26 @@ namespace bobura
         {}
 
 
+        // functions
+
+        /*!
+            \brief Sets a title.
+
+            \param document_name A document name.
+        */
+        void set_title(const boost::optional<string_type>& document_name)
+        {
+            string_type title =
+                document_name ?
+                *document_name :
+                m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
+            title += string_type(TETENGO2_TEXT(" - "));
+            title += m_message_catalog.get(TETENGO2_TEXT("App:Bobura"));
+
+            set_text(title);
+        }
+
+
     private:
         // variables
 
@@ -98,7 +122,7 @@ namespace bobura
         {
             set_message_observers();
 
-            set_text(m_message_catalog.get(TETENGO2_TEXT("App:Bobura")));
+            set_title(boost::none);
         }
 
         void set_message_observers()

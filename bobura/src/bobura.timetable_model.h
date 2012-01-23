@@ -26,9 +26,10 @@ namespace bobura
         \brief The class template for a model.
 
         \tparam Timetable       A timetable type.
-        \tparam ObserverSet     A observer set.
+        \tparam Path            A path type.
+        \tparam ObserverSet     A observer set type.
     */
-    template <typename Timetable, typename ObserverSet>
+    template <typename Timetable, typename Path, typename ObserverSet>
     class timetable_model : private boost::noncopyable
     {
     public:
@@ -36,6 +37,9 @@ namespace bobura
 
         //! The timetable type.
         typedef Timetable timetable_type;
+
+        //! The path type.
+        typedef Path path_type;
 
         //! The observer set type.
         typedef ObserverSet observer_set_type;
@@ -51,6 +55,7 @@ namespace bobura
         m_p_timetable(
             tetengo2::make_unique<timetable_type>(string_type())
         ),
+        m_path(),
         m_observer_set()
         {}
 
@@ -60,11 +65,18 @@ namespace bobura
         /*!
             \brief Resets a timetable.
 
+            \tparam P A path type.
+
             \param p_timetable A unique pointer to a timetable.
+            \param path        A path.
 
             \throw std::invalid_argument When p_timetable is NULL.
         */
-        void reset_timetable(std::unique_ptr<timetable_type> p_timetable)
+        template <typename P>
+        void reset_timetable(
+            std::unique_ptr<timetable_type> p_timetable,
+            P&&                             path
+        )
         {
             if (!p_timetable)
             {
@@ -74,8 +86,9 @@ namespace bobura
             }
 
             m_p_timetable = std::move(p_timetable);
+            m_path = std::forward<P>(path);
 
-            m_observer_set.reset()(*m_p_timetable);
+            m_observer_set.reset()(*m_p_timetable, m_path);
         }
 
         /*!
@@ -109,6 +122,8 @@ namespace bobura
         // variables
 
         std::unique_ptr<timetable_type> m_p_timetable;
+
+        path_type m_path;
 
         observer_set_type m_observer_set;
 

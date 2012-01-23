@@ -11,6 +11,7 @@
 //#include <vector>
 
 //#include <boost/filesystem.hpp>
+//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "test_bobura.types.h"
@@ -29,6 +30,19 @@ BOOST_AUTO_TEST_SUITE(main_window)
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
         const main_window_type main_window(message_catalog, settings);
+    }
+
+    BOOST_AUTO_TEST_CASE(set_title)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const message_catalog_type message_catalog;
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
+        main_window_type main_window(message_catalog, settings);
+
+        main_window.set_title(boost::none);
     }
 
 

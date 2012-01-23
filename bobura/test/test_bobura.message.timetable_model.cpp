@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_SUITE(reset)
         const settings_type settings(std::move(arguments), std::move(path));
         main_window_type main_window(message_catalog, settings);
         const bobura::message::timetable_model::reset<
-            timetable_type, main_window_type
+            timetable_type, boost::filesystem::path, main_window_type
         > observer(main_window);
     }
 
@@ -48,11 +48,11 @@ BOOST_AUTO_TEST_SUITE(reset)
         const settings_type settings(std::move(arguments), std::move(path));
         main_window_type main_window(message_catalog, settings);
         const bobura::message::timetable_model::reset<
-            timetable_type, main_window_type
+            timetable_type, boost::filesystem::path, main_window_type
         > observer(main_window);
 
         const timetable_type timetable(L"hoge");
-        observer(timetable);
+        observer(timetable, boost::filesystem::path());
     }
 
 

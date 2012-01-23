@@ -28,9 +28,10 @@ namespace bobura { namespace message
                    messages.
 
             \tparam Timetable  A timetable type.
+            \tparam Path       A path type.
             \tparam MainWindow A main window type.
         */
-        template <typename Timetable, typename MainWindow>
+        template <typename Timetable, typename Path, typename MainWindow>
         class type_list
         {
         public:
@@ -40,7 +41,7 @@ namespace bobura { namespace message
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::reset, reset<Timetable, MainWindow>
+                        type::reset, reset<Timetable, Path, MainWindow>
                     >,
                 tetengo2::meta::assoc_list_end
                 >

@@ -7,10 +7,11 @@
     
     "body":
     {
-        "Common:OK":     "OK",
-        "Common:Cancel": "キャンセル",
-        "Common:&Yes":   "はい(&Y)",
-        "Common:&No":    "いいえ(&N)",
+        "Common:OK":       "OK",
+        "Common:Cancel":   "キャンセル",
+        "Common:&Yes":     "はい(&Y)",
+        "Common:&No":      "いいえ(&N)",
+        "Common:Untitled": "無題",
         
         "App:Bobura": "鉄道系アプリケーション建設予定地",
         

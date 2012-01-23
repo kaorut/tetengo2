@@ -125,7 +125,7 @@ namespace bobura { namespace command
                 return;
             }
 
-            m_model.reset_timetable(std::move(p_timetable));
+            m_model.reset_timetable(std::move(p_timetable), path);
         }
 
 

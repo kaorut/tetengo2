@@ -246,7 +246,10 @@ namespace bobura
             >
             timetable_type;
         typedef
-            ::bobura::message::timetable_model_observer_set<timetable_type>
+            ::bobura::message::timetable_model_observer_set<
+                timetable_type,
+                boost::mpl::at<common_type_list, type::path>::type
+            >
             timetable_model_observer_set_type;
     }}
 #endif
@@ -258,6 +261,7 @@ namespace bobura
                 type::model,
                 ::bobura::timetable_model<
                     detail::model::timetable_type,
+                    boost::mpl::at<common_type_list, type::path>::type,
                     detail::model::timetable_model_observer_set_type
                 >
             >,
@@ -962,6 +966,7 @@ namespace bobura
         typedef
             ::bobura::message::timetable_model::type_list<
                 boost::mpl::at<model_type_list, type::timetable>::type,
+                boost::mpl::at<common_type_list, type::path>::type,
                 boost::mpl::at<
                     main_window_type_list, type::main_window
                 >::type
