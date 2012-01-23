@@ -151,7 +151,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             }
 
             /*!
-                \biref Returns whether the message box is cancellable.
+                \brief Returns whether the message box is cancellable.
 
                 \retval true  When the message box is cancellable.
                 \retval false Otherwise.
