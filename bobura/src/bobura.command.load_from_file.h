@@ -94,22 +94,7 @@ namespace bobura { namespace command
         const
         {
             const typename message_box_type::button_id_type selected_button =
-                message_box_type(
-                    m_window,
-                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                    m_message_catalog.get(
-                        TETENGO2_TEXT(
-                            "Message:File:The file has been changed. Do you want to save the changes?"
-                        )
-                    ),
-                    string_type(),
-                    message_box_type::button_style_type::yes_no(
-                        true,
-                        string_type(TETENGO2_TEXT("&Save")),
-                        string_type(TETENGO2_TEXT("&Don't save"))
-                    ),
-                    message_box_type::icon_style_warning
-                ).do_modal();
+                create_confirm_message_box()->do_modal();
             if (selected_button == message_box_type::button_cancel)
                 return;
 
@@ -159,6 +144,31 @@ namespace bobura { namespace command
 
 
         // functions
+
+        std::unique_ptr<message_box_type> create_confirm_message_box()
+        const
+        {
+            return tetengo2::make_unique<message_box_type>(
+                m_window,
+                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                m_message_catalog.get(
+                    TETENGO2_TEXT(
+                        "Message:File:The file has been changed. Do you want to save the changes?"
+                    )
+                ),
+                string_type(),
+                message_box_type::button_style_type::yes_no(
+                    true,
+                    m_message_catalog.get(
+                        TETENGO2_TEXT("Message:File:&Save")
+                    ),
+                    m_message_catalog.get(
+                        TETENGO2_TEXT("Message:File:&Don't save")
+                    )
+                ),
+                message_box_type::icon_style_warning
+            );
+        }
 
         typename file_open_dialog_type::file_filters_type
         make_file_filters()

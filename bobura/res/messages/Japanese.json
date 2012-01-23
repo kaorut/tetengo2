@@ -36,6 +36,8 @@
         
         
         "Message:File:The file has been changed. Do you want to save the changes?":
-          "ファイルの内容が変更されています。保存しますか？"
+          "ファイルの内容が変更されています。保存しますか？",
+        "Message:File:&Save":       "保存する(&S)",
+        "Message:File:&Don't save": "保存しない(&D)"
     }
 }
