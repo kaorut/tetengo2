@@ -105,20 +105,25 @@ namespace bobura { namespace command
             );
             dialog.do_modal();
 
-            const typename file_open_dialog_type::path_type path =
-                dialog.result();
+            const path_type path = dialog.result();
             if (path.empty()) return;
 
             boost::filesystem::ifstream input_stream(
                 path, std::ios_base::binary
             );
             if (!input_stream)
+            {
+                create_cant_open_file_message_box(path)->do_modal();
                 return;
+            }
 
             std::unique_ptr<timetable_type> p_timetable =
                 m_reader.read(input_stream);
             if (!p_timetable)
+            {
+                create_cant_open_file_message_box(path)->do_modal();
                 return;
+            }
 
             m_model.reset_timetable(std::move(p_timetable));
         }
@@ -128,6 +133,8 @@ namespace bobura { namespace command
         // types
 
         typedef typename window_type::string_type string_type;
+
+        typedef typename file_open_dialog_type::path_type path_type;
 
         typedef typename model_type::timetable_type timetable_type;
 
@@ -167,6 +174,42 @@ namespace bobura { namespace command
                     )
                 ),
                 message_box_type::icon_style_warning
+            );
+        }
+
+        std::unique_ptr<message_box_type> create_cant_open_file_message_box(
+            const path_type& path
+        )
+        const
+        {
+            return tetengo2::make_unique<message_box_type>(
+                m_window,
+                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                m_message_catalog.get(
+                    TETENGO2_TEXT("Message:File:Can't open the file.")
+                ),
+                path.template string<string_type>(),
+                message_box_type::button_style_type::ok(false),
+                message_box_type::icon_style_error
+            );
+        }
+
+        std::unique_ptr<message_box_type> create_file_broken_message_box(
+            const path_type& path
+        )
+        const
+        {
+            return tetengo2::make_unique<message_box_type>(
+                m_window,
+                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                m_message_catalog.get(
+                    TETENGO2_TEXT(
+                        "Message:File:The timetable file is broken."
+                    )
+                ),
+                path.template string<string_type>(),
+                message_box_type::button_style_type::ok(false),
+                message_box_type::icon_style_error
             );
         }
 

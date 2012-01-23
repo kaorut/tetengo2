@@ -37,7 +37,9 @@
         
         "Message:File:The file has been changed. Do you want to save the changes?":
           "ファイルの内容が変更されています。保存しますか？",
-        "Message:File:&Save":       "保存する(&S)",
-        "Message:File:&Don't save": "保存しない(&D)"
+        "Message:File:&Save":                         "保存する(&S)",
+        "Message:File:&Don't save":                   "保存しない(&D)",
+        "Message:File:Can't open the file.":          "ファイルを開けません。",
+        "Message:File:The timetable file is broken.": "時刻表ファイルが破損しています。"
     }
 }
