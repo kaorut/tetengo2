@@ -27,11 +27,6 @@ Added on    : 2012/01/23
 Depends on  : (none)
 Description : Change the name bobura::bobura to bobura::application.
 ------------------------------------------------------------------------------
-Number      : 00000139
-Added on    : 2012/01/23
-Depends on  : (none)
-Description : Create bobura::main_window::set_title().
-------------------------------------------------------------------------------
 Number      : 00000140
 Added on    : 2012/mm/dd
 Depends on  : (none)
