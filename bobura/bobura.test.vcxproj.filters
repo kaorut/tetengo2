@@ -38,9 +38,6 @@
     <ClCompile Include="test\test_bobura.about_dialog.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.bobura.cpp">
-      <Filter>sources\test_bobura</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_bobura.main_window.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="test\test_bobura.message.timetable_model.cpp">
       <Filter>sources\test_bobura\message</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.application.cpp">
+      <Filter>sources\test_bobura</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

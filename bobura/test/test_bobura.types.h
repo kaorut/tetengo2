@@ -84,7 +84,7 @@
 #include <tetengo2.text.push_parser.h>
 
 #include "bobura.about_dialog.h"
-#include "bobura.bobura.h"
+#include "bobura.application.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.main_window.h"

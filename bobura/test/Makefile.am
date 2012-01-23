@@ -9,7 +9,7 @@ extra_headers =
 sources = \
     master.cpp \
     test_bobura.about_dialog.cpp \
-    test_bobura.bobura.cpp \
+    test_bobura.application.cpp \
     test_bobura.command.about.cpp \
     test_bobura.command.exit.cpp \
     test_bobura.command.load_from_file.cpp \

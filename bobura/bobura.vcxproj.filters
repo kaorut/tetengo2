@@ -33,9 +33,6 @@
     <ClInclude Include="src\bobura.about_dialog.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
-    <ClInclude Include="src\bobura.bobura.h">
-      <Filter>headers\bobura</Filter>
-    </ClInclude>
     <ClInclude Include="src\bobura.main_window.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
@@ -92,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="src\bobura.message.timetable_model.h">
       <Filter>headers\bobura\message</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.application.h">
+      <Filter>headers\bobura</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
