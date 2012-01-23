@@ -111,7 +111,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::wstring,
                 bool,
                 message_box_button_style_type,
-                message_box_icon_style_type
+                message_box_icon_style_type,
+                std::vector<boost::optional<std::wstring>>
             >
             message_box_details_type;
 
@@ -190,7 +191,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 encoder.encode(std::forward<String3>(sub_content)),
                 cancellable,
                 button_style,
-                icon_style
+                icon_style,
+                to_custom_button_labels(
+                    custom_ok_button_label,
+                    custom_yes_no_button_labels,
+                    encoder
+                )
             );
         }
 
@@ -206,23 +212,27 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             const ::HWND parent_window_handle = std::get<0>(message_box);
-            const std::wstring title = std::get<1>(message_box).c_str();
-            const std::wstring main_content =
-                std::get<2>(message_box).c_str();
-            const std::wstring sub_content = std::get<3>(message_box).c_str();
+            const std::wstring& title = std::get<1>(message_box);
+            const std::wstring& main_content = std::get<2>(message_box);
+            const std::wstring& sub_content = std::get<3>(message_box);
             const bool cancellable = std::get<4>(message_box);
             const message_box_button_style_type button_style =
                 std::get<5>(message_box);
             const message_box_icon_style_type icon_style =
                 std::get<6>(message_box);
+            const std::vector<boost::optional<std::wstring>>&
+            custom_button_labels = std::get<7>(message_box);
 
-            std::vector< ::TASKDIALOG_BUTTON> custom_buttons;
+            const std::vector< ::TASKDIALOG_BUTTON> custom_buttons =
+                make_custom_buttons(custom_button_labels);
 
             ::TASKDIALOGCONFIG config = {};
             config.cbSize = sizeof(::TASKDIALOGCONFIG);
             config.hwndParent = parent_window_handle;
             config.dwCommonButtons =
-                to_task_dialog_common_buttons(button_style, cancellable);
+                to_task_dialog_common_buttons(
+                    button_style, cancellable, custom_button_labels
+                );
             config.pszWindowTitle = title.c_str();
             config.pszMainIcon = to_task_dialog_icon(icon_style);
             config.pszMainInstruction = main_content.c_str();
@@ -360,19 +370,110 @@ namespace tetengo2 { namespace detail { namespace windows
     private:
         // static functions
 
-        static ::TASKDIALOG_COMMON_BUTTON_FLAGS to_task_dialog_common_buttons(
-            const message_box_button_style_type style,
-            const bool                          cancellable
+        template <typename String, typename Encoder>
+        static std::vector<boost::optional<std::wstring>>
+        to_custom_button_labels(
+            const boost::optional<String>&                    ok_button_label,
+            const boost::optional<std::pair<String, String>>& yes_no_button_labels,
+            const Encoder&                                    encoder
         )
         {
+            std::vector<boost::optional<std::wstring>> labels;
+            labels.reserve(3);
+
+            if (ok_button_label)
+            {
+                labels.push_back(
+                    boost::make_optional(encoder.encode(*ok_button_label))
+                );
+            }
+            else
+            {
+                labels.push_back(boost::none);
+            }
+
+            if (yes_no_button_labels)
+            {
+                labels.push_back(
+                    boost::make_optional(
+                        encoder.encode(yes_no_button_labels->first)
+                    )
+                );
+                labels.push_back(
+                    boost::make_optional(
+                        encoder.encode(yes_no_button_labels->second)
+                    )
+                );
+            }
+            else
+            {
+                labels.push_back(boost::none);
+                labels.push_back(boost::none);
+            }
+
+            assert(labels.size() == 3);
+            return labels;
+        }
+
+        static std::vector< ::TASKDIALOG_BUTTON> make_custom_buttons(
+            const std::vector<boost::optional<std::wstring>>& button_labels
+        )
+        {
+            assert(button_labels.size() == 3);
+
+            std::vector< ::TASKDIALOG_BUTTON> buttons;
+
+            if (button_labels[0])
+            {
+                ::TASKDIALOG_BUTTON button = {};
+                button.nButtonID = IDOK;
+                button.pszButtonText = button_labels[0]->c_str();
+                buttons.push_back(button);
+            }
+
+            if (button_labels[1])
+            {
+                assert(button_labels[2]);
+                {
+                    ::TASKDIALOG_BUTTON button = {};
+                    button.nButtonID = IDYES;
+                    button.pszButtonText = button_labels[1]->c_str();
+                    buttons.push_back(button);
+                }
+                {
+                    ::TASKDIALOG_BUTTON button = {};
+                    button.nButtonID = IDNO;
+                    button.pszButtonText = button_labels[2]->c_str();
+                    buttons.push_back(button);
+                }
+            }
+
+            return buttons;
+        }
+
+        static ::TASKDIALOG_COMMON_BUTTON_FLAGS to_task_dialog_common_buttons(
+            const message_box_button_style_type               style,
+            const bool                                        cancellable,
+            const std::vector<boost::optional<std::wstring>>& custom_button_labels
+        )
+        {
+            assert(custom_button_labels.size() == 3);
+
             ::TASKDIALOG_COMMON_BUTTON_FLAGS flags = 0;
             switch (style)
             {
             case message_box_button_style_ok:
-                flags = TDCBF_OK_BUTTON;
+                if (!custom_button_labels[0])
+                {
+                    flags = TDCBF_OK_BUTTON;
+                }
                 break;
             case message_box_button_style_yes_no:
-                flags = TDCBF_YES_BUTTON | TDCBF_NO_BUTTON;
+                if (!custom_button_labels[1])
+                {
+                    assert(!custom_button_labels[2]);
+                    flags = TDCBF_YES_BUTTON | TDCBF_NO_BUTTON;
+                }
                 break;
             default:
                 assert(false);
