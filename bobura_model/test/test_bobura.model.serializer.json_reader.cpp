@@ -165,6 +165,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 json_reader.read(json3.begin(), json3.end());
 
             BOOST_CHECK(p_timetable);
+            BOOST_CHECK(p_timetable->title() == "hoge");
         }
     }
 
