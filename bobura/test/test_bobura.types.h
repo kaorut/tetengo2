@@ -10,11 +10,13 @@
 #define TESTBOBURA_TYPES_H
 
 //#include <cstddef>
+//#include <iterator>
 //#include <string>
 //#include <utility>
 
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
+//#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.detail.stub.alert.h>
 #include <tetengo2.detail.stub.common_dialog.h>

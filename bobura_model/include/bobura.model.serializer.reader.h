@@ -10,7 +10,6 @@
 #define BOBURA_MODEL_SERIALIZER_READER_H
 
 #include <cstddef>
-#include <istream>
 #include <memory>
 
 #include <boost/noncopyable.hpp>
