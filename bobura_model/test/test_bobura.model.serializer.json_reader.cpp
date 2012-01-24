@@ -36,9 +36,9 @@ namespace
 {
     // types
 
-    typedef bobura::model::station_info::local<std::wstring> local_type;
+    typedef bobura::model::station_info::local<std::string> local_type;
 
-    typedef bobura::model::station<std::wstring, local_type> station_type;
+    typedef bobura::model::station<std::string, local_type> station_type;
 
     typedef
         bobura::model::timetable_info::station_location<
@@ -95,7 +95,10 @@ namespace
 
     typedef
         bobura::model::serializer::json_reader<
-            timetable_type, pull_parser_type, timetable_file_encoder_type
+            timetable_type,
+            local_type,
+            pull_parser_type,
+            timetable_file_encoder_type
         >
         reader_type;
 
@@ -110,15 +113,37 @@ namespace
     const std::string json2 =
         "[\n"
         "    {\n"
-        "    }\n"
+        "    },\n"
+        "    []\n"
         "]\n";
 
     const std::string json3 =
         "[\n"
         "    {\n"
-        "        \"title\": \"hoge\",\n"
-        "        \"foo\":   \"bar\"\n"
-        "    }\n"
+        "        \"title\": \"hoge\"\n"
+        "    },\n"
+        "    [\n"
+        "    ]\n"
+        "]\n";
+
+    const std::string json4 =
+        "[\n"
+        "    {\n"
+        "        \"piyo\":  \"piyopiyo\",\n"
+        "        \"title\": \"hoge\"\n"
+        "    },\n"
+        "    [\n"
+        "        {\n"
+        "            \"name\":     \"stationA\",\n"
+        "            \"grade\":    \"local\",\n"
+        "            \"meterage\": 42\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\":     \"stationB\",\n"
+        "            \"grade\":    \"principal\",\n"
+        "            \"meterage\": 4242\n"
+        "        }\n"
+        "    ]\n"
         "]\n";
 
 
@@ -159,6 +184,7 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 json_reader.read(json2.begin(), json2.end());
 
             BOOST_CHECK(p_timetable);
+            BOOST_CHECK(p_timetable->title().empty());
         }
         {
             const std::unique_ptr<timetable_type> p_timetable =
@@ -166,6 +192,22 @@ BOOST_AUTO_TEST_SUITE(json_reader)
 
             BOOST_CHECK(p_timetable);
             BOOST_CHECK(p_timetable->title() == "hoge");
+        }
+        {
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(json4.begin(), json4.end());
+
+            BOOST_CHECK(p_timetable);
+            BOOST_CHECK(p_timetable->title() == "hoge");
+            BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 2U);
+            BOOST_CHECK(
+                p_timetable->station_locations()[0].station().name() ==
+                "stationA"
+            );
+            BOOST_CHECK(
+                p_timetable->station_locations()[1].station().name() ==
+                "stationB"
+            );
         }
     }
 

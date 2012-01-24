@@ -522,6 +522,7 @@ typedef
 typedef
     bobura::model::serializer::json_reader<
         timetable_type,
+        local_type,
         timetable_file_pull_parser_type,
         timetable_file_encoder_type
     >

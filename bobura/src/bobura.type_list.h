@@ -404,6 +404,7 @@ namespace bobura
                 type::reader,
                 model::serializer::json_reader<
                     detail::model::timetable_type,
+                    detail::model::local_type,
                     boost::mpl::at<common_type_list, type::pull_parser>::type,
                     boost::mpl::at<
                         locale_type_list, type::timetable_file_encoder
