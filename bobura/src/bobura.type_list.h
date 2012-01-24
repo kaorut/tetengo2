@@ -213,7 +213,7 @@ namespace bobura
             station_type;
         typedef
             bobura::model::timetable_info::station_location<
-                boost::mpl::at<common_type_list, type::string>::type,
+                station_type,
                 boost::mpl::at<common_type_list, type::size>::type
             >
             station_location_type;
