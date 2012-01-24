@@ -104,6 +104,23 @@ namespace
 
     const std::string json0;
 
+    const std::string json1 =
+        "[]";
+
+    const std::string json2 =
+        "[\n"
+        "    {\n"
+        "    }\n"
+        "]\n";
+
+    const std::string json3 =
+        "[\n"
+        "    {\n"
+        "        \"title\": \"hoge\",\n"
+        "        \"foo\":   \"bar\"\n"
+        "    }\n"
+        "]\n";
+
 
 }
 
@@ -130,6 +147,24 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 json_reader.read(json0.begin(), json0.end());
 
             BOOST_CHECK(!p_timetable);
+        }
+        {
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(json1.begin(), json1.end());
+
+            BOOST_CHECK(!p_timetable);
+        }
+        {
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(json2.begin(), json2.end());
+
+            BOOST_CHECK(p_timetable);
+        }
+        {
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(json3.begin(), json3.end());
+
+            BOOST_CHECK(p_timetable);
         }
     }
 
