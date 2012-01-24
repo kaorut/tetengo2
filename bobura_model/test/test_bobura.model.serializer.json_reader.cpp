@@ -14,6 +14,12 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.detail.stub.encoding.h>
+#include <tetengo2.text.encoder.h>
+#include <tetengo2.text.encoding.locale.h>
+#include <tetengo2.text.grammar.json.h>
+#include <tetengo2.text.pull_parser.h>
+#include <tetengo2.text.push_parser.h>
 
 #include "bobura.model.station.h"
 #include "bobura.model.station_info.grade.h"
@@ -32,27 +38,70 @@ namespace
     // types
 
     typedef bobura::model::station_info::local<std::wstring> local_type;
+
     typedef bobura::model::station<std::wstring, local_type> station_type;
+
     typedef
         bobura::model::timetable_info::station_location<
             station_type, std::size_t
         >
         station_location_type;
+
     typedef
         bobura::model::train_info::time<
             std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
         >
         time_type;
+
     typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
+
     typedef
         bobura::model::train<std::string, std::string, stop_type> train_type;
+
     typedef
         bobura::model::timetable<
             std::string, station_location_type, train_type
         >
         timetable_type;
+
     typedef
-        bobura::model::serializer::json_reader<timetable_type> reader_type;
+        tetengo2::text::grammar::json<std::string::const_iterator>
+        grammar_type;
+
+    typedef
+        tetengo2::text::push_parser<
+            std::string::const_iterator,
+            grammar_type,
+            int,
+            double
+        >
+        push_parser_type;
+
+    typedef
+        tetengo2::text::pull_parser<push_parser_type, std::size_t>
+        pull_parser_type;
+
+    typedef tetengo2::detail::stub::encoding encoding_details_type;
+
+    typedef
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
+        internal_encoding_type;
+
+    typedef
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
+        timetable_file_encoding_type;
+
+    typedef
+        tetengo2::text::encoder<
+            internal_encoding_type, timetable_file_encoding_type
+        >
+        timetable_file_encoder_type;
+
+    typedef
+        bobura::model::serializer::json_reader<
+            timetable_type, pull_parser_type, timetable_file_encoder_type
+        >
+        reader_type;
 
 
     // variables
@@ -84,6 +133,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json0);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(input_stream);
+
+            //BOOST_CHECK(!p_timetable);
         }
     }
 

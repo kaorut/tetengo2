@@ -24,9 +24,11 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a JSON reader.
 
-        \tparam Timetable A timetable type.
+        \tparam Timetable  A timetable type.
+        \tparam PullParser A pull parser type.
+        \tparam Encoder    An encoder type.
     */
-    template <typename Timetable>
+    template <typename Timetable, typename PullParser, typename Encoder>
     class json_reader : public reader<Timetable>
     {
     public:
@@ -37,6 +39,12 @@ namespace bobura { namespace model { namespace serializer
 
         //! The base type.
         typedef reader<timetable_type> base_type;
+
+        //! The pull parser type.
+        typedef PullParser pull_parser_type;
+
+        //! The encoder type.
+        typedef Encoder encoder;
 
 
         // constructors and destructor
@@ -61,6 +69,10 @@ namespace bobura { namespace model { namespace serializer
         // types
 
         typedef typename timetable_type::string_type string_type;
+
+        typedef typename pull_parser_type::push_parser_type push_parser_type;
+
+        typedef typename push_parser_type::string_type input_string_type;
 
 
         // virtual functions

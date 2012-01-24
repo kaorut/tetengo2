@@ -486,7 +486,21 @@ typedef
     >
     about_dialog_type;
 
-typedef bobura::model::serializer::json_reader<timetable_type> reader_type;
+typedef
+    tetengo2::text::encoding::utf8<encoding_details_type>
+    timetable_file_encoding_type;
+
+typedef
+    tetengo2::text::encoder<
+        internal_encoding_type, timetable_file_encoding_type
+    >
+    timetable_file_encoder_type;
+
+typedef
+    bobura::model::serializer::json_reader<
+        timetable_type, pull_parser_type, timetable_file_encoder_type
+    >
+    reader_type;
 
 typedef
     bobura::command::type_list<
