@@ -121,7 +121,7 @@ namespace bobura { namespace command
                 m_reader.read(input_stream);
             if (!p_timetable)
             {
-                create_cant_open_file_message_box(path)->do_modal();
+                create_file_broken_message_box(path)->do_modal();
                 return;
             }
 

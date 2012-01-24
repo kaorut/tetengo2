@@ -69,9 +69,10 @@ namespace bobura { namespace model { namespace serializer
             std::istream& input_stream
         )
         {
-            return tetengo2::make_unique<timetable_type>(
-                string_type(TETENGO2_TEXT("hoge"))
-            );
+            std::unique_ptr<timetable_type> p_timetable =
+                tetengo2::make_unique<timetable_type>(string_type());
+
+            return std::move(p_timetable);
         }
 
 
