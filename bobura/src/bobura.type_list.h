@@ -138,8 +138,8 @@ namespace bobura
         typedef std::string io_string_type;
         typedef boost::filesystem::path path_type;
         typedef
-            boost::spirit::multi_pass<std::istreambuf_iterator<
-                io_string_type::value_type>
+            boost::spirit::multi_pass<
+                std::istreambuf_iterator<io_string_type::value_type>
             >
             input_stream_iterator_type;
         typedef

@@ -70,10 +70,7 @@ namespace
 
     typedef
         tetengo2::text::push_parser<
-            std::string::const_iterator,
-            grammar_type,
-            int,
-            double
+            std::string::const_iterator, grammar_type, int, double
         >
         push_parser_type;
 
@@ -130,11 +127,10 @@ BOOST_AUTO_TEST_SUITE(json_reader)
 
         reader_type json_reader;
         {
-            std::istringstream input_stream(json0);
             const std::unique_ptr<timetable_type> p_timetable =
-                json_reader.read(input_stream);
+                json_reader.read(json0.begin(), json0.end());
 
-            //BOOST_CHECK(!p_timetable);
+            BOOST_CHECK(!p_timetable);
         }
     }
 

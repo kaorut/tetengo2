@@ -497,8 +497,31 @@ typedef
     timetable_file_encoder_type;
 
 typedef
+    boost::spirit::multi_pass<std::istreambuf_iterator<char>>
+    timetable_file_input_stream_iterator_type;
+
+typedef
+    tetengo2::text::grammar::json<timetable_file_input_stream_iterator_type>
+    timetable_file_grammar_type;
+
+typedef
+    tetengo2::text::push_parser<
+        timetable_file_input_stream_iterator_type,
+        timetable_file_grammar_type,
+        int,
+        double
+    >
+    timetable_file_push_parser_type;
+
+typedef
+    tetengo2::text::pull_parser<timetable_file_push_parser_type, std::size_t>
+    timetable_file_pull_parser_type;
+
+typedef
     bobura::model::serializer::json_reader<
-        timetable_type, pull_parser_type, timetable_file_encoder_type
+        timetable_type,
+        timetable_file_pull_parser_type,
+        timetable_file_encoder_type
     >
     reader_type;
 

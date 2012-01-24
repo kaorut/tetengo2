@@ -23,13 +23,17 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a reader.
 
-        \tparam Timetable A timetable type.
+        \tparam ForwardIterator A forward iterator type.
+        \tparam Timetable       A timetable type.
     */
-    template <typename Timetable>
+    template <typename ForwardIterator, typename Timetable>
     class reader : private boost::noncopyable
     {
     public:
         // types
+
+        //! The iterator type.
+        typedef ForwardIterator iterator;
 
         //! The timetable type.
         typedef Timetable timetable_type;
@@ -52,13 +56,17 @@ namespace bobura { namespace model { namespace serializer
 
             When it cannot read a timetable, it returns NULL.
 
-            \param input_stream An input stream.
+            \param first The first position of an input.
+            \param last  The last position of an input.
 
             \return A unique pointer to a timetable.
         */
-        std::unique_ptr<timetable_type> read(std::istream& input_stream)
+        std::unique_ptr<timetable_type> read(
+            const iterator first,
+            const iterator last
+        )
         {
-            return read_impl(input_stream);
+            return read_impl(first, last);
         }
 
 
@@ -76,7 +84,8 @@ namespace bobura { namespace model { namespace serializer
         // virtual functions
 
         virtual std::unique_ptr<timetable_type> read_impl(
-            std::istream& input_stream
+            const iterator first,
+            const iterator last
         )
         = 0;
 

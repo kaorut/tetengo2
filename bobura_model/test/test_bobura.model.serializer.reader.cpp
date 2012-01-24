@@ -7,9 +7,7 @@
 */
 
 //#include <cstddef>
-//#include <istream>
 //#include <memory>
-#include <sstream>
 #include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -52,7 +50,11 @@ namespace
             std::string, station_location_type, train_type
         >
         timetable_type;
-    typedef bobura::model::serializer::reader<timetable_type> reader_type;
+    typedef
+        bobura::model::serializer::reader<
+            std::string::const_iterator, timetable_type
+        >
+        reader_type;
 
     class concrete_reader : public reader_type
     {
@@ -69,7 +71,8 @@ namespace
 
     private:
         virtual std::unique_ptr<timetable_type> read_impl(
-            std::istream& input_stream
+            const iterator first,
+            const iterator last
         )
         {
             return std::unique_ptr<timetable_type>();
@@ -98,9 +101,9 @@ BOOST_AUTO_TEST_SUITE(reader)
         BOOST_TEST_PASSPOINT();
 
         concrete_reader reader;
-        std::istringstream input_stream("hoge");
+        const std::string input("hoge");
         const std::unique_ptr<timetable_type> p_timetable =
-            reader.read(input_stream);
+            reader.read(input.begin(), input.end());
     }
 
 

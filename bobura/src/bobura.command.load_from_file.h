@@ -10,10 +10,12 @@
 #define BOBURA_COMMAND_LOADFROMFILE_H
 
 #include <ios>
+#include <iterator>
 //#include <memory>
 //#include <utility>
 
 #include <boost/filesystem/fstream.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
@@ -118,7 +120,14 @@ namespace bobura { namespace command
             }
 
             std::unique_ptr<timetable_type> p_timetable =
-                m_reader.read(input_stream);
+                m_reader.read(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>(input_stream)
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>()
+                    )
+                );
             if (!p_timetable)
             {
                 create_file_broken_message_box(path)->do_modal();
