@@ -557,7 +557,7 @@ typedef
     message_loop_type;
 
 typedef
-    bobura::bobura<
+    bobura::application<
         settings_type,
         model_type,
         timetable_model_message_type_list_type,
@@ -574,7 +574,7 @@ typedef
         message_loop_break_type,
         tetengo2::gui::fixture<tetengo2::detail::stub::gui_fixture>
     >
-    bobura_type;
+    application_type;
 
 
 #endif

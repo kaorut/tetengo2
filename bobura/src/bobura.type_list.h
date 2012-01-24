@@ -201,52 +201,52 @@ namespace bobura
     namespace detail { namespace model
     {
         typedef
-            ::bobura::model::station_info::local<
+            bobura::model::station_info::local<
                 boost::mpl::at<common_type_list, type::string>::type
             >
             local_type;
         typedef
-            ::bobura::model::station<
+            bobura::model::station<
                 boost::mpl::at<common_type_list, type::string>::type,
                 local_type
             >
             station_type;
         typedef
-            ::bobura::model::timetable_info::station_location<
+            bobura::model::timetable_info::station_location<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::size>::type
             >
             station_location_type;
         typedef
-            ::bobura::model::train_info::time<
+            bobura::model::train_info::time<
                 boost::mpl::at<common_type_list, type::size>::type,
-                ::bobura::model::train_info::time_span<
+                bobura::model::train_info::time_span<
                     boost::mpl::at<common_type_list, type::difference>::type
                 >
             >
             time_type;
         typedef
-            ::bobura::model::train_info::stop<
+            bobura::model::train_info::stop<
                 time_type,
                 boost::mpl::at<common_type_list, type::string>::type
             >
             stop_type;
         typedef
-            ::bobura::model::train<
+            bobura::model::train<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 stop_type
             >
             train_type;
         typedef
-            ::bobura::model::timetable<
+            bobura::model::timetable<
                 boost::mpl::at<common_type_list, type::string>::type,
                 station_location_type,
                 train_type
             >
             timetable_type;
         typedef
-            ::bobura::message::timetable_model_observer_set<
+            message::timetable_model_observer_set<
                 timetable_type,
                 boost::mpl::at<common_type_list, type::path>::type
             >
@@ -259,7 +259,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::model,
-                ::bobura::timetable_model<
+                timetable_model<
                     detail::model::timetable_type,
                     boost::mpl::at<common_type_list, type::path>::type,
                     detail::model::timetable_model_observer_set_type
@@ -270,7 +270,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::reader,
-                ::bobura::model::serializer::json_reader<
+                model::serializer::json_reader<
                     detail::model::timetable_type
                 >
             >,
@@ -843,7 +843,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::command_type_list,
-                ::bobura::command::type_list<
+                command::type_list<
                     boost::mpl::at<ui_type_list, type::window>::type,
                     boost::mpl::at<
                         common_dialog_type_list, type::message_box
@@ -964,7 +964,7 @@ namespace bobura
     namespace detail { namespace application
     {
         typedef
-            ::bobura::message::timetable_model::type_list<
+            message::timetable_model::type_list<
                 boost::mpl::at<model_type_list, type::timetable>::type,
                 boost::mpl::at<common_type_list, type::path>::type,
                 boost::mpl::at<
@@ -980,7 +980,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::application,
-                bobura<
+                application<
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<model_type_list, type::model>::type,
                     detail::application::model_message_type_list,

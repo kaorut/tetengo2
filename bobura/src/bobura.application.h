@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of bobura::bobura.
+    \brief The definition of bobura::application.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -56,7 +56,7 @@ namespace bobura
         typename MessageLoopBreak,
         typename GuiFixture
     >
-    class bobura : private boost::noncopyable
+    class application : private boost::noncopyable
     {
     public:
         // types
@@ -114,7 +114,7 @@ namespace bobura
 
             \param settings Settings of the bobura.
         */
-        explicit bobura(const settings_type& settings)
+        explicit application(const settings_type& settings)
         :
         m_gui_fixture(),
         m_settings(settings),
