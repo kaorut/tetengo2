@@ -122,6 +122,8 @@ namespace
         "[\n"
         "    {\n"
         "    },\n"
+        "    [],\n"
+        "    [],\n"
         "    []\n"
         "]\n";
 
@@ -130,8 +132,9 @@ namespace
         "    {\n"
         "        \"title\": \"hoge\"\n"
         "    },\n"
-        "    [\n"
-        "    ]\n"
+        "    [],\n"
+        "    [],\n"
+        "    []\n"
         "]\n";
 
     const std::string json4 =
@@ -151,7 +154,9 @@ namespace
         "            \"grade\":    \"principal\",\n"
         "            \"meterage\": 4242\n"
         "        }\n"
-        "    ]\n"
+        "    ],\n"
+        "    [],\n"
+        "    []\n"
         "]\n";
 
     const std::string json5 =
@@ -164,6 +169,46 @@ namespace
         "            \"name\":     \"stationA\",\n"
         "            \"grade\":    \"hoge\",\n"
         "            \"meterage\": 42\n"
+        "        }\n"
+        "    ],\n"
+        "    [],\n"
+        "    []\n"
+        "]\n";
+
+    const std::string json6 =
+        "[\n"
+        "    {\n"
+        "        \"title\": \"hoge\"\n"
+        "    },\n"
+        "    [\n"
+        "        {\n"
+        "            \"name\":     \"stationA\",\n"
+        "            \"grade\":    \"local\",\n"
+        "            \"meterage\": 42\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\":     \"stationB\",\n"
+        "            \"grade\":    \"principal\",\n"
+        "            \"meterage\": 4242\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
+        "            \"number\": \"101D\",\n"
+        "            \"note\":   \"fuga\",\n"
+        "            \"stops\":  []\n"
+        "        },\n"
+        "        {\n"
+        "            \"number\": \"123D\",\n"
+        "            \"note\":   \"\",\n"
+        "            \"stops\":  []\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
+        "            \"number\": \"9324M\",\n"
+        "            \"note\":   \"piyo\",\n"
+        "            \"stops\":  []\n"
         "        }\n"
         "    ]\n"
         "]\n";
@@ -244,6 +289,30 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 json_reader.read(json5.begin(), json5.end());
 
             BOOST_CHECK(!p_timetable);
+        }
+        {
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(json6.begin(), json6.end());
+
+            BOOST_CHECK(p_timetable);
+            BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 2U);
+            {
+                const train_type& train = p_timetable->down_trains()[0];
+                BOOST_CHECK(train.number() == "101D");
+                BOOST_CHECK(train.note() == "fuga");
+            }
+            {
+                const train_type& train = p_timetable->down_trains()[1];
+                BOOST_CHECK(train.number() == "123D");
+                BOOST_CHECK(train.note() == "");
+            }
+            BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 1U);
+            {
+                const train_type& train = p_timetable->up_trains()[0];
+                BOOST_CHECK(train.number() == "9324M");
+                BOOST_CHECK(train.note() == "piyo");
+            }
+
         }
     }
 
