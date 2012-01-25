@@ -208,14 +208,22 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             BOOST_CHECK(p_timetable);
             BOOST_CHECK(p_timetable->title() == "hoge");
             BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 2U);
-            BOOST_CHECK(
-                p_timetable->station_locations()[0].station().name() ==
-                "stationA"
-            );
-            BOOST_CHECK(
-                p_timetable->station_locations()[1].station().name() ==
-                "stationB"
-            );
+            {
+                const station_location_type& station_location =
+                    p_timetable->station_locations()[0];
+                const station_type& station = station_location.station();
+                BOOST_CHECK(station.name() == "stationA");
+                BOOST_CHECK(station.grade().name() == "local");
+                BOOST_CHECK_EQUAL(station_location.meterage(), 42U);
+            }
+            {
+                const station_location_type& station_location =
+                    p_timetable->station_locations()[1];
+                const station_type& station = station_location.station();
+                BOOST_CHECK(station.name() == "stationB");
+                BOOST_CHECK(station.grade().name() == "principal");
+                BOOST_CHECK_EQUAL(station_location.meterage(), 4242U);
+            }
         }
     }
 

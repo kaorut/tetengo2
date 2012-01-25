@@ -289,7 +289,7 @@ namespace bobura { namespace model { namespace serializer
                 name = member->second;
             }
 
-            string_type grade;
+            const station_grade_type* p_grade = NULL;
             {
                 const boost::optional<std::pair<string_type, string_type>>
                 member = read_string_member(pull_parser);
@@ -298,7 +298,9 @@ namespace bobura { namespace model { namespace serializer
                 if (member->first != string_type(TETENGO2_TEXT("grade")))
                     return boost::none;
 
-                grade = member->second;
+                p_grade = to_station_grade(member->second);
+                if (!p_grade)
+                    return boost::none;
             }
 
             meterage_type meterage = 0;
@@ -324,14 +326,38 @@ namespace bobura { namespace model { namespace serializer
             pull_parser.next();
 
             return boost::make_optional(
-                station_location_type(
-                    station_type(
-                        name,
-                        station_grade_type_set_type::local_type::instance()
-                    ),
-                    meterage
-                )
+                station_location_type(station_type(name, *p_grade), meterage)
             );
+        }
+
+        static const station_grade_type* to_station_grade(
+            const string_type& name
+        )
+        {
+            if      (name == string_type(TETENGO2_TEXT("local")))
+            {
+                return
+                    &station_grade_type_set_type::local_type::instance();
+            }
+            else if (name == string_type(TETENGO2_TEXT("principal")))
+            {
+                return
+                    &station_grade_type_set_type::principal_type::instance();
+            }
+            else if (name == string_type(TETENGO2_TEXT("local_terminal")))
+            {
+                return
+                    &station_grade_type_set_type::local_terminal_type::instance();
+            }
+            else if (name == string_type(TETENGO2_TEXT("principal_terminal")))
+            {
+                return
+                    &station_grade_type_set_type::principal_terminal_type::instance();
+            }
+            else
+            {
+                return NULL;
+            }
         }
 
         static boost::optional<std::pair<string_type, string_type>>
