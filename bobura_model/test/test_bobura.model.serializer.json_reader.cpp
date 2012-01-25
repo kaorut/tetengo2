@@ -154,6 +154,20 @@ namespace
         "    ]\n"
         "]\n";
 
+    const std::string json5 =
+        "[\n"
+        "    {\n"
+        "        \"title\": \"hoge\"\n"
+        "    },\n"
+        "    [\n"
+        "        {\n"
+        "            \"name\":     \"stationA\",\n"
+        "            \"grade\":    \"hoge\",\n"
+        "            \"meterage\": 42\n"
+        "        }\n"
+        "    ]\n"
+        "]\n";
+
 
 }
 
@@ -224,6 +238,12 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 BOOST_CHECK(station.grade().name() == "principal");
                 BOOST_CHECK_EQUAL(station_location.meterage(), 4242U);
             }
+        }
+        {
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(json5.begin(), json5.end());
+
+            BOOST_CHECK(!p_timetable);
         }
     }
 
