@@ -25,9 +25,13 @@ BOOST_AUTO_TEST_SUITE(station_location)
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
+        
+        typedef
+            bobura::model::station_info::grade_type_set<std::wstring>
+            grade_type_set_type;
+        typedef grade_type_set_type::grade_type grade_type;
+        typedef grade_type_set_type::local_type local_type;
+        typedef bobura::model::station<std::wstring, grade_type> station_type;
 
         {
             const bobura::model::timetable_info::station_location<
@@ -42,8 +46,12 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
+        typedef
+            bobura::model::station_info::grade_type_set<std::wstring>
+            grade_type_set_type;
+        typedef grade_type_set_type::grade_type grade_type;
+        typedef grade_type_set_type::local_type local_type;
+        typedef bobura::model::station<std::wstring, grade_type> station_type;
 
         {
             const bobura::model::timetable_info::station_location<
@@ -79,8 +87,12 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
+        typedef
+            bobura::model::station_info::grade_type_set<std::wstring>
+            grade_type_set_type;
+        typedef grade_type_set_type::grade_type grade_type;
+        typedef grade_type_set_type::local_type local_type;
+        typedef bobura::model::station<std::wstring, grade_type> station_type;
 
         const station_type station(L"", local_type::instance());
         const bobura::model::timetable_info::station_location<
@@ -94,8 +106,12 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
+        typedef
+            bobura::model::station_info::grade_type_set<std::wstring>
+            grade_type_set_type;
+        typedef grade_type_set_type::grade_type grade_type;
+        typedef grade_type_set_type::local_type local_type;
+        typedef bobura::model::station<std::wstring, grade_type> station_type;
 
         {
             const bobura::model::timetable_info::station_location<
@@ -130,8 +146,12 @@ BOOST_AUTO_TEST_SUITE(station_location)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef bobura::model::station<std::wstring, local_type> station_type;
+        typedef
+            bobura::model::station_info::grade_type_set<std::wstring>
+            grade_type_set_type;
+        typedef grade_type_set_type::grade_type grade_type;
+        typedef grade_type_set_type::local_type local_type;
+        typedef bobura::model::station<std::wstring, grade_type> station_type;
 
         {
             const bobura::model::timetable_info::station_location<

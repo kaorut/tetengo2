@@ -131,9 +131,13 @@ typedef
 
 typedef bobura::settings<std::wstring, boost::filesystem::path> settings_type;
 
-typedef bobura::model::station_info::local<std::wstring> local_type;
+typedef
+    bobura::model::station_info::grade_type_set<std::wstring>
+    station_grade_type_set_type;
 
-typedef bobura::model::station<std::wstring, local_type> station_type;
+typedef station_grade_type_set_type::grade_type grade_type;
+
+typedef bobura::model::station<std::wstring, grade_type> station_type;
 
 typedef
     bobura::model::timetable_info::station_location<
@@ -487,10 +491,6 @@ typedef
         about_dialog_message_type_list_type
     >
     about_dialog_type;
-
-typedef
-    bobura::model::station_info::grade_type_set<std::wstring>
-    station_grade_type_set_type;
 
 typedef
     boost::spirit::multi_pass<std::istreambuf_iterator<char>>

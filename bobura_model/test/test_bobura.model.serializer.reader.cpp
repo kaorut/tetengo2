@@ -30,26 +30,37 @@ namespace
 {
     // types
 
-    typedef bobura::model::station_info::local<std::wstring> local_type;
-    typedef bobura::model::station<std::wstring, local_type> station_type;
+    typedef
+        bobura::model::station_info::grade_type_set<std::wstring>
+        grade_type_set_type;
+
+    typedef grade_type_set_type::grade_type grade_type;
+
+    typedef bobura::model::station<std::wstring, grade_type> station_type;
+
     typedef
         bobura::model::timetable_info::station_location<
             station_type, std::size_t
         >
         station_location_type;
+
     typedef
         bobura::model::train_info::time<
             std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
         >
         time_type;
+
     typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
+
     typedef
         bobura::model::train<std::string, std::string, stop_type> train_type;
+
     typedef
         bobura::model::timetable<
             std::string, station_location_type, train_type
         >
         timetable_type;
+
     typedef
         bobura::model::serializer::reader<
             std::string::const_iterator, timetable_type

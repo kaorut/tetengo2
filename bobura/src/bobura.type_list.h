@@ -337,15 +337,11 @@ namespace bobura
                 boost::mpl::at<common_type_list, type::string>::type
             >
             station_grade_type_set_type;
-        typedef
-            bobura::model::station_info::local<
-                boost::mpl::at<common_type_list, type::string>::type
-            >
-            local_type;
+        typedef station_grade_type_set_type::grade_type grade_type;
         typedef
             bobura::model::station<
                 boost::mpl::at<common_type_list, type::string>::type,
-                local_type
+                grade_type
             >
             station_type;
         typedef

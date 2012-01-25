@@ -28,8 +28,12 @@ namespace
 {
     // types
 
-    typedef bobura::model::station_info::local<std::wstring> local_type;
-    typedef bobura::model::station<std::wstring, local_type> station_type;
+    typedef
+        bobura::model::station_info::grade_type_set<std::wstring>
+        station_grade_type_set_type;
+    typedef station_grade_type_set_type::grade_type grade_type;
+    typedef station_grade_type_set_type::local_type local_type;
+    typedef bobura::model::station<std::wstring, grade_type> station_type;
     typedef
         bobura::model::timetable_info::station_location<
             station_type, std::size_t
