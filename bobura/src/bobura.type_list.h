@@ -333,6 +333,11 @@ namespace bobura
     namespace detail { namespace model
     {
         typedef
+            bobura::model::station_info::grade_type_set<
+                boost::mpl::at<common_type_list, type::string>::type
+            >
+            station_grade_type_set_type;
+        typedef
             bobura::model::station_info::local<
                 boost::mpl::at<common_type_list, type::string>::type
             >
@@ -404,7 +409,7 @@ namespace bobura
                 type::reader,
                 model::serializer::json_reader<
                     detail::model::timetable_type,
-                    detail::model::local_type,
+                    detail::model::station_grade_type_set_type,
                     boost::mpl::at<common_type_list, type::pull_parser>::type,
                     boost::mpl::at<
                         locale_type_list, type::timetable_file_encoder

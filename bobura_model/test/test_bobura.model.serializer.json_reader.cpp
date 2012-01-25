@@ -64,6 +64,10 @@ namespace
         timetable_type;
 
     typedef
+        bobura::model::station_info::grade_type_set<std::string>
+        grade_type_set_type;
+
+    typedef
         tetengo2::text::grammar::json<std::string::const_iterator>
         grammar_type;
 
@@ -96,7 +100,7 @@ namespace
     typedef
         bobura::model::serializer::json_reader<
             timetable_type,
-            local_type,
+            grade_type_set_type,
             pull_parser_type,
             timetable_file_encoder_type
         >

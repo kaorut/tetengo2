@@ -294,6 +294,42 @@ namespace bobura { namespace model { namespace station_info
     };
 
 
+    /*!
+        \brief The class template for a grade type set.
+
+        \tparam String A string type.
+    */
+    template <typename String>
+    class grade_type_set : boost::noncopyable
+    {
+    public:
+        // types
+
+        //! The grade type.
+        typedef grade<String> grade_type;
+
+        //! The local type.
+        typedef local<String> local_type;
+
+        //! The principal type.
+        typedef principal<String> principal_type;
+
+        //! The local terminal type.
+        typedef local_terminal<String> local_terminal_type;
+
+        //! The principal terminal type.
+        typedef principal_terminal<String> principal_terminal_type;
+
+
+    private:
+        // forbidden operations
+
+        grade_type_set();
+
+
+    };
+
+
 }}}
 
 #endif

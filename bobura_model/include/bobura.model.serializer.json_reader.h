@@ -29,14 +29,14 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a JSON reader.
 
-        \tparam Timetable       A timetable type.
-        \tparam Local           A local type.
-        \tparam PullParser      A pull parser type.
-        \tparam Encoder         An encoder type.
+        \tparam Timetable           A timetable type.
+        \tparam StationGradeTypeSet A station grade type set.
+        \tparam PullParser          A pull parser type.
+        \tparam Encoder             An encoder type.
     */
     template <
         typename Timetable,
-        typename Local,
+        typename StationGradeTypeSet,
         typename PullParser,
         typename Encoder
     >
@@ -51,8 +51,8 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
-        //! The local type.
-        typedef Local local_type;
+        //! The station grade type set type.
+        typedef StationGradeTypeSet station_grade_type_set_type;
 
         //! The pull parser type.
         typedef PullParser pull_parser_type;
@@ -325,7 +325,10 @@ namespace bobura { namespace model { namespace serializer
 
             return boost::make_optional(
                 station_location_type(
-                    station_type(name, local_type::instance()),
+                    station_type(
+                        name,
+                        station_grade_type_set_type::local_type::instance()
+                    ),
                     meterage
                 )
             );
