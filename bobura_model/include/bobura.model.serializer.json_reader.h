@@ -498,6 +498,15 @@ namespace bobura { namespace model { namespace serializer
             return boost::make_optional(train);
         }
 
+        static stop_type empty_stop()
+        {
+            return stop_type(
+                time_type::uninitialized(),
+                time_type::uninitialized(),
+                string_type()
+            );
+        }
+
         static boost::optional<std::vector<stop_type>> read_stops(
             pull_parser_type& pull_parser
         )
@@ -532,6 +541,16 @@ namespace bobura { namespace model { namespace serializer
             }
             pull_parser.next();
 
+            for (;;)
+            {
+                const boost::optional<stop_type> stop =
+                    read_stop(pull_parser);
+                if (!stop)
+                    break;
+
+                stops.push_back(*stop);
+            }
+
             if (
                 !next_is_structure_end(
                     pull_parser, input_string_type(TETENGO2_TEXT("array"))
@@ -555,20 +574,80 @@ namespace bobura { namespace model { namespace serializer
             return boost::make_optional(stops);
         }
 
-        //static boost::optional<stop_type> read_stop(
-        //    pull_parser_type& pull_parser
-        //)
-        //{
-
-        //}
-
-        static stop_type empty_stop()
+        static boost::optional<stop_type> read_stop(
+            pull_parser_type& pull_parser
+        )
         {
-            return stop_type(
-                time_type::uninitialized(),
-                time_type::uninitialized(),
-                string_type()
+            if (
+                !next_is_structure_begin(
+                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
+                )
+            )
+            {
+                return boost::none;
+            }
+            pull_parser.next();
+
+            const boost::optional<std::ptrdiff_t> arrival_input =
+                read_integer<std::ptrdiff_t>(pull_parser);
+            if (!arrival_input)
+                return boost::none;
+            const boost::optional<time_type> arrival_time =
+                to_time(*arrival_input);
+            if (!arrival_time)
+                return boost::none;
+
+            const boost::optional<std::ptrdiff_t> departure_input =
+                read_integer<std::ptrdiff_t>(pull_parser);
+            if (!departure_input)
+                return boost::none;
+            const boost::optional<time_type> departure_time =
+                to_time(*departure_input);
+            if (!departure_time)
+                return boost::none;
+
+            const boost::optional<input_string_type> platform =
+                read_string(pull_parser);
+            if (!platform)
+                return boost::none;
+
+            if (
+                !next_is_structure_end(
+                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
+                )
+            )
+            {
+                return boost::none;
+            }
+            pull_parser.next();
+
+            return boost::make_optional(
+                stop_type(
+                    *arrival_time,
+                    *departure_time,
+                    encoder().decode(*platform)
+                )
             );
+        }
+
+        static boost::optional<time_type> to_time(const std::ptrdiff_t input)
+        {
+            if (input < 0)
+                return boost::make_optional(time_type::uninitialized());
+
+            const std::size_t hours = (input / 10000) % 100;
+            if (hours > 23)
+                return boost::none;
+
+            const std::size_t minutes = (input / 100) % 100;
+            if (minutes > 59)
+                return boost::none;
+
+            const std::size_t seconds = input % 100;
+            if (seconds > 59)
+                return boost::none;
+
+            return time_type(hours, minutes, seconds);
         }
 
         static boost::optional<std::pair<string_type, string_type>>
