@@ -157,7 +157,7 @@ typedef
     stop_type;
 
 typedef
-    bobura::model::train<std::wstring, std::string, stop_type>
+    bobura::model::train<std::wstring, std::wstring, stop_type>
     train_type;
 
 typedef
