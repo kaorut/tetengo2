@@ -9,20 +9,35 @@
 ------------------------------------------------------------------------------
 Number      : 00000132
 Added on    : 2012/01/13
-Depends on  : 00000131
+Depends on  : (none)
 Description : Add observer_set() to bobura::model::*.
-------------------------------------------------------------------------------
-Number      : 00000135
-Added on    : 2012/01/16
-Depends on  : 00000120
-Description : Create bobura::model::serializer::json_reader.
 ------------------------------------------------------------------------------
 Number      : 00000136
 Added on    : 2012/01/16
-Depends on  : 00000120
+Depends on  : (none)
 Description : Create bobura::model::serializer::json_writer.
 ------------------------------------------------------------------------------
 Number      : 00000140
+Added on    : 2012/01/26
+Depends on  : (none)
+Description : Create bobura::file_property_dialog.
+------------------------------------------------------------------------------
+Number      : 00000141
+Added on    : 2012/01/26
+Depends on  : 00000140
+Description : Create bobura::command::file_property.
+------------------------------------------------------------------------------
+Number      : 00000142
+Added on    : 2012/01/26
+Depends on  : 00000136, 00000141
+Description : Create bobura::command::save_to_file.
+------------------------------------------------------------------------------
+Number      : 00000143
+Added on    : 2012/01/26
+Depends on  : (none)
+Description : Create bobura::command::new_file.
+------------------------------------------------------------------------------
+Number      : 00000144
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
