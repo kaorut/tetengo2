@@ -347,6 +347,24 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \biref Calculates a position suitable for a dialog.
+
+            \tparam Position     A position type.
+            \tparam Widget       A widget type.
+            \tparam ParentWidget A parent widget type.
+
+            \param widget A widget.
+            \param parent A parent widget.
+
+            \return A position.
+        */
+        template <typename Position, typename Widget, typename ParentWidget>
+        static Position dialog_position(Widget& widget, ParentWidget& parent)
+        {
+            return position<Position>(parent);
+        }
+
+        /*!
             \brief Sets a dimension.
 
             \tparam Position  A position type.

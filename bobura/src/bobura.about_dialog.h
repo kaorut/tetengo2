@@ -215,14 +215,6 @@ namespace bobura
                 dimension_type(width_type(36), height_type(10))
             );
 
-            typedef tetengo2::gui::position<position_type> pos_type;
-            this->set_position(
-                position_type(
-                    pos_type::left(parent.position()) + 6,
-                    pos_type::top(parent.position()) + 6
-                )
-            );
-
             m_p_application_image = create_application_image();
             m_p_title_label = create_title_label();
             m_p_copyright_label = create_copyright_label();

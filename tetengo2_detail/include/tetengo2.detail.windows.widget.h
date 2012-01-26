@@ -638,6 +638,78 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \biref Calculates a position suitable for a dialog.
+
+            \tparam Position     A position type.
+            \tparam Widget       A widget type.
+            \tparam ParentWidget A parent widget type.
+
+            \param widget A widget.
+            \param parent A parent widget.
+
+            \return A position.
+        */
+        template <typename Position, typename Widget, typename ParentWidget>
+        static Position dialog_position(Widget& widget, ParentWidget& parent)
+        {
+            ::POINT point = {};
+            const ::LONG x_margin = ::GetSystemMetrics(SM_CYFIXEDFRAME) * 2;
+            const ::LONG y_margin = ::GetSystemMetrics(SM_CXFIXEDFRAME) * 2;
+            if (::ClientToScreen(parent.details()->first.get(), &point) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error(
+                        "Can't get parent window client area position."
+                    )
+                );
+            }
+            point.x += x_margin;
+            point.y += y_margin;
+
+            const ::HMONITOR monitor_handle =
+                ::MonitorFromPoint(point, MONITOR_DEFAULTTONEAREST);
+            ::MONITORINFO monitor_info = {};
+            monitor_info.cbSize = sizeof(::MONITORINFO);
+            if (::GetMonitorInfoW(monitor_handle, &monitor_info) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get monitor information.")
+                );
+            }
+
+            const typename Widget::dimension_type widget_dimension =
+                widget.dimension();
+            const ::LONG widget_width =
+                gui::to_pixels< ::LONG>(widget_dimension.first);
+            const ::LONG widget_height =
+                gui::to_pixels< ::LONG>(widget_dimension.second);
+            if (point.x + widget_width + x_margin > monitor_info.rcWork.right)
+                point.x = monitor_info.rcWork.right - widget_width - x_margin;
+            if (
+                point.y + widget_height + y_margin >
+                monitor_info.rcWork.bottom
+            )
+            {
+                point.y =
+                    monitor_info.rcWork.bottom - widget_height - y_margin;
+            }
+            if (point.x - x_margin < monitor_info.rcWork.left)
+                point.x = monitor_info.rcWork.left + x_margin;
+            if (point.y - y_margin < monitor_info.rcWork.top)
+                point.y = monitor_info.rcWork.top + y_margin;
+
+            typedef gui::position<Position> position_traits_type;
+            return position_traits_type::make(
+                gui::to_unit<typename position_traits_type::left_type>(
+                    point.x
+                ),
+                gui::to_unit<typename position_traits_type::top_type>(
+                    point.y
+                )
+            );
+        }
+
+        /*!
             \brief Sets a dimension.
 
             \tparam Position  A position type.

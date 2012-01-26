@@ -60,6 +60,12 @@ namespace tetengo2 { namespace gui { namespace widget
             >
             base_type;
 
+        //! The position type.
+        typedef typename base_type::position_type position_type;
+
+        //! The dimension type.
+        typedef typename base_type::dimension_type dimension_type;
+
         //! The message loop type.
         typedef typename traits_type::message_loop_type message_loop_type;
 
@@ -163,6 +169,11 @@ namespace tetengo2 { namespace gui { namespace widget
 
             this->window_observer_set().destroyed().connect(
                 TETENGO2_CPP11_BIND(message_loop_break_type(), 0)
+            );
+            this->set_position(
+                widget_details_type::template dialog_position<position_type>(
+                    *this, parent_window
+                )
             );
             this->set_visible(true);
 
