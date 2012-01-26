@@ -95,10 +95,10 @@ namespace bobura { namespace command
         void operator()()
         const
         {
-            const typename message_box_type::button_id_type selected_button =
-                create_confirm_message_box()->do_modal();
-            if (selected_button == message_box_type::button_cancel)
-                return;
+            //const typename message_box_type::button_id_type selected_button =
+            //    create_confirm_message_box()->do_modal();
+            //if (selected_button == message_box_type::button_cancel)
+            //    return;
 
             file_open_dialog_type dialog(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpen:Open")),
