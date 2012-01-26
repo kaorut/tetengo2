@@ -16,12 +16,13 @@
         "App:Bobura": "鉄道系アプリケーション建設予定地",
         
         
-        "Menu:&File":            "ファイル(&F)",
-        "Menu:File:&New":        "新規作成(&N)",
-        "Menu:File:&Open...":    "開く(&O)...",
-        "Menu:File:&Save":       "上書き保存(&S)",
-        "Menu:File:Save &As...": "名前を付けて保存(&A)...",
-        "Menu:File:E&xit":       "終了(&X)",
+        "Menu:&File":             "ファイル(&F)",
+        "Menu:File:&New":         "新規作成(&N)",
+        "Menu:File:&Open...":     "開く(&O)...",
+        "Menu:File:&Save":        "上書き保存(&S)",
+        "Menu:File:Save &As...":  "名前を付けて保存(&A)...",
+        "Menu:File:P&roperty...": "プロパティ(&R)...",
+        "Menu:File:E&xit":        "終了(&X)",
         
         "Menu:&Help":       "ヘルプ(&H)",
         "Menu:Help:&About": "バージョン情報(&A)",

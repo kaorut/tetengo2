@@ -227,6 +227,14 @@ namespace bobura
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
                     *p_popup_menu,
+                    message_catalog.get(
+                        TETENGO2_TEXT("Menu:File:P&roperty...")
+                    ),
+                    command_set.nop()
+                );
+                append_menu_separator(*p_popup_menu);
+                append_menu_command(
+                    *p_popup_menu,
                     message_catalog.get(TETENGO2_TEXT("Menu:File:E&xit")),
                     command_set.exit()
                 );
