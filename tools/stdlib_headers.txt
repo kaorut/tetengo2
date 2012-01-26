@@ -6,6 +6,7 @@
 ::COLORREF                                       Windows.h
 ::COMDLG_FILTERSPEC                              Windows.h,ShTypes.h
 ::CallWindowProcW                                Windows.h
+::ClientToScreen                                 Windows.h
 ::CoCreateInstance                               Windows.h,ObjBase.h
 ::CoInitializeEx                                 Windows.h,ObjBase.h
 ::CoTaskMemFree                                  Windows.h,ObjBase.h
@@ -40,6 +41,7 @@
 ::GetLocaleInfoA                                 Windows.h
 ::GetMessageW                                    Windows.h
 ::GetModuleHandle                                Windows.h
+::GetMonitorInfoW                                Windows.h
 ::GetObjectW                                     Windows.h
 ::GetParent                                      Windows.h
 ::GetProcAddress                                 Windows.h
@@ -47,6 +49,7 @@
 ::GetStockObject                                 Windows.h
 ::GetSysColorBrush                               Windows.h
 ::GetSystemMenu                                  Windows.h
+::GetSystemMetrics                               Windows.h
 ::GetUserDefaultLangID                           Windows.h
 ::GetWindowLongPtrW                              Windows.h
 ::GetWindowRect                                  Windows.h
@@ -61,6 +64,7 @@
 ::HICON                                          Windows.h
 ::HINSTANCE                                      Windows.h
 ::HMENU                                          Windows.h
+::HMONITOR                                       Windows.h
 ::HRESULT                                        Windows.h
 ::HWND                                           Windows.h
 ::IFileOpenDialog                                Windows.h,ShObjIdl.h
@@ -88,14 +92,17 @@
 ::LoadLibraryW                                   Windows.h
 ::MENUITEMINFO                                   Windows.h
 ::MENUITEMINFOW                                  Windows.h
+::MONITORINFO                                    Windows.h
 ::MSG                                            Windows.h
 ::MessageBoxW                                    Windows.h
+::MonitorFromPoint                               Windows.h
 ::MoveWindow                                     Windows.h
 ::MultiByteToWideChar                            Windows.h
 ::NONCLIENTMETRICSW                              Windows.h
 ::OSVERSIONINFOEXW                               Windows.h
 ::PAINTSTRUCT                                    Windows.h
 ::PCWSTR                                         Windows.h
+::POINT                                          Windows.h
 ::PostMessageW                                   Windows.h
 ::PostQuitMessage                                Windows.h
 ::RECT                                           Windows.h
@@ -336,7 +343,6 @@ std::is_convertible                              type_traits
 std::is_same                                     type_traits
 std::istream                                     istream
 std::istreambuf_iterator                         iterator
-std::istringstream                               sstream
 std::locale                                      locale
 std::locale::classic                             locale
 std::locale::global                              locale
