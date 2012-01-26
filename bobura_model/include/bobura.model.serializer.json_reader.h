@@ -9,12 +9,15 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_JSONREADER_H)
 #define BOBURA_MODEL_SERIALIZER_JSONREADER_H
 
+//#include <cstddef>
 //#include <memory>
 #include <unordered_map>
 //#include <utility>
+#include <vector>
 
 #include <boost/foreach.hpp>
 #include <boost/optional.hpp>
+#include <boost/variant.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
