@@ -218,6 +218,67 @@ namespace
         "    ]\n"
         "]\n";
 
+    const std::string json7 =
+        "[\n"
+        "    {\n"
+        "        \"title\": \"hoge\"\n"
+        "    },\n"
+        "    [\n"
+        "        {\n"
+        "            \"name\":     \"stationA\",\n"
+        "            \"grade\":    \"local\",\n"
+        "            \"meterage\": 42\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\":     \"stationB\",\n"
+        "            \"grade\":    \"principal\",\n"
+        "            \"meterage\": 4242\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
+        "            \"number\": \"123D\",\n"
+        "            \"note\":   \"\",\n"
+        "            \"stops\":  [\n"
+        "                [    -1,  66030, \"1\"],\n"
+        "                [ 60545,     -1, \"\"]\n"
+        "            ]\n"
+        "        }\n"
+        "    ],\n"
+        "    []\n"
+        "]\n";
+
+    const std::string json8 =
+        "[\n"
+        "    {\n"
+        "        \"title\": \"hoge\"\n"
+        "    },\n"
+        "    [\n"
+        "        {\n"
+        "            \"name\":     \"stationA\",\n"
+        "            \"grade\":    \"local\",\n"
+        "            \"meterage\": 42\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\":     \"stationB\",\n"
+        "            \"grade\":    \"principal\",\n"
+        "            \"meterage\": 4242\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
+        "            \"number\": \"123D\",\n"
+        "            \"note\":   \"\",\n"
+        "            \"stops\":  [\n"
+        "                [    -1,  60030, \"1\"],\n"
+        "                [ 60230,  60315, \"\"],\n"
+        "                [ 60545,     -1, \"\"]\n"
+        "            ]\n"
+        "        }\n"
+        "    ],\n"
+        "    []\n"
+        "]\n";
+
 
 }
 
@@ -305,19 +366,80 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                 const train_type& train = p_timetable->down_trains()[0];
                 BOOST_CHECK(train.number() == "101D");
                 BOOST_CHECK(train.note() == "fuga");
+                const train_type::stops_type& stops = train.stops();
+                BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+                {
+                    const stop_type& stop = stops[0];
+                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(
+                        stop.departure() == time_type::uninitialized()
+                    );
+                    BOOST_CHECK(stop.platform().empty());
+                }
+                {
+                    const stop_type& stop = stops[1];
+                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(
+                        stop.departure() == time_type::uninitialized()
+                    );
+                    BOOST_CHECK(stop.platform().empty());
+                }
             }
             {
                 const train_type& train = p_timetable->down_trains()[1];
                 BOOST_CHECK(train.number() == "123D");
-                BOOST_CHECK(train.note() == "");
+                BOOST_CHECK(train.note().empty());
+                const train_type::stops_type& stops = train.stops();
+                BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+                {
+                    const stop_type& stop = stops[0];
+                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(stop.departure() == time_type(6, 0, 30));
+                    BOOST_CHECK(stop.platform() == "1");
+                }
+                {
+                    const stop_type& stop = stops[1];
+                    BOOST_CHECK(stop.arrival() == time_type(6, 5, 45));
+                    BOOST_CHECK(
+                        stop.departure() == time_type::uninitialized()
+                    );
+                    BOOST_CHECK(stop.platform().empty());
+                }
             }
             BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 1U);
             {
                 const train_type& train = p_timetable->up_trains()[0];
                 BOOST_CHECK(train.number() == "9324M");
                 BOOST_CHECK(train.note() == "piyo");
+                const train_type::stops_type& stops = train.stops();
+                BOOST_CHECK_EQUAL(train.stops().size(), 2U);
+                {
+                    const stop_type& stop = stops[0];
+                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(stop.departure() == time_type(6, 20, 0));
+                    BOOST_CHECK(stop.platform() == "0A");
+                }
+                {
+                    const stop_type& stop = stops[1];
+                    BOOST_CHECK(stop.arrival() == time_type::uninitialized());
+                    BOOST_CHECK(
+                        stop.departure() == time_type::uninitialized()
+                    );
+                    BOOST_CHECK(stop.platform().empty());
+                }
             }
+        }
+        {
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(json7.begin(), json7.end());
 
+            BOOST_CHECK(!p_timetable);
+        }
+        {
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(json8.begin(), json8.end());
+
+            BOOST_CHECK(!p_timetable);
         }
     }
 

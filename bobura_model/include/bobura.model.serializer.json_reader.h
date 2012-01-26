@@ -474,13 +474,11 @@ namespace bobura { namespace model { namespace serializer
                 read_stops(pull_parser);
             if (!stops)
                 return boost::none;
-            for (
-                std::size_t i = 0;
-                i < station_count && i < stops->size();
-                ++i
-            )
+            if (stops->size() > station_count)
+                return boost::none;
+            BOOST_FOREACH(const stop_type& stop, *stops)
             {
-                train.insert_stop(train.stops().end(), (*stops)[i]);
+                train.insert_stop(train.stops().end(), stop);
             }
             for (std::size_t i = stops->size(); i < station_count; ++i)
                 train.insert_stop(train.stops().end(), empty_stop());
