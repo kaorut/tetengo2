@@ -92,6 +92,7 @@
     <ClInclude Include="src\bobura.application.h" />
     <ClInclude Include="src\bobura.command.about.h" />
     <ClInclude Include="src\bobura.command.exit.h" />
+    <ClInclude Include="src\bobura.command.file_property.h" />
     <ClInclude Include="src\bobura.command.load_from_file.h" />
     <ClInclude Include="src\bobura.command.nop.h" />
     <ClInclude Include="src\bobura.command.set.h" />

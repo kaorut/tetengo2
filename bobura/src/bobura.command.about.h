@@ -17,7 +17,7 @@ namespace bobura { namespace command
     /*!
         \brief The class template for an about command.
 
-        \tparam AboutDialog    An about dialog type.
+        \tparam AboutDialog An about dialog type.
     */
     template <typename AboutDialog>
     class about

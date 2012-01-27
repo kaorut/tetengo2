@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::command::about.
+    \brief Test of class bobura::command::file_property.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -15,12 +15,12 @@
 
 #include "test_bobura.types.h"
 
-#include "bobura.command.about.h"
+#include "bobura.command.file_property.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
-BOOST_AUTO_TEST_SUITE(about)
+BOOST_AUTO_TEST_SUITE(file_property)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -29,12 +29,8 @@ BOOST_AUTO_TEST_SUITE(about)
 
         window_type parent;
         const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
-        const settings_type settings(std::move(arguments), std::move(path));
-        const bobura::command::about<about_dialog_type> about(
-            parent, message_catalog, settings
-        );
+        const bobura::command::file_property<file_property_dialog_type>
+        file_property(parent, message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -43,14 +39,10 @@ BOOST_AUTO_TEST_SUITE(about)
 
         window_type parent;
         const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
-        const settings_type settings(std::move(arguments), std::move(path));
-        bobura::command::about<about_dialog_type> about(
-            parent, message_catalog, settings
-        );
+        bobura::command::file_property<file_property_dialog_type>
+        file_property(parent, message_catalog);
 
-        about();
+        file_property();
     }
 
 

@@ -83,5 +83,8 @@
     <ClCompile Include="test\test_bobura.file_property_dialog.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.command.file_property.cpp">
+      <Filter>sources\test_bobura\command</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

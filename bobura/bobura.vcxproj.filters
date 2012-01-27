@@ -99,6 +99,9 @@
     <ClInclude Include="src\bobura.message.file_property_dialog.h">
       <Filter>headers\bobura\message</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.file_property.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
