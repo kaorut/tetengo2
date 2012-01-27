@@ -17,6 +17,7 @@
 
 #include "bobura.command.about.h"
 #include "bobura.command.exit.h"
+#include "bobura.command.file_property.h"
 #include "bobura.command.load_from_file.h"
 #include "bobura.command.nop.h"
 #include "bobura.command.type_list.h"
@@ -27,18 +28,20 @@ namespace bobura { namespace command
     /*!
         \brief The meta function for the type list of the commands.
 
-        \tparam Window         A window type.
-        \tparam MessageBox     A message box type.
-        \tparam FileOpenDialog A file open dialog type.
-        \tparam AboutDialog    An about dialog type.
-        \tparam Model          A model type.
-        \tparam Reader         A reader type.
-        \tparam MessageCatalog A message catalog type.
+        \tparam Window             A window type.
+        \tparam MessageBox         A message box type.
+        \tparam FileOpenDialog     A file open dialog type.
+        \tparam FilePropertyDialog A file property dialog type.
+        \tparam AboutDialog        An about dialog type.
+        \tparam Model              A model type.
+        \tparam Reader             A reader type.
+        \tparam MessageCatalog     A message catalog type.
     */
     template <
         typename Window,
         typename MessageBox,
         typename FileOpenDialog,
+        typename FilePropertyDialog,
         typename AboutDialog,
         typename Model,
         typename Reader,
@@ -59,6 +62,10 @@ namespace bobura { namespace command
                 boost::mpl::pair<type::exit, exit<Window>>,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
+                    type::file_property, file_property<FilePropertyDialog>
+                >,
+            tetengo2::meta::assoc_list<
+                boost::mpl::pair<
                     type::load_from_file,
                     load_from_file<
                         MessageBox,
@@ -71,7 +78,7 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::nop, nop>,
             tetengo2::meta::assoc_list_end
-            >>>>>
+            >>>>>>
             type;
 
 

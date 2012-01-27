@@ -114,6 +114,8 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void fit_to_content()
         {
+            if (this->text().empty()) return;
+
             set_client_dimension(calc_text_dimension());
         }
 

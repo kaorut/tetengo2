@@ -553,6 +553,7 @@ typedef
         window_type,
         message_box_type,
         file_open_type,
+        file_property_dialog_type,
         about_dialog_type,
         model_type,
         reader_type,

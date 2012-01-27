@@ -85,6 +85,7 @@ namespace bobura { namespace command
         :
         m_about(make_about(main_window, message_catalog, settings)),
         m_exit(make_exit(main_window)),
+        m_file_property(make_file_property(main_window, message_catalog)),
         m_load_from_file(
             make_load_from_file(main_window, model, reader, message_catalog)
         ),
@@ -117,6 +118,17 @@ namespace bobura { namespace command
         }
 
         /*!
+            \brief Returns the command file property.
+
+            \return The command.
+        */
+        const command_type& file_property()
+        const
+        {
+            return m_file_property;
+        }
+
+        /*!
             \brief Returns the command load-from-file.
 
             \return The command.
@@ -146,6 +158,8 @@ namespace bobura { namespace command
 
         const command_type m_exit;
 
+        const command_type m_file_property;
+
         const command_type m_load_from_file;
 
         const command_type m_nop;
@@ -169,6 +183,16 @@ namespace bobura { namespace command
             return typename boost::mpl::at<type_list_type, type::exit>::type(
                 main_window
             );
+        }
+
+        static command_type make_file_property(
+            main_window_type&           main_window,
+            const message_catalog_type& message_catalog
+        )
+        {
+            return typename boost::mpl::at<
+                type_list_type, type::file_property
+            >::type(main_window, message_catalog);
         }
 
         static command_type make_load_from_file(

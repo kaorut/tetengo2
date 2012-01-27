@@ -96,6 +96,7 @@
 #include "bobura.application.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
+#include "bobura.file_property_dialog.h"
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
@@ -816,14 +817,15 @@ namespace bobura
         common_dialog_type_list;
 
 
-    /**** About Dialog ******************************************************/
+    /**** Dialog ************************************************************/
 
     namespace type
     {
         struct about_dialog;   //!< The about dialog type.
+        struct file_property_dialog; //!< The file property dialog type.
     }
 
-    //! The type list for the about dialog.
+    //! The type list for the dialogs.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -847,9 +849,27 @@ namespace bobura
                     >::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::file_property_dialog,
+                file_property_dialog<
+                    boost::mpl::at<ui_type_list, type::dialog>::type,
+                    boost::mpl::at<
+                        locale_type_list, type::message_catalog
+                    >::type,
+                    boost::mpl::at<ui_type_list, type::label>::type,
+                    boost::mpl::at<ui_type_list, type::button>::type,
+                    boost::mpl::at<
+                        ui_type_list, type::transparent_background
+                    >::type,
+                    message::file_property_dialog::type_list<
+                        boost::mpl::at<ui_type_list, type::dialog>::type
+                    >::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >
-        about_dialog_type_list;
+        >>
+        dialog_type_list;
 
 
     /**** Command Type List *************************************************/
@@ -873,7 +893,10 @@ namespace bobura
                         common_dialog_type_list, type::file_open_dialog
                     >::type,
                     boost::mpl::at<
-                        about_dialog_type_list, type::about_dialog
+                        dialog_type_list, type::file_property_dialog
+                    >::type,
+                    boost::mpl::at<
+                        dialog_type_list, type::about_dialog
                     >::type,
                     boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<model_type_list, type::reader>::type,
@@ -1046,7 +1069,7 @@ namespace bobura
         boost::mpl::insert_range<
             ui_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
-            about_dialog_type_list, tetengo2::meta::assoc_list_end,
+            dialog_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
             main_window_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
