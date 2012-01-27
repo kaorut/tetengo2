@@ -14,6 +14,7 @@
 #include <tetengo2.meta.assoc_list.h>
 
 #include "bobura.message.about_dialog.h"
+#include "bobura.message.file_property_dialog.h"
 #include "bobura.message.main_window.h"
 #include "bobura.message.timetable_model.h"
 #include "bobura.message.type_list.h"
@@ -83,6 +84,34 @@ namespace bobura { namespace message
                     >,
                 tetengo2::meta::assoc_list_end
                 >>
+                type;
+
+
+        };
+    }
+
+    namespace file_property_dialog
+    {
+        /*!
+            \brief The meta function for the type list of the file property
+                   dialog messages.
+
+            \tparam Dialog A dialog type.
+        */
+        template <typename Dialog>
+        class type_list
+        {
+        public:
+            // types
+
+            //! The type list for the file property dialog.
+            typedef
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::ok_button_mouse, ok_button_mouse<Dialog>
+                    >,
+                tetengo2::meta::assoc_list_end
+                >
                 type;
 
 

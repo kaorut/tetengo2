@@ -89,6 +89,7 @@
 #include "bobura.application.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
+#include "bobura.file_property_dialog.h"
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
@@ -421,10 +422,6 @@ typedef
     >
     dialog_type;
 
-typedef
-    bobura::message::about_dialog::type_list<dialog_type>::type
-    about_dialog_message_type_list_type;
-
 typedef tetengo2::gui::drawing::color<unsigned char> color_type;
 
 typedef
@@ -476,6 +473,25 @@ typedef
         button_traits_type, widget_details_type, message_handler_details_type
     >
     button_type;
+
+typedef
+    bobura::message::file_property_dialog::type_list<dialog_type>::type
+    file_property_dialog_message_type_list_type;
+
+typedef
+    bobura::file_property_dialog<
+        dialog_type,
+        message_catalog_type,
+        label_type,
+        button_type,
+        transparent_background_type,
+        file_property_dialog_message_type_list_type
+    >
+    file_property_dialog_type;
+
+typedef
+    bobura::message::about_dialog::type_list<dialog_type>::type
+    about_dialog_message_type_list_type;
 
 typedef
     bobura::about_dialog<

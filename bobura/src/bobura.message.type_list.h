@@ -29,6 +29,14 @@ namespace bobura { namespace message
         }
     }
 
+    namespace file_property_dialog
+    {
+        namespace type
+        {
+            struct ok_button_mouse; //!< The OK button mouse observer type.
+        }
+    }
+
     namespace about_dialog
     {
         namespace type

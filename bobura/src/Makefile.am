@@ -11,8 +11,10 @@ extra_headers = \
     bobura.command.nop.h \
     bobura.command.type_list.h \
     bobura.command.type_list_impl.h \
+    bobura.file_property_dialog.h \
     bobura.main_window.h \
     bobura.message.about_dialog.h \
+    bobura.message.file_property_dialog_dialog.h \
     bobura.message.main_window.h \
     bobura.message.timetable_model.h \
     bobura.message.timetable_model_observer_set.h \

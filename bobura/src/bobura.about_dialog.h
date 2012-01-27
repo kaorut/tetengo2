@@ -68,12 +68,6 @@ namespace bobura
         //! The background type.
         typedef typename base_type::background_type background_type;
 
-        //! The system cursor type.
-        typedef typename base_type::system_cursor_type system_cursor_type;
-
-        //! The cursor type.
-        typedef typename base_type::cursor_type cursor_type;
-
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
@@ -163,27 +157,6 @@ namespace bobura
         typedef
             typename tetengo2::gui::position<position_type>::top_type
             top_type;
-
-
-        // static functions
-
-        struct exception_thrower
-        {
-            const std::string m_message;
-
-            exception_thrower(const std::string& message)
-            :
-            m_message(message)
-            {}
-
-            void operator()()
-            const
-            {
-                BOOST_THROW_EXCEPTION(std::runtime_error(m_message));
-            }
-
-
-        };
 
 
         // variables

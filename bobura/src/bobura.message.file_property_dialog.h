@@ -1,16 +1,16 @@
 /*! \file
-    \brief The definition of bobura::message::about_dialog.
+    \brief The definition of bobura::message::file_property_dialog.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_MESSAGE_ABOUTDIALOG_H)
-#define BOBURA_MESSAGE_ABOUTDIALOG_H
+#if !defined(BOBURA_MESSAGE_FILEPROPERTYDIALOG_H)
+#define BOBURA_MESSAGE_FILEPROPERTYDIALOG_H
 
 
-namespace bobura { namespace message { namespace about_dialog
+namespace bobura { namespace message { namespace file_property_dialog
 {
      /*!
         \brief The class template for a mouse observer of the OK button.
