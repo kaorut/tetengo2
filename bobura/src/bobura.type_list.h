@@ -70,6 +70,7 @@
 #include <tetengo2.gui.widget.image.h>
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
+#include <tetengo2.gui.widget.text_box.h>
 #include <tetengo2.gui.widget.abstract_window.h>
 #include <tetengo2.gui.widget.traits.abstract_window_traits.h>
 #include <tetengo2.gui.widget.traits.button_traits.h>
@@ -78,6 +79,7 @@
 #include <tetengo2.gui.widget.traits.image_traits.h>
 #include <tetengo2.gui.widget.traits.label_traits.h>
 #include <tetengo2.gui.widget.traits.link_label_traits.h>
+#include <tetengo2.gui.widget.traits.text_box_traits.h>
 #include <tetengo2.gui.widget.traits.widget_traits.h>
 #include <tetengo2.gui.widget.traits.window_traits.h>
 #include <tetengo2.gui.widget.window.h>
@@ -437,6 +439,7 @@ namespace bobura
         struct dialog;         //!< The dialog type.
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
+        struct text_box;       //!< The text box type.
         struct image;          //!< The image type.
         struct button;         //!< The button type.
         struct message_loop;   //!< The message loop type.
@@ -702,6 +705,18 @@ namespace bobura
                 message_handler_details_type
             >
             button_type;
+        typedef
+            tetengo2::gui::widget::traits::text_box_traits<
+                control_traits_type
+            >
+            text_box_traits_type;
+        typedef
+            tetengo2::gui::widget::text_box<
+                text_box_traits_type,
+                widget_details_type,
+                message_handler_details_type
+            >
+            text_box_type;
     }}
 #endif
 
@@ -764,6 +779,8 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::button, detail::ui::button_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::text_box, detail::ui::text_box_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::message_loop, detail::ui::message_loop_type
             >,
@@ -777,7 +794,7 @@ namespace bobura
                 detail::ui::transparent_background_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -858,6 +875,7 @@ namespace bobura
                         locale_type_list, type::message_catalog
                     >::type,
                     boost::mpl::at<ui_type_list, type::label>::type,
+                    boost::mpl::at<ui_type_list, type::text_box>::type,
                     boost::mpl::at<ui_type_list, type::button>::type,
                     boost::mpl::at<
                         ui_type_list, type::transparent_background

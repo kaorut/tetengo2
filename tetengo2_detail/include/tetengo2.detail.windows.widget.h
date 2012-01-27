@@ -403,8 +403,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::CreateWindowExW(
                     0,
                     L"Edit",
-                    L"tetengo2_text_box",
-                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | SS_NOTIFY,
+                    L"",
+                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | WS_BORDER,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,

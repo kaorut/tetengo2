@@ -1,5 +1,5 @@
 /*! \file
-    \brief The definition of tetengo2::gui::widget::traits::textbox_traits.
+    \brief The definition of tetengo2::gui::widget::traits::text_box_traits.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -18,7 +18,7 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \tparam ControlTraits A traits type for a control.
    */
     template <typename ControlTraits>
-    struct textbox_traits
+    struct text_box_traits
     {
         //types
 

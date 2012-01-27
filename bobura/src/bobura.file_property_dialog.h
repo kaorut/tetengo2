@@ -31,6 +31,7 @@ namespace bobura
         \tparam Dialog                            A dialog type.
         \tparam MessageCatalog                    A message catalog type.
         \tparam Label                             A label type.
+        \tparam TextBox                           A text box type.
         \tparam Button                            A button type.
         \tparam TransparentBackground             A transparent background
                                                   type.
@@ -40,6 +41,7 @@ namespace bobura
         typename Dialog,
         typename MessageCatalog,
         typename Label,
+        typename TextBox,
         typename Button,
         typename TransparentBackground,
         typename FilePropertyDialogMessageTypeList
@@ -63,6 +65,9 @@ namespace bobura
 
         //! The label type.
         typedef Label label_type;
+
+        //! The text box type.
+        typedef TextBox text_box_type;
 
         //! The button type.
         typedef Button button_type;
@@ -92,6 +97,7 @@ namespace bobura
         base_type(parent),
         m_message_catalog(message_catalog),
         m_p_title_label(),
+        m_p_title_text_box(),
         m_p_ok_button()
         {
             initialize_dialog(parent);
@@ -135,6 +141,8 @@ namespace bobura
 
         std::unique_ptr<label_type> m_p_title_label;
 
+        std::unique_ptr<text_box_type> m_p_title_text_box;
+
         std::unique_ptr<button_type> m_p_ok_button;
 
 
@@ -153,6 +161,7 @@ namespace bobura
             );
 
             m_p_title_label = create_title_label();
+            m_p_title_text_box = create_title_text_box();
             m_p_ok_button = create_ok_button();
 
             locate_controls();
@@ -183,6 +192,17 @@ namespace bobura
             return std::move(p_label);
         }
 
+        std::unique_ptr<text_box_type> create_title_text_box()
+        {
+            std::unique_ptr<text_box_type> p_text_box(
+                tetengo2::make_unique<text_box_type>(*this)
+            );
+
+            //p_label->set_text(typename base_type::string_type());
+
+            return std::move(p_text_box);
+        }
+
         std::unique_ptr<button_type> create_ok_button()
         {
             std::unique_ptr<button_type> p_button(
@@ -211,6 +231,13 @@ namespace bobura
             m_p_title_label->fit_to_content();
             m_p_title_label->set_position(
                 position_type(label_left, top_type(1))
+            );
+
+            m_p_title_text_box->set_dimension(
+                dimension_type(width_type(10), height_type(2))
+            );
+            m_p_title_text_box->set_position(
+                position_type(label_left, top_type(3))
             );
 
             m_p_ok_button->set_dimension(

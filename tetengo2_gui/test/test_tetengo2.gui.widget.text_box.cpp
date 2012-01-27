@@ -166,7 +166,7 @@ namespace
         control_traits_type;
 
     typedef
-        tetengo2::gui::widget::traits::textbox_traits<control_traits_type>
+        tetengo2::gui::widget::traits::text_box_traits<control_traits_type>
         text_box_traits_type;
 
     typedef tetengo2::detail::stub::widget widget_details_type;
