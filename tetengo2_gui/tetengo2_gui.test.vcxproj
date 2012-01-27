@@ -137,6 +137,7 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.image.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.label.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.link_label.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.widget.text_box.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.widget.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.widget.window.cpp" />
   </ItemGroup>

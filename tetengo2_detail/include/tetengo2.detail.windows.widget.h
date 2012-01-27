@@ -388,6 +388,49 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Creates a text box.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget.
+
+            \return A unique pointer to a text box.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_text_box(Widget& parent)
+        {
+            typename widget_details_type::first_type p_widget(
+                ::CreateWindowExW(
+                    0,
+                    L"Edit",
+                    L"tetengo2_text_box",
+                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | SS_NOTIFY,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    const_cast< ::HWND>(parent.details()->first.get()),
+                    NULL,
+                    ::GetModuleHandle(NULL),
+                    NULL
+                )
+            );
+            if (!p_widget)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a text box!")
+                );
+            }
+
+            const ::WNDPROC p_original_window_procedure =
+                replace_window_procedure<Widget>(p_widget.get());
+
+            return make_unique<widget_details_type>(
+                std::move(p_widget), p_original_window_procedure
+            );
+        }
+
+        /*!
             \brief Associates a widget to the native window system.
 
             \tparam Widget A widget type.

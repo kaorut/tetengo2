@@ -160,6 +160,21 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Creates a text box.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget.
+
+            \return A unique pointer to a text box.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_text_box(Widget& parent)
+        {
+            return create_details<Widget>(&parent);
+        }
+
+        /*!
             \brief Associates a widget to the native window system.
 
             \tparam Widget A widget type.

@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::widget::label.
+    \brief Test of class tetengo2::gui::widget::text_box.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -43,14 +43,14 @@
 #include "tetengo2.gui.widget.abstract_window.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
 #include "tetengo2.gui.widget.traits.control_traits.h"
-#include "tetengo2.gui.widget.traits.label_traits.h"
+#include "tetengo2.gui.widget.traits.text_box_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.gui.widget.traits.window_traits.h"
 #include "tetengo2.gui.widget.window.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 
-#include "tetengo2.gui.widget.label.h"
+#include "tetengo2.gui.widget.text_box.h"
 
 
 namespace
@@ -166,8 +166,8 @@ namespace
         control_traits_type;
 
     typedef
-        tetengo2::gui::widget::traits::label_traits<control_traits_type>
-        label_traits_type;
+        tetengo2::gui::widget::traits::textbox_traits<control_traits_type>
+        text_box_traits_type;
 
     typedef tetengo2::detail::stub::widget widget_details_type;
 
@@ -176,12 +176,12 @@ namespace
         message_handler_details_type;
 
     typedef
-        tetengo2::gui::widget::label<
-            label_traits_type,
+        tetengo2::gui::widget::text_box<
+            text_box_traits_type,
             widget_details_type,
             message_handler_details_type
         >
-        label_type;
+        text_box_type;
 
     typedef
         tetengo2::gui::menu::shortcut_key<
@@ -247,7 +247,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(widget)
-BOOST_AUTO_TEST_SUITE(label)
+BOOST_AUTO_TEST_SUITE(text_box)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -255,24 +255,7 @@ BOOST_AUTO_TEST_SUITE(label)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const label_type label(parent);
-    }
-
-    BOOST_AUTO_TEST_CASE(fit_to_content)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type parent;
-        label_type label(parent);
-        label.set_text(L"Tetengo");
-
-        label.fit_to_content();
-
-        const dimension_type dimension = label.dimension();
-
-        const dimension_type answer_dimension =
-            label.create_canvas()->calc_text_dimension(L"Tetengo");
-        BOOST_CHECK(dimension == answer_dimension);
+        const text_box_type text_box(parent);
     }
 
 

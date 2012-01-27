@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::widget::label.
+    \brief The definition of tetengo2::gui::widget::text_box.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_WIDGET_LABEL_H)
-#define TETENGO2_GUI_WIDGET_LABEL_H
+#if !defined(TETENGO2_GUI_WIDGET_TEXTBOX_H)
+#define TETENGO2_GUI_WIDGET_TEXTBOX_H
 
 //#include <stdexcept>
 
@@ -19,7 +19,7 @@
 namespace tetengo2 { namespace gui { namespace widget
 {
     /*!
-        \brief The class template for a label.
+        \brief The class template for a text box.
 
         \tparam Traits                A traits type.
         \tparam WidgetDetails         A detail implementation type of a
@@ -32,7 +32,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typename WidgetDetails,
         typename MessageHandlerDetails
     >
-    class label :
+    class text_box :
         public control<
             typename Traits::base_type, WidgetDetails, MessageHandlerDetails
         >
@@ -74,23 +74,23 @@ namespace tetengo2 { namespace gui { namespace widget
         // constructors and destructor
 
         /*!
-            \brief Creates a label.
+            \brief Creates a text box.
 
             \param parent A parent widget.
 
-            \throw std::runtime_error When a label cannot be created.
+            \throw std::runtime_error When a text box cannot be created.
         */
-        explicit label(widget_type& parent)
+        explicit text_box(widget_type& parent)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         base_type(
-            message_handler_details_type::make_label_message_handler_map(
+            message_handler_details_type::make_text_box_message_handler_map(
                 *this, message_handler_map_type()
             ),
-            widget_details_type::create_label(parent)
+            widget_details_type::create_text_box(parent)
         )
 #if defined(_MSC_VER)
 #   pragma warning(pop)
@@ -100,54 +100,19 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
-            \brief Destroys the label.
+            \brief Destroys the text box.
         */
-        virtual ~label()
+        virtual ~text_box()
         TETENGO2_CPP11_NOEXCEPT
         {}
-
-
-        // functions
-
-        /*!
-            \brief Fit the dimension to the dimension of the text.
-        */
-        void fit_to_content()
-        {
-            if (this->text().empty()) return;
-
-            set_client_dimension(calc_text_dimension());
-        }
 
 
     private:
         // types
 
-        typedef typename base_type::canvas_type canvas_type;
-
-        typedef typename base_type::dimension_type dimension_type;
-
         typedef
             typename message_handler_details_type::message_handler_map_type
             message_handler_map_type;
-
-
-        // functions
-
-        dimension_type calc_text_dimension()
-        const
-        {
-            return widget_details_type::template use_canvas<
-                canvas_type, dimension_type
-            >(
-                *this,
-                TETENGO2_CPP11_BIND(
-                    &canvas_type::calc_text_dimension,
-                    cpp11::placeholders_1(),
-                    cpp11::cref(this->text())
-                )
-            );
-        }
 
 
     };

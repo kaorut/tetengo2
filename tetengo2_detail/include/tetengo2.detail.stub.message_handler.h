@@ -196,6 +196,25 @@ namespace tetengo2 { namespace detail { namespace stub
             return std::forward<message_handler_map_type>(initial_map);
         }
 
+        /*!
+            \brief Make a message handler map for a text box.
+
+            \tparam TextBox A text box type.
+
+            \param text_box    A text box.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename TextBox>
+        static message_handler_map_type make_text_box_message_handler_map(
+            TextBox&                   text_box,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::forward<message_handler_map_type>(initial_map);
+        }
+
 
     private:
         // forbidden operations

@@ -179,5 +179,8 @@
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.message_box.cpp">
       <Filter>sources\test_tetengo2::gui\common_dialog</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.widget.text_box.cpp">
+      <Filter>sources\test_tetengo2::gui\widget</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
