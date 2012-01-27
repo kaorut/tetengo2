@@ -33,6 +33,8 @@
         "Dialog:FileOpen:Timetable Files (Compressed)": "時刻表ファイル（圧縮）",
         "Dialog:FileOpen:All Files":                    "すべてのファイル",
         
+        "Dialog:FileProperty:File Property": "ファイルのプロパティ",
+        
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",
         
