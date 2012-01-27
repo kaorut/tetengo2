@@ -444,9 +444,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The cursor.
         */
-        const cursor_type& cursor()
+        boost::optional<const cursor_type&> cursor()
         const
         {
+            if (!m_p_cursor)
+                return boost::none;
+
             return *m_p_cursor;
         }
 
@@ -698,7 +701,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         m_destroyed(false),
         m_p_background(),
-        m_p_cursor(create_initial_cursor()),
+        m_p_cursor(),
         m_paint_observer_set(),
         m_mouse_observer_set()
         {}
@@ -710,16 +713,6 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename gui::position<position_type>::left_type left_type;
 
         typedef typename gui::position<position_type>::top_type top_type;
-
-
-        // static functions
-
-        static std::unique_ptr<cursor_type> create_initial_cursor()
-        {
-            return make_unique<system_cursor_type>(
-                system_cursor_type::style_default
-            );
-        }
 
 
         // variables

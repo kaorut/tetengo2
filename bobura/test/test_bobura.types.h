@@ -65,6 +65,7 @@
 #include <tetengo2.gui.widget.image.h>
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
+#include <tetengo2.gui.widget.text_box.h>
 #include <tetengo2.gui.widget.traits.abstract_window_traits.h>
 #include <tetengo2.gui.widget.traits.button_traits.h>
 #include <tetengo2.gui.widget.traits.control_traits.h>
@@ -72,6 +73,7 @@
 #include <tetengo2.gui.widget.traits.image_traits.h>
 #include <tetengo2.gui.widget.traits.label_traits.h>
 #include <tetengo2.gui.widget.traits.link_label_traits.h>
+#include <tetengo2.gui.widget.traits.text_box_traits.h>
 #include <tetengo2.gui.widget.traits.widget_traits.h>
 #include <tetengo2.gui.widget.traits.window_traits.h>
 #include <tetengo2.gui.widget.window.h>
@@ -475,6 +477,18 @@ typedef
     button_type;
 
 typedef
+    tetengo2::gui::widget::traits::text_box_traits<control_traits_type>
+    text_box_traits_type;
+
+typedef
+    tetengo2::gui::widget::text_box<
+        text_box_traits_type,
+        widget_details_type,
+        message_handler_details_type
+    >
+    text_box_type;
+
+typedef
     bobura::message::file_property_dialog::type_list<dialog_type>::type
     file_property_dialog_message_type_list_type;
 
@@ -483,6 +497,7 @@ typedef
         dialog_type,
         message_catalog_type,
         label_type,
+        text_box_type,
         button_type,
         transparent_background_type,
         file_property_dialog_message_type_list_type

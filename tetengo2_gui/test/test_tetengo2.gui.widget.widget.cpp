@@ -578,14 +578,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         const concrete_widget widget;
 
-        const widget_type::cursor_type& cursor = widget.cursor();
-
-        BOOST_REQUIRE(dynamic_cast<const system_cursor_type*>(&cursor));
-
-        BOOST_CHECK(
-            dynamic_cast<const system_cursor_type&>(cursor).style() ==
-            system_cursor_type::style_default
-        );
+        BOOST_CHECK(!widget.cursor());
     }
 
     BOOST_AUTO_TEST_CASE(set_cursor)
@@ -601,9 +594,11 @@ BOOST_AUTO_TEST_SUITE(widget)
         );
         widget.set_cursor(std::move(p_cursor));
 
-        const widget_type::cursor_type& cursor = widget.cursor();
+        const boost::optional<const widget_type::cursor_type&> cursor =
+            widget.cursor();
+        BOOST_CHECK(cursor);
         BOOST_CHECK(
-            dynamic_cast<const system_cursor_type&>(cursor).style() ==
+            dynamic_cast<const system_cursor_type&>(*cursor).style() ==
             system_cursor_type::style_hand
         );
     }

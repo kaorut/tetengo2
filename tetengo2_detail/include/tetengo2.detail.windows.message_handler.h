@@ -99,22 +99,6 @@ namespace tetengo2 { namespace detail { namespace windows
                 return boost::make_optional(result, result);
             }
 
-            ::HCURSOR default_cursor_handle(const ::HWND window_handle)
-            {
-                const ::HCURSOR cursor_handle =
-                    reinterpret_cast< ::HCURSOR>(
-                        ::GetClassLongPtrW(window_handle, GCLP_HCURSOR)
-                    );
-                if (!cursor_handle)
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't get default cursor handle.")
-                    );
-                }
-
-                return cursor_handle;
-            }
-
             template <typename Widget>
             boost::optional< ::LRESULT> on_set_cursor(
                 Widget&        widget,
@@ -122,21 +106,14 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
-                if (
-                    LOWORD(lParam) != HTCLIENT || HIWORD(lParam) == 0
-                )
-                {
-                    ::SetCursor(
-                        default_cursor_handle(&*widget.details()->first)
-                    );
-                    return boost::make_optional< ::LRESULT>(FALSE);
-                }
+                if (!widget.cursor())
+                    return boost::none;
 
                 ::SetCursor(
-                    const_cast< ::HCURSOR>(&*widget.cursor().details())
+                    const_cast< ::HCURSOR>(&*widget.cursor()->details())
                 );
 
-                return boost::make_optional< ::LRESULT>(TRUE);
+                return boost::make_optional< ::LRESULT>(FALSE);
             }
 
             template <typename Widget>
