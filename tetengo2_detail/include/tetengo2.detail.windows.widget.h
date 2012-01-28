@@ -401,10 +401,10 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             typename widget_details_type::first_type p_widget(
                 ::CreateWindowExW(
-                    0,
+                    WS_EX_CLIENTEDGE,
                     L"Edit",
                     L"",
-                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | WS_BORDER,
+                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | ES_AUTOHSCROLL,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
