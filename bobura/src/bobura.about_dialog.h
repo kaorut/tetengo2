@@ -135,6 +135,8 @@ namespace bobura
     private:
         // types
 
+        typedef typename base_type::string_type string_type;
+
         typedef typename about_dialog::dimension_type dimension_type;
 
         typedef
@@ -202,9 +204,7 @@ namespace bobura
 
             picture_reader_type picture_reader(
                 m_settings.image_directory_path() /
-                typename picture_reader_type::path_type::string_type(
-                    TETENGO2_TEXT("kuma.png")
-                )
+                string_type(TETENGO2_TEXT("kuma.png"))
             );
             p_image->set_picture(picture_reader.read());
 
@@ -213,15 +213,14 @@ namespace bobura
 
         std::unique_ptr<label_type> create_title_label()
         {
-            typedef typename base_type::string_type::value_type char_type;
+            typedef typename string_type::value_type char_type;
             std::basic_ostringstream<char_type> title;
             title <<
                 boost::basic_format<char_type>(TETENGO2_TEXT("%s  %s %s")) %
                     m_message_catalog.get(TETENGO2_TEXT("App:Bobura")) %
                     m_message_catalog.get(
                         TETENGO2_TEXT("Dialog:About:version")
-                    ) %
-                    typename base_type::string_type(TETENGO2_TEXT("0.0.0"));
+                    ) % string_type(TETENGO2_TEXT("0.0.0"));
 
             std::unique_ptr<label_type> p_label(
                 tetengo2::make_unique<label_type>(*this)
@@ -243,9 +242,7 @@ namespace bobura
             );
 
             p_label->set_text(
-                typename base_type::string_type(
-                    TETENGO2_TEXT("Copyright (C) 2007-2012 kaoru")
-                )
+                string_type(TETENGO2_TEXT("Copyright (C) 2007-2012 kaoru"))
             );
             std::unique_ptr<background_type> p_background(
                 tetengo2::make_unique<transparent_background_type>()
@@ -262,9 +259,7 @@ namespace bobura
             );
 
             p_label->set_text(
-                typename base_type::string_type(
-                    TETENGO2_TEXT("http://www.tetengo.org/")
-                )
+                string_type(TETENGO2_TEXT("http://www.tetengo.org/"))
             );
             p_label->set_target(p_label->text());
             std::unique_ptr<background_type> p_background(

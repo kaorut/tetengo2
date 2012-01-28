@@ -169,21 +169,15 @@ namespace bobura
 
         std::unique_ptr<label_type> create_title_label()
         {
-            typedef typename base_type::string_type::value_type char_type;
-            std::basic_ostringstream<char_type> title;
-            //title <<
-            //    boost::basic_format<char_type>(TETENGO2_TEXT("%s  %s %s")) %
-            //        m_message_catalog.get(TETENGO2_TEXT("App:Bobura")) %
-            //        m_message_catalog.get(
-            //            TETENGO2_TEXT("Dialog:About:version")
-            //        ) %
-            //        typename base_type::string_type(TETENGO2_TEXT("0.0.0"));
-
             std::unique_ptr<label_type> p_label(
                 tetengo2::make_unique<label_type>(*this)
             );
 
-            p_label->set_text(title.str());
+            p_label->set_text(
+                m_message_catalog.get(
+                    TETENGO2_TEXT("Dialog:FileProperty:&Line Name")
+                )
+            );
             std::unique_ptr<background_type> p_background(
                 tetengo2::make_unique<transparent_background_type>()
             );
@@ -197,8 +191,6 @@ namespace bobura
             std::unique_ptr<text_box_type> p_text_box(
                 tetengo2::make_unique<text_box_type>(*this)
             );
-
-            //p_label->set_text(typename base_type::string_type());
 
             return std::move(p_text_box);
         }
@@ -234,10 +226,14 @@ namespace bobura
             );
 
             m_p_title_text_box->set_dimension(
-                dimension_type(width_type(10), height_type(2))
+                dimension_type(width_type(32), height_type(2))
             );
             m_p_title_text_box->set_position(
-                position_type(label_left, top_type(3))
+                position_type(
+                    label_left,
+                    m_p_title_label->position().second +
+                        m_p_title_label->dimension().second
+                )
             );
 
             m_p_ok_button->set_dimension(
