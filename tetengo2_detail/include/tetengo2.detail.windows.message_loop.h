@@ -110,15 +110,15 @@ namespace tetengo2 { namespace detail { namespace windows
                     );
                 }
 
-                if (
-                    ::IsDialogMessageW(message.hwnd, &message) != 0 ||
-                    ::IsDialogMessageW(
-                        ::GetAncestor(message.hwnd, GA_ROOT), &message
-                    ) != 0
-                )
-                {
-                    continue;
-                }
+                //if (
+                //    ::IsDialogMessageW(message.hwnd, &message) != 0 ||
+                //    ::IsDialogMessageW(
+                //        ::GetAncestor(message.hwnd, GA_ROOT), &message
+                //    ) != 0
+                //)
+                //{
+                //    continue;
+                //}
 
                 if (
                     shortcut_keys_defined(dialog) &&
