@@ -174,7 +174,7 @@ namespace tetengo2 { namespace gui { namespace menu
             {
                 BOOST_THROW_EXCEPTION(
                     std::invalid_argument(
-                        "The auto pointer to a menu is NULL."
+                        "The unique pointer to a menu is NULL."
                     )
                 );
             }

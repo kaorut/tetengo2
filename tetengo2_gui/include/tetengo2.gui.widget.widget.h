@@ -508,7 +508,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a canvas.
 
-            \return The auto pointer to a canvas.
+            \return The unique pointer to a canvas.
         */
         std::unique_ptr<canvas_type> create_canvas()
         const
