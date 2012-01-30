@@ -504,7 +504,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     )
                 };
                 ::FillRect(device_context, &rect, (::HBRUSH)::GetStockObject(WHITE_BRUSH));
-                ::DrawFocusRect(device_context, &rect);
+                if (label.focused())
+                    ::DrawFocusRect(device_context, &rect);
 
                 return result;
             }

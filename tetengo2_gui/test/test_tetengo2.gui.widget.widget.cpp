@@ -409,6 +409,26 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(focused)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_widget widget;
+
+            widget.focus_observer_set().got_focus()();
+
+            BOOST_CHECK(widget.focused());
+        }
+        {
+            concrete_widget widget;
+
+            widget.focus_observer_set().lost_focus()();
+
+            BOOST_CHECK(!widget.focused());
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(position)
     {
         BOOST_TEST_PASSPOINT();

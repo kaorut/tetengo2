@@ -254,6 +254,17 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the focused status.
+
+            \return The focused status.
+        */
+        bool focused()
+        const
+        {
+            return m_focused;
+        }
+
+        /*!
             \brief Returns the position.
 
             \return The position.
@@ -734,13 +745,17 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+        m_focused(false),
         m_destroyed(false),
         m_p_background(),
         m_p_cursor(),
         m_focus_observer_set(),
         m_paint_observer_set(),
         m_mouse_observer_set()
-        {}
+        {
+            m_focus_observer_set.got_focus().connect(got_focus(*this));
+            m_focus_observer_set.lost_focus().connect(lost_focus(*this));
+        }
 
 
     private:
@@ -750,10 +765,50 @@ namespace tetengo2 { namespace gui { namespace widget
 
         typedef typename gui::position<position_type>::top_type top_type;
 
+        class got_focus
+        {
+        public:
+            got_focus(widget& self)
+            :
+            m_self(self)
+            {}
+
+            void operator()()
+            const
+            {
+                m_self.m_focused = true;
+            }
+
+        private:
+            widget& m_self;
+
+        };
+
+        class lost_focus
+        {
+        public:
+            lost_focus(widget& self)
+            :
+            m_self(self)
+            {}
+
+            void operator()()
+            const
+            {
+                m_self.m_focused = false;
+            }
+
+        private:
+            widget& m_self;
+
+        };
+
 
         // variables
 
         const message_handler_map_type m_message_handler_map;
+
+        bool m_focused;
 
         bool m_destroyed;
 
