@@ -144,6 +144,27 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
+        class focus_changed
+        {
+        public:
+            focus_changed(link_label& self)
+            :
+            m_self(self)
+            {}
+
+            void operator()()
+            const
+            {
+                m_self.repaint();
+            }
+
+
+        private:
+            link_label& m_self;
+
+
+        };
+
         class clicked
         {
         public:
@@ -195,6 +216,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
             p_link_label->set_focusable(true);
 
+            p_link_label->focus_observer_set().got_focus().connect(
+                focus_changed(*p_link_label)
+            );
+            p_link_label->focus_observer_set().lost_focus().connect(
+                focus_changed(*p_link_label)
+            );
             p_link_label->mouse_observer_set().clicked().connect(
                 clicked(*p_link_label)
             );

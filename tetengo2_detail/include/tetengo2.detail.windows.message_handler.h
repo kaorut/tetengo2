@@ -473,6 +473,29 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
 
+        namespace label
+        {
+            template <typename Label>
+            boost::optional< ::LRESULT> on_control_color(
+                Label&         label,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                const boost::optional< ::LRESULT> result =
+                    control::on_control_color(label, wParam, lParam);
+                if (!label.focusable())
+                    return result;
+
+                const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
+                const ::RECT rect = { 0, 0, 64, 16 };
+                ::DrawFocusRect(device_context, &rect);
+
+                return result;
+            }
+        }
+
+
     }
 #endif
 
@@ -838,7 +861,20 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            message_handler_map_type map(
+                std::forward<message_handler_map_type>(initial_map)
+            );
+
+            map[detail::WM_TETENGO2_CONTROL_COLOR].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::label::on_control_color<Label>,
+                    cpp11::ref(label),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+
+            return map;
         }
 
         /*!

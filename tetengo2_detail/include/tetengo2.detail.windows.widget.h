@@ -1153,6 +1153,27 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Repaints a widget.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+        */
+        template <typename Widget>
+        static void repaint(Widget& widget)
+        {
+            if (
+                ::InvalidateRect(widget.details()->first.get(), NULL, TRUE) ==
+                0
+            )
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't repaint a widget.")
+                );
+            }
+        }
+
+        /*!
             \brief Uses a widget canvas.
 
             \tparam Widget   A widget type.

@@ -605,6 +605,17 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Repaints a widget.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+        */
+        template <typename Widget>
+        static void repaint(Widget& widget)
+        {}
+
+        /*!
             \brief Uses a widget canvas.
 
             \tparam Widget   A widget type.

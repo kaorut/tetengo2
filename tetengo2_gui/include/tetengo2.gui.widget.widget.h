@@ -494,6 +494,15 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Repaints the widget.
+        */
+        void repaint()
+        const
+        {
+            widget_details_type::repaint(*this);
+        }
+
+        /*!
             \brief Erases the background.
 
             \param canvas A canvas.

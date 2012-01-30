@@ -634,6 +634,15 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(repaint)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_widget widget;
+
+        widget.repaint();
+    }
+
     BOOST_AUTO_TEST_CASE(erase_background)
     {
         BOOST_TEST_PASSPOINT();
