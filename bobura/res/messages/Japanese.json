@@ -34,6 +34,8 @@
         "Dialog:FileOpen:All Files":                    "すべてのファイル",
         
         "Dialog:FileProperty:File Property": "ファイルのプロパティ",
+        "Dialog:FileProperty:&Line Name:":   "路線名(&L):",
+        "Dialog:FileProperty:&File Name:":   "ファイル名(&F):",
         
         "Dialog:About:About":   "バージョン情報",
         "Dialog:About:version": "バージョン",

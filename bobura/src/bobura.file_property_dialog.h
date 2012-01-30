@@ -187,7 +187,7 @@ namespace bobura
 
             p_label->set_text(
                 m_message_catalog.get(
-                    TETENGO2_TEXT("Dialog:FileProperty:&Line Name")
+                    TETENGO2_TEXT("Dialog:FileProperty:&Line Name:")
                 )
             );
             std::unique_ptr<background_type> p_background(
@@ -215,7 +215,7 @@ namespace bobura
 
             p_label->set_text(
                 m_message_catalog.get(
-                    TETENGO2_TEXT("Dialog:FileProperty:&File Name")
+                    TETENGO2_TEXT("Dialog:FileProperty:&File Name:")
                 )
             );
             std::unique_ptr<background_type> p_background(
