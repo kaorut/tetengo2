@@ -62,7 +62,10 @@ namespace tetengo2 { namespace detail { namespace stub
                 std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>,
 
                 // details_children: children
-                std::vector<void*>
+                std::vector<void*>,
+
+                // details_focusable: focusable status
+                bool
             >
             widget_details_type;
 
@@ -658,6 +661,37 @@ namespace tetengo2 { namespace detail { namespace stub
         {}
 
         /*!
+            \brief Checks whether a widget accepts a focus.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \retval true  When the widget accepts a focus.
+            \retval false Otherwise.
+        */
+        template <typename Widget>
+        static bool focusable(Widget& widget)
+        {
+            return std::get<details_focusable>(*widget.details());
+        }
+
+        /*!
+            \brief Sets whether a control accepts a focus.
+
+            \tparam Widget A widget type.
+
+            \param widget    A widget.
+            \param focusable True when the widget accepts a focus.
+        */
+        template <typename Widget>
+        static void set_focusable(Widget& widget, const bool focusable)
+        {
+            std::get<details_focusable>(*widget.details()) = focusable;
+        }
+
+
+        /*!
             \brief Closes a widget.
 
             \tparam Widget A widget type.
@@ -694,7 +728,8 @@ namespace tetengo2 { namespace detail { namespace stub
             details_dimension,
             details_text,
             details_font,
-            details_children
+            details_children,
+            details_focusable,
         };
 
         typedef
@@ -718,7 +753,8 @@ namespace tetengo2 { namespace detail { namespace stub
                     details_font_type(
                         std::wstring(), 12, false, false, false, false
                     ),
-                    std::vector<void*>()
+                    std::vector<void*>(),
+                    false
                 );
 
             return std::move(p_details);

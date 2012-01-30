@@ -242,6 +242,35 @@ BOOST_AUTO_TEST_SUITE(control)
         BOOST_CHECK(!control.text_color());
     }
 
+    BOOST_AUTO_TEST_CASE(focusable)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_control control;
+
+        control.focusable();
+    }
+
+    BOOST_AUTO_TEST_CASE(set_focusable)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_control control;
+
+            control.set_focusable(false);
+
+            BOOST_CHECK(!control.focusable());
+        }
+        {
+            concrete_control control;
+
+            control.set_focusable(true);
+
+            BOOST_CHECK(control.focusable());
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

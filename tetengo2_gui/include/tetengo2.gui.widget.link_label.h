@@ -193,6 +193,8 @@ namespace tetengo2 { namespace gui { namespace widget
             );
             p_link_label->set_cursor(std::move(p_cursor));
 
+            p_link_label->set_focusable(true);
+
             p_link_label->mouse_observer_set().clicked().connect(
                 clicked(*p_link_label)
             );

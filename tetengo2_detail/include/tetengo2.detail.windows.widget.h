@@ -1238,6 +1238,69 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Checks whether a widget accepts a focus.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \retval true  When the widget accepts a focus.
+            \retval false Otherwise.
+        */
+        template <typename Widget>
+        static bool focusable(Widget& widget)
+        {
+            const ::LONG style =
+                ::GetWindowLongW(widget.details()->first.get(), GWL_STYLE);
+            if (style == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get focusable state.")
+                );
+            }
+            return (style & WS_TABSTOP) != 0;
+        }
+
+        /*!
+            \brief Sets whether a control accepts a focus.
+
+            \tparam Widget A widget type.
+
+            \param widget    A widget.
+            \param focusable True when the widget accepts a focus.
+        */
+        template <typename Widget>
+        static void set_focusable(Widget& widget, const bool focusable)
+        {
+            ::LONG style =
+                ::GetWindowLongW(widget.details()->first.get(), GWL_STYLE);
+            if (style == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get focusable state.")
+                );
+            }
+
+            ::DWORD unsigned_style = style;
+            if (focusable)
+                unsigned_style |= WS_TABSTOP;
+            else
+                unsigned_style &= ~WS_TABSTOP;
+            style = unsigned_style;
+
+            if (
+                ::SetWindowLongW(
+                    widget.details()->first.get(), GWL_STYLE, style
+                ) == 0
+            )
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set focusable state.")
+                );
+            }
+        }
+
+        /*!
             \brief Closes a widget.
 
             \tparam Widget A widget type.

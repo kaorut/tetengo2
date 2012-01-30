@@ -203,7 +203,8 @@ namespace
                 details_font_type(
                     std::wstring(), 12, false, false, false, false
                 ),
-                std::vector<void*>()
+                std::vector<void*>(),
+                false
             )
         )
         {

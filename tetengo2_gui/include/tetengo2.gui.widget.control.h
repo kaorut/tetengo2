@@ -106,6 +106,27 @@ namespace tetengo2 { namespace gui { namespace widget
             m_text_color = boost::none;
         }
 #endif
+        /*!
+            \brief Checks whether the control accepts a focus.
+
+            \retval true  When the control accepts a focus.
+            \retval false Otherwise.
+        */
+        bool focusable()
+        const
+        {
+            return widget_details_type::focusable(*this);
+        }
+
+        /*!
+            \brief Sets whether the control accepts a focus.
+
+            \param focusable True when the control accepts a focus.
+        */
+        void set_focusable(const bool focusable)
+        {
+            widget_details_type::set_focusable(*this, focusable);
+        }
 
 
     protected:
