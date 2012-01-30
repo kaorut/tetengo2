@@ -39,6 +39,7 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         typename Background,
         typename Font,
         typename SystemCursor,
+        typename FocusObserverSet,
         typename PaintObserverSet,
         typename MouseObserverSet
     >
@@ -79,6 +80,9 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
 
         //! The system cursor type.
         typedef SystemCursor system_cursor_type;
+
+        //! The focus observer set type.
+        typedef FocusObserverSet focus_observer_set_type;
 
         //! The paint observer set type.
         typedef PaintObserverSet paint_observer_set_type;

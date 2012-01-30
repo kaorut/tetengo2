@@ -34,6 +34,7 @@
 #include "tetengo2.gui.menu.shortcut_key.h"
 #include "tetengo2.gui.menu.shortcut_key_table.h"
 #include "tetengo2.gui.menu.traits.h"
+#include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
@@ -152,6 +153,7 @@ namespace
             background_type,
             font_type,
             system_cursor_type,
+            tetengo2::gui::message::focus_observer_set,
             tetengo2::gui::message::paint_observer_set<canvas_type>,
             tetengo2::gui::message::mouse_observer_set
         >

@@ -85,6 +85,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The cursor type.
         typedef typename system_cursor_type::base_type cursor_type;
 
+        //! The focus observer set type.
+        typedef
+            typename traits_type::focus_observer_set_type
+            focus_observer_set_type;
+
         //! The paint observer set type.
         typedef
             typename traits_type::paint_observer_set_type
@@ -534,6 +539,27 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the focus observer set.
+
+            \return The focus observer set.
+        */
+        const focus_observer_set_type& focus_observer_set()
+        const
+        {
+            return m_focus_observer_set;
+        }
+
+        /*!
+            \brief Returns the focus observer set.
+
+            \return The focus observer set.
+        */
+        focus_observer_set_type& focus_observer_set()
+        {
+            return m_focus_observer_set;
+        }
+
+        /*!
             \brief Returns the paint observer set.
 
             \return The paint observer set.
@@ -702,6 +728,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_destroyed(false),
         m_p_background(),
         m_p_cursor(),
+        m_focus_observer_set(),
         m_paint_observer_set(),
         m_mouse_observer_set()
         {}
@@ -724,6 +751,8 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<background_type> m_p_background;
 
         std::unique_ptr<cursor_type> m_p_cursor;
+
+        focus_observer_set_type m_focus_observer_set;
 
         paint_observer_set_type m_paint_observer_set;
 

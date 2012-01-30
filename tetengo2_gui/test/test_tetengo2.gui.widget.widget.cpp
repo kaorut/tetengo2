@@ -33,6 +33,7 @@
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
@@ -145,6 +146,7 @@ namespace
             background_type,
             font_type,
             system_cursor_type,
+            tetengo2::gui::message::focus_observer_set,
             tetengo2::gui::message::paint_observer_set<canvas_type>,
             tetengo2::gui::message::mouse_observer_set
         >
@@ -664,6 +666,22 @@ BOOST_AUTO_TEST_SUITE(widget)
             concrete_widget widget;
 
             widget.click();
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(focus_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            widget.focus_observer_set();
+        }
+        {
+            concrete_widget widget;
+
+            widget.focus_observer_set();
         }
     }
 

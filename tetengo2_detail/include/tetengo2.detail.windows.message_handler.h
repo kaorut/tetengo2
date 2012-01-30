@@ -117,6 +117,28 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Widget>
+            boost::optional< ::LRESULT> on_set_focus(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                widget.focus_observer_set().got_focus()();
+                return boost::none;
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_kill_focus(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                widget.focus_observer_set().lost_focus()();
+                return boost::none;
+            }
+
+            template <typename Widget>
             boost::optional< ::LRESULT> on_paint(
                 Widget&        widget,
                 const ::WPARAM wParam,
@@ -562,6 +584,22 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_SETCURSOR].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::widget::on_set_cursor<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_SETFOCUS].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_set_focus<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_KILLFOCUS].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_kill_focus<Widget>,
                     cpp11::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
