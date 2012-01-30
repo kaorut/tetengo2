@@ -355,7 +355,22 @@ namespace tetengo2 { namespace detail { namespace windows
                 return boost::none;
             }
 
+            template <typename Dialog, typename WidgetDetails>
+            boost::optional< ::LRESULT> on_syscommand(
+                Dialog&        dialog,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                if (wParam == SC_CLOSE)
+                {
+                    dialog.set_result(Dialog::result_canceled);
+                    dialog.close();
+                    return boost::make_optional< ::LRESULT>(0);
+                }
 
+                return boost::none;
+            }
         }
 
 
@@ -641,6 +656,16 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::dialog::on_command<Dialog, widget_details_type>,
+                    cpp11::ref(dialog),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_SYSCOMMAND].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::dialog::on_syscommand<
+                        Dialog, widget_details_type
+                    >,
                     cpp11::ref(dialog),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()

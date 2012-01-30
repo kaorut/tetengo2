@@ -267,12 +267,12 @@ namespace bobura
             p_button->set_text(
                 m_message_catalog.get(TETENGO2_TEXT("Common:Cancel"))
             );
-            //p_button->mouse_observer_set().clicked().connect(
-            //    typename boost::mpl::at<
-            //        file_property_dialog_message_type_list_type,
-            //        message::file_property_dialog::type::ok_button_mouse
-            //    >::type(*this)
-            //);
+            p_button->mouse_observer_set().clicked().connect(
+                typename boost::mpl::at<
+                    file_property_dialog_message_type_list_type,
+                    message::file_property_dialog::type::cancel_button_mouse
+                >::type(*this)
+            );
 
             return std::move(p_button);
         }

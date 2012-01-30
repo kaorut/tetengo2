@@ -110,8 +110,12 @@ namespace bobura { namespace message
                     boost::mpl::pair<
                         type::ok_button_mouse, ok_button_mouse<Dialog>
                     >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::cancel_button_mouse, cancel_button_mouse<Dialog>
+                    >,
                 tetengo2::meta::assoc_list_end
-                >
+                >>
                 type;
 
 

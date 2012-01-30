@@ -61,6 +61,55 @@ namespace bobura { namespace message { namespace file_property_dialog
 
     };
 
+     /*!
+        \brief The class template for a mouse observer of the cancel button.
+
+        \tparam Dialog A dialog type.
+    */
+    template <typename Dialog>
+    class cancel_button_mouse
+    {
+    public:
+        // types
+
+        //! The dialog type.
+        typedef Dialog dialog_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a mouse observer of the cancel button.
+
+            \param dialog A dialog.
+        */
+        explicit cancel_button_mouse(dialog_type& dialog)
+        :
+        m_dialog(dialog)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the cancel button is clicked.
+        */
+        void operator()()
+        const
+        {
+            m_dialog.set_result(dialog_type::result_canceled);
+            m_dialog.close();
+        }
+
+
+    private:
+        // variables
+
+        dialog_type& m_dialog;
+
+
+    };
+
 
 }}}
 
