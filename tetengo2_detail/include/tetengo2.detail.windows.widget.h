@@ -318,7 +318,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     0,
                     L"Static",
                     L"tetengo2_image",
-                    WS_CHILD | WS_TABSTOP | WS_VISIBLE,
+                    WS_CHILD | WS_VISIBLE,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
