@@ -364,8 +364,19 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 if (wParam == SC_CLOSE)
                 {
-                    dialog.set_result(Dialog::result_canceled);
-                    dialog.close();
+                    const ::HWND widget_handle =
+                        ::GetDlgItem(dialog.details()->first.get(), IDCANCEL);
+                    if (widget_handle)
+                    {
+                        WidgetDetails::p_widget_from<
+                            typename Dialog::base_type::base_type
+                        >(widget_handle)->click();
+                    }
+                    else
+                    {
+                        dialog.set_result(Dialog::result_canceled);
+                        dialog.close();
+                    }
                     return boost::make_optional< ::LRESULT>(0);
                 }
 
