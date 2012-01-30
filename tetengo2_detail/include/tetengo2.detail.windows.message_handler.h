@@ -27,6 +27,7 @@
 #include <Windows.h>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.gui.measure.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -488,7 +489,21 @@ namespace tetengo2 { namespace detail { namespace windows
                     return result;
 
                 const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
-                const ::RECT rect = { 0, 0, 64, 16 };
+
+                typedef
+                    gui::dimension<typename Label::dimension_type>
+                    dimension_type;
+                const ::RECT rect = {
+                    0,
+                    0,
+                    gui::to_pixels< ::LONG>(
+                        dimension_type::width(label.dimension())
+                    ),
+                    gui::to_pixels< ::LONG>(
+                        dimension_type::height(label.dimension())
+                    )
+                };
+                ::FillRect(device_context, &rect, (::HBRUSH)::GetStockObject(WHITE_BRUSH));
                 ::DrawFocusRect(device_context, &rect);
 
                 return result;

@@ -61,6 +61,12 @@ namespace tetengo2 { namespace gui { namespace widget
             >
             base_type;
 
+        //! The position type.
+        typedef typename base_type::position_type position_type;
+
+        //! The dimension type.
+        typedef typename base_type::dimension_type dimension_type;
+
         //! The widget type.
         typedef typename base_type::base_type::base_type widget_type;
 
