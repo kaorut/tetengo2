@@ -46,6 +46,7 @@
     <ClInclude Include="include\tetengo2.gui.menu.shortcut_key_table.h" />
     <ClInclude Include="include\tetengo2.gui.menu.traits.h" />
     <ClInclude Include="include\tetengo2.gui.message.dialog_message_loop.h" />
+    <ClInclude Include="include\tetengo2.gui.message.focus_observer_set.h" />
     <ClInclude Include="include\tetengo2.gui.message.menu_observer_set.h" />
     <ClInclude Include="include\tetengo2.gui.message.message_loop.h" />
     <ClInclude Include="include\tetengo2.gui.message.message_loop_break.h" />
