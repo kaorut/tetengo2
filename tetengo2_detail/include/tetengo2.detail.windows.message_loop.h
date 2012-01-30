@@ -110,17 +110,18 @@ namespace tetengo2 { namespace detail { namespace windows
                     );
                 }
 
-                //if (
-                //    ::IsDialogMessageW(message.hwnd, &message) != 0 ||
-                //    ::IsDialogMessageW(
-                //        ::GetAncestor(message.hwnd, GA_ROOT), &message
-                //    ) != 0
-                //)
-                //{
-                //    continue;
-                //}
+                if (
+                    !dialog.destroyed() &&
+                    ::IsDialogMessageW(
+                        dialog.details()->first.get(), &message
+                    ) != 0
+                )
+                {
+                    continue;
+                }
 
                 if (
+                    !dialog.destroyed() &&
                     shortcut_keys_defined(dialog) &&
                     ::TranslateAcceleratorW(
                         dialog.details()->first.get(),

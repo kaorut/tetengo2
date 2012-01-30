@@ -361,7 +361,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     0,
                     L"Static",
                     L"tetengo2_label",
-                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | SS_NOTIFY,
+                    WS_CHILD | WS_VISIBLE | SS_NOTIFY,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
