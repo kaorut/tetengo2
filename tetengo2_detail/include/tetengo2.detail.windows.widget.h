@@ -1477,7 +1477,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 )
             );
             window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(
-                ::GetSysColorBrush(COLOR_3DFACE)
+                ::GetSysColorBrush(COLOR_WINDOW)
             );
             window_class.lpszMenuName = NULL;
             window_class.lpszClassName = window_class_name().c_str();
