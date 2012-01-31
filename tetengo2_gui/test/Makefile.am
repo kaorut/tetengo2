@@ -36,6 +36,7 @@ sources = \
     test_tetengo2.gui.menu.shortcut_key_table.cpp \
     test_tetengo2.gui.message.dialog_message_loop.cpp \
     test_tetengo2.gui.message.focus_observer_set.cpp \
+    test_tetengo2.gui.message.keyboard_observer_set.cpp \
     test_tetengo2.gui.message.menu_observer_set.cpp \
     test_tetengo2.gui.message.message_loop.cpp \
     test_tetengo2.gui.message.message_loop_break.cpp \

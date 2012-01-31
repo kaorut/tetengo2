@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::message::mouse_observer_set.
+    \brief The definition of tetengo2::gui::message::keyboard_observer_set.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_MESSAGE_MOUSEOBSERVERSET_H)
-#define TETENGO2_GUI_MESSAGE_MOUSEOBSERVERSET_H
+#if !defined(TETENGO2_GUI_MESSAGE_KEYBOARDOBSERVERSET_H)
+#define TETENGO2_GUI_MESSAGE_KEYBOARDOBSERVERSET_H
 
 #include <boost/noncopyable.hpp>
 #include <boost/signals2.hpp>
@@ -16,50 +16,58 @@
 namespace tetengo2 { namespace gui { namespace message
 {
     /*!
-        \brief The class for a mouse observer set.
+        \brief The class template for a keyboard observer set.
+
+        \tparam Char A character type.
     */
-    class mouse_observer_set : private boost::noncopyable
+    template <typename Char>
+    class keyboard_observer_set : private boost::noncopyable
     {
     public:
         // types
 
-        /*!
-            \brief The observer type of clicked.
-        */
-        typedef void clicked_type();
+        //! The character type.
+        typedef Char char_type;
 
-        //! The signal type of clicked.
-        typedef boost::signals2::signal<clicked_type> clicked_signal_type;
+        /*!
+            \brief The observer type of character input.
+        */
+        typedef void character_input_type(char_type character);
+
+        //! The signal type of character input.
+        typedef
+            boost::signals2::signal<character_input_type>
+            character_input_signal_type;
 
 
         // functions
 
         /*!
-            \brief Returns the observer called when a mouse button is clicked.
+            \brief Returns the observer called when a character is input.
 
-            \return The observer called when a mouse button is clicked.
+            \return The observer called when a character is input.
         */
-        const clicked_signal_type& clicked()
+        const character_input_signal_type& character_input()
         const
         {
-            return m_clicked;
+            return m_character_input;
         }
 
         /*!
-            \brief Returns the observer called when a mouse button is clicked.
+            \brief Returns the observer called when a character is input.
 
-            \return The observer called when a mouse button is clicked.
+            \return The observer called when a character is input.
         */
-        clicked_signal_type& clicked()
+        character_input_signal_type& character_input()
         {
-            return m_clicked;
+            return m_character_input;
         }
 
 
     private:
         // variables
 
-        clicked_signal_type m_clicked;
+        character_input_signal_type m_character_input;
 
 
     };
