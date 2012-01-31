@@ -45,6 +45,7 @@
 #include <tetengo2.gui.drawing.picture.h>
 #include <tetengo2.gui.drawing.picture_reader.h>
 #include <tetengo2.gui.drawing.solid_background.h>
+#include <tetengo2.gui.drawing.system_color_set.h>
 #include <tetengo2.gui.drawing.transparent_background.h>
 #include <tetengo2.gui.drawing.widget_canvas.h>
 #include <tetengo2.gui.fixture.h>
@@ -682,8 +683,15 @@ namespace bobura
             >
             solid_background_type;
         typedef
+            tetengo2::gui::drawing::system_color_set<
+                color_type, drawing_details_type
+            >
+            system_color_set_type;
+        typedef
             tetengo2::gui::widget::traits::link_label_traits<
-                label_traits_type, solid_background_type
+                label_traits_type,
+                solid_background_type,
+                system_color_set_type
             >
             link_label_traits_type;
         typedef

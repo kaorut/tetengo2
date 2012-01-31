@@ -98,9 +98,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 {
                     const ::COLORREF color_ref = ::GetSysColor(COLOR_3DFACE);
                     return Color(
-                        GetRValie(color_ref),
-                        GetGValie(color_ref),
-                        GetBValie(color_ref)
+                        GetRValue(color_ref),
+                        GetGValue(color_ref),
+                        GetBValue(color_ref)
                     );
                 }
             default:
