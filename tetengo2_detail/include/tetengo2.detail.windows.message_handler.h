@@ -63,6 +63,36 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Widget>
+            boost::optional< ::LRESULT> on_key_down(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                return boost::none;
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_key_up(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                return boost::none;
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_char(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                return boost::none;
+            }
+
+            template <typename Widget>
             boost::optional< ::LRESULT> on_erase_background(
                 Widget&        widget,
                 const ::WPARAM wParam,
@@ -570,6 +600,30 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::widget::on_command<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_KEYDOWN].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_key_down<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_KEYUP].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_key_up<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_CHAR].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_char<Widget>,
                     cpp11::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
