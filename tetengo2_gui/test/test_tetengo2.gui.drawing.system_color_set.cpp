@@ -37,10 +37,11 @@ BOOST_AUTO_TEST_SUITE(drawing)
 BOOST_AUTO_TEST_SUITE(system_color_set)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
+    BOOST_AUTO_TEST_CASE(dialog_background)
     {
         BOOST_TEST_PASSPOINT();
 
+        system_color_set_type::dialog_background();
     }
 
 
