@@ -17,17 +17,19 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     /*!
         \brief The traits class template for a GUI widget.
 
-        \tparam Canvas           A canvas type.
-        \tparam Alert            An alert type.
-        \tparam Position         A position type.
-        \tparam Dimension        A dimension type.
-        \tparam String           A string type.
-        \tparam Encoder          An encoder type.
-        \tparam Background       A background type.
-        \tparam Font             A font type.
-        \tparam SystemCursor     A system cursor type.
-        \tparam PaintObserverSet A paint observer set type.
-        \tparam MouseObserverSet A mouse observer set type.
+        \tparam Canvas              A canvas type.
+        \tparam Alert               An alert type.
+        \tparam Position            A position type.
+        \tparam Dimension           A dimension type.
+        \tparam String              A string type.
+        \tparam Encoder             An encoder type.
+        \tparam Background          A background type.
+        \tparam Font                A font type.
+        \tparam SystemCursor        A system cursor type.
+        \tparam FocusObserverSet    A focus observer set type.
+        \tparam PaintObserverSet    A paint observer set type.
+        \tparam KeyboardObserverSet A keyboard observer set type.
+        \tparam MouseObserverSet    A mouse observer set type.
    */
     template <
         typename Canvas,
@@ -41,6 +43,7 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         typename SystemCursor,
         typename FocusObserverSet,
         typename PaintObserverSet,
+        typename KeyboardObserverSet,
         typename MouseObserverSet
     >
     struct widget_traits
@@ -86,6 +89,9 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
 
         //! The paint observer set type.
         typedef PaintObserverSet paint_observer_set_type;
+
+        //! The keyboard observer set type.
+        typedef KeyboardObserverSet keyboard_observer_set_type;
 
         //! The mouse observer set type.
         typedef MouseObserverSet mouse_observer_set_type;
