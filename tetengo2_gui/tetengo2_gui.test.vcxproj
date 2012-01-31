@@ -106,6 +106,7 @@
     <ClCompile Include="test\test_tetengo2.gui.drawing.picture.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.picture_reader.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.solid_background.cpp" />
+    <ClCompile Include="test\test_tetengo2.gui.drawing.system_color_set.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.transparent_background.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.drawing.widget_canvas.cpp" />
     <ClCompile Include="test\test_tetengo2.gui.fixture.cpp" />

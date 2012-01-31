@@ -207,5 +207,8 @@
     <ClInclude Include="include\tetengo2.gui.message.focus_observer_set.h">
       <Filter>headers\tetengo2::gui\message</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.gui.drawing.system_color_set.h">
+      <Filter>headers\tetengo2::gui\drawing</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

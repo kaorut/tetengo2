@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::drawing::background.
+    \brief Test of class tetengo2::gui::drawing::system_color_set.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -11,7 +11,9 @@
 
 #include "tetengo2.detail.stub.drawing.h"
 
-#include "tetengo2.gui.drawing.background.h"
+#include "tetengo2.gui.drawing.color.h"
+
+#include "tetengo2.gui.drawing.system_color_set.h"
 
 
 namespace
@@ -19,33 +21,11 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::drawing::background<tetengo2::detail::stub::drawing>
-        background_type;
-
-    struct concrete_background : public background_type
-    {
-        concrete_background()
-        :
-        background_type()
-        {}
-
-
-    private:
-        virtual boost::optional<const background_type::details_type&>
-        details_impl()
-        const
-        {
-            return boost::none;
-        }
-
-        virtual boost::optional<background_type::details_type&>
-        details_impl()
-        {
-            return boost::none;
-        }
-
-
-    };
+        tetengo2::gui::drawing::system_color_set<
+            tetengo2::gui::drawing::color<unsigned char>,
+            tetengo2::detail::stub::drawing
+        >
+        system_color_set_type;
 
 
 }
@@ -54,30 +34,13 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(drawing)
-BOOST_AUTO_TEST_SUITE(background)
+BOOST_AUTO_TEST_SUITE(system_color_set)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_background background;
-    }
-
-    BOOST_AUTO_TEST_CASE(details)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        {
-            const concrete_background background;
-
-            background.details();
-        }
-        {
-            concrete_background background;
-
-            background.details();
-        }
     }
 
 

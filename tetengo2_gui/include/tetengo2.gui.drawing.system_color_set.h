@@ -1,99 +1,56 @@
 /*! \file
-    \brief The definition of tetengo2::gui::drawing::background.
+    \brief The definition of tetengo2::gui::drawing::system_color_set.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_DRAWING_BACKGROUND_H)
-#define TETENGO2_GUI_DRAWING_BACKGROUND_H
+#if !defined(TETENGO2_GUI_DRAWING_SYSTEMCOLORSET_H)
+#define TETENGO2_GUI_DRAWING_SYSTEMCOLORSET_H
 
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
-
-#include "tetengo2.cpp11.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing
 {
     /*!
-        \brief The class template for a background.
+        \brief The class template for a system color set.
 
+        \tparam Color          A color type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <typename DrawingDetails>
-    class background : private boost::noncopyable
+    template <typename Color, typename DrawingDetails>
+    class system_color_set : private boost::noncopyable
     {
     public:
         // types
 
+        //! The color type.
+        typedef Color color_type;
+
         //! The detail implementation type of a drawing.
         typedef DrawingDetails drawing_details_type;
 
-        //! The detail implementation type.
-        typedef
-            typename drawing_details_type::background_details_type
-            details_type;
 
-        //! The detail implementation pointer type.
-        typedef
-            typename drawing_details_type::background_details_ptr_type
-            details_ptr_type;
-
-
-        // constructors and destructor
+        // static functions
 
         /*!
-            \brief Destroys the background.
+            \brief Returns the color of dialog backgrounds.
+
+            \return The color.
         */
-        virtual ~background()
-        TETENGO2_CPP11_NOEXCEPT
-        {}
-
-
-        // functions
-
-        /*!
-            \brief Returns the detail implementation;
-
-            \return The detail implementation.
-        */
-        boost::optional<const details_type&> details()
-        const
+        static const color_type& dialog_background()
         {
-            return details_impl();
+            static const color_type singleton(192, 192, 192);
+            return singleton;
         }
-
-        /*!
-            \brief Returns the detail implementation;
-
-            \return The detail implementation.
-        */
-        boost::optional<details_type&> details()
-        {
-            return details_impl();
-        }
-
-
-    protected:
-        // constructors and destructor
-
-        /*!
-            \brief Creates a background.
-        */
-        background()
-        {}
 
 
     private:
-        // virtual functions
+        // forbidden operations
 
-        virtual boost::optional<details_type&> details_impl()
-        = 0;
-
-        virtual boost::optional<const details_type&> details_impl()
-        const = 0;
+        system_color_set();
 
 
     };

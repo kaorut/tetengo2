@@ -15,6 +15,7 @@ headers = \
     tetengo2.gui.drawing.picture.h \
     tetengo2.gui.drawing.picture_reader.h \
     tetengo2.gui.drawing.solid_background.h \
+    tetengo2.gui.drawing.system_color_set.h \
     tetengo2.gui.drawing.transparent_background.h \
     tetengo2.gui.drawing.widget_canvas.h \
     tetengo2.gui.fixture.h \

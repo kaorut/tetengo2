@@ -20,6 +20,7 @@ sources = \
     test_tetengo2.gui.drawing.picture.cpp \
     test_tetengo2.gui.drawing.picture_reader.cpp \
     test_tetengo2.gui.drawing.solid_background.cpp \
+    test_tetengo2.gui.drawing.system_color_set.cpp \
     test_tetengo2.gui.drawing.transparent_background.cpp \
     test_tetengo2.gui.drawing.widget_canvas.cpp \
     test_tetengo2.gui.fixture.cpp \

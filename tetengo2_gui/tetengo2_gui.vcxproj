@@ -31,6 +31,7 @@
     <ClInclude Include="include\tetengo2.gui.drawing.picture.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.picture_reader.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.solid_background.h" />
+    <ClInclude Include="include\tetengo2.gui.drawing.system_color_set.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.transparent_background.h" />
     <ClInclude Include="include\tetengo2.gui.drawing.widget_canvas.h" />
     <ClInclude Include="include\tetengo2.gui.fixture.h" />
