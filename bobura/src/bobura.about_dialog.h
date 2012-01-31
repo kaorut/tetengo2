@@ -262,10 +262,6 @@ namespace bobura
                 string_type(TETENGO2_TEXT("http://www.tetengo.org/"))
             );
             p_label->set_target(p_label->text());
-            std::unique_ptr<background_type> p_background(
-                tetengo2::make_unique<transparent_background_type>()
-            );
-            p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
         }

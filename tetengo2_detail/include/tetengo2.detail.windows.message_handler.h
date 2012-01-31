@@ -429,14 +429,17 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
-                if (!control.background())
+                if (!control.background() && !control.text_color())
                     return boost::none;
 
                 const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
-                typename Control::base_type::canvas_type canvas(
-                    device_context
-                );
-                control.erase_background(canvas);
+                if (control.background())
+                {
+                    typename Control::base_type::canvas_type canvas(
+                        device_context
+                    );
+                    control.erase_background(canvas);
+                }
 
                 if (control.text_color())
                 {
@@ -503,7 +506,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         dimension_type::height(label.dimension())
                     )
                 };
-                ::FillRect(device_context, &rect, (::HBRUSH)::GetStockObject(WHITE_BRUSH));
+
                 if (label.focused())
                     ::DrawFocusRect(device_context, &rect);
 

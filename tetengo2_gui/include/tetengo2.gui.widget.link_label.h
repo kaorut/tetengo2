@@ -85,6 +85,10 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The color type.
         typedef typename base_type::color_type color_type;
 
+        //! The solid background type.
+        typedef
+            typename traits_type::solid_background_type solid_background_type;
+
         //! The detail implementation type.
         typedef
             typename widget_details_type::widget_details_type details_type;
@@ -198,6 +202,12 @@ namespace tetengo2 { namespace gui { namespace widget
         static void initialize(link_label* const p_link_label)
         {
             assert(p_link_label);
+
+            p_link_label->set_background(
+                tetengo2::make_unique<solid_background_type>(
+                    color_type(192, 192, 192)
+                )
+            );
 
             const font_type original_font = p_link_label->font();
             p_link_label->set_font(

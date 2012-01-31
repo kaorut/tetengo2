@@ -39,6 +39,7 @@
 #include <tetengo2.gui.drawing.font.h>
 #include <tetengo2.gui.drawing.picture.h>
 #include <tetengo2.gui.drawing.picture_reader.h>
+#include <tetengo2.gui.drawing.solid_background.h>
 #include <tetengo2.gui.drawing.transparent_background.h>
 #include <tetengo2.gui.drawing.widget_canvas.h>
 #include <tetengo2.gui.fixture.h>
@@ -445,7 +446,13 @@ typedef
     label_type;
 
 typedef
-    tetengo2::gui::widget::traits::link_label_traits<label_traits_type>
+    tetengo2::gui::drawing::solid_background<color_type, drawing_details_type>
+    solid_background_type;
+
+typedef
+    tetengo2::gui::widget::traits::link_label_traits<
+        label_traits_type, solid_background_type
+    >
     link_label_traits_type;
 
 typedef

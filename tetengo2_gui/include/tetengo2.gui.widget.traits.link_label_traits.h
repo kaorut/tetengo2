@@ -15,15 +15,19 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
     /*!
         \brief The traits class template for a link label.
 
-        \tparam LabelTraits A traits type for a label.
+        \tparam LabelTraits     A traits type for a label.
+        \tparam SolidBackground A solid background type.
    */
-    template <typename LabelTraits>
+    template <typename LabelTraits, typename SolidBackground>
     struct link_label_traits
     {
         //types
 
         //! The base type.
         typedef LabelTraits base_type;
+
+        //! The solid background type.
+        typedef SolidBackground solid_background_type;
 
 
     };
