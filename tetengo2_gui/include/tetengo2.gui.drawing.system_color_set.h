@@ -42,7 +42,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const color_type& dialog_background()
         {
-            static const color_type singleton(192, 192, 192);
+            static const color_type singleton(
+                drawing_details_type::template system_color<color_type>(
+                    drawing_details_type::system_color_index_dialog_background
+                )
+            );
             return singleton;
         }
 
