@@ -665,16 +665,6 @@ BOOST_AUTO_TEST_SUITE(widget)
         widget.repaint();
     }
 
-    BOOST_AUTO_TEST_CASE(erase_background)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const concrete_widget widget;
-
-        const std::unique_ptr<canvas_type> p_canvas(widget.create_canvas());
-        widget.erase_background(*p_canvas);
-    }
-
     BOOST_AUTO_TEST_CASE(create_canvas)
     {
         BOOST_TEST_PASSPOINT();

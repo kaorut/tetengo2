@@ -514,23 +514,6 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
-            \brief Erases the background.
-
-            \param canvas A canvas.
-        */
-        void erase_background(canvas_type& canvas)
-        const
-        {
-            if (!background()) return;
-
-            canvas.fill_rectangle(
-                position_type(left_type(0), top_type(0)),
-                client_dimension(),
-                *background()
-            );
-        }
-
-        /*!
             \brief Creates a canvas.
 
             \return The unique pointer to a canvas.
@@ -755,6 +738,9 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             m_focus_observer_set.got_focus().connect(got_focus(*this));
             m_focus_observer_set.lost_focus().connect(lost_focus(*this));
+            m_paint_observer_set.paint_background().connect(
+                paint_background(*this)
+            );
         }
 
 
@@ -796,6 +782,33 @@ namespace tetengo2 { namespace gui { namespace widget
             const
             {
                 m_self.m_focused = false;
+            }
+
+        private:
+            widget& m_self;
+
+        };
+
+        class paint_background
+        {
+        public:
+            paint_background(widget& self)
+            :
+            m_self(self)
+            {}
+
+            bool operator()(canvas_type& canvas)
+            const
+            {
+                if (!m_self.background()) return false;
+
+                canvas.fill_rectangle(
+                    position_type(left_type(0), top_type(0)),
+                    m_self.client_dimension(),
+                    *m_self.background()
+                );
+
+                return true;
             }
 
         private:

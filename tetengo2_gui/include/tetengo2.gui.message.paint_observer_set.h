@@ -29,6 +29,46 @@ namespace tetengo2 { namespace gui { namespace message
         //! The canvas type.
         typedef Canvas canvas_type;
 
+#if !defined(DOCUMENTATION)
+        struct logical_or_combiner
+        {
+            typedef bool result_type;
+            
+            static bool is_true(bool b)
+            {
+                return b;
+            }
+
+            template <typename InputIterator>
+            bool operator()(
+                const InputIterator first, const InputIterator last
+            )
+            const
+            {
+                return std::any_of(first, last, is_true);
+            }
+
+        };
+#endif
+
+        /*!
+            \brief The observer type of paint-background.
+
+            \param canvas A canvas.
+
+            \retval true  When the background is not painted by this observer
+                          and it shoud be painted by the system.
+            \retval false Otherwise.
+        */
+        typedef bool paint_background_type(canvas_type& canvas);
+
+        //! The signal type of paint-background.
+        typedef
+            boost::signals2::signal<
+                paint_background_type, logical_or_combiner
+            >
+            paint_background_signal_type;
+
         /*!
             \brief The observer type of paint.
 
@@ -41,6 +81,31 @@ namespace tetengo2 { namespace gui { namespace message
 
 
         // functions
+
+        /*!
+            \brief Returns the observer called when the background of a canvas
+                   needs to be repainted.
+
+            \return The observer called when the background of a canvas needs
+                    to be repainted.
+        */
+        const paint_background_signal_type& paint_background()
+        const
+        {
+            return m_paint_background;
+        }
+
+        /*!
+            \brief Returns the observer called when the background of a canvas
+                   needs to be repainted.
+
+            \return The observer called when the background of a canvas needs
+                    to be repainted.
+        */
+        paint_background_signal_type& paint_background()
+        {
+            return m_paint_background;
+        }
 
         /*!
             \brief Returns the observer called when a canvas needs to be
@@ -68,6 +133,8 @@ namespace tetengo2 { namespace gui { namespace message
 
     private:
         // variables
+
+        paint_background_signal_type m_paint_background;
 
         paint_signal_type m_paint;
 

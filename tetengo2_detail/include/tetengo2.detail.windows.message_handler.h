@@ -93,24 +93,6 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_erase_background(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
-            {
-                if (!widget.background())
-                    return boost::none;
-
-                typename Widget::canvas_type canvas(
-                    reinterpret_cast< ::HDC>(wParam)
-                );
-                widget.erase_background(canvas);
-
-                return boost::make_optional< ::LRESULT>(TRUE);
-            }
-
-            template <typename Widget>
             boost::optional< ::LRESULT> on_control_color(
                 Widget&        widget,
                 const ::WPARAM wParam,
@@ -167,6 +149,25 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 widget.focus_observer_set().lost_focus()();
                 return boost::none;
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_erase_background(
+                Widget&        widget,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                if (widget.paint_observer_set().paint_background().empty())
+                    return boost::none;
+
+                typename Widget::canvas_type canvas(
+                    reinterpret_cast< ::HDC>(wParam)
+                );
+                if (!widget.paint_observer_set().paint_background()(canvas))
+                    return boost::none;
+
+                return boost::make_optional< ::LRESULT>(TRUE);
             }
 
             template <typename Widget>
@@ -463,12 +464,12 @@ namespace tetengo2 { namespace detail { namespace windows
                     return boost::none;
 
                 const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
-                if (control.background())
+                if (!control.paint_observer_set().paint_background().empty())
                 {
                     typename Control::base_type::canvas_type canvas(
                         device_context
                     );
-                    control.erase_background(canvas);
+                    control.paint_observer_set().paint_background()(canvas);
                 }
 
                 if (control.text_color())
@@ -629,14 +630,6 @@ namespace tetengo2 { namespace detail { namespace windows
                     cpp11::placeholders_2()
                 )
             );
-            map[WM_ERASEBKGND].push_back(
-                TETENGO2_CPP11_BIND(
-                    detail::widget::on_erase_background<Widget>,
-                    cpp11::ref(widget),
-                    cpp11::placeholders_1(),
-                    cpp11::placeholders_2()
-                )
-            );
             map[WM_CTLCOLORBTN].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::widget::on_control_color<Widget>,
@@ -696,6 +689,14 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_KILLFOCUS].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::widget::on_kill_focus<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_ERASEBKGND].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_erase_background<Widget>,
                     cpp11::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
