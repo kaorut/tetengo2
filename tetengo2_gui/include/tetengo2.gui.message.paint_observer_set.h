@@ -41,7 +41,8 @@ namespace tetengo2 { namespace gui { namespace message
 
             template <typename InputIterator>
             bool operator()(
-                const InputIterator first, const InputIterator last
+                const InputIterator first,
+                const InputIterator last
             )
             const
             {
