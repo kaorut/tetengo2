@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(paint_observer_set)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(destroyed)
+    BOOST_AUTO_TEST_CASE(paint)
     {
         BOOST_TEST_PASSPOINT();
 

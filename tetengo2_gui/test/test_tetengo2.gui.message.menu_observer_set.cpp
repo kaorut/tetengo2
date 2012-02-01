@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(menu_observer_set)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(destroyed)
+    BOOST_AUTO_TEST_CASE(selected)
     {
         BOOST_TEST_PASSPOINT();
 
