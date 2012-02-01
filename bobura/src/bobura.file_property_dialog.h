@@ -10,10 +10,8 @@
 #define BOBURA_FILEPROPERTYDIALOG_H
 
 //#include <memory>
-#include <sstream>
 //#include <utility>
 
-#include <boost/format.hpp>
 #include <boost/mpl/at.hpp>
 
 #include <tetengo2.gui.measure.h>

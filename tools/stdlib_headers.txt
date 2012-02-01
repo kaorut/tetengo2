@@ -24,6 +24,7 @@
 ::DestroyMenu                                    Windows.h
 ::DestroyWindow                                  Windows.h
 ::DispatchMessageW                               Windows.h
+::DrawFocusRect                                  Windows.h
 ::DrawMenuBar                                    Windows.h
 ::EnableWindow                                   Windows.h
 ::EndPaint                                       Windows.h
@@ -32,7 +33,6 @@
 ::FreeLibrary                                    Windows.h
 ::GetAncestor                                    Windows.h
 ::GetClassInfoExW                                Windows.h
-::GetClassLongPtrW                               Windows.h
 ::GetClientRect                                  Windows.h
 ::GetCommandLineW                                Windows.h
 ::GetDC                                          Windows.h
@@ -47,11 +47,13 @@
 ::GetProcAddress                                 Windows.h
 ::GetPropW                                       Windows.h
 ::GetStockObject                                 Windows.h
+::GetSysColor                                    Windows.h
 ::GetSysColorBrush                               Windows.h
 ::GetSystemMenu                                  Windows.h
 ::GetSystemMetrics                               Windows.h
 ::GetUserDefaultLangID                           Windows.h
 ::GetWindowLongPtrW                              Windows.h
+::GetWindowLongW                                 Windows.h
 ::GetWindowRect                                  Windows.h
 ::GetWindowTextLengthW                           Windows.h
 ::GetWindowTextW                                 Windows.h
@@ -74,6 +76,7 @@
 ::IUnknown                                       Windows.h,Unknwn.h
 ::InitCommonControlsEx                           Windows.h,CommCtrl.h
 ::InsertMenuItem                                 Windows.h
+::InvalidateRect                                 Windows.h
 ::IsDialogMessageW                               Windows.h
 ::IsMenu                                         Windows.h
 ::IsWindow                                       Windows.h
@@ -118,6 +121,7 @@
 ::SetPropW                                       Windows.h
 ::SetTextColor                                   Windows.h
 ::SetWindowLongPtrW                              Windows.h
+::SetWindowLongW                                 Windows.h
 ::SetWindowTextW                                 Windows.h
 ::ShellExecuteW                                  Windows.h
 ::ShowWindow                                     Windows.h
@@ -155,7 +159,6 @@ BOOST_FOREACH                                    boost/foreach.hpp
 BOOST_MPL_ASSERT                                 boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_NOT                             boost/mpl/assert.hpp
 BOOST_MPL_ASSERT_RELATION                        boost/mpl/assert.hpp
-BOOST_REQUIRE                                    boost/test/unit_test.hpp
 BOOST_SCOPE_EXIT                                 boost/scope_exit.hpp
 BOOST_SCOPE_EXIT_END                             boost/scope_exit.hpp
 BOOST_TEST_MODULE                                boost/test/unit_test.hpp
@@ -317,6 +320,7 @@ boost::totally_ordered                           boost/operators.hpp
 boost::unique_lock                               boost/thread.hpp
 boost::variant                                   boost/variant.hpp
 std::advance                                     iterator
+std::any_of                                      algorithm
 std::back_inserter                               iterator
 std::basic_ostringstream                         sstream
 std::basic_string                                string
