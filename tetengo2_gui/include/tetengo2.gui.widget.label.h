@@ -58,6 +58,9 @@ namespace tetengo2 { namespace gui { namespace widget
             >
             base_type;
 
+        //! The canvas type.
+        typedef typename base_type::canvas_type canvas_type;
+
         //! The position type.
         typedef typename base_type::position_type position_type;
 
@@ -128,8 +131,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
     private:
         // types
-
-        typedef typename base_type::canvas_type canvas_type;
 
         typedef
             typename message_handler_details_type::message_handler_map_type

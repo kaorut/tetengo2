@@ -244,6 +244,41 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         /*!
+            \brief Draws a focus indication.
+
+            \tparam Position  A position type.
+            \tparam Dimension A dimension type.
+
+            \param canvas    A canvas.
+            \param position  A position of a region.
+            \param dimension A dimension of a region.
+        */
+        template <typename Position, typename Dimension>
+        static void draw_focus_indication(
+            canvas_details_type& canvas,
+            const Position&      position,
+            const Dimension&     dimension
+        )
+        {
+            const ::RECT rect = {
+                0,
+                0,
+                gui::to_pixels< ::LONG>(
+                    gui::dimension<Dimension>::width(dimension)
+                ),
+                gui::to_pixels< ::LONG>(
+                    gui::dimension<Dimension>::height(dimension)
+                )
+            };
+            if (::DrawFocusRect(canvas.GetHDC(), &rect) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't draw a focus rectangle.")
+                );
+            }
+        }
+
+        /*!
             \brief Fills a rectangle region.
 
             \tparam Position   A position type.

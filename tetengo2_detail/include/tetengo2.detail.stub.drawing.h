@@ -226,6 +226,24 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Draws a focus indication.
+
+            \tparam Position  A position type.
+            \tparam Dimension A dimension type.
+
+            \param canvas    A canvas.
+            \param position  A position of a region.
+            \param dimension A dimension of a region.
+        */
+        template <typename Position, typename Dimension>
+        static void draw_focus_indication(
+            canvas_details_type& canvas,
+            const Position&      position,
+            const Dimension&     dimension
+        )
+        {}
+
+        /*!
             \brief Fills a rectangle region.
 
             \tparam Position   A position type.

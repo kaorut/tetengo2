@@ -159,6 +159,17 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_CHECK(canvas.font() == font);
     }
 
+    BOOST_AUTO_TEST_CASE(draw_focus_indication)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.draw_focus_indication(
+            std::make_pair(12, 34), std::make_pair(56, 78)
+        );
+    }
+
     BOOST_AUTO_TEST_CASE(fill_rectangle)
     {
         BOOST_TEST_PASSPOINT();

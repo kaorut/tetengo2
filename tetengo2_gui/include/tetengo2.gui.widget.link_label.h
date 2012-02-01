@@ -16,6 +16,7 @@
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"
+#include "tetengo2.gui.measure.h"
 #include "tetengo2.gui.widget.label.h"
 
 
@@ -60,6 +61,9 @@ namespace tetengo2 { namespace gui { namespace widget
                 message_handler_details_type
             >
             base_type;
+
+        //! The canvas type.
+        typedef typename base_type::canvas_type canvas_type;
 
         //! The position type.
         typedef typename base_type::position_type position_type;
@@ -179,6 +183,44 @@ namespace tetengo2 { namespace gui { namespace widget
 
         };
 
+        typedef typename gui::position<position_type>::left_type left_type;
+
+        typedef typename gui::position<position_type>::top_type top_type;
+
+        class paint_background
+        {
+        public:
+            paint_background(link_label& self)
+            :
+            m_self(self)
+            {}
+
+            bool operator()(canvas_type& canvas)
+            const
+            {
+                if (!m_self.background()) return false;
+
+                canvas.fill_rectangle(
+                    position_type(left_type(0), top_type(0)),
+                    m_self.client_dimension(),
+                    *m_self.background()
+                );
+                if (m_self.focused())
+                {
+                    canvas.draw_focus_indication(
+                        position_type(left_type(0), top_type(0)),
+                        m_self.client_dimension()
+                    );
+                }
+
+                return true;
+            }
+
+        private:
+            link_label& m_self;
+
+        };
+
         class clicked
         {
         public:
@@ -241,6 +283,10 @@ namespace tetengo2 { namespace gui { namespace widget
             );
             p_link_label->focus_observer_set().lost_focus().connect(
                 focus_changed(*p_link_label)
+            );
+            p_link_label->paint_observer_set().paint_background().disconnect_all_slots();
+            p_link_label->paint_observer_set().paint_background().connect(
+                paint_background(*p_link_label)
             );
             p_link_label->mouse_observer_set().clicked().connect(
                 clicked(*p_link_label)

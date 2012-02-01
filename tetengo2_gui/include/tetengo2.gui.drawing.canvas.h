@@ -137,6 +137,23 @@ namespace tetengo2 { namespace gui { namespace drawing
         }
 
         /*!
+            \brief Draws a focus indication.
+
+            \tparam P A position type.
+            \tparam D A dimension type.
+
+            \param position  A position of a region.
+            \param dimension A dimension of a region.
+        */
+        template <typename P, typename D>
+        void draw_focus_indication(const P& position, const D& dimension)
+        {
+            drawing_details_type::draw_focus_indication(
+                *m_p_details, position, dimension
+            );
+        }
+
+        /*!
             \brief Fills a rectangle region.
 
             \tparam P A position type.
