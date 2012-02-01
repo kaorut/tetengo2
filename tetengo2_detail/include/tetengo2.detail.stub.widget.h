@@ -365,7 +365,7 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \biref Calculates a position suitable for a dialog.
+            \brief Calculates a position suitable for a dialog.
 
             \tparam Position     A position type.
             \tparam Widget       A widget type.
