@@ -9,10 +9,11 @@
 #if !defined(TETENGO2_GUI_VIRTUALKEY_H)
 #define TETENGO2_GUI_VIRTUALKEY_H
 
+#include <unordered_map>
 #include <utility>
 
-#include <boost/noncopyable.hpp>
 #include <boost/operators.hpp>
+#include <boost/optional.hpp>
 
 
 namespace tetengo2 { namespace gui
@@ -24,7 +25,6 @@ namespace tetengo2 { namespace gui
     */
     template <typename Details>
     class virtual_key :
-        private boost::noncopyable,
         private boost::equality_comparable<virtual_key<Details>>
     {
     public:
@@ -42,532 +42,683 @@ namespace tetengo2 { namespace gui
 
         // static functions
 
+        /*!
+            \brief Finds the virtual key by a code.
+
+            \param code.
+
+            \return The virtual key.
+        */
+        static boost::optional<const virtual_key&> find_by_code(
+            const code_type code
+        )
+        {
+            const typename key_map_type::const_iterator found =
+                key_map().find(code);
+            if (found == key_map().end())
+                return boost::none;
+
+            return boost::make_optional<const virtual_key&>(found->second);
+        }
+
         //! Returns the virtual key for BackSpace.
         //! \return The virtual key.
         static const virtual_key& backspace()
         {
-            static const virtual_key singleton(details_type::backspace());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::backspace().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Tab.
         //! \return The virtual key.
         static const virtual_key& tab()
         {
-            static const virtual_key singleton(details_type::tab());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::tab().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Enter.
         //! \return The virtual key.
         static const virtual_key& enter()
         {
-            static const virtual_key singleton(details_type::enter());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::enter().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Shift.
         //! \return The virtual key.
         static const virtual_key& shift()
         {
-            static const virtual_key singleton(details_type::shift());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::shift().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Control.
         //! \return The virtual key.
         static const virtual_key& control()
         {
-            static const virtual_key singleton(details_type::control());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::control().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Meta.
         //! \return The virtual key.
         static const virtual_key& meta()
         {
-            static const virtual_key singleton(details_type::meta());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::meta().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Escape.
         //! \return The virtual key.
         static const virtual_key& escape()
         {
-            static const virtual_key singleton(details_type::escape());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::escape().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Space.
         //! \return The virtual key.
         static const virtual_key& space()
         {
-            static const virtual_key singleton(details_type::space());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::space().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for PageUp.
         //! \return The virtual key.
         static const virtual_key& page_up()
         {
-            static const virtual_key singleton(details_type::page_up());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::page_up().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for PageDown.
         //! \return The virtual key.
         static const virtual_key& page_down()
         {
-            static const virtual_key singleton(details_type::page_down());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::page_down().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for End.
         //! \return The virtual key.
         static const virtual_key& end()
         {
-            static const virtual_key singleton(details_type::end());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::end().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Home.
         //! \return The virtual key.
         static const virtual_key& home()
         {
-            static const virtual_key singleton(details_type::home());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::home().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Left.
         //! \return The virtual key.
         static const virtual_key& left()
         {
-            static const virtual_key singleton(details_type::left());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::left().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Up.
         //! \return The virtual key.
         static const virtual_key& up()
         {
-            static const virtual_key singleton(details_type::up());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::up().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Right.
         //! \return The virtual key.
         static const virtual_key& right()
         {
-            static const virtual_key singleton(details_type::right());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::right().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Down.
         //! \return The virtual key.
         static const virtual_key& down()
         {
-            static const virtual_key singleton(details_type::down());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::down().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Insert.
         //! \return The virtual key.
         static const virtual_key& insert()
         {
-            static const virtual_key singleton(details_type::insert());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::insert().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for Delete.
         //! \return The virtual key.
         static const virtual_key& del()
         {
-            static const virtual_key singleton(details_type::del());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::del().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '0'.
         //! \return The virtual key.
         static const virtual_key& char_0()
         {
-            static const virtual_key singleton(details_type::char_0());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_0().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '1'.
         //! \return The virtual key.
         static const virtual_key& char_1()
         {
-            static const virtual_key singleton(details_type::char_1());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_1().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '2'.
         //! \return The virtual key.
         static const virtual_key& char_2()
         {
-            static const virtual_key singleton(details_type::char_2());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_2().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '3'.
         //! \return The virtual key.
         static const virtual_key& char_3()
         {
-            static const virtual_key singleton(details_type::char_3());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_3().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '4'.
         //! \return The virtual key.
         static const virtual_key& char_4()
         {
-            static const virtual_key singleton(details_type::char_4());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_4().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '5'.
         //! \return The virtual key.
         static const virtual_key& char_5()
         {
-            static const virtual_key singleton(details_type::char_5());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_5().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '6'.
         //! \return The virtual key.
         static const virtual_key& char_6()
         {
-            static const virtual_key singleton(details_type::char_6());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_6().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '7'.
         //! \return The virtual key.
         static const virtual_key& char_7()
         {
-            static const virtual_key singleton(details_type::char_7());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_7().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '8'.
         //! \return The virtual key.
         static const virtual_key& char_8()
         {
-            static const virtual_key singleton(details_type::char_8());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_8().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for '9'.
         //! \return The virtual key.
         static const virtual_key& char_9()
         {
-            static const virtual_key singleton(details_type::char_9());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_9().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'A'.
         //! \return The virtual key.
         static const virtual_key& char_a()
         {
-            static const virtual_key singleton(details_type::char_a());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_a().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'B'.
         //! \return The virtual key.
         static const virtual_key& char_b()
         {
-            static const virtual_key singleton(details_type::char_b());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_b().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'C'.
         //! \return The virtual key.
         static const virtual_key& char_c()
         {
-            static const virtual_key singleton(details_type::char_c());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_c().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'D'.
         //! \return The virtual key.
         static const virtual_key& char_d()
         {
-            static const virtual_key singleton(details_type::char_d());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_d().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'E'.
         //! \return The virtual key.
         static const virtual_key& char_e()
         {
-            static const virtual_key singleton(details_type::char_e());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_e().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'F'.
         //! \return The virtual key.
         static const virtual_key& char_f()
         {
-            static const virtual_key singleton(details_type::char_f());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_f().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'G'.
         //! \return The virtual key.
         static const virtual_key& char_g()
         {
-            static const virtual_key singleton(details_type::char_g());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_g().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'H'.
         //! \return The virtual key.
         static const virtual_key& char_h()
         {
-            static const virtual_key singleton(details_type::char_h());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_h().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'I'.
         //! \return The virtual key.
         static const virtual_key& char_i()
         {
-            static const virtual_key singleton(details_type::char_i());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_i().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'J'.
         //! \return The virtual key.
         static const virtual_key& char_j()
         {
-            static const virtual_key singleton(details_type::char_j());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_j().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'K'.
         //! \return The virtual key.
         static const virtual_key& char_k()
         {
-            static const virtual_key singleton(details_type::char_k());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_k().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'L'.
         //! \return The virtual key.
         static const virtual_key& char_l()
         {
-            static const virtual_key singleton(details_type::char_l());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_l().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'M'.
         //! \return The virtual key.
         static const virtual_key& char_m()
         {
-            static const virtual_key singleton(details_type::char_m());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_m().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'N'.
         //! \return The virtual key.
         static const virtual_key& char_n()
         {
-            static const virtual_key singleton(details_type::char_n());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_n().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'O'.
         //! \return The virtual key.
         static const virtual_key& char_o()
         {
-            static const virtual_key singleton(details_type::char_o());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_o().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'P'.
         //! \return The virtual key.
         static const virtual_key& char_p()
         {
-            static const virtual_key singleton(details_type::char_p());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_p().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'Q'.
         //! \return The virtual key.
         static const virtual_key& char_q()
         {
-            static const virtual_key singleton(details_type::char_q());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_q().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'R'.
         //! \return The virtual key.
         static const virtual_key& char_r()
         {
-            static const virtual_key singleton(details_type::char_r());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_r().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'S'.
         //! \return The virtual key.
         static const virtual_key& char_s()
         {
-            static const virtual_key singleton(details_type::char_s());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_s().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'T'.
         //! \return The virtual key.
         static const virtual_key& char_t()
         {
-            static const virtual_key singleton(details_type::char_t());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_t().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'U'.
         //! \return The virtual key.
         static const virtual_key& char_u()
         {
-            static const virtual_key singleton(details_type::char_u());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_u().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'V'.
         //! \return The virtual key.
         static const virtual_key& char_v()
         {
-            static const virtual_key singleton(details_type::char_v());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_v().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'W'.
         //! \return The virtual key.
         static const virtual_key& char_w()
         {
-            static const virtual_key singleton(details_type::char_w());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_w().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'X'.
         //! \return The virtual key.
         static const virtual_key& char_x()
         {
-            static const virtual_key singleton(details_type::char_x());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_x().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'Y'.
         //! \return The virtual key.
         static const virtual_key& char_y()
         {
-            static const virtual_key singleton(details_type::char_y());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_y().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for 'Z'.
         //! \return The virtual key.
         static const virtual_key& char_z()
         {
-            static const virtual_key singleton(details_type::char_z());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::char_z().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F1.
         //! \return The virtual key.
         static const virtual_key& f1()
         {
-            static const virtual_key singleton(details_type::f1());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f1().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F2.
         //! \return The virtual key.
         static const virtual_key& f2()
         {
-            static const virtual_key singleton(details_type::f2());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f2().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F3.
         //! \return The virtual key.
         static const virtual_key& f3()
         {
-            static const virtual_key singleton(details_type::f3());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f3().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F4.
         //! \return The virtual key.
         static const virtual_key& f4()
         {
-            static const virtual_key singleton(details_type::f4());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f4().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F5.
         //! \return The virtual key.
         static const virtual_key& f5()
         {
-            static const virtual_key singleton(details_type::f5());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f5().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F6.
         //! \return The virtual key.
         static const virtual_key& f6()
         {
-            static const virtual_key singleton(details_type::f6());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f6().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F7.
         //! \return The virtual key.
         static const virtual_key& f7()
         {
-            static const virtual_key singleton(details_type::f7());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f7().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F8.
         //! \return The virtual key.
         static const virtual_key& f8()
         {
-            static const virtual_key singleton(details_type::f8());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f8().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F9.
         //! \return The virtual key.
         static const virtual_key& f9()
         {
-            static const virtual_key singleton(details_type::f9());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f9().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F10.
         //! \return The virtual key.
         static const virtual_key& f10()
         {
-            static const virtual_key singleton(details_type::f10());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f10().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F11.
         //! \return The virtual key.
         static const virtual_key& f11()
         {
-            static const virtual_key singleton(details_type::f11());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f11().first);
+            assert(key);
+            return *key;
         }
 
         //! Returns the virtual key for F12.
         //! \return The virtual key.
         static const virtual_key& f12()
         {
-            static const virtual_key singleton(details_type::f12());
-            return singleton;
+            const boost::optional<const virtual_key&> key =
+                find_by_code(details_type::f12().first);
+            assert(key);
+            return *key;
         }
 
 
@@ -619,6 +770,108 @@ namespace tetengo2 { namespace gui
         typedef
             typename details_type::code_and_string_type code_and_string_type;
 
+        typedef std::unordered_map<code_type, virtual_key> key_map_type;
+
+        
+        // static functions
+
+        static const key_map_type& key_map()
+        {
+            static const key_map_type key_map = build_key_map();
+            return key_map;
+        }
+
+        static key_map_type build_key_map()
+        {
+            key_map_type key_map;
+
+            insert_key(key_map, details_type::backspace());
+            insert_key(key_map, details_type::tab());
+            insert_key(key_map, details_type::enter());
+            insert_key(key_map, details_type::shift());
+            insert_key(key_map, details_type::control());
+            insert_key(key_map, details_type::meta());
+            insert_key(key_map, details_type::escape());
+            insert_key(key_map, details_type::space());
+            insert_key(key_map, details_type::page_up());
+            insert_key(key_map, details_type::page_down());
+            insert_key(key_map, details_type::end());
+            insert_key(key_map, details_type::home());
+            insert_key(key_map, details_type::left());
+            insert_key(key_map, details_type::up());
+            insert_key(key_map, details_type::right());
+            insert_key(key_map, details_type::down());
+            insert_key(key_map, details_type::insert());
+            insert_key(key_map, details_type::del());
+            insert_key(key_map, details_type::char_0());
+            insert_key(key_map, details_type::char_1());
+            insert_key(key_map, details_type::char_2());
+            insert_key(key_map, details_type::char_3());
+            insert_key(key_map, details_type::char_4());
+            insert_key(key_map, details_type::char_5());
+            insert_key(key_map, details_type::char_6());
+            insert_key(key_map, details_type::char_7());
+            insert_key(key_map, details_type::char_8());
+            insert_key(key_map, details_type::char_9());
+            insert_key(key_map, details_type::char_a());
+            insert_key(key_map, details_type::char_b());
+            insert_key(key_map, details_type::char_c());
+            insert_key(key_map, details_type::char_d());
+            insert_key(key_map, details_type::char_e());
+            insert_key(key_map, details_type::char_f());
+            insert_key(key_map, details_type::char_g());
+            insert_key(key_map, details_type::char_h());
+            insert_key(key_map, details_type::char_i());
+            insert_key(key_map, details_type::char_j());
+            insert_key(key_map, details_type::char_k());
+            insert_key(key_map, details_type::char_l());
+            insert_key(key_map, details_type::char_m());
+            insert_key(key_map, details_type::char_n());
+            insert_key(key_map, details_type::char_o());
+            insert_key(key_map, details_type::char_p());
+            insert_key(key_map, details_type::char_q());
+            insert_key(key_map, details_type::char_r());
+            insert_key(key_map, details_type::char_s());
+            insert_key(key_map, details_type::char_t());
+            insert_key(key_map, details_type::char_u());
+            insert_key(key_map, details_type::char_v());
+            insert_key(key_map, details_type::char_w());
+            insert_key(key_map, details_type::char_x());
+            insert_key(key_map, details_type::char_y());
+            insert_key(key_map, details_type::char_z());
+            insert_key(key_map, details_type::f1());
+            insert_key(key_map, details_type::f2());
+            insert_key(key_map, details_type::f3());
+            insert_key(key_map, details_type::f4());
+            insert_key(key_map, details_type::f5());
+            insert_key(key_map, details_type::f6());
+            insert_key(key_map, details_type::f7());
+            insert_key(key_map, details_type::f8());
+            insert_key(key_map, details_type::f9());
+            insert_key(key_map, details_type::f10());
+            insert_key(key_map, details_type::f11());
+            insert_key(key_map, details_type::f12());
+
+            return key_map;
+        }
+
+        static void insert_key(
+            key_map_type&          key_map,
+            code_and_string_type&& code_and_string
+        )
+        {
+            const code_type code = code_and_string.first;
+            key_map.insert(
+                std::make_pair(
+                    code,
+                    virtual_key(
+                        std::forward<code_and_string_type>(code_and_string)
+                    )
+                )
+            );
+        }
+
+
         // constructors
 
         explicit virtual_key(code_and_string_type&& code_and_string)
@@ -630,9 +883,9 @@ namespace tetengo2 { namespace gui
 
         // variables
 
-        const code_type m_code;
+        code_type m_code;
 
-        const string_type m_string;
+        string_type m_string;
 
 
     };

@@ -36,6 +36,27 @@ BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(virtual_key)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(find_by_code)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const boost::optional<const virtual_key_type&> virtual_key =
+                virtual_key_type::find_by_code(
+                    virtual_key_type::char_a().code()
+                );
+
+            BOOST_CHECK(virtual_key);
+            BOOST_CHECK(*virtual_key == virtual_key_type::char_a());
+        }
+        {
+            const boost::optional<const virtual_key_type&> virtual_key =
+                virtual_key_type::find_by_code(0);
+
+            BOOST_CHECK(!virtual_key);
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(static_member_functions)
     {
         BOOST_TEST_PASSPOINT();
