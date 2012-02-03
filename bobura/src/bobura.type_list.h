@@ -548,6 +548,13 @@ namespace bobura
             tetengo2::gui::cursor::system<tetengo2::detail::windows::cursor>
             system_cursor_type;
         typedef
+            tetengo2::gui::virtual_key<
+                tetengo2::detail::windows::virtual_key<
+                    boost::mpl::at<common_type_list, type::string>::type
+                >
+            >
+            virtual_key_type;
+        typedef
             tetengo2::gui::widget::traits::widget_traits<
                 canvas_type,
                 alert_type,
@@ -561,6 +568,7 @@ namespace bobura
                 tetengo2::gui::message::focus_observer_set,
                 tetengo2::gui::message::paint_observer_set<canvas_type>,
                 tetengo2::gui::message::keyboard_observer_set<
+                    virtual_key_type,
                     boost::mpl::at<
                         common_type_list, type::string
                     >::type::value_type
@@ -573,13 +581,7 @@ namespace bobura
             tetengo2::detail::windows::message_handler<widget_details_type>
             message_handler_details_type;
         typedef
-            tetengo2::gui::menu::shortcut_key<
-                tetengo2::gui::virtual_key<
-                    tetengo2::detail::windows::virtual_key<
-                        boost::mpl::at<common_type_list, type::string>::type
-                    >
-                >
-            >
+            tetengo2::gui::menu::shortcut_key<virtual_key_type>
             shortcut_key_type;
         typedef
             tetengo2::gui::menu::traits<

@@ -23,6 +23,7 @@
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.unit.h"
+#include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.detail.stub.widget.h"
 #include "tetengo2.gui.alert.h"
 #include "tetengo2.gui.cursor.system.h"
@@ -39,6 +40,7 @@
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
 #include "tetengo2.gui.unit.em.h"
+#include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.gui.widget.abstract_window.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.text.encoder.h"
@@ -137,6 +139,12 @@ namespace
         system_cursor_type;
 
     typedef
+        tetengo2::gui::virtual_key<
+            tetengo2::detail::stub::virtual_key<std::wstring>
+        >
+        virtual_key_type;
+
+    typedef
         tetengo2::gui::widget::traits::widget_traits<
             canvas_type,
             alert_type,
@@ -149,7 +157,9 @@ namespace
             system_cursor_type,
             tetengo2::gui::message::focus_observer_set,
             tetengo2::gui::message::paint_observer_set<canvas_type>,
-            tetengo2::gui::message::keyboard_observer_set<wchar_t>,
+            tetengo2::gui::message::keyboard_observer_set<
+                virtual_key_type, wchar_t
+            >,
             tetengo2::gui::message::mouse_observer_set
         >
         widget_traits_type;

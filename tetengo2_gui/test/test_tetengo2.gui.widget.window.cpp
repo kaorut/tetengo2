@@ -138,6 +138,12 @@ namespace
         system_cursor_type;
 
     typedef
+        tetengo2::gui::virtual_key<
+            tetengo2::detail::stub::virtual_key<std::wstring>
+        >
+        virtual_key_type;
+
+    typedef
         tetengo2::gui::widget::traits::widget_traits<
             canvas_type,
             alert_type,
@@ -150,18 +156,15 @@ namespace
             system_cursor_type,
             tetengo2::gui::message::focus_observer_set,
             tetengo2::gui::message::paint_observer_set<canvas_type>,
-            tetengo2::gui::message::keyboard_observer_set<wchar_t>,
+            tetengo2::gui::message::keyboard_observer_set<
+                virtual_key_type, wchar_t
+            >,
             tetengo2::gui::message::mouse_observer_set
         >
         widget_traits_type;
 
     typedef
-        tetengo2::gui::menu::shortcut_key<
-            tetengo2::gui::virtual_key<
-                tetengo2::detail::stub::virtual_key<std::wstring>
-            >
-        >
-        shortcut_key_type;
+        tetengo2::gui::menu::shortcut_key<virtual_key_type> shortcut_key_type;
 
     typedef
         tetengo2::gui::menu::traits<

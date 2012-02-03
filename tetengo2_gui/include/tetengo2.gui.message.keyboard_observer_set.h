@@ -18,13 +18,17 @@ namespace tetengo2 { namespace gui { namespace message
     /*!
         \brief The class template for a keyboard observer set.
 
-        \tparam Char A character type.
+        \tparam VirtualKey A virtual key type.
+        \tparam Char       A character type.
     */
-    template <typename Char>
+    template <typename VirtualKey, typename Char>
     class keyboard_observer_set : private boost::noncopyable
     {
     public:
         // types
+
+        //! The virtual key type.
+        typedef VirtualKey virtual_key_type;
 
         //! The character type.
         typedef Char char_type;
