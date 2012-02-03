@@ -89,6 +89,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The color type.
         typedef typename base_type::color_type color_type;
 
+        //! The keyboard observer set type.
+        typedef
+            typename base_type::keyboard_observer_set_type
+            keyboard_observer_set_type;
+
         //! The solid background type.
         typedef
             typename traits_type::solid_background_type solid_background_type;
@@ -221,6 +226,37 @@ namespace tetengo2 { namespace gui { namespace widget
 
         };
 
+        class selected
+        {
+        public:
+            typedef
+                typename keyboard_observer_set_type::virtual_key_type
+                virtual_key_type;
+
+            selected(link_label& self)
+            :
+            m_self(self)
+            {}
+
+            void operator()(
+                const virtual_key_type& virtual_key,
+                const bool              shift,
+                const bool              control,
+                const bool              meta
+            )
+            const
+            {
+                if (virtual_key == virtual_key_type::space())
+                    widget_details_type::open_target(m_self, m_self.target());
+            }
+
+
+        private:
+            const link_label& m_self;
+
+
+        };
+
         class clicked
         {
         public:
@@ -287,6 +323,9 @@ namespace tetengo2 { namespace gui { namespace widget
             p_link_label->paint_observer_set().paint_background().disconnect_all_slots();
             p_link_label->paint_observer_set().paint_background().connect(
                 paint_background(*p_link_label)
+            );
+            p_link_label->keyboard_observer_set().key_up().connect(
+                selected(*p_link_label)
             );
             p_link_label->mouse_observer_set().clicked().connect(
                 clicked(*p_link_label)

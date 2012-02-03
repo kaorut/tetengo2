@@ -68,6 +68,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         typedef typename base_type::dimension_type dimension_type;
 
+        //! The keyboard observer set type.
+        typedef
+            typename base_type::keyboard_observer_set_type
+            keyboard_observer_set_type;
+
         //! The color type.
         typedef typename traits_type::color_type color_type;
 
