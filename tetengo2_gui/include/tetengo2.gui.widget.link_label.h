@@ -247,7 +247,7 @@ namespace tetengo2 { namespace gui { namespace widget
             const
             {
                 if (virtual_key == virtual_key_type::space())
-                    widget_details_type::open_target(m_self, m_self.target());
+                    m_self.open_target();
             }
 
 
@@ -268,7 +268,7 @@ namespace tetengo2 { namespace gui { namespace widget
             void operator()()
             const
             {
-                widget_details_type::open_target(m_self, m_self.target());
+                m_self.open_target();
             }
 
 
@@ -336,6 +336,15 @@ namespace tetengo2 { namespace gui { namespace widget
         // variables
 
         string_type m_target;
+
+
+        // functions
+
+        void open_target()
+        const
+        {
+            widget_details_type::open_target(*this, m_target);
+        }
 
 
     };
