@@ -732,6 +732,22 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(keyboard_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget;
+
+            widget.keyboard_observer_set();
+        }
+        {
+            concrete_widget widget;
+
+            widget.keyboard_observer_set();
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(mouse_observer_set)
     {
         BOOST_TEST_PASSPOINT();

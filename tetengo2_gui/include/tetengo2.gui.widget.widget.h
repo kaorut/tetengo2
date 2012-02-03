@@ -95,6 +95,11 @@ namespace tetengo2 { namespace gui { namespace widget
             typename traits_type::paint_observer_set_type
             paint_observer_set_type;
 
+        //! The keyboard observer set type.
+        typedef
+            typename traits_type::keyboard_observer_set_type
+            keyboard_observer_set_type;
+
         //! The mouse observer set type.
         typedef
             typename traits_type::mouse_observer_set_type
@@ -583,7 +588,28 @@ namespace tetengo2 { namespace gui { namespace widget
             return m_paint_observer_set;
         }
 
+         /*!
+            \brief Returns the keyboard observer set.
+
+            \return The keyboard observer set.
+        */
+        const keyboard_observer_set_type& keyboard_observer_set()
+        const
+        {
+            return m_keyboard_observer_set;
+        }
+
         /*!
+            \brief Returns the keyboard observer set.
+
+            \return The keyboard observer set.
+        */
+        keyboard_observer_set_type& keyboard_observer_set()
+        {
+            return m_keyboard_observer_set;
+        }
+
+       /*!
             \brief Returns the mouse observer set.
 
             \return The mouse observer set.
@@ -734,6 +760,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_p_cursor(),
         m_focus_observer_set(),
         m_paint_observer_set(),
+        m_keyboard_observer_set(),
         m_mouse_observer_set()
         {
             m_focus_observer_set.got_focus().connect(got_focus(*this));
@@ -832,6 +859,8 @@ namespace tetengo2 { namespace gui { namespace widget
         focus_observer_set_type m_focus_observer_set;
 
         paint_observer_set_type m_paint_observer_set;
+
+        keyboard_observer_set_type m_keyboard_observer_set;
 
         mouse_observer_set_type m_mouse_observer_set;
 
