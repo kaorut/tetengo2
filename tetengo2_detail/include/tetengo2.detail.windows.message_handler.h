@@ -68,7 +68,28 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
-                return boost::none;
+                typedef
+                    typename Widget::keyboard_observer_set_type::virtual_key_type
+                    virtual_key_type;
+
+                const boost::optional<const virtual_key_type&> virtual_key =
+                    virtual_key_type::find_by_code(
+                        static_cast<typename virtual_key_type::code_type>(
+                            wParam
+                        )
+                    );
+                if (!virtual_key)
+                    return boost::none;
+
+                const bool shift = ::GetKeyState(VK_SHIFT) < 0;
+                const bool control = ::GetKeyState(VK_CONTROL) < 0;
+                const bool meta = ::GetKeyState(VK_MENU) < 0;
+
+                widget.keyboard_observer_set().key_down()(
+                    *virtual_key, shift, control, meta
+                );
+
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
@@ -78,7 +99,28 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
-                return boost::none;
+                typedef
+                    typename Widget::keyboard_observer_set_type::virtual_key_type
+                    virtual_key_type;
+
+                const boost::optional<const virtual_key_type&> virtual_key =
+                    virtual_key_type::find_by_code(
+                        static_cast<typename virtual_key_type::code_type>(
+                            wParam
+                        )
+                    );
+                if (!virtual_key)
+                    return boost::none;
+
+                const bool shift = ::GetKeyState(VK_SHIFT) < 0;
+                const bool control = ::GetKeyState(VK_CONTROL) < 0;
+                const bool meta = ::GetKeyState(VK_MENU) < 0;
+
+                widget.keyboard_observer_set().key_up()(
+                    *virtual_key, shift, control, meta
+                );
+
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
@@ -88,7 +130,15 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
-                return boost::none;
+                typedef
+                    typename Widget::keyboard_observer_set_type::char_type
+                    char_type;
+
+                widget.keyboard_observer_set().character_input()(
+                    static_cast<char_type>(wParam)
+                );
+
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
