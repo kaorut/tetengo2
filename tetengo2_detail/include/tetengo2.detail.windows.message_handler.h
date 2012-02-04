@@ -68,6 +68,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
+                if (widget.keyboard_observer_set().key_down().empty())
+                    return boost::none;
+
                 typedef
                     typename Widget::keyboard_observer_set_type::virtual_key_type
                     virtual_key_type;
@@ -99,6 +102,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
+                if (widget.keyboard_observer_set().key_up().empty())
+                    return boost::none;
+
                 typedef
                     typename Widget::keyboard_observer_set_type::virtual_key_type
                     virtual_key_type;
@@ -130,6 +136,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
+                if (widget.keyboard_observer_set().character_input().empty())
+                    return boost::none;
+
                 typedef
                     typename Widget::keyboard_observer_set_type::char_type
                     char_type;
