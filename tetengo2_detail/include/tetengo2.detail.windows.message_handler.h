@@ -494,6 +494,48 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 return boost::none;
             }
+
+            ::BOOL enum_child_window_proc(
+                const ::HWND   child_window_handle,
+                const ::LPARAM lParam
+            )
+            {
+                ::HWND* p_result = reinterpret_cast< ::HWND*>(lParam);
+                if (!p_result) return FALSE;
+
+                const ::LONG style =
+                    ::GetWindowLongW(child_window_handle, GWL_STYLE);
+                if ((static_cast< ::DWORD>(style) & WS_TABSTOP) != 0)
+                {
+                    *p_result = child_window_handle;
+                    return FALSE;
+                }
+
+                return TRUE;
+            }
+
+            template <typename Dialog, typename WidgetDetails>
+            boost::optional< ::LRESULT> on_set_focus(
+                Dialog&        dialog,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                ::HWND first_child_window_handle = NULL;
+                ::EnumChildWindows(
+                    dialog.details()->first.get(),
+                    enum_child_window_proc,
+                    reinterpret_cast< ::LPARAM>(
+                        &first_child_window_handle
+                    )
+                );
+                if (first_child_window_handle)
+                    ::SetFocus(first_child_window_handle);
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+            
         }
 
 
@@ -832,6 +874,14 @@ namespace tetengo2 { namespace detail { namespace windows
                     detail::dialog::on_syscommand<
                         Dialog, widget_details_type
                     >,
+                    cpp11::ref(dialog),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_SETFOCUS].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::dialog::on_set_focus<Dialog, widget_details_type>,
                     cpp11::ref(dialog),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
