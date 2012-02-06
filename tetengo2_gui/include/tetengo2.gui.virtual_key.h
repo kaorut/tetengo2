@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_GUI_VIRTUALKEY_H)
 #define TETENGO2_GUI_VIRTUALKEY_H
 
+#include <cassert>
 #include <unordered_map>
 #include <utility>
 

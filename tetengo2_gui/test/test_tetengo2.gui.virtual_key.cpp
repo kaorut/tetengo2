@@ -8,6 +8,7 @@
 
 #include <string>
 
+//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.virtual_key.h"

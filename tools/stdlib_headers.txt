@@ -37,6 +37,7 @@
 ::GetCommandLineW                                Windows.h
 ::GetDC                                          Windows.h
 ::GetDlgItem                                     Windows.h
+::GetKeyState                                    Windows.h
 ::GetLastError                                   Windows.h
 ::GetLocaleInfoA                                 Windows.h
 ::GetMessageW                                    Windows.h
@@ -117,6 +118,7 @@
 ::SetActiveWindow                                Windows.h
 ::SetBkMode                                      Windows.h
 ::SetCursor                                      Windows.h
+::SetFocus                                       Windows.h
 ::SetMenu                                        Windows.h
 ::SetPropW                                       Windows.h
 ::SetTextColor                                   Windows.h
@@ -223,6 +225,7 @@ VK_SHIFT                                         Windows.h
 VK_SPACE                                         Windows.h
 VK_TAB                                           Windows.h
 VK_UP                                            Windows.h
+WINAPI                                           Windows.h
 assert                                           cassert
 boost::bad_lexical_cast                          boost/lexical_cast.hpp
 boost::basic_format                              boost/format.hpp

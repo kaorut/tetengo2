@@ -163,7 +163,8 @@ sub scan_source
 				$code_line =~ /[^a-zA-Z0-9_\:](::[A-Z][a-zA-Z0-9_\:]*)/ ||
 				$code_line =~ /(ATL::[a-zA-Z0-9_\:]*)/ ||
 				$code_line =~ /(Gdiplus::[a-zA-Z0-9_\:]*)/ ||
-				$code_line =~ /(VK_[A-Z0-9_]*)/
+				$code_line =~ /(VK_[A-Z0-9_]*)/ ||
+				$code_line =~ /(WINAPI)/
 			)
 			{
 				my($usage) = $1;
