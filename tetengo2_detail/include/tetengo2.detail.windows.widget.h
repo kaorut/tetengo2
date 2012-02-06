@@ -75,7 +75,8 @@ namespace tetengo2 { namespace detail { namespace windows
                     typename std::remove_pointer< ::HWND>::type,
                     detail::widget_deleter
                 >,
-                ::WNDPROC
+                ::WNDPROC,
+                ::HWND
             >
             widget_details_type;
 
@@ -146,7 +147,9 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return make_unique<widget_details_type>(
-                std::move(p_widget), &::DefWindowProcW
+                std::move(p_widget),
+                &::DefWindowProcW,
+                static_cast< ::HWND>(NULL)
             );
         }
 
@@ -213,7 +216,9 @@ namespace tetengo2 { namespace detail { namespace windows
             delete_system_menus(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget), &::DefWindowProcW
+                std::move(p_widget),
+                &::DefWindowProcW,
+                static_cast< ::HWND>(NULL)
             );
         }
 
@@ -309,7 +314,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget), p_original_window_procedure
+                std::move(p_widget),
+                p_original_window_procedure,
+                static_cast< ::HWND>(NULL)
             );
         }
 
@@ -353,7 +360,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget), p_original_window_procedure
+                std::move(p_widget),
+                p_original_window_procedure,
+                static_cast< ::HWND>(NULL)
             );
         }
 
@@ -397,7 +406,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget), p_original_window_procedure
+                std::move(p_widget),
+                p_original_window_procedure,
+                static_cast< ::HWND>(NULL)
             );
         }
 
@@ -441,7 +452,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget), p_original_window_procedure
+                std::move(p_widget),
+                p_original_window_procedure,
+                static_cast< ::HWND>(NULL)
             );
         }
 
