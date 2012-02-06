@@ -46,7 +46,7 @@ namespace tetengo2 { namespace gui
         /*!
             \brief Finds the virtual key by a code.
 
-            \param code.
+            \param code A code.
 
             \return The virtual key.
         */
