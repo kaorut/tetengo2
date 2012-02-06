@@ -30,6 +30,10 @@
     \brief The namespace for message observers of the about dialog.
 */
 
+/*! \namespace bobura::message::file_property_dialog
+    \brief The namespace for message observers of the file property dialog.
+*/
+
 /*! \namespace bobura::model
     \brief The namespace for the model of Bobura.
 */
