@@ -554,6 +554,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
+                if (std::get<2>(*dialog.details()))
+                {
+                    ::SetFocus(std::get<2>(*dialog.details()));
+                    return boost::make_optional< ::LRESULT>(0);
+                }
+
                 const ::HWND child_handle =
                     first_child_window_handle(
                         std::get<0>(*dialog.details()).get()
@@ -634,6 +640,25 @@ namespace tetengo2 { namespace detail { namespace windows
                 return boost::make_optional(
                     reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))
                 );
+            }
+
+            template <typename Control>
+            boost::optional< ::LRESULT> on_set_focus(
+                Control&       control,
+                const ::WPARAM wParam,
+                const ::LPARAM lParam
+            )
+            {
+                if (control.has_parent())
+                {
+                    typename Control::base_type& dialog =
+                        control.root_ancestor();
+
+                    std::get<2>(*dialog.details()) =
+                        std::get<0>(*control.details()).get();
+                }
+
+                return boost::none;
             }
 
 
@@ -970,10 +995,17 @@ namespace tetengo2 { namespace detail { namespace windows
                     cpp11::placeholders_2()
                 )
             );
-
             map[detail::WM_TETENGO2_CONTROL_COLOR].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::control::on_control_color<Control>,
+                    cpp11::ref(control),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_SETFOCUS].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::control::on_set_focus<Control>,
                     cpp11::ref(control),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
