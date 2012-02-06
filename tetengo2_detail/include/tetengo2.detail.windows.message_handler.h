@@ -56,7 +56,9 @@ namespace tetengo2 { namespace detail { namespace windows
                     reinterpret_cast< ::HWND>(lParam),
                     WM_TETENGO2_COMMAND,
                     wParam,
-                    reinterpret_cast< ::LPARAM>(widget.details()->first.get())
+                    reinterpret_cast< ::LPARAM>(
+                        std::get<0>(*widget.details()).get()
+                    )
                 );
                 return boost::none;
             }
@@ -241,7 +243,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 ::PAINTSTRUCT paint_struct = {};
                 if (
                     !::BeginPaint(
-                        widget.details()->first.get(), &paint_struct
+                        std::get<0>(*widget.details()).get(), &paint_struct
                     )
                 )
                 {
@@ -251,7 +253,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
                 BOOST_SCOPE_EXIT((&widget)(&paint_struct))
                 {
-                    ::EndPaint(widget.details()->first.get(), &paint_struct);
+                    ::EndPaint(
+                        std::get<0>(*widget.details()).get(), &paint_struct
+                    );
                 } BOOST_SCOPE_EXIT_END;
                 typename Widget::canvas_type canvas(paint_struct.hdc);
 
@@ -266,12 +270,15 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::HFONT font_handle =
                     reinterpret_cast< ::HFONT>(
                         ::SendMessageW(
-                            widget.details()->first.get(), WM_GETFONT, 0, 0
+                            std::get<0>(*widget.details()).get(),
+                            WM_GETFONT,
+                            0,
+                            0
                         )
                     );
 
                 ::SendMessageW(
-                    widget.details()->first.get(),
+                    std::get<0>(*widget.details()).get(),
                     WM_SETFONT,
                     NULL,
                     MAKELPARAM(0, 0)
@@ -306,7 +313,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const Widget* const p_widget =
                     reinterpret_cast<const Widget*>(
                         ::RemovePropW(
-                            widget.details()->first.get(),
+                            std::get<0>(*widget.details()).get(),
                             WidgetDetails::property_key_for_cpp_instance().c_str()
                         )
                     );
@@ -445,7 +452,9 @@ namespace tetengo2 { namespace detail { namespace windows
                         reinterpret_cast< ::HWND>(lParam);
                     assert(
                         widget_handle ==
-                        ::GetDlgItem(dialog.details()->first.get(), lo_wparam)
+                        ::GetDlgItem(
+                            std::get<0>(*dialog.details()).get(), lo_wparam
+                        )
                     );
                     if (widget_handle)
                     {
@@ -477,7 +486,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (wParam == SC_CLOSE)
                 {
                     const ::HWND widget_handle =
-                        ::GetDlgItem(dialog.details()->first.get(), IDCANCEL);
+                        ::GetDlgItem(
+                            std::get<0>(*dialog.details()).get(), IDCANCEL
+                        );
                     if (widget_handle)
                     {
                         WidgetDetails::p_widget_from<
@@ -544,7 +555,9 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 const ::HWND child_handle =
-                    first_child_window_handle(dialog.details()->first.get());
+                    first_child_window_handle(
+                        std::get<0>(*dialog.details()).get()
+                    );
                 if (child_handle)
                 {
                     ::SetFocus(child_handle);

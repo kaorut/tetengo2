@@ -185,7 +185,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             return make_unique<message_box_details_type>(
-                parent.details()->first.get(),
+                std::get<0>(*parent.details()).get(),
                 encoder.encode(std::forward<String1>(title)),
                 encoder.encode(std::forward<String2>(main_content)),
                 encoder.encode(std::forward<String3>(sub_content)),
@@ -301,7 +301,7 @@ namespace tetengo2 { namespace detail { namespace windows
             detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
             return make_unique<file_open_dialog_details_type>(
                 std::move(p_dialog),
-                parent.details()->first.get(),
+                std::get<0>(*parent.details()).get(),
                 encoder.encode(std::forward<String>(title)),
                 to_native_filters(filters, encoder)
             );

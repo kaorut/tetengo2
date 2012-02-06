@@ -64,7 +64,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (
                     shortcut_keys_defined(window) &&
                     ::TranslateAcceleratorW(
-                        window.details()->first.get(),
+                        std::get<0>(*window.details()).get(),
                         accelerator_table_handle(window),
                         &message
                     )
@@ -113,7 +113,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (
                     !dialog.destroyed() &&
                     ::IsDialogMessageW(
-                        dialog.details()->first.get(), &message
+                        std::get<0>(*dialog.details()).get(), &message
                     ) != 0
                 )
                 {
@@ -124,7 +124,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     !dialog.destroyed() &&
                     shortcut_keys_defined(dialog) &&
                     ::TranslateAcceleratorW(
-                        dialog.details()->first.get(),
+                        std::get<0>(*dialog.details()).get(),
                         accelerator_table_handle(dialog),
                         &message
                     )
