@@ -12,6 +12,7 @@
 #include <cstddef>
 #include <sstream>
 #include <stdexcept>
+#include <tuple>
 
 #include <boost/throw_exception.hpp>
 

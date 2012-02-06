@@ -388,6 +388,7 @@ std::string                                      string
 std::string::const_iterator                      string
 std::transform                                   algorithm
 std::tuple                                       tuple
+std::tuple_element                               tuple
 std::unary_function                              functional
 std::unique_ptr                                  memory
 std::unordered_map                               unordered_map
