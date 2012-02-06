@@ -107,6 +107,31 @@ namespace tetengo2 { namespace gui { namespace widget
         {}
 
 
+        // functions
+
+        /*!
+            \brief Checks whether the text box is read-only.
+
+            \retval true  When the text box is read-only.
+            \retval false Otherwise.
+        */
+        bool read_only()
+        const
+        {
+            return widget_details_type::read_only(*this);
+        }
+
+        /*!
+            \brief Sets a read-only status.
+
+            \param read_only A read-only status.
+        */
+        void set_read_only(const bool read_only)
+        {
+            widget_details_type::set_read_only(*this, read_only);
+        }
+
+
     private:
         // types
 

@@ -230,6 +230,8 @@ namespace bobura
                 tetengo2::make_unique<text_box_type>(*this)
             );
 
+            p_text_box->set_read_only(true);
+
             return std::move(p_text_box);
         }
 

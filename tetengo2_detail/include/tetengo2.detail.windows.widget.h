@@ -1321,7 +1321,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get focusable state.")
+                    std::runtime_error("Can't get focusable status.")
                 );
             }
             return (style & WS_TABSTOP) != 0;
@@ -1345,7 +1345,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get focusable state.")
+                    std::runtime_error("Can't get focusable status.")
                 );
             }
 
@@ -1363,7 +1363,59 @@ namespace tetengo2 { namespace detail { namespace windows
             )
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't set focusable state.")
+                    std::runtime_error("Can't set focusable status.")
+                );
+            }
+        }
+
+        /*!
+            \brief Checks whether a widget is read-only.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \retval true  When the widget is read-only.
+            \retval false Otherwise.
+        */
+        template <typename Widget>
+        static bool read_only(Widget& widget)
+        {
+            const ::LONG style =
+                ::GetWindowLongW(
+                    std::get<0>(*widget.details()).get(), GWL_STYLE
+                );
+            if (style == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get read-only status.")
+                );
+            }
+            return (style & ES_READONLY) != 0;
+        }
+
+        /*!
+            \brief Sets whether a widget is read-only.
+
+            \tparam Widget A widget type.
+
+            \param widget    A widget.
+            \param read_only True when the widget is read-only.
+        */
+        template <typename Widget>
+        static void set_read_only(Widget& widget, const bool read_only)
+        {
+            const ::LRESULT result =
+                ::SendMessageW(
+                    std::get<0>(*widget.details()).get(),
+                    EM_SETREADONLY,
+                    read_only ? TRUE : FALSE,
+                    0
+                );
+            if (result == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set read-only status.")
                 );
             }
         }

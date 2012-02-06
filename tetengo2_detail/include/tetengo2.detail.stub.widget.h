@@ -65,6 +65,9 @@ namespace tetengo2 { namespace detail { namespace stub
                 std::vector<void*>,
 
                 // details_focusable: focusable status
+                bool,
+
+                // details_read_only: read-only status
                 bool
             >
             widget_details_type;
@@ -688,7 +691,7 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Sets whether a control accepts a focus.
+            \brief Sets whether a widget accepts a focus.
 
             \tparam Widget A widget type.
 
@@ -701,6 +704,35 @@ namespace tetengo2 { namespace detail { namespace stub
             std::get<details_focusable>(*widget.details()) = focusable;
         }
 
+        /*!
+            \brief Checks whether a widget is read-only.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \retval true  When the widget is read-only.
+            \retval false Otherwise.
+        */
+        template <typename Widget>
+        static bool read_only(Widget& widget)
+        {
+            return std::get<details_read_only>(*widget.details());
+        }
+
+        /*!
+            \brief Sets whether a widget is read-only.
+
+            \tparam Widget A widget type.
+
+            \param widget    A widget.
+            \param read_only True when the widget is read-only.
+        */
+        template <typename Widget>
+        static void set_read_only(Widget& widget, const bool read_only)
+        {
+            std::get<details_read_only>(*widget.details()) = read_only;
+        }
 
         /*!
             \brief Closes a widget.
@@ -741,6 +773,7 @@ namespace tetengo2 { namespace detail { namespace stub
             details_font,
             details_children,
             details_focusable,
+            details_read_only,
         };
 
         typedef
@@ -765,6 +798,7 @@ namespace tetengo2 { namespace detail { namespace stub
                         std::wstring(), 12, false, false, false, false
                     ),
                     std::vector<void*>(),
+                    false,
                     false
                 );
 
