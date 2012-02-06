@@ -495,8 +495,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 return boost::none;
             }
 
-            ::BOOL WINAPI enum_child_window_proc(
-                const ::HWND   child_window_handle,
+            ::HWND first_child_window_handle(::HWND parent_handle);
+
+            ::BOOL WINAPI first_child_window_handle_iter(
+                const ::HWND   child_handle,
                 const ::LPARAM lParam
             )
             {
@@ -504,14 +506,34 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (!p_result) return FALSE;
 
                 const ::LONG style =
-                    ::GetWindowLongW(child_window_handle, GWL_STYLE);
+                    ::GetWindowLongW(child_handle, GWL_STYLE);
                 if ((static_cast< ::DWORD>(style) & WS_TABSTOP) != 0)
                 {
-                    *p_result = child_window_handle;
+                    *p_result = child_handle;
+                    return FALSE;
+                }
+
+                const ::HWND grandchild_handle =
+                    first_child_window_handle(child_handle);
+                if (grandchild_handle)
+                {
+                    *p_result = grandchild_handle;
                     return FALSE;
                 }
 
                 return TRUE;
+            }
+
+            ::HWND first_child_window_handle(const ::HWND parent_handle)
+            {
+                ::HWND child_handle = NULL;
+                ::EnumChildWindows(
+                    parent_handle,
+                    first_child_window_handle_iter,
+                    reinterpret_cast< ::LPARAM>(&child_handle)
+                );
+
+                return child_handle;
             }
 
             template <typename Dialog, typename WidgetDetails>
@@ -521,18 +543,15 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM lParam
             )
             {
-                ::HWND first_child_window_handle = NULL;
-                ::EnumChildWindows(
-                    dialog.details()->first.get(),
-                    enum_child_window_proc,
-                    reinterpret_cast< ::LPARAM>(
-                        &first_child_window_handle
-                    )
-                );
-                if (first_child_window_handle)
-                    ::SetFocus(first_child_window_handle);
+                const ::HWND child_handle =
+                    first_child_window_handle(dialog.details()->first.get());
+                if (child_handle)
+                {
+                    ::SetFocus(child_handle);
+                    return boost::make_optional< ::LRESULT>(0);
+                }
 
-                return boost::make_optional< ::LRESULT>(0);
+                return boost::none;
             }
 
             
