@@ -495,7 +495,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 return boost::none;
             }
 
-            ::BOOL enum_child_window_proc(
+            ::BOOL WINAPI enum_child_window_proc(
                 const ::HWND   child_window_handle,
                 const ::LPARAM lParam
             )
