@@ -9,10 +9,6 @@
 #if !defined(BOBURA_COMMAND_FILEPROPERTY_H)
 #define BOBURA_COMMAND_FILEPROPERTY_H
 
-#include <utility>
-
-#include <tetengo2.unique.h>
-
 
 namespace bobura { namespace command
 {
@@ -94,14 +90,7 @@ namespace bobura { namespace command
             if (dialog.result() != base_type::result_accepted)
                 return;
 
-            std::unique_ptr<timetable_type> p_new_timetable =
-                tetengo2::make_unique<timetable_type>(m_model.timetable());
-
-            p_new_timetable->set_title(dialog.line_name());
-
-            m_model.reset_timetable(
-                std::move(p_new_timetable), m_model.path()
-            );
+            m_model.timetable().set_title(dialog.line_name());
         }
 
 

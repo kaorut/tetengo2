@@ -32,11 +32,20 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
+        {
+            const model_type model;
 
-        const timetable_type& timetable = model.timetable();
+            const timetable_type& timetable = model.timetable();
 
-        BOOST_CHECK(timetable.title().empty());
+            BOOST_CHECK(timetable.title().empty());
+        }
+        {
+            model_type model;
+
+            timetable_type& timetable = model.timetable();
+
+            BOOST_CHECK(timetable.title().empty());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(path)

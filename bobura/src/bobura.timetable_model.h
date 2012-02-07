@@ -86,6 +86,17 @@ namespace bobura
         }
 
         /*!
+            \brief Returns the timetable.
+
+            \return The timetable.
+        */
+        timetable_type& timetable()
+        {
+            assert(m_p_timetable);
+            return *m_p_timetable;
+        }
+
+        /*!
             \brief Resets a timetable.
 
             \tparam P A path type.
