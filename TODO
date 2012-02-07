@@ -17,16 +17,6 @@ Added on    : 2012/01/16
 Depends on  : (none)
 Description : Create bobura::model::serializer::json_writer.
 ------------------------------------------------------------------------------
-Number      : 00000140
-Added on    : 2012/01/26
-Depends on  : 00000144
-Description : Create bobura::file_property_dialog.
-------------------------------------------------------------------------------
-Number      : 00000141
-Added on    : 2012/01/26
-Depends on  : 00000140
-Description : Create bobura::command::file_property.
-------------------------------------------------------------------------------
 Number      : 00000142
 Added on    : 2012/01/26
 Depends on  : 00000136, 00000141
