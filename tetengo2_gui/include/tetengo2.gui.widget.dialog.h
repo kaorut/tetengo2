@@ -156,6 +156,8 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void set_result(const result_type result)
         {
+            if (result == result_accepted)
+                set_result_impl();
             m_result = result;
         }
 
@@ -202,6 +204,9 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         // virtual functions
+
+        virtual void set_result_impl()
+        = 0;
 
         virtual boost::optional<const details_type&> details_impl()
         const

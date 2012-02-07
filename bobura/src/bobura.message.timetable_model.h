@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MESSAGE_TIMETABLEMODEL_H)
 #define BOBURA_MESSAGE_TIMETABLEMODEL_H
 
+#include <boost/optional.hpp>
+
 
 namespace bobura { namespace message { namespace timetable_model
 {
@@ -62,9 +64,13 @@ namespace bobura { namespace message { namespace timetable_model
         )
         const
         {
-            m_main_window.set_title(
-                path.filename().template string<string_type>()
-            );
+            const boost::optional<string_type> title =
+                path.empty() ?
+                    boost::none :
+                    boost::make_optional(
+                        path.filename().template string<string_type>()
+                    );
+            m_main_window.set_title(title);
         }
 
 

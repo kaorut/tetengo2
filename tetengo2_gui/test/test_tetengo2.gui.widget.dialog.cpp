@@ -263,6 +263,20 @@ namespace
         >
         dialog_type;
 
+    class concrete_dialog : public dialog_type
+    {
+    public:
+        explicit concrete_dialog(window_type::base_type& parent)
+        :
+        dialog_type(parent)
+        {}
+
+    private:
+        virtual void set_result_impl()
+        {}
+
+    };
+
 
 }
 
@@ -280,7 +294,7 @@ BOOST_AUTO_TEST_SUITE(dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const dialog_type dialog(
+        const concrete_dialog dialog(
             static_cast<window_type::base_type&>(parent)
         );
     }
@@ -291,7 +305,7 @@ BOOST_AUTO_TEST_SUITE(dialog)
 
         {
             window_type parent;
-            const dialog_type dialog(
+            const concrete_dialog dialog(
                 static_cast<window_type::base_type&>(parent)
             );
 
@@ -299,7 +313,9 @@ BOOST_AUTO_TEST_SUITE(dialog)
         }
         {
             window_type parent;
-            dialog_type dialog(static_cast<window_type::base_type&>(parent));
+            concrete_dialog dialog(
+                static_cast<window_type::base_type&>(parent)
+            );
 
             dialog.set_result(dialog_type::result_undecided);
 
@@ -307,7 +323,9 @@ BOOST_AUTO_TEST_SUITE(dialog)
         }
         {
             window_type parent;
-            dialog_type dialog(static_cast<window_type::base_type&>(parent));
+            concrete_dialog dialog(
+                static_cast<window_type::base_type&>(parent)
+            );
 
             dialog.set_result(dialog_type::result_accepted);
 
@@ -315,7 +333,9 @@ BOOST_AUTO_TEST_SUITE(dialog)
         }
         {
             window_type parent;
-            dialog_type dialog(static_cast<window_type::base_type&>(parent));
+            concrete_dialog dialog(
+                static_cast<window_type::base_type&>(parent)
+            );
 
             dialog.set_result(dialog_type::result_canceled);
 
@@ -329,19 +349,25 @@ BOOST_AUTO_TEST_SUITE(dialog)
 
         {
             window_type parent;
-            dialog_type dialog(static_cast<window_type::base_type&>(parent));
+            concrete_dialog dialog(
+                static_cast<window_type::base_type&>(parent)
+            );
 
             dialog.set_result(dialog_type::result_undecided);
         }
         {
             window_type parent;
-            dialog_type dialog(static_cast<window_type::base_type&>(parent));
+            concrete_dialog dialog(
+                static_cast<window_type::base_type&>(parent)
+            );
 
             dialog.set_result(dialog_type::result_accepted);
         }
         {
             window_type parent;
-            dialog_type dialog(static_cast<window_type::base_type&>(parent));
+            concrete_dialog dialog(
+                static_cast<window_type::base_type&>(parent)
+            );
 
             dialog.set_result(dialog_type::result_canceled);
         }
@@ -352,7 +378,7 @@ BOOST_AUTO_TEST_SUITE(dialog)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        dialog_type dialog(static_cast<window_type::base_type&>(parent));
+        concrete_dialog dialog(static_cast<window_type::base_type&>(parent));
 
         dialog.do_modal();
     }

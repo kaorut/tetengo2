@@ -97,6 +97,8 @@ namespace bobura
         :
         base_type(parent),
         m_message_catalog(message_catalog),
+        m_line_name(),
+        m_file_name(),
         m_p_line_name_label(),
         m_p_line_name_text_box(),
         m_p_file_name_label(),
@@ -122,10 +124,10 @@ namespace bobura
 
             \return The line name.
         */
-        string_type line_name()
+        const string_type& line_name()
         const
         {
-            return m_p_line_name_text_box->text();
+            return m_line_name;
         }
 
         /*!
@@ -138,7 +140,9 @@ namespace bobura
         template <typename S>
         void set_line_name(S&& line_name)
         {
-            m_p_line_name_text_box->set_text(std::forward<S>(line_name));
+            m_line_name = std::forward<S>(line_name);
+            if (!m_p_line_name_text_box->destroyed())
+                m_p_line_name_text_box->set_text(m_line_name);
         }
 
         /*!
@@ -146,10 +150,10 @@ namespace bobura
 
             \return The file name.
         */
-        string_type file_name()
+        const string_type& file_name()
         const
         {
-            return m_p_file_name_text_box->text();
+            return m_file_name;
         }
 
         /*!
@@ -162,7 +166,9 @@ namespace bobura
         template <typename S>
         void set_file_name(S&& file_name)
         {
-            m_p_file_name_text_box->set_text(std::forward<S>(file_name));
+            m_file_name = std::forward<S>(file_name);
+            if (!m_p_file_name_text_box->destroyed())
+                m_p_file_name_text_box->set_text(m_file_name);
         }
 
 
@@ -194,6 +200,10 @@ namespace bobura
 
         const message_catalog_type& m_message_catalog;
 
+        string_type m_line_name;
+
+        string_type m_file_name;
+
         std::unique_ptr<label_type> m_p_line_name_label;
 
         std::unique_ptr<text_box_type> m_p_line_name_text_box;
@@ -205,6 +215,14 @@ namespace bobura
         std::unique_ptr<button_type> m_p_ok_button;
 
         std::unique_ptr<button_type> m_p_cancel_button;
+
+
+        // virtual functions
+
+        virtual void set_result_impl()
+        {
+            m_line_name = m_p_line_name_text_box->text();
+        }
 
 
         // functions
