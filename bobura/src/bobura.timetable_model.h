@@ -63,6 +63,29 @@ namespace bobura
         // functions
 
         /*!
+            \brief Returns the path.
+
+            \return The path.
+        */
+        const path_type& path()
+        const
+        {
+            return m_path;
+        }
+
+        /*!
+            \brief Returns the timetable.
+
+            \return The timetable.
+        */
+        const timetable_type& timetable()
+        const
+        {
+            assert(m_p_timetable);
+            return *m_p_timetable;
+        }
+
+        /*!
             \brief Resets a timetable.
 
             \tparam P A path type.

@@ -62,7 +62,9 @@ namespace bobura { namespace command
                 boost::mpl::pair<type::exit, exit<Window>>,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
-                    type::file_property, file_property<FilePropertyDialog>
+                    type::file_property, file_property<
+                        FilePropertyDialog, Model
+                    >
                 >,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<

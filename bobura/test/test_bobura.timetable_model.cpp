@@ -28,6 +28,28 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         const model_type model;
     }
 
+    BOOST_AUTO_TEST_CASE(timetable)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+
+        const timetable_type& timetable = model.timetable();
+
+        BOOST_CHECK(timetable.title().empty());
+    }
+
+    BOOST_AUTO_TEST_CASE(path)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+
+        const model_type::path_type& path = model.path();
+
+        BOOST_CHECK(path.empty());
+    }
+
     BOOST_AUTO_TEST_CASE(reset_timetable)
     {
         BOOST_TEST_PASSPOINT();

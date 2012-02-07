@@ -86,7 +86,6 @@ namespace tetengo2 { namespace gui { namespace widget
             typename widget_details_type::widget_details_ptr_type
             details_ptr_type;
 
-
         //! The result type.
         enum result_type
         {

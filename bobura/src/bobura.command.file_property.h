@@ -9,7 +9,9 @@
 #if !defined(BOBURA_COMMAND_FILEPROPERTY_H)
 #define BOBURA_COMMAND_FILEPROPERTY_H
 
-#include <tetengo2.cpp11.h>
+#include <utility>
+
+#include <tetengo2.unique.h>
 
 
 namespace bobura { namespace command
@@ -18,8 +20,9 @@ namespace bobura { namespace command
         \brief The class template for a file property command.
 
         \tparam FilePropertyDialog A file property dialog type.
+        \tparam Model              A model type.
     */
-    template <typename FilePropertyDialog>
+    template <typename FilePropertyDialog, typename Model>
     class file_property
     {
     public:
@@ -28,15 +31,27 @@ namespace bobura { namespace command
         //! The file property dialog type.
         typedef FilePropertyDialog file_property_dialog_type;
 
+        //! The base type.
+        typedef typename file_property_dialog_type::base_type base_type;
+
         //! The abstract window type.
         typedef
             typename file_property_dialog_type::abstract_window_type
             abstract_window_type;
 
+        //! The string type.
+        typedef typename file_property_dialog_type::string_type string_type;
+
         //! The message catalog type.
         typedef
             typename file_property_dialog_type::message_catalog_type
             message_catalog_type;
+
+        //! The model type.
+        typedef Model model_type;
+        
+        //! The timetable type.
+        typedef typename model_type::timetable_type timetable_type;
 
 
         // constructors and destructor
@@ -49,10 +64,12 @@ namespace bobura { namespace command
         */
         file_property(
             abstract_window_type&       parent,
+            model_type&                 model,
             const message_catalog_type& message_catalog
         )
         :
         m_parent(parent),
+        m_model(model),
         m_message_catalog(message_catalog)
         {}
 
@@ -64,22 +81,36 @@ namespace bobura { namespace command
         */
         void operator()()
         {
-            file_property_dialog_type(
+            file_property_dialog_type dialog(
                 m_parent, m_message_catalog
-            ).do_modal();
+            );
+
+            dialog.set_line_name(m_model.timetable().title());
+            dialog.set_file_name(m_model.path().string<string_type>());
+
+            dialog.do_modal();
+            if (dialog.result() != base_type::result_accepted)
+                return;
+
+            std::unique_ptr<timetable_type> p_new_timetable =
+                tetengo2::make_unique<timetable_type>(m_model.timetable());
+
+            p_new_timetable->set_title(dialog.line_name());
+
+            m_model.reset_timetable(
+                std::move(p_new_timetable), m_model.path()
+            );
         }
 
 
     private:
         // variables
 
-        typename tetengo2::cpp11::reference_wrapper<
-            abstract_window_type
-        >::type m_parent;
+        abstract_window_type& m_parent;
 
-        typename tetengo2::cpp11::reference_wrapper<
-            const message_catalog_type
-        >::type m_message_catalog;
+        model_type& m_model;
+
+        const message_catalog_type& m_message_catalog;
 
 
     };
