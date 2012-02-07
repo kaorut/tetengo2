@@ -55,6 +55,9 @@ namespace bobura
         //! The abstract window type.
         typedef typename base_type::base_type abstract_window_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The background type.
         typedef typename base_type::background_type background_type;
 
@@ -110,6 +113,57 @@ namespace bobura
         virtual ~file_property_dialog()
         TETENGO2_CPP11_NOEXCEPT
         {}
+
+
+        // functions
+
+        /*!
+            \brief Returns the line name.
+
+            \return The line name.
+        */
+        string_type line_name()
+        const
+        {
+            return m_p_line_name_text_box->text();
+        }
+
+        /*!
+            \brief Sets a line name.
+
+            \tparam S A string type.
+
+            \param line_name A line name.
+        */
+        template <typename S>
+        void set_line_name(S&& line_name)
+        {
+            m_p_line_name_text_box->set_text(std::forward<S>(line_name));
+        }
+
+        /*!
+            \brief Returns the file name.
+
+            \return The file name.
+        */
+        string_type file_name()
+        const
+        {
+            return m_p_file_name_text_box->text();
+        }
+
+        /*!
+            \brief Sets a file name.
+
+            \tparam S A string type.
+
+            \param file_name A file name.
+        */
+        template <typename S>
+        void set_file_name(S&& file_name)
+        {
+            m_p_file_name_text_box->set_text(std::forward<S>(file_name));
+        }
 
 
     private:

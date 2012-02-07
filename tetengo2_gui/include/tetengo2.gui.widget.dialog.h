@@ -66,6 +66,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The dimension type.
         typedef typename base_type::dimension_type dimension_type;
 
+        //! The string type.
+        typedef typename base_type::string_type string_type;
+
         //! The message loop type.
         typedef typename traits_type::message_loop_type message_loop_type;
 
