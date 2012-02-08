@@ -3,6 +3,7 @@
 # $Id$
 
 headers = \
+    bobura.model.message.timetable_observer_set.h \
     bobura.model.serializer.json_reader.h \
     bobura.model.serializer.reader.h \
     bobura.model.station.h \

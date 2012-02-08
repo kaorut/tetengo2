@@ -8,6 +8,7 @@ extra_headers =
 
 sources = \
     master.cpp \
+    test_bobura.model.message.timetable_observer_set.cpp \
     test_bobura.model.serializer.json_reader.cpp \
     test_bobura.model.serializer.reader.cpp \
     test_bobura.model.station.cpp \

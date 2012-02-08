@@ -22,6 +22,9 @@
     <Filter Include="sources\test_bobura::model\serializer">
       <UniqueIdentifier>{ff621378-3126-41e9-90ef-93d52bfec4d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_bobura::model\message">
+      <UniqueIdentifier>{5c2adcdb-170a-4c2b-8c99-18b340fece0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
@@ -64,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="test\test_bobura.model.serializer.json_reader.cpp">
       <Filter>sources\test_bobura::model\serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.message.timetable_observer_set.cpp">
+      <Filter>sources\test_bobura::model\message</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

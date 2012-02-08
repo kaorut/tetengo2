@@ -94,6 +94,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="test\master.cpp" />
+    <ClCompile Include="test\test_bobura.model.message.timetable_observer_set.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.json_reader.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.reader.cpp" />
     <ClCompile Include="test\test_bobura.model.station.cpp" />

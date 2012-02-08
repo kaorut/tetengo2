@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::message::timetable_model_observer_set.
+    \brief Test of class bobura::model::message::timetable_observer_set.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -8,15 +8,16 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.message.timetable_model_observer_set.h"
+#include "bobura.model.message.timetable_observer_set.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
+BOOST_AUTO_TEST_SUITE(model)
 BOOST_AUTO_TEST_SUITE(message)
-BOOST_AUTO_TEST_SUITE(timetable_model_observer_set)
+BOOST_AUTO_TEST_SUITE(timetable_observer_set)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(reset)
+    BOOST_AUTO_TEST_CASE(changed)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -24,6 +25,7 @@ BOOST_AUTO_TEST_SUITE(timetable_model_observer_set)
     }
 
 
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
