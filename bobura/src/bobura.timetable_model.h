@@ -9,6 +9,7 @@
 #if !defined(BOBURA_TIMETABLEMODEL_H)
 #define BOBURA_TIMETABLEMODEL_H
 
+#include <cassert>
 #include <cstddef>
 //#include <memory>
 #include <stdexcept>
