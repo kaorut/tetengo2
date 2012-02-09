@@ -48,6 +48,16 @@ namespace bobura { namespace message
         //! The signal type of reset.
         typedef boost::signals2::signal<reset_type> reset_signal_type;
 
+        /*!
+            \brief The observer type of changed.
+
+            \param changed A changed status.
+        */
+        typedef void changed_type(bool changed);
+
+        //! The signal type of reset.
+        typedef boost::signals2::signal<changed_type> changed_signal_type;
+
 
         // functions
 
@@ -74,11 +84,36 @@ namespace bobura { namespace message
             return m_reset;
         }
 
+        /*!
+            \brief Returns the observer called when a timetable model is
+                   changed.
+
+            \return The observer called when a a timetable model is changed.
+        */
+        const changed_signal_type& changed()
+        const
+        {
+            return m_changed;
+        }
+
+        /*!
+            \brief Returns the observer called when a timetable model is
+                   changed.
+
+            \return The observer called when a a timetable model is changed.
+        */
+        changed_signal_type& changed()
+        {
+            return m_changed;
+        }
+
 
     private:
         // variables
 
         reset_signal_type m_reset;
+
+        changed_signal_type m_changed;
 
 
     };

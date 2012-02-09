@@ -44,8 +44,10 @@ namespace bobura { namespace message
                     boost::mpl::pair<
                         type::reset, reset<Timetable, Path, MainWindow>
                     >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::changed, changed<MainWindow>>,
                 tetengo2::meta::assoc_list_end
-                >
+                >>
                 type;
 
 

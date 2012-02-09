@@ -57,6 +57,52 @@ BOOST_AUTO_TEST_SUITE(reset)
 
 
 BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(changed)
+    // test cases
+
+    BOOST_AUTO_TEST_CASE(construction)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const message_catalog_type message_catalog;
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
+        main_window_type main_window(message_catalog, settings);
+        const bobura::message::timetable_model::changed<main_window_type>
+        observer(main_window);
+    }
+
+    BOOST_AUTO_TEST_CASE(clicked)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const message_catalog_type message_catalog;
+            std::vector<std::wstring> arguments;
+            boost::filesystem::path path;
+            const settings_type settings(std::move(arguments), std::move(path));
+            main_window_type main_window(message_catalog, settings);
+            const bobura::message::timetable_model::changed<main_window_type>
+            observer(main_window);
+
+            observer(false);
+        }
+        {
+            const message_catalog_type message_catalog;
+            std::vector<std::wstring> arguments;
+            boost::filesystem::path path;
+            const settings_type settings(std::move(arguments), std::move(path));
+            main_window_type main_window(message_catalog, settings);
+            const bobura::message::timetable_model::changed<main_window_type>
+            observer(main_window);
+
+            observer(true);
+        }
+    }
+
+
+BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

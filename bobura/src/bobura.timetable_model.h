@@ -149,6 +149,8 @@ namespace bobura
         void set_changed(const bool changed)
         {
             m_changed = changed;
+
+            m_observer_set.changed()(m_changed);
         }
 
         /*!

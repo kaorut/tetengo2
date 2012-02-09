@@ -17,6 +17,7 @@ namespace bobura { namespace message
         namespace type
         {
             struct reset;      //!< The reset observer type.
+            struct changed;    //!< The changed observer type.
         }
     }
 
