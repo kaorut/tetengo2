@@ -106,6 +106,7 @@
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
+#include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
@@ -382,7 +383,8 @@ namespace bobura
             bobura::model::timetable<
                 boost::mpl::at<common_type_list, type::string>::type,
                 station_location_type,
-                train_type
+                train_type,
+                bobura::model::message::timetable_observer_set
             >
             timetable_type;
         typedef

@@ -13,6 +13,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
@@ -31,25 +32,36 @@ namespace
     typedef
         bobura::model::station_info::grade_type_set<std::wstring>
         station_grade_type_set_type;
+
     typedef station_grade_type_set_type::grade_type grade_type;
+
     typedef station_grade_type_set_type::local_type local_type;
+
     typedef bobura::model::station<std::wstring, grade_type> station_type;
+
     typedef
         bobura::model::timetable_info::station_location<
             station_type, std::size_t
         >
         station_location_type;
+
     typedef
         bobura::model::train_info::time<
             std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
         >
         time_type;
+
     typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
+
     typedef
         bobura::model::train<std::string, std::string, stop_type> train_type;
+
     typedef
         bobura::model::timetable<
-            std::string, station_location_type, train_type
+            std::string,
+            station_location_type,
+            train_type,
+            bobura::model::message::timetable_observer_set
         >
         timetable_type;
 
@@ -1403,6 +1415,22 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "x");
             BOOST_CHECK_EQUAL(trains[1].number(), "3");
             BOOST_CHECK_EQUAL(trains[1].note(),  "z");
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const timetable_type timetable("hoge");
+
+            timetable.observer_set();
+        }
+        {
+            timetable_type timetable("hoge");
+
+            timetable.observer_set();
         }
     }
 

@@ -14,6 +14,7 @@
 
 #include <tetengo2.cpp11.h>
 
+#include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
@@ -57,7 +58,10 @@ namespace
 
     typedef
         bobura::model::timetable<
-            std::string, station_location_type, train_type
+            std::string,
+            station_location_type,
+            train_type,
+            bobura::model::message::timetable_observer_set
         >
         timetable_type;
 

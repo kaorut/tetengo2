@@ -20,6 +20,7 @@
 #include <tetengo2.text.pull_parser.h>
 #include <tetengo2.text.push_parser.h>
 
+#include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.station.h"
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.timetable.h"
@@ -63,7 +64,10 @@ namespace
 
     typedef
         bobura::model::timetable<
-            std::string, station_location_type, train_type
+            std::string,
+            station_location_type,
+            train_type,
+            bobura::model::message::timetable_observer_set
         >
         timetable_type;
 

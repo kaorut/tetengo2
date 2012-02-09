@@ -13,7 +13,7 @@
 #include <boost/signals2.hpp>
 
 
-namespace bobura { namespace message
+namespace bobura { namespace model { namespace message
 {
     /*!
         \brief The class for a timetable observer set.
@@ -65,7 +65,7 @@ namespace bobura { namespace message
     };
 
 
-}}
+}}}
 
 
 #endif

@@ -30,11 +30,17 @@ namespace bobura { namespace model
         \tparam String          A string type.
         \tparam StationLocation A station location type.
         \tparam Train           A train type.
+        \tparam ObserverSet     An observer set type.
     */
-    template <typename String, typename StationLocation, typename Train>
+    template <
+        typename String,
+        typename StationLocation,
+        typename Train,
+        typename ObserverSet
+    >
     class timetable :
         private boost::equality_comparable<
-            timetable<String, StationLocation, Train>
+            timetable<String, StationLocation, Train, ObserverSet>
         >
     {
     public:
@@ -55,6 +61,9 @@ namespace bobura { namespace model
         //! The trains type.
         typedef std::vector<train_type> trains_type;
 
+        //! The observer set type.
+        typedef ObserverSet observer_set_type;
+
 
         // constructors and destructor
 
@@ -71,7 +80,8 @@ namespace bobura { namespace model
         m_title(std::forward<S>(title)),
         m_station_locations(),
         m_down_trains(),
-        m_up_trains()
+        m_up_trains(),
+        m_observer_set()
         {}
 
         /*!
@@ -89,7 +99,8 @@ namespace bobura { namespace model
         m_title(std::forward<S>(title)),
         m_station_locations(std::forward<SLs>(station_locations)),
         m_down_trains(),
-        m_up_trains()
+        m_up_trains(),
+        m_observer_set()
         {}
 
         /*!
@@ -114,7 +125,8 @@ namespace bobura { namespace model
         m_title(std::forward<S>(title)),
         m_station_locations(station_location_first, station_location_last),
         m_down_trains(),
-        m_up_trains()
+        m_up_trains(),
+        m_observer_set()
         {}
 
 
@@ -158,6 +170,8 @@ namespace bobura { namespace model
         void set_title(S&& title)
         {
             m_title = std::forward<S>(title);
+
+            m_observer_set.changed()();
         }
 
         /*!
@@ -236,6 +250,8 @@ namespace bobura { namespace model
                     offset
                 )
             );
+
+            m_observer_set.changed()();
         }
 
         /*!
@@ -287,6 +303,8 @@ namespace bobura { namespace model
                     last_offset
                 )
             );
+
+            m_observer_set.changed()();
         }
 
         /*!
@@ -389,6 +407,27 @@ namespace bobura { namespace model
             erase_trains_impl(m_up_trains, first, last);
         }
 
+        /*!
+            \brief Returns the observer set.
+
+            \return The observer set.
+        */
+        const observer_set_type& observer_set()
+        const
+        {
+            return m_observer_set;
+        }
+
+        /*!
+            \brief Returns the observer set.
+
+            \return The observer set.
+        */
+        observer_set_type& observer_set()
+        {
+            return m_observer_set;
+        }
+
 
     private:
         // types
@@ -453,6 +492,8 @@ namespace bobura { namespace model
 
         trains_type m_up_trains;
 
+        observer_set_type m_observer_set;
+
 
         // functions
 
@@ -501,6 +542,8 @@ namespace bobura { namespace model
             trains.insert(
                 to_mutable(position, trains), std::forward<T>(train)
             );
+
+            m_observer_set.changed()();
         }
 
         void erase_trains_impl(
@@ -510,6 +553,8 @@ namespace bobura { namespace model
         )
         {
             trains.erase(to_mutable(first, trains), to_mutable(last, trains));
+
+            m_observer_set.changed()();
         }
 
 
