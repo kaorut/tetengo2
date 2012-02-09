@@ -84,6 +84,35 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(changed)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+
+        BOOST_CHECK(!model.changed());
+    }
+
+    BOOST_AUTO_TEST_CASE(set_changed)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            model_type model;
+
+            model.set_changed(false);
+
+            BOOST_CHECK(!model.changed());
+        }
+        {
+            model_type model;
+
+            model.set_changed(true);
+
+            BOOST_CHECK(model.changed());
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(observer_set)
     {
         BOOST_TEST_PASSPOINT();

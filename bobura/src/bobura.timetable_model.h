@@ -57,8 +57,11 @@ namespace bobura
             tetengo2::make_unique<timetable_type>(string_type())
         ),
         m_path(),
+        m_changed(false),
         m_observer_set()
-        {}
+        {
+            initialize_timetable();
+        }
 
 
         // functions
@@ -127,6 +130,28 @@ namespace bobura
         }
 
         /*!
+            \brief Checks whether the model is changed.
+
+            \retval true  When the model is changed.
+            \retval false Otherwise.
+        */
+        bool changed()
+        const
+        {
+            return m_changed;
+        }
+
+        /*!
+            \brief Sets a changed status.
+
+            \param changed A changed status.
+        */
+        void set_changed(const bool changed)
+        {
+            m_changed = changed;
+        }
+
+        /*!
             \brief Returns the observer set.
 
             \return The observer set.
@@ -153,6 +178,24 @@ namespace bobura
 
         typedef typename timetable_type::string_type string_type;
 
+        class timetable_changed
+        {
+        public:
+            timetable_changed(timetable_model& self)
+            :
+            m_self(self)
+            {}
+
+            void operator()()
+            {
+                m_self.set_changed(true);
+            }
+
+        private:
+            timetable_model& m_self;
+
+        };
+
 
         // variables
 
@@ -160,7 +203,19 @@ namespace bobura
 
         path_type m_path;
 
+        bool m_changed;
+
         observer_set_type m_observer_set;
+
+
+        // functions
+
+        void initialize_timetable()
+        {
+            m_p_timetable->observer_set().changed().connect(
+                timetable_changed(*this)
+            );
+        }
 
 
     };
