@@ -26,16 +26,18 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a load-from-file command.
 
-        \tparam MessageBox     A message box type.
-        \tparam FileOpenDialog A file open dialog type.
-        \tparam Model          A model type.
-        \tparam Reader         A reader type.
-        \tparam MessageCatalog A message catalog type.
+        \tparam MessageBox      A message box type.
+        \tparam FileOpenDialog  A file open dialog type.
+        \tparam Model           A model type.
+        \tparam ConfirmFileSave A file save confirmation type.
+        \tparam Reader          A reader type.
+        \tparam MessageCatalog  A message catalog type.
     */
     template <
         typename MessageBox,
         typename FileOpenDialog,
         typename Model,
+        typename ConfirmFileSave,
         typename Reader,
         typename MessageCatalog
     >
@@ -55,6 +57,9 @@ namespace bobura { namespace command
 
         //! The model type.
         typedef Model model_type;
+
+        //! The file save confirmation type.
+        typedef ConfirmFileSave confirm_file_save_type;
 
         //! The reader type.
         typedef Reader reader_type;

@@ -33,6 +33,7 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
             message_box_type,
             file_open_type,
             model_type,
+            confirm_file_save_type,
             reader_type,
             message_catalog_type
         >

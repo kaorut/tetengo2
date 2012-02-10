@@ -34,6 +34,7 @@ namespace bobura { namespace command
         \tparam FilePropertyDialog A file property dialog type.
         \tparam AboutDialog        An about dialog type.
         \tparam Model              A model type.
+        \tparam ConfirmFileSave    A file save confirmation type.
         \tparam Reader             A reader type.
         \tparam MessageCatalog     A message catalog type.
     */
@@ -44,6 +45,7 @@ namespace bobura { namespace command
         typename FilePropertyDialog,
         typename AboutDialog,
         typename Model,
+        typename ConfirmFileSave,
         typename Reader,
         typename MessageCatalog
     >
@@ -73,6 +75,7 @@ namespace bobura { namespace command
                         MessageBox,
                         FileOpenDialog,
                         Model,
+                        ConfirmFileSave,
                         Reader,
                         MessageCatalog
                     >

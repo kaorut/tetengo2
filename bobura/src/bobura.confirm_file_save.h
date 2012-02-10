@@ -15,9 +15,17 @@ namespace bobura
     /*!
         \brief The class template for the file save confirmation.
 
-        \tparam Model A model type.
+        \tparam Model          A model type.
+        \tparam Window         A window type.
+        \tparam MessageBox     A message box type.
+        \tparam MessageCatalog A message catalog type.
     */
-    template <typename Model>
+    template <
+        typename Model,
+        typename Window,
+        typename MessageBox,
+        typename MessageCatalog
+    >
     class confirm_file_save
     {
     public:
@@ -25,6 +33,15 @@ namespace bobura
 
         //! The model type.
         typedef Model model_type;
+
+        //! The window type.
+        typedef Window window_type;
+
+        //! The message box type.
+        typedef MessageBox message_box_type;
+
+        //! The message catalog type.
+        typedef MessageCatalog message_catalog_type;
 
 
         // constructors and destructor

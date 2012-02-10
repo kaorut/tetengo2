@@ -102,6 +102,7 @@
 #include "bobura.application.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
+#include "bobura.confirm_file_save.h"
 #include "bobura.file_property_dialog.h"
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
@@ -912,6 +913,34 @@ namespace bobura
         dialog_type_list;
 
 
+    /**** Miscellaneous *****************************************************/
+
+    namespace type
+    {
+        struct confirm_file_save; //!< The file save confirmation.
+    }
+
+    //! The type list for the miscellaneous processings.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::confirm_file_save,
+                confirm_file_save<
+                    boost::mpl::at<model_type_list, type::model>::type,
+                    boost::mpl::at<ui_type_list, type::window>::type,
+                    boost::mpl::at<
+                        common_dialog_type_list, type::message_box
+                    >::type,
+                    boost::mpl::at<
+                        locale_type_list, type::message_catalog
+                    >::type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        miscellaneous_type_list;
+
+
     /**** Command Type List *************************************************/
 
     namespace type
@@ -939,6 +968,9 @@ namespace bobura
                         dialog_type_list, type::about_dialog
                     >::type,
                     boost::mpl::at<model_type_list, type::model>::type,
+                    boost::mpl::at<
+                        miscellaneous_type_list, type::confirm_file_save
+                    >::type,
                     boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog

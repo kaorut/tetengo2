@@ -95,6 +95,7 @@
 #include "bobura.application.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
+#include "bobura.confirm_file_save.h"
 #include "bobura.file_property_dialog.h"
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
@@ -582,6 +583,12 @@ typedef
     reader_type;
 
 typedef
+    bobura::confirm_file_save<
+        model_type, window_type, message_box_type, message_catalog_type
+    >
+    confirm_file_save_type;
+
+typedef
     bobura::command::type_list<
         window_type,
         message_box_type,
@@ -589,6 +596,7 @@ typedef
         file_property_dialog_type,
         about_dialog_type,
         model_type,
+        confirm_file_save_type,
         reader_type,
         message_catalog_type
     >::type
