@@ -24,6 +24,17 @@ namespace tetengo2 { namespace gui { namespace message
         // types
 
         /*!
+            \brief The observer type of closing.
+
+            \retval true  When the window must be close.
+            \retval false Otherwise.
+        */
+        typedef bool closing_type();
+
+        //! The signal type of closing.
+        typedef boost::signals2::signal<closing_type> closing_signal_type;
+
+        /*!
             \brief The observer type of destroyed.
         */
         typedef void destroyed_type();
@@ -33,6 +44,27 @@ namespace tetengo2 { namespace gui { namespace message
 
 
         // functions
+
+        /*!
+            \brief Returns the observer called when a window is closing.
+
+            \return The observer called when a window is closing.
+        */
+        const closing_signal_type& closing()
+        const
+        {
+            return m_closing;
+        }
+
+        /*!
+            \brief Returns the observer called when a window is closing.
+
+            \return The observer called when a window is closing.
+        */
+        closing_signal_type& closing()
+        {
+            return m_closing;
+        }
 
         /*!
             \brief Returns the observer called when a window is destroyed.
@@ -58,6 +90,8 @@ namespace tetengo2 { namespace gui { namespace message
 
     private:
         // variables
+
+        closing_signal_type m_closing;
 
         destroyed_signal_type m_destroyed;
 

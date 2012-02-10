@@ -415,6 +415,22 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename AbstractWindow>
+            boost::optional< ::LRESULT> on_close(
+                AbstractWindow& abstract_window,
+                const ::WPARAM  wParam,
+                const ::LPARAM  lParam
+            )
+            {
+                if (abstract_window.window_observer_set().closing().empty())
+                    return boost::none;
+
+                return boost::make_optional< ::LRESULT>(
+                    !abstract_window.window_observer_set().closing()(),
+                    0
+                );
+            }
+
+            template <typename AbstractWindow>
             boost::optional< ::LRESULT> on_destroy(
                 AbstractWindow& abstract_window,
                 const ::WPARAM  wParam,
@@ -882,6 +898,14 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_INITMENUPOPUP].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::abstract_window::on_initmenupopup<AbstractWindow>,
+                    cpp11::ref(abstract_window),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_CLOSE].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::abstract_window::on_close<AbstractWindow>,
                     cpp11::ref(abstract_window),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()

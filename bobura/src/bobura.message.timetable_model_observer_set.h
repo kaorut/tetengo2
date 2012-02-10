@@ -36,7 +36,7 @@ namespace bobura { namespace message
         */
         typedef void changed_type();
 
-        //! The signal type of reset.
+        //! The signal type of changed.
         typedef boost::signals2::signal<changed_type> changed_signal_type;
 
 
