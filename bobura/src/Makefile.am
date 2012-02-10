@@ -12,6 +12,7 @@ extra_headers = \
     bobura.command.nop.h \
     bobura.command.type_list.h \
     bobura.command.type_list_impl.h \
+    bobura.confirm_file_save.h \
     bobura.file_property_dialog.h \
     bobura.main_window.h \
     bobura.message.about_dialog.h \

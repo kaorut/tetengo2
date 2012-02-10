@@ -1,81 +1,32 @@
 /*! \file
-    \brief Test of class bobura::main_window.
+    \brief Test of class bobura::confirm_file_save.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-//#include <string>
-//#include <utility>
-//#include <vector>
-
-//#include <boost/filesystem.hpp>
-//#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "test_bobura.types.h"
+#include "bobura.confirm_file_save.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
-BOOST_AUTO_TEST_SUITE(main_window)
+BOOST_AUTO_TEST_SUITE(confirm_file_save)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
 
-        const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
-        const settings_type settings(std::move(arguments), std::move(path));
-        const main_window_type main_window(message_catalog, settings);
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
-    BOOST_AUTO_TEST_CASE(set_title)
+    BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            const message_catalog_type message_catalog;
-            std::vector<std::wstring> arguments;
-            boost::filesystem::path path;
-            const settings_type settings(std::move(arguments), std::move(path));
-            main_window_type main_window(message_catalog, settings);
-
-            main_window.set_title(boost::none, false);
-        }
-        {
-            const message_catalog_type message_catalog;
-            std::vector<std::wstring> arguments;
-            boost::filesystem::path path;
-            const settings_type settings(std::move(arguments), std::move(path));
-            main_window_type main_window(message_catalog, settings);
-
-            main_window.set_title(boost::none, true);
-        }
-        {
-            const message_catalog_type message_catalog;
-            std::vector<std::wstring> arguments;
-            boost::filesystem::path path;
-            const settings_type settings(std::move(arguments), std::move(path));
-            main_window_type main_window(message_catalog, settings);
-
-            main_window.set_title(
-                boost::make_optional<std::wstring>(L"hoge"), false
-            );
-        }
-        {
-            const message_catalog_type message_catalog;
-            std::vector<std::wstring> arguments;
-            boost::filesystem::path path;
-            const settings_type settings(std::move(arguments), std::move(path));
-            main_window_type main_window(message_catalog, settings);
-
-            main_window.set_title(
-                boost::make_optional<std::wstring>(L"hoge"), true
-            );
-        }
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
 
