@@ -171,13 +171,13 @@ namespace bobura
                 typename boost::mpl::at<
                     model_messagetype_list_type,
                     message::timetable_model::type::reset
-                >::type(main_window)
+                >::type(model, main_window)
             );
             model.observer_set().changed().connect(
                 typename boost::mpl::at<
                     model_messagetype_list_type,
                     message::timetable_model::type::changed
-                >::type(main_window)
+                >::type(model, main_window)
             );
         }
 

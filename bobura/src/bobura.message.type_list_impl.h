@@ -28,11 +28,10 @@ namespace bobura { namespace message
             \brief The meta function for the type list of the timetable model
                    messages.
 
-            \tparam Timetable  A timetable type.
-            \tparam Path       A path type.
-            \tparam MainWindow A main window type.
+            \tparam TimetableModel A timetable model type.
+            \tparam MainWindow     A main window type.
         */
-        template <typename Timetable, typename Path, typename MainWindow>
+        template <typename TimetableModel, typename MainWindow>
         class type_list
         {
         public:
@@ -42,10 +41,12 @@ namespace bobura { namespace message
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::reset, reset<Timetable, Path, MainWindow>
+                        type::reset, reset<TimetableModel, MainWindow>
                     >,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::changed, changed<MainWindow>>,
+                    boost::mpl::pair<
+                        type::changed, changed<TimetableModel, MainWindow>
+                    >,
                 tetengo2::meta::assoc_list_end
                 >>
                 type;

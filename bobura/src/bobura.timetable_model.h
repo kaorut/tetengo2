@@ -60,7 +60,7 @@ namespace bobura
         m_changed(false),
         m_observer_set()
         {
-            initialize_timetable();
+            set_timetable_observer_set();
         }
 
 
@@ -126,7 +126,9 @@ namespace bobura
             m_p_timetable = std::move(p_timetable);
             m_path = std::forward<P>(path);
 
-            m_observer_set.reset()(*m_p_timetable, m_path);
+            set_timetable_observer_set();
+
+            m_observer_set.reset()();
         }
 
         /*!
@@ -150,7 +152,7 @@ namespace bobura
         {
             m_changed = changed;
 
-            m_observer_set.changed()(m_changed);
+            m_observer_set.changed()();
         }
 
         /*!
@@ -212,7 +214,7 @@ namespace bobura
 
         // functions
 
-        void initialize_timetable()
+        void set_timetable_observer_set()
         {
             m_p_timetable->observer_set().changed().connect(
                 timetable_changed(*this)

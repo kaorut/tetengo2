@@ -17,21 +17,17 @@ namespace bobura { namespace message { namespace timetable_model
      /*!
         \brief The class template for a timetable model observer of reset.
 
-        \tparam Timetable  A timetable type.
-        \tparam Path       A path type.
+        \tparam TimetableModel  A timetable model type.
         \tparam MainWindow A main window type.
     */
-    template <typename Timetable, typename Path, typename MainWindow>
+    template <typename TimetableModel, typename MainWindow>
     class reset
     {
     public:
         // types
 
-        //! The timetable type.
-        typedef Timetable timetable_type;
-
-        //! The path type.
-        typedef Path path_type;
+        //! The timetable model type.
+        typedef TimetableModel timetable_model_type;
 
         //! The main window type.
         typedef MainWindow main_window_type;
@@ -42,10 +38,15 @@ namespace bobura { namespace message { namespace timetable_model
         /*!
             \brief Creates a timetable model observer of reset.
 
-            \param main_window A main window.
+            \param timetable_model A timetable model.
+            \param main_window     A main window.
         */
-        reset(main_window_type& main_window)
+        reset(
+            const timetable_model_type& timetable_model,
+            main_window_type&           main_window
+        )
         :
+        m_timetable_model(timetable_model),
         m_main_window(main_window)
         {}
 
@@ -54,16 +55,11 @@ namespace bobura { namespace message { namespace timetable_model
 
         /*!
             \brief Called when the timetable model is reset.
-
-            \param timetable A timetable.
-            \param path      A path.
         */
-        void operator()(
-            const timetable_type& timetable,
-            const path_type&      path
-        )
+        void operator()()
         const
         {
+            const path_type& path = m_timetable_model.path();
             const boost::optional<string_type> title =
                 path.empty() ?
                     boost::none :
@@ -77,10 +73,14 @@ namespace bobura { namespace message { namespace timetable_model
     private:
         // types
 
+        typedef typename timetable_model_type::path_type path_type;
+
         typedef typename main_window_type::string_type string_type;
 
 
         // variables
+
+        const timetable_model_type& m_timetable_model;
 
         main_window_type& m_main_window;
 
@@ -90,13 +90,17 @@ namespace bobura { namespace message { namespace timetable_model
      /*!
         \brief The class template for a timetable model observer of changed.
 
-        \tparam MainWindow A main window type.
+        \tparam TimetableModel A timetable model type.
+        \tparam MainWindow     A main window type.
     */
-    template <typename MainWindow>
+    template <typename TimetableModel, typename MainWindow>
     class changed
     {
     public:
         // types
+
+        //! The timetable model type.
+        typedef TimetableModel timetable_model_type;
 
         //! The main window type.
         typedef MainWindow main_window_type;
@@ -107,10 +111,15 @@ namespace bobura { namespace message { namespace timetable_model
         /*!
             \brief Creates a timetable model observer of changedn.
 
-            \param main_window A main window.
+            \param timetable_model A timetable model.
+            \param main_window     A main window.
         */
-        changed(main_window_type& main_window)
+        changed(
+            const timetable_model_type& timetable_model,
+            main_window_type&           main_window
+        )
         :
+        m_timetable_model(timetable_model),
         m_main_window(main_window)
         {}
 
@@ -119,18 +128,32 @@ namespace bobura { namespace message { namespace timetable_model
 
         /*!
             \brief Called when the timetable model is changed.
-
-            \param changed A changed status
         */
-        void operator()(const bool changed)
+        void operator()()
         const
         {
-
+            const path_type& path = m_timetable_model.path();
+            const boost::optional<string_type> title =
+                path.empty() ?
+                    boost::none :
+                    boost::make_optional(
+                        path.filename().template string<string_type>()
+                    );
+            m_main_window.set_title(title);
         }
 
 
     private:
+        // types
+
+        typedef typename timetable_model_type::path_type path_type;
+
+        typedef typename main_window_type::string_type string_type;
+
+
         // variables
+
+        const timetable_model_type& m_timetable_model;
 
         main_window_type& m_main_window;
 

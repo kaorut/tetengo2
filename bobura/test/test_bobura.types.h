@@ -178,16 +178,10 @@ typedef
     timetable_type;
 
 typedef
-    bobura::message::timetable_model_observer_set<
-        timetable_type, boost::filesystem::path
-    >
-    timetable_model_observer_set_type;
-
-typedef
     bobura::timetable_model<
         timetable_type,
         boost::filesystem::path,
-        timetable_model_observer_set_type
+        bobura::message::timetable_model_observer_set
     >
     model_type;
 
@@ -635,7 +629,7 @@ typedef
 
 typedef
     bobura::message::timetable_model::type_list<
-        timetable_type, boost::filesystem::path, main_window_type
+        model_type, main_window_type
     >::type
     timetable_model_message_type_list_type;
 

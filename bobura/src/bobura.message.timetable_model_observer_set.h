@@ -16,44 +16,25 @@
 namespace bobura { namespace message
 {
     /*!
-        \brief The class template for a timetable model observer set.
-
-        \tparam Timetable A timetable type.
-        \tparam Path      A path type.
+        \brief The class for a timetable model observer set.
     */
-    template <typename Timetable, typename Path>
     class timetable_model_observer_set : private boost::noncopyable
     {
     public:
         // types
 
-        //! The timetable type.
-        typedef Timetable timetable_type;
-
-        //! The path type.
-        typedef Path path_type;
-
         /*!
             \brief The observer type of reset.
-
-            \param timetable A timetable.
-            \param path      A path.
         */
-        typedef
-            void reset_type(
-                const timetable_type& timetable,
-                const path_type&      path
-            );
+        typedef void reset_type();
 
         //! The signal type of reset.
         typedef boost::signals2::signal<reset_type> reset_signal_type;
 
         /*!
             \brief The observer type of changed.
-
-            \param changed A changed status.
         */
-        typedef void changed_type(bool changed);
+        typedef void changed_type();
 
         //! The signal type of reset.
         typedef boost::signals2::signal<changed_type> changed_signal_type;
