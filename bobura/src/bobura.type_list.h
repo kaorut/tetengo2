@@ -1136,15 +1136,26 @@ namespace bobura
         boost::mpl::insert_range<
             locale_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
+            model_type_list, tetengo2::meta::assoc_list_end,
+        boost::mpl::insert_range<
             ui_type_list, tetengo2::meta::assoc_list_end,
+        boost::mpl::insert_range<
+            common_dialog_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
             dialog_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
+            miscellaneous_type_list, tetengo2::meta::assoc_list_end,
+        boost::mpl::insert_range<
+            command_type_list_type_list, tetengo2::meta::assoc_list_end,
+        boost::mpl::insert_range<
             main_window_type_list, tetengo2::meta::assoc_list_end,
+        boost::mpl::insert_range<
+            command_type_list, tetengo2::meta::assoc_list_end,
         boost::mpl::insert_range<
             bobura_type_list, tetengo2::meta::assoc_list_end,
         tetengo2::meta::assoc_list_end
-        >::type>::type>::type>::type>::type>::type
+        >::type>::type>::type>::type>::type>::type>::type>::type>::type>::type
+        >::type
         type_list;
 
 
