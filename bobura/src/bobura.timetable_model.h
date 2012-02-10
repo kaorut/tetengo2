@@ -125,6 +125,7 @@ namespace bobura
 
             m_p_timetable = std::move(p_timetable);
             m_path = std::forward<P>(path);
+            m_changed = false;
 
             set_timetable_observer_set();
 

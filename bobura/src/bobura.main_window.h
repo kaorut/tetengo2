@@ -94,13 +94,19 @@ namespace bobura
             \brief Sets a title.
 
             \param document_name A document name.
+            \param changed       A changed status.
         */
-        void set_title(const boost::optional<string_type>& document_name)
+        void set_title(
+            const boost::optional<string_type>& document_name,
+            const bool                          changed
+        )
         {
             string_type title =
                 document_name ?
                 *document_name :
                 m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
+            if (changed)
+                title += string_type(TETENGO2_TEXT(" *"));
             title += string_type(TETENGO2_TEXT(" - "));
             title += m_message_catalog.get(TETENGO2_TEXT("App:Bobura"));
 
@@ -122,7 +128,7 @@ namespace bobura
         {
             set_message_observers();
 
-            set_title(boost::none);
+            set_title(boost::none, false);
         }
 
         void set_message_observers()

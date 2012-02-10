@@ -36,13 +36,46 @@ BOOST_AUTO_TEST_SUITE(main_window)
     {
         BOOST_TEST_PASSPOINT();
 
-        const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
-        const settings_type settings(std::move(arguments), std::move(path));
-        main_window_type main_window(message_catalog, settings);
+        {
+            const message_catalog_type message_catalog;
+            std::vector<std::wstring> arguments;
+            boost::filesystem::path path;
+            const settings_type settings(std::move(arguments), std::move(path));
+            main_window_type main_window(message_catalog, settings);
 
-        main_window.set_title(boost::none);
+            main_window.set_title(boost::none, false);
+        }
+        {
+            const message_catalog_type message_catalog;
+            std::vector<std::wstring> arguments;
+            boost::filesystem::path path;
+            const settings_type settings(std::move(arguments), std::move(path));
+            main_window_type main_window(message_catalog, settings);
+
+            main_window.set_title(boost::none, true);
+        }
+        {
+            const message_catalog_type message_catalog;
+            std::vector<std::wstring> arguments;
+            boost::filesystem::path path;
+            const settings_type settings(std::move(arguments), std::move(path));
+            main_window_type main_window(message_catalog, settings);
+
+            main_window.set_title(
+                boost::make_optional<std::wstring>(L"hoge"), false
+            );
+        }
+        {
+            const message_catalog_type message_catalog;
+            std::vector<std::wstring> arguments;
+            boost::filesystem::path path;
+            const settings_type settings(std::move(arguments), std::move(path));
+            main_window_type main_window(message_catalog, settings);
+
+            main_window.set_title(
+                boost::make_optional<std::wstring>(L"hoge"), true
+            );
+        }
     }
 
 
