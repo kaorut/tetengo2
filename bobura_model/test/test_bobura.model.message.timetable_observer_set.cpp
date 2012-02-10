@@ -21,7 +21,16 @@ BOOST_AUTO_TEST_SUITE(timetable_observer_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            const bobura::model::message::timetable_observer_set observer_set;
+
+            observer_set.changed();
+        }
+        {
+            bobura::model::message::timetable_observer_set observer_set;
+
+            observer_set.changed();
+        }
     }
 
 
