@@ -26,7 +26,7 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of closing.
 
-            \retval true  When the window must be close.
+            \retval true  When the window must be closed.
             \retval false Otherwise.
         */
         typedef bool closing_type();

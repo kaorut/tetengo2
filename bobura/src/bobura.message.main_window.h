@@ -21,7 +21,7 @@
 namespace bobura { namespace message { namespace main_window
 {
     /*!
-        \brief The class for a menu observer of the main window.
+        \brief The class template for a menu observer of the main window.
 
         \tparam Command A command type.
     */
@@ -178,6 +178,58 @@ namespace bobura { namespace message { namespace main_window
         // variables
 
         path_type m_image_directory_path;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a window observer of the main window.
+
+        \tparam ConfirmFileSave A file save confirmation type.
+    */
+    template <typename ConfirmFileSave>
+    class window
+    {
+    public:
+        // types
+
+        //! The file save confirmation type.
+        typedef ConfirmFileSave confirm_file_save_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a window observer of the main window.
+
+            \param confirm_file_save A file save confirmation.
+        */
+        explicit window(const confirm_file_save_type& confirm_file_save)
+        :
+        m_confirm_file_save(confirm_file_save)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the main window is closing.
+
+            \retval true  When the main window muse be closed.
+            \retval false Otherwise.
+        */
+        bool operator()()
+        const
+        {
+            return true;
+        }
+
+
+    private:
+        // variables
+
+        const confirm_file_save_type& m_confirm_file_save;
 
 
     };
