@@ -49,13 +49,11 @@ namespace bobura
         /*!
             \brief Creates a file save confirmation.
 
-            \param model  A model.
-            \param window A window.
+            \param model A model.
         */
-        confirm_file_save(const model_type& model, window_type& window)
+        confirm_file_save(const model_type& model)
         :
-        m_model(model),
-        m_window(window)
+        m_model(model)
         {}
 
 
@@ -64,11 +62,14 @@ namespace bobura
         /*!
             \brief Confirms file save, and if necessary, save the model.
 
+            \param window A window.
+
             \retval true  When the model is saved or there is no need to save
                           it.
             \retval false Otherwise.
         */
-        bool operator()()
+        bool operator()(window_type& window)
+        const
         {
             return false;
         }
@@ -78,8 +79,6 @@ namespace bobura
         // variables
 
         const model_type& m_model;
-
-        window_type& m_window;
 
 
     };
