@@ -28,6 +28,7 @@ namespace bobura
         \tparam ModelMessageTypeList      A model message type list.
         \tparam Reader                    A reader type.
         \tparam MessageCatalog            A message catalog type.
+        \tparam ConfirmFileSave           A file save confirmation type.
         \tparam CommandSet                A command set type.
         \tparam MainWindow                A main window type.
         \tparam MainWindowMessageTypeList A main window message type list.
@@ -45,6 +46,7 @@ namespace bobura
         typename ModelMessageTypeList,
         typename Reader,
         typename MessageCatalog,
+        typename ConfirmFileSave,
         typename CommandSet,
         typename MainWindow,
         typename MainWindowMessageTypeList,
@@ -75,6 +77,9 @@ namespace bobura
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
+
+        //! The file save confirmation type.
+        typedef ConfirmFileSave confirm_file_save_type;
 
         //! The command set type.
         typedef CommandSet command_set_type;
@@ -132,9 +137,12 @@ namespace bobura
         int run()
         {
             const message_catalog_type message_catalog;
+            const confirm_file_save_type confirm_file_save(m_model);
 
             reader_type reader;
-            main_window_type main_window(message_catalog, m_settings);
+            main_window_type main_window(
+                message_catalog, m_settings, confirm_file_save
+            ); 
             const command_set_type command_set(
                 m_model, reader, main_window, m_settings, message_catalog
             );

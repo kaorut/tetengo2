@@ -26,6 +26,7 @@ namespace bobura
         \tparam Window                    A window type.
         \tparam MessageCatalog            A message catalog type.
         \tparam Settings                  A settings type.
+        \tparam ConfirmFileSave           A file save confirmation type.
         \tparam MessageLoopBreak          A message loop break type.
         \tparam MainWindowMessageTypeList A message type.
     */
@@ -33,6 +34,7 @@ namespace bobura
         typename Window,
         typename MessageCatalog,
         typename Settings,
+        typename ConfirmFileSave,
         typename MessageLoopBreak,
         typename MainWindowMessageTypeList
     >
@@ -53,6 +55,9 @@ namespace bobura
         //! The settings type.
         typedef Settings settings_type;
 
+        //! The file save confirmation type.
+        typedef ConfirmFileSave confirm_file_save_type;
+
         //! The message loop break type.
         typedef MessageLoopBreak message_loop_break_type;
 
@@ -69,13 +74,15 @@ namespace bobura
             \param settings        Settings.
         */
         main_window(
-            const message_catalog_type& message_catalog,
-            const settings_type&        settings
+            const message_catalog_type&   message_catalog,
+            const settings_type&          settings,
+            const confirm_file_save_type& confirm_file_save
         )
         :
         base_type(),
         m_message_catalog(message_catalog),
-        m_settings(settings)
+        m_settings(settings),
+        m_confirm_file_save(confirm_file_save)
         {
             initialize_window();
         }
@@ -120,6 +127,8 @@ namespace bobura
         const message_catalog_type& m_message_catalog;
 
         const settings_type& m_settings;
+
+        const confirm_file_save_type& m_confirm_file_save;
 
 
         // functions

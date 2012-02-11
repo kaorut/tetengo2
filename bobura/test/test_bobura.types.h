@@ -630,6 +630,7 @@ typedef
         window_type,
         message_catalog_type,
         settings_type,
+        confirm_file_save_type,
         message_loop_break_type,
         main_window_message_type_list_type
     >
@@ -665,6 +666,7 @@ typedef
         timetable_model_message_type_list_type,
         reader_type,
         message_catalog_type,
+        confirm_file_save_type,
         command_set_type,
         main_window_type,
         main_window_message_type_list_type,

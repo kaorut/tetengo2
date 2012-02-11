@@ -31,7 +31,10 @@ BOOST_AUTO_TEST_SUITE(set)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        main_window_type main_window(message_catalog, settings);
+        const confirm_file_save_type confirm_file_save(model);
+        main_window_type main_window(
+            message_catalog, settings, confirm_file_save
+        );
         const command_set_type command_set(
             model, reader, main_window, settings, message_catalog
         );
@@ -47,7 +50,10 @@ BOOST_AUTO_TEST_SUITE(set)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        main_window_type main_window(message_catalog, settings);
+        const confirm_file_save_type confirm_file_save(model);
+        main_window_type main_window(
+            message_catalog, settings, confirm_file_save
+        );
         const command_set_type command_set(
             model, reader, main_window, settings, message_catalog
         );

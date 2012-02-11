@@ -1022,6 +1022,9 @@ namespace bobura
                     >::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<
+                        miscellaneous_type_list, type::confirm_file_save
+                    >::type,
+                    boost::mpl::at<
                         ui_type_list, type::message_loop_break
                     >::type,
                     detail::main_window::message_type_list
@@ -1100,6 +1103,9 @@ namespace bobura
                     boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
+                    >::type,
+                    boost::mpl::at<
+                        miscellaneous_type_list, type::confirm_file_save
                     >::type,
                     boost::mpl::at<
                         command_type_list, type::command_set

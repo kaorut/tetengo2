@@ -29,7 +29,11 @@ BOOST_AUTO_TEST_SUITE(main_window)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        const main_window_type main_window(message_catalog, settings);
+        const model_type model;
+        const confirm_file_save_type confirm_file_save(model);
+        const main_window_type main_window(
+            message_catalog, settings, confirm_file_save
+        );
     }
 
     BOOST_AUTO_TEST_CASE(set_title)
@@ -41,7 +45,11 @@ BOOST_AUTO_TEST_SUITE(main_window)
             std::vector<std::wstring> arguments;
             boost::filesystem::path path;
             const settings_type settings(std::move(arguments), std::move(path));
-            main_window_type main_window(message_catalog, settings);
+            const model_type model;
+            const confirm_file_save_type confirm_file_save(model);
+            main_window_type main_window(
+                message_catalog, settings, confirm_file_save
+            );
 
             main_window.set_title(boost::none, false);
         }
@@ -50,7 +58,11 @@ BOOST_AUTO_TEST_SUITE(main_window)
             std::vector<std::wstring> arguments;
             boost::filesystem::path path;
             const settings_type settings(std::move(arguments), std::move(path));
-            main_window_type main_window(message_catalog, settings);
+            const model_type model;
+            const confirm_file_save_type confirm_file_save(model);
+            main_window_type main_window(
+                message_catalog, settings, confirm_file_save
+            );
 
             main_window.set_title(boost::none, true);
         }
@@ -59,7 +71,11 @@ BOOST_AUTO_TEST_SUITE(main_window)
             std::vector<std::wstring> arguments;
             boost::filesystem::path path;
             const settings_type settings(std::move(arguments), std::move(path));
-            main_window_type main_window(message_catalog, settings);
+            const model_type model;
+            const confirm_file_save_type confirm_file_save(model);
+            main_window_type main_window(
+                message_catalog, settings, confirm_file_save
+            );
 
             main_window.set_title(
                 boost::make_optional<std::wstring>(L"hoge"), false
@@ -70,7 +86,11 @@ BOOST_AUTO_TEST_SUITE(main_window)
             std::vector<std::wstring> arguments;
             boost::filesystem::path path;
             const settings_type settings(std::move(arguments), std::move(path));
-            main_window_type main_window(message_catalog, settings);
+            const model_type model;
+            const confirm_file_save_type confirm_file_save(model);
+            main_window_type main_window(
+                message_catalog, settings, confirm_file_save
+            );
 
             main_window.set_title(
                 boost::make_optional<std::wstring>(L"hoge"), true
