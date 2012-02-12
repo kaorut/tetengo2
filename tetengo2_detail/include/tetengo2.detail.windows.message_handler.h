@@ -424,8 +424,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (abstract_window.window_observer_set().closing().empty())
                     return boost::none;
 
+                const bool b = abstract_window.window_observer_set().closing()();
                 return boost::make_optional< ::LRESULT>(
-                    !abstract_window.window_observer_set().closing()(),
+                    !b,
                     0
                 );
             }

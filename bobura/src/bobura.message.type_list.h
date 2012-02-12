@@ -27,6 +27,7 @@ namespace bobura { namespace message
         {
             struct menu;       //!< The menu observer type.
             struct paint;      //!< The paint observer type.
+            struct window;     //!< The window observer type.
         }
     }
 

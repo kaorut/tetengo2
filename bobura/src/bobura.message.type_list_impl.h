@@ -61,16 +61,18 @@ namespace bobura { namespace message
             \brief The meta function for the type list of the main window
                    messages.
 
-            \tparam Command       A command type.
-            \tparam Canvas        A canvas type of the main window.
-            \tparam Position      A position type.
-            \tparam PictureReader A picture reader type.
+            \tparam Command         A command type.
+            \tparam Canvas          A canvas type of the main window.
+            \tparam Position        A position type.
+            \tparam PictureReader   A picture reader type.
+            \tparam ConfirmFileSave A file save confirmation type.
         */
         template <
             typename Command,
             typename Canvas,
             typename Position,
-            typename PictureReader
+            typename PictureReader,
+            typename ConfirmFileSave
         >
         class type_list
         {
@@ -85,8 +87,10 @@ namespace bobura { namespace message
                     boost::mpl::pair<
                         type::paint, paint<Canvas, Position, PictureReader>
                     >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::window, window<ConfirmFileSave>>,
                 tetengo2::meta::assoc_list_end
-                >>
+                >>>
                 type;
 
 

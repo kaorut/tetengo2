@@ -222,7 +222,7 @@ namespace bobura { namespace message { namespace main_window
         bool operator()()
         const
         {
-            return true;
+            return false;
         }
 
 
