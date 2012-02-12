@@ -104,7 +104,10 @@ BOOST_AUTO_TEST_SUITE(window)
         const bobura::message::main_window::window<confirm_file_save_type>
         window(confirm_file_save);
 
-        window();
+        bool cancel = false;
+        window(cancel);
+
+        BOOST_CHECK(!cancel);
     }
 
 

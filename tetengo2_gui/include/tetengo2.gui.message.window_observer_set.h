@@ -26,10 +26,9 @@ namespace tetengo2 { namespace gui { namespace message
         /*!
             \brief The observer type of closing.
 
-            \retval true  When the window must be closed.
-            \retval false Otherwise.
+            \param cancel Set true to cancel the window closing.
         */
-        typedef bool closing_type();
+        typedef void closing_type(bool& cancel);
 
         //! The signal type of closing.
         typedef boost::signals2::signal<closing_type> closing_signal_type;

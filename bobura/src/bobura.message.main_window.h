@@ -216,13 +216,12 @@ namespace bobura { namespace message { namespace main_window
         /*!
             \brief Called when the main window is closing.
 
-            \retval true  When the main window muse be closed.
-            \retval false Otherwise.
+            \param cancel Set true to cancel the window closing.
         */
-        bool operator()()
+        void operator()(bool& cancel)
         const
         {
-            return false;
+            cancel = false;
         }
 
 
