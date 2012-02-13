@@ -226,14 +226,14 @@ namespace tetengo2 { namespace gui { namespace common_dialog
     /*!
         \brief The class template for a message box.
 
-        \tparam Widget              A widget type.
+        \tparam AbstractWindow      An abstract window type.
         \tparam String              A string type.
         \tparam Encoder             An encoder type.
         \tparam CommonDialogDetails A detail implementation type of common
                                     dialogs.
     */
     template <
-        typename Widget,
+        typename AbstractWindow,
         typename String,
         typename Encoder,
         typename CommonDialogDetails
@@ -243,8 +243,8 @@ namespace tetengo2 { namespace gui { namespace common_dialog
     public:
         // types
 
-        //! The widget type.
-        typedef Widget widget_type;
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
 
         //! The string type.
         typedef String string_type;
@@ -296,7 +296,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \tparam S2 A string type #2.
             \tparam S3 A string type #3.
 
-            \param parent       A parent widget.
+            \param parent       A parent window.
             \param title        A title.
             \param main_content A main content.
             \param sub_content  A sub content.
@@ -305,7 +305,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         template <typename S1, typename S2, typename S3>
         message_box(
-            widget_type&             parent,
+            abstract_window_type&    parent,
             S1&&                     title,
             S2&&                     main_content,
             S3&&                     sub_content,

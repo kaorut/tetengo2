@@ -141,14 +141,14 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Creates a message box.
 
-            \tparam Widget  A widget type.
-            \tparam String1 A string type #1.
-            \tparam String2 A string type #2.
-            \tparam String3 A string type #3.
-            \tparam String4 A string type #4.
-            \tparam Encoder An encoder type.
+            \tparam AbstractWindow An abstract window type.
+            \tparam String1        A string type #1.
+            \tparam String2        A string type #2.
+            \tparam String3        A string type #3.
+            \tparam String4        A string type #4.
+            \tparam Encoder        An encoder type.
 
-            \param parent                      A parent widget.
+            \param parent                      A parent window.
             \param title                       A title.
             \param main_content                A main content.
             \param sub_content                 A sub content.
@@ -164,7 +164,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return A unique pointer to a message box.
         */
         template <
-            typename Widget,
+            typename AbstractWindow,
             typename String1,
             typename String2,
             typename String3,
@@ -172,7 +172,7 @@ namespace tetengo2 { namespace detail { namespace windows
             typename Encoder
         >
         static message_box_details_ptr_type create_message_box(
-            Widget&                                             parent,
+            AbstractWindow&                                     parent,
             String1&&                                           title,
             String2&&                                           main_content,
             String3&&                                           sub_content,
