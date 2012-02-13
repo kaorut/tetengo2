@@ -30,7 +30,9 @@ BOOST_AUTO_TEST_SUITE(main_window)
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
         const model_type model;
-        const confirm_file_save_type confirm_file_save(model);
+        const confirm_file_save_type confirm_file_save(
+            model, message_catalog
+        );
         const main_window_type main_window(
             message_catalog, settings, confirm_file_save
         );
@@ -46,7 +48,9 @@ BOOST_AUTO_TEST_SUITE(main_window)
             boost::filesystem::path path;
             const settings_type settings(std::move(arguments), std::move(path));
             const model_type model;
-            const confirm_file_save_type confirm_file_save(model);
+            const confirm_file_save_type confirm_file_save(
+                model, message_catalog
+            );
             main_window_type main_window(
                 message_catalog, settings, confirm_file_save
             );
@@ -59,7 +63,9 @@ BOOST_AUTO_TEST_SUITE(main_window)
             boost::filesystem::path path;
             const settings_type settings(std::move(arguments), std::move(path));
             const model_type model;
-            const confirm_file_save_type confirm_file_save(model);
+            const confirm_file_save_type confirm_file_save(
+                model, message_catalog
+            );
             main_window_type main_window(
                 message_catalog, settings, confirm_file_save
             );
@@ -72,7 +78,9 @@ BOOST_AUTO_TEST_SUITE(main_window)
             boost::filesystem::path path;
             const settings_type settings(std::move(arguments), std::move(path));
             const model_type model;
-            const confirm_file_save_type confirm_file_save(model);
+            const confirm_file_save_type confirm_file_save(
+                model, message_catalog
+            );
             main_window_type main_window(
                 message_catalog, settings, confirm_file_save
             );
@@ -87,7 +95,9 @@ BOOST_AUTO_TEST_SUITE(main_window)
             boost::filesystem::path path;
             const settings_type settings(std::move(arguments), std::move(path));
             const model_type model;
-            const confirm_file_save_type confirm_file_save(model);
+            const confirm_file_save_type confirm_file_save(
+                model, message_catalog
+            );
             main_window_type main_window(
                 message_catalog, settings, confirm_file_save
             );

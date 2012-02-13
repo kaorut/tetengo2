@@ -91,7 +91,10 @@ BOOST_AUTO_TEST_SUITE(window)
 
         window_type parent;
         const model_type model;
-        const confirm_file_save_type confirm_file_save(model);
+        const message_catalog_type message_catalog;
+        const confirm_file_save_type confirm_file_save(
+            model, message_catalog
+        );
         const bobura::message::main_window::window<
             window_type, confirm_file_save_type
         > window(parent, confirm_file_save);
@@ -103,7 +106,10 @@ BOOST_AUTO_TEST_SUITE(window)
 
         window_type parent;
         const model_type model;
-        const confirm_file_save_type confirm_file_save(model);
+        const message_catalog_type message_catalog;
+        const confirm_file_save_type confirm_file_save(
+            model, message_catalog
+        );
         const bobura::message::main_window::window<
             window_type, confirm_file_save_type
         > window(parent, confirm_file_save);

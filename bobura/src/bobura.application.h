@@ -137,7 +137,9 @@ namespace bobura
         int run()
         {
             const message_catalog_type message_catalog;
-            const confirm_file_save_type confirm_file_save(m_model);
+            const confirm_file_save_type confirm_file_save(
+                m_model, message_catalog
+            );
 
             reader_type reader;
             main_window_type main_window(
