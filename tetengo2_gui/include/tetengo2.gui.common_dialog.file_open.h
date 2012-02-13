@@ -22,7 +22,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
     /*!
         \brief The class template for a file open dialog.
 
-        \tparam Widget              A widget type.
+        \tparam AbstractWindow      An abstract window type.
         \tparam String              A string type.
         \tparam Path                A path type.
         \tparam Encoder             An encoder type.
@@ -30,7 +30,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                                     dialogs.
     */
     template <
-        typename Widget,
+        typename AbstractWindow,
         typename String,
         typename Path,
         typename Encoder,
@@ -41,8 +41,8 @@ namespace tetengo2 { namespace gui { namespace common_dialog
     public:
         // types
 
-        //! The widget type.
-        typedef Widget widget_type;
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
 
         //! The string type.
         typedef String string_type;
@@ -87,7 +87,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \param parent       A parent widget.
         */
         template <typename S, typename FF>
-        file_open(S&& title, FF&& file_filters, widget_type& parent)
+        file_open(S&& title, FF&& file_filters, abstract_window_type& parent)
         :
         m_p_details(
             common_dialog_details_type::create_file_open_dialog(

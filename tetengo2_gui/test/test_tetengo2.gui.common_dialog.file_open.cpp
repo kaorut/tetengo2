@@ -22,6 +22,7 @@
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
+#include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.virtual_key.h"
@@ -29,7 +30,6 @@
 #include "tetengo2.gui.alert.h"
 #include "tetengo2.gui.cursor.system.h"
 #include "tetengo2.gui.drawing.background.h"
-#include "tetengo2.gui.drawing.color.h"
 #include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
@@ -40,10 +40,19 @@
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
+#include "tetengo2.gui.message.window_observer_set.h"
+#include "tetengo2.gui.menu.menu_bar.h"
+#include "tetengo2.gui.menu.menu_base.h"
+#include "tetengo2.gui.menu.shortcut_key.h"
+#include "tetengo2.gui.menu.shortcut_key_table.h"
+#include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.gui.widget.abstract_window.h"
+#include "tetengo2.gui.widget.window.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
+#include "tetengo2.gui.widget.traits.abstract_window_traits.h"
+#include "tetengo2.gui.widget.traits.window_traits.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
@@ -165,7 +174,49 @@ namespace
         >
         widget_traits_type;
 
-    typedef tetengo2::gui::drawing::color<unsigned char> color_type;
+    typedef
+        tetengo2::gui::menu::shortcut_key<virtual_key_type> shortcut_key_type;
+
+    typedef
+        tetengo2::gui::menu::traits<
+            std::wstring,
+            shortcut_key_type,
+            ui_encoder_type,
+            tetengo2::gui::message::menu_observer_set
+        >
+        menu_traits_type;
+
+    typedef tetengo2::detail::stub::menu menu_details_type;
+
+    typedef
+        tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type>
+        menu_base_type;
+
+    typedef
+        tetengo2::gui::menu::shortcut_key_table<
+            shortcut_key_type, menu_base_type, menu_details_type
+        >
+        shortcut_key_table_type;
+
+    typedef
+        tetengo2::gui::menu::menu_bar<
+            menu_traits_type, shortcut_key_table_type, menu_details_type
+        >
+        menu_bar_type;
+
+    typedef
+        tetengo2::gui::widget::traits::abstract_window_traits<
+            widget_traits_type,
+            menu_bar_type,
+            tetengo2::gui::message::window_observer_set
+        >
+        abstract_window_traits_type;
+
+    typedef
+        tetengo2::gui::widget::traits::window_traits<
+            abstract_window_traits_type
+        >
+        window_traits_type;
 
     typedef tetengo2::detail::stub::widget widget_details_type;
 
@@ -174,79 +225,30 @@ namespace
         message_handler_details_type;
 
     typedef
-        tetengo2::gui::widget::widget<
-            widget_traits_type,
+        tetengo2::gui::widget::abstract_window<
+            abstract_window_traits_type,
             widget_details_type,
             message_handler_details_type
         >
-        widget_type;
+        abstract_window_type;
+
+    typedef
+        tetengo2::gui::widget::window<
+            window_traits_type,
+            widget_details_type,
+            message_handler_details_type
+        >
+        window_type;
 
     typedef
         tetengo2::gui::common_dialog::file_open<
-            widget_type,
+            abstract_window_type,
             std::wstring,
             boost::filesystem::path,
             ui_encoder_type,
             tetengo2::detail::stub::common_dialog
         >
         file_open_type;
-
-    typedef
-        std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>
-        details_font_type;
-
-    class concrete_widget : public widget_type
-    {
-    public:
-        static const encoder_type& test_encoder()
-        {
-            return encoder();
-        }
-
-        explicit concrete_widget(widget_type* const p_parent = NULL)
-        :
-        widget_type(message_handler_map_type()),
-        m_p_details(
-            tetengo2::make_unique<widget_details_type::widget_details_type>(
-                p_parent,
-                true,
-                true,
-                std::make_pair(0, 0),
-                std::make_pair(1, 1),
-                string_type(),
-                details_font_type(
-                    std::wstring(), 12, false, false, false, false
-                ),
-                std::vector<void*>(),
-                false,
-                false
-            )
-        )
-        {
-            initialize(this);
-        }
-
-        virtual ~concrete_widget()
-        TETENGO2_CPP11_NOEXCEPT
-        {}
-
-
-    private:
-        std::unique_ptr<details_type> m_p_details;
-
-        virtual boost::optional<const details_type&> details_impl()
-        const
-        {
-            return *m_p_details;
-        }
-
-        virtual boost::optional<details_type&> details_impl()
-        {
-            return *m_p_details;
-        }
-
-
-    };
 
 
     // functions
@@ -275,19 +277,19 @@ BOOST_AUTO_TEST_SUITE(file_open)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget parent;
+            window_type parent;
             const file_open_type file_open(
                 std::wstring(), make_file_filters(), parent
             );
         }
         {
-            concrete_widget parent;
+            window_type parent;
             const file_open_type file_open(
                 L"hoge", file_open_type::file_filters_type(), parent
             );
         }
         {
-            concrete_widget parent;
+            window_type parent;
             const file_open_type file_open(
                 L"hoge", make_file_filters(), parent
             );
@@ -299,7 +301,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget parent;
+            window_type parent;
             const file_open_type file_open(
                 L"hoge", make_file_filters(), parent
             );
@@ -307,7 +309,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
             BOOST_CHECK(file_open.result() == boost::filesystem::path());
         }
         {
-            concrete_widget parent;
+            window_type parent;
             file_open_type file_open(L"hoge", make_file_filters(), parent);
 
             file_open.do_modal();
@@ -322,7 +324,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_widget parent;
+        window_type parent;
         file_open_type file_open(L"hoge", make_file_filters(), parent);
 
         file_open.do_modal();
@@ -333,7 +335,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
         BOOST_TEST_PASSPOINT();
 
         {
-            concrete_widget parent;
+            window_type parent;
             const file_open_type file_open(
                 L"hoge", make_file_filters(), parent
             );
@@ -341,7 +343,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
             file_open.details();
         }
         {
-            concrete_widget parent;
+            window_type parent;
             file_open_type file_open(L"hoge", make_file_filters(), parent);
 
             file_open.details();

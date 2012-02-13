@@ -257,12 +257,12 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Creates a file open dialog.
 
-            \tparam Widget  A widget type.
-            \tparam String  A string type.
-            \tparam Filters A filters type.
-            \tparam Encoder An encoder type.
+            \tparam AbstractWindow An abstract window type.
+            \tparam String         A string type.
+            \tparam Filters        A filters type.
+            \tparam Encoder        An encoder type.
 
-            \param parent  A parent widget.
+            \param parent  A parent window.
             \param title   A title.
             \param filters A file filters.
                            Each element is a pair of a label and a file
@@ -272,16 +272,16 @@ namespace tetengo2 { namespace detail { namespace windows
             \return A unique pointer to a file open dialog.
         */
         template <
-            typename Widget,
+            typename AbstractWindow,
             typename String,
             typename Filters,
             typename Encoder
         >
         static file_open_dialog_details_ptr_type create_file_open_dialog(
-            Widget&        parent,
-            String&&       title,
-            Filters&&      filters,
-            const Encoder& encoder
+            AbstractWindow& parent,
+            String&&        title,
+            Filters&&       filters,
+            const Encoder&  encoder
         )
         {
             ::IFileOpenDialog* p_raw_dialog = NULL;

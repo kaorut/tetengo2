@@ -53,8 +53,10 @@ namespace bobura { namespace command
         //! The file open dialog type.
         typedef FileOpenDialog file_open_dialog_type;
 
-        //! The window type.
-        typedef typename file_open_dialog_type::widget_type window_type;
+        //! The abstract window type.
+        typedef
+            typename file_open_dialog_type::abstract_window_type
+            abstract_window_type;
 
         //! The model type.
         typedef Model model_type;
@@ -74,21 +76,21 @@ namespace bobura { namespace command
         /*!
             \brief Creates a load-from-file command.
 
-            \param window            A parent window.
+            \param parent            A parent window.
             \param confirm_file_save A file save confirmation.
             \param model             A model.
             \param reader            A reader.
             \param message_catalog   A message catalog.
         */
         load_from_file(
-            window_type&                  window,
+            abstract_window_type&         parent,
             const confirm_file_save_type& confirm_file_save,
             model_type&                   model,
             reader_type&                  reader,
             const message_catalog_type&   message_catalog
         )
         :
-        m_window(window),
+        m_parent(parent),
         m_confirm_file_save(confirm_file_save),
         m_model(model),
         m_reader(reader),
@@ -104,13 +106,13 @@ namespace bobura { namespace command
         void operator()()
         const
         {
-            if (m_confirm_file_save(m_window))
+            if (m_confirm_file_save(m_parent))
                 return;
 
             file_open_dialog_type dialog(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpen:Open")),
                 make_file_filters(),
-                m_window
+                m_parent
             );
             dialog.do_modal();
 
@@ -148,7 +150,7 @@ namespace bobura { namespace command
     private:
         // types
 
-        typedef typename window_type::string_type string_type;
+        typedef typename abstract_window_type::string_type string_type;
 
         typedef typename file_open_dialog_type::path_type path_type;
 
@@ -157,7 +159,7 @@ namespace bobura { namespace command
 
         // variables
 
-        window_type& m_window;
+        abstract_window_type& m_parent;
 
         const confirm_file_save_type& m_confirm_file_save;
 
@@ -176,7 +178,7 @@ namespace bobura { namespace command
         const
         {
             return tetengo2::make_unique<message_box_type>(
-                m_window,
+                m_parent,
                 m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                 m_message_catalog.get(
                     TETENGO2_TEXT("Message:File:Can't open the file.")
@@ -193,7 +195,7 @@ namespace bobura { namespace command
         const
         {
             return tetengo2::make_unique<message_box_type>(
-                m_window,
+                m_parent,
                 m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                 m_message_catalog.get(
                     TETENGO2_TEXT(
