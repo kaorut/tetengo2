@@ -20,7 +20,7 @@
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(main_window)
-BOOST_AUTO_TEST_SUITE(menu)
+BOOST_AUTO_TEST_SUITE(menu_selected)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -34,7 +34,8 @@ BOOST_AUTO_TEST_SUITE(menu)
             command_type;
 
         const command_type command = command_type();
-        const bobura::message::main_window::menu<command_type> menu(command);
+        const bobura::message::main_window::menu_selected<command_type>
+        menu(command);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -48,21 +49,22 @@ BOOST_AUTO_TEST_SUITE(menu)
             command_type;
 
         const command_type command = command_type();
-        const bobura::message::main_window::menu<command_type> menu(command);
+        const bobura::message::main_window::menu_selected<command_type>
+        menu(command);
 
         menu();
     }
 
 
 BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE(paint)
+BOOST_AUTO_TEST_SUITE(paint_paint)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::message::main_window::paint<
+        const bobura::message::main_window::paint_paint<
             canvas_type, position_type, picture_reader_type
         > paint(boost::filesystem::path("image_path"));
     }
@@ -71,7 +73,7 @@ BOOST_AUTO_TEST_SUITE(paint)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::message::main_window::paint<
+        const bobura::message::main_window::paint_paint<
             canvas_type, position_type, picture_reader_type
         > paint(boost::filesystem::path("image_path"));
 
@@ -95,7 +97,7 @@ BOOST_AUTO_TEST_SUITE(window)
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
-        const bobura::message::main_window::window<
+        const bobura::message::main_window::window_closing<
             window_type, confirm_file_save_type
         > window(parent, confirm_file_save);
     }
@@ -110,7 +112,7 @@ BOOST_AUTO_TEST_SUITE(window)
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
-        const bobura::message::main_window::window<
+        const bobura::message::main_window::window_closing<
             window_type, confirm_file_save_type
         > window(parent, confirm_file_save);
 

@@ -149,14 +149,14 @@ namespace bobura
             this->paint_observer_set().paint().connect(
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
-                    message::main_window::type::paint
+                    message::main_window::type::paint_paint
                 >::type(m_settings.image_directory_path())
             );
 
             this->window_observer_set().closing().connect(
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
-                    message::main_window::type::window
+                    message::main_window::type::window_closing
                 >::type(*this, m_confirm_file_save)
             );
         }

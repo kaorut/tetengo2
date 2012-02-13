@@ -21,12 +21,13 @@
 namespace bobura { namespace message { namespace main_window
 {
     /*!
-        \brief The class template for a menu observer of the main window.
+        \brief The class template for a menu selection observer of the main
+               window.
 
         \tparam Command A command type.
     */
     template <typename Command>
-    class menu
+    class menu_selected
     {
     public:
         // types
@@ -38,11 +39,11 @@ namespace bobura { namespace message { namespace main_window
         // constructors and destructor
 
         /*!
-            \brief Creates a menu observer of the main window.
+            \brief Creates a menu selection observer of the main window.
 
             \param command A command.
         */
-        explicit menu(const command_type& command)
+        explicit menu_selected(const command_type& command)
         :
         m_command(command)
         {}
@@ -77,7 +78,7 @@ namespace bobura { namespace message { namespace main_window
         \tparam PictureReader A picture reader type.
     */
     template <typename Canvas, typename Position, typename PictureReader>
-    class paint
+    class paint_paint
     {
     public:
         // types
@@ -105,7 +106,7 @@ namespace bobura { namespace message { namespace main_window
             \param image_directory_path An image directory path.
         */
         template <typename P>
-        explicit paint(
+        explicit paint_paint(
             P&& image_directory_path,
             typename std::enable_if<
                 std::is_convertible<P, path_type>::value
@@ -184,13 +185,14 @@ namespace bobura { namespace message { namespace main_window
 
 
     /*!
-        \brief The class template for a window observer of the main window.
+        \brief The class template for a window closing observer of the main
+               window.
 
         \tparam Window          A window type.
         \tparam ConfirmFileSave A file save confirmation type.
     */
     template <typename Window, typename ConfirmFileSave>
-    class window
+    class window_closing
     {
     public:
         // types
@@ -205,12 +207,12 @@ namespace bobura { namespace message { namespace main_window
         // constructors and destructor
 
         /*!
-            \brief Creates a window observer of the main window.
+            \brief Creates a window closing observer of the main window.
 
             \param window            A window.
             \param confirm_file_save A file save confirmation.
         */
-        window(
+        window_closing(
             window_type&                  window,
             const confirm_file_save_type& confirm_file_save
         )

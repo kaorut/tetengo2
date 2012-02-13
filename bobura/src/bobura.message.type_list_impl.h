@@ -84,14 +84,18 @@ namespace bobura { namespace message
             //! The type list for the main window.
             typedef
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::menu, menu<Command>>,
-                tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::paint, paint<Canvas, Position, PictureReader>
+                        type::menu_selected, menu_selected<Command>
                     >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::window, window<Window, ConfirmFileSave>
+                        type::paint_paint,
+                        paint_paint<Canvas, Position, PictureReader>
+                    >,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<
+                        type::window_closing,
+                        window_closing<Window, ConfirmFileSave>
                     >,
                 tetengo2::meta::assoc_list_end
                 >>>

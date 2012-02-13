@@ -29,14 +29,14 @@ namespace bobura { namespace message
     {
         namespace type
         {
-            //! The menu observer type.
-            struct menu;
+            //! The menu selection observer type.
+            struct menu_selected;
 
             //! The paint observer type.
-            struct paint;
+            struct paint_paint;
 
-            //! The window observer type.
-            struct window;
+            //! The window closing observer type.
+            struct window_closing;
 
         }
     }

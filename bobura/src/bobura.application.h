@@ -303,7 +303,7 @@ namespace bobura
             p_menu_command->menu_observer_set().selected().connect(
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
-                    message::main_window::type::menu
+                    message::main_window::type::menu_selected
                 >::type(command)
             );
 
@@ -327,7 +327,7 @@ namespace bobura
             p_menu_command->menu_observer_set().selected().connect(
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
-                    message::main_window::type::menu
+                    message::main_window::type::menu_selected
                 >::type(command)
             );
 
