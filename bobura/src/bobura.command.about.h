@@ -9,8 +9,6 @@
 #if !defined(BOBURA_COMMAND_ABOUT_H)
 #define BOBURA_COMMAND_ABOUT_H
 
-#include <tetengo2.cpp11.h>
-
 
 namespace bobura { namespace command
 {
@@ -79,16 +77,11 @@ namespace bobura { namespace command
     private:
         // variables
 
-        typename tetengo2::cpp11::reference_wrapper<
-            abstract_window_type
-        >::type m_parent;
+        abstract_window_type& m_parent;
 
-        typename tetengo2::cpp11::reference_wrapper<
-            const message_catalog_type
-        >::type m_message_catalog;
+        const message_catalog_type& m_message_catalog;
 
-        typename tetengo2::cpp11::reference_wrapper<const settings_type>::type
-        m_settings;
+        const settings_type& m_settings;
 
 
     };

@@ -9,8 +9,6 @@
 #if !defined(BOBURA_COMMAND_EXIT_H)
 #define BOBURA_COMMAND_EXIT_H
 
-#include <tetengo2.cpp11.h>
-
 
 namespace bobura { namespace command
 {
@@ -49,15 +47,14 @@ namespace bobura { namespace command
         */
         void operator()()
         {
-            m_window.get().close();
+            m_window.close();
         }
 
 
     private:
         // variables
 
-        typename tetengo2::cpp11::reference_wrapper<window_type>::type
-        m_window;
+        window_type& m_window;
 
 
     };
