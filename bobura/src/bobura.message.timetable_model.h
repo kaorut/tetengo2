@@ -42,7 +42,7 @@ namespace bobura { namespace message { namespace timetable_model
 
 
      /*!
-        \brief The class template for a timetable model observer of reset.
+        \brief The class template for a timetable model reset observer.
 
         \tparam TimetableModel  A timetable model type.
         \tparam MainWindow A main window type.
@@ -63,7 +63,7 @@ namespace bobura { namespace message { namespace timetable_model
         // constructors and destructor
 
         /*!
-            \brief Creates a timetable model observer of reset.
+            \brief Creates a timetable model reset observer.
 
             \param timetable_model A timetable model.
             \param main_window     A main window.
@@ -101,7 +101,7 @@ namespace bobura { namespace message { namespace timetable_model
     };
 
      /*!
-        \brief The class template for a timetable model observer of changed.
+        \brief The class template for a timetable model change observer.
 
         \tparam TimetableModel A timetable model type.
         \tparam MainWindow     A main window type.
@@ -122,7 +122,7 @@ namespace bobura { namespace message { namespace timetable_model
         // constructors and destructor
 
         /*!
-            \brief Creates a timetable model observer of changedn.
+            \brief Creates a timetable model change observer.
 
             \param timetable_model A timetable model.
             \param main_window     A main window.
