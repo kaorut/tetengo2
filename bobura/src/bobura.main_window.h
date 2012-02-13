@@ -70,8 +70,9 @@ namespace bobura
         /*!
             \brief Creates a main window.
 
-            \param message_catalog A message catalog.
-            \param settings        Settings.
+            \param message_catalog   A message catalog.
+            \param settings          Settings.
+            \param confirm_file_save A file save confirmation.
         */
         main_window(
             const message_catalog_type&   message_catalog,

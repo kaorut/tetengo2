@@ -56,6 +56,7 @@ namespace bobura { namespace command
             \brief Creates a file property command.
 
             \param parent          A parent window.
+            \param model           A model.
             \param message_catalog A message catalog.
         */
         file_property(
