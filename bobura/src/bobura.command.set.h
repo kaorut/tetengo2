@@ -20,18 +20,20 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a command set.
 
-        \tparam TypeList       A command type list type.
-        \tparam Model          A model type.
-        \tparam Reader         A reader type.
-        \tparam MainWindow     A main window type.
-        \tparam Settings       A settings type.
-        \tparam MessageCatalog A message catalog type.
+        \tparam TypeList        A command type list type.
+        \tparam Model           A model type.
+        \tparam Reader          A reader type.
+        \tparam MainWindow      A main window type.
+        \tparam ConfirmFileSave A file save confirmation type.
+        \tparam Settings        A settings type.
+        \tparam MessageCatalog  A message catalog type.
     */
     template <
         typename TypeList,
         typename Model,
         typename Reader,
         typename MainWindow,
+        typename ConfirmFileSave,
         typename Settings,
         typename MessageCatalog
     >
@@ -57,6 +59,9 @@ namespace bobura { namespace command
         //! The main window type.
         typedef MainWindow main_window_type;
 
+        //! The file save confirmation type.
+        typedef ConfirmFileSave confirm_file_save_type;
+
         //! The settings type.
         typedef Settings settings_type;
 
@@ -69,18 +74,20 @@ namespace bobura { namespace command
         /*!
             \brief Creates a command set.
 
-            \param model           A model.
-            \param reader          A reader.
-            \param main_window     A main window.
-            \param settings        Settings.
-            \param message_catalog A message catalog.
+            \param model             A model.
+            \param reader            A reader.
+            \param main_window       A main window.
+            \param confirm_file_save A file save confirmation.
+            \param settings          Settings.
+            \param message_catalog   A message catalog.
         */
         set(
-            model_type&                 model,
-            reader_type&                reader,
-            main_window_type&           main_window,
-            const settings_type&        settings,
-            const message_catalog_type& message_catalog
+            model_type&                   model,
+            reader_type&                  reader,
+            main_window_type&             main_window,
+            const confirm_file_save_type& confirm_file_save,
+            const settings_type&          settings,
+            const message_catalog_type&   message_catalog
         )
         :
         m_about(make_about(main_window, message_catalog, settings)),
@@ -89,7 +96,9 @@ namespace bobura { namespace command
             make_file_property(main_window, model, message_catalog)
         ),
         m_load_from_file(
-            make_load_from_file(main_window, model, reader, message_catalog)
+            make_load_from_file(
+                main_window, confirm_file_save, model, reader, message_catalog
+            )
         ),
         m_nop(make_nop())
         {}
@@ -199,15 +208,18 @@ namespace bobura { namespace command
         }
 
         static command_type make_load_from_file(
-            main_window_type&            main_window,
-            model_type&                  model,
-            reader_type&                 reader,
-            const message_catalog_type&  message_catalog
+            main_window_type&             main_window,
+            const confirm_file_save_type& confirm_file_save,
+            model_type&                   model,
+            reader_type&                  reader,
+            const message_catalog_type&   message_catalog
         )
         {
             return typename boost::mpl::at<
                 type_list_type, type::load_from_file
-            >::type(main_window, model, reader, message_catalog);
+            >::type(
+                main_window, confirm_file_save, model, reader, message_catalog
+            );
         }
 
         static command_type make_nop()

@@ -26,6 +26,7 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a load-from-file command.
 
+        \tparam ConfirmFileSave A file save confirmation type.
         \tparam MessageBox      A message box type.
         \tparam FileOpenDialog  A file open dialog type.
         \tparam Model           A model type.
@@ -73,19 +74,22 @@ namespace bobura { namespace command
         /*!
             \brief Creates a load-from-file command.
 
-            \param window          A parent window.
-            \param model           A model.
-            \param reader          A reader.
-            \param message_catalog A message catalog.
+            \param window            A parent window.
+            \param confirm_file_save A file save confirmation.
+            \param model             A model.
+            \param reader            A reader.
+            \param message_catalog   A message catalog.
         */
         load_from_file(
-            window_type&                 window,
-            model_type&                  model,
-            reader_type&                 reader,
-            const message_catalog_type&  message_catalog
+            window_type&                  window,
+            const confirm_file_save_type& confirm_file_save,
+            model_type&                   model,
+            reader_type&                  reader,
+            const message_catalog_type&   message_catalog
         )
         :
         m_window(window),
+        m_confirm_file_save(confirm_file_save),
         m_model(model),
         m_reader(reader),
         m_message_catalog(message_catalog)
@@ -100,6 +104,9 @@ namespace bobura { namespace command
         void operator()()
         const
         {
+            if (m_confirm_file_save(m_window))
+                return;
+
             file_open_dialog_type dialog(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpen:Open")),
                 make_file_filters(),
@@ -151,6 +158,8 @@ namespace bobura { namespace command
         // variables
 
         window_type& m_window;
+
+        const confirm_file_save_type& m_confirm_file_save;
 
         model_type& m_model;
 

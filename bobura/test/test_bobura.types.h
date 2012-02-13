@@ -390,7 +390,7 @@ typedef
 
 typedef
     tetengo2::gui::common_dialog::message_box<
-        window_type::base_type,
+        abstract_window_type,
         std::wstring,
         ui_encoder_type,
         tetengo2::detail::stub::common_dialog
@@ -399,7 +399,7 @@ typedef
 
 typedef
     tetengo2::gui::common_dialog::file_open<
-        window_type::base_type,
+        abstract_window_type,
         std::wstring,
         boost::filesystem::path,
         ui_encoder_type,
@@ -584,7 +584,10 @@ typedef
 
 typedef
     bobura::confirm_file_save<
-        model_type, window_type, message_box_type, message_catalog_type
+        model_type,
+        abstract_window_type,
+        message_box_type,
+        message_catalog_type
     >
     confirm_file_save_type;
 
@@ -650,6 +653,7 @@ typedef
         model_type,
         reader_type,
         main_window_type,
+        confirm_file_save_type,
         settings_type,
         message_catalog_type
     >

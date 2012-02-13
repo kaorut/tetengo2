@@ -38,7 +38,12 @@ BOOST_AUTO_TEST_SUITE(set)
             message_catalog, settings, confirm_file_save
         );
         const command_set_type command_set(
-            model, reader, main_window, settings, message_catalog
+            model,
+            reader,
+            main_window,
+            confirm_file_save,
+            settings,
+            message_catalog
         );
     }
 
@@ -59,11 +64,17 @@ BOOST_AUTO_TEST_SUITE(set)
             message_catalog, settings, confirm_file_save
         );
         const command_set_type command_set(
-            model, reader, main_window, settings, message_catalog
+            model,
+            reader,
+            main_window,
+            confirm_file_save,
+            settings,
+            message_catalog
         );
 
         command_set.about();
         command_set.exit();
+        command_set.file_property();
         command_set.load_from_file();
         command_set.nop();
     }

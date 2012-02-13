@@ -75,7 +75,7 @@ namespace bobura
         /*!
             \brief Confirms file save, and if necessary, save the model.
 
-            \param window A window.
+            \param window A parent window.
 
             \retval true  When the model is saved or there is no need to save
                           it.

@@ -146,7 +146,12 @@ namespace bobura
                 message_catalog, m_settings, confirm_file_save
             ); 
             const command_set_type command_set(
-                m_model, reader, main_window, m_settings, message_catalog
+                m_model,
+                reader,
+                main_window,
+                confirm_file_save,
+                m_settings,
+                message_catalog
             );
             set_message_observers(m_model, main_window);
             main_window.set_menu_bar(

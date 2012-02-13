@@ -432,6 +432,7 @@ namespace bobura
         struct picture_reader; //!< The picture reader type.
         struct canvas;         //!< The canvas type.
         struct alert;          //!< The alert type.
+        struct abstract_window; //!< The abstract window type.
         struct window;         //!< The window type.
         struct menu_bar;       //!< The menu bar type.
         struct popup_menu;     //!< The popup menu type.
@@ -762,6 +763,10 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::alert, detail::ui::alert_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::abstract_window, detail::ui::abstract_window_type
+            >,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::window, detail::ui::window_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -817,7 +822,7 @@ namespace bobura
                 detail::ui::transparent_background_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -835,7 +840,9 @@ namespace bobura
             boost::mpl::pair<
                 type::message_box,
                 tetengo2::gui::common_dialog::message_box<
-                    boost::mpl::at<ui_type_list, type::window>::type,
+                    boost::mpl::at<
+                        ui_type_list, type::abstract_window
+                    >::type,
                     boost::mpl::at<common_type_list, type::string>::type,
                     boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                     tetengo2::detail::windows::common_dialog
@@ -845,7 +852,9 @@ namespace bobura
             boost::mpl::pair<
                 type::file_open_dialog,
                 tetengo2::gui::common_dialog::file_open<
-                    boost::mpl::at<ui_type_list, type::window>::type,
+                    boost::mpl::at<
+                        ui_type_list, type::abstract_window
+                    >::type,
                     boost::mpl::at<common_type_list, type::string>::type,
                     boost::mpl::at<common_type_list, type::path>::type,
                     boost::mpl::at<locale_type_list, type::ui_encoder>::type,
@@ -927,7 +936,9 @@ namespace bobura
                 type::confirm_file_save,
                 confirm_file_save<
                     boost::mpl::at<model_type_list, type::model>::type,
-                    boost::mpl::at<ui_type_list, type::window>::type,
+                    boost::mpl::at<
+                        ui_type_list, type::abstract_window
+                    >::type,
                     boost::mpl::at<
                         common_dialog_type_list, type::message_box
                     >::type,
@@ -1064,6 +1075,9 @@ namespace bobura
                     boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
                         main_window_type_list, type::main_window
+                    >::type,
+                    boost::mpl::at<
+                        miscellaneous_type_list, type::confirm_file_save
                     >::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<

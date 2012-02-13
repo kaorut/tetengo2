@@ -27,8 +27,11 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
 
         window_type parent;
         model_type model;
-        reader_type reader;
         const message_catalog_type message_catalog;
+        const confirm_file_save_type confirm_file_save(
+            model, message_catalog
+        );
+        reader_type reader;
         bobura::command::load_from_file<
             message_box_type,
             file_open_type,
@@ -37,7 +40,9 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
             reader_type,
             message_catalog_type
         >
-        load_from_file(parent, model, reader, message_catalog);
+        load_from_file(
+            parent, confirm_file_save, model, reader, message_catalog
+        );
 
         load_from_file();
     }
