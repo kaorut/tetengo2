@@ -100,11 +100,6 @@ namespace bobura { namespace command
         void operator()()
         const
         {
-            //const typename message_box_type::button_id_type selected_button =
-            //    create_confirm_message_box()->do_modal();
-            //if (selected_button == message_box_type::button_cancel)
-            //    return;
-
             file_open_dialog_type dialog(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpen:Open")),
                 make_file_filters(),
@@ -165,31 +160,6 @@ namespace bobura { namespace command
 
 
         // functions
-
-        std::unique_ptr<message_box_type> create_confirm_message_box()
-        const
-        {
-            return tetengo2::make_unique<message_box_type>(
-                m_window,
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_message_catalog.get(
-                    TETENGO2_TEXT(
-                        "Message:File:The file has been changed. Do you want to save the changes?"
-                    )
-                ),
-                string_type(),
-                message_box_type::button_style_type::yes_no(
-                    true,
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Message:File:&Save")
-                    ),
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Message:File:&Don't save")
-                    )
-                ),
-                message_box_type::icon_style_warning
-            );
-        }
 
         std::unique_ptr<message_box_type> create_cant_open_file_message_box(
             const path_type& path
