@@ -610,6 +610,7 @@ typedef
         canvas_type,
         position_type,
         picture_reader_type,
+        window_type,
         confirm_file_save_type
     >::type
     main_window_message_type_list_type;

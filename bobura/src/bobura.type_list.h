@@ -1005,6 +1005,7 @@ namespace bobura
                 boost::mpl::at<ui_type_list, type::canvas>::type,
                 boost::mpl::at<ui_type_list, type::position>::type,
                 boost::mpl::at<ui_type_list, type::picture_reader>::type,
+                boost::mpl::at<ui_type_list, type::window>::type,
                 boost::mpl::at<
                     miscellaneous_type_list, type::confirm_file_save
                 >::type

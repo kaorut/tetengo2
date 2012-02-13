@@ -89,20 +89,24 @@ BOOST_AUTO_TEST_SUITE(window)
     {
         BOOST_TEST_PASSPOINT();
 
+        window_type parent;
         const model_type model;
         const confirm_file_save_type confirm_file_save(model);
-        const bobura::message::main_window::window<confirm_file_save_type>
-        window(confirm_file_save);
+        const bobura::message::main_window::window<
+            window_type, confirm_file_save_type
+        > window(parent, confirm_file_save);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
+        window_type parent;
         const model_type model;
         const confirm_file_save_type confirm_file_save(model);
-        const bobura::message::main_window::window<confirm_file_save_type>
-        window(confirm_file_save);
+        const bobura::message::main_window::window<
+            window_type, confirm_file_save_type
+        > window(parent, confirm_file_save);
 
         bool cancel = false;
         window(cancel);

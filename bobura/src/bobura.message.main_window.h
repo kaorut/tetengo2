@@ -186,13 +186,17 @@ namespace bobura { namespace message { namespace main_window
     /*!
         \brief The class template for a window observer of the main window.
 
+        \tparam Window          A window type.
         \tparam ConfirmFileSave A file save confirmation type.
     */
-    template <typename ConfirmFileSave>
+    template <typename Window, typename ConfirmFileSave>
     class window
     {
     public:
         // types
+
+        //! The window type.
+        typedef Window window_type;
 
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
@@ -203,10 +207,15 @@ namespace bobura { namespace message { namespace main_window
         /*!
             \brief Creates a window observer of the main window.
 
+            \param window            A window.
             \param confirm_file_save A file save confirmation.
         */
-        explicit window(const confirm_file_save_type& confirm_file_save)
+        window(
+            window_type&                  window,
+            const confirm_file_save_type& confirm_file_save
+        )
         :
+        m_window(window),
         m_confirm_file_save(confirm_file_save)
         {}
 
@@ -221,12 +230,14 @@ namespace bobura { namespace message { namespace main_window
         void operator()(bool& cancel)
         const
         {
-            cancel = false;
+            cancel = m_confirm_file_save(m_window);
         }
 
 
     private:
         // variables
+
+        window_type& m_window;
 
         const confirm_file_save_type& m_confirm_file_save;
 

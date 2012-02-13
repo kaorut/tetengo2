@@ -157,7 +157,7 @@ namespace bobura
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::window
-                >::type(m_confirm_file_save)
+                >::type(*this, m_confirm_file_save)
             );
         }
 
