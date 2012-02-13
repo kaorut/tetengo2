@@ -16,8 +16,12 @@ namespace bobura { namespace message
     {
         namespace type
         {
-            struct reset;      //!< The reset observer type.
-            struct changed;    //!< The changed observer type.
+            //! The reset observer type.
+            struct reset;
+
+            //! The changed observer type.
+            struct changed;
+
         }
     }
 
@@ -25,9 +29,15 @@ namespace bobura { namespace message
     {
         namespace type
         {
-            struct menu;       //!< The menu observer type.
-            struct paint;      //!< The paint observer type.
-            struct window;     //!< The window observer type.
+            //! The menu observer type.
+            struct menu;
+
+            //! The paint observer type.
+            struct paint;
+
+            //! The window observer type.
+            struct window;
+
         }
     }
 
@@ -35,9 +45,12 @@ namespace bobura { namespace message
     {
         namespace type
         {
-            struct ok_button_mouse; //!< The OK button mouse observer type.
-            struct cancel_button_mouse; //!< The cancel button mouse observer
-                                        //!< type.
+            //! The OK button mouse click observer type.
+            struct ok_button_mouse_clicked;
+
+            //! The cancel button mouse click observer type.
+            struct cancel_button_mouse_clicked;
+
         }
     }
 
@@ -45,7 +58,9 @@ namespace bobura { namespace message
     {
         namespace type
         {
-            struct ok_button_mouse; //!< The OK button mouse observer type.
+            //! The OK button mouse click observer type.
+            struct ok_button_mouse_clicked;
+
         }
     }
 

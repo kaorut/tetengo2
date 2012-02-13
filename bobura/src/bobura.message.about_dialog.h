@@ -13,12 +13,12 @@
 namespace bobura { namespace message { namespace about_dialog
 {
      /*!
-        \brief The class template for a mouse observer of the OK button.
+        \brief The class template for a mouse click observer of the OK button.
 
         \tparam Dialog A dialog type.
     */
     template <typename Dialog>
-    class ok_button_mouse
+    class ok_button_mouse_clicked
     {
     public:
         // types
@@ -30,11 +30,11 @@ namespace bobura { namespace message { namespace about_dialog
         // constructors and destructor
 
         /*!
-            \brief Creates a mouse observer of the OK button.
+            \brief Creates a mouse click observer of the OK button.
 
             \param dialog A dialog.
         */
-        explicit ok_button_mouse(dialog_type& dialog)
+        explicit ok_button_mouse_clicked(dialog_type& dialog)
         :
         m_dialog(dialog)
         {}

@@ -321,7 +321,7 @@ namespace bobura
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     file_property_dialog_message_type_list_type,
-                    message::file_property_dialog::type::ok_button_mouse
+                    message::file_property_dialog::type::ok_button_mouse_clicked
                 >::type(*this)
             );
 
@@ -342,7 +342,7 @@ namespace bobura
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     file_property_dialog_message_type_list_type,
-                    message::file_property_dialog::type::cancel_button_mouse
+                    message::file_property_dialog::type::cancel_button_mouse_clicked
                 >::type(*this)
             );
 

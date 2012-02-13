@@ -119,11 +119,13 @@ namespace bobura { namespace message
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::ok_button_mouse, ok_button_mouse<Dialog>
+                        type::ok_button_mouse_clicked,
+                        ok_button_mouse_clicked<Dialog>
                     >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::cancel_button_mouse, cancel_button_mouse<Dialog>
+                        type::cancel_button_mouse_clicked,
+                        cancel_button_mouse_clicked<Dialog>
                     >,
                 tetengo2::meta::assoc_list_end
                 >>
@@ -151,7 +153,8 @@ namespace bobura { namespace message
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::ok_button_mouse, ok_button_mouse<Dialog>
+                        type::ok_button_mouse_clicked,
+                        ok_button_mouse_clicked<Dialog>
                     >,
                 tetengo2::meta::assoc_list_end
                 >
