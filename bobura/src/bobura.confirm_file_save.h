@@ -21,13 +21,13 @@ namespace bobura
         \brief The class template for the file save confirmation.
 
         \tparam Model          A model type.
-        \tparam Window         A window type.
+        \tparam AbstractWindow An abstract window type.
         \tparam MessageBox     A message box type.
         \tparam MessageCatalog A message catalog type.
     */
     template <
         typename Model,
-        typename Window,
+        typename AbstractWindow,
         typename MessageBox,
         typename MessageCatalog
     >
@@ -39,11 +39,11 @@ namespace bobura
         //! The model type.
         typedef Model model_type;
 
-        //! The window type.
-        typedef Window window_type;
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
         
         //! The string type.
-        typedef typename window_type::string_type string_type;
+        typedef typename abstract_window_type::string_type string_type;
 
         //! The message box type.
         typedef MessageBox message_box_type;
@@ -75,20 +75,20 @@ namespace bobura
         /*!
             \brief Confirms file save, and if necessary, save the model.
 
-            \param window A parent window.
+            \param parent A parent window.
 
             \retval true  When the model is saved or there is no need to save
                           it.
             \retval false Otherwise.
         */
-        bool operator()(window_type& window)
+        bool operator()(abstract_window_type& parent)
         const
         {
             if (!m_model.changed())
                 return false;
 
             const typename message_box_type::button_id_type selected_button =
-                create_message_box(window)->do_modal();
+                create_message_box(parent)->do_modal();
             if (selected_button == message_box_type::button_cancel)
                 return true;
 
@@ -107,12 +107,12 @@ namespace bobura
         // functions
 
         std::unique_ptr<message_box_type> create_message_box(
-            window_type& window
+            abstract_window_type& parent
         )
         const
         {
             return tetengo2::make_unique<message_box_type>(
-                window,
+                parent,
                 m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                 m_message_catalog.get(
                     TETENGO2_TEXT(
