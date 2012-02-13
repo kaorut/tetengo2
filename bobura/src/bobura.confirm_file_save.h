@@ -9,7 +9,7 @@
 #if !defined(BOBURA_CONFIRMFILESAVE_H)
 #define BOBURA_CONFIRMFILESAVE_H
 
-#include <memory>
+//#include <memory>
 
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>

@@ -9,7 +9,7 @@
 #if !defined(BOBURA_COMMAND_TYPELISTIMPL_H)
 #define BOBURA_COMMAND_TYPELISTIMPL_H
 
-//#include <functional>
+#include <functional>
 
 #include <boost/mpl/pair.hpp>
 
