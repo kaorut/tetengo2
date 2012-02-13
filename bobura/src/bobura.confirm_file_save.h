@@ -84,6 +84,14 @@ namespace bobura
         bool operator()(window_type& window)
         const
         {
+            if (!m_model.changed())
+                return false;
+
+            const typename message_box_type::button_id_type selected_button =
+                create_message_box(window)->do_modal();
+            if (selected_button == message_box_type::button_cancel)
+                return true;
+
             return false;
         }
 
@@ -98,7 +106,7 @@ namespace bobura
 
         // functions
 
-        std::unique_ptr<message_box_type> create_confirm_message_box(
+        std::unique_ptr<message_box_type> create_message_box(
             window_type& window
         )
         const
