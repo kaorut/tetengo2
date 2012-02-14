@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::command::load_from_file.
+    \brief Test of class bobura::command::new_file.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -8,17 +8,14 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.detail.stub.common_dialog.h>
-#include <tetengo2.gui.common_dialog.file_open.h>
-
 #include "test_bobura.types.h"
 
-#include "bobura.command.load_from_file.h"
+#include "bobura.command.new_file.h"
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
-BOOST_AUTO_TEST_SUITE(load_from_file)
+BOOST_AUTO_TEST_SUITE(new_file)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -31,18 +28,10 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
-        reader_type reader;
-        const bobura::command::load_from_file<
-            message_box_type,
-            file_open_type,
-            model_type,
-            confirm_file_save_type,
-            reader_type,
-            message_catalog_type
+        const bobura::command::new_file<
+            abstract_window_type, model_type, confirm_file_save_type
         >
-        load_from_file(
-            parent, confirm_file_save, model, reader, message_catalog
-        );
+        new_file(parent, confirm_file_save, model);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -55,20 +44,12 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
-        reader_type reader;
-        bobura::command::load_from_file<
-            message_box_type,
-            file_open_type,
-            model_type,
-            confirm_file_save_type,
-            reader_type,
-            message_catalog_type
+        const bobura::command::new_file<
+            abstract_window_type, model_type, confirm_file_save_type
         >
-        load_from_file(
-            parent, confirm_file_save, model, reader, message_catalog
-        );
+        new_file(parent, confirm_file_save, model);
 
-        load_from_file();
+        new_file();
     }
 
 

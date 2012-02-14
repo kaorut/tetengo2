@@ -89,5 +89,8 @@
     <ClCompile Include="test\test_bobura.confirm_file_save.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.command.new_file.cpp">
+      <Filter>sources\test_bobura\command</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

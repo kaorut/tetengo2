@@ -26,7 +26,6 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a load-from-file command.
 
-        \tparam ConfirmFileSave A file save confirmation type.
         \tparam MessageBox      A message box type.
         \tparam FileOpenDialog  A file open dialog type.
         \tparam Model           A model type.
