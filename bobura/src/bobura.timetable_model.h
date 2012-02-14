@@ -53,9 +53,7 @@ namespace bobura
         */
         timetable_model()
         :
-        m_p_timetable(
-            tetengo2::make_unique<timetable_type>(string_type())
-        ),
+        m_p_timetable(tetengo2::make_unique<timetable_type>()),
         m_path(),
         m_changed(false),
         m_observer_set()

@@ -69,15 +69,10 @@ namespace bobura { namespace model
 
         /*!
             \brief Creates a timetalble.
-
-            \tparam S A string type.
-
-            \param title A title.
         */
-        template <typename S>
-        explicit timetable(S&& title)
+        timetable()
         :
-        m_title(std::forward<S>(title)),
+        m_title(),
         m_station_locations(),
         m_down_trains(),
         m_up_trains(),
@@ -87,42 +82,20 @@ namespace bobura { namespace model
         /*!
             \brief Creates a timetalble.
 
-            \tparam S   A string type.
-            \tparam SLs A station locations type.
-
-            \param title             A title.
-            \param station_locations The station locations
-        */
-        template <typename S, typename SLs>
-        timetable(S&& title, SLs&& station_locations)
-        :
-        m_title(std::forward<S>(title)),
-        m_station_locations(std::forward<SLs>(station_locations)),
-        m_down_trains(),
-        m_up_trains(),
-        m_observer_set()
-        {}
-
-        /*!
-            \brief Creates a timetalble.
-
-            \tparam S             A string type.
             \tparam InputIterator An input iterator for station locations.
 
-            \param title                  A title.
             \param station_location_first The first iterator among station
                                           locations.
             \param station_location_last  The last iterator among station
                                           locations.
         */
-        template <typename S, typename InputIterator>
+        template <typename InputIterator>
         timetable(
-            S&&                 title,
             const InputIterator station_location_first,
             const InputIterator station_location_last
         )
         :
-        m_title(std::forward<S>(title)),
+        m_title(),
         m_station_locations(station_location_first, station_location_last),
         m_down_trains(),
         m_up_trains(),

@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
 
         {
-            const timetable_type timetable("hoge");
+            const timetable_type timetable;
 
             BOOST_CHECK(timetable.station_locations().empty());
         }
@@ -89,43 +89,9 @@ BOOST_AUTO_TEST_SUITE(timetable)
                     station_type(L"A", local_type::instance()), 1
                 )
             );
-            timetable_type::station_locations_type station_locations2(
-                station_locations
-            );
 
             const timetable_type timetable(
-                "hoge", std::move(station_locations2)
-            );
-
-            BOOST_CHECK(timetable.station_locations() == station_locations);
-        }
-        {
-            timetable_type::station_locations_type station_locations;
-            station_locations.push_back(
-                station_location_type(
-                    station_type(L"A", local_type::instance()), 1
-                )
-            );
-            station_locations.push_back(
-                station_location_type(
-                    station_type(L"B", local_type::instance()), 2
-                )
-            );
-
-            const timetable_type timetable("hoge", station_locations);
-
-            BOOST_CHECK(timetable.station_locations() == station_locations);
-        }
-        {
-            timetable_type::station_locations_type station_locations;
-            station_locations.push_back(
-                station_location_type(
-                    station_type(L"A", local_type::instance()), 1
-                )
-            );
-
-            const timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK(timetable.station_locations() == station_locations);
@@ -144,7 +110,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK(timetable.station_locations() == station_locations);
@@ -156,9 +122,27 @@ BOOST_AUTO_TEST_SUITE(timetable)
         BOOST_TEST_PASSPOINT();
 
         {
-            const timetable_type timetable1("hoge");
+            const timetable_type timetable1;
 
-            const timetable_type timetable2("hoge");
+            const timetable_type timetable2;
+
+            BOOST_CHECK(timetable1 == timetable2);
+        }
+        {
+            timetable_type timetable1;
+            timetable1.set_title("hoge");
+
+            timetable_type timetable2;
+            timetable2.set_title("hoge");
+
+            BOOST_CHECK(timetable1 == timetable2);
+        }
+        {
+            timetable_type timetable1;
+            timetable1.set_title("hoge");
+
+            timetable_type timetable2;
+            timetable2.set_title("fuga");
 
             BOOST_CHECK(timetable1 == timetable2);
         }
@@ -171,7 +155,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable1(
-                "hoge", station_locations1.begin(), station_locations1.end()
+                station_locations1.begin(), station_locations1.end()
             );
 
             timetable_type::station_locations_type station_locations2;
@@ -182,7 +166,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable2(
-                "hoge", station_locations2.begin(), station_locations2.end()
+                station_locations2.begin(), station_locations2.end()
             );
 
             BOOST_CHECK(timetable1 == timetable2);
@@ -196,7 +180,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable1(
-                "hoge", station_locations1.begin(), station_locations1.end()
+                station_locations1.begin(), station_locations1.end()
             );
 
             timetable_type::station_locations_type station_locations2;
@@ -207,7 +191,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable2(
-                "hoge", station_locations2.begin(), station_locations2.end()
+                station_locations2.begin(), station_locations2.end()
             );
 
             BOOST_CHECK(timetable1 != timetable2);
@@ -221,7 +205,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable1(
-                "hoge", station_locations1.begin(), station_locations1.end()
+                station_locations1.begin(), station_locations1.end()
             );
 
             timetable_type::station_locations_type station_locations2;
@@ -237,7 +221,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable2(
-                "hoge", station_locations2.begin(), station_locations2.end()
+                station_locations2.begin(), station_locations2.end()
             );
 
             BOOST_CHECK(timetable1 != timetable2);
@@ -256,7 +240,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable1(
-                "hoge", station_locations1.begin(), station_locations1.end()
+                station_locations1.begin(), station_locations1.end()
             );
 
             timetable_type::station_locations_type station_locations2;
@@ -272,7 +256,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable2(
-                "hoge", station_locations2.begin(), station_locations2.end()
+                station_locations2.begin(), station_locations2.end()
             );
 
             BOOST_CHECK(timetable1 == timetable2);
@@ -284,7 +268,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
         BOOST_TEST_PASSPOINT();
 
         {
-            const timetable_type timetable("hoge");
+            const timetable_type timetable;
 
             const timetable_type::station_locations_type&
             station_locations = timetable.station_locations();
@@ -300,7 +284,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK(timetable.station_locations() == station_locations);
@@ -319,7 +303,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             const timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK(timetable.station_locations() == station_locations);
@@ -344,9 +328,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge",
-                station_locations.begin(),
-                station_locations.begin() + 1
+                station_locations.begin(), station_locations.begin() + 1
             );
 
             timetable.insert_station_location(
@@ -356,7 +338,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(timetable.station_locations() == station_locations);
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -375,7 +357,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -403,7 +385,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -430,7 +412,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 2U);
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
@@ -478,7 +460,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(station_locations[3].meterage(), 4U);
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
 
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("1", "x")
@@ -568,7 +550,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
 
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("1", "x")
@@ -677,7 +659,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             timetable.erase_station_locations(
@@ -701,7 +683,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             timetable.erase_station_locations(
@@ -732,7 +714,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             timetable.erase_station_locations(
@@ -775,7 +757,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             timetable.erase_station_locations(
@@ -813,7 +795,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             train_type::stops_type stops;
@@ -849,7 +831,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             train_type::stops_type stops;
@@ -885,7 +867,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             train_type::stops_type stops;
@@ -921,7 +903,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             train_type::stops_type stops;
@@ -950,7 +932,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
         BOOST_TEST_PASSPOINT();
 
         {
-            const timetable_type timetable("hoge");
+            const timetable_type timetable;
 
             const timetable_type::trains_type& trains =
                 timetable.down_trains();
@@ -958,7 +940,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(trains.empty());
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("1", "x")
             );
@@ -971,7 +953,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "x");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("1", "x")
             );
@@ -995,7 +977,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
         BOOST_TEST_PASSPOINT();
 
         {
-            const timetable_type timetable("hoge");
+            const timetable_type timetable;
 
             const timetable_type::trains_type& trains =
                 timetable.up_trains();
@@ -1003,7 +985,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(trains.empty());
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("1", "x")
             );
@@ -1016,7 +998,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "x");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("1", "x")
             );
@@ -1040,7 +1022,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
         BOOST_TEST_PASSPOINT();
 
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("1", "x")
             );
@@ -1053,7 +1035,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "x");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("1", "x")
             );
@@ -1071,7 +1053,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[1].note(),  "y");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("2", "y")
             );
@@ -1107,7 +1089,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK_THROW(
@@ -1118,7 +1100,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
 
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), ""));
@@ -1138,7 +1120,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
         BOOST_TEST_PASSPOINT();
 
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("1", "x")
             );
@@ -1151,7 +1133,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "x");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("1", "x")
             );
@@ -1169,7 +1151,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[1].note(),  "y");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("2", "y")
             );
@@ -1205,7 +1187,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             timetable_type timetable(
-                "hoge", station_locations.begin(), station_locations.end()
+                station_locations.begin(), station_locations.end()
             );
 
             BOOST_CHECK_THROW(
@@ -1216,7 +1198,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
 
             train_type::stops_type stops;
             stops.push_back(stop_type(time_type(0), time_type(0), ""));
@@ -1236,7 +1218,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
         BOOST_TEST_PASSPOINT();
 
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("1", "x")
             );
@@ -1254,7 +1236,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(trains.empty());
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("1", "x")
             );
@@ -1275,7 +1257,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "y");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("1", "x")
             );
@@ -1298,7 +1280,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[1].note(),  "y");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_down_train(
                 timetable.down_trains().end(), train_type("1", "x")
             );
@@ -1330,7 +1312,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
         BOOST_TEST_PASSPOINT();
 
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("1", "x")
             );
@@ -1348,7 +1330,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK(trains.empty());
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("1", "x")
             );
@@ -1369,7 +1351,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[0].note(),  "y");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("1", "x")
             );
@@ -1391,7 +1373,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(trains[1].note(),  "y");
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
             timetable.insert_up_train(
                 timetable.up_trains().end(), train_type("1", "x")
             );
@@ -1423,12 +1405,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
         BOOST_TEST_PASSPOINT();
 
         {
-            const timetable_type timetable("hoge");
+            const timetable_type timetable;
 
             timetable.observer_set();
         }
         {
-            timetable_type timetable("hoge");
+            timetable_type timetable;
 
             timetable.observer_set();
         }

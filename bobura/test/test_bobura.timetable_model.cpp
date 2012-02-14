@@ -67,8 +67,8 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
             model_type model;
 
             model.reset_timetable(
-                tetengo2::make_unique<timetable_type>(L"hoge"),
-                boost::filesystem::path(L"fuga")
+                tetengo2::make_unique<timetable_type>(),
+                boost::filesystem::path(L"hoge")
             );
         }
         {
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
             BOOST_CHECK_THROW(
                 model.reset_timetable(
                     std::unique_ptr<timetable_type>(),
-                    boost::filesystem::path(L"fuga")
+                    boost::filesystem::path(L"hoge")
                 ),
                 std::invalid_argument
             );

@@ -74,7 +74,7 @@ namespace bobura { namespace command
                 return;
 
             m_model.reset_timetable(
-                tetengo2::make_unique<timetable_type>(string_type()),
+                tetengo2::make_unique<timetable_type>(),
                 path_type()
             );
         }

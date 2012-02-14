@@ -148,7 +148,7 @@ namespace bobura { namespace model { namespace serializer
         )
         {
             std::unique_ptr<timetable_type> p_timetable =
-                tetengo2::make_unique<timetable_type>(string_type());
+                tetengo2::make_unique<timetable_type>();
 
             if (
                 !next_is_structure_begin(
