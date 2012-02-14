@@ -26,13 +26,14 @@ namespace bobura { namespace message { namespace timetable_model
             typedef typename TimetableModel::path_type path_type;
             typedef typename MainWindow::string_type string_type;
 
-            const path_type& path = timetable_model.path();
             const boost::optional<string_type> title =
-                path.empty() ?
-                    boost::none :
-                    boost::make_optional(
-                        path.filename().template string<string_type>()
-                    );
+                timetable_model.has_path() ?
+                boost::make_optional(
+                    timetable_model.path().filename().template string<
+                        string_type
+                    >()
+                ) :
+                boost::none;
             main_window.set_title(title, timetable_model.changed());
         }
 

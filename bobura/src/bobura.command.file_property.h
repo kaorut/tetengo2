@@ -78,14 +78,15 @@ namespace bobura { namespace command
         */
         void operator()()
         {
-            file_property_dialog_type dialog(
-                m_parent, m_message_catalog
-            );
+            file_property_dialog_type dialog(m_parent, m_message_catalog);
 
             dialog.set_line_name(m_model.timetable().title());
-            dialog.set_file_name(
-                m_model.path().template string<string_type>()
-            );
+            if (m_model.has_path())
+            {
+                dialog.set_file_name(
+                    m_model.path().template string<string_type>()
+                );
+            }
 
             dialog.do_modal();
             if (dialog.result() != base_type::result_accepted)

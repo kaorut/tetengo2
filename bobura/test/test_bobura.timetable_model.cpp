@@ -48,15 +48,46 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(has_path)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const model_type model;
+
+            BOOST_CHECK(!model.has_path());
+        }
+        {
+            model_type model;
+            std::unique_ptr<timetable_type> p_timetable =
+                tetengo2::make_unique<timetable_type>();
+            model.reset_timetable(
+                std::move(p_timetable), model_type::path_type(L"hoge")
+            );
+
+            BOOST_CHECK(model.has_path());
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(path)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
+        {
+            const model_type model;
 
-        const model_type::path_type& path = model.path();
+            BOOST_CHECK_THROW(model.path(), std::logic_error);
+        }
+        {
+            model_type model;
+            std::unique_ptr<timetable_type> p_timetable =
+                tetengo2::make_unique<timetable_type>();
+            model.reset_timetable(
+                std::move(p_timetable), model_type::path_type(L"hoge")
+            );
 
-        BOOST_CHECK(path.empty());
+            BOOST_CHECK(model.path() == model_type::path_type(L"hoge"));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(reset_timetable)
