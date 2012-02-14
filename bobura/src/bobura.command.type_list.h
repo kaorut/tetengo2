@@ -19,6 +19,7 @@ namespace bobura { namespace command
         struct exit;           //!< The exit type.
         struct file_property;  //!< The file property type.
         struct load_from_file; //!< The load-from-file type.
+        struct new_file;       //!< The new-file type.
         struct nop;            //!< The nop type.
     }
 

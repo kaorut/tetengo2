@@ -19,6 +19,7 @@
 #include "bobura.command.exit.h"
 #include "bobura.command.file_property.h"
 #include "bobura.command.load_from_file.h"
+#include "bobura.command.new_file.h"
 #include "bobura.command.nop.h"
 #include "bobura.command.type_list.h"
 
@@ -28,6 +29,7 @@ namespace bobura { namespace command
     /*!
         \brief The meta function for the type list of the commands.
 
+        \tparam AbstractWindow     An abstract window type.
         \tparam Window             A window type.
         \tparam MessageBox         A message box type.
         \tparam FileOpenDialog     A file open dialog type.
@@ -39,6 +41,7 @@ namespace bobura { namespace command
         \tparam MessageCatalog     A message catalog type.
     */
     template <
+        typename AbstractWindow,
         typename Window,
         typename MessageBox,
         typename FileOpenDialog,
@@ -79,11 +82,16 @@ namespace bobura { namespace command
                         Reader,
                         MessageCatalog
                     >
-            >,
+                >,
+            tetengo2::meta::assoc_list<
+                boost::mpl::pair<
+                    type::new_file,
+                    new_file<typename Window::base_type, Model, ConfirmFileSave>
+                >,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::nop, nop>,
             tetengo2::meta::assoc_list_end
-            >>>>>>
+            >>>>>>>
             type;
 
 

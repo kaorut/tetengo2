@@ -100,6 +100,7 @@ namespace bobura { namespace command
                 main_window, confirm_file_save, model, reader, message_catalog
             )
         ),
+        m_new_file(make_new_file(main_window, confirm_file_save, model)),
         m_nop(make_nop())
         {}
 
@@ -151,6 +152,17 @@ namespace bobura { namespace command
         }
 
         /*!
+            \brief Returns the command new-file.
+
+            \return The command.
+        */
+        const command_type& new_file()
+        const
+        {
+            return m_new_file;
+        }
+
+        /*!
             \brief Returns the command nop.
 
             \return The command.
@@ -163,19 +175,6 @@ namespace bobura { namespace command
 
 
     private:
-        // types
-
-        const command_type m_about;
-
-        const command_type m_exit;
-
-        const command_type m_file_property;
-
-        const command_type m_load_from_file;
-
-        const command_type m_nop;
-
-
         // static functions
 
         static command_type make_about(
@@ -222,10 +221,36 @@ namespace bobura { namespace command
             );
         }
 
+        static command_type make_new_file(
+            main_window_type&             main_window,
+            const confirm_file_save_type& confirm_file_save,
+            model_type&                   model
+        )
+        {
+            return typename boost::mpl::at<
+                type_list_type, type::new_file
+            >::type(main_window, confirm_file_save, model);
+        }
+
         static command_type make_nop()
         {
             return typename boost::mpl::at<type_list_type, type::nop>::type();
         }
+
+
+        // variables
+
+        const command_type m_about;
+
+        const command_type m_exit;
+
+        const command_type m_file_property;
+
+        const command_type m_load_from_file;
+
+        const command_type m_new_file;
+
+        const command_type m_nop;
 
 
     };

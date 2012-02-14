@@ -593,6 +593,7 @@ typedef
 
 typedef
     bobura::command::type_list<
+        abstract_window_type,
         window_type,
         message_box_type,
         file_open_type,

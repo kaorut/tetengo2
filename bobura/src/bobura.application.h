@@ -215,7 +215,7 @@ namespace bobura
                 append_menu_command(
                     *p_popup_menu,
                     message_catalog.get(TETENGO2_TEXT("Menu:File:&New")),
-                    command_set.nop(),
+                    command_set.new_file(),
                     shortcut_key_type(
                         virtual_key_type::char_n(), false, true, false
                     )

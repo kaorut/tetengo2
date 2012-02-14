@@ -965,6 +965,7 @@ namespace bobura
             boost::mpl::pair<
                 type::command_type_list,
                 command::type_list<
+                    boost::mpl::at<ui_type_list, type::abstract_window>::type,
                     boost::mpl::at<ui_type_list, type::window>::type,
                     boost::mpl::at<
                         common_dialog_type_list, type::message_box
