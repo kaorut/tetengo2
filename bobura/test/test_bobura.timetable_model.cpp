@@ -98,6 +98,11 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         {
             model_type model;
 
+            model.reset_timetable(tetengo2::make_unique<timetable_type>());
+        }
+        {
+            model_type model;
+
             model.reset_timetable(
                 tetengo2::make_unique<timetable_type>(),
                 boost::filesystem::path(L"hoge")

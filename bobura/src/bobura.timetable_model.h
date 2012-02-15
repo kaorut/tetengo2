@@ -129,7 +129,9 @@ namespace bobura
         */
         void reset_timetable(std::unique_ptr<timetable_type> p_timetable)
         {
-            reset_timetable_impl(p_timetable, boost::none);
+            reset_timetable_impl(
+                std::move(p_timetable), boost::optional<path_type>()
+            );
         }
 
         /*!
