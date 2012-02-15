@@ -96,7 +96,9 @@
     <ClCompile Include="test\master.cpp" />
     <ClCompile Include="test\test_bobura.model.message.timetable_observer_set.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.json_reader.cpp" />
+    <ClCompile Include="test\test_bobura.model.serializer.json_writer.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.reader.cpp" />
+    <ClCompile Include="test\test_bobura.model.serializer.writer.cpp" />
     <ClCompile Include="test\test_bobura.model.station.cpp" />
     <ClCompile Include="test\test_bobura.model.station_info.grade.cpp" />
     <ClCompile Include="test\test_bobura.model.timetable.cpp" />

@@ -71,5 +71,11 @@
     <ClCompile Include="test\test_bobura.model.message.timetable_observer_set.cpp">
       <Filter>sources\test_bobura::model\message</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.model.serializer.writer.cpp">
+      <Filter>sources\test_bobura::model\serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.model.serializer.json_writer.cpp">
+      <Filter>sources\test_bobura::model\serializer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
