@@ -11,6 +11,7 @@ extra_headers = \
     bobura.command.load_from_file.h \
     bobura.command.new_file.h \
     bobura.command.nop.h \
+    bobura.command.save_to_file.h \
     bobura.command.type_list.h \
     bobura.command.type_list_impl.h \
     bobura.confirm_file_save.h \

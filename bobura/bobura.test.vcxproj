@@ -103,6 +103,7 @@
     <ClCompile Include="test\test_bobura.command.load_from_file.cpp" />
     <ClCompile Include="test\test_bobura.command.new_file.cpp" />
     <ClCompile Include="test\test_bobura.command.nop.cpp" />
+    <ClCompile Include="test\test_bobura.command.save_to_file.cpp" />
     <ClCompile Include="test\test_bobura.command.set.cpp" />
     <ClCompile Include="test\test_bobura.confirm_file_save.cpp" />
     <ClCompile Include="test\test_bobura.file_property_dialog.cpp" />

@@ -108,6 +108,9 @@
     <ClInclude Include="src\bobura.command.new_file.h">
       <Filter>headers\bobura\command</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.save_to_file.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">

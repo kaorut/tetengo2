@@ -96,6 +96,7 @@
     <ClInclude Include="src\bobura.command.load_from_file.h" />
     <ClInclude Include="src\bobura.command.new_file.h" />
     <ClInclude Include="src\bobura.command.nop.h" />
+    <ClInclude Include="src\bobura.command.save_to_file.h" />
     <ClInclude Include="src\bobura.command.set.h" />
     <ClInclude Include="src\bobura.command.type_list.h" />
     <ClInclude Include="src\bobura.command.type_list_impl.h" />
