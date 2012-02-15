@@ -14,10 +14,15 @@ Description : Create bobura::model::serializer::json_writer.
 ------------------------------------------------------------------------------
 Number      : 00000142
 Added on    : 2012/01/26
-Depends on  : 00000136, 00000145
+Depends on  : 00000136, 00000146
 Description : Create bobura::command::save_to_file.
 ------------------------------------------------------------------------------
 Number      : 00000146
+Added on    : 2012/02/16
+Depends on  : (none)
+Description : Create tetengo2::gui::common_dialog::file_save.
+------------------------------------------------------------------------------
+Number      : 00000147
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
