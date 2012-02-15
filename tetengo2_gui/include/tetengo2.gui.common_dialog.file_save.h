@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::common_dialog::file_open.
+    \brief The definition of tetengo2::gui::common_dialog::file_save.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_COMMONDIALOG_FILEOPEN_H)
-#define TETENGO2_GUI_COMMONDIALOG_FILEOPEN_H
+#if !defined(TETENGO2_GUI_COMMONDIALOG_FILESAVE_H)
+#define TETENGO2_GUI_COMMONDIALOG_FILESAVE_H
 
 #include <utility>
 #include <vector>
@@ -20,7 +20,7 @@
 namespace tetengo2 { namespace gui { namespace common_dialog
 {
     /*!
-        \brief The class template for a file open dialog.
+        \brief The class template for a file save dialog.
 
         \tparam AbstractWindow      An abstract window type.
         \tparam String              A string type.
@@ -36,7 +36,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         typename Encoder,
         typename CommonDialogDetails
     >
-    class file_open : private boost::noncopyable
+    class file_save : private boost::noncopyable
     {
     public:
         // types
@@ -76,7 +76,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         // constructors and destructor
 
         /*!
-            \brief Creates a file open dialog.
+            \brief Creates a file save dialog.
 
             \tparam S  A string type.
             \tparam FF A file filters type.
@@ -86,15 +86,15 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \param parent       A parent widget.
         */
         template <typename S, typename FF>
-        file_open(S&& title, FF&& file_filters, abstract_window_type& parent)
+        file_save(S&& title, FF&& file_filters, abstract_window_type& parent)
         :
         m_p_details(
-            common_dialog_details_type::create_file_open_dialog(
-                parent,
-                std::forward<S>(title),
-                std::forward<FF>(file_filters),
-                encoder()
-            )
+            //common_dialog_details_type::create_file_open_dialog(
+            //    parent,
+            //    std::forward<S>(title),
+            //    std::forward<FF>(file_filters),
+            //    encoder()
+            //)
         ),
         m_result()
         {}
@@ -118,9 +118,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         void do_modal()
         {
-            m_result =
-                common_dialog_details_type::template show_file_open_dialog<
-                    path_type>(*m_p_details, encoder());
+            //m_result =
+            //    common_dialog_details_type::template show_file_open_dialog<
+            //        path_type>(*m_p_details, encoder());
         }
 
         /*!
