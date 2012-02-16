@@ -9,6 +9,10 @@
 #if !defined(BOBURA_COMMAND_SAVETOFILE_H)
 #define BOBURA_COMMAND_SAVETOFILE_H
 
+#include <utility>
+
+#include <tetengo2.text.h>
+
 
 namespace bobura { namespace command
 {
@@ -86,12 +90,24 @@ namespace bobura { namespace command
         void operator()()
         const
         {
+            file_save_dialog_type dialog(
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileSave:Save")),
+                make_file_filters(),
+                m_parent
+            );
+            dialog.do_modal();
 
         }
 
 
     private:
         // types
+
+        typedef typename abstract_window_type::string_type string_type;
+
+        typedef typename file_save_dialog_type::path_type path_type;
+
+        typedef typename model_type::timetable_type timetable_type;
 
 
         // variables
@@ -106,6 +122,32 @@ namespace bobura { namespace command
 
 
         // functions
+
+        typename file_save_dialog_type::file_filters_type
+        make_file_filters()
+        const
+        {
+            typename file_save_dialog_type::file_filters_type filters;
+
+            filters.push_back(
+                std::make_pair(
+                    m_message_catalog.get(
+                        TETENGO2_TEXT("Dialog:FileSave:Timetable Files")
+                    ),
+                    string_type(TETENGO2_TEXT("*.btt"))
+                )
+            );
+            filters.push_back(
+                std::make_pair(
+                    m_message_catalog.get(
+                        TETENGO2_TEXT("Dialog:FileSave:All Files")
+                    ),
+                    string_type(TETENGO2_TEXT("*.*"))
+                )
+            );
+
+            return filters;
+        }
 
 
     };
