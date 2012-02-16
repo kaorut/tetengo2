@@ -109,7 +109,9 @@ namespace bobura { namespace command
                 return;
 
             file_open_dialog_type dialog(
-                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpen:Open")),
+                m_message_catalog.get(
+                    TETENGO2_TEXT("Dialog:FileOpenSave:Open")
+                ),
                 make_file_filters(),
                 m_parent
             );
@@ -216,7 +218,7 @@ namespace bobura { namespace command
             filters.push_back(
                 std::make_pair(
                     m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpen:Timetable Files")
+                        TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")
                     ),
                     string_type(TETENGO2_TEXT("*.btt"))
                 )
@@ -225,7 +227,7 @@ namespace bobura { namespace command
             //    std::make_pair(
             //        m_message_catalog.get(
             //            TETENGO2_TEXT(
-            //                "Dialog:FileOpen:Timetable Files (Compressed)"
+            //                "Dialog:FileOpenSave:Timetable Files (Compressed)"
             //            )
             //        ),
             //        string_type(TETENGO2_TEXT("*.btt.bz2"))
@@ -234,7 +236,7 @@ namespace bobura { namespace command
             filters.push_back(
                 std::make_pair(
                     m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpen:All Files")
+                        TETENGO2_TEXT("Dialog:FileOpenSave:All Files")
                     ),
                     string_type(TETENGO2_TEXT("*.*"))
                 )

@@ -28,10 +28,11 @@
         "Menu:Help:&About": "バージョン情報(&A)",
         
         
-        "Dialog:FileOpen:Open":                         "開く",
-        "Dialog:FileOpen:Timetable Files":              "時刻表ファイル",
-        "Dialog:FileOpen:Timetable Files (Compressed)": "時刻表ファイル（圧縮）",
-        "Dialog:FileOpen:All Files":                    "すべてのファイル",
+        "Dialog:FileOpenSave:Open":                         "開く",
+        "Dialog:FileOpenSave:SaveAs":                       "名前を付けて保存",
+        "Dialog:FileOpenSave:Timetable Files":              "時刻表ファイル",
+        "Dialog:FileOpenSave:Timetable Files (Compressed)": "時刻表ファイル（圧縮）",
+        "Dialog:FileOpenSave:All Files":                    "すべてのファイル",
         
         "Dialog:FileProperty:File Property": "ファイルのプロパティ",
         "Dialog:FileProperty:&Line Name:":   "路線名(&L):",

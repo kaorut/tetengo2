@@ -91,7 +91,9 @@ namespace bobura { namespace command
         const
         {
             file_save_dialog_type dialog(
-                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileSave:Save")),
+                m_message_catalog.get(
+                    TETENGO2_TEXT("Dialog:FileOpenSave:SaveAs")
+                ),
                 m_model.has_path() ?
                     boost::make_optional(m_model.path()) : boost::none,
                 make_file_filters(),
@@ -134,7 +136,7 @@ namespace bobura { namespace command
             filters.push_back(
                 std::make_pair(
                     m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileSave:Timetable Files")
+                        TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")
                     ),
                     string_type(TETENGO2_TEXT("*.btt"))
                 )
@@ -142,7 +144,7 @@ namespace bobura { namespace command
             filters.push_back(
                 std::make_pair(
                     m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileSave:All Files")
+                        TETENGO2_TEXT("Dialog:FileOpenSave:All Files")
                     ),
                     string_type(TETENGO2_TEXT("*.*"))
                 )
