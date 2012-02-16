@@ -62,6 +62,10 @@ namespace tetengo2 { namespace detail { namespace windows
             std::unique_ptr< ::IFileOpenDialog, release_iunknown>
             file_open_dialog_ptr_type;
 
+        typedef
+            std::unique_ptr< ::IFileSaveDialog, release_iunknown>
+            file_save_dialog_ptr_type;
+
         typedef std::pair<std::wstring, std::wstring> native_filter_type;
 
         typedef std::vector<native_filter_type> native_filters_type;
@@ -134,6 +138,21 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The file open dialog details pointer type.
         typedef std::unique_ptr<file_open_dialog_details_type>
             file_open_dialog_details_ptr_type;
+
+        //! The file save dialog details type.
+        typedef
+            std::tuple<
+                detail::file_save_dialog_ptr_type,
+                ::HWND,
+                std::wstring,
+                detail::native_filters_type
+            >
+            file_save_dialog_details_type;
+
+        //! The file save dialog details pointer type.
+        typedef
+            std::unique_ptr<file_save_dialog_details_type>
+            file_save_dialog_details_ptr_type;
 
         
         // static functions
@@ -364,6 +383,59 @@ namespace tetengo2 { namespace detail { namespace windows
             } BOOST_SCOPE_EXIT_END;
 
             return Path(encoder.decode(file_name));
+        }
+
+        /*!
+            \brief Creates a file save dialog.
+
+            \tparam AbstractWindow An abstract window type.
+            \tparam String         A string type.
+            \tparam Filters        A filters type.
+            \tparam Encoder        An encoder type.
+
+            \param parent  A parent window.
+            \param title   A title.
+            \param filters A file filters.
+                           Each element is a pair of a label and a file
+                           pattern.
+            \param encoder An encoder.
+
+            \return A unique pointer to a file save dialog.
+        */
+        template <
+            typename AbstractWindow,
+            typename String,
+            typename Filters,
+            typename Encoder
+        >
+        static file_save_dialog_details_ptr_type create_file_save_dialog(
+            AbstractWindow& parent,
+            String&&        title,
+            Filters&&       filters,
+            const Encoder&  encoder
+        )
+        {
+            return make_unique<file_save_dialog_details_type>();
+        }
+
+        /*!
+            \brief Shows a file save dialog and return a path.
+
+            \tparam Path    A path type.
+            \tparam Encoder An encoder type.
+
+            \param dialog  A file save dialog.
+            \param encoder An encoder.
+
+            \return The path.
+        */
+        template <typename Path, typename Encoder>
+        static Path show_file_save_dialog(
+            file_save_dialog_details_type& dialog,
+            const Encoder&                 encoder
+        )
+        {
+            return Path(L"hoge.txt");
         }
 
 
