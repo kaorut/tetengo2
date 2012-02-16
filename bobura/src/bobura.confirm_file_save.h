@@ -111,6 +111,11 @@ namespace bobura
         )
         const
         {
+            const string_type file_path =
+                m_model.has_path() ?
+                m_model.path().template string<string_type>() :
+                m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
+
             return tetengo2::make_unique<message_box_type>(
                 parent,
                 m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
@@ -119,7 +124,7 @@ namespace bobura
                         "Message:File:The file has been changed. Do you want to save the changes?"
                     )
                 ),
-                string_type(),
+                file_path,
                 message_box_type::button_style_type::yes_no(
                     true,
                     m_message_catalog.get(

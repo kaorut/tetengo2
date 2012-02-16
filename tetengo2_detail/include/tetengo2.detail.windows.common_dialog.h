@@ -727,7 +727,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename OptionalPath>
         static String to_native_path(OptionalPath&& path)
         {
-            return path ? path->string<String>() : String();
+            return path ? path->template string<String>() : String();
         }
 
         template <typename String, typename Encoder>
