@@ -37,6 +37,7 @@
 #include <tetengo2.detail.windows.widget.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
+#include <tetengo2.gui.common_dialog.file_save.h>
 #include <tetengo2.gui.common_dialog.message_box.h>
 #include <tetengo2.gui.cursor.system.h>
 #include <tetengo2.gui.drawing.background.h>
@@ -832,6 +833,7 @@ namespace bobura
     {
         struct message_box;    //!< The message box type.
         struct file_open_dialog; //!< The file open dialog type.
+        struct file_save_dialog; //!< The file save dialog type.
     }
 
     //! The type list for the commong dialogs.
@@ -861,8 +863,21 @@ namespace bobura
                     tetengo2::detail::windows::common_dialog
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::file_save_dialog,
+                tetengo2::gui::common_dialog::file_save<
+                    boost::mpl::at<
+                        ui_type_list, type::abstract_window
+                    >::type,
+                    boost::mpl::at<common_type_list, type::string>::type,
+                    boost::mpl::at<common_type_list, type::path>::type,
+                    boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                    tetengo2::detail::windows::common_dialog
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         common_dialog_type_list;
 
 
@@ -972,6 +987,9 @@ namespace bobura
                     >::type,
                     boost::mpl::at<
                         common_dialog_type_list, type::file_open_dialog
+                    >::type,
+                    boost::mpl::at<
+                        common_dialog_type_list, type::file_save_dialog
                     >::type,
                     boost::mpl::at<
                         dialog_type_list, type::file_property_dialog

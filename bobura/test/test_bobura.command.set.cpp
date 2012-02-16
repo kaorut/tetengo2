@@ -76,7 +76,9 @@ BOOST_AUTO_TEST_SUITE(set)
         command_set.exit();
         command_set.file_property();
         command_set.load_from_file();
+        command_set.new_file();
         command_set.nop();
+        command_set.save_to_file();
     }
 
 

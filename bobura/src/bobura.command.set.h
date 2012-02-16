@@ -23,6 +23,7 @@ namespace bobura { namespace command
         \tparam TypeList        A command type list type.
         \tparam Model           A model type.
         \tparam Reader          A reader type.
+        \tparam Writer          A writer type.
         \tparam MainWindow      A main window type.
         \tparam ConfirmFileSave A file save confirmation type.
         \tparam Settings        A settings type.
@@ -32,6 +33,7 @@ namespace bobura { namespace command
         typename TypeList,
         typename Model,
         typename Reader,
+        //typename Writer,
         typename MainWindow,
         typename ConfirmFileSave,
         typename Settings,
@@ -56,6 +58,9 @@ namespace bobura { namespace command
         //! The reader type.
         typedef Reader reader_type;
 
+        //! The writer type.
+        //typedef Writer writer_type;
+
         //! The main window type.
         typedef MainWindow main_window_type;
 
@@ -76,6 +81,7 @@ namespace bobura { namespace command
 
             \param model             A model.
             \param reader            A reader.
+            \param writer            A writer.
             \param main_window       A main window.
             \param confirm_file_save A file save confirmation.
             \param settings          Settings.
@@ -84,6 +90,7 @@ namespace bobura { namespace command
         set(
             model_type&                   model,
             reader_type&                  reader,
+            //writer_type&                  writer,
             main_window_type&             main_window,
             const confirm_file_save_type& confirm_file_save,
             const settings_type&          settings,
@@ -101,7 +108,10 @@ namespace bobura { namespace command
             )
         ),
         m_new_file(make_new_file(main_window, confirm_file_save, model)),
-        m_nop(make_nop())
+        m_nop(make_nop()),
+        m_save_to_file(
+            make_save_to_file(main_window, model, /*writer, */message_catalog)
+        )
         {}
 
 
@@ -173,6 +183,17 @@ namespace bobura { namespace command
             return m_nop;
         }
 
+        /*!
+            \brief Returns the command save-to-file.
+
+            \return The command.
+        */
+        const command_type& save_to_file()
+        const
+        {
+            return m_save_to_file;
+        }
+
 
     private:
         // static functions
@@ -237,6 +258,20 @@ namespace bobura { namespace command
             return typename boost::mpl::at<type_list_type, type::nop>::type();
         }
 
+        static command_type make_save_to_file(
+            main_window_type&             main_window,
+            model_type&                   model,
+            //writer_type&                  writer,
+            const message_catalog_type&   message_catalog
+        )
+        {
+            return typename boost::mpl::at<
+                type_list_type, type::save_to_file
+            >::type(
+                main_window, model, /*writer, */message_catalog
+            );
+        }
+
 
         // variables
 
@@ -252,6 +287,7 @@ namespace bobura { namespace command
 
         const command_type m_nop;
 
+        const command_type m_save_to_file;
 
     };
 

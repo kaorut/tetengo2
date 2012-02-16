@@ -243,7 +243,7 @@ namespace bobura
                     message_catalog.get(
                         TETENGO2_TEXT("Menu:File:Save &As...")
                     ),
-                    command_set.nop()
+                    command_set.save_to_file()
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(

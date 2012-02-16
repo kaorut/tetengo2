@@ -21,6 +21,7 @@ namespace bobura { namespace command
         struct load_from_file; //!< The load-from-file type.
         struct new_file;       //!< The new-file type.
         struct nop;            //!< The nop type.
+        struct save_to_file;   //!< The save-to-file type.
     }
 
 
