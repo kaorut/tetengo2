@@ -7,7 +7,8 @@
 */
 
 //#include <cstddef>
-//#include <memory>
+#include <ostream>
+#include <sstream>
 #include <string>
 
 #include <boost/test/unit_test.hpp>
@@ -27,76 +28,72 @@
 #include "bobura.model.serializer.writer.h"
 
 
-//namespace
-//{
-//    // types
-//
-//    typedef
-//        bobura::model::station_info::grade_type_set<std::wstring>
-//        grade_type_set_type;
-//
-//    typedef grade_type_set_type::grade_type grade_type;
-//
-//    typedef bobura::model::station<std::wstring, grade_type> station_type;
-//
-//    typedef
-//        bobura::model::timetable_info::station_location<
-//            station_type, std::size_t
-//        >
-//        station_location_type;
-//
-//    typedef
-//        bobura::model::train_info::time<
-//            std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
-//        >
-//        time_type;
-//
-//    typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
-//
-//    typedef
-//        bobura::model::train<std::string, std::string, stop_type> train_type;
-//
-//    typedef
-//        bobura::model::timetable<
-//            std::string,
-//            station_location_type,
-//            train_type,
-//            bobura::model::message::timetable_observer_set
-//        >
-//        timetable_type;
-//
-//    typedef
-//        bobura::model::serializer::writer<
-//            std::string::const_iterator, timetable_type
-//        >
-//        reader_type;
-//
-//    class concrete_reader : public reader_type
-//    {
-//    public:
-//        concrete_reader()
-//        :
-//        reader_type()
-//        {}
-//
-//        virtual ~concrete_reader()
-//        TETENGO2_CPP11_NOEXCEPT
-//        {}
-//
-//
-//    private:
-//        virtual std::unique_ptr<timetable_type> read_impl(
-//            const iterator first,
-//            const iterator last
-//        )
-//        {
-//            return std::unique_ptr<timetable_type>();
-//        }
-//
-//
-//    };
-//
-//}
+namespace
+{
+    // types
+
+    typedef
+        bobura::model::station_info::grade_type_set<std::wstring>
+        grade_type_set_type;
+
+    typedef grade_type_set_type::grade_type grade_type;
+
+    typedef bobura::model::station<std::wstring, grade_type> station_type;
+
+    typedef
+        bobura::model::timetable_info::station_location<
+            station_type, std::size_t
+        >
+        station_location_type;
+
+    typedef
+        bobura::model::train_info::time<
+            std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
+        >
+        time_type;
+
+    typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
+
+    typedef
+        bobura::model::train<std::string, std::string, stop_type> train_type;
+
+    typedef
+        bobura::model::timetable<
+            std::string,
+            station_location_type,
+            train_type,
+            bobura::model::message::timetable_observer_set
+        >
+        timetable_type;
+
+    typedef
+        bobura::model::serializer::writer<std::ostream, timetable_type>
+        writer_type;
+
+    class concrete_writer : public writer_type
+    {
+    public:
+        concrete_writer()
+        :
+        writer_type()
+        {}
+
+        virtual ~concrete_writer()
+        TETENGO2_CPP11_NOEXCEPT
+        {}
+
+
+    private:
+        virtual void write_impl(
+            const timetable_type& timetable,
+            output_stream_type&   output_stream
+        )
+        {}
+
+
+    };
+
+}
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(model)
@@ -108,17 +105,17 @@ BOOST_AUTO_TEST_SUITE(writer)
     {
         BOOST_TEST_PASSPOINT();
 
-        //const concrete_reader writer;
+        const concrete_writer writer;
     }
 
     BOOST_AUTO_TEST_CASE(read)
     {
         BOOST_TEST_PASSPOINT();
 
-        //concrete_reader writer;
-        //const std::string input("hoge");
-        //const std::unique_ptr<timetable_type> p_timetable =
-        //    writer.read(input.begin(), input.end());
+        concrete_writer writer;
+        const timetable_type timetable;
+        std::ostringstream stream;
+        writer.write(timetable, stream);
     }
 
 
