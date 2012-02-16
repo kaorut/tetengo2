@@ -415,7 +415,27 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&  encoder
         )
         {
-            return make_unique<file_save_dialog_details_type>();
+            ::IFileSaveDialog* p_raw_dialog = NULL;
+            const ::HRESULT creation_result =
+                ::CoCreateInstance(
+                    __uuidof(::FileSaveDialog),
+                    NULL,
+                    CLSCTX_ALL,
+                    IID_PPV_ARGS(&p_raw_dialog)
+                );
+            if (!SUCCEEDED(creation_result))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't create a file save dialog.")
+                );
+            }
+            detail::file_save_dialog_ptr_type p_dialog(p_raw_dialog);
+            return make_unique<file_save_dialog_details_type>(
+                std::move(p_dialog),
+                std::get<0>(*parent.details()).get(),
+                encoder.encode(std::forward<String>(title)),
+                to_native_filters(filters, encoder)
+            );
         }
 
         /*!
@@ -435,7 +455,46 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                 encoder
         )
         {
-            return Path(L"hoge.txt");
+            std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
+
+            std::vector< ::COMDLG_FILTERSPEC> filterspecs =
+                to_filterspecs(std::get<3>(dialog));
+            std::get<0>(dialog)->SetFileTypes(
+                static_cast< ::UINT>(filterspecs.size()), filterspecs.data()
+            );
+
+            const ::HRESULT showing_result =
+                std::get<0>(dialog)->Show(std::get<1>(dialog));
+            if (!SUCCEEDED(showing_result))
+                return Path();
+
+            ::IShellItem* p_raw_item = NULL;
+            const ::HRESULT result_result =
+                std::get<0>(dialog)->GetResult(&p_raw_item);
+            if (!SUCCEEDED(result_result))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get the result.")
+                );
+            }
+            const std::unique_ptr< ::IShellItem, detail::release_iunknown>
+            p_item(p_raw_item);
+
+            wchar_t* file_name = NULL;
+            const ::HRESULT file_title_result =
+                p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
+            if (!SUCCEEDED(file_title_result))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't get the file path.")
+                );
+            }
+            BOOST_SCOPE_EXIT((file_name))
+            {
+                ::CoTaskMemFree(file_name);
+            } BOOST_SCOPE_EXIT_END;
+
+            return Path(encoder.decode(file_name));
         }
 
 
