@@ -35,27 +35,45 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             writer_type,
             message_catalog_type
         >
-        save_to_file(parent, model, writer, message_catalog);
+        save_to_file(false, parent, model, writer, message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        model_type model;
-        const message_catalog_type message_catalog;
-        writer_type writer;
-        const bobura::command::save_to_file<
-            message_box_type,
-            file_save_type,
-            model_type,
-            writer_type,
-            message_catalog_type
-        >
-        save_to_file(parent, model, writer, message_catalog);
+        {
+            window_type parent;
+            model_type model;
+            const message_catalog_type message_catalog;
+            writer_type writer;
+            const bobura::command::save_to_file<
+                message_box_type,
+                file_save_type,
+                model_type,
+                writer_type,
+                message_catalog_type
+            >
+            save_to_file(false, parent, model, writer, message_catalog);
 
-        save_to_file();
+            save_to_file();
+        }
+        {
+            window_type parent;
+            model_type model;
+            const message_catalog_type message_catalog;
+            writer_type writer;
+            const bobura::command::save_to_file<
+                message_box_type,
+                file_save_type,
+                model_type,
+                writer_type,
+                message_catalog_type
+            >
+            save_to_file(true, parent, model, writer, message_catalog);
+
+            save_to_file();
+        }
     }
 
 

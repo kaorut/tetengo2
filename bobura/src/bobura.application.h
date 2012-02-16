@@ -240,7 +240,7 @@ namespace bobura
                 append_menu_command(
                     *p_popup_menu,
                     message_catalog.get(TETENGO2_TEXT("Menu:File:&Save")),
-                    command_set.nop(),
+                    command_set.save_to_file(),
                     shortcut_key_type(
                         virtual_key_type::char_s(), false, true, false
                     )
@@ -250,7 +250,7 @@ namespace bobura
                     message_catalog.get(
                         TETENGO2_TEXT("Menu:File:Save &As...")
                     ),
-                    command_set.save_to_file()
+                    command_set.ask_file_path_and_save_to_file()
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(

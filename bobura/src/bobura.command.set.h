@@ -110,7 +110,14 @@ namespace bobura { namespace command
         m_new_file(make_new_file(main_window, confirm_file_save, model)),
         m_nop(make_nop()),
         m_save_to_file(
-            make_save_to_file(main_window, model, writer, message_catalog)
+            make_save_to_file(
+                false, main_window, model, writer, message_catalog
+            )
+        ),
+        m_ask_file_path_and_save_to_file(
+            make_save_to_file(
+                true, main_window, model, writer, message_catalog
+            )
         )
         {}
 
@@ -194,6 +201,18 @@ namespace bobura { namespace command
             return m_save_to_file;
         }
 
+        /*!
+            \brief Returns the command save-to-file, in which a file selection
+                   dialog is shown.
+
+            \return The command.
+        */
+        const command_type& ask_file_path_and_save_to_file()
+        const
+        {
+            return m_ask_file_path_and_save_to_file;
+        }
+
 
     private:
         // static functions
@@ -259,6 +278,7 @@ namespace bobura { namespace command
         }
 
         static command_type make_save_to_file(
+            const bool                    ask_file_path,
             main_window_type&             main_window,
             model_type&                   model,
             writer_type&                  writer,
@@ -267,7 +287,9 @@ namespace bobura { namespace command
         {
             return typename boost::mpl::at<
                 type_list_type, type::save_to_file
-            >::type(main_window, model, writer, message_catalog);
+            >::type(
+                ask_file_path, main_window, model, writer, message_catalog
+            );
         }
 
 
@@ -286,6 +308,8 @@ namespace bobura { namespace command
         const command_type m_nop;
 
         const command_type m_save_to_file;
+
+        const command_type m_ask_file_path_and_save_to_file;
 
     };
 
