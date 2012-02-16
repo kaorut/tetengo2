@@ -54,7 +54,7 @@ namespace bobura { namespace command
         typename Model,
         typename ConfirmFileSave,
         typename Reader,
-        //typename Writer,
+        typename Writer,
         typename MessageCatalog
     >
     class type_list
@@ -102,7 +102,7 @@ namespace bobura { namespace command
                         MessageBox,
                         FileSaveDialog,
                         Model,
-                        //Writer,
+                        Writer,
                         MessageCatalog
                     >
                 >,

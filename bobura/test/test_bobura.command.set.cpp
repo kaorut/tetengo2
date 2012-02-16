@@ -27,6 +27,7 @@ BOOST_AUTO_TEST_SUITE(set)
 
         model_type model;
         reader_type reader;
+        writer_type writer;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
@@ -40,6 +41,7 @@ BOOST_AUTO_TEST_SUITE(set)
         const command_set_type command_set(
             model,
             reader,
+            writer,
             main_window,
             confirm_file_save,
             settings,
@@ -53,6 +55,7 @@ BOOST_AUTO_TEST_SUITE(set)
 
         model_type model;
         reader_type reader;
+        writer_type writer;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
@@ -66,6 +69,7 @@ BOOST_AUTO_TEST_SUITE(set)
         const command_set_type command_set(
             model,
             reader,
+            writer,
             main_window,
             confirm_file_save,
             settings,

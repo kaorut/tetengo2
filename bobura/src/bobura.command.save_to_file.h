@@ -25,7 +25,7 @@ namespace bobura { namespace command
         typename MessageBox,
         typename FileSaveDialog,
         typename Model,
-        //typename Writer,
+        typename Writer,
         typename MessageCatalog
     >
     class save_to_file
@@ -48,7 +48,7 @@ namespace bobura { namespace command
         typedef Model model_type;
 
         //! The writer type.
-        //typedef Writer writer_type;
+        typedef Writer writer_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -67,13 +67,13 @@ namespace bobura { namespace command
         save_to_file(
             abstract_window_type&         parent,
             model_type&                   model,
-            //writer_type&                  writer,
+            writer_type&                  writer,
             const message_catalog_type&   message_catalog
         )
         :
         m_parent(parent),
         m_model(model),
-        //m_writer(writer),
+        m_writer(writer),
         m_message_catalog(message_catalog)
         {}
 
@@ -100,7 +100,7 @@ namespace bobura { namespace command
 
         model_type& m_model;
 
-        //writer_type& m_writer;
+        writer_type& m_writer;
 
         const message_catalog_type& m_message_catalog;
 

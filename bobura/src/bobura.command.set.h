@@ -33,7 +33,7 @@ namespace bobura { namespace command
         typename TypeList,
         typename Model,
         typename Reader,
-        //typename Writer,
+        typename Writer,
         typename MainWindow,
         typename ConfirmFileSave,
         typename Settings,
@@ -59,7 +59,7 @@ namespace bobura { namespace command
         typedef Reader reader_type;
 
         //! The writer type.
-        //typedef Writer writer_type;
+        typedef Writer writer_type;
 
         //! The main window type.
         typedef MainWindow main_window_type;
@@ -90,7 +90,7 @@ namespace bobura { namespace command
         set(
             model_type&                   model,
             reader_type&                  reader,
-            //writer_type&                  writer,
+            writer_type&                  writer,
             main_window_type&             main_window,
             const confirm_file_save_type& confirm_file_save,
             const settings_type&          settings,
@@ -110,7 +110,7 @@ namespace bobura { namespace command
         m_new_file(make_new_file(main_window, confirm_file_save, model)),
         m_nop(make_nop()),
         m_save_to_file(
-            make_save_to_file(main_window, model, /*writer, */message_catalog)
+            make_save_to_file(main_window, model, writer, message_catalog)
         )
         {}
 
@@ -261,15 +261,13 @@ namespace bobura { namespace command
         static command_type make_save_to_file(
             main_window_type&             main_window,
             model_type&                   model,
-            //writer_type&                  writer,
+            writer_type&                  writer,
             const message_catalog_type&   message_catalog
         )
         {
             return typename boost::mpl::at<
                 type_list_type, type::save_to_file
-            >::type(
-                main_window, model, /*writer, */message_catalog
-            );
+            >::type(main_window, model, writer, message_catalog);
         }
 
 

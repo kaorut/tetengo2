@@ -11,6 +11,7 @@
 
 //#include <cstddef>
 //#include <iterator>
+#include <ostream>
 //#include <string>
 //#include <tuple>
 //#include <utility>
@@ -110,6 +111,7 @@
 #include "bobura.message.type_list_impl.h"
 #include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.serializer.json_reader.h"
+#include "bobura.model.serializer.json_writer.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
@@ -131,11 +133,11 @@ namespace bobura
         struct difference;     //!< The difference type.
         struct size;           //!< The size type.
         struct string;         //!< The string type.
-        struct io_string;      //!< The I/O string.
         struct path;           //!< The path type.
         struct json_grammar;   //!< The JSON grammar type.
         struct push_parser;    //!< The push parser type.
         struct pull_parser;    //!< The pull parser_type.
+        struct output_stream;  //!< The output stream type.
         struct settings;       //!< The settings type.
     }
 
@@ -163,6 +165,8 @@ namespace bobura
         typedef
             tetengo2::text::pull_parser<push_parser_type, size_type>
             pull_parser_type;
+        typedef
+            std::basic_ostream<io_string_type::value_type> output_stream_type;
         typedef settings<string_type, path_type> settings_type;
     }}
 #endif
@@ -192,9 +196,13 @@ namespace bobura
                 type::pull_parser, detail::common::pull_parser_type
             >,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::output_stream, detail::common::output_stream_type
+            >,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::settings, detail::common::settings_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>>>>>
         common_type_list;
 
 
@@ -337,6 +345,7 @@ namespace bobura
         struct model;          //!< The model type.
         struct timetable;      //!< The timetable type.
         struct reader;         //!< The reader type.
+        struct writer;         //!< The writer type.
     }
 
 #if !defined(DOCUMENTATION)
@@ -417,8 +426,22 @@ namespace bobura
                     >::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::writer,
+                model::serializer::json_writer<
+                    detail::model::timetable_type,
+                    detail::model::station_grade_type_set_type,
+                    boost::mpl::at<
+                        common_type_list, type::output_stream
+                    >::type,
+                    boost::mpl::at<
+                        locale_type_list, type::timetable_file_encoder
+                    >::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         model_type_list;
 
 
@@ -1002,6 +1025,7 @@ namespace bobura
                         miscellaneous_type_list, type::confirm_file_save
                     >::type,
                     boost::mpl::at<model_type_list, type::reader>::type,
+                    boost::mpl::at<model_type_list, type::writer>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type
@@ -1092,6 +1116,7 @@ namespace bobura
                     >::type,
                     boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<model_type_list, type::reader>::type,
+                    boost::mpl::at<model_type_list, type::writer>::type,
                     boost::mpl::at<
                         main_window_type_list, type::main_window
                     >::type,
@@ -1100,7 +1125,7 @@ namespace bobura
                     >::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<
-                    locale_type_list, type::message_catalog
+                        locale_type_list, type::message_catalog
                     >::type
                 >
             >,
@@ -1138,6 +1163,7 @@ namespace bobura
                     boost::mpl::at<model_type_list, type::model>::type,
                     detail::application::model_message_type_list,
                     boost::mpl::at<model_type_list, type::reader>::type,
+                    boost::mpl::at<model_type_list, type::writer>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,

@@ -103,6 +103,7 @@
 #include "bobura.message.type_list_impl.h"
 #include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.serializer.json_reader.h"
+#include "bobura.model.serializer.json_writer.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
@@ -594,6 +595,15 @@ typedef
     reader_type;
 
 typedef
+    bobura::model::serializer::json_writer<
+        timetable_type,
+        station_grade_type_set_type,
+        std::ostream,
+        timetable_file_encoder_type
+    >
+    writer_type;
+
+typedef
     bobura::confirm_file_save<
         model_type,
         abstract_window_type,
@@ -614,6 +624,7 @@ typedef
         model_type,
         confirm_file_save_type,
         reader_type,
+        writer_type,
         message_catalog_type
     >::type
     command_type_list_type;
@@ -665,6 +676,7 @@ typedef
         command_type_list_type,
         model_type,
         reader_type,
+        writer_type,
         main_window_type,
         confirm_file_save_type,
         settings_type,
@@ -684,6 +696,7 @@ typedef
         model_type,
         timetable_model_message_type_list_type,
         reader_type,
+        writer_type,
         message_catalog_type,
         confirm_file_save_type,
         command_set_type,

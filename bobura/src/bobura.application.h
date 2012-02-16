@@ -27,6 +27,7 @@ namespace bobura
         \tparam Model                     A model type.
         \tparam ModelMessageTypeList      A model message type list.
         \tparam Reader                    A reader type.
+        \tparam Writer                    A writer type.
         \tparam MessageCatalog            A message catalog type.
         \tparam ConfirmFileSave           A file save confirmation type.
         \tparam CommandSet                A command set type.
@@ -45,6 +46,7 @@ namespace bobura
         typename Model,
         typename ModelMessageTypeList,
         typename Reader,
+        typename Writer,
         typename MessageCatalog,
         typename ConfirmFileSave,
         typename CommandSet,
@@ -74,6 +76,9 @@ namespace bobura
 
         //! The reader type.
         typedef Reader reader_type;
+
+        //! The writer type.
+        typedef Writer writer_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -142,12 +147,14 @@ namespace bobura
             );
 
             reader_type reader;
+            writer_type writer;
             main_window_type main_window(
                 message_catalog, m_settings, confirm_file_save
             ); 
             const command_set_type command_set(
                 m_model,
                 reader,
+                writer,
                 main_window,
                 confirm_file_save,
                 m_settings,
