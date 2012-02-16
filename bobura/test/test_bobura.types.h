@@ -32,6 +32,7 @@
 #include <tetengo2.detail.stub.widget.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
+#include <tetengo2.gui.common_dialog.file_save.h>
 #include <tetengo2.gui.common_dialog.message_box.h>
 #include <tetengo2.gui.cursor.system.h>
 #include <tetengo2.gui.drawing.background.h>
@@ -406,6 +407,16 @@ typedef
         tetengo2::detail::stub::common_dialog
     >
     file_open_type;
+
+typedef
+    tetengo2::gui::common_dialog::file_save<
+        abstract_window_type,
+        std::wstring,
+        boost::filesystem::path,
+        ui_encoder_type,
+        tetengo2::detail::stub::common_dialog
+    >
+    file_save_type;
 
 typedef tetengo2::detail::stub::message_loop message_loop_details_type;
 

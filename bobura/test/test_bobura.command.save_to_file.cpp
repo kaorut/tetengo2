@@ -24,50 +24,38 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
     {
         BOOST_TEST_PASSPOINT();
 
-        //window_type parent;
-        //model_type model;
-        //const message_catalog_type message_catalog;
-        //const confirm_file_save_type confirm_file_save(
-        //    model, message_catalog
-        //);
+        window_type parent;
+        model_type model;
+        const message_catalog_type message_catalog;
         //writer_type writer;
-        //const bobura::command::save_to_file<
-        //    message_box_type,
-        //    file_open_type,
-        //    model_type,
-        //    confirm_file_save_type,
-        //    writer_type,
-        //    message_catalog_type
-        //>
-        //save_to_file(
-        //    parent, confirm_file_save, model, writer, message_catalog
-        //);
+        const bobura::command::save_to_file<
+            message_box_type,
+            file_save_type,
+            model_type,
+            //writer_type,
+            message_catalog_type
+        >
+        save_to_file(parent, model, /*writer, */message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        //window_type parent;
-        //model_type model;
-        //const message_catalog_type message_catalog;
-        //const confirm_file_save_type confirm_file_save(
-        //    model, message_catalog
-        //);
+        window_type parent;
+        model_type model;
+        const message_catalog_type message_catalog;
         //writer_type writer;
-        //bobura::command::save_to_file<
-        //    message_box_type,
-        //    file_open_type,
-        //    model_type,
-        //    confirm_file_save_type,
-        //    writer_type,
-        //    message_catalog_type
-        //>
-        //save_to_file(
-        //    parent, confirm_file_save, model, writer, message_catalog
-        //);
+        const bobura::command::save_to_file<
+            message_box_type,
+            file_save_type,
+            model_type,
+            //writer_type,
+            message_catalog_type
+        >
+        save_to_file(parent, model, /*writer, */message_catalog);
 
-        //save_to_file();
+        save_to_file();
     }
 
 
