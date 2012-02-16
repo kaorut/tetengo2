@@ -244,14 +244,14 @@ namespace
             ui_encoder_type,
             tetengo2::detail::stub::common_dialog
         >
-        file_open_type;
+        file_save_type;
 
 
     // functions
 
-    file_open_type::file_filters_type make_file_filters()
+    file_save_type::file_filters_type make_file_filters()
     {
-        file_open_type::file_filters_type filters;
+        file_save_type::file_filters_type filters;
 
         filters.push_back(std::make_pair(L"All Files", L"*.*"));
 
@@ -272,78 +272,78 @@ BOOST_AUTO_TEST_SUITE(file_save)
     {
         BOOST_TEST_PASSPOINT();
 
-        //{
-        //    window_type parent;
-        //    const file_open_type file_save(
-        //        std::wstring(), make_file_filters(), parent
-        //    );
-        //}
-        //{
-        //    window_type parent;
-        //    const file_open_type file_save(
-        //        L"hoge", file_open_type::file_filters_type(), parent
-        //    );
-        //}
-        //{
-        //    window_type parent;
-        //    const file_open_type file_save(
-        //        L"hoge", make_file_filters(), parent
-        //    );
-        //}
+        {
+            window_type parent;
+            const file_save_type file_save(
+                std::wstring(), make_file_filters(), parent
+            );
+        }
+        {
+            window_type parent;
+            const file_save_type file_save(
+                L"hoge", file_save_type::file_filters_type(), parent
+            );
+        }
+        {
+            window_type parent;
+            const file_save_type file_save(
+                L"hoge", make_file_filters(), parent
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(result)
     {
         BOOST_TEST_PASSPOINT();
 
-        //{
-        //    window_type parent;
-        //    const file_open_type file_save(
-        //        L"hoge", make_file_filters(), parent
-        //    );
+        {
+            window_type parent;
+            const file_save_type file_save(
+                L"hoge", make_file_filters(), parent
+            );
 
-        //    BOOST_CHECK(file_save.result() == boost::filesystem::path());
-        //}
-        //{
-        //    window_type parent;
-        //    file_open_type file_save(L"hoge", make_file_filters(), parent);
+            BOOST_CHECK(file_save.result() == boost::filesystem::path());
+        }
+        {
+            window_type parent;
+            file_save_type file_save(L"hoge", make_file_filters(), parent);
 
-        //    file_save.do_modal();
+            file_save.do_modal();
 
-        //    BOOST_CHECK(
-        //        file_save.result() == boost::filesystem::path(L"hoge.txt")
-        //    );
-        //}
+            BOOST_CHECK(
+                file_save.result() == boost::filesystem::path(L"hoge.txt")
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(do_modal)
     {
         BOOST_TEST_PASSPOINT();
 
-        //window_type parent;
-        //file_open_type file_save(L"hoge", make_file_filters(), parent);
+        window_type parent;
+        file_save_type file_save(L"hoge", make_file_filters(), parent);
 
-        //file_save.do_modal();
+        file_save.do_modal();
     }
 
     BOOST_AUTO_TEST_CASE(details)
     {
         BOOST_TEST_PASSPOINT();
 
-        //{
-        //    window_type parent;
-        //    const file_open_type file_save(
-        //        L"hoge", make_file_filters(), parent
-        //    );
+        {
+            window_type parent;
+            const file_save_type file_save(
+                L"hoge", make_file_filters(), parent
+            );
 
-        //    file_save.details();
-        //}
-        //{
-        //    window_type parent;
-        //    file_open_type file_save(L"hoge", make_file_filters(), parent);
+            file_save.details();
+        }
+        {
+            window_type parent;
+            file_save_type file_save(L"hoge", make_file_filters(), parent);
 
-        //    file_save.details();
-        //}
+            file_save.details();
+        }
     }
 
 

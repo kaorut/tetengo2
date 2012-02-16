@@ -58,12 +58,12 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
         //! The detail implementation type.
         typedef
-            typename common_dialog_details_type::file_open_dialog_details_type
+            typename common_dialog_details_type::file_save_dialog_details_type
             details_type;
 
         //! The detail implementaiton pointer type;
         typedef
-            typename common_dialog_details_type::file_open_dialog_details_ptr_type
+            typename common_dialog_details_type::file_save_dialog_details_ptr_type
             details_ptr_type;
 
         //! The file filter type.
@@ -89,12 +89,12 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         file_save(S&& title, FF&& file_filters, abstract_window_type& parent)
         :
         m_p_details(
-            //common_dialog_details_type::create_file_open_dialog(
-            //    parent,
-            //    std::forward<S>(title),
-            //    std::forward<FF>(file_filters),
-            //    encoder()
-            //)
+            common_dialog_details_type::create_file_save_dialog(
+                parent,
+                std::forward<S>(title),
+                std::forward<FF>(file_filters),
+                encoder()
+            )
         ),
         m_result()
         {}
@@ -118,9 +118,10 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         void do_modal()
         {
-            //m_result =
-            //    common_dialog_details_type::template show_file_open_dialog<
-            //        path_type>(*m_p_details, encoder());
+            m_result =
+                common_dialog_details_type::template show_file_save_dialog<
+                    path_type
+                >(*m_p_details, encoder());
         }
 
         /*!
