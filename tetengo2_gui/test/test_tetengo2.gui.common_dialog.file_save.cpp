@@ -11,6 +11,7 @@
 //#include <utility>
 
 #include <boost/filesystem.hpp>
+#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.detail.stub.alert.h"
@@ -275,19 +276,22 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_type file_save(
-                std::wstring(), make_file_filters(), parent
+                std::wstring(), boost::none, make_file_filters(), parent
             );
         }
         {
             window_type parent;
             const file_save_type file_save(
-                L"hoge", file_save_type::file_filters_type(), parent
+                L"hoge",
+                boost::none,
+                file_save_type::file_filters_type(),
+                parent
             );
         }
         {
             window_type parent;
             const file_save_type file_save(
-                L"hoge", make_file_filters(), parent
+                L"hoge", boost::none, make_file_filters(), parent
             );
         }
     }
@@ -299,14 +303,42 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_type file_save(
-                L"hoge", make_file_filters(), parent
+                L"hoge", boost::none, make_file_filters(), parent
             );
 
             BOOST_CHECK(file_save.result() == boost::filesystem::path());
         }
         {
             window_type parent;
-            file_save_type file_save(L"hoge", make_file_filters(), parent);
+            file_save_type file_save(
+                L"hoge", boost::none, make_file_filters(), parent
+            );
+
+            file_save.do_modal();
+
+            BOOST_CHECK(
+                file_save.result() == boost::filesystem::path(L"hoge.txt")
+            );
+        }
+        {
+            window_type parent;
+            const file_save_type file_save(
+                L"hoge",
+                boost::make_optional(boost::filesystem::path(L"fuga.jpg")),
+                make_file_filters(),
+                parent
+            );
+
+            BOOST_CHECK(file_save.result() == boost::filesystem::path());
+        }
+        {
+            window_type parent;
+            file_save_type file_save(
+                L"hoge",
+                boost::make_optional(boost::filesystem::path(L"fuga.jpg")),
+                make_file_filters(),
+                parent
+            );
 
             file_save.do_modal();
 
@@ -321,7 +353,9 @@ BOOST_AUTO_TEST_SUITE(file_save)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        file_save_type file_save(L"hoge", make_file_filters(), parent);
+        file_save_type file_save(
+            L"hoge", boost::none, make_file_filters(), parent
+        );
 
         file_save.do_modal();
     }
@@ -333,14 +367,16 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_type file_save(
-                L"hoge", make_file_filters(), parent
+                L"hoge", boost::none, make_file_filters(), parent
             );
 
             file_save.details();
         }
         {
             window_type parent;
-            file_save_type file_save(L"hoge", make_file_filters(), parent);
+            file_save_type file_save(
+                L"hoge", boost::none, make_file_filters(), parent
+            );
 
             file_save.details();
         }

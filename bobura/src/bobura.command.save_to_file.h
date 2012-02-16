@@ -92,6 +92,8 @@ namespace bobura { namespace command
         {
             file_save_dialog_type dialog(
                 m_message_catalog.get(TETENGO2_TEXT("Dialog:FileSave:Save")),
+                m_model.has_path() ?
+                    boost::make_optional(m_model.path()) : boost::none,
                 make_file_filters(),
                 m_parent
             );

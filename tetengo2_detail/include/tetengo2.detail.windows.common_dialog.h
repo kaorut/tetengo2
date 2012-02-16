@@ -145,6 +145,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 detail::file_save_dialog_ptr_type,
                 ::HWND,
                 std::wstring,
+                std::wstring,
                 detail::native_filters_type
             >
             file_save_dialog_details_type;
@@ -343,13 +344,26 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                 encoder
         )
         {
-            std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
+            const ::HRESULT title_set_result =
+                std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
+            if (!SUCCEEDED(title_set_result))
+            {
+                BOOST_THROW_EXCEPTION(std::runtime_error("Can't set title."));
+            }
 
             std::vector< ::COMDLG_FILTERSPEC> filterspecs =
                 to_filterspecs(std::get<3>(dialog));
-            std::get<0>(dialog)->SetFileTypes(
-                static_cast< ::UINT>(filterspecs.size()), filterspecs.data()
-            );
+            const ::HRESULT filter_set_result =
+                std::get<0>(dialog)->SetFileTypes(
+                    static_cast< ::UINT>(filterspecs.size()),
+                    filterspecs.data()
+                );
+            if (!SUCCEEDED(filter_set_result))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set file type filter.")
+                );
+            }
 
             const ::HRESULT showing_result =
                 std::get<0>(dialog)->Show(std::get<1>(dialog));
@@ -390,11 +404,13 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam AbstractWindow An abstract window type.
             \tparam String         A string type.
+            \tparam OptionalPath   An optional path type.
             \tparam Filters        A filters type.
             \tparam Encoder        An encoder type.
 
             \param parent  A parent window.
             \param title   A title.
+            \param path    A path.
             \param filters A file filters.
                            Each element is a pair of a label and a file
                            pattern.
@@ -405,12 +421,14 @@ namespace tetengo2 { namespace detail { namespace windows
         template <
             typename AbstractWindow,
             typename String,
+            typename OptionalPath,
             typename Filters,
             typename Encoder
         >
         static file_save_dialog_details_ptr_type create_file_save_dialog(
             AbstractWindow& parent,
             String&&        title,
+            OptionalPath&&  path,
             Filters&&       filters,
             const Encoder&  encoder
         )
@@ -434,6 +452,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::move(p_dialog),
                 std::get<0>(*parent.details()).get(),
                 encoder.encode(std::forward<String>(title)),
+                encoder.encode(
+                    to_native_path<String>(std::forward<OptionalPath>(path))
+                ),
                 to_native_filters(filters, encoder)
             );
         }
@@ -455,13 +476,59 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                 encoder
         )
         {
-            std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
+            const ::HRESULT title_set_result =
+                std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
+            if (!SUCCEEDED(title_set_result))
+            {
+                BOOST_THROW_EXCEPTION(std::runtime_error("Can't set title."));
+            }
+
+            ::IShellItem* p_raw_default_path = NULL;
+            if (!std::get<3>(dialog).empty())
+            {
+                const ::HRESULT default_path_result =
+                    ::SHCreateItemFromParsingName(
+                        std::get<3>(dialog).c_str(),
+                        NULL,
+                        IID_PPV_ARGS(&p_raw_default_path)
+                    );
+                if (!SUCCEEDED(default_path_result))
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't create default path item.")
+                    );
+                }
+            }
+            BOOST_SCOPE_EXIT((p_raw_default_path))
+            {
+                if (p_raw_default_path)
+                    p_raw_default_path->Release();
+            } BOOST_SCOPE_EXIT_END;
+            if (!std::get<3>(dialog).empty())
+            {
+                const ::HRESULT default_path_set_result =
+                    std::get<0>(dialog)->SetSaveAsItem(p_raw_default_path);
+                if (!SUCCEEDED(default_path_set_result))
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::runtime_error("Can't set default path.")
+                    );
+                }
+            }
 
             std::vector< ::COMDLG_FILTERSPEC> filterspecs =
-                to_filterspecs(std::get<3>(dialog));
-            std::get<0>(dialog)->SetFileTypes(
-                static_cast< ::UINT>(filterspecs.size()), filterspecs.data()
-            );
+                to_filterspecs(std::get<4>(dialog));
+            const ::HRESULT filter_set_result =
+                std::get<0>(dialog)->SetFileTypes(
+                    static_cast< ::UINT>(filterspecs.size()),
+                    filterspecs.data()
+                );
+            if (!SUCCEEDED(filter_set_result))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::runtime_error("Can't set file type filter.")
+                );
+            }
 
             const ::HRESULT showing_result =
                 std::get<0>(dialog)->Show(std::get<1>(dialog));
@@ -655,6 +722,12 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::invalid_argument("Invalid button ID.")
                 );
             }
+        }
+
+        template <typename String, typename OptionalPath>
+        static String to_native_path(OptionalPath&& path)
+        {
+            return path ? path->string<String>() : String();
         }
 
         template <typename String, typename Encoder>

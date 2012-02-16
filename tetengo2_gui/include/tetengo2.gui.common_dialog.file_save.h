@@ -79,19 +79,27 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             \brief Creates a file save dialog.
 
             \tparam S  A string type.
+            \tparam OP An optional path type.
             \tparam FF A file filters type.
 
             \param title        A title.
+            \param path         A path.
             \param file_filters A file filters.
             \param parent       A parent widget.
         */
-        template <typename S, typename FF>
-        file_save(S&& title, FF&& file_filters, abstract_window_type& parent)
+        template <typename S, typename OP, typename FF>
+        file_save(
+            S&&                   title,
+            OP&&                  path,
+            FF&&                  file_filters,
+            abstract_window_type& parent
+        )
         :
         m_p_details(
             common_dialog_details_type::create_file_save_dialog(
                 parent,
                 std::forward<S>(title),
+                std::forward<OP>(path),
                 std::forward<FF>(file_filters),
                 encoder()
             )

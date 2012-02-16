@@ -199,11 +199,13 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam AbstractWindow An abstract window type.
             \tparam String         A string type.
+            \tparam OptionalPath   An optional path type.
             \tparam Filters        A filters type.
             \tparam Encoder        An encoder type.
 
             \param parent  A parent window.
             \param title   A title.
+            \param path    A path.
             \param filters A file filters.
                            Each element is a pair of a label and a file
                            pattern.
@@ -214,12 +216,14 @@ namespace tetengo2 { namespace detail { namespace stub
         template <
             typename AbstractWindow,
             typename String,
+            typename OptionalPath,
             typename Filters,
             typename Encoder
         >
         static file_save_dialog_details_ptr_type create_file_save_dialog(
             AbstractWindow& parent,
             String&&        title,
+            OptionalPath&&  path,
             Filters&&       filters,
             const Encoder&  encoder
         )
