@@ -24,14 +24,14 @@ namespace bobura { namespace load_save
         \tparam Model          A model type.
         \tparam AbstractWindow An abstract window type.
         \tparam MessageBox     A message box type.
-        \tparam Command        A command type.
+        \tparam SaveToFile     A file saving type.
         \tparam MessageCatalog A message catalog type.
     */
     template <
         typename Model,
         typename AbstractWindow,
         typename MessageBox,
-        typename Command,
+        typename SaveToFile,
         typename MessageCatalog
     >
     class confirm_file_save
@@ -51,8 +51,8 @@ namespace bobura { namespace load_save
         //! The message box type.
         typedef MessageBox message_box_type;
 
-        //! The command type.
-        typedef Command command_type;
+        //! The file saving type.
+        typedef SaveToFile save_to_file_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;

@@ -626,7 +626,7 @@ typedef
         model_type,
         abstract_window_type,
         message_box_type,
-        command_type,
+        save_to_file_type,
         message_catalog_type
     >
     confirm_file_save_type;

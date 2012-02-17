@@ -965,7 +965,6 @@ namespace bobura
 
     namespace type
     {
-        struct command;        //!< The command.
         struct save_to_file;   //!< The file saving.
         struct confirm_file_save; //!< The file save confirmation.
     }
@@ -973,16 +972,6 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace load_save
     {
-        typedef boost::mpl::at<model_type_list, type::model>::type model_type;
-        typedef
-            boost::mpl::at<ui_type_list, type::abstract_window>::type
-            abstract_window_type;
-        typedef
-            std::function<
-                void (model_type& model, abstract_window_type& parent)
-            >
-            command_type;
-
         typedef
             bobura::load_save::save_to_file<
                 boost::mpl::at<model_type_list, type::model>::type,
@@ -1005,10 +994,6 @@ namespace bobura
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::command, detail::load_save::command_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
                 type::save_to_file, detail::load_save::save_to_file_type
             >,
         tetengo2::meta::assoc_list<
@@ -1022,14 +1007,14 @@ namespace bobura
                     boost::mpl::at<
                         common_dialog_type_list, type::message_box
                     >::type,
-                    detail::load_save::command_type,
+                    detail::load_save::save_to_file_type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>
         load_save_type_list;
 
 
@@ -1037,18 +1022,37 @@ namespace bobura
 
     namespace type
     {
+        struct command;        //!< The command.
         struct command_type_list; //!< The command type list.
     }
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace command_type_list
+    {
+        typedef boost::mpl::at<model_type_list, type::model>::type model_type;
+        typedef
+            boost::mpl::at<ui_type_list, type::abstract_window>::type
+            abstract_window_type;
+        typedef
+            std::function<
+                void (model_type& model, abstract_window_type& parent)
+            >
+            command_type;
+
+    }}
+#endif
 
     //! The type list for the command type list.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::command, detail::command_type_list::command_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::command_type_list,
                 command::type_list<
-                    boost::mpl::at<
-                        load_save_type_list, type::command
-                    >::type,
+                    detail::command_type_list::command_type,
                     boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<ui_type_list, type::abstract_window>::type,
                     boost::mpl::at<
@@ -1076,7 +1080,7 @@ namespace bobura
                 >::type
             >,
         tetengo2::meta::assoc_list_end
-        >
+        >>
         command_type_list_type_list;
 
 
@@ -1095,10 +1099,7 @@ namespace bobura
         typedef
             message::main_window::type_list<
                 boost::mpl::at<
-                    boost::mpl::at<
-                        command_type_list_type_list, type::command_type_list
-                    >::type,
-                    command::type::command
+                    command_type_list_type_list, type::command
                 >::type,
                 boost::mpl::at<model_type_list, type::model>::type,
                 boost::mpl::at<ui_type_list, type::abstract_window>::type,
