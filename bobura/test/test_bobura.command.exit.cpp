@@ -28,22 +28,14 @@ BOOST_AUTO_TEST_SUITE(command)
 BOOST_AUTO_TEST_SUITE(exit)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        window_type window;
-        const exit_type exit(window);
-    }
-
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type window;
-        exit_type exit(window);
+        const exit_type exit;
 
         model_type model;
+        window_type window;
         exit(model, window);
     }
 

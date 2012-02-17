@@ -46,19 +46,11 @@ namespace bobura { namespace command
         /*!
             \brief Creates a new-file command.
 
-            \param parent            A parent window.
             \param confirm_file_save A file save confirmation.
-            \param model             A model.
         */
-        new_file(
-            abstract_window_type&         parent,
-            const confirm_file_save_type& confirm_file_save,
-            model_type&                   model
-        )
+        explicit new_file(const confirm_file_save_type& confirm_file_save)
         :
-        m_parent(parent),
-        m_confirm_file_save(confirm_file_save),
-        m_model(model)
+        m_confirm_file_save(confirm_file_save)
         {}
 
 
@@ -73,10 +65,10 @@ namespace bobura { namespace command
         void operator()(model_type& model, abstract_window_type& parent)
         const
         {
-            if (m_confirm_file_save(m_parent))
+            if (m_confirm_file_save(parent))
                 return;
 
-            m_model.reset_timetable(tetengo2::make_unique<timetable_type>());
+            model.reset_timetable(tetengo2::make_unique<timetable_type>());
         }
 
 
@@ -92,11 +84,7 @@ namespace bobura { namespace command
 
         // variables
 
-        abstract_window_type& m_parent;
-
         const confirm_file_save_type& m_confirm_file_save;
-
-        model_type& m_model;
 
 
     };

@@ -1031,7 +1031,6 @@ namespace bobura
                     >::type,
                     boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<ui_type_list, type::abstract_window>::type,
-                    boost::mpl::at<ui_type_list, type::window>::type,
                     boost::mpl::at<
                         common_dialog_type_list, type::message_box
                     >::type,
@@ -1087,7 +1086,6 @@ namespace bobura
                 boost::mpl::at<ui_type_list, type::canvas>::type,
                 boost::mpl::at<ui_type_list, type::position>::type,
                 boost::mpl::at<ui_type_list, type::picture_reader>::type,
-                boost::mpl::at<ui_type_list, type::window>::type,
                 boost::mpl::at<
                     miscellaneous_type_list, type::confirm_file_save
                 >::type
@@ -1142,12 +1140,8 @@ namespace bobura
                     boost::mpl::at<
                         command_type_list_type_list, type::command_type_list
                     >::type,
-                    boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<model_type_list, type::writer>::type,
-                    boost::mpl::at<
-                        main_window_type_list, type::main_window
-                    >::type,
                     boost::mpl::at<
                         miscellaneous_type_list, type::confirm_file_save
                     >::type,

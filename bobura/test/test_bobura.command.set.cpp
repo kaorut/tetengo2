@@ -25,24 +25,19 @@ BOOST_AUTO_TEST_SUITE(set)
     {
         BOOST_TEST_PASSPOINT();
 
-        model_type model;
         reader_type reader;
         writer_type writer;
+        model_type model;
         const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
-        const settings_type settings(std::move(arguments), std::move(path));
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
-        main_window_type main_window(
-            message_catalog, settings, confirm_file_save
-        );
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
         const command_set_type command_set(
-            model,
             reader,
             writer,
-            main_window,
             confirm_file_save,
             settings,
             message_catalog
@@ -53,24 +48,19 @@ BOOST_AUTO_TEST_SUITE(set)
     {
         BOOST_TEST_PASSPOINT();
 
-        model_type model;
         reader_type reader;
         writer_type writer;
+        model_type model;
         const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
-        const settings_type settings(std::move(arguments), std::move(path));
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
-        main_window_type main_window(
-            message_catalog, settings, confirm_file_save
-        );
+        std::vector<std::wstring> arguments;
+        boost::filesystem::path path;
+        const settings_type settings(std::move(arguments), std::move(path));
         const command_set_type command_set(
-            model,
             reader,
             writer,
-            main_window,
             confirm_file_save,
             settings,
             message_catalog

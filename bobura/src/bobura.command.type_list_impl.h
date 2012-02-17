@@ -31,7 +31,6 @@ namespace bobura { namespace command
         \tparam Command            A command type.
         \tparam Model              A model type.
         \tparam AbstractWindow     An abstract window type.
-        \tparam Window             A window type.
         \tparam MessageBox         A message box type.
         \tparam FileOpenDialog     A file open dialog type.
         \tparam FileSaveDialog     A file save dialog type.
@@ -46,7 +45,6 @@ namespace bobura { namespace command
         typename Command,
         typename Model,
         typename AbstractWindow,
-        typename Window,
         typename MessageBox,
         typename FileOpenDialog,
         typename FileSaveDialog,

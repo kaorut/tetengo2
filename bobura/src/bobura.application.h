@@ -148,18 +148,17 @@ namespace bobura
 
             reader_type reader;
             writer_type writer;
-            main_window_type main_window(
-                message_catalog, m_settings, confirm_file_save
-            ); 
             const command_set_type command_set(
-                m_model,
                 reader,
                 writer,
-                main_window,
                 confirm_file_save,
                 m_settings,
                 message_catalog
             );
+
+            main_window_type main_window(
+                message_catalog, m_settings, confirm_file_save
+            ); 
             set_message_observers(m_model, main_window);
             main_window.set_menu_bar(
                 build_main_window_menu(

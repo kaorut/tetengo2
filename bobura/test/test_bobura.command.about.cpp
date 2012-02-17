@@ -41,26 +41,25 @@ BOOST_AUTO_TEST_SUITE(about)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        const about_type about(parent, message_catalog, settings);
+        const about_type about(message_catalog, settings);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        about_type about(parent, message_catalog, settings);
+        const about_type about(message_catalog, settings);
 
         model_type model;
+        window_type parent;
         about(model, parent);
     }
 

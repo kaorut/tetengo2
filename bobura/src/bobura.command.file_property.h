@@ -58,18 +58,10 @@ namespace bobura { namespace command
         /*!
             \brief Creates a file property command.
 
-            \param parent          A parent window.
-            \param model           A model.
             \param message_catalog A message catalog.
         */
-        file_property(
-            abstract_window_type&       parent,
-            model_type&                 model,
-            const message_catalog_type& message_catalog
-        )
+        explicit file_property(const message_catalog_type& message_catalog)
         :
-        m_parent(parent),
-        m_model(model),
         m_message_catalog(message_catalog)
         {}
 
@@ -83,14 +75,15 @@ namespace bobura { namespace command
             \param parent A parent window.
         */
         void operator()(model_type& model, abstract_window_type& parent)
+        const
         {
-            file_property_dialog_type dialog(m_parent, m_message_catalog);
+            file_property_dialog_type dialog(parent, m_message_catalog);
 
-            dialog.set_line_name(m_model.timetable().title());
-            if (m_model.has_path())
+            dialog.set_line_name(model.timetable().title());
+            if (model.has_path())
             {
                 dialog.set_file_name(
-                    m_model.path().template string<string_type>()
+                    model.path().template string<string_type>()
                 );
             }
 
@@ -98,16 +91,12 @@ namespace bobura { namespace command
             if (dialog.result() != base_type::result_accepted)
                 return;
 
-            m_model.timetable().set_title(dialog.line_name());
+            model.timetable().set_title(dialog.line_name());
         }
 
 
     private:
         // variables
-
-        abstract_window_type& m_parent;
-
-        model_type& m_model;
 
         const message_catalog_type& m_message_catalog;
 

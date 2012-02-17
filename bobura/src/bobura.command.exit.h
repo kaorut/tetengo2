@@ -31,19 +31,6 @@ namespace bobura { namespace command
         typedef AbstractWindow abstract_window_type;
 
 
-        // constructors and destructor
-
-        /*!
-            \brief Creates an exit command.
-
-            \param window A window.
-        */
-        explicit exit(abstract_window_type& window)
-        :
-        m_window(window)
-        {}
-
-
         // functions
 
         /*!
@@ -53,15 +40,10 @@ namespace bobura { namespace command
             \param parent A parent window.
         */
         void operator()(model_type& model, abstract_window_type& parent)
+        const
         {
-            m_window.close();
+            parent.close();
         }
-
-
-    private:
-        // variables
-
-        abstract_window_type& m_window;
 
 
     };

@@ -67,7 +67,6 @@ namespace bobura { namespace message
             \tparam Canvas          A canvas type of the main window.
             \tparam Position        A position type.
             \tparam PictureReader   A picture reader type.
-            \tparam Window          A window type.
             \tparam ConfirmFileSave A file save confirmation type.
         */
         template <
@@ -77,7 +76,6 @@ namespace bobura { namespace message
             typename Canvas,
             typename Position,
             typename PictureReader,
-            typename Window,
             typename ConfirmFileSave
         >
         class type_list
@@ -100,7 +98,7 @@ namespace bobura { namespace message
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
                         type::window_closing,
-                        window_closing<Window, ConfirmFileSave>
+                        window_closing<AbstractWindow, ConfirmFileSave>
                     >,
                 tetengo2::meta::assoc_list_end
                 >>>

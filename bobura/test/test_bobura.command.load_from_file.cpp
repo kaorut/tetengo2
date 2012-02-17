@@ -45,7 +45,6 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
         model_type model;
         const message_catalog_type message_catalog;
         const confirm_file_save_type confirm_file_save(
@@ -53,7 +52,7 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         );
         reader_type reader;
         const load_from_file_type load_from_file(
-            parent, confirm_file_save, model, reader, message_catalog
+            confirm_file_save, reader, message_catalog
         );
     }
 
@@ -61,17 +60,17 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
         model_type model;
         const message_catalog_type message_catalog;
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
         reader_type reader;
-        load_from_file_type load_from_file(
-            parent, confirm_file_save, model, reader, message_catalog
+        const load_from_file_type load_from_file(
+            confirm_file_save, reader, message_catalog
         );
 
+        window_type parent;
         load_from_file(model, parent);
     }
 

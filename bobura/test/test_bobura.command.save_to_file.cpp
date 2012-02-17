@@ -43,13 +43,9 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        model_type model;
-        const message_catalog_type message_catalog;
         writer_type writer;
-        const save_to_file_type save_to_file(
-            false, parent, model, writer, message_catalog
-        );
+        const message_catalog_type message_catalog;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -57,25 +53,25 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
         BOOST_TEST_PASSPOINT();
 
         {
-            window_type parent;
-            model_type model;
-            const message_catalog_type message_catalog;
             writer_type writer;
+            const message_catalog_type message_catalog;
             const save_to_file_type save_to_file(
-                false, parent, model, writer, message_catalog
+                false, writer, message_catalog
             );
 
+            model_type model;
+            window_type parent;
             save_to_file(model, parent);
         }
         {
-            window_type parent;
-            model_type model;
-            const message_catalog_type message_catalog;
             writer_type writer;
+            const message_catalog_type message_catalog;
             const save_to_file_type save_to_file(
-                true, parent, model, writer, message_catalog
+                true, writer, message_catalog
             );
 
+            model_type model;
+            window_type parent;
             save_to_file(model, parent);
         }
     }

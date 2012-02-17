@@ -66,22 +66,16 @@ namespace bobura { namespace command
             \param ask_file_path     Set true to show a file selection dialog.
                                      When the model does not have a path, a
                                      file selection dialog is always shown.
-            \param parent            A parent window.
-            \param model             A model.
             \param writer            A writer.
             \param message_catalog   A message catalog.
         */
         save_to_file(
             const bool                    ask_file_path,
-            abstract_window_type&         parent,
-            model_type&                   model,
             writer_type&                  writer,
             const message_catalog_type&   message_catalog
         )
         :
         m_ask_file_path(ask_file_path),
-        m_parent(parent),
-        m_model(model),
         m_writer(writer),
         m_message_catalog(message_catalog)
         {}
@@ -99,16 +93,16 @@ namespace bobura { namespace command
         const
         {
             path_type path;
-            if (!m_model.has_path() || m_ask_file_path)
+            if (!model.has_path() || m_ask_file_path)
             {
                 file_save_dialog_type dialog(
                     m_message_catalog.get(
                         TETENGO2_TEXT("Dialog:FileOpenSave:SaveAs")
                     ),
-                    m_model.has_path() ?
-                        boost::make_optional(m_model.path()) : boost::none,
+                    model.has_path() ?
+                        boost::make_optional(model.path()) : boost::none,
                     make_file_filters(),
-                    m_parent
+                    parent
                 );
                 dialog.do_modal();
 
@@ -117,7 +111,7 @@ namespace bobura { namespace command
             }
             else
             {
-                path = m_model.path();
+                path = model.path();
             }
 
         }
@@ -136,10 +130,6 @@ namespace bobura { namespace command
         // variables
 
         const bool m_ask_file_path;
-
-        abstract_window_type& m_parent;
-
-        model_type& m_model;
 
         writer_type& m_writer;
 

@@ -208,17 +208,17 @@ namespace bobura { namespace message { namespace main_window
         \brief The class template for a window closing observer of the main
                window.
 
-        \tparam Window          A window type.
+        \tparam AbstractWindow  An abstract window type.
         \tparam ConfirmFileSave A file save confirmation type.
     */
-    template <typename Window, typename ConfirmFileSave>
+    template <typename AbstractWindow, typename ConfirmFileSave>
     class window_closing
     {
     public:
         // types
 
-        //! The window type.
-        typedef Window window_type;
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
 
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
@@ -233,7 +233,7 @@ namespace bobura { namespace message { namespace main_window
             \param confirm_file_save A file save confirmation.
         */
         window_closing(
-            window_type&                  window,
+            abstract_window_type&         window,
             const confirm_file_save_type& confirm_file_save
         )
         :
@@ -259,7 +259,7 @@ namespace bobura { namespace message { namespace main_window
     private:
         // variables
 
-        window_type& m_window;
+        abstract_window_type& m_window;
 
         const confirm_file_save_type& m_confirm_file_save;
 

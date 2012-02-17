@@ -75,23 +75,17 @@ namespace bobura { namespace command
         /*!
             \brief Creates a load-from-file command.
 
-            \param parent            A parent window.
             \param confirm_file_save A file save confirmation.
-            \param model             A model.
             \param reader            A reader.
             \param message_catalog   A message catalog.
         */
         load_from_file(
-            abstract_window_type&         parent,
             const confirm_file_save_type& confirm_file_save,
-            model_type&                   model,
             reader_type&                  reader,
             const message_catalog_type&   message_catalog
         )
         :
-        m_parent(parent),
         m_confirm_file_save(confirm_file_save),
-        m_model(model),
         m_reader(reader),
         m_message_catalog(message_catalog)
         {}
@@ -108,7 +102,7 @@ namespace bobura { namespace command
         void operator()(model_type& model, abstract_window_type& parent)
         const
         {
-            if (m_confirm_file_save(m_parent))
+            if (m_confirm_file_save(parent))
                 return;
 
             file_open_dialog_type dialog(
@@ -116,7 +110,7 @@ namespace bobura { namespace command
                     TETENGO2_TEXT("Dialog:FileOpenSave:Open")
                 ),
                 make_file_filters(),
-                m_parent
+                parent
             );
             dialog.do_modal();
 
@@ -128,7 +122,7 @@ namespace bobura { namespace command
             );
             if (!input_stream)
             {
-                create_cant_open_file_message_box(path)->do_modal();
+                create_cant_open_file_message_box(path, parent)->do_modal();
                 return;
             }
 
@@ -143,11 +137,11 @@ namespace bobura { namespace command
                 );
             if (!p_timetable)
             {
-                create_file_broken_message_box(path)->do_modal();
+                create_file_broken_message_box(path, parent)->do_modal();
                 return;
             }
 
-            m_model.reset_timetable(std::move(p_timetable), path);
+            model.reset_timetable(std::move(p_timetable), path);
         }
 
 
@@ -163,11 +157,7 @@ namespace bobura { namespace command
 
         // variables
 
-        abstract_window_type& m_parent;
-
         const confirm_file_save_type& m_confirm_file_save;
-
-        model_type& m_model;
 
         reader_type& m_reader;
 
@@ -177,12 +167,13 @@ namespace bobura { namespace command
         // functions
 
         std::unique_ptr<message_box_type> create_cant_open_file_message_box(
-            const path_type& path
+            const path_type&      path,
+            abstract_window_type& parent
         )
         const
         {
             return tetengo2::make_unique<message_box_type>(
-                m_parent,
+                parent,
                 m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                 m_message_catalog.get(
                     TETENGO2_TEXT("Message:File:Can't open the file.")
@@ -194,12 +185,13 @@ namespace bobura { namespace command
         }
 
         std::unique_ptr<message_box_type> create_file_broken_message_box(
-            const path_type& path
+            const path_type&      path,
+            abstract_window_type& parent
         )
         const
         {
             return tetengo2::make_unique<message_box_type>(
-                m_parent,
+                parent,
                 m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                 m_message_catalog.get(
                     TETENGO2_TEXT(

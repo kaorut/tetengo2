@@ -36,23 +36,19 @@ BOOST_AUTO_TEST_SUITE(file_property)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        model_type model;
         const message_catalog_type message_catalog;
-        const file_property_type file_property(
-            parent, model, message_catalog
-        );
+        const file_property_type file_property(message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        model_type model;
         const message_catalog_type message_catalog;
-        file_property_type file_property(parent, model, message_catalog);
+        const file_property_type file_property(message_catalog);
 
+        model_type model;
+        window_type parent;
         file_property(model, parent);
     }
 

@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_SUITE(window)
             model, message_catalog
         );
         const bobura::message::main_window::window_closing<
-            window_type, confirm_file_save_type
+            abstract_window_type, confirm_file_save_type
         > window(parent, confirm_file_save);
     }
 
@@ -123,7 +123,7 @@ BOOST_AUTO_TEST_SUITE(window)
             model, message_catalog
         );
         const bobura::message::main_window::window_closing<
-            window_type, confirm_file_save_type
+            abstract_window_type, confirm_file_save_type
         > window(parent, confirm_file_save);
 
         bool cancel = false;

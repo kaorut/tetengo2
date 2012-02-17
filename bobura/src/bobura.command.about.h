@@ -48,17 +48,14 @@ namespace bobura { namespace command
         /*!
             \brief Creates an about command.
 
-            \param parent          A parent window.
             \param message_catalog A message catalog.
             \param settings        Settings type.
         */
         about(
-            abstract_window_type&       parent,
             const message_catalog_type& message_catalog,
             const settings_type&        settings
         )
         :
-        m_parent(parent),
         m_message_catalog(message_catalog),
         m_settings(settings)
         {}
@@ -73,17 +70,16 @@ namespace bobura { namespace command
             \param parent A parent window.
         */
         void operator()(model_type& model, abstract_window_type& parent)
+        const
         {
             about_dialog_type(
-                m_parent, m_message_catalog, m_settings
+                parent, m_message_catalog, m_settings
             ).do_modal();
         }
 
 
     private:
         // variables
-
-        abstract_window_type& m_parent;
 
         const message_catalog_type& m_message_catalog;
 

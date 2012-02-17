@@ -623,7 +623,6 @@ typedef
         command_type,
         model_type,
         abstract_window_type,
-        window_type,
         message_box_type,
         file_open_type,
         file_save_type,
@@ -646,7 +645,6 @@ typedef
         canvas_type,
         position_type,
         picture_reader_type,
-        window_type,
         confirm_file_save_type
     >::type
     main_window_message_type_list_type;
@@ -683,10 +681,8 @@ typedef
 typedef
     bobura::command::set<
         command_type_list_type,
-        model_type,
         reader_type,
         writer_type,
-        main_window_type,
         confirm_file_save_type,
         settings_type,
         message_catalog_type
