@@ -993,7 +993,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::confirm_file_save,
-                confirm_file_save<
+                load_save::confirm_file_save<
                     boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<
                         ui_type_list, type::abstract_window
