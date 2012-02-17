@@ -21,21 +21,11 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a save-to-file command.
 
-        \tparam Model           A model type.
-        \tparam AbstractWindow  An abstract window type.
-        \tparam MessageBox      A message box type.
-        \tparam FileSaveDialog  A file save dialog type.
-        \tparam Writer          A writer type.
-        \tparam MessageCatalog  A message catalog type.
+        \tparam Model          A model type.
+        \tparam AbstractWindow An abstract window type.
+        \tparam SaveToFile     A file saving type.
     */
-    template <
-        typename Model,
-        typename AbstractWindow,
-        typename MessageBox,
-        typename FileSaveDialog,
-        typename Writer,
-        typename MessageCatalog
-    >
+    template <typename Model, typename AbstractWindow, typename SaveToFile>
     class save_to_file
     {
     public:
@@ -47,17 +37,8 @@ namespace bobura { namespace command
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
-        //! The message box type.
-        typedef MessageBox message_box_type;
-
-        //! The file save dialog type.
-        typedef FileSaveDialog file_save_dialog_type;
-
-        //! The writer type.
-        typedef Writer writer_type;
-
-        //! The message catalog type.
-        typedef MessageCatalog message_catalog_type;
+        //! The file saving type.
+        typedef SaveToFile save_to_file_type;
 
 
         // constructors and destructor
@@ -65,21 +46,11 @@ namespace bobura { namespace command
         /*!
             \brief Creates a save-to-file command.
 
-            \param ask_file_path     Set true to show a file selection dialog.
-                                     When the model does not have a path, a
-                                     file selection dialog is always shown.
-            \param writer            A writer.
-            \param message_catalog   A message catalog.
+            \param save_to_file A file saving.
         */
-        save_to_file(
-            const bool                    ask_file_path,
-            writer_type&                  writer,
-            const message_catalog_type&   message_catalog
-        )
+        save_to_file(const save_to_file_type& save_to_file)
         :
-        m_ask_file_path(ask_file_path),
-        m_writer(writer),
-        m_message_catalog(message_catalog)
+        m_save_to_file(save_to_file)
         {}
 
 
@@ -94,77 +65,14 @@ namespace bobura { namespace command
         void operator()(model_type& model, abstract_window_type& parent)
         const
         {
-            path_type path;
-            if (!model.has_path() || m_ask_file_path)
-            {
-                file_save_dialog_type dialog(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpenSave:SaveAs")
-                    ),
-                    model.has_path() ?
-                        boost::make_optional(model.path()) : boost::none,
-                    make_file_filters(),
-                    parent
-                );
-                dialog.do_modal();
-
-                path = dialog.result();
-                if (path.empty()) return;
-            }
-            else
-            {
-                path = model.path();
-            }
-
+            m_save_to_file(model, parent);
         }
 
 
     private:
-        // types
-
-        typedef typename abstract_window_type::string_type string_type;
-
-        typedef typename file_save_dialog_type::path_type path_type;
-
-        typedef typename model_type::timetable_type timetable_type;
-
-
         // variables
 
-        const bool m_ask_file_path;
-
-        writer_type& m_writer;
-
-        const message_catalog_type& m_message_catalog;
-
-
-        // functions
-
-        typename file_save_dialog_type::file_filters_type
-        make_file_filters()
-        const
-        {
-            typename file_save_dialog_type::file_filters_type filters;
-
-            filters.push_back(
-                std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")
-                    ),
-                    string_type(TETENGO2_TEXT("*.btt"))
-                )
-            );
-            filters.push_back(
-                std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpenSave:All Files")
-                    ),
-                    string_type(TETENGO2_TEXT("*.*"))
-                )
-            );
-
-            return filters;
-        }
+        const save_to_file_type& m_save_to_file;
 
 
     };

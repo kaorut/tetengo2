@@ -12,27 +12,6 @@
 
 #include "test_bobura.types.h"
 
-#include "bobura.load_save.save_to_file.h"
-
-
-namespace
-{
-    // types
-
-    typedef
-        bobura::load_save::save_to_file<
-            model_type,
-            abstract_window_type,
-            message_box_type,
-            file_save_type,
-            writer_type,
-            message_catalog_type
-        >
-        save_to_file_type;
-
-
-}
-
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(load_save)

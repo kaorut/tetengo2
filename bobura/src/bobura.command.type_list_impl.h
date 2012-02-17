@@ -33,12 +33,11 @@ namespace bobura { namespace command
         \tparam AbstractWindow     An abstract window type.
         \tparam MessageBox         A message box type.
         \tparam FileOpenDialog     A file open dialog type.
-        \tparam FileSaveDialog     A file save dialog type.
         \tparam FilePropertyDialog A file property dialog type.
         \tparam AboutDialog        An about dialog type.
         \tparam ConfirmFileSave    A file save confirmation type.
+        \tparam SaveToFile         A file saving type.
         \tparam Reader             A reader type.
-        \tparam Writer             A writer type.
         \tparam MessageCatalog     A message catalog type.
     */
     template <
@@ -47,12 +46,11 @@ namespace bobura { namespace command
         typename AbstractWindow,
         typename MessageBox,
         typename FileOpenDialog,
-        typename FileSaveDialog,
         typename FilePropertyDialog,
         typename AboutDialog,
         typename ConfirmFileSave,
+        typename SaveToFile,
         typename Reader,
-        typename Writer,
         typename MessageCatalog
     >
     class type_list
@@ -99,14 +97,7 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
                     type::save_to_file,
-                    save_to_file<
-                        Model,
-                        AbstractWindow,
-                        MessageBox,
-                        FileSaveDialog,
-                        Writer,
-                        MessageCatalog
-                    >
+                    save_to_file<Model, AbstractWindow, SaveToFile>
                 >,
             tetengo2::meta::assoc_list_end
             >>>>>>>>

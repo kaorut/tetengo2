@@ -25,7 +25,7 @@ namespace
             model_type,
             abstract_window_type,
             message_box_type,
-            file_open_type,
+            file_open_dialog_type,
             confirm_file_save_type,
             reader_type,
             message_catalog_type

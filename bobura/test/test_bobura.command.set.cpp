@@ -29,6 +29,10 @@ BOOST_AUTO_TEST_SUITE(set)
         writer_type writer;
         model_type model;
         const message_catalog_type message_catalog;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
+        const save_to_file_type ask_file_path_and_save_to_file(
+            true, writer, message_catalog
+        );
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
@@ -37,8 +41,9 @@ BOOST_AUTO_TEST_SUITE(set)
         const settings_type settings(std::move(arguments), std::move(path));
         const command_set_type command_set(
             reader,
-            writer,
             confirm_file_save,
+            save_to_file,
+            ask_file_path_and_save_to_file,
             settings,
             message_catalog
         );
@@ -52,6 +57,10 @@ BOOST_AUTO_TEST_SUITE(set)
         writer_type writer;
         model_type model;
         const message_catalog_type message_catalog;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
+        const save_to_file_type ask_file_path_and_save_to_file(
+            true, writer, message_catalog
+        );
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
@@ -60,8 +69,9 @@ BOOST_AUTO_TEST_SUITE(set)
         const settings_type settings(std::move(arguments), std::move(path));
         const command_set_type command_set(
             reader,
-            writer,
             confirm_file_save,
+            save_to_file,
+            ask_file_path_and_save_to_file,
             settings,
             message_catalog
         );

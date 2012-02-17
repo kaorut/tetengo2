@@ -22,16 +22,16 @@ namespace bobura { namespace command
 
         \tparam TypeList        A command type list type.
         \tparam Reader          A reader type.
-        \tparam Writer          A writer type.
         \tparam ConfirmFileSave A file save confirmation type.
+        \tparam SaveToFile      A file saving type.
         \tparam Settings        A settings type.
         \tparam MessageCatalog  A message catalog type.
     */
     template <
         typename TypeList,
         typename Reader,
-        typename Writer,
         typename ConfirmFileSave,
+        typename SaveToFile,
         typename Settings,
         typename MessageCatalog
     >
@@ -51,11 +51,11 @@ namespace bobura { namespace command
         //! The reader type.
         typedef Reader reader_type;
 
-        //! The writer type.
-        typedef Writer writer_type;
-
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
+
+        //! The file saving type.
+        typedef SaveToFile save_to_file_type;
 
         //! The settings type.
         typedef Settings settings_type;
@@ -69,16 +69,18 @@ namespace bobura { namespace command
         /*!
             \brief Creates a command set.
 
-            \param reader            A reader.
-            \param writer            A writer.
-            \param confirm_file_save A file save confirmation.
-            \param settings          Settings.
-            \param message_catalog   A message catalog.
+            \param reader                     A reader.
+            \param confirm_file_save          A file save confirmation.
+            \param save_to_file               A file saving.
+            \param ask_file_path_save_to_file A file saving after file path query.
+            \param settings                   Settings.
+            \param message_catalog            A message catalog.
         */
         set(
             reader_type&                  reader,
-            writer_type&                  writer,
             const confirm_file_save_type& confirm_file_save,
+            const save_to_file_type&      save_to_file,
+            const save_to_file_type&      ask_file_path_save_to_file,
             const settings_type&          settings,
             const message_catalog_type&   message_catalog
         )
@@ -91,9 +93,9 @@ namespace bobura { namespace command
         ),
         m_new_file(make_new_file(confirm_file_save)),
         m_nop(make_nop()),
-        m_save_to_file(make_save_to_file(false, writer, message_catalog)),
+        m_save_to_file(make_save_to_file(save_to_file)),
         m_ask_file_path_and_save_to_file(
-            make_save_to_file(true, writer, message_catalog)
+            make_save_to_file(ask_file_path_save_to_file)
         )
         {}
 
@@ -244,16 +246,12 @@ namespace bobura { namespace command
         }
 
         static command_type make_save_to_file(
-            const bool                    ask_file_path,
-            writer_type&                  writer,
-            const message_catalog_type&   message_catalog
+            const save_to_file_type& save_to_file
         )
         {
             return typename boost::mpl::at<
                 type_list_type, type::save_to_file
-            >::type(
-                ask_file_path, writer, message_catalog
-            );
+            >::type(save_to_file);
         }
 
 

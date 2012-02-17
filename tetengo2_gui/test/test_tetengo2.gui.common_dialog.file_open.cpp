@@ -244,14 +244,14 @@ namespace
             ui_encoder_type,
             tetengo2::detail::stub::common_dialog
         >
-        file_open_type;
+        file_open_dialog_type;
 
 
     // functions
 
-    file_open_type::file_filters_type make_file_filters()
+    file_open_dialog_type::file_filters_type make_file_filters()
     {
-        file_open_type::file_filters_type filters;
+        file_open_dialog_type::file_filters_type filters;
 
         filters.push_back(std::make_pair(L"All Files", L"*.*"));
 
@@ -274,19 +274,19 @@ BOOST_AUTO_TEST_SUITE(file_open)
 
         {
             window_type parent;
-            const file_open_type file_open(
+            const file_open_dialog_type file_open(
                 std::wstring(), make_file_filters(), parent
             );
         }
         {
             window_type parent;
-            const file_open_type file_open(
-                L"hoge", file_open_type::file_filters_type(), parent
+            const file_open_dialog_type file_open(
+                L"hoge", file_open_dialog_type::file_filters_type(), parent
             );
         }
         {
             window_type parent;
-            const file_open_type file_open(
+            const file_open_dialog_type file_open(
                 L"hoge", make_file_filters(), parent
             );
         }
@@ -298,7 +298,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
 
         {
             window_type parent;
-            const file_open_type file_open(
+            const file_open_dialog_type file_open(
                 L"hoge", make_file_filters(), parent
             );
 
@@ -306,7 +306,9 @@ BOOST_AUTO_TEST_SUITE(file_open)
         }
         {
             window_type parent;
-            file_open_type file_open(L"hoge", make_file_filters(), parent);
+            file_open_dialog_type file_open(
+                L"hoge", make_file_filters(), parent
+            );
 
             file_open.do_modal();
 
@@ -321,7 +323,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        file_open_type file_open(L"hoge", make_file_filters(), parent);
+        file_open_dialog_type file_open(L"hoge", make_file_filters(), parent);
 
         file_open.do_modal();
     }
@@ -332,7 +334,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
 
         {
             window_type parent;
-            const file_open_type file_open(
+            const file_open_dialog_type file_open(
                 L"hoge", make_file_filters(), parent
             );
 
@@ -340,7 +342,9 @@ BOOST_AUTO_TEST_SUITE(file_open)
         }
         {
             window_type parent;
-            file_open_type file_open(L"hoge", make_file_filters(), parent);
+            file_open_dialog_type file_open(
+                L"hoge", make_file_filters(), parent
+            );
 
             file_open.details();
         }

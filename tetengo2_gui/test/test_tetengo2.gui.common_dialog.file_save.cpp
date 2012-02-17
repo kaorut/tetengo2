@@ -245,14 +245,14 @@ namespace
             ui_encoder_type,
             tetengo2::detail::stub::common_dialog
         >
-        file_save_type;
+        file_save_dialog_type;
 
 
     // functions
 
-    file_save_type::file_filters_type make_file_filters()
+    file_save_dialog_type::file_filters_type make_file_filters()
     {
-        file_save_type::file_filters_type filters;
+        file_save_dialog_type::file_filters_type filters;
 
         filters.push_back(std::make_pair(L"All Files", L"*.*"));
 
@@ -275,22 +275,22 @@ BOOST_AUTO_TEST_SUITE(file_save)
 
         {
             window_type parent;
-            const file_save_type file_save(
+            const file_save_dialog_type file_save(
                 std::wstring(), boost::none, make_file_filters(), parent
             );
         }
         {
             window_type parent;
-            const file_save_type file_save(
+            const file_save_dialog_type file_save(
                 L"hoge",
                 boost::none,
-                file_save_type::file_filters_type(),
+                file_save_dialog_type::file_filters_type(),
                 parent
             );
         }
         {
             window_type parent;
-            const file_save_type file_save(
+            const file_save_dialog_type file_save(
                 L"hoge", boost::none, make_file_filters(), parent
             );
         }
@@ -302,7 +302,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
 
         {
             window_type parent;
-            const file_save_type file_save(
+            const file_save_dialog_type file_save(
                 L"hoge", boost::none, make_file_filters(), parent
             );
 
@@ -310,7 +310,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         }
         {
             window_type parent;
-            file_save_type file_save(
+            file_save_dialog_type file_save(
                 L"hoge", boost::none, make_file_filters(), parent
             );
 
@@ -322,7 +322,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         }
         {
             window_type parent;
-            const file_save_type file_save(
+            const file_save_dialog_type file_save(
                 L"hoge",
                 boost::make_optional(boost::filesystem::path(L"fuga.jpg")),
                 make_file_filters(),
@@ -333,7 +333,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         }
         {
             window_type parent;
-            file_save_type file_save(
+            file_save_dialog_type file_save(
                 L"hoge",
                 boost::make_optional(boost::filesystem::path(L"fuga.jpg")),
                 make_file_filters(),
@@ -353,7 +353,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        file_save_type file_save(
+        file_save_dialog_type file_save(
             L"hoge", boost::none, make_file_filters(), parent
         );
 
@@ -366,7 +366,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
 
         {
             window_type parent;
-            const file_save_type file_save(
+            const file_save_dialog_type file_save(
                 L"hoge", boost::none, make_file_filters(), parent
             );
 
@@ -374,7 +374,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         }
         {
             window_type parent;
-            file_save_type file_save(
+            file_save_dialog_type file_save(
                 L"hoge", boost::none, make_file_filters(), parent
             );
 

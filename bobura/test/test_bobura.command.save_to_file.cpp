@@ -21,14 +21,9 @@ namespace
 
     typedef
         bobura::command::save_to_file<
-            model_type,
-            abstract_window_type,
-            message_box_type,
-            file_save_type,
-            writer_type,
-            message_catalog_type
+            model_type, abstract_window_type, save_to_file_type
         >
-        save_to_file_type;
+        save_to_file_command_type;
 
 
 }
@@ -36,7 +31,7 @@ namespace
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
-BOOST_AUTO_TEST_SUITE(save_to_file)
+BOOST_AUTO_TEST_SUITE(save_to_file_command)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -46,34 +41,23 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
         writer_type writer;
         const message_catalog_type message_catalog;
         const save_to_file_type save_to_file(false, writer, message_catalog);
+        const save_to_file_command_type save_to_file_command(save_to_file);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            writer_type writer;
-            const message_catalog_type message_catalog;
-            const save_to_file_type save_to_file(
-                false, writer, message_catalog
-            );
+        writer_type writer;
+        const message_catalog_type message_catalog;
+        const save_to_file_type save_to_file(
+            false, writer, message_catalog
+        );
+        const save_to_file_command_type save_to_file_command(save_to_file);
 
-            model_type model;
-            window_type parent;
-            save_to_file(model, parent);
-        }
-        {
-            writer_type writer;
-            const message_catalog_type message_catalog;
-            const save_to_file_type save_to_file(
-                true, writer, message_catalog
-            );
-
-            model_type model;
-            window_type parent;
-            save_to_file(model, parent);
-        }
+        model_type model;
+        window_type parent;
+        save_to_file_command(model, parent);
     }
 
 

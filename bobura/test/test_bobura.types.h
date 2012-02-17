@@ -100,6 +100,7 @@
 #include "bobura.command.type_list_impl.h"
 #include "bobura.file_property_dialog.h"
 #include "bobura.load_save.confirm_file_save.h"
+#include "bobura.load_save.save_to_file.h"
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
@@ -409,7 +410,7 @@ typedef
         ui_encoder_type,
         tetengo2::detail::stub::common_dialog
     >
-    file_open_type;
+    file_open_dialog_type;
 
 typedef
     tetengo2::gui::common_dialog::file_save<
@@ -419,7 +420,7 @@ typedef
         ui_encoder_type,
         tetengo2::detail::stub::common_dialog
     >
-    file_save_type;
+    file_save_dialog_type;
 
 typedef tetengo2::detail::stub::message_loop message_loop_details_type;
 
@@ -610,6 +611,17 @@ typedef
     command_type;
 
 typedef
+    bobura::load_save::save_to_file<
+        model_type,
+        abstract_window_type,
+        message_box_type,
+        file_save_dialog_type,
+        writer_type,
+        message_catalog_type
+    >
+    save_to_file_type;
+
+typedef
     bobura::load_save::confirm_file_save<
         model_type,
         abstract_window_type,
@@ -625,13 +637,12 @@ typedef
         model_type,
         abstract_window_type,
         message_box_type,
-        file_open_type,
-        file_save_type,
+        file_open_dialog_type,
         file_property_dialog_type,
         about_dialog_type,
         confirm_file_save_type,
+        save_to_file_type,
         reader_type,
-        writer_type,
         message_catalog_type
     >::type
     command_type_list_type;
@@ -683,8 +694,8 @@ typedef
     bobura::command::set<
         command_type_list_type,
         reader_type,
-        writer_type,
         confirm_file_save_type,
+        save_to_file_type,
         settings_type,
         message_catalog_type
     >
@@ -705,6 +716,7 @@ typedef
         writer_type,
         message_catalog_type,
         confirm_file_save_type,
+        save_to_file_type,
         command_set_type,
         main_window_type,
         main_window_message_type_list_type,
