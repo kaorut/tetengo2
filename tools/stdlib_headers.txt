@@ -30,6 +30,7 @@
 ::EndPaint                                       Windows.h
 ::EnumChildWindows                               Windows.h
 ::FileOpenDialog                                 Windows.h,ShObjIdl.h
+::FileSaveDialog                                 Windows.h,ShObjIdl.h
 ::FreeLibrary                                    Windows.h
 ::GetAncestor                                    Windows.h
 ::GetClassInfoExW                                Windows.h
@@ -71,6 +72,7 @@
 ::HRESULT                                        Windows.h
 ::HWND                                           Windows.h
 ::IFileOpenDialog                                Windows.h,ShObjIdl.h
+::IFileSaveDialog                                Windows.h,ShObjIdl.h
 ::INITCOMMONCONTROLSEX                           Windows.h,CommCtrl.h
 ::INT                                            Windows.h
 ::IShellItem                                     Windows.h,ShObjIdl.h
@@ -114,6 +116,7 @@
 ::ReleaseDC                                      Windows.h
 ::RemoveMenu                                     Windows.h
 ::RemovePropW                                    Windows.h
+::SHCreateItemFromParsingName                    Windows.h,ShObjIdl.h
 ::SendMessageW                                   Windows.h
 ::SetActiveWindow                                Windows.h
 ::SetBkMode                                      Windows.h
@@ -325,6 +328,7 @@ boost::variant                                   boost/variant.hpp
 std::advance                                     iterator
 std::any_of                                      algorithm
 std::back_inserter                               iterator
+std::basic_ostream                               ostream
 std::basic_ostringstream                         sstream
 std::basic_string                                string
 std::bind                                        functional
@@ -361,6 +365,7 @@ std::messages                                    locale
 std::messages_base::catalog                      locale
 std::move                                        utility
 std::numeric_limits                              limits
+std::ostream                                     ostream
 std::ostringstream                               sstream
 std::out_of_range                                stdexcept
 std::pair                                        utility

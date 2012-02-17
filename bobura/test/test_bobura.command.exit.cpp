@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_SUITE(exit)
     {
         BOOST_TEST_PASSPOINT();
 
-        const exit_type exit;
+        const exit_type exit = exit_type();
 
         model_type model;
         window_type window;

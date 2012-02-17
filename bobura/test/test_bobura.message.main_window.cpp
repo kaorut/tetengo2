@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(menu_selected)
     {
         BOOST_TEST_PASSPOINT();
 
-        const nop_command_type command;
+        const nop_command_type command = nop_command_type();
         model_type model;
         window_type window;
         const menu_selected_type menu(command, model, window);
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_SUITE(menu_selected)
     {
         BOOST_TEST_PASSPOINT();
 
-        const nop_command_type command;
+        const nop_command_type command = nop_command_type();
         model_type model;
         window_type window;
         const menu_selected_type menu(command, model, window);

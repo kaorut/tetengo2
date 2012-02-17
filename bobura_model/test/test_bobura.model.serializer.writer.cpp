@@ -6,7 +6,7 @@
     $Id$
 */
 
-//#include <cstddef>
+#include <cstddef>
 #include <ostream>
 #include <sstream>
 #include <string>

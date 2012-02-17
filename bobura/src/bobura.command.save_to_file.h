@@ -11,6 +11,8 @@
 
 #include <utility>
 
+#include <boost/optional.hpp>
+
 #include <tetengo2.text.h>
 
 

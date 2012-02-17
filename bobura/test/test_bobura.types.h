@@ -10,8 +10,9 @@
 #define TESTBOBURA_TYPES_H
 
 //#include <cstddef>
-#include <functional>
+//#include <functional>
 //#include <iterator>
+#include <ostream>
 //#include <string>
 //#include <utility>
 

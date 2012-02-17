@@ -10,7 +10,7 @@
 #define BOBURA_TYPELIST_H
 
 //#include <cstddef>
-#include <functional>
+//#include <functional>
 //#include <iterator>
 #include <ostream>
 //#include <string>
@@ -19,7 +19,6 @@
 
 //#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
-//#include <boost/mpl/insert_range.hpp>
 //#include <boost/mpl/pair.hpp>
 //#include <boost/rational.hpp>
 //#include <boost/spirit/include/support_multi_pass.hpp>
