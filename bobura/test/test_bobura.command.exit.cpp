@@ -13,6 +13,16 @@
 #include "bobura.command.exit.h"
 
 
+namespace
+{
+    // types
+
+    typedef bobura::command::exit<model_type, abstract_window_type> exit_type;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
 BOOST_AUTO_TEST_SUITE(exit)
@@ -23,7 +33,7 @@ BOOST_AUTO_TEST_SUITE(exit)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        const bobura::command::exit<window_type> exit(window);
+        const exit_type exit(window);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -31,9 +41,10 @@ BOOST_AUTO_TEST_SUITE(exit)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        bobura::command::exit<window_type> exit(window);
+        exit_type exit(window);
 
-        exit();
+        model_type model;
+        exit(model, window);
     }
 
 

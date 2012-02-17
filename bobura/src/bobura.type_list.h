@@ -972,7 +972,15 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace miscellaneous
     {
-        typedef std::function<void ()> command_type;
+        typedef boost::mpl::at<model_type_list, type::model>::type model_type;
+        typedef
+            boost::mpl::at<ui_type_list, type::abstract_window>::type
+            abstract_window_type;
+        typedef
+            std::function<
+                void (model_type& model, abstract_window_type& parent)
+            >
+            command_type;
 
     }}
 #endif
@@ -1021,6 +1029,7 @@ namespace bobura
                     boost::mpl::at<
                         miscellaneous_type_list, type::command
                     >::type,
+                    boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<ui_type_list, type::abstract_window>::type,
                     boost::mpl::at<ui_type_list, type::window>::type,
                     boost::mpl::at<
@@ -1038,7 +1047,6 @@ namespace bobura
                     boost::mpl::at<
                         dialog_type_list, type::about_dialog
                     >::type,
-                    boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<
                         miscellaneous_type_list, type::confirm_file_save
                     >::type,
@@ -1074,6 +1082,8 @@ namespace bobura
                     >::type,
                     command::type::command
                 >::type,
+                boost::mpl::at<model_type_list, type::model>::type,
+                boost::mpl::at<ui_type_list, type::abstract_window>::type,
                 boost::mpl::at<ui_type_list, type::canvas>::type,
                 boost::mpl::at<ui_type_list, type::position>::type,
                 boost::mpl::at<ui_type_list, type::picture_reader>::type,
@@ -1212,38 +1222,6 @@ namespace bobura
         tetengo2::meta::assoc_list_end
         >
         bobura_type_list;
-
-
-    /**** All ***************************************************************/
-
-    //! The type list for Bobura.
-    typedef
-        boost::mpl::insert_range<
-            common_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            locale_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            model_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            ui_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            common_dialog_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            dialog_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            miscellaneous_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            command_type_list_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            main_window_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            command_type_list, tetengo2::meta::assoc_list_end,
-        boost::mpl::insert_range<
-            bobura_type_list, tetengo2::meta::assoc_list_end,
-        tetengo2::meta::assoc_list_end
-        >::type>::type>::type>::type>::type>::type>::type>::type>::type>::type
-        >::type
-        type_list;
 
 
 }

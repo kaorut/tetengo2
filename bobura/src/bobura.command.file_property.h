@@ -15,25 +15,34 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a file property command.
 
-        \tparam FilePropertyDialog A file property dialog type.
         \tparam Model              A model type.
+        \tparam AbstractWindow     An abstract window type.
+        \tparam FilePropertyDialog A file property dialog type.
     */
-    template <typename FilePropertyDialog, typename Model>
+    template <
+        typename Model,
+        typename AbstractWindow,
+        typename FilePropertyDialog
+    >
     class file_property
     {
     public:
         // types
+
+        //! The model type.
+        typedef Model model_type;
+
+        //! The timetable type.
+        typedef typename model_type::timetable_type timetable_type;
+
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
 
         //! The file property dialog type.
         typedef FilePropertyDialog file_property_dialog_type;
 
         //! The base type.
         typedef typename file_property_dialog_type::base_type base_type;
-
-        //! The abstract window type.
-        typedef
-            typename file_property_dialog_type::abstract_window_type
-            abstract_window_type;
 
         //! The string type.
         typedef typename file_property_dialog_type::string_type string_type;
@@ -42,12 +51,6 @@ namespace bobura { namespace command
         typedef
             typename file_property_dialog_type::message_catalog_type
             message_catalog_type;
-
-        //! The model type.
-        typedef Model model_type;
-        
-        //! The timetable type.
-        typedef typename model_type::timetable_type timetable_type;
 
 
         // constructors and destructor
@@ -75,8 +78,11 @@ namespace bobura { namespace command
 
         /*!
             \brief Executes the command.
+
+            \param model  A model.
+            \param parent A parent window.
         */
-        void operator()()
+        void operator()(model_type& model, abstract_window_type& parent)
         {
             file_property_dialog_type dialog(m_parent, m_message_catalog);
 

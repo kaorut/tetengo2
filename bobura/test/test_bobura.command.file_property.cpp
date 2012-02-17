@@ -13,6 +13,20 @@
 #include "bobura.command.file_property.h"
 
 
+namespace
+{
+    // types
+
+    typedef
+        bobura::command::file_property<
+            model_type, abstract_window_type, file_property_dialog_type
+        >
+        file_property_type;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
 BOOST_AUTO_TEST_SUITE(file_property)
@@ -25,9 +39,9 @@ BOOST_AUTO_TEST_SUITE(file_property)
         window_type parent;
         model_type model;
         const message_catalog_type message_catalog;
-        const bobura::command::file_property<
-            file_property_dialog_type, model_type
-        > file_property(parent, model, message_catalog);
+        const file_property_type file_property(
+            parent, model, message_catalog
+        );
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -37,11 +51,9 @@ BOOST_AUTO_TEST_SUITE(file_property)
         window_type parent;
         model_type model;
         const message_catalog_type message_catalog;
-        bobura::command::file_property<
-            file_property_dialog_type, model_type
-        > file_property(parent, model, message_catalog);
+        file_property_type file_property(parent, model, message_catalog);
 
-        file_property();
+        file_property(model, parent);
     }
 
 

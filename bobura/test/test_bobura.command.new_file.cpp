@@ -13,6 +13,20 @@
 #include "bobura.command.new_file.h"
 
 
+namespace
+{
+    // types
+
+    typedef
+        bobura::command::new_file<
+            model_type, abstract_window_type, confirm_file_save_type
+        >
+        new_file_type;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
 BOOST_AUTO_TEST_SUITE(new_file)
@@ -28,10 +42,7 @@ BOOST_AUTO_TEST_SUITE(new_file)
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
-        const bobura::command::new_file<
-            abstract_window_type, model_type, confirm_file_save_type
-        >
-        new_file(parent, confirm_file_save, model);
+        const new_file_type new_file(parent, confirm_file_save, model);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -44,12 +55,9 @@ BOOST_AUTO_TEST_SUITE(new_file)
         const confirm_file_save_type confirm_file_save(
             model, message_catalog
         );
-        const bobura::command::new_file<
-            abstract_window_type, model_type, confirm_file_save_type
-        >
-        new_file(parent, confirm_file_save, model);
+        const new_file_type new_file(parent, confirm_file_save, model);
 
-        new_file();
+        new_file(model, parent);
     }
 
 

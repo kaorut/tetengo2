@@ -16,6 +16,26 @@
 #include "bobura.command.load_from_file.h"
 
 
+namespace
+{
+    // types
+
+    typedef
+        bobura::command::load_from_file<
+            model_type,
+            abstract_window_type,
+            message_box_type,
+            file_open_type,
+            confirm_file_save_type,
+            reader_type,
+            message_catalog_type
+        >
+        load_from_file_type;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
 BOOST_AUTO_TEST_SUITE(load_from_file)
@@ -32,15 +52,7 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
             model, message_catalog
         );
         reader_type reader;
-        const bobura::command::load_from_file<
-            message_box_type,
-            file_open_type,
-            model_type,
-            confirm_file_save_type,
-            reader_type,
-            message_catalog_type
-        >
-        load_from_file(
+        const load_from_file_type load_from_file(
             parent, confirm_file_save, model, reader, message_catalog
         );
     }
@@ -56,19 +68,11 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
             model, message_catalog
         );
         reader_type reader;
-        bobura::command::load_from_file<
-            message_box_type,
-            file_open_type,
-            model_type,
-            confirm_file_save_type,
-            reader_type,
-            message_catalog_type
-        >
-        load_from_file(
+        load_from_file_type load_from_file(
             parent, confirm_file_save, model, reader, message_catalog
         );
 
-        load_from_file();
+        load_from_file(model, parent);
     }
 
 

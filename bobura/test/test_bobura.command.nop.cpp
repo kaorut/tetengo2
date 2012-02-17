@@ -8,7 +8,19 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "test_bobura.types.h"
+
 #include "bobura.command.nop.h"
+
+
+namespace
+{
+    // types
+
+    typedef bobura::command::nop<model_type, abstract_window_type> nop_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
@@ -20,9 +32,11 @@ BOOST_AUTO_TEST_SUITE(nop)
     {
         BOOST_TEST_PASSPOINT();
 
-        bobura::command::nop nop;
+        nop_type nop;
 
-        nop();
+        model_type model;
+        window_type parent;
+        nop(model, parent);
     }
 
 

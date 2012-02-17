@@ -162,7 +162,9 @@ namespace bobura
             );
             set_message_observers(m_model, main_window);
             main_window.set_menu_bar(
-                build_main_window_menu(command_set, message_catalog)
+                build_main_window_menu(
+                    command_set, m_model, main_window, message_catalog
+                )
             );
             main_window.set_visible(true);
 
@@ -205,6 +207,8 @@ namespace bobura
 
         static std::unique_ptr<menu_bar_type> build_main_window_menu(
             const command_set_type&     command_set,
+            model_type&                 model,
+            main_window_type&           main_window,
             const message_catalog_type& message_catalog
         )
         {
@@ -223,6 +227,8 @@ namespace bobura
                     *p_popup_menu,
                     message_catalog.get(TETENGO2_TEXT("Menu:File:&New")),
                     command_set.new_file(),
+                    model,
+                    main_window,
                     shortcut_key_type(
                         virtual_key_type::char_n(), false, true, false
                     )
@@ -233,6 +239,8 @@ namespace bobura
                         TETENGO2_TEXT("Menu:File:&Open...")
                     ),
                     command_set.load_from_file(),
+                    model,
+                    main_window,
                     shortcut_key_type(
                         virtual_key_type::char_o(), false, true, false
                     )
@@ -241,6 +249,8 @@ namespace bobura
                     *p_popup_menu,
                     message_catalog.get(TETENGO2_TEXT("Menu:File:&Save")),
                     command_set.save_to_file(),
+                    model,
+                    main_window,
                     shortcut_key_type(
                         virtual_key_type::char_s(), false, true, false
                     )
@@ -250,7 +260,9 @@ namespace bobura
                     message_catalog.get(
                         TETENGO2_TEXT("Menu:File:Save &As...")
                     ),
-                    command_set.ask_file_path_and_save_to_file()
+                    command_set.ask_file_path_and_save_to_file(),
+                    model,
+                    main_window
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
@@ -258,13 +270,17 @@ namespace bobura
                     message_catalog.get(
                         TETENGO2_TEXT("Menu:File:P&roperty...")
                     ),
-                    command_set.file_property()
+                    command_set.file_property(),
+                    model,
+                    main_window
                 );
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
                     *p_popup_menu,
                     message_catalog.get(TETENGO2_TEXT("Menu:File:E&xit")),
-                    command_set.exit()
+                    command_set.exit(),
+                    model,
+                    main_window
                 );
 
                 p_menu_bar->insert(
@@ -284,7 +300,9 @@ namespace bobura
                     message_catalog.get(
                         TETENGO2_TEXT("Menu:Help:&About")
                     ),
-                    command_set.about()
+                    command_set.about(),
+                    model,
+                    main_window
                 );
 
                 p_menu_bar->insert(
@@ -298,7 +316,9 @@ namespace bobura
         static void append_menu_command(
             menu_base_type&                        popup_menu,
             typename menu_base_type::string_type&& text,
-            const command_type&                    command
+            const command_type&                    command,
+            model_type&                            model,
+            main_window_type&                      main_window
         )
         {
             std::unique_ptr<menu_base_type> p_menu_command(
@@ -311,7 +331,7 @@ namespace bobura
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::menu_selected
-                >::type(command)
+                >::type(command, model, main_window)
             );
 
             popup_menu.insert(popup_menu.end(), std::move(p_menu_command));
@@ -321,6 +341,8 @@ namespace bobura
             menu_base_type&                        popup_menu,
             typename menu_base_type::string_type&& text,
             const command_type&                    command,
+            model_type&                            model,
+            main_window_type&                      main_window,
             shortcut_key_type&&                    shortcut_key
         )
         {
@@ -335,7 +357,7 @@ namespace bobura
                 typename boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::menu_selected
-                >::type(command)
+                >::type(command, model, main_window)
             );
 
             popup_menu.insert(popup_menu.end(), std::move(p_menu_command));

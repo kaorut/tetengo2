@@ -29,6 +29,7 @@ namespace bobura { namespace command
         \brief The meta function for the type list of the commands.
 
         \tparam Command            A command type.
+        \tparam Model              A model type.
         \tparam AbstractWindow     An abstract window type.
         \tparam Window             A window type.
         \tparam MessageBox         A message box type.
@@ -36,7 +37,6 @@ namespace bobura { namespace command
         \tparam FileSaveDialog     A file save dialog type.
         \tparam FilePropertyDialog A file property dialog type.
         \tparam AboutDialog        An about dialog type.
-        \tparam Model              A model type.
         \tparam ConfirmFileSave    A file save confirmation type.
         \tparam Reader             A reader type.
         \tparam Writer             A writer type.
@@ -44,6 +44,7 @@ namespace bobura { namespace command
     */
     template <
         typename Command,
+        typename Model,
         typename AbstractWindow,
         typename Window,
         typename MessageBox,
@@ -51,7 +52,6 @@ namespace bobura { namespace command
         typename FileSaveDialog,
         typename FilePropertyDialog,
         typename AboutDialog,
-        typename Model,
         typename ConfirmFileSave,
         typename Reader,
         typename Writer,
@@ -67,22 +67,25 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::command, Command>,
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::about, about<AboutDialog>>,
+                boost::mpl::pair<
+                    type::about, about<Model, AbstractWindow, AboutDialog>
+                >,
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::exit, exit<Window>>,
+                boost::mpl::pair<type::exit, exit<Model, AbstractWindow>>,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
                     type::file_property, file_property<
-                        FilePropertyDialog, Model
+                        Model, AbstractWindow, FilePropertyDialog
                     >
                 >,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
                     type::load_from_file,
                     load_from_file<
+                        Model,
+                        AbstractWindow,
                         MessageBox,
                         FileOpenDialog,
-                        Model,
                         ConfirmFileSave,
                         Reader,
                         MessageCatalog
@@ -91,17 +94,18 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
                     type::new_file,
-                    new_file<typename Window::base_type, Model, ConfirmFileSave>
+                    new_file<Model, AbstractWindow, ConfirmFileSave>
                 >,
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::nop, nop>,
+                boost::mpl::pair<type::nop, nop<Model, AbstractWindow>>,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
                     type::save_to_file,
                     save_to_file<
+                        Model,
+                        AbstractWindow,
                         MessageBox,
                         FileSaveDialog,
-                        Model,
                         Writer,
                         MessageCatalog
                     >

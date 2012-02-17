@@ -19,16 +19,18 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a save-to-file command.
 
+        \tparam Model           A model type.
+        \tparam AbstractWindow  An abstract window type.
         \tparam MessageBox      A message box type.
         \tparam FileSaveDialog  A file save dialog type.
-        \tparam Model           A model type.
         \tparam Writer          A writer type.
         \tparam MessageCatalog  A message catalog type.
     */
     template <
+        typename Model,
+        typename AbstractWindow,
         typename MessageBox,
         typename FileSaveDialog,
-        typename Model,
         typename Writer,
         typename MessageCatalog
     >
@@ -37,19 +39,17 @@ namespace bobura { namespace command
     public:
         // types
 
+        //! The model type.
+        typedef Model model_type;
+
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
+
         //! The message box type.
         typedef MessageBox message_box_type;
 
         //! The file save dialog type.
         typedef FileSaveDialog file_save_dialog_type;
-
-        //! The abstract window type.
-        typedef
-            typename file_save_dialog_type::abstract_window_type
-            abstract_window_type;
-
-        //! The model type.
-        typedef Model model_type;
 
         //! The writer type.
         typedef Writer writer_type;
@@ -91,8 +91,11 @@ namespace bobura { namespace command
 
         /*!
             \brief Executes the command.
+
+            \param model  A model.
+            \param parent A parent window.
         */
-        void operator()()
+        void operator()(model_type& model, abstract_window_type& parent)
         const
         {
             path_type path;

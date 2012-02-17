@@ -26,17 +26,19 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a load-from-file command.
 
+        \tparam Model           A model type.
+        \tparam AbstractWindow  An abstract window type.
         \tparam MessageBox      A message box type.
         \tparam FileOpenDialog  A file open dialog type.
-        \tparam Model           A model type.
         \tparam ConfirmFileSave A file save confirmation type.
         \tparam Reader          A reader type.
         \tparam MessageCatalog  A message catalog type.
     */
     template <
+        typename Model,
+        typename AbstractWindow,
         typename MessageBox,
         typename FileOpenDialog,
-        typename Model,
         typename ConfirmFileSave,
         typename Reader,
         typename MessageCatalog
@@ -46,19 +48,17 @@ namespace bobura { namespace command
     public:
         // types
 
+        //! The model type.
+        typedef Model model_type;
+
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
+
         //! The message box type.
         typedef MessageBox message_box_type;
 
         //! The file open dialog type.
         typedef FileOpenDialog file_open_dialog_type;
-
-        //! The abstract window type.
-        typedef
-            typename file_open_dialog_type::abstract_window_type
-            abstract_window_type;
-
-        //! The model type.
-        typedef Model model_type;
 
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
@@ -101,8 +101,11 @@ namespace bobura { namespace command
 
         /*!
             \brief Executes the command.
+
+            \param model  A model.
+            \param parent A parent window.
         */
-        void operator()()
+        void operator()(model_type& model, abstract_window_type& parent)
         const
         {
             if (m_confirm_file_save(m_parent))

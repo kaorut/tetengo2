@@ -15,16 +15,20 @@ namespace bobura { namespace command
     /*!
         \brief The class template for an exit command.
 
-        \tparam Window A window type.
+        \tparam Model          A model type.
+        \tparam AbstractWindow An abstract window type.
     */
-    template <typename Window>
+    template <typename Model, typename AbstractWindow>
     class exit
     {
     public:
         // types
 
-        //! The window type.
-        typedef Window window_type;
+        //! The model type.
+        typedef Model model_type;
+
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
 
 
         // constructors and destructor
@@ -34,7 +38,7 @@ namespace bobura { namespace command
 
             \param window A window.
         */
-        explicit exit(window_type& window)
+        explicit exit(abstract_window_type& window)
         :
         m_window(window)
         {}
@@ -44,8 +48,11 @@ namespace bobura { namespace command
 
         /*!
             \brief Executes the command.
+
+            \param model  A model.
+            \param parent A parent window.
         */
-        void operator()()
+        void operator()(model_type& model, abstract_window_type& parent)
         {
             m_window.close();
         }
@@ -54,7 +61,7 @@ namespace bobura { namespace command
     private:
         // variables
 
-        window_type& m_window;
+        abstract_window_type& m_window;
 
 
     };

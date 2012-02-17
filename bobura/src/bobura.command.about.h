@@ -15,21 +15,24 @@ namespace bobura { namespace command
     /*!
         \brief The class template for an about command.
 
-        \tparam AboutDialog An about dialog type.
+        \tparam Model          A model type.
+        \tparam AbstractWindow An abstract window type.
+        \tparam AboutDialog    An about dialog type.
     */
-    template <typename AboutDialog>
+    template <typename Model, typename AbstractWindow, typename AboutDialog>
     class about
     {
     public:
         // types
 
-        //! The about dialog type.
-        typedef AboutDialog about_dialog_type;
+        //! The model type.
+        typedef Model model_type;
 
         //! The abstract window type.
-        typedef
-            typename about_dialog_type::abstract_window_type
-            abstract_window_type;
+        typedef AbstractWindow abstract_window_type;
+
+        //! The about dialog type.
+        typedef AboutDialog about_dialog_type;
 
         //! The message catalog type.
         typedef
@@ -65,8 +68,11 @@ namespace bobura { namespace command
 
         /*!
             \brief Executes the command.
+
+            \param model  A model.
+            \param parent A parent window.
         */
-        void operator()()
+        void operator()(model_type& model, abstract_window_type& parent)
         {
             about_dialog_type(
                 m_parent, m_message_catalog, m_settings

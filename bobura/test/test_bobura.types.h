@@ -604,7 +604,9 @@ typedef
     >
     writer_type;
 
-typedef std::function<void ()> command_type;
+typedef
+    std::function<void (model_type& model, abstract_window_type& parent)>
+    command_type;
 
 typedef
     bobura::confirm_file_save<
@@ -619,6 +621,7 @@ typedef
 typedef
     bobura::command::type_list<
         command_type,
+        model_type,
         abstract_window_type,
         window_type,
         message_box_type,
@@ -626,7 +629,6 @@ typedef
         file_save_type,
         file_property_dialog_type,
         about_dialog_type,
-        model_type,
         confirm_file_save_type,
         reader_type,
         writer_type,
@@ -639,6 +641,8 @@ typedef
         boost::mpl::at<
             command_type_list_type, bobura::command::type::command
         >::type,
+        model_type,
+        abstract_window_type,
         canvas_type,
         position_type,
         picture_reader_type,

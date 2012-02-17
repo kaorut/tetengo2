@@ -17,6 +17,26 @@
 #include "bobura.message.main_window.h"
 
 
+namespace
+{
+    // types
+
+    typedef
+        boost::mpl::at<
+            command_type_list_type, bobura::command::type::nop
+        >::type
+        nop_command_type;
+
+    typedef
+        bobura::message::main_window::menu_selected<
+            nop_command_type, model_type, abstract_window_type
+        >
+        menu_selected_type;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(main_window)
@@ -27,30 +47,20 @@ BOOST_AUTO_TEST_SUITE(menu_selected)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            boost::mpl::at<
-                command_type_list_type, bobura::command::type::nop
-            >::type
-            command_type;
-
-        const command_type command = command_type();
-        const bobura::message::main_window::menu_selected<command_type>
-        menu(command);
+        const nop_command_type command;
+        model_type model;
+        window_type window;
+        const menu_selected_type menu(command, model, window);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            boost::mpl::at<
-                command_type_list_type, bobura::command::type::nop
-            >::type
-            command_type;
-
-        const command_type command = command_type();
-        const bobura::message::main_window::menu_selected<command_type>
-        menu(command);
+        const nop_command_type command;
+        model_type model;
+        window_type window;
+        const menu_selected_type menu(command, model, window);
 
         menu();
     }

@@ -62,6 +62,8 @@ namespace bobura { namespace message
                    messages.
 
             \tparam Command         A command type.
+            \tparam Model           A model type.
+            \tparam AbstractWindow  An abstract window type.
             \tparam Canvas          A canvas type of the main window.
             \tparam Position        A position type.
             \tparam PictureReader   A picture reader type.
@@ -70,6 +72,8 @@ namespace bobura { namespace message
         */
         template <
             typename Command,
+            typename Model,
+            typename AbstractWindow,
             typename Canvas,
             typename Position,
             typename PictureReader,
@@ -85,7 +89,8 @@ namespace bobura { namespace message
             typedef
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<
-                        type::menu_selected, menu_selected<Command>
+                        type::menu_selected,
+                        menu_selected<Command, Model, AbstractWindow>
                     >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<

@@ -17,13 +17,13 @@ namespace bobura { namespace command
     /*!
         \brief The class template for a new-file command.
 
-        \tparam AbstractWindow  An abstract window type.
         \tparam Model           A model type.
+        \tparam AbstractWindow  An abstract window type.
         \tparam ConfirmFileSave A file save confirmation type.
     */
     template <
-        typename AbstractWindow,
         typename Model,
+        typename AbstractWindow,
         typename ConfirmFileSave
     >
     class new_file
@@ -31,11 +31,11 @@ namespace bobura { namespace command
     public:
         // types
 
-        //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
-
         //! The model type.
         typedef Model model_type;
+
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
 
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
@@ -66,8 +66,11 @@ namespace bobura { namespace command
 
         /*!
             \brief Executes the command.
+
+            \param model  A model.
+            \param parent A parent window.
         */
-        void operator()()
+        void operator()(model_type& model, abstract_window_type& parent)
         const
         {
             if (m_confirm_file_save(m_parent))

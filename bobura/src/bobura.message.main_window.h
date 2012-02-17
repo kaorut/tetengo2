@@ -24,9 +24,11 @@ namespace bobura { namespace message { namespace main_window
         \brief The class template for a menu selection observer of the main
                window.
 
-        \tparam Command A command type.
+        \tparam Command        A command type.
+        \tparam Model          A model type.
+        \tparam AbstractWindow An abstract window type.
     */
-    template <typename Command>
+    template <typename Command, typename Model, typename AbstractWindow>
     class menu_selected
     {
     public:
@@ -35,6 +37,12 @@ namespace bobura { namespace message { namespace main_window
         //! The command type.
         typedef Command command_type;
 
+        //! The model type.
+        typedef Model model_type;
+
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
+
 
         // constructors and destructor
 
@@ -42,10 +50,18 @@ namespace bobura { namespace message { namespace main_window
             \brief Creates a menu selection observer of the main window.
 
             \param command A command.
+            \param model   A model.
+            \param parent  A parent window.
         */
-        explicit menu_selected(const command_type& command)
+        explicit menu_selected(
+            const command_type&   command,
+            model_type&           model,
+            abstract_window_type& parent
+        )
         :
-        m_command(command)
+        m_command(command),
+        m_model(model),
+        m_parent(parent)
         {}
 
 
@@ -57,7 +73,7 @@ namespace bobura { namespace message { namespace main_window
         void operator()()
         const
         {
-            m_command();
+            m_command(m_model, m_parent);
         }
 
 
@@ -65,6 +81,10 @@ namespace bobura { namespace message { namespace main_window
         // variables
 
         command_type m_command;
+
+        model_type& m_model;
+
+        abstract_window_type& m_parent;
 
 
     };

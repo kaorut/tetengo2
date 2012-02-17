@@ -37,7 +37,7 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<bobura::type_list, bobura::type::settings>::type
+        boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type
         settings_type;
 
 
@@ -73,7 +73,7 @@ namespace
     {
         typedef
             boost::mpl::at<
-                bobura::type_list, bobura::type::messages_facet
+                bobura::locale_type_list, bobura::type::messages_facet
             >::type
             messages_facet_type;
         std::unique_ptr<messages_facet_type> p_messages_facet(
@@ -91,7 +91,7 @@ namespace
     int run_application(const settings_type& settings)
     {
         return boost::mpl::at<
-            bobura::type_list, bobura::type::application
+            bobura::bobura_type_list, bobura::type::application
         >::type(settings).run();
     }
 
@@ -134,17 +134,17 @@ TETENGO2_CPP11_NOEXCEPT
     }
     catch (const boost::exception& e)
     {
-        boost::mpl::at<bobura::type_list, bobura::type::alert>::type()(e);
+        boost::mpl::at<bobura::ui_type_list, bobura::type::alert>::type()(e);
         return 1;
     }
     catch (const std::exception& e)
     {
-        boost::mpl::at<bobura::type_list, bobura::type::alert>::type()(e);
+        boost::mpl::at<bobura::ui_type_list, bobura::type::alert>::type()(e);
         return 1;
     }
     catch (...)
     {
-        boost::mpl::at<bobura::type_list, bobura::type::alert>::type()();
+        boost::mpl::at<bobura::ui_type_list, bobura::type::alert>::type()();
         return 2;
     }
 }
