@@ -9,8 +9,6 @@
 #if !defined(BOBURA_COMMAND_TYPELISTIMPL_H)
 #define BOBURA_COMMAND_TYPELISTIMPL_H
 
-#include <functional>
-
 #include <boost/mpl/pair.hpp>
 
 #include <tetengo2.meta.assoc_list.h>
@@ -30,6 +28,7 @@ namespace bobura { namespace command
     /*!
         \brief The meta function for the type list of the commands.
 
+        \tparam Command            A command type.
         \tparam AbstractWindow     An abstract window type.
         \tparam Window             A window type.
         \tparam MessageBox         A message box type.
@@ -44,6 +43,7 @@ namespace bobura { namespace command
         \tparam MessageCatalog     A message catalog type.
     */
     template <
+        typename Command,
         typename AbstractWindow,
         typename Window,
         typename MessageBox,
@@ -65,7 +65,7 @@ namespace bobura { namespace command
         //! The type list for the commands.
         typedef
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::command, std::function<void ()> >,
+                boost::mpl::pair<type::command, Command>,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::about, about<AboutDialog>>,
             tetengo2::meta::assoc_list<
@@ -112,8 +112,6 @@ namespace bobura { namespace command
 
 
     };
-
-
 
 
 }}

@@ -10,6 +10,7 @@
 #define TESTBOBURA_TYPES_H
 
 //#include <cstddef>
+#include <functional>
 //#include <iterator>
 //#include <string>
 //#include <utility>
@@ -603,17 +604,21 @@ typedef
     >
     writer_type;
 
+typedef std::function<void ()> command_type;
+
 typedef
     bobura::confirm_file_save<
         model_type,
         abstract_window_type,
         message_box_type,
+        command_type,
         message_catalog_type
     >
     confirm_file_save_type;
 
 typedef
     bobura::command::type_list<
+        command_type,
         abstract_window_type,
         window_type,
         message_box_type,

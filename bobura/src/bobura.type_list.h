@@ -10,6 +10,7 @@
 #define BOBURA_TYPELIST_H
 
 //#include <cstddef>
+#include <functional>
 //#include <iterator>
 #include <ostream>
 //#include <string>
@@ -964,11 +965,24 @@ namespace bobura
 
     namespace type
     {
+        struct command;        //!< The command.
         struct confirm_file_save; //!< The file save confirmation.
     }
 
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace miscellaneous
+    {
+        typedef std::function<void ()> command_type;
+
+    }}
+#endif
+
     //! The type list for the miscellaneous processings.
     typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::command, detail::miscellaneous::command_type
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::confirm_file_save,
@@ -980,13 +994,14 @@ namespace bobura
                     boost::mpl::at<
                         common_dialog_type_list, type::message_box
                     >::type,
+                    detail::miscellaneous::command_type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >
+        >>
         miscellaneous_type_list;
 
 
@@ -1003,6 +1018,9 @@ namespace bobura
             boost::mpl::pair<
                 type::command_type_list,
                 command::type_list<
+                    boost::mpl::at<
+                        miscellaneous_type_list, type::command
+                    >::type,
                     boost::mpl::at<ui_type_list, type::abstract_window>::type,
                     boost::mpl::at<ui_type_list, type::window>::type,
                     boost::mpl::at<

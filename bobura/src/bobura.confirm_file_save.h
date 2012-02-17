@@ -11,6 +11,7 @@
 
 //#include <memory>
 
+#include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
@@ -23,12 +24,14 @@ namespace bobura
         \tparam Model          A model type.
         \tparam AbstractWindow An abstract window type.
         \tparam MessageBox     A message box type.
+        \tparam Command        A command type.
         \tparam MessageCatalog A message catalog type.
     */
     template <
         typename Model,
         typename AbstractWindow,
         typename MessageBox,
+        typename Command,
         typename MessageCatalog
     >
     class confirm_file_save
@@ -47,6 +50,9 @@ namespace bobura
 
         //! The message box type.
         typedef MessageBox message_box_type;
+
+        //! The command type.
+        typedef Command command_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
