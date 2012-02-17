@@ -14,6 +14,10 @@
     \brief The namespace for commands.
 */
 
+/*! \namespace bobura::load_save
+    \brief The namespace for loading and saving processings.
+*/
+
 /*! \namespace bobura::message
     \brief The namespace for message observers.
 */

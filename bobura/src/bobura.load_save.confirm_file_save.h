@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of bobura::confirm_file_save.
+    \brief The definition of bobura::load_save::confirm_file_save.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_CONFIRMFILESAVE_H)
-#define BOBURA_CONFIRMFILESAVE_H
+#if !defined(BOBURA_LOADSAVE_CONFIRMFILESAVE_H)
+#define BOBURA_LOADSAVE_CONFIRMFILESAVE_H
 
 //#include <memory>
 
@@ -16,7 +16,7 @@
 #include <tetengo2.unique.h>
 
 
-namespace bobura
+namespace bobura { namespace load_save
 {
     /*!
         \brief The class template for the file save confirmation.
@@ -148,6 +148,7 @@ namespace bobura
     };
 
 
-}
+}}
+
 
 #endif

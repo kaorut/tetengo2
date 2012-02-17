@@ -98,8 +98,8 @@
 #include "bobura.application.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
-#include "bobura.confirm_file_save.h"
 #include "bobura.file_property_dialog.h"
+#include "bobura.load_save.confirm_file_save.h"
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
@@ -610,7 +610,7 @@ typedef
     command_type;
 
 typedef
-    bobura::confirm_file_save<
+    bobura::load_save::confirm_file_save<
         model_type,
         abstract_window_type,
         message_box_type,

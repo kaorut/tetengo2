@@ -19,6 +19,9 @@
     <Filter Include="sources\test_bobura\message">
       <UniqueIdentifier>{8d9ca398-31cc-4d38-952c-b49a2f2020a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_bobura\load_save">
+      <UniqueIdentifier>{5c8a32b6-52cb-4119-bd2b-1d23226b1a94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
@@ -86,14 +89,14 @@
     <ClCompile Include="test\test_bobura.command.file_property.cpp">
       <Filter>sources\test_bobura\command</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.confirm_file_save.cpp">
-      <Filter>sources\test_bobura</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_bobura.command.new_file.cpp">
       <Filter>sources\test_bobura\command</Filter>
     </ClCompile>
     <ClCompile Include="test\test_bobura.command.save_to_file.cpp">
       <Filter>sources\test_bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.load_save.confirm_file_save.cpp">
+      <Filter>sources\test_bobura\load_save</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

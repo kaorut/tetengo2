@@ -28,6 +28,9 @@
     <Filter Include="headers\bobura\message">
       <UniqueIdentifier>{a708a07f-8972-43b3-8115-9a955ced00b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\bobura\load_save">
+      <UniqueIdentifier>{68848e21-f62b-4e1d-9361-5a124086671f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bobura.about_dialog.h">
@@ -102,14 +105,14 @@
     <ClInclude Include="src\bobura.command.file_property.h">
       <Filter>headers\bobura\command</Filter>
     </ClInclude>
-    <ClInclude Include="src\bobura.confirm_file_save.h">
-      <Filter>headers\bobura</Filter>
-    </ClInclude>
     <ClInclude Include="src\bobura.command.new_file.h">
       <Filter>headers\bobura\command</Filter>
     </ClInclude>
     <ClInclude Include="src\bobura.command.save_to_file.h">
       <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.load_save.confirm_file_save.h">
+      <Filter>headers\bobura\load_save</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
