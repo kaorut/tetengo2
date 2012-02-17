@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of bobura::command::save_to_file.
+    \brief The definition of bobura::load_save::save_to_file.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_COMMAND_SAVETOFILE_H)
-#define BOBURA_COMMAND_SAVETOFILE_H
+#if !defined(BOBURA_LOADSAVE_SAVETOFILE_H)
+#define BOBURA_LOADSAVE_SAVETOFILE_H
 
 #include <utility>
 
@@ -16,10 +16,10 @@
 #include <tetengo2.text.h>
 
 
-namespace bobura { namespace command
+namespace bobura { namespace load_save
 {
     /*!
-        \brief The class template for a save-to-file command.
+        \brief The class template for a file saving.
 
         \tparam Model           A model type.
         \tparam AbstractWindow  An abstract window type.
@@ -63,7 +63,7 @@ namespace bobura { namespace command
         // constructors and destructor
 
         /*!
-            \brief Creates a save-to-file command.
+            \brief Creates a file saving.
 
             \param ask_file_path     Set true to show a file selection dialog.
                                      When the model does not have a path, a
@@ -86,7 +86,7 @@ namespace bobura { namespace command
         // functions
 
         /*!
-            \brief Executes the command.
+            \brief Saves the model to a file.
 
             \param model  A model.
             \param parent A parent window.

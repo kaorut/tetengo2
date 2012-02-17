@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::command::save_to_file.
+    \brief Test of class bobura::load_save::save_to_file.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -12,7 +12,7 @@
 
 #include "test_bobura.types.h"
 
-#include "bobura.command.save_to_file.h"
+#include "bobura.load_save.save_to_file.h"
 
 
 namespace
@@ -20,7 +20,7 @@ namespace
     // types
 
     typedef
-        bobura::command::save_to_file<
+        bobura::load_save::save_to_file<
             model_type,
             abstract_window_type,
             message_box_type,
@@ -35,7 +35,7 @@ namespace
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
-BOOST_AUTO_TEST_SUITE(command)
+BOOST_AUTO_TEST_SUITE(load_save)
 BOOST_AUTO_TEST_SUITE(save_to_file)
     // test cases
 

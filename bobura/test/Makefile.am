@@ -19,6 +19,7 @@ sources = \
     test_bobura.command.save_to_file.cpp \
     test_bobura.file_property_dialog.cpp \
     test_bobura.load_save.confirm_file_save.cpp \
+    test_bobura.load_save.save_to_file.cpp \
     test_bobura.main_window.cpp \
     test_bobura.message.about_dialog.cpp \
     test_bobura.message.file_property_dialog.cpp \
