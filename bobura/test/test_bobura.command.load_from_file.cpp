@@ -46,9 +46,11 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
+        writer_type writer;
         const message_catalog_type message_catalog;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
         const confirm_file_save_type confirm_file_save(
-            model, message_catalog
+            model, save_to_file, message_catalog
         );
         reader_type reader;
         const load_from_file_type load_from_file(
@@ -61,9 +63,11 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
+        writer_type writer;
         const message_catalog_type message_catalog;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
         const confirm_file_save_type confirm_file_save(
-            model, message_catalog
+            model, save_to_file, message_catalog
         );
         reader_type reader;
         const load_from_file_type load_from_file(

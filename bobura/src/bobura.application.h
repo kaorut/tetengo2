@@ -155,7 +155,7 @@ namespace bobura
                 true, writer, message_catalog
             );
             const confirm_file_save_type confirm_file_save(
-                m_model, message_catalog
+                m_model, save_to_file, message_catalog
             );
 
             reader_type reader;

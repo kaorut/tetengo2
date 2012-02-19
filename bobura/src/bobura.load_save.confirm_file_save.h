@@ -64,14 +64,17 @@ namespace bobura { namespace load_save
             \brief Creates a file save confirmation.
 
             \param model           A model.
+            \param save_to_file    A file saving.
             \param message_catalog A message catalog.
         */
         confirm_file_save(
             const model_type&           model,
+            const save_to_file_type&    save_to_file,
             const message_catalog_type& message_catalog
         )
         :
         m_model(model),
+        m_save_to_file(save_to_file),
         m_message_catalog(message_catalog)
         {}
 
@@ -106,6 +109,8 @@ namespace bobura { namespace load_save
         // variables
 
         const model_type& m_model;
+
+        const save_to_file_type& m_save_to_file;
 
         const message_catalog_type& m_message_catalog;
 

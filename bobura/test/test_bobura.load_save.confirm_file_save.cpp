@@ -21,9 +21,11 @@ BOOST_AUTO_TEST_SUITE(confirm_file_save)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        writer_type writer;
         const message_catalog_type message_catalog;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
         const confirm_file_save_type confirm_file_save(
-            model, message_catalog
+            model, save_to_file, message_catalog
         );
     }
 
@@ -32,9 +34,11 @@ BOOST_AUTO_TEST_SUITE(confirm_file_save)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
+        writer_type writer;
         const message_catalog_type message_catalog;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
         const confirm_file_save_type confirm_file_save(
-            model, message_catalog
+            model, save_to_file, message_catalog
         );
 
         window_type window;

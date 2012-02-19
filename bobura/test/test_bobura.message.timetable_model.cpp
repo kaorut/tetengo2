@@ -33,7 +33,11 @@ BOOST_AUTO_TEST_SUITE(reset)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        confirm_file_save_type confirm_file_save(model, message_catalog);
+        writer_type writer;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
+        const confirm_file_save_type confirm_file_save(
+            model, save_to_file, message_catalog
+        );
         main_window_type main_window(
             message_catalog, settings, confirm_file_save
         );
@@ -51,7 +55,11 @@ BOOST_AUTO_TEST_SUITE(reset)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        confirm_file_save_type confirm_file_save(model, message_catalog);
+        writer_type writer;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
+        const confirm_file_save_type confirm_file_save(
+            model, save_to_file, message_catalog
+        );
         main_window_type main_window(
             message_catalog, settings, confirm_file_save
         );
@@ -76,7 +84,11 @@ BOOST_AUTO_TEST_SUITE(changed)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        confirm_file_save_type confirm_file_save(model, message_catalog);
+        writer_type writer;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
+        const confirm_file_save_type confirm_file_save(
+            model, save_to_file, message_catalog
+        );
         main_window_type main_window(
             message_catalog, settings, confirm_file_save
         );
@@ -95,7 +107,11 @@ BOOST_AUTO_TEST_SUITE(changed)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        confirm_file_save_type confirm_file_save(model, message_catalog);
+        writer_type writer;
+        const save_to_file_type save_to_file(false, writer, message_catalog);
+        const confirm_file_save_type confirm_file_save(
+            model, save_to_file, message_catalog
+        );
         main_window_type main_window(
             message_catalog, settings, confirm_file_save
         );
