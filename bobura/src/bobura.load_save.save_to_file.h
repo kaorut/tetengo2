@@ -90,8 +90,11 @@ namespace bobura { namespace load_save
 
             \param model  A model.
             \param parent A parent window.
+
+            \retval true   When the model has been saved.
+            \retval false  Otherwise.
         */
-        void operator()(model_type& model, abstract_window_type& parent)
+        bool operator()(model_type& model, abstract_window_type& parent)
         const
         {
             path_type path;
@@ -109,13 +112,15 @@ namespace bobura { namespace load_save
                 dialog.do_modal();
 
                 path = dialog.result();
-                if (path.empty()) return;
+                if (path.empty())
+                    return false;
             }
             else
             {
                 path = model.path();
             }
 
+            return true;
         }
 
 

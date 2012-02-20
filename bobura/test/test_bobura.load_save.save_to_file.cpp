@@ -40,7 +40,9 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
 
             model_type model;
             window_type parent;
-            save_to_file(model, parent);
+            const bool result = save_to_file(model, parent);
+
+            BOOST_CHECK(result);
         }
         {
             writer_type writer;
@@ -51,7 +53,9 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
 
             model_type model;
             window_type parent;
-            save_to_file(model, parent);
+            const bool result = save_to_file(model, parent);
+
+            BOOST_CHECK(result);
         }
     }
 
