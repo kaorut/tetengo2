@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_SUITE(window)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const model_type model;
+        model_type model;
         const message_catalog_type message_catalog;
         writer_type writer;
         const save_to_file_type save_to_file(false, writer, message_catalog);
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_SUITE(window)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const model_type model;
+        model_type model;
         const message_catalog_type message_catalog;
         writer_type writer;
         const save_to_file_type save_to_file(false, writer, message_catalog);

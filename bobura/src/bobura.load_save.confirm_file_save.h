@@ -68,7 +68,7 @@ namespace bobura { namespace load_save
             \param message_catalog A message catalog.
         */
         confirm_file_save(
-            const model_type&           model,
+            model_type&                 model,
             const save_to_file_type&    save_to_file,
             const message_catalog_type& message_catalog
         )
@@ -100,6 +100,11 @@ namespace bobura { namespace load_save
                 create_message_box(parent)->do_modal();
             if (selected_button == message_box_type::button_cancel)
                 return true;
+            if (selected_button == message_box_type::button_yes)
+            {
+                if (!m_save_to_file(m_model, parent))
+                    return true;
+            }
 
             return false;
         }
@@ -108,7 +113,7 @@ namespace bobura { namespace load_save
     private:
         // variables
 
-        const model_type& m_model;
+        model_type& m_model;
 
         const save_to_file_type& m_save_to_file;
 

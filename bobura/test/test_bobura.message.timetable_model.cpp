@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_SUITE(reset)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
+        model_type model;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_SUITE(reset)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
+        model_type model;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_SUITE(changed)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
+        model_type model;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_SUITE(changed)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
+        model_type model;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;

@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_SUITE(confirm_file_save)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
+        model_type model;
         writer_type writer;
         const message_catalog_type message_catalog;
         const save_to_file_type save_to_file(false, writer, message_catalog);
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_SUITE(confirm_file_save)
     {
         BOOST_TEST_PASSPOINT();
 
-        const model_type model;
+        model_type model;
         writer_type writer;
         const message_catalog_type message_catalog;
         const save_to_file_type save_to_file(false, writer, message_catalog);

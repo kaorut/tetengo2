@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
         const settings_type settings(std::move(arguments), std::move(path));
-        const model_type model;
+        model_type model;
         writer_type writer;
         const save_to_file_type save_to_file(false, writer, message_catalog);
         const confirm_file_save_type confirm_file_save(
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
             std::vector<std::wstring> arguments;
             boost::filesystem::path path;
             const settings_type settings(std::move(arguments), std::move(path));
-            const model_type model;
+            model_type model;
             writer_type writer;
             const save_to_file_type save_to_file(
                 false, writer, message_catalog
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
             const settings_type settings(
                 std::move(arguments), std::move(path)
             );
-            const model_type model;
+            model_type model;
             writer_type writer;
             const save_to_file_type save_to_file(
                 false, writer, message_catalog
@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
             const settings_type settings(
                 std::move(arguments), std::move(path)
             );
-            const model_type model;
+            model_type model;
             writer_type writer;
             const save_to_file_type save_to_file(
                 false, writer, message_catalog
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
             const settings_type settings(
                 std::move(arguments), std::move(path)
             );
-            const model_type model;
+            model_type model;
             writer_type writer;
             const save_to_file_type save_to_file(
                 false, writer, message_catalog

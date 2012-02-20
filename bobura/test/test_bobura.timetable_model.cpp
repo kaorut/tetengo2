@@ -41,9 +41,9 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
             BOOST_CHECK(timetable.title().empty());
         }
         {
-            model_type model;
+            const model_type model;
 
-            timetable_type& timetable = model.timetable();
+            const timetable_type& timetable = model.timetable();
 
             BOOST_CHECK(timetable.title().empty());
         }
