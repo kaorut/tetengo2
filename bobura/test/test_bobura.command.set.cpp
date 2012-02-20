@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_SUITE(set)
             true, writer, message_catalog
         );
         const confirm_file_save_type confirm_file_save(
-            model, message_catalog
+            model, save_to_file, message_catalog
         );
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_SUITE(set)
             true, writer, message_catalog
         );
         const confirm_file_save_type confirm_file_save(
-            model, message_catalog
+            model, save_to_file, message_catalog
         );
         std::vector<std::wstring> arguments;
         boost::filesystem::path path;
