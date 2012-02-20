@@ -101,5 +101,11 @@
     <ClCompile Include="test\test_bobura.load_save.save_to_file.cpp">
       <Filter>sources\test_bobura\load_save</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.load_save.load_from_file.cpp">
+      <Filter>sources\test_bobura\load_save</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.load_save.new_file.cpp">
+      <Filter>sources\test_bobura\load_save</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
