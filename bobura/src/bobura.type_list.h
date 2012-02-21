@@ -106,6 +106,7 @@
 #include "bobura.command.type_list_impl.h"
 #include "bobura.file_property_dialog.h"
 #include "bobura.load_save.confirm_file_save.h"
+#include "bobura.load_save.load_from_file.h"
 #include "bobura.load_save.save_to_file.h"
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
@@ -965,6 +966,7 @@ namespace bobura
 
     namespace type
     {
+        struct load_from_file; //!< The file loading.
         struct save_to_file;   //!< The file saving.
         struct confirm_file_save; //!< The file save confirmation.
     }
@@ -986,6 +988,21 @@ namespace bobura
                 boost::mpl::at<locale_type_list, type::message_catalog>::type
             >
             save_to_file_type;
+        typedef
+            bobura::load_save::confirm_file_save<
+                boost::mpl::at<model_type_list, type::model>::type,
+                boost::mpl::at<
+                    ui_type_list, type::abstract_window
+                >::type,
+                boost::mpl::at<
+                    common_dialog_type_list, type::message_box
+                >::type,
+                save_to_file_type,
+                boost::mpl::at<
+                    locale_type_list, type::message_catalog
+                >::type
+            >
+            confirm_file_save_type;
 
     }}
 #endif
@@ -994,12 +1011,8 @@ namespace bobura
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::save_to_file, detail::load_save::save_to_file_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::confirm_file_save,
-                load_save::confirm_file_save<
+                type::load_from_file,
+                load_save::load_from_file<
                     boost::mpl::at<model_type_list, type::model>::type,
                     boost::mpl::at<
                         ui_type_list, type::abstract_window
@@ -1007,14 +1020,27 @@ namespace bobura
                     boost::mpl::at<
                         common_dialog_type_list, type::message_box
                     >::type,
-                    detail::load_save::save_to_file_type,
+                    boost::mpl::at<
+                        common_dialog_type_list, type::file_open_dialog
+                    >::type,
+                    detail::load_save::confirm_file_save_type,
+                    boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::save_to_file, detail::load_save::save_to_file_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::confirm_file_save,
+                detail::load_save::confirm_file_save_type
+            >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         load_save_type_list;
 
 
@@ -1071,9 +1097,11 @@ namespace bobura
                         load_save_type_list, type::confirm_file_save
                     >::type,
                     boost::mpl::at<
+                        load_save_type_list, type::load_from_file
+                    >::type,
+                    boost::mpl::at<
                         load_save_type_list, type::save_to_file
                     >::type,
-                    boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type
@@ -1160,9 +1188,11 @@ namespace bobura
                     boost::mpl::at<
                         command_type_list_type_list, type::command_type_list
                     >::type,
-                    boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
                         load_save_type_list, type::confirm_file_save
+                    >::type,
+                    boost::mpl::at<
+                        load_save_type_list, type::load_from_file
                     >::type,
                     boost::mpl::at<
                         load_save_type_list, type::save_to_file
@@ -1213,6 +1243,9 @@ namespace bobura
                     >::type,
                     boost::mpl::at<
                         load_save_type_list, type::confirm_file_save
+                    >::type,
+                    boost::mpl::at<
+                        load_save_type_list, type::load_from_file
                     >::type,
                     boost::mpl::at<
                         load_save_type_list, type::save_to_file

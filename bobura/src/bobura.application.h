@@ -30,6 +30,7 @@ namespace bobura
         \tparam Writer                    A writer type.
         \tparam MessageCatalog            A message catalog type.
         \tparam ConfirmFileSave           A file save confirmation type.
+        \tparam LoadFromFile              A file loading type.
         \tparam SaveToFile                A file saving type.
         \tparam CommandSet                A command set type.
         \tparam MainWindow                A main window type.
@@ -50,6 +51,7 @@ namespace bobura
         typename Writer,
         typename MessageCatalog,
         typename ConfirmFileSave,
+        typename LoadFromFile,
         typename SaveToFile,
         typename CommandSet,
         typename MainWindow,
@@ -87,6 +89,9 @@ namespace bobura
 
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
+
+        //! The file loading type.
+        typedef LoadFromFile load_from_file_type;
 
         //! The file saving type.
         typedef SaveToFile save_to_file_type;
@@ -157,11 +162,14 @@ namespace bobura
             const confirm_file_save_type confirm_file_save(
                 m_model, save_to_file, message_catalog
             );
-
             reader_type reader;
+            const load_from_file_type load_from_file(
+                confirm_file_save, reader, message_catalog
+            );
+
             const command_set_type command_set(
-                reader,
                 confirm_file_save,
+                load_from_file,
                 save_to_file,
                 ask_file_path_and_save_to_file,
                 m_settings,

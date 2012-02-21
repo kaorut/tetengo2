@@ -24,7 +24,7 @@
 namespace bobura { namespace load_save
 {
     /*!
-        \brief The class template for a load-from-file load_save.
+        \brief The class template for a file loading.
 
         \tparam Model           A model type.
         \tparam AbstractWindow  An abstract window type.
@@ -73,7 +73,7 @@ namespace bobura { namespace load_save
         // constructors and destructor
 
         /*!
-            \brief Creates a load-from-file load_save.
+            \brief Creates a file loading.
 
             \param confirm_file_save A file save confirmation.
             \param reader            A reader.

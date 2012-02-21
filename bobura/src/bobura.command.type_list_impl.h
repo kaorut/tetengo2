@@ -36,8 +36,8 @@ namespace bobura { namespace command
         \tparam FilePropertyDialog A file property dialog type.
         \tparam AboutDialog        An about dialog type.
         \tparam ConfirmFileSave    A file save confirmation type.
+        \tparam LoadFromFile       A file loading type.
         \tparam SaveToFile         A file saving type.
-        \tparam Reader             A reader type.
         \tparam MessageCatalog     A message catalog type.
     */
     template <
@@ -49,8 +49,8 @@ namespace bobura { namespace command
         typename FilePropertyDialog,
         typename AboutDialog,
         typename ConfirmFileSave,
+        typename LoadFromFile,
         typename SaveToFile,
-        typename Reader,
         typename MessageCatalog
     >
     class type_list
@@ -77,15 +77,7 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
                     type::load_from_file,
-                    load_from_file<
-                        Model,
-                        AbstractWindow,
-                        MessageBox,
-                        FileOpenDialog,
-                        ConfirmFileSave,
-                        Reader,
-                        MessageCatalog
-                    >
+                    load_from_file<Model, AbstractWindow, LoadFromFile>
                 >,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
