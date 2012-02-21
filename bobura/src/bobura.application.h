@@ -26,8 +26,6 @@ namespace bobura
         \tparam Settings                  A settings type.
         \tparam Model                     A model type.
         \tparam ModelMessageTypeList      A model message type list.
-        \tparam Reader                    A reader type.
-        \tparam Writer                    A writer type.
         \tparam MessageCatalog            A message catalog type.
         \tparam ConfirmFileSave           A file save confirmation type.
         \tparam LoadFromFile              A file loading type.
@@ -47,8 +45,6 @@ namespace bobura
         typename Settings,
         typename Model,
         typename ModelMessageTypeList,
-        typename Reader,
-        typename Writer,
         typename MessageCatalog,
         typename ConfirmFileSave,
         typename LoadFromFile,
@@ -77,12 +73,6 @@ namespace bobura
 
         //! The model message type list type.
         typedef ModelMessageTypeList model_messagetype_list_type;
-
-        //! The reader type.
-        typedef Reader reader_type;
-
-        //! The writer type.
-        typedef Writer writer_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -193,6 +183,10 @@ namespace bobura
 
     private:
         // types
+
+        typedef typename load_from_file_type::reader_type reader_type;
+
+        typedef typename save_to_file_type::writer_type writer_type;
 
         typedef typename command_set_type::command_type command_type;
 

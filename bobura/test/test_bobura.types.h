@@ -725,8 +725,6 @@ typedef
         settings_type,
         model_type,
         timetable_model_message_type_list_type,
-        reader_type,
-        writer_type,
         message_catalog_type,
         confirm_file_save_type,
         load_from_file_type,

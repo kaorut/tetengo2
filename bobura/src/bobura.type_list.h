@@ -1236,8 +1236,6 @@ namespace bobura
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<model_type_list, type::model>::type,
                     detail::application::model_message_type_list,
-                    boost::mpl::at<model_type_list, type::reader>::type,
-                    boost::mpl::at<model_type_list, type::writer>::type,
                     boost::mpl::at<
                         locale_type_list, type::message_catalog
                     >::type,
