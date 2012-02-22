@@ -43,6 +43,10 @@ namespace bobura
             confirm_file_save_type;
 
         typedef
+            boost::mpl::at<load_save_type_list, type::new_file>::type
+            new_file_type;
+
+        typedef
             boost::mpl::at<load_save_type_list, type::load_from_file>::type
             load_from_file_type;
 
@@ -135,13 +139,14 @@ namespace bobura
             const confirm_file_save_type confirm_file_save(
                 m_model, save_to_file, message_catalog
             );
+            const new_file_type new_file(confirm_file_save);
             reader_type reader;
             const load_from_file_type load_from_file(
                 confirm_file_save, reader, message_catalog
             );
 
             const command_set_type command_set(
-                confirm_file_save,
+                new_file,
                 load_from_file,
                 save_to_file,
                 ask_file_path_and_save_to_file,

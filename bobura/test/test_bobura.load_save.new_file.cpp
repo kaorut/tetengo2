@@ -10,22 +10,6 @@
 
 #include "test_bobura.types.h"
 
-#include "bobura.load_save.new_file.h"
-
-
-namespace
-{
-    // types
-
-    typedef
-        bobura::load_save::new_file<
-            model_type, abstract_window_type, confirm_file_save_type
-        >
-        new_file_type;
-
-
-}
-
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(load_save)

@@ -13,8 +13,6 @@
 
 #include "test_bobura.types.h"
 
-#include "bobura.load_save.load_from_file.h"
-
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(load_save)

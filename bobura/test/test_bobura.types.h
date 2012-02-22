@@ -100,6 +100,7 @@
 #include "bobura.file_property_dialog.h"
 #include "bobura.load_save.confirm_file_save.h"
 #include "bobura.load_save.load_from_file.h"
+#include "bobura.load_save.new_file.h"
 #include "bobura.load_save.save_to_file.h"
 #include "bobura.main_window.h"
 #include "bobura.message.timetable_model_observer_set.h"
@@ -632,6 +633,12 @@ typedef
     confirm_file_save_type;
 
 typedef
+    bobura::load_save::new_file<
+        model_type, abstract_window_type, confirm_file_save_type
+    >
+    new_file_type;
+
+typedef
     bobura::load_save::load_from_file<
         model_type,
         abstract_window_type,
@@ -648,14 +655,11 @@ typedef
         command_type,
         model_type,
         abstract_window_type,
-        message_box_type,
-        file_open_dialog_type,
         file_property_dialog_type,
         about_dialog_type,
-        confirm_file_save_type,
+        new_file_type,
         load_from_file_type,
-        save_to_file_type,
-        message_catalog_type
+        save_to_file_type
     >::type
     command_type_list_type;
 
@@ -705,7 +709,7 @@ typedef
 typedef
     bobura::command::set<
         command_type_list_type,
-        confirm_file_save_type,
+        new_file_type,
         load_from_file_type,
         save_to_file_type,
         settings_type,

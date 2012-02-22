@@ -19,9 +19,9 @@ namespace
 
     typedef
         bobura::command::new_file<
-            model_type, abstract_window_type, confirm_file_save_type
+            model_type, abstract_window_type, new_file_type
         >
-        new_file_type;
+        new_file_command_type;
 
 
 }
@@ -44,6 +44,7 @@ BOOST_AUTO_TEST_SUITE(new_file)
             model, save_to_file, message_catalog
         );
         const new_file_type new_file(confirm_file_save);
+        const new_file_command_type new_file_command(new_file);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -58,9 +59,10 @@ BOOST_AUTO_TEST_SUITE(new_file)
             model, save_to_file, message_catalog
         );
         const new_file_type new_file(confirm_file_save);
+        const new_file_command_type new_file_command(new_file);
 
         window_type parent;
-        new_file(model, parent);
+        new_file_command(model, parent);
     }
 
 

@@ -22,7 +22,7 @@ namespace bobura { namespace command
 
         \tparam TypeList        A command type list type.
         \tparam Reader          A reader type.
-        \tparam ConfirmFileSave A file save confirmation type.
+        \tparam NewFile         A file initialization type.
         \tparam LoadFromFile    A file loading type.
         \tparam SaveToFile      A file saving type.
         \tparam Settings        A settings type.
@@ -30,7 +30,7 @@ namespace bobura { namespace command
     */
     template <
         typename TypeList,
-        typename ConfirmFileSave,
+        typename NewFile,
         typename LoadFromFile,
         typename SaveToFile,
         typename Settings,
@@ -49,8 +49,8 @@ namespace bobura { namespace command
             typename boost::mpl::at<type_list_type, type::command>::type
             command_type;
 
-        //! The file save confirmation type.
-        typedef ConfirmFileSave confirm_file_save_type;
+        //! The file initialization type.
+        typedef NewFile new_file_type;
 
         //! The file loading type.
         typedef LoadFromFile load_from_file_type;
@@ -70,7 +70,7 @@ namespace bobura { namespace command
         /*!
             \brief Creates a command set.
 
-            \param confirm_file_save          A file save confirmation.
+            \param new_file                   A file initialization.
             \param load_from_file             A file loading.
             \param save_to_file               A file saving.
             \param ask_file_path_save_to_file A file saving after file path query.
@@ -78,7 +78,7 @@ namespace bobura { namespace command
             \param message_catalog            A message catalog.
         */
         set(
-            const confirm_file_save_type& confirm_file_save,
+            const new_file_type&          new_file,
             const load_from_file_type&    load_from_file,
             const save_to_file_type&      save_to_file,
             const save_to_file_type&      ask_file_path_save_to_file,
@@ -90,7 +90,7 @@ namespace bobura { namespace command
         m_exit(make_exit()),
         m_file_property(make_file_property(message_catalog)),
         m_load_from_file(make_load_from_file(load_from_file)),
-        m_new_file(make_new_file(confirm_file_save)),
+        m_new_file(make_new_file(new_file)),
         m_nop(make_nop()),
         m_save_to_file(make_save_to_file(save_to_file)),
         m_ask_file_path_and_save_to_file(
@@ -228,13 +228,11 @@ namespace bobura { namespace command
             >::type(load_from_file);
         }
 
-        static command_type make_new_file(
-            const confirm_file_save_type& confirm_file_save
-        )
+        static command_type make_new_file(const new_file_type& new_file)
         {
             return typename boost::mpl::at<
                 type_list_type, type::new_file
-            >::type(confirm_file_save);
+            >::type(new_file);
         }
 
         static command_type make_nop()

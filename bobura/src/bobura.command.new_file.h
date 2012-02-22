@@ -9,8 +9,6 @@
 #if !defined(BOBURA_COMMAND_NEWFILE_H)
 #define BOBURA_COMMAND_NEWFILE_H
 
-#include <tetengo2.unique.h>
-
 
 namespace bobura { namespace command
 {
@@ -19,13 +17,9 @@ namespace bobura { namespace command
 
         \tparam Model           A model type.
         \tparam AbstractWindow  An abstract window type.
-        \tparam ConfirmFileSave A file save confirmation type.
+        \tparam NewFile         A file initialization type.
     */
-    template <
-        typename Model,
-        typename AbstractWindow,
-        typename ConfirmFileSave
-    >
+    template <typename Model, typename AbstractWindow, typename NewFile>
     class new_file
     {
     public:
@@ -37,8 +31,8 @@ namespace bobura { namespace command
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
-        //! The file save confirmation type.
-        typedef ConfirmFileSave confirm_file_save_type;
+        //! The file initialization type.
+        typedef NewFile new_file_type;
 
 
         // constructors and destructor
@@ -46,11 +40,11 @@ namespace bobura { namespace command
         /*!
             \brief Creates a new-file command.
 
-            \param confirm_file_save A file save confirmation.
+            \param new_file A file initialization type.
         */
-        explicit new_file(const confirm_file_save_type& confirm_file_save)
+        explicit new_file(const new_file_type& new_file)
         :
-        m_confirm_file_save(confirm_file_save)
+        m_new_file(new_file)
         {}
 
 
@@ -65,26 +59,14 @@ namespace bobura { namespace command
         void operator()(model_type& model, abstract_window_type& parent)
         const
         {
-            if (m_confirm_file_save(parent))
-                return;
-
-            model.reset_timetable(tetengo2::make_unique<timetable_type>());
+            m_new_file(model, parent);
         }
 
 
     private:
-        // types
-
-        typedef typename model_type::path_type path_type;
-
-        typedef typename model_type::timetable_type timetable_type;
-
-        typedef typename timetable_type::string_type string_type;
-
-
         // variables
 
-        const confirm_file_save_type& m_confirm_file_save;
+        const new_file_type& m_new_file;
 
 
     };
