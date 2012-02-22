@@ -9,17 +9,6 @@
 #if !defined(BOBURA_COMMAND_LOADFROMFILE_H)
 #define BOBURA_COMMAND_LOADFROMFILE_H
 
-#include <ios>
-#include <iterator>
-//#include <memory>
-//#include <utility>
-
-#include <boost/filesystem/fstream.hpp>
-#include <boost/spirit/include/support_multi_pass.hpp>
-
-#include <tetengo2.text.h>
-#include <tetengo2.unique.h>
-
 
 namespace bobura { namespace command
 {

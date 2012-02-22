@@ -9,12 +9,6 @@
 #if !defined(BOBURA_COMMAND_SAVETOFILE_H)
 #define BOBURA_COMMAND_SAVETOFILE_H
 
-#include <utility>
-
-#include <boost/optional.hpp>
-
-#include <tetengo2.text.h>
-
 
 namespace bobura { namespace command
 {

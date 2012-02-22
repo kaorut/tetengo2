@@ -241,7 +241,12 @@ sub scan_subsource
 			my($subfile_name) = $parsed_include[2];
 			if ($quotation eq '<' && !special_header($subfile_name))
 			{
-				if (is_std_or_boost_header($subfile_name))
+				if (
+					is_std_or_boost_header($subfile_name) &&
+					index(
+						$$r_includes{$subfile_name}, basename($file_name)
+					) < 0
+				)
 				{
 					$$r_includes{$subfile_name} .= basename($file_name).", ";
 				}

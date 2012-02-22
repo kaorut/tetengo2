@@ -9,10 +9,10 @@
 #if !defined(BOBURA_APPLICATION_H)
 #define BOBURA_APPLICATION_H
 
-#include <memory>
+//#include <memory>
 
-#include <boost/mpl/at.hpp>
-#include <boost/noncopyable.hpp>
+//#include <boost/mpl/at.hpp>
+//#include <boost/noncopyable.hpp>
 
 #include <tetengo2.cpp11.h>
 

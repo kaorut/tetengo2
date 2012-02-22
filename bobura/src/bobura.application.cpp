@@ -6,7 +6,11 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
+//#include <memory>
+//#include <utility>
+
+//#include <boost/mpl/at.hpp>
+//#include <boost/noncopyable.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.unique.h>
