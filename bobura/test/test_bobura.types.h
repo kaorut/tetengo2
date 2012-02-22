@@ -95,7 +95,6 @@
 #include <tetengo2.text.push_parser.h>
 
 #include "bobura.about_dialog.h"
-#include "bobura.application.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.file_property_dialog.h"
@@ -719,28 +718,6 @@ typedef
         abstract_window_type, message_loop_details_type
     >
     message_loop_type;
-
-typedef
-    bobura::application<
-        settings_type,
-        model_type,
-        timetable_model_message_type_list_type,
-        message_catalog_type,
-        confirm_file_save_type,
-        load_from_file_type,
-        save_to_file_type,
-        command_set_type,
-        main_window_type,
-        main_window_message_type_list_type,
-        menu_bar_type,
-        menu_command_type,
-        popup_menu_type,
-        menu_separator_type,
-        message_loop_type,
-        message_loop_break_type,
-        tetengo2::gui::fixture<tetengo2::detail::stub::gui_fixture>
-    >
-    application_type;
 
 
 #endif

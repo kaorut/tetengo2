@@ -7,7 +7,7 @@
 */
 
 #if !defined(TETENGO2_GUI_MENU_TRAITS_H)
-#define TETENGO2_GUI_MENU_MENURAITS_H
+#define TETENGO2_GUI_MENU_TRAITS_H
 
 
 namespace tetengo2 { namespace gui { namespace menu
