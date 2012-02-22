@@ -32,6 +32,7 @@ extra_headers = \
     bobura.type_list.h
 
 extra_sources = \
+    bobura.application.cpp \
     main.cpp
 
 EXTRA_DIST = $(extra_headers) $(extra_sources)
