@@ -6,125 +6,109 @@
     $Id$
 */
 
-#if !defined(BOBURA_BOBURA_H)
-#define BOBURA_BOBURA_H
-
-#include <memory>
-#include <utility>
-
 #include <boost/mpl/at.hpp>
-#include <boost/noncopyable.hpp>
 
-#include "bobura.message.type_list.h"
+#include <tetengo2.cpp11.h>
+#include <tetengo2.unique.h>
+
+#include "bobura.type_list.h"
+
+#include "bobura.application.h"
 
 
 namespace bobura
 {
-   /*!
-        \brief The class template for a bobura application.
+    namespace
+    {
+        typedef
+            boost::mpl::at<common_type_list, type::settings>::type
+            settings_type;
 
-        \tparam Settings                  A settings type.
-        \tparam Model                     A model type.
-        \tparam ModelMessageTypeList      A model message type list.
-        \tparam MessageCatalog            A message catalog type.
-        \tparam ConfirmFileSave           A file save confirmation type.
-        \tparam LoadFromFile              A file loading type.
-        \tparam SaveToFile                A file saving type.
-        \tparam CommandSet                A command set type.
-        \tparam MainWindow                A main window type.
-        \tparam MainWindowMessageTypeList A main window message type list.
-        \tparam MenuBar                   A menu bar type.
-        \tparam MenuCommand               A menu command type.
-        \tparam PopupMenu                 A popup menu type.
-        \tparam MenuSeparator             A menu separator type.
-        \tparam MessageLoop               A message loop type.
-        \tparam MessageLoopBreak          A message loop break type.
-        \tparam GuiFixture                A GUI fixture type.
-    */
-    template <
-        typename Settings,
-        typename Model,
-        typename ModelMessageTypeList,
-        typename MessageCatalog,
-        typename ConfirmFileSave,
-        typename LoadFromFile,
-        typename SaveToFile,
-        typename CommandSet,
-        typename MainWindow,
-        typename MainWindowMessageTypeList,
-        typename MenuBar,
-        typename MenuCommand,
-        typename PopupMenu,
-        typename MenuSeparator,
-        typename MessageLoop,
-        typename MessageLoopBreak,
-        typename GuiFixture
-    >
-    class application : private boost::noncopyable
+        typedef boost::mpl::at<model_type_list, type::model>::type model_type;
+
+        typedef boost::mpl::at<
+            application_type_list, type::model_message_type_list>::type
+            model_message_type_list_type;
+
+        typedef
+            boost::mpl::at<locale_type_list, type::message_catalog>::type
+            message_catalog_type;
+
+        typedef
+            boost::mpl::at<load_save_type_list, type::confirm_file_save>::type
+            confirm_file_save_type;
+
+        typedef
+            boost::mpl::at<load_save_type_list, type::load_from_file>::type
+            load_from_file_type;
+
+        typedef load_from_file_type::reader_type reader_type;
+
+        typedef
+            boost::mpl::at<load_save_type_list, type::save_to_file>::type
+            save_to_file_type;
+
+        typedef save_to_file_type::writer_type writer_type;
+
+        typedef
+            boost::mpl::at<command_type_list, type::command_set>::type
+            command_set_type;
+
+        typedef command_set_type::command_type command_type;
+
+        typedef
+            boost::mpl::at<main_window_type_list, type::main_window>::type
+            main_window_type;
+
+        typedef
+            boost::mpl::at<
+                main_window_type_list, type::main_window_message_type_list
+            >::type
+            main_window_message_type_list_type;
+
+        typedef
+            boost::mpl::at<ui_type_list, type::menu_bar>::type menu_bar_type;
+
+        typedef
+            boost::mpl::at<ui_type_list, type::menu_command>::type
+            menu_command_type;
+
+        typedef menu_command_type::base_type menu_base_type;
+
+        typedef menu_base_type::shortcut_key_type shortcut_key_type;
+
+        typedef shortcut_key_type::virtual_key_type virtual_key_type;
+
+        typedef
+            boost::mpl::at<ui_type_list, type::popup_menu>::type
+            popup_menu_type;
+
+        typedef
+            boost::mpl::at<ui_type_list, type::menu_separator>::type
+            menu_separator_type;
+
+        typedef
+            boost::mpl::at<ui_type_list, type::message_loop>::type
+            message_loop_type;
+
+        typedef
+            boost::mpl::at<ui_type_list, type::message_loop_break>::type
+            message_loop_break_type;
+
+        typedef
+            boost::mpl::at<ui_type_list, type::gui_fixture>::type
+            gui_fixture_type;
+
+
+    }
+
+
+    class application::impl : private boost::noncopyable
     {
     public:
-        // types
-
-        //! The settings type.
-        typedef Settings settings_type;
-
-        //! The model type.
-        typedef Model model_type;
-
-        //! The model message type list type.
-        typedef ModelMessageTypeList model_messagetype_list_type;
-
-        //! The message catalog type.
-        typedef MessageCatalog message_catalog_type;
-
-        //! The file save confirmation type.
-        typedef ConfirmFileSave confirm_file_save_type;
-
-        //! The file loading type.
-        typedef LoadFromFile load_from_file_type;
-
-        //! The file saving type.
-        typedef SaveToFile save_to_file_type;
-
-        //! The command set type.
-        typedef CommandSet command_set_type;
-
-        //! The main window type.
-        typedef MainWindow main_window_type;
-
-        //! The main window message type list type.
-        typedef MainWindowMessageTypeList main_window_message_type_list_type;
-
-        //! The menu bar type.
-        typedef MenuBar menu_bar_type;
-
-        //! The menu command type.
-        typedef MenuCommand menu_command_type;
-
-        //! The popup menu type.
-        typedef PopupMenu popup_menu_type;
-
-        //! The menu separator type.
-        typedef MenuSeparator menu_separator_type;
-
-        //! The message loop type.
-        typedef MessageLoop message_loop_type;
-
-        //! The message loop break type.
-        typedef MessageLoopBreak message_loop_break_type;
-
-        //! The GUI fixture type.
-        typedef GuiFixture gui_fixture_type;
-
-
         // constructors and destructor
 
-        /*!
-            \brief Creates a bobura application.
-
-            \param settings Settings of the bobura.
-        */
-        explicit application(const settings_type& settings)
+        explicit impl(const settings_type& settings)
         :
         m_gui_fixture(),
         m_settings(settings),
@@ -134,11 +118,6 @@ namespace bobura
 
         // functions
 
-        /*!
-            \brief Runs the main process of the application.
-
-            \return The exit status code.
-        */
         int run()
         {
             const message_catalog_type message_catalog;
@@ -182,21 +161,6 @@ namespace bobura
 
 
     private:
-        // types
-
-        typedef typename load_from_file_type::reader_type reader_type;
-
-        typedef typename save_to_file_type::writer_type writer_type;
-
-        typedef typename command_set_type::command_type command_type;
-
-        typedef typename menu_command_type::base_type menu_base_type;
-
-        typedef typename menu_base_type::shortcut_key_type shortcut_key_type;
-
-        typedef typename shortcut_key_type::virtual_key_type virtual_key_type;
-
-
         // static functions
 
         static void set_message_observers(
@@ -205,14 +169,14 @@ namespace bobura
         )
         {
             model.observer_set().reset().connect(
-                typename boost::mpl::at<
-                    model_messagetype_list_type,
+                boost::mpl::at<
+                    model_message_type_list_type,
                     message::timetable_model::type::reset
                 >::type(model, main_window)
             );
             model.observer_set().changed().connect(
-                typename boost::mpl::at<
-                    model_messagetype_list_type,
+                boost::mpl::at<
+                    model_message_type_list_type,
                     message::timetable_model::type::changed
                 >::type(model, main_window)
             );
@@ -327,21 +291,21 @@ namespace bobura
         }
 
         static void append_menu_command(
-            menu_base_type&                        popup_menu,
-            typename menu_base_type::string_type&& text,
-            const command_type&                    command,
-            model_type&                            model,
-            main_window_type&                      main_window
+            menu_base_type&               popup_menu,
+            menu_base_type::string_type&& text,
+            const command_type&           command,
+            model_type&                   model,
+            main_window_type&             main_window
         )
         {
             std::unique_ptr<menu_base_type> p_menu_command(
                 tetengo2::make_unique<menu_command_type>(
-                    std::forward<typename menu_base_type::string_type>(text)
+                    std::forward<menu_base_type::string_type>(text)
                 )
             );
 
             p_menu_command->menu_observer_set().selected().connect(
-                typename boost::mpl::at<
+                boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::menu_selected
                 >::type(command, model, main_window)
@@ -351,23 +315,23 @@ namespace bobura
         }
 
         static void append_menu_command(
-            menu_base_type&                        popup_menu,
-            typename menu_base_type::string_type&& text,
-            const command_type&                    command,
-            model_type&                            model,
-            main_window_type&                      main_window,
-            shortcut_key_type&&                    shortcut_key
+            menu_base_type&               popup_menu,
+            menu_base_type::string_type&& text,
+            const command_type&           command,
+            model_type&                   model,
+            main_window_type&             main_window,
+            shortcut_key_type&&           shortcut_key
         )
         {
             std::unique_ptr<menu_base_type> p_menu_command(
                 tetengo2::make_unique<menu_command_type>(
-                    std::forward<typename menu_base_type::string_type>(text),
+                    std::forward<menu_base_type::string_type>(text),
                     std::forward<shortcut_key_type>(shortcut_key)
                 )
             );
 
             p_menu_command->menu_observer_set().selected().connect(
-                typename boost::mpl::at<
+                boost::mpl::at<
                     main_window_message_type_list_type,
                     message::main_window::type::menu_selected
                 >::type(command, model, main_window)
@@ -397,6 +361,19 @@ namespace bobura
     };
 
 
-}
+    application::application(const settings_type& settings)
+    :
+    m_p_impl(tetengo2::make_unique<impl>(settings))
+    {}
 
-#endif
+    application::~application()
+    TETENGO2_CPP11_NOEXCEPT
+    {}
+
+    int application::run()
+    {
+        return m_p_impl->run();
+    }
+
+
+}

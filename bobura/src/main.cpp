@@ -29,6 +29,7 @@
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
+#include "bobura.application.h"
 #include "bobura.type_list.h"
 
 
@@ -90,9 +91,7 @@ namespace
 
     int run_application(const settings_type& settings)
     {
-        return boost::mpl::at<
-            bobura::bobura_type_list, bobura::type::application
-        >::type(settings).run();
+        return bobura::application(settings).run();
     }
 
 

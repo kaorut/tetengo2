@@ -101,7 +101,6 @@
 #include <tetengo2.text.push_parser.h>
 
 #include "bobura.about_dialog.h"
-#include "bobura.application.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.file_property_dialog.h"
@@ -1212,66 +1211,24 @@ namespace bobura
 
     namespace type
     {
-        struct application;    //!< The application type.
+        struct model_message_type_list; //!< The model message type list type.
     }
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace application
-    {
-        typedef
-            message::timetable_model::type_list<
-                boost::mpl::at<model_type_list, type::model>::type,
-                boost::mpl::at<main_window_type_list, type::main_window>::type
-            >::type
-            model_message_type_list;
-    }}
-#endif
 
     //! The type list for the application.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::application,
-                application<
-                    boost::mpl::at<common_type_list, type::settings>::type,
+                type::model_message_type_list,
+                message::timetable_model::type_list<
                     boost::mpl::at<model_type_list, type::model>::type,
-                    detail::application::model_message_type_list,
-                    boost::mpl::at<
-                        locale_type_list, type::message_catalog
-                    >::type,
-                    boost::mpl::at<
-                        load_save_type_list, type::confirm_file_save
-                    >::type,
-                    boost::mpl::at<
-                        load_save_type_list, type::load_from_file
-                    >::type,
-                    boost::mpl::at<
-                        load_save_type_list, type::save_to_file
-                    >::type,
-                    boost::mpl::at<
-                        command_type_list, type::command_set
-                    >::type,
                     boost::mpl::at<
                         main_window_type_list, type::main_window
-                    >::type,
-                    boost::mpl::at<
-                        main_window_type_list,
-                        type::main_window_message_type_list
-                    >::type,
-                    boost::mpl::at<ui_type_list, type::menu_bar>::type,
-                    boost::mpl::at<ui_type_list, type::menu_command>::type,
-                    boost::mpl::at<ui_type_list, type::popup_menu>::type,
-                    boost::mpl::at<ui_type_list, type::menu_separator>::type,
-                    boost::mpl::at<ui_type_list, type::message_loop>::type,
-                    boost::mpl::at<
-                        ui_type_list, type::message_loop_break
-                    >::type,
-                    boost::mpl::at<ui_type_list, type::gui_fixture>::type
-                >
+                    >::type
+                >::type
             >,
         tetengo2::meta::assoc_list_end
         >
-        bobura_type_list;
+        application_type_list;
 
 
 }

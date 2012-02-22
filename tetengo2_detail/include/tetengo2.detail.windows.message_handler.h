@@ -539,7 +539,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             ::HWND first_child_window_handle(::HWND parent_handle);
 
-            ::BOOL WINAPI first_child_window_handle_iter(
+            inline ::BOOL WINAPI first_child_window_handle_iter(
                 const ::HWND   child_handle,
                 const ::LPARAM lParam
             )
@@ -566,7 +566,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 return TRUE;
             }
 
-            ::HWND first_child_window_handle(const ::HWND parent_handle)
+            inline ::HWND first_child_window_handle(
+                const ::HWND parent_handle
+            )
             {
                 ::HWND child_handle = NULL;
                 ::EnumChildWindows(

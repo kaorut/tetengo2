@@ -31,6 +31,9 @@
     <Filter Include="headers\bobura\load_save">
       <UniqueIdentifier>{68848e21-f62b-4e1d-9361-5a124086671f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\bobura">
+      <UniqueIdentifier>{488e0060-acd9-44c7-bcfd-b427108b284c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bobura.about_dialog.h">
@@ -158,6 +161,9 @@
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.application.cpp">
+      <Filter>sources\bobura</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

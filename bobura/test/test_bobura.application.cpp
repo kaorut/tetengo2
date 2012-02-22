@@ -6,6 +6,7 @@
     $Id$
 */
 
+#if 0
 //#include <string>
 //#include <utility>
 //#include <vector>
@@ -45,3 +46,4 @@ BOOST_AUTO_TEST_SUITE(application)
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif
