@@ -77,9 +77,6 @@
     <ClCompile Include="test\test_bobura.message.timetable_model.cpp">
       <Filter>sources\test_bobura\message</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.application.cpp">
-      <Filter>sources\test_bobura</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_bobura.message.file_property_dialog.cpp">
       <Filter>sources\test_bobura\message</Filter>
     </ClCompile>

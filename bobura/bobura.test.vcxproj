@@ -96,7 +96,6 @@
     </ClCompile>
     <ClCompile Include="test\master.cpp" />
     <ClCompile Include="test\test_bobura.about_dialog.cpp" />
-    <ClCompile Include="test\test_bobura.application.cpp" />
     <ClCompile Include="test\test_bobura.command.about.cpp" />
     <ClCompile Include="test\test_bobura.command.exit.cpp" />
     <ClCompile Include="test\test_bobura.command.file_property.cpp" />
