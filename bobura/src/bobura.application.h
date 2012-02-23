@@ -29,6 +29,7 @@ namespace bobura
     public:
         // types
 
+        //! The settings type.
         typedef
             boost::mpl::at<common_type_list, type::settings>::type
             settings_type;
