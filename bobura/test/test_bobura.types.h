@@ -12,7 +12,7 @@
 //#include <cstddef>
 //#include <functional>
 //#include <iterator>
-//#include <ostream>
+#include <ostream>
 //#include <string>
 //#include <utility>
 
