@@ -11,6 +11,8 @@
 
 #include <utility>
 
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/optional.hpp>
 
 #include <tetengo2.text.h>
@@ -120,6 +122,23 @@ namespace bobura { namespace load_save
                 path = model.path();
             }
 
+            const boost::filesystem::path temporary_path =
+                make_temporary_path();
+            boost::filesystem::ofstream output_stream(
+                temporary_path, std::ios_base::binary
+            );
+            if (!output_stream)
+            {
+                create_cant_create_file_message_box(
+                    temporary_path, parent
+                )->do_modal();
+                return false;
+            }
+
+            //m_writer.write(model.timetable(), output_stream);
+
+            boost::filesystem::rename(temporary_path, path);
+
             return true;
         }
 
@@ -145,6 +164,24 @@ namespace bobura { namespace load_save
 
         // functions
 
+        std::unique_ptr<message_box_type> create_cant_create_file_message_box(
+            const path_type&      path,
+            abstract_window_type& parent
+        )
+        const
+        {
+            return tetengo2::make_unique<message_box_type>(
+                parent,
+                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                m_message_catalog.get(
+                    TETENGO2_TEXT("Message:File:Can't create the file.")
+                ),
+                path.template string<string_type>(),
+                message_box_type::button_style_type::ok(false),
+                message_box_type::icon_style_error
+            );
+        }
+
         typename file_save_dialog_type::file_filters_type
         make_file_filters()
         const
@@ -169,6 +206,17 @@ namespace bobura { namespace load_save
             );
 
             return filters;
+        }
+
+        boost::filesystem::path make_temporary_path()
+        const
+        {
+            const boost::filesystem::path temporary_directory =
+                boost::filesystem::temp_directory_path();
+            const boost::filesystem::path unique_path =
+                boost::filesystem::unique_path();
+
+            return temporary_directory / unique_path;
         }
 
 
