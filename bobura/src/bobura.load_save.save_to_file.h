@@ -140,7 +140,7 @@ namespace bobura { namespace load_save
                     return false;
                 }
 
-                //m_writer.write(model.timetable(), output_stream);
+                m_writer.write(model.timetable(), output_stream);
             }
 
             {
