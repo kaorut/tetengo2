@@ -42,6 +42,20 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             window_type parent;
             const bool result = save_to_file(model, parent);
 
+            BOOST_CHECK(!result);
+        }
+        {
+            writer_type writer;
+            const message_catalog_type message_catalog;
+            const save_to_file_type save_to_file(
+                false, writer, message_catalog
+            );
+
+            model_type model;
+            model.set_changed(true);
+            window_type parent;
+            const bool result = save_to_file(model, parent);
+
             BOOST_CHECK(result);
         }
         {
