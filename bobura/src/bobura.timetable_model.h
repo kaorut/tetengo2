@@ -109,6 +109,8 @@ namespace bobura
         {
             m_path = boost::make_optional(std::forward<path_type>(path));
             m_changed = false;
+
+            m_observer_set.reset()();
         }
 
         /*!
