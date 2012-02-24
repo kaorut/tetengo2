@@ -98,6 +98,20 @@ namespace bobura
         }
 
         /*!
+            \brief Sets a path.
+
+            \tparam P A path type.
+
+            \param path A path.
+        */
+        template <typename P>
+        void set_path(P&& path)
+        {
+            m_path = boost::make_optional(std::forward<path_type>(path));
+            m_changed = false;
+        }
+
+        /*!
             \brief Returns the timetable.
 
             \return The timetable.

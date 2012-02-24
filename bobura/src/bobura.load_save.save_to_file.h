@@ -14,6 +14,7 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/optional.hpp>
+#include <boost/system/error_code.hpp>
 
 #include <tetengo2.text.h>
 
@@ -99,6 +100,9 @@ namespace bobura { namespace load_save
         bool operator()(model_type& model, abstract_window_type& parent)
         const
         {
+            if (!m_ask_file_path && !model.changed())
+                return false;
+
             path_type path;
             if (!model.has_path() || m_ask_file_path)
             {
@@ -122,22 +126,36 @@ namespace bobura { namespace load_save
                 path = model.path();
             }
 
-            const boost::filesystem::path temporary_path =
-                make_temporary_path();
-            boost::filesystem::ofstream output_stream(
-                temporary_path, std::ios_base::binary
-            );
-            if (!output_stream)
+            const path_type temporary_path =
+                path.parent_path() / boost::filesystem::unique_path();
             {
-                create_cant_create_file_message_box(
-                    temporary_path, parent
-                )->do_modal();
-                return false;
+                boost::filesystem::ofstream output_stream(
+                    temporary_path, std::ios_base::binary
+                );
+                if (!output_stream)
+                {
+                    create_cant_create_temporary_file_message_box(
+                        temporary_path, parent
+                    )->do_modal();
+                    return false;
+                }
+
+                //m_writer.write(model.timetable(), output_stream);
             }
 
-            //m_writer.write(model.timetable(), output_stream);
+            {
+                boost::system::error_code error_code;
+                boost::filesystem::rename(temporary_path, path, error_code);
+                if (error_code)
+                {
+                    create_cant_write_to_file_message_box(
+                        path, parent
+                    )->do_modal();
+                    return false;
+                }
+            }
 
-            boost::filesystem::rename(temporary_path, path);
+            model.set_path(path);
 
             return true;
         }
@@ -164,7 +182,8 @@ namespace bobura { namespace load_save
 
         // functions
 
-        std::unique_ptr<message_box_type> create_cant_create_file_message_box(
+        std::unique_ptr<message_box_type>
+        create_cant_create_temporary_file_message_box(
             const path_type&      path,
             abstract_window_type& parent
         )
@@ -174,7 +193,28 @@ namespace bobura { namespace load_save
                 parent,
                 m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                 m_message_catalog.get(
-                    TETENGO2_TEXT("Message:File:Can't create the file.")
+                    TETENGO2_TEXT(
+                        "Message:File:Can't create a temporary file."
+                    )
+                ),
+                path.template string<string_type>(),
+                message_box_type::button_style_type::ok(false),
+                message_box_type::icon_style_error
+            );
+        }
+
+        std::unique_ptr<message_box_type>
+        create_cant_write_to_file_message_box(
+            const path_type&      path,
+            abstract_window_type& parent
+        )
+        const
+        {
+            return tetengo2::make_unique<message_box_type>(
+                parent,
+                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                m_message_catalog.get(
+                    TETENGO2_TEXT("Message:File:Can't write to the file.")
                 ),
                 path.template string<string_type>(),
                 message_box_type::button_style_type::ok(false),
@@ -206,17 +246,6 @@ namespace bobura { namespace load_save
             );
 
             return filters;
-        }
-
-        boost::filesystem::path make_temporary_path()
-        const
-        {
-            const boost::filesystem::path temporary_directory =
-                boost::filesystem::temp_directory_path();
-            const boost::filesystem::path unique_path =
-                boost::filesystem::unique_path();
-
-            return temporary_directory / unique_path;
         }
 
 

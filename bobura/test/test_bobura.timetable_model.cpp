@@ -91,6 +91,16 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(set_path)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        model_type model;
+        model.set_path(model_type::path_type(L"hoge"));
+
+        BOOST_CHECK(model.path() == model_type::path_type(L"hoge"));
+    }
+
     BOOST_AUTO_TEST_CASE(reset_timetable)
     {
         BOOST_TEST_PASSPOINT();
