@@ -101,24 +101,10 @@ namespace
 
     // variables
 
-    const std::string json0;
-
-    const std::string json1 =
-        "[]";
-
-    const std::string json2 =
+    const std::string json0 =
         "[\n"
         "    {\n"
-        "    },\n"
-        "    [],\n"
-        "    [],\n"
-        "    []\n"
-        "]\n";
-
-    const std::string json3 =
-        "[\n"
-        "    {\n"
-        "        \"title\": \"hoge\"\n"
+        "        \"title\": \"\"\n"
         "    },\n"
         "    [],\n"
         "    [],\n"
@@ -295,7 +281,8 @@ BOOST_AUTO_TEST_SUITE(json_writer)
 
             json_writer.write(timetable, stream);
 
-
+            const std::string result = stream.str();
+            BOOST_CHECK(result == json0);
         }
     }
 
