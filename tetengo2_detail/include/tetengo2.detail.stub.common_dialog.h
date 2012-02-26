@@ -12,6 +12,7 @@
 //#include <memory>
 //#include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
 
 #include "tetengo2.unique.h"
@@ -191,7 +192,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                 encoder
         )
         {
-            return Path(L"hoge.txt");
+            return
+                boost::filesystem::temp_directory_path() /
+                boost::filesystem::unique_path();
         }
 
         /*!
@@ -248,7 +251,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Encoder&                 encoder
         )
         {
-            return Path(L"hoge.txt");
+            return
+                boost::filesystem::temp_directory_path() /
+                boost::filesystem::unique_path();
         }
 
 

@@ -6,6 +6,7 @@
     $Id$
 */
 
+#include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.detail.stub.common_dialog.h>
@@ -57,6 +58,8 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             const bool result = save_to_file(model, parent);
 
             BOOST_CHECK(result);
+            BOOST_CHECK(boost::filesystem::exists(model.path()));
+            boost::filesystem::remove(model.path());
         }
         {
             writer_type writer;
@@ -70,6 +73,8 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             const bool result = save_to_file(model, parent);
 
             BOOST_CHECK(result);
+            BOOST_CHECK(boost::filesystem::exists(model.path()));
+            boost::filesystem::remove(model.path());
         }
     }
 

@@ -302,7 +302,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
                 L"hoge", make_file_filters(), parent
             );
 
-            BOOST_CHECK(file_open.result() == boost::filesystem::path());
+            BOOST_CHECK(file_open.result().empty());
         }
         {
             window_type parent;
@@ -312,9 +312,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
 
             file_open.do_modal();
 
-            BOOST_CHECK(
-                file_open.result() == boost::filesystem::path(L"hoge.txt")
-            );
+            BOOST_CHECK(!file_open.result().empty());
         }
     }
 

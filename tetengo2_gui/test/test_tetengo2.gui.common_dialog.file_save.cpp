@@ -306,7 +306,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
                 L"hoge", boost::none, make_file_filters(), parent
             );
 
-            BOOST_CHECK(file_save.result() == boost::filesystem::path());
+            BOOST_CHECK(file_save.result().empty());
         }
         {
             window_type parent;
@@ -316,9 +316,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
 
             file_save.do_modal();
 
-            BOOST_CHECK(
-                file_save.result() == boost::filesystem::path(L"hoge.txt")
-            );
+            BOOST_CHECK(!file_save.result().empty());
         }
         {
             window_type parent;
@@ -329,7 +327,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
                 parent
             );
 
-            BOOST_CHECK(file_save.result() == boost::filesystem::path());
+            BOOST_CHECK(file_save.result().empty());
         }
         {
             window_type parent;
@@ -342,9 +340,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
 
             file_save.do_modal();
 
-            BOOST_CHECK(
-                file_save.result() == boost::filesystem::path(L"hoge.txt")
-            );
+            BOOST_CHECK(!file_save.result().empty());
         }
     }
 
