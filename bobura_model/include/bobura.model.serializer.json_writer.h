@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_JSONWRITER_H)
 #define BOBURA_MODEL_SERIALIZER_JSONWRITER_H
 
+#include <string>
+
 #include <boost/algorithm/string.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -82,6 +84,10 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename string_type::size_type size_type;
 
+        typedef typename output_stream_type::char_type output_char_type;
+
+        typedef std::basic_string<output_char_type> output_string_type;
+
 
         // static functions
 
@@ -91,33 +97,33 @@ namespace bobura { namespace model { namespace serializer
             return singleton;
         }
 
-        static const string_type& comma()
+        static const output_string_type& comma()
         {
-            static const string_type singleton(TETENGO2_TEXT(","));
+            static const output_string_type singleton(TETENGO2_TEXT(","));
             return singleton;
         }
 
-        static const string_type& array_begin()
+        static const output_string_type& array_begin()
         {
-            static const string_type singleton(TETENGO2_TEXT("["));
+            static const output_string_type singleton(TETENGO2_TEXT("["));
             return singleton;
         }
 
-        static const string_type& array_end()
+        static const output_string_type& array_end()
         {
-            static const string_type singleton(TETENGO2_TEXT("]"));
+            static const output_string_type singleton(TETENGO2_TEXT("]"));
             return singleton;
         }
 
-        static const string_type& object_begin()
+        static const output_string_type& object_begin()
         {
-            static const string_type singleton(TETENGO2_TEXT("{"));
+            static const output_string_type singleton(TETENGO2_TEXT("{"));
             return singleton;
         }
 
-        static const string_type& object_end()
+        static const output_string_type& object_end()
         {
-            static const string_type singleton(TETENGO2_TEXT("}"));
+            static const output_string_type singleton(TETENGO2_TEXT("}"));
             return singleton;
         }
 
@@ -134,7 +140,9 @@ namespace bobura { namespace model { namespace serializer
         {
             output_stream << std::endl;
             output_stream <<
-                string_type(level * 4, char_type(TETENGO2_TEXT(' ')));
+                output_string_type(
+                    level * 4, output_char_type(TETENGO2_TEXT(' '))
+                );
         }
 
         static void write_object_entry(
@@ -145,9 +153,9 @@ namespace bobura { namespace model { namespace serializer
         )
         {
             output_stream <<
-                quote(key) <<
-                string_type(TETENGO2_TEXT(": ")) <<
-                quote(value);
+                encoder().encode(quote(key)) <<
+                output_string_type(TETENGO2_TEXT(": ")) <<
+                encoder().encode(quote(value));
         }
 
         static void write_header(
