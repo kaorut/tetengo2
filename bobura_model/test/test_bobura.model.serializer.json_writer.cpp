@@ -126,12 +126,15 @@ namespace
         "        {\n"
         "            \"number\": \"101D\",\n"
         "            \"note\": \"fuga\",\n"
-        "            \"stops\": []\n"
+        "            \"stops\": [\n"
+        "                [    -1,     -1, \"\"],\n"
+        "                [    -1,     -1, \"\"]\n"
+        "            ]\n"
         "        },\n"
         "        {\n"
         "            \"number\": \"123D\",\n"
-        "            \"note\":   \"\",\n"
-        "            \"stops\":  [\n"
+        "            \"note\": \"\",\n"
+        "            \"stops\": [\n"
         "                [    -1,  60030, \"1\"],\n"
         "                [ 60545,     -1, \"\"]\n"
         "            ]\n"
@@ -140,9 +143,10 @@ namespace
         "    [\n"
         "        {\n"
         "            \"number\": \"9324M\",\n"
-        "            \"note\":   \"piyo\",\n"
-        "            \"stops\":  [\n"
-        "                [    -1,  62000, \"0A\"]\n"
+        "            \"note\": \"piyo\",\n"
+        "            \"stops\": [\n"
+        "                [    -1,  62000, \"0A\"],\n"
+        "                [    -1,     -1, \"\"]\n"
         "            ]\n"
         "        }\n"
         "    ]\n"
@@ -180,7 +184,76 @@ namespace
                 )
             );
         }
-
+        {
+            {
+                train_type train("101D", "fuga");
+                train.insert_stop(
+                    train.stops().end(),
+                    stop_type(
+                        time_type::uninitialized(),
+                        time_type::uninitialized(),
+                        ""
+                    )
+                );
+                train.insert_stop(
+                    train.stops().end(),
+                    stop_type(
+                        time_type::uninitialized(),
+                        time_type::uninitialized(),
+                        ""
+                    )
+                );
+                p_timetable->insert_down_train(
+                    p_timetable->down_trains().end(), train
+                );
+            }
+            {
+                train_type train("123D", "");
+                train.insert_stop(
+                    train.stops().end(),
+                    stop_type(
+                        time_type::uninitialized(),
+                        time_type( 6, 0, 30),
+                        "1"
+                    )
+                );
+                train.insert_stop(
+                    train.stops().end(),
+                    stop_type(
+                        time_type(6, 5, 45),
+                        time_type::uninitialized(),
+                        ""
+                    )
+                );
+                p_timetable->insert_down_train(
+                    p_timetable->down_trains().end(), train
+                );
+            }
+        }
+        {
+            {
+                train_type train("9324M", "piyo");
+                train.insert_stop(
+                    train.stops().end(),
+                    stop_type(
+                        time_type::uninitialized(),
+                        time_type(6, 20, 0),
+                        "0A"
+                    )
+                );
+                train.insert_stop(
+                    train.stops().end(),
+                    stop_type(
+                        time_type::uninitialized(),
+                        time_type::uninitialized(),
+                        ""
+                    )
+                );
+                p_timetable->insert_up_train(
+                    p_timetable->up_trains().end(), train
+                );
+            }
+        }
         return std::move(p_timetable);
     }
 

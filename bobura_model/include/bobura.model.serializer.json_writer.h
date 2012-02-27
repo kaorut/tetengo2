@@ -12,9 +12,11 @@
 #include <algorithm>
 #include <functional>
 #include <string>
+#include <tuple>
 #include <type_traits>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/format.hpp>
 #include <boost/next_prior.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -85,6 +87,14 @@ namespace bobura { namespace model { namespace serializer
         typedef
             typename timetable_type::station_location_type
             station_location_type;
+
+        typedef typename timetable_type::train_type train_type;
+
+        typedef typename train_type::stops_type stops_type;
+
+        typedef typename train_type::stop_type stop_type;
+
+        typedef typename stop_type::time_type time_type;
 
         typedef typename timetable_type::string_type string_type;
 
@@ -159,6 +169,17 @@ namespace bobura { namespace model { namespace serializer
                 );
         }
 
+        static void write_object_key(
+            const string_type&  key,
+            const size_type     level,
+            output_stream_type& output_stream
+        )
+        {
+            output_stream <<
+                encoder().encode(quote(key)) <<
+                output_string_type(TETENGO2_TEXT(": "));
+        }
+
         static void write_object_entry(
             const string_type&  key,
             const string_type&  value,
@@ -166,10 +187,8 @@ namespace bobura { namespace model { namespace serializer
             output_stream_type& output_stream
         )
         {
-            output_stream <<
-                encoder().encode(quote(key)) <<
-                output_string_type(TETENGO2_TEXT(": ")) <<
-                encoder().encode(quote(value));
+            write_object_key(key, level, output_stream);
+            output_stream << encoder().encode(quote(value));
         }
 
         template <typename Integer>
@@ -183,10 +202,8 @@ namespace bobura { namespace model { namespace serializer
             >::type* const = NULL
         )
         {
-            output_stream <<
-                encoder().encode(quote(key)) <<
-                output_string_type(TETENGO2_TEXT(": ")) <<
-                value;
+            write_object_key(key, level, output_stream);
+            output_stream << value;
         }
 
         static void write_header(
@@ -290,6 +307,30 @@ namespace bobura { namespace model { namespace serializer
         {
             output_stream << array_begin();
 
+            if (!timetable.down_trains().empty())
+            {
+                std::for_each(
+                    timetable.down_trains().begin(),
+                    boost::prior(timetable.down_trains().end()),
+                    TETENGO2_CPP11_BIND(
+                        write_train,
+                        tetengo2::cpp11::placeholders_1(),
+                        level,
+                        tetengo2::cpp11::ref(output_stream),
+                        false
+                    )
+                );
+                write_train(
+                    *boost::prior(timetable.down_trains().end()),
+                    level,
+                    output_stream,
+                    true
+                );
+
+                new_line(level, output_stream);
+            }
+
+
             output_stream << array_end();
         }
 
@@ -301,7 +342,135 @@ namespace bobura { namespace model { namespace serializer
         {
             output_stream << array_begin();
 
+            if (!timetable.up_trains().empty())
+            {
+                std::for_each(
+                    timetable.up_trains().begin(),
+                    boost::prior(timetable.up_trains().end()),
+                    TETENGO2_CPP11_BIND(
+                        write_train,
+                        tetengo2::cpp11::placeholders_1(),
+                        level,
+                        tetengo2::cpp11::ref(output_stream),
+                        false
+                    )
+                );
+                write_train(
+                    *boost::prior(timetable.up_trains().end()),
+                    level,
+                    output_stream,
+                    true
+                );
+
+                new_line(level, output_stream);
+            }
+
             output_stream << array_end();
+        }
+
+        static void write_train(
+            const train_type&   train,
+            const size_type     level,
+            output_stream_type& output_stream,
+            const bool          last
+        )
+        {
+            new_line(level + 1, output_stream);
+            output_stream << object_begin();
+
+            new_line(level + 2, output_stream);
+            write_object_entry(
+                "number", train.number(), level, output_stream
+            );
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_entry("note", train.note(), level, output_stream);
+            output_stream << comma();
+
+            new_line(level + 2, output_stream);
+            write_object_key("stops", level, output_stream);
+            write_stops(train.stops(), level + 2, output_stream);
+
+            new_line(level + 1, output_stream);
+            output_stream << object_end();
+            if (!last)
+                output_stream << comma();
+        }
+
+        static void write_stops(
+            const stops_type&   stops,
+            const size_type     level,
+            output_stream_type& output_stream
+        )
+        {
+            output_stream << array_begin();
+
+            if (!stops.empty())
+            {
+                std::for_each(
+                    stops.begin(),
+                    boost::prior(stops.end()),
+                    TETENGO2_CPP11_BIND(
+                        write_stop, 
+                        tetengo2::cpp11::placeholders_1(),
+                        level,
+                        tetengo2::cpp11::ref(output_stream),
+                        false
+                    )
+                );
+                write_stop(
+                    *boost::prior(stops.end()), level, output_stream, true
+                );
+
+                new_line(level, output_stream);
+            }
+
+            output_stream << array_end();
+        }
+
+        static void write_stop(
+            const stop_type&    stop,
+            const size_type     level,
+            output_stream_type& output_stream,
+            const bool          last
+        )
+        {
+            new_line(level + 1, output_stream);
+            output_stream << array_begin();
+
+            output_stream << time_representation(stop.arrival());
+            output_stream << comma() << space();
+
+            output_stream << time_representation(stop.departure());
+            output_stream << comma() << space();
+
+            output_stream << quote(stop.platform());
+
+            output_stream << array_end();
+            if (!last)
+                output_stream << comma();
+        }
+
+        static output_string_type time_representation(const time_type& time)
+        {
+            if (time == time_type::uninitialized())
+                return output_string_type("    -1");
+
+            typedef typename time_type::tick_type tick_type;
+            typedef
+                std::tuple<tick_type, tick_type, tick_type>
+                hours_minutes_seconds_type;
+            const hours_minutes_seconds_type hours_minutes_seconds =
+                time.hours_minutes_seconds();
+            std::basic_ostringstream<output_char_type> stream;
+            stream <<
+                boost::basic_format<output_char_type>("% 6d") % (
+                    std::get<0>(hours_minutes_seconds) * 10000 +
+                    std::get<1>(hours_minutes_seconds) * 100 +
+                    std::get<2>(hours_minutes_seconds)
+                );
+            return stream.str();
         }
 
 
