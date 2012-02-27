@@ -272,7 +272,7 @@ namespace bobura { namespace model { namespace serializer
             output_stream << object_begin() << space();
 
             write_object_entry(
-                "name",
+                string_type(TETENGO2_TEXT("name")),
                 station_location.station().name(),
                 level,
                 output_stream
@@ -280,7 +280,7 @@ namespace bobura { namespace model { namespace serializer
             output_stream << comma() << space();
 
             write_object_entry(
-                "grade",
+                string_type(TETENGO2_TEXT("grade")),
                 station_location.station().grade().name(),
                 level,
                 output_stream
@@ -288,7 +288,7 @@ namespace bobura { namespace model { namespace serializer
             output_stream << comma() << space();
 
             write_object_entry(
-                "meterage",
+                string_type(TETENGO2_TEXT("meterage")),
                 station_location.meterage(),
                 level,
                 output_stream
@@ -380,16 +380,26 @@ namespace bobura { namespace model { namespace serializer
 
             new_line(level + 2, output_stream);
             write_object_entry(
-                "number", train.number(), level, output_stream
+                string_type(TETENGO2_TEXT("number")),
+                train.number(),
+                level,
+                output_stream
             );
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_entry("note", train.note(), level, output_stream);
+            write_object_entry(
+                string_type(TETENGO2_TEXT("note")),
+                train.note(),
+                level,
+                output_stream
+            );
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_key("stops", level, output_stream);
+            write_object_key(
+                string_type(TETENGO2_TEXT("stops")), level, output_stream
+            );
             write_stops(train.stops(), level + 2, output_stream);
 
             new_line(level + 1, output_stream);
@@ -445,7 +455,7 @@ namespace bobura { namespace model { namespace serializer
             output_stream << time_representation(stop.departure());
             output_stream << comma() << space();
 
-            output_stream << quote(stop.platform());
+            output_stream << encoder().encode(quote(stop.platform()));
 
             output_stream << array_end();
             if (!last)
@@ -455,7 +465,7 @@ namespace bobura { namespace model { namespace serializer
         static output_string_type time_representation(const time_type& time)
         {
             if (time == time_type::uninitialized())
-                return output_string_type("    -1");
+                return output_string_type(TETENGO2_TEXT("    -1"));
 
             typedef typename time_type::tick_type tick_type;
             typedef
@@ -465,7 +475,9 @@ namespace bobura { namespace model { namespace serializer
                 time.hours_minutes_seconds();
             std::basic_ostringstream<output_char_type> stream;
             stream <<
-                boost::basic_format<output_char_type>("% 6d") % (
+                boost::basic_format<output_char_type>(
+                    TETENGO2_TEXT("% 6d")
+                ) % (
                     std::get<0>(hours_minutes_seconds) * 10000 +
                     std::get<1>(hours_minutes_seconds) * 100 +
                     std::get<2>(hours_minutes_seconds)
