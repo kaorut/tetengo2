@@ -9,10 +9,11 @@
 #if !defined(BOBURA_LOADSAVE_SAVETOFILE_H)
 #define BOBURA_LOADSAVE_SAVETOFILE_H
 
+#include <memory>
 #include <utility>
 
+#include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
 #include <boost/optional.hpp>
 #include <boost/system/error_code.hpp>
 
@@ -129,9 +130,7 @@ namespace bobura { namespace load_save
             const path_type temporary_path =
                 path.parent_path() / boost::filesystem::unique_path();
             {
-                boost::filesystem::ofstream output_stream(
-                    temporary_path, std::ios_base::binary
-                );
+                boost::filesystem::ofstream output_stream(temporary_path);
                 if (!output_stream)
                 {
                     create_cant_create_temporary_file_message_box(

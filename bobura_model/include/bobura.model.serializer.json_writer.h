@@ -9,15 +9,16 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_JSONWRITER_H)
 #define BOBURA_MODEL_SERIALIZER_JSONWRITER_H
 
+#include <cstddef>
 #include <algorithm>
-#include <functional>
+#include <iomanip>
+#include <sstream>
 #include <string>
 #include <tuple>
 #include <type_traits>
 
-#include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
-#include <boost/next_prior.hpp>
+#include <boost/utility.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>

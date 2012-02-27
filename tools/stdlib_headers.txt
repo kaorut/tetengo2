@@ -246,7 +246,12 @@ boost::filesystem::directory_iterator            boost/filesystem.hpp
 boost::filesystem::exists                        boost/filesystem.hpp
 boost::filesystem::ifstream                      boost/filesystem/fstream.hpp
 boost::filesystem::is_directory                  boost/filesystem.hpp
+boost::filesystem::ofstream                      boost/filesystem/fstream.hpp
 boost::filesystem::path                          boost/filesystem.hpp
+boost::filesystem::remove                        boost/filesystem.hpp
+boost::filesystem::rename                        boost/filesystem.hpp
+boost::filesystem::temp_directory_path           boost/filesystem.hpp
+boost::filesystem::unique_path                   boost/filesystem.hpp
 boost::forward_traversal_tag                     boost/iterator/iterator_categories.hpp
 boost::get                                       boost/variant.hpp
 boost::get_error_info                            boost/exception/all.hpp
@@ -316,6 +321,7 @@ boost::spirit::qi::parse                         boost/spirit/include/qi.hpp
 boost::spirit::qi::rule                          boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
 boost::swap                                      boost/swap.hpp
+boost::system::error_code                        boost/system/error_code.hpp
 boost::this_thread::sleep                        boost/thread.hpp
 boost::thread                                    boost/thread.hpp
 boost::thread_interrupted                        boost/thread.hpp
@@ -351,6 +357,7 @@ std::ios_base::binary                            ios
 std::ios_base::failure                           ios
 std::is_arithmetic                               type_traits
 std::is_convertible                              type_traits
+std::is_integral                                 type_traits
 std::is_same                                     type_traits
 std::istream                                     istream
 std::istreambuf_iterator                         iterator

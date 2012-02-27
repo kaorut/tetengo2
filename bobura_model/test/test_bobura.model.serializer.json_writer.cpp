@@ -7,10 +7,11 @@
 */
 
 //#include <cstddef>
-#include <memory>
+//#include <memory>
 #include <ostream>
-#include <sstream>
+//#include <sstream>
 //#include <string>
+//#include <utility>
 
 #include <boost/test/unit_test.hpp>
 
