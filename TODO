@@ -7,21 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000136
-Added on    : 2012/01/16
-Depends on  : (none)
-Description : Create bobura::model::serializer::json_writer.
-------------------------------------------------------------------------------
-Number      : 00000142
-Added on    : 2012/01/26
-Depends on  : 00000136, 00000149
-Description : Create bobura::command::save_to_file.
-------------------------------------------------------------------------------
-Number      : 00000149
-Added on    : 2012/02/17
-Depends on  : (none)
-Description : Create bobura::load_save::save_to_file.
-------------------------------------------------------------------------------
 Number      : 00000150
 Added on    : 2012/02/17
 Depends on  : (none)
@@ -33,7 +18,13 @@ Added on    : 2012/02/23
 Depends on  : (none)
 Description : Unify bobura.types.h and test_bobura.types.h.
 ------------------------------------------------------------------------------
-Number      : 00000151
+Number      : 00000153
+Added on    : 2012/02/28
+Depends on  : (none)
+Description : Create bobura::model::serializer::compressed_json_reader and
+            : compressed_json_writer.
+------------------------------------------------------------------------------
+Number      : 00000154
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
