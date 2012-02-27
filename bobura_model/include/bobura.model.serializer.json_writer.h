@@ -9,9 +9,13 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_JSONWRITER_H)
 #define BOBURA_MODEL_SERIALIZER_JSONWRITER_H
 
+#include <algorithm>
+#include <functional>
 #include <string>
+#include <type_traits>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/next_prior.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
@@ -78,6 +82,10 @@ namespace bobura { namespace model { namespace serializer
     private:
         // types
 
+        typedef
+            typename timetable_type::station_location_type
+            station_location_type;
+
         typedef typename timetable_type::string_type string_type;
 
         typedef typename string_type::value_type char_type;
@@ -100,6 +108,12 @@ namespace bobura { namespace model { namespace serializer
         static const output_string_type& comma()
         {
             static const output_string_type singleton(TETENGO2_TEXT(","));
+            return singleton;
+        }
+
+        static const output_string_type& space()
+        {
+            static const output_string_type singleton(TETENGO2_TEXT(" "));
             return singleton;
         }
 
@@ -158,6 +172,23 @@ namespace bobura { namespace model { namespace serializer
                 encoder().encode(quote(value));
         }
 
+        template <typename Integer>
+        static void write_object_entry(
+            const string_type&  key,
+            const Integer       value,
+            const size_type     level,
+            output_stream_type& output_stream,
+            const typename std::enable_if<
+                std::is_integral<Integer>::value
+            >::type* const = NULL
+        )
+        {
+            output_stream <<
+                encoder().encode(quote(key)) <<
+                output_string_type(TETENGO2_TEXT(": ")) <<
+                value;
+        }
+
         static void write_header(
             const timetable_type& timetable,
             const size_type       level,
@@ -186,7 +217,69 @@ namespace bobura { namespace model { namespace serializer
         {
             output_stream << array_begin();
 
+            if (!timetable.station_locations().empty())
+            {
+                std::for_each(
+                    timetable.station_locations().begin(),
+                    boost::prior(timetable.station_locations().end()),
+                    TETENGO2_CPP11_BIND(
+                        write_station_location,
+                        tetengo2::cpp11::placeholders_1(),
+                        level,
+                        tetengo2::cpp11::ref(output_stream),
+                        false
+                    )
+                );
+                write_station_location(
+                    *boost::prior(timetable.station_locations().end()),
+                    level,
+                    output_stream,
+                    true
+                );
+
+                new_line(level, output_stream);
+            }
+
             output_stream << array_end();
+        }
+
+        static void write_station_location(
+            const station_location_type& station_location,
+            const size_type              level,
+            output_stream_type&          output_stream,
+            const bool                   last
+        )
+        {
+            new_line(level + 1, output_stream);
+
+            output_stream << object_begin() << space();
+
+            write_object_entry(
+                "name",
+                station_location.station().name(),
+                level,
+                output_stream
+            );
+            output_stream << comma() << space();
+
+            write_object_entry(
+                "grade",
+                station_location.station().grade().name(),
+                level,
+                output_stream
+            );
+            output_stream << comma() << space();
+
+            write_object_entry(
+                "meterage",
+                station_location.meterage(),
+                level,
+                output_stream
+            );
+
+            output_stream << space() << object_end();
+            if (!last)
+                output_stream << comma();
         }
 
         static void write_down_trains(

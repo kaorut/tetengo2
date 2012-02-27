@@ -7,6 +7,7 @@
 */
 
 //#include <cstddef>
+#include <memory>
 #include <ostream>
 #include <sstream>
 //#include <string>
@@ -17,6 +18,7 @@
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.text.encoder.h>
 #include <tetengo2.text.encoding.locale.h>
+#include <tetengo2.unique.h>
 
 #include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.station.h"
@@ -111,66 +113,20 @@ namespace
         "    []\n"
         "]\n";
 
-    const std::string json4 =
-        "[\n"
-        "    {\n"
-        "        \"piyo\":  \"piyopiyo\",\n"
-        "        \"title\": \"hoge\"\n"
-        "    },\n"
-        "    [\n"
-        "        {\n"
-        "            \"name\":     \"stationA\",\n"
-        "            \"grade\":    \"local\",\n"
-        "            \"meterage\": 42\n"
-        "        },\n"
-        "        {\n"
-        "            \"name\":     \"stationB\",\n"
-        "            \"grade\":    \"principal\",\n"
-        "            \"meterage\": 4242\n"
-        "        }\n"
-        "    ],\n"
-        "    [],\n"
-        "    []\n"
-        "]\n";
-
-    const std::string json5 =
+    const std::string json1 =
         "[\n"
         "    {\n"
         "        \"title\": \"hoge\"\n"
         "    },\n"
         "    [\n"
-        "        {\n"
-        "            \"name\":     \"stationA\",\n"
-        "            \"grade\":    \"hoge\",\n"
-        "            \"meterage\": 42\n"
-        "        }\n"
-        "    ],\n"
-        "    [],\n"
-        "    []\n"
-        "]\n";
-
-    const std::string json6 =
-        "[\n"
-        "    {\n"
-        "        \"title\": \"hoge\"\n"
-        "    },\n"
-        "    [\n"
-        "        {\n"
-        "            \"name\":     \"stationA\",\n"
-        "            \"grade\":    \"local\",\n"
-        "            \"meterage\": 42\n"
-        "        },\n"
-        "        {\n"
-        "            \"name\":     \"stationB\",\n"
-        "            \"grade\":    \"principal\",\n"
-        "            \"meterage\": 4242\n"
-        "        }\n"
+        "        { \"name\": \"stationA\", \"grade\": \"local\", \"meterage\": 42 },\n"
+        "        { \"name\": \"stationB\", \"grade\": \"principal\", \"meterage\": 4242 }\n"
         "    ],\n"
         "    [\n"
         "        {\n"
         "            \"number\": \"101D\",\n"
-        "            \"note\":   \"fuga\",\n"
-        "            \"stops\":  []\n"
+        "            \"note\": \"fuga\",\n"
+        "            \"stops\": []\n"
         "        },\n"
         "        {\n"
         "            \"number\": \"123D\",\n"
@@ -186,72 +142,47 @@ namespace
         "            \"number\": \"9324M\",\n"
         "            \"note\":   \"piyo\",\n"
         "            \"stops\":  [\n"
-        "                [  -1,  62000, \"0A\"]\n"
+        "                [    -1,  62000, \"0A\"]\n"
         "            ]\n"
         "        }\n"
         "    ]\n"
         "]\n";
 
-    const std::string json7 =
-        "[\n"
-        "    {\n"
-        "        \"title\": \"hoge\"\n"
-        "    },\n"
-        "    [\n"
-        "        {\n"
-        "            \"name\":     \"stationA\",\n"
-        "            \"grade\":    \"local\",\n"
-        "            \"meterage\": 42\n"
-        "        },\n"
-        "        {\n"
-        "            \"name\":     \"stationB\",\n"
-        "            \"grade\":    \"principal\",\n"
-        "            \"meterage\": 4242\n"
-        "        }\n"
-        "    ],\n"
-        "    [\n"
-        "        {\n"
-        "            \"number\": \"123D\",\n"
-        "            \"note\":   \"\",\n"
-        "            \"stops\":  [\n"
-        "                [    -1,  66030, \"1\"],\n"
-        "                [ 60545,     -1, \"\"]\n"
-        "            ]\n"
-        "        }\n"
-        "    ],\n"
-        "    []\n"
-        "]\n";
 
-    const std::string json8 =
-        "[\n"
-        "    {\n"
-        "        \"title\": \"hoge\"\n"
-        "    },\n"
-        "    [\n"
-        "        {\n"
-        "            \"name\":     \"stationA\",\n"
-        "            \"grade\":    \"local\",\n"
-        "            \"meterage\": 42\n"
-        "        },\n"
-        "        {\n"
-        "            \"name\":     \"stationB\",\n"
-        "            \"grade\":    \"principal\",\n"
-        "            \"meterage\": 4242\n"
-        "        }\n"
-        "    ],\n"
-        "    [\n"
-        "        {\n"
-        "            \"number\": \"123D\",\n"
-        "            \"note\":   \"\",\n"
-        "            \"stops\":  [\n"
-        "                [    -1,  60030, \"1\"],\n"
-        "                [ 60230,  60315, \"\"],\n"
-        "                [ 60545,     -1, \"\"]\n"
-        "            ]\n"
-        "        }\n"
-        "    ],\n"
-        "    []\n"
-        "]\n";
+    // functions
+
+    std::unique_ptr<const timetable_type> create_timetable1()
+    {
+        std::unique_ptr<timetable_type> p_timetable =
+            tetengo2::make_unique<timetable_type>();
+
+        p_timetable->set_title("hoge");
+
+        {
+            p_timetable->insert_station_location(
+                p_timetable->station_locations().end(),
+                station_location_type(
+                    station_type(
+                        "stationA",
+                        grade_type_set_type::local_type::instance()
+                    ),
+                    42
+                )
+            );
+            p_timetable->insert_station_location(
+                p_timetable->station_locations().end(),
+                station_location_type(
+                    station_type(
+                        "stationB",
+                        grade_type_set_type::principal_type::instance()
+                    ),
+                    4242
+                )
+            );
+        }
+
+        return std::move(p_timetable);
+    }
 
 
 }
@@ -283,6 +214,18 @@ BOOST_AUTO_TEST_SUITE(json_writer)
 
             const std::string result = stream.str();
             BOOST_CHECK(result == json0);
+        }
+        {
+            writer_type json_writer;
+
+            const std::unique_ptr<const timetable_type> p_timetable =
+                create_timetable1();
+            std::ostringstream stream;
+
+            json_writer.write(*p_timetable, stream);
+
+            const std::string result = stream.str();
+            BOOST_CHECK(result == json1);
         }
     }
 
