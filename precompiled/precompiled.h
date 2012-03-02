@@ -25,11 +25,13 @@
 #include <limits>
 #include <locale>
 #include <memory>
+#include <ostream>
 #include <queue>
 #include <sstream>
 #include <stack>
 #include <stdexcept>
 #include <string>
+#include <system_error>
 #include <tuple>
 #include <type_traits>
 #include <unordered_map>
@@ -95,6 +97,7 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/swap.hpp>
+#include <boost/system/error_code.hpp>
 #include <boost/thread.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
