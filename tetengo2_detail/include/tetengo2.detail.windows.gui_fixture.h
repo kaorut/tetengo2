@@ -37,6 +37,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
         /*!
             \brief Creates a detail implementation of a GUI fixture.
+
+            \throw std::system_error When an initialization fails.
         */
         gui_fixture()
         {

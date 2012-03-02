@@ -11,6 +11,7 @@
 
 #include <cstddef>
 #include <stdexcept>
+#include <system_error>
 
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
@@ -43,6 +44,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
         /*!
             \brief Creates a detail implementation of a GUI fixture.
+
+            \throw std::system_error When an initialization fails.
         */
         gui_fixture()
         :
@@ -70,7 +73,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (Gdiplus::GdiplusStartup(&token, &input, NULL) != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't start up GDI+!")
+                    std::system_error(
+                        std::errc::io_error,
+                        std::generic_category(),
+                        "Can't start up GDI+!"
+                    )
                 );
             }
 
