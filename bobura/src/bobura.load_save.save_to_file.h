@@ -15,7 +15,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/optional.hpp>
-#include <boost/system/error_code.hpp>
+#include <boost/system/system_error.hpp>
 
 #include <tetengo2.text.h>
 

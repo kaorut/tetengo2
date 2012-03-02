@@ -228,8 +228,9 @@ namespace tetengo2 { namespace cpp11
 #   endif
 #endif
 
-// <functional> is included above.
-#if !TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED
+#if TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED
+//  include <functional> // included above
+#else
 #   include <boost/ref.hpp>
 #endif
 
@@ -295,6 +296,84 @@ namespace tetengo2 { namespace cpp11
     inline boost::reference_wrapper<const T> cref(const T& value)
     {
         return boost::cref(value);
+    }
+#endif
+
+
+}}
+
+
+/* system_error *************************************************************/
+
+#if !defined(DOCUMENTATION)
+#   if \
+        ( \
+            defined(__GNUC__) && defined(__GNUC_MINOR__) && \
+            __GNUC__ >= 4 && __GNUC_MINOR__ >= 3 \
+        )
+#       define TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED 1
+#   else
+#       define TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED 0
+#   endif
+#endif
+
+#if TETENGO2_CPP11_STD_SYSTEMERROR_SUPPORTED
+#   include <system_error>
+#else
+#   include <boost/system/system_error.hpp>
+#endif
+
+namespace tetengo2 { namespace cpp11
+{
+#if TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED || defined(DOCUMENTATION)
+    //! The scoped enum for a generic error code.
+    typedef std::errc errc;
+
+    //! The class for a system error.
+    typedef std::system_error system_error;
+
+    //! The class for an error category.
+    typedef std::error_category error_category;
+
+    //! The class for en error code.
+    typedef std::error_code error_code;
+
+    /*!
+        \brief The function for the generic category.
+
+        \return The generic category.
+    */
+    inline const error_category& generic_category()
+    {
+        return std::generic_category();
+    }
+
+    /*!
+        \brief The function for the system category.
+
+        \return The system category.
+    */
+    inline const error_category& system_category()
+    {
+        return std::system_category();
+    }
+#else
+    namespace errc = boost::system::errc;
+
+    typedef boost::system::system_error system_error;
+
+    typedef boost::system::error_category error_category;
+
+    typedef boost::system::error_code error_code;
+
+    inline const error_category& generic_category()
+    {
+        return boost::system::generic_category();
+    }
+
+    inline const error_category& system_category()
+    {
+        return boost::system::system_category();
     }
 #endif
 

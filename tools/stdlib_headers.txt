@@ -321,7 +321,12 @@ boost::spirit::qi::parse                         boost/spirit/include/qi.hpp
 boost::spirit::qi::rule                          boost/spirit/include/qi.hpp
 boost::spirit::qi::unused_type                   boost/spirit/include/qi.hpp
 boost::swap                                      boost/swap.hpp
-boost::system::error_code                        boost/system/error_code.hpp
+boost::system::errc                              boost/system/system_error.hpp
+boost::system::error_category                    boost/system/system_error.hpp
+boost::system::error_code                        boost/system/system_error.hpp
+boost::system::generic_category                  boost/system/system_error.hpp
+boost::system::system_category                   boost/system/system_error.hpp
+boost::system::system_error                      boost/system/system_error.hpp
 boost::this_thread::sleep                        boost/thread.hpp
 boost::thread                                    boost/thread.hpp
 boost::thread_interrupted                        boost/thread.hpp
@@ -343,7 +348,10 @@ std::cref                                        functional
 std::distance                                    iterator
 std::enable_if                                   type_traits
 std::endl                                        iomanip
+std::errc                                        system_error
 std::errc::io_error                              system_error
+std::error_category                              system_error
+std::error_code                                  system_error
 std::exception                                   exception
 std::find_if                                     algorithm
 std::for_each                                    algorithm
@@ -400,6 +408,7 @@ std::sort                                        algorithm
 std::stack                                       stack
 std::string                                      string
 std::string::const_iterator                      string
+std::system_category                             system_error
 std::system_error                                system_error
 std::transform                                   algorithm
 std::tuple                                       tuple
