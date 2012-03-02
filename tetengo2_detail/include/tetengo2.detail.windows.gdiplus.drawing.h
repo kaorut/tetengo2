@@ -17,6 +17,7 @@
 //#include <utility>
 #include <vector>
 //#include <stdexcept>
+#include <system_error>
 //#include <type_traits>
 
 #include <boost/optional.hpp>
@@ -182,6 +183,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param path A path.
 
             \return A unique pointer to a picture.
+
+            \throw std::system_error When the picture cannot be read.
         */
         template <typename Path>
         static std::unique_ptr<picture_details_type> read_picture(
@@ -191,10 +194,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             std::unique_ptr<picture_details_type> p_picture(
                 make_unique<Gdiplus::Bitmap>(path.c_str())
             );
-            if (p_picture->GetLastStatus() != S_OK)
+            if (p_picture->GetLastStatus() != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't read a picture.")
+                    std::system_error(
+                        std::errc::io_error,
+                        std::generic_category(),
+                        "Can't read a picture."
+                    )
                 );
             }
 
@@ -252,6 +259,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param canvas    A canvas.
             \param position  A position of a region.
             \param dimension A dimension of a region.
+
+            \throw std::system_error When the focus indication cannot be
+                                     drawn.
         */
         template <typename Position, typename Dimension>
         static void draw_focus_indication(
@@ -273,7 +283,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (::DrawFocusRect(canvas.GetHDC(), &rect) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't draw a focus rectangle.")
+                    std::system_error(
+                        std::errc::io_error,
+                        std::generic_category(),
+                        "Can't draw a focus rectangle."
+                    )
                 );
             }
         }
@@ -289,6 +303,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param position   A position of a region.
             \param dimension  A dimension of a region.
             \param background A background.
+
+            \throw std::system_error When the rectangle cannot be filled.
         */
         template <typename Position, typename Dimension, typename Background>
         static void fill_rectangle(
@@ -316,7 +332,18 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     gui::dimension<Dimension>::height(dimension)
                 )
             );
-            canvas.FillRectangle(&*background_details, rectangle);
+            const Gdiplus::Status status =
+                canvas.FillRectangle(&*background_details, rectangle);
+            if (status != Gdiplus::Ok)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::errc::io_error,
+                        std::generic_category(),
+                        "Can't fill a rectangle."
+                    )
+                );
+            }
         }
 
         /*!
@@ -351,6 +378,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param encoder An encoder.
 
             \return The installed font families.
+
+            \throw std::system_error When installed font families cannot be
+                                     obtained.
         */
         template <typename String, typename Encoder>
         static std::vector<String> installed_font_families(
@@ -371,7 +401,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get installed font families.")
+                    std::system_error(
+                        std::errc::io_error,
+                        std::generic_category(),
+                        "Can't get installed font families."
+                    )
                 );
             }
 
@@ -385,7 +419,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 if (family_name_status != Gdiplus::Ok)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't get font family name.")
+                        std::system_error(
+                            std::errc::io_error,
+                            std::generic_category(),
+                            "Can't get font family name."
+                        )
                     );
                 }
                 families.push_back(encoder.decode(family_name));
@@ -407,6 +445,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param encoder An encoder.
 
             \return The dimension of the text.
+
+            \throw std::system_error When the dimention of a text cannot be
+                                     calculated.
         */
         template <
             typename Dimension,
@@ -445,7 +486,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (result != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't measure text!")
+                    std::system_error(
+                        std::errc::io_error,
+                        std::generic_category(),
+                        "Can't measure text!"
+                    )
                 );
             }
 
@@ -473,7 +518,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param encoder  An encoder.
             \param position A position where the text is drawn.
 
-            \throw std::runtime_error When the text cannot be drawn.
+            \throw std::system_error When the text cannot be drawn.
         */
         template <
             typename Font,
@@ -515,7 +560,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (result != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't draw text!")
+                    std::system_error(
+                        std::errc::io_error,
+                        std::generic_category(),
+                        "Can't draw text!"
+                    )
                 );
             }
         }
@@ -532,7 +581,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param position  A position where the picture is painted.
             \param dimension A dimension in which the picture is painted.
 
-            \throw std::runtime_error When the picture cannot be painted.
+            \throw std::system_error When the picture cannot be painted.
         */
         template <typename Picture, typename Position, typename Dimension>
         static void paint_picture(
@@ -565,7 +614,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (result != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't paint picture!")
+                    std::system_error(
+                        std::errc::io_error,
+                        std::generic_category(),
+                        "Can't paint picture!"
+                    )
                 );
             }
         }

@@ -182,6 +182,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param path A path.
 
             \return A unique pointer to a picture.
+
+            \throw std::system_error When the picture cannot be read.
         */
         template <typename Path>
         static std::unique_ptr<picture_details_type> read_picture(
@@ -237,6 +239,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param canvas    A canvas.
             \param position  A position of a region.
             \param dimension A dimension of a region.
+
+            \throw std::system_error When the focus indication cannot be
+                                     drawn.
         */
         template <typename Position, typename Dimension>
         static void draw_focus_indication(
@@ -257,6 +262,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param position   A position of a region.
             \param dimension  A dimension of a region.
             \param background A background.
+
+            \throw std::system_error When the rectangle cannot be filled.
         */
         template <typename Position, typename Dimension, typename Background>
         static void fill_rectangle(
@@ -291,6 +298,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param encoder An encoder.
 
             \return The installed font families.
+
+            \throw std::system_error When installed font families cannot be
+                                     obtained.
         */
         template <typename String, typename Encoder>
         static std::vector<String> installed_font_families(
@@ -315,6 +325,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param encoder An encoder.
 
             \return The dimension of the text.
+
+            \throw std::system_error When the dimention of a text cannot be
+                                     calculated.
         */
         template <
             typename Dimension,
