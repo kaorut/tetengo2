@@ -61,7 +61,6 @@ namespace tetengo2 { namespace detail { namespace stub
             \param text2            A text #2.
             \param source_file_name A source file name.
             \param source_file_line A source file line number.
-            \param source_function  A source function.
             \param encoder          An encoder.
         */
         static void show_task_dialog(
@@ -71,7 +70,6 @@ namespace tetengo2 { namespace detail { namespace stub
             const string_type&       text2,
             const string_type&       source_file_name,
             const int                source_file_line,
-            const string_type&       source_function,
             const encoder_type&      encoder
         )
         {}

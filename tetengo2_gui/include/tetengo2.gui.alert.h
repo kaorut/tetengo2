@@ -95,10 +95,6 @@ namespace tetengo2 { namespace gui
                         boost::get_error_info<boost::throw_line>(
                             exception
                         );
-                    const char* const* const p_function =
-                        boost::get_error_info<boost::throw_function>(
-                            exception
-                        );
                     alert_details_type::show_task_dialog(
                         m_widget_handle,
                         string_type(TETENGO2_TEXT("Alert")),
@@ -108,11 +104,8 @@ namespace tetengo2 { namespace gui
                         exception_encoder().decode(p_std_exception->what()),
                         p_file ?
                             exception_encoder().decode(*p_file) :
-                            string_type(),
+                            string_type(TETENGO2_TEXT("Unknown Source File")),
                         p_line ? *p_line : 0,
-                        p_function ?
-                            exception_encoder().decode(*p_function) :
-                            string_type(),
                         ui_encoder()
                     );
                 }
@@ -125,9 +118,8 @@ namespace tetengo2 { namespace gui
                         exception_encoder().decode(
                             boost::diagnostic_information(exception)
                         ),
-                        string_type(),
+                        string_type(TETENGO2_TEXT("Unknown Source File")),
                         0,
-                        string_type(),
                         ui_encoder()
                     );
                 }
@@ -159,9 +151,8 @@ namespace tetengo2 { namespace gui
                     ui_encoder().encode(
                         exception_encoder().decode(exception.what())
                     ),
-                    string_type(),
+                    string_type(TETENGO2_TEXT("Unknown Source File")),
                     0,
-                    string_type(),
                     ui_encoder()
                 );
             }
