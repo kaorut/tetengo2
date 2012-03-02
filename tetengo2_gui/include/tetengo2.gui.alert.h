@@ -93,13 +93,16 @@ namespace tetengo2 { namespace gui
                     dynamic_cast<const std::system_error*>(&exception);
                 if (p_system_error)
                 {
+                    const std::string what =
+                        p_system_error->std::runtime_error::what();
+                    std::string message = p_system_error->code().message();
+                    if (!what.empty())
+                        message += std::string(": ") + what;
                     alert_details_type::show_task_dialog(
                         m_widget_handle,
                         string_type(TETENGO2_TEXT("Alert")),
                         string_type(TETENGO2_TEXT("std::system_error")),
-                        exception_encoder().decode(
-                            p_system_error->code().message()
-                        ),
+                        exception_encoder().decode(message),
                         p_file ?
                             exception_encoder().decode(*p_file) :
                             string_type(TETENGO2_TEXT("Unknown Source File")),
