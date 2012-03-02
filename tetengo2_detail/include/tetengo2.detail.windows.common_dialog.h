@@ -16,6 +16,7 @@
 //#include <memory>
 #include <stdexcept>
 #include <string>
+#include <system_error>
 #include <tuple>
 //#include <utility>
 #include <vector>
@@ -267,7 +268,11 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result != S_OK)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't show a message box.")
+                    std::system_error(
+                        result,
+                        std::system_category(),
+                        "Can't show a message box."
+                    )
                 );
             }
 
@@ -315,7 +320,11 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!SUCCEEDED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a file open dialog.")
+                    std::system_error(
+                        creation_result,
+                        std::system_category(),
+                        "Can't create a file open dialog."
+                    )
                 );
             }
             detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
@@ -348,7 +357,13 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
             if (!SUCCEEDED(title_set_result))
             {
-                BOOST_THROW_EXCEPTION(std::runtime_error("Can't set title."));
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        title_set_result,
+                        std::system_category(),
+                        "Can't set title."
+                    )
+                );
             }
 
             std::vector< ::COMDLG_FILTERSPEC> filterspecs =
@@ -361,7 +376,11 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!SUCCEEDED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't set file type filter.")
+                    std::system_error(
+                        filter_set_result,
+                        std::system_category(),
+                        "Can't set file type filter."
+                    )
                 );
             }
 
@@ -376,7 +395,11 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!SUCCEEDED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get the result.")
+                    std::system_error(
+                        result_result,
+                        std::system_category(),
+                        "Can't get the result."
+                    )
                 );
             }
             const std::unique_ptr< ::IShellItem, detail::release_iunknown>
@@ -388,7 +411,11 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!SUCCEEDED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get the file path.")
+                    std::system_error(
+                        file_title_result,
+                        std::system_category(),
+                        "Can't get the file path."
+                    )
                 );
             }
             BOOST_SCOPE_EXIT((file_name))
@@ -444,7 +471,11 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!SUCCEEDED(creation_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a file save dialog.")
+                    std::system_error(
+                        creation_result,
+                        std::system_category(),
+                        "Can't create a file save dialog."
+                    )
                 );
             }
             detail::file_save_dialog_ptr_type p_dialog(p_raw_dialog);
@@ -480,7 +511,13 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::get<0>(dialog)->SetTitle(std::get<2>(dialog).c_str());
             if (!SUCCEEDED(title_set_result))
             {
-                BOOST_THROW_EXCEPTION(std::runtime_error("Can't set title."));
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        title_set_result,
+                        std::system_category(),
+                        "Can't set title."
+                    )
+                );
             }
 
             ::IShellItem* p_raw_default_path = NULL;
@@ -495,7 +532,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (!SUCCEEDED(default_path_result))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't create default path item.")
+                        std::system_error(
+                            default_path_result,
+                            std::system_category(),
+                            "Can't create default path item."
+                        )
                     );
                 }
             }
@@ -511,7 +552,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (!SUCCEEDED(default_path_set_result))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't set default path.")
+                        std::system_error(
+                            default_path_set_result,
+                            std::system_category(),
+                            "Can't set default path."
+                        )
                     );
                 }
             }
@@ -526,7 +571,11 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!SUCCEEDED(filter_set_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't set file type filter.")
+                    std::system_error(
+                        filter_set_result,
+                        std::system_category(),
+                        "Can't set file type filter."
+                    )
                 );
             }
 
@@ -541,7 +590,11 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!SUCCEEDED(result_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get the result.")
+                    std::system_error(
+                        result_result,
+                        std::system_category(),
+                        "Can't get the result."
+                    )
                 );
             }
             const std::unique_ptr< ::IShellItem, detail::release_iunknown>
@@ -553,7 +606,11 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!SUCCEEDED(file_title_result))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't get the file path.")
+                    std::system_error(
+                        file_title_result,
+                        std::system_category(),
+                        "Can't get the file path."
+                    )
                 );
             }
             BOOST_SCOPE_EXIT((file_name))
