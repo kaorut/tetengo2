@@ -13,6 +13,7 @@
 #include <exception>
 //#include <functional>
 #include <stdexcept>
+#include <system_error>
 
 #include <boost/exception/all.hpp>
 
@@ -83,18 +84,35 @@ namespace tetengo2 { namespace gui
         {
             try
             {
+                const char* const* const p_file =
+                    boost::get_error_info<boost::throw_file>(exception);
+                const int* const p_line =
+                    boost::get_error_info<boost::throw_line>(exception);
+
+                const std::system_error* const p_system_error =
+                    dynamic_cast<const std::system_error*>(&exception);
+                if (p_system_error)
+                {
+                    alert_details_type::show_task_dialog(
+                        m_widget_handle,
+                        string_type(TETENGO2_TEXT("Alert")),
+                        string_type(TETENGO2_TEXT("std::system_error")),
+                        exception_encoder().decode(
+                            p_system_error->code().message()
+                        ),
+                        p_file ?
+                            exception_encoder().decode(*p_file) :
+                            string_type(TETENGO2_TEXT("Unknown Source File")),
+                        p_line ? *p_line : 0,
+                        ui_encoder()
+                    );
+                    return;
+                }
+
                 const std::exception* const p_std_exception =
                     dynamic_cast<const std::exception*>(&exception);
                 if (p_std_exception)
                 {
-                    const char* const* const p_file =
-                        boost::get_error_info<boost::throw_file>(
-                            exception
-                        );
-                    const int* const p_line =
-                        boost::get_error_info<boost::throw_line>(
-                            exception
-                        );
                     alert_details_type::show_task_dialog(
                         m_widget_handle,
                         string_type(TETENGO2_TEXT("Alert")),
@@ -108,21 +126,22 @@ namespace tetengo2 { namespace gui
                         p_line ? *p_line : 0,
                         ui_encoder()
                     );
+                    return;
                 }
-                else
-                {
-                    alert_details_type::show_task_dialog(
-                        m_widget_handle,
-                        string_type(TETENGO2_TEXT("Alert")),
-                        exception_encoder().decode(typeid(exception).name()),
-                        exception_encoder().decode(
-                            boost::diagnostic_information(exception)
-                        ),
+
+                alert_details_type::show_task_dialog(
+                    m_widget_handle,
+                    string_type(TETENGO2_TEXT("Alert")),
+                    exception_encoder().decode(typeid(exception).name()),
+                    exception_encoder().decode(
+                        boost::diagnostic_information(exception)
+                    ),
+                    p_file ?
+                        exception_encoder().decode(*p_file) :
                         string_type(TETENGO2_TEXT("Unknown Source File")),
-                        0,
-                        ui_encoder()
-                    );
-                }
+                    p_line ? *p_line : 0,
+                    ui_encoder()
+                );
             }
             catch (...)
             {}
