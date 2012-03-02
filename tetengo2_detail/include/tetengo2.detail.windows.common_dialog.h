@@ -304,27 +304,31 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&  encoder
         )
         {
-            ::IFileOpenDialog* p_raw_dialog = NULL;
-            const ::HRESULT creation_result =
-                ::CoCreateInstance(
-                    __uuidof(::FileOpenDialog),
-                    NULL,
-                    CLSCTX_ALL,
-                    IID_PPV_ARGS(&p_raw_dialog)
-                );
-            if (!SUCCEEDED(creation_result))
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a file open dialog.")
-                );
-            }
-            detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
-            return make_unique<file_open_dialog_details_type>(
-                std::move(p_dialog),
-                std::get<0>(*parent.details()).get(),
-                encoder.encode(std::forward<String>(title)),
-                to_native_filters(filters, encoder)
+            BOOST_THROW_EXCEPTION(
+                std::system_error(2, std::system_category())
             );
+
+            //::IFileOpenDialog* p_raw_dialog = NULL;
+            //const ::HRESULT creation_result =
+            //    ::CoCreateInstance(
+            //        __uuidof(::FileOpenDialog),
+            //        NULL,
+            //        CLSCTX_ALL,
+            //        IID_PPV_ARGS(&p_raw_dialog)
+            //    );
+            //if (!SUCCEEDED(creation_result))
+            //{
+            //    BOOST_THROW_EXCEPTION(
+            //        std::runtime_error("Can't create a file open dialog.")
+            //    );
+            //}
+            //detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
+            //return make_unique<file_open_dialog_details_type>(
+            //    std::move(p_dialog),
+            //    std::get<0>(*parent.details()).get(),
+            //    encoder.encode(std::forward<String>(title)),
+            //    to_native_filters(filters, encoder)
+            //);
         }
 
         /*!
