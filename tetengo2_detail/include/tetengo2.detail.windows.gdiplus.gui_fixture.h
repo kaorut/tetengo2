@@ -74,8 +74,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::errc::io_error,
-                        std::generic_category(),
+                        std::error_code(
+                            std::errc::io_error, std::generic_category()
+                        ),
                         "Can't start up GDI+!"
                     )
                 );

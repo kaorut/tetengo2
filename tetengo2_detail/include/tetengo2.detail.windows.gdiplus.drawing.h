@@ -198,8 +198,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::errc::io_error,
-                        std::generic_category(),
+                        std::error_code(
+                            std::errc::io_error, std::generic_category()
+                        ),
                         "Can't read a picture."
                     )
                 );
@@ -284,8 +285,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::errc::io_error,
-                        std::generic_category(),
+                        std::error_code(
+                            std::errc::io_error, std::generic_category()
+                        ),
                         "Can't draw a focus rectangle."
                     )
                 );
@@ -338,8 +340,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::errc::io_error,
-                        std::generic_category(),
+                        std::error_code(
+                            std::errc::io_error, std::generic_category()
+                        ),
                         "Can't fill a rectangle."
                     )
                 );
@@ -402,8 +405,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::errc::io_error,
-                        std::generic_category(),
+                        std::error_code(
+                            std::errc::io_error, std::generic_category()
+                        ),
                         "Can't get installed font families."
                     )
                 );
@@ -420,8 +424,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
-                            std::errc::io_error,
-                            std::generic_category(),
+                            std::error_code(
+                                std::errc::io_error, std::generic_category()
+                            ),
                             "Can't get font family name."
                         )
                     );
@@ -487,8 +492,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::errc::io_error,
-                        std::generic_category(),
+                        std::error_code(
+                            std::errc::io_error, std::generic_category()
+                        ),
                         "Can't measure text!"
                     )
                 );
@@ -561,8 +567,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::errc::io_error,
-                        std::generic_category(),
+                        std::error_code(
+                            std::errc::io_error, std::generic_category()
+                        ),
                         "Can't draw text!"
                     )
                 );
@@ -615,8 +622,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::errc::io_error,
-                        std::generic_category(),
+                        std::error_code(
+                            std::errc::io_error, std::generic_category()
+                        ),
                         "Can't paint picture!"
                     )
                 );

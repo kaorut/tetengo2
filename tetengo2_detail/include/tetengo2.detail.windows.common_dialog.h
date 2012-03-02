@@ -269,8 +269,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        result,
-                        std::system_category(),
+                        std::error_code(result, std::system_category()),
                         "Can't show a message box."
                     )
                 );
@@ -321,8 +320,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        creation_result,
-                        std::system_category(),
+                        std::error_code(
+                            creation_result, std::system_category()
+                        ),
                         "Can't create a file open dialog."
                     )
                 );
@@ -359,8 +359,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        title_set_result,
-                        std::system_category(),
+                        std::error_code(
+                            title_set_result, std::system_category()
+                        ),
                         "Can't set title."
                     )
                 );
@@ -377,8 +378,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        filter_set_result,
-                        std::system_category(),
+                        std::error_code(
+                            filter_set_result, std::system_category()
+                        ),
                         "Can't set file type filter."
                     )
                 );
@@ -396,8 +398,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        result_result,
-                        std::system_category(),
+                        std::error_code(
+                            result_result, std::system_category()
+                        ),
                         "Can't get the result."
                     )
                 );
@@ -412,8 +415,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        file_title_result,
-                        std::system_category(),
+                        std::error_code(
+                            file_title_result, std::system_category()
+                        ),
                         "Can't get the file path."
                     )
                 );
@@ -472,8 +476,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        creation_result,
-                        std::system_category(),
+                        std::error_code(
+                            creation_result, std::system_category()
+                        ),
                         "Can't create a file save dialog."
                     )
                 );
@@ -513,8 +518,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        title_set_result,
-                        std::system_category(),
+                        std::error_code(
+                            title_set_result, std::system_category()
+                        ),
                         "Can't set title."
                     )
                 );
@@ -533,8 +539,9 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
-                            default_path_result,
-                            std::system_category(),
+                            std::error_code(
+                                default_path_result, std::system_category()
+                            ),
                             "Can't create default path item."
                         )
                     );
@@ -553,8 +560,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
-                            default_path_set_result,
-                            std::system_category(),
+                            std::error_code(
+                                default_path_set_result,
+                                std::system_category()
+                            ),
                             "Can't set default path."
                         )
                     );
@@ -572,8 +581,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        filter_set_result,
-                        std::system_category(),
+                        std::error_code(
+                            filter_set_result, std::system_category()
+                        ),
                         "Can't set file type filter."
                     )
                 );
@@ -591,8 +601,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        result_result,
-                        std::system_category(),
+                        std::error_code(
+                            result_result, std::system_category()
+                        ),
                         "Can't get the result."
                     )
                 );
@@ -607,8 +618,9 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        file_title_result,
-                        std::system_category(),
+                        std::error_code(
+                            file_title_result, std::system_category()
+                        ),
                         "Can't get the file path."
                     )
                 );
