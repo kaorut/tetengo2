@@ -35,6 +35,7 @@
 #include <Unknwn.h>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.unique.h"
 
 
@@ -308,32 +309,41 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&  encoder
         )
         {
-            ::IFileOpenDialog* p_raw_dialog = NULL;
-            const ::HRESULT creation_result =
-                ::CoCreateInstance(
-                    __uuidof(::FileOpenDialog),
-                    NULL,
-                    CLSCTX_ALL,
-                    IID_PPV_ARGS(&p_raw_dialog)
-                );
-            if (!SUCCEEDED(creation_result))
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(
-                            creation_result, std::system_category()
-                        ),
-                        "Can't create a file open dialog."
-                    )
-                );
-            }
-            detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
-            return make_unique<file_open_dialog_details_type>(
-                std::move(p_dialog),
-                std::get<0>(*parent.details()).get(),
-                encoder.encode(std::forward<String>(title)),
-                to_native_filters(filters, encoder)
+            BOOST_THROW_EXCEPTION(
+                std::system_error(
+                    std::error_code(
+                        ERROR_FILE_NOT_FOUND, win32_category()
+                    ),
+                    "test exception"
+                )
             );
+                        
+            //::IFileOpenDialog* p_raw_dialog = NULL;
+            //const ::HRESULT creation_result =
+            //    ::CoCreateInstance(
+            //        __uuidof(::FileOpenDialog),
+            //        NULL,
+            //        CLSCTX_ALL,
+            //        IID_PPV_ARGS(&p_raw_dialog)
+            //    );
+            //if (!SUCCEEDED(creation_result))
+            //{
+            //    BOOST_THROW_EXCEPTION(
+            //        std::system_error(
+            //            std::error_code(
+            //                creation_result, std::system_category()
+            //            ),
+            //            "Can't create a file open dialog."
+            //        )
+            //    );
+            //}
+            //detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
+            //return make_unique<file_open_dialog_details_type>(
+            //    std::move(p_dialog),
+            //    std::get<0>(*parent.details()).get(),
+            //    encoder.encode(std::forward<String>(title)),
+            //    to_native_filters(filters, encoder)
+            //);
         }
 
         /*!

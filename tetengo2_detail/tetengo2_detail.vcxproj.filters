@@ -99,5 +99,8 @@
     <ClInclude Include="include\tetengo2.detail.windows.virtual_key.h">
       <Filter>headers\tetengo2::detail\windows</Filter>
     </ClInclude>
+    <ClInclude Include="include\tetengo2.detail.windows.error_category.h">
+      <Filter>headers\tetengo2::detail\windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
