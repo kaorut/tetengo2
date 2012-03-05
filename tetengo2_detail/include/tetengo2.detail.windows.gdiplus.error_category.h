@@ -155,10 +155,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 return
                     "The specified property is not supported by the format "
                     "of the image and, therefore, cannot be set.";
+#if GDIPVER >= 0x0110
             case Gdiplus::ProfileNotFound:
                 return
                     "The color profile required to save an image in CMYK "
                     "format was not found.";
+#endif
             default:
                 assert(false);
                 return "Unknown Error.";

@@ -36,7 +36,7 @@
 #undef min
 #undef max
 
-#include "tetengo2.detail.windows.error_category.h"
+#include "tetengo2.detail.windows.gdiplus.error_category.h"
 #include "tetengo2.detail.windows.font.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
@@ -195,13 +195,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             std::unique_ptr<picture_details_type> p_picture(
                 make_unique<Gdiplus::Bitmap>(path.c_str())
             );
-            if (p_picture->GetLastStatus() != Gdiplus::Ok)
+            const Gdiplus::Status status = p_picture->GetLastStatus();
+            if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            std::errc::io_error, std::generic_category()
-                        ),
+                        std::error_code(status, gdiplus_category()),
                         "Can't read a picture."
                     )
                 );
@@ -287,7 +286,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
                         std::error_code(
-                            std::errc::io_error, std::generic_category()
+                            Gdiplus::Win32Error, gdiplus_category()
                         ),
                         "Can't draw a focus rectangle."
                     )
@@ -341,9 +340,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            std::errc::io_error, std::generic_category()
-                        ),
+                        std::error_code(status, gdiplus_category()),
                         "Can't fill a rectangle."
                     )
                 );
@@ -406,9 +403,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            std::errc::io_error, std::generic_category()
-                        ),
+                        std::error_code(status, gdiplus_category()),
                         "Can't get installed font families."
                     )
                 );
@@ -426,7 +421,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
                             std::error_code(
-                                std::errc::io_error, std::generic_category()
+                                family_name_status, gdiplus_category()
                             ),
                             "Can't get font family name."
                         )
@@ -480,7 +475,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 std::numeric_limits<Gdiplus::REAL>::max()
             );
             Gdiplus::RectF bounding;
-            const Gdiplus::Status result =
+            const Gdiplus::Status status =
                 canvas.MeasureString(
                     encoder.encode(text).c_str(),
                     static_cast< ::INT>(text.length()),
@@ -489,13 +484,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     Gdiplus::StringFormat::GenericTypographic(),
                     &bounding
                 );
-            if (result != Gdiplus::Ok)
+            if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            std::errc::io_error, std::generic_category()
-                        ),
+                        std::error_code(status, gdiplus_category()),
                         "Can't measure text!"
                     )
                 );
@@ -550,27 +543,26 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             );
 
             const std::wstring encoded_text = encoder.encode(text);
-            const Gdiplus::Status result = canvas.DrawString(
-                encoded_text.c_str(),
-                static_cast< ::INT>(encoded_text.length()),
-                p_gdiplus_font.get(),
-                Gdiplus::PointF(
-                    gui::to_pixels<Gdiplus::REAL>(
-                        gui::position<Position>::left(position)
+            const Gdiplus::Status status =
+                canvas.DrawString(
+                    encoded_text.c_str(),
+                    static_cast< ::INT>(encoded_text.length()),
+                    p_gdiplus_font.get(),
+                    Gdiplus::PointF(
+                        gui::to_pixels<Gdiplus::REAL>(
+                            gui::position<Position>::left(position)
+                        ),
+                        gui::to_pixels<Gdiplus::REAL>(
+                            gui::position<Position>::top(position)
+                        )
                     ),
-                    gui::to_pixels<Gdiplus::REAL>(
-                        gui::position<Position>::top(position)
-                    )
-                ),
-                &brush
-            );
-            if (result != Gdiplus::Ok)
+                    &brush
+                );
+            if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            std::errc::io_error, std::generic_category()
-                        ),
+                        std::error_code(status, gdiplus_category()),
                         "Can't draw text!"
                     )
                 );
@@ -603,7 +595,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             picture_details(const_cast<Picture&>(picture).details());
             if (!picture_details) return;
 
-            const Gdiplus::Status result =
+            const Gdiplus::Status status =
                 canvas.DrawImage(
                     &*picture_details,
                     gui::to_pixels< ::INT>(
@@ -619,13 +611,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                         gui::dimension<Dimension>::height(dimension)
                     )
                 );
-            if (result != Gdiplus::Ok)
+            if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            std::errc::io_error, std::generic_category()
-                        ),
+                        std::error_code(status, gdiplus_category()),
                         "Can't paint picture!"
                     )
                 );
