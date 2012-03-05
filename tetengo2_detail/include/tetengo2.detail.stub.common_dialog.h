@@ -134,6 +134,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param message_box A message box.
 
             \return The path.
+
+            \throw std::system_error When the message box cannot be shown.
         */
         static message_box_button_id_type show_message_box(
             message_box_details_type& message_box
@@ -158,6 +160,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param encoder An encoder.
 
             \return A unique pointer to a file open dialog.
+
+            \throw std::system_error When the file open dialog cannot be
+                   created.
         */
         template <
             typename AbstractWindow,
@@ -185,6 +190,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param encoder An encoder.
 
             \return The path.
+
+            \throw std::system_error When the file open dialog cannot be
+                                     shown.
         */
         template <typename Path, typename Encoder>
         static Path show_file_open_dialog(
@@ -215,6 +223,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param encoder An encoder.
 
             \return A unique pointer to a file save dialog.
+
+            \throw std::system_error When the file save dialog cannot be
+                                     created.
         */
         template <
             typename AbstractWindow,
@@ -244,6 +255,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param encoder An encoder.
 
             \return The path.
+
+            \throw std::system_error When the file save dialog cannot be
+                                     shown.
         */
         template <typename Path, typename Encoder>
         static Path show_file_save_dialog(
