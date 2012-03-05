@@ -29,6 +29,7 @@
 #undef max
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.detail.windows.gdiplus.error_category.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
@@ -69,13 +70,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Gdiplus::GdiplusStartupInput input;
             ::ULONG_PTR token = NULL;
 
-            if (Gdiplus::GdiplusStartup(&token, &input, NULL) != Gdiplus::Ok)
+            const Gdiplus::Status status =
+                Gdiplus::GdiplusStartup(&token, &input, NULL);
+            if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            std::errc::io_error, std::generic_category()
-                        ),
+                        std::error_code(status, gdiplus_category()),
                         "Can't start up GDI+!"
                     )
                 );
