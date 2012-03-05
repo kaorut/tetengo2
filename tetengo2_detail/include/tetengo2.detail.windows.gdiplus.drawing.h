@@ -36,6 +36,7 @@
 #undef min
 #undef max
 
+#include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.font.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
