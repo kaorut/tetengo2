@@ -363,7 +363,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param encoder  An encoder.
             \param position A position where the text is drawn.
 
-            \throw std::runtime_error When the text cannot be drawn.
+            \throw std::system_error When the text cannot be drawn.
         */
         template <
             typename Font,
@@ -392,7 +392,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param position  A position where the picture is painted.
             \param dimension A dimension in which the picture is painted.
 
-            \throw std::runtime_error When the picture cannot be painted.
+            \throw std::system_error When the picture cannot be painted.
         */
         template <typename Picture, typename Position, typename Dimension>
         static void paint_picture(
