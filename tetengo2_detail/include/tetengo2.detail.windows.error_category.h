@@ -25,6 +25,7 @@
 
 namespace tetengo2 { namespace detail { namespace windows
 {
+#if !defined(DOCUMENTATION)
     namespace detail
     {
         typedef
@@ -42,7 +43,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
     }
-
+#endif
 
     /*!
         \brief The class for a detail implementation of an error category.
