@@ -16,6 +16,7 @@
 //#include <memory>
 #include <stdexcept>
 #include <string>
+#include <system_error>
 #include <type_traits>
 //#include <utility>
 #include <vector>
@@ -26,6 +27,7 @@
 #define OEMRESOURCE
 #include <Windows.h>
 
+#include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
@@ -124,6 +126,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Creates a menu bar.
 
             \return A unque pointer to a menu bar.
+
+            \throw std::system_error When a menu bar cannot be created.
         */
         static menu_details_ptr_type create_menu_bar()
         {
@@ -135,7 +139,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_menu->second)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a menu bar.")
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't create a menu bar."
+                    )
                 );
             }
 
@@ -146,6 +153,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Creates a popup menu.
 
             \return A unque pointer to a popup menu.
+
+            \throw std::system_error When a popup menu cannot be created.
         */
         static menu_details_ptr_type create_popup_menu()
         {
@@ -157,7 +166,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_menu->second)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a popup menu.")
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't create a popup menu."
+                    )
                 );
             }
 
@@ -198,6 +210,9 @@ namespace tetengo2 { namespace detail { namespace windows
             \param last  A last position among shortcut key table entries.
 
             \return A unique pointer to a shortcut key table.
+
+            \throw std::system_error When a shortcut key table cannot be
+                                     created.
         */
         template <typename ForwardIterator>
         static shortcut_key_table_details_ptr_type create_shortcut_key_table(
@@ -222,7 +237,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!accelerator_table_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a shortcut key table.")
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't create a shortcut key table."
+                    )
                 );
             }
 
@@ -243,6 +261,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \param offset     An offset.
             \param menu       A menu to insert.
             \param encoder    An encoder.
+
+            \throw std::system_error When a menu cannot be inserted.
         */
         template <
             typename PopupMenu,
@@ -276,7 +296,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't insert a native menu.")
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't insert a native menu."
+                    )
                 );
             }
         }
@@ -290,6 +313,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \param popup_menu A popup menu to which a menu is inserted.
             \param first      A first position to erase.
             \param last       A last position to erase.
+
+            \throw std::system_error When a menu cannot be erased.
         */
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(
@@ -492,7 +517,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't remove a native menu.")
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't remove a native menu."
+                    )
                 );
             }
         }

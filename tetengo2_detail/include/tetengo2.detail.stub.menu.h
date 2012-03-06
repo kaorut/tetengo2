@@ -46,6 +46,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Creates a menu bar.
 
             \return A unque pointer to a menu bar.
+
+            \throw std::system_error When a menu bar cannot be created.
         */
         static menu_details_ptr_type create_menu_bar()
         {
@@ -56,6 +58,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Creates a popup menu.
 
             \return A unque pointer to a popup menu.
+
+            \throw std::system_error When a popup menu cannot be created.
         */
         static menu_details_ptr_type create_popup_menu()
         {
@@ -94,6 +98,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param last  A last position among shortcut keys.
 
             \return A unique pointer to a shortcut key table.
+
+            \throw std::system_error When a shortcut key table cannot be
+                                     created.
         */
         template <typename InputIterator>
         static shortcut_key_table_details_ptr_type create_shortcut_key_table(
@@ -116,6 +123,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param offset     An offset.
             \param menu       A menu to insert.
             \param encoder    An encoder.
+
+            \throw std::system_error When a menu cannot be inserted.
         */
         template <
             typename PopupMenu,
@@ -140,6 +149,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param popup_menu A popup menu to which a menu is inserted.
             \param first      A first position to erase.
             \param last       A last position to erase.
+
+            \throw std::system_error When a menu cannot be erased.
         */
         template <typename PopupMenu, typename ForwardIterator>
         static void erase_menus(
