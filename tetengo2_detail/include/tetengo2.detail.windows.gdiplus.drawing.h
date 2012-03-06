@@ -682,7 +682,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (fallback_level > 2)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Font is not available.")
+                    std::system_error(
+                        std::error_code(
+                            Gdiplus::FontFamilyNotFound, gdiplus_category()
+                        ),
+                        "Font is not available."
+                    )
                 );
             }
 

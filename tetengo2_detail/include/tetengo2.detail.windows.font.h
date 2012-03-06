@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_WINDOWS_FONT_H
 
 #include <stdexcept>
+#include <system_error>
 
 #include <boost/throw_exception.hpp>
 
@@ -17,6 +18,7 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
+#include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.windows_version.h"
 
 
@@ -26,6 +28,8 @@ namespace tetengo2 { namespace detail { namespace windows
         \brief Returns a nonclient metrics.
 
         \param metrics A metrics where the result is stored.
+
+        \throw std::system_error When a nonclient metrics cannot be obtained.
     */
     inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
     {
@@ -44,7 +48,10 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             BOOST_THROW_EXCEPTION(
-                std::runtime_error("Can't get non-client metrics.")
+                std::system_error(
+                    std::error_code(ERROR_FUNCTION_FAILED, win32_category()),
+                    "Can't get non-client metrics."
+                )
             );
         }
     }

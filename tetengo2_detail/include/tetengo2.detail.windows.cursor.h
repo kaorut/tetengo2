@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <stdexcept>
+#include <system_error>
 #include <type_traits>
 #include <utility>
 
@@ -19,6 +20,8 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
+
+#include "tetengo2.detail.windows.error_category.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -69,7 +72,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return A unique pointer to a system cursor.
 
-            \throw std::runtime_error When a system cursor cannot be created.
+            \throw std::system_error When a system cursor cannot be created.
         */
         template <typename SystemCursor>
         static cursor_details_ptr_type create_system_cursor(
@@ -93,7 +96,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_cursor)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't create a system cursor.")
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't create a system cursor."
+                    )
                 );
             }
 
