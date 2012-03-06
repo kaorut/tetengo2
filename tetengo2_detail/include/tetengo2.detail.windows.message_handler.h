@@ -14,6 +14,7 @@
 #include <cstddef>
 //#include <functional>
 #include <stdexcept>
+#include <system_error>
 #include <tuple>
 #include <unordered_map>
 #include <utility>
@@ -28,6 +29,7 @@
 #include <Windows.h>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.detail.windows.error_category.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -249,7 +251,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 )
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't begin paint.")
+                        std::system_error(
+                            std::error_code(
+                                ERROR_FUNCTION_FAILED, win32_category()
+                            ),
+                            "Can't begin paint."
+                        )
                     );
                 }
                 BOOST_SCOPE_EXIT((&widget)(&paint_struct))
@@ -288,7 +295,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (font_handle && ::DeleteObject(font_handle) == 0)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't delete previous font.")
+                        std::system_error(
+                            std::error_code(
+                                ERROR_FUNCTION_FAILED, win32_category()
+                            ),
+                            "Can't delete previous font."
+                        )
                     );
                 }
             }
@@ -657,7 +669,12 @@ namespace tetengo2 { namespace detail { namespace windows
                     if (previous_color == CLR_INVALID)
                     {
                         BOOST_THROW_EXCEPTION(
-                            std::runtime_error("Can't set text color.")
+                            std::system_error(
+                                std::error_code(
+                                    ERROR_FUNCTION_FAILED, win32_category()
+                                ),
+                                "Can't set text color."
+                            )
                         );
                     }
                 }
@@ -666,7 +683,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (previous_background_mode == 0)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't set background mode.")
+                        std::system_error(
+                            std::error_code(
+                                ERROR_FUNCTION_FAILED, win32_category()
+                            ),
+                            "Can't set background mode."
+                        )
                     );
                 }
 
