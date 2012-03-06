@@ -87,6 +87,8 @@ namespace tetengo2 { namespace detail { namespace stub
                           When uninitialized, the window has no parent.
 
             \return A unique pointer to a window.
+
+            \throw std::system_error When a window cannot be created.
         */
         template <typename Widget>
         static widget_details_ptr_type create_window(
@@ -105,6 +107,8 @@ namespace tetengo2 { namespace detail { namespace stub
                           When uninitialized, the dialog has no parent.
 
             \return A unique pointer to a dialog.
+
+            \throw std::system_error When a dialog cannot be created.
         */
         template <typename Widget>
         static widget_details_ptr_type create_dialog(
@@ -124,6 +128,12 @@ namespace tetengo2 { namespace detail { namespace stub
             \param is_cancel  Set true to create a cancel button.
 
             \return A unique pointer to a button.
+
+            \throw std::invalid_argument When a default button already exists
+                                         and is_default is true.
+            \throw std::invalid_argument When a cancel button already exists
+                                         and is_cancel is true.
+            \throw std::system_error     When a button cannot be created.
         */
         template <typename Widget>
         static widget_details_ptr_type create_button(
@@ -143,6 +153,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param parent A parent widget.
 
             \return A unique pointer to an image.
+
+            \throw std::system_error When an image cannot be created.
         */
         template <typename Widget>
         static widget_details_ptr_type create_image(Widget& parent)
@@ -158,6 +170,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param parent A parent widget.
 
             \return A unique pointer to a label.
+
+            \throw std::system_error When a label cannot be created.
         */
         template <typename Widget>
         static widget_details_ptr_type create_label(Widget& parent)
@@ -173,6 +187,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param parent A parent widget.
 
             \return A unique pointer to a text box.
+
+            \throw std::system_error When a text box cannot be created.
         */
         template <typename Widget>
         static widget_details_ptr_type create_text_box(Widget& parent)
@@ -187,7 +203,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param widget A widget.
 
-            \throw std::runtime_error When the widget cannot be associated.
+            \throw std::system_error When the widget cannot be associated.
         */
         template <typename Widget>
         static void associate_to_native_window_system(Widget& widget)
@@ -327,6 +343,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param widget   A widget.
             \param position A position.
+
+            \throw std::system_error When the widget cannot be moved.
         */
         template <typename Dimension, typename Widget, typename Position>
         static void set_position(Widget& widget, const Position& position)
@@ -352,6 +370,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param widget A widget.
 
             \return The position.
+
+            \throw std::system_error When the position cannot be obtained.
         */
         template <typename Position, typename Widget>
         static Position position(const Widget& widget)
@@ -378,6 +398,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param parent A parent widget.
 
             \return A position.
+
+            \throw std::system_error When a position cannot be calculated.
         */
         template <typename Position, typename Widget, typename ParentWidget>
         static Position dialog_position(Widget& widget, ParentWidget& parent)
@@ -394,6 +416,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param widget   A widget.
             \param dimension A dimension.
+
+            \throw When the widget cannot be moved.
         */
         template <typename Position, typename Widget, typename Dimension>
         static void set_dimension(Widget& widget, const Dimension& dimension)
@@ -419,6 +443,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param widget A widget.
 
             \return The dimension.
+
+            \throw std::system_error When the dimension cannot be obtained.
         */
         template <typename Dimension, typename Widget>
         static Dimension dimension(const Widget& widget)
@@ -443,6 +469,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param widget           A widget.
             \param client_dimension A client dimension.
+
+            \throw std::system_error When a client dimension cannot be set.
         */
         template <typename Position, typename Widget, typename Dimension>
         static void set_client_dimension(
@@ -471,6 +499,9 @@ namespace tetengo2 { namespace detail { namespace stub
             \param widget A widget.
 
             \return The client dimension.
+
+            \throw std::system_error When the client dimension cannot be
+                                     obtained.
         */
         template <typename Dimension, typename Widget>
         static Dimension client_dimension(const Widget& widget)
@@ -497,7 +528,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param text    A text.
             \param encoder An encoder.
 
-            \throw std::runtime_error When the text cannot be set.
+            \throw std::system_error When the text cannot be set.
         */
         template <typename Widget, typename String, typename Encoder>
         static void set_text(
@@ -536,7 +567,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param widget A widget.
             \param font   A font.
 
-            \throw std::runtime_error When the font cannot be set.
+            \throw std::system_error When the font cannot be set.
         */
         template <typename Widget, typename Font>
         static void set_font(Widget& widget, const Font& font)
@@ -561,6 +592,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param widget A widget.
 
             \return The font.
+
+            \throw std::system_error When the font cannot be obtained.
         */
         template <typename Font, typename Widget>
         static Font font(const Widget& widget)
@@ -613,6 +646,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam Widget A widget type.
 
             \param widget A widget.
+
+            \throw std::system_error When the widget cannot be repainted.
         */
         template <typename Widget>
         static void repaint(Widget& widget)
@@ -666,6 +701,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param widget A widget.
             \param menu   A menu.
                           It may be uninitialized to remove a menu bar.
+
+            \throw std::system_error When a menu bar cannot be set.
         */
         template <typename Widget, typename MenuBase>
         static void set_menu_bar(
@@ -683,6 +720,9 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \retval true  When the widget accepts a focus.
             \retval false Otherwise.
+
+            \throw std::system_error When the widget focusability cannot be
+                                     obtained.
         */
         template <typename Widget>
         static bool focusable(Widget& widget)
@@ -697,6 +737,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param widget    A widget.
             \param focusable True when the widget accepts a focus.
+
+            \throw std::system_error When a focusable status cannot be set.
         */
         template <typename Widget>
         static void set_focusable(Widget& widget, const bool focusable)
@@ -713,6 +755,9 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \retval true  When the widget is read-only.
             \retval false Otherwise.
+
+            \throw std::system_error When the read-only status cannot be
+                                     obtained.
         */
         template <typename Widget>
         static bool read_only(Widget& widget)
@@ -727,6 +772,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param widget    A widget.
             \param read_only True when the widget is read-only.
+
+            \throw std::system_error When the read-only status cannot be set.
         */
         template <typename Widget>
         static void set_read_only(Widget& widget, const bool read_only)
@@ -740,6 +787,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam Widget A widget type.
 
             \param widget A widget.
+
+            \throw std::system_error When the widget cannot be closed.
         */
         template <typename Widget>
         static void close(Widget& widget)
@@ -753,6 +802,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param widget A widget.
             \param target A target.
+
+            \throw std::system_error When the target cannot be opened.
         */
         template <typename Widget, typename String>
         static void open_target(Widget& widget, const String& target)
