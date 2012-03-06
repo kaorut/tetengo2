@@ -23,6 +23,7 @@
 #include <ObjBase.h>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.windows_version.h"
 
 
@@ -57,7 +58,10 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!on_windows_vista_or_later())
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error(
+                    std::system_error(
+                        std::error_code(
+                            ERROR_OLD_WIN_VERSION, win32_category()
+                        ),
                         "This program can't run on this platform."
                     )
                 );
@@ -77,25 +81,32 @@ namespace tetengo2 { namespace detail { namespace windows
                 ICC_NATIVEFNTCTL_CLASS |
                 ICC_STANDARD_CLASSES |
                 ICC_LINK_CLASS;
-            if (::InitCommonControlsEx(&enabled_common_controls) == 0)
+            if (::InitCommonControlsEx(&enabled_common_controls) == FALSE)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't initialize common controls!")
+                    std::system_error(
+                        std::error_code(
+                            ERROR_FUNCTION_FAILED, win32_category()
+                        ),
+                        "Can't initialize common controls!"
+                    )
                 );
             }
         }
 
         static void setup_com()
         {
-            if (
+            const ::HRESULT result =
                 ::CoInitializeEx(
-                    NULL,
-                    COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE
-                ) != S_OK
-            )
+                    NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE
+                );
+            if (result != S_OK)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::runtime_error("Can't initlaize COM.")
+                    std::system_error(
+                        std::error_code(result, win32_category()),
+                        "Can't initlaize COM."
+                    )
                 );
             }
         }
