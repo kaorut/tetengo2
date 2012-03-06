@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_DRAWING_PICTUREREADER_H
 
 //#include <memory>
-#include <stdexcept>
 //#include <utility>
 
 #include <boost/noncopyable.hpp>

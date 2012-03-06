@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_WIDGET_WINDOW_H)
 #define TETENGO2_GUI_WIDGET_WINDOW_H
 
-//#include <stdexcept>
-
 //#include <boost/optional.hpp>
 
 #include "tetengo2.cpp11.h"

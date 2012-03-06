@@ -11,7 +11,6 @@
 
 //#include <cassert>
 //#include <memory>
-//#include <stdexcept>
 //#include <utility>
 
 #include "tetengo2.cpp11.h"

@@ -9,6 +9,7 @@
 #if !defined(TETENGO2_TEXT_ENCODING_UTF8_H)
 #define TETENGO2_TEXT_ENCODING_UTF8_H
 
+#include <stdexcept>
 #include <string>
 
 #include <boost/operators.hpp>

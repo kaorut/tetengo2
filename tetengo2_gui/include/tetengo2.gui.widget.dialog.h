@@ -10,7 +10,6 @@
 #define TETENGO2_GUI_WIDGET_DIALOG_H
 
 //#include <cassert>
-//#include <stdexcept>
 
 //#include <boost/optional.hpp>
 
