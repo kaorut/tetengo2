@@ -12,6 +12,7 @@
 #include <cstddef>
 #include <sstream>
 #include <stdexcept>
+#include <system_error>
 #include <tuple>
 
 #include <boost/throw_exception.hpp>
@@ -19,6 +20,8 @@
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
+
+#include "tetengo2.detail.windows.error_category.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -39,6 +42,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \param window A window.
 
             \return The exit status code.
+
+            \throw std::system_error When a message loop error has happened.
         */
         template <typename AbstractWindow>
         static int loop(AbstractWindow& window)
@@ -53,12 +58,13 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
                 else if (result == -1)
                 {
-                    std::ostringstream error_text;
-                    error_text
-                        << "Win32 Message Loop Error: "
-                        << ::GetLastError();
                     BOOST_THROW_EXCEPTION(
-                        std::runtime_error(error_text.str())
+                        std::system_error(
+                            std::error_code(
+                                ::GetLastError(), win32_category()
+                            ),
+                            "Win32 Message Loop Error"
+                        )
                     );
                 }
 
@@ -88,6 +94,8 @@ namespace tetengo2 { namespace detail { namespace windows
             \param dialog A dialog.
 
             \return The exit status code.
+
+            \throw std::system_error When a message loop error has happened.
         */
         template <typename AbstractWindow>
         static int dialog_loop(AbstractWindow& dialog)
@@ -102,12 +110,13 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
                 else if (result == -1)
                 {
-                    std::ostringstream error_text;
-                    error_text
-                        << "Win32 Message Loop Error: "
-                        << ::GetLastError();
                     BOOST_THROW_EXCEPTION(
-                        std::runtime_error(error_text.str())
+                        std::system_error(
+                            std::error_code(
+                                ::GetLastError(), win32_category()
+                            ),
+                            "Win32 Message Loop Error"
+                        )
                     );
                 }
 

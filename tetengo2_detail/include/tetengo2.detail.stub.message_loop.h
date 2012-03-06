@@ -28,6 +28,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param window A window.
 
             \return The exit code.
+
+            \throw std::system_error When a message loop error has happened.
         */
         template <typename AbstractWindow>
         static int loop(AbstractWindow& window)
@@ -43,6 +45,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param dialog A dialog.
 
             \return The exit status code.
+
+            \throw std::system_error When a message loop error has happened.
         */
         template <typename AbstractWindow>
         static int dialog_loop(AbstractWindow& dialog)
