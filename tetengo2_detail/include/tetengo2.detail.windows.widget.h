@@ -707,14 +707,23 @@ namespace tetengo2 { namespace detail { namespace windows
         static void set_position(Widget& widget, const Position& position)
         {
             const Dimension dim = dimension<Dimension>(widget);
-            const ::BOOL result = ::MoveWindow(
-                std::get<0>(*widget.details()).get(),
-                gui::to_pixels<int>(gui::position<Position>::left(position)),
-                gui::to_pixels<int>(gui::position<Position>::top(position)),
-                gui::to_pixels<int>(gui::dimension<Dimension>::width(dim)),
-                gui::to_pixels<int>(gui::dimension<Dimension>::height(dim)),
-                visible(widget) ? TRUE : FALSE
-            );
+            const ::BOOL result =
+                ::MoveWindow(
+                    std::get<0>(*widget.details()).get(),
+                    gui::to_pixels<int>(
+                        gui::position<Position>::left(position)
+                    ),
+                    gui::to_pixels<int>(
+                        gui::position<Position>::top(position)
+                    ),
+                    gui::to_pixels<int>(
+                        gui::dimension<Dimension>::width(dim)
+                    ),
+                    gui::to_pixels<int>(
+                        gui::dimension<Dimension>::height(dim)
+                    ),
+                    visible(widget) ? TRUE : FALSE
+                );
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -875,18 +884,19 @@ namespace tetengo2 { namespace detail { namespace windows
             );
 
             const Position pos = position<Position>(widget);
-            const ::BOOL result = ::MoveWindow(
-                std::get<0>(*widget.details()).get(),
-                gui::to_pixels<int>(gui::position<Position>::left(pos)),
-                gui::to_pixels<int>(gui::position<Position>::top(pos)),
-                gui::to_pixels<int>(
-                    gui::dimension<Dimension>::width(dimension)
-                ),
-                gui::to_pixels<int>(
-                    gui::dimension<Dimension>::height(dimension)
-                ),
-                visible(widget) ? TRUE : FALSE
-            );
+            const ::BOOL result =
+                ::MoveWindow(
+                    std::get<0>(*widget.details()).get(),
+                    gui::to_pixels<int>(gui::position<Position>::left(pos)),
+                    gui::to_pixels<int>(gui::position<Position>::top(pos)),
+                    gui::to_pixels<int>(
+                        gui::dimension<Dimension>::width(dimension)
+                    ),
+                    gui::to_pixels<int>(
+                        gui::dimension<Dimension>::height(dimension)
+                    ),
+                    visible(widget) ? TRUE : FALSE
+                );
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1006,14 +1016,15 @@ namespace tetengo2 { namespace detail { namespace windows
 
             assert(rectangle.right - rectangle.left > 0);
             assert(rectangle.bottom - rectangle.top > 0);
-            const ::BOOL result = ::MoveWindow(
-                std::get<0>(*widget.details()).get(),
-                rectangle.left,
-                rectangle.top,
-                rectangle.right - rectangle.left,
-                rectangle.bottom - rectangle.top,
-                visible(widget) ? TRUE : FALSE
-            );
+            const ::BOOL result =
+                ::MoveWindow(
+                    std::get<0>(*widget.details()).get(),
+                    rectangle.left,
+                    rectangle.top,
+                    rectangle.right - rectangle.left,
+                    rectangle.bottom - rectangle.top,
+                    visible(widget) ? TRUE : FALSE
+                );
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1090,10 +1101,11 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder& encoder
         )
         {
-            const ::BOOL result = ::SetWindowTextW(
-                std::get<0>(*widget.details()).get(),
-                encoder.encode(std::forward<String>(text)).c_str()
-            );
+            const ::BOOL result =
+                ::SetWindowTextW(
+                    std::get<0>(*widget.details()).get(),
+                    encoder.encode(std::forward<String>(text)).c_str()
+                );
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
@@ -1693,9 +1705,10 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             ::WNDCLASSEXW window_class = {};
-            const ::BOOL result = ::GetClassInfoExW(
-                instance_handle, window_class_name.c_str(), &window_class
-            );
+            const ::BOOL result =
+                ::GetClassInfoExW(
+                    instance_handle, window_class_name.c_str(), &window_class
+                );
 
             return result != 0;
         }
@@ -1712,39 +1725,43 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.cbClsExtra = 0;
             window_class.cbWndExtra = 0;
             window_class.hInstance = instance_handle;
-            window_class.hIcon = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OIC_WINLOGO),
-                    IMAGE_ICON,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hIconSm = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OIC_WINLOGO),
-                    IMAGE_ICON,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hCursor = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OCR_NORMAL),
-                    IMAGE_CURSOR,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(
-                ::GetSysColorBrush(COLOR_WINDOW)
-            );
+            window_class.hIcon =
+                reinterpret_cast< ::HICON>(
+                    ::LoadImageW(
+                        0,
+                        MAKEINTRESOURCEW(OIC_WINLOGO),
+                        IMAGE_ICON,
+                        0,
+                        0,
+                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                    )
+                );
+            window_class.hIconSm =
+                reinterpret_cast< ::HICON>(
+                    ::LoadImageW(
+                        0,
+                        MAKEINTRESOURCEW(OIC_WINLOGO),
+                        IMAGE_ICON,
+                        0,
+                        0,
+                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                    )
+                );
+            window_class.hCursor =
+                reinterpret_cast< ::HICON>(
+                    ::LoadImageW(
+                        0,
+                        MAKEINTRESOURCEW(OCR_NORMAL),
+                        IMAGE_CURSOR,
+                        0,
+                        0,
+                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                    )
+                );
+            window_class.hbrBackground =
+                reinterpret_cast< ::HBRUSH>(
+                    ::GetSysColorBrush(COLOR_WINDOW)
+                );
             window_class.lpszMenuName = NULL;
             window_class.lpszClassName = window_class_name().c_str();
 
@@ -1774,19 +1791,21 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.hInstance = instance_handle;
             window_class.hIcon = NULL;
             window_class.hIconSm = NULL;
-            window_class.hCursor = reinterpret_cast< ::HICON>(
-                ::LoadImageW(
-                    0,
-                    MAKEINTRESOURCEW(OCR_NORMAL),
-                    IMAGE_CURSOR,
-                    0,
-                    0,
-                    LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
-                )
-            );
-            window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(
-                ::GetSysColorBrush(COLOR_3DFACE)
-            );
+            window_class.hCursor =
+                reinterpret_cast< ::HICON>(
+                    ::LoadImageW(
+                        0,
+                        MAKEINTRESOURCEW(OCR_NORMAL),
+                        IMAGE_CURSOR,
+                        0,
+                        0,
+                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                    )
+                );
+            window_class.hbrBackground =
+                reinterpret_cast< ::HBRUSH>(
+                    ::GetSysColorBrush(COLOR_3DFACE)
+                );
             window_class.lpszMenuName = NULL;
             window_class.lpszClassName = dialog_class_name().c_str();
 

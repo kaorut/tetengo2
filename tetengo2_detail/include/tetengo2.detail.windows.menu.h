@@ -285,14 +285,15 @@ namespace tetengo2 { namespace detail { namespace windows
             );
 
             assert(popup_menu.details());
-            const ::BOOL result = ::InsertMenuItem(
-                &*popup_menu.details()->second,
-                static_cast< ::UINT>(
-                    std::distance(popup_menu.begin(), offset)
-                ),
-                TRUE,
-                &menu_info
-            );
+            const ::BOOL result =
+                ::InsertMenuItem(
+                    &*popup_menu.details()->second,
+                    static_cast< ::UINT>(
+                        std::distance(popup_menu.begin(), offset)
+                    ),
+                    TRUE,
+                    &menu_info
+                );
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(

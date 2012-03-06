@@ -373,18 +373,18 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 typedef
                     typename AbstractWindow::menu_bar_type menu_bar_type;
-                const typename menu_bar_type::recursive_iterator_type
-                found = std::find_if(
-                    abstract_window.menu_bar().recursive_begin(),
-                    abstract_window.menu_bar().recursive_end(),
-                    TETENGO2_CPP11_BIND(
-                        same_menu<
-                            typename menu_bar_type::base_type::base_type
-                        >,
-                        cpp11::placeholders_1(),
-                        id
-                    )
-                );
+                const typename menu_bar_type::recursive_iterator_type found =
+                    std::find_if(
+                        abstract_window.menu_bar().recursive_begin(),
+                        abstract_window.menu_bar().recursive_end(),
+                        TETENGO2_CPP11_BIND(
+                            same_menu<
+                                typename menu_bar_type::base_type::base_type
+                            >,
+                            cpp11::placeholders_1(),
+                            id
+                        )
+                    );
                 if (found == abstract_window.menu_bar().recursive_end())
                     return boost::none;
                 found->select();
@@ -406,18 +406,18 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 typedef
                     typename AbstractWindow::menu_bar_type menu_bar_type;
-                const typename menu_bar_type::recursive_iterator_type
-                found = std::find_if(
-                    abstract_window.menu_bar().recursive_begin(),
-                    abstract_window.menu_bar().recursive_end(),
-                    TETENGO2_CPP11_BIND(
-                        same_popup_menu<
-                            typename menu_bar_type::base_type::base_type
-                        >,
-                        cpp11::placeholders_1(),
-                        handle
-                    )
-                );
+                const typename menu_bar_type::recursive_iterator_type found =
+                    std::find_if(
+                        abstract_window.menu_bar().recursive_begin(),
+                        abstract_window.menu_bar().recursive_end(),
+                        TETENGO2_CPP11_BIND(
+                            same_popup_menu<
+                                typename menu_bar_type::base_type::base_type
+                            >,
+                            cpp11::placeholders_1(),
+                            handle
+                        )
+                    );
                 if (found == abstract_window.menu_bar().recursive_end())
                     return boost::none;
                 found->select();
