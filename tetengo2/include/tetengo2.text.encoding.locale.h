@@ -112,6 +112,8 @@ namespace tetengo2 { namespace text { namespace encoding
             \param pivot A pivot string.
 
             \return A translated string.
+
+            \throw std::invalid_argument When the string cannot be translated.
         */
         template <typename P>
         string_type from_pivot(P&& pivot)
@@ -128,6 +130,8 @@ namespace tetengo2 { namespace text { namespace encoding
             \param string A string.
 
             \return A translated pivot string.
+
+            \throw std::invalid_argument When the string cannot be translated.
         */
         template <typename S>
         typename base_type::pivot_type to_pivot(S&& string)
@@ -277,7 +281,7 @@ namespace tetengo2 { namespace text { namespace encoding
                 if (result == converter_type::error)
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::runtime_error("Can't unshift the string.")
+                        std::invalid_argument("Can't unshift the string.")
                     );
                 }
 

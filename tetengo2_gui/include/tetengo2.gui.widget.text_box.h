@@ -77,8 +77,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates a text box.
 
             \param parent A parent widget.
-
-            \throw std::runtime_error When a text box cannot be created.
         */
         explicit text_box(widget_type& parent)
         :

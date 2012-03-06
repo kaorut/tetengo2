@@ -84,8 +84,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates an image.
 
             \param parent A parent widget.
-
-            \throw std::runtime_error When an image cannot be created.
         */
         image(widget_type& parent)
         :

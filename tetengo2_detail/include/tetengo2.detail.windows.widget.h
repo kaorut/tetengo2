@@ -873,7 +873,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \param widget   A widget.
             \param dimension A dimension.
 
-            \throw When the widget cannot be moved.
+            \throw std::system_error When the widget cannot be moved.
         */
         template <typename Position, typename Widget, typename Dimension>
         static void set_dimension(Widget& widget, const Dimension& dimension)

@@ -452,8 +452,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Sets a font.
 
             \param font A font.
-
-            \throw std::runtime_error When the font cannot be set.
         */
         void set_font(const font_type& font)
         {

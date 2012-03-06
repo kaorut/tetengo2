@@ -66,6 +66,8 @@ namespace tetengo2 { namespace text { namespace encoding
             \param pivot A pivot string.
 
             \return A translated string.
+
+            \throw std::invalid_argument When the string cannot be translated.
         */
         string_type from_pivot(const typename base_type::pivot_type& pivot)
         const
@@ -79,6 +81,8 @@ namespace tetengo2 { namespace text { namespace encoding
             \param string A string.
 
             \return A translated pivot string.
+
+            \throw std::invalid_argument When the string cannot be translated.
         */
         typename base_type::pivot_type to_pivot(const string_type& string)
         const

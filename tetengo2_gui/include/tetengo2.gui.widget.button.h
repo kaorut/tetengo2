@@ -89,8 +89,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param parent A parent widget.
             \param style  A style.
-
-            \throw std::runtime_error When a button cannot be created.
         */
         explicit button(
             widget_type&     parent,

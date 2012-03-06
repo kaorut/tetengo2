@@ -101,8 +101,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates a dialog.
 
             \param parent A parent window.
-
-            \throw std::runtime_error When a dialog cannot be created.
         */
         explicit dialog(base_type& parent)
         :

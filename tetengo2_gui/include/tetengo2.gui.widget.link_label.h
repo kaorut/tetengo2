@@ -118,8 +118,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates a link label.
 
             \param parent A parent widget.
-
-            \throw std::runtime_error When a link label cannot be created.
         */
         explicit link_label(widget_type& parent)
         :

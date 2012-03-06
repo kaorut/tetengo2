@@ -197,8 +197,6 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param text     A text to draw.
             \param position A position where the text is drawn.
-
-            \throw std::runtime_error When the text cannot be drawn.
         */
         template <typename P>
         void draw_text(const string_type& text, const P& position)
@@ -217,8 +215,6 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param picture   A picture to paint.
             \param position  A position where the picture is painted.
             \param dimension A dimension in which the picture is painted.
-
-            \throw std::runtime_error When the picture cannot be painted.
         */
         template <typename P, typename D /* = typename P::dimension_type */>
         void paint_picture(

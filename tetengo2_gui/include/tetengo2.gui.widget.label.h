@@ -91,8 +91,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates a label.
 
             \param parent A parent widget.
-
-            \throw std::runtime_error When a label cannot be created.
         */
         explicit label(widget_type& parent)
         :

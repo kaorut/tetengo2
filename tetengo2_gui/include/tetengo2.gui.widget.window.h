@@ -76,8 +76,6 @@ namespace tetengo2 { namespace gui { namespace widget
 
         /*!
             \brief Creates a top level window.
-
-            \throw std::runtime_error When a window cannot be created.
         */
         window()
         :
@@ -95,8 +93,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates a owned window.
 
             \param parent A parent window.
-
-            \throw std::runtime_error When a window cannot be created.
         */
         explicit window(base_type& parent)
         :
