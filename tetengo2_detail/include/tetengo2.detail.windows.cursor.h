@@ -10,16 +10,15 @@
 #define TETENGO2_DETAIL_WINDOWS_CURSOR_H
 
 #include <memory>
-#include <stdexcept>
-#include <system_error>
-#include <type_traits>
-#include <utility>
+//#include <system_error>
+//#include <type_traits>
+//#include <utility>
 
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 
 #include "tetengo2.detail.windows.error_category.h"
 

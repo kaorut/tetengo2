@@ -9,15 +9,15 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H)
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_DRAWING_H
 
-#include <cassert>
+//#include <cassert>
 //#include <cstddef>
 #include <limits>
 //#include <memory>
-#include <string>
+//#include <string>
 //#include <utility>
-#include <vector>
+//#include <vector>
 //#include <stdexcept>
-#include <system_error>
+//#include <system_error>
 //#include <type_traits>
 
 #include <boost/optional.hpp>
@@ -26,15 +26,15 @@
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
-#if !defined(min) && !defined(DOCUMENTATION)
-#   define min(a, b) ((a) < (b) ? (a) : (b))
-#endif
-#if !defined(max) && !defined(DOCUMENTATION)
-#   define max(a, b) ((a) > (b) ? (a) : (b))
-#endif
-#include <GdiPlus.h>
-#undef min
-#undef max
+//#if !defined(min) && !defined(DOCUMENTATION)
+//#   define min(a, b) ((a) < (b) ? (a) : (b))
+//#endif
+//#if !defined(max) && !defined(DOCUMENTATION)
+//#   define max(a, b) ((a) > (b) ? (a) : (b))
+//#endif
+//#include <GdiPlus.h>
+//#undef min
+//#undef max
 
 #include "tetengo2.detail.windows.gdiplus.error_category.h"
 #include "tetengo2.detail.windows.font.h"

@@ -9,10 +9,9 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_FONT_H)
 #define TETENGO2_DETAIL_WINDOWS_FONT_H
 
-#include <stdexcept>
-#include <system_error>
+//#include <system_error>
 
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE

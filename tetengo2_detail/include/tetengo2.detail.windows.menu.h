@@ -10,22 +10,22 @@
 #define TETENGO2_DETAIL_WINDOWS_MENU_H
 
 #include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <iterator>
+//#include <cassert>
+//#include <cstddef>
+//#include <iterator>
 //#include <memory>
-#include <stdexcept>
-#include <string>
-#include <system_error>
-#include <type_traits>
+//#include <stdexcept>
+//#include <string>
+//#include <system_error>
+//#include <type_traits>
 //#include <utility>
-#include <vector>
+//#include <vector>
 
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.text.h"

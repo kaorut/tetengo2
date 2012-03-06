@@ -155,14 +155,14 @@ sub scan_source
 		{
 			my($code_line) = $line;
 			while (
-				$code_line =~ /(std::[a-zA-Z0-9_\:]*)/ ||
+				$code_line =~ /(std::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 				$code_line =~ /(assert)/ ||
 				$code_line =~ /(NULL)/ ||
-				$code_line =~ /(boost::[a-zA-Z0-9_\:]*)/ ||
-				$code_line =~ /(BOOST_[A-Z0-9_]*)/ ||
-				$code_line =~ /[^a-zA-Z0-9_\:](::[A-Z][a-zA-Z0-9_\:]*)/ ||
-				$code_line =~ /(ATL::[a-zA-Z0-9_\:]*)/ ||
-				$code_line =~ /(Gdiplus::[a-zA-Z0-9_\:]*)/ ||
+				$code_line =~ /(boost::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /(BOOST_[A-Z0-9_]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /[^a-zA-Z0-9_\:](::[A-Z][a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /(ATL::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /(Gdiplus::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 				$code_line =~ /(VK_[A-Z0-9_]*)/ ||
 				$code_line =~ /(WINAPI)/
 			)

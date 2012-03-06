@@ -9,12 +9,14 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_ERRORCATEGORY_H)
 #define TETENGO2_DETAIL_WINDOWS_ERRORCATEGORY_H
 
+//#include <cstddef>
+//#include <string>
 #include <system_error>
-#include <vector>
+//#include <vector>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.encoding.h"

@@ -10,27 +10,27 @@
 #define TETENGO2_DETAIL_WINDOWS_WIDGET_H
 
 #include <algorithm>
-#include <cassert>
+//#include <cassert>
 //#include <cstddef>
 #include <exception>
 //#include <memory>
-#include <stdexcept>
-#include <string>
-#include <system_error>
+//#include <stdexcept>
+//#include <string>
+//#include <system_error>
 #include <tuple>
 //#include <type_traits>
 //#include <utility>
-#include <vector>
+//#include <vector>
 
 #include <boost/exception/all.hpp>
 #include <boost/foreach.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"

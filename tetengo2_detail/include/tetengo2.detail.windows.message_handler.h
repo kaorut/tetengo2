@@ -10,23 +10,22 @@
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H
 
 #include <algorithm>
-#include <cassert>
-#include <cstddef>
+//#include <cassert>
+//#include <cstddef>
 //#include <functional>
-#include <stdexcept>
-#include <system_error>
+//#include <system_error>
 #include <tuple>
 #include <unordered_map>
-#include <utility>
-#include <vector>
+//#include <utility>
+//#include <vector>
 
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"

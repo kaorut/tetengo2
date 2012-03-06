@@ -9,17 +9,15 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGELOOP_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGELOOP_H
 
-#include <cstddef>
-#include <sstream>
-#include <stdexcept>
-#include <system_error>
+//#include <cstddef>
+//#include <system_error>
 #include <tuple>
 
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 
 #include "tetengo2.detail.windows.error_category.h"
 

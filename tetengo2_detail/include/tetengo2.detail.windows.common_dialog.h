@@ -10,24 +10,24 @@
 #define TETENGO2_DETAIL_WINDOWS_COMMONDIALOG_H
 
 #include <algorithm>
-#include <cassert>
-#include <cstddef>
-#include <iterator>
+//#include <cassert>
+//#include <cstddef>
+//#include <iterator>
 //#include <memory>
-#include <stdexcept>
-#include <string>
+//#include <stdexcept>
+//#include <string>
 //#include <system_error>
 #include <tuple>
 //#include <utility>
-#include <vector>
+//#include <vector>
 
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 #include <CommCtrl.h>
 #include <ObjBase.h>
 #include <ShObjIdl.h>

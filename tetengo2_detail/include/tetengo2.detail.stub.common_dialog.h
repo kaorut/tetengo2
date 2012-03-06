@@ -11,6 +11,7 @@
 
 //#include <memory>
 //#include <utility>
+#include <system_error>
 
 #include <boost/filesystem.hpp>
 #include <boost/optional.hpp>

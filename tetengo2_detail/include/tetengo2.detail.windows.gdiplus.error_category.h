@@ -11,11 +11,12 @@
 #define TETENGO2_DETAIL_WINDOWS_GDIPLUS_ERRORCATEGORY_H
 
 #include <cassert>
+#include <string>
 #include <system_error>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
 #if !defined(min) && !defined(DOCUMENTATION)
 #   define min(a, b) ((a) < (b) ? (a) : (b))
 #endif

@@ -10,6 +10,7 @@
 #define TETENGO2_DETAIL_STUB_CURSOR_H
 
 //#include <memory>
+#include <system_error>
 
 #include "tetengo2.unique.h"
 

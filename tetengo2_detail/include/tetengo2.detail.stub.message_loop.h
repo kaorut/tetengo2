@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_DETAIL_STUB_MESSAGELOOP_H)
 #define TETENGO2_DETAIL_STUB_MESSAGELOOP_H
 
+#include <system_error>
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {

@@ -9,12 +9,11 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_GUIFIXTURE_H)
 #define TETENGO2_DETAIL_WINDOWS_GUIFIXTURE_H
 
-#include <cstddef>
-#include <stdexcept>
+//#include <cstddef>
 //#include <system_error>
 
 #include <boost/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
+//#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
