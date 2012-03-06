@@ -6,6 +6,10 @@
     $Id$
 */
 
+#if __CYGWIN__ && __GNUC__ == 4 && __GNUC_MINOR__ == 5 && __GNUC_PATCHLEVEL__ == 3
+#   warning "This file does not compile with g++ 4.5.3 on Cygwin."
+#else
+
 //#include <string>
 //#include <utility>
 //#include <vector>
@@ -422,3 +426,5 @@ BOOST_AUTO_TEST_SUITE(push_parser)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+
+#endif
