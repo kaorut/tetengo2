@@ -210,7 +210,7 @@ namespace bobura
 
     /**** Locale ************************************************************/
 
-    namespace type
+    namespace type { namespace locale
     {
         struct ui_encoder;     //!< The encoder type for the user interface.
         struct exception_encoder; //!< The encoder type for exceptions.
@@ -223,7 +223,7 @@ namespace bobura
         struct message_catalog; //!< The message catalog type.
         struct timetable_file_encoder; //!< The encoder type for the timetable
                                        //!< file.
-    }
+    }}
 
 #if !defined(DOCUMENTATION)
     namespace detail { namespace locale
@@ -290,7 +290,7 @@ namespace bobura
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::ui_encoder,
+                type::locale::ui_encoder,
                 tetengo2::text::encoder<
                     detail::locale::internal_encoding_type,
                     detail::locale::ui_encoding_type
@@ -298,7 +298,7 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::exception_encoder,
+                type::locale::exception_encoder,
                 tetengo2::text::encoder<
                     detail::locale::internal_encoding_type,
                     detail::locale::exception_encoding_type
@@ -306,33 +306,33 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::message_catalog_encoder,
+                type::locale::message_catalog_encoder,
                 detail::locale::message_catalog_encoder_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::locale_name_encoder,
+                type::locale::locale_name_encoder,
                 detail::locale::locale_name_encoder_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::message_catalog_parser,
+                type::locale::message_catalog_parser,
                 detail::locale::message_catalog_parser_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::messages_facet, detail::locale::messages_type
+                type::locale::messages_facet, detail::locale::messages_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::message_catalog,
+                type::locale::message_catalog,
                 tetengo2::message::message_catalog<
                     detail::locale::messages_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::timetable_file_encoder,
+                type::locale::timetable_file_encoder,
                 detail::locale::timetable_file_encoder_type
             >,
         tetengo2::meta::assoc_list_end
@@ -424,7 +424,7 @@ namespace bobura
                     detail::model::station_grade_type_set_type,
                     boost::mpl::at<common_type_list, type::pull_parser>::type,
                     boost::mpl::at<
-                        locale_type_list, type::timetable_file_encoder
+                        locale_type_list, type::locale::timetable_file_encoder
                     >::type
                 >
             >,
@@ -438,7 +438,7 @@ namespace bobura
                         common_type_list, type::output_stream
                     >::type,
                     boost::mpl::at<
-                        locale_type_list, type::timetable_file_encoder
+                        locale_type_list, type::locale::timetable_file_encoder
                     >::type
                 >
             >,
@@ -546,7 +546,9 @@ namespace bobura
                 boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 dimension_type,
-                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                boost::mpl::at<
+                    locale_type_list, type::locale::ui_encoder
+                >::type,
                 background_type,
                 font_type,
                 picture_type,
@@ -556,14 +558,18 @@ namespace bobura
         typedef
             tetengo2::detail::windows::alert<
                 boost::mpl::at<common_type_list, type::string>::type,
-                boost::mpl::at<locale_type_list, type::ui_encoder>::type
+                boost::mpl::at<
+                    locale_type_list, type::locale::ui_encoder
+                >::type
             >
             alert_details_type;
         typedef
             tetengo2::gui::alert<
-                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
                 boost::mpl::at<
-                    locale_type_list, type::exception_encoder
+                    locale_type_list, type::locale::ui_encoder
+                >::type,
+                boost::mpl::at<
+                    locale_type_list, type::locale::exception_encoder
                 >::type,
                 alert_details_type
             >
@@ -585,7 +591,7 @@ namespace bobura
                 position_type,
                 dimension_type,
                 boost::mpl::at<common_type_list, type::string>::type,
-                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
                 background_type,
                 font_type,
                 system_cursor_type,
@@ -611,7 +617,9 @@ namespace bobura
             tetengo2::gui::menu::traits<
                 boost::mpl::at<common_type_list, type::string>::type,
                 shortcut_key_type,
-                boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                boost::mpl::at<
+                    locale_type_list, type::locale::ui_encoder
+                >::type,
                 tetengo2::gui::message::menu_observer_set
             >
             menu_traits_type;
@@ -871,7 +879,9 @@ namespace bobura
                         ui_type_list, type::abstract_window
                     >::type,
                     boost::mpl::at<common_type_list, type::string>::type,
-                    boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                boost::mpl::at<
+                    locale_type_list, type::locale::ui_encoder
+                >::type,
                     tetengo2::detail::windows::common_dialog
                 >
             >,
@@ -884,7 +894,9 @@ namespace bobura
                     >::type,
                     boost::mpl::at<common_type_list, type::string>::type,
                     boost::mpl::at<common_type_list, type::path>::type,
-                    boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                boost::mpl::at<
+                    locale_type_list, type::locale::ui_encoder
+                >::type,
                     tetengo2::detail::windows::common_dialog
                 >
             >,
@@ -897,7 +909,7 @@ namespace bobura
                     >::type,
                     boost::mpl::at<common_type_list, type::string>::type,
                     boost::mpl::at<common_type_list, type::path>::type,
-                    boost::mpl::at<locale_type_list, type::ui_encoder>::type,
+                    boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
                     tetengo2::detail::windows::common_dialog
                 >
             >,
@@ -922,7 +934,7 @@ namespace bobura
                 about_dialog<
                     boost::mpl::at<ui_type_list, type::dialog>::type,
                     boost::mpl::at<
-                        locale_type_list, type::message_catalog
+                        locale_type_list, type::locale::message_catalog
                     >::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<ui_type_list, type::label>::type,
@@ -944,7 +956,7 @@ namespace bobura
                 file_property_dialog<
                     boost::mpl::at<ui_type_list, type::dialog>::type,
                     boost::mpl::at<
-                        locale_type_list, type::message_catalog
+                        locale_type_list, type::locale::message_catalog
                     >::type,
                     boost::mpl::at<ui_type_list, type::label>::type,
                     boost::mpl::at<ui_type_list, type::text_box>::type,
@@ -986,7 +998,9 @@ namespace bobura
                     common_dialog_type_list, type::file_save_dialog
                 >::type,
                 boost::mpl::at<model_type_list, type::writer>::type,
-                boost::mpl::at<locale_type_list, type::message_catalog>::type
+                boost::mpl::at<
+                    locale_type_list, type::locale::message_catalog
+                >::type
             >
             save_to_file_type;
         typedef
@@ -1000,7 +1014,7 @@ namespace bobura
                 >::type,
                 save_to_file_type,
                 boost::mpl::at<
-                    locale_type_list, type::message_catalog
+                    locale_type_list, type::locale::message_catalog
                 >::type
             >
             confirm_file_save_type;
@@ -1038,7 +1052,7 @@ namespace bobura
                     detail::load_save::confirm_file_save_type,
                     boost::mpl::at<model_type_list, type::reader>::type,
                     boost::mpl::at<
-                        locale_type_list, type::message_catalog
+                        locale_type_list, type::locale::message_catalog
                     >::type
                 >
             >,
@@ -1151,7 +1165,7 @@ namespace bobura
                 main_window<
                     boost::mpl::at<ui_type_list, type::window>::type,
                     boost::mpl::at<
-                        locale_type_list, type::message_catalog
+                        locale_type_list, type::locale::message_catalog
                     >::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<
@@ -1198,7 +1212,7 @@ namespace bobura
                     >::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<
-                        locale_type_list, type::message_catalog
+                        locale_type_list, type::locale::message_catalog
                     >::type
                 >
             >,

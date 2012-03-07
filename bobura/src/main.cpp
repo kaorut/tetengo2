@@ -75,7 +75,7 @@ namespace
     {
         typedef
             boost::mpl::at<
-                bobura::locale_type_list, bobura::type::messages_facet
+                bobura::locale_type_list, bobura::type::locale::messages_facet
             >::type
             messages_facet_type;
         std::unique_ptr<messages_facet_type> p_messages_facet(

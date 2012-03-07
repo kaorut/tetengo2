@@ -36,7 +36,9 @@ namespace bobura
             model_message_type_list_type;
 
         typedef
-            boost::mpl::at<locale_type_list, type::message_catalog>::type
+            boost::mpl::at<
+                locale_type_list, type::locale::message_catalog
+            >::type
             message_catalog_type;
 
         typedef
