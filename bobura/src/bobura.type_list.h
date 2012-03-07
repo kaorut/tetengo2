@@ -136,15 +136,13 @@ namespace bobura
         struct size;           //!< The size type.
         struct string;         //!< The string type.
         struct path;           //!< The path type.
-        struct json_grammar;   //!< The JSON grammar type.
-        struct push_parser;    //!< The push parser type.
         struct pull_parser;    //!< The pull parser_type.
         struct output_stream;  //!< The output stream type.
         struct settings;       //!< The settings type.
     }
 
 #if !defined(DOCUMENTATION)
-    namespace detail { namespace common
+    namespace detail
     {
         typedef std::ptrdiff_t difference_type;
         typedef std::size_t size_type;
@@ -170,41 +168,27 @@ namespace bobura
         typedef
             std::basic_ostream<io_string_type::value_type> output_stream_type;
         typedef settings<string_type, path_type> settings_type;
-    }}
+    }
 #endif
 
     //! The common type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::difference, detail::common::difference_type
-            >,
+            boost::mpl::pair<type::difference, detail::difference_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::size, detail::common::size_type>,
+            boost::mpl::pair<type::size, detail::size_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::string, detail::common::string_type>,
+            boost::mpl::pair<type::string, detail::string_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::path, detail::common::path_type>,
+            boost::mpl::pair<type::path, detail::path_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::json_grammar, detail::common::json_grammar_type
-            >,
+            boost::mpl::pair<type::pull_parser, detail::pull_parser_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::push_parser, detail::common::push_parser_type
-            >,
+            boost::mpl::pair<type::output_stream, detail::output_stream_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::pull_parser, detail::common::pull_parser_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::output_stream, detail::common::output_stream_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::settings, detail::common::settings_type>,
+            boost::mpl::pair<type::settings, detail::settings_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>
+        >>>>>>>
         common_type_list;
 
 
