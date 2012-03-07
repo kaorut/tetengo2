@@ -198,11 +198,6 @@ namespace bobura
     {
         struct ui_encoder;     //!< The encoder type for the user interface.
         struct exception_encoder; //!< The encoder type for exceptions.
-        struct message_catalog_encoder; //!< The encoder type for the
-                                        //!< message catalog.
-        struct locale_name_encoder; //!< The encoder type for locale names.
-
-        struct message_catalog_parser; //!< The message catalog parser type.
         struct messages_facet; //!< The messages facet type.
         struct message_catalog; //!< The message catalog type.
         struct timetable_file_encoder; //!< The encoder type for the timetable
@@ -290,21 +285,6 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::locale::message_catalog_encoder,
-                detail::locale::message_catalog_encoder_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::locale::locale_name_encoder,
-                detail::locale::locale_name_encoder_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::locale::message_catalog_parser,
-                detail::locale::message_catalog_parser_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
                 type::locale::messages_facet, detail::locale::messages_type
             >,
         tetengo2::meta::assoc_list<
@@ -320,7 +300,7 @@ namespace bobura
                 detail::locale::timetable_file_encoder_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>
         locale_type_list;
 
 
