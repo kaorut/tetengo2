@@ -16,6 +16,7 @@
 
 #include <tetengo2.cpp11.h>
 
+#define USE_TYPES_FOR_APPLICATION
 #include "bobura.type_list.h"
 
 
