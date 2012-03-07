@@ -7,12 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000150
-Added on    : 2012/02/17
-Depends on  : (none)
-Description : Replace the exceptions thrown due to API call failure to
-            : std/boost::system_error.
-------------------------------------------------------------------------------
 Number      : 00000152
 Added on    : 2012/02/23
 Depends on  : (none)
