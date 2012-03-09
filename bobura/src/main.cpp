@@ -117,6 +117,10 @@ int WINAPI wWinMain(
 )
 TETENGO2_CPP11_NOEXCEPT
 {
+    typedef
+        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::alert>::type
+        alsert_type;
+
     try
     {
         std::vector<std::wstring> command_line_arguments =
@@ -134,17 +138,17 @@ TETENGO2_CPP11_NOEXCEPT
     }
     catch (const boost::exception& e)
     {
-        boost::mpl::at<bobura::ui_type_list, bobura::type::alert>::type()(e);
+        alsert_type()(e);
         return 1;
     }
     catch (const std::exception& e)
     {
-        boost::mpl::at<bobura::ui_type_list, bobura::type::alert>::type()(e);
+        alsert_type()(e);
         return 1;
     }
     catch (...)
     {
-        boost::mpl::at<bobura::ui_type_list, bobura::type::alert>::type()();
+        alsert_type()();
         return 2;
     }
 }

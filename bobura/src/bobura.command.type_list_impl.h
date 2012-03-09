@@ -75,7 +75,8 @@ namespace bobura { namespace command
                 >,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<
-                    type::new_file, new_file<Model, AbstractWindow, NewFile>
+                    type::new_file,
+                    new_file<Model, AbstractWindow, NewFile>
                 >,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::nop, nop<Model, AbstractWindow>>,

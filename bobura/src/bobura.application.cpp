@@ -29,10 +29,15 @@ namespace bobura
             boost::mpl::at<common_type_list, type::settings>::type
             settings_type;
 
-        typedef boost::mpl::at<model_type_list, type::model>::type model_type;
+        typedef
+            boost::mpl::at<model_type_list, type::model::model>::type
+            model_type;
 
-        typedef boost::mpl::at<
-            application_type_list, type::model_message_type_list>::type
+        typedef
+            boost::mpl::at<
+                application_type_list,
+                type::application::model_message_type_list
+            >::type
             model_message_type_list_type;
 
         typedef
@@ -42,46 +47,59 @@ namespace bobura
             message_catalog_type;
 
         typedef
-            boost::mpl::at<load_save_type_list, type::confirm_file_save>::type
+            boost::mpl::at<
+                load_save_type_list, type::load_save::confirm_file_save
+            >::type
             confirm_file_save_type;
 
         typedef
-            boost::mpl::at<load_save_type_list, type::new_file>::type
+            boost::mpl::at<
+                load_save_type_list, type::load_save::new_file
+            >::type
             new_file_type;
 
         typedef
-            boost::mpl::at<load_save_type_list, type::load_from_file>::type
+            boost::mpl::at<
+                load_save_type_list, type::load_save::load_from_file
+            >::type
             load_from_file_type;
 
         typedef load_from_file_type::reader_type reader_type;
 
         typedef
-            boost::mpl::at<load_save_type_list, type::save_to_file>::type
+            boost::mpl::at<
+                load_save_type_list, type::load_save::save_to_file
+            >::type
             save_to_file_type;
 
         typedef save_to_file_type::writer_type writer_type;
 
         typedef
-            boost::mpl::at<command_type_list, type::command_set>::type
+            boost::mpl::at<
+                application_type_list, type::application::command_set
+            >::type
             command_set_type;
 
         typedef command_set_type::command_type command_type;
 
         typedef
-            boost::mpl::at<main_window_type_list, type::main_window>::type
+            boost::mpl::at<
+                main_window_type_list, type::main_window::main_window
+            >::type
             main_window_type;
 
         typedef
             boost::mpl::at<
-                main_window_type_list, type::main_window_message_type_list
+                main_window_type_list, type::main_window::message_type_list
             >::type
             main_window_message_type_list_type;
 
         typedef
-            boost::mpl::at<ui_type_list, type::menu_bar>::type menu_bar_type;
+            boost::mpl::at<ui_type_list, type::ui::menu_bar>::type
+            menu_bar_type;
 
         typedef
-            boost::mpl::at<ui_type_list, type::menu_command>::type
+            boost::mpl::at<ui_type_list, type::ui::menu_command>::type
             menu_command_type;
 
         typedef menu_command_type::base_type menu_base_type;
@@ -91,23 +109,23 @@ namespace bobura
         typedef shortcut_key_type::virtual_key_type virtual_key_type;
 
         typedef
-            boost::mpl::at<ui_type_list, type::popup_menu>::type
+            boost::mpl::at<ui_type_list, type::ui::popup_menu>::type
             popup_menu_type;
 
         typedef
-            boost::mpl::at<ui_type_list, type::menu_separator>::type
+            boost::mpl::at<ui_type_list, type::ui::menu_separator>::type
             menu_separator_type;
 
         typedef
-            boost::mpl::at<ui_type_list, type::message_loop>::type
+            boost::mpl::at<ui_type_list, type::ui::message_loop>::type
             message_loop_type;
 
         typedef
-            boost::mpl::at<ui_type_list, type::message_loop_break>::type
+            boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type
             message_loop_break_type;
 
         typedef
-            boost::mpl::at<ui_type_list, type::gui_fixture>::type
+            boost::mpl::at<ui_type_list, type::ui::gui_fixture>::type
             gui_fixture_type;
 
 
