@@ -516,10 +516,7 @@ namespace bobura
             canvas_type;
         typedef
             tetengo2::detail::windows::alert<
-                boost::mpl::at<common_type_list, type::string>::type,
-                boost::mpl::at<
-                    locale_type_list, type::locale::ui_encoder
-                >::type
+                boost::mpl::at<common_type_list, type::string>::type
             >
             alert_details_type;
         typedef

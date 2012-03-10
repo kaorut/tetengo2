@@ -18,9 +18,8 @@ namespace tetengo2 { namespace detail { namespace stub
         \brief The class template for a detail implementation of an alert.
 
         \tparam String A string type.
-        \tparam Encoder An encoder type.
     */
-    template <typename String, typename Encoder>
+    template <typename String>
     class alert
     {
     public:
@@ -28,9 +27,6 @@ namespace tetengo2 { namespace detail { namespace stub
 
         //! The string type.
         typedef String string_type;
-
-        //! The encoder type.
-        typedef Encoder encoder_type;
 
         //! The widget handle type.
         typedef const void* widget_handle_type;
@@ -55,6 +51,8 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Shows a task dialog.
 
+            \tparam Encoder An encoder type.
+
             \param widget_handle    A widget handle.
             \param caption          A caption.
             \param text1            A text #1.
@@ -63,6 +61,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param source_file_line A source file line number.
             \param encoder          An encoder.
         */
+        template <typename Encoder>
         static void show_task_dialog(
             const widget_handle_type widget_handle,
             const string_type&       caption,
@@ -70,7 +69,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const string_type&       text2,
             const string_type&       source_file_name,
             const int                source_file_line,
-            const encoder_type&      encoder
+            const Encoder&           encoder
         )
         {}
 

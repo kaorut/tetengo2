@@ -49,9 +49,7 @@ namespace
         >
         exception_encoder_type;
 
-    typedef
-        tetengo2::detail::stub::alert<std::wstring, ui_encoder_type>
-        alert_details_type;
+    typedef tetengo2::detail::stub::alert<std::wstring> alert_details_type;
 
     typedef
         tetengo2::gui::alert<
