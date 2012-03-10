@@ -192,7 +192,7 @@ typedef
     >
     model_type;
 
-typedef tetengo2::detail::stub::alert<std::string> alert_details_type;
+typedef tetengo2::detail::stub::alert alert_details_type;
 
 typedef
     tetengo2::gui::alert<

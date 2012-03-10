@@ -27,18 +27,12 @@
 namespace tetengo2 { namespace detail { namespace windows
 {
     /*!
-        \brief The class template for a detail implementation of an alert.
-
-        \tparam String  A string type.
+        \brief The class for a detail implementation of an alert.
     */
-    template <typename String>
     class alert
     {
     public:
         // types
-
-        //! The string type.
-        typedef String string_type;
 
         //! The widget handle type.
         typedef ::HWND widget_handle_type;
@@ -76,6 +70,7 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Shows a task dialog.
 
+            \tparam String  A string type.
             \tparam Encoder An encoder type.
 
             \param widget_handle    A widget handle.
@@ -86,13 +81,13 @@ namespace tetengo2 { namespace detail { namespace windows
             \param source_file_line A source file line number.
             \param encoder          An encoder.
         */
-        template <typename Encoder>
+        template <typename String, typename Encoder>
         static void show_task_dialog(
             const widget_handle_type widget_handle,
-            const string_type&       caption,
-            const string_type&       text1,
-            const string_type&       text2,
-            const string_type&       source_file_name,
+            const String&            caption,
+            const String&            text1,
+            const String&            text2,
+            const String&            source_file_name,
             const int                source_file_line,
             const Encoder&           encoder
         )
@@ -105,7 +100,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 encoder.encode(text2)
             );
 #else
-            std::basic_ostringstream<typename string_type::value_type> stream;
+            std::basic_ostringstream<typename String::value_type> stream;
             stream <<
                 std::endl <<
                 std::endl <<
