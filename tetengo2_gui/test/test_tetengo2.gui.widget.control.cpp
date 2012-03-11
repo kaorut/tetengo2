@@ -167,8 +167,7 @@ namespace
     typedef tetengo2::detail::stub::widget widget_details_type;
 
     typedef
-        tetengo2::detail::stub::message_handler<widget_details_type>
-        message_handler_details_type;
+        tetengo2::detail::stub::message_handler message_handler_details_type;
 
     typedef
         tetengo2::gui::widget::control<

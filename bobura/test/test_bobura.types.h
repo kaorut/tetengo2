@@ -313,9 +313,7 @@ typedef
 
 typedef tetengo2::detail::stub::widget widget_details_type;
 
-typedef
-    tetengo2::detail::stub::message_handler<widget_details_type>
-    message_handler_details_type;
+typedef tetengo2::detail::stub::message_handler message_handler_details_type;
 
 typedef
     tetengo2::gui::widget::traits::abstract_window_traits<

@@ -29,6 +29,7 @@
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"
+#include "tetengo2.detail.windows.widget.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -724,19 +725,15 @@ namespace tetengo2 { namespace detail { namespace windows
 
 
     /*!
-        \brief The class template for a detail implementation of a message
-               handler.
-
-        \tparam WidgetDetails A detail implementation type of a widget.
+        \brief The class for a detail implementation of a message handler.
     */
-    template <typename WidgetDetails>
     class message_handler
     {
     public:
         // types
 
         //! The detail implementation type of a widget.
-        typedef WidgetDetails widget_details_type;
+        typedef widget widget_details_type;
 
         //! The message handler type.
         typedef

@@ -560,7 +560,7 @@ namespace bobura
             widget_traits_type;
         typedef tetengo2::detail::windows::widget widget_details_type;
         typedef
-            tetengo2::detail::windows::message_handler<widget_details_type>
+            tetengo2::detail::windows::message_handler
             message_handler_details_type;
         typedef
             tetengo2::gui::menu::shortcut_key<virtual_key_type>
