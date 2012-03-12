@@ -367,6 +367,7 @@ std::enable_if                                   type_traits
 std::endl                                        iomanip
 std::error_category                              system_error
 std::error_code                                  system_error
+std::error_code::value_type                      system_error
 std::exception                                   exception
 std::find_if                                     algorithm
 std::for_each                                    algorithm

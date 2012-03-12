@@ -9,10 +9,10 @@
 #if !defined(TETENGO2_DETAIL_STUB_MESSAGEHANDLER_H)
 #define TETENGO2_DETAIL_STUB_MESSAGEHANDLER_H
 
-#include <functional>
+//#include <functional>
 #include <unordered_map>
-#include <utility>
-#include <vector>
+//#include <utility>
+//#include <vector>
 
 #include "tetengo2.detail.stub.widget.h"
 

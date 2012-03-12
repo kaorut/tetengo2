@@ -9,18 +9,18 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLER_H
 
-#include <algorithm>
+//#include <algorithm>
 //#include <cassert>
 //#include <cstddef>
 //#include <functional>
 //#include <system_error>
-#include <tuple>
+//#include <tuple>
 #include <unordered_map>
 //#include <utility>
 //#include <vector>
 
-#include <boost/optional.hpp>
-#include <boost/scope_exit.hpp>
+//#include <boost/optional.hpp>
+//#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
