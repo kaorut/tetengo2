@@ -153,9 +153,10 @@ namespace tetengo2 { namespace gui { namespace menu
                 keys.push_back(cpp11::cref(virtual_key_type::meta()));
             keys.push_back(m_key);
 
-            return virtual_key_details_type::to_combined_string(
-                keys.begin(), keys.end()
-            );
+            return
+                virtual_key_details_type::template to_combined_string<
+                    string_type
+                >(keys.begin(), keys.end());
         }
 
 

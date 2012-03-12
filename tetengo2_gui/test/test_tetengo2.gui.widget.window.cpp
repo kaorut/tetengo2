@@ -137,7 +137,7 @@ namespace
 
     typedef
         tetengo2::gui::virtual_key<
-            tetengo2::detail::stub::virtual_key<std::wstring>
+            std::wstring, tetengo2::detail::stub::virtual_key
         >
         virtual_key_type;
 

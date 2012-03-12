@@ -32,7 +32,7 @@ namespace
     typedef
         tetengo2::gui::menu::shortcut_key<
             tetengo2::gui::virtual_key<
-                tetengo2::detail::stub::virtual_key<std::string>
+                std::wstring, tetengo2::detail::stub::virtual_key
             >
         >
         shortcut_key_type;

@@ -22,23 +22,24 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for virtual keys.
 
+        \tparam String  A string type.
         \tparam Details A detail implementation type.
     */
-    template <typename Details>
+    template <typename String, typename Details>
     class virtual_key :
-        private boost::equality_comparable<virtual_key<Details>>
+        private boost::equality_comparable<virtual_key<String, Details>>
     {
     public:
         // types
+
+        //! The string type.
+        typedef String string_type;
 
         //! The detail implementation type.
         typedef Details details_type;
 
         //! The code type.
         typedef typename details_type::code_type code_type;
-
-        //! The string type.
-        typedef typename details_type::string_type string_type;
 
 
         // static functions
@@ -67,7 +68,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& backspace()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::backspace().first);
+                find_by_code(
+                    details_type::template backspace<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -77,7 +80,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& tab()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::tab().first);
+                find_by_code(details_type::template tab<string_type>().first);
             assert(key);
             return *key;
         }
@@ -87,7 +90,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& enter()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::enter().first);
+                find_by_code(
+                    details_type::template enter<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -97,7 +102,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& shift()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::shift().first);
+                find_by_code(
+                    details_type::template shift<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -107,7 +114,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& control()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::control().first);
+                find_by_code(
+                    details_type::template control<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -117,7 +126,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& meta()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::meta().first);
+                find_by_code(details_type::template meta<string_type>().first);
             assert(key);
             return *key;
         }
@@ -127,7 +136,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& escape()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::escape().first);
+                find_by_code(
+                    details_type::template escape<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -137,7 +148,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& space()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::space().first);
+                find_by_code(
+                    details_type::template space<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -147,7 +160,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& page_up()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::page_up().first);
+                find_by_code(
+                    details_type::template page_up<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -157,7 +172,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& page_down()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::page_down().first);
+                find_by_code(
+                    details_type::template page_down<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -167,7 +184,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& end()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::end().first);
+                find_by_code(details_type::template end<string_type>().first);
             assert(key);
             return *key;
         }
@@ -177,7 +194,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& home()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::home().first);
+                find_by_code(
+                    details_type::template home<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -187,7 +206,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& left()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::left().first);
+                find_by_code(
+                    details_type::template left<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -197,7 +218,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& up()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::up().first);
+                find_by_code(details_type::template up<string_type>().first);
             assert(key);
             return *key;
         }
@@ -207,7 +228,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& right()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::right().first);
+                find_by_code(
+                    details_type::template right<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -217,7 +240,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& down()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::down().first);
+                find_by_code(
+                    details_type::template down<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -227,7 +252,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& insert()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::insert().first);
+                find_by_code(
+                    details_type::template insert<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -237,7 +264,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& del()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::del().first);
+                find_by_code(details_type::template del<string_type>().first);
             assert(key);
             return *key;
         }
@@ -247,7 +274,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_0()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_0().first);
+                find_by_code(
+                    details_type::template char_0<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -257,7 +286,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_1()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_1().first);
+                find_by_code(
+                    details_type::template char_1<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -267,7 +298,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_2()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_2().first);
+                find_by_code(
+                    details_type::template char_2<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -277,7 +310,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_3()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_3().first);
+                find_by_code(
+                    details_type::template char_3<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -287,7 +322,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_4()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_4().first);
+                find_by_code(
+                    details_type::template char_4<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -297,7 +334,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_5()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_5().first);
+                find_by_code(
+                    details_type::template char_5<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -307,7 +346,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_6()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_6().first);
+                find_by_code(
+                    details_type::template char_6<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -317,7 +358,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_7()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_7().first);
+                find_by_code(
+                    details_type::template char_7<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -327,7 +370,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_8()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_8().first);
+                find_by_code(
+                    details_type::template char_8<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -337,7 +382,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_9()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_9().first);
+                find_by_code(
+                    details_type::template char_9<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -347,7 +394,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_a()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_a().first);
+                find_by_code(
+                    details_type::template char_a<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -357,7 +406,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_b()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_b().first);
+                find_by_code(
+                    details_type::template char_b<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -367,7 +418,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_c()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_c().first);
+                find_by_code(
+                    details_type::template char_c<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -377,7 +430,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_d()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_d().first);
+                find_by_code(
+                    details_type::template char_d<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -387,7 +442,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_e()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_e().first);
+                find_by_code(
+                    details_type::template char_e<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -397,7 +454,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_f()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_f().first);
+                find_by_code(
+                    details_type::template char_f<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -407,7 +466,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_g()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_g().first);
+                find_by_code(
+                    details_type::template char_g<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -417,7 +478,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_h()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_h().first);
+                find_by_code(
+                    details_type::template char_h<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -427,7 +490,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_i()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_i().first);
+                find_by_code(
+                    details_type::template char_i<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -437,7 +502,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_j()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_j().first);
+                find_by_code(
+                    details_type::template char_j<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -447,7 +514,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_k()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_k().first);
+                find_by_code(
+                    details_type::template char_k<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -457,7 +526,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_l()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_l().first);
+                find_by_code(
+                    details_type::template char_l<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -467,7 +538,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_m()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_m().first);
+                find_by_code(
+                    details_type::template char_m<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -477,7 +550,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_n()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_n().first);
+                find_by_code(
+                    details_type::template char_n<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -487,7 +562,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_o()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_o().first);
+                find_by_code(
+                    details_type::template char_o<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -497,7 +574,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_p()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_p().first);
+                find_by_code(
+                    details_type::template char_p<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -507,7 +586,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_q()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_q().first);
+                find_by_code(
+                    details_type::template char_q<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -517,7 +598,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_r()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_r().first);
+                find_by_code(
+                    details_type::template char_r<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -527,7 +610,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_s()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_s().first);
+                find_by_code(
+                    details_type::template char_s<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -537,7 +622,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_t()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_t().first);
+                find_by_code(
+                    details_type::template char_t<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -547,7 +634,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_u()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_u().first);
+                find_by_code(
+                    details_type::template char_u<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -557,7 +646,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_v()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_v().first);
+                find_by_code(
+                    details_type::template char_v<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -567,7 +658,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_w()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_w().first);
+                find_by_code(
+                    details_type::template char_w<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -577,7 +670,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_x()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_x().first);
+                find_by_code(
+                    details_type::template char_x<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -587,7 +682,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_y()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_y().first);
+                find_by_code(
+                    details_type::template char_y<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -597,7 +694,9 @@ namespace tetengo2 { namespace gui
         static const virtual_key& char_z()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::char_z().first);
+                find_by_code(
+                    details_type::template char_z<string_type>().first
+                );
             assert(key);
             return *key;
         }
@@ -607,7 +706,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f1()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f1().first);
+                find_by_code(details_type::template f1<string_type>().first);
             assert(key);
             return *key;
         }
@@ -617,7 +716,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f2()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f2().first);
+                find_by_code(details_type::template f2<string_type>().first);
             assert(key);
             return *key;
         }
@@ -627,7 +726,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f3()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f3().first);
+                find_by_code(details_type::template f3<string_type>().first);
             assert(key);
             return *key;
         }
@@ -637,7 +736,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f4()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f4().first);
+                find_by_code(details_type::template f4<string_type>().first);
             assert(key);
             return *key;
         }
@@ -647,7 +746,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f5()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f5().first);
+                find_by_code(details_type::template f5<string_type>().first);
             assert(key);
             return *key;
         }
@@ -657,7 +756,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f6()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f6().first);
+                find_by_code(details_type::template f6<string_type>().first);
             assert(key);
             return *key;
         }
@@ -667,7 +766,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f7()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f7().first);
+                find_by_code(details_type::template f7<string_type>().first);
             assert(key);
             return *key;
         }
@@ -677,7 +776,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f8()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f8().first);
+                find_by_code(details_type::template f8<string_type>().first);
             assert(key);
             return *key;
         }
@@ -687,7 +786,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f9()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f9().first);
+                find_by_code(details_type::template f9<string_type>().first);
             assert(key);
             return *key;
         }
@@ -697,7 +796,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f10()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f10().first);
+                find_by_code(details_type::template f10<string_type>().first);
             assert(key);
             return *key;
         }
@@ -707,7 +806,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f11()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f11().first);
+                find_by_code(details_type::template f11<string_type>().first);
             assert(key);
             return *key;
         }
@@ -717,7 +816,7 @@ namespace tetengo2 { namespace gui
         static const virtual_key& f12()
         {
             const boost::optional<const virtual_key&> key =
-                find_by_code(details_type::f12().first);
+                find_by_code(details_type::template f12<string_type>().first);
             assert(key);
             return *key;
         }
@@ -768,8 +867,7 @@ namespace tetengo2 { namespace gui
     private:
         // types
 
-        typedef
-            typename details_type::code_and_string_type code_and_string_type;
+        typedef std::pair<code_type, string_type> code_and_string_type;
 
         typedef std::unordered_map<code_type, virtual_key> key_map_type;
 
@@ -786,72 +884,80 @@ namespace tetengo2 { namespace gui
         {
             key_map_type key_map;
 
-            insert_key(key_map, details_type::backspace());
-            insert_key(key_map, details_type::tab());
-            insert_key(key_map, details_type::enter());
-            insert_key(key_map, details_type::shift());
-            insert_key(key_map, details_type::control());
-            insert_key(key_map, details_type::meta());
-            insert_key(key_map, details_type::escape());
-            insert_key(key_map, details_type::space());
-            insert_key(key_map, details_type::page_up());
-            insert_key(key_map, details_type::page_down());
-            insert_key(key_map, details_type::end());
-            insert_key(key_map, details_type::home());
-            insert_key(key_map, details_type::left());
-            insert_key(key_map, details_type::up());
-            insert_key(key_map, details_type::right());
-            insert_key(key_map, details_type::down());
-            insert_key(key_map, details_type::insert());
-            insert_key(key_map, details_type::del());
-            insert_key(key_map, details_type::char_0());
-            insert_key(key_map, details_type::char_1());
-            insert_key(key_map, details_type::char_2());
-            insert_key(key_map, details_type::char_3());
-            insert_key(key_map, details_type::char_4());
-            insert_key(key_map, details_type::char_5());
-            insert_key(key_map, details_type::char_6());
-            insert_key(key_map, details_type::char_7());
-            insert_key(key_map, details_type::char_8());
-            insert_key(key_map, details_type::char_9());
-            insert_key(key_map, details_type::char_a());
-            insert_key(key_map, details_type::char_b());
-            insert_key(key_map, details_type::char_c());
-            insert_key(key_map, details_type::char_d());
-            insert_key(key_map, details_type::char_e());
-            insert_key(key_map, details_type::char_f());
-            insert_key(key_map, details_type::char_g());
-            insert_key(key_map, details_type::char_h());
-            insert_key(key_map, details_type::char_i());
-            insert_key(key_map, details_type::char_j());
-            insert_key(key_map, details_type::char_k());
-            insert_key(key_map, details_type::char_l());
-            insert_key(key_map, details_type::char_m());
-            insert_key(key_map, details_type::char_n());
-            insert_key(key_map, details_type::char_o());
-            insert_key(key_map, details_type::char_p());
-            insert_key(key_map, details_type::char_q());
-            insert_key(key_map, details_type::char_r());
-            insert_key(key_map, details_type::char_s());
-            insert_key(key_map, details_type::char_t());
-            insert_key(key_map, details_type::char_u());
-            insert_key(key_map, details_type::char_v());
-            insert_key(key_map, details_type::char_w());
-            insert_key(key_map, details_type::char_x());
-            insert_key(key_map, details_type::char_y());
-            insert_key(key_map, details_type::char_z());
-            insert_key(key_map, details_type::f1());
-            insert_key(key_map, details_type::f2());
-            insert_key(key_map, details_type::f3());
-            insert_key(key_map, details_type::f4());
-            insert_key(key_map, details_type::f5());
-            insert_key(key_map, details_type::f6());
-            insert_key(key_map, details_type::f7());
-            insert_key(key_map, details_type::f8());
-            insert_key(key_map, details_type::f9());
-            insert_key(key_map, details_type::f10());
-            insert_key(key_map, details_type::f11());
-            insert_key(key_map, details_type::f12());
+            insert_key(
+                key_map, details_type::template backspace<string_type>()
+            );
+            insert_key(key_map, details_type::template tab<string_type>());
+            insert_key(key_map, details_type::template enter<string_type>());
+            insert_key(key_map, details_type::template shift<string_type>());
+            insert_key(
+                key_map, details_type::template control<string_type>()
+            );
+            insert_key(key_map, details_type::template meta<string_type>());
+            insert_key(key_map, details_type::template escape<string_type>());
+            insert_key(key_map, details_type::template space<string_type>());
+            insert_key(
+                key_map, details_type::template page_up<string_type>()
+            );
+            insert_key(
+                key_map, details_type::template page_down<string_type>()
+            );
+            insert_key(key_map, details_type::template end<string_type>());
+            insert_key(key_map, details_type::template home<string_type>());
+            insert_key(key_map, details_type::template left<string_type>());
+            insert_key(key_map, details_type::template up<string_type>());
+            insert_key(key_map, details_type::template right<string_type>());
+            insert_key(key_map, details_type::template down<string_type>());
+            insert_key(key_map, details_type::template insert<string_type>());
+            insert_key(key_map, details_type::template del<string_type>());
+            insert_key(key_map, details_type::template char_0<string_type>());
+            insert_key(key_map, details_type::template char_1<string_type>());
+            insert_key(key_map, details_type::template char_2<string_type>());
+            insert_key(key_map, details_type::template char_3<string_type>());
+            insert_key(key_map, details_type::template char_4<string_type>());
+            insert_key(key_map, details_type::template char_5<string_type>());
+            insert_key(key_map, details_type::template char_6<string_type>());
+            insert_key(key_map, details_type::template char_7<string_type>());
+            insert_key(key_map, details_type::template char_8<string_type>());
+            insert_key(key_map, details_type::template char_9<string_type>());
+            insert_key(key_map, details_type::template char_a<string_type>());
+            insert_key(key_map, details_type::template char_b<string_type>());
+            insert_key(key_map, details_type::template char_c<string_type>());
+            insert_key(key_map, details_type::template char_d<string_type>());
+            insert_key(key_map, details_type::template char_e<string_type>());
+            insert_key(key_map, details_type::template char_f<string_type>());
+            insert_key(key_map, details_type::template char_g<string_type>());
+            insert_key(key_map, details_type::template char_h<string_type>());
+            insert_key(key_map, details_type::template char_i<string_type>());
+            insert_key(key_map, details_type::template char_j<string_type>());
+            insert_key(key_map, details_type::template char_k<string_type>());
+            insert_key(key_map, details_type::template char_l<string_type>());
+            insert_key(key_map, details_type::template char_m<string_type>());
+            insert_key(key_map, details_type::template char_n<string_type>());
+            insert_key(key_map, details_type::template char_o<string_type>());
+            insert_key(key_map, details_type::template char_p<string_type>());
+            insert_key(key_map, details_type::template char_q<string_type>());
+            insert_key(key_map, details_type::template char_r<string_type>());
+            insert_key(key_map, details_type::template char_s<string_type>());
+            insert_key(key_map, details_type::template char_t<string_type>());
+            insert_key(key_map, details_type::template char_u<string_type>());
+            insert_key(key_map, details_type::template char_v<string_type>());
+            insert_key(key_map, details_type::template char_w<string_type>());
+            insert_key(key_map, details_type::template char_x<string_type>());
+            insert_key(key_map, details_type::template char_y<string_type>());
+            insert_key(key_map, details_type::template char_z<string_type>());
+            insert_key(key_map, details_type::template f1<string_type>());
+            insert_key(key_map, details_type::template f2<string_type>());
+            insert_key(key_map, details_type::template f3<string_type>());
+            insert_key(key_map, details_type::template f4<string_type>());
+            insert_key(key_map, details_type::template f5<string_type>());
+            insert_key(key_map, details_type::template f6<string_type>());
+            insert_key(key_map, details_type::template f7<string_type>());
+            insert_key(key_map, details_type::template f8<string_type>());
+            insert_key(key_map, details_type::template f9<string_type>());
+            insert_key(key_map, details_type::template f10<string_type>());
+            insert_key(key_map, details_type::template f11<string_type>());
+            insert_key(key_map, details_type::template f12<string_type>());
 
             return key_map;
         }

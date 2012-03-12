@@ -34,12 +34,11 @@ namespace
 {
     // types
 
-    typedef
-        tetengo2::detail::stub::virtual_key<std::string>
-        virtual_key_details_type;
+    typedef tetengo2::detail::stub::virtual_key virtual_key_details_type;
 
     typedef
-        tetengo2::gui::virtual_key<virtual_key_details_type> virtual_key_type;
+        tetengo2::gui::virtual_key<std::string, virtual_key_details_type>
+        virtual_key_type;
 
     typedef
         tetengo2::gui::menu::shortcut_key<virtual_key_type>

@@ -531,9 +531,8 @@ namespace bobura
             system_cursor_type;
         typedef
             tetengo2::gui::virtual_key<
-                tetengo2::detail::windows::virtual_key<
-                    boost::mpl::at<common_type_list, type::string>::type
-                >
+                boost::mpl::at<common_type_list, type::string>::type,
+                tetengo2::detail::windows::virtual_key
             >
             virtual_key_type;
         typedef

@@ -23,11 +23,8 @@
 namespace tetengo2 { namespace detail { namespace windows
 {
     /*!
-        \brief The class template for a detail implementation of virtual keys.
-
-        \tparam String A string type.
+        \brief The class for a detail implementation of virtual keys.
     */
-    template <typename String>
     class virtual_key : private boost::noncopyable
     {
     public:
@@ -36,540 +33,667 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The code type.
         typedef unsigned char code_type;
 
-        //! The string type.
-        typedef String string_type;
-
-        //! The code and string type.
-        typedef std::pair<code_type, string_type> code_and_string_type;
-
 
         // static functions
 
         //! Returns the key code and string for BackSpace.
-        //! \return The key code and string.
-        static code_and_string_type backspace()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> backspace()
         {
-            return code_and_string_type(
-                VK_BACK, string_type(TETENGO2_TEXT("BackSpace"))
+            return std::pair<code_type, String>(
+                VK_BACK, String(TETENGO2_TEXT("BackSpace"))
             );
         }
 
         //! Returns the key code and string for Tab.
-        //! \return The key code and string.
-        static code_and_string_type tab()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> tab()
         {
-            return code_and_string_type(
-                VK_TAB, string_type(TETENGO2_TEXT("Tab"))
+            return std::pair<code_type, String>(
+                VK_TAB, String(TETENGO2_TEXT("Tab"))
             );
         }
 
         //! Returns the key code and string for Enter.
-        //! \return The key code and string.
-        static code_and_string_type enter()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> enter()
         {
-            return code_and_string_type(
-                VK_RETURN, string_type(TETENGO2_TEXT("Enter"))
+            return std::pair<code_type, String>(
+                VK_RETURN, String(TETENGO2_TEXT("Enter"))
             );
         }
 
         //! Returns the key code and string for Shift.
-        //! \return The key code and string.
-        static code_and_string_type shift()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> shift()
         {
-            return code_and_string_type(
-                VK_SHIFT, string_type(TETENGO2_TEXT("Shift"))
+            return std::pair<code_type, String>(
+                VK_SHIFT, String(TETENGO2_TEXT("Shift"))
             );
         }
 
         //! Returns the key code and string for Control.
-        //! \return The key code and string.
-        static code_and_string_type control()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> control()
         {
-            return code_and_string_type(
-                VK_CONTROL, string_type(TETENGO2_TEXT("Ctrl"))
+            return std::pair<code_type, String>(
+                VK_CONTROL, String(TETENGO2_TEXT("Ctrl"))
             );
         }
 
         //! Returns the key code and string for Meta.
-        //! \return The key code and string.
-        static code_and_string_type meta()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> meta()
         {
-            return code_and_string_type(
-                VK_MENU, string_type(TETENGO2_TEXT("Alt"))
+            return std::pair<code_type, String>(
+                VK_MENU, String(TETENGO2_TEXT("Alt"))
             );
         }
 
         //! Returns the key code and string for Escape.
-        //! \return The key code and string.
-        static code_and_string_type escape()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> escape()
         {
-            return code_and_string_type(
-                VK_ESCAPE, string_type(TETENGO2_TEXT("Esc"))
+            return std::pair<code_type, String>(
+                VK_ESCAPE, String(TETENGO2_TEXT("Esc"))
             );
         }
 
         //! Returns the key code and string for Space.
-        //! \return The key code and string.
-        static code_and_string_type space()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> space()
         {
-            return code_and_string_type(
-                VK_SPACE, string_type(TETENGO2_TEXT("Space"))
+            return std::pair<code_type, String>(
+                VK_SPACE, String(TETENGO2_TEXT("Space"))
             );
         }
 
         //! Returns the key code and string for PageUp.
-        //! \return The key code and string.
-        static code_and_string_type page_up()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> page_up()
         {
-            return code_and_string_type(
-                VK_PRIOR, string_type(TETENGO2_TEXT("PageUp"))
+            return std::pair<code_type, String>(
+                VK_PRIOR, String(TETENGO2_TEXT("PageUp"))
             );
         }
 
         //! Returns the key code and string for PageDown.
-        //! \return The key code and string.
-        static code_and_string_type page_down()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> page_down()
         {
-            return code_and_string_type(
-                VK_NEXT, string_type(TETENGO2_TEXT("PageDown"))
+            return std::pair<code_type, String>(
+                VK_NEXT, String(TETENGO2_TEXT("PageDown"))
             );
         }
 
         //! Returns the key code and string for End.
-        //! \return The key code and string.
-        static code_and_string_type end()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> end()
         {
-            return code_and_string_type(
-                VK_END, string_type(TETENGO2_TEXT("End"))
+            return std::pair<code_type, String>(
+                VK_END, String(TETENGO2_TEXT("End"))
             );
         }
 
         //! Returns the key code and string for Home.
-        //! \return The key code and string.
-        static code_and_string_type home()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> home()
         {
-            return code_and_string_type(
-                VK_HOME, string_type(TETENGO2_TEXT("Home"))
+            return std::pair<code_type, String>(
+                VK_HOME, String(TETENGO2_TEXT("Home"))
             );
         }
 
         //! Returns the key code and string for Left.
-        //! \return The key code and string.
-        static code_and_string_type left()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> left()
         {
-            return code_and_string_type(
-                VK_LEFT, string_type(TETENGO2_TEXT("Left"))
+            return std::pair<code_type, String>(
+                VK_LEFT, String(TETENGO2_TEXT("Left"))
             );
         }
 
         //! Returns the key code and string for Up.
-        //! \return The key code and string.
-        static code_and_string_type up()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> up()
         {
-            return code_and_string_type(
-                VK_UP, string_type(TETENGO2_TEXT("Up"))
+            return std::pair<code_type, String>(
+                VK_UP, String(TETENGO2_TEXT("Up"))
             );
         }
 
         //! Returns the key code and string for Right.
-        //! \return The key code and string.
-        static code_and_string_type right()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> right()
         {
-            return code_and_string_type(
-                VK_RIGHT, string_type(TETENGO2_TEXT("Right"))
+            return std::pair<code_type, String>(
+                VK_RIGHT, String(TETENGO2_TEXT("Right"))
             );
         }
 
         //! Returns the key code and string for Down.
-        //! \return The key code and string.
-        static code_and_string_type down()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> down()
         {
-            return code_and_string_type(
-                VK_DOWN, string_type(TETENGO2_TEXT("Down"))
+            return std::pair<code_type, String>(
+                VK_DOWN, String(TETENGO2_TEXT("Down"))
             );
         }
 
         //! Returns the key code and string for Insert.
-        //! \return The key code and string.
-        static code_and_string_type insert()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> insert()
         {
-            return code_and_string_type(
-                VK_INSERT, string_type(TETENGO2_TEXT("Ins"))
+            return std::pair<code_type, String>(
+                VK_INSERT, String(TETENGO2_TEXT("Ins"))
             );
         }
 
         //! Returns the key code and string for Delete.
-        //! \return The key code and string.
-        static code_and_string_type del()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> del()
         {
-            return code_and_string_type(
-                VK_DELETE, string_type(TETENGO2_TEXT("Del"))
+            return std::pair<code_type, String>(
+                VK_DELETE, String(TETENGO2_TEXT("Del"))
             );
         }
 
         //! Returns the key code and string for '0'.
-        //! \return The key code and string.
-        static code_and_string_type char_0()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_0()
         {
-            return code_and_string_type('0', string_type(TETENGO2_TEXT("0")));
+            return std::pair<code_type, String>('0', String(TETENGO2_TEXT("0")));
         }
 
         //! Returns the key code and string for '1'.
-        //! \return The key code and string.
-        static code_and_string_type char_1()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_1()
         {
-            return code_and_string_type('1', string_type(TETENGO2_TEXT("1")));
+            return std::pair<code_type, String>('1', String(TETENGO2_TEXT("1")));
         }
 
         //! Returns the key code and string for 'A'.
-        //! \return The key code and string.
-        static code_and_string_type char_2()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_2()
         {
-            return code_and_string_type('2', string_type(TETENGO2_TEXT("2")));
+            return std::pair<code_type, String>('2', String(TETENGO2_TEXT("2")));
         }
 
         //! Returns the key code and string for '3'.
-        //! \return The key code and string.
-        static code_and_string_type char_3()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_3()
         {
-            return code_and_string_type('3', string_type(TETENGO2_TEXT("3")));
+            return std::pair<code_type, String>('3', String(TETENGO2_TEXT("3")));
         }
 
         //! Returns the key code and string for '4'.
-        //! \return The key code and string.
-        static code_and_string_type char_4()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_4()
         {
-            return code_and_string_type('4', string_type(TETENGO2_TEXT("4")));
+            return std::pair<code_type, String>('4', String(TETENGO2_TEXT("4")));
         }
 
         //! Returns the key code and string for '5'.
-        //! \return The key code and string.
-        static code_and_string_type char_5()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_5()
         {
-            return code_and_string_type('5', string_type(TETENGO2_TEXT("5")));
+            return std::pair<code_type, String>('5', String(TETENGO2_TEXT("5")));
         }
 
         //! Returns the key code and string for '6'.
-        //! \return The key code and string.
-        static code_and_string_type char_6()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_6()
         {
-            return code_and_string_type('6', string_type(TETENGO2_TEXT("6")));
+            return std::pair<code_type, String>('6', String(TETENGO2_TEXT("6")));
         }
 
         //! Returns the key code and string for '7'.
-        //! \return The key code and string.
-        static code_and_string_type char_7()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_7()
         {
-            return code_and_string_type('7', string_type(TETENGO2_TEXT("7")));
+            return std::pair<code_type, String>('7', String(TETENGO2_TEXT("7")));
         }
 
         //! Returns the key code and string for '8'.
-        //! \return The key code and string.
-        static code_and_string_type char_8()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_8()
         {
-            return code_and_string_type('8', string_type(TETENGO2_TEXT("8")));
+            return std::pair<code_type, String>('8', String(TETENGO2_TEXT("8")));
         }
 
         //! Returns the key code and string for '9'.
-        //! \return The key code and string.
-        static code_and_string_type char_9()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_9()
         {
-            return code_and_string_type('9', string_type(TETENGO2_TEXT("9")));
+            return std::pair<code_type, String>('9', String(TETENGO2_TEXT("9")));
         }
 
         //! Returns the key code and string for 'A'.
-        //! \return The key code and string.
-        static code_and_string_type char_a()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_a()
         {
-            return code_and_string_type('A', string_type(TETENGO2_TEXT("A")));
+            return std::pair<code_type, String>('A', String(TETENGO2_TEXT("A")));
         }
 
         //! Returns the key code and string for 'B'.
-        //! \return The key code and string.
-        static code_and_string_type char_b()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_b()
         {
-            return code_and_string_type('B', string_type(TETENGO2_TEXT("B")));
+            return std::pair<code_type, String>('B', String(TETENGO2_TEXT("B")));
         }
 
         //! Returns the key code and string for 'C'.
-        //! \return The key code and string.
-        static code_and_string_type char_c()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_c()
         {
-            return code_and_string_type('C', string_type(TETENGO2_TEXT("C")));
+            return std::pair<code_type, String>('C', String(TETENGO2_TEXT("C")));
         }
 
         //! Returns the key code and string for 'D'.
-        //! \return The key code and string.
-        static code_and_string_type char_d()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_d()
         {
-            return code_and_string_type('D', string_type(TETENGO2_TEXT("D")));
+            return std::pair<code_type, String>('D', String(TETENGO2_TEXT("D")));
         }
 
         //! Returns the key code and string for 'E'.
-        //! \return The key code and string.
-        static code_and_string_type char_e()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_e()
         {
-            return code_and_string_type('E', string_type(TETENGO2_TEXT("E")));
+            return std::pair<code_type, String>('E', String(TETENGO2_TEXT("E")));
         }
 
         //! Returns the key code and string for 'F'.
-        //! \return The key code and string.
-        static code_and_string_type char_f()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_f()
         {
-            return code_and_string_type('F', string_type(TETENGO2_TEXT("F")));
+            return std::pair<code_type, String>('F', String(TETENGO2_TEXT("F")));
         }
 
         //! Returns the key code and string for 'G'.
-        //! \return The key code and string.
-        static code_and_string_type char_g()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_g()
         {
-            return code_and_string_type('G', string_type(TETENGO2_TEXT("G")));
+            return std::pair<code_type, String>('G', String(TETENGO2_TEXT("G")));
         }
 
         //! Returns the key code and string for 'H'.
-        //! \return The key code and string.
-        static code_and_string_type char_h()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_h()
         {
-            return code_and_string_type('H', string_type(TETENGO2_TEXT("H")));
+            return std::pair<code_type, String>('H', String(TETENGO2_TEXT("H")));
         }
 
         //! Returns the key code and string for 'I'.
-        //! \return The key code and string.
-        static code_and_string_type char_i()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_i()
         {
-            return code_and_string_type('I', string_type(TETENGO2_TEXT("I")));
+            return std::pair<code_type, String>('I', String(TETENGO2_TEXT("I")));
         }
 
         //! Returns the key code and string for 'J'.
-        //! \return The key code and string.
-        static code_and_string_type char_j()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_j()
         {
-            return code_and_string_type('J', string_type(TETENGO2_TEXT("J")));
+            return std::pair<code_type, String>('J', String(TETENGO2_TEXT("J")));
         }
 
         //! Returns the key code and string for 'K'.
-        //! \return The key code and string.
-        static code_and_string_type char_k()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_k()
         {
-            return code_and_string_type('K', string_type(TETENGO2_TEXT("K")));
+            return std::pair<code_type, String>('K', String(TETENGO2_TEXT("K")));
         }
 
         //! Returns the key code and string for 'L'.
-        //! \return The key code and string.
-        static code_and_string_type char_l()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_l()
         {
-            return code_and_string_type('L', string_type(TETENGO2_TEXT("L")));
+            return std::pair<code_type, String>('L', String(TETENGO2_TEXT("L")));
         }
 
         //! Returns the key code and string for 'M'.
-        //! \return The key code and string.
-        static code_and_string_type char_m()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_m()
         {
-            return code_and_string_type('M', string_type(TETENGO2_TEXT("M")));
+            return std::pair<code_type, String>('M', String(TETENGO2_TEXT("M")));
         }
 
         //! Returns the key code and string for 'N'.
-        //! \return The key code and string.
-        static code_and_string_type char_n()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_n()
         {
-            return code_and_string_type('N', string_type(TETENGO2_TEXT("N")));
+            return std::pair<code_type, String>('N', String(TETENGO2_TEXT("N")));
         }
 
         //! Returns the key code and string for 'O'.
-        //! \return The key code and string.
-        static code_and_string_type char_o()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_o()
         {
-            return code_and_string_type('O', string_type(TETENGO2_TEXT("O")));
+            return std::pair<code_type, String>('O', String(TETENGO2_TEXT("O")));
         }
 
         //! Returns the key code and string for 'P'.
-        //! \return The key code and string.
-        static code_and_string_type char_p()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_p()
         {
-            return code_and_string_type('P', string_type(TETENGO2_TEXT("P")));
+            return std::pair<code_type, String>('P', String(TETENGO2_TEXT("P")));
         }
 
         //! Returns the key code and string for 'Q'.
-        //! \return The key code and string.
-        static code_and_string_type char_q()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_q()
         {
-            return code_and_string_type('Q', string_type(TETENGO2_TEXT("Q")));
+            return std::pair<code_type, String>('Q', String(TETENGO2_TEXT("Q")));
         }
 
         //! Returns the key code and string for 'R'.
-        //! \return The key code and string.
-        static code_and_string_type char_r()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_r()
         {
-            return code_and_string_type('R', string_type(TETENGO2_TEXT("R")));
+            return std::pair<code_type, String>('R', String(TETENGO2_TEXT("R")));
         }
 
         //! Returns the key code and string for 'S'.
-        //! \return The key code and string.
-        static code_and_string_type char_s()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_s()
         {
-            return code_and_string_type('S', string_type(TETENGO2_TEXT("S")));
+            return std::pair<code_type, String>('S', String(TETENGO2_TEXT("S")));
         }
 
         //! Returns the key code and string for 'T'.
-        //! \return The key code and string.
-        static code_and_string_type char_t()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_t()
         {
-            return code_and_string_type('T', string_type(TETENGO2_TEXT("T")));
+            return std::pair<code_type, String>('T', String(TETENGO2_TEXT("T")));
         }
 
         //! Returns the key code and string for 'U'.
-        //! \return The key code and string.
-        static code_and_string_type char_u()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_u()
         {
-            return code_and_string_type('U', string_type(TETENGO2_TEXT("U")));
+            return std::pair<code_type, String>('U', String(TETENGO2_TEXT("U")));
         }
 
         //! Returns the key code and string for 'V'.
-        //! \return The key code and string.
-        static code_and_string_type char_v()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_v()
         {
-            return code_and_string_type('V', string_type(TETENGO2_TEXT("V")));
+            return std::pair<code_type, String>('V', String(TETENGO2_TEXT("V")));
         }
 
         //! Returns the key code and string for 'W'.
-        //! \return The key code and string.
-        static code_and_string_type char_w()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_w()
         {
-            return code_and_string_type('W', string_type(TETENGO2_TEXT("W")));
+            return std::pair<code_type, String>('W', String(TETENGO2_TEXT("W")));
         }
 
         //! Returns the key code and string for 'X'.
-        //! \return The key code and string.
-        static code_and_string_type char_x()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_x()
         {
-            return code_and_string_type('X', string_type(TETENGO2_TEXT("X")));
+            return std::pair<code_type, String>('X', String(TETENGO2_TEXT("X")));
         }
 
         //! Returns the key code and string for 'Y'.
-        //! \return The key code and string.
-        static code_and_string_type char_y()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_y()
         {
-            return code_and_string_type('Y', string_type(TETENGO2_TEXT("Y")));
+            return std::pair<code_type, String>('Y', String(TETENGO2_TEXT("Y")));
         }
 
         //! Returns the key code and string for 'Z'.
-        //! \return The key code and string.
-        static code_and_string_type char_z()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> char_z()
         {
-            return code_and_string_type('Z', string_type(TETENGO2_TEXT("Z")));
+            return std::pair<code_type, String>('Z', String(TETENGO2_TEXT("Z")));
         }
 
         //! Returns the key code and string for F1.
-        //! \return The key code and string.
-        static code_and_string_type f1()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f1()
         {
-            return code_and_string_type(
-                VK_F1, string_type(TETENGO2_TEXT("F1"))
+            return std::pair<code_type, String>(
+                VK_F1, String(TETENGO2_TEXT("F1"))
             );
         }
 
         //! Returns the key code and string for F2.
-        //! \return The key code and string.
-        static code_and_string_type f2()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f2()
         {
-            return code_and_string_type(
-                VK_F2, string_type(TETENGO2_TEXT("F2"))
+            return std::pair<code_type, String>(
+                VK_F2, String(TETENGO2_TEXT("F2"))
             );
         }
 
         //! Returns the key code and string for F3.
-        //! \return The key code and string.
-        static code_and_string_type f3()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f3()
         {
-            return code_and_string_type(
-                VK_F3, string_type(TETENGO2_TEXT("F3"))
+            return std::pair<code_type, String>(
+                VK_F3, String(TETENGO2_TEXT("F3"))
             );
         }
 
         //! Returns the key code and string for F4.
-        //! \return The key code and string.
-        static code_and_string_type f4()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f4()
         {
-            return code_and_string_type(
-                VK_F4, string_type(TETENGO2_TEXT("F4"))
+            return std::pair<code_type, String>(
+                VK_F4, String(TETENGO2_TEXT("F4"))
             );
         }
 
         //! Returns the key code and string for F5.
-        //! \return The key code and string.
-        static code_and_string_type f5()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f5()
         {
-            return code_and_string_type(
-                VK_F5, string_type(TETENGO2_TEXT("F5"))
+            return std::pair<code_type, String>(
+                VK_F5, String(TETENGO2_TEXT("F5"))
             );
         }
 
         //! Returns the key code and string for F6.
-        //! \return The key code and string.
-        static code_and_string_type f6()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f6()
         {
-            return code_and_string_type(
-                VK_F6, string_type(TETENGO2_TEXT("F6"))
+            return std::pair<code_type, String>(
+                VK_F6, String(TETENGO2_TEXT("F6"))
             );
         }
 
         //! Returns the key code and string for F7.
-        //! \return The key code and string.
-        static code_and_string_type f7()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f7()
         {
-            return code_and_string_type(
-                VK_F7, string_type(TETENGO2_TEXT("F7"))
+            return std::pair<code_type, String>(
+                VK_F7, String(TETENGO2_TEXT("F7"))
             );
         }
 
         //! Returns the key code and string for F8.
-        //! \return The key code and string.
-        static code_and_string_type f8()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f8()
         {
-            return code_and_string_type(
-                VK_F8, string_type(TETENGO2_TEXT("F8"))
+            return std::pair<code_type, String>(
+                VK_F8, String(TETENGO2_TEXT("F8"))
             );
         }
 
         //! Returns the key code and string for F9.
-        //! \return The key code and string.
-        static code_and_string_type f9()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f9()
         {
-            return code_and_string_type(
-                VK_F9, string_type(TETENGO2_TEXT("F9"))
+            return std::pair<code_type, String>(
+                VK_F9, String(TETENGO2_TEXT("F9"))
             );
         }
 
         //! Returns the key code and string for F10.
-        //! \return The key code and string.
-        static code_and_string_type f10()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f10()
         {
-            return code_and_string_type(
-                VK_F10, string_type(TETENGO2_TEXT("F10"))
+            return std::pair<code_type, String>(
+                VK_F10, String(TETENGO2_TEXT("F10"))
             );
         }
 
         //! Returns the key code and string for F11.
-        //! \return The key code and string.
-        static code_and_string_type f11()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f11()
         {
-            return code_and_string_type(
-                VK_F11, string_type(TETENGO2_TEXT("F11"))
+            return std::pair<code_type, String>(
+                VK_F11, String(TETENGO2_TEXT("F11"))
             );
         }
 
         //! Returns the key code and string for F12.
-        //! \return The key code and string.
-        static code_and_string_type f12()
+        //! \tparam String A string type.
+		//! \return The key code and string.
+        template <typename String>
+		static std::pair<code_type, String> f12()
         {
-            return code_and_string_type(
-                VK_F12, string_type(TETENGO2_TEXT("F12"))
+            return std::pair<code_type, String>(
+                VK_F12, String(TETENGO2_TEXT("F12"))
             );
         }
 
         /*!
             \brief Returns the string representation of combined keys.
 
+            \tparam String        A string type.
             \tparam InputIterator An input iterator type.
 
             \param first The first position of the combined keys.
@@ -577,17 +701,17 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The string representation of combined keys.
         */
-        template <typename InputIterator>
-        static string_type to_combined_string(
+        template <typename String, typename InputIterator>
+        static String to_combined_string(
             const InputIterator first,
             const InputIterator last
         )
         {
-            string_type string;
+            String string;
             for (InputIterator i = first; i != last; ++i)
             {
                 if (i != first)
-                    string += string_type(TETENGO2_TEXT("+"));
+                    string += String(TETENGO2_TEXT("+"));
                 string += i->get().to_string();
             }
             return string;
