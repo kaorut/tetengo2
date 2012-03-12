@@ -21,6 +21,7 @@
 //#include <utility>
 //#include <vector>
 
+//#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
@@ -79,7 +80,7 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of dialogs.
     */
-    class common_dialog
+    class common_dialog : private boost::noncopyable
     {
     public:
         // types

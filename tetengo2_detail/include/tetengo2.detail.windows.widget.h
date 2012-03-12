@@ -24,6 +24,7 @@
 
 #include <boost/exception/all.hpp>
 #include <boost/foreach.hpp>
+//#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
@@ -65,7 +66,7 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of a widget.
     */
-    class widget
+    class widget : boost::noncopyable
     {
     public:
         // types

@@ -14,6 +14,7 @@
 //#include <type_traits>
 //#include <utility>
 
+//#include <boost/noncopyable.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
@@ -46,7 +47,7 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of a cursor.
     */
-    class cursor
+    class cursor : private boost::noncopyable
     {
     public:
         // types

@@ -12,6 +12,8 @@
 //#include <memory>
 #include <system_error>
 
+#include <boost/noncopyable.hpp>
+
 #include "tetengo2.unique.h"
 
 
@@ -20,7 +22,7 @@ namespace tetengo2 { namespace detail { namespace stub
     /*!
         \brief The class for a detail implementation of a cursor.
     */
-    class cursor
+    class cursor : private boost::noncopyable
     {
     public:
         // types

@@ -20,6 +20,7 @@
 //#include <utility>
 #include <vector>
 
+#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -33,7 +34,7 @@ namespace tetengo2 { namespace detail { namespace stub
     /*!
         \brief The class for a detail implementation of a widget.
     */
-    class widget
+    class widget : private boost::noncopyable
     {
     public:
         // types

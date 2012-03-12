@@ -14,6 +14,8 @@
 //#include <utility>
 //#include <vector>
 
+//#include <boost/noncopyable.hpp>
+
 #include "tetengo2.detail.stub.widget.h"
 
 
@@ -22,7 +24,7 @@ namespace tetengo2 { namespace detail { namespace stub
     /*!
         \brief The class for a detail implementation of a message handler.
     */
-    class message_handler
+    class message_handler : private boost::noncopyable
     {
     public:
         // types

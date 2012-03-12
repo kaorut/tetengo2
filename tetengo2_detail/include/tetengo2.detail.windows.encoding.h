@@ -14,6 +14,8 @@
 #include <string>
 #include <vector>
 
+#include <boost/noncopyable.hpp>
+
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
@@ -26,7 +28,7 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of an encoding.
     */
-    class encoding
+    class encoding : private boost::noncopyable
     {
     public:
         // types

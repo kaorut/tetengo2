@@ -13,13 +13,15 @@
 #include <iterator>
 #include <string>
 
+#include <boost/noncopyable.hpp>
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
     /*!
         \brief The class for a detail implementation of an encoding.
     */
-    class encoding
+    class encoding : private boost::noncopyable
     {
     public:
         // types

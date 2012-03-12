@@ -12,6 +12,7 @@
 //#include <cstddef>
 //#include <type_traits>
 
+//#include <boost/noncopyable.hpp>
 #include <boost/rational.hpp>
 
 //#define NOMINMAX
@@ -26,7 +27,7 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of a unit.
     */
-    class unit
+    class unit : private boost::noncopyable
     {
     public:
         // static functions

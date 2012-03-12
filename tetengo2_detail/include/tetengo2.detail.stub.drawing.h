@@ -17,6 +17,7 @@
 //#include <utility>
 #include <vector>
 
+#include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"
@@ -29,7 +30,7 @@ namespace tetengo2 { namespace detail { namespace stub
     /*!
         \brief The class for a detail implementation of a drawing.
     */
-    class drawing
+    class drawing : private boost::noncopyable
     {
     public:
         // types

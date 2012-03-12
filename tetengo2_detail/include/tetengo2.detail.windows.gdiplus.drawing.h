@@ -20,6 +20,7 @@
 //#include <system_error>
 //#include <type_traits>
 
+//#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 //#include <boost/throw_exception.hpp>
 
@@ -47,7 +48,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
     /*!
         \brief The class for a detail implementation of a drawing.
     */
-    class drawing
+    class drawing : private boost::noncopyable
     {
     public:
         // types

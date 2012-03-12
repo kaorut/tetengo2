@@ -14,6 +14,7 @@
 #include <system_error>
 
 #include <boost/filesystem.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
 #include "tetengo2.unique.h"
@@ -24,7 +25,7 @@ namespace tetengo2 { namespace detail { namespace stub
     /*!
         \brief The class for a detail implementation of dialogs.
     */
-    class common_dialog
+    class common_dialog : private boost::noncopyable
     {
     public:
         // types

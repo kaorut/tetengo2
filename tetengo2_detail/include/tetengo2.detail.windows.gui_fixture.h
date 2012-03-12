@@ -12,7 +12,7 @@
 //#include <cstddef>
 //#include <system_error>
 
-#include <boost/noncopyable.hpp>
+//#include <boost/noncopyable.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX

@@ -14,6 +14,7 @@
 #include <sstream>
 #include <string>
 
+#include <boost/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
 
 #define NOMINMAX
@@ -29,7 +30,7 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of an alert.
     */
-    class alert
+    class alert : private boost::noncopyable
     {
     public:
         // types

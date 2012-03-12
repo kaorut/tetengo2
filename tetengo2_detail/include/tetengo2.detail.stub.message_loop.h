@@ -11,13 +11,15 @@
 
 #include <system_error>
 
+#include <boost/noncopyable.hpp>
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
     /*!
         \brief The class for a detail implementation of a message loop.
     */
-    class message_loop
+    class message_loop : private boost::noncopyable
     {
     public:
         // static functions

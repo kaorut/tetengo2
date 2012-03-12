@@ -9,13 +9,15 @@
 #if !defined(TETENGO2_DETAIL_STUB_UNIT_H)
 #define TETENGO2_DETAIL_STUB_UNIT_H
 
+#include <boost/noncopyable.hpp>
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
     /*!
         \brief The class for a detail implementation of a unit.
     */
-    class unit
+    class unit : private boost::noncopyable
     {
     public:
         // static functions

@@ -11,13 +11,15 @@
 
 #include <cstddef>
 
+#include <boost/noncopyable.hpp>
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
     /*!
         \brief The class for a detail implementation of an alert.
     */
-    class alert
+    class alert : private boost::noncopyable
     {
     public:
         // types

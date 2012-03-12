@@ -13,6 +13,7 @@
 //#include <system_error>
 #include <tuple>
 
+//#include <boost/noncopyable.hpp>
 //#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
@@ -27,7 +28,7 @@ namespace tetengo2 { namespace detail { namespace windows
     /*!
         \brief The class for a detail implementation of a message loop.
     */
-    class message_loop
+    class message_loop : private boost::noncopyable
     {
     public:
         // static functions

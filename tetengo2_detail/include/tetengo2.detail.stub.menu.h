@@ -12,13 +12,15 @@
 #include <memory>
 #include <system_error>
 
+#include <boost/noncopyable.hpp>
+
 
 namespace tetengo2 { namespace detail { namespace stub
 {
     /*!
         \brief The class for a detail implementation of a menu.
     */
-    class menu
+    class menu : boost::noncopyable
     {
     public:
         // types
