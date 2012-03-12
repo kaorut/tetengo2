@@ -103,6 +103,7 @@
 #include "bobura.about_dialog.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
+#include "bobura.detail_type_list.h"
 #include "bobura.file_property_dialog.h"
 #include "bobura.load_save.confirm_file_save.h"
 #include "bobura.load_save.load_from_file.h"
