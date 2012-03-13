@@ -433,3 +433,4 @@ std::unordered_map                               unordered_map
 std::use_facet                                   locale
 std::vector                                      vector
 std::wstring                                     string
+std::wstring::npos                               string
