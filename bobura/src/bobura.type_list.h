@@ -23,19 +23,6 @@
 //#include <boost/rational.hpp>
 //#include <boost/spirit/include/support_multi_pass.hpp>
 
-#include <tetengo2.detail.windows.alert.h>
-#include <tetengo2.detail.windows.common_dialog.h>
-#include <tetengo2.detail.windows.cursor.h>
-#include <tetengo2.detail.windows.encoding.h>
-#include <tetengo2.detail.windows.gdiplus.drawing.h>
-#include <tetengo2.detail.windows.gdiplus.gui_fixture.h>
-#include <tetengo2.detail.windows.gui_fixture.h>
-#include <tetengo2.detail.windows.menu.h>
-#include <tetengo2.detail.windows.message_handler.h>
-#include <tetengo2.detail.windows.message_loop.h>
-#include <tetengo2.detail.windows.unit.h>
-#include <tetengo2.detail.windows.virtual_key.h>
-#include <tetengo2.detail.windows.widget.h>
 #include <tetengo2.gui.alert.h>
 #include <tetengo2.gui.common_dialog.file_open.h>
 #include <tetengo2.gui.common_dialog.file_save.h>
@@ -208,7 +195,9 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace locale
     {
-        typedef tetengo2::detail::windows::encoding encoding_details_type;
+        typedef
+            boost::mpl::at<detail_type_list, type::detail::encoding>::type
+            encoding_details_type;
         typedef
             tetengo2::text::encoding::locale<
                 boost::mpl::at<common_type_list, type::string>::type,
@@ -439,17 +428,16 @@ namespace bobura
     namespace detail { namespace ui
     {
         typedef
-            std::tuple<
-                tetengo2::detail::windows::gui_fixture,
-                tetengo2::detail::windows::gdiplus::gui_fixture
-            >
-            gui_fixture_details_tuple_type;
+            boost::mpl::at<detail_type_list, type::detail::gui_fixture>::type
+            gui_fixture_details_type;
         typedef
             tetengo2::gui::fixture<
-               gui_fixture_details_tuple_type
+               gui_fixture_details_type
             >
             gui_fixture_type;
-        typedef tetengo2::detail::windows::unit unit_details_type;
+        typedef
+            boost::mpl::at<detail_type_list, type::detail::unit>::type
+            unit_details_type;
         typedef
             tetengo2::gui::unit::em<
                 boost::rational<
@@ -473,7 +461,8 @@ namespace bobura
             unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;
         typedef
-            tetengo2::detail::windows::gdiplus::drawing drawing_details_type;
+            boost::mpl::at<detail_type_list, type::detail::drawing>::type
+            drawing_details_type;
         typedef
             tetengo2::gui::drawing::background<drawing_details_type>
             background_type;
@@ -515,7 +504,9 @@ namespace bobura
                 drawing_details_type
             >
             canvas_type;
-        typedef tetengo2::detail::windows::alert alert_details_type;
+        typedef
+            boost::mpl::at<detail_type_list, type::detail::alert>::type
+            alert_details_type;
         typedef
             tetengo2::gui::alert<
                 boost::mpl::at<
@@ -528,12 +519,16 @@ namespace bobura
             >
             alert_type;
         typedef
-            tetengo2::gui::cursor::system<tetengo2::detail::windows::cursor>
+            tetengo2::gui::cursor::system<
+                boost::mpl::at<detail_type_list, type::detail::cursor>::type
+            >
             system_cursor_type;
         typedef
             tetengo2::gui::virtual_key<
                 boost::mpl::at<common_type_list, type::string>::type,
-                tetengo2::detail::windows::virtual_key
+                boost::mpl::at<
+                    detail_type_list, type::detail::virtual_key
+                >::type
             >
             virtual_key_type;
         typedef
@@ -558,9 +553,13 @@ namespace bobura
                 tetengo2::gui::message::mouse_observer_set
             >
             widget_traits_type;
-        typedef tetengo2::detail::windows::widget widget_details_type;
         typedef
-            tetengo2::detail::windows::message_handler
+            boost::mpl::at<detail_type_list, type::detail::widget>::type
+            widget_details_type;
+        typedef
+            boost::mpl::at<
+                detail_type_list, type::detail::message_handler
+            >::type
             message_handler_details_type;
         typedef
             tetengo2::gui::menu::shortcut_key<virtual_key_type>
@@ -575,7 +574,9 @@ namespace bobura
                 tetengo2::gui::message::menu_observer_set
             >
             menu_traits_type;
-        typedef tetengo2::detail::windows::menu menu_details_type;
+        typedef
+            boost::mpl::at<detail_type_list, type::detail::menu>::type
+            menu_details_type;
         typedef
             tetengo2::gui::menu::abstract_popup<
                 menu_traits_type, menu_details_type
@@ -623,7 +624,8 @@ namespace bobura
             >
             window_type;
         typedef
-            tetengo2::detail::windows::message_loop message_loop_details_type;
+            boost::mpl::at<detail_type_list, type::detail::message_loop>::type
+            message_loop_details_type;
         typedef
             tetengo2::gui::message::message_loop<
                 abstract_window_type, message_loop_details_type
@@ -832,10 +834,12 @@ namespace bobura
                         ui_type_list, type::ui::abstract_window
                     >::type,
                     boost::mpl::at<common_type_list, type::string>::type,
-                boost::mpl::at<
-                    locale_type_list, type::locale::ui_encoder
-                >::type,
-                    tetengo2::detail::windows::common_dialog
+                    boost::mpl::at<
+                        locale_type_list, type::locale::ui_encoder
+                    >::type,
+                    boost::mpl::at<
+                        detail_type_list, type::detail::common_dialog
+                    >::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -847,10 +851,12 @@ namespace bobura
                     >::type,
                     boost::mpl::at<common_type_list, type::string>::type,
                     boost::mpl::at<common_type_list, type::path>::type,
-                boost::mpl::at<
-                    locale_type_list, type::locale::ui_encoder
-                >::type,
-                    tetengo2::detail::windows::common_dialog
+                    boost::mpl::at<
+                        locale_type_list, type::locale::ui_encoder
+                    >::type,
+                    boost::mpl::at<
+                        detail_type_list, type::detail::common_dialog
+                    >::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -865,7 +871,9 @@ namespace bobura
                     boost::mpl::at<
                         locale_type_list, type::locale::ui_encoder
                     >::type,
-                    tetengo2::detail::windows::common_dialog
+                    boost::mpl::at<
+                        detail_type_list, type::detail::common_dialog
+                    >::type
                 >
             >,
         tetengo2::meta::assoc_list_end
