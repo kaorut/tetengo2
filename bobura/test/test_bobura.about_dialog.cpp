@@ -10,7 +10,6 @@
 //#include <utility>
 //#include <vector>
 
-//#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -30,6 +29,10 @@ namespace
             bobura::locale_type_list, bobura::type::locale::message_catalog
         >::type
         message_catalog_type;
+
+    typedef
+        boost::mpl::at<bobura::common_type_list, bobura::type::path>::type
+        path_type;
 
     typedef
         boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type
@@ -56,7 +59,7 @@ BOOST_AUTO_TEST_SUITE(about_dialog)
         window_type window;
         const message_catalog_type message_catalog;
         std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
+        path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         const about_dialog_type about_dialog(
             window, message_catalog, settings

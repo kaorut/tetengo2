@@ -10,7 +10,6 @@
 //#include <stdexcept>
 //#include <utility>
 
-//#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -131,8 +130,7 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
             model_type model;
 
             model.reset_timetable(
-                tetengo2::make_unique<timetable_type>(),
-                boost::filesystem::path(L"hoge")
+                tetengo2::make_unique<timetable_type>(), path_type(L"hoge")
             );
         }
         {
@@ -140,8 +138,7 @@ BOOST_AUTO_TEST_SUITE(timetable_model)
 
             BOOST_CHECK_THROW(
                 model.reset_timetable(
-                    std::unique_ptr<timetable_type>(),
-                    boost::filesystem::path(L"hoge")
+                    std::unique_ptr<timetable_type>(), path_type(L"hoge")
                 ),
                 std::invalid_argument
             );

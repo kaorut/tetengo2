@@ -10,7 +10,6 @@
 //#include <utility>
 //#include <vector>
 
-//#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -54,9 +53,7 @@ BOOST_AUTO_TEST_SUITE(settings)
         path_type path(L"path/to");
         const settings_type settings(std::move(arguments), std::move(path));
 
-        BOOST_CHECK(
-            settings.base_path() == boost::filesystem::path(L"path/to")
-        );
+        BOOST_CHECK(settings.base_path() == path_type(L"path/to"));
     }
 
     BOOST_AUTO_TEST_CASE(message_directory_path)
@@ -69,7 +66,7 @@ BOOST_AUTO_TEST_SUITE(settings)
 
         BOOST_CHECK(
             settings.message_directory_path() ==
-            boost::filesystem::path(L"path/to/messages")
+            path_type(L"path/to/messages")
         );
     }
 
@@ -82,8 +79,7 @@ BOOST_AUTO_TEST_SUITE(settings)
         const settings_type settings(std::move(arguments), std::move(path));
 
         BOOST_CHECK(
-            settings.image_directory_path() ==
-            boost::filesystem::path(L"path/to/images")
+            settings.image_directory_path() == path_type(L"path/to/images")
         );
     }
 
