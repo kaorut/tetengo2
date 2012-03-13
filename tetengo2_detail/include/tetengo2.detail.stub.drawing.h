@@ -210,7 +210,8 @@ namespace tetengo2 { namespace detail { namespace stub
         )
         {
             return Dimension(
-                picture.dimension().first, picture.dimension().second
+                typename Dimension::first_type(picture.dimension().first),
+                typename Dimension::second_type(picture.dimension().second)
             );
         }
 
