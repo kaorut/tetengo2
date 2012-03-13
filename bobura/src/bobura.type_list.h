@@ -131,11 +131,9 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail
     {
-        typedef std::ptrdiff_t difference_type;
         typedef std::size_t size_type;
         typedef std::wstring string_type;
         typedef std::string io_string_type;
-        typedef boost::filesystem::path path_type;
         typedef
             boost::spirit::multi_pass<
                 std::istreambuf_iterator<io_string_type::value_type>
@@ -152,8 +150,7 @@ namespace bobura
         typedef
             tetengo2::text::pull_parser<push_parser_type, size_type>
             pull_parser_type;
-        typedef
-            std::basic_ostream<io_string_type::value_type> output_stream_type;
+        typedef boost::filesystem::path path_type;
         typedef settings<string_type, path_type> settings_type;
     }
 #endif
@@ -161,7 +158,7 @@ namespace bobura
     //! The common type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::difference, detail::difference_type>,
+            boost::mpl::pair<type::difference, std::ptrdiff_t>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::size, detail::size_type>,
         tetengo2::meta::assoc_list<
@@ -171,7 +168,10 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::pull_parser, detail::pull_parser_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::output_stream, detail::output_stream_type>,
+            boost::mpl::pair<
+                type::output_stream,
+                std::basic_ostream<detail::io_string_type::value_type>
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::settings, detail::settings_type>,
         tetengo2::meta::assoc_list_end
@@ -195,28 +195,28 @@ namespace bobura
     namespace detail { namespace locale
     {
         typedef
-            boost::mpl::at<detail_type_list, type::detail::encoding>::type
-            encoding_details_type;
-        typedef
             tetengo2::text::encoding::locale<
                 boost::mpl::at<common_type_list, type::string>::type,
-                encoding_details_type
+                boost::mpl::at<detail_type_list, type::detail::encoding>::type
             >
             internal_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
-                std::wstring, encoding_details_type
+                std::wstring,
+                boost::mpl::at<detail_type_list, type::detail::encoding>::type
             >
             ui_encoding_type;
         typedef
-            tetengo2::text::encoding::utf8<encoding_details_type>
-            exception_encoding_type;
-        typedef
-            tetengo2::text::encoding::utf8<encoding_details_type>
-            message_catalog_encoding_type;
+            tetengo2::text::encoding::utf8<
+                boost::mpl::at<detail_type_list, type::detail::encoding>::type
+            >
+            utf8_encoding_type;
+        typedef utf8_encoding_type exception_encoding_type;
+        typedef utf8_encoding_type message_catalog_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
-                std::string, encoding_details_type
+                std::string,
+                boost::mpl::at<detail_type_list, type::detail::encoding>::type
             >
             locale_name_encoding_type;
         typedef
@@ -243,9 +243,7 @@ namespace bobura
                 locale_name_encoder_type
             >
             messages_type;
-        typedef
-            tetengo2::text::encoding::utf8<encoding_details_type>
-            timetable_file_encoding_type;
+        typedef utf8_encoding_type timetable_file_encoding_type;
         typedef
             tetengo2::text::encoder<
                 internal_encoding_type, timetable_file_encoding_type
@@ -427,23 +425,19 @@ namespace bobura
     namespace detail { namespace ui
     {
         typedef
-            boost::mpl::at<detail_type_list, type::detail::gui_fixture>::type
-            gui_fixture_details_type;
-        typedef
             tetengo2::gui::fixture<
-               gui_fixture_details_type
+                boost::mpl::at<
+                    detail_type_list, type::detail::gui_fixture
+                >::type
             >
             gui_fixture_type;
-        typedef
-            boost::mpl::at<detail_type_list, type::detail::unit>::type
-            unit_details_type;
         typedef
             tetengo2::gui::unit::em<
                 boost::rational<
                     boost::mpl::at<common_type_list, type::difference>::type
                 >,
                 boost::mpl::at<common_type_list, type::difference>::type,
-                unit_details_type
+                boost::mpl::at<detail_type_list, type::detail::unit>::type
             >
             unit_difference_type;
         typedef
@@ -455,38 +449,38 @@ namespace bobura
                     boost::mpl::at<common_type_list, type::size>::type
                 >,
                 boost::mpl::at<common_type_list, type::size>::type,
-                unit_details_type
+                boost::mpl::at<detail_type_list, type::detail::unit>::type
             >
             unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;
         typedef
-            boost::mpl::at<detail_type_list, type::detail::drawing>::type
-            drawing_details_type;
-        typedef
-            tetengo2::gui::drawing::background<drawing_details_type>
+            tetengo2::gui::drawing::background<
+                boost::mpl::at<detail_type_list, type::detail::drawing>::type
+            >
             background_type;
         typedef
             tetengo2::gui::drawing::transparent_background<
-                drawing_details_type
+                boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             transparent_background_type;
         typedef
             tetengo2::gui::drawing::font<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<common_type_list, type::size>::type,
-                drawing_details_type
+                boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             font_type;
         typedef
             tetengo2::gui::drawing::picture<
-                unit_size_type, drawing_details_type
+                unit_size_type,
+                boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             picture_type;
         typedef
             tetengo2::gui::drawing::picture_reader<
                 picture_type,
                 boost::mpl::at<common_type_list, type::path>::type,
-                drawing_details_type
+                boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             picture_reader_type;
         typedef
@@ -500,12 +494,9 @@ namespace bobura
                 background_type,
                 font_type,
                 picture_type,
-                drawing_details_type
+                boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             canvas_type;
-        typedef
-            boost::mpl::at<detail_type_list, type::detail::alert>::type
-            alert_details_type;
         typedef
             tetengo2::gui::alert<
                 boost::mpl::at<
@@ -514,7 +505,7 @@ namespace bobura
                 boost::mpl::at<
                     locale_type_list, type::locale::exception_encoder
                 >::type,
-                alert_details_type
+                boost::mpl::at<detail_type_list, type::detail::alert>::type
             >
             alert_type;
         typedef
@@ -553,14 +544,6 @@ namespace bobura
             >
             widget_traits_type;
         typedef
-            boost::mpl::at<detail_type_list, type::detail::widget>::type
-            widget_details_type;
-        typedef
-            boost::mpl::at<
-                detail_type_list, type::detail::message_handler
-            >::type
-            message_handler_details_type;
-        typedef
             tetengo2::gui::menu::shortcut_key<virtual_key_type>
             shortcut_key_type;
         typedef
@@ -574,26 +557,29 @@ namespace bobura
             >
             menu_traits_type;
         typedef
-            boost::mpl::at<detail_type_list, type::detail::menu>::type
-            menu_details_type;
-        typedef
             tetengo2::gui::menu::abstract_popup<
-                menu_traits_type, menu_details_type
+                menu_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             abstract_popup_menu_type;
         typedef
             tetengo2::gui::menu::menu_base<
-                menu_traits_type, menu_details_type
+                menu_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             menu_base_type;
         typedef
             tetengo2::gui::menu::shortcut_key_table<
-                shortcut_key_type, menu_base_type, menu_details_type
+                shortcut_key_type,
+                menu_base_type,
+                boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             shortcut_key_table_type;
         typedef
             tetengo2::gui::menu::menu_bar<
-                menu_traits_type, shortcut_key_table_type, menu_details_type
+                menu_traits_type,
+                shortcut_key_table_type,
+                boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             menu_bar_type;
         typedef
@@ -606,8 +592,10 @@ namespace bobura
         typedef
             tetengo2::gui::widget::abstract_window<
                 abstract_window_traits_type,
-                widget_details_type,
-                message_handler_details_type
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_handler
+                >::type
             >
             abstract_window_type;
         typedef
@@ -618,26 +606,33 @@ namespace bobura
         typedef
             tetengo2::gui::widget::window<
                 window_traits_type,
-                widget_details_type,
-                message_handler_details_type
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_handler
+                >::type
             >
             window_type;
         typedef
-            boost::mpl::at<detail_type_list, type::detail::message_loop>::type
-            message_loop_details_type;
-        typedef
             tetengo2::gui::message::message_loop<
-                abstract_window_type, message_loop_details_type
+                abstract_window_type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_loop
+                >::type
             >
             message_loop_type;
         typedef
             tetengo2::gui::message::message_loop_break<
-                message_loop_details_type
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_loop
+                >::type
             >
             message_loop_break_type;
         typedef
             tetengo2::gui::message::dialog_message_loop<
-                abstract_window_type, message_loop_details_type
+                abstract_window_type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_loop
+                >::type
             >
             dialog_message_loop_type;
         typedef
@@ -650,8 +645,10 @@ namespace bobura
         typedef
             tetengo2::gui::widget::dialog<
                 dialog_traits_type,
-                widget_details_type,
-                message_handler_details_type
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_handler
+                >::type
             >
             dialog_type;
         typedef tetengo2::gui::drawing::color<unsigned char> color_type;
@@ -666,18 +663,22 @@ namespace bobura
         typedef
             tetengo2::gui::widget::label<
                 label_traits_type,
-                widget_details_type,
-                message_handler_details_type
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_handler
+                >::type
             >
             label_type;
         typedef
             tetengo2::gui::drawing::solid_background<
-                color_type, drawing_details_type
+                color_type,
+                boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             solid_background_type;
         typedef
             tetengo2::gui::drawing::system_color_set<
-                color_type, drawing_details_type
+                color_type,
+                boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             system_color_set_type;
         typedef
@@ -690,8 +691,10 @@ namespace bobura
         typedef
             tetengo2::gui::widget::link_label<
                 link_label_traits_type,
-                widget_details_type,
-                message_handler_details_type
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_handler
+                >::type
             >
             link_label_type;
         typedef
@@ -702,8 +705,10 @@ namespace bobura
         typedef
             tetengo2::gui::widget::image<
                 image_traits_type,
-                widget_details_type,
-                message_handler_details_type
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_handler
+                >::type
             >
             image_type;
         typedef
@@ -712,8 +717,10 @@ namespace bobura
         typedef
             tetengo2::gui::widget::button<
                 button_traits_type,
-                widget_details_type,
-                message_handler_details_type
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_handler
+                >::type
             >
             button_type;
         typedef
@@ -724,8 +731,10 @@ namespace bobura
         typedef
             tetengo2::gui::widget::text_box<
                 text_box_traits_type,
-                widget_details_type,
-                message_handler_details_type
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<
+                    detail_type_list, type::detail::message_handler
+                >::type
             >
             text_box_type;
     }}
@@ -762,7 +771,7 @@ namespace bobura
                 type::ui::popup_menu,
                 tetengo2::gui::menu::popup<
                     detail::ui::menu_traits_type,
-                    detail::ui::menu_details_type
+                    boost::mpl::at<detail_type_list, type::detail::menu>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -770,7 +779,7 @@ namespace bobura
                 type::ui::menu_command,
                 tetengo2::gui::menu::command<
                     detail::ui::menu_traits_type,
-                    detail::ui::menu_details_type
+                    boost::mpl::at<detail_type_list, type::detail::menu>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -778,7 +787,7 @@ namespace bobura
                 type::ui::menu_separator,
                 tetengo2::gui::menu::separator<
                     detail::ui::menu_traits_type,
-                    detail::ui::menu_details_type
+                    boost::mpl::at<detail_type_list, type::detail::menu>::type
                 >
             >,
         tetengo2::meta::assoc_list<
