@@ -9,6 +9,8 @@
 #if !defined(BOBURA_DETAILTYPELIST_H)
 #define BOBURA_DETAILTYPELIST_H
 
+#include <tuple>
+
 #if defined(USE_TYPES_FOR_APPLICATION)
 #   include <tetengo2.detail.windows.alert.h>
 #   include <tetengo2.detail.windows.common_dialog.h>
@@ -74,20 +76,38 @@ namespace bobura
     namespace detail { namespace detail
     {
 #if defined(USE_TYPES_FOR_APPLICATION)
-        typedef int alert_type;
-        typedef int common_dialog_type;
-        typedef int cursor_type;
-        typedef int drawing_type;
-        typedef int encoding_type;
-        typedef int gui_fixture_type;
-        typedef int menu_type;
-        typedef int message_handler_type;
-        typedef int message_loop_type;
-        typedef int unit_type;
-        typedef int virtual_key_type;
-        typedef int widget_type;
+        typedef tetengo2::detail::windows::alert alert_type;
+        typedef tetengo2::detail::windows::common_dialog common_dialog_type;
+        typedef tetengo2::detail::windows::cursor cursor_type;
+        typedef tetengo2::detail::windows::gdiplus::drawing drawing_type;
+        typedef tetengo2::detail::windows::encoding encoding_type;
+        typedef
+            std::tuple<
+                tetengo2::detail::windows::gui_fixture,
+                tetengo2::detail::windows::gdiplus::gui_fixture
+            >
+            gui_fixture_type;
+        typedef tetengo2::detail::windows::menu menu_type;
+        typedef
+            tetengo2::detail::windows::message_handler message_handler_type;
+        typedef tetengo2::detail::windows::message_loop message_loop_type;
+        typedef tetengo2::detail::windows::unit unit_type;
+        typedef tetengo2::detail::windows::virtual_key virtual_key_type;
+        typedef tetengo2::detail::windows::widget widget_type;
 #else
-        //typedef std::ptrdiff_t difference_type;
+        typedef tetengo2::detail::stub::alert alert_type;
+        typedef tetengo2::detail::stub::common_dialog common_dialog_type;
+        typedef tetengo2::detail::stub::cursor cursor_type;
+        typedef tetengo2::detail::stub::drawing drawing_type;
+        typedef tetengo2::detail::stub::encoding encoding_type;
+        typedef
+            std::tuple<tetengo2::detail::stub::gui_fixture> gui_fixture_type;
+        typedef tetengo2::detail::stub::menu menu_type;
+        typedef tetengo2::detail::stub::message_handler message_handler_type;
+        typedef tetengo2::detail::stub::message_loop message_loop_type;
+        typedef tetengo2::detail::stub::unit unit_type;
+        typedef tetengo2::detail::stub::virtual_key virtual_key_type;
+        typedef tetengo2::detail::stub::widget widget_type;
 #endif
     }}
 #endif
