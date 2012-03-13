@@ -160,6 +160,10 @@ BOOST_AUTO_TEST_SUITE(main_window)
             main_window.set_title(
                 boost::make_optional<std::wstring>(L"hoge"), false
             );
+
+            BOOST_CHECK(
+                main_window.text().find(L"hoge") != std::wstring::npos
+            );
         }
         {
             const message_catalog_type message_catalog;
@@ -182,6 +186,10 @@ BOOST_AUTO_TEST_SUITE(main_window)
 
             main_window.set_title(
                 boost::make_optional<std::wstring>(L"hoge"), true
+            );
+
+            BOOST_CHECK(
+                main_window.text().find(L"hoge") != std::wstring::npos
             );
         }
     }
