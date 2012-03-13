@@ -9,6 +9,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.text.h>
+
 #include "bobura.type_list.h"
 
 
@@ -25,6 +27,10 @@ namespace
             bobura::locale_type_list, bobura::type::locale::message_catalog
         >::type
         message_catalog_type;
+
+    typedef
+        boost::mpl::at<bobura::common_type_list, bobura::type::string>::type
+        string_type;
 
     typedef
         boost::mpl::at<
@@ -75,9 +81,14 @@ BOOST_AUTO_TEST_SUITE(file_property_dialog)
             window, message_catalog
         );
 
-        file_property_dialog.set_line_name(L"hoge");
+        file_property_dialog.set_line_name(
+            string_type(TETENGO2_TEXT("hoge"))
+        );
 
-        BOOST_CHECK(file_property_dialog.line_name() == L"hoge");
+        BOOST_CHECK(
+            file_property_dialog.line_name() ==
+            string_type(TETENGO2_TEXT("hoge"))
+        );
     }
 
     BOOST_AUTO_TEST_CASE(file_name)
@@ -103,9 +114,14 @@ BOOST_AUTO_TEST_SUITE(file_property_dialog)
             window, message_catalog
         );
 
-        file_property_dialog.set_file_name(L"hoge");
+        file_property_dialog.set_file_name(
+            string_type(TETENGO2_TEXT("hoge"))
+        );
 
-        BOOST_CHECK(file_property_dialog.file_name() == L"hoge");
+        BOOST_CHECK(
+            file_property_dialog.file_name() ==
+            string_type(TETENGO2_TEXT("hoge"))
+        );
     }
 
 

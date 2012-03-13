@@ -6,13 +6,14 @@
     $Id$
 */
 
-//#include <string>
 //#include <utility>
 //#include <vector>
 
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include <tetengo2.text.h>
 
 #include "bobura.type_list.h"
 
@@ -61,6 +62,10 @@ namespace
         confirm_file_save_type;
 
     typedef
+        boost::mpl::at<bobura::common_type_list, bobura::type::string>::type
+        string_type;
+
+    typedef
         boost::mpl::at<
             bobura::main_window_type_list,
             bobura::type::main_window::main_window
@@ -80,7 +85,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
         BOOST_TEST_PASSPOINT();
 
         const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
+        std::vector<string_type> arguments;
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         model_type model;
@@ -100,9 +105,11 @@ BOOST_AUTO_TEST_SUITE(main_window)
 
         {
             const message_catalog_type message_catalog;
-            std::vector<std::wstring> arguments;
+            std::vector<string_type> arguments;
             path_type path;
-            const settings_type settings(std::move(arguments), std::move(path));
+            const settings_type settings(
+                std::move(arguments), std::move(path)
+            );
             model_type model;
             writer_type writer;
             const save_to_file_type save_to_file(
@@ -119,7 +126,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
         }
         {
             const message_catalog_type message_catalog;
-            std::vector<std::wstring> arguments;
+            std::vector<string_type> arguments;
             path_type path;
             const settings_type settings(
                 std::move(arguments), std::move(path)
@@ -140,7 +147,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
         }
         {
             const message_catalog_type message_catalog;
-            std::vector<std::wstring> arguments;
+            std::vector<string_type> arguments;
             path_type path;
             const settings_type settings(
                 std::move(arguments), std::move(path)
@@ -158,16 +165,20 @@ BOOST_AUTO_TEST_SUITE(main_window)
             );
 
             main_window.set_title(
-                boost::make_optional<std::wstring>(L"hoge"), false
+                boost::make_optional<string_type>(
+                    string_type(TETENGO2_TEXT("hoge"))
+                ),
+                false
             );
 
             BOOST_CHECK(
-                main_window.text().find(L"hoge") != std::wstring::npos
+                main_window.text().find(string_type(TETENGO2_TEXT("hoge"))) !=
+                string_type::npos
             );
         }
         {
             const message_catalog_type message_catalog;
-            std::vector<std::wstring> arguments;
+            std::vector<string_type> arguments;
             path_type path;
             const settings_type settings(
                 std::move(arguments), std::move(path)
@@ -185,11 +196,15 @@ BOOST_AUTO_TEST_SUITE(main_window)
             );
 
             main_window.set_title(
-                boost::make_optional<std::wstring>(L"hoge"), true
+                boost::make_optional<string_type>(
+                    string_type(TETENGO2_TEXT("hoge"))
+                ),
+                true
             );
 
             BOOST_CHECK(
-                main_window.text().find(L"hoge") != std::wstring::npos
+                main_window.text().find(string_type(TETENGO2_TEXT("hoge"))) !=
+                string_type::npos
             );
         }
     }
