@@ -15,7 +15,23 @@
 
 #include <tetengo2.unique.h>
 
-#include "test_bobura.types.h"
+#include "bobura.type_list.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        boost::mpl::at<
+            bobura::model_type_list, bobura::type::model::model
+        >::type
+        model_type;
+
+    typedef model_type::timetable_type timetable_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
