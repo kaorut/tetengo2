@@ -9,7 +9,9 @@
 #if !defined(BOBURA_DETAILTYPELIST_H)
 #define BOBURA_DETAILTYPELIST_H
 
-#include <tuple>
+//#include <tuple>
+
+#include <boost/mpl/pair.hpp>
 
 #if defined(USE_TYPES_FOR_APPLICATION)
 #   include <tetengo2.detail.windows.alert.h>
@@ -39,6 +41,7 @@
 #   include <tetengo2.detail.stub.virtual_key.h>
 #   include <tetengo2.detail.stub.widget.h>
 #endif
+
 
 namespace bobura
 {
