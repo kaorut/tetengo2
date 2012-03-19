@@ -12,7 +12,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "test_bobura.types.h"
+#include "bobura.type_list.h"
 
 #include "bobura.message.main_window.h"
 
@@ -23,9 +23,71 @@ namespace
 
     typedef
         boost::mpl::at<
+            bobura::command_type_list_type_list,
+            bobura::type::command_type_list::command_type_list
+        >::type
+        command_type_list_type;
+
+    typedef
+        boost::mpl::at<
             command_type_list_type, bobura::command::type::nop
         >::type
         nop_command_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::model_type_list, bobura::type::model::model
+        >::type
+        model_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::ui_type_list, bobura::type::ui::abstract_window
+        >::type
+        abstract_window_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::locale_type_list, bobura::type::locale::message_catalog
+        >::type
+        message_catalog_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::model_type_list, bobura::type::model::writer
+        >::type
+        writer_type;
+
+    typedef
+        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type
+        canvas_type;
+
+    typedef
+        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::position>::type
+        position_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::ui_type_list, bobura::type::ui::picture_reader
+        >::type
+        picture_reader_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::load_save_type_list, bobura::type::load_save::save_to_file
+        >::type
+        save_to_file_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::load_save_type_list,
+            bobura::type::load_save::confirm_file_save
+        >::type
+        confirm_file_save_type;
+
+    typedef
+        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type
+        window_type;
 
     typedef
         bobura::message::main_window::menu_selected<
