@@ -8,7 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "test_bobura.types.h"
+#include "bobura.type_list.h"
 
 #include "bobura.message.about_dialog.h"
 
@@ -16,6 +16,14 @@
 namespace
 {
     // types
+
+    typedef
+        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::dialog>::type
+        dialog_type;
+
+    typedef
+        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type
+        window_type;
 
     class concrete_dialog : public dialog_type
     {
