@@ -12,9 +12,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.detail.stub.common_dialog.h>
-#include <tetengo2.gui.common_dialog.file_open.h>
-
 #include "bobura.type_list.h"
 
 
