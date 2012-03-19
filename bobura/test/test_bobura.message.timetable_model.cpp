@@ -13,9 +13,67 @@
 //#include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "test_bobura.types.h"
+#include "bobura.type_list.h"
 
 #include "bobura.message.timetable_model.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        boost::mpl::at<
+            bobura::model_type_list, bobura::type::model::model
+        >::type
+        model_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::locale_type_list, bobura::type::locale::message_catalog
+        >::type
+        message_catalog_type;
+
+    typedef
+        boost::mpl::at<bobura::common_type_list, bobura::type::path>::type
+        path_type;
+
+    typedef
+        boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type
+        settings_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::model_type_list, bobura::type::model::writer
+        >::type
+        writer_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::load_save_type_list, bobura::type::load_save::save_to_file
+        >::type
+        save_to_file_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::load_save_type_list,
+            bobura::type::load_save::confirm_file_save
+        >::type
+        confirm_file_save_type;
+
+    typedef
+        boost::mpl::at<bobura::common_type_list, bobura::type::string>::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
+            bobura::main_window_type_list,
+            bobura::type::main_window::main_window
+        >::type
+        main_window_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
@@ -30,8 +88,8 @@ BOOST_AUTO_TEST_SUITE(reset)
 
         model_type model;
         const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
+        std::vector<string_type> arguments;
+        path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         writer_type writer;
         const save_to_file_type save_to_file(false, writer, message_catalog);
@@ -52,8 +110,8 @@ BOOST_AUTO_TEST_SUITE(reset)
 
         model_type model;
         const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
+        std::vector<string_type> arguments;
+        path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         writer_type writer;
         const save_to_file_type save_to_file(false, writer, message_catalog);
@@ -81,8 +139,8 @@ BOOST_AUTO_TEST_SUITE(changed)
 
         model_type model;
         const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
+        std::vector<string_type> arguments;
+        path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         writer_type writer;
         const save_to_file_type save_to_file(false, writer, message_catalog);
@@ -104,8 +162,8 @@ BOOST_AUTO_TEST_SUITE(changed)
 
         model_type model;
         const message_catalog_type message_catalog;
-        std::vector<std::wstring> arguments;
-        boost::filesystem::path path;
+        std::vector<string_type> arguments;
+        path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         writer_type writer;
         const save_to_file_type save_to_file(false, writer, message_catalog);
