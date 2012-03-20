@@ -19,6 +19,25 @@
 #include "bobura.model.train.h"
 
 
+namespace
+{
+    // types
+
+    typedef
+        bobura::model::train_info::time<
+            std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
+        >
+        time_type;
+
+    typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
+
+    typedef
+        bobura::model::train<std::string, std::string, stop_type> train_type;
+
+
+}
+
+
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(model)
 BOOST_AUTO_TEST_SUITE(train)
@@ -27,19 +46,6 @@ BOOST_AUTO_TEST_SUITE(train)
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
 
         {
             const train_type train("1", "x");
@@ -86,19 +92,6 @@ BOOST_AUTO_TEST_SUITE(train)
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-        typedef
-            bobura::model::train<std::string, std::string, stop_type>
-            train_type;
 
         {
             const train_type train1("1", "x");
