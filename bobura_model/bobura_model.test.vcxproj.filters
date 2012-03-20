@@ -25,10 +25,16 @@
     <Filter Include="sources\test_bobura::model\message">
       <UniqueIdentifier>{5c2adcdb-170a-4c2b-8c99-18b340fece0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\test_bobura::model">
+      <UniqueIdentifier>{125dc970-e513-446f-b50f-f5f0e9a99564}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="test\test_bobura.model.type_list.h">
+      <Filter>headers\test_bobura::model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
