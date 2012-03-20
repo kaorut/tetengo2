@@ -9,31 +9,67 @@
 #if !defined(TESTBOBURA_MODEL_TYPELIST_H)
 #define TESTBOBURA_MODEL_TYPELIST_H
 
-//#include <boost/mpl/at.hpp>
-//#include <boost/mpl/pair.hpp>
+#include <string>
+
+#include <boost/mpl/pair.hpp>
+
+#include <tetengo2.meta.assoc_list.h>
+
+#include "bobura.model.station_info.grade.h"
 
 
 namespace test_bobura { namespace model
 {
     namespace type
     {
-        //struct difference;     //!< The difference type.
+        struct grade;          //!< The grade type.
+        struct local;          //!< The local grade type.
+        struct principal;      //!< The principal grade type.
+        struct local_terminal; //!< The local terminal grade type.
+        struct principal_terminal; //!< The principal terminal grade type.
     }
 
 #if !defined(DOCUMENTATION)
     namespace detail
     {
-        //typedef std::size_t size_type;
+        typedef std::string string_type;
     }
 #endif
 
     //! The type list.
-    //typedef
-    //    tetengo2::meta::assoc_list<
-    //        boost::mpl::pair<type::difference, std::ptrdiff_t>,
-    //    tetengo2::meta::assoc_list_end
-    //    >
-    //    type_list;
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::grade,
+                bobura::model::station_info::grade<detail::string_type>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::local,
+                bobura::model::station_info::local<detail::string_type>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::principal,
+                bobura::model::station_info::principal<detail::string_type>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::local_terminal,
+                bobura::model::station_info::local_terminal<
+                    detail::string_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::principal_terminal,
+                bobura::model::station_info::principal_terminal<
+                    detail::string_type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >>>>>
+        type_list;
 
 
 }}

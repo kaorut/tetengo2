@@ -6,13 +6,51 @@
     $Id$
 */
 
-#include <string>
-
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.model.station_info.grade.h"
+#include "test_bobura.model.type_list.h"
 
 #include "bobura.model.station.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::grade
+        >::type
+        grade_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::local
+        >::type
+        local_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::principal
+        >::type
+        principal_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list,
+            test_bobura::model::type::local_terminal
+        >::type
+        local_terminal_type;
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list,
+            test_bobura::model::type::principal_terminal
+        >::type
+        principal_terminal_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
@@ -23,12 +61,6 @@ BOOST_AUTO_TEST_SUITE(station)
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef
-            bobura::model::station_info::principal<std::wstring>
-            principal_type;
 
         {
             const bobura::model::station<std::wstring, grade_type> station(
@@ -76,12 +108,6 @@ BOOST_AUTO_TEST_SUITE(station)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef
-            bobura::model::station_info::principal<std::wstring>
-            principal_type;
-
         {
             const bobura::model::station<std::wstring, grade_type> station1(
                 L"A", local_type::instance()
@@ -118,9 +144,6 @@ BOOST_AUTO_TEST_SUITE(station)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-
         {
             const bobura::model::station<std::wstring, grade_type> station(
                 L"", local_type::instance()
@@ -154,18 +177,6 @@ BOOST_AUTO_TEST_SUITE(station)
     BOOST_AUTO_TEST_CASE(grade)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef bobura::model::station_info::grade<std::wstring> grade_type;
-        typedef bobura::model::station_info::local<std::wstring> local_type;
-        typedef
-            bobura::model::station_info::principal<std::wstring>
-            principal_type;
-        typedef
-            bobura::model::station_info::local_terminal<std::wstring>
-            local_terminal_type;
-        typedef
-            bobura::model::station_info::principal_terminal<std::wstring>
-            principal_terminal_type;
 
         {
             const bobura::model::station<std::wstring, grade_type> station(
