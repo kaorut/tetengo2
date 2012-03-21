@@ -10,13 +10,10 @@
 //#include <utility>
 #include <string>
 
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.model.train_info.stop.h"
-#include "bobura.model.train_info.time.h"
-#include "bobura.model.train_info.time_span.h"
-
-#include "bobura.model.train.h"
+#include "test_bobura.model.type_list.h"
 
 
 namespace
@@ -24,15 +21,22 @@ namespace
     // types
 
     typedef
-        bobura::model::train_info::time<
-            std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
-        >
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::time
+        >::type
         time_type;
 
-    typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::stop
+        >::type
+        stop_type;
 
     typedef
-        bobura::model::train<std::string, std::string, stop_type> train_type;
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::train
+        >::type
+        train_type;
 
 
 }
