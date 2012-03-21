@@ -6,11 +6,9 @@
     $Id$
 */
 
-#include <cstddef>
 //#include <stdexcept>
-#include <string>
 
-#include <boost/mpl/at.hpp>
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "test_bobura.model.type_list.h"
