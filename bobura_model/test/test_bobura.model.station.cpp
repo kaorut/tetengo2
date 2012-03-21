@@ -18,12 +18,6 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::station
-        >::type
-        station_type;
-
-    typedef
-        boost::mpl::at<
             test_bobura::model::type_list,
             test_bobura::model::type::grade_type_set
         >::type
@@ -43,6 +37,12 @@ namespace
             test_bobura::model::type_list, test_bobura::model::type::string
         >::type
         string_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::station
+        >::type
+        station_type;
 
 
 }

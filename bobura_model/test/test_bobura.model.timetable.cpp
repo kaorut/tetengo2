@@ -10,18 +10,10 @@
 //#include <stdexcept>
 #include <string>
 
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.model.message.timetable_observer_set.h"
-#include "bobura.model.station.h"
-#include "bobura.model.train.h"
-#include "bobura.model.station_info.grade.h"
-#include "bobura.model.timetable_info.station_location.h"
-#include "bobura.model.train_info.stop.h"
-#include "bobura.model.train_info.time.h"
-#include "bobura.model.train_info.time_span.h"
-
-#include "bobura.model.timetable.h"
+#include "test_bobura.model.type_list.h"
 
 
 namespace
@@ -29,39 +21,55 @@ namespace
     // types
 
     typedef
-        bobura::model::station_info::grade_type_set<std::wstring>
-        station_grade_type_set_type;
-
-    typedef station_grade_type_set_type::grade_type grade_type;
-
-    typedef station_grade_type_set_type::local_type local_type;
-
-    typedef bobura::model::station<std::wstring, grade_type> station_type;
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::station
+        >::type
+        station_type;
 
     typedef
-        bobura::model::timetable_info::station_location<
-            station_type, std::size_t
-        >
+        boost::mpl::at<
+            test_bobura::model::type_list,
+            test_bobura::model::type::grade_type_set
+        >::type
+        grade_type_set_type;
+
+    typedef grade_type_set_type::local_type local_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list,
+            test_bobura::model::type::station_location
+        >::type
         station_location_type;
 
     typedef
-        bobura::model::train_info::time<
-            std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
-        >
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::time
+        >::type
         time_type;
 
-    typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::stop
+        >::type
+        stop_type;
 
     typedef
-        bobura::model::train<std::string, std::string, stop_type> train_type;
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::train
+        >::type
+        train_type;
 
     typedef
-        bobura::model::timetable<
-            std::string,
-            station_location_type,
-            train_type,
-            bobura::model::message::timetable_observer_set
-        >
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::timetable
+        >::type
         timetable_type;
 
 }
@@ -85,7 +93,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -99,12 +107,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -149,7 +157,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations1;
             station_locations1.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -160,7 +168,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations2;
             station_locations2.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -174,7 +182,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations1;
             station_locations1.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -185,7 +193,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations2;
             station_locations2.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -199,7 +207,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations1;
             station_locations1.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -210,12 +218,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations2;
             station_locations2.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations2.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -229,12 +237,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations1;
             station_locations1.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations1.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -245,12 +253,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations2;
             station_locations2.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations2.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -278,7 +286,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -292,12 +300,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -317,12 +325,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -341,7 +349,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -351,7 +359,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
             BOOST_CHECK(
-                station_locations[0].station().name() == std::wstring(L"A")
+                station_locations[0].station().name() == string_type("A")
             );
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
         }
@@ -360,13 +368,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -375,11 +383,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_EQUAL(station_locations.size(), 2U);
             BOOST_CHECK(
-                station_locations[0].station().name() == std::wstring(L"A")
+                station_locations[0].station().name() == string_type("A")
             );
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
             BOOST_CHECK(
-                station_locations[1].station().name() == std::wstring(L"B")
+                station_locations[1].station().name() == string_type("B")
             );
             BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
         }
@@ -388,14 +396,14 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
             BOOST_CHECK_THROW(
                 timetable.insert_station_location(
                     timetable.station_locations().end(),
                     station_location_type(
-                        station_type(L"A", local_type::instance()), 1
+                        station_type("A", local_type::instance()), 1
                     )
                 ),
                 std::invalid_argument
@@ -406,7 +414,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
             BOOST_CHECK(
-                station_locations[0].station().name() == std::wstring(L"B")
+                station_locations[0].station().name() == string_type("B")
             );
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 2U);
         }
@@ -415,25 +423,25 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"D", local_type::instance()), 4
+                    station_type("D", local_type::instance()), 4
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().begin(),
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().begin() + 2,
                 station_location_type(
-                    station_type(L"C", local_type::instance()), 3
+                    station_type("C", local_type::instance()), 3
                 )
             );
 
@@ -442,19 +450,19 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_EQUAL(station_locations.size(), 4U);
             BOOST_CHECK(
-                station_locations[0].station().name() == std::wstring(L"A")
+                station_locations[0].station().name() == string_type("A")
             );
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
             BOOST_CHECK(
-                station_locations[1].station().name() == std::wstring(L"B")
+                station_locations[1].station().name() == string_type("B")
             );
             BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
             BOOST_CHECK(
-                station_locations[2].station().name() == std::wstring(L"C")
+                station_locations[2].station().name() == string_type("C")
             );
             BOOST_CHECK_EQUAL(station_locations[2].meterage(), 3U);
             BOOST_CHECK(
-                station_locations[3].station().name() == std::wstring(L"D")
+                station_locations[3].station().name() == string_type("D")
             );
             BOOST_CHECK_EQUAL(station_locations[3].meterage(), 4U);
         }
@@ -468,7 +476,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -500,7 +508,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"C", local_type::instance()), 3
+                    station_type("C", local_type::instance()), 3
                 )
             );
 
@@ -528,7 +536,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().begin() + 1,
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -558,7 +566,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -590,7 +598,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type(L"C", local_type::instance()), 3
+                    station_type("C", local_type::instance()), 3
                 )
             );
 
@@ -618,7 +626,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().begin() + 1,
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -648,12 +656,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -672,12 +680,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -693,7 +701,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(timetable.station_locations().size(), 1U);
             BOOST_CHECK(
                 timetable.station_locations()[0].station().name() ==
-                std::wstring(L"B")
+                string_type("B")
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[0].meterage(), 2U
@@ -703,12 +711,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -724,14 +732,14 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(timetable.station_locations().size(), 2U);
             BOOST_CHECK(
                 timetable.station_locations()[0].station().name() ==
-                std::wstring(L"A")
+                string_type("A")
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[0].meterage(), 1U
             );
             BOOST_CHECK(
                 timetable.station_locations()[1].station().name() ==
-                std::wstring(L"B")
+                string_type("B")
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[1].meterage(), 2U
@@ -741,17 +749,17 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"C", local_type::instance()), 3
+                    station_type("C", local_type::instance()), 3
                 )
             );
 
@@ -767,14 +775,14 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(timetable.station_locations().size(), 2U);
             BOOST_CHECK(
                 timetable.station_locations()[0].station().name() ==
-                std::wstring(L"A")
+                string_type("A")
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[0].meterage(), 1U
             );
             BOOST_CHECK(
                 timetable.station_locations()[1].station().name() ==
-                std::wstring(L"C")
+                string_type("C")
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[1].meterage(), 3U
@@ -784,12 +792,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -820,12 +828,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -856,12 +864,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -892,12 +900,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"B", local_type::instance()), 2
+                    station_type("B", local_type::instance()), 2
                 )
             );
 
@@ -1083,7 +1091,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
@@ -1181,7 +1189,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type(L"A", local_type::instance()), 1
+                    station_type("A", local_type::instance()), 1
                 )
             );
 
