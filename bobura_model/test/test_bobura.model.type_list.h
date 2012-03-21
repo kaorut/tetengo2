@@ -16,13 +16,15 @@
 #include <tetengo2.meta.assoc_list.h>
 
 #include "bobura.model.station_info.grade.h"
+#include "bobura.model.station.h"
 
 
 namespace test_bobura { namespace model
 {
     namespace type
     {
-        struct grade;          //!< The grade type.
+        struct string;         //!< The string type.
+        struct station;        //!< The station type.
         struct local;          //!< The local grade type.
         struct principal;      //!< The principal grade type.
         struct local_terminal; //!< The local terminal grade type.
@@ -33,15 +35,20 @@ namespace test_bobura { namespace model
     namespace detail
     {
         typedef std::string string_type;
+        typedef bobura::model::station_info::grade<string_type> grade_type;
     }
 #endif
 
     //! The type list.
     typedef
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::string, detail::string_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::grade,
-                bobura::model::station_info::grade<detail::string_type>
+                type::station,
+                bobura::model::station<
+                    detail::string_type, detail::grade_type
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -68,7 +75,7 @@ namespace test_bobura { namespace model
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         type_list;
 
 
