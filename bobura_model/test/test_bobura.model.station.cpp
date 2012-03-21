@@ -24,28 +24,19 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::local
+            test_bobura::model::type_list,
+            test_bobura::model::type::grade_type_set
         >::type
-        local_type;
+        grade_type_set_type;
+
+    typedef grade_type_set_type::local_type local_type;
+
+    typedef grade_type_set_type::principal_type principal_type;
+
+    typedef grade_type_set_type::local_terminal_type local_terminal_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::principal
-        >::type
-        principal_type;
-
-    typedef
-        boost::mpl::at<
-            test_bobura::model::type_list,
-            test_bobura::model::type::local_terminal
-        >::type
-        local_terminal_type;
-    typedef
-        boost::mpl::at<
-            test_bobura::model::type_list,
-            test_bobura::model::type::principal_terminal
-        >::type
-        principal_terminal_type;
+        grade_type_set_type::principal_terminal_type principal_terminal_type;
 
     typedef
         boost::mpl::at<
