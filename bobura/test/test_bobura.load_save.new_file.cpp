@@ -80,6 +80,9 @@ BOOST_AUTO_TEST_SUITE(new_file)
         const new_file_type new_file(confirm_file_save);
     }
 
+#if __CYGWIN__ && __GNUC__ == 4 && __GNUC_MINOR__ == 5 && __GNUC_PATCHLEVEL__ == 3
+#   warning "Somehow this test case does not compile in a certain environment."
+#else
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
@@ -96,6 +99,7 @@ BOOST_AUTO_TEST_SUITE(new_file)
         window_type parent;
         new_file(model, parent);
     }
+#endif
 
 
 BOOST_AUTO_TEST_SUITE_END()
