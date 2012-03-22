@@ -34,10 +34,16 @@
     <Filter Include="sources\test_tetengo2\message">
       <UniqueIdentifier>{ee0f7809-eda3-47e4-92d1-265eb88ba4bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\test_tetengo2">
+      <UniqueIdentifier>{ac4e45cb-5196-4baa-b95e-79cc5f3057a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="test\test_tetengo2.type_list.h">
+      <Filter>headers\test_tetengo2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

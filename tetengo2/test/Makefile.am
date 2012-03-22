@@ -2,7 +2,8 @@
 # Copyright (C) 2007-2012 kaoru
 # $Id$
 
-headers =
+headers = \
+    test_tetengo2.type_list.h
 
 extra_headers =
 
