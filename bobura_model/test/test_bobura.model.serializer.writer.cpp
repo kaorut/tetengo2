@@ -15,17 +15,7 @@
 
 #include <tetengo2.cpp11.h>
 
-#include "bobura.model.message.timetable_observer_set.h"
-#include "bobura.model.station.h"
-#include "bobura.model.train.h"
-#include "bobura.model.station_info.grade.h"
-#include "bobura.model.timetable.h"
-#include "bobura.model.timetable_info.station_location.h"
-#include "bobura.model.train_info.stop.h"
-#include "bobura.model.train_info.time.h"
-#include "bobura.model.train_info.time_span.h"
-
-#include "bobura.model.serializer.writer.h"
+#include "test_bobura.model.type_list.h"
 
 
 namespace
@@ -33,41 +23,17 @@ namespace
     // types
 
     typedef
-        bobura::model::station_info::grade_type_set<std::wstring>
-        grade_type_set_type;
-
-    typedef grade_type_set_type::grade_type grade_type;
-
-    typedef bobura::model::station<std::wstring, grade_type> station_type;
-
-    typedef
-        bobura::model::timetable_info::station_location<
-            station_type, std::size_t
-        >
-        station_location_type;
-
-    typedef
-        bobura::model::train_info::time<
-            std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
-        >
-        time_type;
-
-    typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
-
-    typedef
-        bobura::model::train<std::string, std::string, stop_type> train_type;
-
-    typedef
-        bobura::model::timetable<
-            std::string,
-            station_location_type,
-            train_type,
-            bobura::model::message::timetable_observer_set
-        >
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::timetable
+        >::type
         timetable_type;
 
     typedef
-        bobura::model::serializer::writer<std::ostream, timetable_type>
+        boost::mpl::at<
+            test_bobura::model::serialization_type_list,
+            test_bobura::model::type::serialization::writer
+        >::type
         writer_type;
 
     class concrete_writer : public writer_type
@@ -94,6 +60,7 @@ namespace
     };
 
 }
+
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(model)

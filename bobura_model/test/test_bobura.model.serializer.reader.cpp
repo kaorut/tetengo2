@@ -24,41 +24,6 @@ namespace
     typedef
         boost::mpl::at<
             test_bobura::model::model_type_list,
-            test_bobura::model::type::model::station
-        >::type
-        station_type;
-
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::station_location
-        >::type
-        station_location_type;
-
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::time
-        >::type
-        time_type;
-
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::stop
-        >::type
-        stop_type;
-
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::train
-        >::type
-        train_type;
-
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
             test_bobura::model::type::model::timetable
         >::type
         timetable_type;
@@ -96,6 +61,7 @@ namespace
     };
 
 }
+
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(model)

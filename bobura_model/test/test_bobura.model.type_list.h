@@ -28,6 +28,7 @@
 #include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.serializer.json_writer.h"
 #include "bobura.model.serializer.reader.h"
+#include "bobura.model.serializer.writer.h"
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.station.h"
 #include "bobura.model.timetable.h"
@@ -40,13 +41,14 @@
 
 namespace test_bobura { namespace model
 {
-    /**** Common *************************************************************/
+    /**** Common ************************************************************/
 
     namespace type
     {
         struct size;           //!< The size type.
         struct difference;     //!< The difference type.
         struct string;         //!< The string type.
+        struct output_stream;  //!< The output stream type.
     }
 
     //! The common type list.
@@ -57,8 +59,10 @@ namespace test_bobura { namespace model
             boost::mpl::pair<type::difference, std::ptrdiff_t>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::string, std::string>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::output_stream, std::ostream>,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         type_list;
 
 
@@ -157,6 +161,7 @@ namespace test_bobura { namespace model
     {
         struct reader;         //!< The reader type.
         struct json_reader;    //!< The JSON reader type.
+        struct writer;         //!< The writer type.
         struct json_writer;    //!< The JSON writer type.
     }}
 
@@ -182,15 +187,18 @@ namespace test_bobura { namespace model
             >
             pull_parser_type;
         typedef tetengo2::detail::stub::encoding encoding_details_type;
-
         typedef
-            tetengo2::text::encoding::locale<std::string, encoding_details_type>
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<type_list, type::string>::type,
+                encoding_details_type
+            >
             internal_encoding_type;
-
         typedef
-            tetengo2::text::encoding::locale<std::string, encoding_details_type>
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<type_list, type::string>::type,
+                encoding_details_type
+            >
             timetable_file_encoding_type;
-
         typedef
             tetengo2::text::encoder<
                 internal_encoding_type, timetable_file_encoding_type
@@ -229,6 +237,16 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::serialization::writer,
+                bobura::model::serializer::writer<
+                    boost::mpl::at<type_list, type::output_stream>::type,
+                    boost::mpl::at<
+                        model_type_list, type::model::timetable
+                    >::type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::serialization::json_writer,
                 bobura::model::serializer::json_writer<
                     boost::mpl::at<
@@ -237,12 +255,12 @@ namespace test_bobura { namespace model
                     boost::mpl::at<
                         model_type_list, type::model::grade_type_set
                     >::type,
-                    std::ostream,
+                    boost::mpl::at<type_list, type::output_stream>::type,
                     detail::serialization::timetable_file_encoder_type
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         serialization_type_list;
 
 
