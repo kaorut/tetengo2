@@ -13,6 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.text.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -27,6 +28,12 @@ namespace
             test_bobura::model::type::model::timetable
         >::type
         timetable_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::string
+        >::type
+        string_type;
 
     typedef
         boost::mpl::at<
@@ -81,7 +88,7 @@ BOOST_AUTO_TEST_SUITE(reader)
         BOOST_TEST_PASSPOINT();
 
         concrete_reader reader;
-        const std::string input("hoge");
+        const string_type input(TETENGO2_TEXT("hoge"));
         const std::unique_ptr<timetable_type> p_timetable =
             reader.read(input.begin(), input.end());
     }

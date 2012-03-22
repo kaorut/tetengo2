@@ -58,7 +58,7 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::difference, std::ptrdiff_t>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::string, std::string>,
+            boost::mpl::pair<type::string, std::wstring>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::output_stream, std::ostream>,
         tetengo2::meta::assoc_list_end

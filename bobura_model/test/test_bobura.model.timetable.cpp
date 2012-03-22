@@ -11,6 +11,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.text.h>
+
 #include "test_bobura.model.type_list.h"
 
 
@@ -96,7 +98,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -110,12 +116,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -140,19 +154,19 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
         {
             timetable_type timetable1;
-            timetable1.set_title("hoge");
+            timetable1.set_title(string_type(TETENGO2_TEXT("hoge")));
 
             timetable_type timetable2;
-            timetable2.set_title("hoge");
+            timetable2.set_title(string_type(TETENGO2_TEXT("hoge")));
 
             BOOST_CHECK(timetable1 == timetable2);
         }
         {
             timetable_type timetable1;
-            timetable1.set_title("hoge");
+            timetable1.set_title(string_type(TETENGO2_TEXT("hoge")));
 
             timetable_type timetable2;
-            timetable2.set_title("fuga");
+            timetable2.set_title(string_type(TETENGO2_TEXT("fuga")));
 
             BOOST_CHECK(timetable1 == timetable2);
         }
@@ -160,7 +174,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations1;
             station_locations1.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -171,7 +189,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations2;
             station_locations2.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -185,7 +207,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations1;
             station_locations1.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -196,7 +222,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations2;
             station_locations2.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -210,7 +240,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations1;
             station_locations1.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -221,12 +255,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations2;
             station_locations2.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations2.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -240,12 +282,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations1;
             station_locations1.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations1.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -256,12 +306,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations2;
             station_locations2.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations2.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -289,7 +347,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -303,12 +365,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -328,12 +398,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -352,7 +430,11 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -362,7 +444,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
             BOOST_CHECK(
-                station_locations[0].station().name() == string_type("A")
+                station_locations[0].station().name() ==
+                string_type(TETENGO2_TEXT("A"))
             );
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
         }
@@ -371,13 +454,21 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -386,11 +477,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_EQUAL(station_locations.size(), 2U);
             BOOST_CHECK(
-                station_locations[0].station().name() == string_type("A")
+                station_locations[0].station().name() ==
+                string_type(TETENGO2_TEXT("A"))
             );
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
             BOOST_CHECK(
-                station_locations[1].station().name() == string_type("B")
+                station_locations[1].station().name() ==
+                string_type(TETENGO2_TEXT("B"))
             );
             BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
         }
@@ -399,14 +492,22 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
             BOOST_CHECK_THROW(
                 timetable.insert_station_location(
                     timetable.station_locations().end(),
                     station_location_type(
-                        station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                     )
                 ),
                 std::invalid_argument
@@ -417,7 +518,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_EQUAL(station_locations.size(), 1U);
             BOOST_CHECK(
-                station_locations[0].station().name() == string_type("B")
+                station_locations[0].station().name() ==
+                string_type(TETENGO2_TEXT("B"))
             );
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 2U);
         }
@@ -426,25 +528,41 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("D", local_type::instance()), 4
+                    station_type(
+                        string_type(TETENGO2_TEXT("D")),
+                        local_type::instance()
+                    ),
+                    4
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().begin(),
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             timetable.insert_station_location(
                 timetable.station_locations().begin() + 2,
                 station_location_type(
-                    station_type("C", local_type::instance()), 3
+                    station_type(
+                        string_type(TETENGO2_TEXT("C")),
+                        local_type::instance()
+                    ),
+                    3
                 )
             );
 
@@ -453,19 +571,23 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_EQUAL(station_locations.size(), 4U);
             BOOST_CHECK(
-                station_locations[0].station().name() == string_type("A")
+                station_locations[0].station().name() ==
+                string_type(TETENGO2_TEXT("A"))
             );
             BOOST_CHECK_EQUAL(station_locations[0].meterage(), 1U);
             BOOST_CHECK(
-                station_locations[1].station().name() == string_type("B")
+                station_locations[1].station().name() ==
+                string_type(TETENGO2_TEXT("B"))
             );
             BOOST_CHECK_EQUAL(station_locations[1].meterage(), 2U);
             BOOST_CHECK(
-                station_locations[2].station().name() == string_type("C")
+                station_locations[2].station().name() ==
+                string_type(TETENGO2_TEXT("C"))
             );
             BOOST_CHECK_EQUAL(station_locations[2].meterage(), 3U);
             BOOST_CHECK(
-                station_locations[3].station().name() == string_type("D")
+                station_locations[3].station().name() ==
+                string_type(TETENGO2_TEXT("D"))
             );
             BOOST_CHECK_EQUAL(station_locations[3].meterage(), 4U);
         }
@@ -473,13 +595,21 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
 
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("1", "x")
+                timetable.down_trains().end(),
+                train_type(
+                    string_type(TETENGO2_TEXT("1")),
+                    string_type(TETENGO2_TEXT("x"))
+                )
             );
 
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -500,18 +630,22 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             train_type::stops_type stops;
-            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
-            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+            stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
+            stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
 
             timetable.insert_down_train(
                 timetable.down_trains().end(),
-                train_type("2", "y", stops.begin(), stops.begin() + 1)
+                train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")), stops.begin(), stops.begin() + 1)
             );
 
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("C", local_type::instance()), 3
+                    station_type(
+                        string_type(TETENGO2_TEXT("C")),
+                        local_type::instance()
+                    ),
+                    3
                 )
             );
 
@@ -533,13 +667,17 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             timetable.insert_down_train(
                 timetable.down_trains().end(),
-                train_type("3", "z", stops.begin(), stops.end())
+                train_type(string_type(TETENGO2_TEXT("3")), string_type(TETENGO2_TEXT("z")), stops.begin(), stops.end())
             );
 
             timetable.insert_station_location(
                 timetable.station_locations().begin() + 1,
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -563,13 +701,17 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
 
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("1", "x")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
 
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -590,18 +732,22 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             train_type::stops_type stops;
-            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
-            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+            stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
+            stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
 
             timetable.insert_up_train(
                 timetable.up_trains().end(),
-                train_type("2", "y", stops.begin(), stops.begin() + 1)
+                train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")), stops.begin(), stops.begin() + 1)
             );
 
             timetable.insert_station_location(
                 timetable.station_locations().end(),
                 station_location_type(
-                    station_type("C", local_type::instance()), 3
+                    station_type(
+                        string_type(TETENGO2_TEXT("C")),
+                        local_type::instance()
+                    ),
+                    3
                 )
             );
 
@@ -623,13 +769,17 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             timetable.insert_up_train(
                 timetable.up_trains().end(),
-                train_type("3", "z", stops.begin(), stops.end())
+                train_type(string_type(TETENGO2_TEXT("3")), string_type(TETENGO2_TEXT("z")), stops.begin(), stops.end())
             );
 
             timetable.insert_station_location(
                 timetable.station_locations().begin() + 1,
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("C")),
+                        local_type::instance()
+                    ),
+                    3
                 )
             );
 
@@ -659,12 +809,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -683,12 +841,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -704,7 +870,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(timetable.station_locations().size(), 1U);
             BOOST_CHECK(
                 timetable.station_locations()[0].station().name() ==
-                string_type("B")
+                string_type(TETENGO2_TEXT("B"))
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[0].meterage(), 2U
@@ -714,12 +880,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -735,14 +909,14 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(timetable.station_locations().size(), 2U);
             BOOST_CHECK(
                 timetable.station_locations()[0].station().name() ==
-                string_type("A")
+                string_type(TETENGO2_TEXT("A"))
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[0].meterage(), 1U
             );
             BOOST_CHECK(
                 timetable.station_locations()[1].station().name() ==
-                string_type("B")
+                string_type(TETENGO2_TEXT("B"))
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[1].meterage(), 2U
@@ -752,17 +926,29 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("C", local_type::instance()), 3
+                    station_type(
+                        string_type(TETENGO2_TEXT("C")),
+                        local_type::instance()
+                    ),
+                    3
                 )
             );
 
@@ -778,14 +964,14 @@ BOOST_AUTO_TEST_SUITE(timetable)
             BOOST_CHECK_EQUAL(timetable.station_locations().size(), 2U);
             BOOST_CHECK(
                 timetable.station_locations()[0].station().name() ==
-                string_type("A")
+                string_type(TETENGO2_TEXT("A"))
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[0].meterage(), 1U
             );
             BOOST_CHECK(
                 timetable.station_locations()[1].station().name() ==
-                string_type("C")
+                string_type(TETENGO2_TEXT("C"))
             );
             BOOST_CHECK_EQUAL(
                 timetable.station_locations()[1].meterage(), 3U
@@ -795,12 +981,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -809,12 +1003,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             train_type::stops_type stops;
-            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
-            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+            stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
+            stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
 
             timetable.insert_down_train(
                 timetable.down_trains().end(),
-                train_type("1", "x", stops.begin(), stops.end())
+                train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")), stops.begin(), stops.end())
             );
 
             timetable.erase_station_locations(
@@ -831,12 +1025,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -845,12 +1047,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             train_type::stops_type stops;
-            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
-            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+            stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
+            stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
 
             timetable.insert_up_train(
                 timetable.up_trains().end(),
-                train_type("1", "x", stops.begin(), stops.end())
+                train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")), stops.begin(), stops.end())
             );
 
             timetable.erase_station_locations(
@@ -867,12 +1069,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -881,12 +1091,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             train_type::stops_type stops;
-            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
-            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+            stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
+            stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
 
             timetable.insert_down_train(
                 timetable.down_trains().end(),
-                train_type("1", "x", stops.begin(), stops.end())
+                train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")), stops.begin(), stops.end())
             );
 
             timetable.erase_station_locations(
@@ -903,12 +1113,20 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
             station_locations.push_back(
                 station_location_type(
-                    station_type("B", local_type::instance()), 2
+                    station_type(
+                        string_type(TETENGO2_TEXT("B")),
+                        local_type::instance()
+                    ),
+                    2
                 )
             );
 
@@ -917,12 +1135,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             );
 
             train_type::stops_type stops;
-            stops.push_back(stop_type(time_type(1), time_type(2), "a"));
-            stops.push_back(stop_type(time_type(3), time_type(4), "b"));
+            stops.push_back(stop_type(time_type(1), time_type(2), string_type(TETENGO2_TEXT("a"))));
+            stops.push_back(stop_type(time_type(3), time_type(4), string_type(TETENGO2_TEXT("b"))));
 
             timetable.insert_up_train(
                 timetable.up_trains().end(),
-                train_type("1", "x", stops.begin(), stops.end())
+                train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")), stops.begin(), stops.end())
             );
 
             timetable.erase_station_locations(
@@ -952,33 +1170,33 @@ BOOST_AUTO_TEST_SUITE(timetable)
         {
             timetable_type timetable;
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("1", "x")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
         }
         {
             timetable_type timetable;
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("1", "x")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("2", "y")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "2");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("y")));
         }
     }
 
@@ -997,33 +1215,33 @@ BOOST_AUTO_TEST_SUITE(timetable)
         {
             timetable_type timetable;
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("1", "x")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
         }
         {
             timetable_type timetable;
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("1", "x")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("2", "y")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "2");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("y")));
         }
     }
 
@@ -1034,67 +1252,71 @@ BOOST_AUTO_TEST_SUITE(timetable)
         {
             timetable_type timetable;
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("1", "x")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
         }
         {
             timetable_type timetable;
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("1", "x")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("2", "y")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "2");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("y")));
         }
         {
             timetable_type timetable;
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("2", "y")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("4", "w")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("4")), string_type(TETENGO2_TEXT("w")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().begin(), train_type("1", "x")
+                timetable.down_trains().begin(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().begin() + 2, train_type("3", "z")
+                timetable.down_trains().begin() + 2, train_type(string_type(TETENGO2_TEXT("3")), string_type(TETENGO2_TEXT("z")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 4U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "2");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
-            BOOST_CHECK_EQUAL(trains[2].number(), "3");
-            BOOST_CHECK_EQUAL(trains[2].note(),  "z");
-            BOOST_CHECK_EQUAL(trains[3].number(), "4");
-            BOOST_CHECK_EQUAL(trains[3].note(),  "w");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("y")));
+            BOOST_CHECK(trains[2].number() == string_type(TETENGO2_TEXT("3")));
+            BOOST_CHECK(trains[2].note() == string_type(TETENGO2_TEXT("z")));
+            BOOST_CHECK(trains[3].number() == string_type(TETENGO2_TEXT("4")));
+            BOOST_CHECK(trains[3].note() == string_type(TETENGO2_TEXT("w")));
         }
         {
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -1104,7 +1326,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_THROW(
                 timetable.insert_down_train(
-                    timetable.down_trains().end(), train_type("1", "x")
+                    timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
                 ),
                 std::invalid_argument
             );
@@ -1113,12 +1335,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
 
             train_type::stops_type stops;
-            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
 
             BOOST_CHECK_THROW(
                 timetable.insert_down_train(
                     timetable.down_trains().end(),
-                    train_type("1", "x", stops.begin(), stops.end())
+                    train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")), stops.begin(), stops.end())
                 ),
                 std::invalid_argument
             );
@@ -1132,67 +1354,71 @@ BOOST_AUTO_TEST_SUITE(timetable)
         {
             timetable_type timetable;
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("1", "x")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
         }
         {
             timetable_type timetable;
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("1", "x")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("2", "y")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "2");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("y")));
         }
         {
             timetable_type timetable;
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("2", "y")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("4", "w")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("4")), string_type(TETENGO2_TEXT("w")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().begin(), train_type("1", "x")
+                timetable.up_trains().begin(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().begin() + 2, train_type("3", "z")
+                timetable.up_trains().begin() + 2, train_type(string_type(TETENGO2_TEXT("3")), string_type(TETENGO2_TEXT("z")))
             );
 
             const timetable_type::trains_type& trains =
                 timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 4U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "2");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
-            BOOST_CHECK_EQUAL(trains[2].number(), "3");
-            BOOST_CHECK_EQUAL(trains[2].note(),  "z");
-            BOOST_CHECK_EQUAL(trains[3].number(), "4");
-            BOOST_CHECK_EQUAL(trains[3].note(),  "w");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("y")));
+            BOOST_CHECK(trains[2].number() == string_type(TETENGO2_TEXT("3")));
+            BOOST_CHECK(trains[2].note() == string_type(TETENGO2_TEXT("z")));
+            BOOST_CHECK(trains[3].number() == string_type(TETENGO2_TEXT("4")));
+            BOOST_CHECK(trains[3].note() == string_type(TETENGO2_TEXT("w")));
         }
         {
             timetable_type::station_locations_type station_locations;
             station_locations.push_back(
                 station_location_type(
-                    station_type("A", local_type::instance()), 1
+                    station_type(
+                        string_type(TETENGO2_TEXT("A")),
+                        local_type::instance()
+                    ),
+                    1
                 )
             );
 
@@ -1202,7 +1428,7 @@ BOOST_AUTO_TEST_SUITE(timetable)
 
             BOOST_CHECK_THROW(
                 timetable.insert_up_train(
-                    timetable.up_trains().end(), train_type("1", "x")
+                    timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
                 ),
                 std::invalid_argument
             );
@@ -1211,12 +1437,12 @@ BOOST_AUTO_TEST_SUITE(timetable)
             timetable_type timetable;
 
             train_type::stops_type stops;
-            stops.push_back(stop_type(time_type(0), time_type(0), ""));
+            stops.push_back(stop_type(time_type(0), time_type(0), string_type()));
 
             BOOST_CHECK_THROW(
                 timetable.insert_up_train(
                     timetable.up_trains().end(),
-                    train_type("1", "x", stops.begin(), stops.end())
+                    train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")), stops.begin(), stops.end())
                 ),
                 std::invalid_argument
             );
@@ -1230,10 +1456,10 @@ BOOST_AUTO_TEST_SUITE(timetable)
         {
             timetable_type timetable;
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("1", "x")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("2", "y")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             timetable.erase_down_trains(
@@ -1248,10 +1474,10 @@ BOOST_AUTO_TEST_SUITE(timetable)
         {
             timetable_type timetable;
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("1", "x")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("2", "y")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             timetable.erase_down_trains(
@@ -1263,16 +1489,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "2");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "y");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("y")));
         }
         {
             timetable_type timetable;
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("1", "x")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("2", "y")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             timetable.erase_down_trains(
@@ -1284,21 +1510,21 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "2");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("y")));
         }
         {
             timetable_type timetable;
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("1", "x")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("2", "y")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
             timetable.insert_down_train(
-                timetable.down_trains().end(), train_type("3", "z")
+                timetable.down_trains().end(), train_type(string_type(TETENGO2_TEXT("3")), string_type(TETENGO2_TEXT("z")))
             );
 
             timetable.erase_down_trains(
@@ -1310,10 +1536,10 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.down_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "3");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "z");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("3")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("z")));
         }
     }
 
@@ -1324,10 +1550,10 @@ BOOST_AUTO_TEST_SUITE(timetable)
         {
             timetable_type timetable;
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("1", "x")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("2", "y")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             timetable.erase_up_trains(
@@ -1342,10 +1568,10 @@ BOOST_AUTO_TEST_SUITE(timetable)
         {
             timetable_type timetable;
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("1", "x")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("2", "y")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             timetable.erase_up_trains(
@@ -1357,16 +1583,16 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 1U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "2");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "y");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("y")));
         }
         {
             timetable_type timetable;
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("1", "x")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("2", "y")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
 
             timetable.erase_up_trains(
@@ -1377,21 +1603,21 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "2");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "y");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("2")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("y")));
         }
         {
             timetable_type timetable;
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("1", "x")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("1")), string_type(TETENGO2_TEXT("x")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("2", "y")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("2")), string_type(TETENGO2_TEXT("y")))
             );
             timetable.insert_up_train(
-                timetable.up_trains().end(), train_type("3", "z")
+                timetable.up_trains().end(), train_type(string_type(TETENGO2_TEXT("3")), string_type(TETENGO2_TEXT("z")))
             );
 
             timetable.erase_up_trains(
@@ -1403,10 +1629,10 @@ BOOST_AUTO_TEST_SUITE(timetable)
                 timetable.up_trains();
 
             BOOST_CHECK_EQUAL(trains.size(), 2U);
-            BOOST_CHECK_EQUAL(trains[0].number(), "1");
-            BOOST_CHECK_EQUAL(trains[0].note(),  "x");
-            BOOST_CHECK_EQUAL(trains[1].number(), "3");
-            BOOST_CHECK_EQUAL(trains[1].note(),  "z");
+            BOOST_CHECK(trains[0].number() == string_type(TETENGO2_TEXT("1")));
+            BOOST_CHECK(trains[0].note() == string_type(TETENGO2_TEXT("x")));
+            BOOST_CHECK(trains[1].number() == string_type(TETENGO2_TEXT("3")));
+            BOOST_CHECK(trains[1].note() == string_type(TETENGO2_TEXT("z")));
         }
     }
 
