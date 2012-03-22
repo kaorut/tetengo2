@@ -15,7 +15,14 @@
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
 
+#include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.meta.assoc_list.h>
+#include "bobura.model.serializer.json_reader.h"
+#include <tetengo2.text.encoder.h>
+#include <tetengo2.text.encoding.locale.h>
+#include <tetengo2.text.grammar.json.h>
+#include <tetengo2.text.pull_parser.h>
+#include <tetengo2.text.push_parser.h>
 
 #include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.station_info.grade.h"
@@ -50,22 +57,6 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list_end
         >>>
         type_list;
-
-
-    /**** Serialization *****************************************************/
-
-    namespace type { namespace serialization
-    {
-        struct string;         //!< The string type.
-    }}
-
-    //! The serialization type list.
-    //typedef
-    //    tetengo2::meta::assoc_list<
-    //        boost::mpl::pair<type::string, detail::string_type>,
-    //    tetengo2::meta::assoc_list_end
-    //    >
-    //    serialization_type_list;
 
 
     /**** Model *************************************************************/
@@ -155,6 +146,73 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list_end
         >>>>>>>
         model_type_list;
+
+
+    /**** Serialization *****************************************************/
+
+    namespace type { namespace serialization
+    {
+        struct json_reader;    //!< The JSON reader type.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace serialization
+    {
+        typedef
+            tetengo2::text::grammar::json<
+                boost::mpl::at<type_list, type::string>::type::const_iterator
+            >
+            grammar_type;
+        typedef
+            tetengo2::text::push_parser<
+                boost::mpl::at<type_list, type::string>::type::const_iterator,
+                grammar_type,
+                int,
+                double
+            >
+            push_parser_type;
+        typedef
+            tetengo2::text::pull_parser<
+                push_parser_type, boost::mpl::at<type_list, type::size>::type
+            >
+            pull_parser_type;
+        typedef tetengo2::detail::stub::encoding encoding_details_type;
+
+        typedef
+            tetengo2::text::encoding::locale<std::string, encoding_details_type>
+            internal_encoding_type;
+
+        typedef
+            tetengo2::text::encoding::locale<std::string, encoding_details_type>
+            timetable_file_encoding_type;
+
+        typedef
+            tetengo2::text::encoder<
+                internal_encoding_type, timetable_file_encoding_type
+            >
+            timetable_file_encoder_type;
+    }}
+#endif
+
+    //! The serialization type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::serialization::json_reader,
+                bobura::model::serializer::json_reader<
+                    boost::mpl::at<
+                        model_type_list, type::model::timetable
+                    >::type,
+                    boost::mpl::at<
+                        model_type_list, type::model::grade_type_set
+                    >::type,
+                    detail::serialization::pull_parser_type,
+                    detail::serialization::timetable_file_encoder_type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        serialization_type_list;
 
 
 }}

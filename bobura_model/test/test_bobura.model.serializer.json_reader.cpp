@@ -16,16 +16,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.cpp11.h>
-#include <tetengo2.detail.stub.encoding.h>
-#include <tetengo2.text.encoder.h>
-#include <tetengo2.text.encoding.locale.h>
-#include <tetengo2.text.grammar.json.h>
-#include <tetengo2.text.pull_parser.h>
-#include <tetengo2.text.push_parser.h>
-
-#include "bobura.model.serializer.json_reader.h"
-
 #include "test_bobura.model.type_list.h"
 
 
@@ -39,13 +29,6 @@ namespace
             test_bobura::model::type::model::station
         >::type
         station_type;
-
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::grade_type_set
-        >::type
-        grade_type_set_type;
 
     typedef
         boost::mpl::at<
@@ -83,42 +66,10 @@ namespace
         timetable_type;
 
     typedef
-        tetengo2::text::grammar::json<std::string::const_iterator>
-        grammar_type;
-
-    typedef
-        tetengo2::text::push_parser<
-            std::string::const_iterator, grammar_type, int, double
-        >
-        push_parser_type;
-
-    typedef
-        tetengo2::text::pull_parser<push_parser_type, std::size_t>
-        pull_parser_type;
-
-    typedef tetengo2::detail::stub::encoding encoding_details_type;
-
-    typedef
-        tetengo2::text::encoding::locale<std::string, encoding_details_type>
-        internal_encoding_type;
-
-    typedef
-        tetengo2::text::encoding::locale<std::string, encoding_details_type>
-        timetable_file_encoding_type;
-
-    typedef
-        tetengo2::text::encoder<
-            internal_encoding_type, timetable_file_encoding_type
-        >
-        timetable_file_encoder_type;
-
-    typedef
-        bobura::model::serializer::json_reader<
-            timetable_type,
-            grade_type_set_type,
-            pull_parser_type,
-            timetable_file_encoder_type
-        >
+        boost::mpl::at<
+            test_bobura::model::serialization_type_list,
+            test_bobura::model::type::serialization::json_reader
+        >::type
         reader_type;
 
 
