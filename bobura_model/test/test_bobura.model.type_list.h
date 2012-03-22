@@ -18,8 +18,6 @@
 
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.meta.assoc_list.h>
-#include "bobura.model.serializer.json_reader.h"
-#include "bobura.model.serializer.json_writer.h"
 #include <tetengo2.text.encoder.h>
 #include <tetengo2.text.encoding.locale.h>
 #include <tetengo2.text.grammar.json.h>
@@ -27,6 +25,9 @@
 #include <tetengo2.text.push_parser.h>
 
 #include "bobura.model.message.timetable_observer_set.h"
+#include "bobura.model.serializer.json_reader.h"
+#include "bobura.model.serializer.json_writer.h"
+#include "bobura.model.serializer.reader.h"
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.station.h"
 #include "bobura.model.timetable.h"
@@ -154,6 +155,7 @@ namespace test_bobura { namespace model
 
     namespace type { namespace serialization
     {
+        struct reader;         //!< The reader type.
         struct json_reader;    //!< The JSON reader type.
         struct json_writer;    //!< The JSON writer type.
     }}
@@ -201,6 +203,18 @@ namespace test_bobura { namespace model
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::serialization::reader,
+                bobura::model::serializer::reader<
+                    boost::mpl::at<
+                        type_list, type::string
+                    >::type::const_iterator,
+                    boost::mpl::at<
+                        model_type_list, type::model::timetable
+                    >::type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::serialization::json_reader,
                 bobura::model::serializer::json_reader<
                     boost::mpl::at<
@@ -228,7 +242,7 @@ namespace test_bobura { namespace model
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         serialization_type_list;
 
 
