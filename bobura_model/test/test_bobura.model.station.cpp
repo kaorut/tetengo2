@@ -18,8 +18,8 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list,
-            test_bobura::model::type::grade_type_set
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::grade_type_set
         >::type
         grade_type_set_type;
 
@@ -40,7 +40,8 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::station
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::station
         >::type
         station_type;
 

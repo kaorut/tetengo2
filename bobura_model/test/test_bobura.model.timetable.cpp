@@ -20,14 +20,15 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::station
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::station
         >::type
         station_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list,
-            test_bobura::model::type::grade_type_set
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::grade_type_set
         >::type
         grade_type_set_type;
 
@@ -35,26 +36,29 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list,
-            test_bobura::model::type::station_location
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::station_location
         >::type
         station_location_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::time
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::time
         >::type
         time_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::stop
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::stop
         >::type
         stop_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::train
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::train
         >::type
         train_type;
 
@@ -66,7 +70,8 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::timetable
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::timetable
         >::type
         timetable_type;
 

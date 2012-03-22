@@ -20,19 +20,22 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::time
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::time
         >::type
         time_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::stop
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::stop
         >::type
         stop_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::train
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::train
         >::type
         train_type;
 
