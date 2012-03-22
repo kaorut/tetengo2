@@ -73,6 +73,7 @@ namespace test_bobura { namespace model
         struct grade_type_set; //!< The station grade type set type.
         struct station;        //!< The station type.
         struct station_location; //!< The station location type.
+        struct time_span;      //!< The time span type.
         struct time;           //!< The time type.
         struct stop;           //!< The stop type.
         struct train;          //!< The train type.
@@ -99,11 +100,13 @@ namespace test_bobura { namespace model
             >
             station_location_type;
         typedef
+            bobura::model::train_info::time_span<
+                boost::mpl::at<type_list, type::difference>::type
+            >
+            time_span_type;
+        typedef
             bobura::model::train_info::time<
-                boost::mpl::at<type_list, type::size>::type,
-                bobura::model::train_info::time_span<
-                    boost::mpl::at<type_list, type::difference>::type
-                >
+                boost::mpl::at<type_list, type::size>::type, time_span_type
             >
             time_type;
         typedef
@@ -135,6 +138,8 @@ namespace test_bobura { namespace model
                 type::model::station_location, detail::station_location_type
             >,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::model::time_span, detail::time_span_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::model::time, detail::time_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::model::stop, detail::stop_type>,
@@ -151,7 +156,7 @@ namespace test_bobura { namespace model
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>
+        >>>>>>>>
         model_type_list;
 
 

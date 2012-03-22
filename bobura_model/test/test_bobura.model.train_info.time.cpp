@@ -16,6 +16,30 @@
 
 #include "bobura.model.train_info.time.h"
 
+#include "test_bobura.model.type_list.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::time_span
+        >::type
+        time_span_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::time
+        >::type
+        time_type;
+
+
+}
+
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(model)
@@ -27,26 +51,12 @@ BOOST_AUTO_TEST_SUITE(time)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-
         const time_type time = time_type::uninitialized();
     }
 
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
 
         {
             const time_type time(0);
@@ -125,13 +135,6 @@ BOOST_AUTO_TEST_SUITE(time)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            bobura::model::train_info::time_span<std::ptrdiff_t>
-            time_span_type;
-        typedef
-            bobura::model::train_info::time<std::size_t, time_span_type>
-            time_type;
-
         {
             time_type time(0);
             const time_span_type time_span(0);
@@ -195,13 +198,6 @@ BOOST_AUTO_TEST_SUITE(time)
     BOOST_AUTO_TEST_CASE(operator_minus_assign)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time_span<std::ptrdiff_t>
-            time_span_type;
-        typedef
-            bobura::model::train_info::time<std::size_t, time_span_type>
-            time_type;
 
         {
             time_type time(0);
@@ -267,13 +263,6 @@ BOOST_AUTO_TEST_SUITE(time)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            bobura::model::train_info::time_span<std::ptrdiff_t>
-            time_span_type;
-        typedef
-            bobura::model::train_info::time<std::size_t, time_span_type>
-            time_type;
-
         {
             const time_type time1(0);
             const time_type time2(0);
@@ -332,13 +321,6 @@ BOOST_AUTO_TEST_SUITE(time)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-
         {
             const time_type time1(1);
             const time_type time2(1);
@@ -356,13 +338,6 @@ BOOST_AUTO_TEST_SUITE(time)
     BOOST_AUTO_TEST_CASE(operator_less_than)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
 
         {
             const time_type time1(1);
@@ -397,13 +372,6 @@ BOOST_AUTO_TEST_SUITE(time)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-
         {
             const time_type time(0);
 
@@ -430,13 +398,6 @@ BOOST_AUTO_TEST_SUITE(time)
     BOOST_AUTO_TEST_CASE(hours_minutes_seconds)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
 
         {
             const time_type time(0, 0, 0);
