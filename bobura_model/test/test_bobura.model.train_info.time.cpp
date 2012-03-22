@@ -6,15 +6,11 @@
     $Id$
 */
 
-#include <cstddef>
 //#include <stdexcept>
 //#include <tuple>
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
-
-#include "bobura.model.train_info.time_span.h"
-
-#include "bobura.model.train_info.time.h"
 
 #include "test_bobura.model.type_list.h"
 
