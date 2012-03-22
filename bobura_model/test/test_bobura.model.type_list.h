@@ -58,7 +58,7 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::difference, std::ptrdiff_t>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::string, std::wstring>,
+            boost::mpl::pair<type::string, std::string>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::output_stream, std::ostream>,
         tetengo2::meta::assoc_list_end
@@ -178,17 +178,13 @@ namespace test_bobura { namespace model
 #if !defined(DOCUMENTATION)
     namespace detail { namespace serialization
     {
+        typedef std::string io_string_type;
         typedef
-            tetengo2::text::grammar::json<
-                boost::mpl::at<type_list, type::string>::type::const_iterator
-            >
+            tetengo2::text::grammar::json<io_string_type::const_iterator>
             grammar_type;
         typedef
             tetengo2::text::push_parser<
-                boost::mpl::at<type_list, type::string>::type::const_iterator,
-                grammar_type,
-                int,
-                double
+                io_string_type::const_iterator, grammar_type, int, double
             >
             push_parser_type;
         typedef
@@ -205,8 +201,7 @@ namespace test_bobura { namespace model
             internal_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::string>::type,
-                encoding_details_type
+                io_string_type, encoding_details_type
             >
             timetable_file_encoding_type;
         typedef

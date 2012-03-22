@@ -15,6 +15,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.unique.h>
+#include <tetengo2.text.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -75,6 +76,12 @@ namespace
             test_bobura::model::type::model::timetable
         >::type
         timetable_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::string
+        >::type
+        string_type;
 
     typedef
         boost::mpl::at<
@@ -143,33 +150,42 @@ namespace
         std::unique_ptr<timetable_type> p_timetable =
             tetengo2::make_unique<timetable_type>();
 
-        p_timetable->set_title("hoge");
+        p_timetable->set_title(string_type(TETENGO2_TEXT("hoge")));
 
         {
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type("stationA", local_type::instance()),
+                    station_type(
+                        string_type(TETENGO2_TEXT("stationA")),
+                        local_type::instance()
+                    ),
                     42
                 )
             );
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type("stationB", principal_type::instance()),
+                    station_type(
+                        string_type(TETENGO2_TEXT("stationB")),
+                        principal_type::instance()
+                    ),
                     4242
                 )
             );
         }
         {
             {
-                train_type train("101D", "fuga");
+                train_type train(
+                    string_type(TETENGO2_TEXT("101D")),
+                    string_type(TETENGO2_TEXT("fuga"))
+                );
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(
                         time_type::uninitialized(),
                         time_type::uninitialized(),
-                        ""
+                        string_type()
                     )
                 );
                 train.insert_stop(
@@ -177,7 +193,7 @@ namespace
                     stop_type(
                         time_type::uninitialized(),
                         time_type::uninitialized(),
-                        ""
+                        string_type()
                     )
                 );
                 p_timetable->insert_down_train(
@@ -185,13 +201,15 @@ namespace
                 );
             }
             {
-                train_type train("123D", "");
+                train_type train(
+                    string_type(TETENGO2_TEXT("123D")), string_type()
+                );
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(
                         time_type::uninitialized(),
                         time_type( 6, 0, 30),
-                        "1"
+                        string_type(TETENGO2_TEXT("1"))
                     )
                 );
                 train.insert_stop(
@@ -199,7 +217,7 @@ namespace
                     stop_type(
                         time_type(6, 5, 45),
                         time_type::uninitialized(),
-                        ""
+                        string_type()
                     )
                 );
                 p_timetable->insert_down_train(
@@ -209,13 +227,16 @@ namespace
         }
         {
             {
-                train_type train("9324M", "piyo");
+                train_type train(
+                    string_type(TETENGO2_TEXT("9324M")),
+                    string_type(TETENGO2_TEXT("piyo"))
+                );
                 train.insert_stop(
                     train.stops().end(),
                     stop_type(
                         time_type::uninitialized(),
                         time_type(6, 20, 0),
-                        "0A"
+                        string_type(TETENGO2_TEXT("0A"))
                     )
                 );
                 train.insert_stop(
@@ -223,7 +244,7 @@ namespace
                     stop_type(
                         time_type::uninitialized(),
                         time_type::uninitialized(),
-                        ""
+                        string_type()
                     )
                 );
                 p_timetable->insert_up_train(
