@@ -11,10 +11,35 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.model.train_info.time.h"
-#include "bobura.model.train_info.time_span.h"
+#include "test_bobura.model.type_list.h"
 
-#include "bobura.model.train_info.stop.h"
+
+namespace
+{
+    // types
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::time
+        >::type
+        time_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::stop
+        >::type
+        stop_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
@@ -27,52 +52,32 @@ BOOST_AUTO_TEST_SUITE(stop)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-
         {
             const stop_type stop(time_type(0), time_type(0), "");
 
             BOOST_CHECK(stop.arrival() == time_type(0));
             BOOST_CHECK(stop.departure() == time_type(0));
-            BOOST_CHECK(stop.platform() == std::string(""));
+            BOOST_CHECK(stop.platform() == string_type());
         }
         {
             const stop_type stop(time_type(0), time_type(1), "1");
 
             BOOST_CHECK(stop.arrival() == time_type(0));
             BOOST_CHECK(stop.departure() == time_type(1));
-            BOOST_CHECK(stop.platform() == std::string("1"));
+            BOOST_CHECK(stop.platform() == string_type("1"));
         }
         {
             const stop_type stop(time_type(1), time_type(2), "ZZZ");
 
             BOOST_CHECK(stop.arrival() == time_type(1));
             BOOST_CHECK(stop.departure() == time_type(2));
-            BOOST_CHECK(stop.platform() == std::string("ZZZ"));
+            BOOST_CHECK(stop.platform() == string_type("ZZZ"));
         }
     }
 
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
 
         {
             const stop_type stop1(time_type(1), time_type(2), "1");
@@ -110,16 +115,6 @@ BOOST_AUTO_TEST_SUITE(stop)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-
         {
             const stop_type stop(time_type(1), time_type(2), "1");
 
@@ -136,16 +131,6 @@ BOOST_AUTO_TEST_SUITE(stop)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
-
         {
             const stop_type stop(time_type(1), time_type(2), "1");
 
@@ -161,16 +146,6 @@ BOOST_AUTO_TEST_SUITE(stop)
     BOOST_AUTO_TEST_CASE(platform)
     {
         BOOST_TEST_PASSPOINT();
-
-        typedef
-            bobura::model::train_info::time<
-                std::size_t,
-                bobura::model::train_info::time_span<std::ptrdiff_t>
-            >
-            time_type;
-        typedef
-            bobura::model::train_info::stop<time_type, std::string>
-            stop_type;
 
         {
             const stop_type stop(time_type(1), time_type(2), "1");
