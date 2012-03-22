@@ -81,7 +81,7 @@ namespace test_bobura { namespace model
     }}
 
 #if !defined(DOCUMENTATION)
-    namespace detail
+    namespace detail { namespace model
     {
         typedef
             bobura::model::station_info::grade_type_set<
@@ -111,7 +111,7 @@ namespace test_bobura { namespace model
             time_type;
         typedef
             bobura::model::train_info::stop<
-                detail::time_type,
+                detail::model::time_type,
                 boost::mpl::at<type_list, type::string>::type
             >
             stop_type;
@@ -122,36 +122,41 @@ namespace test_bobura { namespace model
                 stop_type
             >
             train_type;
-    }
+    }}
 #endif
 
     //! The model type list.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::model::grade_type_set, detail::grade_type_set_type
+                type::model::grade_type_set,
+                detail::model::grade_type_set_type
             >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::model::station, detail::station_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::model::station_location, detail::station_location_type
+                type::model::station, detail::model::station_type
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::model::time_span, detail::time_span_type>,
+            boost::mpl::pair<
+                type::model::station_location,
+                detail::model::station_location_type
+            >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::model::time, detail::time_type>,
+            boost::mpl::pair<type::model::time_span,
+            detail::model::time_span_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::model::stop, detail::stop_type>,
+            boost::mpl::pair<type::model::time, detail::model::time_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::model::train, detail::train_type>,
+            boost::mpl::pair<type::model::stop, detail::model::stop_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::model::train, detail::model::train_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::model::timetable,
                 bobura::model::timetable<
                     boost::mpl::at<type_list, type::string>::type,
-                    detail::station_location_type,
-                    detail::train_type,
+                    detail::model::station_location_type,
+                    detail::model::train_type,
                     bobura::model::message::timetable_observer_set
                 >
             >,
