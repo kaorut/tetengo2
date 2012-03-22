@@ -6,11 +6,9 @@
     $Id$
 */
 
-#include <cstddef>
-#include <ostream>
-#include <sstream>
-#include <string>
+//#include <sstream>
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
