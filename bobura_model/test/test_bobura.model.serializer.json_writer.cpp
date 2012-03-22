@@ -13,25 +13,12 @@
 //#include <string>
 //#include <utility>
 
+#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <tetengo2.cpp11.h>
-#include <tetengo2.detail.stub.encoding.h>
-#include <tetengo2.text.encoder.h>
-#include <tetengo2.text.encoding.locale.h>
 #include <tetengo2.unique.h>
 
-#include "bobura.model.message.timetable_observer_set.h"
-#include "bobura.model.station.h"
-#include "bobura.model.station_info.grade.h"
-#include "bobura.model.timetable.h"
-#include "bobura.model.timetable_info.station_location.h"
-#include "bobura.model.train.h"
-#include "bobura.model.train_info.stop.h"
-#include "bobura.model.train_info.time.h"
-#include "bobura.model.train_info.time_span.h"
-
-#include "bobura.model.serializer.json_writer.h"
+#include "test_bobura.model.type_list.h"
 
 
 namespace
@@ -39,66 +26,63 @@ namespace
     // types
 
     typedef
-        bobura::model::station_info::grade_type_set<std::string>
-        station_grade_type_set_type;
-
-    typedef station_grade_type_set_type::grade_type grade_type;
-
-    typedef bobura::model::station<std::string, grade_type> station_type;
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::station
+        >::type
+        station_type;
 
     typedef
-        bobura::model::timetable_info::station_location<
-            station_type, std::size_t
-        >
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::grade_type_set
+        >::type
+        grade_type_set_type;
+
+    typedef grade_type_set_type::local_type local_type;
+
+    typedef grade_type_set_type::principal_type principal_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::station_location
+        >::type
         station_location_type;
 
     typedef
-        bobura::model::train_info::time<
-            std::size_t, bobura::model::train_info::time_span<std::ptrdiff_t>
-        >
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::time
+        >::type
         time_type;
 
-    typedef bobura::model::train_info::stop<time_type, std::string> stop_type;
+    typedef
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::stop
+        >::type
+        stop_type;
 
     typedef
-        bobura::model::train<std::string, std::string, stop_type> train_type;
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::train
+        >::type
+        train_type;
 
     typedef
-        bobura::model::timetable<
-            std::string,
-            station_location_type,
-            train_type,
-            bobura::model::message::timetable_observer_set
-        >
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::timetable
+        >::type
         timetable_type;
 
     typedef
-        bobura::model::station_info::grade_type_set<std::string>
-        grade_type_set_type;
-
-    typedef tetengo2::detail::stub::encoding encoding_details_type;
-
-    typedef
-        tetengo2::text::encoding::locale<std::string, encoding_details_type>
-        internal_encoding_type;
-
-    typedef
-        tetengo2::text::encoding::locale<std::string, encoding_details_type>
-        timetable_file_encoding_type;
-
-    typedef
-        tetengo2::text::encoder<
-            internal_encoding_type, timetable_file_encoding_type
-        >
-        timetable_file_encoder_type;
-
-    typedef
-        bobura::model::serializer::json_writer<
-            timetable_type,
-            grade_type_set_type,
-            std::ostream,
-            timetable_file_encoder_type
-        >
+        boost::mpl::at<
+            test_bobura::model::serialization_type_list,
+            test_bobura::model::type::serialization::json_writer
+        >::type
         writer_type;
 
 
@@ -167,20 +151,14 @@ namespace
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type(
-                        "stationA",
-                        grade_type_set_type::local_type::instance()
-                    ),
+                    station_type("stationA", local_type::instance()),
                     42
                 )
             );
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type(
-                        "stationB",
-                        grade_type_set_type::principal_type::instance()
-                    ),
+                    station_type("stationB", principal_type::instance()),
                     4242
                 )
             );
