@@ -6,11 +6,42 @@
     $Id$
 */
 
-#include <string>
-
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.model.station_info.grade.h"
+#include <tetengo2.text.h>
+
+#include "test_bobura.model.type_list.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::grade_type_set
+        >::type
+        grade_type_set_type;
+
+    typedef grade_type_set_type::local_type local_type;
+
+    typedef grade_type_set_type::principal_type principal_type;
+
+    typedef grade_type_set_type::local_terminal_type local_terminal_type;
+
+    typedef
+        grade_type_set_type::principal_terminal_type principal_terminal_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_bobura)
@@ -23,19 +54,10 @@ BOOST_AUTO_TEST_SUITE(grade)
     {
         BOOST_TEST_PASSPOINT();
 
-        bobura::model::station_info::local<std::string>::instance();
-        bobura::model::station_info::principal<std::string>::instance();
-        bobura::model::station_info::local_terminal<std::string>::instance();
-        bobura::model::station_info::principal_terminal<
-            std::string
-        >::instance();
-
-        bobura::model::station_info::local<std::wstring>::instance();
-        bobura::model::station_info::principal<std::wstring>::instance();
-        bobura::model::station_info::local_terminal<std::wstring>::instance();
-        bobura::model::station_info::principal_terminal<
-            std::wstring
-        >::instance();
+        local_type::instance();
+        principal_type::instance();
+        local_terminal_type::instance();
+        principal_terminal_type::instance();
     }
 
     BOOST_AUTO_TEST_CASE(name)
@@ -43,45 +65,20 @@ BOOST_AUTO_TEST_SUITE(grade)
         BOOST_TEST_PASSPOINT();
 
         BOOST_CHECK(
-            bobura::model::station_info::local<
-                std::string
-            >::instance().name() == std::string("local")
+            local_type::instance().name() ==
+            string_type(TETENGO2_TEXT("local"))
         );
         BOOST_CHECK(
-            bobura::model::station_info::principal<
-                std::string
-            >::instance().name() == std::string("principal")
+            principal_type::instance().name() ==
+            string_type(TETENGO2_TEXT("principal"))
         );
         BOOST_CHECK(
-            bobura::model::station_info::local_terminal<
-                std::string
-            >::instance().name() == std::string("local terminal")
+            local_terminal_type::instance().name() ==
+            string_type(TETENGO2_TEXT("local terminal"))
         );
         BOOST_CHECK(
-            bobura::model::station_info::principal_terminal<
-                std::string
-            >::instance().name() == std::string("principal terminal")
-        );
-
-        BOOST_CHECK(
-            bobura::model::station_info::local<
-                std::wstring
-            >::instance().name() == std::wstring(L"local")
-        );
-        BOOST_CHECK(
-            bobura::model::station_info::principal<
-                std::wstring
-            >::instance().name() == std::wstring(L"principal")
-        );
-        BOOST_CHECK(
-            bobura::model::station_info::local_terminal<
-                std::wstring
-            >::instance().name() == std::wstring(L"local terminal")
-        );
-        BOOST_CHECK(
-            bobura::model::station_info::principal_terminal<
-                std::wstring
-            >::instance().name() == std::wstring(L"principal terminal")
+            principal_terminal_type::instance().name() ==
+            string_type(TETENGO2_TEXT("principal terminal"))
         );
     }
 
