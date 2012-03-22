@@ -10,10 +10,10 @@
 #   warning "This file does not compile with g++ 4.5.3 on Cygwin."
 #else
 
-//#include <cstddef>
 //#include <memory>
 //#include <string>
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "test_bobura.model.type_list.h"

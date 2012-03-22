@@ -11,9 +11,9 @@
 
 //#include <cstddef>
 #include <ostream>
-#include <string>
+//#include <string>
 
-#include <boost/mpl/at.hpp>
+//#include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
 
 #include <tetengo2.detail.stub.encoding.h>
