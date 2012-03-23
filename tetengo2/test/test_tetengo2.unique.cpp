@@ -275,7 +275,6 @@ namespace
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
-BOOST_AUTO_TEST_SUITE(unique)
     // test cases
 
     BOOST_AUTO_TEST_CASE(make_unique)
@@ -417,5 +416,4 @@ BOOST_AUTO_TEST_SUITE(unique)
     }
 
 
-BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
