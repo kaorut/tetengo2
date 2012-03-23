@@ -55,6 +55,9 @@ namespace test_tetengo2
 
     namespace type { namespace text
     {
+        struct input_stream_iterator; //!< The input stream iterator type.
+        struct grammar;        //!< The grammar type.
+        struct push_parser;    //!< The push parser type.
         struct pull_parser;    //!< The pull parser type.
     }}
 
@@ -69,11 +72,13 @@ namespace test_tetengo2
                     >::type::value_type
                 >
             >
-            iterator_type;
-        typedef tetengo2::text::grammar::json<iterator_type> grammar_type;
+            input_stream_iterator_type;
+        typedef
+            tetengo2::text::grammar::json<input_stream_iterator_type>
+            grammar_type;
         typedef
             tetengo2::text::push_parser<
-                iterator_type, grammar_type, int, double
+                input_stream_iterator_type, grammar_type, int, double
             >
             push_parser_type;
     }}
@@ -83,6 +88,19 @@ namespace test_tetengo2
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::text::input_stream_iterator,
+                detail::text::input_stream_iterator_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::text::grammar, detail::text::grammar_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::text::push_parser, detail::text::push_parser_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::text::pull_parser,
                 tetengo2::text::pull_parser<
                     detail::text::push_parser_type,
@@ -90,7 +108,7 @@ namespace test_tetengo2
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >
+        >>>>
         text_type_list;
 
 
@@ -98,6 +116,7 @@ namespace test_tetengo2
 
     namespace type { namespace message
     {
+        struct message_catalog_parser; //!< The message catalog parser type.
         struct messages;        //!< The messages type.
         struct message_catalog; //!< The message catalog type.
     }}
@@ -155,6 +174,11 @@ namespace test_tetengo2
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::message::message_catalog_parser,
+                detail::message::message_catalog_parser_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::message::messages, detail::message::messages_type
             >,
         tetengo2::meta::assoc_list<
@@ -165,7 +189,7 @@ namespace test_tetengo2
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         message_type_list;
 
 
