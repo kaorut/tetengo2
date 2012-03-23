@@ -16,7 +16,7 @@
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(text)
+    BOOST_AUTO_TEST_CASE(text_)
     {
         {
             const std::string string(TETENGO2_TEXT("hoge"));
