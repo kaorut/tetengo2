@@ -10,15 +10,14 @@
 #   warning "This file does not compile with g++ 4.5.3 on Cygwin."
 #else
 
-//#include <cstddef>
-#include <iterator>
+//#include <iterator>
 //#include <memory>
 #include <sstream>
 //#include <stdexcept>
 //#include <string>
 //#include <utility>
 
-#include <boost/mpl/at.hpp>
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 //#include <boost/variant.hpp>
 
