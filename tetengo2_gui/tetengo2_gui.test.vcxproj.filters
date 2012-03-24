@@ -31,10 +31,16 @@
     <Filter Include="sources\test_tetengo2::gui\cursor">
       <UniqueIdentifier>{b002834d-1e0c-4c4c-9fdc-1839070614a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\test_tetengo2::gui">
+      <UniqueIdentifier>{349907ab-49c8-4459-96fe-661188b5f71a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
       <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="test\test_tetengo2.gui.type_list.h">
+      <Filter>headers\test_tetengo2::gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
