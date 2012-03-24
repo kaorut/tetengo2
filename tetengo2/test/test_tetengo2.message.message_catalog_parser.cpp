@@ -20,6 +20,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
 #include "test_tetengo2.type_list.h"
@@ -56,6 +57,12 @@ namespace
             test_tetengo2::type::text::pull_parser
         >::type
         pull_parser_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::type_list, test_tetengo2::type::string
+        >::type
+        string_type;
 
     typedef
         boost::mpl::at<
@@ -248,8 +255,8 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
                 );
 
             const entry_type& entry = p_parser->peek();
-            BOOST_CHECK(entry.first == "Key1");
-            BOOST_CHECK(entry.second == "Value1");
+            BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
+            BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
         }
         {
             std::istringstream input_stream(catalog4);
@@ -259,8 +266,8 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
                 );
 
             const entry_type& entry = p_parser->peek();
-            BOOST_CHECK(entry.first == "Key1");
-            BOOST_CHECK(entry.second == "Value1");
+            BOOST_CHECK(entry.first == string_type(TETENGO2_TEXT("Key1")));
+            BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
         }
     }
 
@@ -304,8 +311,12 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
 
             {
                 const entry_type& entry = p_parser->peek();
-                BOOST_CHECK(entry.first == "Key1");
-                BOOST_CHECK(entry.second == "Value1");
+                BOOST_CHECK(
+                    entry.first == string_type(TETENGO2_TEXT("Key1"))
+                );
+                BOOST_CHECK(
+                    entry.second == string_type(TETENGO2_TEXT("Value1"))
+                );
                 p_parser->next();
             }
             BOOST_CHECK(!p_parser->has_next());
@@ -319,14 +330,22 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
 
             {
                 const entry_type& entry = p_parser->peek();
-                BOOST_CHECK(entry.first == "Key1");
-                BOOST_CHECK(entry.second == "Value1");
+                BOOST_CHECK(
+                    entry.first == string_type(TETENGO2_TEXT("Key1"))
+                );
+                BOOST_CHECK(
+                    entry.second == string_type(TETENGO2_TEXT("Value1"))
+                );
                 p_parser->next();
             }
             {
                 const entry_type& entry = p_parser->peek();
-                BOOST_CHECK(entry.first == "Key2");
-                BOOST_CHECK(entry.second == "Value2");
+                BOOST_CHECK(
+                    entry.first == string_type(TETENGO2_TEXT("Key2"))
+                );
+                BOOST_CHECK(
+                    entry.second == string_type(TETENGO2_TEXT("Value2"))
+                );
                 p_parser->next();
             }
             BOOST_CHECK(!p_parser->has_next());
