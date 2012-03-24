@@ -37,10 +37,8 @@ namespace test_tetengo2
     namespace type
     {
         struct size;           //!< The size type.
-        //struct difference;     //!< The difference type.
         struct string;         //!< The string type.
         struct io_string;      //!< The I/O string type.
-        //struct output_stream;  //!< The output stream type.
     }
 
     //! The common type list.
