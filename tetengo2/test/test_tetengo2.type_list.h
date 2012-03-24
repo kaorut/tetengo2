@@ -87,7 +87,7 @@ namespace test_tetengo2
     }}
 #endif
 
-    //! The tetengo2 type list.
+    //! The text type list.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -173,7 +173,7 @@ namespace test_tetengo2
     }}
 #endif
 
-    //! The tetengo2 type list.
+    //! The message type list.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<

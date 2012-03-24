@@ -20,6 +20,7 @@
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
 #include "test_tetengo2.type_list.h"
@@ -31,10 +32,18 @@ namespace
 
     typedef
         boost::mpl::at<
+            test_tetengo2::type_list, test_tetengo2::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
             test_tetengo2::message_type_list,
             test_tetengo2::type::message::messages
         >::type
         messages_type;
+
+    typedef std::messages<string_type::value_type> std_messages_type;
 
     struct set_global_locale
     {
@@ -152,8 +161,8 @@ BOOST_AUTO_TEST_SUITE(messages)
         {
             {
                 const set_global_locale global_locale(locale_en);
-                const std::messages<char>& messages =
-                    std::use_facet<std::messages<char>>(std::locale());
+                const std_messages_type& messages =
+                    std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const std::messages_base::catalog catalog_id =
@@ -171,8 +180,8 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_ja);
-                const std::messages<char>& messages =
-                    std::use_facet<std::messages<char>>(std::locale());
+                const std_messages_type& messages =
+                    std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const std::messages_base::catalog catalog_id =
@@ -190,8 +199,8 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_zh);
-                const std::messages<char>& messages =
-                    std::use_facet<std::messages<char>>(std::locale());
+                const std_messages_type& messages =
+                    std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const std::messages_base::catalog catalog_id =
@@ -213,16 +222,21 @@ BOOST_AUTO_TEST_SUITE(messages)
         {
             {
                 const set_global_locale global_locale(locale_en);
-                const std::messages<char>& messages =
-                    std::use_facet<std::messages<char>>(std::locale());
+                const std_messages_type& messages =
+                    std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 BOOST_CHECK_THROW(
-                    messages.get(0, 0, 0, "Language"), std::runtime_error
+                    messages.get(
+                        0, 0, 0, string_type(TETENGO2_TEXT("Language"))
+                    ),
+                    std::runtime_error
                 );
 
                 BOOST_CHECK(
-                    messages.get(-1, 0, 0, "Language") == "Language"
+                    messages.get(
+                        -1, 0, 0, string_type(TETENGO2_TEXT("Language"))
+                    ) == string_type(TETENGO2_TEXT("Language"))
                 );
 
                 const std::messages_base::catalog catalog_id =
@@ -233,29 +247,47 @@ BOOST_AUTO_TEST_SUITE(messages)
                 } BOOST_SCOPE_EXIT_END;
 
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, "Language") == "English"
+                    messages.get(
+                        catalog_id,
+                        0,
+                        0,
+                        string_type(TETENGO2_TEXT("Language"))
+                    ) == string_type(TETENGO2_TEXT("English"))
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, "Name:Space:Hello") ==
-                    "Hi"
+                    messages.get(
+                        catalog_id,
+                        0,
+                        0,
+                        string_type(TETENGO2_TEXT("Name:Space:Hello"))
+                    ) == string_type(TETENGO2_TEXT("Hi"))
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, "Name:Space:ByeBye") ==
-                    "ByeBye"
+                    messages.get(
+                        catalog_id,
+                        0,
+                        0,
+                        string_type(TETENGO2_TEXT("Name:Space:ByeBye"))
+                    ) == string_type(TETENGO2_TEXT("ByeBye"))
                 );
             }
             {
                 const set_global_locale global_locale(locale_ja);
-                const std::messages<char>& messages =
-                    std::use_facet<std::messages<char>>(std::locale());
+                const std_messages_type& messages =
+                    std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 BOOST_CHECK_THROW(
-                    messages.get(0, 0, 0, "Language"), std::runtime_error
+                    messages.get(
+                        0, 0, 0, string_type(TETENGO2_TEXT("Language"))
+                    ),
+                    std::runtime_error
                 );
 
                 BOOST_CHECK(
-                    messages.get(-1, 0, 0, "Language") == "Language"
+                    messages.get(
+                        -1, 0, 0, string_type(TETENGO2_TEXT("Language"))
+                    ) == string_type(TETENGO2_TEXT("Language"))
                 );
 
                 const std::messages_base::catalog catalog_id =
@@ -266,36 +298,62 @@ BOOST_AUTO_TEST_SUITE(messages)
                 } BOOST_SCOPE_EXIT_END;
 
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, "Language") == "Japanese"
+                    messages.get(
+                        catalog_id,
+                        0,
+                        0,
+                        string_type(TETENGO2_TEXT("Language"))
+                    ) == string_type(TETENGO2_TEXT("Japanese"))
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, "Name:Space:Hello") ==
-                    "Konnichiwa"
+                    messages.get(
+                        catalog_id,
+                        0,
+                        0,
+                        string_type(TETENGO2_TEXT("Name:Space:Hello"))
+                    ) == string_type(TETENGO2_TEXT("Konnichiwa"))
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, "Name:Space:ByeBye") ==
-                    "ByeBye"
+                    messages.get(
+                        catalog_id,
+                        0,
+                        0,
+                        string_type(TETENGO2_TEXT("Name:Space:ByeBye"))
+                    ) == string_type(TETENGO2_TEXT("ByeBye"))
                 );
             }
             {
                 const set_global_locale global_locale(locale_zh);
-                const std::messages<char>& messages =
-                    std::use_facet<std::messages<char>>(std::locale());
+                const std_messages_type& messages =
+                    std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const std::messages_base::catalog catalog_id =
                     messages.open("", std::locale());
 
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, "Language") == "Language"
+                    messages.get(
+                        catalog_id,
+                        0,
+                        0,
+                        string_type(TETENGO2_TEXT("Language"))
+                    ) == string_type(TETENGO2_TEXT("Language"))
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, "Name:Space:Hello") ==
-                    "Hello"
+                    messages.get(
+                        catalog_id,
+                        0,
+                        0,
+                        string_type(TETENGO2_TEXT("Name:Space:Hello"))
+                    ) == string_type(TETENGO2_TEXT("Hello"))
                 );
                 BOOST_CHECK(
-                    messages.get(catalog_id, 0, 0, "Name:Space:ByeBye") ==
-                    "ByeBye"
+                    messages.get(
+                        catalog_id,
+                        0,
+                        0,
+                        string_type(TETENGO2_TEXT("Name:Space:ByeBye"))
+                    ) == string_type(TETENGO2_TEXT("ByeBye"))
                 );
             }
         }
@@ -313,8 +371,8 @@ BOOST_AUTO_TEST_SUITE(messages)
         {
             {
                 const set_global_locale global_locale(locale_en);
-                const std::messages<char>& messages =
-                    std::use_facet<std::messages<char>>(std::locale());
+                const std_messages_type& messages =
+                    std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 BOOST_CHECK_THROW(messages.close(0), std::runtime_error);
@@ -334,8 +392,8 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_ja);
-                const std::messages<char>& messages =
-                    std::use_facet<std::messages<char>>(std::locale());
+                const std_messages_type& messages =
+                    std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 BOOST_CHECK_THROW(messages.close(0), std::runtime_error);
@@ -355,8 +413,8 @@ BOOST_AUTO_TEST_SUITE(messages)
             }
             {
                 const set_global_locale global_locale(locale_zh);
-                const std::messages<char>& messages =
-                    std::use_facet<std::messages<char>>(std::locale());
+                const std_messages_type& messages =
+                    std::use_facet<std_messages_type>(std::locale());
                 BOOST_CHECK(dynamic_cast<const messages_type*>(&messages));
 
                 const std::messages_base::catalog catalog_id =
