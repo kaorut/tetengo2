@@ -11,50 +11,21 @@
 //#include <string>
 
 //#include <boost/exception/all.hpp>
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.alert.h"
-#include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.text.encoder.h"
-#include "tetengo2.text.encoding.locale.h"
-
-#include "tetengo2.gui.alert.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::encoding encoding_details_type;
-
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
-        internal_encoding_type;
-
-    typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
-        ui_encoding_type;
-
-    typedef
-        tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>
-        ui_encoder_type;
-
-    typedef
-        tetengo2::text::encoding::locale<std::string, encoding_details_type>
-        exception_encoding_type;
-
-    typedef
-        tetengo2::text::encoder<
-            internal_encoding_type, exception_encoding_type
-        >
-        exception_encoder_type;
-
-    typedef tetengo2::detail::stub::alert alert_details_type;
-
-    typedef
-        tetengo2::gui::alert<
-            ui_encoder_type, exception_encoder_type, alert_details_type
-        >
+        boost::mpl::at<
+            test_tetengo2::gui::gui_common_type_list,
+            test_tetengo2::gui::type::gui_common::alert
+        >::type
         alert_type;
 
     struct boost_exception : public boost::exception
