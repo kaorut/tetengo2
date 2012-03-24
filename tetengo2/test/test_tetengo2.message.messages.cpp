@@ -10,17 +10,14 @@
 #   warning "This file does not compile with g++ 4.5.3 on Cygwin."
 #else
 
-//#include <cstddef>
 //#include <ios>
-//#include <iterator>
 //#include <locale>
 //#include <stdexcept>
 //#include <string>
 
 //#include <boost/filesystem.hpp>
-#include <boost/mpl/at.hpp>
+//#include <boost/mpl/at.hpp>
 #include <boost/scope_exit.hpp>
-//#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "tetengo2.unique.h"

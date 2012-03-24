@@ -385,6 +385,7 @@ std::is_integral                                 type_traits
 std::is_same                                     type_traits
 std::istream                                     istream
 std::istreambuf_iterator                         iterator
+std::istringstream                               sstream
 std::locale                                      locale
 std::locale::classic                             locale
 std::locale::global                              locale
