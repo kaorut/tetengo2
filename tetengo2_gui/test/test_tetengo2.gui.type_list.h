@@ -17,10 +17,13 @@
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.encoding.h"
+#include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.gui.alert.h"
 #include "tetengo2.gui.cursor.cursor_base.h"
 #include "tetengo2.gui.cursor.system.h"
+#include "tetengo2.gui.unit.em.h"
+#include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.meta.assoc_list.h"
 #include "tetengo2.text.encoder.h"
@@ -115,7 +118,7 @@ namespace test_tetengo2 { namespace gui
         gui_common_type_list;
 
 
-    /**** Cursor ********************************************************/
+    /**** Cursor ************************************************************/
 
     namespace type { namespace cursor
     {
@@ -149,6 +152,40 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list_end
         >>
         cursor_type_list;
+
+
+    /**** Unit **************************************************************/
+
+    namespace type { namespace unit
+    {
+        struct em;             //!< The em unit type.
+        struct pixel;          //!< The pixel unit type.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace unit
+    {
+        typedef tetengo2::detail::stub::unit unit_details_type;
+    }}
+#endif
+
+    //! The unit type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::unit::em,
+                 tetengo2::gui::unit::em<
+                    int, int, detail::unit::unit_details_type
+                 >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::unit::pixel,
+                 tetengo2::gui::unit::pixel<int, int>
+            >,
+        tetengo2::meta::assoc_list_end
+        >>
+        unit_type_list;
 
 
 }}

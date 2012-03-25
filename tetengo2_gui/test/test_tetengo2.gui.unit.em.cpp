@@ -6,11 +6,10 @@
     $Id$
 */
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.unit.h"
-
-#include "tetengo2.gui.unit.em.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
@@ -18,7 +17,10 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::unit::em<int, int, tetengo2::detail::stub::unit>
+        boost::mpl::at<
+            test_tetengo2::gui::unit_type_list,
+            test_tetengo2::gui::type::unit::em
+        >::type
         unit_type;
 
 
