@@ -6,11 +6,10 @@
     $Id$
 */
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.cursor.h"
-
-#include "tetengo2.gui.cursor.system.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
@@ -18,7 +17,10 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::cursor::system<tetengo2::detail::stub::cursor>
+        boost::mpl::at<
+            test_tetengo2::gui::cursor_type_list,
+            test_tetengo2::gui::type::cursor::system
+        >::type
         cursor_type;
 
 

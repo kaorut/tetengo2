@@ -15,9 +15,12 @@
 #include <boost/mpl/pair.hpp>
 
 #include "tetengo2.detail.stub.alert.h"
+#include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.gui.alert.h"
+#include "tetengo2.gui.cursor.cursor_base.h"
+#include "tetengo2.gui.cursor.system.h"
 #include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.meta.assoc_list.h"
 #include "tetengo2.text.encoder.h"
@@ -110,6 +113,42 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list_end
         >>
         gui_common_type_list;
+
+
+    /**** Cursor ********************************************************/
+
+    namespace type { namespace cursor
+    {
+        struct cursor_base;    //!< The cursor base type.
+        struct system;         //!< The system cursor type.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace cursor
+    {
+        typedef tetengo2::detail::stub::cursor cursor_details_type;
+    }}
+#endif
+
+    //! The cursor type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::cursor::cursor_base,
+                tetengo2::gui::cursor::cursor_base<
+                    detail::cursor::cursor_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::cursor::system,
+                tetengo2::gui::cursor::system<
+                    detail::cursor::cursor_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >>
+        cursor_type_list;
 
 
 }}
