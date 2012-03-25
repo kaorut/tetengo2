@@ -11,19 +11,18 @@
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.virtual_key.h"
-
-#include "tetengo2.gui.virtual_key.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::virtual_key virtual_key_details_type;
-
     typedef
-        tetengo2::gui::virtual_key<std::string, virtual_key_details_type>
+        boost::mpl::at<
+            test_tetengo2::gui::gui_common_type_list,
+            test_tetengo2::gui::type::gui_common::virtual_key
+        >::type
         virtual_key_type;
 
 

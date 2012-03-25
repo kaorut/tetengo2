@@ -16,7 +16,9 @@
 
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.encoding.h"
+#include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.gui.alert.h"
+#include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.meta.assoc_list.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
@@ -48,6 +50,7 @@ namespace test_tetengo2 { namespace gui
     namespace type { namespace gui_common
     {
         struct alert;          //!< The alert type.
+        struct virtual_key;    //!< The virtual key type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -81,6 +84,7 @@ namespace test_tetengo2 { namespace gui
             >
             exception_encoder_type;
         typedef tetengo2::detail::stub::alert alert_details_type;
+        typedef tetengo2::detail::stub::virtual_key virtual_key_details_type;
     }}
 #endif
 
@@ -95,8 +99,16 @@ namespace test_tetengo2 { namespace gui
                     detail::gui_common::alert_details_type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::gui_common::virtual_key,
+                tetengo2::gui::virtual_key<
+                    boost::mpl::at<type_list, type::string>::type,
+                    detail::gui_common::virtual_key_details_type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >
+        >>
         gui_common_type_list;
 
 
