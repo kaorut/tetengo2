@@ -9,9 +9,9 @@
 #if !defined(TESTTETENGO2_GUI_TYPELIST_H)
 #define TESTTETENGO2_GUI_TYPELIST_H
 
-#include <string>
+//#include <string>
 
-#include <boost/mpl/at.hpp>
+//#include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
 
 #include "tetengo2.detail.stub.alert.h"
