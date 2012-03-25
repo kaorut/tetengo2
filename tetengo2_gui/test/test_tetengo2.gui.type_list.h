@@ -16,12 +16,14 @@
 
 #include "tetengo2.detail.stub.alert.h"
 #include "tetengo2.detail.stub.cursor.h"
+#include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.gui.alert.h"
 #include "tetengo2.gui.cursor.cursor_base.h"
 #include "tetengo2.gui.cursor.system.h"
+#include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.virtual_key.h"
@@ -186,6 +188,34 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list_end
         >>
         unit_type_list;
+
+
+    /**** Drawing ***********************************************************/
+
+    namespace type { namespace drawing
+    {
+        struct background;     //!< The background type.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace drawing
+    {
+        typedef tetengo2::detail::stub::drawing drawing_details_type;
+    }}
+#endif
+
+    //! The drawing type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::background,
+                 tetengo2::gui::drawing::background<
+                    detail::drawing::drawing_details_type
+                 >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+       drawing_type_list;
 
 
 }}
