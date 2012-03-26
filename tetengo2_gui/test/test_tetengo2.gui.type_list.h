@@ -30,6 +30,7 @@
 #include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.picture_reader.h"
+#include "tetengo2.gui.drawing.solid_background.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
@@ -217,6 +218,7 @@ namespace test_tetengo2 { namespace gui
         struct canvas;         //!< The canvas type.
         struct color;          //!< The color type.
         struct background;     //!< The background type.
+        struct solid_background; //!< The solid background type.
         struct transparent_background; //!< The transparent background type.
         struct font;           //!< The font type.
         struct picture;        //!< The picture type.
@@ -249,6 +251,7 @@ namespace test_tetengo2 { namespace gui
         typedef
             tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>
             ui_encoder_type;
+        typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
             tetengo2::gui::drawing::transparent_background<
                 drawing_details_type
@@ -306,13 +309,20 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::drawing::color,
-                tetengo2::gui::drawing::color<unsigned char>
+                type::drawing::color, detail::drawing::color_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::drawing::background,
                 tetengo2::gui::drawing::background<
+                    detail::drawing::drawing_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::solid_background,
+                tetengo2::gui::drawing::solid_background<
+                    detail::drawing::color_type,
                     detail::drawing::drawing_details_type
                 >
             >,
@@ -339,7 +349,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>
+        >>>>>>>>>>>
         drawing_type_list;
 
 
