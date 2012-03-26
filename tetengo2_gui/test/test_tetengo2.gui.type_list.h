@@ -24,12 +24,17 @@
 #include "tetengo2.gui.cursor.cursor_base.h"
 #include "tetengo2.gui.cursor.system.h"
 #include "tetengo2.gui.drawing.background.h"
+#include "tetengo2.gui.drawing.font.h"
+#include "tetengo2.gui.drawing.picture.h"
+#include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.meta.assoc_list.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
+
+#include "tetengo2.gui.drawing.canvas.h"
 
 
 namespace test_tetengo2 { namespace gui
@@ -38,6 +43,8 @@ namespace test_tetengo2 { namespace gui
 
     namespace type
     {
+        struct size;           //!< The size type.
+        struct difference;     //!< The difference type.
         struct string;         //!< The string type.
         struct exception_string; //!< The exception string type.
     }
@@ -45,11 +52,15 @@ namespace test_tetengo2 { namespace gui
     //! The common type list.
     typedef
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::size, std::size_t>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::difference, std::ptrdiff_t>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::string, std::string>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::exception_string, std::string>,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>>
         type_list;
 
 
@@ -59,6 +70,7 @@ namespace test_tetengo2 { namespace gui
     {
         struct alert;          //!< The alert type.
         struct virtual_key;    //!< The virtual key type.
+        struct dimension;      //!< The dimmension type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -194,13 +206,64 @@ namespace test_tetengo2 { namespace gui
 
     namespace type { namespace drawing
     {
+        struct dimension;
+        struct canvas_details; //!< The canvas details type.
+        struct canvas_details_ptr; //!< The canvas details pointer type.
+        struct canvas;         //!< The canvas type.
         struct background;     //!< The background type.
+        struct transparent_background; //!< The transparent background type.
+        struct font;           //!< The font type.
+        struct picture;        //!< The picture type.
     }}
 
 #if !defined(DOCUMENTATION)
     namespace detail { namespace drawing
     {
         typedef tetengo2::detail::stub::drawing drawing_details_type;
+        typedef
+            std::pair<
+                boost::mpl::at<type_list, type::size>::type,
+                boost::mpl::at<type_list, type::size>::type
+            >
+            dimension_type;
+        typedef tetengo2::detail::stub::encoding encoding_details_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<type_list, type::string>::type,
+                encoding_details_type
+            >
+            internal_encoding_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<type_list, type::string>::type,
+                encoding_details_type
+            >
+            ui_encoding_type;
+        typedef
+            tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>
+            ui_encoder_type;
+        typedef
+            tetengo2::gui::drawing::transparent_background<
+                drawing_details_type
+            >
+            transparent_background_type;
+        typedef
+            tetengo2::gui::drawing::font<
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::size>::type,
+                drawing_details_type
+            >
+            font_type;
+        typedef
+            tetengo2::gui::drawing::picture<
+                boost::mpl::at<type_list, type::size>::type,
+                drawing_details_type
+            >
+            picture_type;
+        typedef drawing_details_type::canvas_details_type canvas_details_type;
+        typedef
+            drawing_details_type::canvas_details_ptr_type
+            canvas_details_ptr_type;
     }}
 #endif
 
@@ -208,14 +271,55 @@ namespace test_tetengo2 { namespace gui
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::drawing::background,
-                 tetengo2::gui::drawing::background<
+                type::drawing::dimension, detail::drawing::dimension_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::canvas_details,
+                detail::drawing::canvas_details_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::canvas_details_ptr,
+                detail::drawing::canvas_details_ptr_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::canvas,
+                tetengo2::gui::drawing::canvas<
+                    boost::mpl::at<type_list, type::size>::type,
+                    boost::mpl::at<type_list, type::string>::type,
+                    detail::drawing::dimension_type,
+                    detail::drawing::ui_encoder_type,
+                    detail::drawing::transparent_background_type,
+                    detail::drawing::font_type,
+                    detail::drawing::picture_type,
                     detail::drawing::drawing_details_type
-                 >
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::background,
+                tetengo2::gui::drawing::background<
+                    detail::drawing::drawing_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::transparent_background,
+                detail::drawing::transparent_background_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::font, detail::drawing::font_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::picture, detail::drawing::picture_type
             >,
         tetengo2::meta::assoc_list_end
-        >
-       drawing_type_list;
+        >>>>>>>>
+        drawing_type_list;
 
 
 }}

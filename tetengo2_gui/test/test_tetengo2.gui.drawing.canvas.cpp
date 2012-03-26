@@ -14,71 +14,69 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.drawing.h"
-#include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.gui.drawing.font.h"
-#include "tetengo2.gui.drawing.picture.h"
-#include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.text.h"
-#include "tetengo2.text.encoder.h"
-#include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
 
-#include "tetengo2.gui.drawing.canvas.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef std::pair<std::size_t, std::size_t> dimension_type;
-
-    typedef tetengo2::detail::stub::encoding encoding_details_type;
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::dimension
+        >::type
+        dimension_type;
 
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
-        internal_encoding_type;
-
-    typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
-        ui_encoding_type;
-
-    typedef
-        tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>
-        ui_encoder_type;
-
-    typedef tetengo2::detail::stub::drawing drawing_details_type;
-
-    typedef
-        tetengo2::gui::drawing::transparent_background<drawing_details_type>
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::transparent_background
+        >::type
         transparent_background_type;
 
     typedef
-        tetengo2::gui::drawing::font<
-            std::wstring, std::size_t, drawing_details_type
-        >
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::font
+        >::type
         font_type;
 
     typedef
-        tetengo2::gui::drawing::picture<std::size_t, drawing_details_type>
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::picture
+        >::type
         picture_type;
 
-    typedef drawing_details_type::canvas_details_type canvas_details_type;
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::canvas_details
+        >::type
+        canvas_details_type;
 
     typedef
-        drawing_details_type::canvas_details_ptr_type canvas_details_ptr_type;
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::canvas_details_ptr
+        >::type
+        canvas_details_ptr_type;
 
     typedef
-        tetengo2::gui::drawing::canvas<
-            std::size_t,
-            std::wstring,
-            dimension_type,
-            ui_encoder_type,
-            transparent_background_type,
-            font_type,
-            picture_type,
-            drawing_details_type
-        >
+        boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::canvas
+        >::type
         canvas_type;
 
     struct concrete_canvas : public canvas_type
@@ -119,7 +117,10 @@ BOOST_AUTO_TEST_SUITE(canvas)
         const string_vector_type families =
             canvas_type::installed_font_families();
 
-        BOOST_CHECK(families == string_vector_type(1, L"TetengoFont"));
+        BOOST_CHECK(
+            families ==
+            string_vector_type(1, string_type(TETENGO2_TEXT("TetengoFont")))
+        );
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -153,7 +154,14 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        const font_type font(L"AnotherFont", 42, true, true, true, true);
+        const font_type font(
+            string_type(TETENGO2_TEXT("AnotherFont")),
+            42,
+            true,
+            true,
+            true,
+            true
+        );
         canvas.set_font(font);
 
         BOOST_CHECK(canvas.font() == font);
