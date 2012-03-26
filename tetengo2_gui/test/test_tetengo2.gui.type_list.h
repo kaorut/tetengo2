@@ -11,6 +11,7 @@
 
 //#include <string>
 
+#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
 
@@ -28,6 +29,7 @@
 #include "tetengo2.gui.drawing.color.h"
 #include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.drawing.picture.h"
+#include "tetengo2.gui.drawing.picture_reader.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
@@ -47,6 +49,7 @@ namespace test_tetengo2 { namespace gui
         struct difference;     //!< The difference type.
         struct string;         //!< The string type.
         struct exception_string; //!< The exception string type.
+        struct path;           //!< The path type.
     }
 
     //! The common type list.
@@ -59,8 +62,10 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<type::string, std::string>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::exception_string, std::string>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::path, boost::filesystem::path>,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         type_list;
 
 
@@ -215,6 +220,7 @@ namespace test_tetengo2 { namespace gui
         struct transparent_background; //!< The transparent background type.
         struct font;           //!< The font type.
         struct picture;        //!< The picture type.
+        struct picture_reader; //!< The picture reader type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -323,8 +329,17 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::drawing::picture, detail::drawing::picture_type
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::drawing::picture_reader,
+                tetengo2::gui::drawing::picture_reader<
+                    detail::drawing::picture_type,
+                    boost::mpl::at<type_list, type::path>::type,
+                    detail::drawing::drawing_details_type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>
+        >>>>>>>>>>
         drawing_type_list;
 
 

@@ -10,29 +10,35 @@
 //#include <memory>
 
 #include <boost/filesystem.hpp>
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.cpp11.h"
-#include "tetengo2.detail.stub.drawing.h"
-#include "tetengo2.gui.drawing.picture.h"
 
-#include "tetengo2.gui.drawing.picture_reader.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::drawing drawing_details_type;
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::path
+        >::type
+        path_type;
 
     typedef
-        tetengo2::gui::drawing::picture<std::size_t, drawing_details_type>
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::picture
+        >::type
         picture_type;
 
     typedef
-        tetengo2::gui::drawing::picture_reader<
-            picture_type, boost::filesystem::path, drawing_details_type
-        >
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::picture_reader
+        >::type
         picture_reader_type;
 
 
@@ -49,7 +55,7 @@ BOOST_AUTO_TEST_SUITE(picture_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        const boost::filesystem::path path;
+        const path_type path;
         const picture_reader_type reader(path);
     }
 
@@ -57,7 +63,7 @@ BOOST_AUTO_TEST_SUITE(picture_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        const boost::filesystem::path path;
+        const path_type path;
         picture_reader_type reader(path);
 
         const std::unique_ptr<picture_type> p_picture(reader.read());
