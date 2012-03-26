@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
     {
         BOOST_TEST_PASSPOINT();
 
-        typedef std::vector<canvas_type::string_type> string_vector_type;
+        typedef std::vector<string_type> string_vector_type;
         const string_vector_type families =
             canvas_type::installed_font_families();
 
@@ -156,12 +156,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
         concrete_canvas canvas;
 
         const font_type font(
-            string_type(TETENGO2_TEXT("AnotherFont")),
-            42,
-            true,
-            true,
-            true,
-            true
+            TETENGO2_TEXT("AnotherFont"), 42, true, true, true, true
         );
         canvas.set_font(font);
 
@@ -199,9 +194,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
         const concrete_canvas canvas;
 
         const dimension_type dimension =
-            canvas.calc_text_dimension(
-                canvas_type::string_type(TETENGO2_TEXT("hoge"))
-            );
+            canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
 
         BOOST_CHECK(dimension == dimension_type(123, 456));
     }
@@ -213,8 +206,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
         concrete_canvas canvas;
 
         canvas.draw_text(
-            canvas_type::string_type(TETENGO2_TEXT("hoge")),
-            std::make_pair(12, 34)
+            string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34)
         );
     }
 

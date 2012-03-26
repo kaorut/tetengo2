@@ -9,12 +9,12 @@
 //#include <cstddef>
 #include <string>
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.text.h"
 
-#include "tetengo2.gui.drawing.font.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
@@ -22,9 +22,10 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::drawing::font<
-            std::string, std::size_t, tetengo2::detail::stub::drawing
-        >
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::font
+        >::type
         font_type;
 
 
