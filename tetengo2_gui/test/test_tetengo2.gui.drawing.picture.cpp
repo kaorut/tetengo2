@@ -10,26 +10,31 @@
 //#include <stdexcept>
 //#include <utility>
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.drawing.h"
-
-#include "tetengo2.gui.drawing.picture.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::drawing drawing_details_type;
-
     typedef
-        tetengo2::gui::drawing::picture<std::size_t, drawing_details_type>
-        picture_type;
-
-    typedef picture_type::dimension_type dimension_type;
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::dimension
+        >::type
+        dimension_type;
 
     typedef int canvas_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::picture
+        >::type
+        picture_type;
 
 
 }
