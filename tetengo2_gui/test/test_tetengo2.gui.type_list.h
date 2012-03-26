@@ -24,6 +24,8 @@
 #include "tetengo2.gui.cursor.cursor_base.h"
 #include "tetengo2.gui.cursor.system.h"
 #include "tetengo2.gui.drawing.background.h"
+#include "tetengo2.gui.drawing.canvas.h"
+#include "tetengo2.gui.drawing.color.h"
 #include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
@@ -33,8 +35,6 @@
 #include "tetengo2.meta.assoc_list.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
-
-#include "tetengo2.gui.drawing.canvas.h"
 
 
 namespace test_tetengo2 { namespace gui
@@ -210,6 +210,7 @@ namespace test_tetengo2 { namespace gui
         struct canvas_details; //!< The canvas details type.
         struct canvas_details_ptr; //!< The canvas details pointer type.
         struct canvas;         //!< The canvas type.
+        struct color;          //!< The color type.
         struct background;     //!< The background type.
         struct transparent_background; //!< The transparent background type.
         struct font;           //!< The font type.
@@ -299,6 +300,11 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::drawing::color,
+                tetengo2::gui::drawing::color<unsigned char>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::drawing::background,
                 tetengo2::gui::drawing::background<
                     detail::drawing::drawing_details_type
@@ -318,7 +324,7 @@ namespace test_tetengo2 { namespace gui
                 type::drawing::picture, detail::drawing::picture_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>>>>>
         drawing_type_list;
 
 

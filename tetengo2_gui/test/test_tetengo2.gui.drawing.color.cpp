@@ -8,14 +8,19 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.drawing.color.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef tetengo2::gui::drawing::color<unsigned char> color_type;
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list, 
+            test_tetengo2::gui::type::drawing::color
+        >::type
+        color_type;
 
 
 }
