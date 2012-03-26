@@ -31,6 +31,7 @@
 #include "tetengo2.gui.drawing.picture.h"
 #include "tetengo2.gui.drawing.picture_reader.h"
 #include "tetengo2.gui.drawing.solid_background.h"
+#include "tetengo2.gui.drawing.system_color_set.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
@@ -217,6 +218,7 @@ namespace test_tetengo2 { namespace gui
         struct canvas_details_ptr; //!< The canvas details pointer type.
         struct canvas;         //!< The canvas type.
         struct color;          //!< The color type.
+        struct system_color_set; //!< The system color set type.
         struct background;     //!< The background type.
         struct solid_background; //!< The solid background type.
         struct transparent_background; //!< The transparent background type.
@@ -313,6 +315,14 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::drawing::system_color_set,
+                tetengo2::gui::drawing::system_color_set<
+                    detail::drawing::color_type,
+                    detail::drawing::drawing_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::drawing::background,
                 tetengo2::gui::drawing::background<
                     detail::drawing::drawing_details_type
@@ -349,7 +359,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>
+        >>>>>>>>>>>>
         drawing_type_list;
 
 

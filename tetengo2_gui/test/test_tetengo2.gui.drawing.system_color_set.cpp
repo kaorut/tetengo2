@@ -6,13 +6,10 @@
     $Id$
 */
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.drawing.h"
-
-#include "tetengo2.gui.drawing.color.h"
-
-#include "tetengo2.gui.drawing.system_color_set.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
@@ -20,10 +17,10 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::drawing::system_color_set<
-            tetengo2::gui::drawing::color<unsigned char>,
-            tetengo2::detail::stub::drawing
-        >
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::system_color_set
+        >::type
         system_color_set_type;
 
 
