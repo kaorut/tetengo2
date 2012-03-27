@@ -40,6 +40,7 @@
 #include "tetengo2.gui.menu.abstract_popup.h"
 #include "tetengo2.gui.menu.command.h"
 #include "tetengo2.gui.menu.menu_bar.h"
+#include "tetengo2.gui.menu.menu_base.h"
 #include "tetengo2.gui.menu.shortcut_key.h"
 #include "tetengo2.gui.menu.shortcut_key_table.h"
 #include "tetengo2.gui.menu.traits.h"
@@ -385,7 +386,9 @@ namespace test_tetengo2 { namespace gui
 
     namespace type { namespace menu
     {
+        struct shortcut_key;        //!< The shortcut key type.
         struct menu_details;        //!< The menu details type.
+        struct menu_base;           //!< The menu base type.
         struct abstract_popup_menu; //!< The abstract popup menu type.
         struct menu_bar;            //!< The menu bar type.
         struct command;             //!< The command type.
@@ -427,7 +430,19 @@ namespace test_tetengo2 { namespace gui
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::menu::shortcut_key, detail::menu::shortcut_key_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::menu::menu_details, detail::menu::menu_details_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::menu::menu_base,
+                tetengo2::gui::menu::menu_base<
+                    detail::menu::menu_traits_type,
+                    detail::menu::menu_details_type
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -455,7 +470,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>>
         menu_type_list;
 
 
