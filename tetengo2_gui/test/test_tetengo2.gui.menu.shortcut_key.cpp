@@ -9,6 +9,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.text.h"
+
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -22,6 +24,12 @@ namespace
             test_tetengo2::gui::type::gui_common::virtual_key
         >::type
         virtual_key_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
+        >::type
+        string_type;
 
     typedef
         boost::mpl::at<
@@ -236,21 +244,29 @@ BOOST_AUTO_TEST_SUITE(shortcut_key)
                 virtual_key_type::char_a(), false, false, false
             );
 
-            BOOST_CHECK(shortcut_key.to_string() == "A");
+            BOOST_CHECK(
+                shortcut_key.to_string() == string_type(TETENGO2_TEXT("A"))
+            );
         }
         {
             const shortcut_key_type shortcut_key(
                 virtual_key_type::char_b(), false, true, false
             );
 
-            BOOST_CHECK(shortcut_key.to_string() == "Ctrl+B");
+            BOOST_CHECK(
+                shortcut_key.to_string() ==
+                string_type(TETENGO2_TEXT("Ctrl+B"))
+            );
         }
         {
             const shortcut_key_type shortcut_key(
                 virtual_key_type::char_c(), true, false, true
             );
 
-            BOOST_CHECK(shortcut_key.to_string() == "Shift+Alt+C");
+            BOOST_CHECK(
+                shortcut_key.to_string() ==
+                string_type(TETENGO2_TEXT("Shift+Alt+C"))
+            );
         }
     }
 

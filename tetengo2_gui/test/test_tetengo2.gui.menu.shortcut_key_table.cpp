@@ -16,6 +16,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
 #include "test_tetengo2.gui.type_list.h"
@@ -48,6 +49,12 @@ namespace
 
     typedef
         boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
             test_tetengo2::gui::menu_type_list,
             test_tetengo2::gui::type::menu::shortcut_key_table
         >::type
@@ -58,21 +65,21 @@ namespace
     public:
         // constructors and destructor
 
-        explicit concrete_menu(std::string&& text)
+        explicit concrete_menu(string_type&& text)
         :
         menu_base_type(
-            std::forward<std::string>(text),
+            std::forward<string_type>(text),
             menu_details_type::create_menu()
         )
         {}
 
         concrete_menu(
-            std::string&&       text,
+            string_type&&       text,
             shortcut_key_type&& shortcut_key_type
         )
         :
         menu_base_type(
-            std::forward<std::string>(text),
+            std::forward<string_type>(text),
             shortcut_key_type,
             menu_details_type::create_menu()
         )
@@ -105,12 +112,12 @@ namespace
 
         menus.push_back(
             tetengo2::make_unique<concrete_menu>(
-                std::string("hoge")
+                string_type(TETENGO2_TEXT("hoge"))
             )
         );
         menus.push_back(
             tetengo2::make_unique<concrete_menu>(
-                std::string("fuga"),
+                string_type(TETENGO2_TEXT("fuga")),
                 shortcut_key_type(
                     virtual_key_type::char_a(), false, true, false
                 )
@@ -118,7 +125,7 @@ namespace
         );
         menus.push_back(
             tetengo2::make_unique<concrete_menu>(
-                std::string("piyo"),
+                string_type(TETENGO2_TEXT("piyo")),
                 shortcut_key_type(
                     virtual_key_type::del(), false, true, true
                 )

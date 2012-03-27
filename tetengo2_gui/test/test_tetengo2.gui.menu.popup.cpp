@@ -9,6 +9,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.text.h"
+
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -22,6 +24,12 @@ namespace
             test_tetengo2::gui::type::menu::menu_details
         >::type
         menu_details_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
+        >::type
+        string_type;
 
     typedef
         boost::mpl::at<
@@ -44,14 +52,18 @@ BOOST_AUTO_TEST_SUITE(popup)
     {
         BOOST_TEST_PASSPOINT();
 
-        const popup_menu_type popup_menu("Tetengo");
+        const popup_menu_type popup_menu(
+            string_type(TETENGO2_TEXT("Tetengo"))
+        );
     }
 
     BOOST_AUTO_TEST_CASE(style)
     {
         BOOST_TEST_PASSPOINT();
 
-        const popup_menu_type popup_menu("Tetengo");
+        const popup_menu_type popup_menu(
+            string_type(TETENGO2_TEXT("Tetengo"))
+        );
 
         BOOST_CHECK(
             &popup_menu.style() == &menu_details_type::popup_menu_style()

@@ -15,6 +15,7 @@
 #include <boost/test/unit_test.hpp>
 //#include <boost/utility.hpp>
 
+#include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
 #include "test_tetengo2.gui.type_list.h"
@@ -27,21 +28,32 @@ namespace
     typedef
         boost::mpl::at<
             test_tetengo2::gui::menu_type_list,
+            test_tetengo2::gui::type::menu::menu_base
+        >::type
+        menu_base_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::menu_type_list,
             test_tetengo2::gui::type::menu::abstract_popup
         >::type
         abstract_popup_menu_type;
-
-    typedef abstract_popup_menu_type::base_type menu_base_type;
 
     class concrete_popup_menu : public abstract_popup_menu_type
     {
     public:
         // constructors and destructor
 
-        concrete_popup_menu(std::string&& text)
+        concrete_popup_menu(string_type&& text)
         :
         abstract_popup_menu_type(
-            std::forward<std::string>(text),
+            std::forward<string_type>(text),
             menu_details_type::create_popup_menu()
         )
         {}
@@ -73,19 +85,25 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_popup_menu popup_menu(std::string("Tetengo"));
+        const concrete_popup_menu popup_menu(
+            string_type(TETENGO2_TEXT("Tetengo"))
+        );
     }
 
     BOOST_AUTO_TEST_CASE(insert)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_popup_menu popup_menu(std::string("Tetengo"));
+        concrete_popup_menu popup_menu(string_type(TETENGO2_TEXT("Tetengo")));
         std::unique_ptr<menu_base_type> p_child1(
-            tetengo2::make_unique<concrete_popup_menu>(std::string("Hoge"))
+            tetengo2::make_unique<concrete_popup_menu>(
+                string_type(TETENGO2_TEXT("Hoge"))
+            )
         );
         std::unique_ptr<menu_base_type> p_child2(
-            tetengo2::make_unique<concrete_popup_menu>(std::string("Fuga"))
+            tetengo2::make_unique<concrete_popup_menu>(
+                string_type(TETENGO2_TEXT("Fuga"))
+            )
         );
 
         popup_menu.insert(popup_menu.end(), std::move(p_child1));
@@ -97,20 +115,29 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
             std::distance(popup_menu.begin(), popup_menu.end()), 2
         );
 
-        BOOST_CHECK(popup_menu.begin()->text() == "Fuga");
-        BOOST_CHECK(boost::next(popup_menu.begin())->text() == "Hoge");
+        BOOST_CHECK(
+            popup_menu.begin()->text() == string_type(TETENGO2_TEXT("Fuga"))
+        );
+        BOOST_CHECK(
+            boost::next(popup_menu.begin())->text() ==
+            string_type(TETENGO2_TEXT("Hoge"))
+        );
     }
 
     BOOST_AUTO_TEST_CASE(erase)
     {
         BOOST_TEST_PASSPOINT();
 
-        concrete_popup_menu popup_menu(std::string("Tetengo"));
+        concrete_popup_menu popup_menu(string_type(TETENGO2_TEXT("Tetengo")));
         std::unique_ptr<menu_base_type> p_child1(
-            tetengo2::make_unique<concrete_popup_menu>(std::string("Hoge"))
+            tetengo2::make_unique<concrete_popup_menu>(
+                string_type(TETENGO2_TEXT("Hoge"))
+            )
         );
         std::unique_ptr<menu_base_type> p_child2(
-            tetengo2::make_unique<concrete_popup_menu>(std::string("Fuga"))
+            tetengo2::make_unique<concrete_popup_menu>(
+                string_type(TETENGO2_TEXT("Fuga"))
+            )
         );
         popup_menu.insert(popup_menu.end(), std::move(p_child1));
         popup_menu.insert(popup_menu.begin(), std::move(p_child2));
@@ -124,7 +151,9 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
         BOOST_CHECK_EQUAL(
             std::distance(popup_menu.begin(), popup_menu.end()), 1
         );
-        BOOST_CHECK(popup_menu.begin()->text() == "Hoge");
+        BOOST_CHECK(
+            popup_menu.begin()->text() == string_type(TETENGO2_TEXT("Hoge"))
+        );
 
         popup_menu.erase(popup_menu.begin(), popup_menu.end());
         BOOST_CHECK_EQUAL(

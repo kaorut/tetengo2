@@ -19,6 +19,12 @@ namespace
 
     typedef
         boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
             test_tetengo2::gui::gui_common_type_list,
             test_tetengo2::gui::type::gui_common::virtual_key
         >::type
@@ -139,8 +145,14 @@ BOOST_AUTO_TEST_SUITE(virtual_key)
         BOOST_TEST_PASSPOINT();
 
         BOOST_CHECK_EQUAL(virtual_key_type::backspace().code(), 0x08);
-        BOOST_CHECK_EQUAL(virtual_key_type::char_0().code(), '0');
-        BOOST_CHECK_EQUAL(virtual_key_type::char_a().code(), 'A');
+        BOOST_CHECK_EQUAL(
+            virtual_key_type::char_0().code(),
+            string_type::value_type(TETENGO2_TEXT('0'))
+        );
+        BOOST_CHECK_EQUAL(
+            virtual_key_type::char_a().code(),
+            string_type::value_type(TETENGO2_TEXT('A'))
+        );
         BOOST_CHECK_EQUAL(virtual_key_type::f1().code(), 0x70);
     }
 
@@ -148,10 +160,22 @@ BOOST_AUTO_TEST_SUITE(virtual_key)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK(virtual_key_type::backspace().to_string() == "BackSpace");
-        BOOST_CHECK(virtual_key_type::char_0().to_string() == "0");
-        BOOST_CHECK(virtual_key_type::char_a().to_string() == "A");
-        BOOST_CHECK(virtual_key_type::f1().to_string() == "F1");
+        BOOST_CHECK(
+            virtual_key_type::backspace().to_string() ==
+            string_type(TETENGO2_TEXT("BackSpace"))
+        );
+        BOOST_CHECK(
+            virtual_key_type::char_0().to_string() ==
+            string_type(TETENGO2_TEXT("0"))
+        );
+        BOOST_CHECK(
+            virtual_key_type::char_a().to_string() ==
+            string_type(TETENGO2_TEXT("A"))
+        );
+        BOOST_CHECK(
+            virtual_key_type::f1().to_string() ==
+            string_type(TETENGO2_TEXT("F1"))
+        );
     }
 
 

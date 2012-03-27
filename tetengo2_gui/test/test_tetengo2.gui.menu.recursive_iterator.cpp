@@ -12,6 +12,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.text.h"
 #include "tetengo2.unique.h"
 
 
@@ -38,6 +39,12 @@ namespace
 
     typedef
         boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
             test_tetengo2::gui::menu_type_list,
             test_tetengo2::gui::type::menu::recursive_iterator
         >::type
@@ -49,19 +56,28 @@ namespace
     std::unique_ptr<menu_base_type> create_menu()
     {
         std::unique_ptr<menu_base_type> p_menu(
-            tetengo2::make_unique<popup_menu_type>("0")
+            tetengo2::make_unique<popup_menu_type>(
+                string_type(TETENGO2_TEXT("0"))
+            )
         );
 
         p_menu->insert(
-            p_menu->end(), tetengo2::make_unique<popup_menu_type>("1")
+            p_menu->end(),
+            tetengo2::make_unique<popup_menu_type>(
+                string_type(TETENGO2_TEXT("1"))
+            )
         );
         p_menu->begin()->insert(
             p_menu->begin()->end(),
-            tetengo2::make_unique<popup_menu_type>("2")
+            tetengo2::make_unique<popup_menu_type>(
+                string_type(TETENGO2_TEXT("2"))
+            )
         );
         p_menu->insert(
             p_menu->end(),
-            tetengo2::make_unique<popup_menu_type>("3")
+            tetengo2::make_unique<popup_menu_type>(
+                string_type(TETENGO2_TEXT("3"))
+            )
         );
 
         return std::move(p_menu);
@@ -99,13 +115,13 @@ BOOST_AUTO_TEST_SUITE(recursive_iterator)
 
             iterator_type iterator(p_menu.get());
 
-            BOOST_CHECK(iterator->text() == "0");
+            BOOST_CHECK(iterator->text() == string_type(TETENGO2_TEXT("0")));
             ++iterator;
-            BOOST_CHECK(iterator->text() == "1");
+            BOOST_CHECK(iterator->text() == string_type(TETENGO2_TEXT("1")));
             ++iterator;
-            BOOST_CHECK(iterator->text() == "2");
+            BOOST_CHECK(iterator->text() == string_type(TETENGO2_TEXT("2")));
             ++iterator;
-            BOOST_CHECK(iterator->text() == "3");
+            BOOST_CHECK(iterator->text() == string_type(TETENGO2_TEXT("3")));
             ++iterator;
             BOOST_CHECK(iterator == iterator_type());
         }
