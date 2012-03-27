@@ -74,7 +74,7 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail
     {
-        typedef std::wstring string_type;
+        typedef std::string string_type;
         typedef std::string exception_string_type;
         typedef tetengo2::detail::stub::encoding encoding_details_type;
         typedef
