@@ -39,7 +39,9 @@
 #include "tetengo2.gui.drawing.widget_canvas.h"
 #include "tetengo2.gui.menu.abstract_popup.h"
 #include "tetengo2.gui.menu.command.h"
+#include "tetengo2.gui.menu.menu_bar.h"
 #include "tetengo2.gui.menu.shortcut_key.h"
+#include "tetengo2.gui.menu.shortcut_key_table.h"
 #include "tetengo2.gui.menu.traits.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.unit.em.h"
@@ -385,6 +387,7 @@ namespace test_tetengo2 { namespace gui
     {
         struct menu_details;        //!< The menu details type.
         struct abstract_popup_menu; //!< The abstract popup menu type.
+        struct menu_bar;            //!< The menu bar type.
         struct command;             //!< The command type.
     }}
 
@@ -407,6 +410,16 @@ namespace test_tetengo2 { namespace gui
             >
             menu_traits_type;
         typedef tetengo2::detail::stub::menu menu_details_type;
+        typedef
+            tetengo2::gui::menu::menu_base<
+                menu_traits_type, menu_details_type
+            >
+            menu_base_type;
+        typedef
+            tetengo2::gui::menu::shortcut_key_table<
+                shortcut_key_type, menu_base_type, menu_details_type
+            >
+            shortcut_key_table_type;
     }}
 #endif
 
@@ -426,6 +439,15 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::menu::menu_bar,
+                tetengo2::gui::menu::menu_bar<
+                    detail::menu::menu_traits_type,
+                    detail::menu::shortcut_key_table_type,
+                    detail::menu::menu_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::menu::command,
                 tetengo2::gui::menu::command<
                     detail::menu::menu_traits_type,
@@ -433,7 +455,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         menu_type_list;
 
 
