@@ -21,6 +21,7 @@
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
+#include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.gui.alert.h"
@@ -36,6 +37,10 @@
 #include "tetengo2.gui.drawing.system_color_set.h"
 #include "tetengo2.gui.drawing.transparent_background.h"
 #include "tetengo2.gui.drawing.widget_canvas.h"
+#include "tetengo2.gui.menu.abstract_popup.h"
+#include "tetengo2.gui.menu.shortcut_key.h"
+#include "tetengo2.gui.menu.traits.h"
+#include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.virtual_key.h"
@@ -198,9 +203,9 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::unit::em,
-                 tetengo2::gui::unit::em<
+                tetengo2::gui::unit::em<
                     int, int, detail::unit::unit_details_type
-                 >
+                >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -379,6 +384,59 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>>>>
         drawing_type_list;
+
+
+    /**** Menu **************************************************************/
+
+    namespace type { namespace menu
+    {
+        struct abstract_popup_menu; //!< The abstract popup menu type.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace menu
+    {
+        typedef
+            tetengo2::gui::menu::shortcut_key<
+                boost::mpl::at<
+                    gui_common_type_list, type::gui_common::virtual_key
+                >::type
+            >
+            shortcut_key_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                boost::mpl::at<type_list, type::string>::type,
+                tetengo2::detail::stub::encoding
+            >
+            encoding_type;
+        typedef
+            tetengo2::text::encoder<encoding_type, encoding_type>
+            encoder_type;
+        typedef
+            tetengo2::gui::menu::traits<
+                boost::mpl::at<type_list, type::string>::type,
+                shortcut_key_type,
+                encoder_type,
+                tetengo2::gui::message::menu_observer_set
+            >
+            menu_traits_type;
+        typedef tetengo2::detail::stub::menu menu_details_type;
+    }}
+#endif
+
+    //! The unit type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::menu::abstract_popup_menu,
+                tetengo2::gui::menu::abstract_popup<
+                    detail::menu::menu_traits_type,
+                    detail::menu::menu_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        menu_type_list;
 
 
 }}

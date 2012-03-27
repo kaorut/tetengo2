@@ -11,21 +11,13 @@
 //#include <string>
 //#include <utility>
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 //#include <boost/utility.hpp>
 
-#include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.detail.stub.menu.h"
-#include "tetengo2.detail.stub.virtual_key.h"
-#include "tetengo2.gui.menu.shortcut_key.h"
-#include "tetengo2.gui.menu.traits.h"
-#include "tetengo2.gui.message.menu_observer_set.h"
-#include "tetengo2.gui.virtual_key.h"
-#include "tetengo2.text.encoder.h"
-#include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
 
-#include "tetengo2.gui.menu.abstract_popup.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
@@ -33,37 +25,10 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::menu::shortcut_key<
-            tetengo2::gui::virtual_key<
-                std::wstring, tetengo2::detail::stub::virtual_key
-            >
-        >
-        shortcut_key_type;
-
-    typedef
-        tetengo2::text::encoding::locale<
-            std::string, tetengo2::detail::stub::encoding
-        >
-        encoding_type;
-
-    typedef
-        tetengo2::text::encoder<encoding_type, encoding_type> encoder_type;
-
-    typedef
-        tetengo2::gui::menu::traits<
-            std::string,
-            shortcut_key_type,
-            encoder_type,
-            tetengo2::gui::message::menu_observer_set
-        >
-        menu_traits_type;
-
-    typedef tetengo2::detail::stub::menu menu_details_type;
-
-    typedef
-        tetengo2::gui::menu::abstract_popup<
-            menu_traits_type, menu_details_type
-        >
+        boost::mpl::at<
+            test_tetengo2::gui::menu_type_list,
+            test_tetengo2::gui::type::menu::abstract_popup_menu
+        >::type
         abstract_popup_menu_type;
 
     typedef abstract_popup_menu_type::base_type menu_base_type;
