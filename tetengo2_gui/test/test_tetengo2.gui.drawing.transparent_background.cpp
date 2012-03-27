@@ -6,11 +6,10 @@
     $Id$
 */
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.drawing.h"
-
-#include "tetengo2.gui.drawing.transparent_background.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
@@ -18,9 +17,10 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::drawing::transparent_background<
-            tetengo2::detail::stub::drawing
-        >
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list,
+            test_tetengo2::gui::type::drawing::transparent_background
+        >::type
         background_type;
 
 
