@@ -98,7 +98,9 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::string, detail::string_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::exception_string, std::string>,
+            boost::mpl::pair<
+                type::exception_string, detail::exception_string_type
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::path, boost::filesystem::path>,
         tetengo2::meta::assoc_list<
