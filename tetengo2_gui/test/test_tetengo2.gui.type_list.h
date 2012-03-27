@@ -389,15 +389,16 @@ namespace test_tetengo2 { namespace gui
 
     namespace type { namespace menu
     {
-        struct shortcut_key;        //!< The shortcut key type.
-        struct menu_details;        //!< The menu details type.
-        struct menu_base;           //!< The menu base type.
-        struct abstract_popup;      //!< The abstract popup type.
-        struct menu_bar;            //!< The menu bar type.
-        struct popup;               //!< The popup type.
-        struct command;             //!< The command type.
-        struct separator;           //!< The seprator type.
-        struct recursive_iterator;  //!< The recursive iterator type.
+        struct shortcut_key;   //!< The shortcut key type.
+        struct menu_details;   //!< The menu details type.
+        struct menu_base;      //!< The menu base type.
+        struct abstract_popup; //!< The abstract popup type.
+        struct menu_bar;       //!< The menu bar type.
+        struct popup;          //!< The popup type.
+        struct command;        //!< The command type.
+        struct separator;      //!< The seprator type.
+        struct recursive_iterator; //!< The recursive iterator type.
+        struct shortcut_key_table; //!< The shortcut key table type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -494,8 +495,13 @@ namespace test_tetengo2 { namespace gui
                     detail::menu::menu_base_type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::menu::shortcut_key_table,
+                detail::menu::shortcut_key_table_type
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>
+        >>>>>>>>>>
         menu_type_list;
 
 
