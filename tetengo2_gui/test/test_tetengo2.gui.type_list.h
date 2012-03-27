@@ -60,7 +60,33 @@ namespace test_tetengo2 { namespace gui
         struct string;         //!< The string type.
         struct exception_string; //!< The exception string type.
         struct path;           //!< The path type.
+        struct encoder;        //!< The encoder type.
+        struct exception_encoder; //!< The exception encoder type.
     }
+
+#if !defined(DOCUMENTATION)
+    namespace detail
+    {
+        typedef std::string string_type;
+        typedef std::string exception_string_type;
+        typedef tetengo2::detail::stub::encoding encoding_details_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                string_type, encoding_details_type
+            >
+            internal_encoding_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                string_type, encoding_details_type
+            >
+            encoding_type;
+        typedef
+            tetengo2::text::encoding::locale<
+                exception_string_type, encoding_details_type
+            >
+            exception_encoding_type;
+    }
+#endif
 
     //! The common type list.
     typedef
@@ -69,13 +95,28 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::difference, std::ptrdiff_t>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::string, std::string>,
+            boost::mpl::pair<type::string, detail::string_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::exception_string, std::string>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::path, boost::filesystem::path>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::encoder,
+                tetengo2::text::encoder<
+                    detail::internal_encoding_type, detail::encoding_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::exception_encoder,
+                tetengo2::text::encoder<
+                    detail::internal_encoding_type,
+                    detail::exception_encoding_type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>>
         type_list;
 
 
@@ -88,50 +129,15 @@ namespace test_tetengo2 { namespace gui
         struct dimension;      //!< The dimmension type.
     }}
 
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace gui_common
-    {
-        typedef tetengo2::detail::stub::encoding encoding_details_type;
-        typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::string>::type,
-                encoding_details_type
-            >
-            internal_encoding_type;
-        typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::string>::type,
-                encoding_details_type
-            >
-            ui_encoding_type;
-        typedef
-            tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>
-            ui_encoder_type;
-        typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::exception_string>::type,
-                encoding_details_type
-            >
-            exception_encoding_type;
-        typedef
-            tetengo2::text::encoder<
-                internal_encoding_type, exception_encoding_type
-            >
-            exception_encoder_type;
-        typedef tetengo2::detail::stub::alert alert_details_type;
-        typedef tetengo2::detail::stub::virtual_key virtual_key_details_type;
-    }}
-#endif
-
     //! The GUI common type list.
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::gui_common::alert,
                 tetengo2::gui::alert<
-                    detail::gui_common::ui_encoder_type,
-                    detail::gui_common::exception_encoder_type,
-                    detail::gui_common::alert_details_type
+                    boost::mpl::at<type_list, type::encoder>::type,
+                    boost::mpl::at<type_list, type::exception_encoder>::type,
+                    tetengo2::detail::stub::alert
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -139,7 +145,7 @@ namespace test_tetengo2 { namespace gui
                 type::gui_common::virtual_key,
                 tetengo2::gui::virtual_key<
                     boost::mpl::at<type_list, type::string>::type,
-                    detail::gui_common::virtual_key_details_type
+                    tetengo2::detail::stub::virtual_key
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -246,22 +252,6 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<type_list, type::size>::type
             >
             dimension_type;
-        typedef tetengo2::detail::stub::encoding encoding_details_type;
-        typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::string>::type,
-                encoding_details_type
-            >
-            internal_encoding_type;
-        typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::string>::type,
-                encoding_details_type
-            >
-            ui_encoding_type;
-        typedef
-            tetengo2::text::encoder<internal_encoding_type, ui_encoding_type>
-            ui_encoder_type;
         typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
             tetengo2::gui::drawing::transparent_background<
@@ -360,7 +350,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::size>::type,
                     boost::mpl::at<type_list, type::string>::type,
                     detail::drawing::dimension_type,
-                    detail::drawing::ui_encoder_type,
+                    boost::mpl::at<type_list, type::encoder>::type,
                     detail::drawing::transparent_background_type,
                     detail::drawing::font_type,
                     detail::drawing::picture_type,
@@ -374,7 +364,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::size>::type,
                     boost::mpl::at<type_list, type::string>::type,
                     detail::drawing::dimension_type,
-                    detail::drawing::ui_encoder_type,
+                    boost::mpl::at<type_list, type::encoder>::type,
                     detail::drawing::transparent_background_type,
                     detail::drawing::font_type,
                     detail::drawing::picture_type,
@@ -404,19 +394,10 @@ namespace test_tetengo2 { namespace gui
             >
             shortcut_key_type;
         typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::string>::type,
-                tetengo2::detail::stub::encoding
-            >
-            encoding_type;
-        typedef
-            tetengo2::text::encoder<encoding_type, encoding_type>
-            encoder_type;
-        typedef
             tetengo2::gui::menu::traits<
                 boost::mpl::at<type_list, type::string>::type,
                 shortcut_key_type,
-                encoder_type,
+                boost::mpl::at<type_list, type::encoder>::type,
                 tetengo2::gui::message::menu_observer_set
             >
             menu_traits_type;
