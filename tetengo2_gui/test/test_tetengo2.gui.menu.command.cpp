@@ -8,19 +8,10 @@
 
 //#include <string>
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.detail.stub.menu.h"
-#include "tetengo2.detail.stub.virtual_key.h"
-#include "tetengo2.gui.menu.shortcut_key.h"
-#include "tetengo2.gui.menu.traits.h"
-#include "tetengo2.gui.message.menu_observer_set.h"
-#include "tetengo2.gui.virtual_key.h"
-#include "tetengo2.text.encoder.h"
-#include "tetengo2.text.encoding.locale.h"
-
-#include "tetengo2.gui.menu.command.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
@@ -28,35 +19,17 @@ namespace
     // types
 
     typedef
-        tetengo2::gui::menu::shortcut_key<
-            tetengo2::gui::virtual_key<
-                std::wstring, tetengo2::detail::stub::virtual_key
-            >
-        >
-        shortcut_key_type;
+        boost::mpl::at<
+            test_tetengo2::gui::menu_type_list,
+            test_tetengo2::gui::type::menu::menu_details
+        >::type
+        menu_details_type;
 
     typedef
-        tetengo2::text::encoding::locale<
-            std::string, tetengo2::detail::stub::encoding
-        >
-        encoding_type;
-
-    typedef
-        tetengo2::text::encoder<encoding_type, encoding_type> encoder_type;
-
-    typedef
-        tetengo2::gui::menu::traits<
-            std::string,
-            shortcut_key_type,
-            encoder_type,
-            tetengo2::gui::message::menu_observer_set
-        >
-        menu_traits_type;
-
-    typedef tetengo2::detail::stub::menu menu_details_type;
-
-    typedef
-        tetengo2::gui::menu::command<menu_traits_type, menu_details_type>
+        boost::mpl::at<
+            test_tetengo2::gui::menu_type_list,
+            test_tetengo2::gui::type::menu::command
+        >::type
         menu_command_type;
 
 
