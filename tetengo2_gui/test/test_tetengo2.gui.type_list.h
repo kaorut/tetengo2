@@ -47,6 +47,7 @@
 #include "tetengo2.gui.menu.shortcut_key.h"
 #include "tetengo2.gui.menu.shortcut_key_table.h"
 #include "tetengo2.gui.menu.traits.h"
+#include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
@@ -503,6 +504,25 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>
         menu_type_list;
+
+
+    /**** Observer Set ******************************************************/
+
+    namespace type { namespace observer_set
+    {
+        struct focus_observer_set; //!< The focus observer set type.
+    }}
+
+    //! The unit type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::observer_set::focus_observer_set,
+                tetengo2::gui::message::focus_observer_set
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        observer_set_type_list;
 
 
 }}
