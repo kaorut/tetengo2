@@ -27,7 +27,7 @@ namespace
     typedef
         boost::mpl::at<
             test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::abstract_popup_menu
+            test_tetengo2::gui::type::menu::abstract_popup
         >::type
         abstract_popup_menu_type;
 

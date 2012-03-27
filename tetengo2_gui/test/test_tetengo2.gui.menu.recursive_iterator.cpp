@@ -10,78 +10,38 @@
 //#include <string>
 //#include <utility>
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.encoding.h"
-#include "tetengo2.detail.stub.menu.h"
-#include "tetengo2.detail.stub.virtual_key.h"
-#include "tetengo2.gui.menu.abstract_popup.h"
-#include "tetengo2.gui.menu.menu_base.h"
-#include "tetengo2.gui.menu.popup.h"
-#include "tetengo2.gui.menu.shortcut_key.h"
-#include "tetengo2.gui.menu.traits.h"
-#include "tetengo2.gui.message.menu_observer_set.h"
-#include "tetengo2.gui.virtual_key.h"
-#include "tetengo2.text.encoder.h"
-#include "tetengo2.text.encoding.locale.h"
 #include "tetengo2.unique.h"
 
-#include "tetengo2.gui.menu.recursive_iterator.h"
+
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::encoding encoding_details_type;
-
     typedef
-        tetengo2::gui::menu::shortcut_key<
-            tetengo2::gui::virtual_key<
-                std::wstring, tetengo2::detail::stub::virtual_key
-            >
-        >
-        shortcut_key_type;
-
-    typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
-        internal_encoding_type;
-
-    typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
-        encoding_type;
-
-    typedef
-        tetengo2::text::encoder<internal_encoding_type, encoding_type>
-        encoder_type;
-
-    typedef
-        tetengo2::gui::menu::traits<
-            std::string,
-            shortcut_key_type,
-            encoder_type,
-            tetengo2::gui::message::menu_observer_set
-        >
-        menu_traits_type;
-
-    typedef tetengo2::detail::stub::menu menu_details_type;
-
-    typedef
-        tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type>
+        boost::mpl::at<
+            test_tetengo2::gui::menu_type_list,
+            test_tetengo2::gui::type::menu::menu_base
+        >::type
         menu_base_type;
 
     typedef
-        tetengo2::gui::menu::abstract_popup<
-            menu_traits_type, menu_details_type
-        >
-        abstract_popup_menu_type;
-
-    typedef
-        tetengo2::gui::menu::popup<menu_traits_type, menu_details_type>
+        boost::mpl::at<
+            test_tetengo2::gui::menu_type_list,
+            test_tetengo2::gui::type::menu::popup
+        >::type
         popup_menu_type;
 
     typedef
-        tetengo2::gui::menu::recursive_iterator<menu_base_type>
+        boost::mpl::at<
+            test_tetengo2::gui::menu_type_list,
+            test_tetengo2::gui::type::menu::recursive_iterator
+        >::type
         iterator_type;
 
 

@@ -42,6 +42,7 @@
 #include "tetengo2.gui.menu.menu_bar.h"
 #include "tetengo2.gui.menu.menu_base.h"
 #include "tetengo2.gui.menu.popup.h"
+#include "tetengo2.gui.menu.recursive_iterator.h"
 #include "tetengo2.gui.menu.shortcut_key.h"
 #include "tetengo2.gui.menu.shortcut_key_table.h"
 #include "tetengo2.gui.menu.traits.h"
@@ -390,10 +391,11 @@ namespace test_tetengo2 { namespace gui
         struct shortcut_key;        //!< The shortcut key type.
         struct menu_details;        //!< The menu details type.
         struct menu_base;           //!< The menu base type.
-        struct abstract_popup_menu; //!< The abstract popup menu type.
+        struct abstract_popup;      //!< The abstract popup type.
         struct menu_bar;            //!< The menu bar type.
         struct popup;               //!< The popup type.
         struct command;             //!< The command type.
+        struct recursive_iterator;  //!< The recursive iterator type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -440,15 +442,11 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::menu::menu_base,
-                tetengo2::gui::menu::menu_base<
-                    detail::menu::menu_traits_type,
-                    detail::menu::menu_details_type
-                >
+                type::menu::menu_base, detail::menu::menu_base_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::menu::abstract_popup_menu,
+                type::menu::abstract_popup,
                 tetengo2::gui::menu::abstract_popup<
                     detail::menu::menu_traits_type,
                     detail::menu::menu_details_type
@@ -479,8 +477,15 @@ namespace test_tetengo2 { namespace gui
                     detail::menu::menu_details_type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::menu::recursive_iterator,
+                tetengo2::gui::menu::recursive_iterator<
+                    detail::menu::menu_base_type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>
+        >>>>>>>>
         menu_type_list;
 
 
