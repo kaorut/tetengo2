@@ -49,6 +49,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         typedef Traits traits_type;
 
+        //! The widget canvas type.
+        typedef typename traits_type::widget_canvas_type widget_canvas_type;
+
         //! The canvas type.
         typedef typename traits_type::canvas_type canvas_type;
 
@@ -526,7 +529,7 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<canvas_type> create_canvas()
         const
         {
-            return make_unique<canvas_type>(*details());
+            return make_unique<widget_canvas_type>(*details());
         }
 
         /*!

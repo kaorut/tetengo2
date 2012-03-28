@@ -669,9 +669,8 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Uses a widget canvas.
 
-            \tparam Widget   A widget type.
-            \tparam Canvas   A canvas type.
             \tparam Result   A result type.
+            \tparam Widget   A widget type.
             \tparam Function A function type.
 
             \param widget   A widget.
@@ -680,7 +679,6 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A result.
         */
         template <
-            typename Canvas,
             typename Result,
             typename Widget,
             typename Function
@@ -690,7 +688,9 @@ namespace tetengo2 { namespace detail { namespace stub
             const Function function
         )
         {
-            const std::unique_ptr<Canvas> p_canvas(widget.create_canvas());
+            const std::unique_ptr<typename Widget::canvas_type> p_canvas(
+                widget.create_canvas()
+            );
             return function(*p_canvas);
         }
 

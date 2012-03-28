@@ -1357,9 +1357,8 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Uses a widget canvas.
 
-            \tparam Widget   A widget type.
-            \tparam Canvas   A canvas type.
             \tparam Result   A result type.
+            \tparam Widget   A widget type.
             \tparam Function A function type.
 
             \param widget   A widget.
@@ -1368,7 +1367,6 @@ namespace tetengo2 { namespace detail { namespace windows
             \return A result.
         */
         template <
-            typename Canvas,
             typename Result,
             typename Widget,
             typename Function
@@ -1385,7 +1383,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 ::ReleaseDC(window_handle, device_context_handle);
             } BOOST_SCOPE_EXIT_END;
-            Canvas canvas(device_context_handle);
+            typename Widget::widget_canvas_type canvas(device_context_handle);
 
             return function(canvas);
         }

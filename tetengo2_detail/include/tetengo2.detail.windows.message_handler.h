@@ -225,7 +225,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (widget.paint_observer_set().paint_background().empty())
                     return boost::none;
 
-                typename Widget::canvas_type canvas(
+                typename Widget::widget_canvas_type canvas(
                     reinterpret_cast< ::HDC>(wParam)
                 );
                 if (!widget.paint_observer_set().paint_background()(canvas))
@@ -266,7 +266,7 @@ namespace tetengo2 { namespace detail { namespace windows
                         std::get<0>(*widget.details()).get(), &paint_struct
                     );
                 } BOOST_SCOPE_EXIT_END;
-                typename Widget::canvas_type canvas(paint_struct.hdc);
+                typename Widget::widget_canvas_type canvas(paint_struct.hdc);
 
                 widget.paint_observer_set().paint()(canvas);
 

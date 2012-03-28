@@ -498,7 +498,8 @@ namespace bobura
                 picture_type,
                 boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
-            canvas_type;
+            widget_canvas_type;
+        typedef widget_canvas_type::base_type canvas_type;
         typedef
             tetengo2::gui::alert<
                 boost::mpl::at<
@@ -525,7 +526,7 @@ namespace bobura
             virtual_key_type;
         typedef
             tetengo2::gui::widget::traits::widget_traits<
-                canvas_type,
+                widget_canvas_type,
                 alert_type,
                 position_type,
                 dimension_type,
