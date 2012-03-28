@@ -79,6 +79,7 @@
 #include "tetengo2.gui.widget.traits.text_box_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.gui.widget.traits.window_traits.h"
+#include "tetengo2.gui.widget.widget.h"
 #include "tetengo2.gui.widget.window.h"
 #include "tetengo2.meta.assoc_list.h"
 #include "tetengo2.text.encoder.h"
@@ -604,6 +605,9 @@ namespace test_tetengo2 { namespace gui
 
     namespace type { namespace widget
     {
+        struct position;       //!< The position type.
+        struct dimension;      //!< The dimension type.
+        struct widget;         //!< The widget type.
         struct abstract_window; //!< The abstract window type.
         struct window;         //!< The window type.
         struct dialog;         //!< The dialog type.
@@ -750,6 +754,25 @@ namespace test_tetengo2 { namespace gui
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::widget::position,
+                detail::widget::position_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::widget::dimension,
+                detail::widget::dimension_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::widget::widget,
+                tetengo2::gui::widget::widget<
+                    detail::widget::widget_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::widget::abstract_window,
                 detail::widget::abstract_window_type
             >,
@@ -826,7 +849,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>
+        >>>>>>>>>>>>
         widget_type_list;
 
 
