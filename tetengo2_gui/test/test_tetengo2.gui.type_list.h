@@ -59,8 +59,13 @@
 #include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.gui.widget.abstract_window.h"
+#include "tetengo2.gui.widget.button.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
+#include "tetengo2.gui.widget.traits.button_traits.h"
+#include "tetengo2.gui.widget.traits.control_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
+#include "tetengo2.gui.widget.traits.window_traits.h"
+#include "tetengo2.gui.widget.window.h"
 #include "tetengo2.meta.assoc_list.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
@@ -586,6 +591,8 @@ namespace test_tetengo2 { namespace gui
     namespace type { namespace widget
     {
         struct abstract_window; //!< The abstract window type.
+        struct window;         //!< The window type.
+        struct button;         //!< The button type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -649,6 +656,20 @@ namespace test_tetengo2 { namespace gui
         typedef
             tetengo2::detail::stub::message_handler
             message_handler_details_type;
+        typedef
+            tetengo2::gui::widget::traits::control_traits<
+                widget_traits_type,
+                boost::mpl::at<drawing_type_list, type::drawing::color>::type
+            >
+            control_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::button_traits<control_traits_type>
+            button_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::window_traits<
+                abstract_window_traits_type
+            >
+            window_traits_type;
     }}
 #endif
 
@@ -663,8 +684,26 @@ namespace test_tetengo2 { namespace gui
                     detail::widget::message_handler_details_type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::widget::window,
+                tetengo2::gui::widget::window<
+                    detail::widget::window_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::widget::button,
+                tetengo2::gui::widget::button<
+                    detail::widget::button_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >
+        >>>
         widget_type_list;
 
 
