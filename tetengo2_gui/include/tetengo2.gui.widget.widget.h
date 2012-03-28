@@ -445,7 +445,9 @@ namespace tetengo2 { namespace gui { namespace widget
         font_type font()
         const
         {
-            return widget_details_type::template font<font_type>(*this);
+            return widget_details_type::template font<font_type>(
+                *this, encoder()
+            );
         }
 
         /*!
@@ -455,7 +457,7 @@ namespace tetengo2 { namespace gui { namespace widget
         */
         void set_font(const font_type& font)
         {
-            widget_details_type::set_font(*this, font);
+            widget_details_type::set_font(*this, font, encoder());
         }
 
         /*!

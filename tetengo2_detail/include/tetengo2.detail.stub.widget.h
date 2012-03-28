@@ -58,10 +58,10 @@ namespace tetengo2 { namespace detail { namespace stub
                 std::pair<std::size_t, std::size_t>,
 
                 // details_text: text
-                std::wstring,
+                std::string,
 
                 // details_font: font
-                std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>,
+                std::tuple<std::string, std::size_t, bool, bool, bool, bool>,
 
                 // details_children: children
                 std::vector<void*>,
@@ -563,20 +563,26 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Sets a font.
 
-            \tparam Widget A widget type.
-            \tparam Font   A font type.
+            \tparam Widget  A widget type.
+            \tparam Font    A font type.
+            \tparam Encoder An encoder type.
 
-            \param widget A widget.
-            \param font   A font.
+            \param widget  A widget.
+            \param font    A font.
+            \param encoder An encoder.
 
             \throw std::system_error When the font cannot be set.
         */
-        template <typename Widget, typename Font>
-        static void set_font(Widget& widget, const Font& font)
+        template <typename Widget, typename Font, typename Encoder>
+        static void set_font(
+            Widget&        widget,
+            const Font&    font,
+            const Encoder& encoder
+        )
         {
             std::get<details_font>(*widget.details()) =
                 details_font_type(
-                    font.family(),
+                    encoder.encode(font.family()),
                     font.size(),
                     font.bold(),
                     font.italic(),
@@ -590,20 +596,22 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Font   A font type.
             \tparam Widget A widget type.
+            \tparam Encoder An encoder type.
 
-            \param widget A widget.
+            \param widget  A widget.
+            \param encoder An encoder.
 
             \return The font.
 
             \throw std::system_error When the font cannot be obtained.
         */
-        template <typename Font, typename Widget>
-        static Font font(const Widget& widget)
+        template <typename Font, typename Widget, typename Encoder>
+        static Font font(const Widget& widget, const Encoder& encoder)
         {
             const details_font_type& font =
                 std::get<details_font>(*widget.details());
             return Font(
-                std::get<0>(font),
+                encoder.decode(std::get<0>(font)),
                 std::get<1>(font),
                 std::get<2>(font),
                 std::get<3>(font),
@@ -830,7 +838,7 @@ namespace tetengo2 { namespace detail { namespace stub
         };
 
         typedef
-            std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>
+            std::tuple<std::string, std::size_t, bool, bool, bool, bool>
             details_font_type;
 
 
@@ -846,9 +854,9 @@ namespace tetengo2 { namespace detail { namespace stub
                     true,
                     std::make_pair(0, 0),
                     std::make_pair(1, 1),
-                    std::wstring(),
+                    std::string(),
                     details_font_type(
-                        std::wstring(), 12, false, false, false, false
+                        std::string(), 12, false, false, false, false
                     ),
                     std::vector<void*>(),
                     false,

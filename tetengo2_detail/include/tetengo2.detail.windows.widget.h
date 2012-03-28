@@ -1154,16 +1154,22 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Sets a font.
 
-            \tparam Widget A widget type.
-            \tparam Font   A font type.
+            \tparam Widget  A widget type.
+            \tparam Font    A font type.
+            \tparam Encoder An encoder type.
 
             \param widget A widget.
             \param font   A font.
+            \param encoder An encoder.
 
             \throw std::system_error When the font cannot be set.
         */
-        template <typename Widget, typename Font>
-        static void set_font(Widget& widget, const Font& font)
+        template <typename Widget, typename Font, typename Encoder>
+        static void set_font(
+            Widget&        widget,
+            const Font&    font,
+            const Encoder& encoder
+        )
         {
             const ::HFONT previous_font_handle =
                 reinterpret_cast< ::HFONT>(
@@ -1188,13 +1194,12 @@ namespace tetengo2 { namespace detail { namespace windows
                 DEFAULT_PITCH | FF_DONTCARE,
                 L""
             };
-            assert(font.family().size() < LF_FACESIZE);
+            const std::wstring font_family = encoder.encode(font.family());
+            assert(font_family.length() < LF_FACESIZE);
             std::copy(
-                font.family().begin(),
-                font.family().end(),
-                log_font.lfFaceName
+                font_family.begin(), font_family.end(), log_font.lfFaceName
             );
-            log_font.lfFaceName[font.family().size()] = L'\0';
+            log_font.lfFaceName[font_family.length()] = L'\0';
             const ::HFONT font_handle = ::CreateFontIndirectW(&log_font);
             if (!font_handle)
             {
@@ -1233,17 +1238,19 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Retuns the font.
 
-            \tparam Font   A font type.
-            \tparam Widget A widget type.
+            \tparam Font    A font type.
+            \tparam Widget  A widget type.
+            \tparam Encoder An encoder type.
 
-            \param widget A widget.
+            \param widget  A widget.
+            \param encoder An encoder.
 
             \return The font.
 
             \throw std::system_error When the font cannot be obtained.
         */
-        template <typename Font, typename Widget>
-        static Font font(const Widget& widget)
+        template <typename Font, typename Widget, typename Encoder>
+        static Font font(const Widget& widget, const Encoder& encoder)
         {
             ::HFONT font_handle =
                 reinterpret_cast< ::HFONT>(
@@ -1278,7 +1285,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return Font(
-                log_font.lfFaceName,
+                encoder.decode(log_font.lfFaceName),
                 log_font.lfHeight < 0 ?
                     -log_font.lfHeight : log_font.lfHeight,
                 log_font.lfWeight >= FW_BOLD,

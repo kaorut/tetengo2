@@ -51,11 +51,11 @@ namespace
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         internal_encoding_type;
 
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         ui_encoding_type;
 
     typedef
@@ -76,7 +76,7 @@ namespace
 
     typedef
         tetengo2::gui::drawing::font<
-            std::wstring, std::size_t, drawing_details_type
+            std::string, std::size_t, drawing_details_type
         >
         font_type;
 
@@ -99,7 +99,7 @@ namespace
     typedef
         tetengo2::gui::drawing::widget_canvas<
             std::size_t,
-            std::wstring,
+            std::string,
             dimension_type,
             ui_encoder_type,
             background_type,
@@ -132,7 +132,7 @@ namespace
 
     typedef
         tetengo2::gui::virtual_key<
-            std::wstring, tetengo2::detail::stub::virtual_key
+            std::string, tetengo2::detail::stub::virtual_key
         >
         virtual_key_type;
 
@@ -142,7 +142,7 @@ namespace
             alert_type,
             position_type,
             dimension_type,
-            std::wstring,
+            std::string,
             ui_encoder_type,
             background_type,
             font_type,

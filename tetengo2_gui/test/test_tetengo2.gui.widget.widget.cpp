@@ -57,11 +57,11 @@ namespace
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         internal_encoding_type;
 
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         ui_encoding_type;
 
     typedef
@@ -82,7 +82,7 @@ namespace
 
     typedef
         tetengo2::gui::drawing::font<
-            std::wstring, std::size_t, drawing_details_type
+            std::string, std::size_t, drawing_details_type
         >
         font_type;
 
@@ -105,7 +105,7 @@ namespace
     typedef
         tetengo2::gui::drawing::widget_canvas<
             std::size_t,
-            std::wstring,
+            std::string,
             dimension_type,
             ui_encoder_type,
             background_type,
@@ -138,7 +138,7 @@ namespace
 
     typedef
         tetengo2::gui::virtual_key<
-            std::wstring, tetengo2::detail::stub::virtual_key
+            std::string, tetengo2::detail::stub::virtual_key
         >
         virtual_key_type;
 
@@ -148,7 +148,7 @@ namespace
             alert_type,
             position_type,
             dimension_type,
-            std::wstring,
+            std::string,
             ui_encoder_type,
             background_type,
             font_type,
@@ -182,7 +182,7 @@ namespace
         transparent_background_type;
 
     typedef
-        std::tuple<std::wstring, std::size_t, bool, bool, bool, bool>
+        std::tuple<std::string, std::size_t, bool, bool, bool, bool>
         details_font_type;
 
     class concrete_widget : public widget_type
@@ -205,7 +205,7 @@ namespace
                 std::make_pair(1, 1),
                 string_type(),
                 details_font_type(
-                    std::wstring(), 12, false, false, false, false
+                    std::string(), 12, false, false, false, false
                 ),
                 std::vector<void*>(),
                 false,
@@ -517,9 +517,9 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        widget.set_text(L"Tetengo");
+        widget.set_text("Tetengo");
 
-        BOOST_CHECK(widget.text() == L"Tetengo");
+        BOOST_CHECK(widget.text() == "Tetengo");
     }
 
     BOOST_AUTO_TEST_CASE(set_text)
@@ -528,9 +528,9 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        widget.set_text(L"Tetengo");
+        widget.set_text("Tetengo");
 
-        BOOST_CHECK(widget.text() == L"Tetengo");
+        BOOST_CHECK(widget.text() == "Tetengo");
     }
 
     BOOST_AUTO_TEST_CASE(background)
@@ -648,18 +648,18 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
             concrete_widget child1(&widget);
-            child1.set_text(L"hoge");
+            child1.set_text("hoge");
             concrete_widget child2(&widget);
-            child2.set_text(L"fuga");
+            child2.set_text("fuga");
 
             BOOST_CHECK_EQUAL(widget.children().size(), 2U);
             BOOST_CHECK(
-                widget.children()[0].get().text() == L"hoge" ||
-                widget.children()[1].get().text() == L"hoge"
+                widget.children()[0].get().text() == "hoge" ||
+                widget.children()[1].get().text() == "hoge"
             );
             BOOST_CHECK(
-                widget.children()[0].get().text() == L"fuga" ||
-                widget.children()[1].get().text() == L"fuga"
+                widget.children()[0].get().text() == "fuga" ||
+                widget.children()[1].get().text() == "fuga"
             );
         }
     }

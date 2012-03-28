@@ -64,11 +64,11 @@ namespace
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         internal_encoding_type;
 
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         ui_encoding_type;
 
     typedef
@@ -89,7 +89,7 @@ namespace
 
     typedef
         tetengo2::gui::drawing::font<
-            std::wstring, std::size_t, drawing_details_type
+            std::string, std::size_t, drawing_details_type
         >
         font_type;
 
@@ -112,7 +112,7 @@ namespace
     typedef
         tetengo2::gui::drawing::widget_canvas<
             std::size_t,
-            std::wstring,
+            std::string,
             dimension_type,
             ui_encoder_type,
             background_type,
@@ -145,7 +145,7 @@ namespace
 
     typedef
         tetengo2::gui::virtual_key<
-            std::wstring, tetengo2::detail::stub::virtual_key
+            std::string, tetengo2::detail::stub::virtual_key
         >
         virtual_key_type;
 
@@ -155,7 +155,7 @@ namespace
             alert_type,
             position_type,
             dimension_type,
-            std::wstring,
+            std::string,
             ui_encoder_type,
             background_type,
             font_type,
@@ -174,7 +174,7 @@ namespace
 
     typedef
         tetengo2::gui::menu::traits<
-            std::wstring,
+            std::string,
             shortcut_key_type,
             ui_encoder_type,
             tetengo2::gui::message::menu_observer_set
@@ -237,7 +237,7 @@ namespace
     typedef
         tetengo2::gui::common_dialog::message_box<
             abstract_window_type,
-            std::wstring,
+            std::string,
             ui_encoder_type,
             tetengo2::detail::stub::common_dialog
         >
@@ -245,7 +245,7 @@ namespace
 
     typedef
         tetengo2::gui::common_dialog::message_box_style::button_style<
-            std::wstring
+            std::string
         >
         button_style_type;
 
@@ -265,9 +265,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
 
         {
             window_type parent;
-            const std::wstring title;
-            const std::wstring main_content;
-            const std::wstring sub_content;
+            const std::string title;
+            const std::string main_content;
+            const std::string sub_content;
             const message_box_type message_box(
                 parent,
                 title,
@@ -284,9 +284,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const std::wstring title;
-        const std::wstring main_content;
-        const std::wstring sub_content;
+        const std::string title;
+        const std::string main_content;
+        const std::string sub_content;
         message_box_type message_box(
             parent,
             title,
@@ -305,9 +305,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
 
         {
             window_type parent;
-            const std::wstring title;
-            const std::wstring main_content;
-            const std::wstring sub_content;
+            const std::string title;
+            const std::string main_content;
+            const std::string sub_content;
             const message_box_type message_box(
                 parent,
                 title,
@@ -321,9 +321,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
         }
         {
             window_type parent;
-            const std::wstring title;
-            const std::wstring main_content;
-            const std::wstring sub_content;
+            const std::string title;
+            const std::string main_content;
+            const std::string sub_content;
             message_box_type message_box(
                 parent,
                 title,

@@ -64,11 +64,11 @@ namespace
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         internal_encoding_type;
 
     typedef
-        tetengo2::text::encoding::locale<std::wstring, encoding_details_type>
+        tetengo2::text::encoding::locale<std::string, encoding_details_type>
         ui_encoding_type;
 
     typedef
@@ -89,7 +89,7 @@ namespace
 
     typedef
         tetengo2::gui::drawing::font<
-            std::wstring, std::size_t, drawing_details_type
+            std::string, std::size_t, drawing_details_type
         >
         font_type;
 
@@ -112,7 +112,7 @@ namespace
     typedef
         tetengo2::gui::drawing::widget_canvas<
             std::size_t,
-            std::wstring,
+            std::string,
             dimension_type,
             ui_encoder_type,
             background_type,
@@ -145,7 +145,7 @@ namespace
 
     typedef
         tetengo2::gui::virtual_key<
-            std::wstring, tetengo2::detail::stub::virtual_key
+            std::string, tetengo2::detail::stub::virtual_key
         >
         virtual_key_type;
 
@@ -155,7 +155,7 @@ namespace
             alert_type,
             position_type,
             dimension_type,
-            std::wstring,
+            std::string,
             ui_encoder_type,
             background_type,
             font_type,
@@ -174,7 +174,7 @@ namespace
 
     typedef
         tetengo2::gui::menu::traits<
-            std::wstring,
+            std::string,
             shortcut_key_type,
             ui_encoder_type,
             tetengo2::gui::message::menu_observer_set
@@ -237,7 +237,7 @@ namespace
     typedef
         tetengo2::gui::common_dialog::file_save<
             abstract_window_type,
-            std::wstring,
+            std::string,
             boost::filesystem::path,
             ui_encoder_type,
             tetengo2::detail::stub::common_dialog
@@ -251,7 +251,7 @@ namespace
     {
         file_save_dialog_type::file_filters_type filters;
 
-        filters.push_back(std::make_pair(L"All Files", L"*.*"));
+        filters.push_back(std::make_pair("All Files", "*.*"));
 
         return filters;
     }
@@ -273,13 +273,13 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                std::wstring(), boost::none, make_file_filters(), parent
+                std::string(), boost::none, make_file_filters(), parent
             );
         }
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                L"hoge",
+                "hoge",
                 boost::none,
                 file_save_dialog_type::file_filters_type(),
                 parent
@@ -288,7 +288,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                L"hoge", boost::none, make_file_filters(), parent
+                "hoge", boost::none, make_file_filters(), parent
             );
         }
     }
@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                L"hoge", boost::none, make_file_filters(), parent
+                "hoge", boost::none, make_file_filters(), parent
             );
 
             BOOST_CHECK(file_save.result().empty());
@@ -308,7 +308,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             file_save_dialog_type file_save(
-                L"hoge", boost::none, make_file_filters(), parent
+                "hoge", boost::none, make_file_filters(), parent
             );
 
             file_save.do_modal();
@@ -318,8 +318,8 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                L"hoge",
-                boost::make_optional(boost::filesystem::path(L"fuga.jpg")),
+                "hoge",
+                boost::make_optional(boost::filesystem::path("fuga.jpg")),
                 make_file_filters(),
                 parent
             );
@@ -329,8 +329,8 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             file_save_dialog_type file_save(
-                L"hoge",
-                boost::make_optional(boost::filesystem::path(L"fuga.jpg")),
+                "hoge",
+                boost::make_optional(boost::filesystem::path("fuga.jpg")),
                 make_file_filters(),
                 parent
             );
@@ -347,7 +347,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
 
         window_type parent;
         file_save_dialog_type file_save(
-            L"hoge", boost::none, make_file_filters(), parent
+            "hoge", boost::none, make_file_filters(), parent
         );
 
         file_save.do_modal();
@@ -360,7 +360,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                L"hoge", boost::none, make_file_filters(), parent
+                "hoge", boost::none, make_file_filters(), parent
             );
 
             file_save.details();
@@ -368,7 +368,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             file_save_dialog_type file_save(
-                L"hoge", boost::none, make_file_filters(), parent
+                "hoge", boost::none, make_file_filters(), parent
             );
 
             file_save.details();
