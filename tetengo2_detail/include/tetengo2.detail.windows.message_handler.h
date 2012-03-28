@@ -650,7 +650,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
                 if (!control.paint_observer_set().paint_background().empty())
                 {
-                    typename Control::base_type::canvas_type canvas(
+                    typename Control::base_type::widget_canvas_type canvas(
                         device_context
                     );
                     control.paint_observer_set().paint_background()(canvas);
