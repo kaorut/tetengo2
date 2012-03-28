@@ -50,6 +50,7 @@
 #include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.keyboard_observer_set.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
+#include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.virtual_key.h"
@@ -393,6 +394,7 @@ namespace test_tetengo2 { namespace gui
     {
         struct focus_observer_set; //!< The focus observer set type.
         struct keyboard_observer_set; //!< The keyboard observer set type.
+        struct mouse_observer_set; //!< The mouse observer set type.
         struct menu_observer_set; //!< The menu observer set type.
     }}
 
@@ -415,11 +417,16 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::observer_set::mouse_observer_set,
+                tetengo2::gui::message::mouse_observer_set
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::observer_set::menu_observer_set,
                 tetengo2::gui::message::menu_observer_set
             >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         observer_set_type_list;
 
 
