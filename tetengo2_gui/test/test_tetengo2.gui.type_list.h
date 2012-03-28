@@ -97,7 +97,7 @@ namespace test_tetengo2 { namespace gui
         struct string;         //!< The string type.
         struct exception_string; //!< The exception string type.
         struct path;           //!< The path type.
-        struct encoder;        //!< The encoder type.
+        struct ui_encoder;     //!< The UI encoder type.
         struct exception_encoder; //!< The exception encoder type.
     }
 
@@ -114,9 +114,9 @@ namespace test_tetengo2 { namespace gui
             internal_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
-                string_type, encoding_details_type
+                std::string, encoding_details_type
             >
-            encoding_type;
+            ui_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
                 exception_string_type, encoding_details_type
@@ -141,9 +141,9 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<type::path, boost::filesystem::path>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::encoder,
+                type::ui_encoder,
                 tetengo2::text::encoder<
-                    detail::internal_encoding_type, detail::encoding_type
+                    detail::internal_encoding_type, detail::ui_encoding_type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -174,7 +174,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::gui_common::alert,
                 tetengo2::gui::alert<
-                    boost::mpl::at<type_list, type::encoder>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
                     boost::mpl::at<type_list, type::exception_encoder>::type,
                     tetengo2::detail::stub::alert
                 >
@@ -394,7 +394,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::size>::type,
                     boost::mpl::at<type_list, type::string>::type,
                     detail::drawing::dimension_type,
-                    boost::mpl::at<type_list, type::encoder>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::drawing::background_type,
                     detail::drawing::font_type,
                     detail::drawing::picture_type,
@@ -408,7 +408,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::size>::type,
                     boost::mpl::at<type_list, type::string>::type,
                     detail::drawing::dimension_type,
-                    boost::mpl::at<type_list, type::encoder>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::drawing::background_type,
                     detail::drawing::font_type,
                     detail::drawing::picture_type,
@@ -508,7 +508,7 @@ namespace test_tetengo2 { namespace gui
             tetengo2::gui::menu::traits<
                 boost::mpl::at<type_list, type::string>::type,
                 shortcut_key_type,
-                boost::mpl::at<type_list, type::encoder>::type,
+                boost::mpl::at<type_list, type::ui_encoder>::type,
                 boost::mpl::at<
                     observer_set_type_list,
                     type::observer_set::menu_observer_set
@@ -645,7 +645,7 @@ namespace test_tetengo2 { namespace gui
                 position_type,
                 dimension_type,
                 boost::mpl::at<type_list, type::string>::type,
-                boost::mpl::at<type_list, type::encoder>::type,
+                boost::mpl::at<type_list, type::ui_encoder>::type,
                 boost::mpl::at<
                     drawing_type_list, type::drawing::background
                 >::type,

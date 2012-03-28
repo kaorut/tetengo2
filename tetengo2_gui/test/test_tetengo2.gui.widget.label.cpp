@@ -9,6 +9,8 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.text.h"
+
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -29,6 +31,12 @@ namespace
             test_tetengo2::gui::type::drawing::dimension
         >::type
         dimension_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
+        >::type
+        string_type;
 
     typedef
         boost::mpl::at<
@@ -61,14 +69,16 @@ BOOST_AUTO_TEST_SUITE(label)
 
         window_type parent;
         label_type label(parent);
-        label.set_text("Tetengo");
+        label.set_text(string_type(TETENGO2_TEXT("Tetengo")));
 
         label.fit_to_content();
 
         const dimension_type dimension = label.dimension();
 
         const dimension_type answer_dimension =
-            label.create_canvas()->calc_text_dimension("Tetengo");
+            label.create_canvas()->calc_text_dimension(
+                string_type(TETENGO2_TEXT("Tetengo"))
+            );
         BOOST_CHECK(dimension == answer_dimension);
     }
 
