@@ -14,6 +14,8 @@
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include "tetengo2.text.h"
+
 #include "test_tetengo2.gui.type_list.h"
 
 
@@ -30,6 +32,12 @@ namespace
 
     typedef
         boost::mpl::at<
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
             test_tetengo2::gui::common_dialog_type_list,
             test_tetengo2::gui::type::common_dialog::file_save
         >::type
@@ -42,7 +50,12 @@ namespace
     {
         file_save_dialog_type::file_filters_type filters;
 
-        filters.push_back(std::make_pair("All Files", "*.*"));
+        filters.push_back(
+            std::make_pair(
+                string_type(TETENGO2_TEXT("All Files")),
+                string_type(TETENGO2_TEXT("*.*"))
+            )
+        );
 
         return filters;
     }
@@ -64,13 +77,13 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                std::string(), boost::none, make_file_filters(), parent
+                string_type(), boost::none, make_file_filters(), parent
             );
         }
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                "hoge",
+                string_type(TETENGO2_TEXT("hoge")),
                 boost::none,
                 file_save_dialog_type::file_filters_type(),
                 parent
@@ -79,7 +92,10 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                "hoge", boost::none, make_file_filters(), parent
+                string_type(TETENGO2_TEXT("hoge")),
+                boost::none,
+                make_file_filters(),
+                parent
             );
         }
     }
@@ -91,7 +107,10 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                "hoge", boost::none, make_file_filters(), parent
+                string_type(TETENGO2_TEXT("hoge")),
+                boost::none,
+                make_file_filters(),
+                parent
             );
 
             BOOST_CHECK(file_save.result().empty());
@@ -99,7 +118,10 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             file_save_dialog_type file_save(
-                "hoge", boost::none, make_file_filters(), parent
+                string_type(TETENGO2_TEXT("hoge")),
+                boost::none,
+                make_file_filters(),
+                parent
             );
 
             file_save.do_modal();
@@ -109,7 +131,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                "hoge",
+                string_type(TETENGO2_TEXT("hoge")),
                 boost::make_optional(boost::filesystem::path("fuga.jpg")),
                 make_file_filters(),
                 parent
@@ -120,7 +142,7 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             file_save_dialog_type file_save(
-                "hoge",
+                string_type(TETENGO2_TEXT("hoge")),
                 boost::make_optional(boost::filesystem::path("fuga.jpg")),
                 make_file_filters(),
                 parent
@@ -138,7 +160,10 @@ BOOST_AUTO_TEST_SUITE(file_save)
 
         window_type parent;
         file_save_dialog_type file_save(
-            "hoge", boost::none, make_file_filters(), parent
+            string_type(TETENGO2_TEXT("hoge")),
+            boost::none,
+            make_file_filters(),
+            parent
         );
 
         file_save.do_modal();
@@ -151,7 +176,10 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             const file_save_dialog_type file_save(
-                "hoge", boost::none, make_file_filters(), parent
+                string_type(TETENGO2_TEXT("hoge")),
+                boost::none,
+                make_file_filters(),
+                parent
             );
 
             file_save.details();
@@ -159,7 +187,10 @@ BOOST_AUTO_TEST_SUITE(file_save)
         {
             window_type parent;
             file_save_dialog_type file_save(
-                "hoge", boost::none, make_file_filters(), parent
+                string_type(TETENGO2_TEXT("hoge")),
+                boost::none,
+                make_file_filters(),
+                parent
             );
 
             file_save.details();

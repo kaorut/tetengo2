@@ -26,10 +26,9 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::common_dialog_type_list,
-            test_tetengo2::gui::type::common_dialog::message_box
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
         >::type
-        message_box_type;
+        string_type;
 
     typedef
         boost::mpl::at<
@@ -37,6 +36,13 @@ namespace
             test_tetengo2::gui::type::common_dialog::button_style
         >::type
         button_style_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::common_dialog_type_list,
+            test_tetengo2::gui::type::common_dialog::message_box
+        >::type
+        message_box_type;
 
 
 }
@@ -54,9 +60,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
 
         {
             window_type parent;
-            const std::string title;
-            const std::string main_content;
-            const std::string sub_content;
+            const string_type title;
+            const string_type main_content;
+            const string_type sub_content;
             const message_box_type message_box(
                 parent,
                 title,
@@ -73,9 +79,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const std::string title;
-        const std::string main_content;
-        const std::string sub_content;
+        const string_type title;
+        const string_type main_content;
+        const string_type sub_content;
         message_box_type message_box(
             parent,
             title,
@@ -94,9 +100,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
 
         {
             window_type parent;
-            const std::string title;
-            const std::string main_content;
-            const std::string sub_content;
+            const string_type title;
+            const string_type main_content;
+            const string_type sub_content;
             const message_box_type message_box(
                 parent,
                 title,
@@ -110,9 +116,9 @@ BOOST_AUTO_TEST_SUITE(message_box)
         }
         {
             window_type parent;
-            const std::string title;
-            const std::string main_content;
-            const std::string sub_content;
+            const string_type title;
+            const string_type main_content;
+            const string_type sub_content;
             message_box_type message_box(
                 parent,
                 title,
