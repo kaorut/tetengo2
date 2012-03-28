@@ -18,6 +18,7 @@
 #include <boost/mpl/pair.hpp>
 
 #include "tetengo2.detail.stub.alert.h"
+#include "tetengo2.detail.stub.common_dialog.h"
 #include "tetengo2.detail.stub.cursor.h"
 #include "tetengo2.detail.stub.drawing.h"
 #include "tetengo2.detail.stub.encoding.h"
@@ -28,6 +29,7 @@
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.detail.stub.widget.h"
 #include "tetengo2.gui.alert.h"
+#include "tetengo2.gui.common_dialog.file_open.h"
 #include "tetengo2.gui.cursor.cursor_base.h"
 #include "tetengo2.gui.cursor.system.h"
 #include "tetengo2.gui.drawing.background.h"
@@ -831,6 +833,39 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>
         widget_type_list;
+
+
+    /**** Common Dialog *****************************************************/
+
+    namespace type { namespace common_dialog
+    {
+        struct file_open;      //!< The file open dialog type.
+    }}
+
+#if !defined(DOCUMENTATION)
+    namespace detail { namespace common_dialog
+    {
+        typedef
+            tetengo2::detail::stub::common_dialog common_dialog_details_type;
+    }}
+#endif
+
+    //! The common dialog type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::common_dialog::file_open,
+                tetengo2::gui::common_dialog::file_open<
+                    boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
+                    boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<type_list, type::path>::type,
+                    boost::mpl::at<type_list, type::ui_encoder>::type,
+                    detail::common_dialog::common_dialog_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        common_dialog_type_list;
 
 
 }}
