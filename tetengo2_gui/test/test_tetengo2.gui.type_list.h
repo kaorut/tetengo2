@@ -68,6 +68,7 @@
 #include "tetengo2.gui.widget.image.h"
 #include "tetengo2.gui.widget.label.h"
 #include "tetengo2.gui.widget.link_label.h"
+#include "tetengo2.gui.widget.text_box.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
 #include "tetengo2.gui.widget.traits.button_traits.h"
 #include "tetengo2.gui.widget.traits.control_traits.h"
@@ -75,6 +76,7 @@
 #include "tetengo2.gui.widget.traits.image_traits.h"
 #include "tetengo2.gui.widget.traits.label_traits.h"
 #include "tetengo2.gui.widget.traits.link_label_traits.h"
+#include "tetengo2.gui.widget.traits.text_box_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.gui.widget.traits.window_traits.h"
 #include "tetengo2.gui.widget.window.h"
@@ -610,6 +612,7 @@ namespace test_tetengo2 { namespace gui
         struct image;          //!< The image type.
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
+        struct text_box;       //!< The text box type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -735,6 +738,11 @@ namespace test_tetengo2 { namespace gui
                 >::type
             >
             link_label_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::text_box_traits<
+                control_traits_type
+            >
+            text_box_traits_type;
     }}
 #endif
 
@@ -808,8 +816,17 @@ namespace test_tetengo2 { namespace gui
                     detail::widget::message_handler_details_type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::widget::text_box,
+                tetengo2::gui::widget::text_box<
+                    detail::widget::text_box_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>>>>>
         widget_type_list;
 
 
