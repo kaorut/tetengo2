@@ -8,26 +8,22 @@
 
 #include <string>
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.detail.stub.virtual_key.h"
-#include "tetengo2.gui.virtual_key.h"
 
-#include "tetengo2.gui.message.keyboard_observer_set.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef tetengo2::detail::stub::virtual_key virtual_key_details_type;
-
     typedef
-        tetengo2::gui::virtual_key<std::string, virtual_key_details_type>
-        virtual_key_type;
-
-    typedef
-        tetengo2::gui::message::keyboard_observer_set<virtual_key_type, char>
+        boost::mpl::at<
+            test_tetengo2::gui::observer_set_type_list,
+            test_tetengo2::gui::type::observer_set::keyboard_observer_set
+        >::type
         keyboard_observer_set_type;
 
 
