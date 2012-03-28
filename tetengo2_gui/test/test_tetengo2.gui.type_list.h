@@ -114,7 +114,8 @@ namespace test_tetengo2 { namespace gui
             internal_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
-                std::string, encoding_details_type
+                tetengo2::detail::stub::widget::string_type,
+                encoding_details_type
             >
             ui_encoding_type;
         typedef
