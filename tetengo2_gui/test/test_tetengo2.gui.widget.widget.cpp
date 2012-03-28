@@ -36,15 +36,13 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::widget_type_list,
-            test_tetengo2::gui::type::widget::position
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::position
         >::type
         position_type;
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::widget_type_list,
-            test_tetengo2::gui::type::widget::dimension
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension
         >::type
         dimension_type;
 

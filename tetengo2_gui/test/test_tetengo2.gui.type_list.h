@@ -94,6 +94,8 @@ namespace test_tetengo2 { namespace gui
     {
         struct size;           //!< The size type.
         struct difference;     //!< The difference type.
+        struct position;       //!< The position type.
+        struct dimension;      //!< The dimension type.
         struct string;         //!< The string type.
         struct exception_string; //!< The exception string type.
         struct path;           //!< The path type.
@@ -104,6 +106,8 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail
     {
+        typedef std::size_t size_type;
+        typedef std::ptrdiff_t difference_type;
         typedef std::string string_type;
         typedef std::string exception_string_type;
         typedef tetengo2::detail::stub::encoding encoding_details_type;
@@ -129,9 +133,19 @@ namespace test_tetengo2 { namespace gui
     //! The common type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::size, std::size_t>,
+            boost::mpl::pair<type::size, detail::size_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::difference, std::ptrdiff_t>,
+            boost::mpl::pair<type::difference, detail::difference_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::position,
+                std::pair<detail::difference_type, detail::difference_type>
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::dimension,
+                std::pair<detail::size_type, detail::size_type>
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::string, detail::string_type>,
         tetengo2::meta::assoc_list<
@@ -156,7 +170,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>
+        >>>>>>>>>
         type_list;
 
 
@@ -272,7 +286,6 @@ namespace test_tetengo2 { namespace gui
 
     namespace type { namespace drawing
     {
-        struct dimension;
         struct color;          //!< The color type.
         struct system_color_set; //!< The system color set type.
         struct background;     //!< The background type.
@@ -290,14 +303,8 @@ namespace test_tetengo2 { namespace gui
 #if !defined(DOCUMENTATION)
     namespace detail { namespace drawing
     {
-        typedef tetengo2::detail::stub::drawing drawing_details_type;
-        typedef
-            std::pair<
-                boost::mpl::at<type_list, type::size>::type,
-                boost::mpl::at<type_list, type::size>::type
-            >
-            dimension_type;
         typedef tetengo2::gui::drawing::color<unsigned char> color_type;
+        typedef tetengo2::detail::stub::drawing drawing_details_type;
         typedef
             tetengo2::gui::drawing::background<drawing_details_type>
             background_type;
@@ -328,10 +335,6 @@ namespace test_tetengo2 { namespace gui
 
     //! The drawing type list.
     typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::dimension, detail::drawing::dimension_type
-            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::drawing::color, detail::drawing::color_type
@@ -394,7 +397,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::drawing::canvas<
                     boost::mpl::at<type_list, type::size>::type,
                     boost::mpl::at<type_list, type::string>::type,
-                    detail::drawing::dimension_type,
+                    boost::mpl::at<type_list, type::dimension>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::drawing::background_type,
                     detail::drawing::font_type,
@@ -408,7 +411,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::drawing::widget_canvas<
                     boost::mpl::at<type_list, type::size>::type,
                     boost::mpl::at<type_list, type::string>::type,
-                    detail::drawing::dimension_type,
+                    boost::mpl::at<type_list, type::dimension>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::drawing::background_type,
                     detail::drawing::font_type,
@@ -417,7 +420,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>
+        >>>>>>>>>>>>
         drawing_type_list;
 
 
@@ -606,8 +609,6 @@ namespace test_tetengo2 { namespace gui
 
     namespace type { namespace widget
     {
-        struct position;       //!< The position type.
-        struct dimension;      //!< The dimension type.
         struct widget;         //!< The widget type.
         struct abstract_window; //!< The abstract window type.
         struct window;         //!< The window type.
@@ -624,18 +625,6 @@ namespace test_tetengo2 { namespace gui
     namespace detail { namespace widget
     {
         typedef
-            std::pair<
-                boost::mpl::at<type_list, type::difference>::type,
-                boost::mpl::at<type_list, type::difference>::type
-            >
-            position_type;
-        typedef
-            std::pair<
-                boost::mpl::at<type_list, type::size>::type,
-                boost::mpl::at<type_list, type::size>::type
-            >
-            dimension_type;
-        typedef
             tetengo2::gui::widget::traits::widget_traits<
                 boost::mpl::at<
                     drawing_type_list, type::drawing::widget_canvas
@@ -643,8 +632,8 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<
                     gui_common_type_list, type::gui_common::alert
                 >::type,
-                position_type,
-                dimension_type,
+                boost::mpl::at<type_list, type::position>::type,
+                boost::mpl::at<type_list, type::dimension>::type,
                 boost::mpl::at<type_list, type::string>::type,
                 boost::mpl::at<type_list, type::ui_encoder>::type,
                 boost::mpl::at<
@@ -755,16 +744,6 @@ namespace test_tetengo2 { namespace gui
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::widget::position,
-                detail::widget::position_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::widget::dimension,
-                detail::widget::dimension_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
                 type::widget::widget,
                 tetengo2::gui::widget::widget<
                     detail::widget::widget_traits_type,
@@ -850,7 +829,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>
+        >>>>>>>>>>
         widget_type_list;
 
 

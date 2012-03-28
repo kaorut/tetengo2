@@ -25,8 +25,7 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::dimension
+            test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension
         >::type
         dimension_type;
 
