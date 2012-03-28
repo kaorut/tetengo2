@@ -87,6 +87,9 @@ BOOST_AUTO_TEST_SUITE(about)
         const about_type about(message_catalog, settings);
     }
 
+#if __CYGWIN__ && __GNUC__ == 4 && __GNUC_MINOR__ == 5 && __GNUC_PATCHLEVEL__ == 3
+#   warning "Somehow this test case does not compile in a certain environment."
+#else
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
@@ -101,7 +104,7 @@ BOOST_AUTO_TEST_SUITE(about)
         window_type parent;
         about(model, parent);
     }
-
+#endif
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
