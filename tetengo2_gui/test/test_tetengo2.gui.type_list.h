@@ -65,10 +65,12 @@
 #include "tetengo2.gui.widget.button.h"
 #include "tetengo2.gui.widget.control.h"
 #include "tetengo2.gui.widget.dialog.h"
+#include "tetengo2.gui.widget.image.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
 #include "tetengo2.gui.widget.traits.button_traits.h"
 #include "tetengo2.gui.widget.traits.control_traits.h"
 #include "tetengo2.gui.widget.traits.dialog_traits.h"
+#include "tetengo2.gui.widget.traits.image_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.gui.widget.traits.window_traits.h"
 #include "tetengo2.gui.widget.window.h"
@@ -601,6 +603,7 @@ namespace test_tetengo2 { namespace gui
         struct dialog;         //!< The dialog type.
         struct control;        //!< The control type.
         struct button;         //!< The button type.
+        struct image;          //!< The image type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -704,6 +707,14 @@ namespace test_tetengo2 { namespace gui
                 message_loop_break_type
             >
             dialog_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::image_traits<
+                control_traits_type,
+                boost::mpl::at<
+                    drawing_type_list, type::drawing::picture
+                >::type
+            >
+            image_traits_type;
     }}
 #endif
 
@@ -750,8 +761,17 @@ namespace test_tetengo2 { namespace gui
                     detail::widget::message_handler_details_type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::widget::image,
+                tetengo2::gui::widget::image<
+                    detail::widget::image_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         widget_type_list;
 
 
