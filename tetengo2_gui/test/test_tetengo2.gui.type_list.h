@@ -51,6 +51,7 @@
 #include "tetengo2.gui.message.keyboard_observer_set.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
+#include "tetengo2.gui.message.paint_observer_set.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.virtual_key.h"
@@ -396,6 +397,7 @@ namespace test_tetengo2 { namespace gui
         struct keyboard_observer_set; //!< The keyboard observer set type.
         struct mouse_observer_set; //!< The mouse observer set type.
         struct menu_observer_set; //!< The menu observer set type.
+        struct paint_observer_set; //!< The paint observer set type.
     }}
 
     //! The unit type list.
@@ -425,8 +427,17 @@ namespace test_tetengo2 { namespace gui
                 type::observer_set::menu_observer_set,
                 tetengo2::gui::message::menu_observer_set
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::observer_set::paint_observer_set,
+                tetengo2::gui::message::paint_observer_set<
+                    boost::mpl::at<
+                        drawing_type_list, type::drawing::canvas
+                    >::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         observer_set_type_list;
 
 
