@@ -60,6 +60,7 @@
 #include "tetengo2.gui.virtual_key.h"
 #include "tetengo2.gui.widget.abstract_window.h"
 #include "tetengo2.gui.widget.button.h"
+#include "tetengo2.gui.widget.control.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
 #include "tetengo2.gui.widget.traits.button_traits.h"
 #include "tetengo2.gui.widget.traits.control_traits.h"
@@ -592,6 +593,7 @@ namespace test_tetengo2 { namespace gui
     {
         struct abstract_window; //!< The abstract window type.
         struct window;         //!< The window type.
+        struct control;        //!< The control type.
         struct button;         //!< The button type.
     }}
 
@@ -695,6 +697,15 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::widget::control,
+                tetengo2::gui::widget::control<
+                    detail::widget::control_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::widget::button,
                 tetengo2::gui::widget::button<
                     detail::widget::button_traits_type,
@@ -703,7 +714,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         widget_type_list;
 
 
