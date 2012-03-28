@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <string>
 //#include <utility>
 
 //#include <boost/mpl/at.hpp>
@@ -75,7 +74,7 @@ BOOST_AUTO_TEST_SUITE(file_open)
         {
             window_type parent;
             const file_open_dialog_type file_open(
-                std::string(), make_file_filters(), parent
+                string_type(), make_file_filters(), parent
             );
         }
         {
