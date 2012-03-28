@@ -6,10 +6,6 @@
     $Id$
 */
 
-#if __CYGWIN__ && __GNUC__ == 4 && __GNUC_MINOR__ == 5 && __GNUC_PATCHLEVEL__ == 3
-#   warning "This file does not compile with g++ 4.5.3 on Cygwin."
-#else
-
 //#include <iterator>
 //#include <memory>
 #include <sstream>
@@ -26,6 +22,9 @@
 #include "test_tetengo2.type_list.h"
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 namespace
 {
     // types
@@ -147,13 +146,16 @@ namespace
 
 
 }
-
+#endif
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(message_catalog_parser)
     // test cases
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -164,7 +166,11 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
                 create_pull_parser(input_stream)
             );
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(has_next)
     {
         BOOST_TEST_PASSPOINT();
@@ -215,7 +221,11 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             BOOST_CHECK(p_parser->has_next());
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(peek)
     {
         BOOST_TEST_PASSPOINT();
@@ -270,7 +280,11 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             BOOST_CHECK(entry.second == string_type(TETENGO2_TEXT("Value1")));
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(next)
     {
         BOOST_TEST_PASSPOINT();
@@ -351,10 +365,9 @@ BOOST_AUTO_TEST_SUITE(message_catalog_parser)
             BOOST_CHECK(!p_parser->has_next());
         }
     }
-
-
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-
 #endif
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

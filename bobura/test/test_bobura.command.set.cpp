@@ -6,10 +6,6 @@
     $Id$
 */
 
-#if __CYGWIN__ && __GNUC__ == 4 && __GNUC_MINOR__ == 5 && __GNUC_PATCHLEVEL__ == 3
-#   warning "This file does not compile with g++ 4.5.3 on Cygwin."
-#else
-
 //#include <utility>
 //#include <vector>
 
@@ -101,6 +97,9 @@ BOOST_AUTO_TEST_SUITE(command)
 BOOST_AUTO_TEST_SUITE(set)
     // test cases
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -132,7 +131,11 @@ BOOST_AUTO_TEST_SUITE(set)
             message_catalog
         );
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(members)
     {
         BOOST_TEST_PASSPOINT();
@@ -172,10 +175,9 @@ BOOST_AUTO_TEST_SUITE(set)
         command_set.nop();
         command_set.save_to_file();
     }
-
-
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-
 #endif
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

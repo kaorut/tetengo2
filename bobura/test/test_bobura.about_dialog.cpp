@@ -55,8 +55,8 @@ BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(about_dialog)
     // test cases
 
-#if __CYGWIN__ && __GNUC__ == 4 && __GNUC_MINOR__ == 5 && __GNUC_PATCHLEVEL__ == 3
-#   warning "Somehow this test case does not compile in a certain environment."
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
 #else
     BOOST_AUTO_TEST_CASE(construction)
     {

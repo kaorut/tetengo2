@@ -6,10 +6,6 @@
     $Id$
 */
 
-#if __CYGWIN__ && __GNUC__ == 4 && __GNUC_MINOR__ == 5 && __GNUC_PATCHLEVEL__ == 3
-#   warning "This file does not compile with g++ 4.5.3 on Cygwin."
-#else
-
 #include <algorithm>
 #include <cassert>
 #include <stdexcept>
@@ -174,13 +170,20 @@ BOOST_AUTO_TEST_SUITE(grammar)
 BOOST_AUTO_TEST_SUITE(json)
     // test cases
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
 
         const grammar_type grammar;
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(on_structure_begin_end)
     {
         BOOST_TEST_PASSPOINT();
@@ -263,7 +266,11 @@ BOOST_AUTO_TEST_SUITE(json)
             );
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(on_value)
     {
         BOOST_TEST_PASSPOINT();
@@ -305,7 +312,11 @@ BOOST_AUTO_TEST_SUITE(json)
             );
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(parse)
     {
         BOOST_TEST_PASSPOINT();
@@ -374,7 +385,11 @@ BOOST_AUTO_TEST_SUITE(json)
             BOOST_CHECK(result);
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(json_text)
     {
         BOOST_TEST_PASSPOINT();
@@ -421,7 +436,11 @@ BOOST_AUTO_TEST_SUITE(json)
             BOOST_CHECK(!result);
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(value)
     {
         BOOST_TEST_PASSPOINT();
@@ -504,7 +523,11 @@ BOOST_AUTO_TEST_SUITE(json)
             BOOST_CHECK(result);
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(object)
     {
         BOOST_TEST_PASSPOINT();
@@ -589,7 +612,11 @@ BOOST_AUTO_TEST_SUITE(json)
             BOOST_CHECK(!result);
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(member)
     {
         BOOST_TEST_PASSPOINT();
@@ -645,7 +672,11 @@ BOOST_AUTO_TEST_SUITE(json)
             BOOST_CHECK(!result);
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(array)
     {
         BOOST_TEST_PASSPOINT();
@@ -728,7 +759,11 @@ BOOST_AUTO_TEST_SUITE(json)
             BOOST_CHECK(!result);
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(number)
     {
         BOOST_TEST_PASSPOINT();
@@ -892,7 +927,11 @@ BOOST_AUTO_TEST_SUITE(json)
             BOOST_CHECK(!result);
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(string)
     {
         BOOST_TEST_PASSPOINT();
@@ -993,11 +1032,10 @@ BOOST_AUTO_TEST_SUITE(json)
             BOOST_CHECK(!result);
         }
     }
+#endif
 
     
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
-
-#endif

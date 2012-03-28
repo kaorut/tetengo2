@@ -6,10 +6,6 @@
     $Id$
 */
 
-#if __CYGWIN__ && __GNUC__ == 4 && __GNUC_MINOR__ == 5 && __GNUC_PATCHLEVEL__ == 3
-#   warning "This file does not compile with g++ 4.5.3 on Cygwin."
-#else
-
 //#include <ios>
 //#include <locale>
 //#include <stdexcept>
@@ -26,6 +22,9 @@
 #include "test_tetengo2.type_list.h"
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 namespace
 {
     // types
@@ -117,13 +116,16 @@ namespace
 
 
 }
-
+#endif
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(messages)
     // test cases
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -152,7 +154,11 @@ BOOST_AUTO_TEST_SUITE(messages)
             BOOST_WARN_MESSAGE(false, "Locale not supported.");
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(do_open)
     {
         BOOST_TEST_PASSPOINT();
@@ -213,7 +219,11 @@ BOOST_AUTO_TEST_SUITE(messages)
             BOOST_WARN_MESSAGE(false, "Locale not supported.");
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(do_get)
     {
         BOOST_TEST_PASSPOINT();
@@ -362,7 +372,11 @@ BOOST_AUTO_TEST_SUITE(messages)
             BOOST_WARN_MESSAGE(false, "Locale not supported.");
         }
     }
+#endif
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(do_close)
     {
         BOOST_TEST_PASSPOINT();
@@ -427,10 +441,9 @@ BOOST_AUTO_TEST_SUITE(messages)
             BOOST_WARN_MESSAGE(false, "Locale not supported.");
         }
     }
-
-
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-
 #endif
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
