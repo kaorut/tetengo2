@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000152
-Added on    : 2012/02/23
-Depends on  : (none)
-Description : Unify bobura.types.h and test_bobura.types.h.
-------------------------------------------------------------------------------
 Number      : 00000153
 Added on    : 2012/02/28
 Depends on  : (none)
