@@ -387,6 +387,42 @@ namespace test_tetengo2 { namespace gui
         drawing_type_list;
 
 
+    /**** Observer Set ******************************************************/
+
+    namespace type { namespace observer_set
+    {
+        struct focus_observer_set; //!< The focus observer set type.
+        struct keyboard_observer_set; //!< The keyboard observer set type.
+        struct menu_observer_set; //!< The menu observer set type.
+    }}
+
+    //! The unit type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::observer_set::focus_observer_set,
+                tetengo2::gui::message::focus_observer_set
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::observer_set::keyboard_observer_set,
+                tetengo2::gui::message::keyboard_observer_set<
+                    boost::mpl::at<
+                        gui_common_type_list, type::gui_common::virtual_key
+                    >::type,
+                    boost::mpl::at<type_list, type::string>::type::value_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::observer_set::menu_observer_set,
+                tetengo2::gui::message::menu_observer_set
+            >,
+        tetengo2::meta::assoc_list_end
+        >>>
+        observer_set_type_list;
+
+
     /**** Menu **************************************************************/
 
     namespace type { namespace menu
@@ -418,7 +454,10 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<type_list, type::string>::type,
                 shortcut_key_type,
                 boost::mpl::at<type_list, type::encoder>::type,
-                tetengo2::gui::message::menu_observer_set
+                boost::mpl::at<
+                    observer_set_type_list,
+                    type::observer_set::menu_observer_set
+                >::type
             >
             menu_traits_type;
         typedef tetengo2::detail::stub::menu menu_details_type;
@@ -505,36 +544,6 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>
         menu_type_list;
-
-
-    /**** Observer Set ******************************************************/
-
-    namespace type { namespace observer_set
-    {
-        struct focus_observer_set; //!< The focus observer set type.
-        struct keyboard_observer_set; //!< The keyboard observer set type.
-    }}
-
-    //! The unit type list.
-    typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::observer_set::focus_observer_set,
-                tetengo2::gui::message::focus_observer_set
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::observer_set::keyboard_observer_set,
-                tetengo2::gui::message::keyboard_observer_set<
-                    boost::mpl::at<
-                        gui_common_type_list, type::gui_common::virtual_key
-                    >::type,
-                    boost::mpl::at<type_list, type::string>::type::value_type
-                >
-            >,
-        tetengo2::meta::assoc_list_end
-        >>
-        observer_set_type_list;
 
 
 }}
