@@ -23,6 +23,7 @@
 #include "tetengo2.detail.stub.encoding.h"
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
+#include "tetengo2.detail.stub.message_loop.h"
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.detail.stub.widget.h"
@@ -49,9 +50,11 @@
 #include "tetengo2.gui.menu.shortcut_key.h"
 #include "tetengo2.gui.menu.shortcut_key_table.h"
 #include "tetengo2.gui.menu.traits.h"
+#include "tetengo2.gui.message.dialog_message_loop.h"
 #include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.keyboard_observer_set.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
+#include "tetengo2.gui.message.message_loop_break.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
 #include "tetengo2.gui.message.window_observer_set.h"
@@ -61,9 +64,11 @@
 #include "tetengo2.gui.widget.abstract_window.h"
 #include "tetengo2.gui.widget.button.h"
 #include "tetengo2.gui.widget.control.h"
+#include "tetengo2.gui.widget.dialog.h"
 #include "tetengo2.gui.widget.traits.abstract_window_traits.h"
 #include "tetengo2.gui.widget.traits.button_traits.h"
 #include "tetengo2.gui.widget.traits.control_traits.h"
+#include "tetengo2.gui.widget.traits.dialog_traits.h"
 #include "tetengo2.gui.widget.traits.widget_traits.h"
 #include "tetengo2.gui.widget.traits.window_traits.h"
 #include "tetengo2.gui.widget.window.h"
@@ -593,6 +598,7 @@ namespace test_tetengo2 { namespace gui
     {
         struct abstract_window; //!< The abstract window type.
         struct window;         //!< The window type.
+        struct dialog;         //!< The dialog type.
         struct control;        //!< The control type.
         struct button;         //!< The button type.
     }}
@@ -672,6 +678,32 @@ namespace test_tetengo2 { namespace gui
                 abstract_window_traits_type
             >
             window_traits_type;
+        typedef
+            tetengo2::gui::widget::abstract_window<
+                abstract_window_traits_type,
+                widget_details_type,
+                message_handler_details_type
+            >
+            abstract_window_type;
+        typedef
+            tetengo2::detail::stub::message_loop message_loop_details_type;
+        typedef
+            tetengo2::gui::message::dialog_message_loop<
+                abstract_window_type, message_loop_details_type
+            >
+            dialog_message_loop_type;
+        typedef
+            tetengo2::gui::message::message_loop_break<
+                message_loop_details_type
+            >
+            message_loop_break_type;
+        typedef
+            tetengo2::gui::widget::traits::dialog_traits<
+                abstract_window_traits_type,
+                dialog_message_loop_type,
+                message_loop_break_type
+            >
+            dialog_traits_type;
     }}
 #endif
 
@@ -680,17 +712,22 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::abstract_window,
-                tetengo2::gui::widget::abstract_window<
-                    detail::widget::abstract_window_traits_type,
-                    detail::widget::widget_details_type,
-                    detail::widget::message_handler_details_type
-                >
+                detail::widget::abstract_window_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::window,
                 tetengo2::gui::widget::window<
                     detail::widget::window_traits_type,
+                    detail::widget::widget_details_type,
+                    detail::widget::message_handler_details_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::widget::dialog,
+                tetengo2::gui::widget::dialog<
+                    detail::widget::dialog_traits_type,
                     detail::widget::widget_details_type,
                     detail::widget::message_handler_details_type
                 >
@@ -714,7 +751,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         widget_type_list;
 
 
