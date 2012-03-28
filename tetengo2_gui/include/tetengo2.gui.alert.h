@@ -168,12 +168,8 @@ namespace tetengo2 { namespace gui
                 alert_details_type::show_task_dialog(
                     m_widget_handle,
                     string_type(TETENGO2_TEXT("Alert")),
-                    ui_encoder().encode(
-                        exception_encoder().decode(typeid(exception).name())
-                    ),
-                    ui_encoder().encode(
-                        exception_encoder().decode(exception.what())
-                    ),
+                    exception_encoder().decode(typeid(exception).name()),
+                    exception_encoder().decode(exception.what()),
                     string_type(TETENGO2_TEXT("Unknown Source File")),
                     0,
                     ui_encoder()

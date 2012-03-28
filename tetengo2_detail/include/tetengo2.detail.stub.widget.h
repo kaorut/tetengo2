@@ -39,6 +39,9 @@ namespace tetengo2 { namespace detail { namespace stub
     public:
         // types
 
+        //! The string type.
+        typedef std::string string_type;
+
         //! The widget details type.
         typedef
             std::tuple<
@@ -58,10 +61,10 @@ namespace tetengo2 { namespace detail { namespace stub
                 std::pair<std::size_t, std::size_t>,
 
                 // details_text: text
-                std::string,
+                string_type,
 
                 // details_font: font
-                std::tuple<std::string, std::size_t, bool, bool, bool, bool>,
+                std::tuple<string_type, std::size_t, bool, bool, bool, bool>,
 
                 // details_children: children
                 std::vector<void*>,
@@ -838,7 +841,7 @@ namespace tetengo2 { namespace detail { namespace stub
         };
 
         typedef
-            std::tuple<std::string, std::size_t, bool, bool, bool, bool>
+            std::tuple<string_type, std::size_t, bool, bool, bool, bool>
             details_font_type;
 
 
@@ -854,9 +857,9 @@ namespace tetengo2 { namespace detail { namespace stub
                     true,
                     std::make_pair(0, 0),
                     std::make_pair(1, 1),
-                    std::string(),
+                    string_type(),
                     details_font_type(
-                        std::string(), 12, false, false, false, false
+                        string_type(), 12, false, false, false, false
                     ),
                     std::vector<void*>(),
                     false,

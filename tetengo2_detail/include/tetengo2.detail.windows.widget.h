@@ -71,6 +71,9 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // types
 
+        //! The string type.
+        typedef std::wstring string_type;
+
         //! The widget details type.
         typedef
             std::tuple<

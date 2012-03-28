@@ -202,11 +202,9 @@ namespace bobura
             internal_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
-#if defined(USE_TYPES_FOR_APPLICATION)
-                std::wstring,
-#else
-                std::string,
-#endif
+                boost::mpl::at<
+                    detail_type_list, type::detail::widget
+                >::type::string_type,
                 boost::mpl::at<detail_type_list, type::detail::encoding>::type
             >
             ui_encoding_type;
