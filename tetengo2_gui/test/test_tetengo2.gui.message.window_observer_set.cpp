@@ -6,9 +6,25 @@
     $Id$
 */
 
+//#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.message.window_observer_set.h"
+#include "test_tetengo2.gui.type_list.h"
+
+
+namespace
+{
+    // types
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::observer_set_type_list,
+            test_tetengo2::gui::type::observer_set::window_observer_set
+        >::type
+        window_observer_set_type;
+
+
+}
 
 
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
@@ -22,12 +38,12 @@ BOOST_AUTO_TEST_SUITE(window_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::message::window_observer_set observer_set;
+            const window_observer_set_type observer_set;
 
             observer_set.closing();
         }
         {
-            tetengo2::gui::message::window_observer_set observer_set;
+            window_observer_set_type observer_set;
 
             observer_set.closing();
         }
@@ -38,12 +54,12 @@ BOOST_AUTO_TEST_SUITE(window_observer_set)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::message::window_observer_set observer_set;
+            const window_observer_set_type observer_set;
 
             observer_set.destroyed();
         }
         {
-            tetengo2::gui::message::window_observer_set observer_set;
+            window_observer_set_type observer_set;
 
             observer_set.destroyed();
         }
