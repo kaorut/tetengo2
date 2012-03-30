@@ -101,9 +101,6 @@ namespace bobura { namespace load_save
         bool operator()(model_type& model, abstract_window_type& parent)
         const
         {
-            if (!m_ask_file_path && !model.changed())
-                return false;
-
             path_type path;
             if (!model.has_path() || m_ask_file_path)
             {
@@ -124,6 +121,9 @@ namespace bobura { namespace load_save
             }
             else
             {
+                if (!model.changed())
+                    return false;
+
                 path = model.path();
             }
 
