@@ -9,11 +9,30 @@
 ------------------------------------------------------------------------------
 Number      : 00000153
 Added on    : 2012/02/28
-Depends on  : (none)
-Description : Create bobura::model::serializer::compressed_json_reader and
-            : compressed_json_writer.
+Depends on  : 00000155, 00000157
+Description : Support a bzip2ed format.
 ------------------------------------------------------------------------------
 Number      : 00000154
+Added on    : 2012/03/31
+Depends on  : (none)
+Description : Create bobura::model::serializer::writer_set.
+------------------------------------------------------------------------------
+Number      : 00000155
+Added on    : 2012/03/31
+Depends on  : 00000154
+Description : Create bobura::model::serializer::gzip2_writer.
+------------------------------------------------------------------------------
+Number      : 00000156
+Added on    : 2012/03/31
+Depends on  : (none)
+Description : Create bobura::model::serializer::reader_set.
+------------------------------------------------------------------------------
+Number      : 00000157
+Added on    : 2012/03/31
+Depends on  : 00000156
+Description : Create bobura::model::serializer::bzip2_reader.
+------------------------------------------------------------------------------
+Number      : 00000158
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
