@@ -134,6 +134,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 detail::file_open_dialog_ptr_type,
                 ::HWND,
                 std::wstring,
+                std::wstring,
                 detail::native_filters_type
             >
             file_open_dialog_details_type;
@@ -147,6 +148,7 @@ namespace tetengo2 { namespace detail { namespace windows
             std::tuple<
                 detail::file_save_dialog_ptr_type,
                 ::HWND,
+                std::wstring,
                 std::wstring,
                 std::wstring,
                 detail::native_filters_type
@@ -337,6 +339,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::move(p_dialog),
                 std::get<0>(*parent.details()).get(),
                 encoder.encode(std::forward<String>(title)),
+                encoder.encode(to_default_extension(filters)),
                 to_native_filters(filters, encoder)
             );
         }
@@ -373,8 +376,27 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
+            if (!std::get<4>(dialog).empty())
+            {
+                const ::HRESULT default_extension_set_result =
+                    std::get<0>(dialog)->SetDefaultExtension(
+                        std::get<3>(dialog).c_str()
+                    );
+                if (!SUCCEEDED(default_extension_set_result))
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(
+                                default_extension_set_result, win32_category()
+                            ),
+                            "Can't set default extension."
+                        )
+                    );
+                }
+            }
+
             std::vector< ::COMDLG_FILTERSPEC> filterspecs =
-                to_filterspecs(std::get<3>(dialog));
+                to_filterspecs(std::get<4>(dialog));
             const ::HRESULT filter_set_result =
                 std::get<0>(dialog)->SetFileTypes(
                     static_cast< ::UINT>(filterspecs.size()),
@@ -492,6 +514,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 encoder.encode(
                     to_native_path<String>(std::forward<OptionalPath>(path))
                 ),
+                encoder.encode(to_default_extension(filters)),
                 to_native_filters(filters, encoder)
             );
         }
@@ -571,8 +594,27 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             }
 
+            if (!std::get<4>(dialog).empty())
+            {
+                const ::HRESULT default_extension_set_result =
+                    std::get<0>(dialog)->SetDefaultExtension(
+                        std::get<4>(dialog).c_str()
+                    );
+                if (!SUCCEEDED(default_extension_set_result))
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(
+                                default_extension_set_result, win32_category()
+                            ),
+                            "Can't set default extension."
+                        )
+                    );
+                }
+            }
+
             std::vector< ::COMDLG_FILTERSPEC> filterspecs =
-                to_filterspecs(std::get<4>(dialog));
+                to_filterspecs(std::get<5>(dialog));
             const ::HRESULT filter_set_result =
                 std::get<0>(dialog)->SetFileTypes(
                     static_cast< ::UINT>(filterspecs.size()),
@@ -792,6 +834,14 @@ namespace tetengo2 { namespace detail { namespace windows
         static String to_native_path(OptionalPath&& path)
         {
             return path ? path->template string<String>() : String();
+        }
+
+        template <typename String>
+        static String to_default_extension(
+            const std::vector<std::pair<String, String>>& filters
+        )
+        {
+            return filters.empty() ? String() : filters[0].second;
         }
 
         template <typename String, typename Encoder>
