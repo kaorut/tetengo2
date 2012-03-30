@@ -238,6 +238,16 @@ namespace bobura { namespace load_save
             filters.push_back(
                 std::make_pair(
                     m_message_catalog.get(
+                        TETENGO2_TEXT(
+                            "Dialog:FileOpenSave:Timetable Files (Compressed)"
+                        )
+                    ),
+                    string_type(TETENGO2_TEXT("bttc"))
+                )
+            );
+            filters.push_back(
+                std::make_pair(
+                    m_message_catalog.get(
                         TETENGO2_TEXT("Dialog:FileOpenSave:All Files")
                     ),
                     string_type(TETENGO2_TEXT("*"))

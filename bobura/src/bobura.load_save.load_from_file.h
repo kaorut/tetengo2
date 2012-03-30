@@ -225,7 +225,7 @@ namespace bobura { namespace load_save
             //                "Dialog:FileOpenSave:Timetable Files (Compressed)"
             //            )
             //        ),
-            //        string_type(TETENGO2_TEXT("btt.bz2"))
+            //        string_type(TETENGO2_TEXT("bttc"))
             //    )
             //);
             filters.push_back(
