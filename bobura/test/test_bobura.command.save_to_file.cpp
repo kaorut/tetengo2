@@ -93,7 +93,10 @@ BOOST_AUTO_TEST_SUITE(save_to_file_command)
         model_type model;
         window_type parent;
         save_to_file_command(model, parent);
-    }
+
+        BOOST_CHECK(boost::filesystem::exists(model.path()));
+        boost::filesystem::remove(model.path());
+}
 
 
 BOOST_AUTO_TEST_SUITE_END()

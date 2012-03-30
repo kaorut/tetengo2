@@ -78,6 +78,22 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             window_type parent;
             const bool result = save_to_file(model, parent);
 
+            BOOST_CHECK(result);
+            BOOST_CHECK(boost::filesystem::exists(model.path()));
+            boost::filesystem::remove(model.path());
+        }
+        {
+            writer_type writer;
+            const message_catalog_type message_catalog;
+            const save_to_file_type save_to_file(
+                false, writer, message_catalog
+            );
+
+            model_type model;
+            model.set_path(boost::filesystem::path("test"));
+            window_type parent;
+            const bool result = save_to_file(model, parent);
+
             BOOST_CHECK(!result);
         }
         {
