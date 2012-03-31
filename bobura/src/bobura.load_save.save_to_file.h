@@ -72,17 +72,14 @@ namespace bobura { namespace load_save
             \param ask_file_path     Set true to show a file selection dialog.
                                      When the model does not have a path, a
                                      file selection dialog is always shown.
-            \param writer            A writer.
             \param message_catalog   A message catalog.
         */
         save_to_file(
             const bool                    ask_file_path,
-            writer_type&                  writer,
             const message_catalog_type&   message_catalog
         )
         :
         m_ask_file_path(ask_file_path),
-        m_writer(writer),
         m_message_catalog(message_catalog)
         {}
 
@@ -139,7 +136,8 @@ namespace bobura { namespace load_save
                     return false;
                 }
 
-                m_writer.write(model.timetable(), output_stream);
+                writer_type writer;
+                writer.write(model.timetable(), output_stream);
             }
 
             {
@@ -173,8 +171,6 @@ namespace bobura { namespace load_save
         // variables
 
         const bool m_ask_file_path;
-
-        writer_type& m_writer;
 
         const message_catalog_type& m_message_catalog;
 

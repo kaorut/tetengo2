@@ -58,9 +58,8 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
     {
         BOOST_TEST_PASSPOINT();
 
-        writer_type writer;
         const message_catalog_type message_catalog;
-        const save_to_file_type save_to_file(false, writer, message_catalog);
+        const save_to_file_type save_to_file(false, message_catalog);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -68,11 +67,8 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
         BOOST_TEST_PASSPOINT();
 
         {
-            writer_type writer;
             const message_catalog_type message_catalog;
-            const save_to_file_type save_to_file(
-                false, writer, message_catalog
-            );
+            const save_to_file_type save_to_file(false, message_catalog);
 
             model_type model;
             window_type parent;
@@ -83,11 +79,8 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             boost::filesystem::remove(model.path());
         }
         {
-            writer_type writer;
             const message_catalog_type message_catalog;
-            const save_to_file_type save_to_file(
-                false, writer, message_catalog
-            );
+            const save_to_file_type save_to_file(false, message_catalog);
 
             model_type model;
             model.set_path(boost::filesystem::path("test"));
@@ -97,11 +90,8 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             BOOST_CHECK(!result);
         }
         {
-            writer_type writer;
             const message_catalog_type message_catalog;
-            const save_to_file_type save_to_file(
-                false, writer, message_catalog
-            );
+            const save_to_file_type save_to_file(false, message_catalog);
 
             model_type model;
             model.set_changed(true);
@@ -113,11 +103,8 @@ BOOST_AUTO_TEST_SUITE(save_to_file)
             boost::filesystem::remove(model.path());
         }
         {
-            writer_type writer;
             const message_catalog_type message_catalog;
-            const save_to_file_type save_to_file(
-                true, writer, message_catalog
-            );
+            const save_to_file_type save_to_file(true, message_catalog);
 
             model_type model;
             window_type parent;

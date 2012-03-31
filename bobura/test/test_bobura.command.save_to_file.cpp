@@ -73,9 +73,8 @@ BOOST_AUTO_TEST_SUITE(save_to_file_command)
     {
         BOOST_TEST_PASSPOINT();
 
-        writer_type writer;
         const message_catalog_type message_catalog;
-        const save_to_file_type save_to_file(false, writer, message_catalog);
+        const save_to_file_type save_to_file(false, message_catalog);
         const save_to_file_command_type save_to_file_command(save_to_file);
     }
 
@@ -83,11 +82,8 @@ BOOST_AUTO_TEST_SUITE(save_to_file_command)
     {
         BOOST_TEST_PASSPOINT();
 
-        writer_type writer;
         const message_catalog_type message_catalog;
-        const save_to_file_type save_to_file(
-            false, writer, message_catalog
-        );
+        const save_to_file_type save_to_file(false, message_catalog);
         const save_to_file_command_type save_to_file_command(save_to_file);
 
         model_type model;

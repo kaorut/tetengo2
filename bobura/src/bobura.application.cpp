@@ -150,12 +150,11 @@ namespace bobura
         int run()
         {
             const message_catalog_type message_catalog;
-            writer_type writer;
             const save_to_file_type save_to_file(
-                false, writer, message_catalog
+                false, message_catalog
             );
             const save_to_file_type ask_file_path_and_save_to_file(
-                true, writer, message_catalog
+                true, message_catalog
             );
             const confirm_file_save_type confirm_file_save(
                 m_model, save_to_file, message_catalog
