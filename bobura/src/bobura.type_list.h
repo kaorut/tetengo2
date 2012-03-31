@@ -370,9 +370,9 @@ namespace bobura
             boost::mpl::pair<
                 type::model::reader,
                 model::serializer::json_reader<
+                    boost::mpl::at<common_type_list, type::pull_parser>::type,
                     detail::model::timetable_type,
                     detail::model::station_grade_type_set_type,
-                    boost::mpl::at<common_type_list, type::pull_parser>::type,
                     boost::mpl::at<
                         locale_type_list, type::locale::timetable_file_encoder
                     >::type
@@ -382,11 +382,11 @@ namespace bobura
             boost::mpl::pair<
                 type::model::writer,
                 model::serializer::json_writer<
-                    detail::model::timetable_type,
-                    detail::model::station_grade_type_set_type,
                     boost::mpl::at<
                         common_type_list, type::output_stream
                     >::type,
+                    detail::model::timetable_type,
+                    detail::model::station_grade_type_set_type,
                     boost::mpl::at<
                         locale_type_list, type::locale::timetable_file_encoder
                     >::type

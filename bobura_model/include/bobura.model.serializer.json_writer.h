@@ -32,15 +32,15 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a JSON writer.
 
+        \tparam OutputStream        A output stream type.
         \tparam Timetable           A timetable type.
         \tparam StationGradeTypeSet A station grade type set.
-        \tparam OutputStream        A output stream type.
         \tparam Encoder             An encoder type.
     */
     template <
+        typename OutputStream,
         typename Timetable,
         typename StationGradeTypeSet,
-        typename OutputStream,
         typename Encoder
     >
     class json_writer : public writer<OutputStream, Timetable>
@@ -48,14 +48,14 @@ namespace bobura { namespace model { namespace serializer
     public:
         // types
 
+        //! The output stream type.
+        typedef OutputStream output_stream_type;
+
         //! The timetable type.
         typedef Timetable timetable_type;
 
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
-
-        //! The output stream type.
-        typedef OutputStream output_stream_type;
 
         //! The base type.
         typedef writer<output_stream_type, timetable_type> base_type;

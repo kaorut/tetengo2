@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_SUITE(writer)
         const concrete_writer writer;
     }
 
-    BOOST_AUTO_TEST_CASE(read)
+    BOOST_AUTO_TEST_CASE(write)
     {
         BOOST_TEST_PASSPOINT();
 

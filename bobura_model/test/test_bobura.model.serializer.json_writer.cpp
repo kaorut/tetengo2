@@ -271,7 +271,7 @@ BOOST_AUTO_TEST_SUITE(json_writer)
         const writer_type json_writer;
     }
 
-    BOOST_AUTO_TEST_CASE(read)
+    BOOST_AUTO_TEST_CASE(write)
     {
         BOOST_TEST_PASSPOINT();
 

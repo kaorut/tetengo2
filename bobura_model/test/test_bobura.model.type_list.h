@@ -230,13 +230,13 @@ namespace test_bobura { namespace model
             boost::mpl::pair<
                 type::serialization::json_reader,
                 bobura::model::serializer::json_reader<
+                    detail::serialization::pull_parser_type,
                     boost::mpl::at<
                         model_type_list, type::model::timetable
                     >::type,
                     boost::mpl::at<
                         model_type_list, type::model::grade_type_set
                     >::type,
-                    detail::serialization::pull_parser_type,
                     detail::serialization::timetable_file_encoder_type
                 >
             >,
@@ -254,13 +254,13 @@ namespace test_bobura { namespace model
             boost::mpl::pair<
                 type::serialization::json_writer,
                 bobura::model::serializer::json_writer<
+                    boost::mpl::at<type_list, type::output_stream>::type,
                     boost::mpl::at<
                         model_type_list, type::model::timetable
                     >::type,
                     boost::mpl::at<
                         model_type_list, type::model::grade_type_set
                     >::type,
-                    boost::mpl::at<type_list, type::output_stream>::type,
                     detail::serialization::timetable_file_encoder_type
                 >
             >,
