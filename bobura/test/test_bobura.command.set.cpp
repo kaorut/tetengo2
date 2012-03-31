@@ -33,12 +33,6 @@ namespace
 
     typedef
         boost::mpl::at<
-            bobura::model_type_list, bobura::type::model::writer
-        >::type
-        writer_type;
-
-    typedef
-        boost::mpl::at<
             bobura::load_save_type_list, bobura::type::load_save::save_to_file
         >::type
         save_to_file_type;
@@ -55,12 +49,6 @@ namespace
             bobura::load_save_type_list, bobura::type::load_save::new_file
         >::type
         new_file_type;
-
-    typedef
-        boost::mpl::at<
-            bobura::model_type_list, bobura::type::model::reader
-        >::type
-        reader_type;
 
     typedef
         boost::mpl::at<

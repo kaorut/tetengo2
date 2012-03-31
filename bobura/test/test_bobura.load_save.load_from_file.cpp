@@ -24,12 +24,6 @@ namespace
 
     typedef
         boost::mpl::at<
-            bobura::model_type_list, bobura::type::model::writer
-        >::type
-        writer_type;
-
-    typedef
-        boost::mpl::at<
             bobura::locale_type_list, bobura::type::locale::message_catalog
         >::type
         message_catalog_type;
@@ -46,12 +40,6 @@ namespace
             bobura::type::load_save::confirm_file_save
         >::type
         confirm_file_save_type;
-
-    typedef
-        boost::mpl::at<
-            bobura::model_type_list, bobura::type::model::reader
-        >::type
-        reader_type;
 
     typedef
         boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type

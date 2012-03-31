@@ -53,12 +53,6 @@ namespace
         message_catalog_type;
 
     typedef
-        boost::mpl::at<
-            bobura::model_type_list, bobura::type::model::writer
-        >::type
-        writer_type;
-
-    typedef
         boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type
         canvas_type;
 
