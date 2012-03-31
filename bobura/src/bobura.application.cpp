@@ -160,9 +160,8 @@ namespace bobura
                 m_model, save_to_file, message_catalog
             );
             const new_file_type new_file(confirm_file_save);
-            reader_type reader;
             const load_from_file_type load_from_file(
-                confirm_file_save, reader, message_catalog
+                confirm_file_save, message_catalog
             );
 
             const command_set_type command_set(

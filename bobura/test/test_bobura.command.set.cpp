@@ -114,9 +114,8 @@ BOOST_AUTO_TEST_SUITE(set)
             model, save_to_file, message_catalog
         );
         const new_file_type new_file(confirm_file_save);
-        reader_type reader;
         const load_from_file_type load_from_file(
-            confirm_file_save, reader, message_catalog
+            confirm_file_save, message_catalog
         );
         std::vector<string_type> arguments;
         path_type path;
@@ -149,9 +148,8 @@ BOOST_AUTO_TEST_SUITE(set)
             model, save_to_file, message_catalog
         );
         const new_file_type new_file(confirm_file_save);
-        reader_type reader;
         const load_from_file_type load_from_file(
-            confirm_file_save, reader, message_catalog
+            confirm_file_save, message_catalog
         );
         std::vector<string_type> arguments;
         path_type path;

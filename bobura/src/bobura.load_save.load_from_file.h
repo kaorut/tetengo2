@@ -76,17 +76,14 @@ namespace bobura { namespace load_save
             \brief Creates a file loading.
 
             \param confirm_file_save A file save confirmation.
-            \param reader            A reader.
             \param message_catalog   A message catalog.
         */
         load_from_file(
             const confirm_file_save_type& confirm_file_save,
-            reader_type&                  reader,
             const message_catalog_type&   message_catalog
         )
         :
         m_confirm_file_save(confirm_file_save),
-        m_reader(reader),
         m_message_catalog(message_catalog)
         {}
 
@@ -126,8 +123,9 @@ namespace bobura { namespace load_save
                 return;
             }
 
+            reader_type reader;
             std::unique_ptr<timetable_type> p_timetable =
-                m_reader.read(
+                reader.read(
                     boost::spirit::make_default_multi_pass(
                         std::istreambuf_iterator<char>(input_stream)
                     ),
@@ -158,8 +156,6 @@ namespace bobura { namespace load_save
         // variables
 
         const confirm_file_save_type& m_confirm_file_save;
-
-        reader_type& m_reader;
 
         const message_catalog_type& m_message_catalog;
 

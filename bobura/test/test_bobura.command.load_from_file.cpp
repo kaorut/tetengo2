@@ -103,9 +103,8 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         const confirm_file_save_type confirm_file_save(
             model, save_to_file, message_catalog
         );
-        reader_type reader;
         const load_from_file_type load_from_file(
-            confirm_file_save, reader, message_catalog
+            confirm_file_save, message_catalog
         );
         const load_from_file_command_type load_from_file_command(
             load_from_file
@@ -126,9 +125,8 @@ BOOST_AUTO_TEST_SUITE(load_from_file)
         const confirm_file_save_type confirm_file_save(
             model, save_to_file, message_catalog
         );
-        reader_type reader;
         const load_from_file_type load_from_file(
-            confirm_file_save, reader, message_catalog
+            confirm_file_save, message_catalog
         );
         const load_from_file_command_type load_from_file_command(
             load_from_file
