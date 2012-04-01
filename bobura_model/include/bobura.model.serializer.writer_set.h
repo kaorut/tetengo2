@@ -9,7 +9,9 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_WRITERSET_H)
 #define BOBURA_MODEL_SERIALIZER_WRITERSET_H
 
+#include <cassert>
 #include <memory>
+#include <stdexcept>
 #include <utility>
 #include <vector>
 
@@ -84,7 +86,7 @@ namespace bobura { namespace model { namespace serializer
         virtual path_string_type extention_impl()
         const
         {
-            return path_string_type();
+            throw std::logic_error("No extention.");
         }
 
         virtual void write_impl(

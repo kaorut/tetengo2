@@ -38,6 +38,8 @@ namespace
         >::type
         writer_type;
 
+    typedef writer_type::path_string_type path_string_type;
+
     typedef
         boost::mpl::at<
             test_bobura::model::serialization_type_list,
@@ -111,14 +113,32 @@ BOOST_AUTO_TEST_SUITE(writer_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        std::vector<std::unique_ptr<writer_type>> concrete_writers =
+            create_concrete_writers();
+        const writer_set_type writer_set(std::move(concrete_writers));
+
+        BOOST_CHECK_THROW(writer_set.extention(), std::logic_error);
     }
 
     BOOST_AUTO_TEST_CASE(adopts)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        std::vector<std::unique_ptr<writer_type>> concrete_writers =
+            create_concrete_writers();
+        const writer_set_type writer_set(std::move(concrete_writers));
+
+        BOOST_CHECK_THROW(
+            writer_set.adopts(path_string_type(TETENGO2_TEXT("hoge"))),
+            std::logic_error
+        );
+        BOOST_CHECK_THROW(
+            writer_set.adopts(path_string_type(TETENGO2_TEXT("foo"))),
+            std::logic_error
+        );
+        BOOST_CHECK_THROW(
+            writer_set.adopts(path_string_type()), std::logic_error
+        );
     }
 
     BOOST_AUTO_TEST_CASE(write)
