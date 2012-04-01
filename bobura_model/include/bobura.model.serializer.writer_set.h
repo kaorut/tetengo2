@@ -81,10 +81,10 @@ namespace bobura { namespace model { namespace serializer
 
         // virtual functions
 
-        virtual bool adopts_impl(const path_string_type& extention)
+        virtual path_string_type extention_impl()
         const
         {
-            return false;
+            return path_string_type();
         }
 
         virtual void write_impl(

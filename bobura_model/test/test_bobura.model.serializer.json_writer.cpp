@@ -271,6 +271,13 @@ BOOST_AUTO_TEST_SUITE(json_writer)
         const writer_type json_writer;
     }
 
+    BOOST_AUTO_TEST_CASE(extention)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(adopts)
     {
         BOOST_TEST_PASSPOINT();

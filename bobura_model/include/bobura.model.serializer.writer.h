@@ -52,9 +52,24 @@ namespace bobura { namespace model { namespace serializer
         // functions
 
         /*!
+            \brief Returns the extention.
+
+            The extention does not include the first dot;
+            not ".txt" but "txt".
+
+            \return The extention.
+        */
+        path_string_type extention()
+        const
+        {
+            return extention_impl();
+        }
+
+        /*!
             \brief Checks whether this writer adopts a file type.
 
-            The extention must not the first dot; Not ".txt" but "txt".
+            The extention must not include the first dot;
+            not ".txt" but "txt".
 
             \param extention An extention.
 
@@ -64,7 +79,7 @@ namespace bobura { namespace model { namespace serializer
         bool adopts(const path_string_type& extention)
         const
         {
-            return adopts_impl(extention);
+            return extention == extention_impl();
         }
 
         /*!
@@ -95,7 +110,7 @@ namespace bobura { namespace model { namespace serializer
     private:
         // virtual functions
 
-        virtual bool adopts_impl(const path_string_type& extention)
+        virtual path_string_type extention_impl()
         const = 0;
 
         virtual void write_impl(
