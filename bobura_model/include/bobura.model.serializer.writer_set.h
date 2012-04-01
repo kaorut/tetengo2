@@ -9,7 +9,9 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_WRITERSET_H)
 #define BOBURA_MODEL_SERIALIZER_WRITERSET_H
 
+#include <algorithm>
 #include <cassert>
+#include <functional>
 #include <memory>
 #include <stdexcept>
 #include <utility>
@@ -55,13 +57,22 @@ namespace bobura { namespace model { namespace serializer
         /*!
             \brief Creates a writer set.
 
-            \tparam InputStream An input stream type.
+            The extention must not include the first dot;
+            not ".txt" but "txt".
+
+            \tparam PS A path string type.
 
             \param p_writers Unique pointers to writers.
+            \param extention An extention.
         */
-        writer_set(std::vector<std::unique_ptr<base_type>>&& p_writers)
+        template <typename PS>
+        writer_set(
+            std::vector<std::unique_ptr<base_type>>&& p_writers,
+            PS&&                                      extention
+        )
         :
-        m_p_writers(std::move(p_writers))
+        m_p_writers(std::move(p_writers)),
+        m_extention(std::forward<PS>(extention))
         {}
 
         /*!
@@ -72,13 +83,12 @@ namespace bobura { namespace model { namespace serializer
         {}
 
 
-        // functions
-
-
     private:
         // variables
 
         const std::vector<std::unique_ptr<base_type>> m_p_writers;
+
+        const path_string_type m_extention;
 
 
         // virtual functions
