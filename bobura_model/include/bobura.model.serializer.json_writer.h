@@ -499,7 +499,7 @@ namespace bobura { namespace model { namespace serializer
         virtual path_string_type extention_impl()
         const
         {
-            return path_string_type();
+            return path_string_type(TETENGO2_TEXT("btt"));
         }
 
         virtual void write_impl(

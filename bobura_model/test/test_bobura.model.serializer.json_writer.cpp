@@ -90,6 +90,8 @@ namespace
         >::type
         writer_type;
 
+    typedef writer_type::path_string_type path_string_type;
+
 
     // variables
 
@@ -275,14 +277,26 @@ BOOST_AUTO_TEST_SUITE(json_writer)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const writer_type json_writer;
+
+        BOOST_CHECK(
+            json_writer.extention() == path_string_type(TETENGO2_TEXT("btt"))
+        );
     }
 
     BOOST_AUTO_TEST_CASE(adopts)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const writer_type json_writer;
+
+        BOOST_CHECK(
+            json_writer.adopts(path_string_type(TETENGO2_TEXT("btt")))
+        );
+        BOOST_CHECK(
+            !json_writer.adopts(path_string_type(TETENGO2_TEXT("hoge")))
+        );
+        BOOST_CHECK(!json_writer.adopts(path_string_type()));
     }
 
     BOOST_AUTO_TEST_CASE(write)
