@@ -21,8 +21,9 @@ namespace bobura { namespace model { namespace serializer
 
         \tparam OutputStream An output stream type.
         \tparam Timetable    A timetable type.
+        \tparam PathString   A path string type.
     */
-    template <typename OutputStream, typename Timetable>
+    template <typename OutputStream, typename Timetable, typename PathString>
     class writer : private boost::noncopyable
     {
     public:
@@ -33,6 +34,9 @@ namespace bobura { namespace model { namespace serializer
 
         //! The timetable type.
         typedef Timetable timetable_type;
+
+        //! The path string type.
+        typedef PathString path_string_type;
 
 
         // constructors and destructor
@@ -46,6 +50,22 @@ namespace bobura { namespace model { namespace serializer
 
 
         // functions
+
+        /*!
+            \brief Checks whether this writer adopts a file type.
+
+            The extention must not the first dot; Not ".txt" but "txt".
+
+            \param extention An extention.
+
+            \retval true  When this writer adopts the file type.
+            \retval false Otherwise.
+        */
+        bool adopts(const path_string_type& extention)
+        const
+        {
+            return adopts_impl(extention);
+        }
 
         /*!
             \brief Writes a timetable.
@@ -74,6 +94,9 @@ namespace bobura { namespace model { namespace serializer
 
     private:
         // virtual functions
+
+        virtual bool adopts_impl(const path_string_type& extention)
+        const = 0;
 
         virtual void write_impl(
             const timetable_type& timetable,

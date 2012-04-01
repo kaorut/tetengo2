@@ -249,7 +249,8 @@ namespace test_bobura { namespace model
                     boost::mpl::at<type_list, type::output_stream>::type,
                     boost::mpl::at<
                         model_type_list, type::model::timetable
-                    >::type
+                    >::type,
+                    boost::mpl::at<type_list, type::string>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -259,7 +260,8 @@ namespace test_bobura { namespace model
                     boost::mpl::at<type_list, type::output_stream>::type,
                     boost::mpl::at<
                         model_type_list, type::model::timetable
-                    >::type
+                    >::type,
+                    boost::mpl::at<type_list, type::string>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -270,6 +272,7 @@ namespace test_bobura { namespace model
                     boost::mpl::at<
                         model_type_list, type::model::timetable
                     >::type,
+                    boost::mpl::at<type_list, type::string>::type,
                     boost::mpl::at<
                         model_type_list, type::model::grade_type_set
                     >::type,

@@ -48,6 +48,12 @@ namespace
 
 
     private:
+        virtual bool adopts_impl(const path_string_type& extention)
+        const
+        {
+            return false;
+        }
+
         virtual void write_impl(
             const timetable_type& timetable,
             output_stream_type&   output_stream
@@ -71,6 +77,13 @@ BOOST_AUTO_TEST_SUITE(writer)
         BOOST_TEST_PASSPOINT();
 
         const concrete_writer writer;
+    }
+
+    BOOST_AUTO_TEST_CASE(adopts)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
     }
 
     BOOST_AUTO_TEST_CASE(write)

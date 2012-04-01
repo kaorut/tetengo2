@@ -34,16 +34,18 @@ namespace bobura { namespace model { namespace serializer
 
         \tparam OutputStream        A output stream type.
         \tparam Timetable           A timetable type.
+        \tparam PathString          A path string type.
         \tparam StationGradeTypeSet A station grade type set.
         \tparam Encoder             An encoder type.
     */
     template <
         typename OutputStream,
         typename Timetable,
+        typename PathString,
         typename StationGradeTypeSet,
         typename Encoder
     >
-    class json_writer : public writer<OutputStream, Timetable>
+    class json_writer : public writer<OutputStream, Timetable, PathString>
     {
     public:
         // types
@@ -54,11 +56,16 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
-        //! The station grade type set type.
-        typedef StationGradeTypeSet station_grade_type_set_type;
+        //! The path string type.
+        typedef PathString path_string_type;
 
         //! The base type.
-        typedef writer<output_stream_type, timetable_type> base_type;
+        typedef
+            writer<output_stream_type, timetable_type, path_string_type>
+            base_type;
+
+        //! The station grade type set type.
+        typedef StationGradeTypeSet station_grade_type_set_type;
 
         //! The encoder type.
         typedef Encoder encoder_type;
@@ -488,6 +495,12 @@ namespace bobura { namespace model { namespace serializer
 
 
         // virtual functions
+
+        virtual bool adopts_impl(const path_string_type& extention)
+        const
+        {
+            return false;
+        }
 
         virtual void write_impl(
             const timetable_type& timetable,
