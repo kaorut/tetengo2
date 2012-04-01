@@ -29,6 +29,7 @@
 #include "bobura.model.serializer.json_writer.h"
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.writer.h"
+#include "bobura.model.serializer.writer_set.h"
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.station.h"
 #include "bobura.model.timetable.h"
@@ -172,6 +173,7 @@ namespace test_bobura { namespace model
         struct reader;         //!< The reader type.
         struct json_reader;    //!< The JSON reader type.
         struct writer;         //!< The writer type.
+        struct writer_set;     //!< The writer set type.
         struct json_writer;    //!< The JSON writer type.
     }}
 
@@ -252,6 +254,16 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::serialization::writer,
+                bobura::model::serializer::writer_set<
+                    boost::mpl::at<type_list, type::output_stream>::type,
+                    boost::mpl::at<
+                        model_type_list, type::model::timetable
+                    >::type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::serialization::json_writer,
                 bobura::model::serializer::json_writer<
                     boost::mpl::at<type_list, type::output_stream>::type,
@@ -265,7 +277,7 @@ namespace test_bobura { namespace model
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         serialization_type_list;
 
 
