@@ -6,12 +6,16 @@
     $Id$
 */
 
+#include <memory>
 //#include <sstream>
+#include <utility>
+#include <vector>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.text.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -64,6 +68,21 @@ namespace
 
     };
 
+
+    // functions
+
+    std::vector<std::unique_ptr<writer_type>> create_concrete_writers()
+    {
+        std::vector<std::unique_ptr<writer_type>> writers;
+
+        writers.push_back(tetengo2::make_unique<concrete_writer>());
+        writers.push_back(tetengo2::make_unique<concrete_writer>());
+        writers.push_back(tetengo2::make_unique<concrete_writer>());
+
+        return std::move(writers);
+    }
+
+
 }
 
 
@@ -77,7 +96,9 @@ BOOST_AUTO_TEST_SUITE(writer_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        //const concrete_writer writer_set;
+        std::vector<std::unique_ptr<writer_type>> concrete_writers =
+            create_concrete_writers();
+        const writer_set_type writer_set(std::move(concrete_writers));
     }
 
     BOOST_AUTO_TEST_CASE(write)

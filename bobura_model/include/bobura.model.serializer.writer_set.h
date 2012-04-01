@@ -9,9 +9,13 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_WRITERSET_H)
 #define BOBURA_MODEL_SERIALIZER_WRITERSET_H
 
-#include <boost/noncopyable.hpp>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include <tetengo2.cpp11.h>
+
+#include "bobura.model.serializer.writer.h"
 
 
 namespace bobura { namespace model { namespace serializer
@@ -23,7 +27,7 @@ namespace bobura { namespace model { namespace serializer
         \tparam Timetable    A timetable type.
     */
     template <typename OutputStream, typename Timetable>
-    class writer_set : private boost::noncopyable
+    class writer_set : public writer<OutputStream, Timetable>
     {
     public:
         // types
@@ -34,13 +38,22 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
+        //! The base type.
+        typedef writer<output_stream_type, timetable_type> base_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a writer set.
+
+            \tparam InputStream An input stream type.
+
+            \param p_writers Unique pointers to writers.
         */
-        writer_set()
+        writer_set(std::vector<std::unique_ptr<base_type>>&& p_writers)
+        :
+        m_p_writers(std::move(p_writers))
         {}
 
         /*!
@@ -54,11 +67,12 @@ namespace bobura { namespace model { namespace serializer
         // functions
 
 
-    protected:
-        // constructors
-
-
     private:
+        // variables
+
+        const std::vector<std::unique_ptr<base_type>> m_p_writers;
+
+
         // virtual functions
 
         virtual void write_impl(

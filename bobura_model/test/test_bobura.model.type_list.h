@@ -254,7 +254,7 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::serialization::writer,
+                type::serialization::writer_set,
                 bobura::model::serializer::writer_set<
                     boost::mpl::at<type_list, type::output_stream>::type,
                     boost::mpl::at<
