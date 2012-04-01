@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.text.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -34,6 +35,8 @@ namespace
         >::type
         writer_type;
 
+    typedef writer_type::path_string_type path_string_type;
+
     class concrete_writer : public writer_type
     {
     public:
@@ -51,7 +54,7 @@ namespace
         virtual path_string_type extention_impl()
         const
         {
-            return path_string_type();
+            return path_string_type(TETENGO2_TEXT("hoge"));
         }
 
         virtual void write_impl(
@@ -83,14 +86,22 @@ BOOST_AUTO_TEST_SUITE(writer)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const concrete_writer writer;
+
+        BOOST_CHECK(
+            writer.extention() == path_string_type(TETENGO2_TEXT("hoge"))
+        );
     }
 
     BOOST_AUTO_TEST_CASE(adopts)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const concrete_writer writer;
+
+        BOOST_CHECK(writer.adopts(path_string_type(TETENGO2_TEXT("hoge"))));
+        BOOST_CHECK(!writer.adopts(path_string_type(TETENGO2_TEXT("fuga"))));
+        BOOST_CHECK(!writer.adopts(path_string_type()));
     }
 
     BOOST_AUTO_TEST_CASE(write)
