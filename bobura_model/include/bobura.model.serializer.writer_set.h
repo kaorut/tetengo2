@@ -62,10 +62,16 @@ namespace bobura { namespace model { namespace serializer
             The extention must not include the first dot;
             not ".txt" but "txt".
 
+            When no writer adopts the extention, the first writer of p_writers
+            is used.
+
             \tparam PS A path string type.
 
             \param p_writers Unique pointers to writers.
             \param extention An extention.
+
+            \throw std::invalid_argument When the count of the writers is
+                                         empty.
         */
         template <typename PS>
         writer_set(
@@ -75,7 +81,14 @@ namespace bobura { namespace model { namespace serializer
         :
         m_p_writers(std::move(p_writers)),
         m_extention(std::forward<PS>(extention))
-        {}
+        {
+            if (m_p_writers.empty())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::invalid_argument("No writer is specified.")
+                );
+            }
+        }
 
         /*!
             \brief Destroys the writer_set.
@@ -124,11 +137,9 @@ namespace bobura { namespace model { namespace serializer
                 );
             if (found == m_p_writers.end())
             {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error(
-                        "At least one writer must adopt the file type."
-                    )
-                );
+                assert(!m_p_writers.empty());
+                m_p_writers.front()->write(timetable, output_stream);
+                return;
             }
 
             (*found)->write(timetable, output_stream);

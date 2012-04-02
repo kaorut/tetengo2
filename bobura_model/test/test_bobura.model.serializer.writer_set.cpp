@@ -126,11 +126,22 @@ BOOST_AUTO_TEST_SUITE(writer_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::vector<std::unique_ptr<writer_type>> concrete_writers =
-            create_concrete_writers();
-        const writer_set_type writer_set(
-            std::move(concrete_writers), path_string_type()
-        );
+        {
+            std::vector<std::unique_ptr<writer_type>> concrete_writers =
+                create_concrete_writers();
+            const writer_set_type writer_set(
+                std::move(concrete_writers), path_string_type()
+            );
+        }
+        {
+            BOOST_CHECK_THROW(
+                writer_set_type(
+                    std::vector<std::unique_ptr<writer_type>>(),
+                    path_string_type()
+                ),
+                std::invalid_argument
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(extention)
@@ -220,10 +231,9 @@ BOOST_AUTO_TEST_SUITE(writer_set)
             );
             const timetable_type timetable;
             std::ostringstream stream;
+            writer_set.write(timetable, stream);
 
-            BOOST_CHECK_THROW(
-                writer_set.write(timetable, stream), std::logic_error
-            );
+            BOOST_CHECK(stream.str() == std::string("hoge"));
         }
     }
 
