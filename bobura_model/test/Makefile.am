@@ -14,6 +14,7 @@ sources = \
     test_bobura.model.serializer.json_writer.cpp \
     test_bobura.model.serializer.reader.cpp \
     test_bobura.model.serializer.writer.cpp \
+    test_bobura.model.serializer.writer_selector.cpp \
     test_bobura.model.station.cpp \
     test_bobura.model.station_info.grade.cpp \
     test_bobura.model.timetable.cpp \
