@@ -96,6 +96,9 @@ BOOST_AUTO_TEST_SUITE(reset)
         > observer(model, main_window);
     }
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
@@ -118,6 +121,7 @@ BOOST_AUTO_TEST_SUITE(reset)
 
         observer();
     }
+#endif
 
 
 BOOST_AUTO_TEST_SUITE_END()

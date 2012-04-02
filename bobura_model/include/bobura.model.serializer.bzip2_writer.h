@@ -39,6 +39,11 @@ namespace bobura { namespace model { namespace serializer
         //! The path string type.
         typedef PathString path_string_type;
 
+        //! The base type.
+        typedef
+            writer<output_stream_type, timetable_type, path_string_type>
+            base_type;
+
 
         // constructors and destructor
 
