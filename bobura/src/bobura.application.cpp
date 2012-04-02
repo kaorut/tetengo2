@@ -64,15 +64,11 @@ namespace bobura
             >::type
             load_from_file_type;
 
-        typedef load_from_file_type::reader_type reader_type;
-
         typedef
             boost::mpl::at<
                 load_save_type_list, type::load_save::save_to_file
             >::type
             save_to_file_type;
-
-        typedef save_to_file_type::writer_type writer_type;
 
         typedef
             boost::mpl::at<

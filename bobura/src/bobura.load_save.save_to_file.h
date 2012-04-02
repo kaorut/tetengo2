@@ -29,7 +29,8 @@ namespace bobura { namespace load_save
         \tparam AbstractWindow  An abstract window type.
         \tparam MessageBox      A message box type.
         \tparam FileSaveDialog  A file save dialog type.
-        \tparam Writer          A writer type.
+        \tparam WriterSelector  A writer selector type.
+        \tparam WriterTypeSet   A writer type set type.
         \tparam MessageCatalog  A message catalog type.
     */
     template <
@@ -37,7 +38,8 @@ namespace bobura { namespace load_save
         typename AbstractWindow,
         typename MessageBox,
         typename FileSaveDialog,
-        typename Writer,
+        typename WriterSelector,
+        typename WriterTypeSet,
         typename MessageCatalog
     >
     class save_to_file
@@ -57,8 +59,11 @@ namespace bobura { namespace load_save
         //! The file save dialog type.
         typedef FileSaveDialog file_save_dialog_type;
 
-        //! The writer type.
-        typedef Writer writer_type;
+        //! The writer selector type.
+        typedef WriterSelector writer_selector_type;
+
+        //! The writer type set type.
+        typedef WriterTypeSet writer_type_set_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -136,7 +141,9 @@ namespace bobura { namespace load_save
                     return false;
                 }
 
-                writer_type writer;
+                writer_selector_type writer(
+                    writer_type_set_type::create_writers(), extention(path)
+                );
                 writer.write(model.timetable(), output_stream);
             }
 
@@ -166,6 +173,27 @@ namespace bobura { namespace load_save
         typedef typename file_save_dialog_type::path_type path_type;
 
         typedef typename model_type::timetable_type timetable_type;
+
+        typedef
+            typename writer_selector_type::path_string_type path_string_type;
+
+
+        // static functions
+
+        static path_string_type extention(const path_type& path)
+        {
+            path_string_type result =
+                path.extension().string<path_string_type>();
+            if (
+                !result.empty() &&
+                result[0] ==
+                    path_string_type::value_type(TETENGO2_TEXT('.'))
+            )
+            {
+                result = result.substr(1);
+            }
+            return result;
+        }
 
 
         // variables

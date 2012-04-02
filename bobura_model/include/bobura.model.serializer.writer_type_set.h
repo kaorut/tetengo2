@@ -9,7 +9,13 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_WRITERTYPESET_H)
 #define BOBURA_MODEL_SERIALIZER_WRITERTYPESET_H
 
+#include <memory>
+#include <utility>
+#include <vector>
+
 #include <boost/noncopyable.hpp>
+
+#include <tetengo2.unique.h>
 
 #include "bobura.model.serializer.json_writer.h"
 #include "bobura.model.serializer.writer.h"
@@ -69,6 +75,23 @@ namespace bobura { namespace model { namespace serializer
                 encoder_type
             >
             json_writer_type;
+
+
+        // static functions
+
+        /*!
+            \brief Creates writers.
+
+            \return Unique pointers to writers.
+        */
+        static std::vector<std::unique_ptr<writer_type>> create_writers()
+        {
+            std::vector<std::unique_ptr<writer_type>> writers;
+
+            writers.push_back(tetengo2::make_unique<json_writer_type>());
+
+            return std::move(writers);
+        }
 
 
     private:
