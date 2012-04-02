@@ -11,7 +11,6 @@
 
 #include <algorithm>
 #include <cassert>
-#include <functional>
 #include <memory>
 #include <stdexcept>
 #include <utility>

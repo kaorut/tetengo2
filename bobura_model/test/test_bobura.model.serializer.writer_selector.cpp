@@ -6,10 +6,12 @@
     $Id$
 */
 
-#include <memory>
+//#include <memory>
 //#include <sstream>
-#include <utility>
-#include <vector>
+//#include <stdexcept>
+//#include <string>
+//#include <utility>
+//#include <vector>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
