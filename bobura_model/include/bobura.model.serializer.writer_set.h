@@ -17,6 +17,8 @@
 #include <utility>
 #include <vector>
 
+#include <boost/throw_exception.hpp>
+
 #include <tetengo2.cpp11.h>
 
 #include "bobura.model.serializer.writer.h"
@@ -96,7 +98,7 @@ namespace bobura { namespace model { namespace serializer
         virtual path_string_type extention_impl()
         const
         {
-            throw std::logic_error("No extention.");
+            BOOST_THROW_EXCEPTION(std::logic_error("No extention."));
         }
 
         virtual void write_impl(
@@ -104,7 +106,38 @@ namespace bobura { namespace model { namespace serializer
             output_stream_type&   output_stream
         )
         {
+            typedef
+                typename std::vector<
+                    std::unique_ptr<base_type>
+                >::const_iterator
+                iterator_type;
 
+            const iterator_type found =
+                std::find_if(
+                    m_p_writers.begin(),
+                    m_p_writers.end(),
+                    TETENGO2_CPP11_BIND(
+                        &writer_set::call_adopts,
+                        this,
+                        tetengo2::cpp11::placeholders_1()
+                    )
+                );
+            if (found == m_p_writers.end())
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::logic_error(
+                        "At least one writer must adopt the file type."
+                    )
+                );
+            }
+
+            (*found)->write(timetable, output_stream);
+        }
+
+        bool call_adopts(const std::unique_ptr<base_type>& p_writer)
+        const
+        {
+            return p_writer->adopts(m_extention);
         }
 
 
