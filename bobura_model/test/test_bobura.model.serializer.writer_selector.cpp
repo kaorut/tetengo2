@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class bobura::model::serializer::writer_set.
+    \brief Test of class bobura::model::serializer::writer_selector.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -43,7 +43,7 @@ namespace
     typedef
         boost::mpl::at<
             test_bobura::model::serialization_type_list,
-            test_bobura::model::type::serialization::writer_set
+            test_bobura::model::type::serialization::writer_selector
         >::type
         writer_set_type;
 
@@ -119,7 +119,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(model)
 BOOST_AUTO_TEST_SUITE(serializer)
-BOOST_AUTO_TEST_SUITE(writer_set)
+BOOST_AUTO_TEST_SUITE(writer_selector)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_SUITE(writer_set)
         {
             std::vector<std::unique_ptr<writer_type>> concrete_writers =
                 create_concrete_writers();
-            const writer_set_type writer_set(
+            const writer_set_type writer_selector(
                 std::move(concrete_writers), path_string_type()
             );
         }
@@ -150,33 +150,33 @@ BOOST_AUTO_TEST_SUITE(writer_set)
 
         std::vector<std::unique_ptr<writer_type>> concrete_writers =
             create_concrete_writers();
-        const writer_set_type writer_set(
+        const writer_set_type writer_selector(
             std::move(concrete_writers), path_string_type()
         );
 
-        BOOST_CHECK_THROW(writer_set.extention(), std::logic_error);
+        BOOST_CHECK_THROW(writer_selector.extention(), std::logic_error);
     }
 
-    BOOST_AUTO_TEST_CASE(adopts)
+    BOOST_AUTO_TEST_CASE(selects)
     {
         BOOST_TEST_PASSPOINT();
 
         std::vector<std::unique_ptr<writer_type>> concrete_writers =
             create_concrete_writers();
-        const writer_set_type writer_set(
+        const writer_set_type writer_selector(
             std::move(concrete_writers), path_string_type()
         );
 
         BOOST_CHECK_THROW(
-            writer_set.adopts(path_string_type(TETENGO2_TEXT("hoge"))),
+            writer_selector.selects(path_string_type(TETENGO2_TEXT("hoge"))),
             std::logic_error
         );
         BOOST_CHECK_THROW(
-            writer_set.adopts(path_string_type(TETENGO2_TEXT("foo"))),
+            writer_selector.selects(path_string_type(TETENGO2_TEXT("foo"))),
             std::logic_error
         );
         BOOST_CHECK_THROW(
-            writer_set.adopts(path_string_type()), std::logic_error
+            writer_selector.selects(path_string_type()), std::logic_error
         );
     }
 
@@ -187,51 +187,51 @@ BOOST_AUTO_TEST_SUITE(writer_set)
         {
             std::vector<std::unique_ptr<writer_type>> concrete_writers =
                 create_concrete_writers();
-            writer_set_type writer_set(
+            writer_set_type writer_selector(
                 std::move(concrete_writers),
                 path_string_type(TETENGO2_TEXT("hoge"))
             );
             const timetable_type timetable;
             std::ostringstream stream;
-            writer_set.write(timetable, stream);
+            writer_selector.write(timetable, stream);
 
             BOOST_CHECK(stream.str() == std::string("hoge"));
         }
         {
             std::vector<std::unique_ptr<writer_type>> concrete_writers =
                 create_concrete_writers();
-            writer_set_type writer_set(
+            writer_set_type writer_selector(
                 std::move(concrete_writers),
                 path_string_type(TETENGO2_TEXT("fuga"))
             );
             const timetable_type timetable;
             std::ostringstream stream;
-            writer_set.write(timetable, stream);
+            writer_selector.write(timetable, stream);
 
             BOOST_CHECK(stream.str() == std::string("fuga"));
         }
         {
             std::vector<std::unique_ptr<writer_type>> concrete_writers =
                 create_concrete_writers();
-            writer_set_type writer_set(
+            writer_set_type writer_selector(
                 std::move(concrete_writers), path_string_type()
             );
             const timetable_type timetable;
             std::ostringstream stream;
-            writer_set.write(timetable, stream);
+            writer_selector.write(timetable, stream);
 
             BOOST_CHECK(stream.str().empty());
         }
         {
             std::vector<std::unique_ptr<writer_type>> concrete_writers =
                 create_concrete_writers();
-            writer_set_type writer_set(
+            writer_set_type writer_selector(
                 std::move(concrete_writers),
                 path_string_type(TETENGO2_TEXT("foo"))
             );
             const timetable_type timetable;
             std::ostringstream stream;
-            writer_set.write(timetable, stream);
+            writer_selector.write(timetable, stream);
 
             BOOST_CHECK(stream.str() == std::string("hoge"));
         }

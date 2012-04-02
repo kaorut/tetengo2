@@ -93,15 +93,15 @@ BOOST_AUTO_TEST_SUITE(writer)
         );
     }
 
-    BOOST_AUTO_TEST_CASE(adopts)
+    BOOST_AUTO_TEST_CASE(selects)
     {
         BOOST_TEST_PASSPOINT();
 
         const concrete_writer writer;
 
-        BOOST_CHECK(writer.adopts(path_string_type(TETENGO2_TEXT("hoge"))));
-        BOOST_CHECK(!writer.adopts(path_string_type(TETENGO2_TEXT("fuga"))));
-        BOOST_CHECK(!writer.adopts(path_string_type()));
+        BOOST_CHECK(writer.selects(path_string_type(TETENGO2_TEXT("hoge"))));
+        BOOST_CHECK(!writer.selects(path_string_type(TETENGO2_TEXT("fuga"))));
+        BOOST_CHECK(!writer.selects(path_string_type()));
     }
 
     BOOST_AUTO_TEST_CASE(write)

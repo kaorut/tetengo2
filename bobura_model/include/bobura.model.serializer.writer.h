@@ -66,17 +66,17 @@ namespace bobura { namespace model { namespace serializer
         }
 
         /*!
-            \brief Checks whether this writer adopts a file type.
+            \brief Checks whether this writer selects a file type.
 
             The extention must not include the first dot;
             not ".txt" but "txt".
 
             \param extention An extention.
 
-            \retval true  When this writer adopts the file type.
+            \retval true  When this writer selects the file type.
             \retval false Otherwise.
         */
-        bool adopts(const path_string_type& extention)
+        bool selects(const path_string_type& extention)
         const
         {
             return extention == extention_impl();

@@ -284,19 +284,19 @@ BOOST_AUTO_TEST_SUITE(json_writer)
         );
     }
 
-    BOOST_AUTO_TEST_CASE(adopts)
+    BOOST_AUTO_TEST_CASE(selects)
     {
         BOOST_TEST_PASSPOINT();
 
         const writer_type json_writer;
 
         BOOST_CHECK(
-            json_writer.adopts(path_string_type(TETENGO2_TEXT("btt")))
+            json_writer.selects(path_string_type(TETENGO2_TEXT("btt")))
         );
         BOOST_CHECK(
-            !json_writer.adopts(path_string_type(TETENGO2_TEXT("hoge")))
+            !json_writer.selects(path_string_type(TETENGO2_TEXT("hoge")))
         );
-        BOOST_CHECK(!json_writer.adopts(path_string_type()));
+        BOOST_CHECK(!json_writer.selects(path_string_type()));
     }
 
     BOOST_AUTO_TEST_CASE(write)

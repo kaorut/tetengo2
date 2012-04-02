@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of bobura::model::serializer::writer_set.
+    \brief The definition of bobura::model::serializer::writer_selector.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_MODEL_SERIALIZER_WRITERSET_H)
-#define BOBURA_MODEL_SERIALIZER_WRITERSET_H
+#if !defined(BOBURA_MODEL_SERIALIZER_WRITERSELECTOR_H)
+#define BOBURA_MODEL_SERIALIZER_WRITERSELECTOR_H
 
 #include <algorithm>
 #include <cassert>
@@ -27,14 +27,14 @@
 namespace bobura { namespace model { namespace serializer
 {
     /*!
-        \brief The class template for a writer set.
+        \brief The class template for a writer selector.
 
         \tparam OutputStream An output stream type.
         \tparam Timetable    A timetable type.
         \tparam PathString   A path string type.
     */
     template <typename OutputStream, typename Timetable, typename PathString>
-    class writer_set : public writer<OutputStream, Timetable, PathString>
+    class writer_selector : public writer<OutputStream, Timetable, PathString>
     {
     public:
         // types
@@ -57,13 +57,13 @@ namespace bobura { namespace model { namespace serializer
         // constructors and destructor
 
         /*!
-            \brief Creates a writer set.
+            \brief Creates a writer selector.
 
             The extention must not include the first dot;
             not ".txt" but "txt".
 
-            When no writer adopts the extention, the first writer of p_writers
-            is used.
+            When no writer selects the extention, the first writer of
+            p_writers is used.
 
             \tparam PS A path string type.
 
@@ -74,7 +74,7 @@ namespace bobura { namespace model { namespace serializer
                                          empty.
         */
         template <typename PS>
-        writer_set(
+        writer_selector(
             std::vector<std::unique_ptr<base_type>>&& p_writers,
             PS&&                                      extention
         )
@@ -91,9 +91,9 @@ namespace bobura { namespace model { namespace serializer
         }
 
         /*!
-            \brief Destroys the writer_set.
+            \brief Destroys the writer_selector.
         */
-        virtual ~writer_set()
+        virtual ~writer_selector()
         TETENGO2_CPP11_NOEXCEPT
         {}
 
@@ -130,7 +130,7 @@ namespace bobura { namespace model { namespace serializer
                     m_p_writers.begin(),
                     m_p_writers.end(),
                     TETENGO2_CPP11_BIND(
-                        &writer_set::call_adopts,
+                        &writer_selector::call_selects,
                         this,
                         tetengo2::cpp11::placeholders_1()
                     )
@@ -145,10 +145,10 @@ namespace bobura { namespace model { namespace serializer
             (*found)->write(timetable, output_stream);
         }
 
-        bool call_adopts(const std::unique_ptr<base_type>& p_writer)
+        bool call_selects(const std::unique_ptr<base_type>& p_writer)
         const
         {
-            return p_writer->adopts(m_extention);
+            return p_writer->selects(m_extention);
         }
 
 

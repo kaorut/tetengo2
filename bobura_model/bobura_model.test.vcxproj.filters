@@ -83,7 +83,7 @@
     <ClCompile Include="test\test_bobura.model.serializer.json_writer.cpp">
       <Filter>sources\test_bobura::model\serializer</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.model.serializer.writer_set.cpp">
+    <ClCompile Include="test\test_bobura.model.serializer.writer_selector.cpp">
       <Filter>sources\test_bobura::model\serializer</Filter>
     </ClCompile>
   </ItemGroup>
