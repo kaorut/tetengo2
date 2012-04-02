@@ -4,6 +4,7 @@
 
 headers = \
     bobura.model.message.timetable_observer_set.h \
+    bobura.model.serializer.bzip2_writer.h \
     bobura.model.serializer.json_reader.h \
     bobura.model.serializer.json_writer.h \
     bobura.model.serializer.reader.h \

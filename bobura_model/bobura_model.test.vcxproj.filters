@@ -89,5 +89,8 @@
     <ClCompile Include="test\test_bobura.model.serializer.writer_set.cpp">
       <Filter>sources\test_bobura::model\serializer</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.model.serializer.bzip2_writer.cpp">
+      <Filter>sources\test_bobura::model\serializer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

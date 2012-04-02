@@ -17,6 +17,7 @@
 
 #include <tetengo2.unique.h>
 
+#include "bobura.model.serializer.bzip2_writer.h"
 #include "bobura.model.serializer.json_writer.h"
 #include "bobura.model.serializer.writer.h"
 #include "bobura.model.serializer.writer_selector.h"
@@ -64,6 +65,11 @@ namespace bobura { namespace model { namespace serializer
         typedef
             writer<output_stream_type, timetable_type, path_string_type>
             writer_type;
+
+        //! The bzip2 writer type.
+        typedef
+            bzip2_writer<output_stream_type, timetable_type, path_string_type>
+            bzip2_writer_type;
 
         //! The JSON writer type.
         typedef
