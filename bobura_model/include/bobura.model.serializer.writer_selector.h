@@ -59,16 +59,16 @@ namespace bobura { namespace model { namespace serializer
         /*!
             \brief Creates a writer selector.
 
-            The extention must not include the first dot;
+            The extension must not include the first dot;
             not ".txt" but "txt".
 
-            When no writer selects the extention, the first writer of
+            When no writer selects the extension, the first writer of
             p_writers is used.
 
             \tparam PS A path string type.
 
             \param p_writers Unique pointers to writers.
-            \param extention An extention.
+            \param extension An extension.
 
             \throw std::invalid_argument When the count of the writers is
                                          empty.
@@ -76,11 +76,11 @@ namespace bobura { namespace model { namespace serializer
         template <typename PS>
         writer_selector(
             std::vector<std::unique_ptr<base_type>>&& p_writers,
-            PS&&                                      extention
+            PS&&                                      extension
         )
         :
         m_p_writers(std::move(p_writers)),
-        m_extention(std::forward<PS>(extention))
+        m_extention(std::forward<PS>(extension))
         {
             if (m_p_writers.empty())
             {
@@ -111,7 +111,7 @@ namespace bobura { namespace model { namespace serializer
         virtual path_string_type extention_impl()
         const
         {
-            BOOST_THROW_EXCEPTION(std::logic_error("No extention."));
+            BOOST_THROW_EXCEPTION(std::logic_error("No extension."));
         }
 
         virtual void write_impl(

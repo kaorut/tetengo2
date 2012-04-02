@@ -142,7 +142,7 @@ namespace bobura { namespace load_save
                 }
 
                 writer_selector_type writer(
-                    writer_set_type::create_writers(), extention(path)
+                    writer_set_type::create_writers(), extension(path)
                 );
                 writer.write(model.timetable(), output_stream);
             }
@@ -180,7 +180,7 @@ namespace bobura { namespace load_save
 
         // static functions
 
-        static path_string_type extention(const path_type& path)
+        static path_string_type extension(const path_type& path)
         {
             path_string_type result =
                 path.extension().template string<path_string_type>();

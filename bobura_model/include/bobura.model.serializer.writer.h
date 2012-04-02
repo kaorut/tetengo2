@@ -52,14 +52,14 @@ namespace bobura { namespace model { namespace serializer
         // functions
 
         /*!
-            \brief Returns the extention.
+            \brief Returns the extension.
 
-            The extention does not include the first dot;
+            The extension does not include the first dot;
             not ".txt" but "txt".
 
-            \return The extention.
+            \return The extension.
         */
-        path_string_type extention()
+        path_string_type extension()
         const
         {
             return extention_impl();
@@ -68,18 +68,18 @@ namespace bobura { namespace model { namespace serializer
         /*!
             \brief Checks whether this writer selects a file type.
 
-            The extention must not include the first dot;
+            The extension must not include the first dot;
             not ".txt" but "txt".
 
-            \param extention An extention.
+            \param extension An extension.
 
             \retval true  When this writer selects the file type.
             \retval false Otherwise.
         */
-        bool selects(const path_string_type& extention)
+        bool selects(const path_string_type& extension)
         const
         {
-            return extention == extention_impl();
+            return extension == extention_impl();
         }
 
         /*!

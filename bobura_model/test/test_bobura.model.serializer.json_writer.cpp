@@ -273,14 +273,14 @@ BOOST_AUTO_TEST_SUITE(json_writer)
         const writer_type json_writer;
     }
 
-    BOOST_AUTO_TEST_CASE(extention)
+    BOOST_AUTO_TEST_CASE(extension)
     {
         BOOST_TEST_PASSPOINT();
 
         const writer_type json_writer;
 
         BOOST_CHECK(
-            json_writer.extention() == path_string_type(TETENGO2_TEXT("btt"))
+            json_writer.extension() == path_string_type(TETENGO2_TEXT("btt"))
         );
     }
 

@@ -54,10 +54,10 @@ namespace
             std::basic_string<output_stream_type::char_type>
             output_string_type;
 
-        concrete_writer(path_string_type&& extention)
+        concrete_writer(path_string_type&& extension)
         :
         writer_type(),
-        m_extention(std::forward<path_string_type>(extention))
+        m_extention(std::forward<path_string_type>(extension))
         {}
 
         virtual ~concrete_writer()
@@ -144,7 +144,7 @@ BOOST_AUTO_TEST_SUITE(writer_selector)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(extention)
+    BOOST_AUTO_TEST_CASE(extension)
     {
         BOOST_TEST_PASSPOINT();
 
@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_SUITE(writer_selector)
             std::move(concrete_writers), path_string_type()
         );
 
-        BOOST_CHECK_THROW(writer_selector.extention(), std::logic_error);
+        BOOST_CHECK_THROW(writer_selector.extension(), std::logic_error);
     }
 
     BOOST_AUTO_TEST_CASE(selects)

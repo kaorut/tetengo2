@@ -82,14 +82,14 @@ BOOST_AUTO_TEST_SUITE(writer)
         const concrete_writer writer;
     }
 
-    BOOST_AUTO_TEST_CASE(extention)
+    BOOST_AUTO_TEST_CASE(extension)
     {
         BOOST_TEST_PASSPOINT();
 
         const concrete_writer writer;
 
         BOOST_CHECK(
-            writer.extention() == path_string_type(TETENGO2_TEXT("hoge"))
+            writer.extension() == path_string_type(TETENGO2_TEXT("hoge"))
         );
     }
 
