@@ -88,6 +88,7 @@
     <ClInclude Include="include\bobura.model.serializer.reader.h" />
     <ClInclude Include="include\bobura.model.serializer.writer.h" />
     <ClInclude Include="include\bobura.model.serializer.writer_selector.h" />
+    <ClInclude Include="include\bobura.model.serializer.writer_type_set.h" />
     <ClInclude Include="include\bobura.model.station.h" />
     <ClInclude Include="include\bobura.model.station_info.grade.h" />
     <ClInclude Include="include\bobura.model.timetable.h" />
