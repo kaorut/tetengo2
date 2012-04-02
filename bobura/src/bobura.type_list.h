@@ -101,7 +101,7 @@
 #include "bobura.model.message.timetable_observer_set.h"
 #include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.serializer.writer_selector.h"
-#include "bobura.model.serializer.writer_type_set.h"
+#include "bobura.model.serializer.writer_set.h"
 #include "bobura.model.station.h"
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
@@ -301,7 +301,7 @@ namespace bobura
         struct model;          //!< The model type.
         struct reader;         //!< The reader type.
         struct writer_selector; //!< The writer selector type.
-        struct writer_type_set; //!< The writer type set type.
+        struct writer_set;     //!< The writer set type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -393,8 +393,8 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::model::writer_type_set,
-                model::serializer::writer_type_set<
+                type::model::writer_set,
+                model::serializer::writer_set<
                     boost::mpl::at<
                         common_type_list, type::output_stream
                     >::type,
@@ -992,7 +992,7 @@ namespace bobura
                     model_type_list, type::model::writer_selector
                 >::type,
                 boost::mpl::at<
-                    model_type_list, type::model::writer_type_set
+                    model_type_list, type::model::writer_set
                 >::type,
                 boost::mpl::at<
                     locale_type_list, type::locale::message_catalog

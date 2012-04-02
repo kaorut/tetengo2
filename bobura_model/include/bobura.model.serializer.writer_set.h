@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of bobura::model::serializer::writer_type_set.
+    \brief The definition of bobura::model::serializer::writer_set.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(BOBURA_MODEL_SERIALIZER_WRITERTYPESET_H)
-#define BOBURA_MODEL_SERIALIZER_WRITERTYPESET_H
+#if !defined(BOBURA_MODEL_SERIALIZER_WRITERSET_H)
+#define BOBURA_MODEL_SERIALIZER_WRITERSET_H
 
 #include <memory>
 #include <utility>
@@ -25,7 +25,7 @@
 namespace bobura { namespace model { namespace serializer
 {
     /*!
-        \brief The class template for a writer type set.
+        \brief The class template for a writer set.
 
         \tparam OutputStream        A output stream type.
         \tparam Timetable           A timetable type.
@@ -40,7 +40,7 @@ namespace bobura { namespace model { namespace serializer
         typename StationGradeTypeSet,
         typename Encoder
     >
-    class writer_type_set : private boost::noncopyable
+    class writer_set : private boost::noncopyable
     {
     public:
         // types
@@ -97,7 +97,7 @@ namespace bobura { namespace model { namespace serializer
     private:
         // forbidden operations
 
-        writer_type_set();
+        writer_set();
 
 
     };

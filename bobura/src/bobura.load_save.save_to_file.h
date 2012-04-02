@@ -30,7 +30,7 @@ namespace bobura { namespace load_save
         \tparam MessageBox      A message box type.
         \tparam FileSaveDialog  A file save dialog type.
         \tparam WriterSelector  A writer selector type.
-        \tparam WriterTypeSet   A writer type set type.
+        \tparam WriterSet       A writer set type.
         \tparam MessageCatalog  A message catalog type.
     */
     template <
@@ -39,7 +39,7 @@ namespace bobura { namespace load_save
         typename MessageBox,
         typename FileSaveDialog,
         typename WriterSelector,
-        typename WriterTypeSet,
+        typename WriterSet,
         typename MessageCatalog
     >
     class save_to_file
@@ -62,8 +62,8 @@ namespace bobura { namespace load_save
         //! The writer selector type.
         typedef WriterSelector writer_selector_type;
 
-        //! The writer type set type.
-        typedef WriterTypeSet writer_type_set_type;
+        //! The writer set type.
+        typedef WriterSet writer_set_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -142,7 +142,7 @@ namespace bobura { namespace load_save
                 }
 
                 writer_selector_type writer(
-                    writer_type_set_type::create_writers(), extention(path)
+                    writer_set_type::create_writers(), extention(path)
                 );
                 writer.write(model.timetable(), output_stream);
             }
@@ -183,11 +183,11 @@ namespace bobura { namespace load_save
         static path_string_type extention(const path_type& path)
         {
             path_string_type result =
-                path.extension().string<path_string_type>();
+                path.extension().template string<path_string_type>();
             if (
                 !result.empty() &&
                 result[0] ==
-                    path_string_type::value_type(TETENGO2_TEXT('.'))
+                    typename path_string_type::value_type(TETENGO2_TEXT('.'))
             )
             {
                 result = result.substr(1);

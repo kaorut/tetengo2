@@ -66,7 +66,7 @@
     <ClInclude Include="include\bobura.model.serializer.writer_selector.h">
       <Filter>headers\bobura::model\serializer</Filter>
     </ClInclude>
-    <ClInclude Include="include\bobura.model.serializer.writer_type_set.h">
+    <ClInclude Include="include\bobura.model.serializer.writer_set.h">
       <Filter>headers\bobura::model\serializer</Filter>
     </ClInclude>
   </ItemGroup>

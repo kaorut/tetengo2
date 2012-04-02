@@ -9,7 +9,7 @@ headers = \
     bobura.model.serializer.reader.h \
     bobura.model.serializer.writer.h \
     bobura.model.serializer.writer_selector.h \
-    bobura.model.serializer.writer_type_set.h \
+    bobura.model.serializer.writer_set.h \
     bobura.model.station.h \
     bobura.model.station_info.grade.h \
     bobura.model.timetable.h \

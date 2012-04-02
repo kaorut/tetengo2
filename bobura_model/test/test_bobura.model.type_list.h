@@ -30,6 +30,7 @@
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.writer.h"
 #include "bobura.model.serializer.writer_selector.h"
+#include "bobura.model.serializer.writer_set.h"
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.station.h"
 #include "bobura.model.timetable.h"
@@ -175,6 +176,7 @@ namespace test_bobura { namespace model
         struct writer;         //!< The writer type.
         struct writer_selector; //!< The writer selector type.
         struct json_writer;    //!< The JSON writer type.
+        struct writer_set;     //!< The writer set type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -211,6 +213,19 @@ namespace test_bobura { namespace model
                 internal_encoding_type, timetable_file_encoding_type
             >
             timetable_file_encoder_type;
+        typedef
+            bobura::model::serializer::writer_set<
+                boost::mpl::at<type_list, type::output_stream>::type,
+                boost::mpl::at<
+                    model_type_list, type::model::timetable
+                >::type,
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<
+                    model_type_list, type::model::grade_type_set
+                >::type,
+                detail::serialization::timetable_file_encoder_type
+            >
+            writer_set_type;
     }}
 #endif
 
@@ -267,20 +282,15 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::serialization::json_writer,
-                bobura::model::serializer::json_writer<
-                    boost::mpl::at<type_list, type::output_stream>::type,
-                    boost::mpl::at<
-                        model_type_list, type::model::timetable
-                    >::type,
-                    boost::mpl::at<type_list, type::string>::type,
-                    boost::mpl::at<
-                        model_type_list, type::model::grade_type_set
-                    >::type,
-                    detail::serialization::timetable_file_encoder_type
-                >
+                detail::serialization::writer_set_type::json_writer_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::serialization::writer_set,
+                detail::serialization::writer_set_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         serialization_type_list;
 
 
