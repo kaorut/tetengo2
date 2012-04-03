@@ -25,6 +25,7 @@
 #include <boost/optional.hpp>
 #include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
+#include <boost/utility.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
@@ -151,7 +152,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::wstring,
                 std::wstring,
                 std::wstring,
-                detail::native_filters_type
+                detail::native_filters_type,
+                std::size_t
             >
             file_save_dialog_details_type;
 
@@ -512,10 +514,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::get<0>(*parent.details()).get(),
                 encoder.encode(std::forward<String>(title)),
                 encoder.encode(
-                    to_native_path<String>(std::forward<OptionalPath>(path))
+                    to_native_path<String>(path)
                 ),
                 encoder.encode(to_default_extension(filters)),
-                to_native_filters(filters, encoder)
+                to_native_filters(filters, encoder),
+                find_filter_index(filters, path)
             );
         }
 
@@ -613,7 +616,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 }
             }
 
-            std::vector< ::COMDLG_FILTERSPEC> filterspecs =
+            const std::vector< ::COMDLG_FILTERSPEC> filterspecs =
                 to_filterspecs(std::get<5>(dialog));
             const ::HRESULT filter_set_result =
                 std::get<0>(dialog)->SetFileTypes(
@@ -625,9 +628,28 @@ namespace tetengo2 { namespace detail { namespace windows
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
                         std::error_code(filter_set_result, win32_category()),
-                        "Can't set file type filter."
+                        "Can't set file type filters."
                     )
                 );
+            }
+
+            if (std::get<6>(dialog) > 0)
+            {
+                const ::HRESULT filter_index_set_result =
+                    std::get<0>(dialog)->SetFileTypeIndex(
+                        static_cast< ::UINT>(std::get<6>(dialog))
+                    );
+                if (!SUCCEEDED(filter_index_set_result))
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(
+                                filter_set_result, win32_category()
+                            ),
+                            "Can't set file type filter index."
+                        )
+                    );
+                }
             }
 
             const ::HRESULT showing_result =
@@ -831,9 +853,43 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         template <typename String, typename OptionalPath>
-        static String to_native_path(OptionalPath&& path)
+        static String to_native_path(const OptionalPath& path)
         {
             return path ? path->template string<String>() : String();
+        }
+
+        template <typename Path, typename String>
+        static bool match_extension(const Path& path, const String& extension)
+        {
+            const String path_string = path.template string<String>();
+            const String dotted_extension =
+                String(TETENGO2_TEXT(".")) + extension;
+            if (path_string.length() < dotted_extension.length())
+                return false;
+
+            const String path_extension(
+                boost::prior(path_string.end(), dotted_extension.length()),
+                path_string.end()
+            );
+
+            return path_extension == dotted_extension;
+        }
+
+        template <typename String, typename OptionalPath>
+        static std::size_t find_filter_index(
+            const std::vector<std::pair<String, String>>& filters,
+            const OptionalPath&                           path
+        )
+        {
+            if (!path) return 0;
+
+            for (std::size_t i = 0; i < filters.size(); ++i)
+            {
+                if (match_extension(*path, filters[i].second))
+                    return i + 1;
+            }
+
+            return 0;
         }
 
         template <typename String>
