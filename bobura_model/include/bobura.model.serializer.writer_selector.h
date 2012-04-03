@@ -57,10 +57,7 @@ namespace bobura { namespace model { namespace serializer
         /*!
             \brief Creates a writer selector.
 
-            The extension must not include the first dot;
-            not ".txt" but "txt".
-
-            When no writer selects the extension, the first writer of
+            When no writer selects the file type, the first writer of
             p_writers is used.
 
             \tparam P A path type.

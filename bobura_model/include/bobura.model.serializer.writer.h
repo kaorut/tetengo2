@@ -54,8 +54,7 @@ namespace bobura { namespace model { namespace serializer
         /*!
             \brief Returns the extension.
 
-            The extension does not include the first dot;
-            not ".txt" but "txt".
+            The extension includes the first dot; not "txt" but ".txt".
 
             \return The extension.
         */
