@@ -30,6 +30,7 @@
         
         "Dialog:FileOpenSave:Open":                         "開く",
         "Dialog:FileOpenSave:SaveAs":                       "名前を付けて保存",
+        "Dialog:FileOpenSave:All Timetable Files":          "すべての時刻表ファイル",
         "Dialog:FileOpenSave:Timetable Files":              "時刻表ファイル",
         "Dialog:FileOpenSave:Timetable Files (Compressed)": "時刻表ファイル（圧縮）",
         "Dialog:FileOpenSave:All Files":                    "すべてのファイル",
