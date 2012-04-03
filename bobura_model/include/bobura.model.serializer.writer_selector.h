@@ -74,8 +74,8 @@ namespace bobura { namespace model { namespace serializer
         */
         template <typename PS>
         writer_selector(
-            std::vector<std::unique_ptr<base_type>>&& p_writers,
-            PS&&                                      extension
+            std::vector<std::unique_ptr<base_type>> p_writers,
+            PS&&                                    extension
         )
         :
         m_p_writers(std::move(p_writers)),

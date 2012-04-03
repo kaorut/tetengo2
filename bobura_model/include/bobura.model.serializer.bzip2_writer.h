@@ -58,7 +58,7 @@ namespace bobura { namespace model { namespace serializer
 
             \param p_writer A unique pointer to a writer.
         */
-        explicit bzip2_writer(std::unique_ptr<base_type>&& p_writer)
+        explicit bzip2_writer(std::unique_ptr<base_type> p_writer)
         :
         base_type(),
         m_p_writer(std::move(p_writer)) 
