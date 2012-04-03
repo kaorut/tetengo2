@@ -95,6 +95,11 @@ namespace bobura { namespace model { namespace serializer
             std::vector<std::unique_ptr<writer_type>> writers;
 
             writers.push_back(tetengo2::make_unique<json_writer_type>());
+            writers.push_back(
+                tetengo2::make_unique<bzip2_writer_type>(
+                    tetengo2::make_unique<json_writer_type>()
+                )
+            );
 
             return std::move(writers);
         }
