@@ -62,7 +62,7 @@ namespace bobura { namespace model { namespace serializer
         path_string_type extension()
         const
         {
-            return extention_impl();
+            return extension_impl();
         }
 
         /*!
@@ -79,7 +79,7 @@ namespace bobura { namespace model { namespace serializer
         bool selects(const path_string_type& extension)
         const
         {
-            return extension == extention_impl();
+            return extension == extension_impl();
         }
 
         /*!
@@ -110,7 +110,7 @@ namespace bobura { namespace model { namespace serializer
     private:
         // virtual functions
 
-        virtual path_string_type extention_impl()
+        virtual path_string_type extension_impl()
         const = 0;
 
         virtual void write_impl(

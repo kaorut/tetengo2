@@ -44,6 +44,7 @@ bobura_model_test_CPPFLAGS = \
 bobura_model_test_LDFLAGS = $(BOOST_LDFLAGS)
 bobura_model_test_LDADD = \
     $(BOOST_FILESYSTEM_LIB) \
+    $(BOOST_IOSTREAMS_LIB) \
     $(BOOST_PROGRAM_OPTIONS_LIB) \
     $(BOOST_SYSTEM_LIB) \
     $(BOOST_THREAD_LIB) \

@@ -107,7 +107,7 @@ namespace bobura { namespace model { namespace serializer
 
         // virtual functions
 
-        virtual path_string_type extention_impl()
+        virtual path_string_type extension_impl()
         const
         {
             BOOST_THROW_EXCEPTION(std::logic_error("No extension."));

@@ -496,7 +496,7 @@ namespace bobura { namespace model { namespace serializer
 
         // virtual functions
 
-        virtual path_string_type extention_impl()
+        virtual path_string_type extension_impl()
         const
         {
             return path_string_type(TETENGO2_TEXT("btt"));

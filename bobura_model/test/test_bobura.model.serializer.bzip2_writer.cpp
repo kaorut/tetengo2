@@ -26,12 +26,55 @@ namespace
 
     typedef
         boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::timetable
+        >::type
+        timetable_type;
+
+    typedef
+        boost::mpl::at<
             test_bobura::model::serialization_type_list,
-            test_bobura::model::type::serialization::bzip2_writer
+            test_bobura::model::type::serialization::writer
         >::type
         writer_type;
 
     typedef writer_type::path_string_type path_string_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::serialization_type_list,
+            test_bobura::model::type::serialization::bzip2_writer
+        >::type
+        bzip2_writer_type;
+
+    class concrete_writer : public writer_type
+    {
+    public:
+        concrete_writer()
+        :
+        writer_type()
+        {}
+
+        virtual ~concrete_writer()
+        TETENGO2_CPP11_NOEXCEPT
+        {}
+
+
+    private:
+        virtual path_string_type extension_impl()
+        const
+        {
+            return path_string_type(TETENGO2_TEXT("hoge"));
+        }
+
+        virtual void write_impl(
+            const timetable_type& timetable,
+            output_stream_type&   output_stream
+        )
+        {}
+
+
+    };
 
 
 }
@@ -46,40 +89,55 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
     {
         BOOST_TEST_PASSPOINT();
 
-        //const writer_type bzip2_writer;
+        std::unique_ptr<writer_type> p_writer =
+            tetengo2::make_unique<concrete_writer>();
+        const bzip2_writer_type bzip2_writer(std::move(p_writer));
     }
 
     BOOST_AUTO_TEST_CASE(extension)
     {
         BOOST_TEST_PASSPOINT();
 
-        //const writer_type bzip2_writer;
+        std::unique_ptr<writer_type> p_writer =
+            tetengo2::make_unique<concrete_writer>();
+        const bzip2_writer_type bzip2_writer(std::move(p_writer));
 
-        //BOOST_CHECK(
-        //    bzip2_writer.extension() == path_string_type(TETENGO2_TEXT("btt"))
-        //);
+        BOOST_CHECK(
+            bzip2_writer.extension() ==
+            path_string_type(TETENGO2_TEXT("hoge.bz2"))
+        );
     }
 
     BOOST_AUTO_TEST_CASE(selects)
     {
         BOOST_TEST_PASSPOINT();
 
-        //const writer_type bzip2_writer;
+        std::unique_ptr<writer_type> p_writer =
+            tetengo2::make_unique<concrete_writer>();
+        const bzip2_writer_type bzip2_writer(std::move(p_writer));
 
-        //BOOST_CHECK(
-        //    bzip2_writer.selects(path_string_type(TETENGO2_TEXT("btt")))
-        //);
-        //BOOST_CHECK(
-        //    !bzip2_writer.selects(path_string_type(TETENGO2_TEXT("hoge")))
-        //);
-        //BOOST_CHECK(!bzip2_writer.selects(path_string_type()));
+        BOOST_CHECK(
+            bzip2_writer.selects(path_string_type(TETENGO2_TEXT("hoge.bz2")))
+        );
+        BOOST_CHECK(
+            !bzip2_writer.selects(path_string_type(TETENGO2_TEXT("hoge")))
+        );
+        BOOST_CHECK(!bzip2_writer.selects(path_string_type()));
     }
 
     BOOST_AUTO_TEST_CASE(write)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        std::unique_ptr<writer_type> p_writer =
+            tetengo2::make_unique<concrete_writer>();
+        bzip2_writer_type bzip2_writer(std::move(p_writer));
+        const timetable_type timetable;
+        std::ostringstream stream;
+        bzip2_writer.write(timetable, stream);
+
+        const std::string result = stream.str();
+        BOOST_CHECK(result.substr(0, 2) == "BZ");
     }
 
 

@@ -70,7 +70,7 @@ namespace
     private:
         const path_string_type m_extention;
 
-        virtual path_string_type extention_impl()
+        virtual path_string_type extension_impl()
         const
         {
             return m_extention;
