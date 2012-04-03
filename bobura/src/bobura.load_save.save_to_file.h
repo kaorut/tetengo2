@@ -142,7 +142,7 @@ namespace bobura { namespace load_save
                 }
 
                 writer_selector_type writer(
-                    writer_set_type::create_writers(), extension(path)
+                    writer_set_type::create_writers(), path
                 );
                 writer.write(model.timetable(), output_stream);
             }
@@ -173,27 +173,6 @@ namespace bobura { namespace load_save
         typedef typename file_save_dialog_type::path_type path_type;
 
         typedef typename model_type::timetable_type timetable_type;
-
-        typedef
-            typename writer_selector_type::path_string_type path_string_type;
-
-
-        // static functions
-
-        static path_string_type extension(const path_type& path)
-        {
-            path_string_type result =
-                path.extension().template string<path_string_type>();
-            if (
-                !result.empty() &&
-                result[0] ==
-                    typename path_string_type::value_type(TETENGO2_TEXT('.'))
-            )
-            {
-                result = result.substr(1);
-            }
-            return result;
-        }
 
 
         // variables

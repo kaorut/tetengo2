@@ -13,6 +13,7 @@
 #include <ostream>
 //#include <string>
 
+#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
 
@@ -51,6 +52,7 @@ namespace test_bobura { namespace model
         struct size;           //!< The size type.
         struct difference;     //!< The difference type.
         struct string;         //!< The string type.
+        struct path;           //!< The path type.
         struct output_stream;  //!< The output stream type.
     }
 
@@ -63,9 +65,11 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::string, std::string>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::path, boost::filesystem::path>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::output_stream, std::ostream>,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         type_list;
 
 
@@ -221,7 +225,7 @@ namespace test_bobura { namespace model
                 boost::mpl::at<
                     model_type_list, type::model::timetable
                 >::type,
-                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::path>::type,
                 boost::mpl::at<
                     model_type_list, type::model::grade_type_set
                 >::type,
@@ -267,7 +271,7 @@ namespace test_bobura { namespace model
                     boost::mpl::at<
                         model_type_list, type::model::timetable
                     >::type,
-                    boost::mpl::at<type_list, type::string>::type
+                    boost::mpl::at<type_list, type::path>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -278,7 +282,7 @@ namespace test_bobura { namespace model
                     boost::mpl::at<
                         model_type_list, type::model::timetable
                     >::type,
-                    boost::mpl::at<type_list, type::string>::type
+                    boost::mpl::at<type_list, type::path>::type
                 >
             >,
         tetengo2::meta::assoc_list<

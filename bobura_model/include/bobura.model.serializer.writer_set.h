@@ -30,14 +30,14 @@ namespace bobura { namespace model { namespace serializer
 
         \tparam OutputStream        A output stream type.
         \tparam Timetable           A timetable type.
-        \tparam PathString          A path string type.
+        \tparam Path                A path type.
         \tparam StationGradeTypeSet A station grade type set.
         \tparam Encoder             An encoder type.
     */
     template <
         typename OutputStream,
         typename Timetable,
-        typename PathString,
+        typename Path,
         typename StationGradeTypeSet,
         typename Encoder
     >
@@ -52,8 +52,8 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
-        //! The path string type.
-        typedef PathString path_string_type;
+        //! The path type.
+        typedef Path path_type;
 
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
@@ -63,12 +63,11 @@ namespace bobura { namespace model { namespace serializer
 
         //! The writer type.
         typedef
-            writer<output_stream_type, timetable_type, path_string_type>
-            writer_type;
+            writer<output_stream_type, timetable_type, path_type> writer_type;
 
         //! The bzip2 writer type.
         typedef
-            bzip2_writer<output_stream_type, timetable_type, path_string_type>
+            bzip2_writer<output_stream_type, timetable_type, path_type>
             bzip2_writer_type;
 
         //! The JSON writer type.
@@ -76,7 +75,7 @@ namespace bobura { namespace model { namespace serializer
             json_writer<
                 output_stream_type,
                 timetable_type,
-                path_string_type,
+                path_type,
                 station_grade_type_set_type,
                 encoder_type
             >

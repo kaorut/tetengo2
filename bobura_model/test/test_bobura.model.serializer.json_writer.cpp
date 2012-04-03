@@ -90,7 +90,7 @@ namespace
         >::type
         writer_type;
 
-    typedef writer_type::path_string_type path_string_type;
+    typedef writer_type::path_type path_type;
 
 
     // variables
@@ -280,7 +280,7 @@ BOOST_AUTO_TEST_SUITE(json_writer)
         const writer_type json_writer;
 
         BOOST_CHECK(
-            json_writer.extension() == path_string_type(TETENGO2_TEXT("btt"))
+            json_writer.extension() == path_type(TETENGO2_TEXT(".btt"))
         );
     }
 
@@ -290,13 +290,9 @@ BOOST_AUTO_TEST_SUITE(json_writer)
 
         const writer_type json_writer;
 
-        BOOST_CHECK(
-            json_writer.selects(path_string_type(TETENGO2_TEXT("btt")))
-        );
-        BOOST_CHECK(
-            !json_writer.selects(path_string_type(TETENGO2_TEXT("hoge")))
-        );
-        BOOST_CHECK(!json_writer.selects(path_string_type()));
+        BOOST_CHECK(json_writer.selects(path_type(TETENGO2_TEXT(".btt"))));
+        BOOST_CHECK(!json_writer.selects(path_type(TETENGO2_TEXT(".hoge"))));
+        BOOST_CHECK(!json_writer.selects(path_type()));
     }
 
     BOOST_AUTO_TEST_CASE(write)

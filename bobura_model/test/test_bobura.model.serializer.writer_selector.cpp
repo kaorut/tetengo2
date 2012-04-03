@@ -40,7 +40,7 @@ namespace
         >::type
         writer_type;
 
-    typedef writer_type::path_string_type path_string_type;
+    typedef writer_type::path_type path_type;
 
     typedef
         boost::mpl::at<
@@ -56,10 +56,10 @@ namespace
             std::basic_string<output_stream_type::char_type>
             output_string_type;
 
-        concrete_writer(path_string_type&& extension)
+        explicit concrete_writer(path_type&& extension)
         :
         writer_type(),
-        m_extention(std::forward<path_string_type>(extension))
+        m_extension(std::forward<path_type>(extension))
         {}
 
         virtual ~concrete_writer()
@@ -68,12 +68,12 @@ namespace
 
 
     private:
-        const path_string_type m_extention;
+        const path_type m_extension;
 
-        virtual path_string_type extension_impl()
+        virtual path_type extension_impl()
         const
         {
-            return m_extention;
+            return m_extension;
         }
 
         virtual void write_impl(
@@ -81,10 +81,7 @@ namespace
             output_stream_type&   output_stream
         )
         {
-            const output_string_type output(
-                m_extention.begin(), m_extention.end()
-            );
-            output_stream << output;
+            output_stream << m_extension.string();
         }
 
 
@@ -99,16 +96,13 @@ namespace
 
         writers.push_back(
             tetengo2::make_unique<concrete_writer>(
-                path_string_type(TETENGO2_TEXT("hoge"))
+                path_type(TETENGO2_TEXT(".hoge"))
             )
         );
         writers.push_back(
             tetengo2::make_unique<concrete_writer>(
-                path_string_type(TETENGO2_TEXT("fuga"))
+                path_type(TETENGO2_TEXT(".fuga"))
             )
-        );
-        writers.push_back(
-            tetengo2::make_unique<concrete_writer>(path_string_type())
         );
 
         return std::move(writers);
@@ -132,14 +126,13 @@ BOOST_AUTO_TEST_SUITE(writer_selector)
             std::vector<std::unique_ptr<writer_type>> concrete_writers =
                 create_concrete_writers();
             const writer_set_type writer_selector(
-                std::move(concrete_writers), path_string_type()
+                std::move(concrete_writers), path_type()
             );
         }
         {
             BOOST_CHECK_THROW(
                 writer_set_type(
-                    std::vector<std::unique_ptr<writer_type>>(),
-                    path_string_type()
+                    std::vector<std::unique_ptr<writer_type>>(), path_type()
                 ),
                 std::invalid_argument
             );
@@ -153,7 +146,7 @@ BOOST_AUTO_TEST_SUITE(writer_selector)
         std::vector<std::unique_ptr<writer_type>> concrete_writers =
             create_concrete_writers();
         const writer_set_type writer_selector(
-            std::move(concrete_writers), path_string_type()
+            std::move(concrete_writers), path_type()
         );
 
         BOOST_CHECK_THROW(writer_selector.extension(), std::logic_error);
@@ -166,19 +159,19 @@ BOOST_AUTO_TEST_SUITE(writer_selector)
         std::vector<std::unique_ptr<writer_type>> concrete_writers =
             create_concrete_writers();
         const writer_set_type writer_selector(
-            std::move(concrete_writers), path_string_type()
+            std::move(concrete_writers), path_type()
         );
 
         BOOST_CHECK_THROW(
-            writer_selector.selects(path_string_type(TETENGO2_TEXT("hoge"))),
+            writer_selector.selects(path_type(TETENGO2_TEXT("piyo.hoge"))),
             std::logic_error
         );
         BOOST_CHECK_THROW(
-            writer_selector.selects(path_string_type(TETENGO2_TEXT("foo"))),
+            writer_selector.selects(path_type(TETENGO2_TEXT("piyo.foo"))),
             std::logic_error
         );
         BOOST_CHECK_THROW(
-            writer_selector.selects(path_string_type()), std::logic_error
+            writer_selector.selects(path_type()), std::logic_error
         );
     }
 
@@ -191,51 +184,39 @@ BOOST_AUTO_TEST_SUITE(writer_selector)
                 create_concrete_writers();
             writer_set_type writer_selector(
                 std::move(concrete_writers),
-                path_string_type(TETENGO2_TEXT("hoge"))
+                path_type(TETENGO2_TEXT("piyo.hoge"))
             );
             const timetable_type timetable;
             std::ostringstream stream;
             writer_selector.write(timetable, stream);
 
-            BOOST_CHECK(stream.str() == std::string("hoge"));
+            BOOST_CHECK(stream.str() == std::string(".hoge"));
         }
         {
             std::vector<std::unique_ptr<writer_type>> concrete_writers =
                 create_concrete_writers();
             writer_set_type writer_selector(
                 std::move(concrete_writers),
-                path_string_type(TETENGO2_TEXT("fuga"))
+                path_type(TETENGO2_TEXT("piyo.fuga"))
             );
             const timetable_type timetable;
             std::ostringstream stream;
             writer_selector.write(timetable, stream);
 
-            BOOST_CHECK(stream.str() == std::string("fuga"));
-        }
-        {
-            std::vector<std::unique_ptr<writer_type>> concrete_writers =
-                create_concrete_writers();
-            writer_set_type writer_selector(
-                std::move(concrete_writers), path_string_type()
-            );
-            const timetable_type timetable;
-            std::ostringstream stream;
-            writer_selector.write(timetable, stream);
-
-            BOOST_CHECK(stream.str().empty());
+            BOOST_CHECK(stream.str() == std::string(".fuga"));
         }
         {
             std::vector<std::unique_ptr<writer_type>> concrete_writers =
                 create_concrete_writers();
             writer_set_type writer_selector(
                 std::move(concrete_writers),
-                path_string_type(TETENGO2_TEXT("foo"))
+                path_type(TETENGO2_TEXT("piyo.foo"))
             );
             const timetable_type timetable;
             std::ostringstream stream;
             writer_selector.write(timetable, stream);
 
-            BOOST_CHECK(stream.str() == std::string("hoge"));
+            BOOST_CHECK(stream.str() == std::string(".hoge"));
         }
     }
 

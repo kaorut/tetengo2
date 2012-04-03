@@ -26,12 +26,12 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a bzip2 writer.
 
-        \tparam OutputStream        A output stream type.
-        \tparam Timetable           A timetable type.
-        \tparam PathString          A path string type.
+        \tparam OutputStream A output stream type.
+        \tparam Timetable    A timetable type.
+        \tparam Path         A path type.
     */
-    template <typename OutputStream, typename Timetable, typename PathString>
-    class bzip2_writer : public writer<OutputStream, Timetable, PathString>
+    template <typename OutputStream, typename Timetable, typename Path>
+    class bzip2_writer : public writer<OutputStream, Timetable, Path>
     {
     public:
         // types
@@ -42,13 +42,12 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
-        //! The path string type.
-        typedef PathString path_string_type;
+        //! The path type.
+        typedef Path path_type;
 
         //! The base type.
         typedef
-            writer<output_stream_type, timetable_type, path_string_type>
-            base_type;
+            writer<output_stream_type, timetable_type, path_type> base_type;
 
 
         // constructors and destructor
@@ -80,12 +79,14 @@ namespace bobura { namespace model { namespace serializer
 
         // virtual functions
 
-        virtual path_string_type extension_impl()
+        virtual path_type extension_impl()
         const
         {
             return
-                m_p_writer->extension() +
-                path_string_type(TETENGO2_TEXT(".bz2"));
+                path_type(
+                    m_p_writer->extension().native() +
+                    typename path_type::string_type(TETENGO2_TEXT(".bz2"))
+                );
         }
 
         virtual void write_impl(

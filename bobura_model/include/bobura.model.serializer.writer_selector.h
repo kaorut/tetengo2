@@ -30,10 +30,10 @@ namespace bobura { namespace model { namespace serializer
 
         \tparam OutputStream An output stream type.
         \tparam Timetable    A timetable type.
-        \tparam PathString   A path string type.
+        \tparam Path         A path type.
     */
-    template <typename OutputStream, typename Timetable, typename PathString>
-    class writer_selector : public writer<OutputStream, Timetable, PathString>
+    template <typename OutputStream, typename Timetable, typename Path>
+    class writer_selector : public writer<OutputStream, Timetable, Path>
     {
     public:
         // types
@@ -44,13 +44,12 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
-        //! The path string type.
-        typedef PathString path_string_type;
+        //! The path type.
+        typedef Path path_type;
 
         //! The base type.
         typedef
-            writer<output_stream_type, timetable_type, path_string_type>
-            base_type;
+            writer<output_stream_type, timetable_type, path_type> base_type;
 
 
         // constructors and destructor
@@ -64,22 +63,22 @@ namespace bobura { namespace model { namespace serializer
             When no writer selects the extension, the first writer of
             p_writers is used.
 
-            \tparam PS A path string type.
+            \tparam P A path type.
 
             \param p_writers Unique pointers to writers.
-            \param extension An extension.
+            \param path      A path.
 
             \throw std::invalid_argument When the count of the writers is
                                          empty.
         */
-        template <typename PS>
+        template <typename P>
         writer_selector(
             std::vector<std::unique_ptr<base_type>> p_writers,
-            PS&&                                    extension
+            P&&                                     path
         )
         :
         m_p_writers(std::move(p_writers)),
-        m_extention(std::forward<PS>(extension))
+        m_path(std::forward<P>(path))
         {
             if (m_p_writers.empty())
             {
@@ -102,12 +101,12 @@ namespace bobura { namespace model { namespace serializer
 
         const std::vector<std::unique_ptr<base_type>> m_p_writers;
 
-        const path_string_type m_extention;
+        const path_type m_path;
 
 
         // virtual functions
 
-        virtual path_string_type extension_impl()
+        virtual path_type extension_impl()
         const
         {
             BOOST_THROW_EXCEPTION(std::logic_error("No extension."));
@@ -147,7 +146,7 @@ namespace bobura { namespace model { namespace serializer
         bool call_selects(const std::unique_ptr<base_type>& p_writer)
         const
         {
-            return p_writer->selects(m_extention);
+            return p_writer->selects(m_path);
         }
 
 

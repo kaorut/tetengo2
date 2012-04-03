@@ -38,7 +38,7 @@ namespace
         >::type
         writer_type;
 
-    typedef writer_type::path_string_type path_string_type;
+    typedef writer_type::path_type path_type;
 
     typedef
         boost::mpl::at<
@@ -61,10 +61,10 @@ namespace
 
 
     private:
-        virtual path_string_type extension_impl()
+        virtual path_type extension_impl()
         const
         {
-            return path_string_type(TETENGO2_TEXT("hoge"));
+            return path_type(TETENGO2_TEXT("hoge"));
         }
 
         virtual void write_impl(
@@ -103,8 +103,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
         const bzip2_writer_type bzip2_writer(std::move(p_writer));
 
         BOOST_CHECK(
-            bzip2_writer.extension() ==
-            path_string_type(TETENGO2_TEXT("hoge.bz2"))
+            bzip2_writer.extension() == path_type(TETENGO2_TEXT("hoge.bz2"))
         );
     }
 
@@ -117,12 +116,10 @@ BOOST_AUTO_TEST_SUITE(bzip2_writer)
         const bzip2_writer_type bzip2_writer(std::move(p_writer));
 
         BOOST_CHECK(
-            bzip2_writer.selects(path_string_type(TETENGO2_TEXT("hoge.bz2")))
+            bzip2_writer.selects(path_type(TETENGO2_TEXT("hoge.bz2")))
         );
-        BOOST_CHECK(
-            !bzip2_writer.selects(path_string_type(TETENGO2_TEXT("hoge")))
-        );
-        BOOST_CHECK(!bzip2_writer.selects(path_string_type()));
+        BOOST_CHECK(!bzip2_writer.selects(path_type(TETENGO2_TEXT("hoge"))));
+        BOOST_CHECK(!bzip2_writer.selects(path_type()));
     }
 
     BOOST_AUTO_TEST_CASE(write)

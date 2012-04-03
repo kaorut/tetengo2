@@ -35,7 +35,7 @@ namespace
         >::type
         writer_type;
 
-    typedef writer_type::path_string_type path_string_type;
+    typedef writer_type::path_type path_type;
 
     class concrete_writer : public writer_type
     {
@@ -51,10 +51,10 @@ namespace
 
 
     private:
-        virtual path_string_type extension_impl()
+        virtual path_type extension_impl()
         const
         {
-            return path_string_type(TETENGO2_TEXT("hoge"));
+            return path_type(TETENGO2_TEXT("hoge"));
         }
 
         virtual void write_impl(
@@ -88,9 +88,7 @@ BOOST_AUTO_TEST_SUITE(writer)
 
         const concrete_writer writer;
 
-        BOOST_CHECK(
-            writer.extension() == path_string_type(TETENGO2_TEXT("hoge"))
-        );
+        BOOST_CHECK(writer.extension() == path_type(TETENGO2_TEXT("hoge")));
     }
 
     BOOST_AUTO_TEST_CASE(selects)
@@ -99,9 +97,9 @@ BOOST_AUTO_TEST_SUITE(writer)
 
         const concrete_writer writer;
 
-        BOOST_CHECK(writer.selects(path_string_type(TETENGO2_TEXT("hoge"))));
-        BOOST_CHECK(!writer.selects(path_string_type(TETENGO2_TEXT("fuga"))));
-        BOOST_CHECK(!writer.selects(path_string_type()));
+        BOOST_CHECK(writer.selects(path_type(TETENGO2_TEXT("hoge"))));
+        BOOST_CHECK(!writer.selects(path_type(TETENGO2_TEXT("fuga"))));
+        BOOST_CHECK(!writer.selects(path_type()));
     }
 
     BOOST_AUTO_TEST_CASE(write)

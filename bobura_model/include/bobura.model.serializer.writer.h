@@ -21,9 +21,9 @@ namespace bobura { namespace model { namespace serializer
 
         \tparam OutputStream An output stream type.
         \tparam Timetable    A timetable type.
-        \tparam PathString   A path string type.
+        \tparam Path         A path type.
     */
-    template <typename OutputStream, typename Timetable, typename PathString>
+    template <typename OutputStream, typename Timetable, typename Path>
     class writer : private boost::noncopyable
     {
     public:
@@ -35,8 +35,8 @@ namespace bobura { namespace model { namespace serializer
         //! The timetable type.
         typedef Timetable timetable_type;
 
-        //! The path string type.
-        typedef PathString path_string_type;
+        //! The path type.
+        typedef Path path_type;
 
 
         // constructors and destructor
@@ -59,7 +59,7 @@ namespace bobura { namespace model { namespace serializer
 
             \return The extension.
         */
-        path_string_type extension()
+        path_type extension()
         const
         {
             return extension_impl();
@@ -68,18 +68,28 @@ namespace bobura { namespace model { namespace serializer
         /*!
             \brief Checks whether this writer selects a file type.
 
-            The extension must not include the first dot;
-            not ".txt" but "txt".
-
-            \param extension An extension.
+            \param path A path.
 
             \retval true  When this writer selects the file type.
             \retval false Otherwise.
         */
-        bool selects(const path_string_type& extension)
+        bool selects(const path_type& path)
         const
         {
-            return extension == extension_impl();
+            typedef typename path_type::string_type path_string_type;
+
+            const path_string_type path_string = path.native();
+            const path_string_type extension_string =
+                extension_impl().native();
+            if (path_string.length() < extension_string.length())
+                return false;
+            
+            const path_string_type path_extension_string(
+                boost::prior(path_string.end(), extension_string.length()),
+                path_string.end()
+            );
+
+            return path_extension_string == extension_string;
         }
 
         /*!
@@ -110,7 +120,7 @@ namespace bobura { namespace model { namespace serializer
     private:
         // virtual functions
 
-        virtual path_string_type extension_impl()
+        virtual path_type extension_impl()
         const = 0;
 
         virtual void write_impl(
