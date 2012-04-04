@@ -213,7 +213,7 @@ namespace bobura { namespace load_save
                             "Dialog:FileOpenSave:All Timetable Files"
                         )
                     ),
-                    string_type(TETENGO2_TEXT("btt*"))
+                    string_type(TETENGO2_TEXT("btt;*.btt.bz2"))
                 )
             );
             filters.push_back(
