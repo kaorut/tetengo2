@@ -69,15 +69,15 @@ namespace
 }
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(timetable_model)
 BOOST_AUTO_TEST_SUITE(reset)
     // test cases
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -98,11 +98,7 @@ BOOST_AUTO_TEST_SUITE(reset)
             model_type, main_window_type
         > observer(model, main_window);
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
@@ -125,16 +121,12 @@ BOOST_AUTO_TEST_SUITE(reset)
 
         observer();
     }
-#endif
 
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(changed)
     // test cases
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -156,11 +148,7 @@ BOOST_AUTO_TEST_SUITE(changed)
         >
         observer(model, main_window);
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
@@ -183,10 +171,10 @@ BOOST_AUTO_TEST_SUITE(changed)
 
         observer();
     }
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
 #endif
-
-
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()

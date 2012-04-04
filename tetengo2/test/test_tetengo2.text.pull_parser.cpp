@@ -57,14 +57,14 @@ namespace
 }
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(pull_parser)
     // test cases
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -107,11 +107,7 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             );
         }
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(has_next)
     {
         BOOST_TEST_PASSPOINT();
@@ -155,11 +151,7 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             BOOST_CHECK(pull_parser.has_next());
         }
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(peek)
     {
         BOOST_TEST_PASSPOINT();
@@ -400,11 +392,7 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             BOOST_CHECK(!pull_parser.has_next());
         }
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(next)
     {
         BOOST_TEST_PASSPOINT();
@@ -450,11 +438,7 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             BOOST_CHECK(!pull_parser.has_next());
         }
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(skip_next)
     {
         BOOST_TEST_PASSPOINT();
@@ -579,9 +563,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             BOOST_CHECK_EQUAL(value, 78);
         }
     }
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
 #endif
-
-
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()

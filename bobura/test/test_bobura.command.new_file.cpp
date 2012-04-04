@@ -69,6 +69,9 @@ namespace
 }
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
 BOOST_AUTO_TEST_SUITE(new_file)
@@ -88,9 +91,6 @@ BOOST_AUTO_TEST_SUITE(new_file)
         const new_file_command_type new_file_command(new_file);
     }
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
@@ -107,9 +107,9 @@ BOOST_AUTO_TEST_SUITE(new_file)
         window_type parent;
         new_file_command(model, parent);
     }
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
 #endif
-
-
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()

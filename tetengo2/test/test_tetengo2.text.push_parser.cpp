@@ -88,14 +88,14 @@ namespace
 }
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(text)
 BOOST_AUTO_TEST_SUITE(push_parser)
     // test cases
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -121,11 +121,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             );
         }
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(on_structure_begin)
     {
         BOOST_TEST_PASSPOINT();
@@ -155,11 +151,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             parser.on_structure_begin();
         }
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(on_structure_end)
     {
         BOOST_TEST_PASSPOINT();
@@ -189,11 +181,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             parser.on_structure_end();
         }
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(on_value)
     {
         BOOST_TEST_PASSPOINT();
@@ -223,11 +211,7 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             parser.on_value();
         }
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(parse)
     {
         BOOST_TEST_PASSPOINT();
@@ -472,9 +456,9 @@ BOOST_AUTO_TEST_SUITE(push_parser)
             BOOST_CHECK(parsed[7].first == "array");
         }
     }
-#endif
 
     
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif

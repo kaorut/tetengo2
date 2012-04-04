@@ -70,13 +70,13 @@ namespace
 }
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(main_window)
     // test cases
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -94,11 +94,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
             message_catalog, settings, confirm_file_save
         );
     }
-#endif
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(set_title)
     {
         BOOST_TEST_PASSPOINT();
@@ -196,7 +192,7 @@ BOOST_AUTO_TEST_SUITE(main_window)
             );
         }
     }
-#endif
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif

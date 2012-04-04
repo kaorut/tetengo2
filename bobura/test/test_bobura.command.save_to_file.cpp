@@ -59,6 +59,9 @@ namespace
 }
 
 
+#if defined(__GNUC__) && defined(SKIP_COMPILATION)
+#   warning Skipped the compilation to avoid errors.
+#else
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(command)
 BOOST_AUTO_TEST_SUITE(save_to_file_command)
@@ -73,9 +76,6 @@ BOOST_AUTO_TEST_SUITE(save_to_file_command)
         const save_to_file_command_type save_to_file_command(save_to_file);
     }
 
-#if defined(__GNUC__) && defined(SKIP_COMPILATION)
-#   warning Skipped the compilation to avoid errors.
-#else
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
@@ -91,9 +91,9 @@ BOOST_AUTO_TEST_SUITE(save_to_file_command)
         BOOST_CHECK(boost::filesystem::exists(model.path()));
         boost::filesystem::remove(model.path());
 }
+
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()
 #endif
-
-
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE_END()
