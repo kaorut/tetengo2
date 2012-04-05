@@ -72,5 +72,11 @@
     <ClInclude Include="include\bobura.model.serializer.bzip2_writer.h">
       <Filter>headers\bobura::model\serializer</Filter>
     </ClInclude>
+    <ClInclude Include="include\bobura.model.serializer.reader_selector.h">
+      <Filter>headers\bobura::model\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bobura.model.serializer.reader_set.h">
+      <Filter>headers\bobura::model\serializer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

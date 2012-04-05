@@ -8,6 +8,8 @@ headers = \
     bobura.model.serializer.json_reader.h \
     bobura.model.serializer.json_writer.h \
     bobura.model.serializer.reader.h \
+    bobura.model.serializer.reader_selector.h \
+    bobura.model.serializer.reader_set.h \
     bobura.model.serializer.writer.h \
     bobura.model.serializer.writer_selector.h \
     bobura.model.serializer.writer_set.h \
