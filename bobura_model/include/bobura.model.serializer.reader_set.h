@@ -63,7 +63,10 @@ namespace bobura { namespace model { namespace serializer
         //! The encoder type.
         typedef Encoder encoder_type;
 
-        //! The JSON writer type.
+        //! The reader type.
+        typedef reader<iterator, timetable_type> reader_type;
+
+        //! The JSON reader type.
         typedef
             json_reader<
                 pull_parser_type,
@@ -85,7 +88,7 @@ namespace bobura { namespace model { namespace serializer
         {
             std::vector<std::unique_ptr<reader_type>> readers;
 
-            //readers.push_back(tetengo2::make_unique<json_reader_type>());
+            readers.push_back(tetengo2::make_unique<json_reader_type>());
             //readers.push_back(
             //    tetengo2::make_unique<bzip2_writer_type>(
             //        tetengo2::make_unique<json_writer_type>()

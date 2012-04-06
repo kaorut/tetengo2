@@ -26,12 +26,12 @@ namespace
         >::type
         reader_type;
 
-    //typedef
-    //    boost::mpl::at<
-    //        test_bobura::model::serialization_type_list,
-    //        test_bobura::model::type::serialization::reader_set
-    //    >::type
-    //    reader_set_type;
+    typedef
+        boost::mpl::at<
+            test_bobura::model::serialization_type_list,
+            test_bobura::model::type::serialization::reader_set
+        >::type
+        reader_set_type;
 
 
 }
@@ -47,7 +47,11 @@ BOOST_AUTO_TEST_SUITE(reader_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const std::vector<std::unique_ptr<reader_type>> p_readers =
+            reader_set_type::create_readers();
+
+        BOOST_CHECK(!p_readers.empty());
+        BOOST_CHECK(p_readers[0]);
     }
 
 

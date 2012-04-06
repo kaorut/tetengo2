@@ -30,6 +30,7 @@
 #include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.serializer.json_writer.h"
 #include "bobura.model.serializer.reader.h"
+#include "bobura.model.serializer.reader_set.h"
 #include "bobura.model.serializer.writer.h"
 #include "bobura.model.serializer.writer_selector.h"
 #include "bobura.model.serializer.writer_set.h"
@@ -178,6 +179,7 @@ namespace test_bobura { namespace model
     {
         struct reader;         //!< The reader type.
         struct json_reader;    //!< The JSON reader type.
+        struct reader_set;     //!< The reader set type.
         struct writer;         //!< The writer type.
         struct writer_selector; //!< The writer selector type.
         struct bzip2_writer;   //!< The bzip2 writer type.
@@ -220,16 +222,25 @@ namespace test_bobura { namespace model
             >
             timetable_file_encoder_type;
         typedef
+            bobura::model::serializer::reader_set<
+                boost::mpl::at<type_list, type::string>::type::const_iterator,
+                boost::mpl::at<model_type_list, type::model::timetable>::type,
+                pull_parser_type,
+                boost::mpl::at<
+                    model_type_list, type::model::grade_type_set
+                >::type,
+                timetable_file_encoder_type
+            >
+            reader_set_type;
+        typedef
             bobura::model::serializer::writer_set<
                 boost::mpl::at<type_list, type::output_stream>::type,
-                boost::mpl::at<
-                    model_type_list, type::model::timetable
-                >::type,
+                boost::mpl::at<model_type_list, type::model::timetable>::type,
                 boost::mpl::at<type_list, type::path>::type,
                 boost::mpl::at<
                     model_type_list, type::model::grade_type_set
                 >::type,
-                detail::serialization::timetable_file_encoder_type
+                timetable_file_encoder_type
             >
             writer_set_type;
     }}
@@ -252,16 +263,12 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::serialization::json_reader,
-                bobura::model::serializer::json_reader<
-                    detail::serialization::pull_parser_type,
-                    boost::mpl::at<
-                        model_type_list, type::model::timetable
-                    >::type,
-                    boost::mpl::at<
-                        model_type_list, type::model::grade_type_set
-                    >::type,
-                    detail::serialization::timetable_file_encoder_type
-                >
+                detail::serialization::reader_set_type::json_reader_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::serialization::reader_set,
+                detail::serialization::reader_set_type
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -301,7 +308,7 @@ namespace test_bobura { namespace model
                 detail::serialization::writer_set_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>
+        >>>>>>>>
         serialization_type_list;
 
 
