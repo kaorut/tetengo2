@@ -7,11 +7,14 @@
 */
 
 //#include <memory>
+#include <utility>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.text.h>
+#include <tetengo2.unique.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -27,12 +30,33 @@ namespace
         >::type
         reader_type;
 
+    typedef
+        boost::mpl::at<
+            test_bobura::model::type_list, test_bobura::model::type::string
+        >::type
+        string_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::model_type_list,
+            test_bobura::model::type::model::timetable
+        >::type
+        timetable_type;
+
+    typedef
+        boost::mpl::at<
+            test_bobura::model::serialization_type_list,
+            test_bobura::model::type::serialization::reader_selector
+        >::type
+        reader_selector_type;
+
     class concrete_reader : public reader_type
     {
     public:
-        concrete_reader()
+        concrete_reader(string_type&& title)
         :
-        reader_type()
+        reader_type(),
+        m_title(std::forward<string_type>(title))
         {}
 
         virtual ~concrete_reader()
@@ -41,16 +65,45 @@ namespace
 
 
     private:
+        const string_type m_title;
+
         virtual std::unique_ptr<timetable_type> read_impl(
             const iterator first,
             const iterator last
         )
         {
-            return std::unique_ptr<timetable_type>();
+            std::unique_ptr<timetable_type> p_timetable =
+                tetengo2::make_unique<timetable_type>();
+
+            p_timetable->set_title(m_title);
+
+            return std::move(p_timetable);
         }
 
 
     };
+
+
+    // functions
+
+    std::vector<std::unique_ptr<reader_type>> create_concrete_readers()
+    {
+        std::vector<std::unique_ptr<reader_type>> readers;
+
+        readers.push_back(
+            tetengo2::make_unique<concrete_reader>(
+                string_type(TETENGO2_TEXT("hoge"))
+            )
+        );
+        readers.push_back(
+            tetengo2::make_unique<concrete_reader>(
+                string_type(TETENGO2_TEXT("fuga"))
+            )
+        );
+
+        return std::move(readers);
+    }
+
 
 }
 
@@ -65,14 +118,37 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            std::vector<std::unique_ptr<reader_type>> concrete_readers =
+                create_concrete_readers();
+            const reader_selector_type reader_selector(
+                std::move(concrete_readers)
+            );
+        }
+        {
+            std::vector<std::unique_ptr<reader_type>> concrete_readers;
+            BOOST_CHECK_THROW(
+                reader_selector_type(std::move(concrete_readers)),
+                std::invalid_argument
+            );
+        }
     }
 
     BOOST_AUTO_TEST_CASE(read)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            std::vector<std::unique_ptr<reader_type>> concrete_readers =
+                create_concrete_readers();
+            reader_selector_type reader_selector(
+                std::move(concrete_readers)
+            );
+
+            const string_type input(TETENGO2_TEXT("hoge"));
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader_selector.read(input.begin(), input.end());
+        }
     }
 
 

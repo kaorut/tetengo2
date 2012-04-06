@@ -56,7 +56,7 @@ namespace bobura { namespace model { namespace serializer
             std::vector<std::unique_ptr<base_type>> p_readers
         )
         :
-        m_p_readers(p_readers)
+        m_p_readers(std::move(p_readers))
         {
             if (m_p_readers.empty())
             {
@@ -87,7 +87,7 @@ namespace bobura { namespace model { namespace serializer
             const iterator last
         )
         {
-
+            return m_p_readers[0]->read(first, last);
         }
 
 

@@ -30,6 +30,7 @@
 #include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.serializer.json_writer.h"
 #include "bobura.model.serializer.reader.h"
+#include "bobura.model.serializer.reader_selector.h"
 #include "bobura.model.serializer.reader_set.h"
 #include "bobura.model.serializer.writer.h"
 #include "bobura.model.serializer.writer_selector.h"
@@ -178,6 +179,7 @@ namespace test_bobura { namespace model
     namespace type { namespace serialization
     {
         struct reader;         //!< The reader type.
+        struct reader_selector; //!< The reader selector type.
         struct json_reader;    //!< The JSON reader type.
         struct reader_set;     //!< The reader set type.
         struct writer;         //!< The writer type.
@@ -262,6 +264,18 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::serialization::reader_selector,
+                bobura::model::serializer::reader_selector<
+                    boost::mpl::at<
+                        type_list, type::string
+                    >::type::const_iterator,
+                    boost::mpl::at<
+                        model_type_list, type::model::timetable
+                    >::type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::serialization::json_reader,
                 detail::serialization::reader_set_type::json_reader_type
             >,
@@ -308,7 +322,7 @@ namespace test_bobura { namespace model
                 detail::serialization::writer_set_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>>>>>
         serialization_type_list;
 
 
