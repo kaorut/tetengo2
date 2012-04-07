@@ -69,7 +69,7 @@ namespace
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            return true;
+            return string_type(first, last) == m_title;
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(
@@ -153,6 +153,40 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
             const string_type input(TETENGO2_TEXT("hoge"));
             const std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(input.begin(), input.end());
+
+            BOOST_CHECK(
+                p_timetable->title() == string_type(TETENGO2_TEXT("hoge"))
+            );
+        }
+        {
+            std::vector<std::unique_ptr<reader_type>> concrete_readers =
+                create_concrete_readers();
+            reader_selector_type reader_selector(
+                std::move(concrete_readers)
+            );
+
+            const string_type input(TETENGO2_TEXT("fuga"));
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader_selector.read(input.begin(), input.end());
+
+            BOOST_CHECK(
+                p_timetable->title() == string_type(TETENGO2_TEXT("fuga"))
+            );
+        }
+        {
+            std::vector<std::unique_ptr<reader_type>> concrete_readers =
+                create_concrete_readers();
+            reader_selector_type reader_selector(
+                std::move(concrete_readers)
+            );
+
+            const string_type input(TETENGO2_TEXT("piyo"));
+            const std::unique_ptr<timetable_type> p_timetable =
+                reader_selector.read(input.begin(), input.end());
+
+            BOOST_CHECK(
+                p_timetable->title() == string_type(TETENGO2_TEXT("hoge"))
+            );
         }
     }
 

@@ -60,7 +60,6 @@ namespace bobura { namespace model { namespace serializer
             \retval false Otherwise.
         */
         bool selects(const iterator first, const iterator last)
-        const
         {
             return selects_impl(first, last);
         }

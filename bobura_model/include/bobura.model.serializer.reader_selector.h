@@ -84,7 +84,9 @@ namespace bobura { namespace model { namespace serializer
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            return true;
+            BOOST_THROW_EXCEPTION(
+                std::logic_error("This function cannot be called.")
+            );
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(
@@ -92,7 +94,41 @@ namespace bobura { namespace model { namespace serializer
             const iterator last
         )
         {
-            return m_p_readers[0]->read(first, last);
+            typedef
+                typename std::vector<
+                    std::unique_ptr<base_type>
+                >::const_iterator
+                iterator_type;
+
+            const iterator_type found =
+                std::find_if(
+                    m_p_readers.begin(),
+                    m_p_readers.end(),
+                    TETENGO2_CPP11_BIND(
+                        &reader_selector::call_selects,
+                        this,
+                        tetengo2::cpp11::placeholders_1(),
+                        first,
+                        last
+                    )
+                );
+            if (found == m_p_readers.end())
+            {
+                assert(!m_p_readers.empty());
+                return m_p_readers.front()->read(first, last);
+            }
+
+            return (*found)->read(first, last);
+        }
+
+        bool call_selects(
+            const std::unique_ptr<base_type>& p_reader,
+            const iterator                    first,
+            const iterator                    last
+        )
+        const
+        {
+            return p_reader->selects(first, last);
         }
 
 
