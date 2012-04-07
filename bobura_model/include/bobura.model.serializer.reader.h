@@ -51,6 +51,21 @@ namespace bobura { namespace model { namespace serializer
         // functions
 
         /*!
+            \brief Checks whether this reader selects a file type.
+
+            \param first The first position of an input.
+            \param last  The last position of an input.
+
+            \retval true  When this reader selects the file type.
+            \retval false Otherwise.
+        */
+        bool selects(const iterator first, const iterator last)
+        const
+        {
+            return selects_impl(first, last);
+        }
+
+        /*!
             \brief Reads a timetable.
 
             When it cannot read a timetable, it returns NULL.
@@ -81,6 +96,9 @@ namespace bobura { namespace model { namespace serializer
 
     private:
         // virtual functions
+
+        virtual bool selects_impl(const iterator first, const iterator last)
+        = 0;
 
         virtual std::unique_ptr<timetable_type> read_impl(
             const iterator first,

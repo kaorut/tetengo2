@@ -55,6 +55,11 @@ namespace
 
 
     private:
+        virtual bool selects_impl(const iterator first, const iterator last)
+        {
+            return true;
+        }
+
         virtual std::unique_ptr<timetable_type> read_impl(
             const iterator first,
             const iterator last
