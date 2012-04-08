@@ -7,6 +7,7 @@
 */
 
 //#include <memory>
+#include <stdexcept>
 #include <utility>
 
 //#include <boost/mpl/at.hpp>
@@ -137,6 +138,23 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                 std::invalid_argument
             );
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(selects)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        std::vector<std::unique_ptr<reader_type>> concrete_readers =
+            create_concrete_readers();
+        reader_selector_type reader_selector(
+            std::move(concrete_readers)
+        );
+
+        const string_type input(TETENGO2_TEXT("hoge"));
+        BOOST_CHECK_THROW(
+            reader_selector.selects(input.begin(), input.end()),
+            std::logic_error
+        );
     }
 
     BOOST_AUTO_TEST_CASE(read)
