@@ -243,6 +243,12 @@ namespace
         "    []\n"
         "]\n";
 
+    const std::string json9 =
+        "    \t    \n    []\n";
+
+    const std::string json10 =
+        "hoge\n";
+
 
 }
 
@@ -260,6 +266,18 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         BOOST_TEST_PASSPOINT();
 
         const reader_type json_reader;
+    }
+
+    BOOST_AUTO_TEST_CASE(selects)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        reader_type json_reader;
+        BOOST_CHECK(!json_reader.selects(json0.begin(), json0.end()));
+        BOOST_CHECK(json_reader.selects(json1.begin(), json1.end()));
+        BOOST_CHECK(json_reader.selects(json2.begin(), json2.end()));
+        BOOST_CHECK(json_reader.selects(json9.begin(), json9.end()));
+        BOOST_CHECK(!json_reader.selects(json10.begin(), json10.end()));
     }
 
     BOOST_AUTO_TEST_CASE(read)

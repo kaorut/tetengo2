@@ -834,7 +834,16 @@ namespace bobura { namespace model { namespace serializer
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            return true;
+            std::unique_ptr<push_parser_type> p_push_parser =
+                tetengo2::make_unique<push_parser_type>(
+                    first, last, tetengo2::make_unique<grammar_type>()
+                );
+            pull_parser_type pull_parser(std::move(p_push_parser), 5);
+
+            return
+                next_is_structure_begin(
+                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
+                );
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(
