@@ -96,6 +96,7 @@
     </ClCompile>
     <ClCompile Include="test\master.cpp" />
     <ClCompile Include="test\test_bobura.model.message.timetable_observer_set.cpp" />
+    <ClCompile Include="test\test_bobura.model.serializer.bzip2_reader.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.bzip2_writer.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.json_reader.cpp" />
     <ClCompile Include="test\test_bobura.model.serializer.json_writer.cpp" />

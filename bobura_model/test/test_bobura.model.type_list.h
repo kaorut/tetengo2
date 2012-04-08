@@ -26,6 +26,7 @@
 #include <tetengo2.text.push_parser.h>
 
 #include "bobura.model.message.timetable_observer_set.h"
+#include "bobura.model.serializer.bzip2_reader.h"
 #include "bobura.model.serializer.bzip2_writer.h"
 #include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.serializer.json_writer.h"
@@ -180,6 +181,7 @@ namespace test_bobura { namespace model
     {
         struct reader;         //!< The reader type.
         struct reader_selector; //!< The reader selector type.
+        struct bzip2_reader;   //!< The bzip2 reader type.
         struct json_reader;    //!< The JSON reader type.
         struct reader_set;     //!< The reader set type.
         struct writer;         //!< The writer type.
@@ -276,6 +278,11 @@ namespace test_bobura { namespace model
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::serialization::bzip2_reader,
+                detail::serialization::reader_set_type::bzip2_reader_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::serialization::json_reader,
                 detail::serialization::reader_set_type::json_reader_type
             >,
@@ -322,7 +329,7 @@ namespace test_bobura { namespace model
                 detail::serialization::writer_set_type
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>
+        >>>>>>>>>>
         serialization_type_list;
 
 

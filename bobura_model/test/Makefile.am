@@ -10,6 +10,7 @@ extra_headers =
 sources = \
     master.cpp \
     test_bobura.model.message.timetable_observer_set.cpp \
+    test_bobura.model.serializer.bzip2_reader.cpp \
     test_bobura.model.serializer.bzip2_writer.cpp \
     test_bobura.model.serializer.json_reader.cpp \
     test_bobura.model.serializer.json_writer.cpp \

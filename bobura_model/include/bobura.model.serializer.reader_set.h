@@ -17,6 +17,7 @@
 
 #include <tetengo2.unique.h>
 
+#include "bobura.model.serializer.bzip2_reader.h"
 #include "bobura.model.serializer.json_reader.h"
 #include "bobura.model.serializer.reader.h"
 #include "bobura.model.serializer.reader_selector.h"
@@ -25,7 +26,7 @@
 namespace bobura { namespace model { namespace serializer
 {
     /*!
-        \brief The class template for a writer set.
+        \brief The class template for a reader set.
 
         \tparam ForwardIterator     A forward iterator type.
         \tparam Timetable           A timetable type.
@@ -65,6 +66,9 @@ namespace bobura { namespace model { namespace serializer
 
         //! The reader type.
         typedef reader<iterator, timetable_type> reader_type;
+
+        //! The bzip2 reader type.
+        typedef bzip2_reader<iterator, timetable_type> bzip2_reader_type;
 
         //! The JSON reader type.
         typedef
