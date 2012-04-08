@@ -31,7 +31,8 @@ namespace bobura { namespace load_save
         \tparam MessageBox      A message box type.
         \tparam FileOpenDialog  A file open dialog type.
         \tparam ConfirmFileSave A file save confirmation type.
-        \tparam Reader          A reader type.
+        \tparam ReaderSelector  A reader selector type.
+        \tparam ReaderSet       A reader set type.
         \tparam MessageCatalog  A message catalog type.
     */
     template <
@@ -40,7 +41,8 @@ namespace bobura { namespace load_save
         typename MessageBox,
         typename FileOpenDialog,
         typename ConfirmFileSave,
-        typename Reader,
+        typename ReaderSelector,
+        typename ReaderSet,
         typename MessageCatalog
     >
     class load_from_file
@@ -63,8 +65,11 @@ namespace bobura { namespace load_save
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
 
-        //! The reader type.
-        typedef Reader reader_type;
+        //! The reader selector type.
+        typedef ReaderSelector reader_selector_type;
+
+        //! The reader set type.
+        typedef ReaderSet reader_set_type;
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
@@ -123,9 +128,11 @@ namespace bobura { namespace load_save
                 return;
             }
 
-            reader_type reader;
+            reader_selector_type reader_selector(
+                reader_set_type::create_readers()
+            );
             std::unique_ptr<timetable_type> p_timetable =
-                reader.read(
+                reader_selector.read(
                     boost::spirit::make_default_multi_pass(
                         std::istreambuf_iterator<char>(input_stream)
                     ),

@@ -27,9 +27,9 @@ namespace bobura { namespace model { namespace serializer
     /*!
         \brief The class template for a writer set.
 
-        \tparam OutputStream        A output stream type.
+        \tparam ForwardIterator     A forward iterator type.
         \tparam Timetable           A timetable type.
-        \tparam Path                A path type.
+        \tparam PullParser          A pull parser type.
         \tparam StationGradeTypeSet A station grade type set.
         \tparam Encoder             An encoder type.
     */

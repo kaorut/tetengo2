@@ -99,7 +99,8 @@
 #include "bobura.message.timetable_model_observer_set.h"
 #include "bobura.message.type_list_impl.h"
 #include "bobura.model.message.timetable_observer_set.h"
-#include "bobura.model.serializer.json_reader.h"
+#include "bobura.model.serializer.reader_selector.h"
+#include "bobura.model.serializer.reader_set.h"
 #include "bobura.model.serializer.writer_selector.h"
 #include "bobura.model.serializer.writer_set.h"
 #include "bobura.model.station.h"
@@ -124,6 +125,7 @@ namespace bobura
         struct size;           //!< The size type.
         struct string;         //!< The string type.
         struct path;           //!< The path type.
+        struct input_stream_iterator; //!< The input stream iterator type.
         struct pull_parser;    //!< The pull parser_type.
         struct output_stream;  //!< The output stream type.
         struct settings;       //!< The settings type.
@@ -167,6 +169,10 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::path, detail::path_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::input_stream_iterator, detail::input_stream_iterator_type
+            >,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::pull_parser, detail::pull_parser_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -176,7 +182,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::settings, detail::settings_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>
+        >>>>>>>>
         common_type_list;
 
 
@@ -299,7 +305,8 @@ namespace bobura
     namespace type { namespace model
     {
         struct model;          //!< The model type.
-        struct reader;         //!< The reader type.
+        struct reader_selector; //!< The reader selector type.
+        struct reader_set;     //!< The reader set type.
         struct writer_selector; //!< The writer selector type.
         struct writer_set;     //!< The writer set type.
     }}
@@ -370,10 +377,23 @@ namespace bobura
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::model::reader,
-                model::serializer::json_reader<
-                    boost::mpl::at<common_type_list, type::pull_parser>::type,
+                type::model::reader_selector,
+                model::serializer::reader_selector<
+                    boost::mpl::at<
+                        common_type_list, type::input_stream_iterator
+                    >::type,
+                    detail::model::timetable_type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::model::reader_set,
+                model::serializer::reader_set<
+                    boost::mpl::at<
+                        common_type_list, type::input_stream_iterator
+                    >::type,
                     detail::model::timetable_type,
+                    boost::mpl::at<common_type_list, type::pull_parser>::type,
                     detail::model::station_grade_type_set_type,
                     boost::mpl::at<
                         locale_type_list, type::locale::timetable_file_encoder
@@ -407,7 +427,7 @@ namespace bobura
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         model_type_list;
 
 
@@ -1049,7 +1069,10 @@ namespace bobura
                     >::type,
                     detail::load_save::confirm_file_save_type,
                     boost::mpl::at<
-                        model_type_list, type::model::reader
+                        model_type_list, type::model::reader_selector
+                    >::type,
+                    boost::mpl::at<
+                        model_type_list, type::model::reader_set
                     >::type,
                     boost::mpl::at<
                         locale_type_list, type::locale::message_catalog
