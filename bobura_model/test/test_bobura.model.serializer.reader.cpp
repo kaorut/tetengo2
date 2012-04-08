@@ -13,6 +13,7 @@
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
+#include <tetengo2.unique.h>
 
 #include "test_bobura.model.type_list.h"
 
@@ -57,7 +58,9 @@ namespace
     private:
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            return true;
+            return
+                string_type(first, last) ==
+                string_type(TETENGO2_TEXT("hoge"));
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(
@@ -65,7 +68,7 @@ namespace
             const iterator last
         )
         {
-            return std::unique_ptr<timetable_type>();
+            return tetengo2::make_unique<timetable_type>();
         }
 
 
@@ -87,6 +90,22 @@ BOOST_AUTO_TEST_SUITE(reader)
         const concrete_reader reader;
     }
 
+    BOOST_AUTO_TEST_CASE(selects)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_reader reader;
+
+        {
+            const string_type input(TETENGO2_TEXT("hoge"));
+            BOOST_CHECK(reader.selects(input.begin(), input.end()));
+        }
+        {
+            const string_type input(TETENGO2_TEXT("fuga"));
+            BOOST_CHECK(!reader.selects(input.begin(), input.end()));
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(read)
     {
         BOOST_TEST_PASSPOINT();
@@ -95,6 +114,8 @@ BOOST_AUTO_TEST_SUITE(reader)
         const string_type input(TETENGO2_TEXT("hoge"));
         const std::unique_ptr<timetable_type> p_timetable =
             reader.read(input.begin(), input.end());
+
+        BOOST_CHECK(p_timetable);
     }
 
 
