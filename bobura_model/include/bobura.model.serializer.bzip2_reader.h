@@ -15,6 +15,9 @@
 #include <utility>
 #include <vector>
 
+#include <boost/iostreams/filter/bzip2.hpp>
+#include <boost/iostreams/filtering_stream.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/utility.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -88,13 +91,35 @@ namespace bobura { namespace model { namespace serializer
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            const input_string_type input(first, last);
-            if (input.length() < 2)
+            const input_string_type input_string(first, last);
+            if (input_string.length() < 2)
                 return false;
-            if (input.substr(0, 2) != input_string_type(TETENGO2_TEXT("BZ")))
+            if (
+                input_string.substr(0, 2) !=
+                input_string_type(TETENGO2_TEXT("BZ"))
+            )
+            {
                 return false;
+            }
 
-            return m_p_reader->selects(first, last);
+            std::istringstream input_stream(input_string);
+
+            boost::iostreams::filtering_istream filtering_input_stream;
+            filtering_input_stream.push(
+                boost::iostreams::bzip2_decompressor()
+            );
+            filtering_input_stream.push(input_stream);
+
+            return m_p_reader->selects(
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<typename iterator::value_type>(
+                        filtering_input_stream
+                    )
+                ),
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<typename iterator::value_type>()
+                )
+            );
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(
