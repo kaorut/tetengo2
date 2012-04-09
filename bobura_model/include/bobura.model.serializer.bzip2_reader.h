@@ -10,10 +10,15 @@
 #define BOBURA_MODEL_SERIALIZER_BZIP2READER_H
 
 #include <memory>
+#include <sstream>
+#include <string>
 #include <utility>
 #include <vector>
 
+#include <boost/utility.hpp>
+
 #include <tetengo2.cpp11.h>
+#include <tetengo2.text.h>
 
 #include "bobura.model.serializer.reader.h"
 
@@ -64,6 +69,16 @@ namespace bobura { namespace model { namespace serializer
 
 
     private:
+        // types
+
+        typedef
+            std::basic_string<typename iterator::value_type> input_string_type;
+
+        typedef
+            std::basic_istringstream<typename iterator::value_type>
+            input_stream_type;
+
+
         // variables
 
         const std::unique_ptr<base_type> m_p_reader;
@@ -73,7 +88,13 @@ namespace bobura { namespace model { namespace serializer
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            return false;
+            const input_string_type input(first, last);
+            if (input.length() < 2)
+                return false;
+            if (input.substr(0, 2) != input_string_type(TETENGO2_TEXT("BZ")))
+                return false;
+
+            return m_p_reader->selects(first, last);
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(

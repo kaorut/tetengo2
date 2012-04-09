@@ -8,6 +8,7 @@
 
 //#include <memory>
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 //#include <boost/mpl/at.hpp>
@@ -104,7 +105,22 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        {
+            std::unique_ptr<reader_type> p_reader =
+                tetengo2::make_unique<concrete_reader>();
+            bzip2_reader_type bzip2_reader(std::move(p_reader));
+
+            const std::string input("BZ");
+            BOOST_CHECK(bzip2_reader.selects(input.begin(), input.end()));
+        }
+        {
+            std::unique_ptr<reader_type> p_reader =
+                tetengo2::make_unique<concrete_reader>();
+            bzip2_reader_type bzip2_reader(std::move(p_reader));
+
+            const std::string input("AZ");
+            BOOST_CHECK(!bzip2_reader.selects(input.begin(), input.end()));
+        }
     }
 
     BOOST_AUTO_TEST_CASE(read)
