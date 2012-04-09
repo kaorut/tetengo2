@@ -104,15 +104,10 @@ namespace bobura
             \param document_name A document name.
             \param changed       A changed status.
         */
-        void set_title(
-            const boost::optional<string_type>& document_name,
-            const bool                          changed
-        )
+        void set_title(const boost::optional<string_type>& document_name, const bool changed)
         {
             string_type title =
-                document_name ?
-                *document_name :
-                m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
+                document_name ? *document_name : m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
             if (changed)
                 title += string_type(TETENGO2_TEXT(" *"));
             title += string_type(TETENGO2_TEXT(" - "));
@@ -143,21 +138,17 @@ namespace bobura
 
         void set_message_observers()
         {
-            this->window_observer_set().destroyed().connect(
-                TETENGO2_CPP11_BIND(message_loop_break_type(), 0)
-            );
+            this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
 
             this->paint_observer_set().paint().connect(
                 typename boost::mpl::at<
-                    main_window_message_type_list_type,
-                    message::main_window::type::paint_paint
+                    main_window_message_type_list_type, message::main_window::type::paint_paint
                 >::type(m_settings.image_directory_path())
             );
 
             this->window_observer_set().closing().connect(
                 typename boost::mpl::at<
-                    main_window_message_type_list_type,
-                    message::main_window::type::window_closing
+                    main_window_message_type_list_type, message::main_window::type::window_closing
                 >::type(*this, m_confirm_file_save)
             );
         }

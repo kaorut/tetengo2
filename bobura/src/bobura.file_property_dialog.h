@@ -31,8 +31,7 @@ namespace bobura
         \tparam Label                             A label type.
         \tparam TextBox                           A text box type.
         \tparam Button                            A button type.
-        \tparam TransparentBackground             A transparent background
-                                                  type.
+        \tparam TransparentBackground             A transparent background type.
         \tparam FilePropertyDialogMessageTypeList A message type.
     */
     template <
@@ -77,9 +76,7 @@ namespace bobura
         typedef TransparentBackground transparent_background_type;
 
         //! The message type list type.
-        typedef
-            FilePropertyDialogMessageTypeList
-            file_property_dialog_message_type_list_type;
+        typedef FilePropertyDialogMessageTypeList file_property_dialog_message_type_list_type;
 
 
         // constructors and destructor
@@ -90,10 +87,7 @@ namespace bobura
             \param parent          A parent window.
             \param message_catalog A message catalog.
         */
-        file_property_dialog(
-            abstract_window_type&       parent,
-            const message_catalog_type& message_catalog
-        )
+        file_property_dialog(abstract_window_type& parent, const message_catalog_type& message_catalog)
         :
         base_type(parent),
         m_message_catalog(message_catalog),
@@ -177,23 +171,15 @@ namespace bobura
 
         typedef typename file_property_dialog::dimension_type dimension_type;
 
-        typedef
-            typename tetengo2::gui::dimension<dimension_type>::width_type
-            width_type;
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
-        typedef
-            typename tetengo2::gui::dimension<dimension_type>::height_type
-            height_type;
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
         typedef typename file_property_dialog::position_type position_type;
 
-        typedef
-            typename tetengo2::gui::position<position_type>::left_type
-            left_type;
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
-        typedef
-            typename tetengo2::gui::position<position_type>::top_type
-            top_type;
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
 
         // variables
@@ -229,15 +215,9 @@ namespace bobura
 
         void initialize_dialog(const abstract_window_type& parent)
         {
-            set_text(
-                m_message_catalog.get(
-                    TETENGO2_TEXT("Dialog:FileProperty:File Property")
-                )
-            );
+            set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:File Property")));
 
-            this->set_client_dimension(
-                dimension_type(width_type(36), height_type(13))
-            );
+            this->set_client_dimension(dimension_type(width_type(36), height_type(13)));
 
             m_p_line_name_label = create_line_name_label();
             m_p_line_name_text_box = create_line_name_text_box();
@@ -251,18 +231,10 @@ namespace bobura
 
         std::unique_ptr<label_type> create_line_name_label()
         {
-            std::unique_ptr<label_type> p_label(
-                tetengo2::make_unique<label_type>(*this)
-            );
+            std::unique_ptr<label_type> p_label(tetengo2::make_unique<label_type>(*this));
 
-            p_label->set_text(
-                m_message_catalog.get(
-                    TETENGO2_TEXT("Dialog:FileProperty:&Line Name:")
-                )
-            );
-            std::unique_ptr<background_type> p_background(
-                tetengo2::make_unique<transparent_background_type>()
-            );
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&Line Name:")));
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
@@ -270,27 +242,17 @@ namespace bobura
 
         std::unique_ptr<text_box_type> create_line_name_text_box()
         {
-            std::unique_ptr<text_box_type> p_text_box(
-                tetengo2::make_unique<text_box_type>(*this)
-            );
+            std::unique_ptr<text_box_type> p_text_box(tetengo2::make_unique<text_box_type>(*this));
 
             return std::move(p_text_box);
         }
 
         std::unique_ptr<label_type> create_file_name_label()
         {
-            std::unique_ptr<label_type> p_label(
-                tetengo2::make_unique<label_type>(*this)
-            );
+            std::unique_ptr<label_type> p_label(tetengo2::make_unique<label_type>(*this));
 
-            p_label->set_text(
-                m_message_catalog.get(
-                    TETENGO2_TEXT("Dialog:FileProperty:&File Name:")
-                )
-            );
-            std::unique_ptr<background_type> p_background(
-                tetengo2::make_unique<transparent_background_type>()
-            );
+            p_label->set_text(m_message_catalog.get(TETENGO2_TEXT("Dialog:FileProperty:&File Name:")));
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
             p_label->set_background(std::move(p_background));
 
             return std::move(p_label);
@@ -298,9 +260,7 @@ namespace bobura
 
         std::unique_ptr<text_box_type> create_file_name_text_box()
         {
-            std::unique_ptr<text_box_type> p_text_box(
-                tetengo2::make_unique<text_box_type>(*this)
-            );
+            std::unique_ptr<text_box_type> p_text_box(tetengo2::make_unique<text_box_type>(*this));
 
             p_text_box->set_read_only(true);
 
@@ -310,14 +270,10 @@ namespace bobura
         std::unique_ptr<button_type> create_ok_button()
         {
             std::unique_ptr<button_type> p_button(
-                tetengo2::make_unique<button_type>(
-                    *this, button_type::style_default
-                )
+                tetengo2::make_unique<button_type>(*this, button_type::style_default)
             );
 
-            p_button->set_text(
-                m_message_catalog.get(TETENGO2_TEXT("Common:OK"))
-            );
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:OK")));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     file_property_dialog_message_type_list_type,
@@ -331,14 +287,10 @@ namespace bobura
         std::unique_ptr<button_type> create_cancel_button()
         {
             std::unique_ptr<button_type> p_button(
-                tetengo2::make_unique<button_type>(
-                    *this, button_type::style_cancel
-                )
+                tetengo2::make_unique<button_type>(*this, button_type::style_cancel)
             );
 
-            p_button->set_text(
-                m_message_catalog.get(TETENGO2_TEXT("Common:Cancel"))
-            );
+            p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:Cancel")));
             p_button->mouse_observer_set().clicked().connect(
                 typename boost::mpl::at<
                     file_property_dialog_message_type_list_type,
@@ -354,50 +306,30 @@ namespace bobura
             const left_type label_left(2);
 
             m_p_line_name_label->fit_to_content();
-            m_p_line_name_label->set_position(
-                position_type(label_left, top_type(1))
-            );
+            m_p_line_name_label->set_position(position_type(label_left, top_type(1)));
 
-            m_p_line_name_text_box->set_dimension(
-                dimension_type(width_type(32), height_type(2))
-            );
+            m_p_line_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
             m_p_line_name_text_box->set_position(
                 position_type(
-                    label_left,
-                    m_p_line_name_label->position().second +
-                        m_p_line_name_label->dimension().second
+                    label_left, m_p_line_name_label->position().second + m_p_line_name_label->dimension().second
                 )
             );
 
             m_p_file_name_label->fit_to_content();
-            m_p_file_name_label->set_position(
-                position_type(label_left, top_type(5))
-            );
+            m_p_file_name_label->set_position(position_type(label_left, top_type(5)));
 
-            m_p_file_name_text_box->set_dimension(
-                dimension_type(width_type(32), height_type(2))
-            );
+            m_p_file_name_text_box->set_dimension(dimension_type(width_type(32), height_type(2)));
             m_p_file_name_text_box->set_position(
                 position_type(
-                    label_left,
-                    m_p_file_name_label->position().second +
-                        m_p_file_name_label->dimension().second
+                    label_left, m_p_file_name_label->position().second + m_p_file_name_label->dimension().second
                 )
             );
 
-            m_p_ok_button->set_dimension(
-                dimension_type(width_type(8), height_type(2))
-            );
-            m_p_ok_button->set_position(
-                position_type(left_type(17), top_type(10))
-            );
+            m_p_ok_button->set_dimension(dimension_type(width_type(8), height_type(2)));
+            m_p_ok_button->set_position(position_type(left_type(17), top_type(10)));
 
-            m_p_cancel_button->set_dimension(
-                dimension_type(width_type(8), height_type(2))
-            );
-            m_p_cancel_button->set_position(
-                position_type(left_type(26), top_type(10))
-            );
+            m_p_cancel_button->set_dimension(dimension_type(width_type(8), height_type(2)));
+            m_p_cancel_button->set_position(position_type(left_type(26), top_type(10)));
         }
 
 
