@@ -21,11 +21,7 @@ namespace bobura { namespace load_save
         \tparam AbstractWindow  An abstract window type.
         \tparam ConfirmFileSave A file save confirmation type.
     */
-    template <
-        typename Model,
-        typename AbstractWindow,
-        typename ConfirmFileSave
-    >
+    template <typename Model, typename AbstractWindow, typename ConfirmFileSave>
     class new_file
     {
     public:

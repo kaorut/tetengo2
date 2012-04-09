@@ -83,10 +83,7 @@ namespace bobura { namespace load_save
             \param confirm_file_save A file save confirmation.
             \param message_catalog   A message catalog.
         */
-        load_from_file(
-            const confirm_file_save_type& confirm_file_save,
-            const message_catalog_type&   message_catalog
-        )
+        load_from_file(const confirm_file_save_type& confirm_file_save, const message_catalog_type& message_catalog)
         :
         m_confirm_file_save(confirm_file_save),
         m_message_catalog(message_catalog)
@@ -108,37 +105,25 @@ namespace bobura { namespace load_save
                 return;
 
             file_open_dialog_type dialog(
-                m_message_catalog.get(
-                    TETENGO2_TEXT("Dialog:FileOpenSave:Open")
-                ),
-                make_file_filters(),
-                parent
+                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Open")), make_file_filters(), parent
             );
             dialog.do_modal();
 
             const path_type path = dialog.result();
             if (path.empty()) return;
 
-            boost::filesystem::ifstream input_stream(
-                path, std::ios_base::binary
-            );
+            boost::filesystem::ifstream input_stream(path, std::ios_base::binary);
             if (!input_stream)
             {
                 create_cant_open_file_message_box(path, parent)->do_modal();
                 return;
             }
 
-            reader_selector_type reader_selector(
-                reader_set_type::create_readers()
-            );
+            reader_selector_type reader_selector(reader_set_type::create_readers());
             std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
             if (!p_timetable)
             {
@@ -175,16 +160,15 @@ namespace bobura { namespace load_save
         )
         const
         {
-            return tetengo2::make_unique<message_box_type>(
-                parent,
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_message_catalog.get(
-                    TETENGO2_TEXT("Message:File:Can't open the file.")
-                ),
-                path.template string<string_type>(),
-                message_box_type::button_style_type::ok(false),
-                message_box_type::icon_style_error
-            );
+            return
+                tetengo2::make_unique<message_box_type>(
+                    parent,
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    m_message_catalog.get(TETENGO2_TEXT("Message:File:Can't open the file.")),
+                    path.template string<string_type>(),
+                    message_box_type::button_style_type::ok(false),
+                    message_box_type::icon_style_error
+                );
         }
 
         std::unique_ptr<message_box_type> create_file_broken_message_box(
@@ -193,18 +177,15 @@ namespace bobura { namespace load_save
         )
         const
         {
-            return tetengo2::make_unique<message_box_type>(
-                parent,
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_message_catalog.get(
-                    TETENGO2_TEXT(
-                        "Message:File:The timetable file is broken."
-                    )
-                ),
-                path.template string<string_type>(),
-                message_box_type::button_style_type::ok(false),
-                message_box_type::icon_style_error
-            );
+            return
+                tetengo2::make_unique<message_box_type>(
+                    parent,
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    m_message_catalog.get(TETENGO2_TEXT("Message:File:The timetable file is broken.")),
+                    path.template string<string_type>(),
+                    message_box_type::button_style_type::ok(false),
+                    message_box_type::icon_style_error
+                );
         }
 
         typename file_open_dialog_type::file_filters_type
@@ -215,37 +196,25 @@ namespace bobura { namespace load_save
 
             filters.push_back(
                 std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT(
-                            "Dialog:FileOpenSave:All Timetable Files"
-                        )
-                    ),
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:All Timetable Files")),
                     string_type(TETENGO2_TEXT("btt;*.btt.bz2"))
                 )
             );
             filters.push_back(
                 std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")
-                    ),
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")),
                     string_type(TETENGO2_TEXT("btt"))
                 )
             );
             filters.push_back(
                 std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT(
-                            "Dialog:FileOpenSave:Timetable Files (Compressed)"
-                        )
-                    ),
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files (Compressed)")),
                     string_type(TETENGO2_TEXT("btt.bz2"))
                 )
             );
             filters.push_back(
                 std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpenSave:All Files")
-                    ),
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:All Files")),
                     string_type(TETENGO2_TEXT("*"))
                 )
             );
