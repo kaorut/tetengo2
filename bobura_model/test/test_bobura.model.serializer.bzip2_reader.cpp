@@ -54,10 +54,9 @@ namespace
     class concrete_reader : public reader_type
     {
     public:
-        concrete_reader(string_type&& title)
+        concrete_reader()
         :
-        reader_type(),
-        m_title(std::forward<string_type>(title))
+        reader_type()
         {}
 
         virtual ~concrete_reader()
@@ -66,11 +65,9 @@ namespace
 
 
     private:
-        const string_type m_title;
-
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            return string_type(first, last) == m_title;
+            return true;
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(
@@ -78,12 +75,7 @@ namespace
             const iterator last
         )
         {
-            std::unique_ptr<timetable_type> p_timetable =
-                tetengo2::make_unique<timetable_type>();
-
-            p_timetable->set_title(m_title);
-
-            return std::move(p_timetable);
+            return tetengo2::make_unique<timetable_type>();
         }
 
 
@@ -104,9 +96,7 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
         BOOST_TEST_PASSPOINT();
 
         std::unique_ptr<reader_type> p_reader =
-            tetengo2::make_unique<concrete_reader>(
-                string_type(TETENGO2_TEXT("hoge"))
-            );
+            tetengo2::make_unique<concrete_reader>();
         const bzip2_reader_type bzip2_reader(std::move(p_reader));
     }
 
