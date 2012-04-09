@@ -103,7 +103,11 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        std::unique_ptr<reader_type> p_reader =
+            tetengo2::make_unique<concrete_reader>(
+                string_type(TETENGO2_TEXT("hoge"))
+            );
+        const bzip2_reader_type bzip2_reader(std::move(p_reader));
     }
 
     BOOST_AUTO_TEST_CASE(selects)
