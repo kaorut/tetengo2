@@ -8,6 +8,7 @@
 
 //#include <memory>
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 //#include <boost/mpl/at.hpp>
@@ -150,7 +151,7 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
             std::move(concrete_readers)
         );
 
-        const string_type input(TETENGO2_TEXT("hoge"));
+        const std::string input("hoge");
         BOOST_CHECK_THROW(
             reader_selector.selects(input.begin(), input.end()),
             std::logic_error
@@ -168,7 +169,7 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                 std::move(concrete_readers)
             );
 
-            const string_type input(TETENGO2_TEXT("hoge"));
+            const std::string input("hoge");
             const std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(input.begin(), input.end());
 
@@ -183,7 +184,7 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                 std::move(concrete_readers)
             );
 
-            const string_type input(TETENGO2_TEXT("fuga"));
+            const std::string input("fuga");
             const std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(input.begin(), input.end());
 
@@ -198,7 +199,7 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                 std::move(concrete_readers)
             );
 
-            const string_type input(TETENGO2_TEXT("piyo"));
+            const std::string input("piyo");
             const std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(input.begin(), input.end());
 

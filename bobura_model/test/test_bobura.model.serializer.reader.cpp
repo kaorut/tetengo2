@@ -7,6 +7,7 @@
 */
 
 //#include <memory>
+#include <string>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
@@ -97,11 +98,11 @@ BOOST_AUTO_TEST_SUITE(reader)
         concrete_reader reader;
 
         {
-            const string_type input(TETENGO2_TEXT("hoge"));
+            const std::string input("hoge");
             BOOST_CHECK(reader.selects(input.begin(), input.end()));
         }
         {
-            const string_type input(TETENGO2_TEXT("fuga"));
+            const std::string input("fuga");
             BOOST_CHECK(!reader.selects(input.begin(), input.end()));
         }
     }
@@ -111,7 +112,7 @@ BOOST_AUTO_TEST_SUITE(reader)
         BOOST_TEST_PASSPOINT();
 
         concrete_reader reader;
-        const string_type input(TETENGO2_TEXT("hoge"));
+        const std::string input("hoge");
         const std::unique_ptr<timetable_type> p_timetable =
             reader.read(input.begin(), input.end());
 
