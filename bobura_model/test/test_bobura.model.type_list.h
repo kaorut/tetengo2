@@ -196,7 +196,11 @@ namespace test_bobura { namespace model
     namespace detail { namespace serialization
     {
         typedef std::string io_string_type;
-        typedef io_string_type::const_iterator input_stream_iterator_type;
+        typedef
+            boost::spirit::multi_pass<
+                std::istreambuf_iterator<io_string_type::value_type>
+            >
+            input_stream_iterator_type;
         typedef
             tetengo2::text::grammar::json<input_stream_iterator_type>
             grammar_type;

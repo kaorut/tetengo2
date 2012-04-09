@@ -6,12 +6,14 @@
     $Id$
 */
 
+#include <iterator>
 //#include <memory>
 #include <stdexcept>
-#include <string>
+#include <sstream>
 #include <utility>
 
 //#include <boost/mpl/at.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -151,9 +153,16 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
             std::move(concrete_readers)
         );
 
-        const std::string input("hoge");
+        std::istringstream input_stream("hoge");
         BOOST_CHECK_THROW(
-            reader_selector.selects(input.begin(), input.end()),
+            reader_selector.selects(
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<char>(input_stream)
+                ),
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<char>()
+                )
+            ),
             std::logic_error
         );
     }
@@ -169,9 +178,16 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                 std::move(concrete_readers)
             );
 
-            const std::string input("hoge");
+            std::istringstream input_stream("hoge");
             const std::unique_ptr<timetable_type> p_timetable =
-                reader_selector.read(input.begin(), input.end());
+                reader_selector.read(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>(input_stream)
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>()
+                    )
+                );
 
             BOOST_CHECK(
                 p_timetable->title() == string_type(TETENGO2_TEXT("hoge"))
@@ -184,9 +200,16 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                 std::move(concrete_readers)
             );
 
-            const std::string input("fuga");
+            std::istringstream input_stream("fuga");
             const std::unique_ptr<timetable_type> p_timetable =
-                reader_selector.read(input.begin(), input.end());
+                reader_selector.read(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>(input_stream)
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>()
+                    )
+                );
 
             BOOST_CHECK(
                 p_timetable->title() == string_type(TETENGO2_TEXT("fuga"))
@@ -199,9 +222,16 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
                 std::move(concrete_readers)
             );
 
-            const std::string input("piyo");
+            std::istringstream input_stream("piyo");
             const std::unique_ptr<timetable_type> p_timetable =
-                reader_selector.read(input.begin(), input.end());
+                reader_selector.read(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>(input_stream)
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>()
+                    )
+                );
 
             BOOST_CHECK(
                 p_timetable->title() == string_type(TETENGO2_TEXT("hoge"))

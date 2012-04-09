@@ -6,12 +6,14 @@
     $Id$
 */
 
+#include <iterator>
 //#include <memory>
 #include <stdexcept>
-#include <string>
+#include <sstream>
 #include <utility>
 
 //#include <boost/mpl/at.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -110,16 +112,34 @@ BOOST_AUTO_TEST_SUITE(bzip2_reader)
                 tetengo2::make_unique<concrete_reader>();
             bzip2_reader_type bzip2_reader(std::move(p_reader));
 
-            const std::string input("BZ");
-            BOOST_CHECK(bzip2_reader.selects(input.begin(), input.end()));
+            std::istringstream input_stream("BZ");
+            BOOST_CHECK(
+                bzip2_reader.selects(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>(input_stream)
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>()
+                    )
+                )
+            );
         }
         {
             std::unique_ptr<reader_type> p_reader =
                 tetengo2::make_unique<concrete_reader>();
             bzip2_reader_type bzip2_reader(std::move(p_reader));
 
-            const std::string input("AZ");
-            BOOST_CHECK(!bzip2_reader.selects(input.begin(), input.end()));
+            std::istringstream input_stream("AZ");
+            BOOST_CHECK(
+                !bzip2_reader.selects(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>(input_stream)
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>()
+                    )
+                )
+            );
         }
     }
 

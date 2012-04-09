@@ -6,10 +6,12 @@
     $Id$
 */
 
+#include <iterator>
 //#include <memory>
-#include <string>
+#include <sstream>
 
 //#include <boost/mpl/at.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>
@@ -98,12 +100,30 @@ BOOST_AUTO_TEST_SUITE(reader)
         concrete_reader reader;
 
         {
-            const std::string input("hoge");
-            BOOST_CHECK(reader.selects(input.begin(), input.end()));
+            std::istringstream input_stream("hoge");
+            BOOST_CHECK(
+                reader.selects(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>(input_stream)
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>()
+                    )
+                )
+            );
         }
         {
-            const std::string input("fuga");
-            BOOST_CHECK(!reader.selects(input.begin(), input.end()));
+            std::istringstream input_stream("fuga");
+            BOOST_CHECK(
+                !reader.selects(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>(input_stream)
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<char>()
+                    )
+                )
+            );
         }
     }
 
@@ -112,9 +132,16 @@ BOOST_AUTO_TEST_SUITE(reader)
         BOOST_TEST_PASSPOINT();
 
         concrete_reader reader;
-        const std::string input("hoge");
+        std::istringstream input_stream("hoge");
         const std::unique_ptr<timetable_type> p_timetable =
-            reader.read(input.begin(), input.end());
+            reader.read(
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<char>(input_stream)
+                ),
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<char>()
+                )
+            );
 
         BOOST_CHECK(p_timetable);
     }
