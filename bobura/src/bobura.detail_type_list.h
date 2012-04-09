@@ -49,30 +49,18 @@ namespace bobura
 
     namespace type { namespace detail
     {
-        struct alert;          //!< The detail implementation type of the
-                               //!< alert.
-        struct common_dialog;  //!< The detail implementation type of the
-                               //!< common dialogs.
-        struct cursor;         //!< The detail implementation type of the
-                               //!< cursor.
-        struct drawing;        //!< The detail implementation type of the
-                               //!< drawing.
-        struct encoding;       //!< The detail implementation type of the
-                               //!< encoding.
-        struct gui_fixture;    //!< The detail implementation type of the
-                               //!< GUI fixture.
-        struct menu;           //!< The detail implementation type of the
-                               //!< menu.
-        struct message_handler; //!< The detail implementation type of the
-                                //!< message handler.
-        struct message_loop;   //!< The detail implementation type of the
-                               //!< message loop.
-        struct unit;           //!< The detail implementation type of the
-                               //!< unit.
-        struct virtual_key;    //!< The detail implementation type of the
-                               //!< virtual key.
-        struct widget;         //!< The detail implementation type of the
-                               //!< widget.
+        struct alert;          //!< The detail implementation type of the alert.
+        struct common_dialog;  //!< The detail implementation type of the common dialogs.
+        struct cursor;         //!< The detail implementation type of the cursor.
+        struct drawing;        //!< The detail implementation type of the drawing.
+        struct encoding;       //!< The detail implementation type of the encoding.
+        struct gui_fixture;    //!< The detail implementation type of the GUI fixture.
+        struct menu;           //!< The detail implementation type of the menu.
+        struct message_handler; //!< The detail implementation type of the message handler.
+        struct message_loop;   //!< The detail implementation type of the message loop.
+        struct unit;           //!< The detail implementation type of the unit.
+        struct virtual_key;    //!< The detail implementation type of the virtual key.
+        struct widget;         //!< The detail implementation type of the widget.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -85,14 +73,10 @@ namespace bobura
         typedef tetengo2::detail::windows::gdiplus::drawing drawing_type;
         typedef tetengo2::detail::windows::encoding encoding_type;
         typedef
-            std::tuple<
-                tetengo2::detail::windows::gui_fixture,
-                tetengo2::detail::windows::gdiplus::gui_fixture
-            >
+            std::tuple<tetengo2::detail::windows::gui_fixture, tetengo2::detail::windows::gdiplus::gui_fixture>
             gui_fixture_type;
         typedef tetengo2::detail::windows::menu menu_type;
-        typedef
-            tetengo2::detail::windows::message_handler message_handler_type;
+        typedef tetengo2::detail::windows::message_handler message_handler_type;
         typedef tetengo2::detail::windows::message_loop message_loop_type;
         typedef tetengo2::detail::windows::unit unit_type;
         typedef tetengo2::detail::windows::virtual_key virtual_key_type;
@@ -103,8 +87,7 @@ namespace bobura
         typedef tetengo2::detail::stub::cursor cursor_type;
         typedef tetengo2::detail::stub::drawing drawing_type;
         typedef tetengo2::detail::stub::encoding encoding_type;
-        typedef
-            std::tuple<tetengo2::detail::stub::gui_fixture> gui_fixture_type;
+        typedef std::tuple<tetengo2::detail::stub::gui_fixture> gui_fixture_type;
         typedef tetengo2::detail::stub::menu menu_type;
         typedef tetengo2::detail::stub::message_handler message_handler_type;
         typedef tetengo2::detail::stub::message_loop message_loop_type;
@@ -120,47 +103,27 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::detail::alert, detail::detail::alert_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::detail::common_dialog,
-                detail::detail::common_dialog_type
-            >,
+            boost::mpl::pair<type::detail::common_dialog, detail::detail::common_dialog_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::detail::cursor, detail::detail::cursor_type
-            >,
+            boost::mpl::pair<type::detail::cursor, detail::detail::cursor_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::detail::drawing, detail::detail::drawing_type
-            >,
+            boost::mpl::pair<type::detail::drawing, detail::detail::drawing_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::detail::encoding, detail::detail::encoding_type
-            >,
+            boost::mpl::pair<type::detail::encoding, detail::detail::encoding_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::detail::gui_fixture, detail::detail::gui_fixture_type
-            >,
+            boost::mpl::pair<type::detail::gui_fixture, detail::detail::gui_fixture_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::detail::menu, detail::detail::menu_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::detail::message_handler,
-                detail::detail::message_handler_type
-            >,
+            boost::mpl::pair<type::detail::message_handler, detail::detail::message_handler_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::detail::message_loop, detail::detail::message_loop_type
-            >,
+            boost::mpl::pair<type::detail::message_loop, detail::detail::message_loop_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::detail::unit, detail::detail::unit_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::detail::virtual_key, detail::detail::virtual_key_type
-            >,
+            boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::detail::widget, detail::detail::widget_type
-            >,
+            boost::mpl::pair<type::detail::widget, detail::detail::widget_type>,
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>>>
         detail_type_list;
