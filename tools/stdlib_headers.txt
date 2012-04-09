@@ -280,6 +280,7 @@ boost::get_error_info                            boost/exception/all.hpp
 boost::indirect_iterator                         boost/iterator/indirect_iterator.hpp
 boost::iostreams::bzip2_compressor               boost/iostreams/filter/bzip2.hpp
 boost::iostreams::bzip2_decompressor             boost/iostreams/filter/bzip2.hpp
+boost::iostreams::bzip2_error                    boost/iostreams/filter/bzip2.hpp
 boost::iostreams::filtering_istream              boost/iostreams/filtering_stream.hpp
 boost::iostreams::filtering_ostream              boost/iostreams/filtering_stream.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
