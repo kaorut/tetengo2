@@ -6,12 +6,12 @@
     $Id$
 */
 
-#include <iterator>
+//#include <iterator>
 //#include <memory>
-#include <sstream>
+//#include <sstream>
 
 //#include <boost/mpl/at.hpp>
-#include <boost/spirit/include/support_multi_pass.hpp>
+//#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <tetengo2.cpp11.h>

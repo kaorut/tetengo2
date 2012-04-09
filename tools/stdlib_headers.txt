@@ -278,6 +278,10 @@ boost::forward_traversal_tag                     boost/iterator/iterator_categor
 boost::get                                       boost/variant.hpp
 boost::get_error_info                            boost/exception/all.hpp
 boost::indirect_iterator                         boost/iterator/indirect_iterator.hpp
+boost::iostreams::bzip2_compressor               boost/iostreams/filter/bzip2.hpp
+boost::iostreams::bzip2_decompressor             boost/iostreams/filter/bzip2.hpp
+boost::iostreams::filtering_istream              boost/iostreams/filtering_stream.hpp
+boost::iostreams::filtering_ostream              boost/iostreams/filtering_stream.hpp
 boost::iterator_facade                           boost/iterator/iterator_facade.hpp
 boost::lexical_cast                              boost/lexical_cast.hpp
 boost::make_indirect_iterator                    boost/iterator/indirect_iterator.hpp
@@ -355,6 +359,7 @@ boost::variant                                   boost/variant.hpp
 std::advance                                     iterator
 std::any_of                                      algorithm
 std::back_inserter                               iterator
+std::basic_istringstream                         sstream
 std::basic_ostream                               ostream
 std::basic_ostringstream                         sstream
 std::basic_string                                string

@@ -10,13 +10,14 @@
 #define TESTBOBURA_MODEL_TYPELIST_H
 
 //#include <cstddef>
+//#include <iterator>
 #include <ostream>
 //#include <string>
 
 #include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
-#include <boost/spirit/include/support_multi_pass.hpp>
+//#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.meta.assoc_list.h>

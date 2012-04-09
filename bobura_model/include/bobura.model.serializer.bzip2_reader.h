@@ -9,16 +9,15 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_BZIP2READER_H)
 #define BOBURA_MODEL_SERIALIZER_BZIP2READER_H
 
-#include <memory>
+#include <iterator>
+//#include <memory>
 #include <sstream>
 #include <string>
 #include <utility>
-#include <vector>
 
 #include <boost/iostreams/filter/bzip2.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
-#include <boost/utility.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>

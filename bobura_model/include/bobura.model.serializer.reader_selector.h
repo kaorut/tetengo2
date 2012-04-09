@@ -9,9 +9,14 @@
 #if !defined(BOBURA_MODEL_SERIALIZER_READERSELECTOR_H)
 #define BOBURA_MODEL_SERIALIZER_READERSELECTOR_H
 
-#include <memory>
+#include <algorithm>
+#include <cassert>
+//#include <memory>
+#include <stdexcept>
 #include <utility>
 #include <vector>
+
+#include <boost/throw_exception.hpp>
 
 #include <tetengo2.cpp11.h>
 

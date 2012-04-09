@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_SERIALIZER_WRITER_H
 
 #include <boost/noncopyable.hpp>
+#include <boost/utility.hpp>
 
 #include <tetengo2.cpp11.h>
 

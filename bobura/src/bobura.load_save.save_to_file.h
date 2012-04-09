@@ -9,6 +9,7 @@
 #if !defined(BOBURA_LOADSAVE_SAVETOFILE_H)
 #define BOBURA_LOADSAVE_SAVETOFILE_H
 
+#include <ios>
 #include <memory>
 #include <utility>
 

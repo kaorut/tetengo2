@@ -6,13 +6,13 @@
     $Id$
 */
 
-#include <iterator>
+//#include <iterator>
 //#include <memory>
-#include <sstream>
+//#include <sstream>
 //#include <string>
 
 //#include <boost/mpl/at.hpp>
-#include <boost/spirit/include/support_multi_pass.hpp>
+//#include <boost/spirit/include/support_multi_pass.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include "test_bobura.model.type_list.h"
