@@ -121,6 +121,9 @@ namespace bobura { namespace model { namespace serializer
             return (*found)->read(first, last);
         }
 
+
+        // functions
+
         bool call_selects(
             const std::unique_ptr<base_type>& p_reader,
             const iterator                    first,

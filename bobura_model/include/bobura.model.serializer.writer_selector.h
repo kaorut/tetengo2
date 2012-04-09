@@ -140,6 +140,9 @@ namespace bobura { namespace model { namespace serializer
             (*found)->write(timetable, output_stream);
         }
 
+
+        // functions
+
         bool call_selects(const std::unique_ptr<base_type>& p_writer)
         const
         {
