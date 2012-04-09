@@ -108,16 +108,27 @@ namespace bobura { namespace model { namespace serializer
             );
             filtering_input_stream.push(input_stream);
 
-            return m_p_reader->selects(
-                boost::spirit::make_default_multi_pass(
-                    std::istreambuf_iterator<typename iterator::value_type>(
-                        filtering_input_stream
+            try
+            {
+                return m_p_reader->selects(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<typename iterator::value_type>(
+                            filtering_input_stream
+                        )
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<typename iterator::value_type>()
                     )
-                ),
-                boost::spirit::make_default_multi_pass(
-                    std::istreambuf_iterator<typename iterator::value_type>()
-                )
-            );
+                );
+            }
+            catch (const boost::iostreams::bzip2_error&)
+            {
+                return false;
+            }
+            catch (...)
+            {
+                throw;
+            }
         }
 
         virtual std::unique_ptr<timetable_type> read_impl(
@@ -132,16 +143,27 @@ namespace bobura { namespace model { namespace serializer
             );
             filtering_input_stream.push(input_stream);
 
-            return m_p_reader->read(
-                boost::spirit::make_default_multi_pass(
-                    std::istreambuf_iterator<typename iterator::value_type>(
-                        filtering_input_stream
+            try
+            {
+                return m_p_reader->read(
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<typename iterator::value_type>(
+                            filtering_input_stream
+                        )
+                    ),
+                    boost::spirit::make_default_multi_pass(
+                        std::istreambuf_iterator<typename iterator::value_type>()
                     )
-                ),
-                boost::spirit::make_default_multi_pass(
-                    std::istreambuf_iterator<typename iterator::value_type>()
-                )
-            );
+                );
+            }
+            catch (const boost::iostreams::bzip2_error&)
+            {
+                return std::unique_ptr<timetable_type>();
+            }
+            catch (...)
+            {
+                throw;
+            }
         }
 
 
