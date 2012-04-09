@@ -16,6 +16,7 @@
 #include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 #include <boost/mpl/pair.hpp>
+#include <boost/spirit/include/support_multi_pass.hpp>
 
 #include <tetengo2.detail.stub.encoding.h>
 #include <tetengo2.meta.assoc_list.h>
@@ -195,12 +196,13 @@ namespace test_bobura { namespace model
     namespace detail { namespace serialization
     {
         typedef std::string io_string_type;
+        typedef io_string_type::const_iterator input_stream_iterator_type;
         typedef
-            tetengo2::text::grammar::json<io_string_type::const_iterator>
+            tetengo2::text::grammar::json<input_stream_iterator_type>
             grammar_type;
         typedef
             tetengo2::text::push_parser<
-                io_string_type::const_iterator, grammar_type, int, double
+                input_stream_iterator_type, grammar_type, int, double
             >
             push_parser_type;
         typedef
@@ -227,7 +229,7 @@ namespace test_bobura { namespace model
             timetable_file_encoder_type;
         typedef
             bobura::model::serializer::reader_set<
-                boost::mpl::at<type_list, type::string>::type::const_iterator,
+                detail::serialization::input_stream_iterator_type,
                 boost::mpl::at<model_type_list, type::model::timetable>::type,
                 pull_parser_type,
                 boost::mpl::at<
@@ -256,9 +258,7 @@ namespace test_bobura { namespace model
             boost::mpl::pair<
                 type::serialization::reader,
                 bobura::model::serializer::reader<
-                    boost::mpl::at<
-                        type_list, type::string
-                    >::type::const_iterator,
+                    detail::serialization::input_stream_iterator_type,
                     boost::mpl::at<
                         model_type_list, type::model::timetable
                     >::type
@@ -268,9 +268,7 @@ namespace test_bobura { namespace model
             boost::mpl::pair<
                 type::serialization::reader_selector,
                 bobura::model::serializer::reader_selector<
-                    boost::mpl::at<
-                        type_list, type::string
-                    >::type::const_iterator,
+                    detail::serialization::input_stream_iterator_type,
                     boost::mpl::at<
                         model_type_list, type::model::timetable
                     >::type
