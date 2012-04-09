@@ -132,7 +132,9 @@ namespace bobura { namespace load_save
             const path_type temporary_path =
                 path.parent_path() / boost::filesystem::unique_path();
             {
-                boost::filesystem::ofstream output_stream(temporary_path);
+                boost::filesystem::ofstream output_stream(
+                    temporary_path, std::ios_base::binary
+                );
                 if (!output_stream)
                 {
                     create_cant_create_temporary_file_message_box(
