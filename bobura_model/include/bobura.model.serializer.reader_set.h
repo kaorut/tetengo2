@@ -93,11 +93,11 @@ namespace bobura { namespace model { namespace serializer
             std::vector<std::unique_ptr<reader_type>> readers;
 
             readers.push_back(tetengo2::make_unique<json_reader_type>());
-            //readers.push_back(
-            //    tetengo2::make_unique<bzip2_writer_type>(
-            //        tetengo2::make_unique<json_writer_type>()
-            //    )
-            //);
+            readers.push_back(
+                tetengo2::make_unique<bzip2_reader_type>(
+                    tetengo2::make_unique<json_reader_type>()
+                )
+            );
 
             return std::move(readers);
         }
