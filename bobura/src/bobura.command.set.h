@@ -45,9 +45,7 @@ namespace bobura { namespace command
         typedef TypeList type_list_type;
 
         //! The command type.
-        typedef
-            typename boost::mpl::at<type_list_type, type::command>::type
-            command_type;
+        typedef typename boost::mpl::at<type_list_type, type::command>::type command_type;
 
         //! The file initialization type.
         typedef NewFile new_file_type;
@@ -93,9 +91,7 @@ namespace bobura { namespace command
         m_new_file(make_new_file(new_file)),
         m_nop(make_nop()),
         m_save_to_file(make_save_to_file(save_to_file)),
-        m_ask_file_path_and_save_to_file(
-            make_save_to_file(ask_file_path_save_to_file)
-        )
+        m_ask_file_path_and_save_to_file(make_save_to_file(ask_file_path_save_to_file))
         {}
 
 
@@ -194,45 +190,29 @@ namespace bobura { namespace command
     private:
         // static functions
 
-        static command_type make_about(
-            const message_catalog_type& message_catalog,
-            const settings_type&        settings
-        )
+        static command_type make_about(const message_catalog_type& message_catalog, const settings_type& settings)
         {
-            return typename boost::mpl::at<type_list_type, type::about>::type(
-                message_catalog, settings
-            );
+            return typename boost::mpl::at<type_list_type, type::about>::type(message_catalog, settings);
         }
 
         static command_type make_exit()
         {
-            return
-                typename boost::mpl::at<type_list_type, type::exit>::type();
+            return typename boost::mpl::at<type_list_type, type::exit>::type();
         }
 
-        static command_type make_file_property(
-            const message_catalog_type& message_catalog
-        )
+        static command_type make_file_property(const message_catalog_type& message_catalog)
         {
-            return typename boost::mpl::at<
-                type_list_type, type::file_property
-            >::type(message_catalog);
+            return typename boost::mpl::at<type_list_type, type::file_property>::type(message_catalog);
         }
 
-        static command_type make_load_from_file(
-            const load_from_file_type& load_from_file
-        )
+        static command_type make_load_from_file(const load_from_file_type& load_from_file)
         {
-            return typename boost::mpl::at<
-                type_list_type, type::load_from_file
-            >::type(load_from_file);
+            return typename boost::mpl::at<type_list_type, type::load_from_file>::type(load_from_file);
         }
 
         static command_type make_new_file(const new_file_type& new_file)
         {
-            return typename boost::mpl::at<
-                type_list_type, type::new_file
-            >::type(new_file);
+            return typename boost::mpl::at<type_list_type, type::new_file>::type(new_file);
         }
 
         static command_type make_nop()
@@ -240,13 +220,9 @@ namespace bobura { namespace command
             return typename boost::mpl::at<type_list_type, type::nop>::type();
         }
 
-        static command_type make_save_to_file(
-            const save_to_file_type& save_to_file
-        )
+        static command_type make_save_to_file(const save_to_file_type& save_to_file)
         {
-            return typename boost::mpl::at<
-                type_list_type, type::save_to_file
-            >::type(save_to_file);
+            return typename boost::mpl::at<type_list_type, type::save_to_file>::type(save_to_file);
         }
 
 

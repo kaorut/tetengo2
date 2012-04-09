@@ -19,11 +19,7 @@ namespace bobura { namespace command
         \tparam AbstractWindow     An abstract window type.
         \tparam FilePropertyDialog A file property dialog type.
     */
-    template <
-        typename Model,
-        typename AbstractWindow,
-        typename FilePropertyDialog
-    >
+    template <typename Model, typename AbstractWindow, typename FilePropertyDialog>
     class file_property
     {
     public:
@@ -48,9 +44,7 @@ namespace bobura { namespace command
         typedef typename file_property_dialog_type::string_type string_type;
 
         //! The message catalog type.
-        typedef
-            typename file_property_dialog_type::message_catalog_type
-            message_catalog_type;
+        typedef typename file_property_dialog_type::message_catalog_type message_catalog_type;
 
 
         // constructors and destructor
@@ -81,11 +75,7 @@ namespace bobura { namespace command
 
             dialog.set_line_name(model.timetable().title());
             if (model.has_path())
-            {
-                dialog.set_file_name(
-                    model.path().template string<string_type>()
-                );
-            }
+                dialog.set_file_name(model.path().template string<string_type>());
 
             dialog.do_modal();
             if (dialog.result() != base_type::result_accepted)
