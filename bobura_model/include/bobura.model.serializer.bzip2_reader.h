@@ -103,7 +103,6 @@ namespace bobura { namespace model { namespace serializer
             }
 
             std::istringstream input_stream(input_string);
-
             boost::iostreams::filtering_istream filtering_input_stream;
             filtering_input_stream.push(
                 boost::iostreams::bzip2_decompressor()
@@ -127,7 +126,23 @@ namespace bobura { namespace model { namespace serializer
             const iterator last
         )
         {
-            return std::unique_ptr<timetable_type>();
+            std::istringstream input_stream(input_string_type(first, last));
+            boost::iostreams::filtering_istream filtering_input_stream;
+            filtering_input_stream.push(
+                boost::iostreams::bzip2_decompressor()
+            );
+            filtering_input_stream.push(input_stream);
+
+            return m_p_reader->read(
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<typename iterator::value_type>(
+                        filtering_input_stream
+                    )
+                ),
+                boost::spirit::make_default_multi_pass(
+                    std::istreambuf_iterator<typename iterator::value_type>()
+                )
+            );
         }
 
 
