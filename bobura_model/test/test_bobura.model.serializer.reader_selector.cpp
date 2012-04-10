@@ -30,28 +30,19 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::serialization_type_list,
-            test_bobura::model::type::serialization::reader
+            test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::reader
         >::type
         reader_type;
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::timetable
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::serialization_type_list,
-            test_bobura::model::type::serialization::reader_selector
+            test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::reader_selector
         >::type
         reader_selector_type;
 
@@ -77,13 +68,9 @@ namespace
             return string_type(first, last) == m_title;
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator first,
-            const iterator last
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
         {
-            std::unique_ptr<timetable_type> p_timetable =
-                tetengo2::make_unique<timetable_type>();
+            std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
             p_timetable->set_title(m_title);
 
@@ -100,16 +87,8 @@ namespace
     {
         std::vector<std::unique_ptr<reader_type>> readers;
 
-        readers.push_back(
-            tetengo2::make_unique<concrete_reader>(
-                string_type(TETENGO2_TEXT("hoge"))
-            )
-        );
-        readers.push_back(
-            tetengo2::make_unique<concrete_reader>(
-                string_type(TETENGO2_TEXT("fuga"))
-            )
-        );
+        readers.push_back(tetengo2::make_unique<concrete_reader>(string_type(TETENGO2_TEXT("hoge"))));
+        readers.push_back(tetengo2::make_unique<concrete_reader>(string_type(TETENGO2_TEXT("fuga"))));
 
         return std::move(readers);
     }
@@ -129,18 +108,12 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::vector<std::unique_ptr<reader_type>> concrete_readers =
-                create_concrete_readers();
-            const reader_selector_type reader_selector(
-                std::move(concrete_readers)
-            );
+            std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+            const reader_selector_type reader_selector(std::move(concrete_readers));
         }
         {
             std::vector<std::unique_ptr<reader_type>> concrete_readers;
-            BOOST_CHECK_THROW(
-                reader_selector_type(std::move(concrete_readers)),
-                std::invalid_argument
-            );
+            BOOST_CHECK_THROW(reader_selector_type(std::move(concrete_readers)), std::invalid_argument);
         }
     }
 
@@ -148,21 +121,14 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
     {
         BOOST_TEST_PASSPOINT();
 
-        std::vector<std::unique_ptr<reader_type>> concrete_readers =
-            create_concrete_readers();
-        reader_selector_type reader_selector(
-            std::move(concrete_readers)
-        );
+        std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+        reader_selector_type reader_selector(std::move(concrete_readers));
 
         std::istringstream input_stream("hoge");
         BOOST_CHECK_THROW(
             reader_selector.selects(
-                boost::spirit::make_default_multi_pass(
-                    std::istreambuf_iterator<char>(input_stream)
-                ),
-                boost::spirit::make_default_multi_pass(
-                    std::istreambuf_iterator<char>()
-                )
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
             ),
             std::logic_error
         );
@@ -173,70 +139,43 @@ BOOST_AUTO_TEST_SUITE(reader_selector)
         BOOST_TEST_PASSPOINT();
 
         {
-            std::vector<std::unique_ptr<reader_type>> concrete_readers =
-                create_concrete_readers();
-            reader_selector_type reader_selector(
-                std::move(concrete_readers)
-            );
+            std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+            reader_selector_type reader_selector(std::move(concrete_readers));
 
             std::istringstream input_stream("hoge");
             const std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
-            BOOST_CHECK(
-                p_timetable->title() == string_type(TETENGO2_TEXT("hoge"))
-            );
+            BOOST_CHECK(p_timetable->title() == string_type(TETENGO2_TEXT("hoge")));
         }
         {
-            std::vector<std::unique_ptr<reader_type>> concrete_readers =
-                create_concrete_readers();
-            reader_selector_type reader_selector(
-                std::move(concrete_readers)
-            );
+            std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+            reader_selector_type reader_selector(std::move(concrete_readers));
 
             std::istringstream input_stream("fuga");
             const std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
-            BOOST_CHECK(
-                p_timetable->title() == string_type(TETENGO2_TEXT("fuga"))
-            );
+            BOOST_CHECK(p_timetable->title() == string_type(TETENGO2_TEXT("fuga")));
         }
         {
-            std::vector<std::unique_ptr<reader_type>> concrete_readers =
-                create_concrete_readers();
-            reader_selector_type reader_selector(
-                std::move(concrete_readers)
-            );
+            std::vector<std::unique_ptr<reader_type>> concrete_readers = create_concrete_readers();
+            reader_selector_type reader_selector(std::move(concrete_readers));
 
             std::istringstream input_stream("piyo");
             const std::unique_ptr<timetable_type> p_timetable =
                 reader_selector.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
-            BOOST_CHECK(
-                p_timetable->title() == string_type(TETENGO2_TEXT("hoge"))
-            );
+            BOOST_CHECK(p_timetable->title() == string_type(TETENGO2_TEXT("hoge")));
         }
     }
 

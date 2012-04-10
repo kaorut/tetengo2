@@ -21,15 +21,13 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_bobura::model::serialization_type_list,
-            test_bobura::model::type::serialization::writer
+            test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::writer
         >::type
         writer_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::serialization_type_list,
-            test_bobura::model::type::serialization::writer_set
+            test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::writer_set
         >::type
         writer_set_type;
 
@@ -47,8 +45,7 @@ BOOST_AUTO_TEST_SUITE(writer_set)
     {
         BOOST_TEST_PASSPOINT();
 
-        const std::vector<std::unique_ptr<writer_type>> p_writers =
-            writer_set_type::create_writers();
+        const std::vector<std::unique_ptr<writer_type>> p_writers = writer_set_type::create_writers();
 
         BOOST_CHECK(!p_writers.empty());
         BOOST_CHECK(p_writers[0]);

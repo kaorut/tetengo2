@@ -25,17 +25,11 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::station
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::station>::type
         station_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::grade_type_set
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::grade_type_set>::type
         grade_type_set_type;
 
     typedef grade_type_set_type::local_type local_type;
@@ -43,50 +37,25 @@ namespace
     typedef grade_type_set_type::principal_type principal_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::station_location
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::station_location>::type
         station_location_type;
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::time
-        >::type
-        time_type;
+    typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::time>::type time_type;
+
+    typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::stop>::type stop_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::stop
-        >::type
-        stop_type;
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train>::type train_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::train
-        >::type
-        train_type;
-
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::timetable
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::serialization_type_list,
-            test_bobura::model::type::serialization::json_writer
+            test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::json_writer
         >::type
         writer_type;
 
@@ -149,109 +118,59 @@ namespace
 
     std::unique_ptr<const timetable_type> create_timetable1()
     {
-        std::unique_ptr<timetable_type> p_timetable =
-            tetengo2::make_unique<timetable_type>();
+        std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
         p_timetable->set_title(string_type(TETENGO2_TEXT("hoge")));
 
         {
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
-                station_location_type(
-                    station_type(
-                        string_type(TETENGO2_TEXT("stationA")),
-                        local_type::instance()
-                    ),
-                    42
-                )
+                station_location_type(station_type(string_type(TETENGO2_TEXT("stationA")), local_type::instance()), 42)
             );
             p_timetable->insert_station_location(
                 p_timetable->station_locations().end(),
                 station_location_type(
-                    station_type(
-                        string_type(TETENGO2_TEXT("stationB")),
-                        principal_type::instance()
-                    ),
-                    4242
+                    station_type(string_type(TETENGO2_TEXT("stationB")), principal_type::instance()), 4242
                 )
             );
         }
         {
             {
-                train_type train(
-                    string_type(TETENGO2_TEXT("101D")),
-                    string_type(TETENGO2_TEXT("fuga"))
+                train_type train(string_type(TETENGO2_TEXT("101D")), string_type(TETENGO2_TEXT("fuga")));
+                train.insert_stop(
+                    train.stops().end(),
+                    stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type())
                 );
                 train.insert_stop(
                     train.stops().end(),
-                    stop_type(
-                        time_type::uninitialized(),
-                        time_type::uninitialized(),
-                        string_type()
-                    )
+                    stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type())
                 );
-                train.insert_stop(
-                    train.stops().end(),
-                    stop_type(
-                        time_type::uninitialized(),
-                        time_type::uninitialized(),
-                        string_type()
-                    )
-                );
-                p_timetable->insert_down_train(
-                    p_timetable->down_trains().end(), train
-                );
+                p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
             {
-                train_type train(
-                    string_type(TETENGO2_TEXT("123D")), string_type()
-                );
+                train_type train(string_type(TETENGO2_TEXT("123D")), string_type());
                 train.insert_stop(
                     train.stops().end(),
-                    stop_type(
-                        time_type::uninitialized(),
-                        time_type( 6, 0, 30),
-                        string_type(TETENGO2_TEXT("1"))
-                    )
+                    stop_type(time_type::uninitialized(), time_type( 6, 0, 30), string_type(TETENGO2_TEXT("1")))
                 );
                 train.insert_stop(
-                    train.stops().end(),
-                    stop_type(
-                        time_type(6, 5, 45),
-                        time_type::uninitialized(),
-                        string_type()
-                    )
+                    train.stops().end(), stop_type(time_type(6, 5, 45), time_type::uninitialized(), string_type())
                 );
-                p_timetable->insert_down_train(
-                    p_timetable->down_trains().end(), train
-                );
+                p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
         }
         {
             {
-                train_type train(
-                    string_type(TETENGO2_TEXT("9324M")),
-                    string_type(TETENGO2_TEXT("piyo"))
+                train_type train(string_type(TETENGO2_TEXT("9324M")), string_type(TETENGO2_TEXT("piyo")));
+                train.insert_stop(
+                    train.stops().end(),
+                    stop_type(time_type::uninitialized(), time_type(6, 20, 0), string_type(TETENGO2_TEXT("0A")))
                 );
                 train.insert_stop(
                     train.stops().end(),
-                    stop_type(
-                        time_type::uninitialized(),
-                        time_type(6, 20, 0),
-                        string_type(TETENGO2_TEXT("0A"))
-                    )
+                    stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type())
                 );
-                train.insert_stop(
-                    train.stops().end(),
-                    stop_type(
-                        time_type::uninitialized(),
-                        time_type::uninitialized(),
-                        string_type()
-                    )
-                );
-                p_timetable->insert_up_train(
-                    p_timetable->up_trains().end(), train
-                );
+                p_timetable->insert_up_train(p_timetable->up_trains().end(), train);
             }
         }
         return std::move(p_timetable);
@@ -279,9 +198,7 @@ BOOST_AUTO_TEST_SUITE(json_writer)
 
         const writer_type json_writer;
 
-        BOOST_CHECK(
-            json_writer.extension() == path_type(TETENGO2_TEXT(".btt"))
-        );
+        BOOST_CHECK(json_writer.extension() == path_type(TETENGO2_TEXT(".btt")));
     }
 
     BOOST_AUTO_TEST_CASE(selects)
@@ -313,8 +230,7 @@ BOOST_AUTO_TEST_SUITE(json_writer)
         {
             writer_type json_writer;
 
-            const std::unique_ptr<const timetable_type> p_timetable =
-                create_timetable1();
+            const std::unique_ptr<const timetable_type> p_timetable = create_timetable1();
             std::ostringstream stream;
 
             json_writer.write(*p_timetable, stream);

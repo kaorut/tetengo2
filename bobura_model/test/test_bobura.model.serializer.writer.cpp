@@ -22,16 +22,12 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::timetable
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::serialization_type_list,
-            test_bobura::model::type::serialization::writer
+            test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::writer
         >::type
         writer_type;
 
@@ -57,10 +53,7 @@ namespace
             return path_type(TETENGO2_TEXT("hoge"));
         }
 
-        virtual void write_impl(
-            const timetable_type& timetable,
-            output_stream_type&   output_stream
-        )
+        virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
         {}
 
 
