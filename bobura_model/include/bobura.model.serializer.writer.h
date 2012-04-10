@@ -79,14 +79,12 @@ namespace bobura { namespace model { namespace serializer
             typedef typename path_type::string_type path_string_type;
 
             const path_string_type path_string = path.native();
-            const path_string_type extension_string =
-                extension_impl().native();
+            const path_string_type extension_string = extension_impl().native();
             if (path_string.length() < extension_string.length())
                 return false;
             
             const path_string_type path_extension_string(
-                boost::prior(path_string.end(), extension_string.length()),
-                path_string.end()
+                boost::prior(path_string.end(), extension_string.length()), path_string.end()
             );
 
             return path_extension_string == extension_string;
@@ -98,10 +96,7 @@ namespace bobura { namespace model { namespace serializer
             \param timetable     A timetable.
             \param output_stream An output stream.
         */
-        void write(
-            const timetable_type& timetable,
-            output_stream_type&   output_stream
-        )
+        void write(const timetable_type& timetable, output_stream_type& output_stream)
         {
             write_impl(timetable, output_stream);
         }
@@ -123,10 +118,7 @@ namespace bobura { namespace model { namespace serializer
         virtual path_type extension_impl()
         const = 0;
 
-        virtual void write_impl(
-            const timetable_type& timetable,
-            output_stream_type&   output_stream
-        )
+        virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
         = 0;
 
 

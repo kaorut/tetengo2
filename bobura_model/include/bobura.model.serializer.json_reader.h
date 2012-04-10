@@ -37,16 +37,8 @@ namespace bobura { namespace model { namespace serializer
         \tparam StationGradeTypeSet A station grade type set.
         \tparam Encoder             An encoder type.
     */
-    template <
-        typename PullParser,
-        typename Timetable,
-        typename StationGradeTypeSet,
-        typename Encoder
-    >
-    class json_reader :
-        public reader<
-            typename PullParser::push_parser_type::iterator, Timetable
-        >
+    template <typename PullParser, typename Timetable, typename StationGradeTypeSet, typename Encoder>
+    class json_reader : public reader<typename PullParser::push_parser_type::iterator, Timetable>
     {
     public:
         // types
@@ -102,9 +94,7 @@ namespace bobura { namespace model { namespace serializer
 
         typedef std::unordered_map<string_type, string_type> header_type;
 
-        typedef
-            typename timetable_type::station_location_type
-            station_location_type;
+        typedef typename timetable_type::station_location_type station_location_type;
 
         typedef typename station_location_type::station_type station_type;
 
@@ -120,15 +110,11 @@ namespace bobura { namespace model { namespace serializer
 
         typedef typename pull_parser_type::element_type element_type;
 
-        typedef
-            typename pull_parser_type::structure_begin_type
-            structure_begin_type;
+        typedef typename pull_parser_type::structure_begin_type structure_begin_type;
 
-        typedef
-            typename pull_parser_type::structure_end_type structure_end_type;
+        typedef typename pull_parser_type::structure_end_type structure_end_type;
 
-        typedef
-            typename pull_parser_type::attribute_map_type attribute_map_type;
+        typedef typename pull_parser_type::attribute_map_type attribute_map_type;
 
         typedef typename pull_parser_type::value_type value_type;
 
@@ -143,175 +129,111 @@ namespace bobura { namespace model { namespace serializer
             return singleton;
         }
 
-        static std::unique_ptr<timetable_type> read_timetable(
-            pull_parser_type& pull_parser
-        )
+        static std::unique_ptr<timetable_type> read_timetable(pull_parser_type& pull_parser)
         {
-            std::unique_ptr<timetable_type> p_timetable =
-                tetengo2::make_unique<timetable_type>();
+            std::unique_ptr<timetable_type> p_timetable = tetengo2::make_unique<timetable_type>();
 
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return std::unique_ptr<timetable_type>();
-            }
             pull_parser.next();
 
-            const boost::optional<header_type> header =
-                read_header(pull_parser);
+            const boost::optional<header_type> header = read_header(pull_parser);
             if (!header)
                 return std::unique_ptr<timetable_type>();
             {
-                const typename header_type::const_iterator found =
-                    header->find(string_type(TETENGO2_TEXT("title")));
+                const typename header_type::const_iterator found = header->find(string_type(TETENGO2_TEXT("title")));
                 if (found != header->end())
                     p_timetable->set_title(found->second);
             }
 
-            const boost::optional<std::vector<station_location_type>>
-            stations = read_stations(pull_parser);
+            const boost::optional<std::vector<station_location_type>> stations = read_stations(pull_parser);
             if (!stations)
                 return std::unique_ptr<timetable_type>();
             BOOST_FOREACH(const station_location_type& station, *stations)
             {
-                p_timetable->insert_station_location(
-                    p_timetable->station_locations().end(), station
-                );
+                p_timetable->insert_station_location(p_timetable->station_locations().end(), station);
             }
 
-            const boost::optional<std::vector<train_type>> down_trains =
-                read_trains(pull_parser, stations->size());
+            const boost::optional<std::vector<train_type>> down_trains = read_trains(pull_parser, stations->size());
             if (!down_trains)
                 return std::unique_ptr<timetable_type>();
             BOOST_FOREACH(const train_type& train, *down_trains)
             {
-                p_timetable->insert_down_train(
-                    p_timetable->down_trains().end(), train
-                );
+                p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
 
-            const boost::optional<std::vector<train_type>> up_trains =
-                read_trains(pull_parser, stations->size());
+            const boost::optional<std::vector<train_type>> up_trains = read_trains(pull_parser, stations->size());
             if (!up_trains)
                 return std::unique_ptr<timetable_type>();
             BOOST_FOREACH(const train_type& train, *up_trains)
             {
-                p_timetable->insert_up_train(
-                    p_timetable->up_trains().end(), train
-                );
+                p_timetable->insert_up_train(p_timetable->up_trains().end(), train);
             }
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return std::unique_ptr<timetable_type>();
-            }
             pull_parser.next();
 
             return std::move(p_timetable);
         }
 
-        static boost::optional<header_type> read_header(
-            pull_parser_type& pull_parser
-        )
+        static boost::optional<header_type> read_header(pull_parser_type& pull_parser)
         {
             header_type header;
 
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("object"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             for (;;)
             {
-                const boost::optional<std::pair<string_type, string_type>>
-                member = read_string_member(pull_parser);
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
                 if (!member)
                     break;
 
                 header.insert(*member);
             }
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("object"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             return boost::make_optional(header);
         }
 
-        static boost::optional<std::vector<station_location_type>>
-        read_stations(pull_parser_type& pull_parser)
+        static boost::optional<std::vector<station_location_type>> read_stations(pull_parser_type& pull_parser)
         {
             std::vector<station_location_type> stations;
 
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             for (;;)
             {
-                const boost::optional<station_location_type> station =
-                    read_station(pull_parser);
+                const boost::optional<station_location_type> station = read_station(pull_parser);
                 if (!station)
                     break;
 
                 stations.push_back(*station);
             }
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             return boost::make_optional(stations);
         }
 
-        static boost::optional<station_location_type> read_station(
-            pull_parser_type& pull_parser
-        )
+        static boost::optional<station_location_type> read_station(pull_parser_type& pull_parser)
         {
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("object"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             string_type name;
             {
-                const boost::optional<std::pair<string_type, string_type>>
-                member = read_string_member(pull_parser);
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("name")))
@@ -322,8 +244,7 @@ namespace bobura { namespace model { namespace serializer
 
             const station_grade_type* p_grade = NULL;
             {
-                const boost::optional<std::pair<string_type, string_type>>
-                member = read_string_member(pull_parser);
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("grade")))
@@ -336,8 +257,8 @@ namespace bobura { namespace model { namespace serializer
 
             meterage_type meterage = 0;
             {
-                const boost::optional<std::pair<string_type, meterage_type>>
-                member = read_integer_member<meterage_type>(pull_parser);
+                const boost::optional<std::pair<string_type, meterage_type>> member =
+                    read_integer_member<meterage_type>(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("meterage")))
@@ -346,111 +267,63 @@ namespace bobura { namespace model { namespace serializer
                 meterage = member->second;
             }
             
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("object"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
-            }
             pull_parser.next();
 
-            return boost::make_optional(
-                station_location_type(station_type(name, *p_grade), meterage)
-            );
+            return boost::make_optional(station_location_type(station_type(name, *p_grade), meterage));
         }
 
-        static const station_grade_type* to_station_grade(
-            const string_type& name
-        )
+        static const station_grade_type* to_station_grade(const string_type& name)
         {
             if      (name == string_type(TETENGO2_TEXT("local")))
-            {
-                return
-                    &station_grade_type_set_type::local_type::instance();
-            }
+                return &station_grade_type_set_type::local_type::instance();
             else if (name == string_type(TETENGO2_TEXT("principal")))
-            {
-                return
-                    &station_grade_type_set_type::principal_type::instance();
-            }
+                return &station_grade_type_set_type::principal_type::instance();
             else if (name == string_type(TETENGO2_TEXT("local_terminal")))
-            {
-                return
-                    &station_grade_type_set_type::local_terminal_type::instance();
-            }
+                return &station_grade_type_set_type::local_terminal_type::instance();
             else if (name == string_type(TETENGO2_TEXT("principal_terminal")))
-            {
-                return
-                    &station_grade_type_set_type::principal_terminal_type::instance();
-            }
+                return &station_grade_type_set_type::principal_terminal_type::instance();
             else
-            {
                 return NULL;
-            }
         }
 
-        static boost::optional<std::vector<train_type>>
-        read_trains(
+        static boost::optional<std::vector<train_type>> read_trains(
             pull_parser_type& pull_parser,
             const std::size_t station_count
         )
         {
             std::vector<train_type> trains;
 
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             for (;;)
             {
-                const boost::optional<train_type> train =
-                    read_train(pull_parser, station_count);
+                const boost::optional<train_type> train = read_train(pull_parser, station_count);
                 if (!train)
                     break;
 
                 trains.push_back(*train);
             }
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             return boost::make_optional(trains);
         }
 
-        static boost::optional<train_type> read_train(
-            pull_parser_type& pull_parser,
-            const std::size_t station_count
-        )
+        static boost::optional<train_type> read_train(pull_parser_type& pull_parser, const std::size_t station_count)
         {
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("object"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             string_type number;
             {
-                const boost::optional<std::pair<string_type, string_type>>
-                member = read_string_member(pull_parser);
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("number")))
@@ -461,8 +334,7 @@ namespace bobura { namespace model { namespace serializer
 
             string_type note;
             {
-                const boost::optional<std::pair<string_type, string_type>>
-                member = read_string_member(pull_parser);
+                const boost::optional<std::pair<string_type, string_type>> member = read_string_member(pull_parser);
                 if (!member)
                     return boost::none;
                 if (member->first != string_type(TETENGO2_TEXT("note")))
@@ -473,8 +345,7 @@ namespace bobura { namespace model { namespace serializer
 
             train_type train(number, note);
 
-            const boost::optional<std::vector<stop_type>> stops =
-                read_stops(pull_parser);
+            const boost::optional<std::vector<stop_type>> stops = read_stops(pull_parser);
             if (!stops)
                 return boost::none;
             if (stops->size() > station_count)
@@ -486,14 +357,8 @@ namespace bobura { namespace model { namespace serializer
             for (std::size_t i = stops->size(); i < station_count; ++i)
                 train.insert_stop(train.stops().end(), empty_stop());
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("object"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("object"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             return boost::make_optional(train);
@@ -501,134 +366,75 @@ namespace bobura { namespace model { namespace serializer
 
         static stop_type empty_stop()
         {
-            return stop_type(
-                time_type::uninitialized(),
-                time_type::uninitialized(),
-                string_type()
-            );
+            return stop_type(time_type::uninitialized(), time_type::uninitialized(), string_type());
         }
 
-        static boost::optional<std::vector<stop_type>> read_stops(
-            pull_parser_type& pull_parser
-        )
+        static boost::optional<std::vector<stop_type>> read_stops(pull_parser_type& pull_parser)
         {
             std::vector<stop_type> stops;
 
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("member"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            }
-            const input_string_type key =
-                get_attribute(
-                    boost::get<structure_begin_type>(pull_parser.peek())
-                );
+            const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
             if (key.empty())
                 return boost::none;
             if (key != "stops")
                 return boost::none;
             pull_parser.next();
 
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             for (;;)
             {
-                const boost::optional<stop_type> stop =
-                    read_stop(pull_parser);
+                const boost::optional<stop_type> stop = read_stop(pull_parser);
                 if (!stop)
                     break;
 
                 stops.push_back(*stop);
             }
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return boost::none;
-            }
             pull_parser.next();
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("member"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            }
             pull_parser.next();
 
             return boost::make_optional(stops);
         }
 
-        static boost::optional<stop_type> read_stop(
-            pull_parser_type& pull_parser
-        )
+        static boost::optional<stop_type> read_stop(pull_parser_type& pull_parser)
         {
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return boost::none;
-            }
             pull_parser.next();
 
-            const boost::optional<std::ptrdiff_t> arrival_input =
-                read_integer<std::ptrdiff_t>(pull_parser);
+            const boost::optional<std::ptrdiff_t> arrival_input = read_integer<std::ptrdiff_t>(pull_parser);
             if (!arrival_input)
                 return boost::none;
-            const boost::optional<time_type> arrival_time =
-                to_time(*arrival_input);
+            const boost::optional<time_type> arrival_time = to_time(*arrival_input);
             if (!arrival_time)
                 return boost::none;
 
-            const boost::optional<std::ptrdiff_t> departure_input =
-                read_integer<std::ptrdiff_t>(pull_parser);
+            const boost::optional<std::ptrdiff_t> departure_input = read_integer<std::ptrdiff_t>(pull_parser);
             if (!departure_input)
                 return boost::none;
-            const boost::optional<time_type> departure_time =
-                to_time(*departure_input);
+            const boost::optional<time_type> departure_time = to_time(*departure_input);
             if (!departure_time)
                 return boost::none;
 
-            const boost::optional<input_string_type> platform =
-                read_string(pull_parser);
+            const boost::optional<input_string_type> platform = read_string(pull_parser);
             if (!platform)
                 return boost::none;
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("array"))))
                 return boost::none;
-            }
             pull_parser.next();
 
-            return boost::make_optional(
-                stop_type(
-                    *arrival_time,
-                    *departure_time,
-                    encoder().decode(*platform)
-                )
-            );
+            return boost::make_optional(stop_type(*arrival_time, *departure_time, encoder().decode(*platform)));
         }
 
         static boost::optional<time_type> to_time(const std::ptrdiff_t input)
@@ -651,50 +457,27 @@ namespace bobura { namespace model { namespace serializer
             return time_type(hours, minutes, seconds);
         }
 
-        static boost::optional<std::pair<string_type, string_type>>
-        read_string_member(pull_parser_type& pull_parser)
+        static boost::optional<std::pair<string_type, string_type>> read_string_member(pull_parser_type& pull_parser)
         {
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("member"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            }
-            const input_string_type key =
-                get_attribute(
-                    boost::get<structure_begin_type>(pull_parser.peek())
-                );
+            const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
             if (key.empty())
                 return boost::none;
             pull_parser.next();
 
-            const boost::optional<input_string_type> value =
-                read_string(pull_parser);
+            const boost::optional<input_string_type> value = read_string(pull_parser);
             if (!value)
                 return boost::none;
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("member"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            }
             pull_parser.next();
 
-            return boost::make_optional(
-                std::make_pair(
-                    encoder().decode(key), encoder().decode(*value)
-                )
-            );
+            return boost::make_optional(std::make_pair(encoder().decode(key), encoder().decode(*value)));
         }
 
-        static boost::optional<input_string_type> read_string(
-            pull_parser_type& pull_parser
-        )
+        static boost::optional<input_string_type> read_string(pull_parser_type& pull_parser)
         {
             const element_type& element = pull_parser.peek();
             if (element.which() != 2)
@@ -709,49 +492,28 @@ namespace bobura { namespace model { namespace serializer
         }
 
         template <typename Integer>
-        static boost::optional<std::pair<string_type, Integer>>
-        read_integer_member(pull_parser_type& pull_parser)
+        static boost::optional<std::pair<string_type, Integer>> read_integer_member(pull_parser_type& pull_parser)
         {
-            if (
-                !next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("member"))
-                )
-            )
-            {
+            if (!next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            }
-            const input_string_type key =
-                get_attribute(
-                    boost::get<structure_begin_type>(pull_parser.peek())
-                );
+            const input_string_type key = get_attribute(boost::get<structure_begin_type>(pull_parser.peek()));
             if (key.empty())
                 return boost::none;
             pull_parser.next();
 
-            const boost::optional<Integer> value =
-                read_integer<Integer>(pull_parser);
+            const boost::optional<Integer> value = read_integer<Integer>(pull_parser);
             if (!value)
                 return boost::none;
 
-            if (
-                !next_is_structure_end(
-                    pull_parser, input_string_type(TETENGO2_TEXT("member"))
-                )
-            )
-            {
+            if (!next_is_structure_end(pull_parser, input_string_type(TETENGO2_TEXT("member"))))
                 return boost::none;
-            }
             pull_parser.next();
 
-            return boost::make_optional(
-                std::make_pair(encoder().decode(key), *value)
-            );
+            return boost::make_optional(std::make_pair(encoder().decode(key), *value));
         }
 
         template <typename Integer>
-        static boost::optional<Integer> read_integer(
-            pull_parser_type& pull_parser
-        )
+        static boost::optional<Integer> read_integer(pull_parser_type& pull_parser)
         {
             const element_type& element = pull_parser.peek();
             if (element.which() != 2)
@@ -764,10 +526,7 @@ namespace bobura { namespace model { namespace serializer
             return boost::make_optional(integer);
         }
 
-        static bool next_is_structure_begin(
-            const pull_parser_type&  pull_parser,
-            const input_string_type& name
-        )
+        static bool next_is_structure_begin(const pull_parser_type& pull_parser, const input_string_type& name)
         {
             if (!pull_parser.has_next())
                 return false;
@@ -780,10 +539,7 @@ namespace bobura { namespace model { namespace serializer
             return true;
         }
 
-        static bool next_is_structure_end(
-            const pull_parser_type&  pull_parser,
-            const input_string_type& name
-        )
+        static bool next_is_structure_end(const pull_parser_type& pull_parser, const input_string_type& name)
         {
             if (!pull_parser.has_next())
                 return false;
@@ -796,10 +552,7 @@ namespace bobura { namespace model { namespace serializer
             return true;
         }
 
-        static bool next_is_value(
-            const pull_parser_type& pull_parser,
-            const int               which
-        )
+        static bool next_is_value(const pull_parser_type& pull_parser, const int which)
         {
             if (!pull_parser.has_next())
                 return false;
@@ -813,14 +566,10 @@ namespace bobura { namespace model { namespace serializer
             return true;
         }
 
-        static input_string_type get_attribute(
-            const structure_begin_type& structure
-        )
+        static input_string_type get_attribute(const structure_begin_type& structure)
         {
             const typename attribute_map_type::const_iterator found =
-                structure.attribute_map().find(
-                    input_string_type(TETENGO2_TEXT("name"))
-                );
+                structure.attribute_map().find(input_string_type(TETENGO2_TEXT("name")));
             if (found == structure.attribute_map().end())
                 return input_string_type();
             if (found->second.which() != 4)
@@ -835,26 +584,16 @@ namespace bobura { namespace model { namespace serializer
         virtual bool selects_impl(const iterator first, const iterator last)
         {
             std::unique_ptr<push_parser_type> p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
-                    first, last, tetengo2::make_unique<grammar_type>()
-                );
+                tetengo2::make_unique<push_parser_type>(first, last, tetengo2::make_unique<grammar_type>());
             pull_parser_type pull_parser(std::move(p_push_parser), 5);
 
-            return
-                next_is_structure_begin(
-                    pull_parser, input_string_type(TETENGO2_TEXT("array"))
-                );
+            return next_is_structure_begin(pull_parser, input_string_type(TETENGO2_TEXT("array")));
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator first,
-            const iterator last
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
         {
             std::unique_ptr<push_parser_type> p_push_parser =
-                tetengo2::make_unique<push_parser_type>(
-                    first, last, tetengo2::make_unique<grammar_type>()
-                );
+                tetengo2::make_unique<push_parser_type>(first, last, tetengo2::make_unique<grammar_type>());
             pull_parser_type pull_parser(std::move(p_push_parser), 5);
 
             return read_timetable(pull_parser);
