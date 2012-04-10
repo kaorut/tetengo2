@@ -43,8 +43,7 @@ namespace bobura { namespace message
         // functions
 
         /*!
-            \brief Returns the observer called when a timetable model is
-                   reset.
+            \brief Returns the observer called when a timetable model is reset.
 
             \return The observer called when a a timetable model is reset.
         */
@@ -55,8 +54,7 @@ namespace bobura { namespace message
         }
 
         /*!
-            \brief Returns the observer called when a timetable model is
-                   reset.
+            \brief Returns the observer called when a timetable model is reset.
 
             \return The observer called when a a timetable model is reset.
         */
@@ -78,8 +76,7 @@ namespace bobura { namespace message
         }
 
         /*!
-            \brief Returns the observer called when a timetable model is
-                   changed.
+            \brief Returns the observer called when a timetable model is changed.
 
             \return The observer called when a a timetable model is changed.
         */

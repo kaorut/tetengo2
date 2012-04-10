@@ -25,8 +25,7 @@ namespace bobura { namespace message
     namespace timetable_model
     {
         /*!
-            \brief The meta function for the type list of the timetable model
-                   messages.
+            \brief The meta function for the type list of the timetable model messages.
 
             \tparam TimetableModel A timetable model type.
             \tparam MainWindow     A main window type.
@@ -40,13 +39,9 @@ namespace bobura { namespace message
             //! The type list for the timetable model.
             typedef
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::reset, reset<TimetableModel, MainWindow>
-                    >,
+                    boost::mpl::pair<type::reset, reset<TimetableModel, MainWindow>>,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::changed, changed<TimetableModel, MainWindow>
-                    >,
+                    boost::mpl::pair<type::changed, changed<TimetableModel, MainWindow>>,
                 tetengo2::meta::assoc_list_end
                 >>
                 type;
@@ -58,8 +53,7 @@ namespace bobura { namespace message
     namespace main_window
     {
         /*!
-            \brief The meta function for the type list of the main window
-                   messages.
+            \brief The meta function for the type list of the main window messages.
 
             \tparam Command         A command type.
             \tparam Model           A model type.
@@ -86,20 +80,11 @@ namespace bobura { namespace message
             //! The type list for the main window.
             typedef
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::menu_selected,
-                        menu_selected<Command, Model, AbstractWindow>
-                    >,
+                    boost::mpl::pair<type::menu_selected, menu_selected<Command, Model, AbstractWindow>>,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::paint_paint,
-                        paint_paint<Canvas, Position, PictureReader>
-                    >,
+                    boost::mpl::pair<type::paint_paint, paint_paint<Canvas, Position, PictureReader>>,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::window_closing,
-                        window_closing<AbstractWindow, ConfirmFileSave>
-                    >,
+                    boost::mpl::pair<type::window_closing, window_closing<AbstractWindow, ConfirmFileSave>>,
                 tetengo2::meta::assoc_list_end
                 >>>
                 type;
@@ -111,8 +96,7 @@ namespace bobura { namespace message
     namespace file_property_dialog
     {
         /*!
-            \brief The meta function for the type list of the file property
-                   dialog messages.
+            \brief The meta function for the type list of the file property dialog messages.
 
             \tparam Dialog A dialog type.
         */
@@ -125,15 +109,9 @@ namespace bobura { namespace message
             //! The type list for the file property dialog.
             typedef
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::ok_button_mouse_clicked,
-                        ok_button_mouse_clicked<Dialog>
-                    >,
+                    boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::cancel_button_mouse_clicked,
-                        cancel_button_mouse_clicked<Dialog>
-                    >,
+                    boost::mpl::pair<type::cancel_button_mouse_clicked, cancel_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list_end
                 >>
                 type;
@@ -145,8 +123,7 @@ namespace bobura { namespace message
     namespace about_dialog
     {
         /*!
-            \brief The meta function for the type list of the about dialog
-                   messages.
+            \brief The meta function for the type list of the about dialog messages.
 
             \tparam Dialog A dialog type.
         */
@@ -159,10 +136,7 @@ namespace bobura { namespace message
             //! The type list for the about dialog.
             typedef
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<
-                        type::ok_button_mouse_clicked,
-                        ok_button_mouse_clicked<Dialog>
-                    >,
+                    boost::mpl::pair<type::ok_button_mouse_clicked, ok_button_mouse_clicked<Dialog>>,
                 tetengo2::meta::assoc_list_end
                 >
                 type;

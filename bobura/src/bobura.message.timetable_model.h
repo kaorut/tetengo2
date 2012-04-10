@@ -18,22 +18,15 @@ namespace bobura { namespace message { namespace timetable_model
     namespace detail
     {
         template <typename TimetableModel, typename MainWindow>
-        void set_main_window_title(
-            const TimetableModel& timetable_model,
-            MainWindow&           main_window
-        )
+        void set_main_window_title(const TimetableModel& timetable_model, MainWindow& main_window)
         {
             typedef typename TimetableModel::path_type path_type;
             typedef typename MainWindow::string_type string_type;
 
             const boost::optional<string_type> title =
-                timetable_model.has_path() ?
                 boost::make_optional(
-                    timetable_model.path().filename().template string<
-                        string_type
-                    >()
-                ) :
-                boost::none;
+                    timetable_model.has_path(), timetable_model.path().filename().template string<string_type>()
+                );
             main_window.set_title(title, timetable_model.changed());
         }
 
@@ -69,10 +62,7 @@ namespace bobura { namespace message { namespace timetable_model
             \param timetable_model A timetable model.
             \param main_window     A main window.
         */
-        reset(
-            const timetable_model_type& timetable_model,
-            main_window_type&           main_window
-        )
+        reset(const timetable_model_type& timetable_model, main_window_type& main_window)
         :
         m_timetable_model(timetable_model),
         m_main_window(main_window)
@@ -128,10 +118,7 @@ namespace bobura { namespace message { namespace timetable_model
             \param timetable_model A timetable model.
             \param main_window     A main window.
         */
-        changed(
-            const timetable_model_type& timetable_model,
-            main_window_type&           main_window
-        )
+        changed(const timetable_model_type& timetable_model, main_window_type& main_window)
         :
         m_timetable_model(timetable_model),
         m_main_window(main_window)
