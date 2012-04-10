@@ -26,8 +26,7 @@ namespace bobura { namespace model
         \tparam Stop   A stop type.
     */
     template <typename Number, typename Note, typename Stop>
-    class train :
-        private boost::equality_comparable<train<Number, Note, Stop>>
+    class train : private boost::equality_comparable<train<Number, Note, Stop>>
     {
     public:
         // types
@@ -100,12 +99,7 @@ namespace bobura { namespace model
             \param stop_last  The last iterator among stops.
         */
         template <typename No, typename Nt, typename InputIterator>
-        train(
-            No&&          number,
-            Nt&&          note,
-            InputIterator stop_first,
-            InputIterator stop_last
-        )
+        train(No&& number, Nt&& note, InputIterator stop_first, InputIterator stop_last)
         :
         m_number(std::forward<No>(number)),
         m_note(std::forward<Nt>(note)),
@@ -126,9 +120,7 @@ namespace bobura { namespace model
         */
         friend bool operator==(const train& one, const train& another)
         {
-            return one.m_number == another.m_number &&
-                one.m_note == another.m_note &&
-                one.m_stops == another.m_stops;
+            return one.m_number == another.m_number && one.m_note == another.m_note && one.m_stops == another.m_stops;
         }
 
         /*!
@@ -173,14 +165,9 @@ namespace bobura { namespace model
             \param stop     A stop.
         */
         template <typename S>
-        void insert_stop(
-            const typename stops_type::const_iterator position,
-            S&&                                       stop
-        )
+        void insert_stop(const typename stops_type::const_iterator position, S&& stop)
         {
-            m_stops.insert(
-                to_mutable(position, m_stops), std::forward<S>(stop)
-            );
+            m_stops.insert(to_mutable(position, m_stops), std::forward<S>(stop));
         }
 
         /*!
@@ -194,9 +181,7 @@ namespace bobura { namespace model
             const typename stops_type::const_iterator last
         )
         {
-            m_stops.erase(
-                to_mutable(first, m_stops), to_mutable(last, m_stops)
-            );
+            m_stops.erase(to_mutable(first, m_stops), to_mutable(last, m_stops));
         }
 
 
@@ -220,10 +205,7 @@ namespace bobura { namespace model
         {
             typename Container::iterator mutable_iter = container.begin();
             std::advance(
-                mutable_iter,
-                std::distance<typename Container::const_iterator>(
-                    container.begin(), const_iter
-                )
+                mutable_iter, std::distance<typename Container::const_iterator>(container.begin(), const_iter)
             );
             return mutable_iter;
         }

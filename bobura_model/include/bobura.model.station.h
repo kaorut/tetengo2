@@ -68,8 +68,7 @@ namespace bobura { namespace model
         */
         friend bool operator==(const station& one, const station& another)
         {
-            return one.m_name == another.m_name &&
-                   &one.m_grade.get() == &another.m_grade.get();
+            return one.m_name == another.m_name && &one.m_grade.get() == &another.m_grade.get();
         }
 
         /*!
@@ -100,8 +99,7 @@ namespace bobura { namespace model
 
         name_type m_name;
 
-        typename tetengo2::cpp11::reference_wrapper<const grade_type>::type
-        m_grade;
+        typename tetengo2::cpp11::reference_wrapper<const grade_type>::type m_grade;
 
 
     };
