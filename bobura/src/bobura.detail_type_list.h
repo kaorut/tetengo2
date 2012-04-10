@@ -100,30 +100,19 @@ namespace bobura
 
     //! The detail type list.
     typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::alert, detail::detail::alert_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::common_dialog, detail::detail::common_dialog_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::cursor, detail::detail::cursor_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::drawing, detail::detail::drawing_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::encoding, detail::detail::encoding_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::gui_fixture, detail::detail::gui_fixture_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::menu, detail::detail::menu_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::alert, detail::detail::alert_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::common_dialog, detail::detail::common_dialog_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::cursor, detail::detail::cursor_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::drawing, detail::detail::drawing_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::encoding, detail::detail::encoding_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::gui_fixture, detail::detail::gui_fixture_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::menu, detail::detail::menu_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::detail::message_handler, detail::detail::message_handler_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::message_loop, detail::detail::message_loop_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::unit, detail::detail::unit_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::detail::widget, detail::detail::widget_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::message_loop, detail::detail::message_loop_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::unit, detail::detail::unit_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::widget_type>,
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>>>
         detail_type_list;

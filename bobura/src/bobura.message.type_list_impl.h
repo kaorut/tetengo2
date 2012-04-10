@@ -38,10 +38,8 @@ namespace bobura { namespace message
 
             //! The type list for the timetable model.
             typedef
-                tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::reset, reset<TimetableModel, MainWindow>>,
-                tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::changed, changed<TimetableModel, MainWindow>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::reset, reset<TimetableModel, MainWindow>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::changed, changed<TimetableModel, MainWindow>>,
                 tetengo2::meta::assoc_list_end
                 >>
                 type;

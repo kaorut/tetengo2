@@ -150,22 +150,15 @@ namespace bobura
 
     //! The common type list.
     typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::difference, std::ptrdiff_t>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::size, detail::size_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::string, detail::string_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::path, detail::path_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::input_stream_iterator, detail::input_stream_iterator_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::pull_parser, detail::pull_parser_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::difference, std::ptrdiff_t>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::size, detail::size_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::string, detail::string_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::path, detail::path_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::input_stream_iterator, detail::input_stream_iterator_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::pull_parser, detail::pull_parser_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::output_stream, std::basic_ostream<detail::io_string_type::value_type>>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::settings, detail::settings_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::settings, detail::settings_type>,
         tetengo2::meta::assoc_list_end
         >>>>>>>>
         common_type_list;
@@ -245,8 +238,7 @@ namespace bobura
                     detail::locale::internal_encoding_type, detail::locale::exception_encoding_type
                 >
             >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::locale::messages_facet, detail::locale::messages_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::locale::messages_facet, detail::locale::messages_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::locale::message_catalog, tetengo2::message::message_catalog<detail::locale::messages_type>
@@ -625,22 +617,14 @@ namespace bobura
 
     //! The type list for the user interface.
     typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::gui_fixture, detail::ui::gui_fixture_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::position, detail::ui::position_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::canvas, detail::ui::canvas_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::alert, detail::ui::alert_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::abstract_window, detail::ui::abstract_window_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::window, detail::ui::window_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::menu_bar, detail::ui::menu_bar_type >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::gui_fixture, detail::ui::gui_fixture_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::position, detail::ui::position_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::canvas, detail::ui::canvas_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::alert, detail::ui::alert_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::abstract_window, detail::ui::abstract_window_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::menu_bar, detail::ui::menu_bar_type >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::ui::popup_menu,
@@ -662,20 +646,13 @@ namespace bobura
                     detail::ui::menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
                 >
             >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::dialog, detail::ui::dialog_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::label, detail::ui::label_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::link_label, detail::ui::link_label_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::image, detail::ui::image_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::button, detail::ui::button_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::dialog, detail::ui::dialog_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::label, detail::ui::label_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::link_label, detail::ui::link_label_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::image, detail::ui::image_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::button, detail::ui::button_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair< type::ui::message_loop_break, detail::ui::message_loop_break_type>,
         tetengo2::meta::assoc_list<
