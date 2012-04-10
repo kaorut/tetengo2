@@ -38,9 +38,7 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type
-        settings_type;
+    typedef boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type settings_type;
 
 
     // functions
@@ -49,11 +47,7 @@ namespace
     {
         const int length = ::GetLocaleInfoA(id, type, NULL, 0);
         if (length == 0)
-        {
-            BOOST_THROW_EXCEPTION(
-                std::runtime_error("Can't get locale info.")
-            );
-        }
+            BOOST_THROW_EXCEPTION(std::runtime_error("Can't get locale info."));
 
         std::vector<char> info(length, '\0');
         ::GetLocaleInfoA(id, type, info.data(), length);
@@ -66,26 +60,17 @@ namespace
         const ::LANGID language_id = ::GetUserDefaultLangID();
         const ::LCID locale_id = MAKELCID(language_id, SORT_DEFAULT);
 
-        return locale_info(locale_id, LOCALE_SENGLANGUAGE) +
-            "_" +
-            locale_info(locale_id, LOCALE_SENGCOUNTRY);
+        return locale_info(locale_id, LOCALE_SENGLANGUAGE) + "_" + locale_info(locale_id, LOCALE_SENGCOUNTRY);
     }
 
     void set_locale(const boost::filesystem::path& message_directory_path)
     {
         typedef
-            boost::mpl::at<
-                bobura::locale_type_list, bobura::type::locale::messages_facet
-            >::type
-            messages_facet_type;
+            boost::mpl::at<bobura::locale_type_list, bobura::type::locale::messages_facet>::type messages_facet_type;
         std::unique_ptr<messages_facet_type> p_messages_facet(
-            tetengo2::make_unique<messages_facet_type>(
-                message_directory_path, std::locale(ui_locale_name().c_str())
-            )
+            tetengo2::make_unique<messages_facet_type>(message_directory_path, std::locale(ui_locale_name().c_str()))
         );
-        const std::locale global_locale(
-            std::locale(""), p_messages_facet.release()
-        );
+        const std::locale global_locale(std::locale(""), p_messages_facet.release());
 
         std::locale::global(global_locale);
     }
@@ -117,20 +102,14 @@ int WINAPI wWinMain(
 )
 TETENGO2_CPP11_NOEXCEPT
 {
-    typedef
-        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::alert>::type
-        alsert_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::alert>::type alsert_type;
 
     try
     {
-        std::vector<std::wstring> command_line_arguments =
-            boost::program_options::split_winmain(::GetCommandLineW());
+        std::vector<std::wstring> command_line_arguments = boost::program_options::split_winmain(::GetCommandLineW());
         assert(!command_line_arguments.empty());
-        boost::filesystem::path base_path =
-            boost::filesystem::path(command_line_arguments[0]).parent_path();
-        const settings_type settings(
-            std::move(command_line_arguments), std::move(base_path)
-        );
+        boost::filesystem::path base_path = boost::filesystem::path(command_line_arguments[0]).parent_path();
+        const settings_type settings(std::move(command_line_arguments), std::move(base_path));
 
         set_locale(settings.message_directory_path());
 
