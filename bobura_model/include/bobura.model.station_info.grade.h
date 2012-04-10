@@ -119,9 +119,7 @@ namespace bobura { namespace model { namespace station_info
         virtual const typename local::name_type& name_impl()
         const
         {
-            static const typename local::name_type singleton(
-                TETENGO2_TEXT("local")
-            );
+            static const typename local::name_type singleton(TETENGO2_TEXT("local"));
             return singleton;
         }
 
@@ -174,9 +172,7 @@ namespace bobura { namespace model { namespace station_info
         virtual const typename principal::name_type& name_impl()
         const
         {
-            static const typename principal::name_type singleton(
-                TETENGO2_TEXT("principal")
-            );
+            static const typename principal::name_type singleton(TETENGO2_TEXT("principal"));
             return singleton;
         }
 
@@ -229,9 +225,7 @@ namespace bobura { namespace model { namespace station_info
         virtual const typename local_terminal::name_type& name_impl()
         const
         {
-            static const typename local_terminal::name_type singleton(
-                TETENGO2_TEXT("local terminal")
-            );
+            static const typename local_terminal::name_type singleton(TETENGO2_TEXT("local terminal"));
             return singleton;
         }
 
@@ -284,9 +278,7 @@ namespace bobura { namespace model { namespace station_info
         virtual const typename principal_terminal::name_type& name_impl()
         const
         {
-            static const typename principal_terminal::name_type singleton(
-                TETENGO2_TEXT("principal terminal")
-            );
+            static const typename principal_terminal::name_type singleton(TETENGO2_TEXT("principal terminal"));
             return singleton;
         }
 

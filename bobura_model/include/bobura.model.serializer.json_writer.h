@@ -411,12 +411,12 @@ namespace bobura { namespace model { namespace serializer
             typedef typename time_type::tick_type tick_type;
             typedef std::tuple<tick_type, tick_type, tick_type> hours_minutes_seconds_type;
             const hours_minutes_seconds_type hours_minutes_seconds = time.hours_minutes_seconds();
-            const tick_type time =
+            const tick_type representation =
                 std::get<0>(hours_minutes_seconds) * 10000 +
                 std::get<1>(hours_minutes_seconds) * 100 +
                 std::get<2>(hours_minutes_seconds);
             std::basic_ostringstream<output_char_type> stream;
-            stream << boost::basic_format<output_char_type>(TETENGO2_TEXT("% 6d")) % time;
+            stream << boost::basic_format<output_char_type>(TETENGO2_TEXT("% 6d")) % representation;
             return stream.str();
         }
 

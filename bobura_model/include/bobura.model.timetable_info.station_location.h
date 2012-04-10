@@ -23,10 +23,7 @@ namespace bobura { namespace model { namespace timetable_info
         \tparam Meterage A meterage type.
     */
     template <typename Station, typename Meterage>
-    class station_location :
-        private boost::equality_comparable<
-            station_location<Station, Meterage>
-        >
+    class station_location : private boost::equality_comparable<station_location<Station, Meterage>>
     {
     public:
         // types
@@ -68,13 +65,9 @@ namespace bobura { namespace model { namespace timetable_info
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(
-            const station_location& one,
-            const station_location& another
-        )
+        friend bool operator==(const station_location& one, const station_location& another)
         {
-            return one.m_station == another.m_station &&
-                   one.m_meterage == another.m_meterage;
+            return one.m_station == another.m_station && one.m_meterage == another.m_meterage;
         }
 
         /*!
