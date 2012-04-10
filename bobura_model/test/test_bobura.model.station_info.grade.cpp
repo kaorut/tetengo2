@@ -18,17 +18,10 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::grade_type_set
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::grade_type_set>::type
         grade_type_set_type;
 
     typedef grade_type_set_type::local_type local_type;
@@ -37,8 +30,7 @@ namespace
 
     typedef grade_type_set_type::local_terminal_type local_terminal_type;
 
-    typedef
-        grade_type_set_type::principal_terminal_type principal_terminal_type;
+    typedef grade_type_set_type::principal_terminal_type principal_terminal_type;
 
 
 }
@@ -64,22 +56,10 @@ BOOST_AUTO_TEST_SUITE(grade)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK(
-            local_type::instance().name() ==
-            string_type(TETENGO2_TEXT("local"))
-        );
-        BOOST_CHECK(
-            principal_type::instance().name() ==
-            string_type(TETENGO2_TEXT("principal"))
-        );
-        BOOST_CHECK(
-            local_terminal_type::instance().name() ==
-            string_type(TETENGO2_TEXT("local terminal"))
-        );
-        BOOST_CHECK(
-            principal_terminal_type::instance().name() ==
-            string_type(TETENGO2_TEXT("principal terminal"))
-        );
+        BOOST_CHECK(local_type::instance().name() == string_type(TETENGO2_TEXT("local")));
+        BOOST_CHECK(principal_type::instance().name() == string_type(TETENGO2_TEXT("principal")));
+        BOOST_CHECK(local_terminal_type::instance().name() == string_type(TETENGO2_TEXT("local terminal")));
+        BOOST_CHECK(principal_terminal_type::instance().name() == string_type(TETENGO2_TEXT("principal terminal")));
     }
 
 
