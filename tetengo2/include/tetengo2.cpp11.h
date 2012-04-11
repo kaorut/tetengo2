@@ -20,10 +20,7 @@
 #if !defined(DOCUMENTATION)
 #   if \
         (defined(_MSC_VER) && _MSC_VER >= 1600) || \
-        ( \
-            defined(__GNUC__) && defined(__GNUC_MINOR__) && \
-            __GNUC__ >= 4 && __GNUC_MINOR__ >= 5 \
-        )
+        (defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ >= 4 && __GNUC_MINOR__ >= 5)
 #       define TETENGO2_CPP11_STD_BIND_SUPPORTED 1
 #   else
 #       define TETENGO2_CPP11_STD_BIND_SUPPORTED 0
@@ -217,11 +214,7 @@ namespace tetengo2 { namespace cpp11
 /* reference_wrapper, ref ***************************************************/
 
 #if !defined(DOCUMENTATION)
-#   if \
-        ( \
-            defined(__GNUC__) && defined(__GNUC_MINOR__) && \
-            __GNUC__ >= 4 && __GNUC_MINOR__ >= 3 \
-        )
+#   if defined(__GNUC__) && defined(__GNUC_MINOR__) && __GNUC__ >= 4 && __GNUC_MINOR__ >= 3
 #       define TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED 1
 #   else
 #       define TETENGO2_CPP11_STD_REFERENCEWRAPPER_SUPPORTED 0
