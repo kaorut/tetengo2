@@ -45,26 +45,16 @@ namespace tetengo2 { namespace message
         \tparam MessageCatalogParser A message catalog parser type.
         \tparam LocaleNameEncoder    An encoder type for locale names.
     */
-    template <
-        typename Path,
-        typename MessageCatalogParser,
-        typename LocaleNameEncoder
-    >
+    template <typename Path, typename MessageCatalogParser, typename LocaleNameEncoder>
     class messages :
-        public std::messages<
-            typename MessageCatalogParser::string_type::value_type
-        >,
+        public std::messages<typename MessageCatalogParser::string_type::value_type>,
         private boost::noncopyable
     {
     public:
         // types
 
         //! The base type.
-        typedef
-            std::messages<
-                typename MessageCatalogParser::string_type::value_type
-            >
-            base_type;
+        typedef std::messages<typename MessageCatalogParser::string_type::value_type> base_type;
 
         //! The catalog type.
         typedef typename base_type::catalog catalog;
@@ -105,8 +95,7 @@ namespace tetengo2 { namespace message
             \param path   A path where message catalogs are stored.
             \param locale A locale for the messages facet.
 
-            \throw std::ios_base::failure When the path does not exist or is
-                                          not a directory.
+            \throw std::ios_base::failure When the path does not exist or is not a directory.
         */
         messages(const path_type& path, const std::locale& locale)
         :
@@ -125,19 +114,15 @@ namespace tetengo2 { namespace message
     private:
         // types
 
-        typedef
-            std::unordered_map<string_type, string_type>
-            catalog_file_mappings_type;
+        typedef std::unordered_map<string_type, string_type> catalog_file_mappings_type;
 
-        typedef
-            std::unordered_map<string_type, string_type> message_catalog_type;
+        typedef std::unordered_map<string_type, string_type> message_catalog_type;
 
         typedef boost::filesystem::directory_iterator directory_iterator_type;
 
         typedef boost::filesystem::directory_entry directory_entry_type;
 
-        struct matches_locale_type :
-            public std::unary_function<path_type, bool>
+        struct matches_locale_type : public std::unary_function<path_type, bool>
         {
             const std::locale& m_locale;
 
@@ -146,13 +131,10 @@ namespace tetengo2 { namespace message
             m_locale(locale)
             {}
 
-            bool operator()(
-                const typename catalog_file_mappings_type::value_type& mapping
-            )
+            bool operator()(const typename catalog_file_mappings_type::value_type& mapping)
             const
             {
-                const std::string locale_name =
-                    locale_name_encoder().encode(mapping.first);
+                const std::string locale_name = locale_name_encoder().encode(mapping.first);
                 try
                 {
                     return std::locale(locale_name.c_str()) == m_locale;
@@ -165,9 +147,7 @@ namespace tetengo2 { namespace message
 
         };
 
-        typedef
-            typename message_catalog_parser_type::pull_parser_type
-            pull_parser_type;
+        typedef typename message_catalog_parser_type::pull_parser_type pull_parser_type;
 
         typedef typename pull_parser_type::push_parser_type push_parser_type;
 
@@ -182,20 +162,16 @@ namespace tetengo2 { namespace message
             return singleton;
         }
 
-        static const typename path_type::string_type&
-        catalog_file_mappings_filename()
+        static const typename path_type::string_type& catalog_file_mappings_filename()
         {
-            static const typename path_type::string_type singleton(
-                TETENGO2_TEXT("_catalogs.json")
-            );
+            static const typename path_type::string_type singleton(TETENGO2_TEXT("_catalogs.json"));
             return singleton;
         }
 
         static boost::optional<message_catalog_type>
         load_message_catalog(const path_type& path, const std::locale& locale)
         {
-            const boost::optional<path_type> catalog_file =
-                select_catalog_file(path, locale);
+            const boost::optional<path_type> catalog_file = select_catalog_file(path, locale);
             if (!catalog_file)
                 return boost::none;
 
@@ -205,78 +181,43 @@ namespace tetengo2 { namespace message
             return boost::make_optional(std::move(message_catalog));
         }
 
-        static const boost::optional<path_type> select_catalog_file(
-            const path_type&   path,
-            const std::locale& locale
-        )
+        static const boost::optional<path_type> select_catalog_file(const path_type& path, const std::locale& locale)
         {
             if (!boost::filesystem::exists(path))
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::ios_base::failure("Path does not exist.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::ios_base::failure("Path does not exist."));
             if (!boost::filesystem::is_directory(path))
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::ios_base::failure("Path is not a directory.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::ios_base::failure("Path is not a directory."));
 
             std::vector<path_type> catalog_files;
             std::transform(
                 directory_iterator_type(path),
                 directory_iterator_type(),
                 std::back_inserter(catalog_files),
-                TETENGO2_CPP11_BIND(
-                    &directory_entry_type::path, cpp11::placeholders_1()
-                )
+                TETENGO2_CPP11_BIND(&directory_entry_type::path, cpp11::placeholders_1())
             );
-            std::sort(
-                catalog_files.begin(),
-                catalog_files.end(),
-                std::greater<path_type>()
-            );
+            std::sort(catalog_files.begin(), catalog_files.end(), std::greater<path_type>());
 
-            const catalog_file_mappings_type catalog_file_mappings =
-                read_catalog_file_mappings(path);
+            const catalog_file_mappings_type catalog_file_mappings = read_catalog_file_mappings(path);
 
             const typename catalog_file_mappings_type::const_iterator found =
-                std::find_if(
-                    catalog_file_mappings.begin(),
-                    catalog_file_mappings.end(),
-                    matches_locale_type(locale)
-                );
+                std::find_if(catalog_file_mappings.begin(), catalog_file_mappings.end(), matches_locale_type(locale));
             if (found != catalog_file_mappings.end())
                 return path / found->second;
 
             return boost::none;
         }
 
-        static catalog_file_mappings_type read_catalog_file_mappings(
-            const path_type& message_catalog_directory
-        )
+        static catalog_file_mappings_type read_catalog_file_mappings(const path_type& message_catalog_directory)
         {
             catalog_file_mappings_type mappings;
 
             boost::filesystem::ifstream input_stream(
-                path_type(
-                    message_catalog_directory /
-                    catalog_file_mappings_filename()
-                )
+                path_type(message_catalog_directory / catalog_file_mappings_filename())
             );
             if (!input_stream.is_open())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::ios_base::failure(
-                        "Can't open the message catalog file mappings."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't open the message catalog file mappings."));
 
-            message_catalog_parser_type parser(
-                create_pull_parser(input_stream)
-            );
+            message_catalog_parser_type parser(create_pull_parser(input_stream));
             while (parser.has_next())
             {
                 mappings.insert(parser.peek());
@@ -286,22 +227,13 @@ namespace tetengo2 { namespace message
             return mappings;
         }
 
-        static void read_message_catalog(
-            const path_type&      catalog_file,
-            message_catalog_type& message_catalog
-        )
+        static void read_message_catalog(const path_type& catalog_file, message_catalog_type& message_catalog)
         {
             boost::filesystem::ifstream input_stream(catalog_file);
             if (!input_stream.is_open())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::ios_base::failure("Can't open a message catalog.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::ios_base::failure("Can't open a message catalog."));
 
-            message_catalog_parser_type parser(
-                create_pull_parser(input_stream)
-            );
+            message_catalog_parser_type parser(create_pull_parser(input_stream));
             while (parser.has_next())
             {
                 message_catalog.insert(parser.peek());
@@ -309,27 +241,18 @@ namespace tetengo2 { namespace message
             }
         }
 
-        static std::unique_ptr<pull_parser_type> create_pull_parser(
-            std::istream& input_stream
-        )
+        static std::unique_ptr<pull_parser_type> create_pull_parser(std::istream& input_stream)
         {
-            std::unique_ptr<grammar_type> p_grammar =
-                make_unique<grammar_type>();
+            std::unique_ptr<grammar_type> p_grammar = make_unique<grammar_type>();
             
             std::unique_ptr<push_parser_type> p_push_parser =
                 make_unique<push_parser_type>(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>()),
                     std::move(p_grammar)
                 );
 
-            return make_unique<pull_parser_type>(
-                std::move(p_push_parser), 5
-            );
+            return make_unique<pull_parser_type>(std::move(p_push_parser), 5);
         }
 
 
@@ -342,18 +265,11 @@ namespace tetengo2 { namespace message
 
         // virtual functions
 
-        virtual catalog do_open(
-            const std::string& catalog_name,
-            const std::locale& locale
-        )
+        virtual catalog do_open(const std::string& catalog_name, const std::locale& locale)
         const
         {
             if (m_open)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("A message catalog is already open.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::runtime_error("A message catalog is already open."));
 
             if (!m_message_catalog) return -1;
 
@@ -373,17 +289,11 @@ namespace tetengo2 { namespace message
                 return remove_namespace(default_message);
 
             if (!m_open)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("The message catalog is not open.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::runtime_error("The message catalog is not open."));
 
-            const typename message_catalog_type::const_iterator found =
-                m_message_catalog->find(default_message);
+            const typename message_catalog_type::const_iterator found = m_message_catalog->find(default_message);
 
-            return found != m_message_catalog->end() ?
-                found->second : remove_namespace(default_message);
+            return found != m_message_catalog->end() ? found->second : remove_namespace(default_message);
         }
 
         virtual void do_close(const catalog catalog_id)
@@ -392,11 +302,7 @@ namespace tetengo2 { namespace message
             if (catalog_id < 0) return;
 
             if (!m_open)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("The message catalog is not open.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::runtime_error("The message catalog is not open."));
 
             m_open = false;
         }

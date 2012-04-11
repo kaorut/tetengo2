@@ -66,8 +66,7 @@ namespace tetengo2 { namespace message
         /*!
             \brief Returns the localized text.
 
-            When no corresponding value to the key is found, it returns the
-            key in which the namespace part is removed.
+            When no corresponding value to the key is found, it returns the key in which the namespace part is removed.
             Namespaces and the other are separated by colons (':').
 
             \tparam S A string type.
@@ -77,12 +76,7 @@ namespace tetengo2 { namespace message
             \return The localized text.
         */
         template <typename S>
-        string_type get(
-            S&& key,
-            typename std::enable_if<
-                std::is_convertible<S&&, string_type>::value
-            >::type* = NULL
-        )
+        string_type get(S&& key, typename std::enable_if<std::is_convertible<S&&, string_type>::value>::type* = NULL)
         const
         {
             if (!m_p_messages || m_catalog_id < 0)
@@ -93,12 +87,7 @@ namespace tetengo2 { namespace message
 
 #if !defined(DOCUMENTATION)
         template <typename S>
-        string_type get(
-            S&& key,
-            typename std::enable_if<
-                !std::is_convertible<S&&, string_type>::value
-            >::type* = NULL
-        )
+        string_type get(S&& key, typename std::enable_if<!std::is_convertible<S&&, string_type>::value>::type* = NULL)
         const
         {
             return get(string_type(std::forward<S>(key)));
@@ -121,10 +110,7 @@ namespace tetengo2 { namespace message
                 &std::use_facet<messages_type>(locale) : NULL;
         }
 
-        static catalog_id_type open_messages(
-            const messages_type* const p_messages,
-            const std::locale&         locale
-        )
+        static catalog_id_type open_messages(const messages_type* const p_messages, const std::locale& locale)
         {
             return p_messages ? p_messages->open("", locale) : -1;
         }
