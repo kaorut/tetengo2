@@ -27,31 +27,16 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::text_type_list,
-            test_tetengo2::type::text::input_stream_iterator
-        >::type
+        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::input_stream_iterator>::type
         input_stream_iterator_type;
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::text_type_list, test_tetengo2::type::text::grammar
-        >::type
-        grammar_type;
+    typedef boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::grammar>::type grammar_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::text_type_list,
-            test_tetengo2::type::text::push_parser
-        >::type
-        push_parser_type;
+        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::push_parser>::type push_parser_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::text_type_list,
-            test_tetengo2::type::text::pull_parser
-        >::type
-        pull_parser_type;
+        boost::mpl::at<test_tetengo2::text_type_list, test_tetengo2::type::text::pull_parser>::type pull_parser_type;
 
 
 }
@@ -73,12 +58,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             std::istringstream json_text;
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -89,22 +70,13 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             std::istringstream json_text;
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
 
-            BOOST_CHECK_THROW(
-                const pull_parser_type pull_parser(
-                    std::move(p_push_parser), 0
-                ),
-                std::invalid_argument
-            );
+            BOOST_CHECK_THROW(const pull_parser_type pull_parser(std::move(p_push_parser), 0), std::invalid_argument);
         }
     }
 
@@ -116,12 +88,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             std::istringstream json_text;
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -136,12 +104,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             );
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -160,12 +124,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             std::istringstream json_text;
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -180,12 +140,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             );
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -194,20 +150,16 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
 
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(
-                        element
-                    );
+                    boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 const pull_parser_type::structure_end_type structure =
                     boost::get<pull_parser_type::structure_end_type>(element);
@@ -225,12 +177,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             );
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -239,130 +187,96 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
 
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(
-                        element
-                    );
+                    boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "object");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(
-                        element
-                    );
+                    boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "member");
                 const pull_parser_type::attribute_map_type::const_iterator
                 attribute = structure.attribute_map().find("name");
                 BOOST_CHECK(attribute != structure.attribute_map().end());
                 BOOST_CHECK_EQUAL(attribute->second.which(), 4);
-                const std::string attribute_value =
-                    boost::get<std::string>(attribute->second);
+                const std::string attribute_value = boost::get<std::string>(attribute->second);
                 BOOST_CHECK(attribute_value == "hoge");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                const int value =
-                    boost::get<int>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    );
+                const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 const pull_parser_type::structure_end_type structure =
-                    boost::get<pull_parser_type::structure_end_type>(
-                        element
-                    );
+                    boost::get<pull_parser_type::structure_end_type>(element);
                 BOOST_CHECK(structure.name() == "member");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(
-                        element
-                    );
+                    boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "member");
                 const pull_parser_type::attribute_map_type::const_iterator
                 attribute = structure.attribute_map().find("name");
                 BOOST_CHECK(attribute != structure.attribute_map().end());
                 BOOST_CHECK_EQUAL(attribute->second.which(), 4);
-                const std::string attribute_value =
-                    boost::get<std::string>(attribute->second);
+                const std::string attribute_value = boost::get<std::string>(attribute->second);
                 BOOST_CHECK(attribute_value == "fuga");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 0);
                 const pull_parser_type::structure_begin_type structure =
-                    boost::get<pull_parser_type::structure_begin_type>(
-                        element
-                    );
+                    boost::get<pull_parser_type::structure_begin_type>(element);
                 BOOST_CHECK(structure.name() == "array");
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                const int value =
-                    boost::get<int>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    );
+                const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                const int value =
-                    boost::get<int>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    );
+                const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 2);
-                const int value =
-                    boost::get<int>(
-                        boost::get<pull_parser_type::value_type>(element)
-                    );
+                const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
                 BOOST_CHECK_EQUAL(value, 42);
                 pull_parser.next();
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 const pull_parser_type::structure_end_type structure =
                     boost::get<pull_parser_type::structure_end_type>(element);
@@ -371,8 +285,7 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 const pull_parser_type::structure_end_type structure =
                     boost::get<pull_parser_type::structure_end_type>(element);
@@ -381,8 +294,7 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             }
             {
                 BOOST_CHECK(pull_parser.has_next());
-                const pull_parser_type::element_type& element =
-                    pull_parser.peek();
+                const pull_parser_type::element_type& element = pull_parser.peek();
                 BOOST_CHECK_EQUAL(element.which(), 1);
                 const pull_parser_type::structure_end_type structure =
                     boost::get<pull_parser_type::structure_end_type>(element);
@@ -401,12 +313,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             std::istringstream json_text;
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -421,12 +329,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             );
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -447,12 +351,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             std::istringstream json_text;
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -467,12 +367,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             );
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -481,8 +377,7 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
 
             pull_parser.next();
             pull_parser.skip_next();
-            const pull_parser_type::element_type& element =
-                pull_parser.peek();
+            const pull_parser_type::element_type& element = pull_parser.peek();
             BOOST_CHECK_EQUAL(element.which(), 1);
             const pull_parser_type::structure_end_type structure =
                 boost::get<pull_parser_type::structure_end_type>(element);
@@ -494,12 +389,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             );
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -517,12 +408,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             );
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -538,12 +425,8 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             );
             std::unique_ptr<push_parser_type> p_push_parser(
                 tetengo2::make_unique<push_parser_type>(
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>(json_text)
-                    ),
-                    input_stream_iterator_type(
-                        std::istreambuf_iterator<char>()
-                    ),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>(json_text)),
+                    input_stream_iterator_type(std::istreambuf_iterator<char>()),
                     tetengo2::make_unique<grammar_type>()
                 )
             );
@@ -553,13 +436,9 @@ BOOST_AUTO_TEST_SUITE(pull_parser)
             pull_parser.next();
             pull_parser.next();
             pull_parser.skip_next();
-            const pull_parser_type::element_type& element =
-                pull_parser.peek();
+            const pull_parser_type::element_type& element = pull_parser.peek();
             BOOST_CHECK_EQUAL(element.which(), 2);
-            const int value =
-                boost::get<int>(
-                    boost::get<pull_parser_type::value_type>(element)
-                );
+            const int value = boost::get<int>(boost::get<pull_parser_type::value_type>(element));
             BOOST_CHECK_EQUAL(value, 78);
         }
     }
