@@ -96,9 +96,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a window cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>& parent = boost::none
-        )
+        static widget_details_ptr_type create_window(const boost::optional<Widget&>& parent = boost::none)
         {
             return create_details<Widget>(parent ? &*parent : NULL);
         }
@@ -108,17 +106,14 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget.
-                          When uninitialized, the dialog has no parent.
+            \param parent A parent widget. When uninitialized, the dialog has no parent.
 
             \return A unique pointer to a dialog.
 
             \throw std::system_error When a dialog cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_dialog(
-            const boost::optional<Widget&>& parent
-        )
+        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
         {
             return create_details<Widget>(parent ? &*parent : NULL);
         }
@@ -134,18 +129,12 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return A unique pointer to a button.
 
-            \throw std::invalid_argument When a default button already exists
-                                         and is_default is true.
-            \throw std::invalid_argument When a cancel button already exists
-                                         and is_cancel is true.
+            \throw std::invalid_argument When a default button already exists and is_default is true.
+            \throw std::invalid_argument When a cancel button already exists and is_cancel is true.
             \throw std::system_error     When a button cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_button(
-            Widget&    parent,
-            const bool is_default,
-            const bool is_cancel
-        )
+        static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
         {
             return create_details<Widget>(&parent);
         }
@@ -214,11 +203,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static void associate_to_native_window_system(Widget& widget)
         {
             if (widget.has_parent())
-            {
-                std::get<details_children>(
-                    *widget.parent().details()
-                ).push_back(reinterpret_cast<void*>(&widget));
-            }
+                std::get<details_children>(*widget.parent().details()).push_back(reinterpret_cast<void*>(&widget));
 
         }
 
@@ -253,15 +238,9 @@ namespace tetengo2 { namespace detail { namespace stub
         static Widget& parent(const Widget& widget)
         {
             if (!has_parent(widget))
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The widget has no parent.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The widget has no parent."));
 
-            return *reinterpret_cast<Widget*>(
-                std::get<details_p_parent>(*widget.details())
-            );
+            return *reinterpret_cast<Widget*>(std::get<details_p_parent>(*widget.details()));
         }
 
         /*!
@@ -357,12 +336,8 @@ namespace tetengo2 { namespace detail { namespace stub
             typedef gui::position<Position> position_traits_type;
             std::get<details_position>(*widget.details()) =
                 std::make_pair(
-                    gui::to_pixels<std::size_t>(
-                        position_traits_type::left(position)
-                    ),
-                    gui::to_pixels<std::size_t>(
-                        position_traits_type::top(position)
-                    )
+                    gui::to_pixels<std::size_t>(position_traits_type::left(position)),
+                    gui::to_pixels<std::size_t>(position_traits_type::top(position))
                 );
         }
 
@@ -430,12 +405,8 @@ namespace tetengo2 { namespace detail { namespace stub
             typedef gui::dimension<Dimension> dimension_traits_type;
             std::get<details_dimension>(*widget.details()) =
                 std::make_pair(
-                    gui::to_pixels<std::size_t>(
-                        dimension_traits_type::width(dimension)
-                    ),
-                    gui::to_pixels<std::size_t>(
-                        dimension_traits_type::height(dimension)
-                    )
+                    gui::to_pixels<std::size_t>(dimension_traits_type::width(dimension)),
+                    gui::to_pixels<std::size_t>(dimension_traits_type::height(dimension))
                 );
         }
 
@@ -478,20 +449,13 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a client dimension cannot be set.
         */
         template <typename Position, typename Widget, typename Dimension>
-        static void set_client_dimension(
-            Widget&          widget,
-            const Dimension& client_dimension
-        )
+        static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
             typedef gui::dimension<Dimension> dimension_traits_type;
             std::get<details_dimension>(*widget.details()) =
                 std::make_pair(
-                    gui::to_pixels<std::size_t>(
-                        dimension_traits_type::width(client_dimension)
-                    ),
-                    gui::to_pixels<std::size_t>(
-                        dimension_traits_type::height(client_dimension)
-                    )
+                    gui::to_pixels<std::size_t>(dimension_traits_type::width(client_dimension)),
+                    gui::to_pixels<std::size_t>(dimension_traits_type::height(client_dimension))
                 );
         }
 
@@ -505,8 +469,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return The client dimension.
 
-            \throw std::system_error When the client dimension cannot be
-                                     obtained.
+            \throw std::system_error When the client dimension cannot be obtained.
         */
         template <typename Dimension, typename Widget>
         static Dimension client_dimension(const Widget& widget)
@@ -536,11 +499,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the text cannot be set.
         */
         template <typename Widget, typename String, typename Encoder>
-        static void set_text(
-            Widget&        widget,
-            String&&       text,
-            const Encoder& encoder
-        )
+        static void set_text(Widget& widget, String&& text, const Encoder& encoder)
         {
             std::get<details_text>(*widget.details()) = encoder.encode(text);
         }
@@ -577,11 +536,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the font cannot be set.
         */
         template <typename Widget, typename Font, typename Encoder>
-        static void set_font(
-            Widget&        widget,
-            const Font&    font,
-            const Encoder& encoder
-        )
+        static void set_font(Widget& widget, const Font& font, const Encoder& encoder)
         {
             std::get<details_font>(*widget.details()) =
                 details_font_type(
@@ -611,16 +566,16 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font, typename Widget, typename Encoder>
         static Font font(const Widget& widget, const Encoder& encoder)
         {
-            const details_font_type& font =
-                std::get<details_font>(*widget.details());
-            return Font(
-                encoder.decode(std::get<0>(font)),
-                std::get<1>(font),
-                std::get<2>(font),
-                std::get<3>(font),
-                std::get<4>(font),
-                std::get<5>(font)
-            );
+            const details_font_type& font = std::get<details_font>(*widget.details());
+            return
+                Font(
+                    encoder.decode(std::get<0>(font)),
+                    std::get<1>(font),
+                    std::get<2>(font),
+                    std::get<3>(font),
+                    std::get<4>(font),
+                    std::get<5>(font)
+                );
         }
 
         /*!
@@ -634,20 +589,14 @@ namespace tetengo2 { namespace detail { namespace stub
             \return The children.
         */
         template <typename Child, typename Widget>
-        static std::vector<typename cpp11::reference_wrapper<Child>::type>
-        children(Widget& widget)
+        static std::vector<typename cpp11::reference_wrapper<Child>::type> children(Widget& widget)
         {
-            const std::vector<void*>& children_as_void =
-                std::get<details_children>(*widget.details());
-            std::vector<typename cpp11::reference_wrapper<Child>::type>
-            children;
+            const std::vector<void*>& children_as_void = std::get<details_children>(*widget.details());
+            std::vector<typename cpp11::reference_wrapper<Child>::type> children;
             children.reserve(children_as_void.size());
 
             std::transform(
-                children_as_void.begin(),
-                children_as_void.end(),
-                std::back_inserter(children),
-                as_child<Child>
+                children_as_void.begin(), children_as_void.end(), std::back_inserter(children), as_child<Child>
             );
 
             return children;
@@ -678,19 +627,10 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return A result.
         */
-        template <
-            typename Result,
-            typename Widget,
-            typename Function
-        >
-        static Result use_canvas(
-            const Widget&  widget,
-            const Function function
-        )
+        template <typename Result, typename Widget, typename Function>
+        static Result use_canvas(const Widget& widget, const Function function)
         {
-            const std::unique_ptr<typename Widget::canvas_type> p_canvas(
-                widget.create_canvas()
-            );
+            const std::unique_ptr<typename Widget::canvas_type> p_canvas(widget.create_canvas());
             return function(*p_canvas);
         }
 
@@ -712,16 +652,12 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam MenuBase A menu base type.
 
             \param widget A widget.
-            \param menu   A menu.
-                          It may be uninitialized to remove a menu bar.
+            \param menu   A menu. It may be uninitialized to remove a menu bar.
 
             \throw std::system_error When a menu bar cannot be set.
         */
         template <typename Widget, typename MenuBase>
-        static void set_menu_bar(
-            Widget&                                 widget,
-            const boost::optional<const MenuBase&>& menu = boost::none
-        )
+        static void set_menu_bar(Widget& widget, const boost::optional<const MenuBase&>& menu = boost::none)
         {}
 
         /*!
@@ -734,8 +670,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \retval true  When the widget accepts a focus.
             \retval false Otherwise.
 
-            \throw std::system_error When the widget focusability cannot be
-                                     obtained.
+            \throw std::system_error When the widget focusability cannot be obtained.
         */
         template <typename Widget>
         static bool focusable(Widget& widget)
@@ -769,8 +704,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \retval true  When the widget is read-only.
             \retval false Otherwise.
 
-            \throw std::system_error When the read-only status cannot be
-                                     obtained.
+            \throw std::system_error When the read-only status cannot be obtained.
         */
         template <typename Widget>
         static bool read_only(Widget& widget)
@@ -840,9 +774,7 @@ namespace tetengo2 { namespace detail { namespace stub
             details_read_only,
         };
 
-        typedef
-            std::tuple<string_type, std::size_t, bool, bool, bool, bool>
-            details_font_type;
+        typedef std::tuple<string_type, std::size_t, bool, bool, bool, bool> details_font_type;
 
 
         // static functions
@@ -858,9 +790,7 @@ namespace tetengo2 { namespace detail { namespace stub
                     std::make_pair(0, 0),
                     std::make_pair(1, 1),
                     string_type(),
-                    details_font_type(
-                        string_type(), 12, false, false, false, false
-                    ),
+                    details_font_type(string_type(), 12, false, false, false, false),
                     std::vector<void*>(),
                     false,
                     false
@@ -870,9 +800,7 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         template <typename Child>
-        static typename cpp11::reference_wrapper<Child>::type as_child(
-            void* const pointer
-        )
+        static typename cpp11::reference_wrapper<Child>::type as_child(void* const pointer)
         {
             return cpp11::ref(*reinterpret_cast<Child*>(pointer));
         }

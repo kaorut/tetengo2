@@ -67,23 +67,18 @@ namespace tetengo2 { namespace detail { namespace stub
             const PixelValue numerator,
             const PixelValue denominator,
             typename std::enable_if<
-                std::is_convertible<
-                    boost::rational<typename Value::int_type>, Value
-                >::value
+                std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
             >::type* = NULL
         )
         {
-            return boost::rational<typename Value::int_type>(
-                numerator, denominator
-            );
+            return boost::rational<typename Value::int_type>(numerator, denominator);
         }
 
         template <typename Value, typename PixelValue>
         static Value to_value(
             const PixelValue numerator,
             const PixelValue denominator,
-            typename std::enable_if<std::is_arithmetic<Value>::value>::type* =
-                NULL
+            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
         )
         {
             return numerator / denominator;
@@ -93,9 +88,7 @@ namespace tetengo2 { namespace detail { namespace stub
         static PixelValue to_pixel_value(
             const Value& value,
             typename std::enable_if<
-                std::is_convertible<
-                    boost::rational<typename Value::int_type>, Value
-                >::value
+                std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
             >::type* = NULL
         )
         {
@@ -105,8 +98,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename PixelValue, typename Value>
         static PixelValue to_pixel_value(
             const Value value,
-            typename std::enable_if<std::is_arithmetic<Value>::value>::type* =
-                NULL
+            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
         )
         {
             return static_cast<PixelValue>(value);

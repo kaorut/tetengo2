@@ -36,9 +36,7 @@ namespace tetengo2 { namespace detail { namespace stub
         typedef std::function<void ()> message_handler_type;
 
         //! The message handler map type.
-        typedef
-            std::unordered_map<int, std::vector<message_handler_type>>
-            message_handler_map_type;
+        typedef std::unordered_map<int, std::vector<message_handler_type>> message_handler_map_type;
 
 
         // static functions
@@ -73,8 +71,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A message handler map.
         */
         template <typename AbstractWindow>
-        static message_handler_map_type
-        make_abstract_window_message_handler_map(
+        static message_handler_map_type make_abstract_window_message_handler_map(
             AbstractWindow&            abstract_window,
             message_handler_map_type&& initial_map
         )

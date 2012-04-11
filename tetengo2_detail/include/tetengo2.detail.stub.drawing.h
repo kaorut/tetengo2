@@ -45,9 +45,7 @@ namespace tetengo2 { namespace detail { namespace stub
         struct background_details_type {};
 
         //! The background details pointer type.
-        typedef
-            std::unique_ptr<background_details_type>
-            background_details_ptr_type;
+        typedef std::unique_ptr<background_details_type> background_details_ptr_type;
 
         //! The picture details type.
         struct picture_details_type
@@ -60,10 +58,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 \param width A width.
                 \param height A height.
             */
-            picture_details_type(
-                const std::size_t width,
-                const std::size_t height
-            )
+            picture_details_type(const std::size_t width, const std::size_t height)
             :
             m_dimension(width, height)
             {}
@@ -89,8 +84,7 @@ namespace tetengo2 { namespace detail { namespace stub
         };
 
         //! The picture details pointer type.
-        typedef
-            std::unique_ptr<picture_details_type> picture_details_ptr_type;
+        typedef std::unique_ptr<picture_details_type> picture_details_ptr_type;
 
         //! The canvas details type.
         struct canvas_details_type {};
@@ -119,9 +113,7 @@ namespace tetengo2 { namespace detail { namespace stub
                 return Color(192, 192, 192);
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Invalid system color index.")
-                );
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));
             }
         }
 
@@ -164,15 +156,10 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to a picture.
         */
         template <typename Dimension, typename Canvas>
-        static std::unique_ptr<picture_details_type> create_picture(
-            const Dimension& dimension,
-            const Canvas&    canvas
-        )
+        static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension, const Canvas& canvas)
         {
-            const std::size_t width =
-                gui::dimension<Dimension>::width(dimension);
-            const std::size_t height =
-                gui::dimension<Dimension>::height(dimension);
+            const std::size_t width = gui::dimension<Dimension>::width(dimension);
+            const std::size_t height = gui::dimension<Dimension>::height(dimension);
             return make_unique<picture_details_type>(width, height);
         }
 
@@ -188,9 +175,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the picture cannot be read.
         */
         template <typename Path>
-        static std::unique_ptr<picture_details_type> read_picture(
-            const Path& path
-        )
+        static std::unique_ptr<picture_details_type> read_picture(const Path& path)
         {
             return make_unique<picture_details_type>(123, 456);
         }
@@ -205,14 +190,13 @@ namespace tetengo2 { namespace detail { namespace stub
             \return The dimension of the picture.
         */
         template <typename Dimension>
-        static Dimension picture_dimension(
-            const picture_details_type& picture
-        )
+        static Dimension picture_dimension(const picture_details_type& picture)
         {
-            return Dimension(
-                typename Dimension::first_type(picture.dimension().first),
-                typename Dimension::second_type(picture.dimension().second)
-            );
+            return
+                Dimension(
+                    typename Dimension::first_type(picture.dimension().first),
+                    typename Dimension::second_type(picture.dimension().second)
+                );
         }
 
         /*!
@@ -287,9 +271,7 @@ namespace tetengo2 { namespace detail { namespace stub
         template <typename Font>
         static Font make_dialog_font()
         {
-            return Font(
-                TETENGO2_TEXT("TetengoFont"), 12, false, false, false, false
-            );
+            return Font(TETENGO2_TEXT("TetengoFont"), 12, false, false, false, false);
         }
 
         /*!
@@ -306,9 +288,7 @@ namespace tetengo2 { namespace detail { namespace stub
                                      obtained.
         */
         template <typename String, typename Encoder>
-        static std::vector<String> installed_font_families(
-            const Encoder& encoder
-        )
+        static std::vector<String> installed_font_families(const Encoder& encoder)
         {
             const String font_name(TETENGO2_TEXT("TetengoFont"));
             return std::vector<String>(1, font_name);
@@ -332,12 +312,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the dimention of a text cannot be
                                      calculated.
         */
-        template <
-            typename Dimension,
-            typename Font,
-            typename String,
-            typename Encoder
-        >
+        template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
             const canvas_details_type& canvas,
             const Font&                font,
@@ -346,8 +321,7 @@ namespace tetengo2 { namespace detail { namespace stub
         )
         {
             typedef typename gui::dimension<Dimension>::width_type width_type;
-            typedef
-                typename gui::dimension<Dimension>::height_type height_type;
+            typedef typename gui::dimension<Dimension>::height_type height_type;
             return Dimension(width_type(123), height_type(456));
         }
 
@@ -367,12 +341,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <
-            typename Font,
-            typename String,
-            typename Encoder,
-            typename Position
-        >
+        template <typename Font, typename String, typename Encoder, typename Position>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,

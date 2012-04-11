@@ -37,9 +37,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return The root ancestor widget handle.
         */
-        static widget_handle_type root_ancestor_widget_handle(
-            const widget_handle_type widget_handle
-        )
+        static widget_handle_type root_ancestor_widget_handle(const widget_handle_type widget_handle)
         {
             return NULL;
         }

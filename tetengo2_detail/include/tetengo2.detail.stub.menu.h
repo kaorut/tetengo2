@@ -35,9 +35,7 @@ namespace tetengo2 { namespace detail { namespace stub
         struct shortcut_key_table_details_type {};
 
         //! The shortcut key table details pointer type.
-        typedef
-            std::unique_ptr<shortcut_key_table_details_type>
-            shortcut_key_table_details_ptr_type;
+        typedef std::unique_ptr<shortcut_key_table_details_type> shortcut_key_table_details_ptr_type;
 
         //! The style tag type.
         struct style_tag {};
@@ -129,12 +127,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When a menu cannot be inserted.
         */
-        template <
-            typename PopupMenu,
-            typename ForwardIterator,
-            typename MenuBase,
-            typename Encoder
-        >
+        template <typename PopupMenu, typename ForwardIterator, typename MenuBase, typename Encoder>
         static void insert_menu(
             PopupMenu&            popup_menu,
             const ForwardIterator offset,
@@ -156,11 +149,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a menu cannot be erased.
         */
         template <typename PopupMenu, typename ForwardIterator>
-        static void erase_menus(
-            PopupMenu&            popup_menu,
-            const ForwardIterator first,
-            const ForwardIterator last
-        )
+        static void erase_menus(PopupMenu& popup_menu, const ForwardIterator first, const ForwardIterator last)
         {}
 
         /*!
