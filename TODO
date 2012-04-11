@@ -13,6 +13,16 @@ Depends on  : (none)
 Description : Change the character count of one line to 120.
 ------------------------------------------------------------------------------
 Number      : 00000159
+Added on    : 2012/04/11
+Depends on  : (none)
+Description : Remove TETENGO2_CPP11_NOEXCEPT from the destructors.
+------------------------------------------------------------------------------
+Number      : 00000160
+Added on    : 2012/04/11
+Depends on  : (none)
+Description : Improve the scripts run after the VC++ build.
+------------------------------------------------------------------------------
+Number      : 00000161
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
