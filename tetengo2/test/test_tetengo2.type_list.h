@@ -45,8 +45,7 @@ namespace test_tetengo2
     typedef
         tetengo2::meta::assoc_list<boost::mpl::pair<type::size, std::size_t>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::string, std::string>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::io_string, std::string>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::io_string, std::string>,
         tetengo2::meta::assoc_list_end
         >>>
         type_list;
