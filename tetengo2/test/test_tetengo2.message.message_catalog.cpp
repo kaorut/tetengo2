@@ -27,17 +27,10 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::message_type_list,
-            test_tetengo2::type::message::messages
-        >::type
-        messages_type;
+        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::messages>::type messages_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::message_type_list,
-            test_tetengo2::type::message::message_catalog
-        >::type
+        boost::mpl::at<test_tetengo2::message_type_list, test_tetengo2::type::message::message_catalog>::type
         message_catalog_type;
 
     struct set_global_locale
@@ -50,9 +43,7 @@ namespace
             std::locale::global(
                 std::locale(
                     locale,
-                    tetengo2::make_unique<messages_type>(
-                        boost::filesystem::path("messages.test"), locale
-                    ).release()
+                    tetengo2::make_unique<messages_type>(boost::filesystem::path("messages.test"), locale).release()
                 )
             )
         )
@@ -162,12 +153,8 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
                 const message_catalog_type message_catalog;
 
                 BOOST_CHECK(message_catalog.get("Language") == "English");
-                BOOST_CHECK(
-                    message_catalog.get("Name:Space:Hello") == "Hi"
-                );
-                BOOST_CHECK(
-                    message_catalog.get("Name:Space:ByeBye") == "ByeBye"
-                );
+                BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hi");
+                BOOST_CHECK(message_catalog.get("Name:Space:ByeBye") == "ByeBye");
             }
             {
                 const set_global_locale global_locale(locale_ja);
@@ -175,12 +162,8 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
                 const message_catalog_type message_catalog;
 
                 BOOST_CHECK(message_catalog.get("Language") == "Japanese");
-                BOOST_CHECK(
-                    message_catalog.get("Name:Space:Hello") == "Konnichiwa"
-                );
-                BOOST_CHECK(
-                    message_catalog.get("Name:Space:ByeBye") == "ByeBye"
-                );
+                BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Konnichiwa");
+                BOOST_CHECK(message_catalog.get("Name:Space:ByeBye") == "ByeBye");
             }
             {
                 const set_global_locale global_locale(locale_zh);
@@ -188,12 +171,8 @@ BOOST_AUTO_TEST_SUITE(message_catalog)
                 const message_catalog_type message_catalog;
 
                 BOOST_CHECK(message_catalog.get("Language") == "Language");
-                BOOST_CHECK(
-                    message_catalog.get("Name:Space:Hello") == "Hello"
-                );
-                BOOST_CHECK(
-                    message_catalog.get("Name:Space:ByeBye") == "ByeBye"
-                );
+                BOOST_CHECK(message_catalog.get("Name:Space:Hello") == "Hello");
+                BOOST_CHECK(message_catalog.get("Name:Space:ByeBye") == "ByeBye");
             }
         }
         else

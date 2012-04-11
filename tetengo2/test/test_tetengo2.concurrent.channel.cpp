@@ -64,9 +64,7 @@ BOOST_AUTO_TEST_SUITE(channel)
             const channel_type channel(3);
         }
         {
-            BOOST_CHECK_THROW(
-                const channel_type channel(0), std::invalid_argument
-            );
+            BOOST_CHECK_THROW(const channel_type channel(0), std::invalid_argument);
         }
     }
 
@@ -87,9 +85,7 @@ BOOST_AUTO_TEST_SUITE(channel)
 
         channel_type channel(3);
 
-        channel.insert_exception(
-            boost::copy_exception(std::runtime_error("hoge"))
-        );
+        channel.insert_exception(boost::copy_exception(std::runtime_error("hoge")));
     }
 
     BOOST_AUTO_TEST_CASE(peek)
@@ -107,9 +103,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel(3);
 
-            channel.insert_exception(
-                boost::copy_exception(std::runtime_error("hoge"))
-            );
+            channel.insert_exception(boost::copy_exception(std::runtime_error("hoge")));
 
             try
             {
@@ -144,9 +138,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel(3);
 
-            channel.insert_exception(
-                boost::copy_exception(std::runtime_error("hoge"))
-            );
+            channel.insert_exception(boost::copy_exception(std::runtime_error("hoge")));
             channel.insert_exception(boost::copy_exception(test_exception()));
 
             channel.take();
@@ -216,9 +208,7 @@ BOOST_AUTO_TEST_SUITE(channel)
         {
             channel_type channel(3);
 
-            boost::thread producing_thread(
-                produce, tetengo2::cpp11::ref(channel)
-            );
+            boost::thread producing_thread(produce, tetengo2::cpp11::ref(channel));
 
             BOOST_CHECK_EQUAL(channel.peek(), 12);
             channel.take();
