@@ -46,25 +46,21 @@ namespace tetengo2 { namespace meta
     /*!
         \brief The metaclass for a node of an associative list.
 
-        This metaclass meets the following <a
-        href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/index.html">Boost
+        This metaclass meets the following <a href="http://www.boost.org/doc/libs/1_49_0/libs/mpl/doc/index.html">Boost
         MPL</a> concepts:
 
 
-        \arg <a
-            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/forward-sequence.html">Forward
+        \arg <a href="http://www.boost.org/doc/libs/1_49_0/libs/mpl/doc/refmanual/forward-sequence.html">Forward
+             Sequence</a>
+        \arg <a href="http://www.boost.org/doc/libs/1_49_0/libs/mpl/doc/refmanual/extensible-sequence.html">Extensible
             Sequence</a>
-        \arg <a
-            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/extensible-sequence.html">Extensible
-            Sequence</a>
-        \arg <a
-            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/front-extensible-sequence.html">Front
+        \arg <a href="http://www.boost.org/doc/libs/1_49_0/libs/mpl/doc/refmanual/front-extensible-sequence.html">Front
             Extensible Sequence</a>
         \arg <a
-            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/associative-sequence.html">Associative
+            href="http://www.boost.org/doc/libs/1_49_0/libs/mpl/doc/refmanual/associative-sequence.html">Associative
             Sequence</a>
         \arg <a
-            href="http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/extensible-associative-sequence.html">Extensible
+            href="http://www.boost.org/doc/libs/1_49_0/libs/mpl/doc/refmanual/extensible-associative-sequence.html">Extensible
             Associative Sequence</a>
 
         \tparam Element An element.
@@ -120,11 +116,7 @@ namespace tetengo2 { namespace meta
         template <typename AssocList, typename Key, std::size_t Count>
         struct assoc_list_count
         {
-            typedef
-                typename assoc_list_count<
-                    typename AssocList::next, Key, Count
-                >::type
-                type;
+            typedef typename assoc_list_count<typename AssocList::next, Key, Count>::type type;
         };
 
         template <typename AssocList, std::size_t Count>
@@ -134,9 +126,7 @@ namespace tetengo2 { namespace meta
         {
             typedef
                 typename assoc_list_count<
-                    typename AssocList::next,
-                    typename AssocList::element::first,
-                    Count + 1
+                    typename AssocList::next, typename AssocList::element::first, Count + 1
                 >::type
                 type;
         };
@@ -150,11 +140,7 @@ namespace tetengo2 { namespace meta
         template <typename AssocList, typename Key, std::size_t Order>
         struct assoc_list_order
         {
-            typedef
-                typename assoc_list_order<
-                    typename AssocList::next, Key, Order + 1
-                >::type
-                type;
+            typedef typename assoc_list_order<typename AssocList::next, Key, Order + 1>::type type;
         };
 
         template <typename AssocList, std::size_t Order>
@@ -171,45 +157,31 @@ namespace tetengo2 { namespace meta
             typedef boost::mpl::void_ type;
         };
 
-        template <
-            typename AssocList,
-            typename RangeFirst,
-            typename RangeLast,
-            typename Inserted
-        >
+        template <typename AssocList, typename RangeFirst, typename RangeLast, typename Inserted>
         struct assoc_list_insert_range
         {
             typedef
                 typename assoc_list_insert_range<
-                    typename AssocList::next,
-                    RangeFirst,
-                    RangeLast,
-                    assoc_list<typename AssocList::element, Inserted>
+                    typename AssocList::next, RangeFirst, RangeLast, assoc_list<typename AssocList::element, Inserted>
                 >::type
                 type;
         };
 
         template <typename RangeFirst, typename RangeLast, typename Inserted>
-        struct assoc_list_insert_range<
-            assoc_list_end, RangeFirst, RangeLast, Inserted
-        >
+        struct assoc_list_insert_range<assoc_list_end, RangeFirst, RangeLast, Inserted>
         {
             typedef
                 typename assoc_list_insert_range<
                     assoc_list_end,
                     typename boost::mpl::next<RangeFirst>::type,
                     RangeLast,
-                    assoc_list<
-                        typename boost::mpl::deref<RangeFirst>::type, Inserted
-                    >
+                    assoc_list<typename boost::mpl::deref<RangeFirst>::type, Inserted>
                 >::type
                 type;
         };
 
         template <typename RangeLast, typename Inserted>
-        struct assoc_list_insert_range<
-            assoc_list_end, RangeLast, RangeLast, Inserted
-        >
+        struct assoc_list_insert_range<assoc_list_end, RangeLast, RangeLast, Inserted>
         {
             typedef Inserted type;
         };
@@ -221,24 +193,17 @@ namespace tetengo2 { namespace meta
                 typename assoc_list_erase_key<
                     typename AssocList::next,
                     Key,
-                    typename boost::mpl::insert<
-                        Erased,
-                        typename AssocList::element
-                    >::type
+                    typename boost::mpl::insert<Erased, typename AssocList::element>::type
                 >::type
                 type;
         };
 
         template <typename AssocList, typename Erased>
-        struct assoc_list_erase_key<
-            AssocList, typename AssocList::element::first, Erased
-        >
+        struct assoc_list_erase_key<AssocList, typename AssocList::element::first, Erased>
         {
             typedef
                 typename assoc_list_erase_key<
-                    typename AssocList::next,
-                    typename AssocList::element::first,
-                    Erased
+                    typename AssocList::next, typename AssocList::element::first, Erased
                 >::type
                 type;
         };
@@ -259,10 +224,7 @@ namespace tetengo2 { namespace meta
         struct assoc_list_reverse<assoc_list<Element, Next>>
         {
             typedef
-                typename assoc_list_erase_key<
-                    assoc_list<Element, Next>, boost::mpl::na, assoc_list_end
-                >::type
-                type;
+                typename assoc_list_erase_key<assoc_list<Element, Next>, boost::mpl::na, assoc_list_end>::type type;
         };
 
     }
@@ -345,11 +307,7 @@ namespace boost { namespace mpl
         template <typename AssocList, typename Key>
         struct apply
         {
-            typedef
-                typename tetengo2::meta::detail::assoc_list_count<
-                    AssocList, Key, 0
-                >::type
-                type;
+            typedef typename tetengo2::meta::detail::assoc_list_count<AssocList, Key, 0>::type type;
         };
 
     };
@@ -363,11 +321,7 @@ namespace boost { namespace mpl
         template <typename AssocList, typename Key>
         struct apply
         {
-            typedef
-                typename tetengo2::meta::detail::assoc_list_order<
-                    AssocList, Key, 0
-                >::type
-                type;
+            typedef typename tetengo2::meta::detail::assoc_list_order<AssocList, Key, 0>::type type;
         };
     };
 
@@ -428,11 +382,7 @@ namespace boost { namespace mpl
     template <>
     struct insert_impl<tetengo2::meta::assoc_list_tag>
     {
-        template <
-            typename AssocList,
-            typename PositionOrNewElement,
-            typename NewElement
-        >
+        template <typename AssocList, typename PositionOrNewElement, typename NewElement>
         struct apply
         {
             typedef tetengo2::meta::assoc_list<NewElement, AssocList> type;
@@ -456,19 +406,9 @@ namespace boost { namespace mpl
         {
             typedef
                 typename tetengo2::meta::detail::assoc_list_insert_range<
-                    typename tetengo2::meta::detail::assoc_list_reverse<
-                        AssocList
-                    >::type,
-                    typename boost::mpl::begin<
-                        typename tetengo2::meta::detail::assoc_list_reverse<
-                            Range
-                        >::type
-                    >::type,
-                    typename boost::mpl::end<
-                        typename tetengo2::meta::detail::assoc_list_reverse<
-                            Range
-                        >::type
-                    >::type,
+                    typename tetengo2::meta::detail::assoc_list_reverse<AssocList>::type,
+                    typename boost::mpl::begin<typename tetengo2::meta::detail::assoc_list_reverse<Range>::type>::type,
+                    typename boost::mpl::end<typename tetengo2::meta::detail::assoc_list_reverse<Range>::type>::type,
                     tetengo2::meta::assoc_list_end
                 >::type
                 type;
@@ -487,9 +427,7 @@ namespace boost { namespace mpl
             typedef
                 typename tetengo2::meta::detail::assoc_list_reverse<
                     typename tetengo2::meta::detail::assoc_list_erase_key<
-                        AssocList,
-                        Key,
-                        tetengo2::meta::assoc_list_end
+                        AssocList, Key, tetengo2::meta::assoc_list_end
                     >::type
                 >::type
                 type;
@@ -505,11 +443,7 @@ namespace boost { namespace mpl
         template <typename AssocList, typename Position, typename Ignored>
         struct apply
         {
-            typedef
-                typename erase_key<
-                    AssocList, typename deref<Position>::type::first
-                >::type
-                type;
+            typedef typename erase_key<AssocList, typename deref<Position>::type::first>::type type;
         };
 
         template <typename AssocList, typename Ignored>
