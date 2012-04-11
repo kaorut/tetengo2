@@ -47,22 +47,11 @@ namespace tetengo2 { namespace concurrent
             \param generator A generator.
             \param channel   A channel.
         */
-        producer(
-            const generator_type generator,
-            channel_type&        channel
-        )
+        producer(const generator_type generator, channel_type& channel)
         :
-        m_thread_procedure_impl(
-            TETENGO2_CPP11_BIND(generator, cpp11::ref(channel))
-        ),
+        m_thread_procedure_impl(TETENGO2_CPP11_BIND(generator, cpp11::ref(channel))),
         m_channel(channel),
-        m_thread(
-            TETENGO2_CPP11_BIND(
-                &producer::thread_procedure,
-                m_thread_procedure_impl,
-                cpp11::ref(channel)
-            )
-        )
+        m_thread(TETENGO2_CPP11_BIND(&producer::thread_procedure, m_thread_procedure_impl, cpp11::ref(channel)))
         {}
 
 
@@ -89,10 +78,7 @@ namespace tetengo2 { namespace concurrent
     private:
         // static functions
 
-        static void thread_procedure(
-            const std::function<void ()> thread_procedure_impl,
-            channel_type&                channel
-        )
+        static void thread_procedure(const std::function<void ()> thread_procedure_impl, channel_type& channel)
         {
             try
             {

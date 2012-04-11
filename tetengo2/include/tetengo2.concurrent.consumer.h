@@ -92,11 +92,7 @@ namespace tetengo2 { namespace concurrent
         const
         {
             if (closed())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The channel is already closed.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The channel is already closed."));
 
             return m_channel.peek();
         }
@@ -111,11 +107,7 @@ namespace tetengo2 { namespace concurrent
         void take()
         {
             if (closed())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The channel is already closed.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The channel is already closed."));
 
             m_channel.take();
         }
