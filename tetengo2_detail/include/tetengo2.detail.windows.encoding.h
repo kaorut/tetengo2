@@ -51,26 +51,17 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static utf8_string_type pivot_to_utf8(const pivot_type& pivot)
         {
-            const ::DWORD flags =
-                on_windows_vista_or_later() ? WC_ERR_INVALID_CHARS : 0;
+            const ::DWORD flags = on_windows_vista_or_later() ? WC_ERR_INVALID_CHARS : 0;
 
             const int string_length =
                 ::WideCharToMultiByte(
-                    CP_UTF8,
-                    flags,
-                    pivot.c_str(),
-                    static_cast<int>(pivot.length()),
-                    NULL,
-                    0,
-                    NULL,
-                    NULL
+                    CP_UTF8, flags, pivot.c_str(), static_cast<int>(pivot.length()), NULL, 0, NULL, NULL
                 );
             std::vector<char> string(string_length + 1, '\0');
 
             const int converted_length =
                 ::WideCharToMultiByte(
-                    CP_UTF8,
-                    flags,
+                    CP_UTF8, flags,
                     pivot.c_str(),
                     static_cast<int>(pivot.length()),
                     string.data(),
@@ -81,9 +72,7 @@ namespace tetengo2 { namespace detail { namespace windows
             converted_length;
             assert(converted_length == string_length);
 
-            return utf8_string_type(
-                string.begin(), string.begin() + string_length
-            );
+            return utf8_string_type(string.begin(), string.begin() + string_length);
         }
 
         /*!
@@ -97,12 +86,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             const int pivot_length =
                 ::MultiByteToWideChar(
-                    CP_UTF8,
-                    MB_ERR_INVALID_CHARS,
-                    string.c_str(),
-                    static_cast<int>(string.length()),
-                    NULL,
-                    0
+                    CP_UTF8, MB_ERR_INVALID_CHARS, string.c_str(), static_cast<int>(string.length()), NULL, 0
                 );
             std::vector<wchar_t> pivot(pivot_length + 1, L'\0');
 

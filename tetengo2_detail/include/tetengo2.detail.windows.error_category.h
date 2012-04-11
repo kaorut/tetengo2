@@ -31,11 +31,7 @@ namespace tetengo2 { namespace detail { namespace windows
     namespace detail
     {
         typedef
-            text::encoder<
-                text::encoding::utf8<encoding>,
-                text::encoding::locale<std::wstring, encoding>
-            >
-            encoder_type;
+            text::encoder<text::encoding::utf8<encoding>, text::encoding::locale<std::wstring, encoding>> encoder_type;
 
         inline const encoder_type& encoder()
         {
@@ -110,20 +106,13 @@ namespace tetengo2 { namespace detail { namespace windows
                 return "Unknown Error";
 
             while (
-                message_length > 0 && (
-                    message[message_length - 1] == L'\r' ||
-                    message[message_length - 1] == L'\n'
-                )
+                message_length > 0 && (message[message_length - 1] == L'\r' || message[message_length - 1] == L'\n')
             )
             {
                 --message_length;
             }
 
-            return detail::encoder().decode(
-                std::wstring(
-                    message.begin(), message.begin() + message_length
-                )
-            );
+            return detail::encoder().decode(std::wstring(message.begin(), message.begin() + message_length));
         }
 
 

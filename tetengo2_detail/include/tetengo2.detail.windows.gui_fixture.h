@@ -58,9 +58,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            ERROR_OLD_WIN_VERSION, win32_category()
-                        ),
+                        std::error_code(ERROR_OLD_WIN_VERSION, win32_category()),
                         "This program can't run on this platform."
                     )
                 );
@@ -69,7 +67,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static void setup_common_controls()
         {
-            ::INITCOMMONCONTROLSEX enabled_common_controls;
+            ::INITCOMMONCONTROLSEX enabled_common_controls = {};
             enabled_common_controls.dwSize = sizeof(::INITCOMMONCONTROLSEX);
             enabled_common_controls.dwICC =
                 ICC_WIN95_CLASSES |
@@ -84,10 +82,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            ERROR_FUNCTION_FAILED, win32_category()
-                        ),
-                        "Can't initialize common controls!"
+                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't initialize common controls!"
                     )
                 );
             }
@@ -95,17 +90,11 @@ namespace tetengo2 { namespace detail { namespace windows
 
         static void setup_com()
         {
-            const ::HRESULT result =
-                ::CoInitializeEx(
-                    NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE
-                );
+            const ::HRESULT result = ::CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
             if (result != S_OK)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(result, win32_category()),
-                        "Can't initlaize COM."
-                    )
+                    std::system_error(std::error_code(result, win32_category()), "Can't initlaize COM.")
                 );
             }
         }

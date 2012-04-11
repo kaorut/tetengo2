@@ -48,45 +48,29 @@ namespace tetengo2 { namespace detail { namespace windows
         namespace widget
         {
             template <typename Widget>
-            boost::optional< ::LRESULT> on_command(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_command(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
-                if (lParam == 0) return boost::none;
+                if (l_param == 0) return boost::none;
 
                 ::PostMessageW(
-                    reinterpret_cast< ::HWND>(lParam),
+                    reinterpret_cast< ::HWND>(l_param),
                     WM_TETENGO2_COMMAND,
-                    wParam,
-                    reinterpret_cast< ::LPARAM>(
-                        std::get<0>(*widget.details()).get()
-                    )
+                    w_param,
+                    reinterpret_cast< ::LPARAM>(std::get<0>(*widget.details()).get())
                 );
                 return boost::none;
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_key_down(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_key_down(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 if (widget.keyboard_observer_set().key_down().empty())
                     return boost::none;
 
-                typedef
-                    typename Widget::keyboard_observer_set_type::virtual_key_type
-                    virtual_key_type;
+                typedef typename Widget::keyboard_observer_set_type::virtual_key_type virtual_key_type;
 
                 const boost::optional<const virtual_key_type&> virtual_key =
-                    virtual_key_type::find_by_code(
-                        static_cast<typename virtual_key_type::code_type>(
-                            wParam
-                        )
-                    );
+                    virtual_key_type::find_by_code(static_cast<typename virtual_key_type::code_type>(w_param));
                 if (!virtual_key)
                     return boost::none;
 
@@ -94,33 +78,21 @@ namespace tetengo2 { namespace detail { namespace windows
                 const bool control = ::GetKeyState(VK_CONTROL) < 0;
                 const bool meta = ::GetKeyState(VK_MENU) < 0;
 
-                widget.keyboard_observer_set().key_down()(
-                    *virtual_key, shift, control, meta
-                );
+                widget.keyboard_observer_set().key_down()(*virtual_key, shift, control, meta);
 
                 return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_key_up(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_key_up(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 if (widget.keyboard_observer_set().key_up().empty())
                     return boost::none;
 
-                typedef
-                    typename Widget::keyboard_observer_set_type::virtual_key_type
-                    virtual_key_type;
+                typedef typename Widget::keyboard_observer_set_type::virtual_key_type virtual_key_type;
 
                 const boost::optional<const virtual_key_type&> virtual_key =
-                    virtual_key_type::find_by_code(
-                        static_cast<typename virtual_key_type::code_type>(
-                            wParam
-                        )
-                    );
+                    virtual_key_type::find_by_code(static_cast<typename virtual_key_type::code_type>(w_param));
                 if (!virtual_key)
                     return boost::none;
 
@@ -128,88 +100,55 @@ namespace tetengo2 { namespace detail { namespace windows
                 const bool control = ::GetKeyState(VK_CONTROL) < 0;
                 const bool meta = ::GetKeyState(VK_MENU) < 0;
 
-                widget.keyboard_observer_set().key_up()(
-                    *virtual_key, shift, control, meta
-                );
+                widget.keyboard_observer_set().key_up()(*virtual_key, shift, control, meta);
 
                 return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_char(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_char(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 if (widget.keyboard_observer_set().character_input().empty())
                     return boost::none;
 
-                typedef
-                    typename Widget::keyboard_observer_set_type::char_type
-                    char_type;
+                typedef typename Widget::keyboard_observer_set_type::char_type char_type;
 
-                widget.keyboard_observer_set().character_input()(
-                    static_cast<char_type>(wParam)
-                );
+                widget.keyboard_observer_set().character_input()(static_cast<char_type>(w_param));
 
                 return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_control_color(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_control_color(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
-                if (lParam == 0) return boost::none;
+                if (l_param == 0) return boost::none;
 
                 const ::LRESULT result =
-                    ::SendMessageW(
-                        reinterpret_cast< ::HWND>(lParam),
-                        WM_TETENGO2_CONTROL_COLOR,
-                        wParam,
-                        0
-                    );
+                    ::SendMessageW(reinterpret_cast< ::HWND>(l_param), WM_TETENGO2_CONTROL_COLOR, w_param, 0);
 
                 return boost::make_optional(result, result);
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_set_cursor(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_set_cursor(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 if (!widget.cursor())
                     return boost::none;
 
-                ::SetCursor(
-                    const_cast< ::HCURSOR>(&*widget.cursor()->details())
-                );
+                ::SetCursor(const_cast< ::HCURSOR>(&*widget.cursor()->details()));
 
                 return boost::make_optional< ::LRESULT>(FALSE);
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_set_focus(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_set_focus(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 widget.focus_observer_set().got_focus()();
                 return boost::none;
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_kill_focus(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_kill_focus(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 widget.focus_observer_set().lost_focus()();
                 return boost::none;
@@ -218,16 +157,14 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename Widget>
             boost::optional< ::LRESULT> on_erase_background(
                 Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
             )
             {
                 if (widget.paint_observer_set().paint_background().empty())
                     return boost::none;
 
-                typename Widget::widget_canvas_type canvas(
-                    reinterpret_cast< ::HDC>(wParam)
-                );
+                typename Widget::widget_canvas_type canvas(reinterpret_cast< ::HDC>(w_param));
                 if (!widget.paint_observer_set().paint_background()(canvas))
                     return boost::none;
 
@@ -235,36 +172,23 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_paint(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_paint(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 if (widget.paint_observer_set().paint().empty())
                     return boost::none;
 
                 ::PAINTSTRUCT paint_struct = {};
-                if (
-                    !::BeginPaint(
-                        std::get<0>(*widget.details()).get(), &paint_struct
-                    )
-                )
+                if (!::BeginPaint(std::get<0>(*widget.details()).get(), &paint_struct))
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
-                            std::error_code(
-                                ERROR_FUNCTION_FAILED, win32_category()
-                            ),
-                            "Can't begin paint."
+                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint."
                         )
                     );
                 }
                 BOOST_SCOPE_EXIT((&widget)(&paint_struct))
                 {
-                    ::EndPaint(
-                        std::get<0>(*widget.details()).get(), &paint_struct
-                    );
+                    ::EndPaint(std::get<0>(*widget.details()).get(), &paint_struct);
                 } BOOST_SCOPE_EXIT_END;
                 typename Widget::widget_canvas_type canvas(paint_struct.hdc);
 
@@ -277,52 +201,29 @@ namespace tetengo2 { namespace detail { namespace windows
             void delete_current_font(Widget& widget)
             {
                 const ::HFONT font_handle =
-                    reinterpret_cast< ::HFONT>(
-                        ::SendMessageW(
-                            std::get<0>(*widget.details()).get(),
-                            WM_GETFONT,
-                            0,
-                            0
-                        )
-                    );
+                    reinterpret_cast< ::HFONT>(::SendMessageW(std::get<0>(*widget.details()).get(), WM_GETFONT, 0, 0));
 
-                ::SendMessageW(
-                    std::get<0>(*widget.details()).get(),
-                    WM_SETFONT,
-                    NULL,
-                    MAKELPARAM(0, 0)
-                );
+                ::SendMessageW(std::get<0>(*widget.details()).get(), WM_SETFONT, NULL, MAKELPARAM(0, 0));
 
                 if (font_handle && ::DeleteObject(font_handle) == 0)
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
-                            std::error_code(
-                                ERROR_FUNCTION_FAILED, win32_category()
-                            ),
-                            "Can't delete previous font."
+                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't delete previous font."
                         )
                     );
                 }
             }
 
             template <typename Widget>
-            boost::optional< ::LRESULT> on_destroy(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_destroy(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 delete_current_font(widget);
                 return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget, typename WidgetDetails>
-            boost::optional< ::LRESULT> on_ncdestroy(
-                Widget&        widget,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_ncdestroy(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 const Widget* const p_widget =
                     reinterpret_cast<const Widget*>(
@@ -352,10 +253,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename MenuBase>
-            bool same_popup_menu(
-                const MenuBase&   menu1,
-                const ::HMENU menu2_handle
-            )
+            bool same_popup_menu(const MenuBase& menu1, const ::HMENU menu2_handle)
             {
                 if (!menu1.details() || !menu2_handle) return false;
                 return &*menu1.details()->second == menu2_handle;
@@ -364,27 +262,22 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename AbstractWindow>
             boost::optional< ::LRESULT> on_command(
                 AbstractWindow& abstract_window,
-                const ::WPARAM  wParam,
-                const ::LPARAM  lParam
+                const ::WPARAM  w_param,
+                const ::LPARAM  l_param
             )
             {
-                const ::WORD id = LOWORD(wParam);
+                const ::WORD id = LOWORD(w_param);
 
                 if (!abstract_window.has_menu_bar())
                     return boost::none;
 
-                typedef
-                    typename AbstractWindow::menu_bar_type menu_bar_type;
+                typedef typename AbstractWindow::menu_bar_type menu_bar_type;
                 const typename menu_bar_type::recursive_iterator_type found =
                     std::find_if(
                         abstract_window.menu_bar().recursive_begin(),
                         abstract_window.menu_bar().recursive_end(),
                         TETENGO2_CPP11_BIND(
-                            same_menu<
-                                typename menu_bar_type::base_type::base_type
-                            >,
-                            cpp11::placeholders_1(),
-                            id
+                            same_menu<typename menu_bar_type::base_type::base_type>, cpp11::placeholders_1(), id
                         )
                     );
                 if (found == abstract_window.menu_bar().recursive_end())
@@ -397,25 +290,22 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename AbstractWindow>
             boost::optional< ::LRESULT> on_initmenupopup(
                 AbstractWindow& abstract_window,
-                const ::WPARAM  wParam,
-                const ::LPARAM  lParam
+                const ::WPARAM  w_param,
+                const ::LPARAM  l_param
             )
             {
-                const ::HMENU handle = reinterpret_cast< ::HMENU>(wParam);
+                const ::HMENU handle = reinterpret_cast< ::HMENU>(w_param);
 
                 if (!abstract_window.has_menu_bar())
                     return boost::none;
 
-                typedef
-                    typename AbstractWindow::menu_bar_type menu_bar_type;
+                typedef typename AbstractWindow::menu_bar_type menu_bar_type;
                 const typename menu_bar_type::recursive_iterator_type found =
                     std::find_if(
                         abstract_window.menu_bar().recursive_begin(),
                         abstract_window.menu_bar().recursive_end(),
                         TETENGO2_CPP11_BIND(
-                            same_popup_menu<
-                                typename menu_bar_type::base_type::base_type
-                            >,
+                            same_popup_menu<typename menu_bar_type::base_type::base_type>,
                             cpp11::placeholders_1(),
                             handle
                         )
@@ -430,8 +320,8 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename AbstractWindow>
             boost::optional< ::LRESULT> on_close(
                 AbstractWindow& abstract_window,
-                const ::WPARAM  wParam,
-                const ::LPARAM  lParam
+                const ::WPARAM  w_param,
+                const ::LPARAM  l_param
             )
             {
                 if (abstract_window.window_observer_set().closing().empty())
@@ -445,8 +335,8 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename AbstractWindow>
             boost::optional< ::LRESULT> on_query_end_session(
                 AbstractWindow& abstract_window,
-                const ::WPARAM  wParam,
-                const ::LPARAM  lParam
+                const ::WPARAM  w_param,
+                const ::LPARAM  l_param
             )
             {
                 if (abstract_window.window_observer_set().closing().empty())
@@ -460,8 +350,8 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename AbstractWindow>
             boost::optional< ::LRESULT> on_destroy(
                 AbstractWindow& abstract_window,
-                const ::WPARAM  wParam,
-                const ::LPARAM  lParam
+                const ::WPARAM  w_param,
+                const ::LPARAM  l_param
             )
             {
                 if (abstract_window.window_observer_set().destroyed().empty())
@@ -479,39 +369,23 @@ namespace tetengo2 { namespace detail { namespace windows
         namespace dialog
         {
             template <typename Dialog, typename WidgetDetails>
-            boost::optional< ::LRESULT> on_command(
-                Dialog&        dialog,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_command(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
             {
-                const ::WORD hi_wparam = HIWORD(wParam);
-                const ::WORD lo_wparam = LOWORD(wParam);
-                if (
-                    hi_wparam == 0 &&
-                    (lo_wparam == IDOK || lo_wparam == IDCANCEL)
-                )
+                const ::WORD hi_wparam = HIWORD(w_param);
+                const ::WORD lo_wparam = LOWORD(w_param);
+                if (hi_wparam == 0 && (lo_wparam == IDOK || lo_wparam == IDCANCEL))
                 {
-                    const ::HWND widget_handle =
-                        reinterpret_cast< ::HWND>(lParam);
+                    const ::HWND widget_handle = reinterpret_cast< ::HWND>(l_param);
                     assert(
-                        widget_handle ==
-                        ::GetDlgItem(
-                            std::get<0>(*dialog.details()).get(), lo_wparam
-                        )
+                        widget_handle == ::GetDlgItem(std::get<0>(*dialog.details()).get(), lo_wparam)
                     );
                     if (widget_handle)
                     {
-                        WidgetDetails::p_widget_from<
-                            typename Dialog::base_type::base_type
-                        >(widget_handle)->click();
+                        WidgetDetails::p_widget_from<typename Dialog::base_type::base_type>(widget_handle)->click();
                     }
                     else
                     {
-                        dialog.set_result(
-                            lo_wparam == IDOK ?
-                            Dialog::result_accepted : Dialog::result_canceled
-                        );
+                        dialog.set_result(lo_wparam == IDOK ? Dialog::result_accepted : Dialog::result_canceled);
                         dialog.close();
                     }
                     return boost::make_optional< ::LRESULT>(0);
@@ -521,23 +395,14 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Dialog, typename WidgetDetails>
-            boost::optional< ::LRESULT> on_syscommand(
-                Dialog&        dialog,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_syscommand(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
             {
-                if (wParam == SC_CLOSE)
+                if (w_param == SC_CLOSE)
                 {
-                    const ::HWND widget_handle =
-                        ::GetDlgItem(
-                            std::get<0>(*dialog.details()).get(), IDCANCEL
-                        );
+                    const ::HWND widget_handle = ::GetDlgItem(std::get<0>(*dialog.details()).get(), IDCANCEL);
                     if (widget_handle)
                     {
-                        WidgetDetails::p_widget_from<
-                            typename Dialog::base_type::base_type
-                        >(widget_handle)->click();
+                        WidgetDetails::p_widget_from<typename Dialog::base_type::base_type>(widget_handle)->click();
                     }
                     else
                     {
@@ -552,24 +417,19 @@ namespace tetengo2 { namespace detail { namespace windows
 
             ::HWND first_child_window_handle(::HWND parent_handle);
 
-            inline ::BOOL WINAPI first_child_window_handle_iter(
-                const ::HWND   child_handle,
-                const ::LPARAM lParam
-            )
+            inline ::BOOL WINAPI first_child_window_handle_iter(const ::HWND child_handle, const ::LPARAM l_param)
             {
-                ::HWND* p_result = reinterpret_cast< ::HWND*>(lParam);
+                ::HWND* p_result = reinterpret_cast< ::HWND*>(l_param);
                 if (!p_result) return FALSE;
 
-                const ::LONG style =
-                    ::GetWindowLongW(child_handle, GWL_STYLE);
+                const ::LONG style = ::GetWindowLongW(child_handle, GWL_STYLE);
                 if ((static_cast< ::DWORD>(style) & WS_TABSTOP) != 0)
                 {
                     *p_result = child_handle;
                     return FALSE;
                 }
 
-                const ::HWND grandchild_handle =
-                    first_child_window_handle(child_handle);
+                const ::HWND grandchild_handle = first_child_window_handle(child_handle);
                 if (grandchild_handle)
                 {
                     *p_result = grandchild_handle;
@@ -579,26 +439,18 @@ namespace tetengo2 { namespace detail { namespace windows
                 return TRUE;
             }
 
-            inline ::HWND first_child_window_handle(
-                const ::HWND parent_handle
-            )
+            inline ::HWND first_child_window_handle(const ::HWND parent_handle)
             {
                 ::HWND child_handle = NULL;
                 ::EnumChildWindows(
-                    parent_handle,
-                    first_child_window_handle_iter,
-                    reinterpret_cast< ::LPARAM>(&child_handle)
+                    parent_handle, first_child_window_handle_iter, reinterpret_cast< ::LPARAM>(&child_handle)
                 );
 
                 return child_handle;
             }
 
             template <typename Dialog, typename WidgetDetails>
-            boost::optional< ::LRESULT> on_set_focus(
-                Dialog&        dialog,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
-            )
+            boost::optional< ::LRESULT> on_set_focus(Dialog& dialog, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 if (std::get<2>(*dialog.details()))
                 {
@@ -606,10 +458,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     return boost::make_optional< ::LRESULT>(0);
                 }
 
-                const ::HWND child_handle =
-                    first_child_window_handle(
-                        std::get<0>(*dialog.details()).get()
-                    );
+                const ::HWND child_handle = first_child_window_handle(std::get<0>(*dialog.details()).get());
                 if (child_handle)
                 {
                     ::SetFocus(child_handle);
@@ -628,8 +477,8 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename Button>
             static boost::optional< ::LRESULT> on_tetengo2_command(
                 Button&        button,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
             )
             {
                 button.mouse_observer_set().clicked()();
@@ -640,14 +489,14 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename Control>
             boost::optional< ::LRESULT> on_control_color(
                 Control&       control,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
             )
             {
                 if (!control.background() && !control.text_color())
                     return boost::none;
 
-                const ::HDC device_context = reinterpret_cast< ::HDC>(wParam);
+                const ::HDC device_context = reinterpret_cast< ::HDC>(w_param);
                 if (!control.paint_observer_set().paint_background().empty())
                 {
                     typename Control::base_type::widget_canvas_type canvas(
@@ -701,8 +550,8 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename Control>
             boost::optional< ::LRESULT> on_set_focus(
                 Control&       control,
-                const ::WPARAM wParam,
-                const ::LPARAM lParam
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
             )
             {
                 if (control.has_parent())

@@ -48,12 +48,9 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The root ancestor widget handle.
         */
-        static widget_handle_type root_ancestor_widget_handle(
-            const widget_handle_type widget_handle
-        )
+        static widget_handle_type root_ancestor_widget_handle(const widget_handle_type widget_handle)
         {
-            const widget_handle_type root_handle =
-                ::GetAncestor(widget_handle, GA_ROOT);
+            const widget_handle_type root_handle = ::GetAncestor(widget_handle, GA_ROOT);
 
             if (
                 !root_handle ||
@@ -95,10 +92,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
 #if defined(NDEBUG)
             show_task_dialog_impl(
-                widget_handle,
-                encoder.encode(caption),
-                encoder.encode(text1),
-                encoder.encode(text2)
+                widget_handle, encoder.encode(caption), encoder.encode(text1), encoder.encode(text2)
             );
 #else
             std::basic_ostringstream<typename String::value_type> stream;
@@ -112,10 +106,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 TETENGO2_TEXT(")");
 
             show_task_dialog_impl(
-                widget_handle,
-                encoder.encode(caption),
-                encoder.encode(text1),
-                encoder.encode(text2 + stream.str())
+                widget_handle, encoder.encode(caption), encoder.encode(text1), encoder.encode(text2 + stream.str())
             );
 #endif
         }
@@ -145,9 +136,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             typedef decltype(::TaskDialog)* task_dialog_ptr_type;
             task_dialog_ptr_type p_task_dialog =
-                reinterpret_cast<task_dialog_ptr_type>(
-                    ::GetProcAddress(handle, "TaskDialog")
-                );
+                reinterpret_cast<task_dialog_ptr_type>(::GetProcAddress(handle, "TaskDialog"));
             if (!p_task_dialog)
             {
                 show_message_box(widget_handle, caption, text1, text2);
@@ -174,12 +163,7 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             const std::wstring text = text1 + L"\n\n" + text2;
-            ::MessageBoxW(
-                widget_handle,
-                text.c_str(),
-                caption.c_str(),
-                MB_OK | MB_ICONERROR
-            );
+            ::MessageBoxW(widget_handle, text.c_str(), caption.c_str(), MB_OK | MB_ICONERROR);
         }
 
 

@@ -56,9 +56,7 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::remove_pointer< ::HCURSOR>::type cursor_details_type;
 
         //! The cursor details pointer type.
-        typedef
-            std::unique_ptr<cursor_details_type, detail::cursor_deleter>
-            cursor_details_ptr_type;
+        typedef std::unique_ptr<cursor_details_type, detail::cursor_deleter> cursor_details_ptr_type;
 
 
         // static functions
@@ -75,17 +73,13 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When a system cursor cannot be created.
         */
         template <typename SystemCursor>
-        static cursor_details_ptr_type create_system_cursor(
-            const typename SystemCursor::style_type style
-        )
+        static cursor_details_ptr_type create_system_cursor(const typename SystemCursor::style_type style)
         {
             cursor_details_ptr_type p_cursor(
                 reinterpret_cast< ::HCURSOR>(
                     ::LoadImageW(
                         0,
-                        MAKEINTRESOURCEW(
-                            translate_style<SystemCursor>(style)
-                        ),
+                        MAKEINTRESOURCEW(translate_style<SystemCursor>(style)),
                         IMAGE_CURSOR,
                         0,
                         0,
@@ -97,8 +91,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't create a system cursor."
+                        std::error_code(::GetLastError(), win32_category()), "Can't create a system cursor."
                     )
                 );
             }
@@ -111,9 +104,7 @@ namespace tetengo2 { namespace detail { namespace windows
         // static functions
 
         template <typename SystemCursor>
-        static ::WORD translate_style(
-            const typename SystemCursor::style_type style
-        )
+        static ::WORD translate_style(const typename SystemCursor::style_type style)
         {
             switch (style)
             {
