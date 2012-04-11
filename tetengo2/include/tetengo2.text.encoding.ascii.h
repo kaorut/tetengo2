@@ -27,9 +27,7 @@ namespace tetengo2 { namespace text { namespace encoding
         \tparam EncodingDetails A detail implementation type of an encoding.
     */
     template <typename EncodingDetails>
-    class ascii :
-        public encoding<EncodingDetails>,
-        private boost::equality_comparable<ascii<EncodingDetails>>
+    class ascii : public encoding<EncodingDetails>, private boost::equality_comparable<ascii<EncodingDetails>>
     {
     public:
         // types
@@ -72,10 +70,11 @@ namespace tetengo2 { namespace text { namespace encoding
         string_type from_pivot(const typename base_type::pivot_type& pivot)
         const
         {
-            return string_type(
-                boost::make_transform_iterator(pivot.begin(), to_ascii),
-                boost::make_transform_iterator(pivot.end(), to_ascii)
-            );
+            return
+                string_type(
+                    boost::make_transform_iterator(pivot.begin(), to_ascii),
+                    boost::make_transform_iterator(pivot.end(), to_ascii)
+                );
         }
 
         /*!
@@ -90,36 +89,28 @@ namespace tetengo2 { namespace text { namespace encoding
         typename base_type::pivot_type to_pivot(const string_type& string)
         const
         {
-            return typename base_type::pivot_type(
-                boost::make_transform_iterator(string.begin(), from_ascii),
-                boost::make_transform_iterator(string.end(), from_ascii)
-            );
+            return
+                typename base_type::pivot_type(
+                    boost::make_transform_iterator(string.begin(), from_ascii),
+                    boost::make_transform_iterator(string.end(), from_ascii)
+                );
         }
 
 
     private:
         // static functions
 
-        static string_char_type to_ascii(
-            const typename base_type::pivot_char_type pivot_char
-        )
+        static string_char_type to_ascii(const typename base_type::pivot_char_type pivot_char)
         {
             static const string_char_type question = 0x3F;
 
-            return 0 <= pivot_char && pivot_char <= 0x7F ?
-                static_cast<string_char_type>(pivot_char) : question;
+            return 0 <= pivot_char && pivot_char <= 0x7F ? static_cast<string_char_type>(pivot_char) : question;
         }
 
-        static typename base_type::pivot_char_type from_ascii(
-            const string_char_type ascii_char
-        )
+        static typename base_type::pivot_char_type from_ascii(const string_char_type ascii_char)
         {
             if (ascii_char < 0 || 0x80 <= ascii_char)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Not ASCII code.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Not ASCII code."));
 
             return ascii_char;
         }
