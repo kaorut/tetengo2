@@ -17,10 +17,7 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::cursor_type_list,
-            test_tetengo2::gui::type::cursor::system
-        >::type
+        boost::mpl::at<test_tetengo2::gui::cursor_type_list, test_tetengo2::gui::type::cursor::system>::type
         cursor_type;
 
 
