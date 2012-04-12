@@ -281,7 +281,7 @@ namespace tetengo2 { namespace gui { namespace widget
             p_link_label->paint_observer_set().paint_background().disconnect_all_slots();
             p_link_label->paint_observer_set().paint_background().connect(paint_background(*p_link_label));
             p_link_label->keyboard_observer_set().key_up().connect(selected(*p_link_label));
-            p_link_label->mouse_observer_set().clicked().connect(clicked(*p_link_label)D);
+            p_link_label->mouse_observer_set().clicked().connect(clicked(*p_link_label));
         }
 
 
