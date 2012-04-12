@@ -21,10 +21,7 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::gui_common_type_list,
-            test_tetengo2::gui::type::gui_common::alert
-        >::type
+        boost::mpl::at<test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::alert>::type
         alert_type;
 
     struct boost_exception : public boost::exception
