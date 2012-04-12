@@ -42,13 +42,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         typedef DrawingDetails drawing_details_type;
 
         //! The detail implementation type.
-        typedef
-            typename drawing_details_type::picture_details_type details_type;
+        typedef typename drawing_details_type::picture_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename drawing_details_type::picture_details_ptr_type
-            details_ptr_type;
+        typedef typename drawing_details_type::picture_details_ptr_type details_ptr_type;
 
 
         // constructors and destructor
@@ -80,13 +77,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_p_details(std::move(p_details))
         {
             if (!m_p_details)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument(
-                        "The detail implementation is NULL."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is NULL."));
         }
 
 

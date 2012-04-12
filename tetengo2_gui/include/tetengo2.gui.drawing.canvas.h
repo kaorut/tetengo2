@@ -76,13 +76,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         typedef DrawingDetails drawing_details_type;
 
         //! The detail implementation type.
-        typedef
-            typename drawing_details_type::canvas_details_type details_type;
+        typedef typename drawing_details_type::canvas_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename drawing_details_type::canvas_details_ptr_type
-            details_ptr_type;
+        typedef typename drawing_details_type::canvas_details_ptr_type details_ptr_type;
 
 
         // static functions
@@ -146,9 +143,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         template <typename P, typename D>
         void draw_focus_indication(const P& position, const D& dimension)
         {
-            drawing_details_type::draw_focus_indication(
-                *m_p_details, position, dimension
-            );
+            drawing_details_type::draw_focus_indication(*m_p_details, position, dimension);
         }
 
         /*!
@@ -162,15 +157,9 @@ namespace tetengo2 { namespace gui { namespace drawing
             \param background A background.
         */
         template <typename P, typename D>
-        void fill_rectangle(
-            const P&               position,
-            const D&               dimension,
-            const background_type& background
-        )
+        void fill_rectangle(const P& position, const D& dimension, const background_type& background)
         {
-            drawing_details_type::fill_rectangle(
-                *m_p_details, position, dimension, background
-            );
+            drawing_details_type::fill_rectangle(*m_p_details, position, dimension, background);
         }
 
         /*!
@@ -200,9 +189,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         template <typename P>
         void draw_text(const string_type& text, const P& position)
         {
-            drawing_details_type::draw_text(
-                *m_p_details, m_font, text, encoder(), position
-            );
+            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position);
         }
 
         /*!
@@ -222,9 +209,7 @@ namespace tetengo2 { namespace gui { namespace drawing
             const D&            dimension /* = picture.dimension() */
         )
         {
-            drawing_details_type::paint_picture(
-                *m_p_details, picture, position, dimension
-            );
+            drawing_details_type::paint_picture(*m_p_details, picture, position, dimension);
         }
 
 #if !defined(DOCUMENTATION)
@@ -273,13 +258,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_font(font_type::dialog_font())
         {
             if (!m_p_details)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument(
-                        "The detail implementation is NULL."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is NULL."));
         }
 
 

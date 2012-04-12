@@ -40,9 +40,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         transparent_background()
         :
         base_type(),
-        m_p_details(
-            base_type::drawing_details_type::create_transparent_background()
-        )
+        m_p_details(base_type::drawing_details_type::create_transparent_background())
         {}
 
         /*!

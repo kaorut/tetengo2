@@ -24,8 +24,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         \tparam DrawingDetails A detail implementation type of a drawing.
    */
     template <typename String, typename Size, typename DrawingDetails>
-    class font :
-        private boost::equality_comparable<font<String, Size, DrawingDetails>>
+    class font : private boost::equality_comparable<font<String, Size, DrawingDetails>>
     {
     public:
         // types
@@ -49,9 +48,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static const font& dialog_font()
         {
-            static const font singleton(
-                drawing_details_type::template make_dialog_font<font>()
-            );
+            static const font singleton(drawing_details_type::template make_dialog_font<font>());
             return singleton;
         }
 
@@ -61,8 +58,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a font.
 
-            When family is not installed, the family of the dialog font is set
-            instead.
+            When family is not installed, the family of the dialog font is set instead.
 
             \tparam S A string type.
 
