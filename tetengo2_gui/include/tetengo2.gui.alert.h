@@ -11,7 +11,6 @@
 
 #include <cstddef>
 #include <exception>
-//#include <functional>
 #include <stdexcept>
 #include <string>
 #include <system_error>
@@ -28,11 +27,11 @@ namespace tetengo2 { namespace gui
         \brief The class template for an alert.
 
         \tparam UiEncoder        An encoder type for the user interface.
-        \tparam ExceptionEncoder An encoder type for the user interface.
+        \tparam ExceptionEncoder An encoder type for the exception.
         \tparam AlertDetails     A detail implementation type of an alert.
     */
     template <typename UiEncoder, typename ExceptionEncoder, typename AlertDetails>
-    class alert : public std::unary_function<std::exception, void>
+    class alert
     {
     public:
         // types

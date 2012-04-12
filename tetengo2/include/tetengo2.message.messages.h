@@ -122,7 +122,7 @@ namespace tetengo2 { namespace message
 
         typedef boost::filesystem::directory_entry directory_entry_type;
 
-        struct matches_locale_type : public std::unary_function<path_type, bool>
+        struct matches_locale_type
         {
             const std::locale& m_locale;
 
