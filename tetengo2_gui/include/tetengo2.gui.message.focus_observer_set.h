@@ -37,8 +37,7 @@ namespace tetengo2 { namespace gui { namespace message
         typedef void lost_focus_type();
 
         //! The signal type of lost-focus.
-        typedef
-            boost::signals2::signal<lost_focus_type> lost_focus_signal_type;
+        typedef boost::signals2::signal<lost_focus_type> lost_focus_signal_type;
 
 
         // functions

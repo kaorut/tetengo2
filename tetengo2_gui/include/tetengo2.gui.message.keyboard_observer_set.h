@@ -41,17 +41,10 @@ namespace tetengo2 { namespace gui { namespace message
             \param control     True when control key is pressed.
             \param meta        True when meta key is pressed.
         */
-        typedef void key_down_type(
-            const virtual_key_type& virtual_key,
-            bool                    shift,
-            bool                    control,
-            bool                    meta
-        );
+        typedef void key_down_type(const virtual_key_type& virtual_key, bool shift, bool control, bool meta);
 
         //! The signal type of key down.
-        typedef
-            boost::signals2::signal<key_down_type>
-            key_down_signal_type;
+        typedef boost::signals2::signal<key_down_type> key_down_signal_type;
 
         /*!
             \brief The observer type of key up.
@@ -61,17 +54,10 @@ namespace tetengo2 { namespace gui { namespace message
             \param control     True when control key is pressed.
             \param meta        True when meta key is pressed.
         */
-        typedef void key_up_type(
-            const virtual_key_type& virtual_key,
-            bool                    shift,
-            bool                    control,
-            bool                    meta
-        );
+        typedef void key_up_type(const virtual_key_type& virtual_key, bool shift, bool control, bool meta);
 
         //! The signal type of key up.
-        typedef
-            boost::signals2::signal<key_up_type>
-            key_up_signal_type;
+        typedef boost::signals2::signal<key_up_type> key_up_signal_type;
 
         /*!
             \brief The observer type of character input.
@@ -81,9 +67,7 @@ namespace tetengo2 { namespace gui { namespace message
         typedef void character_input_type(char_type character);
 
         //! The signal type of character input.
-        typedef
-            boost::signals2::signal<character_input_type>
-            character_input_signal_type;
+        typedef boost::signals2::signal<character_input_type> character_input_signal_type;
 
 
         // functions
