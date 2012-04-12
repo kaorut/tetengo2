@@ -101,9 +101,10 @@ namespace tetengo2
     template <typename T, typename A1, typename A2, typename A3, typename A4>
     std::unique_ptr<T> make_unique(A1&& arg1, A2&& arg2, A3&& arg3, A4&& arg4)
     {
-        return std::unique_ptr<T>(
-            new T(std::forward<A1>(arg1), std::forward<A2>(arg2), std::forward<A3>(arg3), std::forward<A4>(arg4))
-        );
+        return
+            std::unique_ptr<T>(
+                new T(std::forward<A1>(arg1), std::forward<A2>(arg2), std::forward<A3>(arg3), std::forward<A4>(arg4))
+            );
     }
 
     /*!
@@ -127,15 +128,16 @@ namespace tetengo2
     template <typename T, typename A1, typename A2, typename A3, typename A4, typename A5>
     std::unique_ptr<T> make_unique(A1&& arg1, A2&& arg2, A3&& arg3, A4&& arg4, A5&& arg5)
     {
-        return std::unique_ptr<T>(
-            new T(
-                std::forward<A1>(arg1),
-                std::forward<A2>(arg2),
-                std::forward<A3>(arg3),
-                std::forward<A4>(arg4),
-                std::forward<A5>(arg5)
-            )
-        );
+        return
+            std::unique_ptr<T>(
+                new T(
+                    std::forward<A1>(arg1),
+                    std::forward<A2>(arg2),
+                    std::forward<A3>(arg3),
+                    std::forward<A4>(arg4),
+                    std::forward<A5>(arg5)
+                )
+            );
     }
 
     /*!
@@ -161,16 +163,17 @@ namespace tetengo2
     template <typename T, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
     std::unique_ptr<T> make_unique(A1&& arg1, A2&& arg2, A3&& arg3, A4&& arg4, A5&& arg5, A6&& arg6)
     {
-        return std::unique_ptr<T>(
-            new T(
-                std::forward<A1>(arg1),
-                std::forward<A2>(arg2),
-                std::forward<A3>(arg3),
-                std::forward<A4>(arg4),
-                std::forward<A5>(arg5),
-                std::forward<A6>(arg6)
-            )
-        );
+        return
+            std::unique_ptr<T>(
+                new T(
+                    std::forward<A1>(arg1),
+                    std::forward<A2>(arg2),
+                    std::forward<A3>(arg3),
+                    std::forward<A4>(arg4),
+                    std::forward<A5>(arg5),
+                    std::forward<A6>(arg6)
+                )
+            );
     }
 
     /*!
@@ -198,17 +201,18 @@ namespace tetengo2
     template <typename T, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
     std::unique_ptr<T> make_unique(A1&& arg1, A2&& arg2, A3&& arg3, A4&& arg4, A5&& arg5, A6&& arg6, A7&& arg7)
     {
-        return std::unique_ptr<T>(
-            new T(
-                std::forward<A1>(arg1),
-                std::forward<A2>(arg2),
-                std::forward<A3>(arg3),
-                std::forward<A4>(arg4),
-                std::forward<A5>(arg5),
-                std::forward<A6>(arg6),
-                std::forward<A7>(arg7)
-            )
-        );
+        return
+            std::unique_ptr<T>(
+                new T(
+                    std::forward<A1>(arg1),
+                    std::forward<A2>(arg2),
+                    std::forward<A3>(arg3),
+                    std::forward<A4>(arg4),
+                    std::forward<A5>(arg5),
+                    std::forward<A6>(arg6),
+                    std::forward<A7>(arg7)
+                )
+            );
     }
 
     /*!
@@ -257,18 +261,19 @@ namespace tetengo2
         A8&& arg8
     )
     {
-        return std::unique_ptr<T>(
-            new T(
-                std::forward<A1>(arg1),
-                std::forward<A2>(arg2),
-                std::forward<A3>(arg3),
-                std::forward<A4>(arg4),
-                std::forward<A5>(arg5),
-                std::forward<A6>(arg6),
-                std::forward<A7>(arg7),
-                std::forward<A8>(arg8)
-            )
-        );
+        return
+            std::unique_ptr<T>(
+                new T(
+                    std::forward<A1>(arg1),
+                    std::forward<A2>(arg2),
+                    std::forward<A3>(arg3),
+                    std::forward<A4>(arg4),
+                    std::forward<A5>(arg5),
+                    std::forward<A6>(arg6),
+                    std::forward<A7>(arg7),
+                    std::forward<A8>(arg8)
+                )
+            );
     }
 
     /*!
@@ -321,19 +326,20 @@ namespace tetengo2
         A9&& arg9
     )
     {
-        return std::unique_ptr<T>(
-            new T(
-                std::forward<A1>(arg1),
-                std::forward<A2>(arg2),
-                std::forward<A3>(arg3),
-                std::forward<A4>(arg4),
-                std::forward<A5>(arg5),
-                std::forward<A6>(arg6),
-                std::forward<A7>(arg7),
-                std::forward<A8>(arg8),
-                std::forward<A9>(arg9)
-            )
-        );
+        return
+            std::unique_ptr<T>(
+                new T(
+                    std::forward<A1>(arg1),
+                    std::forward<A2>(arg2),
+                    std::forward<A3>(arg3),
+                    std::forward<A4>(arg4),
+                    std::forward<A5>(arg5),
+                    std::forward<A6>(arg6),
+                    std::forward<A7>(arg7),
+                    std::forward<A8>(arg8),
+                    std::forward<A9>(arg9)
+                )
+            );
     }
 
     /*!
@@ -390,19 +396,20 @@ namespace tetengo2
         A10&& arg10
     )
     {
-        return std::unique_ptr<T>(
-            new T(
-                std::forward<A1>(arg1),
-                std::forward<A2>(arg2),
-                std::forward<A3>(arg3),
-                std::forward<A4>(arg4),
-                std::forward<A5>(arg5),
-                std::forward<A6>(arg6),
-                std::forward<A7>(arg7),
-                std::forward<A8>(arg8),
-                std::forward<A9>(arg9),
-                std::forward<A10>(arg10)
-            )
+        return
+            std::unique_ptr<T>(
+                new T(
+                    std::forward<A1>(arg1),
+                    std::forward<A2>(arg2),
+                    std::forward<A3>(arg3),
+                    std::forward<A4>(arg4),
+                    std::forward<A5>(arg5),
+                    std::forward<A6>(arg6),
+                    std::forward<A7>(arg7),
+                    std::forward<A8>(arg8),
+                    std::forward<A9>(arg9),
+                    std::forward<A10>(arg10)
+                )
         );
     }
 

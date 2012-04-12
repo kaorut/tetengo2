@@ -100,14 +100,15 @@ namespace bobura { namespace model { namespace serializer
 
             try
             {
-                return m_p_reader->selects(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<typename iterator::value_type>(filtering_input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<typename iterator::value_type>()
-                    )
-                );
+                return
+                    m_p_reader->selects(
+                        boost::spirit::make_default_multi_pass(
+                            std::istreambuf_iterator<typename iterator::value_type>(filtering_input_stream)
+                        ),
+                        boost::spirit::make_default_multi_pass(
+                            std::istreambuf_iterator<typename iterator::value_type>()
+                        )
+                    );
             }
             catch (const boost::iostreams::bzip2_error&)
             {
@@ -128,14 +129,15 @@ namespace bobura { namespace model { namespace serializer
 
             try
             {
-                return m_p_reader->read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<typename iterator::value_type>(filtering_input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<typename iterator::value_type>()
-                    )
-                );
+                return
+                    m_p_reader->read(
+                        boost::spirit::make_default_multi_pass(
+                            std::istreambuf_iterator<typename iterator::value_type>(filtering_input_stream)
+                        ),
+                        boost::spirit::make_default_multi_pass(
+                            std::istreambuf_iterator<typename iterator::value_type>()
+                        )
+                    );
             }
             catch (const boost::iostreams::bzip2_error&)
             {

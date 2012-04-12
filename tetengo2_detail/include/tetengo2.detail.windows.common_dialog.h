@@ -198,16 +198,17 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                                      encoder
         )
         {
-            return make_unique<message_box_details_type>(
-                std::get<0>(*parent.details()).get(),
-                encoder.encode(std::forward<String1>(title)),
-                encoder.encode(std::forward<String2>(main_content)),
-                encoder.encode(std::forward<String3>(sub_content)),
-                cancellable,
-                button_style,
-                icon_style,
-                to_custom_button_labels(custom_ok_button_label, custom_yes_no_button_labels, encoder)
-            );
+            return
+                make_unique<message_box_details_type>(
+                    std::get<0>(*parent.details()).get(),
+                    encoder.encode(std::forward<String1>(title)),
+                    encoder.encode(std::forward<String2>(main_content)),
+                    encoder.encode(std::forward<String3>(sub_content)),
+                    cancellable,
+                    button_style,
+                    icon_style,
+                    to_custom_button_labels(custom_ok_button_label, custom_yes_no_button_labels, encoder)
+                );
         }
 
         /*!
@@ -296,13 +297,14 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
             detail::file_open_dialog_ptr_type p_dialog(p_raw_dialog);
-            return make_unique<file_open_dialog_details_type>(
-                std::move(p_dialog),
-                std::get<0>(*parent.details()).get(),
-                encoder.encode(std::forward<String>(title)),
-                encoder.encode(to_default_extension(filters)),
-                to_native_filters(filters, encoder)
-            );
+            return
+                make_unique<file_open_dialog_details_type>(
+                    std::move(p_dialog),
+                    std::get<0>(*parent.details()).get(),
+                    encoder.encode(std::forward<String>(title)),
+                    encoder.encode(to_default_extension(filters)),
+                    to_native_filters(filters, encoder)
+                );
         }
 
         /*!
@@ -430,15 +432,16 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
             detail::file_save_dialog_ptr_type p_dialog(p_raw_dialog);
-            return make_unique<file_save_dialog_details_type>(
-                std::move(p_dialog),
-                std::get<0>(*parent.details()).get(),
-                encoder.encode(std::forward<String>(title)),
-                encoder.encode(to_native_path<String>(path)),
-                encoder.encode(to_default_extension(filters)),
-                to_native_filters(filters, encoder),
-                find_filter_index(filters, path)
-            );
+            return
+                make_unique<file_save_dialog_details_type>(
+                    std::move(p_dialog),
+                    std::get<0>(*parent.details()).get(),
+                    encoder.encode(std::forward<String>(title)),
+                    encoder.encode(to_native_path<String>(path)),
+                    encoder.encode(to_default_extension(filters)),
+                    to_native_filters(filters, encoder),
+                    find_filter_index(filters, path)
+                );
         }
 
         /*!
@@ -754,9 +757,10 @@ namespace tetengo2 { namespace detail { namespace windows
             const Encoder&                   encoder
         )
         {
-            return detail::native_filter_type(
-                encoder.encode(filter.first), std::wstring(L"*.") + encoder.encode(filter.second)
-            );
+            return
+                detail::native_filter_type(
+                    encoder.encode(filter.first), std::wstring(L"*.") + encoder.encode(filter.second)
+                );
         }
 
         template <typename String, typename Encoder>

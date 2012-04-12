@@ -100,9 +100,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         dimension_type dimension()
         const
         {
-            return drawing_details_type::template picture_dimension<
-                dimension_type
-            >(*m_p_details);
+            return drawing_details_type::template picture_dimension<dimension_type>(*m_p_details);
         }
 
         /*!
@@ -113,9 +111,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         boost::optional<const details_type&> details()
         const
         {
-            return boost::make_optional<const details_type&>(
-                static_cast<bool>(m_p_details), *m_p_details
-            );
+            return boost::make_optional<const details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }
 
         /*!
@@ -125,9 +121,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         boost::optional<details_type&> details()
         {
-            return boost::make_optional<details_type&>(
-                static_cast<bool>(m_p_details), *m_p_details
-            );
+            return boost::make_optional<details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }
 
 

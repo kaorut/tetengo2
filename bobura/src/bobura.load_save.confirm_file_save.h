@@ -128,20 +128,21 @@ namespace bobura { namespace load_save
                 m_model.path().template string<string_type>() :
                 m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
 
-            return tetengo2::make_unique<message_box_type>(
-                parent,
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_message_catalog.get(
-                    TETENGO2_TEXT("Message:File:The file has been changed. Do you want to save the changes?")
-                ),
-                file_path,
-                message_box_type::button_style_type::yes_no(
-                    true,
-                    m_message_catalog.get(TETENGO2_TEXT("Message:File:&Save")),
-                    m_message_catalog.get(TETENGO2_TEXT("Message:File:&Don't save"))
-                ),
-                message_box_type::icon_style_warning
-            );
+            return
+                tetengo2::make_unique<message_box_type>(
+                    parent,
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    m_message_catalog.get(
+                        TETENGO2_TEXT("Message:File:The file has been changed. Do you want to save the changes?")
+                    ),
+                    file_path,
+                    message_box_type::button_style_type::yes_no(
+                        true,
+                        m_message_catalog.get(TETENGO2_TEXT("Message:File:&Save")),
+                        m_message_catalog.get(TETENGO2_TEXT("Message:File:&Don't save"))
+                    ),
+                    message_box_type::icon_style_warning
+                );
         }
 
 

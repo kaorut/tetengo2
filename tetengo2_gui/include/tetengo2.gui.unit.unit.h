@@ -56,9 +56,7 @@ namespace tetengo2 { namespace gui { namespace unit
             const unit<U, typename U::value_type>& value
         )
         {
-            return concrete_unit_type::from_pixels(
-                static_cast<const U&>(value).to_pixels()
-            );
+            return concrete_unit_type::from_pixels(static_cast<const U&>(value).to_pixels());
         }
 
 

@@ -198,14 +198,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename Dimension>
         static Dimension picture_dimension(const picture_details_type& picture)
         {
-            return Dimension(
-                gui::to_unit<typename gui::dimension<Dimension>::width_type>(
-                    const_cast<picture_details_type&>(picture).GetWidth()
-                ),
-                gui::to_unit<typename gui::dimension<Dimension>::height_type>(
-                    const_cast<picture_details_type&>(picture).GetHeight()
-                )
-            );
+            return
+                Dimension(
+                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(
+                        const_cast<picture_details_type&>(picture).GetWidth()
+                    ),
+                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(
+                        const_cast<picture_details_type&>(picture).GetHeight()
+                    )
+                );
         }
 
         /*!
@@ -314,14 +315,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const ::LOGFONTW log_font = get_message_font();
 
             assert(log_font.lfHeight < 0);
-            return Font(
-                log_font.lfFaceName,
-                -log_font.lfHeight,
-                log_font.lfWeight >= FW_BOLD,
-                log_font.lfItalic != 0,
-                log_font.lfUnderline != 0,
-                log_font.lfStrikeOut != 0
-            );
+            return
+                Font(
+                    log_font.lfFaceName,
+                    -log_font.lfHeight,
+                    log_font.lfWeight >= FW_BOLD,
+                    log_font.lfItalic != 0,
+                    log_font.lfUnderline != 0,
+                    log_font.lfStrikeOut != 0
+                );
         }
 
         /*!

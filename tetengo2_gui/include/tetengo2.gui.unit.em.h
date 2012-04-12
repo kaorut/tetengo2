@@ -52,9 +52,7 @@ namespace tetengo2 { namespace gui { namespace unit
         */
         static em from_pixels(const pixel_value_type value)
         {
-            return em(
-                unit_details_type::template pixels_to_em<value_type>(value)
-            );
+            return em(unit_details_type::template pixels_to_em<value_type>(value));
         }
 
 
@@ -178,9 +176,7 @@ namespace tetengo2 { namespace gui { namespace unit
         pixel_value_type to_pixels()
         const
         {
-            return unit_details_type::template em_to_pixels<pixel_value_type>(
-                m_value
-            );
+            return unit_details_type::template em_to_pixels<pixel_value_type>(m_value);
         }
 
 

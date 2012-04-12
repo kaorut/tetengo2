@@ -252,9 +252,7 @@ namespace tetengo2 { namespace message
                 m_p_pull_parser->next();
             }
 
-            return make_unique<entry_type>(
-                encoder().decode(key), encoder().decode(value)
-            );
+            return make_unique<entry_type>(encoder().decode(key), encoder().decode(value));
         }
 
         template <typename Structure>

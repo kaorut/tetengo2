@@ -143,14 +143,15 @@ namespace tetengo2 { namespace gui { namespace widget
         dimension_type calc_text_dimension()
         const
         {
-            return widget_details_type::template use_canvas<dimension_type>(
-                *this,
-                TETENGO2_CPP11_BIND(
-                    &canvas_type::calc_text_dimension,
-                    cpp11::placeholders_1(),
-                    cpp11::cref(this->text())
-                )
-            );
+            return
+                widget_details_type::template use_canvas<dimension_type>(
+                    *this,
+                    TETENGO2_CPP11_BIND(
+                        &canvas_type::calc_text_dimension,
+                        cpp11::placeholders_1(),
+                        cpp11::cref(this->text())
+                    )
+                );
         }
 
 

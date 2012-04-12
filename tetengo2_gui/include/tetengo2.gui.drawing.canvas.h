@@ -94,9 +94,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         static std::vector<string_type> installed_font_families()
         {
-            return drawing_details_type::template installed_font_families<
-                string_type
-            >(encoder());
+            return drawing_details_type::template installed_font_families<string_type>(encoder());
         }
 
 
@@ -185,9 +183,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         dimension_type calc_text_dimension(const string_type& text)
         const
         {
-            return drawing_details_type::template calc_text_dimension<
-                dimension_type
-            >(*m_p_details, m_font, text, encoder());
+            return
+                drawing_details_type::template calc_text_dimension<dimension_type>(
+                    *m_p_details, m_font, text, encoder()
+                );
         }
 
         /*!
@@ -244,9 +243,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         boost::optional<const details_type&> details()
         const
         {
-            return boost::make_optional<const details_type&>(
-                m_p_details.get(), *m_p_details
-            );
+            return boost::make_optional<const details_type&>(m_p_details.get(), *m_p_details);
         }
 
         /*!
@@ -256,9 +253,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         boost::optional<details_type&> details()
         {
-            return boost::make_optional<details_type&>(
-                m_p_details.get(), *m_p_details
-            );
+            return boost::make_optional<details_type&>(m_p_details.get(), *m_p_details);
         }
 
 

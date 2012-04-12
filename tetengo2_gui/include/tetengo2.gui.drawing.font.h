@@ -105,7 +105,8 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         friend bool operator==(const font& one, const font& another)
         {
-            return one.m_family == another.m_family &&
+            return
+                one.m_family == another.m_family &&
                 one.m_size == another.m_size &&
                 one.m_bold == another.m_bold &&
                 one.m_italic == another.m_italic &&

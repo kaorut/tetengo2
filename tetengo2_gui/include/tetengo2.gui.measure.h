@@ -55,9 +55,7 @@ namespace tetengo2 { namespace gui
         >::type* = NULL
     )
     {
-        return Unit::from_pixels(
-            static_cast<typename Unit::pixel_value_type>(value)
-        );
+        return Unit::from_pixels(static_cast<typename Unit::pixel_value_type>(value));
     }
 
 #if !defined(DOCUMENTATION)
@@ -281,9 +279,7 @@ namespace tetengo2 { namespace gui
         template <typename W, typename H>
         static dimension_type make(W&& width, H&& height)
         {
-            return dimension_type(
-                std::forward<W>(width), std::forward<H>(height)
-            );
+            return dimension_type(std::forward<W>(width), std::forward<H>(height));
         }
 
 

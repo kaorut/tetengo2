@@ -139,9 +139,10 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return make_unique<widget_details_type>(
-                std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
-            );
+            return
+                make_unique<widget_details_type>(
+                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
+                );
         }
 
         /*!
@@ -197,9 +198,10 @@ namespace tetengo2 { namespace detail { namespace windows
 
             delete_system_menus(p_widget.get());
 
-            return make_unique<widget_details_type>(
-                std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
-            );
+            return
+                make_unique<widget_details_type>(
+                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
+                );
         }
 
         /*!
@@ -265,9 +267,10 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(
-                std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
-            );
+            return
+                make_unique<widget_details_type>(
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                );
         }
 
         /*!
@@ -309,9 +312,10 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(
-                std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
-            );
+            return 
+                make_unique<widget_details_type>(
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                );
         }
 
         /*!
@@ -353,9 +357,10 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(
-                std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
-            );
+            return 
+                make_unique<widget_details_type>(
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                );
         }
 
         /*!
@@ -397,9 +402,10 @@ namespace tetengo2 { namespace detail { namespace windows
 
             const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
-            return make_unique<widget_details_type>(
-                std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
-            );
+            return 
+                make_unique<widget_details_type>(
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                );
         }
 
         /*!
@@ -620,10 +626,11 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             typedef gui::position<Position> position_traits_type;
-            return position_traits_type::make(
-                gui::to_unit<typename position_traits_type::left_type>(rectangle.left),
-                gui::to_unit<typename position_traits_type::top_type>(rectangle.top)
-            );
+            return
+                position_traits_type::make(
+                    gui::to_unit<typename position_traits_type::left_type>(rectangle.left),
+                    gui::to_unit<typename position_traits_type::top_type>(rectangle.top)
+                );
         }
 
         /*!
@@ -683,10 +690,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 point.y = monitor_info.rcWork.top + y_margin;
 
             typedef gui::position<Position> position_traits_type;
-            return position_traits_type::make(
-                gui::to_unit<typename position_traits_type::left_type>(point.x),
-                gui::to_unit<typename position_traits_type::top_type>(point.y)
-            );
+            return
+                position_traits_type::make(
+                    gui::to_unit<typename position_traits_type::left_type>(point.x),
+                    gui::to_unit<typename position_traits_type::top_type>(point.y)
+                );
         }
 
         /*!
@@ -754,10 +762,11 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(rectangle.right - rectangle.left >= 0);
             assert(rectangle.bottom - rectangle.top >= 0);
             typedef gui::dimension<Dimension> dimension_traits_type;
-            return dimension_traits_type::make(
-                gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
-                gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
-            );
+            return
+                dimension_traits_type::make(
+                    gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
+                    gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
+                );
         }
 
         /*!
@@ -852,10 +861,11 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(rectangle.right - rectangle.left > 0);
             assert(rectangle.bottom - rectangle.top > 0);
             typedef gui::dimension<Dimension> dimension_traits_type;
-            return dimension_traits_type::make(
-                gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
-                gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
-            );
+            return
+                dimension_traits_type::make(
+                    gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
+                    gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
+                );
         }
 
         /*!
@@ -1006,14 +1016,15 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            return Font(
-                encoder.decode(log_font.lfFaceName),
-                log_font.lfHeight < 0 ? -log_font.lfHeight : log_font.lfHeight,
-                log_font.lfWeight >= FW_BOLD,
-                log_font.lfItalic != FALSE,
-                log_font.lfUnderline != FALSE,
-                log_font.lfStrikeOut != FALSE
-            );
+            return
+                Font(
+                    encoder.decode(log_font.lfFaceName),
+                    log_font.lfHeight < 0 ? -log_font.lfHeight : log_font.lfHeight,
+                    log_font.lfWeight >= FW_BOLD,
+                    log_font.lfItalic != FALSE,
+                    log_font.lfUnderline != FALSE,
+                    log_font.lfStrikeOut != FALSE
+                );
         }
 
         /*!

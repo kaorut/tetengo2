@@ -158,9 +158,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename AbstractWindow>
         static ::HACCEL accelerator_table_handle(AbstractWindow& window)
         {
-            return const_cast< ::HACCEL>(
-                &*window.menu_bar().shortcut_key_table().details()
-            );
+            return const_cast< ::HACCEL>(&*window.menu_bar().shortcut_key_table().details());
         }
 
 

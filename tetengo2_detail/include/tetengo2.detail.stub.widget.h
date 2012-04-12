@@ -356,14 +356,15 @@ namespace tetengo2 { namespace detail { namespace stub
         static Position position(const Widget& widget)
         {
             typedef gui::position<Position> position_traits_type;
-            return position_traits_type::make(
-                gui::to_unit<typename position_traits_type::left_type>(
-                    std::get<details_position>(*widget.details()).first
-                ),
-                gui::to_unit<typename position_traits_type::top_type>(
-                    std::get<details_position>(*widget.details()).second
-                )
-            );
+            return
+                position_traits_type::make(
+                    gui::to_unit<typename position_traits_type::left_type>(
+                        std::get<details_position>(*widget.details()).first
+                    ),
+                    gui::to_unit<typename position_traits_type::top_type>(
+                        std::get<details_position>(*widget.details()).second
+                    )
+                );
         }
 
         /*!
@@ -425,14 +426,15 @@ namespace tetengo2 { namespace detail { namespace stub
         static Dimension dimension(const Widget& widget)
         {
             typedef gui::dimension<Dimension> dimension_traits_type;
-            return dimension_traits_type::make(
-                gui::to_unit<typename dimension_traits_type::width_type>(
-                    std::get<details_dimension>(*widget.details()).first
-                ),
-                gui::to_unit<typename dimension_traits_type::height_type>(
-                    std::get<details_dimension>(*widget.details()).second
-                )
-            );
+            return
+                dimension_traits_type::make(
+                    gui::to_unit<typename dimension_traits_type::width_type>(
+                        std::get<details_dimension>(*widget.details()).first
+                    ),
+                    gui::to_unit<typename dimension_traits_type::height_type>(
+                        std::get<details_dimension>(*widget.details()).second
+                    )
+                );
         }
 
         /*!
@@ -474,14 +476,15 @@ namespace tetengo2 { namespace detail { namespace stub
         static Dimension client_dimension(const Widget& widget)
         {
             typedef gui::dimension<Dimension> dimension_traits_type;
-            return dimension_traits_type::make(
-                gui::to_unit<typename dimension_traits_type::width_type>(
-                    std::get<details_dimension>(*widget.details()).first
-                ),
-                gui::to_unit<typename dimension_traits_type::height_type>(
-                    std::get<details_dimension>(*widget.details()).second
-                )
-            );
+            return
+                dimension_traits_type::make(
+                    gui::to_unit<typename dimension_traits_type::width_type>(
+                        std::get<details_dimension>(*widget.details()).first
+                    ),
+                    gui::to_unit<typename dimension_traits_type::height_type>(
+                        std::get<details_dimension>(*widget.details()).second
+                    )
+                );
         }
 
         /*!
