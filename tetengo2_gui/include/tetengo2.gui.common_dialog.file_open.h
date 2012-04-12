@@ -26,16 +26,9 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         \tparam String              A string type.
         \tparam Path                A path type.
         \tparam Encoder             An encoder type.
-        \tparam CommonDialogDetails A detail implementation type of common
-                                    dialogs.
+        \tparam CommonDialogDetails A detail implementation type of common dialogs.
     */
-    template <
-        typename AbstractWindow,
-        typename String,
-        typename Path,
-        typename Encoder,
-        typename CommonDialogDetails
-    >
+    template <typename AbstractWindow, typename String, typename Path, typename Encoder, typename CommonDialogDetails>
     class file_open : private boost::noncopyable
     {
     public:
@@ -57,14 +50,10 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         typedef CommonDialogDetails common_dialog_details_type;
 
         //! The detail implementation type.
-        typedef
-            typename common_dialog_details_type::file_open_dialog_details_type
-            details_type;
+        typedef typename common_dialog_details_type::file_open_dialog_details_type details_type;
 
         //! The detail implementaiton pointer type;
-        typedef
-            typename common_dialog_details_type::file_open_dialog_details_ptr_type
-            details_ptr_type;
+        typedef typename common_dialog_details_type::file_open_dialog_details_ptr_type details_ptr_type;
 
         //! The file filter type.
         typedef std::pair<string_type, string_type> file_filter_type;
@@ -90,10 +79,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         :
         m_p_details(
             common_dialog_details_type::create_file_open_dialog(
-                parent,
-                std::forward<S>(title),
-                std::forward<FF>(file_filters),
-                encoder()
+                parent, std::forward<S>(title), std::forward<FF>(file_filters), encoder()
             )
         ),
         m_result()
@@ -118,10 +104,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
         */
         void do_modal()
         {
-            m_result =
-                common_dialog_details_type::template show_file_open_dialog<
-                    path_type
-                >(*m_p_details, encoder());
+            m_result = common_dialog_details_type::template show_file_open_dialog<path_type>(*m_p_details, encoder());
         }
 
         /*!

@@ -72,18 +72,13 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                 \return A button style.
             */
             template <typename S>
-            static button_style ok(
-                const bool cancellable,
-                S&&        ok_button_label
-            )
+            static button_style ok(const bool cancellable, S&& ok_button_label)
             {
                 return
                     button_style(
                         style_ok,
                         cancellable,
-                        boost::make_optional<string_type>(
-                            std::forward<S>(ok_button_label)
-                        ),
+                        boost::make_optional<string_type>(std::forward<S>(ok_button_label)),
                         boost::none
                     );
             }
@@ -106,19 +101,14 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                 \tparam S1 A string type #1.
                 \tparam S2 A string type #2.
 
-                \param cancellable      Whether the message box is
-                                        cancellable.
+                \param cancellable      Whether the message box is cancellable.
                 \param yes_button_label A Yes button label.
                 \param no_button_label  A No button label.
 
                 \return A button style.
             */
             template <typename S1, typename S2>
-            static button_style yes_no(
-                const bool cancellable,
-                S1&&       yes_button_label,
-                S2&&       no_button_label
-            )
+            static button_style yes_no(const bool cancellable, S1&& yes_button_label, S2&& no_button_label)
             {
                 return
                     button_style(
@@ -127,8 +117,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
                         boost::none,
                         boost::make_optional<std::pair<string_type, string_type>>(
                             std::pair<string_type, string_type>(
-                                std::forward<S1>(yes_button_label),
-                                std::forward<S2>(no_button_label)
+                                std::forward<S1>(yes_button_label), std::forward<S2>(no_button_label)
                             )
                         )
                     );
@@ -188,11 +177,10 @@ namespace tetengo2 { namespace gui { namespace common_dialog
             // constructors
 
             button_style(
-                const style_type&                   style,
-                const bool                          cancellable,
-                const boost::optional<string_type>& ok_button_label,
-                const boost::optional<std::pair<string_type, string_type>>&
-                                                    yes_no_button_labels
+                const style_type&                                           style,
+                const bool                                                  cancellable,
+                const boost::optional<string_type>&                         ok_button_label,
+                const boost::optional<std::pair<string_type, string_type>>& yes_no_button_labels
             )
             :
             m_style(style),
@@ -210,8 +198,7 @@ namespace tetengo2 { namespace gui { namespace common_dialog
 
             boost::optional<string_type> m_ok_button_label;
 
-            boost::optional<std::pair<string_type, string_type>>
-            m_yes_no_button_labels;
+            boost::optional<std::pair<string_type, string_type>> m_yes_no_button_labels;
 
 
         };
