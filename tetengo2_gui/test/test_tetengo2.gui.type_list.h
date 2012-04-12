@@ -115,63 +115,32 @@ namespace test_tetengo2 { namespace gui
         typedef std::string string_type;
         typedef std::string exception_string_type;
         typedef tetengo2::detail::stub::encoding encoding_details_type;
+        typedef tetengo2::text::encoding::locale<string_type, encoding_details_type> internal_encoding_type;
         typedef
-            tetengo2::text::encoding::locale<
-                string_type, encoding_details_type
-            >
-            internal_encoding_type;
-        typedef
-            tetengo2::text::encoding::locale<
-                tetengo2::detail::stub::widget::string_type,
-                encoding_details_type
-            >
+            tetengo2::text::encoding::locale<tetengo2::detail::stub::widget::string_type, encoding_details_type>
             ui_encoding_type;
-        typedef
-            tetengo2::text::encoding::locale<
-                exception_string_type, encoding_details_type
-            >
-            exception_encoding_type;
+        typedef tetengo2::text::encoding::locale<exception_string_type, encoding_details_type> exception_encoding_type;
     }
 #endif
 
     //! The common type list.
     typedef
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::size, detail::size_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::difference, detail::difference_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::size, detail::size_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::difference, detail::difference_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::position,
-                std::pair<detail::difference_type, detail::difference_type>
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::dimension,
-                std::pair<detail::size_type, detail::size_type>
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::string, detail::string_type>,
+            boost::mpl::pair<type::position, std::pair<detail::difference_type, detail::difference_type>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::dimension, std::pair<detail::size_type, detail::size_type>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::string, detail::string_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::exception_string, detail::exception_string_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::path, boost::filesystem::path>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::exception_string, detail::exception_string_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::path, boost::filesystem::path>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui_encoder,
-                tetengo2::text::encoder<
-                    detail::internal_encoding_type, detail::ui_encoding_type
-                >
+                type::ui_encoder, tetengo2::text::encoder<detail::internal_encoding_type, detail::ui_encoding_type>
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::exception_encoder,
-                tetengo2::text::encoder<
-                    detail::internal_encoding_type,
-                    detail::exception_encoding_type
-                >
+                tetengo2::text::encoder<detail::internal_encoding_type, detail::exception_encoding_type>
             >,
         tetengo2::meta::assoc_list_end
         >>>>>>>>>
@@ -202,8 +171,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::gui_common::virtual_key,
                 tetengo2::gui::virtual_key<
-                    boost::mpl::at<type_list, type::string>::type,
-                    tetengo2::detail::stub::virtual_key
+                    boost::mpl::at<type_list, type::string>::type, tetengo2::detail::stub::virtual_key
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -230,18 +198,10 @@ namespace test_tetengo2 { namespace gui
     typedef
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::cursor::cursor_base,
-                tetengo2::gui::cursor::cursor_base<
-                    detail::cursor::cursor_details_type
-                >
+                type::cursor::cursor_base, tetengo2::gui::cursor::cursor_base<detail::cursor::cursor_details_type>
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::cursor::system,
-                tetengo2::gui::cursor::system<
-                    detail::cursor::cursor_details_type
-                >
-            >,
+            boost::mpl::pair<type::cursor::system, tetengo2::gui::cursor::system<detail::cursor::cursor_details_type>>,
         tetengo2::meta::assoc_list_end
         >>
         cursor_type_list;
@@ -265,22 +225,10 @@ namespace test_tetengo2 { namespace gui
 
     //! The unit type list.
     typedef
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::unit_details, detail::unit::unit_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::unit::unit_details, detail::unit::unit_details_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::unit::em,
-                tetengo2::gui::unit::em<
-                    int, int, detail::unit::unit_details_type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::unit::pixel,
-                 tetengo2::gui::unit::pixel<int, int>
-            >,
+            boost::mpl::pair<type::unit::em, tetengo2::gui::unit::em<int, int, detail::unit::unit_details_type>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::pixel, tetengo2::gui::unit::pixel<int, int>>,
         tetengo2::meta::assoc_list_end
         >>>
         unit_type_list;
@@ -309,14 +257,8 @@ namespace test_tetengo2 { namespace gui
     {
         typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef tetengo2::detail::stub::drawing drawing_details_type;
-        typedef
-            tetengo2::gui::drawing::background<drawing_details_type>
-            background_type;
-        typedef
-            tetengo2::gui::drawing::transparent_background<
-                drawing_details_type
-            >
-            transparent_background_type;
+        typedef tetengo2::gui::drawing::background<drawing_details_type> background_type;
+        typedef tetengo2::gui::drawing::transparent_background<drawing_details_type> transparent_background_type;
         typedef
             tetengo2::gui::drawing::font<
                 boost::mpl::at<type_list, type::string>::type,
@@ -325,57 +267,35 @@ namespace test_tetengo2 { namespace gui
             >
             font_type;
         typedef
-            tetengo2::gui::drawing::picture<
-                boost::mpl::at<type_list, type::size>::type,
-                drawing_details_type
-            >
+            tetengo2::gui::drawing::picture<boost::mpl::at<type_list, type::size>::type, drawing_details_type>
             picture_type;
         typedef drawing_details_type::canvas_details_type canvas_details_type;
-        typedef
-            drawing_details_type::canvas_details_ptr_type
-            canvas_details_ptr_type;
+        typedef drawing_details_type::canvas_details_ptr_type canvas_details_ptr_type;
     }}
 #endif
 
     //! The drawing type list.
     typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::color, detail::drawing::color_type
-            >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::color, detail::drawing::color_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::drawing::system_color_set,
                 tetengo2::gui::drawing::system_color_set<
-                    detail::drawing::color_type,
-                    detail::drawing::drawing_details_type
+                    detail::drawing::color_type, detail::drawing::drawing_details_type
                 >
             >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::background, detail::drawing::background_type
-            >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::background, detail::drawing::background_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::drawing::solid_background,
                 tetengo2::gui::drawing::solid_background<
-                    detail::drawing::color_type,
-                    detail::drawing::drawing_details_type
+                    detail::drawing::color_type, detail::drawing::drawing_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::transparent_background,
-                detail::drawing::transparent_background_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::font, detail::drawing::font_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::picture, detail::drawing::picture_type
-            >,
+            boost::mpl::pair<type::drawing::transparent_background, detail::drawing::transparent_background_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::font, detail::drawing::font_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::picture, detail::drawing::picture_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::drawing::picture_reader,
@@ -386,15 +306,9 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::canvas_details,
-                detail::drawing::canvas_details_type
-            >,
+            boost::mpl::pair<type::drawing::canvas_details, detail::drawing::canvas_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::canvas_details_ptr,
-                detail::drawing::canvas_details_ptr_type
-            >,
+            boost::mpl::pair<type::drawing::canvas_details_ptr, detail::drawing::canvas_details_ptr_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::drawing::canvas,
@@ -443,44 +357,28 @@ namespace test_tetengo2 { namespace gui
     //! The observer set type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::observer_set::window_observer_set,
-                tetengo2::gui::message::window_observer_set
-            >,
+            boost::mpl::pair<type::observer_set::window_observer_set, tetengo2::gui::message::window_observer_set>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::observer_set::focus_observer_set,
-                tetengo2::gui::message::focus_observer_set
-            >,
+            boost::mpl::pair<type::observer_set::focus_observer_set, tetengo2::gui::message::focus_observer_set>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::observer_set::paint_observer_set,
                 tetengo2::gui::message::paint_observer_set<
-                    boost::mpl::at<
-                        drawing_type_list, type::drawing::canvas
-                    >::type
+                    boost::mpl::at<drawing_type_list, type::drawing::canvas>::type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::observer_set::keyboard_observer_set,
                 tetengo2::gui::message::keyboard_observer_set<
-                    boost::mpl::at<
-                        gui_common_type_list, type::gui_common::virtual_key
-                    >::type,
+                    boost::mpl::at<gui_common_type_list, type::gui_common::virtual_key>::type,
                     boost::mpl::at<type_list, type::string>::type::value_type
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::observer_set::mouse_observer_set,
-                tetengo2::gui::message::mouse_observer_set
-            >,
+            boost::mpl::pair<type::observer_set::mouse_observer_set, tetengo2::gui::message::mouse_observer_set>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::observer_set::menu_observer_set,
-                tetengo2::gui::message::menu_observer_set
-            >,
+            boost::mpl::pair<type::observer_set::menu_observer_set, tetengo2::gui::message::menu_observer_set>,
         tetengo2::meta::assoc_list_end
         >>>>>>
         observer_set_type_list;
@@ -507,9 +405,7 @@ namespace test_tetengo2 { namespace gui
     {
         typedef
             tetengo2::gui::menu::shortcut_key<
-                boost::mpl::at<
-                    gui_common_type_list, type::gui_common::virtual_key
-                >::type
+                boost::mpl::at<gui_common_type_list, type::gui_common::virtual_key>::type
             >
             shortcut_key_type;
         typedef
@@ -517,47 +413,26 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<type_list, type::string>::type,
                 shortcut_key_type,
                 boost::mpl::at<type_list, type::ui_encoder>::type,
-                boost::mpl::at<
-                    observer_set_type_list,
-                    type::observer_set::menu_observer_set
-                >::type
+                boost::mpl::at<observer_set_type_list, type::observer_set::menu_observer_set>::type
             >
             menu_traits_type;
         typedef tetengo2::detail::stub::menu menu_details_type;
+        typedef tetengo2::gui::menu::menu_base<menu_traits_type, menu_details_type> menu_base_type;
         typedef
-            tetengo2::gui::menu::menu_base<
-                menu_traits_type, menu_details_type
-            >
-            menu_base_type;
-        typedef
-            tetengo2::gui::menu::shortcut_key_table<
-                shortcut_key_type, menu_base_type, menu_details_type
-            >
+            tetengo2::gui::menu::shortcut_key_table<shortcut_key_type, menu_base_type, menu_details_type>
             shortcut_key_table_type;
     }}
 #endif
 
     //! The menu type list.
     typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::menu::shortcut_key, detail::menu::shortcut_key_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::menu::menu_details, detail::menu::menu_details_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::menu::menu_base, detail::menu::menu_base_type
-            >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::menu::shortcut_key, detail::menu::shortcut_key_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::menu::menu_details, detail::menu::menu_details_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::menu::menu_base, detail::menu::menu_base_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu::abstract_popup,
-                tetengo2::gui::menu::abstract_popup<
-                    detail::menu::menu_traits_type,
-                    detail::menu::menu_details_type
-                >
+                tetengo2::gui::menu::abstract_popup<detail::menu::menu_traits_type, detail::menu::menu_details_type>
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
@@ -571,39 +446,24 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu::popup,
-                tetengo2::gui::menu::popup<
-                    detail::menu::menu_traits_type,
-                    detail::menu::menu_details_type
-                >
+                tetengo2::gui::menu::popup<detail::menu::menu_traits_type, detail::menu::menu_details_type>
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu::command,
-                tetengo2::gui::menu::command<
-                    detail::menu::menu_traits_type,
-                    detail::menu::menu_details_type
-                >
+                tetengo2::gui::menu::command<detail::menu::menu_traits_type, detail::menu::menu_details_type>
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::menu::separator,
-                tetengo2::gui::menu::separator<
-                    detail::menu::menu_traits_type,
-                    detail::menu::menu_details_type
-                >
+                tetengo2::gui::menu::separator<detail::menu::menu_traits_type, detail::menu::menu_details_type>
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::menu::recursive_iterator,
-                tetengo2::gui::menu::recursive_iterator<
-                    detail::menu::menu_base_type
-                >
+                type::menu::recursive_iterator, tetengo2::gui::menu::recursive_iterator<detail::menu::menu_base_type>
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::menu::shortcut_key_table,
-                detail::menu::shortcut_key_table_type
-            >,
+            boost::mpl::pair<type::menu::shortcut_key_table, detail::menu::shortcut_key_table_type>,
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>
         menu_type_list;
@@ -630,37 +490,19 @@ namespace test_tetengo2 { namespace gui
     {
         typedef
             tetengo2::gui::widget::traits::widget_traits<
-                boost::mpl::at<
-                    drawing_type_list, type::drawing::widget_canvas
-                >::type,
-                boost::mpl::at<
-                    gui_common_type_list, type::gui_common::alert
-                >::type,
+                boost::mpl::at<drawing_type_list, type::drawing::widget_canvas>::type,
+                boost::mpl::at<gui_common_type_list, type::gui_common::alert>::type,
                 boost::mpl::at<type_list, type::position>::type,
                 boost::mpl::at<type_list, type::dimension>::type,
                 boost::mpl::at<type_list, type::string>::type,
                 boost::mpl::at<type_list, type::ui_encoder>::type,
-                boost::mpl::at<
-                    drawing_type_list, type::drawing::background
-                >::type,
+                boost::mpl::at<drawing_type_list, type::drawing::background>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::font>::type,
                 boost::mpl::at<cursor_type_list, type::cursor::system>::type,
-                boost::mpl::at<
-                    observer_set_type_list,
-                    type::observer_set::focus_observer_set
-                >::type,
-                boost::mpl::at<
-                    observer_set_type_list,
-                    type::observer_set::paint_observer_set
-                >::type,
-                boost::mpl::at<
-                    observer_set_type_list,
-                    type::observer_set::keyboard_observer_set
-                >::type,
-                boost::mpl::at<
-                    observer_set_type_list,
-                    type::observer_set::mouse_observer_set
-                >::type
+                boost::mpl::at<observer_set_type_list, type::observer_set::focus_observer_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::keyboard_observer_set>::type,
+                boost::mpl::at<observer_set_type_list, type::observer_set::mouse_observer_set>::type
             >
             widget_traits_type;
         typedef
@@ -670,77 +512,44 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::message::window_observer_set
             >
             abstract_window_traits_type;
-        typedef
-            tetengo2::gui::widget::traits::window_traits<
-                abstract_window_traits_type
-            >
-            window_traits_type;
+        typedef tetengo2::gui::widget::traits::window_traits<abstract_window_traits_type> window_traits_type;
         typedef tetengo2::detail::stub::widget widget_details_type;
-        typedef
-            tetengo2::detail::stub::message_handler
-            message_handler_details_type;
+        typedef tetengo2::detail::stub::message_handler message_handler_details_type;
         typedef
             tetengo2::gui::widget::abstract_window<
-                abstract_window_traits_type,
-                widget_details_type,
-                message_handler_details_type
+                abstract_window_traits_type, widget_details_type, message_handler_details_type
             >
             abstract_window_type;
+        typedef tetengo2::detail::stub::message_loop message_loop_details_type;
         typedef
-            tetengo2::detail::stub::message_loop message_loop_details_type;
-        typedef
-            tetengo2::gui::message::dialog_message_loop<
-                abstract_window_type, message_loop_details_type
-            >
+            tetengo2::gui::message::dialog_message_loop<abstract_window_type, message_loop_details_type>
             dialog_message_loop_type;
-        typedef
-            tetengo2::gui::message::message_loop_break<
-                message_loop_details_type
-            >
-            message_loop_break_type;
+        typedef tetengo2::gui::message::message_loop_break<message_loop_details_type> message_loop_break_type;
         typedef
             tetengo2::gui::widget::traits::dialog_traits<
-                abstract_window_traits_type,
-                dialog_message_loop_type,
-                message_loop_break_type
+                abstract_window_traits_type, dialog_message_loop_type, message_loop_break_type
             >
             dialog_traits_type;
         typedef
             tetengo2::gui::widget::traits::control_traits<
-                widget_traits_type,
-                boost::mpl::at<drawing_type_list, type::drawing::color>::type
+                widget_traits_type, boost::mpl::at<drawing_type_list, type::drawing::color>::type
             >
             control_traits_type;
-        typedef
-            tetengo2::gui::widget::traits::button_traits<control_traits_type>
-            button_traits_type;
+        typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
         typedef
             tetengo2::gui::widget::traits::image_traits<
-                control_traits_type,
-                boost::mpl::at<
-                    drawing_type_list, type::drawing::picture
-                >::type
+                control_traits_type, boost::mpl::at<drawing_type_list, type::drawing::picture>::type
             >
             image_traits_type;
-        typedef
-            tetengo2::gui::widget::traits::label_traits<control_traits_type>
-            label_traits_type;
+        typedef tetengo2::gui::widget::traits::label_traits<control_traits_type> label_traits_type;
         typedef
             tetengo2::gui::widget::traits::link_label_traits<
                 label_traits_type,
-                boost::mpl::at<
-                    drawing_type_list, type::drawing::solid_background
-                >::type,
-                boost::mpl::at<
-                    drawing_type_list, type::drawing::system_color_set
-                >::type
+                boost::mpl::at<drawing_type_list, type::drawing::solid_background>::type,
+                boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type
             >
             link_label_traits_type;
-        typedef
-            tetengo2::gui::widget::traits::text_box_traits<
-                control_traits_type
-            >
-            text_box_traits_type;
+        typedef tetengo2::gui::widget::traits::text_box_traits<control_traits_type> text_box_traits_type;
     }}
 #endif
 
@@ -756,10 +565,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::widget::abstract_window,
-                detail::widget::abstract_window_type
-            >,
+            boost::mpl::pair<type::widget::abstract_window, detail::widget::abstract_window_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::window,
@@ -861,9 +667,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::common_dialog::file_open,
                 tetengo2::gui::common_dialog::file_open<
-                    boost::mpl::at<
-                        widget_type_list, type::widget::abstract_window
-                    >::type,
+                    boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
                     boost::mpl::at<type_list, type::string>::type,
                     boost::mpl::at<type_list, type::path>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
@@ -874,9 +678,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::common_dialog::file_save,
                 tetengo2::gui::common_dialog::file_save<
-                    boost::mpl::at<
-                        widget_type_list, type::widget::abstract_window
-                    >::type,
+                    boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
                     boost::mpl::at<type_list, type::string>::type,
                     boost::mpl::at<type_list, type::path>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
@@ -887,9 +689,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::common_dialog::message_box,
                 tetengo2::gui::common_dialog::message_box<
-                    boost::mpl::at<
-                        widget_type_list, type::widget::abstract_window
-                    >::type,
+                    boost::mpl::at<widget_type_list, type::widget::abstract_window>::type,
                     boost::mpl::at<type_list, type::string>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::common_dialog::common_dialog_details_type
