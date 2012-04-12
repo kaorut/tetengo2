@@ -19,16 +19,12 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::color
-        >::type
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type
         color_type;
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::solid_background
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::solid_background
         >::type
         background_type;
 
