@@ -51,9 +51,7 @@ namespace tetengo2 { namespace gui { namespace menu
         template <typename S>
         explicit popup(S&& text)
         :
-        base_type(
-            std::forward<S>(text), menu_details_type::create_popup_menu()
-        )
+        base_type(std::forward<S>(text), menu_details_type::create_popup_menu())
         {}
 
         /*!

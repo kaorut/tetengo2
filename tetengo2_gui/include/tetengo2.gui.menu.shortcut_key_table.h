@@ -44,22 +44,13 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef MenuDetails menu_details_type;
 
         //! The detail implementation type.
-        typedef
-            typename menu_details_type::shortcut_key_table_details_type
-            details_type;
+        typedef typename menu_details_type::shortcut_key_table_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename menu_details_type::shortcut_key_table_details_ptr_type
-            details_ptr_type;
+        typedef typename menu_details_type::shortcut_key_table_details_ptr_type details_ptr_type;
 
         //! The entry type.
-        typedef
-            std::pair<
-                shortcut_key_type, 
-                typename cpp11::reference_wrapper<const menu_base_type>::type
-            >
-            entry_type;
+        typedef std::pair<shortcut_key_type, typename cpp11::reference_wrapper<const menu_base_type>::type> entry_type;
 
         //! The iterator type.
         typedef typename std::vector<entry_type>::const_iterator iterator;
@@ -73,11 +64,7 @@ namespace tetengo2 { namespace gui { namespace menu
         shortcut_key_table()
         :
         m_entries(),
-        m_p_details(
-            menu_details_type::template create_shortcut_key_table<
-                entry_type
-            >()
-        )
+        m_p_details(menu_details_type::template create_shortcut_key_table<entry_type>())
         {}
 
         /*!
@@ -89,10 +76,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \param last  A last position among menus.
         */
         template <typename ForwardIterator>
-        shortcut_key_table(
-            const ForwardIterator first,
-            const ForwardIterator last
-        )
+        shortcut_key_table(const ForwardIterator first, const ForwardIterator last)
         :
         m_entries(build_entries(first, last)),
         m_p_details(menu_details_type::create_shortcut_key_table(first, last))
@@ -149,10 +133,7 @@ namespace tetengo2 { namespace gui { namespace menu
         // static functions
 
         template <typename ForwardIterator>
-        static std::vector<entry_type> build_entries(
-            const ForwardIterator first,
-            const ForwardIterator last
-        )
+        static std::vector<entry_type> build_entries(const ForwardIterator first, const ForwardIterator last)
         {
             std::vector<entry_type> entries;
             entries.reserve(std::distance(first, last));

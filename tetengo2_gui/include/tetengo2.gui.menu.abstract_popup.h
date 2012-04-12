@@ -55,22 +55,16 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef typename base_type::iterator iterator;
 
         //! The const recursive iterator type.
-        typedef
-            typename base_type::const_recursive_iterator_type
-            const_recursive_iterator_type;
+        typedef typename base_type::const_recursive_iterator_type const_recursive_iterator_type;
 
         //! The recursive iterator type.
-        typedef
-            typename base_type::recursive_iterator_type
-            recursive_iterator_type;
+        typedef typename base_type::recursive_iterator_type recursive_iterator_type;
 
         //! The detail implementation type.
         typedef typename menu_details_type::menu_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename menu_details_type::menu_details_ptr_type
-            details_ptr_type;
+        typedef typename menu_details_type::menu_details_ptr_type details_ptr_type;
 
 
     protected:
@@ -165,19 +159,10 @@ namespace tetengo2 { namespace gui { namespace menu
             return recursive_iterator_type();
         }
 
-        virtual void insert_impl(
-            const iterator             offset,
-            std::unique_ptr<base_type> p_menu
-        )
+        virtual void insert_impl(const iterator offset, std::unique_ptr<base_type> p_menu)
         {
             if (!p_menu)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument(
-                        "The unique pointer to a menu is NULL."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The unique pointer to a menu is NULL."));
 
             menu_details_type::insert_menu(*this, offset, *p_menu, encoder());
 
