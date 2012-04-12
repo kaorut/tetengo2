@@ -42,9 +42,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> backspace()
         {
-            return std::pair<code_type, String>(
-                VK_BACK, String(TETENGO2_TEXT("BackSpace"))
-            );
+            return std::pair<code_type, String>(VK_BACK, String(TETENGO2_TEXT("BackSpace")));
         }
 
         //! Returns the key code and string for Tab.
@@ -53,9 +51,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> tab()
         {
-            return std::pair<code_type, String>(
-                VK_TAB, String(TETENGO2_TEXT("Tab"))
-            );
+            return std::pair<code_type, String>(VK_TAB, String(TETENGO2_TEXT("Tab")));
         }
 
         //! Returns the key code and string for Enter.
@@ -64,9 +60,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> enter()
         {
-            return std::pair<code_type, String>(
-                VK_RETURN, String(TETENGO2_TEXT("Enter"))
-            );
+            return std::pair<code_type, String>(VK_RETURN, String(TETENGO2_TEXT("Enter")));
         }
 
         //! Returns the key code and string for Shift.
@@ -75,9 +69,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> shift()
         {
-            return std::pair<code_type, String>(
-                VK_SHIFT, String(TETENGO2_TEXT("Shift"))
-            );
+            return std::pair<code_type, String>(VK_SHIFT, String(TETENGO2_TEXT("Shift")));
         }
 
         //! Returns the key code and string for Control.
@@ -86,9 +78,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> control()
         {
-            return std::pair<code_type, String>(
-                VK_CONTROL, String(TETENGO2_TEXT("Ctrl"))
-            );
+            return std::pair<code_type, String>(VK_CONTROL, String(TETENGO2_TEXT("Ctrl")));
         }
 
         //! Returns the key code and string for Meta.
@@ -97,9 +87,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> meta()
         {
-            return std::pair<code_type, String>(
-                VK_MENU, String(TETENGO2_TEXT("Alt"))
-            );
+            return std::pair<code_type, String>(VK_MENU, String(TETENGO2_TEXT("Alt")));
         }
 
         //! Returns the key code and string for Escape.
@@ -108,9 +96,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> escape()
         {
-            return std::pair<code_type, String>(
-                VK_ESCAPE, String(TETENGO2_TEXT("Esc"))
-            );
+            return std::pair<code_type, String>(VK_ESCAPE, String(TETENGO2_TEXT("Esc")));
         }
 
         //! Returns the key code and string for Space.
@@ -119,9 +105,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> space()
         {
-            return std::pair<code_type, String>(
-                VK_SPACE, String(TETENGO2_TEXT("Space"))
-            );
+            return std::pair<code_type, String>(VK_SPACE, String(TETENGO2_TEXT("Space")));
         }
 
         //! Returns the key code and string for PageUp.
@@ -130,9 +114,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> page_up()
         {
-            return std::pair<code_type, String>(
-                VK_PRIOR, String(TETENGO2_TEXT("PageUp"))
-            );
+            return std::pair<code_type, String>(VK_PRIOR, String(TETENGO2_TEXT("PageUp")));
         }
 
         //! Returns the key code and string for PageDown.
@@ -141,9 +123,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> page_down()
         {
-            return std::pair<code_type, String>(
-                VK_NEXT, String(TETENGO2_TEXT("PageDown"))
-            );
+            return std::pair<code_type, String>(VK_NEXT, String(TETENGO2_TEXT("PageDown")));
         }
 
         //! Returns the key code and string for End.
@@ -152,9 +132,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> end()
         {
-            return std::pair<code_type, String>(
-                VK_END, String(TETENGO2_TEXT("End"))
-            );
+            return std::pair<code_type, String>(VK_END, String(TETENGO2_TEXT("End")));
         }
 
         //! Returns the key code and string for Home.
@@ -163,9 +141,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> home()
         {
-            return std::pair<code_type, String>(
-                VK_HOME, String(TETENGO2_TEXT("Home"))
-            );
+            return std::pair<code_type, String>(VK_HOME, String(TETENGO2_TEXT("Home")));
         }
 
         //! Returns the key code and string for Left.
@@ -174,9 +150,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> left()
         {
-            return std::pair<code_type, String>(
-                VK_LEFT, String(TETENGO2_TEXT("Left"))
-            );
+            return std::pair<code_type, String>(VK_LEFT, String(TETENGO2_TEXT("Left")));
         }
 
         //! Returns the key code and string for Up.
@@ -185,9 +159,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> up()
         {
-            return std::pair<code_type, String>(
-                VK_UP, String(TETENGO2_TEXT("Up"))
-            );
+            return std::pair<code_type, String>(VK_UP, String(TETENGO2_TEXT("Up")));
         }
 
         //! Returns the key code and string for Right.
@@ -196,9 +168,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> right()
         {
-            return std::pair<code_type, String>(
-                VK_RIGHT, String(TETENGO2_TEXT("Right"))
-            );
+            return std::pair<code_type, String>(VK_RIGHT, String(TETENGO2_TEXT("Right")));
         }
 
         //! Returns the key code and string for Down.
@@ -207,9 +177,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> down()
         {
-            return std::pair<code_type, String>(
-                VK_DOWN, String(TETENGO2_TEXT("Down"))
-            );
+            return std::pair<code_type, String>(VK_DOWN, String(TETENGO2_TEXT("Down")));
         }
 
         //! Returns the key code and string for Insert.
@@ -218,9 +186,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> insert()
         {
-            return std::pair<code_type, String>(
-                VK_INSERT, String(TETENGO2_TEXT("Ins"))
-            );
+            return std::pair<code_type, String>(VK_INSERT, String(TETENGO2_TEXT("Ins")));
         }
 
         //! Returns the key code and string for Delete.
@@ -229,9 +195,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> del()
         {
-            return std::pair<code_type, String>(
-                VK_DELETE, String(TETENGO2_TEXT("Del"))
-            );
+            return std::pair<code_type, String>(VK_DELETE, String(TETENGO2_TEXT("Del")));
         }
 
         //! Returns the key code and string for '0'.
@@ -564,9 +528,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f1()
         {
-            return std::pair<code_type, String>(
-                VK_F1, String(TETENGO2_TEXT("F1"))
-            );
+            return std::pair<code_type, String>(VK_F1, String(TETENGO2_TEXT("F1")));
         }
 
         //! Returns the key code and string for F2.
@@ -575,9 +537,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f2()
         {
-            return std::pair<code_type, String>(
-                VK_F2, String(TETENGO2_TEXT("F2"))
-            );
+            return std::pair<code_type, String>(VK_F2, String(TETENGO2_TEXT("F2")));
         }
 
         //! Returns the key code and string for F3.
@@ -586,9 +546,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f3()
         {
-            return std::pair<code_type, String>(
-                VK_F3, String(TETENGO2_TEXT("F3"))
-            );
+            return std::pair<code_type, String>(VK_F3, String(TETENGO2_TEXT("F3")));
         }
 
         //! Returns the key code and string for F4.
@@ -597,9 +555,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f4()
         {
-            return std::pair<code_type, String>(
-                VK_F4, String(TETENGO2_TEXT("F4"))
-            );
+            return std::pair<code_type, String>(VK_F4, String(TETENGO2_TEXT("F4")));
         }
 
         //! Returns the key code and string for F5.
@@ -608,9 +564,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f5()
         {
-            return std::pair<code_type, String>(
-                VK_F5, String(TETENGO2_TEXT("F5"))
-            );
+            return std::pair<code_type, String>(VK_F5, String(TETENGO2_TEXT("F5")));
         }
 
         //! Returns the key code and string for F6.
@@ -619,9 +573,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f6()
         {
-            return std::pair<code_type, String>(
-                VK_F6, String(TETENGO2_TEXT("F6"))
-            );
+            return std::pair<code_type, String>(VK_F6, String(TETENGO2_TEXT("F6")));
         }
 
         //! Returns the key code and string for F7.
@@ -630,9 +582,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f7()
         {
-            return std::pair<code_type, String>(
-                VK_F7, String(TETENGO2_TEXT("F7"))
-            );
+            return std::pair<code_type, String>(VK_F7, String(TETENGO2_TEXT("F7")));
         }
 
         //! Returns the key code and string for F8.
@@ -641,9 +591,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f8()
         {
-            return std::pair<code_type, String>(
-                VK_F8, String(TETENGO2_TEXT("F8"))
-            );
+            return std::pair<code_type, String>(VK_F8, String(TETENGO2_TEXT("F8")));
         }
 
         //! Returns the key code and string for F9.
@@ -652,9 +600,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f9()
         {
-            return std::pair<code_type, String>(
-                VK_F9, String(TETENGO2_TEXT("F9"))
-            );
+            return std::pair<code_type, String>(VK_F9, String(TETENGO2_TEXT("F9")));
         }
 
         //! Returns the key code and string for F10.
@@ -663,9 +609,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f10()
         {
-            return std::pair<code_type, String>(
-                VK_F10, String(TETENGO2_TEXT("F10"))
-            );
+            return std::pair<code_type, String>(VK_F10, String(TETENGO2_TEXT("F10")));
         }
 
         //! Returns the key code and string for F11.
@@ -674,9 +618,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f11()
         {
-            return std::pair<code_type, String>(
-                VK_F11, String(TETENGO2_TEXT("F11"))
-            );
+            return std::pair<code_type, String>(VK_F11, String(TETENGO2_TEXT("F11")));
         }
 
         //! Returns the key code and string for F12.
@@ -685,9 +627,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String>
         static std::pair<code_type, String> f12()
         {
-            return std::pair<code_type, String>(
-                VK_F12, String(TETENGO2_TEXT("F12"))
-            );
+            return std::pair<code_type, String>(VK_F12, String(TETENGO2_TEXT("F12")));
         }
 
         /*!
@@ -702,10 +642,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The string representation of combined keys.
         */
         template <typename String, typename InputIterator>
-        static String to_combined_string(
-            const InputIterator first,
-            const InputIterator last
-        )
+        static String to_combined_string(const InputIterator first, const InputIterator last)
         {
             String string;
             for (InputIterator i = first; i != last; ++i)

@@ -46,9 +46,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static Value pixels_to_em(const PixelValue pixel_value)
         {
             const ::LOGFONTW& message_font = get_message_font();
-            return to_value<Value, PixelValue>(
-                pixel_value, -message_font.lfHeight
-            );
+            return to_value<Value, PixelValue>(pixel_value, -message_font.lfHeight);
         }
 
         /*!
@@ -65,9 +63,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static PixelValue em_to_pixels(const Value& value)
         {
             const ::LOGFONTW& message_font = get_message_font();
-            return to_pixel_value<PixelValue, Value>(
-                value * -message_font.lfHeight
-            );
+            return to_pixel_value<PixelValue, Value>(value * -message_font.lfHeight);
         }
 
 
@@ -79,23 +75,18 @@ namespace tetengo2 { namespace detail { namespace windows
             const PixelValue numerator,
             const PixelValue denominator,
             typename std::enable_if<
-                std::is_convertible<
-                    boost::rational<typename Value::int_type>, Value
-                >::value
+                std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
             >::type* = NULL
         )
         {
-            return boost::rational<typename Value::int_type>(
-                numerator, denominator
-            );
+            return boost::rational<typename Value::int_type>(numerator, denominator);
         }
 
         template <typename Value, typename PixelValue>
         static Value to_value(
             const PixelValue numerator,
             const PixelValue denominator,
-            typename std::enable_if<std::is_arithmetic<Value>::value>::type* =
-                NULL
+            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
         )
         {
             return numerator / denominator;
@@ -105,9 +96,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static PixelValue to_pixel_value(
             const Value& value,
             typename std::enable_if<
-                std::is_convertible<
-                    boost::rational<typename Value::int_type>, Value
-                >::value
+                std::is_convertible<boost::rational<typename Value::int_type>, Value>::value
             >::type* = NULL
         )
         {
@@ -117,8 +106,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename PixelValue, typename Value>
         static PixelValue to_pixel_value(
             const Value value,
-            typename std::enable_if<std::is_arithmetic<Value>::value>::type* =
-                NULL
+            typename std::enable_if<std::is_arithmetic<Value>::value>::type* = NULL
         )
         {
             return static_cast<PixelValue>(value);

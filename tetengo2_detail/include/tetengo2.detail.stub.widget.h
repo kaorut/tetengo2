@@ -88,8 +88,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget.
-                          When uninitialized, the window has no parent.
+            \param parent A parent widget. When uninitialized, the window has no parent.
 
             \return A unique pointer to a window.
 
@@ -235,7 +234,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::logic_error When the widget has no parent.
         */
         template <typename Widget>
-        static Widget& parent(const Widget& widget)
+        static Widget& parent(Widget& widget)
         {
             if (!has_parent(widget))
                 BOOST_THROW_EXCEPTION(std::logic_error("The widget has no parent."));
@@ -255,7 +254,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::logic_error When the widget has no root ancestor.
         */
         template <typename Widget>
-        static Widget& root_ancestor(const Widget& widget)
+        static Widget& root_ancestor(Widget& widget)
         {
             return parent(widget);
         }
@@ -382,7 +381,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a position cannot be calculated.
         */
         template <typename Position, typename Widget, typename ParentWidget>
-        static Position dialog_position(Widget& widget, ParentWidget& parent)
+        static Position dialog_position(const Widget& widget, const ParentWidget& parent)
         {
             return position<Position>(parent);
         }
@@ -670,10 +669,10 @@ namespace tetengo2 { namespace detail { namespace stub
             \retval true  When the widget accepts a focus.
             \retval false Otherwise.
 
-            \throw std::system_error When the widget focusability cannot be obtained.
+            \throw std::system_error When the focusable status cannot be obtained.
         */
         template <typename Widget>
-        static bool focusable(Widget& widget)
+        static bool focusable(const Widget& widget)
         {
             return std::get<details_focusable>(*widget.details());
         }
@@ -707,7 +706,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the read-only status cannot be obtained.
         */
         template <typename Widget>
-        static bool read_only(Widget& widget)
+        static bool read_only(const Widget& widget)
         {
             return std::get<details_read_only>(*widget.details());
         }
@@ -753,7 +752,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the target cannot be opened.
         */
         template <typename Widget, typename String>
-        static void open_target(Widget& widget, const String& target)
+        static void open_target(const Widget& widget, const String& target)
         {}
 
 

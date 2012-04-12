@@ -475,7 +475,7 @@ namespace tetengo2 { namespace detail { namespace windows
         namespace control
         {
             template <typename Button>
-            static boost::optional< ::LRESULT> on_tetengo2_command(
+            boost::optional< ::LRESULT> on_tetengo2_command(
                 Button&        button,
                 const ::WPARAM w_param,
                 const ::LPARAM l_param
@@ -499,9 +499,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::HDC device_context = reinterpret_cast< ::HDC>(w_param);
                 if (!control.paint_observer_set().paint_background().empty())
                 {
-                    typename Control::base_type::widget_canvas_type canvas(
-                        device_context
-                    );
+                    typename Control::base_type::widget_canvas_type canvas(device_context);
                     control.paint_observer_set().paint_background()(canvas);
                 }
 
@@ -520,47 +518,32 @@ namespace tetengo2 { namespace detail { namespace windows
                     {
                         BOOST_THROW_EXCEPTION(
                             std::system_error(
-                                std::error_code(
-                                    ERROR_FUNCTION_FAILED, win32_category()
-                                ),
-                                "Can't set text color."
+                                std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't set text color."
                             )
                         );
                     }
                 }
-                const int previous_background_mode =
-                    ::SetBkMode(device_context, TRANSPARENT);
+                const int previous_background_mode = ::SetBkMode(device_context, TRANSPARENT);
                 if (previous_background_mode == 0)
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
-                            std::error_code(
-                                ERROR_FUNCTION_FAILED, win32_category()
-                            ),
-                            "Can't set background mode."
+                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't set background mode."
                         )
                     );
                 }
 
-                return boost::make_optional(
-                    reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH))
-                );
+                return boost::make_optional(reinterpret_cast< ::LRESULT>(::GetStockObject(NULL_BRUSH)));
             }
 
             template <typename Control>
-            boost::optional< ::LRESULT> on_set_focus(
-                Control&       control,
-                const ::WPARAM w_param,
-                const ::LPARAM l_param
-            )
+            boost::optional< ::LRESULT> on_set_focus(Control& control, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 if (control.has_parent())
                 {
-                    typename Control::base_type& dialog =
-                        control.root_ancestor();
+                    typename Control::base_type& dialog = control.root_ancestor();
 
-                    std::get<2>(*dialog.details()) =
-                        std::get<0>(*control.details()).get();
+                    std::get<2>(*dialog.details()) = std::get<0>(*control.details()).get();
                 }
 
                 return boost::none;
@@ -614,9 +597,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
+            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
 
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
@@ -761,15 +742,12 @@ namespace tetengo2 { namespace detail { namespace windows
             \return A message handler map.
         */
         template <typename AbstractWindow>
-        static message_handler_map_type
-        make_abstract_window_message_handler_map(
+        static message_handler_map_type make_abstract_window_message_handler_map(
             AbstractWindow&            abstract_window,
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
+            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
 
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
@@ -797,9 +775,7 @@ namespace tetengo2 { namespace detail { namespace windows
             );
             map[WM_QUERYENDSESSION].push_back(
                 TETENGO2_CPP11_BIND(
-                    detail::abstract_window::on_query_end_session<
-                        AbstractWindow
-                    >,
+                    detail::abstract_window::on_query_end_session<AbstractWindow>,
                     cpp11::ref(abstract_window),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
@@ -833,9 +809,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
+            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
 
             map[WM_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(
@@ -847,9 +821,7 @@ namespace tetengo2 { namespace detail { namespace windows
             );
             map[WM_SYSCOMMAND].push_back(
                 TETENGO2_CPP11_BIND(
-                    detail::dialog::on_syscommand<
-                        Dialog, widget_details_type
-                    >,
+                    detail::dialog::on_syscommand<Dialog, widget_details_type>,
                     cpp11::ref(dialog),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
@@ -902,9 +874,7 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            message_handler_map_type map(
-                std::forward<message_handler_map_type>(initial_map)
-            );
+            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
 
             map[detail::WM_TETENGO2_COMMAND].push_back(
                 TETENGO2_CPP11_BIND(

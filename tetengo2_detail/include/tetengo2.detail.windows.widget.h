@@ -77,10 +77,7 @@ namespace tetengo2 { namespace detail { namespace windows
         //! The widget details type.
         typedef
             std::tuple<
-                std::unique_ptr<
-                    typename std::remove_pointer< ::HWND>::type,
-                    detail::widget_deleter
-                >,
+                std::unique_ptr<typename std::remove_pointer< ::HWND>::type, detail::widget_deleter>,
                 ::WNDPROC,
                 ::HWND
             >
@@ -97,40 +94,29 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget.
-                          When uninitialized, the window has no parent.
+            \param parent A parent widget. When uninitialized, the window has no parent.
 
             \return A unique pointer to a window.
 
             \throw std::system_error When a window cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_window(
-            const boost::optional<Widget&>& parent = boost::none
-        )
+        static widget_details_ptr_type create_window(const boost::optional<Widget&>& parent = boost::none)
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't get the instance handle!"
+                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
                     )
                 );
             }
 
-            if (
-                !window_class_is_registered(
-                    window_class_name(), instance_handle
-                )
-            )
-            {
+            if (!window_class_is_registered(window_class_name(), instance_handle))
                 register_window_class_for_window<Widget>(instance_handle);
-            }
 
-            typename std::tuple_element<0, widget_details_type>::type
-            p_widget(
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
                 ::CreateWindowExW(
                     WS_EX_ACCEPTFILES | WS_EX_APPWINDOW,
                     window_class_name().c_str(),
@@ -140,11 +126,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent ?
-                        const_cast< ::HWND>(
-                            std::get<0>(*parent->details()).get()
-                        ) :
-                        HWND_DESKTOP,
+                    parent ? std::get<0>(*parent->details()).get() : HWND_DESKTOP,
                     NULL,
                     instance_handle,
                     NULL
@@ -153,17 +135,12 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't create a window!"
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a window!")
                 );
             }
 
             return make_unique<widget_details_type>(
-                std::move(p_widget),
-                &::DefWindowProcW,
-                static_cast< ::HWND>(NULL)
+                std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
             );
         }
 
@@ -172,37 +149,27 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget.
-                          When uninitialized, the dialog has no parent.
+            \param parent A parent widget. When uninitialized, the dialog has no parent.
 
             \return A unique pointer to a dialog.
 
             \throw std::system_error When a dialog cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_dialog(
-            const boost::optional<Widget&>& parent
-        )
+        static widget_details_ptr_type create_dialog(const boost::optional<Widget&>& parent)
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
             if (!instance_handle)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't get the instance handle!"
+                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
                     )
                 );
             }
 
-            if (
-                !window_class_is_registered(
-                    dialog_class_name(), instance_handle
-                )
-            )
-            {
+            if (!window_class_is_registered(dialog_class_name(), instance_handle))
                 register_window_class_for_dialog<Widget>(instance_handle);
-            }
 
             typename std::tuple_element<0, widget_details_type>::type
             p_widget(
@@ -215,11 +182,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent ?
-                        const_cast< ::HWND>(
-                            std::get<0>(*parent->details()).get()
-                        ) :
-                        HWND_DESKTOP,
+                    parent ? std::get<0>(*parent->details()).get() : HWND_DESKTOP,
                     NULL,
                     instance_handle,
                     NULL
@@ -228,19 +191,14 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't create a dialog!"
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a dialog!")
                 );
             }
 
             delete_system_menus(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget),
-                &::DefWindowProcW,
-                static_cast< ::HWND>(NULL)
+                std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
             );
         }
 
@@ -255,18 +213,12 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return A unique pointer to a button.
 
-            \throw std::invalid_argument When a default button already exists
-                                         and is_default is true.
-            \throw std::invalid_argument When a cancel button already exists
-                                         and is_cancel is true.
+            \throw std::invalid_argument When a default button already exists and is_default is true.
+            \throw std::invalid_argument When a cancel button already exists and is_cancel is true.
             \throw std::system_error     When a button cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_button(
-            const Widget& parent,
-            const bool    is_default,
-            const bool    is_cancel
-        )
+        static widget_details_ptr_type create_button(Widget& parent, const bool is_default, const bool is_cancel)
         {
             assert(!is_default || !is_cancel);
 
@@ -277,47 +229,18 @@ namespace tetengo2 { namespace detail { namespace windows
             ::HMENU id = NULL;
             if (is_default)
             {
-                if (
-                    ::GetDlgItem(
-                        const_cast< ::HWND>(
-                            std::get<0>(
-                                *parent.root_ancestor().details()
-                            ).get()
-                        ),
-                        IDOK
-                    )
-                )
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::invalid_argument(
-                            "Default button already exists."
-                        )
-                    );
-                }
+                if (::GetDlgItem(std::get<0>(*parent.root_ancestor().details()).get(), IDOK))
+                    BOOST_THROW_EXCEPTION(std::invalid_argument("Default button already exists."));
                 id = reinterpret_cast< ::HMENU>(IDOK);
             }
             else if (is_cancel)
             {
-                if (
-                    ::GetDlgItem(
-                        const_cast< ::HWND>(
-                            std::get<0>(
-                                *parent.root_ancestor().details()
-                            ).get()
-                        ),
-                        IDCANCEL
-                    )
-                )
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::invalid_argument("Cancel button already exists.")
-                    );
-                }
+                if (::GetDlgItem(std::get<0>(*parent.root_ancestor().details()).get(), IDCANCEL))
+                    BOOST_THROW_EXCEPTION(std::invalid_argument("Cancel button already exists."));
                 id = reinterpret_cast< ::HMENU>(IDCANCEL);
             }
 
-            typename std::tuple_element<0, widget_details_type>::type
-            p_widget(
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
                 ::CreateWindowExW(
                     0,
                     L"Button",
@@ -327,7 +250,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    const_cast< ::HWND>(std::get<0>(*parent.details()).get()),
+                    std::get<0>(*parent.details()).get(),
                     id,
                     ::GetModuleHandle(NULL),
                     NULL
@@ -336,20 +259,14 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't create a button!"
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a button!")
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure =
-                replace_window_procedure<Widget>(p_widget.get());
+            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget),
-                p_original_window_procedure,
-                static_cast< ::HWND>(NULL)
+                std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
             );
         }
 
@@ -365,10 +282,9 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When an image cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_image(const Widget& parent)
+        static widget_details_ptr_type create_image(Widget& parent)
         {
-            typename std::tuple_element<0, widget_details_type>::type
-            p_widget(
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
                 ::CreateWindowExW(
                     0,
                     L"Static",
@@ -378,7 +294,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    const_cast< ::HWND>(std::get<0>(*parent.details()).get()),
+                    std::get<0>(*parent.details()).get(),
                     NULL,
                     ::GetModuleHandle(NULL),
                     NULL
@@ -387,20 +303,14 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't create an image!"
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create an image!")
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure =
-                replace_window_procedure<Widget>(p_widget.get());
+            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget),
-                p_original_window_procedure,
-                static_cast< ::HWND>(NULL)
+                std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
             );
         }
 
@@ -416,10 +326,9 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When a label cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_label(const Widget& parent)
+        static widget_details_ptr_type create_label(Widget& parent)
         {
-            typename std::tuple_element<0, widget_details_type>::type
-            p_widget(
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
                 ::CreateWindowExW(
                     0,
                     L"Static",
@@ -429,7 +338,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    const_cast< ::HWND>(std::get<0>(*parent.details()).get()),
+                    std::get<0>(*parent.details()).get(),
                     NULL,
                     ::GetModuleHandle(NULL),
                     NULL
@@ -438,20 +347,14 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't create a label!"
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a label!")
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure =
-                replace_window_procedure<Widget>(p_widget.get());
+            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget),
-                p_original_window_procedure,
-                static_cast< ::HWND>(NULL)
+                std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
             );
         }
 
@@ -469,8 +372,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_text_box(Widget& parent)
         {
-            typename std::tuple_element<0, widget_details_type>::type
-            p_widget(
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
                     L"Edit",
@@ -480,7 +382,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    const_cast< ::HWND>(std::get<0>(*parent.details()).get()),
+                    std::get<0>(*parent.details()).get(),
                     NULL,
                     ::GetModuleHandle(NULL),
                     NULL
@@ -489,20 +391,14 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!p_widget)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't create a text box!"
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't create a text box!")
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure =
-                replace_window_procedure<Widget>(p_widget.get());
+            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
 
             return make_unique<widget_details_type>(
-                std::move(p_widget),
-                p_original_window_procedure,
-                static_cast< ::HWND>(NULL)
+                std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
             );
         }
 
@@ -518,12 +414,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void associate_to_native_window_system(Widget& widget)
         {
-            assert(
-                !::GetPropW(
-                    std::get<0>(*widget.details()).get(),
-                    property_key_for_cpp_instance().c_str()
-                )
-            );
+            assert(!::GetPropW(std::get<0>(*widget.details()).get(), property_key_for_cpp_instance().c_str()));
             const ::BOOL result =
                 ::SetPropW(
                     std::get<0>(*widget.details()).get(),
@@ -533,10 +424,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't set C++ instance."
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set C++ instance.")
                 );
             }
         }
@@ -554,10 +442,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static bool has_parent(const Widget& widget)
         {
-            return
-                ::GetParent(
-                    const_cast< ::HWND>(std::get<0>(*widget.details()).get())
-                );
+            return ::GetParent(const_cast< ::HWND>(std::get<0>(*widget.details()).get()));
         }
 
         /*!
@@ -569,26 +454,21 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The parent.
 
-            \throw std::logic_error When the widget has no parent.
+            \throw std::system_error When the widget has no parent.
         */
         template <typename Widget>
-        static Widget& parent(const Widget& widget)
+        static Widget& parent(Widget& widget)
         {
-            Widget* const p_parent =
-                p_widget_from<Widget>(
-                    ::GetParent(
-                        const_cast< ::HWND>(
-                            std::get<0>(*widget.details()).get()
-                        )
-                    )
-                );
-            if (!p_parent)
+            const ::HWND parent_handle = ::GetParent(std::get<0>(*widget.details()).get());
+            if (!parent_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::logic_error("The widget has no parent.")
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "The widget has no parent.")
                 );
             }
 
+            Widget* const p_parent = p_widget_from<Widget>(parent_handle);
+            assert(p_parent);
             return *p_parent;
         }
 
@@ -601,25 +481,22 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The root ancestor.
 
-            \throw std::logic_error When the widget has no root ancestor.
+            \throw std::system_error When the widget has no root ancestor.
         */
         template <typename Widget>
-        static Widget& root_ancestor(const Widget& widget)
+        static Widget& root_ancestor(Widget& widget)
         {
-            const ::HWND root_ancestor_handle =
-                ::GetAncestor(
-                    const_cast< ::HWND>(std::get<0>(*widget.details()).get()),
-                    GA_ROOT
-                );
+            const ::HWND root_ancestor_handle = ::GetAncestor(std::get<0>(*widget.details()).get(), GA_ROOT);
             if (!root_ancestor_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::logic_error("The widget has no root ancestor.")
+                    std::system_error(
+                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "The widget has no root ancestor."
+                    )
                 );
             }
 
-            Widget* const p_root_ancestor =
-                p_widget_from<Widget>(root_ancestor_handle);
+            Widget* const p_root_ancestor = p_widget_from<Widget>(root_ancestor_handle);
             assert(p_root_ancestor);
             return *p_root_ancestor;
         }
@@ -635,9 +512,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void set_enabled(Widget& widget, const bool enabled)
         {
-            ::EnableWindow(
-                std::get<0>(*widget.details()).get(), enabled ? TRUE : FALSE
-            );
+            ::EnableWindow(std::get<0>(*widget.details()).get(), enabled ? TRUE : FALSE);
         }
 
         /*!
@@ -652,10 +527,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static bool enabled(const Widget& widget)
         {
-            return
-                ::IsWindowEnabled(
-                    const_cast< ::HWND>(std::get<0>(*widget.details()).get())
-                ) == TRUE;
+            return ::IsWindowEnabled(const_cast< ::HWND>(std::get<0>(*widget.details()).get())) == TRUE;
         }
 
         /*!
@@ -669,10 +541,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void set_visible(Widget& widget, const bool visible)
         {
-            ::ShowWindow(
-                std::get<0>(*widget.details()).get(), visible ?
-                SW_SHOW : SW_HIDE
-            );
+            ::ShowWindow(std::get<0>(*widget.details()).get(), visible ? SW_SHOW : SW_HIDE);
             if (visible)
                 ::UpdateWindow(std::get<0>(*widget.details()).get());
         }
@@ -689,10 +558,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static bool visible(const Widget& widget)
         {
-            return
-                ::IsWindowVisible(
-                    const_cast< ::HWND>(std::get<0>(*widget.details()).get())
-                ) == TRUE;
+            return ::IsWindowVisible(const_cast< ::HWND>(std::get<0>(*widget.details()).get())) == TRUE;
         }
 
         /*!
@@ -714,27 +580,16 @@ namespace tetengo2 { namespace detail { namespace windows
             const ::BOOL result =
                 ::MoveWindow(
                     std::get<0>(*widget.details()).get(),
-                    gui::to_pixels<int>(
-                        gui::position<Position>::left(position)
-                    ),
-                    gui::to_pixels<int>(
-                        gui::position<Position>::top(position)
-                    ),
-                    gui::to_pixels<int>(
-                        gui::dimension<Dimension>::width(dim)
-                    ),
-                    gui::to_pixels<int>(
-                        gui::dimension<Dimension>::height(dim)
-                    ),
+                    gui::to_pixels<int>(gui::position<Position>::left(position)),
+                    gui::to_pixels<int>(gui::position<Position>::top(position)),
+                    gui::to_pixels<int>(gui::dimension<Dimension>::width(dim)),
+                    gui::to_pixels<int>(gui::dimension<Dimension>::height(dim)),
                     visible(widget) ? TRUE : FALSE
                 );
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't move the widget."
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't move the widget.")
                 );
             }
         }
@@ -755,29 +610,19 @@ namespace tetengo2 { namespace detail { namespace windows
         static Position position(const Widget& widget)
         {
             ::RECT rectangle = {};
-            if (
-                ::GetWindowRect(
-                    const_cast< ::HWND>(std::get<0>(*widget.details()).get()),
-                    &rectangle
-                ) == 0
-            )
+            if (::GetWindowRect(const_cast< ::HWND>(std::get<0>(*widget.details()).get()), &rectangle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't get window rectangle."
+                        std::error_code(::GetLastError(), win32_category()), "Can't get window rectangle."
                     )
                 );
             }
 
             typedef gui::position<Position> position_traits_type;
             return position_traits_type::make(
-                gui::to_unit<typename position_traits_type::left_type>(
-                    rectangle.left
-                ),
-                gui::to_unit<typename position_traits_type::top_type>(
-                    rectangle.top
-                )
+                gui::to_unit<typename position_traits_type::left_type>(rectangle.left),
+                gui::to_unit<typename position_traits_type::top_type>(rectangle.top)
             );
         }
 
@@ -796,22 +641,16 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When a position cannot be calculated.
         */
         template <typename Position, typename Widget, typename ParentWidget>
-        static Position dialog_position(Widget& widget, ParentWidget& parent)
+        static Position dialog_position(const Widget& widget, const ParentWidget& parent)
         {
             ::POINT point = {};
             const ::LONG x_margin = ::GetSystemMetrics(SM_CYFIXEDFRAME) * 2;
             const ::LONG y_margin = ::GetSystemMetrics(SM_CXFIXEDFRAME) * 2;
-            if (
-                ::ClientToScreen(
-                    std::get<0>(*parent.details()).get(), &point
-                ) == 0
-            )
+            if (::ClientToScreen(const_cast< ::HWND>(std::get<0>(*parent.details()).get()), &point) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            ERROR_FUNCTION_FAILED, win32_category()
-                        ),
+                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()),
                         "Can't get parent window client area position."
                     )
                 );
@@ -819,38 +658,25 @@ namespace tetengo2 { namespace detail { namespace windows
             point.x += x_margin;
             point.y += y_margin;
 
-            const ::HMONITOR monitor_handle =
-                ::MonitorFromPoint(point, MONITOR_DEFAULTTONEAREST);
+            const ::HMONITOR monitor_handle = ::MonitorFromPoint(point, MONITOR_DEFAULTTONEAREST);
             ::MONITORINFO monitor_info = {};
             monitor_info.cbSize = sizeof(::MONITORINFO);
             if (::GetMonitorInfoW(monitor_handle, &monitor_info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            ERROR_FUNCTION_FAILED, win32_category()
-                        ),
-                        "Can't get monitor information."
+                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't get monitor information."
                     )
                 );
             }
 
-            const typename Widget::dimension_type widget_dimension =
-                widget.dimension();
-            const ::LONG widget_width =
-                gui::to_pixels< ::LONG>(widget_dimension.first);
-            const ::LONG widget_height =
-                gui::to_pixels< ::LONG>(widget_dimension.second);
+            const typename Widget::dimension_type widget_dimension = widget.dimension();
+            const ::LONG widget_width = gui::to_pixels< ::LONG>(widget_dimension.first);
+            const ::LONG widget_height = gui::to_pixels< ::LONG>(widget_dimension.second);
             if (point.x + widget_width + x_margin > monitor_info.rcWork.right)
                 point.x = monitor_info.rcWork.right - widget_width - x_margin;
-            if (
-                point.y + widget_height + y_margin >
-                monitor_info.rcWork.bottom
-            )
-            {
-                point.y =
-                    monitor_info.rcWork.bottom - widget_height - y_margin;
-            }
+            if (point.y + widget_height + y_margin > monitor_info.rcWork.bottom)
+                point.y = monitor_info.rcWork.bottom - widget_height - y_margin;
             if (point.x - x_margin < monitor_info.rcWork.left)
                 point.x = monitor_info.rcWork.left + x_margin;
             if (point.y - y_margin < monitor_info.rcWork.top)
@@ -858,12 +684,8 @@ namespace tetengo2 { namespace detail { namespace windows
 
             typedef gui::position<Position> position_traits_type;
             return position_traits_type::make(
-                gui::to_unit<typename position_traits_type::left_type>(
-                    point.x
-                ),
-                gui::to_unit<typename position_traits_type::top_type>(
-                    point.y
-                )
+                gui::to_unit<typename position_traits_type::left_type>(point.x),
+                gui::to_unit<typename position_traits_type::top_type>(point.y)
             );
         }
 
@@ -883,8 +705,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static void set_dimension(Widget& widget, const Dimension& dimension)
         {
             assert(
-                gui::dimension<Dimension>::width(dimension) > 0 &&
-                gui::dimension<Dimension>::height(dimension) > 0
+                gui::dimension<Dimension>::width(dimension) > 0 && gui::dimension<Dimension>::height(dimension) > 0
             );
 
             const Position pos = position<Position>(widget);
@@ -893,21 +714,14 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::get<0>(*widget.details()).get(),
                     gui::to_pixels<int>(gui::position<Position>::left(pos)),
                     gui::to_pixels<int>(gui::position<Position>::top(pos)),
-                    gui::to_pixels<int>(
-                        gui::dimension<Dimension>::width(dimension)
-                    ),
-                    gui::to_pixels<int>(
-                        gui::dimension<Dimension>::height(dimension)
-                    ),
+                    gui::to_pixels<int>(gui::dimension<Dimension>::width(dimension)),
+                    gui::to_pixels<int>(gui::dimension<Dimension>::height(dimension)),
                     visible(widget) ? TRUE : FALSE
                 );
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't move widget."
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't move widget.")
                 );
             }
         }
@@ -928,17 +742,11 @@ namespace tetengo2 { namespace detail { namespace windows
         static Dimension dimension(const Widget& widget)
         {
             ::RECT rectangle = {};
-            if (
-                ::GetWindowRect(
-                    const_cast< ::HWND>(std::get<0>(*widget.details()).get()),
-                    &rectangle
-                ) == 0
-            )
+            if (::GetWindowRect(const_cast< ::HWND>(std::get<0>(*widget.details()).get()), &rectangle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't get window rectangle."
+                        std::error_code(::GetLastError(), win32_category()), "Can't get window rectangle."
                     )
                 );
             }
@@ -947,12 +755,8 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(rectangle.bottom - rectangle.top >= 0);
             typedef gui::dimension<Dimension> dimension_traits_type;
             return dimension_traits_type::make(
-                gui::to_unit<typename dimension_traits_type::width_type>(
-                    rectangle.right - rectangle.left
-                ),
-                gui::to_unit<typename dimension_traits_type::height_type>(
-                    rectangle.bottom - rectangle.top
-                )
+                gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
+                gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
             );
         }
 
@@ -969,10 +773,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When a client dimension cannot be set.
         */
         template <typename Position, typename Widget, typename Dimension>
-        static void set_client_dimension(
-            Widget&          widget,
-            const Dimension& client_dimension
-        )
+        static void set_client_dimension(Widget& widget, const Dimension& client_dimension)
         {
             assert(
                 gui::dimension<Dimension>::width(client_dimension) > 0 &&
@@ -980,26 +781,13 @@ namespace tetengo2 { namespace detail { namespace windows
             );
 
             const Position pos = position<Position>(widget);
-            const ::LONG_PTR window_style =
-                ::GetWindowLongPtrW(
-                    std::get<0>(*widget.details()).get(), GWL_STYLE
-                );
+            const ::LONG_PTR window_style = ::GetWindowLongPtrW(std::get<0>(*widget.details()).get(), GWL_STYLE);
             const ::LONG_PTR extended_window_style =
-                ::GetWindowLongPtrW(
-                    std::get<0>(*widget.details()).get(), GWL_EXSTYLE
-                );
-            const ::LONG left =
-                gui::to_pixels< ::LONG>(gui::position<Position>::left(pos));
-            const ::LONG top =
-                gui::to_pixels< ::LONG>(gui::position<Position>::top(pos));
-            const ::LONG width =
-                gui::to_pixels< ::LONG>(
-                    gui::dimension<Dimension>::width(client_dimension)
-                );
-            const ::LONG height =
-                gui::to_pixels< ::LONG>(
-                    gui::dimension<Dimension>::height(client_dimension)
-                );
+                ::GetWindowLongPtrW(std::get<0>(*widget.details()).get(), GWL_EXSTYLE);
+            const ::LONG left = gui::to_pixels< ::LONG>(gui::position<Position>::left(pos));
+            const ::LONG top =  gui::to_pixels< ::LONG>(gui::position<Position>::top(pos));
+            const ::LONG width = gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(client_dimension));
+            const ::LONG height =gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(client_dimension));
             ::RECT rectangle = { left, top, left + width, top + height };
             if (
                 ::AdjustWindowRectEx(
@@ -1012,8 +800,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't adjust window rectangle."
+                        std::error_code(::GetLastError(), win32_category()), "Can't adjust window rectangle."
                     )
                 );
             }
@@ -1032,10 +819,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't move window."
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't move window.")
                 );
             }
         }
@@ -1050,24 +834,17 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return The client dimension.
 
-            \throw std::system_error When the client dimension cannot be
-                                     obtained.
+            \throw std::system_error When the client dimension cannot be obtained.
         */
         template <typename Dimension, typename Widget>
         static Dimension client_dimension(const Widget& widget)
         {
             ::RECT rectangle = {};
-            if (
-                ::GetClientRect(
-                    const_cast< ::HWND>(std::get<0>(*widget.details()).get()),
-                    &rectangle
-                ) == 0
-            )
+            if (::GetClientRect(const_cast< ::HWND>(std::get<0>(*widget.details()).get()), &rectangle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't get client rectangle."
+                        std::error_code(::GetLastError(), win32_category()), "Can't get client rectangle."
                     )
                 );
             }
@@ -1076,12 +853,8 @@ namespace tetengo2 { namespace detail { namespace windows
             assert(rectangle.bottom - rectangle.top > 0);
             typedef gui::dimension<Dimension> dimension_traits_type;
             return dimension_traits_type::make(
-                gui::to_unit<typename dimension_traits_type::width_type>(
-                    rectangle.right - rectangle.left
-                ),
-                gui::to_unit<typename dimension_traits_type::height_type>(
-                    rectangle.bottom - rectangle.top
-                )
+                gui::to_unit<typename dimension_traits_type::width_type>(rectangle.right - rectangle.left),
+                gui::to_unit<typename dimension_traits_type::height_type>(rectangle.bottom - rectangle.top)
             );
         }
 
@@ -1099,24 +872,16 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the text cannot be set.
         */
         template <typename Widget, typename String, typename Encoder>
-        static void set_text(
-            Widget&        widget,
-            String&&       text,
-            const Encoder& encoder
-        )
+        static void set_text(Widget& widget, String&& text, const Encoder& encoder)
         {
             const ::BOOL result =
                 ::SetWindowTextW(
-                    std::get<0>(*widget.details()).get(),
-                    encoder.encode(std::forward<String>(text)).c_str()
+                    std::get<0>(*widget.details()).get(), encoder.encode(std::forward<String>(text)).c_str()
                 );
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't set text!"
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set text!")
                 );
             }
         }
@@ -1136,22 +901,13 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename String, typename Widget, typename Encoder>
         static String text(const Widget& widget, const Encoder& encoder)
         {
-            const int length =
-                ::GetWindowTextLengthW(
-                    const_cast< ::HWND>(std::get<0>(*widget.details()).get())
-                );
+            const int length = ::GetWindowTextLengthW(const_cast< ::HWND>(std::get<0>(*widget.details()).get()));
             if (length == 0) return String();
 
             std::vector<wchar_t> text(length + 1, L'\0');
-            ::GetWindowTextW(
-                const_cast< ::HWND>(std::get<0>(*widget.details()).get()),
-                text.data(),
-                length + 1
-            );
+            ::GetWindowTextW(const_cast< ::HWND>(std::get<0>(*widget.details()).get()), text.data(), length + 1);
 
-            return encoder.decode(
-                std::wstring(text.begin(), text.begin() + length)
-            );
+            return encoder.decode(std::wstring(text.begin(), text.begin() + length));
         }
 
         /*!
@@ -1168,18 +924,10 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the font cannot be set.
         */
         template <typename Widget, typename Font, typename Encoder>
-        static void set_font(
-            Widget&        widget,
-            const Font&    font,
-            const Encoder& encoder
-        )
+        static void set_font(Widget& widget, const Font& font, const Encoder& encoder)
         {
             const ::HFONT previous_font_handle =
-                reinterpret_cast< ::HFONT>(
-                    ::SendMessageW(
-                        std::get<0>(*widget.details()).get(), WM_GETFONT, 0, 0
-                    )
-                );
+                reinterpret_cast< ::HFONT>(::SendMessageW(std::get<0>(*widget.details()).get(), WM_GETFONT, 0, 0));
 
             ::LOGFONTW log_font = {
                 -static_cast< ::LONG>(font.size()),
@@ -1199,20 +947,13 @@ namespace tetengo2 { namespace detail { namespace windows
             };
             const std::wstring font_family = encoder.encode(font.family());
             assert(font_family.length() < LF_FACESIZE);
-            std::copy(
-                font_family.begin(), font_family.end(), log_font.lfFaceName
-            );
+            std::copy(font_family.begin(), font_family.end(), log_font.lfFaceName);
             log_font.lfFaceName[font_family.length()] = L'\0';
             const ::HFONT font_handle = ::CreateFontIndirectW(&log_font);
             if (!font_handle)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(
-                            ERROR_FUNCTION_FAILED, win32_category()
-                        ),
-                        "Can't create font."
-                    )
+                    std::system_error(std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't create font.")
                 );
             }
             ::SendMessageW(
@@ -1222,17 +963,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 MAKELPARAM(TRUE, 0)
             );
 
-            if (
-                previous_font_handle &&
-                ::DeleteObject(previous_font_handle) == 0
-            )
+            if (previous_font_handle && ::DeleteObject(previous_font_handle) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            ERROR_FUNCTION_FAILED, win32_category()
-                        ),
-                        "Can't delete previous font."
+                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't delete previous font."
                     )
                 );
             }
@@ -1257,40 +992,23 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::HFONT font_handle =
                 reinterpret_cast< ::HFONT>(
-                    ::SendMessageW(
-                        const_cast< ::HWND>(
-                            std::get<0>(*widget.details()).get()
-                        ),
-                        WM_GETFONT,
-                        0,
-                        0
-                    )
+                    ::SendMessageW(const_cast< ::HWND>(std::get<0>(*widget.details()).get()), WM_GETFONT, 0, 0)
                 );
             if (!font_handle)
-            {
-                font_handle =
-                    reinterpret_cast< ::HFONT>(::GetStockObject(SYSTEM_FONT));
-            }
+                font_handle = reinterpret_cast< ::HFONT>(::GetStockObject(SYSTEM_FONT));
 
             ::LOGFONTW log_font;
-            const int byte_count =
-                ::GetObjectW(font_handle, sizeof(::LOGFONTW), &log_font);
+            const int byte_count = ::GetObjectW(font_handle, sizeof(::LOGFONTW), &log_font);
             if (byte_count == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(
-                            ERROR_FUNCTION_FAILED, win32_category()
-                        ),
-                        "Can't get log font."
-                    )
+                    std::system_error(std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't get log font.")
                 );
             }
 
             return Font(
                 encoder.decode(log_font.lfFaceName),
-                log_font.lfHeight < 0 ?
-                    -log_font.lfHeight : log_font.lfHeight,
+                log_font.lfHeight < 0 ? -log_font.lfHeight : log_font.lfHeight,
                 log_font.lfWeight >= FW_BOLD,
                 log_font.lfItalic != FALSE,
                 log_font.lfUnderline != FALSE,
@@ -1309,15 +1027,12 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The children.
         */
         template <typename Child, typename Widget>
-        static std::vector<typename cpp11::reference_wrapper<Child>::type>
-        children(Widget& widget)
+        static std::vector<typename cpp11::reference_wrapper<Child>::type> children(Widget& widget)
         {
-            std::vector<
-                typename cpp11::reference_wrapper<Child>::type
-            > children;
+            std::vector<typename cpp11::reference_wrapper<Child>::type> children;
 
             ::EnumChildWindows(
-                const_cast< ::HWND>(std::get<0>(*widget.details()).get()),
+                std::get<0>(*widget.details()).get(),
                 enum_child_procedure<Child>,
                 reinterpret_cast< ::LPARAM>(&children)
             );
@@ -1337,18 +1052,11 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void repaint(Widget& widget)
         {
-            if (
-                ::InvalidateRect(
-                    std::get<0>(*widget.details()).get(), NULL, TRUE
-                ) == 0
-            )
+            if (::InvalidateRect(std::get<0>(*widget.details()).get(), NULL, TRUE) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            ERROR_FUNCTION_FAILED, win32_category()
-                        ),
-                        "Can't repaint a widget."
+                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't repaint a widget."
                     )
                 );
             }
@@ -1366,18 +1074,10 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \return A result.
         */
-        template <
-            typename Result,
-            typename Widget,
-            typename Function
-        >
-        static Result use_canvas(
-            const Widget&  widget,
-            const Function function
-        )
+        template <typename Result, typename Widget, typename Function>
+        static Result use_canvas(const Widget&  widget, const Function function)
         {
-            const ::HWND window_handle =
-                const_cast< ::HWND>(std::get<0>(*widget.details()).get());
+            const ::HWND window_handle = const_cast< ::HWND>(std::get<0>(*widget.details()).get());
             const ::HDC device_context_handle = ::GetDC(window_handle);
             BOOST_SCOPE_EXIT((window_handle)(device_context_handle))
             {
@@ -1408,42 +1108,26 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam MenuBase A menu base type.
 
             \param widget A widget.
-            \param menu   A menu.
-                          It may be uninitialized to remove a menu bar.
+            \param menu   A menu. It may be uninitialized to remove a menu bar.
 
             \throw std::system_error When a menu bar cannot be set.
         */
         template <typename Widget, typename MenuBase>
-        static void set_menu_bar(
-            Widget&                                 widget,
-            const boost::optional<const MenuBase&>& menu = boost::none
-        )
+        static void set_menu_bar(Widget& widget, const boost::optional<const MenuBase&>& menu = boost::none)
         {
             const ::BOOL result =
-                ::SetMenu(
-                    std::get<0>(*widget.details()).get(),
-                    menu ? &*menu->details()->second : NULL
-                );
+                ::SetMenu(std::get<0>(*widget.details()).get(), menu ? &*menu->details()->second : NULL);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't set a menu bar."
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set a menu bar.")
                 );
             }
 
-            if (
-                menu &&
-                ::DrawMenuBar(std::get<0>(*widget.details()).get()) == 0
-            )
+            if (menu && ::DrawMenuBar(std::get<0>(*widget.details()).get()) == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't draw the menu bar."
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't draw the menu bar.")
                 );
             }
         }
@@ -1458,22 +1142,18 @@ namespace tetengo2 { namespace detail { namespace windows
             \retval true  When the widget accepts a focus.
             \retval false Otherwise.
 
-            \throw std::system_error When the focusable status cannot be
-                                     obtained.
+            \throw std::system_error When the focusable status cannot be obtained.
         */
         template <typename Widget>
-        static bool focusable(Widget& widget)
+        static bool focusable(const Widget& widget)
         {
             const ::LONG style =
-                ::GetWindowLongW(
-                    std::get<0>(*widget.details()).get(), GWL_STYLE
-                );
+                ::GetWindowLongW(const_cast< ::HWND>(std::get<0>(*widget.details()).get()), GWL_STYLE);
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't get focusable status."
+                        std::error_code(::GetLastError(), win32_category()), "Can't get focusable status."
                     )
                 );
             }
@@ -1493,16 +1173,12 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void set_focusable(Widget& widget, const bool focusable)
         {
-            ::LONG style =
-                ::GetWindowLongW(
-                    std::get<0>(*widget.details()).get(), GWL_STYLE
-                );
+            ::LONG style = ::GetWindowLongW(std::get<0>(*widget.details()).get(), GWL_STYLE);
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't get focusable status."
+                        std::error_code(::GetLastError(), win32_category()), "Can't get focusable status."
                     )
                 );
             }
@@ -1514,16 +1190,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 unsigned_style &= ~WS_TABSTOP;
             style = unsigned_style;
 
-            if (
-                ::SetWindowLongW(
-                    std::get<0>(*widget.details()).get(), GWL_STYLE, style
-                ) == 0
-            )
+            if (::SetWindowLongW(std::get<0>(*widget.details()).get(), GWL_STYLE, style) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't set focusable status."
+                        std::error_code(::GetLastError(), win32_category()), "Can't set focusable status."
                     )
                 );
             }
@@ -1539,22 +1210,18 @@ namespace tetengo2 { namespace detail { namespace windows
             \retval true  When the widget is read-only.
             \retval false Otherwise.
 
-            \throw std::system_error When the read-only status cannot be
-                                     obtained.
+            \throw std::system_error When the read-only status cannot be obtained.
         */
         template <typename Widget>
-        static bool read_only(Widget& widget)
+        static bool read_only(const Widget& widget)
         {
             const ::LONG style =
-                ::GetWindowLongW(
-                    std::get<0>(*widget.details()).get(), GWL_STYLE
-                );
+                ::GetWindowLongW(const_cast< ::HWND>(std::get<0>(*widget.details()).get()), GWL_STYLE);
             if (style == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't get read-only status."
+                        std::error_code(::GetLastError(), win32_category()), "Can't get read-only status."
                     )
                 );
             }
@@ -1575,18 +1242,12 @@ namespace tetengo2 { namespace detail { namespace windows
         static void set_read_only(Widget& widget, const bool read_only)
         {
             const ::LRESULT result =
-                ::SendMessageW(
-                    std::get<0>(*widget.details()).get(),
-                    EM_SETREADONLY,
-                    read_only ? TRUE : FALSE,
-                    0
-                );
+                ::SendMessageW(std::get<0>(*widget.details()).get(), EM_SETREADONLY, read_only ? TRUE : FALSE, 0);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't set read-only status."
+                        std::error_code(::GetLastError(), win32_category()), "Can't set read-only status."
                     )
                 );
             }
@@ -1604,17 +1265,11 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static void close(Widget& widget)
         {
-            const ::BOOL result =
-                ::PostMessageW(
-                    std::get<0>(*widget.details()).get(), WM_CLOSE, 0, 0
-                );
+            const ::BOOL result = ::PostMessageW(std::get<0>(*widget.details()).get(), WM_CLOSE, 0, 0);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't close the widget."
-                    )
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't close the widget.")
                 );
             }
         }
@@ -1631,13 +1286,12 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When the target cannot be opened.
         */
         template <typename Widget, typename String>
-        static void open_target(Widget& widget, const String& target)
+        static void open_target(const Widget& widget, const String& target)
         {
             const ::HINSTANCE result =
                 ::ShellExecuteW(
                     widget.has_parent() ?
-                        std::get<0>(*widget.root_ancestor().details()).get() :
-                        NULL,
+                        const_cast< ::HWND>(std::get<0>(*widget.root_ancestor().details()).get()) : NULL,
                     L"open",
                     target.c_str(),
                     NULL,
@@ -1649,9 +1303,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
                         std::error_code(
-                            static_cast<typename std::error_code::value_type>(
-                                reinterpret_cast< ::UINT_PTR>(result)
-                            ),
+                            static_cast<typename std::error_code::value_type>(reinterpret_cast< ::UINT_PTR>(result)),
                             win32_category()
                         ),
                         "Can't open target."
@@ -1687,11 +1339,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static Widget* p_widget_from(const ::HWND widget_handle)
         {
-            return reinterpret_cast<Widget*>(
-                ::GetPropW(
-                    widget_handle, property_key_for_cpp_instance().c_str()
-                )
-            );
+            return reinterpret_cast<Widget*>(::GetPropW(widget_handle, property_key_for_cpp_instance().c_str()));
         }
 
 
@@ -1716,18 +1364,13 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             ::WNDCLASSEXW window_class = {};
-            const ::BOOL result =
-                ::GetClassInfoExW(
-                    instance_handle, window_class_name.c_str(), &window_class
-                );
+            const ::BOOL result = ::GetClassInfoExW(instance_handle, window_class_name.c_str(), &window_class);
 
             return result != 0;
         }
 
         template <typename Widget>
-        static void register_window_class_for_window(
-            const ::HINSTANCE instance_handle
-        )
+        static void register_window_class_for_window(const ::HINSTANCE instance_handle)
         {
             ::WNDCLASSEXW window_class;
             window_class.cbSize = sizeof(::WNDCLASSEXW);
@@ -1739,40 +1382,22 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.hIcon =
                 reinterpret_cast< ::HICON>(
                     ::LoadImageW(
-                        0,
-                        MAKEINTRESOURCEW(OIC_WINLOGO),
-                        IMAGE_ICON,
-                        0,
-                        0,
-                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                        0, MAKEINTRESOURCEW(OIC_WINLOGO), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
                     )
                 );
             window_class.hIconSm =
                 reinterpret_cast< ::HICON>(
                     ::LoadImageW(
-                        0,
-                        MAKEINTRESOURCEW(OIC_WINLOGO),
-                        IMAGE_ICON,
-                        0,
-                        0,
-                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                        0, MAKEINTRESOURCEW(OIC_WINLOGO), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
                     )
                 );
             window_class.hCursor =
                 reinterpret_cast< ::HICON>(
                     ::LoadImageW(
-                        0,
-                        MAKEINTRESOURCEW(OCR_NORMAL),
-                        IMAGE_CURSOR,
-                        0,
-                        0,
-                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                        0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
                     )
                 );
-            window_class.hbrBackground =
-                reinterpret_cast< ::HBRUSH>(
-                    ::GetSysColorBrush(COLOR_WINDOW)
-                );
+            window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
             window_class.lpszMenuName = NULL;
             window_class.lpszClassName = window_class_name().c_str();
 
@@ -1789,9 +1414,7 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         template <typename Widget>
-        static void register_window_class_for_dialog(
-            const ::HINSTANCE instance_handle
-        )
+        static void register_window_class_for_dialog(const ::HINSTANCE instance_handle)
         {
             ::WNDCLASSEXW window_class;
             window_class.cbSize = sizeof(::WNDCLASSEXW);
@@ -1805,18 +1428,10 @@ namespace tetengo2 { namespace detail { namespace windows
             window_class.hCursor =
                 reinterpret_cast< ::HICON>(
                     ::LoadImageW(
-                        0,
-                        MAKEINTRESOURCEW(OCR_NORMAL),
-                        IMAGE_CURSOR,
-                        0,
-                        0,
-                        LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                        0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
                     )
                 );
-            window_class.hbrBackground =
-                reinterpret_cast< ::HBRUSH>(
-                    ::GetSysColorBrush(COLOR_3DFACE)
-                );
+            window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(::GetSysColorBrush(COLOR_3DFACE));
             window_class.lpszMenuName = NULL;
             window_class.lpszClassName = dialog_class_name().c_str();
 
@@ -1846,8 +1461,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't delete system menu item."
+                        std::error_code(::GetLastError(), win32_category()), "Can't delete system menu item."
                     )
                 );
             }
@@ -1855,79 +1469,65 @@ namespace tetengo2 { namespace detail { namespace windows
 
         template <typename Widget>
         static ::LRESULT CALLBACK window_procedure(
-            const ::HWND   hWnd,
-            const ::UINT   uMsg,
-            const ::WPARAM wParam,
-            const ::LPARAM lParam
+            const ::HWND   window_handle,
+            const ::UINT   message,
+            const ::WPARAM w_param,
+            const ::LPARAM l_param
         )
         TETENGO2_CPP11_NOEXCEPT
         {
             try
             {
-                Widget* const p_widget = p_widget_from<Widget>(hWnd);
+                Widget* const p_widget = p_widget_from<Widget>(window_handle);
                 if (p_widget)
-                {
-                    return window_procedure_impl(
-                        *p_widget, uMsg, wParam, lParam
-                    );
-                }
+                    return window_procedure_impl(*p_widget, message, w_param, l_param);
                 else
-                {
-                    return ::CallWindowProcW(
-                        ::DefWindowProcW, hWnd, uMsg, wParam, lParam
-                    );
-                }
+                    return ::CallWindowProcW(::DefWindowProcW, window_handle, message, w_param, l_param);
             }
             catch (const boost::exception& e)
             {
-                (typename Widget::alert_type(hWnd))(e);
+                (typename Widget::alert_type(window_handle))(e);
                 return 0;
             }
             catch (const std::exception& e)
             {
-                (typename Widget::alert_type(hWnd))(e);
+                (typename Widget::alert_type(window_handle))(e);
                 return 0;
             }
             catch (...)
             {
-                (typename Widget::alert_type(hWnd))();
+                (typename Widget::alert_type(window_handle))();
                 return 0;
             }
         }
 
         template <typename Widget>
         static ::LRESULT window_procedure_impl(
-            const Widget&   widget,
-            const ::UINT    uMsg,
-            const ::WPARAM  wParam,
-            const ::LPARAM  lParam
+            Widget&        widget,
+            const ::UINT   message,
+            const ::WPARAM w_param,
+            const ::LPARAM l_param
         )
         {
-            typedef
-                typename Widget::message_handler_map_type::const_iterator
-                map_iterator;
-            const map_iterator found =
-                widget.message_handler_map().find(uMsg);
+            typedef typename Widget::message_handler_map_type::const_iterator map_iterator;
+            const map_iterator found = widget.message_handler_map().find(message);
             if (found != widget.message_handler_map().end())
             {
-                BOOST_FOREACH (
-                    const typename Widget::message_handler_type& handler,
-                    found->second
-                )
+                BOOST_FOREACH (const typename Widget::message_handler_type& handler, found->second)
                 {
-                    const boost::optional< ::LRESULT> o_result =
-                        handler(wParam, lParam);
+                    const boost::optional< ::LRESULT> o_result = handler(w_param, l_param);
                     if (o_result) return *o_result;
                 }
             }
 
-            return ::CallWindowProcW(
-                std::get<1>(*widget.details()),
-                const_cast< ::HWND>(std::get<0>(*widget.details()).get()),
-                uMsg,
-                wParam,
-                lParam
-            );
+            return
+                ::CallWindowProcW(
+                    std::get<1>(*widget.details()),
+                    const_cast< ::HWND>(std::get<0>(*widget.details()).get()),
+                    message,
+                    w_param,
+                    l_param
+                );
         }
 
         template <typename Widget>
@@ -1938,12 +1538,7 @@ namespace tetengo2 { namespace detail { namespace windows
 #    pragma warning(disable: 4244)
 #endif
             const ::WNDPROC proc = window_procedure<Widget>;
-            const ::LONG_PTR result =
-                ::SetWindowLongPtrW(
-                    handle,
-                    GWLP_WNDPROC,
-                    reinterpret_cast< ::LONG_PTR>(proc)
-                );
+            const ::LONG_PTR result = ::SetWindowLongPtrW(handle, GWLP_WNDPROC, reinterpret_cast< ::LONG_PTR>(proc));
 #if defined(_WIN32) && !defined(_WIN64)
 #    pragma warning(pop)
 #endif
@@ -1951,8 +1546,7 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(::GetLastError(), win32_category()),
-                        "Can't replace window procedure."
+                        std::error_code(::GetLastError(), win32_category()), "Can't replace window procedure."
                     )
                 );
             }
@@ -1961,22 +1555,12 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         template <typename Child>
-        static ::BOOL CALLBACK enum_child_procedure(
-            const ::HWND   window_handle,
-            const ::LPARAM parameter
-        )
+        static ::BOOL CALLBACK enum_child_procedure(const ::HWND window_handle, const ::LPARAM parameter)
         {
-            std::vector<typename cpp11::reference_wrapper<Child>::type>* const
-            p_children =
-                reinterpret_cast<
-                    std::vector<
-                        typename cpp11::reference_wrapper<Child>::type
-                    >*
-                >(parameter);
+            std::vector<typename cpp11::reference_wrapper<Child>::type>* const p_children =
+                reinterpret_cast<std::vector<typename cpp11::reference_wrapper<Child>::type>*>(parameter);
 
-            p_children->push_back(
-                cpp11::ref(*p_widget_from<Child>(window_handle))
-            );
+            p_children->push_back(cpp11::ref(*p_widget_from<Child>(window_handle)));
 
             return TRUE;
         }
