@@ -63,16 +63,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         typedef Gdiplus::Brush background_details_type;
 
         //! The background details pointer type.
-        typedef
-            std::unique_ptr<background_details_type>
-            background_details_ptr_type;
+        typedef std::unique_ptr<background_details_type> background_details_ptr_type;
 
         //! The picture details type.
         typedef Gdiplus::Bitmap picture_details_type;
 
         //! The picture details pointer type.
-        typedef
-            std::unique_ptr<picture_details_type> picture_details_ptr_type;
+        typedef std::unique_ptr<picture_details_type> picture_details_ptr_type;
 
         //! The canvas details type.
         typedef Gdiplus::Graphics canvas_details_type;
@@ -100,17 +97,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             case system_color_index_dialog_background:
                 {
                     const ::COLORREF color_ref = ::GetSysColor(COLOR_3DFACE);
-                    return Color(
-                        GetRValue(color_ref),
-                        GetGValue(color_ref),
-                        GetBValue(color_ref)
-                    );
+                    return Color(GetRValue(color_ref), GetGValue(color_ref), GetBValue(color_ref));
                 }
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Invalid system color index.")
-                );
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));
             }
         }
 
@@ -127,11 +118,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static std::unique_ptr<background_details_type>
         create_solid_background(const Color& color)
         {
-            return make_unique<Gdiplus::SolidBrush>(
-                Gdiplus::Color(
-                    color.alpha(), color.red(), color.green(), color.blue()
-                )
-            );
+            return
+                make_unique<Gdiplus::SolidBrush>(
+                    Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())
+                );
         }
 
         /*!
@@ -157,19 +147,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return A unique pointer to a picture.
         */
         template <typename Dimension, typename Canvas>
-        static std::unique_ptr<picture_details_type> create_picture(
-            const Dimension& dimension,
-            const Canvas&    canvas
-        )
+        static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension, const Canvas& canvas)
         {
             std::unique_ptr<picture_details_type> p_picture(
                 make_unique<Gdiplus::Bitmap>(
-                    to_pixels< ::INT>(
-                        gui::dimension<Dimension>::width(dimension)
-                    ),
-                    to_pixels< ::INT>(
-                        gui::dimension<Dimension>::height(dimension)
-                    ),
+                    to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
+                    to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension)),
                     &const_cast<Canvas&>(canvas).gdiplus_graphics()
                 )
             );
@@ -189,21 +172,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \throw std::system_error When the picture cannot be read.
         */
         template <typename Path>
-        static std::unique_ptr<picture_details_type> read_picture(
-            const Path& path
-        )
+        static std::unique_ptr<picture_details_type> read_picture(const Path& path)
         {
-            std::unique_ptr<picture_details_type> p_picture(
-                make_unique<Gdiplus::Bitmap>(path.c_str())
-            );
+            std::unique_ptr<picture_details_type> p_picture(make_unique<Gdiplus::Bitmap>(path.c_str()));
             const Gdiplus::Status status = p_picture->GetLastStatus();
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(status, gdiplus_category()),
-                        "Can't read a picture."
-                    )
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't read a picture.")
                 );
             }
 
@@ -220,9 +196,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return The dimension of the picture.
         */
         template <typename Dimension>
-        static Dimension picture_dimension(
-            const picture_details_type& picture
-        )
+        static Dimension picture_dimension(const picture_details_type& picture)
         {
             return Dimension(
                 gui::to_unit<typename gui::dimension<Dimension>::width_type>(
@@ -237,8 +211,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         /*!
             \brief Creates a canvas.
 
-            \tparam HandleOrWidgetDetails A handle type or a widget details
-                                          type.
+            \tparam HandleOrWidgetDetails A handle type or a widget details type.
 
             \param handle_or_widget_details A handle or a widget details.
 
@@ -262,8 +235,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \param position  A position of a region.
             \param dimension A dimension of a region.
 
-            \throw std::system_error When the focus indication cannot be
-                                     drawn.
+            \throw std::system_error When the focus indication cannot be drawn.
         */
         template <typename Position, typename Dimension>
         static void draw_focus_indication(
@@ -275,21 +247,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const ::RECT rect = {
                 0,
                 0,
-                gui::to_pixels< ::LONG>(
-                    gui::dimension<Dimension>::width(dimension)
-                ),
-                gui::to_pixels< ::LONG>(
-                    gui::dimension<Dimension>::height(dimension)
-                )
+                gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension)),
+                gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(dimension))
             };
             if (::DrawFocusRect(canvas.GetHDC(), &rect) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            Gdiplus::Win32Error, gdiplus_category()
-                        ),
-                        "Can't draw a focus rectangle."
+                        std::error_code(Gdiplus::Win32Error, gdiplus_category()), "Can't draw a focus rectangle."
                     )
                 );
             }
@@ -322,28 +287,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (!background_details) return;
 
             const Gdiplus::Rect rectangle(
-                gui::to_pixels< ::INT>(
-                    gui::position<Position>::left(position)
-                ),
-                gui::to_pixels< ::INT>(
-                    gui::position<Position>::top(position)
-                ),
-                gui::to_pixels< ::INT>(
-                    gui::dimension<Dimension>::width(dimension)
-                ),
-                gui::to_pixels< ::INT>(
-                    gui::dimension<Dimension>::height(dimension)
-                )
+                gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
+                gui::to_pixels< ::INT>(gui::position<Position>::top(position)),
+                gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
+                gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
             );
-            const Gdiplus::Status status =
-                canvas.FillRectangle(&*background_details, rectangle);
+            const Gdiplus::Status status = canvas.FillRectangle(&*background_details, rectangle);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(status, gdiplus_category()),
-                        "Can't fill a rectangle."
-                    )
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't fill a rectangle.")
                 );
             }
         }
@@ -381,31 +334,22 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             \return The installed font families.
 
-            \throw std::system_error When installed font families cannot be
-                                     obtained.
+            \throw std::system_error When installed font families cannot be obtained.
         */
         template <typename String, typename Encoder>
-        static std::vector<String> installed_font_families(
-            const Encoder& encoder
-        )
+        static std::vector<String> installed_font_families(const Encoder& encoder)
         {
             const Gdiplus::InstalledFontCollection font_collection;
             const ::INT count = font_collection.GetFamilyCount();
-            std::vector<Gdiplus::FontFamily> gdiplus_families(
-                count, Gdiplus::FontFamily()
-            );
+            std::vector<Gdiplus::FontFamily> gdiplus_families(count, Gdiplus::FontFamily());
             ::INT actual_count = 0;
 
-            const Gdiplus::Status status =
-                font_collection.GetFamilies(
-                    count, gdiplus_families.data(), &actual_count
-                );
+            const Gdiplus::Status status = font_collection.GetFamilies(count, gdiplus_families.data(), &actual_count);
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(status, gdiplus_category()),
-                        "Can't get installed font families."
+                        std::error_code(status, gdiplus_category()), "Can't get installed font families."
                     )
                 );
             }
@@ -415,16 +359,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             for (::INT i = 0; i < actual_count; ++i)
             {
                 wchar_t family_name[LF_FACESIZE];
-                const Gdiplus::Status family_name_status =
-                    gdiplus_families[i].GetFamilyName(family_name);
+                const Gdiplus::Status family_name_status = gdiplus_families[i].GetFamilyName(family_name);
                 if (family_name_status != Gdiplus::Ok)
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
-                            std::error_code(
-                                family_name_status, gdiplus_category()
-                            ),
-                            "Can't get font family name."
+                            std::error_code(family_name_status, gdiplus_category()), "Can't get font family name."
                         )
                     );
                 }
@@ -448,15 +388,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             \return The dimension of the text.
 
-            \throw std::system_error When the dimention of a text cannot be
-                                     calculated.
+            \throw std::system_error When the dimention of a text cannot be calculated.
         */
-        template <
-            typename Dimension,
-            typename Font,
-            typename String,
-            typename Encoder
-        >
+        template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
             const canvas_details_type& canvas,
             const Font&                font,
@@ -470,10 +404,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             );
 
             const Gdiplus::RectF layout(
-                0,
-                0,
-                std::numeric_limits<Gdiplus::REAL>::max(),
-                std::numeric_limits<Gdiplus::REAL>::max()
+                0, 0, std::numeric_limits<Gdiplus::REAL>::max(), std::numeric_limits<Gdiplus::REAL>::max()
             );
             Gdiplus::RectF bounding;
             const Gdiplus::Status status =
@@ -488,21 +419,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(status, gdiplus_category()),
-                        "Can't measure text!"
-                    )
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't measure text!")
                 );
             }
 
-            return Dimension(
-                gui::to_unit<typename gui::dimension<Dimension>::width_type>(
-                    bounding.Width
-                ),
-                gui::to_unit<typename gui::dimension<Dimension>::height_type>(
-                    bounding.Height
-                )
-            );
+            return
+                Dimension(
+                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(bounding.Width),
+                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(bounding.Height)
+                );
         }
 
         /*!
@@ -521,12 +446,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <
-            typename Font,
-            typename String,
-            typename Encoder,
-            typename Position
-        >
+        template <typename Font, typename String, typename Encoder, typename Position>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
@@ -539,9 +459,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
                 create_gdiplus_font<String>(font, font_collection, encoder)
             );
-            const Gdiplus::SolidBrush brush(
-                Gdiplus::Color(128, 255, 0, 0)
-            );
+            const Gdiplus::SolidBrush brush(Gdiplus::Color(128, 255, 0, 0));
 
             const std::wstring encoded_text = encoder.encode(text);
             const Gdiplus::Status status =
@@ -550,22 +468,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     static_cast< ::INT>(encoded_text.length()),
                     p_gdiplus_font.get(),
                     Gdiplus::PointF(
-                        gui::to_pixels<Gdiplus::REAL>(
-                            gui::position<Position>::left(position)
-                        ),
-                        gui::to_pixels<Gdiplus::REAL>(
-                            gui::position<Position>::top(position)
-                        )
+                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::left(position)),
+                        gui::to_pixels<Gdiplus::REAL>(gui::position<Position>::top(position))
                     ),
                     &brush
                 );
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(status, gdiplus_category()),
-                        "Can't draw text!"
-                    )
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't draw text!")
                 );
             }
         }
@@ -599,26 +510,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Gdiplus::Status status =
                 canvas.DrawImage(
                     &*picture_details,
-                    gui::to_pixels< ::INT>(
-                        gui::position<Position>::left(position)
-                    ),
-                    gui::to_pixels< ::INT>(
-                        gui::position<Position>::top(position)
-                    ),
-                    gui::to_pixels< ::INT>(
-                        gui::dimension<Dimension>::width(dimension)
-                    ),
-                    gui::to_pixels< ::INT>(
-                        gui::dimension<Dimension>::height(dimension)
-                    )
+                    gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
+                    gui::to_pixels< ::INT>(gui::position<Position>::top(position)),
+                    gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
+                    gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension))
                 );
             if (status != Gdiplus::Ok)
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(status, gdiplus_category()),
-                        "Can't paint picture!"
-                    )
+                    std::system_error(std::error_code(status, gdiplus_category()), "Can't paint picture!")
                 );
             }
         }
@@ -630,14 +530,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename HandleOrWidgetDetails>
         static std::unique_ptr<canvas_details_type> create_canvas_impl(
             const HandleOrWidgetDetails& handle,
-            typename std::enable_if<
-                std::is_convertible<HandleOrWidgetDetails, ::HDC>::value
-            >::type* = NULL
+            typename std::enable_if<std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = NULL
         )
         {
-            std::unique_ptr<canvas_details_type> p_canvas(
-                make_unique<Gdiplus::Graphics>(handle)
-            );
+            std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(handle));
 
             initialize_canvas(*p_canvas);
 
@@ -648,16 +544,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static std::unique_ptr<canvas_details_type> create_canvas_impl(
             const HandleOrWidgetDetails& widget_details,
             typename std::enable_if<
-                std::is_convertible<
-                    typename HandleOrWidgetDetails::first_type::pointer,
-                    ::HWND
-                >::value
+                std::is_convertible<typename HandleOrWidgetDetails::first_type::pointer, ::HWND>::value
             >::type* = NULL
         )
         {
-            std::unique_ptr<canvas_details_type> p_canvas(
-                make_unique<Gdiplus::Graphics>(widget_details.first.get())
-            );
+            std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(widget_details.first.get()));
 
             initialize_canvas(*p_canvas);
 
@@ -667,9 +558,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         static void initialize_canvas(canvas_details_type& canvas)
         {
             canvas.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
-            canvas.SetTextRenderingHint(
-                Gdiplus::TextRenderingHintClearTypeGridFit
-            );
+            canvas.SetTextRenderingHint(Gdiplus::TextRenderingHintClearTypeGridFit);
         }
 
         template <typename String, typename Font, typename Encoder>
@@ -684,49 +573,28 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(
-                            Gdiplus::FontFamilyNotFound, gdiplus_category()
-                        ),
-                        "Font is not available."
+                        std::error_code(Gdiplus::FontFamilyNotFound, gdiplus_category()), "Font is not available."
                     )
                 );
             }
 
-            const String& font_family =
-                fallback_level < 1 ?
-                font.family() : Font::dialog_font().family();
-            const Gdiplus::FontFamily gdiplus_font_family(
-                encoder.encode(font_family).c_str(), &font_collection
-            );
+            const String& font_family = fallback_level < 1 ? font.family() : Font::dialog_font().family();
+            const Gdiplus::FontFamily gdiplus_font_family(encoder.encode(font_family).c_str(), &font_collection);
             if (!gdiplus_font_family.IsAvailable())
             {
-                return create_gdiplus_font<String>(
-                    font, font_collection, encoder, fallback_level + 1
-                );
+                return create_gdiplus_font<String>(font, font_collection, encoder, fallback_level + 1);
             }
 
             const Gdiplus::REAL font_size =
                 fallback_level < 2 ?
-                static_cast<Gdiplus::REAL>(font.size()) :
-                static_cast<Gdiplus::REAL>(Font::dialog_font().size());
+                static_cast<Gdiplus::REAL>(font.size()) : static_cast<Gdiplus::REAL>(Font::dialog_font().size());
             const ::INT font_style =
-                fallback_level < 2 ?
-                get_font_style(font) :
-                get_font_style(Font::dialog_font());
+                fallback_level < 2 ? get_font_style(font) : get_font_style(Font::dialog_font());
             std::unique_ptr<Gdiplus::Font> p_gdiplus_font(
-                make_unique<Gdiplus::Font>(
-                    &gdiplus_font_family,
-                    font_size,
-                    font_style,
-                    Gdiplus::UnitPixel
-                )
+                make_unique<Gdiplus::Font>(&gdiplus_font_family, font_size, font_style, Gdiplus::UnitPixel)
             );
             if (!p_gdiplus_font->IsAvailable())
-            {
-                return create_gdiplus_font<String>(
-                    font, font_collection, encoder, fallback_level + 1
-                );
-            }
+                return create_gdiplus_font<String>(font, font_collection, encoder, fallback_level + 1);
 
             return std::move(p_gdiplus_font);
         }

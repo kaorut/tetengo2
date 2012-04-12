@@ -202,8 +202,7 @@ namespace tetengo2 { namespace detail { namespace stub
         /*!
             \brief Creates a canvas.
 
-            \tparam HandleOrWidgetDetails A handle type or a widget details
-                                          type.
+            \tparam HandleOrWidgetDetails A handle type or a widget details type.
 
             \param handle_or_widget_details A handle or a widget details.
 
@@ -227,8 +226,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \param position  A position of a region.
             \param dimension A dimension of a region.
 
-            \throw std::system_error When the focus indication cannot be
-                                     drawn.
+            \throw std::system_error When the focus indication cannot be drawn.
         */
         template <typename Position, typename Dimension>
         static void draw_focus_indication(
@@ -284,8 +282,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return The installed font families.
 
-            \throw std::system_error When installed font families cannot be
-                                     obtained.
+            \throw std::system_error When installed font families cannot be obtained.
         */
         template <typename String, typename Encoder>
         static std::vector<String> installed_font_families(const Encoder& encoder)
@@ -309,8 +306,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return The dimension of the text.
 
-            \throw std::system_error When the dimention of a text cannot be
-                                     calculated.
+            \throw std::system_error When the dimention of a text cannot be calculated.
         */
         template <typename Dimension, typename Font, typename String, typename Encoder>
         static Dimension calc_text_dimension(
