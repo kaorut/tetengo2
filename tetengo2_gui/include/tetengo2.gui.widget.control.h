@@ -23,20 +23,11 @@ namespace tetengo2 { namespace gui { namespace widget
         \brief The class template for a control.
 
         \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a
-                                      widget.
-        \tparam MessageHandlerDetails A detail implementation type of a
-                                      message handler.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
    */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename MessageHandlerDetails
-    >
-    class control :
-        public widget<
-            typename Traits::base_type, WidgetDetails, MessageHandlerDetails
-        >
+    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
+    class control : public widget<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
     {
     public:
         // types
@@ -51,13 +42,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef MessageHandlerDetails message_handler_details_type;
 
         //! The base type.
-        typedef
-            widget<
-                typename traits_type::base_type,
-                widget_details_type,
-                message_handler_details_type
-            >
-            base_type;
+        typedef widget<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
 
         //! The canvas type.
         typedef typename base_type::canvas_type canvas_type;
@@ -69,21 +54,16 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename base_type::dimension_type dimension_type;
 
         //! The keyboard observer set type.
-        typedef
-            typename base_type::keyboard_observer_set_type
-            keyboard_observer_set_type;
+        typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
 
         //! The color type.
         typedef typename traits_type::color_type color_type;
 
         //! The detail implementation type.
-        typedef
-            typename widget_details_type::widget_details_type details_type;
+        typedef typename widget_details_type::widget_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename widget_details_type::widget_details_ptr_type
-            details_ptr_type;
+        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
 
         // functions
@@ -107,9 +87,7 @@ namespace tetengo2 { namespace gui { namespace widget
             \param text_color A text color.
         */
         template <typename C /* = boost::optional<color_type> */>
-        void set_text_color(
-            C&& text_color /* = boost::none */
-        )
+        void set_text_color(C&& text_color /* = boost::none */)
         {
             m_text_color = std::forward<C>(text_color);
         }
@@ -158,13 +136,9 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Creates a control.
 
             \param message_handler_map A message handler map.
-            \param p_details           A unique pointer to a detail
-                                       implementation.
+            \param p_details           A unique pointer to a detail implementation.
         */
-        control(
-            message_handler_map_type&& message_handler_map,
-            details_ptr_type           p_details
-        )
+        control(message_handler_map_type&& message_handler_map, details_ptr_type p_details)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -172,8 +146,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         base_type(
             message_handler_details_type::make_control_message_handler_map(
-                *this,
-                std::forward<message_handler_map_type>(message_handler_map)
+                *this, std::forward<message_handler_map_type>(message_handler_map)
             )
         ),
 #if defined(_MSC_VER)

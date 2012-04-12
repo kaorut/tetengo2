@@ -31,16 +31,10 @@ namespace tetengo2 { namespace gui { namespace widget
         \brief The base class template for a GUI widget.
 
         \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a
-                                      widget.
-        \tparam MessageHandlerDetails A detail implementation type of a
-                                      message handler.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
     */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename MessageHandlerDetails
-    >
+    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
     class widget : private boost::noncopyable
     {
     public:
@@ -89,49 +83,34 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename system_cursor_type::base_type cursor_type;
 
         //! The focus observer set type.
-        typedef
-            typename traits_type::focus_observer_set_type
-            focus_observer_set_type;
+        typedef typename traits_type::focus_observer_set_type focus_observer_set_type;
 
         //! The paint observer set type.
-        typedef
-            typename traits_type::paint_observer_set_type
-            paint_observer_set_type;
+        typedef typename traits_type::paint_observer_set_type paint_observer_set_type;
 
         //! The keyboard observer set type.
-        typedef
-            typename traits_type::keyboard_observer_set_type
-            keyboard_observer_set_type;
+        typedef typename traits_type::keyboard_observer_set_type keyboard_observer_set_type;
 
         //! The mouse observer set type.
-        typedef
-            typename traits_type::mouse_observer_set_type
-            mouse_observer_set_type;
+        typedef typename traits_type::mouse_observer_set_type mouse_observer_set_type;
 
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
         //! The detail implementation type.
-        typedef
-            typename widget_details_type::widget_details_type details_type;
+        typedef typename widget_details_type::widget_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename widget_details_type::widget_details_ptr_type
-            details_ptr_type;
+        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
         //! The detail implementation type of a message handler.
         typedef MessageHandlerDetails message_handler_details_type;
 
         //! The message handler type.
-        typedef
-            typename message_handler_details_type::message_handler_type
-            message_handler_type;
+        typedef typename message_handler_details_type::message_handler_type message_handler_type;
 
         //! The message handler map type.
-        typedef
-            typename message_handler_details_type::message_handler_map_type
-            message_handler_map_type;
+        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
 
         //! The child type.
         typedef widget child_type;
@@ -293,9 +272,7 @@ namespace tetengo2 { namespace gui { namespace widget
         template <typename P>
         void set_position(const P& position)
         {
-            widget_details_type::template set_position<dimension_type>(
-                *this, position
-            );
+            widget_details_type::template set_position<dimension_type>(*this, position);
         }
 
         /*!
@@ -316,25 +293,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param dimension A dimension.
 
-            \throw std::invalid_argument When either dimension.first or
-                                         dimension.second is equal to 0.
+            \throw std::invalid_argument When either dimension.first or dimension.second is equal to 0.
         */
         template <typename D>
         void set_dimension(const D& dimension)
         {
-            if (
-                gui::dimension<D>::width(dimension) == 0 ||
-                gui::dimension<D>::height(dimension) == 0
-            )
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Dimension has zero value.")
-                );
-            }
+            if (gui::dimension<D>::width(dimension) == 0 || gui::dimension<D>::height(dimension) == 0)
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Dimension has zero value."));
 
-            widget_details_type::template set_dimension<position_type>(
-                *this, dimension
-            );
+            widget_details_type::template set_dimension<position_type>(*this, dimension);
         }
 
         /*!
@@ -355,22 +322,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param client_dimension A client dimension.
 
-            \throw std::invalid_argument When either client_dimension.first or
-                                         client_dimension.second is equal to
-                                         0.
+            \throw std::invalid_argument When either client_dimension.first or client_dimension.second is equal to 0.
         */
         template <typename D>
         void set_client_dimension(const D& client_dimension)
         {
-            if (
-                gui::dimension<D>::width(client_dimension) == 0 ||
-                gui::dimension<D>::height(client_dimension) == 0
-            )
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Client dimension has zero value.")
-                );
-            }
+            if (gui::dimension<D>::width(client_dimension) == 0 || gui::dimension<D>::height(client_dimension) == 0)
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Client dimension has zero value."));
 
             widget_details_type::template set_client_dimension<position_type>(
                 *this, client_dimension
@@ -398,16 +356,13 @@ namespace tetengo2 { namespace gui { namespace widget
         template <typename S>
         void set_text(S&& text)
         {
-            widget_details_type::set_text(
-                *this, std::forward<S>(text), encoder()
-            );
+            widget_details_type::set_text(*this, std::forward<S>(text), encoder());
         }
 
         /*!
             \brief Returns the background.
 
-            When the system default background is used, this function returns
-            an uninitialized value.
+            When the system default background is used, this function returns an uninitialized value.
 
             \return The background or an uninitialized value.
         */
@@ -420,8 +375,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Sets a background.
 
-            When p_background points to NULL, the system default background is
-            used.
+            When p_background points to NULL, the system default background is used.
 
             \param p_background A unique pointer to a background.
         */
@@ -480,8 +434,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The children.
         */
-        std::vector<typename cpp11::reference_wrapper<const child_type>::type>
-        children()
+        std::vector<typename cpp11::reference_wrapper<const child_type>::type> children()
         const
         {
             return widget_details_type::template children<const child_type>(*this);
@@ -492,8 +445,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The children.
         */
-        std::vector<typename cpp11::reference_wrapper<child_type>::type>
-        children()
+        std::vector<typename cpp11::reference_wrapper<child_type>::type> children()
         {
             return widget_details_type::template children<child_type>(*this);
         }
@@ -632,7 +584,7 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
-            \brief Sets the status of the widget that it's already destroyed.
+            \brief Sets the status of the widget that it is already destroyed.
         */
         void set_destroyed()
         {
@@ -650,11 +602,7 @@ namespace tetengo2 { namespace gui { namespace widget
         const
         {
             if (m_destroyed)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("This widget is destroyed.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::runtime_error("This widget is destroyed."));
 
             return details_impl();
         }
@@ -669,11 +617,7 @@ namespace tetengo2 { namespace gui { namespace widget
         boost::optional<details_type&> details()
         {
             if (m_destroyed)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::runtime_error("This widget is destroyed.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::runtime_error("This widget is destroyed."));
 
             return details_impl();
         }
@@ -707,8 +651,7 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Initializes the widget.
 
-            This function must be called in the constructor and only in the
-            constructor.
+            This function must be called in the constructor and only in the constructor.
 
             \param p_widget A pointer to a widget.
         */
@@ -736,8 +679,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         m_message_handler_map(
             message_handler_details_type::make_widget_message_handler_map(
-                *this,
-                std::forward<message_handler_map_type>(message_handler_map)
+                *this, std::forward<message_handler_map_type>(message_handler_map)
             )
         ),
 #if defined(_MSC_VER)
@@ -754,9 +696,7 @@ namespace tetengo2 { namespace gui { namespace widget
         {
             m_focus_observer_set.got_focus().connect(got_focus(*this));
             m_focus_observer_set.lost_focus().connect(lost_focus(*this));
-            m_paint_observer_set.paint_background().connect(
-                paint_background(*this)
-            );
+            m_paint_observer_set.paint_background().connect(paint_background(*this));
         }
 
 
@@ -819,9 +759,7 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_self.background()) return false;
 
                 canvas.fill_rectangle(
-                    position_type(left_type(0), top_type(0)),
-                    m_self.client_dimension(),
-                    *m_self.background()
+                    position_type(left_type(0), top_type(0)), m_self.client_dimension(), *m_self.background()
                 );
 
                 return true;

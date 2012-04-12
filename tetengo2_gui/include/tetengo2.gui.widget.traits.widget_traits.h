@@ -66,8 +66,7 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         typedef Dimension dimension_type;
 
         //! The difference type.
-        typedef
-            typename gui::position<position_type>::left_type difference_type;
+        typedef typename gui::position<position_type>::left_type difference_type;
 
         //! The size type.
         typedef typename gui::dimension<dimension_type>::width_type size_type;

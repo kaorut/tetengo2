@@ -21,20 +21,11 @@ namespace tetengo2 { namespace gui { namespace widget
         \brief The class template for a button.
 
         \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a
-                                      widget.
-        \tparam MessageHandlerDetails A detail implementation type of a
-                                      message handler.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
    */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename MessageHandlerDetails
-    >
-    class button :
-        public control<
-            typename Traits::base_type, WidgetDetails, MessageHandlerDetails
-        >
+    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
+    class button : public control<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
     {
     public:
         // types
@@ -49,25 +40,16 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef MessageHandlerDetails message_handler_details_type;
 
         //! The base type.
-        typedef
-            control<
-                typename traits_type::base_type,
-                widget_details_type,
-                message_handler_details_type
-            >
-            base_type;
+        typedef control<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
 
         //! The widget type.
         typedef typename base_type::base_type widget_type;
 
         //! The detail implementation type.
-        typedef
-            typename widget_details_type::widget_details_type details_type;
+        typedef typename widget_details_type::widget_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename widget_details_type::widget_details_ptr_type
-            details_ptr_type;
+        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
         //! The style type.
         enum style_type
@@ -83,31 +65,21 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a button.
 
-            The window cannot have plural buttons with style_default. And so
-            is style_cancel. When creating a second button with style_default
-            or style_cancel, std::runtime_error is thrown.
+            The window cannot have plural buttons with style_default. And so is style_cancel. When creating a second
+            button with style_default or style_cancel, std::runtime_error is thrown.
 
             \param parent A parent widget.
             \param style  A style.
         */
-        explicit button(
-            widget_type&     parent,
-            const style_type style = style_normal
-        )
+        explicit button(widget_type& parent, const style_type style = style_normal)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         base_type(
-            message_handler_details_type::make_button_message_handler_map(
-                *this, message_handler_map_type()
-            ),
-            widget_details_type::create_button(
-                parent,
-                style == style_default,
-                style == style_cancel
-            )
+            message_handler_details_type::make_button_message_handler_map(*this, message_handler_map_type()),
+            widget_details_type::create_button(parent, style == style_default, style == style_cancel)
         ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
@@ -142,9 +114,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef
-            typename message_handler_details_type::message_handler_map_type
-            message_handler_map_type;
+        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
 
 
         // variables

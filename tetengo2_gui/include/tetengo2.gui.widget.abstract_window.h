@@ -27,20 +27,11 @@ namespace tetengo2 { namespace gui { namespace widget
         \brief The class template for an abstract window.
 
         \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a
-                                      widget.
-        \tparam MessageHandlerDetails A detail implementation type of a
-                                      message handler.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
    */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename MessageHandlerDetails
-    >
-    class abstract_window :
-        public widget<
-            typename Traits::base_type, WidgetDetails, MessageHandlerDetails
-        >
+    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
+    class abstract_window : public widget<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
     {
     public:
         // types
@@ -55,13 +46,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef MessageHandlerDetails message_handler_details_type;
 
         //! The base type.
-        typedef
-            widget<
-                typename traits_type::base_type,
-                widget_details_type,
-                message_handler_details_type
-            >
-            base_type;
+        typedef widget<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
 
         //! The position type.
         typedef typename base_type::position_type position_type;
@@ -76,18 +61,13 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename traits_type::menu_bar_type menu_bar_type;
 
         //! The window observer set type.
-        typedef
-            typename traits_type::window_observer_set_type
-            window_observer_set_type;
+        typedef typename traits_type::window_observer_set_type window_observer_set_type;
 
         //! The detail implementation type.
-        typedef
-            typename widget_details_type::widget_details_type details_type;
+        typedef typename widget_details_type::widget_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename widget_details_type::widget_details_ptr_type
-            details_ptr_type;
+        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
 
         // functions
@@ -117,20 +97,13 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The menu bar.
 
-            \throw std::logic_error When the abstract window does not have a
-                                    main menu.
+            \throw std::logic_error When the abstract window does not have a main menu.
         */
         const menu_bar_type& menu_bar()
         const
         {
             if(!has_menu_bar())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error(
-                        "The abstract window does not have a menu bar."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The abstract window does not have a menu bar."));
 
             return *m_p_menu_bar;
         }
@@ -140,19 +113,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \return The menu bar.
 
-            \throw std::logic_error When the abstract window does not have a
-                                    main menu.
+            \throw std::logic_error When the abstract window does not have a main menu.
         */
         menu_bar_type& menu_bar()
         {
             if(!has_menu_bar())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error(
-                        "The abstract window does not have a menu bar."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The abstract window does not have a menu bar."));
 
             return *m_p_menu_bar;
         }
@@ -162,24 +128,18 @@ namespace tetengo2 { namespace gui { namespace widget
 
             The shortcut key table of the menu bar is updated.
 
-            When p_menu_bar is NULL, the currently associated main menu is
-            destroyed.
+            When p_menu_bar is NULL, the currently associated main menu is destroyed.
 
             \param p_menu_bar A unique pointer to a menu bar.
         */
         void set_menu_bar(std::unique_ptr<menu_bar_type> p_menu_bar)
         {
-            widget_details_type::set_menu_bar(
-                *this, boost::optional<const menu_bar_type&>()
-            );
+            widget_details_type::set_menu_bar(*this, boost::optional<const menu_bar_type&>());
 
             if (p_menu_bar)
             {
                 p_menu_bar->update_shortcut_key_table();
-                widget_details_type::set_menu_bar(
-                    *this,
-                    boost::make_optional<const menu_bar_type&>(*p_menu_bar)
-                );
+                widget_details_type::set_menu_bar(*this, boost::make_optional<const menu_bar_type&>(*p_menu_bar));
             }
             m_p_menu_bar = std::move(p_menu_bar);
         }
@@ -218,9 +178,7 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         //! The message handler map type.
-        typedef
-            typename message_handler_details_type::message_handler_map_type
-            message_handler_map_type;
+        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
 
 
         // constructors and destructor
@@ -230,9 +188,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param message_handler_map A message handler map.
         */
-        explicit abstract_window(
-            message_handler_map_type&& message_handler_map
-        )
+        explicit abstract_window(message_handler_map_type&& message_handler_map)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -240,8 +196,7 @@ namespace tetengo2 { namespace gui { namespace widget
 #endif
         base_type(
             message_handler_details_type::make_abstract_window_message_handler_map(
-                *this,
-                std::forward<message_handler_map_type>(message_handler_map)
+                *this, std::forward<message_handler_map_type>(message_handler_map)
             )
         ),
 #if defined(_MSC_VER)
