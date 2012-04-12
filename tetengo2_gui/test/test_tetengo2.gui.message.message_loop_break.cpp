@@ -24,12 +24,8 @@ BOOST_AUTO_TEST_SUITE(message_loop_break)
         BOOST_TEST_PASSPOINT();
 
         typedef
-            tetengo2::gui::message::message_loop_break<
-                tetengo2::detail::stub::message_loop
-            >
-            message_loop_break_type;
-        const message_loop_break_type message_loop_break =
-            message_loop_break_type();
+            tetengo2::gui::message::message_loop_break<tetengo2::detail::stub::message_loop> message_loop_break_type;
+        const message_loop_break_type message_loop_break = message_loop_break_type();
 
         message_loop_break(0);
     }

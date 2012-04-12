@@ -58,6 +58,7 @@
 #include "tetengo2.gui.message.focus_observer_set.h"
 #include "tetengo2.gui.message.keyboard_observer_set.h"
 #include "tetengo2.gui.message.menu_observer_set.h"
+#include "tetengo2.gui.message.message_loop.h"
 #include "tetengo2.gui.message.message_loop_break.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
@@ -473,6 +474,9 @@ namespace test_tetengo2 { namespace gui
 
     namespace type { namespace widget
     {
+        struct message_loop;   //!< The message loop type.
+        struct dialog_message_loop; //!< The dialog message loop type.
+        struct message_loop_break; //!< The message loop break type.
         struct widget;         //!< The widget type.
         struct abstract_window; //!< The abstract window type.
         struct window;         //!< The window type.
@@ -522,6 +526,9 @@ namespace test_tetengo2 { namespace gui
             abstract_window_type;
         typedef tetengo2::detail::stub::message_loop message_loop_details_type;
         typedef
+            tetengo2::gui::message::message_loop<abstract_window_type, message_loop_details_type>
+            message_loop_type;
+        typedef
             tetengo2::gui::message::dialog_message_loop<abstract_window_type, message_loop_details_type>
             dialog_message_loop_type;
         typedef tetengo2::gui::message::message_loop_break<message_loop_details_type> message_loop_break_type;
@@ -555,6 +562,11 @@ namespace test_tetengo2 { namespace gui
 
     //! The widget type list.
     typedef
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::widget::message_loop, detail::widget::message_loop_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::widget::dialog_message_loop, detail::widget::dialog_message_loop_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::widget::message_loop_break, detail::widget::message_loop_break_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::widget::widget,
@@ -639,7 +651,7 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>
+        >>>>>>>>>>>>>
         widget_type_list;
 
 
