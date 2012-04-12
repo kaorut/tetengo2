@@ -17,17 +17,11 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::menu_details
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_details>::type
         menu_details_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::separator
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::separator>::type
         menu_separator_type;
 
 
@@ -53,10 +47,7 @@ BOOST_AUTO_TEST_SUITE(separator)
 
         const menu_separator_type menu_separator;
 
-        BOOST_CHECK(
-            &menu_separator.style() ==
-            &menu_details_type::menu_separator_style()
-        );
+        BOOST_CHECK(&menu_separator.style() == &menu_details_type::menu_separator_style());
     }
 
 

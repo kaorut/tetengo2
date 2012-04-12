@@ -19,23 +19,13 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::menu_details
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_details>::type
         menu_details_type;
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::command
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::command>::type
         menu_command_type;
 
 
@@ -52,22 +42,16 @@ BOOST_AUTO_TEST_SUITE(command)
     {
         BOOST_TEST_PASSPOINT();
 
-        const menu_command_type menu_command(
-            string_type(TETENGO2_TEXT("Tetengo"))
-        );
+        const menu_command_type menu_command(string_type(TETENGO2_TEXT("Tetengo")));
     }
 
     BOOST_AUTO_TEST_CASE(style)
     {
         BOOST_TEST_PASSPOINT();
 
-        const menu_command_type menu_command(
-            string_type(TETENGO2_TEXT("Tetengo"))
-        );
+        const menu_command_type menu_command(string_type(TETENGO2_TEXT("Tetengo")));
 
-        BOOST_CHECK(
-            &menu_command.style() == &menu_details_type::menu_command_style()
-        );
+        BOOST_CHECK(&menu_command.style() == &menu_details_type::menu_command_style());
     }
 
 

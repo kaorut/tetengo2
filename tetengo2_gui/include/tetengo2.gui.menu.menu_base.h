@@ -417,7 +417,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
         virtual void insert_impl(const iterator offset, std::unique_ptr<menu_base> p_menu)
         {
-            assert(false);
             BOOST_THROW_EXCEPTION(
                 std::logic_error("Can't insert any menus.")
             );
@@ -425,7 +424,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
         virtual void erase_impl(const iterator first, const iterator last)
         {
-            assert(false);
             BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
         }
 
