@@ -17,10 +17,7 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::widget_type_list,
-            test_tetengo2::gui::type::widget::window
-        >::type
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
         window_type;
 
 
@@ -42,9 +39,7 @@ BOOST_AUTO_TEST_SUITE(window)
         }
         {
             window_type parent;
-            const window_type window(
-                static_cast<window_type::base_type&>(parent)
-            );
+            const window_type window(static_cast<window_type::base_type&>(parent));
         }
     }
 
