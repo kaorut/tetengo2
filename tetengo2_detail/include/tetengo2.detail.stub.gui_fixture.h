@@ -11,8 +11,6 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.cpp11.h"
-
 
 namespace tetengo2 { namespace detail { namespace stub
 {

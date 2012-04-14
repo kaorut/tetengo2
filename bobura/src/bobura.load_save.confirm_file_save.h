@@ -11,7 +11,6 @@
 
 //#include <memory>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
