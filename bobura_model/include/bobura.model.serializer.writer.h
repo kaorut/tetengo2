@@ -12,8 +12,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/utility.hpp>
 
-#include <tetengo2.cpp11.h>
-
 
 namespace bobura { namespace model { namespace serializer
 {
@@ -46,7 +44,6 @@ namespace bobura { namespace model { namespace serializer
             \brief Destroys the writer.
         */
         virtual ~writer()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
