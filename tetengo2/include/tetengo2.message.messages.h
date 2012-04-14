@@ -107,7 +107,6 @@ namespace tetengo2 { namespace message
             \brief Destroys the messages facet.
         */
         virtual ~messages()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

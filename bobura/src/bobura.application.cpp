@@ -12,7 +12,6 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
-#include <tetengo2.cpp11.h>
 #include <tetengo2.unique.h>
 
 #define USE_TYPES_FOR_APPLICATION
@@ -284,7 +283,6 @@ namespace bobura
     {}
 
     application::~application()
-    TETENGO2_CPP11_NOEXCEPT
     {}
 
     int application::run()

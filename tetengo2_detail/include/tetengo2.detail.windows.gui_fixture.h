@@ -21,7 +21,6 @@
 #include <CommCtrl.h>
 #include <ObjBase.h>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.windows_version.h"
 

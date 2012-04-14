@@ -122,7 +122,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the widget.
         */
         virtual ~widget()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

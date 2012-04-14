@@ -6,10 +6,7 @@
     $Id$
 */
 
-//#include <cstddef>
-//#include <string>
-//#include <utility>
-
+//#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -42,7 +39,6 @@ namespace
         }
 
         virtual ~concrete_window()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
         virtual boost::optional<const details_type&> details_impl()
