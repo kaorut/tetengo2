@@ -21,7 +21,6 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.menu.recursive_iterator.h"
 
 
@@ -86,7 +85,6 @@ namespace tetengo2 { namespace gui { namespace menu
             \brief Destroys the menu base.
         */
         virtual ~menu_base()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

@@ -12,8 +12,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
-#include "tetengo2.cpp11.h"
-
 
 namespace tetengo2 { namespace gui { namespace drawing
 {
@@ -44,7 +42,6 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the background.
         */
         virtual ~background()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

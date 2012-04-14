@@ -18,7 +18,6 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.measure.h"
 
 
@@ -101,7 +100,6 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the canvas.
         */
         virtual ~canvas()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

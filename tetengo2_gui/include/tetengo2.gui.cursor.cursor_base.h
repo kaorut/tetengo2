@@ -12,8 +12,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
-#include "tetengo2.cpp11.h"
-
 
 namespace tetengo2 { namespace gui { namespace cursor
 {
@@ -44,7 +42,6 @@ namespace tetengo2 { namespace gui { namespace cursor
             \brief Destroys the cursor_base.
         */
         virtual ~cursor_base()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

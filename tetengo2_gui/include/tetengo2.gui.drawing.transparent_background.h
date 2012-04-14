@@ -11,7 +11,6 @@
 
 //#include <boost/optional.hpp>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.drawing.background.h"
 
 
@@ -47,7 +46,6 @@ namespace tetengo2 { namespace gui { namespace drawing
             \brief Destroys the background.
         */
         virtual ~transparent_background()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

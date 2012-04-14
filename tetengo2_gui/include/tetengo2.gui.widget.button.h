@@ -11,7 +11,6 @@
 
 //#include <stdexcept>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.gui.widget.control.h"
 
 
@@ -93,7 +92,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \brief Destroys the button.
         */
         virtual ~button()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

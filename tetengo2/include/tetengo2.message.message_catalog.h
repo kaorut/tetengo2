@@ -16,8 +16,6 @@
 
 #include <boost/noncopyable.hpp>
 
-#include "tetengo2.cpp11.h"
-
 
 namespace tetengo2 { namespace message
 {
@@ -54,7 +52,6 @@ namespace tetengo2 { namespace message
             \brief Destroys a message catalog.
         */
         ~message_catalog()
-        TETENGO2_CPP11_NOEXCEPT
         {
             if (m_p_messages && m_catalog_id >= 0)
                 m_p_messages->close(m_catalog_id);
