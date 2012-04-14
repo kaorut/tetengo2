@@ -18,7 +18,6 @@
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.encoding.h"
 #include "tetengo2.text.encoder.h"
 #include "tetengo2.text.encoding.locale.h"
@@ -63,7 +62,6 @@ namespace tetengo2 { namespace detail { namespace windows
             \brief Destroys the detail implementation of the error category.
         */
         ~error_category()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

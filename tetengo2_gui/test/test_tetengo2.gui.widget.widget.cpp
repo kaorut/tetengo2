@@ -83,7 +83,6 @@ namespace
         }
 
         virtual ~concrete_widget()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 

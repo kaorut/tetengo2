@@ -42,7 +42,6 @@ namespace
         }
 
         virtual ~concrete_control()
-        TETENGO2_CPP11_NOEXCEPT
         {}
 
 
