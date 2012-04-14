@@ -19,30 +19,15 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::widget_type_list,
-            test_tetengo2::gui::type::widget::window
-        >::type
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
         window_type;
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension
-        >::type
-        dimension_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
+
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
-        >::type
-        string_type;
-
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::widget_type_list,
-            test_tetengo2::gui::type::widget::label
-        >::type
-        label_type;
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::label>::type label_type;
 
 
 }
@@ -75,9 +60,7 @@ BOOST_AUTO_TEST_SUITE(label)
         const dimension_type dimension = label.dimension();
 
         const dimension_type answer_dimension =
-            label.create_canvas()->calc_text_dimension(
-                string_type(TETENGO2_TEXT("Tetengo"))
-            );
+            label.create_canvas()->calc_text_dimension(string_type(TETENGO2_TEXT("Tetengo")));
         BOOST_CHECK(dimension == answer_dimension);
     }
 

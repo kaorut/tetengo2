@@ -21,51 +21,23 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            bobura::model_type_list, bobura::type::model::model
-        >::type
-        model_type;
+    typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
-    typedef
-        boost::mpl::at<
-            bobura::ui_type_list, bobura::type::ui::abstract_window
-        >::type
-        abstract_window_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::abstract_window>::type abstract_window_type;
 
-    typedef
-        boost::mpl::at<
-            bobura::dialog_type_list, bobura::type::dialog::about_dialog
-        >::type
-        about_dialog_type;
+    typedef boost::mpl::at<bobura::dialog_type_list, bobura::type::dialog::about_dialog>::type about_dialog_type;
 
-    typedef
-        boost::mpl::at<
-            bobura::locale_type_list, bobura::type::locale::message_catalog
-        >::type
-        message_catalog_type;
+    typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
-    typedef
-        boost::mpl::at<bobura::common_type_list, bobura::type::string>::type
-        string_type;
+    typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
-    typedef
-        boost::mpl::at<bobura::common_type_list, bobura::type::path>::type
-        path_type;
+    typedef boost::mpl::at<bobura::common_type_list, bobura::type::path>::type path_type;
 
-    typedef
-        boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type
-        settings_type;
+    typedef boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type settings_type;
 
-    typedef
-        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type
-        window_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
-    typedef
-        bobura::command::about<
-            model_type, abstract_window_type, about_dialog_type
-        >
-        about_type;
+    typedef bobura::command::about<model_type, abstract_window_type, about_dialog_type> about_type;
 
 
 }

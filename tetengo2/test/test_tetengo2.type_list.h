@@ -43,12 +43,9 @@ namespace test_tetengo2
 
     //! The common type list.
     typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::size, std::size_t>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::string, std::string>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::io_string, std::string>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::size, std::size_t>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::string, std::string>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::io_string, std::string>,
         tetengo2::meta::assoc_list_end
         >>>
         type_list;
@@ -69,45 +66,25 @@ namespace test_tetengo2
     {
         typedef
             boost::spirit::multi_pass<
-                std::istreambuf_iterator<
-                    boost::mpl::at<
-                        type_list, type::io_string
-                    >::type::value_type
-                >
+                std::istreambuf_iterator<boost::mpl::at<type_list, type::io_string>::type::value_type>
             >
             input_stream_iterator_type;
-        typedef
-            tetengo2::text::grammar::json<input_stream_iterator_type>
-            grammar_type;
-        typedef
-            tetengo2::text::push_parser<
-                input_stream_iterator_type, grammar_type, int, double
-            >
-            push_parser_type;
+        typedef tetengo2::text::grammar::json<input_stream_iterator_type> grammar_type;
+        typedef tetengo2::text::push_parser<input_stream_iterator_type, grammar_type, int, double> push_parser_type;
     }}
 #endif
 
     //! The text type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::text::input_stream_iterator,
-                detail::text::input_stream_iterator_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::text::grammar, detail::text::grammar_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::text::push_parser, detail::text::push_parser_type
-            >,
+            boost::mpl::pair<type::text::input_stream_iterator, detail::text::input_stream_iterator_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::text::grammar, detail::text::grammar_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::text::push_parser, detail::text::push_parser_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::text::pull_parser,
                 tetengo2::text::pull_parser<
-                    detail::text::push_parser_type,
-                    boost::mpl::at<type_list, type::size>::type
+                    detail::text::push_parser_type, boost::mpl::at<type_list, type::size>::type
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -129,33 +106,18 @@ namespace test_tetengo2
     {
         typedef tetengo2::detail::stub::encoding encoding_details_type;
         typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::string>::type,
-                encoding_details_type
-            >
+            tetengo2::text::encoding::locale<boost::mpl::at<type_list, type::string>::type, encoding_details_type>
             internal_encoding_type;
         typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::io_string>::type,
-                encoding_details_type
-            >
+            tetengo2::text::encoding::locale<boost::mpl::at<type_list, type::io_string>::type, encoding_details_type>
             message_catalog_encoding_type;
         typedef
-            tetengo2::text::encoder<
-                internal_encoding_type, message_catalog_encoding_type
-            >
+            tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>
             message_catalog_encoder_type;
         typedef
-            tetengo2::text::encoding::locale<
-                boost::mpl::at<type_list, type::io_string>::type,
-                encoding_details_type
-            >
+            tetengo2::text::encoding::locale<boost::mpl::at<type_list, type::io_string>::type, encoding_details_type>
             locale_name_encoding_type;
-        typedef
-            tetengo2::text::encoder<
-                internal_encoding_type, locale_name_encoding_type
-            >
-            locale_name_encoder_type;
+        typedef tetengo2::text::encoder<internal_encoding_type, locale_name_encoding_type> locale_name_encoder_type;
         typedef
             tetengo2::message::message_catalog_parser<
                 boost::mpl::at<text_type_list, type::text::pull_parser>::type,
@@ -164,11 +126,7 @@ namespace test_tetengo2
             >
             message_catalog_parser_type;
         typedef
-            tetengo2::message::messages<
-                boost::filesystem::path,
-                message_catalog_parser_type,
-                locale_name_encoder_type
-            >
+            tetengo2::message::messages<boost::filesystem::path, message_catalog_parser_type, locale_name_encoder_type>
             messages_type;
     }}
 #endif
@@ -176,20 +134,11 @@ namespace test_tetengo2
     //! The message type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::message::message_catalog_parser,
-                detail::message::message_catalog_parser_type
-            >,
+            boost::mpl::pair<type::message::message_catalog_parser, detail::message::message_catalog_parser_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::message::messages, detail::message::messages_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::message::messages, detail::message::messages_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::message::message_catalog,
-                tetengo2::message::message_catalog<
-                    detail::message::messages_type
-                >
+                type::message::message_catalog, tetengo2::message::message_catalog<detail::message::messages_type>
             >,
         tetengo2::meta::assoc_list_end
         >>>

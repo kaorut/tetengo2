@@ -27,10 +27,7 @@ namespace tetengo2 { namespace text
         \tparam ExternalEncoding An external encoding type.
     */
     template <typename InternalEncoding, typename ExternalEncoding>
-    class encoder :
-        public boost::equality_comparable<
-            encoder<InternalEncoding, ExternalEncoding>
-        >
+    class encoder : public boost::equality_comparable<encoder<InternalEncoding, ExternalEncoding>>
     {
     public:
         // types
@@ -39,15 +36,13 @@ namespace tetengo2 { namespace text
         typedef InternalEncoding internal_encoding_type;
 
         //! The internal string type.
-        typedef
-            typename internal_encoding_type::string_type internal_string_type;
+        typedef typename internal_encoding_type::string_type internal_string_type;
 
         //! The external encoding type.
         typedef ExternalEncoding external_encoding_type;
 
         //! The external string type.
-        typedef
-            typename external_encoding_type::string_type external_string_type;
+        typedef typename external_encoding_type::string_type external_string_type;
 
 
         // constructors and destructor
@@ -91,7 +86,8 @@ namespace tetengo2 { namespace text
         */
         friend bool operator==(const encoder& one, const encoder& another)
         {
-            return one.m_internal_encoding == another.m_internal_encoding &&
+            return
+                one.m_internal_encoding == another.m_internal_encoding &&
                 one.m_external_encoding == another.m_external_encoding;
         }
 
@@ -130,11 +126,7 @@ namespace tetengo2 { namespace text
         external_string_type encode(IS&& string)
         const
         {
-            return encode_impl(
-                std::forward<IS>(string),
-                m_internal_encoding,
-                m_external_encoding
-            );
+            return encode_impl(std::forward<IS>(string), m_internal_encoding, m_external_encoding);
         }
 
         /*!
@@ -150,22 +142,14 @@ namespace tetengo2 { namespace text
         internal_string_type decode(ES&& string)
         const
         {
-            return decode_impl(
-                std::forward<ES>(string),
-                m_internal_encoding,
-                m_external_encoding
-            );
+            return decode_impl(std::forward<ES>(string), m_internal_encoding, m_external_encoding);
         }
 
 
     private:
         // types
 
-        typedef
-            typename std::is_same<
-                internal_encoding_type, external_encoding_type
-            >::type
-            encodings_are_same_type;
+        typedef typename std::is_same<internal_encoding_type, external_encoding_type>::type encodings_are_same_type;
 
 
         // static functions
@@ -175,9 +159,7 @@ namespace tetengo2 { namespace text
             IS&&             string,
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
-            const typename std::enable_if<
-                std::is_same<InternEnc, ExternEnc>::value
-            >::type* const = NULL
+            const typename std::enable_if<std::is_same<InternEnc, ExternEnc>::value>::type* const = NULL
         )
         {
             return std::forward<IS>(string);
@@ -188,14 +170,10 @@ namespace tetengo2 { namespace text
             IS&&             string,
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
-            const typename std::enable_if<
-                !std::is_same<InternEnc, ExternEnc>::value
-            >::type* const = NULL
+            const typename std::enable_if<!std::is_same<InternEnc, ExternEnc>::value>::type* const = NULL
         )
         {
-            return external_encoding.from_pivot(
-                internal_encoding.to_pivot(std::forward<IS>(string))
-            );
+            return external_encoding.from_pivot(internal_encoding.to_pivot(std::forward<IS>(string)));
         }
 
         template <typename IS, typename Str, typename DE>
@@ -205,19 +183,10 @@ namespace tetengo2 { namespace text
             const encoding::locale<Str, DE>& external_encoding
         )
         {
-            if (
-                internal_encoding.locale_based_on() ==
-                external_encoding.locale_based_on()
-            )
-            {
+            if (internal_encoding.locale_based_on() == external_encoding.locale_based_on())
                 return std::forward<IS>(string);
-            }
             else
-            {
-                return external_encoding.from_pivot(
-                    internal_encoding.to_pivot(std::forward<IS>(string))
-                );
-            }
+                return external_encoding.from_pivot(internal_encoding.to_pivot(std::forward<IS>(string)));
         }
 
         template <typename ES, typename InternEnc, typename ExternEnc>
@@ -225,9 +194,7 @@ namespace tetengo2 { namespace text
             ES&&             string,
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
-            const typename std::enable_if<
-                std::is_same<InternEnc, ExternEnc>::value
-            >::type* const = NULL
+            const typename std::enable_if<std::is_same<InternEnc, ExternEnc>::value>::type* const = NULL
         )
         {
             return std::forward<ES>(string);
@@ -238,14 +205,10 @@ namespace tetengo2 { namespace text
             ES&&             string,
             const InternEnc& internal_encoding,
             const ExternEnc& external_encoding,
-            const typename std::enable_if<
-                !std::is_same<InternEnc, ExternEnc>::value
-            >::type* const = NULL
+            const typename std::enable_if<!std::is_same<InternEnc, ExternEnc>::value>::type* const = NULL
         )
         {
-            return internal_encoding.from_pivot(
-                external_encoding.to_pivot(std::forward<ES>(string))
-            );
+            return internal_encoding.from_pivot(external_encoding.to_pivot(std::forward<ES>(string)));
         }
 
         template <typename ES, typename Str, typename DE>
@@ -255,19 +218,10 @@ namespace tetengo2 { namespace text
             const encoding::locale<Str, DE>& external_encoding
         )
         {
-            if (
-                internal_encoding.locale_based_on() ==
-                external_encoding.locale_based_on()
-            )
-            {
+            if (internal_encoding.locale_based_on() == external_encoding.locale_based_on())
                 return std::forward<ES>(string);
-            }
             else
-            {
-                return internal_encoding.from_pivot(
-                    external_encoding.to_pivot(std::forward<ES>(string))
-                );
-            }
+                return internal_encoding.from_pivot(external_encoding.to_pivot(std::forward<ES>(string)));
         }
 
 

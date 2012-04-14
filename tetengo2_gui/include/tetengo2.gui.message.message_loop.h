@@ -18,8 +18,7 @@ namespace tetengo2 { namespace gui { namespace message
         \brief The class template for a message loop.
 
         \tparam AbstractWindow     An abstract window type.
-        \tparam MessageLoopDetails The detail implementation type of a message
-                                   loop.
+        \tparam MessageLoopDetails The detail implementation type of a message loop.
     */
     template <typename AbstractWindow, typename MessageLoopDetails>
     class message_loop : boost::noncopyable

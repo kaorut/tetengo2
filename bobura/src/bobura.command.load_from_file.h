@@ -42,7 +42,7 @@ namespace bobura { namespace command
 
             \param load_from_file A file loading.
         */
-        load_from_file(const load_from_file_type& load_from_file)
+        explicit load_from_file(const load_from_file_type& load_from_file)
         :
         m_load_from_file(load_from_file)
         {}

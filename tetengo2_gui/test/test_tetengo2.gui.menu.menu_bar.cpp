@@ -18,17 +18,11 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::menu_details
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_details>::type
         menu_details_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::menu_bar
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_bar>::type
         menu_bar_type;
 
 
@@ -54,9 +48,7 @@ BOOST_AUTO_TEST_SUITE(menu_bar)
 
         const menu_bar_type menu_bar;
 
-        BOOST_CHECK(
-            &menu_bar.style() == &menu_details_type::menu_bar_style()
-        );
+        BOOST_CHECK(&menu_bar.style() == &menu_details_type::menu_bar_style());
     }
 
     BOOST_AUTO_TEST_CASE(shortcut_key_table)

@@ -52,29 +52,17 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef typename traits_type::encoder_type encoder_type;
 
         //! The menu observer set type.
-        typedef
-            typename traits_type::menu_observer_set_type
-            menu_observer_set_type;
+        typedef typename traits_type::menu_observer_set_type menu_observer_set_type;
 
         //! The const iterator type.
         typedef
-            boost::indirect_iterator<
-                typename std::vector<
-                    std::unique_ptr<menu_base>
-                >::const_iterator
-            >
-            const_iterator;
+            boost::indirect_iterator<typename std::vector<std::unique_ptr<menu_base>>::const_iterator> const_iterator;
 
         //! The iterator type.
-        typedef
-            boost::indirect_iterator<
-                typename std::vector<std::unique_ptr<menu_base>>::iterator
-            >
-            iterator;
+        typedef boost::indirect_iterator<typename std::vector<std::unique_ptr<menu_base>>::iterator> iterator;
 
         //! The const recursive iterator type.
-        typedef
-            recursive_iterator<const menu_base> const_recursive_iterator_type;
+        typedef recursive_iterator<const menu_base> const_recursive_iterator_type;
 
         //! The recursive iterator type.
         typedef recursive_iterator<menu_base> recursive_iterator_type;
@@ -86,9 +74,7 @@ namespace tetengo2 { namespace gui { namespace menu
         typedef typename menu_details_type::menu_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename menu_details_type::menu_details_ptr_type
-            details_ptr_type;
+        typedef typename menu_details_type::menu_details_ptr_type details_ptr_type;
 
         //! The style type.
         typedef typename menu_details_type::style_tag style_type;
@@ -150,11 +136,7 @@ namespace tetengo2 { namespace gui { namespace menu
         const
         {
             if (!has_shortcut_key())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("This menu has no shortcut key.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("This menu has no shortcut key."));
 
             return *m_shortcut_key;
         }
@@ -231,8 +213,7 @@ namespace tetengo2 { namespace gui { namespace menu
         }
 
         /*!
-            \brief Returns the recursive first immutable iterator to this menu
-                   and the children.
+            \brief Returns the recursive first immutable iterator to this menu and the children.
 
             The first iterator points to this menu.
 
@@ -245,8 +226,7 @@ namespace tetengo2 { namespace gui { namespace menu
         }
 
         /*!
-            \brief Returns the recursive first mutable iterator to this menu
-                   and the children.
+            \brief Returns the recursive first mutable iterator to this menu and the children.
 
             The first iterator points to this menu.
 
@@ -258,8 +238,7 @@ namespace tetengo2 { namespace gui { namespace menu
         }
 
         /*!
-            \brief Returns the recursive last immutable iterator to this menu
-                   and the children.
+            \brief Returns the recursive last immutable iterator to this menu and the children.
 
             \return The recursive last immutable iterator.
         */
@@ -270,8 +249,7 @@ namespace tetengo2 { namespace gui { namespace menu
         }
 
         /*!
-            \brief Returns the recursive last mutable iterator to this menu
-                   and the children.
+            \brief Returns the recursive last mutable iterator to this menu and the children.
 
             \return The recursive last mutable iterator.
         */
@@ -312,9 +290,7 @@ namespace tetengo2 { namespace gui { namespace menu
         boost::optional<const details_type&> details()
         const
         {
-            return boost::make_optional<const details_type&>(
-                static_cast<bool>(m_p_details), *m_p_details
-            );
+            return boost::make_optional<const details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }
 
         /*!
@@ -324,9 +300,7 @@ namespace tetengo2 { namespace gui { namespace menu
         */
         boost::optional<details_type&> details()
         {
-            return boost::make_optional<details_type&>(
-                static_cast<bool>(m_p_details), *m_p_details
-            );
+            return boost::make_optional<details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }
 
 
@@ -441,12 +415,8 @@ namespace tetengo2 { namespace gui { namespace menu
             return recursive_iterator_type();
         }
 
-        virtual void insert_impl(
-            const iterator             offset,
-            std::unique_ptr<menu_base> p_menu
-        )
+        virtual void insert_impl(const iterator offset, std::unique_ptr<menu_base> p_menu)
         {
-            assert(false);
             BOOST_THROW_EXCEPTION(
                 std::logic_error("Can't insert any menus.")
             );
@@ -454,7 +424,6 @@ namespace tetengo2 { namespace gui { namespace menu
 
         virtual void erase_impl(const iterator first, const iterator last)
         {
-            assert(false);
             BOOST_THROW_EXCEPTION(std::logic_error("Can't erase any menus."));
         }
 

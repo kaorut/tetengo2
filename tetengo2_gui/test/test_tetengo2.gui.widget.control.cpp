@@ -19,17 +19,11 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::color
-        >::type
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type
         color_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::widget_type_list,
-            test_tetengo2::gui::type::widget::control
-        >::type
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::control>::type
         control_type;
 
     class concrete_control : public control_type
@@ -40,9 +34,7 @@ namespace
         control_type(
             message_handler_map_type(),
             widget_details_type::widget_details_ptr_type(
-                tetengo2::make_unique<
-                    widget_details_type::widget_details_type
-                >()
+                tetengo2::make_unique<widget_details_type::widget_details_type>()
             )
         )
         {
@@ -85,9 +77,7 @@ BOOST_AUTO_TEST_SUITE(control)
             concrete_control control;
             control.set_text_color(color_type(0x12, 0x34, 0x56));
 
-            BOOST_CHECK(
-                *control.text_color() == color_type(0x12, 0x34, 0x56)
-            );
+            BOOST_CHECK(*control.text_color() == color_type(0x12, 0x34, 0x56));
         }
     }
 
@@ -99,9 +89,7 @@ BOOST_AUTO_TEST_SUITE(control)
 
         control.set_text_color(color_type(0x12, 0x34, 0x56));
 
-        BOOST_CHECK(
-            *control.text_color() == color_type(0x12, 0x34, 0x56)
-        );
+        BOOST_CHECK(*control.text_color() == color_type(0x12, 0x34, 0x56));
 
         control.set_text_color();
 

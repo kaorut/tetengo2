@@ -26,11 +26,7 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam ShortcutKeyTable A shortcut key table type.
         \tparam MenuDetails      A detail implementation type of a menu.
    */
-    template <
-        typename Traits,
-        typename ShortcutKeyTable,
-        typename MenuDetails
-    >
+    template <typename Traits, typename ShortcutKeyTable, typename MenuDetails>
     class menu_bar : public abstract_popup<Traits, MenuDetails>
     {
     public:
@@ -88,9 +84,7 @@ namespace tetengo2 { namespace gui { namespace menu
         void update_shortcut_key_table()
         {
             m_p_shortcut_key_table =
-                make_unique<shortcut_key_table_type>(
-                    this->recursive_begin(), this->recursive_end()
-                );
+                make_unique<shortcut_key_table_type>(this->recursive_begin(), this->recursive_end());
         }
 
 

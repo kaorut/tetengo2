@@ -18,21 +18,11 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            bobura::model_type_list, bobura::type::model::model
-        >::type
-        model_type;
+    typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
-    typedef
-        boost::mpl::at<
-            bobura::ui_type_list, bobura::type::ui::abstract_window
-        >::type
-        abstract_window_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::abstract_window>::type abstract_window_type;
 
-    typedef
-        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type
-        window_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef bobura::command::nop<model_type, abstract_window_type> nop_type;
 

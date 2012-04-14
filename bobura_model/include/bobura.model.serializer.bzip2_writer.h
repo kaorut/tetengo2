@@ -46,8 +46,7 @@ namespace bobura { namespace model { namespace serializer
         typedef Path path_type;
 
         //! The base type.
-        typedef
-            writer<output_stream_type, timetable_type, path_type> base_type;
+        typedef writer<output_stream_type, timetable_type, path_type> base_type;
 
 
         // constructors and destructor
@@ -83,21 +82,13 @@ namespace bobura { namespace model { namespace serializer
         const
         {
             return
-                path_type(
-                    m_p_writer->extension().native() +
-                    typename path_type::string_type(TETENGO2_TEXT(".bz2"))
-                );
+                path_type(m_p_writer->extension().native() + typename path_type::string_type(TETENGO2_TEXT(".bz2")));
         }
 
-        virtual void write_impl(
-            const timetable_type& timetable,
-            output_stream_type&   output_stream
-        )
+        virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
         {
             boost::iostreams::filtering_ostream filtering_output_stream;
-            filtering_output_stream.push(
-                boost::iostreams::bzip2_compressor()
-            );
+            filtering_output_stream.push(boost::iostreams::bzip2_compressor());
             filtering_output_stream.push(output_stream);
 
             m_p_writer->write(timetable, filtering_output_stream);

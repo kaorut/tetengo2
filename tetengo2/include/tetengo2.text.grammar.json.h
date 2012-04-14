@@ -32,10 +32,7 @@ namespace tetengo2 { namespace text { namespace grammar
     */
     template <typename ForwardIterator>
     class json :
-        public boost::spirit::qi::grammar<
-            ForwardIterator,
-            std::basic_string<typename ForwardIterator::value_type> ()
-        >
+        public boost::spirit::qi::grammar<ForwardIterator, std::basic_string<typename ForwardIterator::value_type> ()>
     {
     public:
         // types
@@ -59,26 +56,15 @@ namespace tetengo2 { namespace text { namespace grammar
         };
 
         //! The attribute type.
-        typedef
-            std::tuple<string_type, value_type_type, const string_type&>
-            structure_attribute_type;
+        typedef std::tuple<string_type, value_type_type, const string_type&> structure_attribute_type;
 
         //! The structure signal type.
         typedef
-            boost::signals2::signal<
-                void (
-                    const std::string&,
-                    const std::vector<structure_attribute_type>&
-                )
-            >
+            boost::signals2::signal<void (const std::string&, const std::vector<structure_attribute_type>&)>
             structure_signal_type;
 
         //! The value signal type.
-        typedef
-            boost::signals2::signal<
-                void (value_type_type, const string_type&)
-            >
-            value_signal_type;
+        typedef boost::signals2::signal<void (value_type_type, const string_type&)> value_signal_type;
 
         //! The rule type.
         typedef boost::spirit::qi::rule<iterator, string_type ()> rule_type;
@@ -135,8 +121,8 @@ namespace tetengo2 { namespace text { namespace grammar
         /*!
             \brief Returns the structure begin signal.
 
-            The signal is called when the parser parses the beginning tokens
-            of an object, a member and an array structure.
+            The signal is called when the parser parses the beginning tokens of an object, a member and an array
+            structure.
 
             \return The structure signal.
         */
@@ -149,8 +135,8 @@ namespace tetengo2 { namespace text { namespace grammar
         /*!
             \brief Returns the structure begin signal.
 
-            The signal is called when the parser parses the beginning tokens
-            of an object, a member and an array structure.
+            The signal is called when the parser parses the beginning tokens of an object, a member and an array
+            structure.
 
             \return The structure signal.
         */
@@ -162,8 +148,8 @@ namespace tetengo2 { namespace text { namespace grammar
         /*!
             \brief Returns the structure end signal.
 
-            The signal is called when the parser parses the ending tokens of
-            an object, a member and an array structure.
+            The signal is called when the parser parses the ending tokens of an object, a member and an array
+            structure.
 
             \return The structure signal.
         */
@@ -176,8 +162,8 @@ namespace tetengo2 { namespace text { namespace grammar
         /*!
             \brief Returns the structure end signal.
 
-            The signal is called when the parser parses the ending tokens of
-            an object, a member and an array structure.
+            The signal is called when the parser parses the ending tokens of an object, a member and an array
+            structure.
 
             \return The structure signal.
         */
@@ -292,8 +278,7 @@ namespace tetengo2 { namespace text { namespace grammar
     private:
         // types
 
-        typedef
-            boost::spirit::qi::rule<iterator, char_type ()> char_rule_type;
+        typedef boost::spirit::qi::rule<iterator, char_type ()> char_rule_type;
 
 
         // variables
@@ -369,18 +354,12 @@ namespace tetengo2 { namespace text { namespace grammar
 
         void object_begun(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_begin(
-                string_type(TETENGO2_TEXT("object")),
-                std::vector<structure_attribute_type>()
-            );
+            m_on_structure_begin(string_type(TETENGO2_TEXT("object")), std::vector<structure_attribute_type>());
         }
 
         void object_ended(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_end(
-                string_type(TETENGO2_TEXT("object")),
-                std::vector<structure_attribute_type>()
-            );
+            m_on_structure_end(string_type(TETENGO2_TEXT("object")), std::vector<structure_attribute_type>());
         }
 
         void member_begun(const string_type& attribute)
@@ -388,38 +367,24 @@ namespace tetengo2 { namespace text { namespace grammar
             m_on_structure_begin(
                 string_type(TETENGO2_TEXT("member")),
                 std::vector<structure_attribute_type>(
-                    1,
-                    structure_attribute_type(
-                        string_type(TETENGO2_TEXT("name")),
-                        value_type_string,
-                        attribute
-                    )
+                    1, structure_attribute_type(string_type(TETENGO2_TEXT("name")), value_type_string, attribute)
                 )
             );
         }
 
         void member_ended(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_end(
-                string_type(TETENGO2_TEXT("member")),
-                std::vector<structure_attribute_type>()
-            );
+            m_on_structure_end(string_type(TETENGO2_TEXT("member")), std::vector<structure_attribute_type>());
         }
 
         void array_begun(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_begin(
-                string_type(TETENGO2_TEXT("array")),
-                std::vector<structure_attribute_type>()
-            );
+            m_on_structure_begin(string_type(TETENGO2_TEXT("array")), std::vector<structure_attribute_type>());
         }
 
         void array_ended(const boost::spirit::qi::unused_type&)
         {
-            m_on_structure_end(
-                string_type(TETENGO2_TEXT("array")),
-                std::vector<structure_attribute_type>()
-            );
+            m_on_structure_end(string_type(TETENGO2_TEXT("array")), std::vector<structure_attribute_type>());
         }
 
         void string_passed(const string_type& attribute)
@@ -447,21 +412,14 @@ namespace tetengo2 { namespace text { namespace grammar
             namespace qi = boost::spirit::qi;
 
             // 2. JSON Grammar
-            m_json_text =
-                m_object | m_array;
+            m_json_text = m_object | m_array;
             m_json_text.name("JSON-text");
-            m_begin_array =
-                m_ws >> qi::char_(char_type(TETENGO2_TEXT('['))) >> m_ws;
-            m_begin_object =
-                m_ws >> qi::char_(char_type(TETENGO2_TEXT('{'))) >> m_ws;
-            m_end_array =
-                m_ws >> qi::char_(char_type(TETENGO2_TEXT(']'))) >> m_ws;
-            m_end_object =
-                m_ws >> qi::char_(char_type(TETENGO2_TEXT('}'))) >> m_ws;
-            m_name_separator =
-                m_ws >> qi::char_(char_type(TETENGO2_TEXT(':'))) >> m_ws;
-            m_value_separator =
-                m_ws >> qi::char_(char_type(TETENGO2_TEXT(','))) >> m_ws;
+            m_begin_array = m_ws >> qi::char_(char_type(TETENGO2_TEXT('['))) >> m_ws;
+            m_begin_object = m_ws >> qi::char_(char_type(TETENGO2_TEXT('{'))) >> m_ws;
+            m_end_array = m_ws >> qi::char_(char_type(TETENGO2_TEXT(']'))) >> m_ws;
+            m_end_object = m_ws >> qi::char_(char_type(TETENGO2_TEXT('}'))) >> m_ws;
+            m_name_separator = m_ws >> qi::char_(char_type(TETENGO2_TEXT(':'))) >> m_ws;
+            m_value_separator = m_ws >> qi::char_(char_type(TETENGO2_TEXT(','))) >> m_ws;
             m_ws =
                 *(
                     qi::char_(char_type(TETENGO2_TEXT(' '))) |
@@ -472,119 +430,58 @@ namespace tetengo2 { namespace text { namespace grammar
 
             // 2.1. Values
             m_value =
-                m_false[
-                    TETENGO2_CPP11_BIND(
-                        &json::boolean_passed, this, cpp11::placeholders_1()
-                    )
-                ] |
-                m_null[
-                    TETENGO2_CPP11_BIND(
-                        &json::null_passed, this, cpp11::placeholders_1()
-                    )
-                ] |
-                m_true[
-                    TETENGO2_CPP11_BIND(
-                        &json::boolean_passed, this, cpp11::placeholders_1()
-                    )
-                ] |
+                m_false[TETENGO2_CPP11_BIND(&json::boolean_passed, this, cpp11::placeholders_1())] |
+                m_null[TETENGO2_CPP11_BIND(&json::null_passed, this, cpp11::placeholders_1())] |
+                m_true[TETENGO2_CPP11_BIND(&json::boolean_passed, this, cpp11::placeholders_1())] |
                 m_object |
                 m_array |
-                m_number[
-                    TETENGO2_CPP11_BIND(
-                        &json::number_passed, this, cpp11::placeholders_1()
-                    )
-                ] |
-                m_string[
-                    TETENGO2_CPP11_BIND(
-                        &json::string_passed, this, cpp11::placeholders_1()
-                    )
-                ];
+                m_number[TETENGO2_CPP11_BIND(&json::number_passed, this, cpp11::placeholders_1())] |
+                m_string[TETENGO2_CPP11_BIND(&json::string_passed, this, cpp11::placeholders_1())];
             m_value.name("value");
-            m_false =
-                qi::string(string_type(TETENGO2_TEXT("false")));
-            m_null =
-                qi::string(string_type(TETENGO2_TEXT("null")));
-            m_true =
-                qi::string(string_type(TETENGO2_TEXT("true")));
+            m_false = qi::string(string_type(TETENGO2_TEXT("false")));
+            m_null = qi::string(string_type(TETENGO2_TEXT("null")));
+            m_true = qi::string(string_type(TETENGO2_TEXT("true")));
 
             // 2.2. Objects
             m_object =
-                m_begin_object[
-                    TETENGO2_CPP11_BIND(
-                        &json::object_begun, this, cpp11::placeholders_1()
-                    )
-                ] >>
+                m_begin_object[TETENGO2_CPP11_BIND(&json::object_begun, this, cpp11::placeholders_1())] >>
                 -(m_member >> *(m_value_separator >> m_member)) >>
-                m_end_object[
-                    TETENGO2_CPP11_BIND(
-                        &json::object_ended, this, cpp11::placeholders_1()
-                    )
-                ];
+                m_end_object[TETENGO2_CPP11_BIND(&json::object_ended, this, cpp11::placeholders_1())];
             m_object.name("object");
             m_member =
-                m_string[
-                    TETENGO2_CPP11_BIND(
-                        &json::member_begun, this, cpp11::placeholders_1()
-                    )
-                ] >>
+                m_string[TETENGO2_CPP11_BIND(&json::member_begun, this, cpp11::placeholders_1())] >>
                 m_name_separator >>
-                m_value[
-                    TETENGO2_CPP11_BIND(
-                        &json::member_ended, this, cpp11::placeholders_1()
-                    )
-                ];
+                m_value[TETENGO2_CPP11_BIND(&json::member_ended, this, cpp11::placeholders_1())];
             m_member.name("member");
 
             // 2.3. Arrays
             m_array =
-                m_begin_array[
-                    TETENGO2_CPP11_BIND(
-                        &json::array_begun, this, cpp11::placeholders_1()
-                    )
-                ] >>
+                m_begin_array[TETENGO2_CPP11_BIND(&json::array_begun, this, cpp11::placeholders_1())] >>
                 -(m_value >> *(m_value_separator >> m_value)) >>
-                m_end_array[
-                    TETENGO2_CPP11_BIND(
-                        &json::array_ended, this, cpp11::placeholders_1()
-                    )
-                ];
+                m_end_array[TETENGO2_CPP11_BIND(&json::array_ended, this, cpp11::placeholders_1())];
             m_array.name("array");
 
             // 2.4. Numbers
-            m_number =
-                -m_minus >> m_int >> -m_frac >> -m_exp;
+            m_number = -m_minus >> m_int >> -m_frac >> -m_exp;
             m_number.name("number");
-            m_decimal_point =
-                qi::char_(char_type(TETENGO2_TEXT('.')));
-            m_digit1to9 =
-                qi::char_(
-                    char_type(TETENGO2_TEXT('1')),
-                    char_type(TETENGO2_TEXT('9'))
-                );
-            m_e =
-                qi::char_(char_type(TETENGO2_TEXT('e'))) |
-                qi::char_(char_type(TETENGO2_TEXT('E')));
-            m_exp =
-                m_e >> (m_minus | m_plus) >> +qi::digit;
-            m_frac =
-                m_decimal_point >> +qi::digit;
-            m_int =
-                m_zero | (m_digit1to9 >> *qi::digit);
-            m_minus =
-                qi::char_(char_type(TETENGO2_TEXT('-')));
-            m_plus =
-                qi::char_(char_type(TETENGO2_TEXT('+')));
-            m_zero =
-                qi::char_(char_type(TETENGO2_TEXT('0')));
+            m_decimal_point = qi::char_(char_type(TETENGO2_TEXT('.')));
+            m_digit1to9 = qi::char_(char_type(TETENGO2_TEXT('1')), char_type(TETENGO2_TEXT('9')));
+            m_e = qi::char_(char_type(TETENGO2_TEXT('e'))) | qi::char_(char_type(TETENGO2_TEXT('E')));
+            m_exp = m_e >> (m_minus | m_plus) >> +qi::digit;
+            m_frac = m_decimal_point >> +qi::digit;
+            m_int = m_zero | (m_digit1to9 >> *qi::digit);
+            m_minus = qi::char_(char_type(TETENGO2_TEXT('-')));
+            m_plus = qi::char_(char_type(TETENGO2_TEXT('+')));
+            m_zero = qi::char_(char_type(TETENGO2_TEXT('0')));
 
             // 2.5. Strings
-            m_string =
-                m_quotation_mark >> *m_char >> m_quotation_mark;
+            m_string = m_quotation_mark >> *m_char >> m_quotation_mark;
             m_string.name("string");
             m_char =
                 m_unescaped |
                 (
-                    m_escape >> (
+                    m_escape >>
+                    (
                         qi::char_(char_type(TETENGO2_TEXT('"'))) |
                         qi::char_(char_type(TETENGO2_TEXT('\\'))) |
                         qi::char_(char_type(TETENGO2_TEXT('/'))) |
@@ -593,21 +490,12 @@ namespace tetengo2 { namespace text { namespace grammar
                         qi::char_(char_type(TETENGO2_TEXT('n'))) |
                         qi::char_(char_type(TETENGO2_TEXT('r'))) |
                         qi::char_(char_type(TETENGO2_TEXT('t'))) |
-                        (
-                            qi::char_(char_type(TETENGO2_TEXT('u'))) >>
-                            qi::repeat(4)[qi::xdigit]
-                        )
+                        (qi::char_(char_type(TETENGO2_TEXT('u'))) >> qi::repeat(4)[qi::xdigit])
                     )
                 );
-            m_escape =
-                qi::char_(char_type(TETENGO2_TEXT('\\')));
-            m_quotation_mark =
-                qi::char_(char_type(TETENGO2_TEXT('"')));
-            m_unescaped =
-                qi::char_ -
-                qi::char_(char_type(0x00), char_type(0x19)) -
-                m_quotation_mark -
-                m_escape;
+            m_escape = qi::char_(char_type(TETENGO2_TEXT('\\')));
+            m_quotation_mark = qi::char_(char_type(TETENGO2_TEXT('"')));
+            m_unescaped = qi::char_ - qi::char_(char_type(0x00), char_type(0x19)) - m_quotation_mark - m_escape;
         }
 
 

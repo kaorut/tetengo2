@@ -44,12 +44,7 @@ namespace tetengo2 { namespace text
         \tparam Integer         An integer type.
         \tparam Float           A floating point number type.
     */
-    template <
-        typename ForwardIterator,
-        typename Grammar,
-        typename Integer,
-        typename Float
-    >
+    template <typename ForwardIterator, typename Grammar, typename Integer, typename Float>
     class push_parser : private boost::noncopyable
     {
     public:
@@ -71,25 +66,16 @@ namespace tetengo2 { namespace text
         typedef std::basic_string<typename iterator::value_type> string_type;
 
         //! The value type.
-        typedef
-            boost::variant<bool, void*, integer_type, float_type, string_type>
-            value_type;
+        typedef boost::variant<bool, void*, integer_type, float_type, string_type> value_type;
 
         //! The attribute map type.
-        typedef
-            std::unordered_map<string_type, value_type> attribute_map_type;
+        typedef std::unordered_map<string_type, value_type> attribute_map_type;
 
         //! The structure signal type.
-        typedef
-            boost::signals2::signal<
-                void (const string_type&, const attribute_map_type&)
-            >
-            structure_signal_type;
+        typedef boost::signals2::signal<void (const string_type&, const attribute_map_type&)> structure_signal_type;
 
         //! The value signal type.
-        typedef
-            boost::signals2::signal<void (const value_type&)>
-            value_signal_type;
+        typedef boost::signals2::signal<void (const value_type&)> value_signal_type;
 
 
         // constructors and destructor
@@ -101,11 +87,7 @@ namespace tetengo2 { namespace text
             \param last      A last iterator to a parsed range.
             \param p_grammar A unique pointer to a grammer.
         */
-        push_parser(
-            const iterator                first,
-            const iterator                last,
-            std::unique_ptr<grammar_type> p_grammar
-        )
+        push_parser(const iterator first, const iterator last, std::unique_ptr<grammar_type> p_grammar)
         :
         m_first(first),
         m_last(last),
@@ -115,33 +97,19 @@ namespace tetengo2 { namespace text
         m_on_value()
         {
             if (!m_p_grammar)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("The grammar is NULL.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The grammar is NULL."));
 
             m_p_grammar->on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
-                    &push_parser::observe_structure_begin,
-                    this,
-                    cpp11::placeholders_1(),
-                    cpp11::placeholders_2()
+                    &push_parser::observe_structure_begin, this, cpp11::placeholders_1(), cpp11::placeholders_2()
                 )
             );
             m_p_grammar->on_structure_end().connect(
-                TETENGO2_CPP11_BIND(
-                    &push_parser::observe_structure_end,
-                    this,
-                    cpp11::placeholders_1()
-                )
+                TETENGO2_CPP11_BIND(&push_parser::observe_structure_end, this, cpp11::placeholders_1())
             );
             m_p_grammar->on_value().connect(
                 TETENGO2_CPP11_BIND(
-                    &push_parser::observe_value,
-                    this,
-                    cpp11::placeholders_1(),
-                    cpp11::placeholders_2()
+                    &push_parser::observe_value, this, cpp11::placeholders_1(), cpp11::placeholders_2()
                 )
             );
         }
@@ -222,8 +190,7 @@ namespace tetengo2 { namespace text
         const
         {
             iterator first = m_first;
-            const bool result =
-                boost::spirit::qi::parse(first, m_last, *m_p_grammar);
+            const bool result = boost::spirit::qi::parse(first, m_last, *m_p_grammar);
             return result && first == m_last;
         }
 
@@ -232,17 +199,12 @@ namespace tetengo2 { namespace text
         // static functions
 
         static attribute_map_type to_attribute_map(
-            const std::vector<
-                typename grammar_type::structure_attribute_type
-            >& structure_attributes
+            const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
         )
         {
             attribute_map_type attribute_map;
 
-            BOOST_FOREACH(
-                const typename grammar_type::structure_attribute_type& sa,
-                structure_attributes
-            )
+            BOOST_FOREACH(const typename grammar_type::structure_attribute_type& sa, structure_attributes)
             {
                 attribute_map.insert(to_attribute(sa));
             }
@@ -251,17 +213,14 @@ namespace tetengo2 { namespace text
         }
 
         static typename attribute_map_type::value_type to_attribute(
-            const typename grammar_type::structure_attribute_type&
-            structure_attribute
+            const typename grammar_type::structure_attribute_type& structure_attribute
         )
         {
-            return typename attribute_map_type::value_type(
-                std::get<0>(structure_attribute),
-                to_value(
-                    std::get<1>(structure_attribute),
-                    std::get<2>(structure_attribute)
-                )
-            );
+            return
+                typename attribute_map_type::value_type(
+                    std::get<0>(structure_attribute),
+                    to_value(std::get<1>(structure_attribute), std::get<2>(structure_attribute))
+                );
         }
 
         static value_type to_value(
@@ -281,73 +240,34 @@ namespace tetengo2 { namespace text
                 return to_null(string_value);
             default:
                 assert(false);
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("Must not come here.")
-                );
+                BOOST_THROW_EXCEPTION(std::logic_error("Must not come here."));
             }
         }
 
         static string_type to_string(const string_type& string_value)
         {
             assert(string_value.length() >= 2);
-            string_type string(
-                boost::next(string_value.begin()),
-                boost::prior(string_value.end())
-            );
+            string_type string(boost::next(string_value.begin()), boost::prior(string_value.end()));
 
-            boost::replace_all(
-                string,
-                string_type(TETENGO2_TEXT("\\\"")),
-                string_type(TETENGO2_TEXT("\""))
-            );
-            boost::replace_all(
-                string,
-                string_type(TETENGO2_TEXT("\\\\")),
-                string_type(TETENGO2_TEXT("\\"))
-            );
-            boost::replace_all(
-                string,
-                string_type(TETENGO2_TEXT("\\/")),
-                string_type(TETENGO2_TEXT("/"))
-            );
-            boost::replace_all(
-                string,
-                string_type(TETENGO2_TEXT("\\b")),
-                string_type(TETENGO2_TEXT("\b"))
-            );
-            boost::replace_all(
-                string,
-                string_type(TETENGO2_TEXT("\\f")),
-                string_type(TETENGO2_TEXT("\f"))
-            );
-            boost::replace_all(
-                string,
-                string_type(TETENGO2_TEXT("\\n")),
-                string_type(TETENGO2_TEXT("\n"))
-            );
-            boost::replace_all(
-                string,
-                string_type(TETENGO2_TEXT("\\r")),
-                string_type(TETENGO2_TEXT("\r"))
-            );
-            boost::replace_all(
-                string,
-                string_type(TETENGO2_TEXT("\\t")),
-                string_type(TETENGO2_TEXT("\t"))
-            );
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\\"")), string_type(TETENGO2_TEXT("\"")));
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\\\")), string_type(TETENGO2_TEXT("\\")));
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\/")), string_type(TETENGO2_TEXT("/")));
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\b")), string_type(TETENGO2_TEXT("\b")));
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\f")), string_type(TETENGO2_TEXT("\f")));
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\n")), string_type(TETENGO2_TEXT("\n")));
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\r")), string_type(TETENGO2_TEXT("\r")));
+            boost::replace_all(string, string_type(TETENGO2_TEXT("\\t")), string_type(TETENGO2_TEXT("\t")));
 
             return string;
         }
 
         static value_type to_number(const string_type& string_value)
         {
-            const typename string_type::size_type exp_index =
-                string_value.find_first_of("eE");
+            const typename string_type::size_type exp_index = string_value.find_first_of("eE");
             if (exp_index != string_type::npos)
                 return to_number_exp(string_value, exp_index);
 
-            const typename string_type::size_type fp_index =
-                string_value.find('.');
+            const typename string_type::size_type fp_index = string_value.find('.');
             if (fp_index != string_type::npos)
                 return to_number_impl<float_type>(string_value);
 
@@ -355,9 +275,7 @@ namespace tetengo2 { namespace text
         }
 
         template <typename T>
-        static boost::variant<T> to_number_impl(
-            const string_type& string_value
-        )
+        static boost::variant<T> to_number_impl(const string_type& string_value)
         {
             try
             {
@@ -376,14 +294,8 @@ namespace tetengo2 { namespace text
         {
             try
             {
-                const float_type fraction =
-                    boost::lexical_cast<float_type>(
-                        string_value.substr(0, exp_index)
-                    );
-                const float_type exp =
-                    boost::lexical_cast<float_type>(
-                        string_value.substr(exp_index + 1)
-                    );
+                const float_type fraction = boost::lexical_cast<float_type>(string_value.substr(0, exp_index));
+                const float_type exp = boost::lexical_cast<float_type>(string_value.substr(exp_index + 1));
                 return fraction * std::pow(10.0, exp);
             }
             catch (const boost::bad_lexical_cast&)
@@ -428,15 +340,11 @@ namespace tetengo2 { namespace text
         // functions
 
         void observe_structure_begin(
-            const string_type& structure_name,
-            const std::vector<
-                typename grammar_type::structure_attribute_type
-            >&                 structure_attributes
+            const string_type&                                                  structure_name,
+            const std::vector<typename grammar_type::structure_attribute_type>& structure_attributes
         )
         {
-            m_on_structure_begin(
-                structure_name, to_attribute_map(structure_attributes)
-            );
+            m_on_structure_begin(structure_name, to_attribute_map(structure_attributes));
         }
 
         void observe_structure_end(const string_type& structure_name)
@@ -444,10 +352,7 @@ namespace tetengo2 { namespace text
             m_on_structure_end(structure_name, attribute_map_type());
         }
 
-        void observe_value(
-            const typename grammar_type::value_type_type value_type,
-            const string_type&                           value
-        )
+        void observe_value(const typename grammar_type::value_type_type value_type, const string_type& value)
         {
             m_on_value(to_value(value_type, value));
         }

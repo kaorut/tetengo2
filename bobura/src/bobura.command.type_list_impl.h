@@ -54,37 +54,17 @@ namespace bobura { namespace command
 
         //! The type list for the commands.
         typedef
+            tetengo2::meta::assoc_list<boost::mpl::pair<type::command, Command>,
+            tetengo2::meta::assoc_list<boost::mpl::pair<type::about, about<Model, AbstractWindow, AboutDialog>>,
+            tetengo2::meta::assoc_list<boost::mpl::pair<type::exit, exit<Model, AbstractWindow>>,
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::command, Command>,
+                boost::mpl::pair<type::file_property, file_property<Model, AbstractWindow, FilePropertyDialog>>,
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<
-                    type::about, about<Model, AbstractWindow, AboutDialog>
-                >,
+                boost::mpl::pair<type::load_from_file, load_from_file<Model, AbstractWindow, LoadFromFile>>,
+            tetengo2::meta::assoc_list<boost::mpl::pair<type::new_file, new_file<Model, AbstractWindow, NewFile>>,
+            tetengo2::meta::assoc_list<boost::mpl::pair<type::nop, nop<Model, AbstractWindow>>,
             tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::exit, exit<Model, AbstractWindow>>,
-            tetengo2::meta::assoc_list<
-                boost::mpl::pair<
-                    type::file_property, file_property<
-                        Model, AbstractWindow, FilePropertyDialog
-                    >
-                >,
-            tetengo2::meta::assoc_list<
-                boost::mpl::pair<
-                    type::load_from_file,
-                    load_from_file<Model, AbstractWindow, LoadFromFile>
-                >,
-            tetengo2::meta::assoc_list<
-                boost::mpl::pair<
-                    type::new_file,
-                    new_file<Model, AbstractWindow, NewFile>
-                >,
-            tetengo2::meta::assoc_list<
-                boost::mpl::pair<type::nop, nop<Model, AbstractWindow>>,
-            tetengo2::meta::assoc_list<
-                boost::mpl::pair<
-                    type::save_to_file,
-                    save_to_file<Model, AbstractWindow, SaveToFile>
-                >,
+                boost::mpl::pair<type::save_to_file, save_to_file<Model, AbstractWindow, SaveToFile>>,
             tetengo2::meta::assoc_list_end
             >>>>>>>>
             type;

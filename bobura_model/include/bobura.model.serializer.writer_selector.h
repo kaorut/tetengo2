@@ -48,8 +48,7 @@ namespace bobura { namespace model { namespace serializer
         typedef Path path_type;
 
         //! The base type.
-        typedef
-            writer<output_stream_type, timetable_type, path_type> base_type;
+        typedef writer<output_stream_type, timetable_type, path_type> base_type;
 
 
         // constructors and destructor
@@ -69,20 +68,13 @@ namespace bobura { namespace model { namespace serializer
                                          empty.
         */
         template <typename P>
-        writer_selector(
-            std::vector<std::unique_ptr<base_type>> p_writers,
-            P&&                                     path
-        )
+        writer_selector(std::vector<std::unique_ptr<base_type>> p_writers, P&& path)
         :
         m_p_writers(std::move(p_writers)),
         m_path(std::forward<P>(path))
         {
             if (m_p_writers.empty())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("No writer is specified.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::invalid_argument("No writer is specified."));
         }
 
         /*!
@@ -109,26 +101,15 @@ namespace bobura { namespace model { namespace serializer
             BOOST_THROW_EXCEPTION(std::logic_error("No extension."));
         }
 
-        virtual void write_impl(
-            const timetable_type& timetable,
-            output_stream_type&   output_stream
-        )
+        virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
         {
-            typedef
-                typename std::vector<
-                    std::unique_ptr<base_type>
-                >::const_iterator
-                iterator_type;
+            typedef typename std::vector<std::unique_ptr<base_type>>::const_iterator iterator_type;
 
             const iterator_type found =
                 std::find_if(
                     m_p_writers.begin(),
                     m_p_writers.end(),
-                    TETENGO2_CPP11_BIND(
-                        &writer_selector::call_selects,
-                        this,
-                        tetengo2::cpp11::placeholders_1()
-                    )
+                    TETENGO2_CPP11_BIND(&writer_selector::call_selects, this, tetengo2::cpp11::placeholders_1())
                 );
             if (found == m_p_writers.end())
             {

@@ -18,8 +18,7 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::system_color_set
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::system_color_set
         >::type
         system_color_set_type;
 

@@ -35,13 +35,10 @@ namespace tetengo2 { namespace gui { namespace cursor
         typedef cursor_base<cursor_details_type> base_type;
 
         //! The detail implementation type.
-        typedef
-            typename cursor_details_type::cursor_details_type details_type;
+        typedef typename cursor_details_type::cursor_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename cursor_details_type::cursor_details_ptr_type
-            details_ptr_type;
+        typedef typename cursor_details_type::cursor_details_ptr_type details_ptr_type;
 
         //! The style type.
         enum style_type
@@ -61,11 +58,7 @@ namespace tetengo2 { namespace gui { namespace cursor
         explicit system(const style_type style)
         :
         m_style(style),
-        m_p_details(
-            cursor_details_type::template create_system_cursor<system>(
-                style
-            )
-        )
+        m_p_details(cursor_details_type::template create_system_cursor<system>(style))
         {}
 
         /*!

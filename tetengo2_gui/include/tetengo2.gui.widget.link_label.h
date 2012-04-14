@@ -25,20 +25,11 @@ namespace tetengo2 { namespace gui { namespace widget
         \brief The class template for a link label.
 
         \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a
-                                      widget.
-        \tparam MessageHandlerDetails A detail implementation type of a
-                                      message handler.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
    */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename MessageHandlerDetails
-    >
-    class link_label :
-        public label<
-            typename Traits::base_type, WidgetDetails, MessageHandlerDetails
-        >
+    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
+    class link_label : public label<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
     {
     public:
         // types
@@ -53,13 +44,7 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef MessageHandlerDetails message_handler_details_type;
 
         //! The base type.
-        typedef
-            label<
-                typename traits_type::base_type,
-                widget_details_type,
-                message_handler_details_type
-            >
-            base_type;
+        typedef label<typename traits_type::base_type, widget_details_type, message_handler_details_type> base_type;
 
         //! The canvas type.
         typedef typename base_type::canvas_type canvas_type;
@@ -89,26 +74,19 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename base_type::color_type color_type;
 
         //! The keyboard observer set type.
-        typedef
-            typename base_type::keyboard_observer_set_type
-            keyboard_observer_set_type;
+        typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
 
         //! The solid background type.
-        typedef
-            typename traits_type::solid_background_type solid_background_type;
+        typedef typename traits_type::solid_background_type solid_background_type;
 
         //! The system color set type.
-        typedef
-            typename traits_type::system_color_set_type system_color_set_type;
+        typedef typename traits_type::system_color_set_type system_color_set_type;
 
         //! The detail implementation type.
-        typedef
-            typename widget_details_type::widget_details_type details_type;
+        typedef typename widget_details_type::widget_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename widget_details_type::widget_details_ptr_type
-            details_ptr_type;
+        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
 
         // constructors and destructor
@@ -203,16 +181,11 @@ namespace tetengo2 { namespace gui { namespace widget
                 if (!m_self.background()) return false;
 
                 canvas.fill_rectangle(
-                    position_type(left_type(0), top_type(0)),
-                    m_self.client_dimension(),
-                    *m_self.background()
+                    position_type(left_type(0), top_type(0)), m_self.client_dimension(), *m_self.background()
                 );
                 if (m_self.focused())
                 {
-                    canvas.draw_focus_indication(
-                        position_type(left_type(0), top_type(0)),
-                        m_self.client_dimension()
-                    );
+                    canvas.draw_focus_indication(position_type(left_type(0), top_type(0)), m_self.client_dimension());
                 }
 
                 return true;
@@ -226,9 +199,7 @@ namespace tetengo2 { namespace gui { namespace widget
         class selected
         {
         public:
-            typedef
-                typename keyboard_observer_set_type::virtual_key_type
-                virtual_key_type;
+            typedef typename keyboard_observer_set_type::virtual_key_type virtual_key_type;
 
             selected(link_label& self)
             :
@@ -283,9 +254,7 @@ namespace tetengo2 { namespace gui { namespace widget
             assert(p_link_label);
 
             p_link_label->set_background(
-                tetengo2::make_unique<solid_background_type>(
-                    system_color_set_type::dialog_background()
-                )
+                tetengo2::make_unique<solid_background_type>(system_color_set_type::dialog_background())
             );
 
             const font_type original_font = p_link_label->font();
@@ -302,31 +271,17 @@ namespace tetengo2 { namespace gui { namespace widget
 
             p_link_label->set_text_color(color_type(0, 0, 255));
 
-            std::unique_ptr<cursor_type> p_cursor(
-                make_unique<system_cursor_type>(
-                    system_cursor_type::style_hand
-                )
-            );
+            std::unique_ptr<cursor_type> p_cursor(make_unique<system_cursor_type>(system_cursor_type::style_hand));
             p_link_label->set_cursor(std::move(p_cursor));
 
             p_link_label->set_focusable(true);
 
-            p_link_label->focus_observer_set().got_focus().connect(
-                focus_changed(*p_link_label)
-            );
-            p_link_label->focus_observer_set().lost_focus().connect(
-                focus_changed(*p_link_label)
-            );
+            p_link_label->focus_observer_set().got_focus().connect(focus_changed(*p_link_label));
+            p_link_label->focus_observer_set().lost_focus().connect(focus_changed(*p_link_label));
             p_link_label->paint_observer_set().paint_background().disconnect_all_slots();
-            p_link_label->paint_observer_set().paint_background().connect(
-                paint_background(*p_link_label)
-            );
-            p_link_label->keyboard_observer_set().key_up().connect(
-                selected(*p_link_label)
-            );
-            p_link_label->mouse_observer_set().clicked().connect(
-                clicked(*p_link_label)
-            );
+            p_link_label->paint_observer_set().paint_background().connect(paint_background(*p_link_label));
+            p_link_label->keyboard_observer_set().key_up().connect(selected(*p_link_label));
+            p_link_label->mouse_observer_set().clicked().connect(clicked(*p_link_label));
         }
 
 

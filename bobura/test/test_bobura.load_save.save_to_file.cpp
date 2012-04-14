@@ -17,27 +17,13 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            bobura::locale_type_list, bobura::type::locale::message_catalog
-        >::type
-        message_catalog_type;
+    typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
-    typedef
-        boost::mpl::at<
-            bobura::model_type_list, bobura::type::model::model
-        >::type
-        model_type;
+    typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
-    typedef
-        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type
-        window_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
-    typedef
-        boost::mpl::at<
-            bobura::load_save_type_list, bobura::type::load_save::save_to_file
-        >::type
-        save_to_file_type;
+    typedef boost::mpl::at<bobura::load_save_type_list, bobura::type::load_save::save_to_file>::type save_to_file_type;
 
 
 }

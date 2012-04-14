@@ -23,20 +23,11 @@ namespace tetengo2 { namespace gui { namespace widget
         \brief The class template for a modal dialog.
 
         \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a
-                                      widget.
-        \tparam MessageHandlerDetails A detail implementation type of a
-                                      message handler.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
    */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename MessageHandlerDetails
-    >
-    class dialog :
-        public abstract_window<
-            typename Traits::base_type, WidgetDetails, MessageHandlerDetails
-        >
+    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
+    class dialog : public abstract_window<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
     {
     public:
         // types
@@ -52,11 +43,7 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The base type.
         typedef
-            abstract_window<
-                typename traits_type::base_type,
-                widget_details_type,
-                message_handler_details_type
-            >
+            abstract_window<typename traits_type::base_type, widget_details_type, message_handler_details_type>
             base_type;
 
         //! The position type.
@@ -72,13 +59,10 @@ namespace tetengo2 { namespace gui { namespace widget
         typedef typename traits_type::message_loop_type message_loop_type;
 
         //! The message loop break type.
-        typedef
-            typename traits_type::message_loop_break_type
-            message_loop_break_type;
+        typedef typename traits_type::message_loop_break_type message_loop_break_type;
 
         //! The detail implementation type.
-        typedef
-            typename widget_details_type::widget_details_type details_type;
+        typedef typename widget_details_type::widget_details_type details_type;
 
         //! The detail implementation pointer type.
         typedef
@@ -107,20 +91,12 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
-        base_type(
-            message_handler_details_type::make_dialog_message_handler_map(
-                *this, message_handler_map_type()
-            )
-        ),
+        base_type(message_handler_details_type::make_dialog_message_handler_map(*this, message_handler_map_type())),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
         m_result(result_undecided),
-        m_p_details(
-            widget_details_type::template create_dialog<
-                typename base_type::base_type
-            >(parent)
-        )
+        m_p_details(widget_details_type::template create_dialog<typename base_type::base_type>(parent))
         {
             initialize(this);
         }
@@ -164,18 +140,11 @@ namespace tetengo2 { namespace gui { namespace widget
         void do_modal()
         {
             assert(this->has_parent());
-            base_type& parent_window =
-                dynamic_cast<base_type&>(this->parent());
+            base_type& parent_window = dynamic_cast<base_type&>(this->parent());
             parent_window.set_enabled(false);
 
-            this->window_observer_set().destroyed().connect(
-                TETENGO2_CPP11_BIND(message_loop_break_type(), 0)
-            );
-            this->set_position(
-                widget_details_type::template dialog_position<position_type>(
-                    *this, parent_window
-                )
-            );
+            this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
+            this->set_position(widget_details_type::template dialog_position<position_type>(*this, parent_window));
             this->set_visible(true);
 
             message_loop_type(*this)();
@@ -188,9 +157,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef
-            typename message_handler_details_type::message_handler_map_type
-            message_handler_map_type;
+        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
 
 
         // variables

@@ -11,7 +11,7 @@
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)
 call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
 if "%BOBURA_CONFIG%" == "1" (
-"$(TargetDir)\$(TargetFileName)" --result_code=no --report_level=no
+"$(TargetDir)\$(TargetFileName)" --report_level=no --log_level=warning
 ) else (
 echo Skipping the unit test...
 )

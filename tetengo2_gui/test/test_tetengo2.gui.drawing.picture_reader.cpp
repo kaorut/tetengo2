@@ -18,24 +18,14 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::path
-        >::type
-        path_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::path>::type path_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::picture
-        >::type
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture>::type
         picture_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::picture_reader
-        >::type
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture_reader>::type
         picture_reader_type;
 
 

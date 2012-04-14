@@ -21,49 +21,24 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            bobura::model_type_list, bobura::type::model::model
-        >::type
-        model_type;
+    typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
+
+    typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
+
+    typedef boost::mpl::at<bobura::common_type_list, bobura::type::path>::type path_type;
+
+    typedef boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type settings_type;
+
+    typedef boost::mpl::at<bobura::load_save_type_list, bobura::type::load_save::save_to_file>::type save_to_file_type;
 
     typedef
-        boost::mpl::at<
-            bobura::locale_type_list, bobura::type::locale::message_catalog
-        >::type
-        message_catalog_type;
-
-    typedef
-        boost::mpl::at<bobura::common_type_list, bobura::type::path>::type
-        path_type;
-
-    typedef
-        boost::mpl::at<bobura::common_type_list, bobura::type::settings>::type
-        settings_type;
-
-    typedef
-        boost::mpl::at<
-            bobura::load_save_type_list, bobura::type::load_save::save_to_file
-        >::type
-        save_to_file_type;
-
-    typedef
-        boost::mpl::at<
-            bobura::load_save_type_list,
-            bobura::type::load_save::confirm_file_save
-        >::type
+        boost::mpl::at<bobura::load_save_type_list, bobura::type::load_save::confirm_file_save>::type
         confirm_file_save_type;
 
-    typedef
-        boost::mpl::at<bobura::common_type_list, bobura::type::string>::type
-        string_type;
+    typedef boost::mpl::at<bobura::common_type_list, bobura::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<
-            bobura::main_window_type_list,
-            bobura::type::main_window::main_window
-        >::type
-        main_window_type;
+        boost::mpl::at<bobura::main_window_type_list, bobura::type::main_window::main_window>::type main_window_type;
 
 
 }
@@ -88,15 +63,9 @@ BOOST_AUTO_TEST_SUITE(reset)
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         const save_to_file_type save_to_file(false, message_catalog);
-        const confirm_file_save_type confirm_file_save(
-            model, save_to_file, message_catalog
-        );
-        main_window_type main_window(
-            message_catalog, settings, confirm_file_save
-        );
-        const bobura::message::timetable_model::reset<
-            model_type, main_window_type
-        > observer(model, main_window);
+        const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
+        main_window_type main_window(message_catalog, settings, confirm_file_save);
+        const bobura::message::timetable_model::reset<model_type, main_window_type> observer(model, main_window);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -109,15 +78,9 @@ BOOST_AUTO_TEST_SUITE(reset)
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         const save_to_file_type save_to_file(false, message_catalog);
-        const confirm_file_save_type confirm_file_save(
-            model, save_to_file, message_catalog
-        );
-        main_window_type main_window(
-            message_catalog, settings, confirm_file_save
-        );
-        const bobura::message::timetable_model::reset<
-            model_type, main_window_type
-        > observer(model, main_window);
+        const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
+        main_window_type main_window(message_catalog, settings, confirm_file_save);
+        const bobura::message::timetable_model::reset<model_type, main_window_type> observer(model, main_window);
 
         observer();
     }
@@ -137,16 +100,9 @@ BOOST_AUTO_TEST_SUITE(changed)
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         const save_to_file_type save_to_file(false, message_catalog);
-        const confirm_file_save_type confirm_file_save(
-            model, save_to_file, message_catalog
-        );
-        main_window_type main_window(
-            message_catalog, settings, confirm_file_save
-        );
-        const bobura::message::timetable_model::changed<
-            model_type, main_window_type
-        >
-        observer(model, main_window);
+        const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
+        main_window_type main_window(message_catalog, settings, confirm_file_save);
+        const bobura::message::timetable_model::changed<model_type, main_window_type> observer(model, main_window);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -159,15 +115,9 @@ BOOST_AUTO_TEST_SUITE(changed)
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         const save_to_file_type save_to_file(false, message_catalog);
-        const confirm_file_save_type confirm_file_save(
-            model, save_to_file, message_catalog
-        );
-        main_window_type main_window(
-            message_catalog, settings, confirm_file_save
-        );
-        const bobura::message::timetable_model::changed<
-            model_type, main_window_type
-        > observer(model, main_window);
+        const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
+        main_window_type main_window(message_catalog, settings, confirm_file_save);
+        const bobura::message::timetable_model::changed<model_type, main_window_type> observer(model, main_window);
 
         observer();
     }

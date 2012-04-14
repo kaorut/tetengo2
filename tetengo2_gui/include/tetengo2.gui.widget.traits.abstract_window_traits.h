@@ -19,11 +19,7 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \tparam MenuBar           A menu bar type.
         \tparam WindowObserverSet A window observer set type.
    */
-    template <
-        typename WidgetTraits,
-        typename MenuBar,
-        typename WindowObserverSet
-    >
+    template <typename WidgetTraits, typename MenuBar, typename WindowObserverSet>
     struct abstract_window_traits
     {
         //types

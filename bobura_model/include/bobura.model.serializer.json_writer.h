@@ -38,13 +38,7 @@ namespace bobura { namespace model { namespace serializer
         \tparam StationGradeTypeSet A station grade type set.
         \tparam Encoder             An encoder type.
     */
-    template <
-        typename OutputStream,
-        typename Timetable,
-        typename Path,
-        typename StationGradeTypeSet,
-        typename Encoder
-    >
+    template <typename OutputStream, typename Timetable, typename Path, typename StationGradeTypeSet, typename Encoder>
     class json_writer : public writer<OutputStream, Timetable, Path>
     {
     public:
@@ -60,8 +54,7 @@ namespace bobura { namespace model { namespace serializer
         typedef Path path_type;
 
         //! The base type.
-        typedef
-            writer<output_stream_type, timetable_type, path_type> base_type;
+        typedef writer<output_stream_type, timetable_type, path_type> base_type;
 
         //! The station grade type set type.
         typedef StationGradeTypeSet station_grade_type_set_type;
@@ -91,9 +84,7 @@ namespace bobura { namespace model { namespace serializer
     private:
         // types
 
-        typedef
-            typename timetable_type::station_location_type
-            station_location_type;
+        typedef typename timetable_type::station_location_type station_location_type;
 
         typedef typename timetable_type::train_type train_type;
 
@@ -164,27 +155,15 @@ namespace bobura { namespace model { namespace serializer
             return quotation_symbol + string + quotation_symbol;
         }
 
-        static void new_line(
-            const size_type     level,
-            output_stream_type& output_stream
-        )
+        static void new_line(const size_type level, output_stream_type& output_stream)
         {
             output_stream << std::endl;
-            output_stream <<
-                output_string_type(
-                    level * 4, output_char_type(TETENGO2_TEXT(' '))
-                );
+            output_stream << output_string_type(level * 4, output_char_type(TETENGO2_TEXT(' ')));
         }
 
-        static void write_object_key(
-            const string_type&  key,
-            const size_type     level,
-            output_stream_type& output_stream
-        )
+        static void write_object_key(const string_type& key, const size_type level, output_stream_type& output_stream)
         {
-            output_stream <<
-                encoder().encode(quote(key)) <<
-                output_string_type(TETENGO2_TEXT(": "));
+            output_stream << encoder().encode(quote(key)) << output_string_type(TETENGO2_TEXT(": "));
         }
 
         static void write_object_entry(
@@ -204,9 +183,7 @@ namespace bobura { namespace model { namespace serializer
             const Integer       value,
             const size_type     level,
             output_stream_type& output_stream,
-            const typename std::enable_if<
-                std::is_integral<Integer>::value
-            >::type* const = NULL
+            const typename std::enable_if<std::is_integral<Integer>::value>::type* const = NULL
         )
         {
             write_object_key(key, level, output_stream);
@@ -222,12 +199,7 @@ namespace bobura { namespace model { namespace serializer
             output_stream << object_begin();
 
             new_line(level + 1, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("title")),
-                timetable.title(),
-                level + 1,
-                output_stream
-            );
+            write_object_entry(string_type(TETENGO2_TEXT("title")), timetable.title(), level + 1, output_stream);
 
             new_line(level, output_stream);
             output_stream << object_end();
@@ -254,12 +226,7 @@ namespace bobura { namespace model { namespace serializer
                         false
                     )
                 );
-                write_station_location(
-                    *boost::prior(timetable.station_locations().end()),
-                    level,
-                    output_stream,
-                    true
-                );
+                write_station_location(*boost::prior(timetable.station_locations().end()), level, output_stream, true);
 
                 new_line(level, output_stream);
             }
@@ -279,26 +246,17 @@ namespace bobura { namespace model { namespace serializer
             output_stream << object_begin() << space();
 
             write_object_entry(
-                string_type(TETENGO2_TEXT("name")),
-                station_location.station().name(),
-                level,
-                output_stream
+                string_type(TETENGO2_TEXT("name")), station_location.station().name(), level, output_stream
             );
             output_stream << comma() << space();
 
             write_object_entry(
-                string_type(TETENGO2_TEXT("grade")),
-                station_location.station().grade().name(),
-                level,
-                output_stream
+                string_type(TETENGO2_TEXT("grade")), station_location.station().grade().name(), level, output_stream
             );
             output_stream << comma() << space();
 
             write_object_entry(
-                string_type(TETENGO2_TEXT("meterage")),
-                station_location.meterage(),
-                level,
-                output_stream
+                string_type(TETENGO2_TEXT("meterage")), station_location.meterage(), level, output_stream
             );
 
             output_stream << space() << object_end();
@@ -327,12 +285,7 @@ namespace bobura { namespace model { namespace serializer
                         false
                     )
                 );
-                write_train(
-                    *boost::prior(timetable.down_trains().end()),
-                    level,
-                    output_stream,
-                    true
-                );
+                write_train(*boost::prior(timetable.down_trains().end()), level, output_stream, true);
 
                 new_line(level, output_stream);
             }
@@ -362,12 +315,7 @@ namespace bobura { namespace model { namespace serializer
                         false
                     )
                 );
-                write_train(
-                    *boost::prior(timetable.up_trains().end()),
-                    level,
-                    output_stream,
-                    true
-                );
+                write_train(*boost::prior(timetable.up_trains().end()), level, output_stream, true);
 
                 new_line(level, output_stream);
             }
@@ -386,27 +334,15 @@ namespace bobura { namespace model { namespace serializer
             output_stream << object_begin();
 
             new_line(level + 2, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("number")),
-                train.number(),
-                level,
-                output_stream
-            );
+            write_object_entry(string_type(TETENGO2_TEXT("number")), train.number(), level, output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_entry(
-                string_type(TETENGO2_TEXT("note")),
-                train.note(),
-                level,
-                output_stream
-            );
+            write_object_entry(string_type(TETENGO2_TEXT("note")), train.note(), level, output_stream);
             output_stream << comma();
 
             new_line(level + 2, output_stream);
-            write_object_key(
-                string_type(TETENGO2_TEXT("stops")), level, output_stream
-            );
+            write_object_key(string_type(TETENGO2_TEXT("stops")), level, output_stream);
             write_stops(train.stops(), level + 2, output_stream);
 
             new_line(level + 1, output_stream);
@@ -436,9 +372,7 @@ namespace bobura { namespace model { namespace serializer
                         false
                     )
                 );
-                write_stop(
-                    *boost::prior(stops.end()), level, output_stream, true
-                );
+                write_stop(*boost::prior(stops.end()), level, output_stream, true);
 
                 new_line(level, output_stream);
             }
@@ -475,20 +409,14 @@ namespace bobura { namespace model { namespace serializer
                 return output_string_type(TETENGO2_TEXT("    -1"));
 
             typedef typename time_type::tick_type tick_type;
-            typedef
-                std::tuple<tick_type, tick_type, tick_type>
-                hours_minutes_seconds_type;
-            const hours_minutes_seconds_type hours_minutes_seconds =
-                time.hours_minutes_seconds();
+            typedef std::tuple<tick_type, tick_type, tick_type> hours_minutes_seconds_type;
+            const hours_minutes_seconds_type hours_minutes_seconds = time.hours_minutes_seconds();
+            const tick_type representation =
+                std::get<0>(hours_minutes_seconds) * 10000 +
+                std::get<1>(hours_minutes_seconds) * 100 +
+                std::get<2>(hours_minutes_seconds);
             std::basic_ostringstream<output_char_type> stream;
-            stream <<
-                boost::basic_format<output_char_type>(
-                    TETENGO2_TEXT("% 6d")
-                ) % (
-                    std::get<0>(hours_minutes_seconds) * 10000 +
-                    std::get<1>(hours_minutes_seconds) * 100 +
-                    std::get<2>(hours_minutes_seconds)
-                );
+            stream << boost::basic_format<output_char_type>(TETENGO2_TEXT("% 6d")) % representation;
             return stream.str();
         }
 
@@ -501,10 +429,7 @@ namespace bobura { namespace model { namespace serializer
             return path_type(TETENGO2_TEXT(".btt"));
         }
 
-        virtual void write_impl(
-            const timetable_type& timetable,
-            output_stream_type&   output_stream
-        )
+        virtual void write_impl(const timetable_type& timetable, output_stream_type& output_stream)
         {
             output_stream << array_begin();
 

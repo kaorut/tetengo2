@@ -76,14 +76,10 @@ namespace bobura { namespace load_save
             \brief Creates a file saving.
 
             \param ask_file_path     Set true to show a file selection dialog.
-                                     When the model does not have a path, a
-                                     file selection dialog is always shown.
+                                     When the model does not have a path, a file selection dialog is always shown.
             \param message_catalog   A message catalog.
         */
-        save_to_file(
-            const bool                    ask_file_path,
-            const message_catalog_type&   message_catalog
-        )
+        save_to_file(const bool ask_file_path, const message_catalog_type&   message_catalog)
         :
         m_ask_file_path(ask_file_path),
         m_message_catalog(message_catalog)
@@ -108,11 +104,8 @@ namespace bobura { namespace load_save
             if (!model.has_path() || m_ask_file_path)
             {
                 file_save_dialog_type dialog(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpenSave:SaveAs")
-                    ),
-                    model.has_path() ?
-                        boost::make_optional(model.path()) : boost::none,
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:SaveAs")),
+                    model.has_path() ? boost::make_optional(model.path()) : boost::none,
                     make_file_filters(),
                     parent
                 );
@@ -130,23 +123,16 @@ namespace bobura { namespace load_save
                 path = model.path();
             }
 
-            const path_type temporary_path =
-                path.parent_path() / boost::filesystem::unique_path();
+            const path_type temporary_path = path.parent_path() / boost::filesystem::unique_path();
             {
-                boost::filesystem::ofstream output_stream(
-                    temporary_path, std::ios_base::binary
-                );
+                boost::filesystem::ofstream output_stream(temporary_path, std::ios_base::binary);
                 if (!output_stream)
                 {
-                    create_cant_create_temporary_file_message_box(
-                        temporary_path, parent
-                    )->do_modal();
+                    create_cant_create_temporary_file_message_box(temporary_path, parent)->do_modal();
                     return false;
                 }
 
-                writer_selector_type writer(
-                    writer_set_type::create_writers(), path
-                );
+                writer_selector_type writer(writer_set_type::create_writers(), path);
                 writer.write(model.timetable(), output_stream);
             }
 
@@ -155,9 +141,7 @@ namespace bobura { namespace load_save
                 boost::filesystem::rename(temporary_path, path, error_code);
                 if (error_code)
                 {
-                    create_cant_write_to_file_message_box(
-                        path, parent
-                    )->do_modal();
+                    create_cant_write_to_file_message_box(path, parent)->do_modal();
                     return false;
                 }
             }
@@ -187,75 +171,60 @@ namespace bobura { namespace load_save
 
         // functions
 
-        std::unique_ptr<message_box_type>
-        create_cant_create_temporary_file_message_box(
+        std::unique_ptr<message_box_type> create_cant_create_temporary_file_message_box(
             const path_type&      path,
             abstract_window_type& parent
         )
         const
         {
-            return tetengo2::make_unique<message_box_type>(
-                parent,
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_message_catalog.get(
-                    TETENGO2_TEXT(
-                        "Message:File:Can't create a temporary file."
-                    )
-                ),
-                path.template string<string_type>(),
-                message_box_type::button_style_type::ok(false),
-                message_box_type::icon_style_error
-            );
+            return
+                tetengo2::make_unique<message_box_type>(
+                    parent,
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    m_message_catalog.get(TETENGO2_TEXT("Message:File:Can't create a temporary file.")),
+                    path.template string<string_type>(),
+                    message_box_type::button_style_type::ok(false),
+                    message_box_type::icon_style_error
+                );
         }
 
-        std::unique_ptr<message_box_type>
-        create_cant_write_to_file_message_box(
+        std::unique_ptr<message_box_type> create_cant_write_to_file_message_box(
             const path_type&      path,
             abstract_window_type& parent
         )
         const
         {
-            return tetengo2::make_unique<message_box_type>(
-                parent,
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_message_catalog.get(
-                    TETENGO2_TEXT("Message:File:Can't write to the file.")
-                ),
-                path.template string<string_type>(),
-                message_box_type::button_style_type::ok(false),
-                message_box_type::icon_style_error
-            );
+            return
+                tetengo2::make_unique<message_box_type>(
+                    parent,
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
+                    m_message_catalog.get(TETENGO2_TEXT("Message:File:Can't write to the file.")),
+                    path.template string<string_type>(),
+                    message_box_type::button_style_type::ok(false),
+                    message_box_type::icon_style_error
+                );
         }
 
-        typename file_save_dialog_type::file_filters_type
-        make_file_filters()
+        typename file_save_dialog_type::file_filters_type make_file_filters()
         const
         {
             typename file_save_dialog_type::file_filters_type filters;
 
             filters.push_back(
                 std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")
-                    ),
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files")),
                     string_type(TETENGO2_TEXT("btt"))
                 )
             );
             filters.push_back(
                 std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT(
-                            "Dialog:FileOpenSave:Timetable Files (Compressed)"
-                        )
-                    ),
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Timetable Files (Compressed)")),
                     string_type(TETENGO2_TEXT("btt.bz2"))
                 )
             );
             filters.push_back(
                 std::make_pair(
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Dialog:FileOpenSave:All Files")
-                    ),
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:All Files")),
                     string_type(TETENGO2_TEXT("*"))
                 )
             );

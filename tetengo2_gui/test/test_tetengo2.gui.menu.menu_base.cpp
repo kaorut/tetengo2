@@ -25,36 +25,22 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::gui_common_type_list,
-            test_tetengo2::gui::type::gui_common::virtual_key
+            test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::virtual_key
         >::type
         virtual_key_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::shortcut_key
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::shortcut_key>::type
         shortcut_key_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::menu_details
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_details>::type
         menu_details_type;
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::menu_base
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type
         menu_base_type;
 
     class concrete_menu : public menu_base_type
@@ -64,22 +50,12 @@ namespace
 
         concrete_menu(string_type&& text)
         :
-        menu_base_type(
-            std::forward<string_type>(text),
-            menu_details_type::create_menu()
-        )
+        menu_base_type(std::forward<string_type>(text), menu_details_type::create_menu())
         {}
 
-        concrete_menu(
-            string_type&&       text,
-            shortcut_key_type&& shortcut_key_type
-        )
+        concrete_menu(string_type&& text, shortcut_key_type&& shortcut_key_type)
         :
-        menu_base_type(
-            std::forward<string_type>(text),
-            shortcut_key_type,
-            menu_details_type::create_menu()
-        )
+        menu_base_type(std::forward<string_type>(text), shortcut_key_type, menu_details_type::create_menu())
         {}
 
 
@@ -127,9 +103,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
         const concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-        BOOST_CHECK(
-            &menu.style() == &menu_details_type::menu_command_style()
-        );
+        BOOST_CHECK(&menu.style() == &menu_details_type::menu_command_style());
     }
 
     BOOST_AUTO_TEST_CASE(has_shortcut_key)
@@ -144,9 +118,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         {
             const concrete_menu menu(
                 string_type(TETENGO2_TEXT("Tetengo")),
-                shortcut_key_type(
-                    virtual_key_type::char_a(), false, true, false
-                )
+                shortcut_key_type(virtual_key_type::char_a(), false, true, false)
             );
 
             BOOST_CHECK(menu.has_shortcut_key());
@@ -165,9 +137,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         {
             const concrete_menu menu(
                 string_type(TETENGO2_TEXT("Tetengo")),
-                shortcut_key_type(
-                    virtual_key_type::char_a(), false, true, false
-                )
+                shortcut_key_type(virtual_key_type::char_a(), false, true, false)
             );
 
             const shortcut_key_type& shortcut_key = menu.shortcut_key();
@@ -273,13 +243,10 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
         concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
         std::unique_ptr<menu_base_type> p_child(
-            tetengo2::make_unique<concrete_menu>(
-                string_type(TETENGO2_TEXT("Hoge"))
-            )
+            tetengo2::make_unique<concrete_menu>(string_type(TETENGO2_TEXT("Hoge")))
         );
 
-        // Assertion fails.
-        //menu.insert(menu.begin(), std::move(p_child));
+        BOOST_CHECK_THROW(menu.insert(menu.begin(), std::move(p_child)), std::logic_error);
     }
 
     BOOST_AUTO_TEST_CASE(erase)
@@ -288,8 +255,7 @@ BOOST_AUTO_TEST_SUITE(menu_base)
 
         concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
 
-        // Assertion fails.
-        //menu.erase(menu.begin(), menu.begin());
+        BOOST_CHECK_THROW(menu.erase(menu.begin(), menu.begin()), std::logic_error);
     }
 
     BOOST_AUTO_TEST_CASE(details)

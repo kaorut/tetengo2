@@ -29,11 +29,7 @@ namespace tetengo2 { namespace gui { namespace menu
     */
     template <typename MenuBase>
     class recursive_iterator :
-        public boost::iterator_facade<
-            recursive_iterator<MenuBase>,
-            MenuBase,
-            boost::forward_traversal_tag
-        >
+        public boost::iterator_facade<recursive_iterator<MenuBase>, MenuBase, boost::forward_traversal_tag>
     {
     public:
         // types
@@ -52,9 +48,7 @@ namespace tetengo2 { namespace gui { namespace menu
         m_p_menu(NULL),
         m_parents()
         {
-            m_parents.push(
-                parent_and_index_type(static_cast<menu_base_type*>(NULL), 0)
-            );
+            m_parents.push(parent_and_index_type(static_cast<menu_base_type*>(NULL), 0));
         }
 
         /*!
@@ -67,9 +61,7 @@ namespace tetengo2 { namespace gui { namespace menu
         m_p_menu(p_menu),
         m_parents()
         {
-            m_parents.push(
-                parent_and_index_type(static_cast<menu_base_type*>(NULL), 0)
-            );
+            m_parents.push(parent_and_index_type(static_cast<menu_base_type*>(NULL), 0));
         }
 
 
@@ -107,10 +99,7 @@ namespace tetengo2 { namespace gui { namespace menu
         {
             assert(m_p_menu);
 
-            if (
-                m_parents.top().second <
-                std::distance(m_p_menu->begin(), m_p_menu->end())
-            )
+            if (m_parents.top().second < std::distance(m_p_menu->begin(), m_p_menu->end()))
             {
                 const menu_difference_type index = m_parents.top().second;
                 m_parents.push(parent_and_index_type(m_p_menu, 0));
@@ -134,13 +123,9 @@ namespace tetengo2 { namespace gui { namespace menu
     private:
         // types
 
-        typedef
-            typename menu_base_type::const_iterator::difference_type
-            menu_difference_type;
+        typedef typename menu_base_type::const_iterator::difference_type menu_difference_type;
 
-        typedef
-            std::pair<menu_base_type*, menu_difference_type>
-            parent_and_index_type;
+        typedef std::pair<menu_base_type*, menu_difference_type> parent_and_index_type;
 
 
         // variables

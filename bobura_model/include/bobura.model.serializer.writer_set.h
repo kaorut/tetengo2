@@ -34,13 +34,7 @@ namespace bobura { namespace model { namespace serializer
         \tparam StationGradeTypeSet A station grade type set.
         \tparam Encoder             An encoder type.
     */
-    template <
-        typename OutputStream,
-        typename Timetable,
-        typename Path,
-        typename StationGradeTypeSet,
-        typename Encoder
-    >
+    template <typename OutputStream, typename Timetable, typename Path, typename StationGradeTypeSet, typename Encoder>
     class writer_set : private boost::noncopyable
     {
     public:
@@ -62,23 +56,14 @@ namespace bobura { namespace model { namespace serializer
         typedef Encoder encoder_type;
 
         //! The writer type.
-        typedef
-            writer<output_stream_type, timetable_type, path_type> writer_type;
+        typedef writer<output_stream_type, timetable_type, path_type> writer_type;
 
         //! The bzip2 writer type.
-        typedef
-            bzip2_writer<output_stream_type, timetable_type, path_type>
-            bzip2_writer_type;
+        typedef bzip2_writer<output_stream_type, timetable_type, path_type> bzip2_writer_type;
 
         //! The JSON writer type.
         typedef
-            json_writer<
-                output_stream_type,
-                timetable_type,
-                path_type,
-                station_grade_type_set_type,
-                encoder_type
-            >
+            json_writer<output_stream_type, timetable_type, path_type, station_grade_type_set_type, encoder_type>
             json_writer_type;
 
 
@@ -94,11 +79,7 @@ namespace bobura { namespace model { namespace serializer
             std::vector<std::unique_ptr<writer_type>> writers;
 
             writers.push_back(tetengo2::make_unique<json_writer_type>());
-            writers.push_back(
-                tetengo2::make_unique<bzip2_writer_type>(
-                    tetengo2::make_unique<json_writer_type>()
-                )
-            );
+            writers.push_back(tetengo2::make_unique<bzip2_writer_type>(tetengo2::make_unique<json_writer_type>()));
 
             return std::move(writers);
         }

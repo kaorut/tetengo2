@@ -74,10 +74,7 @@ namespace bobura { namespace model { namespace serializer
 
             \return A unique pointer to a timetable.
         */
-        std::unique_ptr<timetable_type> read(
-            const iterator first,
-            const iterator last
-        )
+        std::unique_ptr<timetable_type> read(const iterator first, const iterator last)
         {
             return read_impl(first, last);
         }
@@ -99,10 +96,7 @@ namespace bobura { namespace model { namespace serializer
         virtual bool selects_impl(const iterator first, const iterator last)
         = 0;
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator first,
-            const iterator last
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
         = 0;
 
 

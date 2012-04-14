@@ -18,8 +18,7 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::transparent_background
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
         >::type
         background_type;
 

@@ -21,11 +21,9 @@ namespace
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
-    typedef
-        tetengo2::text::encoding::ascii<encoding_details_type> encoding_type;
+    typedef tetengo2::text::encoding::ascii<encoding_details_type> encoding_type;
 
-    typedef
-        tetengo2::text::encoder<encoding_type, encoding_type> encoder_type;
+    typedef tetengo2::text::encoder<encoding_type, encoding_type> encoder_type;
 
 }
 
@@ -83,12 +81,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoder_type::internal_string_type internal_string(
-            TETENGO2_TEXT("Tetengo2")
-        );
-        const encoder_type::external_string_type external_string(
-            TETENGO2_TEXT("Tetengo2")
-        );
+        const encoder_type::internal_string_type internal_string(TETENGO2_TEXT("Tetengo2"));
+        const encoder_type::external_string_type external_string(TETENGO2_TEXT("Tetengo2"));
 
         const encoding_type encoding1;
         const encoding_type encoding2;
@@ -101,12 +95,8 @@ BOOST_AUTO_TEST_SUITE(encoder)
     {
         BOOST_TEST_PASSPOINT();
 
-        const encoder_type::internal_string_type internal_string(
-            TETENGO2_TEXT("Tetengo2")
-        );
-        const encoder_type::external_string_type external_string(
-            TETENGO2_TEXT("Tetengo2")
-        );
+        const encoder_type::internal_string_type internal_string(TETENGO2_TEXT("Tetengo2"));
+        const encoder_type::external_string_type external_string(TETENGO2_TEXT("Tetengo2"));
 
         const encoding_type encoding1;
         const encoding_type encoding2;

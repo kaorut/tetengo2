@@ -13,7 +13,7 @@ xcopy /y /i "$(ProjectDir)res.test\messages.test" "$(OutDir)\messages.test"
 call "$(SolutionDir)\tools\get_bobura_config.bat" "$(SolutionDir)" "RUN_TEST_FOR_$(PlatformName)"
 cd "$(OutDir)" &amp;
 if "%BOBURA_CONFIG%" == "1" (
-"$(TargetDir)\$(TargetFileName)" --result_code=no --report_level=no
+"$(TargetDir)\$(TargetFileName)" --report_level=no --log_level=warning
 ) else (
 echo Skipping the unit test...
 )

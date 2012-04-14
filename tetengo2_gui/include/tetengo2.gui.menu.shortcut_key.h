@@ -24,8 +24,7 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam VirtualKey A virtual key type.
    */
     template <typename VirtualKey>
-    class shortcut_key :
-        private boost::equality_comparable<shortcut_key<VirtualKey>>
+    class shortcut_key : private boost::equality_comparable<shortcut_key<VirtualKey>>
     {
     public:
         // types
@@ -47,12 +46,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \param control True when a control key is required.
             \param meta    True when a meta key is required.
         */
-        shortcut_key(
-            const virtual_key_type& key,
-            const bool              shift,
-            const bool              control,
-            const bool              meta
-        )
+        shortcut_key(const virtual_key_type& key, const bool shift, const bool control, const bool meta)
         :
         m_key(cpp11::cref(key)),
         m_shift(shift),
@@ -72,10 +66,7 @@ namespace tetengo2 { namespace gui { namespace menu
             \retval true  When the one is equal to the other.
             \retval false Otherwise.
         */
-        friend bool operator==(
-            const shortcut_key& one,
-            const shortcut_key& another
-        )
+        friend bool operator==(const shortcut_key& one, const shortcut_key& another)
         {
             return
                 one.m_key.get() == another.m_key.get() &&
@@ -139,11 +130,7 @@ namespace tetengo2 { namespace gui { namespace menu
         string_type to_string()
         const
         {
-            std::vector<
-                typename cpp11::reference_wrapper<
-                    const virtual_key_type
-                >::type
-            > keys;
+            std::vector<typename cpp11::reference_wrapper<const virtual_key_type>::type> keys;
             
             if (m_shift)
                 keys.push_back(cpp11::cref(virtual_key_type::shift()));
@@ -153,18 +140,14 @@ namespace tetengo2 { namespace gui { namespace menu
                 keys.push_back(cpp11::cref(virtual_key_type::meta()));
             keys.push_back(m_key);
 
-            return
-                virtual_key_details_type::template to_combined_string<
-                    string_type
-                >(keys.begin(), keys.end());
+            return virtual_key_details_type::template to_combined_string<string_type>(keys.begin(), keys.end());
         }
 
 
     private:
         // types
 
-        typedef
-            typename virtual_key_type::details_type virtual_key_details_type;
+        typedef typename virtual_key_type::details_type virtual_key_details_type;
 
 
         // variables

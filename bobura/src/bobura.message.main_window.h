@@ -53,11 +53,7 @@ namespace bobura { namespace message { namespace main_window
             \param model   A model.
             \param parent  A parent window.
         */
-        explicit menu_selected(
-            const command_type&   command,
-            model_type&           model,
-            abstract_window_type& parent
-        )
+        explicit menu_selected(const command_type& command, model_type& model, abstract_window_type& parent)
         :
         m_command(command),
         m_model(model),
@@ -128,9 +124,7 @@ namespace bobura { namespace message { namespace main_window
         template <typename P>
         explicit paint_paint(
             P&& image_directory_path,
-            typename std::enable_if<
-                std::is_convertible<P, path_type>::value
-            >::type* = NULL
+            typename std::enable_if<std::is_convertible<P, path_type>::value>::type* = NULL
         )
         :
         m_image_directory_path(std::forward<P>(image_directory_path))
@@ -148,35 +142,16 @@ namespace bobura { namespace message { namespace main_window
         const
         {
             //picture_reader_type reader(
-            //    m_image_directory_path /
-            //    typename path_type::string_type(TETENGO2_TEXT("kumakuma.jpg"))
+            //    m_image_directory_path / typename path_type::string_type(TETENGO2_TEXT("kumakuma.jpg"))
             //);
-            //const std::unique_ptr<typename canvas_type::picture_type> p_pic2(
-            //    reader.read()
-            //);
-            //canvas.paint_picture(
-            //    *p_pic2, position_type(left_type(0), top_type(0))
-            //);
+            //const std::unique_ptr<typename canvas_type::picture_type> p_pic2(reader.read());
+            //canvas.paint_picture(*p_pic2, position_type(left_type(0), top_type(0)));
 
             //const font_type& dialog_font = font_type::dialog_font();
-            //canvas.draw_text(
-            //    dialog_font.family(), position_type(left_type(2), top_type(2))
-            //);
+            //canvas.draw_text(dialog_font.family(), position_type(left_type(2), top_type(2)));
 
-            //canvas.set_font(
-            //    font_type(
-            //        string_type(TETENGO2_TEXT("Times New Roman")),
-            //        64,
-            //        false,
-            //        true,
-            //        true,
-            //        false
-            //    )
-            //);
-            //canvas.draw_text(
-            //    string_type(TETENGO2_TEXT("Hello, world")),
-            //    position_type(left_type(4), top_type(4))
-            //);
+            //canvas.set_font(font_type(string_type(TETENGO2_TEXT("Times New Roman")), 64, false, true, true, false));
+            //canvas.draw_text(string_type(TETENGO2_TEXT("Hello, world")), position_type(left_type(4), top_type(4)));
         }
 
 
@@ -185,13 +160,9 @@ namespace bobura { namespace message { namespace main_window
 
         typedef typename canvas_type::string_type string_type;
 
-        typedef
-            typename tetengo2::gui::position<position_type>::left_type
-            left_type;
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
-        typedef
-            typename tetengo2::gui::position<position_type>::top_type
-            top_type;
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
         typedef typename canvas_type::font_type font_type;
 
@@ -232,10 +203,7 @@ namespace bobura { namespace message { namespace main_window
             \param window            A window.
             \param confirm_file_save A file save confirmation.
         */
-        window_closing(
-            abstract_window_type&         window,
-            const confirm_file_save_type& confirm_file_save
-        )
+        window_closing(abstract_window_type& window, const confirm_file_save_type& confirm_file_save)
         :
         m_window(window),
         m_confirm_file_save(confirm_file_save)

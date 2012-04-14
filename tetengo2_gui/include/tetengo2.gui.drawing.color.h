@@ -68,10 +68,11 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         friend bool operator==(const color& one, const color& another)
         {
-            return one.m_red == another.m_red &&
-                   one.m_green == another.m_green &&
-                   one.m_blue == another.m_blue &&
-                   one.m_alpha == another.m_alpha;
+            return
+                one.m_red == another.m_red &&
+                one.m_green == another.m_green &&
+                one.m_blue == another.m_blue &&
+                one.m_alpha == another.m_alpha;
         }
 
         /*!

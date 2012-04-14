@@ -66,17 +66,13 @@ namespace tetengo2 { namespace detail { namespace stub
         struct file_open_dialog_details_type {};
 
         //! The file open dialog details pointer type.
-        typedef
-            std::unique_ptr<file_open_dialog_details_type>
-            file_open_dialog_details_ptr_type;
+        typedef std::unique_ptr<file_open_dialog_details_type> file_open_dialog_details_ptr_type;
 
         //! The file save dialog details type.
         struct file_save_dialog_details_type {};
 
         //! The file save dialog details pointer type.
-        typedef
-            std::unique_ptr<file_save_dialog_details_type>
-            file_save_dialog_details_ptr_type;
+        typedef std::unique_ptr<file_save_dialog_details_type> file_save_dialog_details_ptr_type;
 
         
         // static functions
@@ -139,9 +135,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \throw std::system_error When the message box cannot be shown.
         */
-        static message_box_button_id_type show_message_box(
-            message_box_details_type& message_box
-        )
+        static message_box_button_id_type show_message_box(message_box_details_type& message_box)
         {
             return message_box_button_cancel;
         }
@@ -166,12 +160,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the file open dialog cannot be
                    created.
         */
-        template <
-            typename AbstractWindow,
-            typename String,
-            typename Filters,
-            typename Encoder
-        >
+        template <typename AbstractWindow, typename String, typename Filters, typename Encoder>
         static file_open_dialog_details_ptr_type create_file_open_dialog(
             AbstractWindow& parent,
             String&&        title,
@@ -197,14 +186,9 @@ namespace tetengo2 { namespace detail { namespace stub
                                      shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_open_dialog(
-            file_open_dialog_details_type& dialog,
-            const Encoder&                 encoder
-        )
+        static Path show_file_open_dialog(file_open_dialog_details_type& dialog, const Encoder& encoder)
         {
-            return
-                boost::filesystem::temp_directory_path() /
-                boost::filesystem::unique_path();
+            return boost::filesystem::temp_directory_path() / boost::filesystem::unique_path();
         }
 
         /*!
@@ -229,13 +213,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When the file save dialog cannot be
                                      created.
         */
-        template <
-            typename AbstractWindow,
-            typename String,
-            typename OptionalPath,
-            typename Filters,
-            typename Encoder
-        >
+        template <typename AbstractWindow, typename String, typename OptionalPath, typename Filters, typename Encoder>
         static file_save_dialog_details_ptr_type create_file_save_dialog(
             AbstractWindow& parent,
             String&&        title,
@@ -262,14 +240,9 @@ namespace tetengo2 { namespace detail { namespace stub
                                      shown.
         */
         template <typename Path, typename Encoder>
-        static Path show_file_save_dialog(
-            file_save_dialog_details_type& dialog,
-            const Encoder&                 encoder
-        )
+        static Path show_file_save_dialog(file_save_dialog_details_type& dialog, const Encoder& encoder)
         {
-            return
-                boost::filesystem::temp_directory_path() /
-                boost::filesystem::unique_path();
+            return boost::filesystem::temp_directory_path() / boost::filesystem::unique_path();
         }
 
 

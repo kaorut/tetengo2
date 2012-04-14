@@ -24,17 +24,11 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::menu_bar
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_bar>::type
         menu_bar_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::widget_type_list,
-            test_tetengo2::gui::type::widget::abstract_window
-        >::type
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::abstract_window>::type
         abstract_window_type;
 
     class concrete_window : public abstract_window_type
@@ -108,9 +102,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         {
             concrete_window window;
 
-            std::unique_ptr<menu_bar_type> p_menu_bar(
-                tetengo2::make_unique<menu_bar_type>()
-            );
+            std::unique_ptr<menu_bar_type> p_menu_bar(tetengo2::make_unique<menu_bar_type>());
             window.set_menu_bar(std::move(p_menu_bar));
 
             BOOST_CHECK(window.has_menu_bar());
@@ -134,9 +126,7 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
         {
             concrete_window window;
 
-            std::unique_ptr<menu_bar_type> p_menu_bar(
-                tetengo2::make_unique<menu_bar_type>()
-            );
+            std::unique_ptr<menu_bar_type> p_menu_bar(tetengo2::make_unique<menu_bar_type>());
             window.set_menu_bar(std::move(p_menu_bar));
 
             window.menu_bar();
@@ -152,14 +142,10 @@ BOOST_AUTO_TEST_SUITE(abstract_window)
 
         concrete_window window;
 
-        std::unique_ptr<menu_bar_type> p_menu_bar(
-            tetengo2::make_unique<menu_bar_type>()
-        );
+        std::unique_ptr<menu_bar_type> p_menu_bar(tetengo2::make_unique<menu_bar_type>());
         window.set_menu_bar(std::move(p_menu_bar));
 
-        std::unique_ptr<menu_bar_type> p_menu_bar2(
-            tetengo2::make_unique<menu_bar_type>()
-        );
+        std::unique_ptr<menu_bar_type> p_menu_bar2(tetengo2::make_unique<menu_bar_type>());
         window.set_menu_bar(std::move(p_menu_bar2));
     }
 

@@ -20,12 +20,7 @@ namespace tetengo2 { namespace gui { namespace menu
         \tparam Encoder         An encoder type.
         \tparam MenuObserverSet A menu observer set type.
    */
-    template <
-        typename String,
-        typename ShortcutKey,
-        typename Encoder,
-        typename MenuObserverSet
-    >
+    template <typename String, typename ShortcutKey, typename Encoder, typename MenuObserverSet>
     struct traits
     {
         //types

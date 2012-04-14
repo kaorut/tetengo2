@@ -20,18 +20,10 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::time_span
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::time_span>::type
         time_span_type;
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::time
-        >::type
-        time_type;
+    typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::time>::type time_type;
 
 
 }
@@ -72,9 +64,7 @@ BOOST_AUTO_TEST_SUITE(time)
         {
             const time_type time(24 * 60 * 60 - 1);
 
-            BOOST_CHECK_EQUAL(
-                time.seconds_from_midnight(), 24U * 60U * 60U - 1U
-            );
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 24U * 60U * 60U - 1U);
         }
         {
             const time_type time(24 * 60 * 60);
@@ -153,9 +143,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
             time += time_span;
 
-            BOOST_CHECK_EQUAL(
-                time.seconds_from_midnight(), 24U * 60U * 60U - 1U
-            );
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 24U * 60U * 60U - 1U);
         }
         {
             time_type time(24 * 60 * 60 - 1);
@@ -217,9 +205,7 @@ BOOST_AUTO_TEST_SUITE(time)
 
             time -= time_span;
 
-            BOOST_CHECK_EQUAL(
-                time.seconds_from_midnight(), 24U * 60U * 60U - 1U
-            );
+            BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 24U * 60U * 60U - 1U);
         }
         {
             time_type time(24 * 60 * 60 - 1);
@@ -294,22 +280,15 @@ BOOST_AUTO_TEST_SUITE(time)
         {
             const time_type time2(1);
 
-            BOOST_CHECK_THROW(
-                time_type::uninitialized() - time2, std::logic_error
-            );
+            BOOST_CHECK_THROW(time_type::uninitialized() - time2, std::logic_error);
         }
         {
             const time_type time1(1);
 
-            BOOST_CHECK_THROW(
-                time1 - time_type::uninitialized(), std::logic_error
-            );
+            BOOST_CHECK_THROW(time1 - time_type::uninitialized(), std::logic_error);
         }
         {
-            BOOST_CHECK_THROW(
-                time_type::uninitialized() - time_type::uninitialized(),
-                std::logic_error
-            );
+            BOOST_CHECK_THROW(time_type::uninitialized() - time_type::uninitialized(), std::logic_error);
         }
     }
 
@@ -384,10 +363,7 @@ BOOST_AUTO_TEST_SUITE(time)
             BOOST_CHECK_EQUAL(time.seconds_from_midnight(), 2U);
         }
         {
-            BOOST_CHECK_THROW(
-                time_type::uninitialized().seconds_from_midnight(),
-                std::logic_error
-            );
+            BOOST_CHECK_THROW(time_type::uninitialized().seconds_from_midnight(), std::logic_error);
         }
     }
 
@@ -398,43 +374,30 @@ BOOST_AUTO_TEST_SUITE(time)
         {
             const time_type time(0, 0, 0);
 
-            BOOST_CHECK(
-                time.hours_minutes_seconds() == std::make_tuple(0U, 0U, 0U)
-            );
+            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(0U, 0U, 0U));
         }
         {
             const time_type time(0, 0, 1);
 
-            BOOST_CHECK(
-                time.hours_minutes_seconds() == std::make_tuple(0U, 0U, 1U)
-            );
+            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(0U, 0U, 1U));
         }
         {
             const time_type time(0, 1, 0);
 
-            BOOST_CHECK(
-                time.hours_minutes_seconds() == std::make_tuple(0U, 1U, 0U)
-            );
+            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(0U, 1U, 0U));
         }
         {
             const time_type time(1, 0, 0);
 
-            BOOST_CHECK(
-                time.hours_minutes_seconds() == std::make_tuple(1U, 0U, 0U)
-            );
+            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(1U, 0U, 0U));
         }
         {
             const time_type time(1, 2, 3);
 
-            BOOST_CHECK(
-                time.hours_minutes_seconds() == std::make_tuple(1U, 2U, 3U)
-            );
+            BOOST_CHECK(time.hours_minutes_seconds() == std::make_tuple(1U, 2U, 3U));
         }
         {
-            BOOST_CHECK_THROW(
-                time_type::uninitialized().hours_minutes_seconds(),
-                std::logic_error
-            );
+            BOOST_CHECK_THROW(time_type::uninitialized().hours_minutes_seconds(), std::logic_error);
         }
     }
 

@@ -52,9 +52,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         :
         base_type(),
         m_color(std::forward<C>(color)),
-        m_p_details(
-            base_type::drawing_details_type::create_solid_background(m_color)
-        )
+        m_p_details(base_type::drawing_details_type::create_solid_background(m_color))
         {}
 
         /*!
@@ -100,17 +98,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         details_impl()
         const
         {
-            return boost::make_optional<const details_type&>(
-                static_cast<bool>(m_p_details), *m_p_details
-            );
+            return boost::make_optional<const details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }
 
         virtual boost::optional<details_type&>
         details_impl()
         {
-            return boost::make_optional<details_type&>(
-                static_cast<bool>(m_p_details), *m_p_details
-            );
+            return boost::make_optional<details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }
 
 

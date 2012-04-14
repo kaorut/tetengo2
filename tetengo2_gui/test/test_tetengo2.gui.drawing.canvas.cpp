@@ -23,58 +23,35 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension
-        >::type
-        dimension_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::transparent_background
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
         >::type
         transparent_background_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::font
-        >::type
-        font_type;
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type font_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::picture
-        >::type
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture>::type
         picture_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::canvas_details
-        >::type
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::canvas_details>::type
         canvas_details_type;
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::canvas_details_ptr
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::canvas_details_ptr
         >::type
         canvas_details_ptr_type;
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::canvas
-        >::type
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::canvas>::type
         canvas_type;
 
     struct concrete_canvas : public canvas_type
@@ -112,13 +89,9 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_TEST_PASSPOINT();
 
         typedef std::vector<string_type> string_vector_type;
-        const string_vector_type families =
-            canvas_type::installed_font_families();
+        const string_vector_type families = canvas_type::installed_font_families();
 
-        BOOST_CHECK(
-            families ==
-            string_vector_type(1, string_type(TETENGO2_TEXT("TetengoFont")))
-        );
+        BOOST_CHECK(families == string_vector_type(1, string_type(TETENGO2_TEXT("TetengoFont"))));
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -129,9 +102,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
             const concrete_canvas canvas;
         }
         {
-            BOOST_CHECK_THROW(
-                const concrete_canvas0 canvas, std::invalid_argument
-            );
+            BOOST_CHECK_THROW(const concrete_canvas0 canvas, std::invalid_argument);
         }
     }
 
@@ -152,9 +123,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        const font_type font(
-            TETENGO2_TEXT("AnotherFont"), 42, true, true, true, true
-        );
+        const font_type font(TETENGO2_TEXT("AnotherFont"), 42, true, true, true, true);
         canvas.set_font(font);
 
         BOOST_CHECK(canvas.font() == font);
@@ -166,9 +135,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_focus_indication(
-            std::make_pair(12, 34), std::make_pair(56, 78)
-        );
+        canvas.draw_focus_indication(std::make_pair(12, 34), std::make_pair(56, 78));
     }
 
     BOOST_AUTO_TEST_CASE(fill_rectangle)
@@ -177,11 +144,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.fill_rectangle(
-            std::make_pair(12, 34),
-            std::make_pair(56, 78),
-            transparent_background_type()
-        );
+        canvas.fill_rectangle(std::make_pair(12, 34), std::make_pair(56, 78), transparent_background_type());
     }
 
     BOOST_AUTO_TEST_CASE(calc_text_dimension)
@@ -190,8 +153,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         const concrete_canvas canvas;
 
-        const dimension_type dimension =
-            canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
+        const dimension_type dimension = canvas.calc_text_dimension(string_type(TETENGO2_TEXT("hoge")));
 
         BOOST_CHECK(dimension == dimension_type(123, 456));
     }
@@ -202,9 +164,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_text(
-            string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34)
-        );
+        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34));
     }
 
     BOOST_AUTO_TEST_CASE(paint_picture)
@@ -214,9 +174,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
         concrete_canvas canvas;
 
         const picture_type picture(std::make_pair(123, 456), canvas);
-        canvas.paint_picture(
-            picture, std::make_pair(12, 34), std::make_pair(56, 78)
-        );
+        canvas.paint_picture(picture, std::make_pair(12, 34), std::make_pair(56, 78));
     }
 
     BOOST_AUTO_TEST_CASE(details)

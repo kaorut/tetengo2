@@ -24,30 +24,17 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::menu_base
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type
         menu_base_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::popup
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::popup>::type
         popup_menu_type;
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::recursive_iterator
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::recursive_iterator>::type
         iterator_type;
 
 
@@ -56,29 +43,14 @@ namespace
     std::unique_ptr<menu_base_type> create_menu()
     {
         std::unique_ptr<menu_base_type> p_menu(
-            tetengo2::make_unique<popup_menu_type>(
-                string_type(TETENGO2_TEXT("0"))
-            )
+            tetengo2::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("0")))
         );
 
-        p_menu->insert(
-            p_menu->end(),
-            tetengo2::make_unique<popup_menu_type>(
-                string_type(TETENGO2_TEXT("1"))
-            )
-        );
+        p_menu->insert(p_menu->end(), tetengo2::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("1"))));
         p_menu->begin()->insert(
-            p_menu->begin()->end(),
-            tetengo2::make_unique<popup_menu_type>(
-                string_type(TETENGO2_TEXT("2"))
-            )
+            p_menu->begin()->end(), tetengo2::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("2")))
         );
-        p_menu->insert(
-            p_menu->end(),
-            tetengo2::make_unique<popup_menu_type>(
-                string_type(TETENGO2_TEXT("3"))
-            )
-        );
+        p_menu->insert(p_menu->end(), tetengo2::make_unique<popup_menu_type>(string_type(TETENGO2_TEXT("3"))));
 
         return std::move(p_menu);
     }

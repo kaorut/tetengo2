@@ -57,8 +57,8 @@ namespace tetengo2 { namespace text
         //! The structure kind type.
         enum structure_kind_type
         {
-            structure_kind_begin,
-            structure_kind_end,
+            structure_kind_begin, //!< The structure kind begin.
+            structure_kind_end,   //!< The structure kind end.
         };
 
         //! The structure type.
@@ -140,11 +140,7 @@ namespace tetengo2 { namespace text
         typedef structure<structure_kind_end> structure_end_type;
 
         //! The element type.
-        typedef
-            boost::variant<
-                structure_begin_type, structure_end_type, value_type
-            >
-            element_type;
+        typedef boost::variant<structure_begin_type, structure_end_type, value_type> element_type;
 
 
         // constructors and destructor
@@ -153,27 +149,15 @@ namespace tetengo2 { namespace text
             \brief Creates a pull parser.
 
             \param p_push_parser    A unique pointer to a push parser.
-            \param channel_capacity A channel capacity.
-                                    It must be greater than 0.
+            \param channel_capacity A channel capacity. It must be greater than 0.
 
             \throw std::invalid_argument When channel_capacity is equal to 0.
         */
-        pull_parser(
-            std::unique_ptr<push_parser_type> p_push_parser,
-            const size_type                   channel_capacity
-
-        )
+        pull_parser(std::unique_ptr<push_parser_type> p_push_parser, const size_type channel_capacity)
         :
         m_p_push_parser(std::move(p_push_parser)),
         m_channel(channel_capacity),
-        m_producer(
-            TETENGO2_CPP11_BIND(
-                generate,
-                cpp11::placeholders_1(),
-                cpp11::ref(*m_p_push_parser)
-            ),
-            m_channel
-        ),
+        m_producer(TETENGO2_CPP11_BIND(generate, cpp11::placeholders_1(), cpp11::ref(*m_p_push_parser)), m_channel),
         m_consumer(m_channel)
         {}
 
@@ -205,11 +189,7 @@ namespace tetengo2 { namespace text
         const
         {
             if (!has_next())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The parser has no more element.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The parser has no more element."));
 
             return m_consumer.peek();
         }
@@ -222,11 +202,7 @@ namespace tetengo2 { namespace text
         void next()
         {
             if (!has_next())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The parser has no more element.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The parser has no more element."));
 
             m_consumer.take();
         }
@@ -246,8 +222,7 @@ namespace tetengo2 { namespace text
                 return;
             }
             assert(element.which() == 0);
-            const string_type& structure_begin_name =
-                boost::get<structure_begin_type>(element).name();
+            const string_type& structure_begin_name = boost::get<structure_begin_type>(element).name();
 
             next();
 
@@ -256,8 +231,7 @@ namespace tetengo2 { namespace text
                 const element_type& next_element = peek();
                 if (next_element.which() == 1)
                 {
-                    const string_type& structure_end_name =
-                        boost::get<structure_end_type>(next_element).name();
+                    const string_type& structure_end_name = boost::get<structure_end_type>(next_element).name();
                     if (structure_end_name == structure_begin_name)
                     {
                         next();
@@ -282,30 +256,18 @@ namespace tetengo2 { namespace text
 
         // static functions
 
-        static void generate(
-            channel_type&     channel,
-            push_parser_type& push_parser
-        )
+        static void generate(channel_type& channel, push_parser_type& push_parser)
         {
             push_parser.on_structure_begin().connect(
                 TETENGO2_CPP11_BIND(
-                    on_structure_begin,
-                    cpp11::placeholders_1(),
-                    cpp11::placeholders_2(),
-                    cpp11::ref(channel)
+                    on_structure_begin, cpp11::placeholders_1(), cpp11::placeholders_2(), cpp11::ref(channel)
                 )
             );
             push_parser.on_structure_end().connect(
-                TETENGO2_CPP11_BIND(
-                    on_structure_end,
-                    cpp11::placeholders_1(),
-                    cpp11::ref(channel)
-                )
+                TETENGO2_CPP11_BIND(on_structure_end, cpp11::placeholders_1(), cpp11::ref(channel))
             );
             push_parser.on_value().connect(
-                TETENGO2_CPP11_BIND(
-                    on_value, cpp11::placeholders_1(), cpp11::ref(channel)
-                )
+                TETENGO2_CPP11_BIND(on_value, cpp11::placeholders_1(), cpp11::ref(channel))
             );
 
             push_parser.parse();
@@ -317,19 +279,12 @@ namespace tetengo2 { namespace text
             channel_type&             channel
         )
         {
-            channel.insert(
-                element_type(structure_begin_type(name, attribute_map))
-            );
+            channel.insert(element_type(structure_begin_type(name, attribute_map)));
         }
 
-        static void on_structure_end(
-            const string_type& name,
-            channel_type&      channel
-        )
+        static void on_structure_end(const string_type& name, channel_type& channel)
         {
-            channel.insert(
-                element_type(structure_end_type(name, attribute_map_type()))
-            );
+            channel.insert(element_type(structure_end_type(name, attribute_map_type())));
         }
 
         static void on_value(const value_type& value, channel_type& channel)

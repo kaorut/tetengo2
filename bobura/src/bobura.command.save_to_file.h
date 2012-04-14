@@ -42,7 +42,7 @@ namespace bobura { namespace command
 
             \param save_to_file A file saving.
         */
-        save_to_file(const save_to_file_type& save_to_file)
+        explicit save_to_file(const save_to_file_type& save_to_file)
         :
         m_save_to_file(save_to_file)
         {}

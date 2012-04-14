@@ -23,8 +23,7 @@ namespace bobura { namespace model { namespace train_info
         \tparam Platform A string type.
     */
     template <typename Time, typename Platform>
-    class stop :
-        private boost::equality_comparable<stop<Time, Platform>>
+    class stop : private boost::equality_comparable<stop<Time, Platform>>
     {
     public:
         // types
@@ -71,7 +70,8 @@ namespace bobura { namespace model { namespace train_info
         */
         friend bool operator==(const stop& one, const stop& another)
         {
-            return one.m_arrival == another.m_arrival &&
+            return
+                one.m_arrival == another.m_arrival &&
                 one.m_departure == another.m_departure &&
                 one.m_platform == another.m_platform;
         }

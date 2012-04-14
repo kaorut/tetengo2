@@ -25,9 +25,7 @@ namespace tetengo2 { namespace text { namespace encoding
         \tparam EncodingDetails A detail implementation type of an encoding.
     */
     template <typename EncodingDetails>
-    class utf8 :
-        public encoding<EncodingDetails>,
-        private boost::equality_comparable<utf8<EncodingDetails>>
+    class utf8 : public encoding<EncodingDetails>, private boost::equality_comparable<utf8<EncodingDetails>>
     {
     public:
         // types

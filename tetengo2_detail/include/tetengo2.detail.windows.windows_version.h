@@ -24,8 +24,7 @@ namespace tetengo2 { namespace detail { namespace windows
         \param service_pack_major A service pack major version.
         \param service_pack_minor A service pack minor version.
 
-        \retval true  When the system is runnin on a later version of Windows
-                      than the specified version.
+        \retval true  When the system is runnin on a later version of Windows than the specified version.
         \retval false Otherwise.
     */
     inline bool verify_windows_version(
@@ -49,12 +48,10 @@ namespace tetengo2 { namespace detail { namespace windows
         VER_SET_CONDITION(condition, VER_SERVICEPACKMAJOR, op);
         VER_SET_CONDITION(condition, VER_SERVICEPACKMINOR, op);
 
-        return ::VerifyVersionInfoW(
-            &info,
-            VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR |
-                VER_SERVICEPACKMINOR,
-            condition
-        ) != 0;
+        return
+            ::VerifyVersionInfoW(
+                &info, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR | VER_SERVICEPACKMINOR, condition
+            ) != 0;
     }
 
     /*!

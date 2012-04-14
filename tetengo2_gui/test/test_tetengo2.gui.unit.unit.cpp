@@ -19,10 +19,7 @@ namespace
     // types
 
     template <typename Value, typename PixelValue>
-    class concrete_unit :
-        public tetengo2::gui::unit::unit<
-            concrete_unit<Value, PixelValue>, Value
-        >
+    class concrete_unit : public tetengo2::gui::unit::unit<concrete_unit<Value, PixelValue>, Value>
     {
     public:
         // types
@@ -75,26 +72,17 @@ namespace
             return *this;
         }
 
-        friend bool operator==(
-            const concrete_unit& one,
-            const value_type&    another
-        )
+        friend bool operator==(const concrete_unit& one, const value_type& another)
         {
             return one.m_value == another;
         }
 
-        friend bool operator<(
-            const concrete_unit& one,
-            const value_type&    another
-        )
+        friend bool operator<(const concrete_unit& one, const value_type& another)
         {
             return one.m_value < another;
         }
 
-        friend bool operator>(
-            const concrete_unit& one,
-            const value_type&    another
-        )
+        friend bool operator>(const concrete_unit& one, const value_type& another)
         {
             return one.m_value > another;
         }

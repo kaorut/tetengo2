@@ -138,21 +138,11 @@ namespace bobura
         typedef std::wstring string_type;
         typedef std::string io_string_type;
         typedef
-            boost::spirit::multi_pass<
-                std::istreambuf_iterator<io_string_type::value_type>
-            >
-            input_stream_iterator_type;
+            boost::spirit::multi_pass<std::istreambuf_iterator<io_string_type::value_type>> input_stream_iterator_type;
+        typedef tetengo2::text::grammar::json<input_stream_iterator_type> json_grammar_type;
         typedef
-            tetengo2::text::grammar::json<input_stream_iterator_type>
-            json_grammar_type;
-        typedef
-            tetengo2::text::push_parser<
-                input_stream_iterator_type, json_grammar_type, int, double
-            >
-            push_parser_type;
-        typedef
-            tetengo2::text::pull_parser<push_parser_type, size_type>
-            pull_parser_type;
+            tetengo2::text::push_parser<input_stream_iterator_type, json_grammar_type, int, double> push_parser_type;
+        typedef tetengo2::text::pull_parser<push_parser_type, size_type> pull_parser_type;
         typedef boost::filesystem::path path_type;
         typedef settings<string_type, path_type> settings_type;
     }
@@ -160,27 +150,15 @@ namespace bobura
 
     //! The common type list.
     typedef
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::difference, std::ptrdiff_t>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::size, detail::size_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::string, detail::string_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::path, detail::path_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::input_stream_iterator, detail::input_stream_iterator_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::pull_parser, detail::pull_parser_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::difference, std::ptrdiff_t>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::size, detail::size_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::string, detail::string_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::path, detail::path_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::input_stream_iterator, detail::input_stream_iterator_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::pull_parser, detail::pull_parser_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::output_stream,
-                std::basic_ostream<detail::io_string_type::value_type>
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::settings, detail::settings_type>,
+            boost::mpl::pair<type::output_stream, std::basic_ostream<detail::io_string_type::value_type>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::settings, detail::settings_type>,
         tetengo2::meta::assoc_list_end
         >>>>>>>>
         common_type_list;
@@ -194,8 +172,7 @@ namespace bobura
         struct exception_encoder; //!< The encoder type for exceptions.
         struct messages_facet; //!< The messages facet type.
         struct message_catalog; //!< The message catalog type.
-        struct timetable_file_encoder; //!< The encoder type for the timetable
-                                       //!< file.
+        struct timetable_file_encoder; //!< The encoder type for the timetable file.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -209,29 +186,22 @@ namespace bobura
             internal_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
-                boost::mpl::at<
-                    detail_type_list, type::detail::widget
-                >::type::string_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type::string_type,
                 boost::mpl::at<detail_type_list, type::detail::encoding>::type
             >
             ui_encoding_type;
         typedef
-            tetengo2::text::encoding::utf8<
-                boost::mpl::at<detail_type_list, type::detail::encoding>::type
-            >
+            tetengo2::text::encoding::utf8<boost::mpl::at<detail_type_list, type::detail::encoding>::type>
             utf8_encoding_type;
         typedef utf8_encoding_type exception_encoding_type;
         typedef utf8_encoding_type message_catalog_encoding_type;
         typedef
             tetengo2::text::encoding::locale<
-                std::string,
-                boost::mpl::at<detail_type_list, type::detail::encoding>::type
+                std::string, boost::mpl::at<detail_type_list, type::detail::encoding>::type
             >
             locale_name_encoding_type;
         typedef
-            tetengo2::text::encoder<
-                internal_encoding_type, message_catalog_encoding_type
-            >
+            tetengo2::text::encoder<internal_encoding_type, message_catalog_encoding_type>
             message_catalog_encoder_type;
         typedef
             tetengo2::message::message_catalog_parser<
@@ -240,11 +210,7 @@ namespace bobura
                 message_catalog_encoder_type
             >
             message_catalog_parser_type;
-        typedef
-            tetengo2::text::encoder<
-                internal_encoding_type, locale_name_encoding_type
-            >
-            locale_name_encoder_type;
+        typedef tetengo2::text::encoder<internal_encoding_type, locale_name_encoding_type> locale_name_encoder_type;
         typedef
             tetengo2::message::messages<
                 boost::mpl::at<common_type_list, type::path>::type,
@@ -254,10 +220,7 @@ namespace bobura
             messages_type;
         typedef utf8_encoding_type timetable_file_encoding_type;
         typedef
-            tetengo2::text::encoder<
-                internal_encoding_type, timetable_file_encoding_type
-            >
-            timetable_file_encoder_type;
+            tetengo2::text::encoder<internal_encoding_type, timetable_file_encoding_type> timetable_file_encoder_type;
     }}
 #endif
 
@@ -266,35 +229,22 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::locale::ui_encoder,
-                tetengo2::text::encoder<
-                    detail::locale::internal_encoding_type,
-                    detail::locale::ui_encoding_type
-                >
+                tetengo2::text::encoder<detail::locale::internal_encoding_type, detail::locale::ui_encoding_type>
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::locale::exception_encoder,
                 tetengo2::text::encoder<
-                    detail::locale::internal_encoding_type,
-                    detail::locale::exception_encoding_type
+                    detail::locale::internal_encoding_type, detail::locale::exception_encoding_type
                 >
             >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::locale::messages_facet, detail::locale::messages_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::locale::messages_facet, detail::locale::messages_type
+                type::locale::message_catalog, tetengo2::message::message_catalog<detail::locale::messages_type>
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::locale::message_catalog,
-                tetengo2::message::message_catalog<
-                    detail::locale::messages_type
-                >
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::locale::timetable_file_encoder,
-                detail::locale::timetable_file_encoder_type
-            >,
+            boost::mpl::pair<type::locale::timetable_file_encoder, detail::locale::timetable_file_encoder_type>,
         tetengo2::meta::assoc_list_end
         >>>>>
         locale_type_list;
@@ -315,36 +265,23 @@ namespace bobura
     namespace detail { namespace model
     {
         typedef
-            bobura::model::station_info::grade_type_set<
-                boost::mpl::at<common_type_list, type::string>::type
-            >
+            bobura::model::station_info::grade_type_set<boost::mpl::at<common_type_list, type::string>::type>
             station_grade_type_set_type;
         typedef station_grade_type_set_type::grade_type grade_type;
-        typedef
-            bobura::model::station<
-                boost::mpl::at<common_type_list, type::string>::type,
-                grade_type
-            >
-            station_type;
+        typedef bobura::model::station<boost::mpl::at<common_type_list, type::string>::type, grade_type> station_type;
         typedef
             bobura::model::timetable_info::station_location<
-                station_type,
-                boost::mpl::at<common_type_list, type::size>::type
+                station_type, boost::mpl::at<common_type_list, type::size>::type
             >
             station_location_type;
         typedef
             bobura::model::train_info::time<
                 boost::mpl::at<common_type_list, type::size>::type,
-                bobura::model::train_info::time_span<
-                    boost::mpl::at<common_type_list, type::difference>::type
-                >
+                bobura::model::train_info::time_span<boost::mpl::at<common_type_list, type::difference>::type>
             >
             time_type;
         typedef
-            bobura::model::train_info::stop<
-                time_type,
-                boost::mpl::at<common_type_list, type::string>::type
-            >
+            bobura::model::train_info::stop<time_type, boost::mpl::at<common_type_list, type::string>::type>
             stop_type;
         typedef
             bobura::model::train<
@@ -379,34 +316,25 @@ namespace bobura
             boost::mpl::pair<
                 type::model::reader_selector,
                 model::serializer::reader_selector<
-                    boost::mpl::at<
-                        common_type_list, type::input_stream_iterator
-                    >::type,
-                    detail::model::timetable_type
+                    boost::mpl::at<common_type_list, type::input_stream_iterator>::type, detail::model::timetable_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::model::reader_set,
                 model::serializer::reader_set<
-                    boost::mpl::at<
-                        common_type_list, type::input_stream_iterator
-                    >::type,
+                    boost::mpl::at<common_type_list, type::input_stream_iterator>::type,
                     detail::model::timetable_type,
                     boost::mpl::at<common_type_list, type::pull_parser>::type,
                     detail::model::station_grade_type_set_type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::timetable_file_encoder
-                    >::type
+                    boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::model::writer_selector,
                 model::serializer::writer_selector<
-                    boost::mpl::at<
-                        common_type_list, type::output_stream
-                    >::type,
+                    boost::mpl::at<common_type_list, type::output_stream>::type,
                     detail::model::timetable_type,
                     boost::mpl::at<common_type_list, type::path>::type
                 >
@@ -415,15 +343,11 @@ namespace bobura
             boost::mpl::pair<
                 type::model::writer_set,
                 model::serializer::writer_set<
-                    boost::mpl::at<
-                        common_type_list, type::output_stream
-                    >::type,
+                    boost::mpl::at<common_type_list, type::output_stream>::type,
                     detail::model::timetable_type,
                     boost::mpl::at<common_type_list, type::path>::type,
                     detail::model::station_grade_type_set_type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::timetable_file_encoder
-                    >::type
+                    boost::mpl::at<locale_type_list, type::locale::timetable_file_encoder>::type
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -461,38 +385,25 @@ namespace bobura
     namespace detail { namespace ui
     {
         typedef
-            tetengo2::gui::fixture<
-                boost::mpl::at<
-                    detail_type_list, type::detail::gui_fixture
-                >::type
-            >
-            gui_fixture_type;
+            tetengo2::gui::fixture<boost::mpl::at<detail_type_list, type::detail::gui_fixture>::type> gui_fixture_type;
         typedef
             tetengo2::gui::unit::em<
-                boost::rational<
-                    boost::mpl::at<common_type_list, type::difference>::type
-                >,
+                boost::rational<boost::mpl::at<common_type_list, type::difference>::type>,
                 boost::mpl::at<common_type_list, type::difference>::type,
                 boost::mpl::at<detail_type_list, type::detail::unit>::type
             >
             unit_difference_type;
-        typedef
-            std::pair<unit_difference_type, unit_difference_type>
-            position_type;
+        typedef std::pair<unit_difference_type, unit_difference_type> position_type;
         typedef
             tetengo2::gui::unit::em<
-                boost::rational<
-                    boost::mpl::at<common_type_list, type::size>::type
-                >,
+                boost::rational<boost::mpl::at<common_type_list, type::size>::type>,
                 boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<detail_type_list, type::detail::unit>::type
             >
             unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;
         typedef
-            tetengo2::gui::drawing::background<
-                boost::mpl::at<detail_type_list, type::detail::drawing>::type
-            >
+            tetengo2::gui::drawing::background<boost::mpl::at<detail_type_list, type::detail::drawing>::type>
             background_type;
         typedef
             tetengo2::gui::drawing::transparent_background<
@@ -508,8 +419,7 @@ namespace bobura
             font_type;
         typedef
             tetengo2::gui::drawing::picture<
-                unit_size_type,
-                boost::mpl::at<detail_type_list, type::detail::drawing>::type
+                unit_size_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             picture_type;
         typedef
@@ -524,9 +434,7 @@ namespace bobura
                 boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 dimension_type,
-                boost::mpl::at<
-                    locale_type_list, type::locale::ui_encoder
-                >::type,
+                boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
                 background_type,
                 font_type,
                 picture_type,
@@ -536,26 +444,18 @@ namespace bobura
         typedef widget_canvas_type::base_type canvas_type;
         typedef
             tetengo2::gui::alert<
-                boost::mpl::at<
-                    locale_type_list, type::locale::ui_encoder
-                >::type,
-                boost::mpl::at<
-                    locale_type_list, type::locale::exception_encoder
-                >::type,
+                boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                boost::mpl::at<locale_type_list, type::locale::exception_encoder>::type,
                 boost::mpl::at<detail_type_list, type::detail::alert>::type
             >
             alert_type;
         typedef
-            tetengo2::gui::cursor::system<
-                boost::mpl::at<detail_type_list, type::detail::cursor>::type
-            >
+            tetengo2::gui::cursor::system<boost::mpl::at<detail_type_list, type::detail::cursor>::type>
             system_cursor_type;
         typedef
             tetengo2::gui::virtual_key<
                 boost::mpl::at<common_type_list, type::string>::type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::virtual_key
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
             >
             virtual_key_type;
         typedef
@@ -572,206 +472,144 @@ namespace bobura
                 tetengo2::gui::message::focus_observer_set,
                 tetengo2::gui::message::paint_observer_set<canvas_type>,
                 tetengo2::gui::message::keyboard_observer_set<
-                    virtual_key_type,
-                    boost::mpl::at<
-                        common_type_list, type::string
-                    >::type::value_type
+                    virtual_key_type, boost::mpl::at<common_type_list, type::string>::type::value_type
                 >,
                 tetengo2::gui::message::mouse_observer_set
             >
             widget_traits_type;
-        typedef
-            tetengo2::gui::menu::shortcut_key<virtual_key_type>
-            shortcut_key_type;
+        typedef tetengo2::gui::menu::shortcut_key<virtual_key_type> shortcut_key_type;
         typedef
             tetengo2::gui::menu::traits<
                 boost::mpl::at<common_type_list, type::string>::type,
                 shortcut_key_type,
-                boost::mpl::at<
-                    locale_type_list, type::locale::ui_encoder
-                >::type,
+                boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
                 tetengo2::gui::message::menu_observer_set
             >
             menu_traits_type;
         typedef
             tetengo2::gui::menu::abstract_popup<
-                menu_traits_type,
-                boost::mpl::at<detail_type_list, type::detail::menu>::type
+                menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             abstract_popup_menu_type;
         typedef
             tetengo2::gui::menu::menu_base<
-                menu_traits_type,
-                boost::mpl::at<detail_type_list, type::detail::menu>::type
+                menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             menu_base_type;
         typedef
             tetengo2::gui::menu::shortcut_key_table<
-                shortcut_key_type,
-                menu_base_type,
-                boost::mpl::at<detail_type_list, type::detail::menu>::type
+                shortcut_key_type, menu_base_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             shortcut_key_table_type;
         typedef
             tetengo2::gui::menu::menu_bar<
-                menu_traits_type,
-                shortcut_key_table_type,
-                boost::mpl::at<detail_type_list, type::detail::menu>::type
+                menu_traits_type, shortcut_key_table_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
             >
             menu_bar_type;
         typedef
             tetengo2::gui::widget::traits::abstract_window_traits<
-                widget_traits_type,
-                menu_bar_type,
-                tetengo2::gui::message::window_observer_set
+                widget_traits_type, menu_bar_type, tetengo2::gui::message::window_observer_set
             >
             abstract_window_traits_type;
         typedef
             tetengo2::gui::widget::abstract_window<
                 abstract_window_traits_type,
                 boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_handler
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             abstract_window_type;
-        typedef
-            tetengo2::gui::widget::traits::window_traits<
-                abstract_window_traits_type
-            >
-            window_traits_type;
+        typedef tetengo2::gui::widget::traits::window_traits<abstract_window_traits_type> window_traits_type;
         typedef
             tetengo2::gui::widget::window<
                 window_traits_type,
                 boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_handler
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             window_type;
         typedef
             tetengo2::gui::message::message_loop<
-                abstract_window_type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_loop
-                >::type
+                abstract_window_type, boost::mpl::at<detail_type_list, type::detail::message_loop>::type
             >
             message_loop_type;
         typedef
             tetengo2::gui::message::message_loop_break<
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_loop
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::message_loop>::type
             >
             message_loop_break_type;
         typedef
             tetengo2::gui::message::dialog_message_loop<
-                abstract_window_type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_loop
-                >::type
+                abstract_window_type, boost::mpl::at<detail_type_list, type::detail::message_loop>::type
             >
             dialog_message_loop_type;
         typedef
             tetengo2::gui::widget::traits::dialog_traits<
-                abstract_window_traits_type,
-                dialog_message_loop_type,
-                message_loop_break_type
+                abstract_window_traits_type, dialog_message_loop_type, message_loop_break_type
             >
             dialog_traits_type;
         typedef
             tetengo2::gui::widget::dialog<
                 dialog_traits_type,
                 boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_handler
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             dialog_type;
         typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
-            tetengo2::gui::widget::traits::control_traits<
-                widget_traits_type, color_type
-            >
+            tetengo2::gui::widget::traits::control_traits<widget_traits_type, color_type>
             control_traits_type;
-        typedef
-            tetengo2::gui::widget::traits::label_traits<control_traits_type>
-            label_traits_type;
+        typedef tetengo2::gui::widget::traits::label_traits<control_traits_type> label_traits_type;
         typedef
             tetengo2::gui::widget::label<
                 label_traits_type,
                 boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_handler
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             label_type;
         typedef
             tetengo2::gui::drawing::solid_background<
-                color_type,
-                boost::mpl::at<detail_type_list, type::detail::drawing>::type
+                color_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             solid_background_type;
         typedef
             tetengo2::gui::drawing::system_color_set<
-                color_type,
-                boost::mpl::at<detail_type_list, type::detail::drawing>::type
+                color_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             system_color_set_type;
         typedef
             tetengo2::gui::widget::traits::link_label_traits<
-                label_traits_type,
-                solid_background_type,
-                system_color_set_type
+                label_traits_type, solid_background_type, system_color_set_type
             >
             link_label_traits_type;
         typedef
             tetengo2::gui::widget::link_label<
                 link_label_traits_type,
                 boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_handler
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             link_label_type;
         typedef
-            tetengo2::gui::widget::traits::image_traits<
-                control_traits_type, picture_type
-            >
-            image_traits_type;
+            tetengo2::gui::widget::traits::image_traits<control_traits_type, picture_type> image_traits_type;
         typedef
             tetengo2::gui::widget::image<
                 image_traits_type,
                 boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_handler
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             image_type;
-        typedef
-            tetengo2::gui::widget::traits::button_traits<control_traits_type>
-            button_traits_type;
+        typedef tetengo2::gui::widget::traits::button_traits<control_traits_type> button_traits_type;
         typedef
             tetengo2::gui::widget::button<
                 button_traits_type,
                 boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_handler
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             button_type;
-        typedef
-            tetengo2::gui::widget::traits::text_box_traits<
-                control_traits_type
-            >
-            text_box_traits_type;
+        typedef tetengo2::gui::widget::traits::text_box_traits<control_traits_type> text_box_traits_type;
         typedef
             tetengo2::gui::widget::text_box<
                 text_box_traits_type,
                 boost::mpl::at<detail_type_list, type::detail::widget>::type,
-                boost::mpl::at<
-                    detail_type_list, type::detail::message_handler
-                >::type
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             text_box_type;
     }}
@@ -779,82 +617,46 @@ namespace bobura
 
     //! The type list for the user interface.
     typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::gui_fixture, detail::ui::gui_fixture_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::position, detail::ui::position_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::picture_reader, detail::ui::picture_reader_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::canvas, detail::ui::canvas_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::alert, detail::ui::alert_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::abstract_window, detail::ui::abstract_window_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::window, detail::ui::window_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::menu_bar, detail::ui::menu_bar_type
-            >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::gui_fixture, detail::ui::gui_fixture_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::position, detail::ui::position_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_reader, detail::ui::picture_reader_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::canvas, detail::ui::canvas_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::alert, detail::ui::alert_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::abstract_window, detail::ui::abstract_window_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::window, detail::ui::window_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::menu_bar, detail::ui::menu_bar_type >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::ui::popup_menu,
                 tetengo2::gui::menu::popup<
-                    detail::ui::menu_traits_type,
-                    boost::mpl::at<detail_type_list, type::detail::menu>::type
+                    detail::ui::menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::ui::menu_command,
                 tetengo2::gui::menu::command<
-                    detail::ui::menu_traits_type,
-                    boost::mpl::at<detail_type_list, type::detail::menu>::type
+                    detail::ui::menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::ui::menu_separator,
                 tetengo2::gui::menu::separator<
-                    detail::ui::menu_traits_type,
-                    boost::mpl::at<detail_type_list, type::detail::menu>::type
+                    detail::ui::menu_traits_type, boost::mpl::at<detail_type_list, type::detail::menu>::type
                 >
             >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::dialog, detail::ui::dialog_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::label, detail::ui::label_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::link_label, detail::ui::link_label_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::image, detail::ui::image_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::button, detail::ui::button_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::dialog, detail::ui::dialog_type>,
+            boost::mpl::pair< type::ui::message_loop_break, detail::ui::message_loop_break_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::label, detail::ui::label_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::link_label, detail::ui::link_label_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::image, detail::ui::image_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::button, detail::ui::button_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::message_loop, detail::ui::message_loop_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::message_loop_break,
-                detail::ui::message_loop_break_type
-            >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::ui::transparent_background,
-                detail::ui::transparent_background_type
-            >,
+            boost::mpl::pair< type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
         >>>>>>>>>>>>>>>>>>>>
         ui_type_list;
@@ -875,50 +677,32 @@ namespace bobura
             boost::mpl::pair<
                 type::common_dialog::message_box,
                 tetengo2::gui::common_dialog::message_box<
-                    boost::mpl::at<
-                        ui_type_list, type::ui::abstract_window
-                    >::type,
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
                     boost::mpl::at<common_type_list, type::string>::type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::ui_encoder
-                    >::type,
-                    boost::mpl::at<
-                        detail_type_list, type::detail::common_dialog
-                    >::type
+                    boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                    boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::common_dialog::file_open_dialog,
                 tetengo2::gui::common_dialog::file_open<
-                    boost::mpl::at<
-                        ui_type_list, type::ui::abstract_window
-                    >::type,
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
                     boost::mpl::at<common_type_list, type::string>::type,
                     boost::mpl::at<common_type_list, type::path>::type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::ui_encoder
-                    >::type,
-                    boost::mpl::at<
-                        detail_type_list, type::detail::common_dialog
-                    >::type
+                    boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                    boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::common_dialog::file_save_dialog,
                 tetengo2::gui::common_dialog::file_save<
-                    boost::mpl::at<
-                        ui_type_list, type::ui::abstract_window
-                    >::type,
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
                     boost::mpl::at<common_type_list, type::string>::type,
                     boost::mpl::at<common_type_list, type::path>::type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::ui_encoder
-                    >::type,
-                    boost::mpl::at<
-                        detail_type_list, type::detail::common_dialog
-                    >::type
+                    boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                    boost::mpl::at<detail_type_list, type::detail::common_dialog>::type
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -941,23 +725,15 @@ namespace bobura
                 type::dialog::about_dialog,
                 about_dialog<
                     boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::message_catalog
-                    >::type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<ui_type_list, type::ui::label>::type,
                     boost::mpl::at<ui_type_list, type::ui::link_label>::type,
                     boost::mpl::at<ui_type_list, type::ui::image>::type,
                     boost::mpl::at<ui_type_list, type::ui::button>::type,
-                    boost::mpl::at<
-                        ui_type_list, type::ui::picture_reader
-                    >::type,
-                    boost::mpl::at<
-                        ui_type_list, type::ui::transparent_background
-                    >::type,
-                    message::about_dialog::type_list<
-                        boost::mpl::at<ui_type_list, type::ui::dialog>::type
-                    >::type
+                    boost::mpl::at<ui_type_list, type::ui::picture_reader>::type,
+                    boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
+                    message::about_dialog::type_list<boost::mpl::at<ui_type_list, type::ui::dialog>::type>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -965,15 +741,11 @@ namespace bobura
                 type::dialog::file_property_dialog,
                 file_property_dialog<
                     boost::mpl::at<ui_type_list, type::ui::dialog>::type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::message_catalog
-                    >::type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     boost::mpl::at<ui_type_list, type::ui::label>::type,
                     boost::mpl::at<ui_type_list, type::ui::text_box>::type,
                     boost::mpl::at<ui_type_list, type::ui::button>::type,
-                    boost::mpl::at<
-                        ui_type_list, type::ui::transparent_background
-                    >::type,
+                    boost::mpl::at<ui_type_list, type::ui::transparent_background>::type,
                     message::file_property_dialog::type_list<
                         boost::mpl::at<ui_type_list, type::ui::dialog>::type
                     >::type
@@ -1001,37 +773,20 @@ namespace bobura
             bobura::load_save::save_to_file<
                 boost::mpl::at<model_type_list, type::model::model>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
-                boost::mpl::at<
-                    common_dialog_type_list, type::common_dialog::message_box
-                >::type,
-                boost::mpl::at<
-                    common_dialog_type_list,
-                    type::common_dialog::file_save_dialog
-                >::type,
-                boost::mpl::at<
-                    model_type_list, type::model::writer_selector
-                >::type,
-                boost::mpl::at<
-                    model_type_list, type::model::writer_set
-                >::type,
-                boost::mpl::at<
-                    locale_type_list, type::locale::message_catalog
-                >::type
+                boost::mpl::at<common_dialog_type_list, type::common_dialog::message_box>::type,
+                boost::mpl::at<common_dialog_type_list, type::common_dialog::file_save_dialog>::type,
+                boost::mpl::at<model_type_list, type::model::writer_selector>::type,
+                boost::mpl::at<model_type_list, type::model::writer_set>::type,
+                boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
             >
             save_to_file_type;
         typedef
             bobura::load_save::confirm_file_save<
                 boost::mpl::at<model_type_list, type::model::model>::type,
-                boost::mpl::at<
-                    ui_type_list, type::ui::abstract_window
-                >::type,
-                boost::mpl::at<
-                    common_dialog_type_list, type::common_dialog::message_box
-                >::type,
+                boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                boost::mpl::at<common_dialog_type_list, type::common_dialog::message_box>::type,
                 save_to_file_type,
-                boost::mpl::at<
-                    locale_type_list, type::locale::message_catalog
-                >::type
+                boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
             >
             confirm_file_save_type;
 
@@ -1045,9 +800,7 @@ namespace bobura
                 type::load_save::new_file,
                 load_save::new_file<
                     boost::mpl::at<model_type_list, type::model::model>::type,
-                    boost::mpl::at<
-                        ui_type_list, type::ui::abstract_window
-                    >::type,
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
                     detail::load_save::confirm_file_save_type
                 >
             >,
@@ -1056,39 +809,19 @@ namespace bobura
                 type::load_save::load_from_file,
                 load_save::load_from_file<
                     boost::mpl::at<model_type_list, type::model::model>::type,
-                    boost::mpl::at<
-                        ui_type_list, type::ui::abstract_window
-                    >::type,
-                    boost::mpl::at<
-                        common_dialog_type_list,
-                        type::common_dialog::message_box
-                    >::type,
-                    boost::mpl::at<
-                        common_dialog_type_list,
-                        type::common_dialog::file_open_dialog
-                    >::type,
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                    boost::mpl::at<common_dialog_type_list, type::common_dialog::message_box>::type,
+                    boost::mpl::at<common_dialog_type_list, type::common_dialog::file_open_dialog>::type,
                     detail::load_save::confirm_file_save_type,
-                    boost::mpl::at<
-                        model_type_list, type::model::reader_selector
-                    >::type,
-                    boost::mpl::at<
-                        model_type_list, type::model::reader_set
-                    >::type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::message_catalog
-                    >::type
+                    boost::mpl::at<model_type_list, type::model::reader_selector>::type,
+                    boost::mpl::at<model_type_list, type::model::reader_set>::type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::load_save::save_to_file,
-                detail::load_save::save_to_file_type
-            >,
+            boost::mpl::pair<type::load_save::save_to_file, detail::load_save::save_to_file_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::load_save::confirm_file_save,
-                detail::load_save::confirm_file_save_type
-            >,
+            boost::mpl::pair<type::load_save::confirm_file_save, detail::load_save::confirm_file_save_type>,
         tetengo2::meta::assoc_list_end
         >>>>
         load_save_type_list;
@@ -1105,52 +838,28 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace command_type_list
     {
-        typedef
-            boost::mpl::at<model_type_list, type::model::model>::type
-            model_type;
-        typedef
-            boost::mpl::at<ui_type_list, type::ui::abstract_window>::type
-            abstract_window_type;
-        typedef
-            std::function<
-                void (model_type& model, abstract_window_type& parent)
-            >
-            command_type;
-
+        typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
+        typedef boost::mpl::at<ui_type_list, type::ui::abstract_window>::type abstract_window_type;
+        typedef std::function<void (model_type& model, abstract_window_type& parent)> command_type;
     }}
 #endif
 
     //! The type list for the command type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::command_type_list::command,
-                detail::command_type_list::command_type
-            >,
+            boost::mpl::pair<type::command_type_list::command, detail::command_type_list::command_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::command_type_list::command_type_list,
                 command::type_list<
                     detail::command_type_list::command_type,
                     boost::mpl::at<model_type_list, type::model::model>::type,
-                    boost::mpl::at<
-                        ui_type_list, type::ui::abstract_window
-                    >::type,
-                    boost::mpl::at<
-                        dialog_type_list, type::dialog::file_property_dialog
-                    >::type,
-                    boost::mpl::at<
-                        dialog_type_list, type::dialog::about_dialog
-                    >::type,
-                    boost::mpl::at<
-                        load_save_type_list, type::load_save::new_file
-                    >::type,
-                    boost::mpl::at<
-                        load_save_type_list, type::load_save::load_from_file
-                    >::type,
-                    boost::mpl::at<
-                        load_save_type_list, type::load_save::save_to_file
-                    >::type
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                    boost::mpl::at<dialog_type_list, type::dialog::file_property_dialog>::type,
+                    boost::mpl::at<dialog_type_list, type::dialog::about_dialog>::type,
+                    boost::mpl::at<load_save_type_list, type::load_save::new_file>::type,
+                    boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type,
+                    boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type
                 >::type
             >,
         tetengo2::meta::assoc_list_end
@@ -1171,18 +880,13 @@ namespace bobura
     {
         typedef
             message::main_window::type_list<
-                boost::mpl::at<
-                    command_type_list_type_list,
-                    type::command_type_list::command
-                >::type,
+                boost::mpl::at<command_type_list_type_list, type::command_type_list::command>::type,
                 boost::mpl::at<model_type_list, type::model::model>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
                 boost::mpl::at<ui_type_list, type::ui::canvas>::type,
                 boost::mpl::at<ui_type_list, type::ui::position>::type,
                 boost::mpl::at<ui_type_list, type::ui::picture_reader>::type,
-                boost::mpl::at<
-                    load_save_type_list, type::load_save::confirm_file_save
-                >::type
+                boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
             >::type
             message_type_list;
     }}
@@ -1195,25 +899,15 @@ namespace bobura
                 type::main_window::main_window,
                 main_window<
                     boost::mpl::at<ui_type_list, type::ui::window>::type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::message_catalog
-                    >::type,
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
-                    boost::mpl::at<
-                        load_save_type_list,
-                        type::load_save::confirm_file_save
-                    >::type,
-                    boost::mpl::at<
-                        ui_type_list, type::ui::message_loop_break
-                    >::type,
+                    boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
+                    boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type,
                     detail::main_window::message_type_list
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::main_window::message_type_list,
-                detail::main_window::message_type_list
-            >,
+            boost::mpl::pair<type::main_window::message_type_list, detail::main_window::message_type_list>,
         tetengo2::meta::assoc_list_end
         >>
         main_window_type_list;
@@ -1233,23 +927,12 @@ namespace bobura
             boost::mpl::pair<
                 type::application::command_set,
                 command::set<
-                    boost::mpl::at<
-                        command_type_list_type_list,
-                        type::command_type_list::command_type_list
-                    >::type,
-                    boost::mpl::at<
-                        load_save_type_list, type::load_save::new_file
-                    >::type,
-                    boost::mpl::at<
-                        load_save_type_list, type::load_save::load_from_file
-                    >::type,
-                    boost::mpl::at<
-                        load_save_type_list, type::load_save::save_to_file
-                    >::type,
+                    boost::mpl::at<command_type_list_type_list, type::command_type_list::command_type_list>::type,
+                    boost::mpl::at<load_save_type_list, type::load_save::new_file>::type,
+                    boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type,
+                    boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
-                    boost::mpl::at<
-                        locale_type_list, type::locale::message_catalog
-                    >::type
+                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                 >
             >,
         tetengo2::meta::assoc_list<
@@ -1257,9 +940,7 @@ namespace bobura
                 type::application::model_message_type_list,
                 message::timetable_model::type_list<
                     boost::mpl::at<model_type_list, type::model::model>::type,
-                    boost::mpl::at<
-                        main_window_type_list, type::main_window::main_window
-                    >::type
+                    boost::mpl::at<main_window_type_list, type::main_window::main_window>::type
                 >::type
             >,
         tetengo2::meta::assoc_list_end

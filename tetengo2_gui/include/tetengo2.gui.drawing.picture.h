@@ -42,13 +42,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         typedef DrawingDetails drawing_details_type;
 
         //! The detail implementation type.
-        typedef
-            typename drawing_details_type::picture_details_type details_type;
+        typedef typename drawing_details_type::picture_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename drawing_details_type::picture_details_ptr_type
-            details_ptr_type;
+        typedef typename drawing_details_type::picture_details_ptr_type details_ptr_type;
 
 
         // constructors and destructor
@@ -80,13 +77,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         m_p_details(std::move(p_details))
         {
             if (!m_p_details)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument(
-                        "The detail implementation is NULL."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is NULL."));
         }
 
 
@@ -100,9 +91,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         dimension_type dimension()
         const
         {
-            return drawing_details_type::template picture_dimension<
-                dimension_type
-            >(*m_p_details);
+            return drawing_details_type::template picture_dimension<dimension_type>(*m_p_details);
         }
 
         /*!
@@ -113,9 +102,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         boost::optional<const details_type&> details()
         const
         {
-            return boost::make_optional<const details_type&>(
-                static_cast<bool>(m_p_details), *m_p_details
-            );
+            return boost::make_optional<const details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }
 
         /*!
@@ -125,9 +112,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         boost::optional<details_type&> details()
         {
-            return boost::make_optional<details_type&>(
-                static_cast<bool>(m_p_details), *m_p_details
-            );
+            return boost::make_optional<details_type&>(static_cast<bool>(m_p_details), *m_p_details);
         }
 
 

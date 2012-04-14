@@ -54,21 +54,14 @@ namespace bobura { namespace model { namespace serializer
 
             \param p_readers Unique pointers to readers.
 
-            \throw std::invalid_argument When the count of the readers is
-                                         empty.
+            \throw std::invalid_argument When the count of the readers is empty.
         */
-        explicit reader_selector(
-            std::vector<std::unique_ptr<base_type>> p_readers
-        )
+        explicit reader_selector(std::vector<std::unique_ptr<base_type>> p_readers)
         :
         m_p_readers(std::move(p_readers))
         {
             if (m_p_readers.empty())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("No reader is specified.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::invalid_argument("No reader is specified."));
         }
 
         /*!
@@ -89,32 +82,19 @@ namespace bobura { namespace model { namespace serializer
 
         virtual bool selects_impl(const iterator first, const iterator last)
         {
-            BOOST_THROW_EXCEPTION(
-                std::logic_error("This function cannot be called.")
-            );
+            BOOST_THROW_EXCEPTION(std::logic_error("This function cannot be called."));
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator first,
-            const iterator last
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
         {
-            typedef
-                typename std::vector<
-                    std::unique_ptr<base_type>
-                >::const_iterator
-                iterator_type;
+            typedef typename std::vector<std::unique_ptr<base_type>>::const_iterator iterator_type;
 
             const iterator_type found =
                 std::find_if(
                     m_p_readers.begin(),
                     m_p_readers.end(),
                     TETENGO2_CPP11_BIND(
-                        &reader_selector::call_selects,
-                        this,
-                        tetengo2::cpp11::placeholders_1(),
-                        first,
-                        last
+                        &reader_selector::call_selects, this, tetengo2::cpp11::placeholders_1(), first, last
                     )
                 );
             if (found == m_p_readers.end())
@@ -129,11 +109,7 @@ namespace bobura { namespace model { namespace serializer
 
         // functions
 
-        bool call_selects(
-            const std::unique_ptr<base_type>& p_reader,
-            const iterator                    first,
-            const iterator                    last
-        )
+        bool call_selects(const std::unique_ptr<base_type>& p_reader, const iterator first, const iterator last)
         const
         {
             return p_reader->selects(first, last);

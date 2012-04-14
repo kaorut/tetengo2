@@ -19,19 +19,12 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension
-        >::type
-        dimension_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
 
     typedef int canvas_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::picture
-        >::type
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::picture>::type
         picture_type;
 
 
@@ -55,19 +48,14 @@ BOOST_AUTO_TEST_SUITE(picture)
         {
             const canvas_type canvas(42);
             picture_type::details_ptr_type p_details(
-                tetengo2::detail::stub::drawing::create_picture(
-                    dimension_type(123, 456), canvas
-                )
+                tetengo2::detail::stub::drawing::create_picture(dimension_type(123, 456), canvas)
             );
             const picture_type picture2(std::move(p_details));
         }
         {
             picture_type::details_ptr_type p_details;
 
-            BOOST_CHECK_THROW(
-                const picture_type picture(std::move(p_details)),
-                std::invalid_argument
-            );
+            BOOST_CHECK_THROW(picture_type picture(std::move(p_details)), std::invalid_argument);
         }
     }
 

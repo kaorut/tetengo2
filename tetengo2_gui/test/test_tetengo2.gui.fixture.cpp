@@ -17,9 +17,7 @@ namespace
 {
     // types
 
-    typedef
-        tetengo2::gui::fixture<tetengo2::detail::stub::gui_fixture>
-        fixture_type;
+    typedef tetengo2::gui::fixture<tetengo2::detail::stub::gui_fixture> fixture_type;
 
 
 }

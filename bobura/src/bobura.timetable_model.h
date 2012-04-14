@@ -88,11 +88,7 @@ namespace bobura
         const
         {
             if (!has_path())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("This model does not have a path.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("This model does not have a path."));
 
             return *m_path;
         }
@@ -145,9 +141,7 @@ namespace bobura
         */
         void reset_timetable(std::unique_ptr<timetable_type> p_timetable)
         {
-            reset_timetable_impl(
-                std::move(p_timetable), boost::optional<path_type>()
-            );
+            reset_timetable_impl(std::move(p_timetable), boost::optional<path_type>());
         }
 
         /*!
@@ -161,15 +155,9 @@ namespace bobura
             \throw std::invalid_argument When p_timetable is NULL.
         */
         template <typename P>
-        void reset_timetable(
-            std::unique_ptr<timetable_type> p_timetable,
-            P&&                             path
-        )
+        void reset_timetable(std::unique_ptr<timetable_type> p_timetable, P&& path)
         {
-            reset_timetable_impl(
-                std::move(p_timetable),
-                boost::make_optional<path_type>(std::forward<P>(path))
-            );
+            reset_timetable_impl(std::move(p_timetable), boost::make_optional<path_type>(std::forward<P>(path)));
         }
 
         /*!
@@ -255,17 +243,10 @@ namespace bobura
 
         // functions
 
-        void reset_timetable_impl(
-            std::unique_ptr<timetable_type> p_timetable,
-            boost::optional<path_type>&&    path
-        )
+        void reset_timetable_impl(std::unique_ptr<timetable_type> p_timetable, boost::optional<path_type>&& path)
         {
             if (!p_timetable)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::invalid_argument("Timetable is NULL.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Timetable is NULL."));
 
             m_p_timetable = std::move(p_timetable);
             m_path = std::forward<boost::optional<path_type>>(path);
@@ -278,9 +259,7 @@ namespace bobura
 
         void set_timetable_observer_set()
         {
-            m_p_timetable->observer_set().changed().connect(
-                timetable_changed(*this)
-            );
+            m_p_timetable->observer_set().changed().connect(timetable_changed(*this));
         }
 
 

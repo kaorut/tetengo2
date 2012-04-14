@@ -16,12 +16,7 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::unit_type_list,
-            test_tetengo2::gui::type::unit::em
-        >::type
-        unit_type;
+    typedef boost::mpl::at<test_tetengo2::gui::unit_type_list, test_tetengo2::gui::type::unit::em>::type unit_type;
 
 
 }

@@ -72,22 +72,13 @@ namespace bobura { namespace model { namespace train_info
             same signs.
 
             \param hours   An hour span.
-            \param minutes A minute span. It must be that
-                           -59 <= minutes <= 59.
-            \param seconds A second span. It must be that
-                           -59 <= seconds <= 59.
+            \param minutes A minute span. It must be that -59 <= minutes <= 59.
+            \param seconds A second span. It must be that -59 <= seconds <= 59.
 
-            \throw std::out_of_range     When the minutes and/or seconds are
-                                         invalid.
-            \throw std::invalid_argument The signs of the hours and the
-                                         minutes and the seconds are
-                                         different.
+            \throw std::out_of_range     When the minutes and/or seconds are invalid.
+            \throw std::invalid_argument When the signs of the hours and the minutes and the seconds are different.
         */
-        time_span(
-            const tick_type hours,
-            const tick_type minutes,
-            const tick_type seconds
-        )
+        time_span(const tick_type hours, const tick_type minutes, const tick_type seconds)
         :
         m_seconds(calculate_seconds(hours, minutes, seconds))
         {}
@@ -171,17 +162,14 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Returns the hours, minutes and seconds.
 
-            \return The hours, minutes and seconds, which are stored in a
-                    std::tuple object in this order.
+            \return The hours, minutes and seconds, which are stored in a std::tuple object in this order.
         */
-        const std::tuple<tick_type, tick_type, tick_type>
-        hours_minutes_seconds()
+        const std::tuple<tick_type, tick_type, tick_type> hours_minutes_seconds()
         const
         {
             const tick_type hours = m_seconds / (60 * 60);
             const tick_type minutes = m_seconds / 60 - hours * 60;
-            const tick_type seconds =
-                m_seconds - hours * 60 * 60 - minutes * 60;
+            const tick_type seconds = m_seconds - hours * 60 * 60 - minutes * 60;
 
             return std::make_tuple(hours, minutes, seconds);
         }
@@ -190,55 +178,29 @@ namespace bobura { namespace model { namespace train_info
     private:
         // static functions
 
-        static tick_type calculate_seconds(
-            const tick_type hours,
-            const tick_type minutes,
-            const tick_type seconds
-        )
+        static tick_type calculate_seconds(const tick_type hours, const tick_type minutes, const tick_type seconds)
         {
-            if (
-                !(hours >= 0 && minutes >= 0 && seconds >= 0) &&
-                !(hours <= 0 && minutes <= 0 && seconds <= 0)
-            )
+            if (!(hours >= 0 && minutes >= 0 && seconds >= 0) && !(hours <= 0 && minutes <= 0 && seconds <= 0))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::invalid_argument(
-                        "The signs of the hours, the minutes and the seconds "
-                        "are different."
-                    )
+                    std::invalid_argument("The signs of the hours, the minutes and the seconds are different.")
                 );
             }
             else if (minutes > 59)
             {
-                BOOST_THROW_EXCEPTION(
-                    std::out_of_range(
-                        "60 or larger is specified for the minutes."
-                    )
-                );
+                BOOST_THROW_EXCEPTION(std::out_of_range("60 or larger is specified for the minutes."));
             }
             else if (minutes < -59)
             {
-                BOOST_THROW_EXCEPTION(
-                    std::out_of_range(
-                        "-60 or smaller is specified for the minutes."
-                    )
-                );
+                BOOST_THROW_EXCEPTION(std::out_of_range("-60 or smaller is specified for the minutes."));
             }
             else if (seconds > 59)
             {
-                BOOST_THROW_EXCEPTION(
-                    std::out_of_range(
-                        "60 or larger is specified for the seconds."
-                    )
-                );
+                BOOST_THROW_EXCEPTION(std::out_of_range("60 or larger is specified for the seconds."));
             }
             else if (seconds < -59)
             {
-                BOOST_THROW_EXCEPTION(
-                    std::out_of_range(
-                        "-60 or smaller is specified for the seconds."
-                    )
-                );
+                BOOST_THROW_EXCEPTION(std::out_of_range("-60 or smaller is specified for the seconds."));
             }
 
             return hours * 60 * 60 + minutes * 60 + seconds;

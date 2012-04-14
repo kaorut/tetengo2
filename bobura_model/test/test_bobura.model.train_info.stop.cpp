@@ -18,25 +18,11 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::time
-        >::type
-        time_type;
+    typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::time>::type time_type;
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::stop
-        >::type
-        stop_type;
+    typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::stop>::type stop_type;
 
 
 }
@@ -60,18 +46,14 @@ BOOST_AUTO_TEST_SUITE(stop)
             BOOST_CHECK(stop.platform() == string_type());
         }
         {
-            const stop_type stop(
-                time_type(0), time_type(1), string_type(TETENGO2_TEXT("1"))
-            );
+            const stop_type stop(time_type(0), time_type(1), string_type(TETENGO2_TEXT("1")));
 
             BOOST_CHECK(stop.arrival() == time_type(0));
             BOOST_CHECK(stop.departure() == time_type(1));
             BOOST_CHECK(stop.platform() == string_type(TETENGO2_TEXT("1")));
         }
         {
-            const stop_type stop(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("ZZZ"))
-            );
+            const stop_type stop(time_type(1), time_type(2), string_type(TETENGO2_TEXT("ZZZ")));
 
             BOOST_CHECK(stop.arrival() == time_type(1));
             BOOST_CHECK(stop.departure() == time_type(2));
@@ -84,52 +66,32 @@ BOOST_AUTO_TEST_SUITE(stop)
         BOOST_TEST_PASSPOINT();
 
         {
-            const stop_type stop1(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
-            const stop_type stop2(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
+            const stop_type stop1(time_type(1), time_type(2), string_type(TETENGO2_TEXT("1")));
+            const stop_type stop2(time_type(1), time_type(2), string_type(TETENGO2_TEXT("1")));
 
             BOOST_CHECK(stop1 == stop2);
         }
         {
-            const stop_type stop1(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
-            const stop_type stop2(
-                time_type(3), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
+            const stop_type stop1(time_type(1), time_type(2), string_type(TETENGO2_TEXT("1")));
+            const stop_type stop2(time_type(3), time_type(2), string_type(TETENGO2_TEXT("1")));
 
             BOOST_CHECK(stop1 != stop2);
         }
         {
-            const stop_type stop1(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
-            const stop_type stop2(
-                time_type(1), time_type(4), string_type(TETENGO2_TEXT("1"))
-            );
+            const stop_type stop1(time_type(1), time_type(2), string_type(TETENGO2_TEXT("1")));
+            const stop_type stop2(time_type(1), time_type(4), string_type(TETENGO2_TEXT("1")));
 
             BOOST_CHECK(stop1 != stop2);
         }
         {
-            const stop_type stop1(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
-            const stop_type stop2(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("2"))
-            );
+            const stop_type stop1(time_type(1), time_type(2), string_type(TETENGO2_TEXT("1")));
+            const stop_type stop2(time_type(1), time_type(2), string_type(TETENGO2_TEXT("2")));
 
             BOOST_CHECK(stop1 != stop2);
         }
         {
-            const stop_type stop1(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
-            const stop_type stop2(
-                time_type(3), time_type(4), string_type(TETENGO2_TEXT("2"))
-            );
+            const stop_type stop1(time_type(1), time_type(2), string_type(TETENGO2_TEXT("1")));
+            const stop_type stop2(time_type(3), time_type(4), string_type(TETENGO2_TEXT("2")));
 
             BOOST_CHECK(stop1 != stop2);
         }
@@ -140,16 +102,12 @@ BOOST_AUTO_TEST_SUITE(stop)
         BOOST_TEST_PASSPOINT();
 
         {
-            const stop_type stop(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
+            const stop_type stop(time_type(1), time_type(2), string_type(TETENGO2_TEXT("1")));
 
             BOOST_CHECK(stop.arrival() == time_type(1));
         }
         {
-            const stop_type stop(
-                time_type(3), time_type(4), string_type(TETENGO2_TEXT("2"))
-            );
+            const stop_type stop(time_type(3), time_type(4), string_type(TETENGO2_TEXT("2")));
 
             BOOST_CHECK(stop.arrival() == time_type(3));
         }
@@ -160,16 +118,12 @@ BOOST_AUTO_TEST_SUITE(stop)
         BOOST_TEST_PASSPOINT();
 
         {
-            const stop_type stop(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
+            const stop_type stop(time_type(1), time_type(2), string_type(TETENGO2_TEXT("1")));
 
             BOOST_CHECK(stop.departure() == time_type(2));
         }
         {
-            const stop_type stop(
-                time_type(3), time_type(4), string_type(TETENGO2_TEXT("2"))
-            );
+            const stop_type stop(time_type(3), time_type(4), string_type(TETENGO2_TEXT("2")));
 
             BOOST_CHECK(stop.departure() == time_type(4));
         }
@@ -180,16 +134,12 @@ BOOST_AUTO_TEST_SUITE(stop)
         BOOST_TEST_PASSPOINT();
 
         {
-            const stop_type stop(
-                time_type(1), time_type(2), string_type(TETENGO2_TEXT("1"))
-            );
+            const stop_type stop(time_type(1), time_type(2), string_type(TETENGO2_TEXT("1")));
 
             BOOST_CHECK(stop.platform() == string_type(TETENGO2_TEXT("1")));
         }
         {
-            const stop_type stop(
-                time_type(3), time_type(4), string_type(TETENGO2_TEXT("2"))
-            );
+            const stop_type stop(time_type(3), time_type(4), string_type(TETENGO2_TEXT("2")));
 
             BOOST_CHECK(stop.platform() == string_type(TETENGO2_TEXT("2")));
         }

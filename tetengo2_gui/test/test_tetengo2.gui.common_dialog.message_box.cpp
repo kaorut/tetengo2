@@ -16,29 +16,20 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::widget_type_list,
-            test_tetengo2::gui::type::widget::window
-        >::type
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
         window_type;
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::common_dialog_type_list,
-            test_tetengo2::gui::type::common_dialog::button_style
+            test_tetengo2::gui::common_dialog_type_list, test_tetengo2::gui::type::common_dialog::button_style
         >::type
         button_style_type;
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::common_dialog_type_list,
-            test_tetengo2::gui::type::common_dialog::message_box
+            test_tetengo2::gui::common_dialog_type_list, test_tetengo2::gui::type::common_dialog::message_box
         >::type
         message_box_type;
 
@@ -56,20 +47,13 @@ BOOST_AUTO_TEST_SUITE(message_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent;
-            const string_type title;
-            const string_type main_content;
-            const string_type sub_content;
-            const message_box_type message_box(
-                parent,
-                title,
-                main_content,
-                sub_content,
-                button_style_type::ok(true),
-                message_box_type::icon_style_warning
-            );
-        }
+        window_type parent;
+        const string_type title;
+        const string_type main_content;
+        const string_type sub_content;
+        const message_box_type message_box(
+            parent, title, main_content, sub_content, button_style_type::ok(true), message_box_type::icon_style_warning
+        );
     }
 
     BOOST_AUTO_TEST_CASE(do_modal)
@@ -81,12 +65,7 @@ BOOST_AUTO_TEST_SUITE(message_box)
         const string_type main_content;
         const string_type sub_content;
         message_box_type message_box(
-            parent,
-            title,
-            main_content,
-            sub_content,
-            button_style_type::ok(true),
-            message_box_type::icon_style_warning
+            parent, title, main_content, sub_content, button_style_type::ok(true), message_box_type::icon_style_warning
         );
 
         message_box.do_modal();

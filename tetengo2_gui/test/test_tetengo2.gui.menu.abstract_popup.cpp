@@ -25,23 +25,13 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::menu_base
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::menu_base>::type
         menu_base_type;
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::menu_type_list,
-            test_tetengo2::gui::type::menu::abstract_popup
-        >::type
+        boost::mpl::at<test_tetengo2::gui::menu_type_list, test_tetengo2::gui::type::menu::abstract_popup>::type
         abstract_popup_menu_type;
 
     class concrete_popup_menu : public abstract_popup_menu_type
@@ -51,10 +41,7 @@ namespace
 
         concrete_popup_menu(string_type&& text)
         :
-        abstract_popup_menu_type(
-            std::forward<string_type>(text),
-            menu_details_type::create_popup_menu()
-        )
+        abstract_popup_menu_type(std::forward<string_type>(text), menu_details_type::create_popup_menu())
         {}
 
 
@@ -84,9 +71,7 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
     {
         BOOST_TEST_PASSPOINT();
 
-        const concrete_popup_menu popup_menu(
-            string_type(TETENGO2_TEXT("Tetengo"))
-        );
+        const concrete_popup_menu popup_menu(string_type(TETENGO2_TEXT("Tetengo")));
     }
 
     BOOST_AUTO_TEST_CASE(insert)
@@ -95,32 +80,19 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
 
         concrete_popup_menu popup_menu(string_type(TETENGO2_TEXT("Tetengo")));
         std::unique_ptr<menu_base_type> p_child1(
-            tetengo2::make_unique<concrete_popup_menu>(
-                string_type(TETENGO2_TEXT("Hoge"))
-            )
+            tetengo2::make_unique<concrete_popup_menu>(string_type(TETENGO2_TEXT("Hoge")))
         );
         std::unique_ptr<menu_base_type> p_child2(
-            tetengo2::make_unique<concrete_popup_menu>(
-                string_type(TETENGO2_TEXT("Fuga"))
-            )
+            tetengo2::make_unique<concrete_popup_menu>(string_type(TETENGO2_TEXT("Fuga")))
         );
 
         popup_menu.insert(popup_menu.end(), std::move(p_child1));
-        BOOST_CHECK_EQUAL(
-            std::distance(popup_menu.begin(), popup_menu.end()), 1
-        );
+        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 1);
         popup_menu.insert(popup_menu.begin(), std::move(p_child2));
-        BOOST_CHECK_EQUAL(
-            std::distance(popup_menu.begin(), popup_menu.end()), 2
-        );
+        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 2);
 
-        BOOST_CHECK(
-            popup_menu.begin()->text() == string_type(TETENGO2_TEXT("Fuga"))
-        );
-        BOOST_CHECK(
-            boost::next(popup_menu.begin())->text() ==
-            string_type(TETENGO2_TEXT("Hoge"))
-        );
+        BOOST_CHECK(popup_menu.begin()->text() == string_type(TETENGO2_TEXT("Fuga")));
+        BOOST_CHECK(boost::next(popup_menu.begin())->text() == string_type(TETENGO2_TEXT("Hoge")));
     }
 
     BOOST_AUTO_TEST_CASE(erase)
@@ -129,35 +101,23 @@ BOOST_AUTO_TEST_SUITE(abstract_popup)
 
         concrete_popup_menu popup_menu(string_type(TETENGO2_TEXT("Tetengo")));
         std::unique_ptr<menu_base_type> p_child1(
-            tetengo2::make_unique<concrete_popup_menu>(
-                string_type(TETENGO2_TEXT("Hoge"))
-            )
+            tetengo2::make_unique<concrete_popup_menu>(string_type(TETENGO2_TEXT("Hoge")))
         );
         std::unique_ptr<menu_base_type> p_child2(
-            tetengo2::make_unique<concrete_popup_menu>(
-                string_type(TETENGO2_TEXT("Fuga"))
-            )
+            tetengo2::make_unique<concrete_popup_menu>(string_type(TETENGO2_TEXT("Fuga")))
         );
         popup_menu.insert(popup_menu.end(), std::move(p_child1));
         popup_menu.insert(popup_menu.begin(), std::move(p_child2));
 
         popup_menu.erase(popup_menu.begin(), popup_menu.begin());
-        BOOST_CHECK_EQUAL(
-            std::distance(popup_menu.begin(), popup_menu.end()), 2
-        );
+        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 2);
 
         popup_menu.erase(popup_menu.begin(), boost::next(popup_menu.begin()));
-        BOOST_CHECK_EQUAL(
-            std::distance(popup_menu.begin(), popup_menu.end()), 1
-        );
-        BOOST_CHECK(
-            popup_menu.begin()->text() == string_type(TETENGO2_TEXT("Hoge"))
-        );
+        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 1);
+        BOOST_CHECK(popup_menu.begin()->text() == string_type(TETENGO2_TEXT("Hoge")));
 
         popup_menu.erase(popup_menu.begin(), popup_menu.end());
-        BOOST_CHECK_EQUAL(
-            std::distance(popup_menu.begin(), popup_menu.end()), 0
-        );
+        BOOST_CHECK_EQUAL(std::distance(popup_menu.begin(), popup_menu.end()), 0);
     }
 
 

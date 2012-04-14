@@ -21,8 +21,7 @@ namespace
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
-    typedef
-        tetengo2::text::encoding::utf8<encoding_details_type> encoding_type;
+    typedef tetengo2::text::encoding::utf8<encoding_details_type> encoding_type;
 
 
 }

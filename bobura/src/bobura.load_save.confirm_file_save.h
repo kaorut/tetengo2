@@ -86,8 +86,7 @@ namespace bobura { namespace load_save
 
             \param parent A parent window.
 
-            \retval true  When the model is saved or there is no need to save
-                          it.
+            \retval true  When the model is saved or there is no need to save it.
             \retval false Otherwise.
         */
         bool operator()(abstract_window_type& parent)
@@ -96,8 +95,7 @@ namespace bobura { namespace load_save
             if (!m_model.changed())
                 return false;
 
-            const typename message_box_type::button_id_type selected_button =
-                create_message_box(parent)->do_modal();
+            const typename message_box_type::button_id_type selected_button = create_message_box(parent)->do_modal();
             if (selected_button == message_box_type::button_cancel)
                 return true;
             if (selected_button == message_box_type::button_yes)
@@ -122,9 +120,7 @@ namespace bobura { namespace load_save
 
         // functions
 
-        std::unique_ptr<message_box_type> create_message_box(
-            abstract_window_type& parent
-        )
+        std::unique_ptr<message_box_type> create_message_box(abstract_window_type& parent)
         const
         {
             const string_type file_path =
@@ -132,26 +128,21 @@ namespace bobura { namespace load_save
                 m_model.path().template string<string_type>() :
                 m_message_catalog.get(TETENGO2_TEXT("Common:Untitled"));
 
-            return tetengo2::make_unique<message_box_type>(
-                parent,
-                m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
-                m_message_catalog.get(
-                    TETENGO2_TEXT(
-                        "Message:File:The file has been changed. Do you want to save the changes?"
-                    )
-                ),
-                file_path,
-                message_box_type::button_style_type::yes_no(
-                    true,
+            return
+                tetengo2::make_unique<message_box_type>(
+                    parent,
+                    m_message_catalog.get(TETENGO2_TEXT("App:Bobura")),
                     m_message_catalog.get(
-                        TETENGO2_TEXT("Message:File:&Save")
+                        TETENGO2_TEXT("Message:File:The file has been changed. Do you want to save the changes?")
                     ),
-                    m_message_catalog.get(
-                        TETENGO2_TEXT("Message:File:&Don't save")
-                    )
-                ),
-                message_box_type::icon_style_warning
-            );
+                    file_path,
+                    message_box_type::button_style_type::yes_no(
+                        true,
+                        m_message_catalog.get(TETENGO2_TEXT("Message:File:&Save")),
+                        m_message_catalog.get(TETENGO2_TEXT("Message:File:&Don't save"))
+                    ),
+                    message_box_type::icon_style_warning
+                );
         }
 
 

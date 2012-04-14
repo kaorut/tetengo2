@@ -23,57 +23,29 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::station
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::station>::type
         station_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::station_location
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::station_location>::type
         station_location_type;
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::time
-        >::type
-        time_type;
+    typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::time>::type time_type;
+
+    typedef boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::stop>::type stop_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::stop
-        >::type
-        stop_type;
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::train>::type train_type;
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::train
-        >::type
-        train_type;
-
-    typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::timetable
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::timetable>::type
         timetable_type;
 
-    typedef
-        boost::mpl::at<
-            test_bobura::model::type_list, test_bobura::model::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
 
     typedef
         boost::mpl::at<
-            test_bobura::model::serialization_type_list,
-            test_bobura::model::type::serialization::json_reader
+            test_bobura::model::serialization_type_list, test_bobura::model::type::serialization::json_reader
         >::type
         reader_type;
 
@@ -280,12 +252,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json0);
             BOOST_CHECK(
                 !json_reader.selects(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 )
             );
         }
@@ -293,12 +261,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json1);
             BOOST_CHECK(
                 json_reader.selects(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 )
             );
         }
@@ -306,12 +270,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json2);
             BOOST_CHECK(
                 json_reader.selects(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 )
             );
         }
@@ -319,12 +279,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json9);
             BOOST_CHECK(
                 json_reader.selects(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 )
             );
         }
@@ -332,12 +288,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json10);
             BOOST_CHECK(
                 !json_reader.selects(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 )
             );
         }
@@ -352,12 +304,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json10);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
             BOOST_CHECK(!p_timetable);
@@ -366,12 +314,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json1);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
             BOOST_CHECK(!p_timetable);
@@ -380,12 +324,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json2);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
             BOOST_CHECK(p_timetable);
@@ -395,60 +335,36 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json3);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
             BOOST_CHECK(p_timetable);
-            BOOST_CHECK(
-                p_timetable->title() == string_type(TETENGO2_TEXT("hoge"))
-            );
+            BOOST_CHECK(p_timetable->title() == string_type(TETENGO2_TEXT("hoge")));
         }
         {
             std::istringstream input_stream(json4);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
             BOOST_CHECK(p_timetable);
-            BOOST_CHECK(
-                p_timetable->title() == string_type(TETENGO2_TEXT("hoge"))
-            );
+            BOOST_CHECK(p_timetable->title() == string_type(TETENGO2_TEXT("hoge")));
             BOOST_CHECK_EQUAL(p_timetable->station_locations().size(), 2U);
             {
-                const station_location_type& station_location =
-                    p_timetable->station_locations()[0];
+                const station_location_type& station_location = p_timetable->station_locations()[0];
                 const station_type& station = station_location.station();
-                BOOST_CHECK(
-                    station.name() == string_type(TETENGO2_TEXT("stationA"))
-                );
-                BOOST_CHECK(
-                    station.grade().name() ==
-                    string_type(TETENGO2_TEXT("local"))
-                );
+                BOOST_CHECK(station.name() == string_type(TETENGO2_TEXT("stationA")));
+                BOOST_CHECK(station.grade().name() == string_type(TETENGO2_TEXT("local")));
                 BOOST_CHECK_EQUAL(station_location.meterage(), 42U);
             }
             {
-                const station_location_type& station_location =
-                    p_timetable->station_locations()[1];
+                const station_location_type& station_location = p_timetable->station_locations()[1];
                 const station_type& station = station_location.station();
-                BOOST_CHECK(
-                    station.name() == string_type(TETENGO2_TEXT("stationB"))
-                );
-                BOOST_CHECK(
-                    station.grade().name() ==
-                    string_type(TETENGO2_TEXT("principal"))
-                );
+                BOOST_CHECK(station.name() == string_type(TETENGO2_TEXT("stationB")));
+                BOOST_CHECK(station.grade().name() == string_type(TETENGO2_TEXT("principal")));
                 BOOST_CHECK_EQUAL(station_location.meterage(), 4242U);
             }
         }
@@ -456,12 +372,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json5);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
             BOOST_CHECK(!p_timetable);
@@ -470,48 +382,34 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json6);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
             BOOST_CHECK(p_timetable);
             BOOST_CHECK_EQUAL(p_timetable->down_trains().size(), 2U);
             {
                 const train_type& train = p_timetable->down_trains()[0];
-                BOOST_CHECK(
-                    train.number() == string_type(TETENGO2_TEXT("101D"))
-                );
-                BOOST_CHECK(
-                    train.note() == string_type(TETENGO2_TEXT("fuga"))
-                );
+                BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("101D")));
+                BOOST_CHECK(train.note() == string_type(TETENGO2_TEXT("fuga")));
                 const train_type::stops_type& stops = train.stops();
                 BOOST_CHECK_EQUAL(train.stops().size(), 2U);
                 {
                     const stop_type& stop = stops[0];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-                    BOOST_CHECK(
-                        stop.departure() == time_type::uninitialized()
-                    );
+                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
                     BOOST_CHECK(stop.platform().empty());
                 }
                 {
                     const stop_type& stop = stops[1];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-                    BOOST_CHECK(
-                        stop.departure() == time_type::uninitialized()
-                    );
+                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
             {
                 const train_type& train = p_timetable->down_trains()[1];
-                BOOST_CHECK(
-                    train.number() == string_type(TETENGO2_TEXT("123D"))
-                );
+                BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("123D")));
                 BOOST_CHECK(train.note().empty());
                 const train_type::stops_type& stops = train.stops();
                 BOOST_CHECK_EQUAL(train.stops().size(), 2U);
@@ -519,44 +417,32 @@ BOOST_AUTO_TEST_SUITE(json_reader)
                     const stop_type& stop = stops[0];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type(6, 0, 30));
-                    BOOST_CHECK(
-                        stop.platform() == string_type(TETENGO2_TEXT("1"))
-                    );
+                    BOOST_CHECK(stop.platform() == string_type(TETENGO2_TEXT("1")));
                 }
                 {
                     const stop_type& stop = stops[1];
                     BOOST_CHECK(stop.arrival() == time_type(6, 5, 45));
-                    BOOST_CHECK(
-                        stop.departure() == time_type::uninitialized()
-                    );
+                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
             BOOST_CHECK_EQUAL(p_timetable->up_trains().size(), 1U);
             {
                 const train_type& train = p_timetable->up_trains()[0];
-                BOOST_CHECK(
-                    train.number() == string_type(TETENGO2_TEXT("9324M"))
-                );
-                BOOST_CHECK(
-                    train.note() == string_type(TETENGO2_TEXT("piyo"))
-                );
+                BOOST_CHECK(train.number() == string_type(TETENGO2_TEXT("9324M")));
+                BOOST_CHECK(train.note() == string_type(TETENGO2_TEXT("piyo")));
                 const train_type::stops_type& stops = train.stops();
                 BOOST_CHECK_EQUAL(train.stops().size(), 2U);
                 {
                     const stop_type& stop = stops[0];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
                     BOOST_CHECK(stop.departure() == time_type(6, 20, 0));
-                    BOOST_CHECK(
-                        stop.platform() == string_type(TETENGO2_TEXT("0A"))
-                    );
+                    BOOST_CHECK(stop.platform() == string_type(TETENGO2_TEXT("0A")));
                 }
                 {
                     const stop_type& stop = stops[1];
                     BOOST_CHECK(stop.arrival() == time_type::uninitialized());
-                    BOOST_CHECK(
-                        stop.departure() == time_type::uninitialized()
-                    );
+                    BOOST_CHECK(stop.departure() == time_type::uninitialized());
                     BOOST_CHECK(stop.platform().empty());
                 }
             }
@@ -565,12 +451,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json7);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
             BOOST_CHECK(!p_timetable);
@@ -579,12 +461,8 @@ BOOST_AUTO_TEST_SUITE(json_reader)
             std::istringstream input_stream(json8);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>(input_stream)
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<char>()
-                    )
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
                 );
 
             BOOST_CHECK(!p_timetable);

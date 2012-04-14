@@ -33,23 +33,13 @@ namespace tetengo2 { namespace detail { namespace windows
     inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
     {
         const ::UINT metrics_size =
-            on_windows_vista_or_later() ?
-            sizeof(::NONCLIENTMETRICSW) :
-            sizeof(::NONCLIENTMETRICSW) - sizeof(int);
+            on_windows_vista_or_later() ? sizeof(::NONCLIENTMETRICSW) : sizeof(::NONCLIENTMETRICSW) - sizeof(int);
         metrics.cbSize = metrics_size;
-        if (
-            ::SystemParametersInfoW(
-                SPI_GETNONCLIENTMETRICS,
-                metrics_size,
-                &metrics,
-                0
-            ) == 0
-        )
+        if (::SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, metrics_size, &metrics, 0) == 0)
         {
             BOOST_THROW_EXCEPTION(
                 std::system_error(
-                    std::error_code(ERROR_FUNCTION_FAILED, win32_category()),
-                    "Can't get non-client metrics."
+                    std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't get non-client metrics."
                 )
             );
         }

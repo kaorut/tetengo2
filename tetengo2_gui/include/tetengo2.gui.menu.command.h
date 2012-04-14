@@ -69,11 +69,7 @@ namespace tetengo2 { namespace gui { namespace menu
         template <typename S, typename SK>
         command(S&& text, SK&& shortcut_key)
         :
-        base_type(
-            std::forward<S>(text),
-            std::forward<SK>(shortcut_key),
-            menu_details_type::create_menu()
-        )
+        base_type(std::forward<S>(text), std::forward<SK>(shortcut_key), menu_details_type::create_menu())
         {}
 
         /*!

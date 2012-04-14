@@ -21,20 +21,11 @@ namespace tetengo2 { namespace gui { namespace widget
         \brief The class template for a window.
 
         \tparam Traits                A traits type.
-        \tparam WidgetDetails         A detail implementation type of a
-                                      widget.
-        \tparam MessageHandlerDetails A detail implementation type of a
-                                      message handler.
+        \tparam WidgetDetails         A detail implementation type of a widget.
+        \tparam MessageHandlerDetails A detail implementation type of a message handler.
    */
-    template <
-        typename Traits,
-        typename WidgetDetails,
-        typename MessageHandlerDetails
-    >
-    class window :
-        public abstract_window<
-            typename Traits::base_type, WidgetDetails, MessageHandlerDetails
-        >
+    template <typename Traits, typename WidgetDetails, typename MessageHandlerDetails>
+    class window : public abstract_window<typename Traits::base_type, WidgetDetails, MessageHandlerDetails>
     {
     public:
         // types
@@ -50,24 +41,17 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The base type.
         typedef
-            abstract_window<
-                typename traits_type::base_type,
-                widget_details_type,
-                message_handler_details_type
-            >
+            abstract_window<typename traits_type::base_type, widget_details_type, message_handler_details_type>
             base_type;
 
         //! The string type.
         typedef typename base_type::string_type string_type;
 
         //! The detail implementation type.
-        typedef
-            typename widget_details_type::widget_details_type details_type;
+        typedef typename widget_details_type::widget_details_type details_type;
 
         //! The detail implementation pointer type.
-        typedef
-            typename widget_details_type::widget_details_ptr_type
-            details_ptr_type;
+        typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
 
         // constructors and destructor
@@ -78,11 +62,7 @@ namespace tetengo2 { namespace gui { namespace widget
         window()
         :
         base_type(message_handler_map_type()),
-        m_p_details(
-            widget_details_type::template create_window<
-                typename base_type::base_type
-            >()
-        )
+        m_p_details(widget_details_type::template create_window<typename base_type::base_type>())
         {
             initialize(this);
         }
@@ -98,19 +78,11 @@ namespace tetengo2 { namespace gui { namespace widget
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
-        base_type(
-            message_handler_details_type::make_window_message_handler_map(
-                *this, message_handler_map_type()
-            )
-        ),
+        base_type(message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type())),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_p_details(
-            widget_details_type::template create_window<
-                typename base_type::base_type
-            >(parent)
-        )
+        m_p_details(widget_details_type::template create_window<typename base_type::base_type>(parent))
         {
             initialize(this);
         }
@@ -126,9 +98,7 @@ namespace tetengo2 { namespace gui { namespace widget
     private:
         // types
 
-        typedef
-            typename message_handler_details_type::message_handler_map_type
-            message_handler_map_type;
+        typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
 
 
         // variables

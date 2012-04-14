@@ -48,9 +48,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \throw std::system_error When a system cursor cannot be created.
         */
         template <typename SystemCursor>
-        static cursor_details_ptr_type create_system_cursor(
-            const typename SystemCursor::style_type style
-        )
+        static cursor_details_ptr_type create_system_cursor(const typename SystemCursor::style_type style)
         {
             return make_unique<cursor_details_type>();
         }

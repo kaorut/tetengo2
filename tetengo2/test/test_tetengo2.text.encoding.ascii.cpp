@@ -22,8 +22,7 @@ namespace
 
     typedef tetengo2::detail::stub::encoding encoding_details_type;
 
-    typedef
-        tetengo2::text::encoding::ascii<encoding_details_type> encoding_type;
+    typedef tetengo2::text::encoding::ascii<encoding_details_type> encoding_type;
 
 
     // variables
@@ -84,9 +83,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
 
         {
             const std::wstring pivot(utf16_ascii);
-            const std::string string(
-                ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1
-            );
+            const std::string string(ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1);
 
             const encoding_type encoding;
             const std::string result = encoding.from_pivot(pivot);
@@ -95,9 +92,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
         }
         {
             const std::wstring pivot(utf16_nonascii);
-            const std::string string(
-                ascii_nonascii, ascii_nonascii + sizeof(ascii_nonascii) - 1
-            );
+            const std::string string(ascii_nonascii, ascii_nonascii + sizeof(ascii_nonascii) - 1);
 
             const encoding_type encoding;
             const std::string result = encoding.from_pivot(pivot);
@@ -112,9 +107,7 @@ BOOST_AUTO_TEST_SUITE(ascii)
 
         {
             const std::wstring pivot(utf16_ascii);
-            const std::string string(
-                ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1
-            );
+            const std::string string(ascii_ascii, ascii_ascii + sizeof(ascii_ascii) - 1);
 
             const encoding_type encoding;
             const std::wstring result = encoding.to_pivot(string);
@@ -122,14 +115,10 @@ BOOST_AUTO_TEST_SUITE(ascii)
             BOOST_CHECK(result == pivot);
         }
         {
-            const std::string string(
-                nonascii, nonascii + sizeof(nonascii) - 1
-            );
+            const std::string string(nonascii, nonascii + sizeof(nonascii) - 1);
 
             const encoding_type encoding;
-            BOOST_CHECK_THROW(
-                encoding.to_pivot(string), std::invalid_argument
-            );
+            BOOST_CHECK_THROW(encoding.to_pivot(string), std::invalid_argument);
         }
     }
 

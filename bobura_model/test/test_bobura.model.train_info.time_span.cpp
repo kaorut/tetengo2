@@ -20,10 +20,7 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_bobura::model::model_type_list,
-            test_bobura::model::type::model::time_span
-        >::type
+        boost::mpl::at<test_bobura::model::model_type_list, test_bobura::model::type::model::time_span>::type
         time_span_type;
 
 
@@ -40,9 +37,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK_EQUAL(
-            time_span_type::seconds_of_whole_day(), 24 * 60 * 60
-        );
+        BOOST_CHECK_EQUAL(time_span_type::seconds_of_whole_day(), 24 * 60 * 60);
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -159,34 +154,22 @@ BOOST_AUTO_TEST_SUITE(time_span)
             BOOST_CHECK_THROW(time_span_type(0, 60, 60), std::out_of_range);
         }
         {
-            BOOST_CHECK_THROW(
-                time_span_type(-1, 1, 1), std::invalid_argument
-            );
+            BOOST_CHECK_THROW(time_span_type(-1, 1, 1), std::invalid_argument);
         }
         {
-            BOOST_CHECK_THROW(
-                time_span_type(-1, -1, 1), std::invalid_argument
-            );
+            BOOST_CHECK_THROW(time_span_type(-1, -1, 1), std::invalid_argument);
         }
         {
-            BOOST_CHECK_THROW(
-                time_span_type(1, -1, 1), std::invalid_argument
-            );
+            BOOST_CHECK_THROW(time_span_type(1, -1, 1), std::invalid_argument);
         }
         {
-            BOOST_CHECK_THROW(
-                time_span_type(1, -1, -1), std::invalid_argument
-            );
+            BOOST_CHECK_THROW(time_span_type(1, -1, -1), std::invalid_argument);
         }
         {
-            BOOST_CHECK_THROW(
-                time_span_type(1, 1, -1), std::invalid_argument
-            );
+            BOOST_CHECK_THROW(time_span_type(1, 1, -1), std::invalid_argument);
         }
         {
-            BOOST_CHECK_THROW(
-                time_span_type(-1, 1, -1), std::invalid_argument
-            );
+            BOOST_CHECK_THROW(time_span_type(-1, 1, -1), std::invalid_argument);
         }
     }
 
@@ -208,9 +191,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             time_span1 += time_span2;
 
-            BOOST_CHECK(
-                time_span1.hours_minutes_seconds() == std::make_tuple(0, 1, 0)
-            );
+            BOOST_CHECK(time_span1.hours_minutes_seconds() == std::make_tuple(0, 1, 0));
         }
         {
             time_span_type time_span1(0, 1, 0);
@@ -218,10 +199,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             time_span1 += time_span2;
 
-            BOOST_CHECK(
-                time_span1.hours_minutes_seconds() ==
-                std::make_tuple(0, 0, 59)
-            );
+            BOOST_CHECK(time_span1.hours_minutes_seconds() == std::make_tuple(0, 0, 59));
         }
         {
             const time_span_type time_span1(1);
@@ -237,9 +215,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             const time_span_type time_span3 = time_span1 + time_span2;
 
-            BOOST_CHECK(
-                time_span3.hours_minutes_seconds() == std::make_tuple(1, 0, 0)
-            );
+            BOOST_CHECK(time_span3.hours_minutes_seconds() == std::make_tuple(1, 0, 0));
         }
         {
             const time_span_type time_span1(1, 0, 0);
@@ -247,10 +223,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             const time_span_type time_span3 = time_span1 + time_span2;
 
-            BOOST_CHECK(
-                time_span3.hours_minutes_seconds() ==
-                std::make_tuple(0, 59, 59)
-            );
+            BOOST_CHECK(time_span3.hours_minutes_seconds() == std::make_tuple(0, 59, 59));
         }
     }
 
@@ -272,9 +245,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             time_span1 -= time_span2;
 
-            BOOST_CHECK(
-                time_span1.hours_minutes_seconds() == std::make_tuple(0, 1, 0)
-            );
+            BOOST_CHECK(time_span1.hours_minutes_seconds() == std::make_tuple(0, 1, 0));
         }
         {
             time_span_type time_span1(0, 1, 0);
@@ -282,10 +253,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             time_span1 -= time_span2;
 
-            BOOST_CHECK(
-                time_span1.hours_minutes_seconds() ==
-                std::make_tuple(0, 0, 59)
-            );
+            BOOST_CHECK(time_span1.hours_minutes_seconds() == std::make_tuple(0, 0, 59));
         }
         {
             const time_span_type time_span1(1);
@@ -301,9 +269,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             const time_span_type time_span3 = time_span1 - time_span2;
 
-            BOOST_CHECK(
-                time_span3.hours_minutes_seconds() == std::make_tuple(1, 0, 0)
-            );
+            BOOST_CHECK(time_span3.hours_minutes_seconds() == std::make_tuple(1, 0, 0));
         }
         {
             const time_span_type time_span1(1, 0, 0);
@@ -311,10 +277,7 @@ BOOST_AUTO_TEST_SUITE(time_span)
 
             const time_span_type time_span3 = time_span1 - time_span2;
 
-            BOOST_CHECK(
-                time_span3.hours_minutes_seconds() ==
-                std::make_tuple(0, 59, 59)
-            );
+            BOOST_CHECK(time_span3.hours_minutes_seconds() == std::make_tuple(0, 59, 59));
         }
     }
 
@@ -461,39 +424,27 @@ BOOST_AUTO_TEST_SUITE(time_span)
         {
             const time_span_type time_span(0, 0, 0);
 
-            BOOST_CHECK(
-                time_span.hours_minutes_seconds() == std::make_tuple(0, 0, 0)
-            );
+            BOOST_CHECK(time_span.hours_minutes_seconds() == std::make_tuple(0, 0, 0));
         }
         {
             const time_span_type time_span(1, 1, 1);
 
-            BOOST_CHECK(
-                time_span.hours_minutes_seconds() == std::make_tuple(1, 1, 1)
-            );
+            BOOST_CHECK(time_span.hours_minutes_seconds() == std::make_tuple(1, 1, 1));
         }
         {
             const time_span_type time_span(1, 2, 3);
 
-            BOOST_CHECK(
-                time_span.hours_minutes_seconds() == std::make_tuple(1, 2, 3)
-            );
+            BOOST_CHECK(time_span.hours_minutes_seconds() == std::make_tuple(1, 2, 3));
         }
         {
             const time_span_type time_span(-1, -1, -1);
 
-            BOOST_CHECK(
-                time_span.hours_minutes_seconds() ==
-                std::make_tuple(-1, -1, -1)
-            );
+            BOOST_CHECK(time_span.hours_minutes_seconds() == std::make_tuple(-1, -1, -1));
         }
         {
             const time_span_type time_span(-1, -2, -3);
 
-            BOOST_CHECK(
-                time_span.hours_minutes_seconds() ==
-                std::make_tuple(-1, -2, -3)
-            );
+            BOOST_CHECK(time_span.hours_minutes_seconds() == std::make_tuple(-1, -2, -3));
         }
     }
 

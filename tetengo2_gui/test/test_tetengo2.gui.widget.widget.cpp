@@ -24,61 +24,33 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::string
-        >::type
-        string_type;
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::string>::type string_type;
+
+    typedef std::tuple<string_type, std::size_t, bool, bool, bool, bool> details_font_type;
+
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::position>::type position_type;
+
+    typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
 
     typedef
-        std::tuple<string_type, std::size_t, bool, bool, bool, bool>
-        details_font_type;
-
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::position
-        >::type
-        position_type;
-
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension
-        >::type
-        dimension_type;
-
-    typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::background
-        >::type
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::background>::type
         background_type;
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::transparent_background
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
         >::type
         transparent_background_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::drawing_type_list,
-            test_tetengo2::gui::type::drawing::font
-        >::type
-        font_type;
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::font>::type font_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::cursor_type_list,
-            test_tetengo2::gui::type::cursor::system
-        >::type
+        boost::mpl::at<test_tetengo2::gui::cursor_type_list, test_tetengo2::gui::type::cursor::system>::type
         system_cursor_type;
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::widget_type_list,
-            test_tetengo2::gui::type::widget::widget
-        >::type
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::widget>::type
         widget_type;
 
     class concrete_widget : public widget_type
@@ -100,9 +72,7 @@ namespace
                 std::make_pair(0, 0),
                 std::make_pair(1, 1),
                 string_type(),
-                details_font_type(
-                    string_type(), 12, false, false, false, false
-                ),
+                details_font_type(string_type(), 12, false, false, false, false),
                 std::vector<void*>(),
                 false,
                 false
@@ -134,25 +104,17 @@ namespace
 
     };
 
-    position_type make_position(
-        const std::ptrdiff_t left,
-        const std::ptrdiff_t top
-    )
+    position_type make_position(const std::ptrdiff_t left, const std::ptrdiff_t top)
     {
         typedef tetengo2::gui::position<position_type>::left_type left_type;
         typedef tetengo2::gui::position<position_type>::top_type top_type;
         return position_type(left_type(left), top_type(top));
     }
 
-    dimension_type make_dimension(
-        const std::size_t width,
-        const std::size_t height
-    )
+    dimension_type make_dimension(const std::size_t width, const std::size_t height)
     {
-        typedef
-            tetengo2::gui::dimension<dimension_type>::width_type width_type;
-        typedef
-            tetengo2::gui::dimension<dimension_type>::height_type height_type;
+        typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+        typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
         return dimension_type(width_type(width), height_type(height));
     }
 
@@ -444,9 +406,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            std::unique_ptr<background_type> p_background(
-                tetengo2::make_unique<transparent_background_type>()
-            );
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
             widget.set_background(std::move(p_background));
 
             BOOST_CHECK(widget.background());
@@ -466,9 +426,7 @@ BOOST_AUTO_TEST_SUITE(widget)
         {
             concrete_widget widget;
 
-            std::unique_ptr<background_type> p_background(
-                tetengo2::make_unique<transparent_background_type>()
-            );
+            std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
             widget.set_background(std::move(p_background));
         }
     }
@@ -479,9 +437,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        const font_type font(
-            font_type::dialog_font().family(), 42, false, true, false, true
-        );
+        const font_type font(font_type::dialog_font().family(), 42, false, true, false, true);
         widget.set_font(font);
 
         BOOST_CHECK(widget.font() == font);
@@ -493,9 +449,7 @@ BOOST_AUTO_TEST_SUITE(widget)
 
         concrete_widget widget;
 
-        const font_type font(
-            font_type::dialog_font().family(), 42, false, true, false, true
-        );
+        const font_type font(font_type::dialog_font().family(), 42, false, true, false, true);
         widget.set_font(font);
 
         BOOST_CHECK(widget.font() == font);
@@ -517,19 +471,13 @@ BOOST_AUTO_TEST_SUITE(widget)
         concrete_widget widget;
 
         std::unique_ptr<widget_type::cursor_type> p_cursor(
-            tetengo2::make_unique<system_cursor_type>(
-                system_cursor_type::style_hand
-            )
+            tetengo2::make_unique<system_cursor_type>(system_cursor_type::style_hand)
         );
         widget.set_cursor(std::move(p_cursor));
 
-        const boost::optional<const widget_type::cursor_type&> cursor =
-            widget.cursor();
+        const boost::optional<const widget_type::cursor_type&> cursor = widget.cursor();
         BOOST_CHECK(cursor);
-        BOOST_CHECK(
-            dynamic_cast<const system_cursor_type&>(*cursor).style() ==
-            system_cursor_type::style_hand
-        );
+        BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_hand);
     }
 
     BOOST_AUTO_TEST_CASE(children)
@@ -549,14 +497,8 @@ BOOST_AUTO_TEST_SUITE(widget)
             child2.set_text("fuga");
 
             BOOST_CHECK_EQUAL(widget.children().size(), 2U);
-            BOOST_CHECK(
-                widget.children()[0].get().text() == "hoge" ||
-                widget.children()[1].get().text() == "hoge"
-            );
-            BOOST_CHECK(
-                widget.children()[0].get().text() == "fuga" ||
-                widget.children()[1].get().text() == "fuga"
-            );
+            BOOST_CHECK(widget.children()[0].get().text() == "hoge" || widget.children()[1].get().text() == "hoge");
+            BOOST_CHECK(widget.children()[0].get().text() == "fuga" || widget.children()[1].get().text() == "fuga");
         }
     }
 

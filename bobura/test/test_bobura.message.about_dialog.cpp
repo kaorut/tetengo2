@@ -18,13 +18,9 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::dialog>::type
-        dialog_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::dialog>::type dialog_type;
 
-    typedef
-        boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type
-        window_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     class concrete_dialog : public dialog_type
     {
@@ -56,9 +52,7 @@ BOOST_AUTO_TEST_SUITE(ok_button_mouse_observer)
 
         window_type parent;
         concrete_dialog dialog(parent);
-        const bobura::message::about_dialog::ok_button_mouse_clicked<
-            dialog_type
-        > observer(dialog);
+        const bobura::message::about_dialog::ok_button_mouse_clicked<dialog_type> observer(dialog);
     }
 
     BOOST_AUTO_TEST_CASE(clicked)
@@ -67,9 +61,7 @@ BOOST_AUTO_TEST_SUITE(ok_button_mouse_observer)
 
         window_type parent;
         concrete_dialog dialog(parent);
-        const bobura::message::about_dialog::ok_button_mouse_clicked<
-            dialog_type
-        > observer(dialog);
+        const bobura::message::about_dialog::ok_button_mouse_clicked<dialog_type> observer(dialog);
 
         observer();
     }

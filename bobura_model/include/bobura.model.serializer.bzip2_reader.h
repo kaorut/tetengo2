@@ -73,12 +73,9 @@ namespace bobura { namespace model { namespace serializer
     private:
         // types
 
-        typedef
-            std::basic_string<typename iterator::value_type> input_string_type;
+        typedef std::basic_string<typename iterator::value_type> input_string_type;
 
-        typedef
-            std::basic_istringstream<typename iterator::value_type>
-            input_stream_type;
+        typedef std::basic_istringstream<typename iterator::value_type> input_stream_type;
 
 
         // variables
@@ -93,33 +90,25 @@ namespace bobura { namespace model { namespace serializer
             const input_string_type input_string(first, last);
             if (input_string.length() < 2)
                 return false;
-            if (
-                input_string.substr(0, 2) !=
-                input_string_type(TETENGO2_TEXT("BZ"))
-            )
-            {
+            if (input_string.substr(0, 2) != input_string_type(TETENGO2_TEXT("BZ")))
                 return false;
-            }
 
             std::istringstream input_stream(input_string);
             boost::iostreams::filtering_istream filtering_input_stream;
-            filtering_input_stream.push(
-                boost::iostreams::bzip2_decompressor()
-            );
+            filtering_input_stream.push(boost::iostreams::bzip2_decompressor());
             filtering_input_stream.push(input_stream);
 
             try
             {
-                return m_p_reader->selects(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<typename iterator::value_type>(
-                            filtering_input_stream
+                return
+                    m_p_reader->selects(
+                        boost::spirit::make_default_multi_pass(
+                            std::istreambuf_iterator<typename iterator::value_type>(filtering_input_stream)
+                        ),
+                        boost::spirit::make_default_multi_pass(
+                            std::istreambuf_iterator<typename iterator::value_type>()
                         )
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<typename iterator::value_type>()
-                    )
-                );
+                    );
             }
             catch (const boost::iostreams::bzip2_error&)
             {
@@ -131,30 +120,24 @@ namespace bobura { namespace model { namespace serializer
             }
         }
 
-        virtual std::unique_ptr<timetable_type> read_impl(
-            const iterator first,
-            const iterator last
-        )
+        virtual std::unique_ptr<timetable_type> read_impl(const iterator first, const iterator last)
         {
             std::istringstream input_stream(input_string_type(first, last));
             boost::iostreams::filtering_istream filtering_input_stream;
-            filtering_input_stream.push(
-                boost::iostreams::bzip2_decompressor()
-            );
+            filtering_input_stream.push(boost::iostreams::bzip2_decompressor());
             filtering_input_stream.push(input_stream);
 
             try
             {
-                return m_p_reader->read(
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<typename iterator::value_type>(
-                            filtering_input_stream
+                return
+                    m_p_reader->read(
+                        boost::spirit::make_default_multi_pass(
+                            std::istreambuf_iterator<typename iterator::value_type>(filtering_input_stream)
+                        ),
+                        boost::spirit::make_default_multi_pass(
+                            std::istreambuf_iterator<typename iterator::value_type>()
                         )
-                    ),
-                    boost::spirit::make_default_multi_pass(
-                        std::istreambuf_iterator<typename iterator::value_type>()
-                    )
-                );
+                    );
             }
             catch (const boost::iostreams::bzip2_error&)
             {

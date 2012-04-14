@@ -85,82 +85,61 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                 return "The method call was successful.";
             case Gdiplus::GenericError:
                 return
-                    "There was an error on the method call, which is "
-                    "identified as something other than those defined by the "
-                    "other elements of this enumeration.";
+                    "There was an error on the method call, which is identified as something other than those defined "
+                    "by the other elements of this enumeration.";
             case Gdiplus::InvalidParameter:
-                return
-                    "One of the arguments passed to the method was not "
-                    "valid.";
+                return "One of the arguments passed to the method was not valid.";
             case Gdiplus::OutOfMemory:
                 return
-                    "The operating system is out of memory and could not "
-                    "allocate memory to process the method call.";
+                    "The operating system is out of memory and could not allocate memory to process the method call.";
             case Gdiplus::ObjectBusy:
-                return
-                    "One of the arguments specified in the API call is "
-                    "already in use in another thread.";
+                return "One of the arguments specified in the API call is already in use in another thread.";
             case Gdiplus::InsufficientBuffer:
                 return
-                    "A buffer specified as an argument in the API call is "
-                    "not large enough to hold the data to be received.";
+                    "A buffer specified as an argument in the API call is not large enough to hold the data to be "
+                    "received.";
             case Gdiplus::NotImplemented:
                 return "The method is not implemented.";
             case Gdiplus::Win32Error:
                 return "The method generated a Win32 error.";
             case Gdiplus::WrongState:
-                return
-                    "The object is in an invalid state to satisfy the API "
-                    "call.";
+                return "The object is in an invalid state to satisfy the API call.";
             case Gdiplus::Aborted:
                 return "The method was aborted.";
             case Gdiplus::FileNotFound:
-                return
-                    "The specified image file or metafile cannot be found.";
+                return "The specified image file or metafile cannot be found.";
             case Gdiplus::ValueOverflow:
-                return
-                    "The method performed an arithmetic operation that "
-                    "produced a numeric overflow.";
+                return "The method performed an arithmetic operation that produced a numeric overflow.";
             case Gdiplus::AccessDenied:
-                return
-                    "A write operation is not allowed on the specified file.";
+                return "A write operation is not allowed on the specified file.";
             case Gdiplus::UnknownImageFormat:
                 return "The specified image file format is not known.";
             case Gdiplus::FontFamilyNotFound:
                 return
-                    "The specified font family cannot be found. Either the "
-                    "font family name is incorrect or the font family is not "
-                    "installed.";
+                    "The specified font family cannot be found. Either the font family name is incorrect or the font "
+                    "family is not installed.";
             case Gdiplus::FontStyleNotFound:
-                return
-                    "The specified style is not available for the specified "
-                    "font family.";
+                return "The specified style is not available for the specified font family.";
             case Gdiplus::NotTrueTypeFont:
                 return
-                    "The font retrieved from an HDC or LOGFONT is not a "
-                    "TrueType font and cannot be used with GDI+.";
+                    "The font retrieved from an HDC or LOGFONT is not a TrueType font and cannot be used with GDI+.";
             case Gdiplus::UnsupportedGdiplusVersion:
                 return
-                    "The version of GDI+ that is installed on the system is "
-                    "incompatible with the version with which the "
-                    "application was compiled.";
+                    "The version of GDI+ that is installed on the system is incompatible with the version with which "
+                    "the application was compiled.";
             case Gdiplus::GdiplusNotInitialized:
                 return
-                    "The GDI+API is not in an initialized state. To "
-                    "function, all GDI+ objects require that GDI+ be in an "
-                    "initialized state. Initialize GDI+ by calling "
-                    "GdiplusStartup.";
+                    "The GDI+API is not in an initialized state. To function, all GDI+ objects require that GDI+ be "
+                    "in an initialized state. Initialize GDI+ by calling GdiplusStartup.";
             case Gdiplus::PropertyNotFound:
                 return "The specified property does not exist in the image.";
             case Gdiplus::PropertyNotSupported:
                 return
-                    "The specified property is not supported by the format "
-                    "of the image and, therefore, cannot be set.";
+                    "The specified property is not supported by the format of the image and, therefore, cannot be "
+                    "set.";
 #if GDIPVER >= 0x0110
             case Gdiplus::ProfileNotFound:
-                return
-                    "The color profile required to save an image in CMYK "
-                    "format was not found.";
+                return "The color profile required to save an image in CMYK format was not found.";
 #endif
             default:
                 assert(false);

@@ -49,9 +49,8 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Returns the uninitialized time.
 
-            The uninitialized time is not equal to any other time, and it is
-            larger than any other time. Addition and subtraction to the
-            uninitialized time always returns the uninitialized time itself.
+            The uninitialized time is not equal to any other time, and it is larger than any other time.
+            Addition and subtraction to the uninitialized time always returns the uninitialized time itself.
             The seconds (and also hours, minutes) cannot be obtained.
 
             \return The uninitialized time.
@@ -69,19 +68,14 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Creates a time.
 
-            When seconds_from_midnight is greater than
-            time_span_type::seconds_of_whole_day(), it is assumed that the
-            result of
-            seconds_from_midnight % time_span_type::seconds_of_whole_day() is
-            passed.
+            When seconds_from_midnight is greater than time_span_type::seconds_of_whole_day(), it is assumed that the
+            result of seconds_from_midnight % time_span_type::seconds_of_whole_day() is passed.
 
             \param seconds_from_midnight Seconds from the midnight.
         */
         explicit time(const tick_type seconds_from_midnight)
         :
-        m_seconds_from_midnight(
-            seconds_from_midnight % time_span_type::seconds_of_whole_day()
-        )
+        m_seconds_from_midnight(seconds_from_midnight % time_span_type::seconds_of_whole_day())
         {}
 
         /*!
@@ -91,18 +85,11 @@ namespace bobura { namespace model { namespace train_info
             \param minutes Minutes. It must be that 0 <= minutes <= 59.
             \param seconds Seconds. It must be that 0 <= seconds <= 59.
 
-            \throw std::out_of_range When hours, minutes and/or seconds
-                                     are invalid.
+            \throw std::out_of_range When hours, minutes and/or seconds are invalid.
         */
-        time(
-            const tick_type hours,
-            const tick_type minutes,
-            const tick_type seconds
-        )
+        time(const tick_type hours, const tick_type minutes, const tick_type seconds)
         :
-        m_seconds_from_midnight(
-            calculate_seconds_from_midnight(hours, minutes, seconds)
-        )
+        m_seconds_from_midnight(calculate_seconds_from_midnight(hours, minutes, seconds))
         {}
 
 
@@ -111,10 +98,9 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Adds a time span.
 
-            After this operation, seconds_from_midnight() must be that
-            seconds_from_midnight() < seconds_of_whole_day().
-            When time_span is too large or too small, the result is
-            seconds_from_midnight() % seconds_from_midnight().
+            After this operation, seconds_from_midnight() must be that seconds_from_midnight() <
+            seconds_of_whole_day().
+            When time_span is too large or too small, the result is seconds_from_midnight() % seconds_from_midnight().
 
             When this is uninitialized, the result is also uninitialized.
 
@@ -126,16 +112,12 @@ namespace bobura { namespace model { namespace train_info
         {
             if (*this == uninitialized()) return *this;
 
-            typename time_span_type::tick_type seconds =
-                m_seconds_from_midnight;
+            typename time_span_type::tick_type seconds = m_seconds_from_midnight;
             while (seconds < -time_span.seconds())
                 seconds += time_span_type::seconds_of_whole_day();
             seconds += time_span.seconds();
             seconds %= time_span_type::seconds_of_whole_day();
-            assert(
-                0 <= seconds &&
-                seconds < time_span_type::seconds_of_whole_day()
-            );
+            assert(0 <= seconds && seconds < time_span_type::seconds_of_whole_day());
 
             time temp(seconds);
             boost::swap(temp, *this);
@@ -145,10 +127,9 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Subtracts a time span.
 
-            After this operation, seconds_from_midnight() must be that
-            seconds_from_midnight() < seconds_of_whole_day().
-            When time_span is too large or too small, the result is
-            seconds_from_midnight() % seconds_from_midnight().
+            After this operation, seconds_from_midnight() must be that seconds_from_midnight() <
+            seconds_of_whole_day(). When time_span is too large or too small, the result is seconds_from_midnight() %
+            seconds_from_midnight().
 
             When this is uninitialized, the result is also uninitialized.
 
@@ -160,16 +141,12 @@ namespace bobura { namespace model { namespace train_info
         {
             if (*this == uninitialized()) return *this;
 
-            typename time_span_type::tick_type seconds =
-                m_seconds_from_midnight;
+            typename time_span_type::tick_type seconds = m_seconds_from_midnight;
             while (seconds < time_span.seconds())
                 seconds += time_span_type::seconds_of_whole_day();
             seconds -= time_span.seconds();
             seconds %= time_span_type::seconds_of_whole_day();
-            assert(
-                0 <= seconds &&
-                seconds < time_span_type::seconds_of_whole_day()
-            );
+            assert(0 <= seconds && seconds < time_span_type::seconds_of_whole_day());
 
             time temp(seconds);
             boost::swap(temp, *this);
@@ -179,8 +156,7 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Subtracts times.
 
-            The result is always 0 or positive. A smaller minus a larger
-            is calculated over the midnight.
+            The result is always 0 or positive. A smaller minus a larger is calculated over the midnight.
 
             \param one     One time.
             \param another Another time.
@@ -192,14 +168,9 @@ namespace bobura { namespace model { namespace train_info
         friend time_span_type operator-(const time& one, const time& another)
         {
             if (one == uninitialized() || another == uninitialized())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The time object is uninitialized.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The time object is uninitialized."));
 
-            typename time_span_type::tick_type seconds =
-                one.m_seconds_from_midnight;
+            typename time_span_type::tick_type seconds = one.m_seconds_from_midnight;
             seconds -= another.m_seconds_from_midnight;
             while (seconds < 0)
                 seconds += time_span_type::seconds_of_whole_day();
@@ -218,8 +189,7 @@ namespace bobura { namespace model { namespace train_info
         */
         friend bool operator==(const time& one, const time& another)
         {
-            return one.m_seconds_from_midnight ==
-                another.m_seconds_from_midnight;
+            return one.m_seconds_from_midnight == another.m_seconds_from_midnight;
         }
 
         /*!
@@ -233,8 +203,7 @@ namespace bobura { namespace model { namespace train_info
         */
         friend bool operator<(const time& one, const time& another)
         {
-            return one.m_seconds_from_midnight <
-                another.m_seconds_from_midnight;
+            return one.m_seconds_from_midnight < another.m_seconds_from_midnight;
         }
 
         /*!
@@ -248,11 +217,7 @@ namespace bobura { namespace model { namespace train_info
         const
         {
             if (*this == uninitialized())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The time object is uninitialized.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The time object is uninitialized."));
 
             return m_seconds_from_midnight;
         }
@@ -260,27 +225,19 @@ namespace bobura { namespace model { namespace train_info
         /*!
             \brief Returns the hours, minutes and seconds.
 
-            \return The hours, minutes and seconds, which are stored in a
-                    std::tuple object in this order.
+            \return The hours, minutes and seconds, which are stored in a std::tuple object in this order.
 
             \throw std::logic_error When this is uninitialized.
         */
-        const std::tuple<tick_type, tick_type, tick_type>
-        hours_minutes_seconds()
+        const std::tuple<tick_type, tick_type, tick_type> hours_minutes_seconds()
         const
         {
             if (*this == uninitialized())
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::logic_error("The time object is uninitialized.")
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::logic_error("The time object is uninitialized."));
 
             const tick_type hours = m_seconds_from_midnight / (60 * 60);
-            const tick_type minutes =
-                m_seconds_from_midnight / 60 - hours * 60;
-            const tick_type seconds =
-                m_seconds_from_midnight - hours * 60 * 60 - minutes * 60;
+            const tick_type minutes = m_seconds_from_midnight / 60 - hours * 60;
+            const tick_type seconds = m_seconds_from_midnight - hours * 60 * 60 - minutes * 60;
 
             return std::make_tuple(hours, minutes, seconds);
         }
@@ -296,36 +253,14 @@ namespace bobura { namespace model { namespace train_info
         )
         {
             if (hours > 23)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::out_of_range(
-                        "24 or greater is specified for the hours."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::out_of_range("24 or greater is specified for the hours."));
             else if (minutes > 59)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::out_of_range(
-                        "60 or greater is specified for the minutes."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::out_of_range("60 or greater is specified for the minutes."));
             else if (seconds > 59)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::out_of_range(
-                        "60 or greater is specified for the seconds."
-                    )
-                );
-            }
+                BOOST_THROW_EXCEPTION(std::out_of_range("60 or greater is specified for the seconds."));
 
-            const tick_type seconds_from_midnight =
-                hours * 60 * 60 + minutes * 60 + seconds;
-            assert(
-                seconds_from_midnight <
-                static_cast<tick_type>(time_span_type::seconds_of_whole_day())
-            );
+            const tick_type seconds_from_midnight = hours * 60 * 60 + minutes * 60 + seconds;
+            assert(seconds_from_midnight < static_cast<tick_type>(time_span_type::seconds_of_whole_day()));
 
             return seconds_from_midnight;
         }

@@ -54,11 +54,7 @@ namespace bobura
         settings(V&& command_line_arguments, P&& base_path)
         :
         m_options(make_options()),
-        m_option_values(
-            make_option_values(
-                m_options, std::forward<V>(command_line_arguments)
-            )
-        ),
+        m_option_values(make_option_values(m_options, std::forward<V>(command_line_arguments))),
         m_base_path(std::forward<P>(base_path))
         {}
 
@@ -119,17 +115,11 @@ namespace bobura
         static boost::program_options::options_description
         make_options()
         {
-            boost::program_options::options_description options(
-                "bobura"
-            );
+            boost::program_options::options_description options("bobura");
 
             options.add_options()
             ("help,h", "help")
-            (
-                "geometry,g",
-                boost::program_options::value<int>()->default_value(640),
-                "geometry"
-            )
+            ("geometry,g", boost::program_options::value<int>()->default_value(640), "geometry")
             ;
 
             return std::move(options);
@@ -141,9 +131,7 @@ namespace bobura
         )
         {
             const boost::program_options::wparsed_options parsed_options =
-                boost::program_options::wcommand_line_parser(
-                    command_line_arguments
-                ).options(options).run();
+                boost::program_options::wcommand_line_parser(command_line_arguments).options(options).run();
 
             boost::program_options::variables_map option_values;
             boost::program_options::store(parsed_options, option_values);

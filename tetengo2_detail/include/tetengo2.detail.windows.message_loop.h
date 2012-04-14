@@ -59,10 +59,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
-                            std::error_code(
-                                ::GetLastError(), win32_category()
-                            ),
-                            "Win32 Message Loop Error"
+                            std::error_code(::GetLastError(), win32_category()), "Win32 Message Loop Error"
                         )
                     );
                 }
@@ -70,9 +67,7 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (
                     shortcut_keys_defined(window) &&
                     ::TranslateAcceleratorW(
-                        std::get<0>(*window.details()).get(),
-                        accelerator_table_handle(window),
-                        &message
+                        std::get<0>(*window.details()).get(), accelerator_table_handle(window), &message
                     )
                 )
                 {
@@ -111,31 +106,19 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                     BOOST_THROW_EXCEPTION(
                         std::system_error(
-                            std::error_code(
-                                ::GetLastError(), win32_category()
-                            ),
-                            "Win32 Message Loop Error"
+                            std::error_code(::GetLastError(), win32_category()), "Win32 Message Loop Error"
                         )
                     );
                 }
 
-                if (
-                    !dialog.destroyed() &&
-                    ::IsDialogMessageW(
-                        std::get<0>(*dialog.details()).get(), &message
-                    ) != 0
-                )
-                {
+                if (!dialog.destroyed() && ::IsDialogMessageW(std::get<0>(*dialog.details()).get(), &message) != 0)
                     continue;
-                }
 
                 if (
                     !dialog.destroyed() &&
                     shortcut_keys_defined(dialog) &&
                     ::TranslateAcceleratorW(
-                        std::get<0>(*dialog.details()).get(),
-                        accelerator_table_handle(dialog),
-                        &message
+                        std::get<0>(*dialog.details()).get(), accelerator_table_handle(dialog), &message
                     )
                 )
                 {
@@ -175,9 +158,7 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename AbstractWindow>
         static ::HACCEL accelerator_table_handle(AbstractWindow& window)
         {
-            return const_cast< ::HACCEL>(
-                &*window.menu_bar().shortcut_key_table().details()
-            );
+            return const_cast< ::HACCEL>(&*window.menu_bar().shortcut_key_table().details());
         }
 
 

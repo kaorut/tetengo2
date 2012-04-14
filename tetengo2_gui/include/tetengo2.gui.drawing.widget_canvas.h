@@ -37,34 +37,13 @@ namespace tetengo2 { namespace gui { namespace drawing
         typename Picture,
         typename DrawingDetails
     >
-    class widget_canvas :
-        public canvas<
-            Size,
-            String,
-            Dimension,
-            Encoder,
-            Background,
-            Font,
-            Picture,
-            DrawingDetails
-        >
+    class widget_canvas : public canvas<Size, String, Dimension, Encoder, Background, Font, Picture, DrawingDetails>
     {
     public:
         // types
 
         //! The base type.
-        typedef
-            canvas<
-                Size,
-                String,
-                Dimension,
-                Encoder,
-                Background,
-                Font,
-                Picture,
-                DrawingDetails
-            >
-            base_type;
+        typedef canvas<Size, String, Dimension, Encoder, Background, Font, Picture, DrawingDetails> base_type;
 
 
         // constructors and destructor
@@ -72,21 +51,14 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a widget canvas.
 
-            \tparam HandleOrWidgetDetails A handle type or a widget details
-                                          type.
+            \tparam HandleOrWidgetDetails A handle type or a widget details type.
 
             \param handle_or_widget_details A handle or a widget details.
         */
         template <typename HandleOrWidgetDetails>
-        explicit widget_canvas(
-            const HandleOrWidgetDetails& handle_or_widget_details
-        )
+        explicit widget_canvas(const HandleOrWidgetDetails& handle_or_widget_details)
         :
-        base_type(
-            base_type::drawing_details_type::create_canvas(
-                handle_or_widget_details
-            )
-        )
+        base_type(base_type::drawing_details_type::create_canvas(handle_or_widget_details))
         {}
 
         /*!
