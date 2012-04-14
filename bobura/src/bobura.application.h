@@ -14,8 +14,6 @@
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
-#include <tetengo2.cpp11.h>
-
 #define USE_TYPES_FOR_APPLICATION
 #include "bobura.type_list.h"
 
@@ -46,8 +44,7 @@ namespace bobura
         /*!
             \brief Destroys the bobura application.
         */
-        ~application()
-        TETENGO2_CPP11_NOEXCEPT;
+        ~application();
 
 
         // functions
