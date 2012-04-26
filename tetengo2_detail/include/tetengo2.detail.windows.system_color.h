@@ -48,7 +48,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \return The system color.
         */
         template <typename Color>
-        static Color system_color(const system_color_index_type index)
+        static Color get_system_color(const system_color_index_type index)
         {
             switch (index)
             {
