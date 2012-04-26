@@ -34,12 +34,6 @@ namespace tetengo2 { namespace detail { namespace stub
     public:
         // types
 
-        //! The system color index type.
-        enum system_color_index_type
-        {
-            system_color_index_dialog_background, //!< Dialog background.
-        };
-
         //! The background details type.
         struct background_details_type {};
 
@@ -93,28 +87,6 @@ namespace tetengo2 { namespace detail { namespace stub
 
 
         // static functions
-
-        /*!
-            \brief Returns the system color.
-
-            \tparam Color A color type.
-
-            \param index An index;
-
-            \return The system color.
-        */
-        template <typename Color>
-        static Color system_color(const system_color_index_type index)
-        {
-            switch (index)
-            {
-            case system_color_index_dialog_background:
-                return Color(192, 192, 192);
-            default:
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));
-            }
-        }
 
         /*!
             \brief Creates a canvas.
