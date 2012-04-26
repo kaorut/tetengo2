@@ -13,12 +13,11 @@
 //#include <cstddef>
 #include <limits>
 //#include <memory>
-//#include <string>
-//#include <utility>
-//#include <vector>
 //#include <stdexcept>
+//#include <string>
 //#include <system_error>
 //#include <type_traits>
+//#include <utility>
 
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
