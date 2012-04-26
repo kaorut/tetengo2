@@ -147,11 +147,11 @@ namespace bobura { namespace message { namespace main_window
             //const std::unique_ptr<typename canvas_type::picture_type> p_pic2(reader.read());
             //canvas.paint_picture(*p_pic2, position_type(left_type(0), top_type(0)));
 
-            //const font_type& dialog_font = font_type::dialog_font();
-            //canvas.draw_text(dialog_font.family(), position_type(left_type(2), top_type(2)));
+            const font_type& dialog_font = font_type::dialog_font();
+            canvas.draw_text(dialog_font.family(), position_type(left_type(2), top_type(2)));
 
-            //canvas.set_font(font_type(string_type(TETENGO2_TEXT("Times New Roman")), 64, false, true, true, false));
-            //canvas.draw_text(string_type(TETENGO2_TEXT("Hello, world")), position_type(left_type(4), top_type(4)));
+            canvas.set_font(font_type(string_type(TETENGO2_TEXT("Times New Roman")), 64, false, true, true, false));
+            canvas.draw_text(string_type(TETENGO2_TEXT("Hello, world")), position_type(left_type(4), top_type(4)));
         }
 
 
