@@ -110,10 +110,18 @@
 
 // Windows headers
 
+#pragma warning (push)
+#pragma warning (disable: 4005)
+#include <intsafe.h>
+#include <stdint.h>
+#pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
 #include <CommCtrl.h>
+#include <d2d1.h>
+#include <dwrite.h>
+#include <dxgiformat.h>
 #if !defined(min) && !defined(DOCUMENTATION)
 #   define min(a, b) ((a) < (b) ? (a) : (b))
 #endif
@@ -126,6 +134,7 @@
 #include <ShObjIdl.h>
 #include <ShTypes.h>
 #include <Unknwn.h>
+#include <wincodec.h>
 
 #endif
 
