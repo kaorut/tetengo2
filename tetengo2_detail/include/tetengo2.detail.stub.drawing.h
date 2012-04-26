@@ -118,6 +118,23 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Creates a canvas.
+
+            \tparam HandleOrWidgetDetails A handle type or a widget details type.
+
+            \param handle_or_widget_details A handle or a widget details.
+
+            \return A unique pointer to a canvas.
+        */
+        template <typename HandleOrWidgetDetails>
+        static std::unique_ptr<canvas_details_type> create_canvas(
+            const HandleOrWidgetDetails& handle_or_widget_details
+        )
+        {
+            return make_unique<canvas_details_type>();
+        }
+
+        /*!
             \brief Creates a solid background.
 
             \tparam Color A color type.
@@ -127,8 +144,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to a solid background.
         */
         template <typename Color>
-        static std::unique_ptr<background_details_type>
-        create_solid_background(const Color& color)
+        static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
             return make_unique<background_details_type>();
         }
@@ -138,8 +154,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return A unique pointer to a transparent background.
         */
-        static std::unique_ptr<background_details_type>
-        create_transparent_background()
+        static std::unique_ptr<background_details_type> create_transparent_background()
         {
             return std::unique_ptr<background_details_type>();
         }
@@ -197,23 +212,6 @@ namespace tetengo2 { namespace detail { namespace stub
                     typename Dimension::first_type(picture.dimension().first),
                     typename Dimension::second_type(picture.dimension().second)
                 );
-        }
-
-        /*!
-            \brief Creates a canvas.
-
-            \tparam HandleOrWidgetDetails A handle type or a widget details type.
-
-            \param handle_or_widget_details A handle or a widget details.
-
-            \return A unique pointer to a canvas.
-        */
-        template <typename HandleOrWidgetDetails>
-        static std::unique_ptr<canvas_details_type> create_canvas(
-            const HandleOrWidgetDetails& handle_or_widget_details
-        )
-        {
-            return make_unique<canvas_details_type>();
         }
 
         /*!

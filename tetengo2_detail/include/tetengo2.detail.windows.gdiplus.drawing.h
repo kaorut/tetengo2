@@ -106,6 +106,23 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         /*!
+            \brief Creates a canvas.
+
+            \tparam HandleOrWidgetDetails A handle type or a widget details type.
+
+            \param handle_or_widget_details A handle or a widget details.
+
+            \return A unique pointer to a canvas.
+        */
+        template <typename HandleOrWidgetDetails>
+        static std::unique_ptr<canvas_details_type> create_canvas(
+            const HandleOrWidgetDetails& handle_or_widget_details
+        )
+        {
+            return create_canvas_impl(handle_or_widget_details);
+        }
+
+        /*!
             \brief Creates a solid background.
 
             \tparam Color A color type.
@@ -115,8 +132,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return A unique pointer to a solid background.
         */
         template <typename Color>
-        static std::unique_ptr<background_details_type>
-        create_solid_background(const Color& color)
+        static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
             return
                 make_unique<Gdiplus::SolidBrush>(
@@ -129,8 +145,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
             \return A unique pointer to a transparent background.
         */
-        static std::unique_ptr<background_details_type>
-        create_transparent_background()
+        static std::unique_ptr<background_details_type> create_transparent_background()
         {
             return std::unique_ptr<background_details_type>();
         }
@@ -207,23 +222,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                         const_cast<picture_details_type&>(picture).GetHeight()
                     )
                 );
-        }
-
-        /*!
-            \brief Creates a canvas.
-
-            \tparam HandleOrWidgetDetails A handle type or a widget details type.
-
-            \param handle_or_widget_details A handle or a widget details.
-
-            \return A unique pointer to a canvas.
-        */
-        template <typename HandleOrWidgetDetails>
-        static std::unique_ptr<canvas_details_type> create_canvas(
-            const HandleOrWidgetDetails& handle_or_widget_details
-        )
-        {
-            return create_canvas_impl(handle_or_widget_details);
         }
 
         /*!
