@@ -273,25 +273,6 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Returns the installed font families.
-
-            \tparam String  A string type.
-            \tparam Encoder An encoder type.
-
-            \param encoder An encoder.
-
-            \return The installed font families.
-
-            \throw std::system_error When installed font families cannot be obtained.
-        */
-        template <typename String, typename Encoder>
-        static std::vector<String> installed_font_families(const Encoder& encoder)
-        {
-            const String font_name(TETENGO2_TEXT("TetengoFont"));
-            return std::vector<String>(1, font_name);
-        }
-
-        /*!
             \brief Calculates the dimension of a text.
 
             \tparam Dimension A dimension type.

@@ -327,55 +327,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         }
 
         /*!
-            \brief Returns the installed font families.
-
-            \tparam String  A string type.
-            \tparam Encoder An encoder type.
-
-            \param encoder An encoder.
-
-            \return The installed font families.
-
-            \throw std::system_error When installed font families cannot be obtained.
-        */
-        template <typename String, typename Encoder>
-        static std::vector<String> installed_font_families(const Encoder& encoder)
-        {
-            const Gdiplus::InstalledFontCollection font_collection;
-            const ::INT count = font_collection.GetFamilyCount();
-            std::vector<Gdiplus::FontFamily> gdiplus_families(count, Gdiplus::FontFamily());
-            ::INT actual_count = 0;
-
-            const Gdiplus::Status status = font_collection.GetFamilies(count, gdiplus_families.data(), &actual_count);
-            if (status != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(status, gdiplus_category()), "Can't get installed font families."
-                    )
-                );
-            }
-
-            std::vector<String> families;
-            families.reserve(actual_count);
-            for (::INT i = 0; i < actual_count; ++i)
-            {
-                wchar_t family_name[LF_FACESIZE];
-                const Gdiplus::Status family_name_status = gdiplus_families[i].GetFamilyName(family_name);
-                if (family_name_status != Gdiplus::Ok)
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(family_name_status, gdiplus_category()), "Can't get font family name."
-                        )
-                    );
-                }
-                families.push_back(encoder.decode(family_name));
-            }
-            return families;
-        }
-
-        /*!
             \brief Calculates the dimension of a text.
 
             \tparam Dimension A dimension type.

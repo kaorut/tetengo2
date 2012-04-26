@@ -84,16 +84,6 @@ BOOST_AUTO_TEST_SUITE(drawing)
 BOOST_AUTO_TEST_SUITE(canvas)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(installed_font_families)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        typedef std::vector<string_type> string_vector_type;
-        const string_vector_type families = canvas_type::installed_font_families();
-
-        BOOST_CHECK(families == string_vector_type(1, string_type(TETENGO2_TEXT("TetengoFont"))));
-    }
-
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
