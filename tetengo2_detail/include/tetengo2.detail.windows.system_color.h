@@ -1,62 +1,76 @@
 /*! \file
-    \brief The definition of tetengo2::detail::windows::font.
+    \brief The definition of tetengo2::detail::windows::system_color.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_DETAIL_WINDOWS_FONT_H)
-#define TETENGO2_DETAIL_WINDOWS_FONT_H
+#if !defined(TETENGO2_DETAIL_WINDOWS_SYSTEMCOLOR_H)
+#define TETENGO2_DETAIL_WINDOWS_SYSTEMCOLOR_H
 
-//#include <system_error>
+#include <stdexcept>
 
-//#include <boost/throw_exception.hpp>
+#include <boost/noncopyable.hpp>
+#include <boost/throw_exception.hpp>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
 
-#include "tetengo2.detail.windows.error_category.h"
-#include "tetengo2.detail.windows.windows_version.h"
-
 
 namespace tetengo2 { namespace detail { namespace windows
 {
     /*!
-        \brief Returns a nonclient metrics.
-
-        \param metrics A metrics where the result is stored.
-
-        \throw std::system_error When a nonclient metrics cannot be obtained.
+        \brief The class for a detail implementation of a system color.
     */
-    inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
+    class system_color : private boost::noncopyable
     {
-        const ::UINT metrics_size =
-            on_windows_vista_or_later() ? sizeof(::NONCLIENTMETRICSW) : sizeof(::NONCLIENTMETRICSW) - sizeof(int);
-        metrics.cbSize = metrics_size;
-        if (::SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, metrics_size, &metrics, 0) == 0)
+    public:
+        // types
+
+        //! The system color index type.
+        enum system_color_index_type
         {
-            BOOST_THROW_EXCEPTION(
-                std::system_error(
-                    std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't get non-client metrics."
-                )
-            );
+            system_color_index_dialog_background, //!< Dialog background.
+        };
+
+
+        // functions
+
+        /*!
+            \brief Returns the system color.
+
+            \tparam Color A color type.
+
+            \param index An index;
+
+            \return The system color.
+        */
+        template <typename Color>
+        static Color system_color(const system_color_index_type index)
+        {
+            switch (index)
+            {
+            case system_color_index_dialog_background:
+                {
+                    const ::COLORREF color_ref = ::GetSysColor(COLOR_3DFACE);
+                    return Color(GetRValue(color_ref), GetGValue(color_ref), GetBValue(color_ref));
+                }
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));
+            }
         }
-    }
 
-    /*!
-        \brief Returns the message font.
 
-        \return The message font.
-    */
-    inline ::LOGFONTW get_message_font()
-    {
-        ::NONCLIENTMETRICSW metrics;
-        get_nonclient_metrics(metrics);
+    private:
+        // forbidden operations
 
-        return metrics.lfMessageFont;
-    }
+        system_color();
+
+
+    };
 
 
 }}}
