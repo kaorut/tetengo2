@@ -9,14 +9,15 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_SYSTEMCOLOR_H)
 #define TETENGO2_DETAIL_WINDOWS_SYSTEMCOLOR_H
 
+#include <cassert>
 #include <stdexcept>
 
 #include <boost/noncopyable.hpp>
 #include <boost/throw_exception.hpp>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows

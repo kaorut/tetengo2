@@ -9,6 +9,9 @@
 #if !defined(TETENGO2_DETAIL_STUB_SYSTEMCOLOR_H)
 #define TETENGO2_DETAIL_STUB_SYSTEMCOLOR_H
 
+#include <cassert>
+#include <stdexcept>
+
 #include <boost/noncopyable.hpp>
 
 #include <boost/throw_exception.hpp>

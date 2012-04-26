@@ -9,15 +9,12 @@
 #if !defined(TETENGO2_DETAIL_STUB_DRAWING_H)
 #define TETENGO2_DETAIL_STUB_DRAWING_H
 
-#include <cassert>
 //#include <cstddef>
 //#include <memory>
-#include <stdexcept>
 #include <system_error>
 //#include <utility>
 
 #include <boost/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
