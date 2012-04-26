@@ -163,6 +163,11 @@ sub scan_source
 				$code_line =~ /[^a-zA-Z0-9_\:](::[A-Z][a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 				$code_line =~ /(ATL::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 				$code_line =~ /(Gdiplus::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /(D2D1::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /(I?D2D1[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /(DWRITE_[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /(I?Dwrite[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /(DXGI_[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 				$code_line =~ /(VK_[A-Z0-9_]*)/ ||
 				$code_line =~ /(WINAPI)/
 			)
@@ -300,10 +305,14 @@ sub is_std_or_boost_header
 	return 1 if $header_name =~ /^Windows\.h$/;
 	return 1 if $header_name =~ /^atlbase\.h$/;
 	return 1 if $header_name =~ /^CommCtrl\.h$/;
+	return 1 if $header_name =~ /^d2d1\.h$/;
+	return 1 if $header_name =~ /^dxgiformat\.h$/;
+	return 1 if $header_name =~ /^dwrite\.h$/;
 	return 1 if $header_name =~ /^GdiPlus\.h$/;
 	return 1 if $header_name =~ /^ObjBase\.h$/;
 	return 1 if $header_name =~ /^Sh[a-zA-Z0-9]+\.h$/;
 	return 1 if $header_name =~ /^Unknwn\.h$/;
+	return 1 if $header_name =~ /^wincodec\.h$/;
 	
 	return 0;
 }
