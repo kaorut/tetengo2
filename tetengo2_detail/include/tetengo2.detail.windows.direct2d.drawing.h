@@ -85,38 +85,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         };
 
         class background_details : boost::noncopyable
-        {
-        public:
-            virtual ~background_details()
-            {
-                ::DeleteObject(m_gdi_brush_handle);
-            }
-
-            ::HBRUSH gdi_brush_handle()
-            const
-            {
-                return m_gdi_brush_handle;
-            }
-
-        protected:
-            explicit background_details(const ::COLORREF color)
-            :
-            m_gdi_brush_handle(::CreateSolidBrush(color))
-            {
-                if (!m_gdi_brush_handle)
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't create GDI solid brush."
-                        )
-                    );
-                }
-            }
-
-        private:
-            const ::HBRUSH m_gdi_brush_handle;
-
-        };
+        {};
 
         class solid_background_details : public background_details
         {
@@ -128,7 +97,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 const unsigned char alpha
             )
             :
-            background_details(RGB(red, green, blue)),
             m_red(red),
             m_green(green),
             m_blue(blue),
@@ -287,16 +255,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         /*!
-            \brief Returns the GDI brush handle.
-
-            \param background A background.
-        */
-        static ::HBRUSH gdi_brush_handle(const background_details_type& background)
-        {
-            return background.gdi_brush_handle();
-        }
-
-        /*!
             \brief Creates a picture.
 
             \tparam Dimension A dimension type.
@@ -434,71 +392,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         /*!
-            \brief Draws a focus indication.
-
-            \tparam Position  A position type.
-            \tparam Dimension A dimension type.
-
-            \param canvas    A canvas.
-            \param position  A position of a region.
-            \param dimension A dimension of a region.
-
-            \throw std::system_error When the focus indication cannot be drawn.
-        */
-        template <typename Position, typename Dimension>
-        static void draw_focus_indication(
-            canvas_details_type& canvas,
-            const Position&      position,
-            const Dimension&     dimension
-        )
-        {
-            ::ID2D1GdiInteropRenderTarget* rp_gdi_interop_render_target = NULL;
-            const ::HRESULT query_interface_hr =
-                canvas.QueryInterface(
-                    ::IID_ID2D1GdiInteropRenderTarget, reinterpret_cast<void**>(&rp_gdi_interop_render_target)
-                );
-            if (FAILED(query_interface_hr))
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(query_interface_hr, win32_category()),
-                        "Can't cast to ID2D1GdiInteropRenderTarget."
-                    )
-                );
-            }
-            const std::unique_ptr< ::ID2D1GdiInteropRenderTarget, detail::release_iunknown>
-            p_gdi_interop_render_target(rp_gdi_interop_render_target);
-
-            ::HDC hdc = NULL;
-            const ::HRESULT get_dc_hr = p_gdi_interop_render_target->GetDC(::D2D1_DC_INITIALIZE_MODE_COPY, &hdc);
-            if (FAILED(get_dc_hr))
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(get_dc_hr, win32_category()), "Can't get device context.")
-                );
-            }
-            BOOST_SCOPE_EXIT((&p_gdi_interop_render_target))
-            {
-                p_gdi_interop_render_target->ReleaseDC(NULL);
-            } BOOST_SCOPE_EXIT_END;
-
-            const ::RECT rect = {
-                0,
-                0,
-                gui::to_pixels< ::LONG>(gui::dimension<Dimension>::width(dimension)),
-                gui::to_pixels< ::LONG>(gui::dimension<Dimension>::height(dimension))
-            };
-            if (::DrawFocusRect(hdc, &rect) == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't draw a focus rectangle."
-                    )
-                );
-            }
-        }
-
-        /*!
             \brief Fills a rectangle region.
 
             \tparam Position   A position type.
@@ -581,7 +474,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const std::unique_ptr< ::IDWriteTextLayout, detail::release_iunknown> p_layout =
                 create_text_layout(text, font, encoder);
 
-            DWRITE_TEXT_METRICS metrics = {};
+            ::DWRITE_TEXT_METRICS metrics = {};
             const ::HRESULT get_metrics_hr = p_layout->GetMetrics(&metrics);
             if (FAILED(get_metrics_hr))
             {
@@ -721,7 +614,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             ::IDWriteFactory* rp_factory = NULL;
             const ::HRESULT hr =
                 ::DWriteCreateFactory(
-                    DWRITE_FACTORY_TYPE_SHARED,
+                    ::DWRITE_FACTORY_TYPE_SHARED,
                     __uuidof(::IDWriteFactory),
                     reinterpret_cast< ::IUnknown**>(&rp_factory)
                 );
@@ -815,9 +708,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 direct_write_factory().CreateTextFormat(
                     encoder.encode(font.family()).c_str(),
                     NULL,
-                    font.bold() ? DWRITE_FONT_WEIGHT_BOLD : DWRITE_FONT_WEIGHT_NORMAL,
-                    font.italic() ? DWRITE_FONT_STYLE_ITALIC : DWRITE_FONT_STYLE_NORMAL,
-                    DWRITE_FONT_STRETCH_NORMAL,
+                    font.bold() ? ::DWRITE_FONT_WEIGHT_BOLD : ::DWRITE_FONT_WEIGHT_NORMAL,
+                    font.italic() ? ::DWRITE_FONT_STYLE_ITALIC : ::DWRITE_FONT_STYLE_NORMAL,
+                    ::DWRITE_FONT_STRETCH_NORMAL,
                     static_cast< ::FLOAT>(font.size()),
                     L"",
                     &rp_format
@@ -859,7 +752,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
             std::unique_ptr< ::IDWriteTextLayout, detail::release_iunknown> p_layout(rp_layout);
 
-            const DWRITE_TEXT_RANGE range = { 0, static_cast< ::UINT32>(encoded_text.length()) };
+            const ::DWRITE_TEXT_RANGE range = { 0, static_cast< ::UINT32>(encoded_text.length()) };
             p_layout->SetUnderline(font.underline() ? TRUE : FALSE, range);
             p_layout->SetStrikethrough(font.strikeout() ? TRUE : FALSE, range);
 
