@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000161
-Added on    : 2012/04/26
-Depends on  : (none)
-Description : Merge tetengo2::detail::windows::direct2d::drawing.
-------------------------------------------------------------------------------
 Number      : 00000162
 Added on    : 2012/04/26
 Depends on  : 00000161
@@ -33,6 +28,11 @@ Depends on  : 00000161
 Description : Create tetengo2::gui::widget::picture_box.
 ------------------------------------------------------------------------------
 Number      : 00000166
+Added on    : 2012/04/26
+Depends on  : 00000161
+Description : Create tetengo2::detail::stub/windows::system_color.
+------------------------------------------------------------------------------
+Number      : 00000167
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
