@@ -1,62 +1,58 @@
 /*! \file
-    \brief The definition of tetengo2::detail::windows::font.
+    \brief The definition of tetengo2::detail::windows::com_ptr.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_DETAIL_WINDOWS_FONT_H)
-#define TETENGO2_DETAIL_WINDOWS_FONT_H
+#if !defined(TETENGO2_DETAIL_WINDOWS_COMPTR_H)
+#define TETENGO2_DETAIL_WINDOWS_COMPTR_H
 
-//#include <system_error>
-
-//#include <boost/throw_exception.hpp>
+#include <memory>
 
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
-
-#include "tetengo2.detail.windows.error_category.h"
-#include "tetengo2.detail.windows.windows_version.h"
+#include <Unknwn.h>
 
 
 namespace tetengo2 { namespace detail { namespace windows
 {
-    /*!
-        \brief Returns a nonclient metrics.
-
-        \param metrics A metrics where the result is stored.
-
-        \throw std::system_error When a nonclient metrics cannot be obtained.
-    */
-    inline void get_nonclient_metrics(::NONCLIENTMETRICSW& metrics)
+#if !defined(DOCUMENTATION)
+    namespace detail
     {
-        const ::UINT metrics_size =
-            on_windows_vista_or_later() ? sizeof(::NONCLIENTMETRICSW) : sizeof(::NONCLIENTMETRICSW) - sizeof(int);
-        metrics.cbSize = metrics_size;
-        if (::SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, metrics_size, &metrics, 0) == 0)
+        // types
+
+        struct release_unknown
         {
-            BOOST_THROW_EXCEPTION(
-                std::system_error(
-                    std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't get non-client metrics."
-                )
-            );
-        }
+            void operator()(::IUnknown* const p_unknown)
+            const
+            {
+                if (p_unknown)
+                    p_unknown->Release();
+            }
+
+        };
+
+
     }
+#endif
+
 
     /*!
-        \brief Returns the message font.
+        \brief The meta function for a unique COM pointer.
 
-        \return The message font.
+        \tparam T A type.
     */
-    inline ::LOGFONTW get_message_font()
+    template <typename T>
+    struct unique_com_ptr
     {
-        ::NONCLIENTMETRICSW metrics;
-        get_nonclient_metrics(metrics);
+        //! The unique COM pointer type.
+        typedef std::unique_ptr<T, detail::release_unknown> type;
 
-        return metrics.lfMessageFont;
-    }
+
+    };
 
 
 }}}

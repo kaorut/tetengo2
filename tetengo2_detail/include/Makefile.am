@@ -19,6 +19,7 @@ headers = \
 
 extra_headers = \
     tetengo2.detail.windows.alert.h \
+    tetengo2.detail.windows.com_ptr.h \
     tetengo2.detail.windows.common_dialog.h \
     tetengo2.detail.windows.cursor.h \
     tetengo2.detail.windows.direct2d.drawing.h \
