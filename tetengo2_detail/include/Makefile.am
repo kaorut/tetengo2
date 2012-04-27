@@ -33,6 +33,7 @@ extra_headers = \
     tetengo2.detail.windows.menu.h \
     tetengo2.detail.windows.message_handler.h \
     tetengo2.detail.windows.message_loop.h \
+    tetengo2.detail.windows.picture.h \
     tetengo2.detail.windows.system_color.h \
     tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.virtual_key.h \
