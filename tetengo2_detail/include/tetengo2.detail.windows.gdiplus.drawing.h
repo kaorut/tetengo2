@@ -36,6 +36,7 @@
 //#undef max
 #include <wincodec.h>
 
+#include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.font.h"
 #include "tetengo2.detail.windows.gdiplus.error_category.h"
@@ -45,30 +46,6 @@
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {
-#if !defined(DOCUMENTATION)
-    namespace detail
-    {
-        // types
-
-        struct release_iunknown
-        {
-            void operator()(::IUnknown* p_unknown)
-            const
-            {
-                if (p_unknown)
-                {
-                    p_unknown->Release();
-                    p_unknown = NULL;
-                }
-            }
-
-        };
-
-
-    }
-#endif
-
-
     /*!
         \brief The class for a detail implementation of a drawing.
     */
@@ -87,7 +64,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         typedef ::IWICBitmapSource picture_details_type;
 
         //! The picture details pointer type.
-        typedef std::unique_ptr<picture_details_type, detail::release_iunknown> picture_details_ptr_type;
+        typedef unique_com_ptr<picture_details_type>::type picture_details_ptr_type;
 
         //! The canvas details type.
         typedef Gdiplus::Graphics canvas_details_type;
@@ -207,7 +184,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     )
                 );
             }
-            const std::unique_ptr< ::IWICBitmapDecoder, detail::release_iunknown> p_decoder(rp_decoder);
+            const typename unique_com_ptr< ::IWICBitmapDecoder>::type p_decoder(rp_decoder);
 
             ::IWICBitmapFrameDecode* rp_frame = NULL;
             const ::HRESULT get_frame_hr = p_decoder->GetFrame(0, &rp_frame);
@@ -217,7 +194,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     std::system_error(std::error_code(get_frame_hr, win32_category()), "Can't create bitmap frame.")
                 );
             }
-            const std::unique_ptr< ::IWICBitmapFrameDecode, detail::release_iunknown> p_frame(rp_frame);
+            const typename unique_com_ptr< ::IWICBitmapFrameDecode>::type p_frame(rp_frame);
 
             ::IWICFormatConverter* rp_format_converter = NULL;
             const ::HRESULT create_format_converter_hr =
@@ -230,7 +207,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     )
                 );
             }
-            std::unique_ptr< ::IWICFormatConverter, detail::release_iunknown> p_format_converter(rp_format_converter);
+            typename unique_com_ptr< ::IWICFormatConverter>::type p_format_converter(rp_format_converter);
 
             const ::HRESULT initialize_hr =
                 p_format_converter->Initialize(
@@ -574,7 +551,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
     private:
         // types
 
-        typedef std::unique_ptr< ::IWICImagingFactory, detail::release_iunknown> wic_imaging_factory_ptr_type;
+        typedef unique_com_ptr< ::IWICImagingFactory>::type wic_imaging_factory_ptr_type;
 
 
         // static functions

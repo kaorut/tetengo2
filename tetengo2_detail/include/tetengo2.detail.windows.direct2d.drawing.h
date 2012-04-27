@@ -38,6 +38,7 @@
 #include <Unknwn.h>
 #include <wincodec.h>
 
+#include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.font.h"
 #include "tetengo2.gui.measure.h"
@@ -50,20 +51,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
     namespace detail
     {
         // types
-
-        struct release_iunknown
-        {
-            void operator()(::IUnknown* p_unknown)
-            const
-            {
-                if (p_unknown)
-                {
-                    p_unknown->Release();
-                    p_unknown = NULL;
-                }
-            }
-
-        };
 
         struct release_render_target
         {
@@ -163,7 +150,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         typedef ::IWICBitmapSource picture_details_type;
 
         //! The picture details pointer type.
-        typedef std::unique_ptr<picture_details_type, detail::release_iunknown> picture_details_ptr_type;
+        typedef typename unique_com_ptr<picture_details_type>::type picture_details_ptr_type;
 
         //! The canvas details type.
         typedef ::ID2D1RenderTarget canvas_details_type;
@@ -316,7 +303,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     )
                 );
             }
-            const std::unique_ptr< ::IWICBitmapDecoder, detail::release_iunknown> p_decoder(rp_decoder);
+            const typename unique_com_ptr< ::IWICBitmapDecoder>::type p_decoder(rp_decoder);
 
             ::IWICBitmapFrameDecode* rp_frame = NULL;
             const ::HRESULT get_frame_hr = p_decoder->GetFrame(0, &rp_frame);
@@ -326,7 +313,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     std::system_error(std::error_code(get_frame_hr, win32_category()), "Can't create bitmap frame.")
                 );
             }
-            const std::unique_ptr< ::IWICBitmapFrameDecode, detail::release_iunknown> p_frame(rp_frame);
+            const typename unique_com_ptr< ::IWICBitmapFrameDecode>::type p_frame(rp_frame);
 
             ::IWICFormatConverter* rp_format_converter = NULL;
             const ::HRESULT create_format_converter_hr =
@@ -339,7 +326,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     )
                 );
             }
-            std::unique_ptr< ::IWICFormatConverter, detail::release_iunknown> p_format_converter(rp_format_converter);
+            typename unique_com_ptr< ::IWICFormatConverter>::type p_format_converter(rp_format_converter);
 
             const ::HRESULT initialize_hr =
                 p_format_converter->Initialize(
@@ -416,8 +403,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const boost::optional<const typename Background::details_type&> background_details = background.details();
             if (!background_details) return;
 
-            const std::unique_ptr< ::ID2D1Brush, detail::release_iunknown> p_brush =
-                create_brush(canvas, *background_details);
+            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *background_details);
 
             canvas.FillRectangle(position_and_dimension_to_reft_f(position, dimension), p_brush.get());
         }
@@ -471,7 +457,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Encoder&             encoder
         )
         {
-            const std::unique_ptr< ::IDWriteTextLayout, detail::release_iunknown> p_layout =
+            const typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout =
                 create_text_layout(text, font, encoder);
 
             ::DWRITE_TEXT_METRICS metrics = {};
@@ -519,12 +505,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const std::size_t top = gui::to_pixels<std::size_t>(gui::position<Position>::top(position));
             const ::D2D1_POINT_2F origin = { static_cast< ::FLOAT>(left), static_cast< ::FLOAT>(top) };
             
-            const std::unique_ptr< ::IDWriteTextLayout, detail::release_iunknown> p_layout =
+            const typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout =
                 create_text_layout(text, font, encoder);
 
             ::ID2D1SolidColorBrush* rp_brush = NULL;
             canvas.CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Orange), D2D1::BrushProperties(), &rp_brush);
-            const std::unique_ptr< ::ID2D1Brush, detail::release_iunknown> p_brush(rp_brush);
+            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush(rp_brush);
 
             canvas.DrawTextLayout(origin, p_layout.get(), p_brush.get());
         }
@@ -565,7 +551,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     std::system_error(std::error_code(create_bitmap_hr, win32_category()), "Can't create bitmap.")
                 );
             }
-            const std::unique_ptr< ::ID2D1Bitmap, detail::release_iunknown> p_bitmap(rp_bitmap);
+            const typename unique_com_ptr< ::ID2D1Bitmap>::type p_bitmap(rp_bitmap);
 
             canvas.DrawBitmap(p_bitmap.get(), position_and_dimension_to_reft_f(position, dimension));
         }
@@ -574,11 +560,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
     private:
         // types
 
-        typedef std::unique_ptr< ::ID2D1Factory, detail::release_iunknown> direct2d_factory_ptr_type;
+        typedef typename unique_com_ptr< ::ID2D1Factory>::type direct2d_factory_ptr_type;
 
-        typedef std::unique_ptr< ::IDWriteFactory, detail::release_iunknown> direct_write_factory_ptr_type;
+        typedef typename unique_com_ptr< ::IDWriteFactory>::type direct_write_factory_ptr_type;
 
-        typedef std::unique_ptr< ::IWICImagingFactory, detail::release_iunknown> wic_imaging_factory_ptr_type;
+        typedef typename unique_com_ptr< ::IWICImagingFactory>::type wic_imaging_factory_ptr_type;
 
 
         // static functions
@@ -665,7 +651,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 );
         }
 
-        static std::unique_ptr< ::ID2D1Brush, detail::release_iunknown> create_brush(
+        static typename unique_com_ptr< ::ID2D1Brush>::type create_brush(
             canvas_details_type&           canvas,
             const background_details_type& background_details
         )
@@ -690,14 +676,14 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                         std::system_error(std::error_code(hr, win32_category()), "Can't create solid color brush.")
                     );
                 }
-                return std::unique_ptr< ::ID2D1Brush, detail::release_iunknown>(rp_brush);
+                return typename unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
             }
 
             BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid background details type."));
         }
 
         template <typename String, typename Font, typename Encoder>
-        static std::unique_ptr< ::IDWriteTextLayout, detail::release_iunknown> create_text_layout(
+        static typename unique_com_ptr< ::IDWriteTextLayout>::type create_text_layout(
             const String&       text,
             const Font&         font,
             const Encoder&      encoder
@@ -721,7 +707,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     std::system_error(std::error_code(create_format_hr, win32_category()), "Can't create text format.")
                 );
             }
-            const std::unique_ptr< ::IDWriteTextFormat, detail::release_iunknown> p_format(rp_format);
+            const typename unique_com_ptr< ::IDWriteTextFormat>::type p_format(rp_format);
 
             const std::wstring encoded_text = encoder.encode(text);
             ::RECT rect = {};
@@ -750,7 +736,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                     std::system_error(std::error_code(create_layout_hr, win32_category()), "Can't create text layout.")
                 );
             }
-            std::unique_ptr< ::IDWriteTextLayout, detail::release_iunknown> p_layout(rp_layout);
+            typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout(rp_layout);
 
             const ::DWRITE_TEXT_RANGE range = { 0, static_cast< ::UINT32>(encoded_text.length()) };
             p_layout->SetUnderline(font.underline() ? TRUE : FALSE, range);
