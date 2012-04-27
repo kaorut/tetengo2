@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        const picture_type picture(std::make_pair(123, 456), canvas);
+        const picture_type picture(std::make_pair(123, 456));
         canvas.paint_picture(picture, std::make_pair(12, 34), std::make_pair(56, 78));
     }
 

@@ -60,7 +60,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         template <typename Dimension>
         picture(const Dimension& dimension)
         :
-        m_p_details(drawing_details_type::create_picture(dimensions))
+        m_p_details(drawing_details_type::create_picture(dimension))
         {}
 
         /*!
