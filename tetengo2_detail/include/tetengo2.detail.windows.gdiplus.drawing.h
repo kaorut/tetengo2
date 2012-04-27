@@ -125,17 +125,15 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \brief Creates a picture.
 
             \tparam Dimension A dimension type.
-            \tparam Canvas    A canvas type.
 
             \param dimension A dimension.
-            \param canvas    A canvas.
 
             \return A unique pointer to a picture.
         */
-        template <typename Dimension, typename Canvas>
-        static picture_details_ptr_type create_picture(const Dimension& dimension, const Canvas& canvas)
+        template <typename Dimension>
+        static picture_details_ptr_type create_picture(const Dimension& dimension)
         {
-            return picture_details_ptr_type();
+            return picture::create(dimension);
         }
 
         /*!

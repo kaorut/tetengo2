@@ -67,6 +67,35 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
     }
 
     /*!
+        \brief Creates a picture.
+
+        \tparam Dimension A dimension type.
+
+        \param dimension A dimension.
+
+        \return A unique pointer to a picture.
+    */
+    template <typename Dimension>
+    details_ptr_type create(const Dimension& dimension)
+    {
+        ::IWICBitmap* rp_bitmap = NULL;
+        const ::HRESULT hr =
+            wic_imaging_factory().CreateBitmap(
+                gui::to_pixels< ::UINT>(gui::dimension<Dimension>::width(dimension)),
+                gui::to_pixels< ::UINT>(gui::dimension<Dimension>::height(dimension)),
+                ::GUID_WICPixelFormat32bppPBGRA,
+                ::WICBitmapCacheOnDemand,
+                &rp_bitmap
+            );
+        if (FAILED(hr))
+        {
+            BOOST_THROW_EXCEPTION(std::system_error(std::error_code(hr, win32_category()), "Can't create bitmap."));
+        }
+
+        return details_ptr_type(rp_bitmap);
+    }
+
+    /*!
         \brief Reads a picture.
 
         \tparam Path A path type.

@@ -131,15 +131,13 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Creates a picture.
 
             \tparam Dimension A dimension type.
-            \tparam Canvas    A canvas type.
 
             \param dimension A dimension.
-            \param canvas    A canvas.
 
             \return A unique pointer to a picture.
         */
-        template <typename Dimension, typename Canvas>
-        static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension, const Canvas& canvas)
+        template <typename Dimension>
+        static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension)
         {
             const std::size_t width = gui::dimension<Dimension>::width(dimension);
             const std::size_t height = gui::dimension<Dimension>::height(dimension);

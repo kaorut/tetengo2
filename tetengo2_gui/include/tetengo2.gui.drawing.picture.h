@@ -51,18 +51,16 @@ namespace tetengo2 { namespace gui { namespace drawing
         // constructors and destructor
 
         /*!
-            \brief Creates a picture based on a canvas.
+            \brief Creates an empty picture.
 
             \tparam Dimension A dimension type.
-            \tparam Canvas    A canvas type.
 
             \param dimension A dimension.
-            \param canvas    A canvas.
         */
-        template <typename Dimension, typename Canvas>
-        picture(const Dimension& dimension, const Canvas& canvas)
+        template <typename Dimension>
+        picture(const Dimension& dimension)
         :
-        m_p_details(drawing_details_type::create_picture(dimension, canvas))
+        m_p_details(drawing_details_type::create_picture(dimensions))
         {}
 
         /*!

@@ -254,7 +254,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         template <typename Dimension>
         static picture_details_ptr_type create_picture(const Dimension& dimension)
         {
-            return picture_details_ptr_type();
+            return picture::create(dimension);
         }
 
         /*!
