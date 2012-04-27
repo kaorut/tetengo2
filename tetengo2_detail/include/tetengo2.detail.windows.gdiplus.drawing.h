@@ -34,15 +34,41 @@
 //#include <GdiPlus.h>
 //#undef min
 //#undef max
+#include <wincodec.h>
 
-#include "tetengo2.detail.windows.gdiplus.error_category.h"
+#include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.font.h"
+#include "tetengo2.detail.windows.gdiplus.error_category.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 {
+#if !defined(DOCUMENTATION)
+    namespace detail
+    {
+        // types
+
+        struct release_iunknown
+        {
+            void operator()(::IUnknown* p_unknown)
+            const
+            {
+                if (p_unknown)
+                {
+                    p_unknown->Release();
+                    p_unknown = NULL;
+                }
+            }
+
+        };
+
+
+    }
+#endif
+
+
     /*!
         \brief The class for a detail implementation of a drawing.
     */
@@ -58,10 +84,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         typedef std::unique_ptr<background_details_type> background_details_ptr_type;
 
         //! The picture details type.
-        typedef Gdiplus::Bitmap picture_details_type;
+        typedef ::IWICBitmapSource picture_details_type;
 
         //! The picture details pointer type.
-        typedef std::unique_ptr<picture_details_type> picture_details_ptr_type;
+        typedef std::unique_ptr<picture_details_type, detail::release_iunknown> picture_details_ptr_type;
 
         //! The canvas details type.
         typedef Gdiplus::Graphics canvas_details_type;
@@ -129,17 +155,25 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \return A unique pointer to a picture.
         */
         template <typename Dimension, typename Canvas>
-        static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension, const Canvas& canvas)
+        static picture_details_ptr_type create_picture(const Dimension& dimension, const Canvas& canvas)
         {
-            std::unique_ptr<picture_details_type> p_picture(
-                make_unique<Gdiplus::Bitmap>(
-                    to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
-                    to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension)),
-                    &const_cast<Canvas&>(canvas).gdiplus_graphics()
-                )
-            );
+            ::IWICBitmap* rp_bitmap = NULL;
+            const ::HRESULT hr =
+                wic_imaging_factory().CreateBitmap(
+                    gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
+                    gui::to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension)),
+                    ::GUID_WICPixelFormat32bppRGBA,
+                    WICBitmapCacheOnDemand,
+                    &rp_bitmap
+                );
+            if (FAILED(hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(hr, win32_category()), "Can't create WIC bitmap.")
+                );
+            }
 
-            return std::move(p_picture);
+            return picture_details_ptr_type(rp_bitmap);
         }
 
         /*!
@@ -154,18 +188,69 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             \throw std::system_error When the picture cannot be read.
         */
         template <typename Path>
-        static std::unique_ptr<picture_details_type> read_picture(const Path& path)
+        static picture_details_ptr_type read_picture(const Path& path)
         {
-            std::unique_ptr<picture_details_type> p_picture(make_unique<Gdiplus::Bitmap>(path.c_str()));
-            const Gdiplus::Status status = p_picture->GetLastStatus();
-            if (status != Gdiplus::Ok)
+            ::IWICBitmapDecoder* rp_decoder = NULL;
+            const ::HRESULT create_decoder_hr =
+                wic_imaging_factory().CreateDecoderFromFilename(
+                    path.c_str(),
+                    NULL,
+                    GENERIC_READ,
+                    WICDecodeMetadataCacheOnDemand,
+                    &rp_decoder
+                );
+            if (FAILED(create_decoder_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't read a picture.")
+                    std::system_error(
+                        std::error_code(create_decoder_hr, win32_category()), "Can't create WIC decoder."
+                    )
+                );
+            }
+            const std::unique_ptr< ::IWICBitmapDecoder, detail::release_iunknown> p_decoder(rp_decoder);
+
+            ::IWICBitmapFrameDecode* rp_frame = NULL;
+            const ::HRESULT get_frame_hr = p_decoder->GetFrame(0, &rp_frame);
+            if (FAILED(get_frame_hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(get_frame_hr, win32_category()), "Can't create bitmap frame.")
+                );
+            }
+            const std::unique_ptr< ::IWICBitmapFrameDecode, detail::release_iunknown> p_frame(rp_frame);
+
+            ::IWICFormatConverter* rp_format_converter = NULL;
+            const ::HRESULT create_format_converter_hr =
+                wic_imaging_factory().CreateFormatConverter(&rp_format_converter);
+            if (FAILED(create_format_converter_hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(create_format_converter_hr, win32_category()), "Can't create format converter."
+                    )
+                );
+            }
+            std::unique_ptr< ::IWICFormatConverter, detail::release_iunknown> p_format_converter(rp_format_converter);
+
+            const ::HRESULT initialize_hr =
+                p_format_converter->Initialize(
+                    p_frame.get(),
+                    ::GUID_WICPixelFormat32bppPBGRA,
+                    WICBitmapDitherTypeNone,
+                    NULL,
+                    0.0,
+                    WICBitmapPaletteTypeCustom
+                );
+            if (FAILED(initialize_hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(initialize_hr, win32_category()), "Can't initialize format converter."
+                    )
                 );
             }
 
-            return std::move(p_picture);
+            return picture_details_ptr_type(std::move(p_format_converter));
         }
 
         /*!
@@ -180,14 +265,20 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename Dimension>
         static Dimension picture_dimension(const picture_details_type& picture)
         {
+            ::UINT width = 0;
+            ::UINT height = 0;
+            const ::HRESULT hr = const_cast<picture_details_type&>(picture).GetSize(&width, &height);
+            if (FAILED(hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(hr, win32_category()), "Can't get size of picture.")
+                );
+            }
+
             return
                 Dimension(
-                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(
-                        const_cast<picture_details_type&>(picture).GetWidth()
-                    ),
-                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(
-                        const_cast<picture_details_type&>(picture).GetHeight()
-                    )
+                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(width),
+                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(height)
                 );
         }
 
@@ -421,13 +512,51 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Dimension&     dimension
         )
         {
-            const boost::optional<typename Picture::details_type&>
-            picture_details(const_cast<Picture&>(picture).details());
+            const boost::optional<typename Picture::details_type&> picture_details(
+                const_cast<Picture&>(picture).details()
+            );
             if (!picture_details) return;
 
+            ::WICPixelFormatGUID pixel_format_guid = {};
+            const ::HRESULT get_pixel_format_hr = picture_details->GetPixelFormat(&pixel_format_guid);
+            if (FAILED(get_pixel_format_hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(get_pixel_format_hr, win32_category()), "Can't get pixel format."
+                    )
+                );
+            }
+
+            ::UINT width = 0;
+            ::UINT height = 0;
+            const ::HRESULT get_size_hr = picture_details->GetSize(&width, &height);
+            if (FAILED(get_size_hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(get_size_hr, win32_category()), "Can't get size of picture.")
+                );
+            }
+            const ::UINT stride = width * sizeof(Gdiplus::ARGB);
+            const ::UINT buffer_size = stride * height;
+            std::vector< ::BYTE> buffer(buffer_size, 0);
+
+            const ::WICRect rectangle = { 0, 0, width, height };
+            const ::HRESULT copy_pixels_hr =
+                picture_details->CopyPixels(&rectangle, stride, buffer_size, buffer.data());
+            if (FAILED(copy_pixels_hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(copy_pixels_hr, win32_category()), "Can't copy pixels of picture."
+                    )
+                );
+            }
+
+            Gdiplus::Bitmap bitmap(width, height, stride, PixelFormat32bppRGB, buffer.data());
             const Gdiplus::Status status =
                 canvas.DrawImage(
-                    &*picture_details,
+                    &bitmap,
                     gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
                     gui::to_pixels< ::INT>(gui::position<Position>::top(position)),
                     gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
@@ -443,7 +572,33 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
 
     private:
+        // types
+
+        typedef std::unique_ptr< ::IWICImagingFactory, detail::release_iunknown> wic_imaging_factory_ptr_type;
+
+
         // static functions
+
+        static ::IWICImagingFactory& wic_imaging_factory()
+        {
+            static const wic_imaging_factory_ptr_type p_factory(create_wic_imaging_factory());
+            return *p_factory;
+        }
+
+        static wic_imaging_factory_ptr_type create_wic_imaging_factory()
+        {
+            ::IWICImagingFactory* rp_factory = NULL;
+            const ::HRESULT hr =
+                ::CoCreateInstance(::CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&rp_factory));
+            if (FAILED(hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(hr, win32_category()), "Can't create WIC imaging factory.")
+                );
+            }
+
+            return wic_imaging_factory_ptr_type(rp_factory);
+        }
 
         template <typename HandleOrWidgetDetails>
         static std::unique_ptr<canvas_details_type> create_canvas_impl(

@@ -67,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         */
         std::unique_ptr<picture_type> read()
         {
-            std::unique_ptr<picture_details_type> p_picture(drawing_details_type::read_picture(m_path));
+            picture_details_ptr_type p_picture(drawing_details_type::read_picture(m_path));
             return make_unique<picture_type>(std::move(p_picture));
         }
 
@@ -75,7 +75,7 @@ namespace tetengo2 { namespace gui { namespace drawing
     private:
         // types
 
-        typedef typename drawing_details_type::picture_details_type picture_details_type;
+        typedef typename drawing_details_type::picture_details_ptr_type picture_details_ptr_type;
 
 
         // variables
