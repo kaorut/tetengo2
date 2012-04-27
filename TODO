@@ -12,11 +12,6 @@ Added on    : 2012/04/26
 Depends on  : 00000161
 Description : Create tetengo2::detail::windows::direct2d::error_category.
 ------------------------------------------------------------------------------
-Number      : 00000163
-Added on    : 2012/04/26
-Depends on  : 00000161
-Description : Create tetengo2::detail::windows::text_renderer.
-------------------------------------------------------------------------------
 Number      : 00000164
 Added on    : 2012/04/26
 Depends on  : 00000161
