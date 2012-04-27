@@ -34,6 +34,7 @@
 //#include <GdiPlus.h>
 //#undef min
 //#undef max
+#include <wincodec.h>
 
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"
