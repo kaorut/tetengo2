@@ -7,11 +7,6 @@
 
 \verbatim
 ------------------------------------------------------------------------------
-Number      : 00000162
-Added on    : 2012/04/26
-Depends on  : 00000161
-Description : Create tetengo2::detail::windows::direct2d::error_category.
-------------------------------------------------------------------------------
 Number      : 00000165
 Added on    : 2012/04/26
 Depends on  : 00000161
