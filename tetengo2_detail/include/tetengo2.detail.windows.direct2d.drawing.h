@@ -39,7 +39,7 @@
 #include <wincodec.h>
 
 #include "tetengo2.detail.windows.com_ptr.h"
-#include "tetengo2.detail.windows.error_category.h"
+#include "tetengo2.detail.windows.direct2d.error_category.h"
 #include "tetengo2.detail.windows.font.h"
 #include "tetengo2.detail.windows.picture.h"
 #include "tetengo2.gui.measure.h"
@@ -203,7 +203,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, win32_category()), "Can't create HWND render target.")
+                    std::system_error(std::error_code(hr, direct2d_cateogory()), "Can't create HWND render target.")
                 );
             }
             std::unique_ptr< ::ID2D1HwndRenderTarget, detail::release_render_target> p_render_target(rp_render_target);
@@ -478,7 +478,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(create_bitmap_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(create_bitmap_hr, win32_category()), "Can't create bitmap.")
+                    std::system_error(std::error_code(create_bitmap_hr, direct2d_cateogory()), "Can't create bitmap.")
                 );
             }
             const typename unique_com_ptr< ::ID2D1Bitmap>::type p_bitmap(rp_bitmap);
@@ -510,7 +510,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, win32_category()), "Can't create Direct2D factory.")
+                    std::system_error(std::error_code(hr, direct2d_cateogory()), "Can't create Direct2D factory.")
                 );
             }
 
@@ -580,7 +580,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 if (FAILED(hr))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(std::error_code(hr, win32_category()), "Can't create solid color brush.")
+                        std::system_error(std::error_code(hr, direct2d_cateogory()), "Can't create solid color brush.")
                     );
                 }
                 return typename unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
