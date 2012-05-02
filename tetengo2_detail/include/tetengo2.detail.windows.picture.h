@@ -23,6 +23,7 @@
 
 namespace tetengo2 { namespace detail { namespace windows { namespace picture
 {
+#if !defined(DOCUMENTATION)
     namespace detail
     {
         // types
@@ -47,6 +48,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
             return wic_imaging_factory_ptr_type(rp_factory);
         }
     }
+#endif
 
 
     // types
@@ -60,6 +62,11 @@ namespace tetengo2 { namespace detail { namespace windows { namespace picture
 
     // functions
 
+    /*!
+        \brief Returns the WIC image factory.
+
+        \return The WIC image factory.
+    */
     inline ::IWICImagingFactory& wic_imaging_factory()
     {
         static const detail::wic_imaging_factory_ptr_type p_factory(detail::create_wic_imaging_factory());
