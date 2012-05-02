@@ -23,6 +23,7 @@ extra_headers = \
     tetengo2.detail.windows.common_dialog.h \
     tetengo2.detail.windows.cursor.h \
     tetengo2.detail.windows.direct2d.drawing.h \
+    tetengo2.detail.windows.direct2d.error_category.h \
     tetengo2.detail.windows.encoding.h \
     tetengo2.detail.windows.error_category.h \
     tetengo2.detail.windows.font.h \
