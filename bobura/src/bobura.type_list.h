@@ -572,7 +572,7 @@ namespace bobura
             solid_background_type;
         typedef
             tetengo2::gui::drawing::system_color_set<
-                color_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
+                color_type, boost::mpl::at<detail_type_list, type::detail::system_color>::type
             >
             system_color_set_type;
         typedef

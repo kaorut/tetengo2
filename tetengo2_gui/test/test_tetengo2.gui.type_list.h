@@ -25,6 +25,7 @@
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.message_loop.h"
+#include "tetengo2.detail.stub.system_color.h"
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.virtual_key.h"
 #include "tetengo2.detail.stub.widget.h"
@@ -257,6 +258,7 @@ namespace test_tetengo2 { namespace gui
     namespace detail { namespace drawing
     {
         typedef tetengo2::gui::drawing::color<unsigned char> color_type;
+        typedef tetengo2::detail::stub::system_color system_color_details_type;
         typedef tetengo2::detail::stub::drawing drawing_details_type;
         typedef tetengo2::gui::drawing::background<drawing_details_type> background_type;
         typedef tetengo2::gui::drawing::transparent_background<drawing_details_type> transparent_background_type;
@@ -282,7 +284,7 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::drawing::system_color_set,
                 tetengo2::gui::drawing::system_color_set<
-                    detail::drawing::color_type, detail::drawing::drawing_details_type
+                    detail::drawing::color_type, detail::drawing::system_color_details_type
                 >
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::background, detail::drawing::background_type>,

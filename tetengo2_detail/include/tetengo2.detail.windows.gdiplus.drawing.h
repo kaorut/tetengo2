@@ -14,11 +14,9 @@
 #include <limits>
 //#include <memory>
 //#include <string>
-//#include <utility>
-//#include <vector>
-//#include <stdexcept>
 //#include <system_error>
 //#include <type_traits>
+//#include <utility>
 
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
@@ -36,9 +34,13 @@
 //#include <GdiPlus.h>
 //#undef min
 //#undef max
+#include <wincodec.h>
 
-#include "tetengo2.detail.windows.gdiplus.error_category.h"
+#include "tetengo2.detail.windows.com_ptr.h"
+#include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.detail.windows.font.h"
+#include "tetengo2.detail.windows.gdiplus.error_category.h"
+#include "tetengo2.detail.windows.picture.h"
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.unique.h"
 
@@ -53,12 +55,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
     public:
         // types
 
-        //! The system color index type.
-        enum system_color_index_type
-        {
-            system_color_index_dialog_background, //!< Dialog background.
-        };
-
         //! The background details type.
         typedef Gdiplus::Brush background_details_type;
 
@@ -66,10 +62,10 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         typedef std::unique_ptr<background_details_type> background_details_ptr_type;
 
         //! The picture details type.
-        typedef Gdiplus::Bitmap picture_details_type;
+        typedef picture::details_type picture_details_type;
 
         //! The picture details pointer type.
-        typedef std::unique_ptr<picture_details_type> picture_details_ptr_type;
+        typedef picture::details_ptr_type picture_details_ptr_type;
 
         //! The canvas details type.
         typedef Gdiplus::Graphics canvas_details_type;
@@ -79,135 +75,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
 
 
         // static functions
-
-        /*!
-            \brief Returns the system color.
-
-            \tparam Color A color type.
-
-            \param index An index;
-
-            \return The system color.
-        */
-        template <typename Color>
-        static Color system_color(const system_color_index_type index)
-        {
-            switch (index)
-            {
-            case system_color_index_dialog_background:
-                {
-                    const ::COLORREF color_ref = ::GetSysColor(COLOR_3DFACE);
-                    return Color(GetRValue(color_ref), GetGValue(color_ref), GetBValue(color_ref));
-                }
-            default:
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));
-            }
-        }
-
-        /*!
-            \brief Creates a solid background.
-
-            \tparam Color A color type.
-
-            \param color A color.
-
-            \return A unique pointer to a solid background.
-        */
-        template <typename Color>
-        static std::unique_ptr<background_details_type>
-        create_solid_background(const Color& color)
-        {
-            return
-                make_unique<Gdiplus::SolidBrush>(
-                    Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())
-                );
-        }
-
-        /*!
-            \brief Creates a transparent background.
-
-            \return A unique pointer to a transparent background.
-        */
-        static std::unique_ptr<background_details_type>
-        create_transparent_background()
-        {
-            return std::unique_ptr<background_details_type>();
-        }
-
-        /*!
-            \brief Creates a picture.
-
-            \tparam Dimension A dimension type.
-            \tparam Canvas    A canvas type.
-
-            \param dimension A dimension.
-            \param canvas    A canvas.
-
-            \return A unique pointer to a picture.
-        */
-        template <typename Dimension, typename Canvas>
-        static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension, const Canvas& canvas)
-        {
-            std::unique_ptr<picture_details_type> p_picture(
-                make_unique<Gdiplus::Bitmap>(
-                    to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),
-                    to_pixels< ::INT>(gui::dimension<Dimension>::height(dimension)),
-                    &const_cast<Canvas&>(canvas).gdiplus_graphics()
-                )
-            );
-
-            return std::move(p_picture);
-        }
-
-        /*!
-            \brief Reads a picture.
-
-            \tparam Path A path type.
-
-            \param path A path.
-
-            \return A unique pointer to a picture.
-
-            \throw std::system_error When the picture cannot be read.
-        */
-        template <typename Path>
-        static std::unique_ptr<picture_details_type> read_picture(const Path& path)
-        {
-            std::unique_ptr<picture_details_type> p_picture(make_unique<Gdiplus::Bitmap>(path.c_str()));
-            const Gdiplus::Status status = p_picture->GetLastStatus();
-            if (status != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(status, gdiplus_category()), "Can't read a picture.")
-                );
-            }
-
-            return std::move(p_picture);
-        }
-
-        /*!
-            \brief Returns the dimension of a picture.
-
-            \tparam Dimension A dimension type.
-
-            \param picture A picture.
-
-            \return The dimension of the picture.
-        */
-        template <typename Dimension>
-        static Dimension picture_dimension(const picture_details_type& picture)
-        {
-            return
-                Dimension(
-                    gui::to_unit<typename gui::dimension<Dimension>::width_type>(
-                        const_cast<picture_details_type&>(picture).GetWidth()
-                    ),
-                    gui::to_unit<typename gui::dimension<Dimension>::height_type>(
-                        const_cast<picture_details_type&>(picture).GetHeight()
-                    )
-                );
-        }
 
         /*!
             \brief Creates a canvas.
@@ -224,6 +91,81 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         )
         {
             return create_canvas_impl(handle_or_widget_details);
+        }
+
+        /*!
+            \brief Creates a solid background.
+
+            \tparam Color A color type.
+
+            \param color A color.
+
+            \return A unique pointer to a solid background.
+        */
+        template <typename Color>
+        static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
+        {
+            return
+                make_unique<Gdiplus::SolidBrush>(
+                    Gdiplus::Color(color.alpha(), color.red(), color.green(), color.blue())
+                );
+        }
+
+        /*!
+            \brief Creates a transparent background.
+
+            \return A unique pointer to a transparent background.
+        */
+        static std::unique_ptr<background_details_type> create_transparent_background()
+        {
+            return std::unique_ptr<background_details_type>();
+        }
+
+        /*!
+            \brief Creates a picture.
+
+            \tparam Dimension A dimension type.
+
+            \param dimension A dimension.
+
+            \return A unique pointer to a picture.
+        */
+        template <typename Dimension>
+        static picture_details_ptr_type create_picture(const Dimension& dimension)
+        {
+            return picture::create(dimension);
+        }
+
+        /*!
+            \brief Reads a picture.
+
+            \tparam Path A path type.
+
+            \param path A path.
+
+            \return A unique pointer to a picture.
+
+            \throw std::system_error When the picture cannot be read.
+        */
+        template <typename Path>
+        static picture_details_ptr_type read_picture(const Path& path)
+        {
+            return picture::read(path);
+        }
+
+        /*!
+            \brief Returns the dimension of a picture.
+
+            \tparam Dimension A dimension type.
+
+            \param picture A picture.
+
+            \return The dimension of the picture.
+        */
+        template <typename Dimension>
+        static Dimension picture_dimension(const picture_details_type& picture)
+        {
+            return picture::dimension<Dimension>(picture);
         }
 
         /*!
@@ -324,55 +266,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
                     log_font.lfUnderline != 0,
                     log_font.lfStrikeOut != 0
                 );
-        }
-
-        /*!
-            \brief Returns the installed font families.
-
-            \tparam String  A string type.
-            \tparam Encoder An encoder type.
-
-            \param encoder An encoder.
-
-            \return The installed font families.
-
-            \throw std::system_error When installed font families cannot be obtained.
-        */
-        template <typename String, typename Encoder>
-        static std::vector<String> installed_font_families(const Encoder& encoder)
-        {
-            const Gdiplus::InstalledFontCollection font_collection;
-            const ::INT count = font_collection.GetFamilyCount();
-            std::vector<Gdiplus::FontFamily> gdiplus_families(count, Gdiplus::FontFamily());
-            ::INT actual_count = 0;
-
-            const Gdiplus::Status status = font_collection.GetFamilies(count, gdiplus_families.data(), &actual_count);
-            if (status != Gdiplus::Ok)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(status, gdiplus_category()), "Can't get installed font families."
-                    )
-                );
-            }
-
-            std::vector<String> families;
-            families.reserve(actual_count);
-            for (::INT i = 0; i < actual_count; ++i)
-            {
-                wchar_t family_name[LF_FACESIZE];
-                const Gdiplus::Status family_name_status = gdiplus_families[i].GetFamilyName(family_name);
-                if (family_name_status != Gdiplus::Ok)
-                {
-                    BOOST_THROW_EXCEPTION(
-                        std::system_error(
-                            std::error_code(family_name_status, gdiplus_category()), "Can't get font family name."
-                        )
-                    );
-                }
-                families.push_back(encoder.decode(family_name));
-            }
-            return families;
         }
 
         /*!
@@ -505,13 +398,51 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             const Dimension&     dimension
         )
         {
-            const boost::optional<typename Picture::details_type&>
-            picture_details(const_cast<Picture&>(picture).details());
+            const boost::optional<typename Picture::details_type&> picture_details(
+                const_cast<Picture&>(picture).details()
+            );
             if (!picture_details) return;
 
+            ::WICPixelFormatGUID pixel_format_guid = {};
+            const ::HRESULT get_pixel_format_hr = picture_details->GetPixelFormat(&pixel_format_guid);
+            if (FAILED(get_pixel_format_hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(get_pixel_format_hr, wic_category()), "Can't get pixel format."
+                    )
+                );
+            }
+
+            ::UINT width = 0;
+            ::UINT height = 0;
+            const ::HRESULT get_size_hr = picture_details->GetSize(&width, &height);
+            if (FAILED(get_size_hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(get_size_hr, wic_category()), "Can't get size of picture.")
+                );
+            }
+            const ::UINT stride = width * sizeof(Gdiplus::ARGB);
+            const ::UINT buffer_size = stride * height;
+            std::vector< ::BYTE> buffer(buffer_size, 0);
+
+            const ::WICRect rectangle = { 0, 0, width, height };
+            const ::HRESULT copy_pixels_hr =
+                picture_details->CopyPixels(&rectangle, stride, buffer_size, buffer.data());
+            if (FAILED(copy_pixels_hr))
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(copy_pixels_hr, wic_category()), "Can't copy pixels of picture."
+                    )
+                );
+            }
+
+            Gdiplus::Bitmap bitmap(width, height, stride, PixelFormat32bppRGB, buffer.data());
             const Gdiplus::Status status =
                 canvas.DrawImage(
-                    &*picture_details,
+                    &bitmap,
                     gui::to_pixels< ::INT>(gui::position<Position>::left(position)),
                     gui::to_pixels< ::INT>(gui::position<Position>::top(position)),
                     gui::to_pixels< ::INT>(gui::dimension<Dimension>::width(dimension)),

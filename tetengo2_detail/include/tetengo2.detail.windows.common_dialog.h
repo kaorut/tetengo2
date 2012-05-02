@@ -37,6 +37,7 @@
 #include <Unknwn.h>
 
 #include "tetengo2.cpp11.h"
+#include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"
 #include "tetengo2.unique.h"
 
@@ -48,23 +49,9 @@ namespace tetengo2 { namespace detail { namespace windows
     {
         // types
 
-        struct release_iunknown
-        {
-            void operator()(::IUnknown* p_unknown)
-            const
-            {
-                if (p_unknown)
-                {
-                    p_unknown->Release();
-                    p_unknown = NULL;
-                }
-            }
+        typedef unique_com_ptr< ::IFileOpenDialog>::type file_open_dialog_ptr_type;
 
-        };
-
-        typedef std::unique_ptr< ::IFileOpenDialog, release_iunknown> file_open_dialog_ptr_type;
-
-        typedef std::unique_ptr< ::IFileSaveDialog, release_iunknown> file_save_dialog_ptr_type;
+        typedef unique_com_ptr< ::IFileSaveDialog>::type file_save_dialog_ptr_type;
 
         typedef std::pair<std::wstring, std::wstring> native_filter_type;
 
@@ -371,7 +358,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error(std::error_code(result_result, win32_category()), "Can't get the result.")
                 );
             }
-            const std::unique_ptr< ::IShellItem, detail::release_iunknown> p_item(p_raw_item);
+            const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
 
             wchar_t* file_name = NULL;
             const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);
@@ -556,8 +543,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error(std::error_code(result_result, win32_category()), "Can't get the result.")
                 );
             }
-            const std::unique_ptr< ::IShellItem, detail::release_iunknown>
-            p_item(p_raw_item);
+            const typename unique_com_ptr< ::IShellItem>::type p_item(p_raw_item);
 
             wchar_t* file_name = NULL;
             const ::HRESULT file_title_result = p_item->GetDisplayName(SIGDN_FILESYSPATH, &file_name);

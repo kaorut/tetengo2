@@ -9,16 +9,12 @@
 #if !defined(TETENGO2_DETAIL_STUB_DRAWING_H)
 #define TETENGO2_DETAIL_STUB_DRAWING_H
 
-#include <cassert>
 //#include <cstddef>
 //#include <memory>
-#include <stdexcept>
 #include <system_error>
 //#include <utility>
-#include <vector>
 
 #include <boost/noncopyable.hpp>
-#include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"
 #include "tetengo2.text.h"
@@ -34,12 +30,6 @@ namespace tetengo2 { namespace detail { namespace stub
     {
     public:
         // types
-
-        //! The system color index type.
-        enum system_color_index_type
-        {
-            system_color_index_dialog_background, //!< Dialog background.
-        };
 
         //! The background details type.
         struct background_details_type {};
@@ -96,25 +86,20 @@ namespace tetengo2 { namespace detail { namespace stub
         // static functions
 
         /*!
-            \brief Returns the system color.
+            \brief Creates a canvas.
 
-            \tparam Color A color type.
+            \tparam HandleOrWidgetDetails A handle type or a widget details type.
 
-            \param index An index;
+            \param handle_or_widget_details A handle or a widget details.
 
-            \return The system color.
+            \return A unique pointer to a canvas.
         */
-        template <typename Color>
-        static Color system_color(const system_color_index_type index)
+        template <typename HandleOrWidgetDetails>
+        static std::unique_ptr<canvas_details_type> create_canvas(
+            const HandleOrWidgetDetails& handle_or_widget_details
+        )
         {
-            switch (index)
-            {
-            case system_color_index_dialog_background:
-                return Color(192, 192, 192);
-            default:
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid system color index."));
-            }
+            return make_unique<canvas_details_type>();
         }
 
         /*!
@@ -127,8 +112,7 @@ namespace tetengo2 { namespace detail { namespace stub
             \return A unique pointer to a solid background.
         */
         template <typename Color>
-        static std::unique_ptr<background_details_type>
-        create_solid_background(const Color& color)
+        static std::unique_ptr<background_details_type> create_solid_background(const Color& color)
         {
             return make_unique<background_details_type>();
         }
@@ -138,8 +122,7 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \return A unique pointer to a transparent background.
         */
-        static std::unique_ptr<background_details_type>
-        create_transparent_background()
+        static std::unique_ptr<background_details_type> create_transparent_background()
         {
             return std::unique_ptr<background_details_type>();
         }
@@ -148,15 +131,13 @@ namespace tetengo2 { namespace detail { namespace stub
             \brief Creates a picture.
 
             \tparam Dimension A dimension type.
-            \tparam Canvas    A canvas type.
 
             \param dimension A dimension.
-            \param canvas    A canvas.
 
             \return A unique pointer to a picture.
         */
-        template <typename Dimension, typename Canvas>
-        static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension, const Canvas& canvas)
+        template <typename Dimension>
+        static std::unique_ptr<picture_details_type> create_picture(const Dimension& dimension)
         {
             const std::size_t width = gui::dimension<Dimension>::width(dimension);
             const std::size_t height = gui::dimension<Dimension>::height(dimension);
@@ -197,23 +178,6 @@ namespace tetengo2 { namespace detail { namespace stub
                     typename Dimension::first_type(picture.dimension().first),
                     typename Dimension::second_type(picture.dimension().second)
                 );
-        }
-
-        /*!
-            \brief Creates a canvas.
-
-            \tparam HandleOrWidgetDetails A handle type or a widget details type.
-
-            \param handle_or_widget_details A handle or a widget details.
-
-            \return A unique pointer to a canvas.
-        */
-        template <typename HandleOrWidgetDetails>
-        static std::unique_ptr<canvas_details_type> create_canvas(
-            const HandleOrWidgetDetails& handle_or_widget_details
-        )
-        {
-            return make_unique<canvas_details_type>();
         }
 
         /*!
@@ -270,25 +234,6 @@ namespace tetengo2 { namespace detail { namespace stub
         static Font make_dialog_font()
         {
             return Font(TETENGO2_TEXT("TetengoFont"), 12, false, false, false, false);
-        }
-
-        /*!
-            \brief Returns the installed font families.
-
-            \tparam String  A string type.
-            \tparam Encoder An encoder type.
-
-            \param encoder An encoder.
-
-            \return The installed font families.
-
-            \throw std::system_error When installed font families cannot be obtained.
-        */
-        template <typename String, typename Encoder>
-        static std::vector<String> installed_font_families(const Encoder& encoder)
-        {
-            const String font_name(TETENGO2_TEXT("TetengoFont"));
-            return std::vector<String>(1, font_name);
         }
 
         /*!

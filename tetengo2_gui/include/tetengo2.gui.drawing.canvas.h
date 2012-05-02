@@ -12,7 +12,6 @@
 //#include <cstddef>
 #include <stdexcept>
 //#include <utility>
-#include <vector>
 
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
@@ -79,19 +78,6 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         //! The detail implementation pointer type.
         typedef typename drawing_details_type::canvas_details_ptr_type details_ptr_type;
-
-
-        // static functions
-
-        /*!
-            \brief Returns the installed font families.
-
-            \return The installed font families.
-        */
-        static std::vector<string_type> installed_font_families()
-        {
-            return drawing_details_type::template installed_font_families<string_type>(encoder());
-        }
 
 
         // constructors and destructor

@@ -8,7 +8,6 @@
 
 //#include <stdexcept>
 //#include <utility>
-//#include <vector>
 
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
@@ -83,16 +82,6 @@ BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(drawing)
 BOOST_AUTO_TEST_SUITE(canvas)
     // test cases
-
-    BOOST_AUTO_TEST_CASE(installed_font_families)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        typedef std::vector<string_type> string_vector_type;
-        const string_vector_type families = canvas_type::installed_font_families();
-
-        BOOST_CHECK(families == string_vector_type(1, string_type(TETENGO2_TEXT("TetengoFont"))));
-    }
 
     BOOST_AUTO_TEST_CASE(construction)
     {
@@ -173,7 +162,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        const picture_type picture(std::make_pair(123, 456), canvas);
+        const picture_type picture(std::make_pair(123, 456));
         canvas.paint_picture(picture, std::make_pair(12, 34), std::make_pair(56, 78));
     }
 
