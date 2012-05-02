@@ -149,7 +149,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             case D2DERR_WRONG_STATE:
                 return "The object was not in the correct state to process the method.";
             case D2DERR_ZERO_VECTOR:
-                The supplied vector is zero.
+                return "The supplied vector is zero.";
             default:
                 return win32_category().message(error_value);
             }

@@ -409,7 +409,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(get_pixel_format_hr, win32_category()), "Can't get pixel format."
+                        std::error_code(get_pixel_format_hr, wic_category()), "Can't get pixel format."
                     )
                 );
             }
@@ -420,7 +420,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             if (FAILED(get_size_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(get_size_hr, win32_category()), "Can't get size of picture.")
+                    std::system_error(std::error_code(get_size_hr, wic_category()), "Can't get size of picture.")
                 );
             }
             const ::UINT stride = width * sizeof(Gdiplus::ARGB);
@@ -434,7 +434,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
-                        std::error_code(copy_pixels_hr, win32_category()), "Can't copy pixels of picture."
+                        std::error_code(copy_pixels_hr, wic_category()), "Can't copy pixels of picture."
                     )
                 );
             }
