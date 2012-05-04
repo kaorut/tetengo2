@@ -24,6 +24,22 @@ namespace tetengo2 { namespace gui { namespace message
         // types
 
         /*!
+            \brief The observer type of resizing.
+        */
+        typedef void resizing_type();
+
+        //! The signal type of resizing.
+        typedef boost::signals2::signal<resizing_type> resizing_signal_type;
+
+        /*!
+            \brief The observer type of resized
+        */
+        typedef void resized_type();
+
+        //! The signal type of resizing.
+        typedef boost::signals2::signal<resized_type> resized_signal_type;
+
+        /*!
             \brief The observer type of closing.
 
             \param cancel Set true to cancel the window closing.
@@ -43,6 +59,48 @@ namespace tetengo2 { namespace gui { namespace message
 
 
         // functions
+
+        /*!
+            \brief Returns the observer called when a window is resizing.
+
+            \return The observer called when a window is resizing.
+        */
+        const resizing_signal_type& resizing()
+        const
+        {
+            return m_resizing;
+        }
+
+        /*!
+            \brief Returns the observer called when a window is resizing.
+
+            \return The observer called when a window is resizing.
+        */
+        resizing_signal_type& resizing()
+        {
+            return m_resizing;
+        }
+
+        /*!
+            \brief Returns the observer called when a window is resized.
+
+            \return The observer called when a window is resized.
+        */
+        const resized_signal_type& resized()
+        const
+        {
+            return m_resized;
+        }
+
+        /*!
+            \brief Returns the observer called when a window is resized.
+
+            \return The observer called when a window is resized.
+        */
+        resized_signal_type& resized()
+        {
+            return m_resized;
+        }
 
         /*!
             \brief Returns the observer called when a window is closing.
@@ -89,6 +147,10 @@ namespace tetengo2 { namespace gui { namespace message
 
     private:
         // variables
+
+        resizing_signal_type m_resizing;
+
+        resized_signal_type m_resized;
 
         closing_signal_type m_closing;
 
