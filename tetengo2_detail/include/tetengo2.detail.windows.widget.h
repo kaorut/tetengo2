@@ -172,8 +172,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!window_class_is_registered(dialog_class_name(), instance_handle))
                 register_window_class_for_dialog<Widget>(instance_handle);
 
-            typename std::tuple_element<0, widget_details_type>::type
-            p_widget(
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME,
                     dialog_class_name().c_str(),
@@ -377,7 +376,50 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename Widget>
         static widget_details_ptr_type create_picture_box(Widget& parent)
         {
-            return std::unique_ptr<widget_details_type>();
+            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+            if (!instance_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
+                    )
+                );
+            }
+
+            if (!window_class_is_registered(picture_box_class_name(), instance_handle))
+                register_window_class_for_picture_box<Widget>(instance_handle);
+
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
+                ::CreateWindowExW(
+                    WS_EX_CLIENTEDGE,
+                    picture_box_class_name().c_str(),
+                    L"",
+                    WS_CHILD | WS_TABSTOP | WS_VISIBLE,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    parent ? std::get<0>(*parent->details()).get() : HWND_DESKTOP,
+                    NULL,
+                    instance_handle,
+                    NULL
+                )
+            );
+            if (!p_widget)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't create a picture box!"
+                    )
+                );
+            }
+
+            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
+
+            return 
+                make_unique<widget_details_type>(
+                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
+                );
         }
 
         /*!
@@ -1386,6 +1428,12 @@ namespace tetengo2 { namespace detail { namespace windows
             return singleton;
         }
 
+        static const std::wstring& picture_box_class_name()
+        {
+            static const std::wstring singleton = L"tetengo2_picturebox";
+            return singleton;
+        }
+
         static bool window_class_is_registered(
             const std::wstring& window_class_name,
             const ::HINSTANCE   instance_handle
@@ -1470,6 +1518,40 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error(
                         std::error_code(::GetLastError(), win32_category()),
                         "Can't register a window class for a dialog!"
+                    )
+                );
+            }
+        }
+
+        template <typename Widget>
+        static void register_window_class_for_picture_box(const ::HINSTANCE instance_handle)
+        {
+            ::WNDCLASSEXW window_class;
+            window_class.cbSize = sizeof(::WNDCLASSEXW);
+            window_class.style = 0;
+            window_class.lpfnWndProc = window_procedure<Widget>;
+            window_class.cbClsExtra = 0;
+            window_class.cbWndExtra = 0;
+            window_class.hInstance = instance_handle;
+            window_class.hIcon = NULL;
+            window_class.hIconSm = NULL;
+            window_class.hCursor =
+                reinterpret_cast< ::HICON>(
+                    ::LoadImageW(
+                        0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                    )
+                );
+            window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
+            window_class.lpszMenuName = NULL;
+            window_class.lpszClassName = picture_box_class_name().c_str();
+
+            const ::ATOM atom = ::RegisterClassExW(&window_class);
+            if (!atom)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't register a window class for a picture box!"
                     )
                 );
             }
