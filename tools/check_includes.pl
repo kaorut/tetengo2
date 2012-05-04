@@ -164,10 +164,8 @@ sub scan_source
 				$code_line =~ /(ATL::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 				$code_line =~ /(Gdiplus::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
 				$code_line =~ /(D2D1::[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
-				$code_line =~ /(I?D2D1[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
-				$code_line =~ /(DWRITE_[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
-				$code_line =~ /(I?Dwrite[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
-				$code_line =~ /(DXGI_[a-zA-Z0-9_\:]*[a-zA-Z0-9_])/ ||
+				$code_line =~ /(D2DERR_[A-Z0-9_]*)/ ||
+				$code_line =~ /(WINCODEC_[A-Z0-9_]*)/ ||
 				$code_line =~ /(VK_[A-Z0-9_]*)/ ||
 				$code_line =~ /(WINAPI)/
 			)

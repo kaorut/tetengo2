@@ -20,7 +20,6 @@
 
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
 #pragma warning (push)
@@ -31,12 +30,10 @@
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
-#include <d2d1.h>
+//#include <d2d1.h>
 #include <dwrite.h>
 #include <dxgiformat.h>
-#include <ObjBase.h>
-#include <Unknwn.h>
-#include <wincodec.h>
+//#include <Unknwn.h>
 
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.direct2d.error_category.h"

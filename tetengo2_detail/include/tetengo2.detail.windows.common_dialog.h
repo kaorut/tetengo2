@@ -34,7 +34,6 @@
 #include <ObjBase.h>
 #include <ShObjIdl.h>
 #include <ShTypes.h>
-#include <Unknwn.h>
 
 #include "tetengo2.cpp11.h"
 #include "tetengo2.detail.windows.com_ptr.h"

@@ -17,6 +17,7 @@
 //#include <system_error>
 //#include <type_traits>
 //#include <utility>
+//#include <vector>
 
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
@@ -34,7 +35,7 @@
 //#include <GdiPlus.h>
 //#undef min
 //#undef max
-#include <wincodec.h>
+//#include <wincodec.h>
 
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.error_category.h"

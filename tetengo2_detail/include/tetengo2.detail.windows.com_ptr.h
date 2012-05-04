@@ -11,9 +11,9 @@
 
 #include <memory>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
 #include <Unknwn.h>
 
 
