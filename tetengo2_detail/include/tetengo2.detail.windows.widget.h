@@ -140,9 +140,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return
-                make_unique<widget_details_type>(
-                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
-                );
+                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
         }
 
         /*!
@@ -198,9 +196,7 @@ namespace tetengo2 { namespace detail { namespace windows
             delete_system_menus(p_widget.get());
 
             return
-                make_unique<widget_details_type>(
-                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
-                );
+                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
         }
 
         /*!
@@ -399,7 +395,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
-                    parent ? std::get<0>(*parent->details()).get() : HWND_DESKTOP,
+                    std::get<0>(*parent.details()).get(),
                     NULL,
                     instance_handle,
                     NULL
@@ -414,12 +410,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            const ::WNDPROC p_original_window_procedure = replace_window_procedure<Widget>(p_widget.get());
-
             return 
-                make_unique<widget_details_type>(
-                    std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
-                );
+                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
         }
 
         /*!

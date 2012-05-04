@@ -962,6 +962,25 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Make a message handler map for a picture box.
+
+            \tparam TextBox A picture box type.
+
+            \param picture_box    A picture box.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename PictureBox>
+        static message_handler_map_type make_picture_box_message_handler_map(
+            PictureBox&                picture_box,
+            message_handler_map_type&& initial_map
+        )
+        {
+            return std::forward<message_handler_map_type>(initial_map);
+        }
+
+        /*!
             \brief Make a message handler map for a text box.
 
             \tparam TextBox A text box type.

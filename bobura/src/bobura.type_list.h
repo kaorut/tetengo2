@@ -912,6 +912,7 @@ namespace bobura
                 main_window<
                     boost::mpl::at<ui_type_list, type::ui::window>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
+                    boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
                     boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type,

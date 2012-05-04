@@ -9,10 +9,13 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
+#include <memory>
+
 #include <boost/mpl/at.hpp>
 #include <boost/optional.hpp>
 
 #include <tetengo2.cpp11.h>
+#include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 #include <tetengo2.unique.h>
 
@@ -26,6 +29,7 @@ namespace bobura
 
         \tparam Window                    A window type.
         \tparam MessageCatalog            A message catalog type.
+        \tparam PictureBox                A picture box type.
         \tparam Settings                  A settings type.
         \tparam ConfirmFileSave           A file save confirmation type.
         \tparam MessageLoopBreak          A message loop break type.
@@ -34,6 +38,7 @@ namespace bobura
     template <
         typename Window,
         typename MessageCatalog,
+        typename PictureBox,
         typename Settings,
         typename ConfirmFileSave,
         typename MessageLoopBreak,
@@ -52,6 +57,9 @@ namespace bobura
 
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
+
+        //! The picture box type.
+        typedef PictureBox picture_box_type;
 
         //! The settings type.
         typedef Settings settings_type;
@@ -83,6 +91,7 @@ namespace bobura
         :
         base_type(),
         m_message_catalog(message_catalog),
+        m_p_diagram_picture_box(),
         m_settings(settings),
         m_confirm_file_save(confirm_file_save)
         {
@@ -118,9 +127,26 @@ namespace bobura
 
 
     private:
+        // types
+
+        typedef typename main_window::dimension_type dimension_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
+
+        typedef typename main_window::position_type position_type;
+
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+
         // variables
 
         const message_catalog_type& m_message_catalog;
+
+        std::unique_ptr<picture_box_type> m_p_diagram_picture_box;
 
         const settings_type& m_settings;
 
@@ -131,9 +157,26 @@ namespace bobura
 
         void initialize_window()
         {
+            m_p_diagram_picture_box = make_diagram_picture_box();
+
+            locate_controls();
+
             set_message_observers();
 
             set_title(boost::none, false);
+        }
+
+        std::unique_ptr<picture_box_type> make_diagram_picture_box()
+        {
+            std::unique_ptr<picture_box_type> p_picture_box(tetengo2::make_unique<picture_box_type>(*this));
+
+            return std::move(p_picture_box);
+        }
+
+        void locate_controls()
+        {
+            m_p_diagram_picture_box->set_dimension(dimension_type(width_type(24), height_type(32)));
+            m_p_diagram_picture_box->set_position(position_type(left_type(0), top_type(0)));
         }
 
         void set_message_observers()
