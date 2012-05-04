@@ -55,6 +55,7 @@ sources = \
     test_tetengo2.gui.widget.image.cpp \
     test_tetengo2.gui.widget.label.cpp \
     test_tetengo2.gui.widget.link_label.cpp \
+    test_tetengo2.gui.widget.picture_box.cpp \
     test_tetengo2.gui.widget.text_box.cpp \
     test_tetengo2.gui.widget.widget.cpp \
     test_tetengo2.gui.widget.window.cpp

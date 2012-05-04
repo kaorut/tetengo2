@@ -57,13 +57,14 @@
 #include <tetengo2.gui.message.window_observer_set.h>
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.virtual_key.h>
+#include <tetengo2.gui.widget.abstract_window.h>
 #include <tetengo2.gui.widget.button.h>
 #include <tetengo2.gui.widget.dialog.h>
 #include <tetengo2.gui.widget.image.h>
 #include <tetengo2.gui.widget.label.h>
 #include <tetengo2.gui.widget.link_label.h>
+#include <tetengo2.gui.widget.picture_box.h>
 #include <tetengo2.gui.widget.text_box.h>
-#include <tetengo2.gui.widget.abstract_window.h>
 #include <tetengo2.gui.widget.traits.abstract_window_traits.h>
 #include <tetengo2.gui.widget.traits.button_traits.h>
 #include <tetengo2.gui.widget.traits.control_traits.h>
@@ -71,6 +72,7 @@
 #include <tetengo2.gui.widget.traits.image_traits.h>
 #include <tetengo2.gui.widget.traits.label_traits.h>
 #include <tetengo2.gui.widget.traits.link_label_traits.h>
+#include <tetengo2.gui.widget.traits.picture_box_traits.h>
 #include <tetengo2.gui.widget.traits.text_box_traits.h>
 #include <tetengo2.gui.widget.traits.widget_traits.h>
 #include <tetengo2.gui.widget.traits.window_traits.h>
@@ -373,6 +375,7 @@ namespace bobura
         struct dialog;         //!< The dialog type.
         struct label;          //!< The label type.
         struct link_label;     //!< The link label type.
+        struct picture_box;    //!< The picture box type.
         struct text_box;       //!< The text box type.
         struct image;          //!< The image type.
         struct button;         //!< The button type.
@@ -604,6 +607,14 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             button_type;
+        typedef tetengo2::gui::widget::traits::picture_box_traits<control_traits_type> picture_box_traits_type;
+        typedef
+            tetengo2::gui::widget::picture_box<
+                picture_box_traits_type,
+                boost::mpl::at<detail_type_list, type::detail::widget>::type,
+                boost::mpl::at<detail_type_list, type::detail::message_handler>::type
+            >
+            picture_box_type;
         typedef tetengo2::gui::widget::traits::text_box_traits<control_traits_type> text_box_traits_type;
         typedef
             tetengo2::gui::widget::text_box<
@@ -651,6 +662,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::link_label, detail::ui::link_label_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::image, detail::ui::image_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::button, detail::ui::button_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::picture_box, detail::ui::picture_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
         tetengo2::meta::assoc_list<
@@ -658,7 +670,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair< type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
