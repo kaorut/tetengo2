@@ -170,7 +170,7 @@ namespace bobura
 
         void locate_controls()
         {
-            m_p_diagram_picture_box->set_dimension(client_dimension());
+            m_p_diagram_picture_box->set_dimension(this->client_dimension());
             m_p_diagram_picture_box->set_position(position_type(left_type(0), top_type(0)));
         }
 
