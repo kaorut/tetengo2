@@ -130,12 +130,6 @@ namespace bobura
     private:
         // types
 
-        typedef typename main_window::dimension_type dimension_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
-
         typedef typename main_window::position_type position_type;
 
         typedef typename tetengo2::gui::position<position_type>::left_type left_type;
@@ -176,7 +170,7 @@ namespace bobura
 
         void locate_controls()
         {
-            m_p_diagram_picture_box->set_dimension(dimension_type(width_type(24), height_type(32)));
+            m_p_diagram_picture_box->set_dimension(client_dimension());
             m_p_diagram_picture_box->set_position(position_type(left_type(0), top_type(0)));
         }
 
