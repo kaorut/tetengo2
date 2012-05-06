@@ -176,8 +176,56 @@ namespace bobura { namespace message { namespace main_window
 
 
     /*!
-        \brief The class template for a window closing observer of the main
-               window.
+        \brief The class template for a window resized observer of the main window.
+
+        \tparam AbstractWindow An abstract window type.
+    */
+    template <typename AbstractWindow>
+    class window_resized
+    {
+    public:
+        // types
+
+        //! The abstract window type.
+        typedef AbstractWindow abstract_window_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a window resized observer of the main window.
+
+            \param window A window.
+        */
+        explicit window_resized(abstract_window_type& window)
+        :
+        m_window(window)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the main window is resized.
+        */
+        void operator()()
+        const
+        {
+
+        }
+
+
+    private:
+        // variables
+
+        abstract_window_type& m_window;
+
+
+    };
+
+
+    /*!
+        \brief The class template for a window closing observer of the main window.
 
         \tparam AbstractWindow  An abstract window type.
         \tparam ConfirmFileSave A file save confirmation type.

@@ -35,6 +35,12 @@ namespace bobura { namespace message
             //! The paint observer type.
             struct paint_paint;
 
+            //! The window resizing observer type.
+            struct window_resizing;
+
+            //! The window resized observer type.
+            struct window_resized;
+
             //! The window closing observer type.
             struct window_closing;
 

@@ -81,10 +81,11 @@ namespace bobura { namespace message
                     boost::mpl::pair<type::menu_selected, menu_selected<Command, Model, AbstractWindow>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::paint_paint, paint_paint<Canvas, Position, PictureReader>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::window_resized, window_resized<AbstractWindow>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::window_closing, window_closing<AbstractWindow, ConfirmFileSave>>,
                 tetengo2::meta::assoc_list_end
-                >>>
+                >>>>
                 type;
 
 
