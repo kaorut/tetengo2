@@ -98,5 +98,8 @@
     <ClCompile Include="test\test_bobura.load_save.new_file.cpp">
       <Filter>sources\test_bobura\load_save</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.message.diagram_picture_box.cpp">
+      <Filter>sources\test_bobura\message</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -129,6 +129,9 @@
     <ClInclude Include="src\bobura.detail_type_list.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.message.diagram_picture_box.h">
+      <Filter>headers\bobura\message</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">

@@ -88,33 +88,6 @@ BOOST_AUTO_TEST_SUITE(menu_selected)
 
 
 BOOST_AUTO_TEST_SUITE_END()
-BOOST_AUTO_TEST_SUITE(paint_paint)
-    // test cases
-
-    BOOST_AUTO_TEST_CASE(construction)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const bobura::message::main_window::paint_paint<canvas_type, position_type, picture_reader_type> paint(
-            boost::filesystem::path("image_path")
-        );
-    }
-
-    BOOST_AUTO_TEST_CASE(operator_paren)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const bobura::message::main_window::paint_paint<canvas_type, position_type, picture_reader_type> paint(
-            boost::filesystem::path("image_path")
-        );
-
-        const window_type window;
-        std::unique_ptr<canvas_type> p_canvas(window.create_canvas());
-        paint(*p_canvas);
-    }
-
-
-BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(window)
     // test cases
 
