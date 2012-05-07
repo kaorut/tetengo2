@@ -909,8 +909,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            assert(rectangle.right - rectangle.left > 0);
-            assert(rectangle.bottom - rectangle.top > 0);
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
             typedef gui::dimension<Dimension> dimension_traits_type;
             return
                 dimension_traits_type::make(

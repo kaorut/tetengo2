@@ -170,11 +170,6 @@ namespace bobura
         {
             this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
 
-            this->window_observer_set().resizing().connect(
-                typename boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::window_resized
-                >::type(*this, *m_p_diagram_picture_box)
-            );
             this->window_observer_set().resized().connect(
                 typename boost::mpl::at<
                     main_window_message_type_list_type, message::main_window::type::window_resized

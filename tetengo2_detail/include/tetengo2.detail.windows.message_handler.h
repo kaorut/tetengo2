@@ -318,21 +318,6 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename AbstractWindow>
-            boost::optional< ::LRESULT> on_resizing(
-                AbstractWindow& abstract_window,
-                const ::WPARAM  w_param,
-                const ::LPARAM  l_param
-            )
-            {
-                if (abstract_window.window_observer_set().resizing().empty())
-                    return boost::none;
-
-                abstract_window.window_observer_set().resizing()();
-
-                return boost::none;
-            }
-
-            template <typename AbstractWindow>
             boost::optional< ::LRESULT> on_resized(
                 AbstractWindow& abstract_window,
                 const ::WPARAM  w_param,
@@ -790,14 +775,6 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_INITMENUPOPUP].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::abstract_window::on_initmenupopup<AbstractWindow>,
-                    cpp11::ref(abstract_window),
-                    cpp11::placeholders_1(),
-                    cpp11::placeholders_2()
-                )
-            );
-            map[WM_SIZING].push_back(
-                TETENGO2_CPP11_BIND(
-                    detail::abstract_window::on_resizing<AbstractWindow>,
                     cpp11::ref(abstract_window),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
