@@ -59,6 +59,7 @@ namespace bobura { namespace message
             \tparam Canvas          A canvas type of the main window.
             \tparam Position        A position type.
             \tparam PictureReader   A picture reader type.
+            \tparam Control         A control type.
             \tparam ConfirmFileSave A file save confirmation type.
         */
         template <
@@ -68,6 +69,7 @@ namespace bobura { namespace message
             typename Canvas,
             typename Position,
             typename PictureReader,
+            typename Control,
             typename ConfirmFileSave
         >
         class type_list
@@ -81,7 +83,8 @@ namespace bobura { namespace message
                     boost::mpl::pair<type::menu_selected, menu_selected<Command, Model, AbstractWindow>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::paint_paint, paint_paint<Canvas, Position, PictureReader>>,
-                tetengo2::meta::assoc_list<boost::mpl::pair<type::window_resized, window_resized<AbstractWindow>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::window_resized, window_resized<AbstractWindow, Control>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::window_closing, window_closing<AbstractWindow, ConfirmFileSave>>,
                 tetengo2::meta::assoc_list_end

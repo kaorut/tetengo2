@@ -179,8 +179,9 @@ namespace bobura { namespace message { namespace main_window
         \brief The class template for a window resized observer of the main window.
 
         \tparam AbstractWindow An abstract window type.
+        \tparam Control        A control type.
     */
-    template <typename AbstractWindow>
+    template <typename AbstractWindow, typename Control>
     class window_resized
     {
     public:
@@ -189,17 +190,22 @@ namespace bobura { namespace message { namespace main_window
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
+        //! The control type.
+        typedef Control control_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a window resized observer of the main window.
 
-            \param window A window.
+            \param window              A window.
+            \param diagram_picture_box A diagram picture box.
         */
-        explicit window_resized(abstract_window_type& window)
+        window_resized(abstract_window_type& window, control_type& diagram_picture_box)
         :
-        m_window(window)
+        m_window(window),
+        m_diagram_picture_box(diagram_picture_box)
         {}
 
 
@@ -211,14 +217,26 @@ namespace bobura { namespace message { namespace main_window
         void operator()()
         const
         {
-
+            m_diagram_picture_box.set_position(position_type(left_type(0), top_type(0)));
+            m_diagram_picture_box.set_dimension(m_window.client_dimension());
         }
 
 
     private:
+        // types
+
+        typedef typename control_type::position_type position_type;
+
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+
         // variables
 
         abstract_window_type& m_window;
+
+        control_type& m_diagram_picture_box;
 
 
     };

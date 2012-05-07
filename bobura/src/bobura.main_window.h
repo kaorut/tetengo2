@@ -187,12 +187,12 @@ namespace bobura
             this->window_observer_set().resizing().connect(
                 typename boost::mpl::at<
                     main_window_message_type_list_type, message::main_window::type::window_resized
-                >::type(*this)
+                >::type(*this, *m_p_diagram_picture_box)
             );
             this->window_observer_set().resized().connect(
                 typename boost::mpl::at<
                     main_window_message_type_list_type, message::main_window::type::window_resized
-                >::type(*this)
+                >::type(*this, *m_p_diagram_picture_box)
             );
             this->window_observer_set().closing().connect(
                 typename boost::mpl::at<
