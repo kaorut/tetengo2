@@ -53,7 +53,7 @@ namespace bobura { namespace message { namespace main_window
             \param model   A model.
             \param parent  A parent window.
         */
-        explicit menu_selected(const command_type& command, model_type& model, abstract_window_type& parent)
+        menu_selected(const command_type& command, model_type& model, abstract_window_type& parent)
         :
         m_command(command),
         m_model(model),
