@@ -154,8 +154,6 @@ namespace bobura
         {
             m_p_diagram_picture_box = make_diagram_picture_box();
 
-            locate_controls();
-
             set_message_observers();
 
             set_title(boost::none, false);
@@ -168,21 +166,9 @@ namespace bobura
             return std::move(p_picture_box);
         }
 
-        void locate_controls()
-        {
-            m_p_diagram_picture_box->set_dimension(this->client_dimension());
-            m_p_diagram_picture_box->set_position(position_type(left_type(0), top_type(0)));
-        }
-
         void set_message_observers()
         {
             this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
-
-            this->paint_observer_set().paint().connect(
-                typename boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::paint_paint
-                >::type(m_settings.image_directory_path())
-            );
 
             this->window_observer_set().resizing().connect(
                 typename boost::mpl::at<
