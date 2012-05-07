@@ -271,7 +271,7 @@ namespace tetengo2 { namespace gui { namespace widget
         template <typename P>
         void set_position(const P& position)
         {
-            widget_details_type::template set_position<dimension_type>(*this, position);
+            widget_details_type::move(*this, position, dimension());
         }
 
         /*!
@@ -297,10 +297,7 @@ namespace tetengo2 { namespace gui { namespace widget
         template <typename D>
         void set_dimension(const D& dimension)
         {
-            if (gui::dimension<D>::width(dimension) == 0 || gui::dimension<D>::height(dimension) == 0)
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Dimension has zero value."));
-
-            widget_details_type::template set_dimension<position_type>(*this, dimension);
+            widget_details_type::move(*this, position(), dimension);
         }
 
         /*!

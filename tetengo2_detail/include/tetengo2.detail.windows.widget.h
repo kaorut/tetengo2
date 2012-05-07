@@ -619,28 +619,28 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Sets a position.
+            \brief Moves a widget.
 
-            \tparam Dimension A dimension type.
             \tparam Widget    A widget type.
             \tparam Position  A position type.
+            \tparam Dimension A dimension type.
 
-            \param widget   A widget.
-            \param position A position.
+            \param widget    A widget.
+            \param position  A position.
+            \param dimension A dimension.
 
             \throw std::system_error When the widget cannot be moved.
         */
-        template <typename Dimension, typename Widget, typename Position>
-        static void set_position(Widget& widget, const Position& position)
+        template <typename Widget, typename Position, typename Dimension>
+        static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            const Dimension dim = dimension<Dimension>(widget);
             const ::BOOL result =
                 ::MoveWindow(
                     std::get<0>(*widget.details()).get(),
                     gui::to_pixels<int>(gui::position<Position>::left(position)),
                     gui::to_pixels<int>(gui::position<Position>::top(position)),
-                    gui::to_pixels<int>(gui::dimension<Dimension>::width(dim)),
-                    gui::to_pixels<int>(gui::dimension<Dimension>::height(dim)),
+                    gui::to_pixels<int>(gui::dimension<Dimension>::width(dimension)),
+                    gui::to_pixels<int>(gui::dimension<Dimension>::height(dimension)),
                     visible(widget) ? TRUE : FALSE
                 );
             if (result == 0)
@@ -746,43 +746,6 @@ namespace tetengo2 { namespace detail { namespace windows
                     gui::to_unit<typename position_traits_type::left_type>(point.x),
                     gui::to_unit<typename position_traits_type::top_type>(point.y)
                 );
-        }
-
-        /*!
-            \brief Sets a dimension.
-
-            \tparam Position  A position type.
-            \tparam Widget    A widget type.
-            \tparam Dimension A dimension type.
-
-            \param widget   A widget.
-            \param dimension A dimension.
-
-            \throw std::system_error When the widget cannot be moved.
-        */
-        template <typename Position, typename Widget, typename Dimension>
-        static void set_dimension(Widget& widget, const Dimension& dimension)
-        {
-            assert(
-                gui::dimension<Dimension>::width(dimension) > 0 && gui::dimension<Dimension>::height(dimension) > 0
-            );
-
-            const Position pos = position<Position>(widget);
-            const ::BOOL result =
-                ::MoveWindow(
-                    std::get<0>(*widget.details()).get(),
-                    gui::to_pixels<int>(gui::position<Position>::left(pos)),
-                    gui::to_pixels<int>(gui::position<Position>::top(pos)),
-                    gui::to_pixels<int>(gui::dimension<Dimension>::width(dimension)),
-                    gui::to_pixels<int>(gui::dimension<Dimension>::height(dimension)),
-                    visible(widget) ? TRUE : FALSE
-                );
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't move widget.")
-                );
-            }
         }
 
         /*!
