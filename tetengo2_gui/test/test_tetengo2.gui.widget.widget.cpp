@@ -360,12 +360,38 @@ BOOST_AUTO_TEST_SUITE(widget)
     {
         BOOST_TEST_PASSPOINT();
 
+        {
+            concrete_widget widget;
+
+            widget.set_client_dimension(make_dimension(123, 456));
+
+            const dimension_type client_dimension = widget.client_dimension();
+            BOOST_CHECK(client_dimension == make_dimension(123, 456));
+        }
+        {
+            concrete_widget widget;
+
+            BOOST_CHECK_THROW(widget.set_client_dimension(make_dimension(0, 456)), std::invalid_argument);
+        }
+        {
+            concrete_widget widget;
+
+            BOOST_CHECK_THROW(widget.set_client_dimension(make_dimension(123, 0)), std::invalid_argument);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(set_position_and_dimension)
+    {
+        BOOST_TEST_PASSPOINT();
+
         concrete_widget widget;
 
-        widget.set_client_dimension(make_dimension(123, 456));
+        widget.set_position_and_dimension(make_position(123, 456), make_dimension(789, 012));
 
-        const dimension_type client_dimension = widget.client_dimension();
-        BOOST_CHECK(client_dimension == make_dimension(123, 456));
+        const position_type position = widget.position();
+        const dimension_type dimension = widget.dimension();
+        BOOST_CHECK(position == make_position(123, 456));
+        BOOST_CHECK(dimension == make_dimension(789, 012));
     }
 
     BOOST_AUTO_TEST_CASE(text)

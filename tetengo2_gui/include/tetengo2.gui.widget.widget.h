@@ -291,8 +291,6 @@ namespace tetengo2 { namespace gui { namespace widget
             \tparam D A dimension type.
 
             \param dimension A dimension.
-
-            \throw std::invalid_argument When either dimension.first or dimension.second is equal to 0.
         */
         template <typename D>
         void set_dimension(const D& dimension)
@@ -329,6 +327,21 @@ namespace tetengo2 { namespace gui { namespace widget
             widget_details_type::template set_client_dimension<position_type>(
                 *this, client_dimension
             );
+        }
+
+        /*!
+            \brief Sets a position and a dimension.
+
+            \tparam P A position type.
+            \tparam D A dimension type.
+
+            \param position  A position.
+            \param dimension A dimension.
+        */
+        template <typename P, typename D>
+        void set_position_and_dimension(const P& position, const D& dimension)
+        {
+            widget_details_type::move(*this, position, dimension);
         }
 
         /*!
