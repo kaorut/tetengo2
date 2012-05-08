@@ -30,6 +30,12 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         typedef Traits traits_type;
 
+        //! The fast draw widget canvas type.
+        typedef typename Traits::fast_draw_widget_canvas_type fast_draw_widget_canvas_type;
+
+        //! The fast draw canvas type.
+        typedef typename Traits::fast_draw_canvas_type fast_draw_canvas_type;
+
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 

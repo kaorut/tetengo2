@@ -411,6 +411,9 @@ namespace bobura
             tetengo2::gui::drawing::background<boost::mpl::at<detail_type_list, type::detail::drawing>::type>
             background_type;
         typedef
+            tetengo2::gui::drawing::background<boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type>
+            fast_draw_background_type;
+        typedef
             tetengo2::gui::drawing::transparent_background<
                 boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
@@ -423,10 +426,22 @@ namespace bobura
             >
             font_type;
         typedef
+            tetengo2::gui::drawing::font<
+                boost::mpl::at<common_type_list, type::string>::type,
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+            >
+            fast_draw_font_type;
+        typedef
             tetengo2::gui::drawing::picture<
                 unit_size_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             picture_type;
+        typedef
+            tetengo2::gui::drawing::picture<
+                unit_size_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+            >
+            fast_draw_picture_type;
         typedef
             tetengo2::gui::drawing::picture_reader<
                 picture_type,
@@ -447,6 +462,18 @@ namespace bobura
             >
             widget_canvas_type;
         typedef widget_canvas_type::base_type canvas_type;
+        typedef
+            tetengo2::gui::drawing::widget_canvas<
+                boost::mpl::at<common_type_list, type::size>::type,
+                boost::mpl::at<common_type_list, type::string>::type,
+                dimension_type,
+                boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                fast_draw_background_type,
+                fast_draw_font_type,
+                fast_draw_picture_type,
+                boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+            >
+            fast_draw_widget_canvas_type;
         typedef
             tetengo2::gui::alert<
                 boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
@@ -616,7 +643,9 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             button_type;
-        typedef tetengo2::gui::widget::traits::picture_box_traits<control_traits_type> picture_box_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::picture_box_traits<control_traits_type, fast_draw_widget_canvas_type>
+            picture_box_traits_type;
         typedef
             tetengo2::gui::widget::picture_box<
                 picture_box_traits_type,

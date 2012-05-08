@@ -561,7 +561,12 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<drawing_type_list, type::drawing::system_color_set>::type
             >
             link_label_traits_type;
-        typedef tetengo2::gui::widget::traits::picture_box_traits<control_traits_type> picture_box_traits_type;
+        typedef
+            tetengo2::gui::widget::traits::picture_box_traits<
+                control_traits_type,
+                boost::mpl::at<drawing_type_list, type::drawing::widget_canvas>::type
+            >
+            picture_box_traits_type;
         typedef tetengo2::gui::widget::traits::text_box_traits<control_traits_type> text_box_traits_type;
     }}
 #endif
