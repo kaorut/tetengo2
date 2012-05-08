@@ -36,6 +36,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The fast draw canvas type.
         typedef typename Traits::fast_draw_canvas_type fast_draw_canvas_type;
 
+        //! The fast paint observer set type.
+        typedef typename traits_type::fast_paint_observer_set_type fast_paint_observer_set_type;
+
         //! The detail implementation type of a widget.
         typedef WidgetDetails widget_details_type;
 
@@ -71,10 +74,11 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(
             message_handler_details_type::make_picture_box_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_picture_box(parent)
-        )
+        ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+        m_fast_paint_observer_set()
         {
             initialize(this);
         }
@@ -86,10 +90,39 @@ namespace tetengo2 { namespace gui { namespace widget
         {}
 
 
+        // functions
+
+        /*!
+            \brief Returns the fast paint observer set.
+
+            \return The fast paint observer set.
+        */
+        const fast_paint_observer_set_type& fast_paint_observer_set()
+        const
+        {
+            return m_fast_paint_observer_set;
+        }
+
+        /*!
+            \brief Returns the fast paint observer set.
+
+            \return The fast paint observer set.
+        */
+        fast_paint_observer_set_type& fast_paint_observer_set()
+        {
+            return m_fast_paint_observer_set;
+        }
+
+
     private:
         // types
 
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+
+
+        // variables
+
+        fast_paint_observer_set_type m_fast_paint_observer_set;
 
 
     };
