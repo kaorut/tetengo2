@@ -185,7 +185,7 @@ namespace bobura
             );
             this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
 
-            m_p_diagram_picture_box->paint_observer_set().paint().connect(
+            m_p_diagram_picture_box->fast_paint_observer_set().paint().connect(
                 typename boost::mpl::at<
                     diagram_picture_box_type_list_type, message::diagram_picture_box::type::paint_paint
                 >::type(m_settings.image_directory_path())

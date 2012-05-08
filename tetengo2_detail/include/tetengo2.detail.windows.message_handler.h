@@ -568,6 +568,42 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
 
+        namespace picture_box
+        {
+            template <typename PictureBox>
+            boost::optional< ::LRESULT> on_erase_background(
+                PictureBox&    picture_box,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                if (picture_box.fast_paint_observer_set().paint().empty())
+                    return boost::none;
+
+                return boost::make_optional< ::LRESULT>(TRUE);
+            }
+
+            template <typename PictureBox>
+            boost::optional< ::LRESULT> on_paint(
+                PictureBox&    picture_box,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                if (picture_box.fast_paint_observer_set().paint().empty())
+                    return boost::none;
+
+                typename PictureBox::fast_widget_canvas_type canvas(*picture_box.details());
+
+                picture_box.fast_paint_observer_set().paint()(canvas);
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+
+        }
+
+
     }
 #endif
 
@@ -1000,7 +1036,26 @@ namespace tetengo2 { namespace detail { namespace windows
             message_handler_map_type&& initial_map
         )
         {
-            return std::forward<message_handler_map_type>(initial_map);
+            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+
+            map[WM_ERASEBKGND].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::picture_box::on_erase_background<PictureBox>,
+                    cpp11::ref(picture_box),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_PAINT].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::picture_box::on_paint<PictureBox>,
+                    cpp11::ref(picture_box),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+
+            return map;
         }
 
         /*!

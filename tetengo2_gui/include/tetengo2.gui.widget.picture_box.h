@@ -30,11 +30,11 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The traits type.
         typedef Traits traits_type;
 
-        //! The fast draw widget canvas type.
-        typedef typename Traits::fast_draw_widget_canvas_type fast_draw_widget_canvas_type;
+        //! The fast widget canvas type.
+        typedef typename Traits::fast_widget_canvas_type fast_widget_canvas_type;
 
-        //! The fast draw canvas type.
-        typedef typename Traits::fast_draw_canvas_type fast_draw_canvas_type;
+        //! The fast canvas type.
+        typedef typename Traits::fast_canvas_type fast_canvas_type;
 
         //! The fast paint observer set type.
         typedef typename traits_type::fast_paint_observer_set_type fast_paint_observer_set_type;

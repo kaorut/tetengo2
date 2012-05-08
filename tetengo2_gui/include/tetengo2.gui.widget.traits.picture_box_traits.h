@@ -16,10 +16,10 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         \brief The traits class template for a picture box.
 
         \tparam ControlTraits        A traits type for a control.
-        \tparam FastDrawWidgetCanvas A fast draw widget canvas type.
+        \tparam FastWidgetCanvas     A fast widget canvas type.
         \tparam FastPaintObserverSet A fast paint observer set type.
    */
-    template <typename ControlTraits, typename FastDrawWidgetCanvas, typename FastPaintObserverSet>
+    template <typename ControlTraits, typename FastWidgetCanvas, typename FastPaintObserverSet>
     struct picture_box_traits
     {
         //types
@@ -27,11 +27,11 @@ namespace tetengo2 { namespace gui { namespace widget { namespace traits
         //! The base type.
         typedef ControlTraits base_type;
 
-        //! The fast draw widget canvas type.
-        typedef FastDrawWidgetCanvas fast_draw_widget_canvas_type;
+        //! The fast widget canvas type.
+        typedef FastWidgetCanvas fast_widget_canvas_type;
 
-        //! The fast draw canvas type.
-        typedef typename fast_draw_widget_canvas_type::base_type fast_draw_canvas_type;
+        //! The fast canvas type.
+        typedef typename fast_widget_canvas_type::base_type fast_canvas_type;
 
         //! The fast paint observer set type.
         typedef FastPaintObserverSet fast_paint_observer_set_type;

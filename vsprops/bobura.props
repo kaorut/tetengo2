@@ -8,7 +8,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)bobura_model\include;$(SolutionDir)tetengo2\include;$(SolutionDir)tetengo2_detail\include;$(SolutionDir)tetengo2_gui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>comctl32.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;gdiplus.lib;d2d1.lib;dwrite.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>cscript "$(SolutionDir)\tools\copy_boost_dlls.js" "$(SolutionDir)" $(ConfigurationName) $(PlatformName)

@@ -74,11 +74,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void operator()(canvas_type& canvas)
         const
         {
-            //picture_reader_type reader(
-            //    m_image_directory_path / typename path_type::string_type(TETENGO2_TEXT("kumakuma.jpg"))
-            //);
-            //const std::unique_ptr<typename canvas_type::picture_type> p_pic2(reader.read());
-            //canvas.paint_picture(*p_pic2, position_type(left_type(0), top_type(0)));
+            picture_reader_type reader(
+                m_image_directory_path / typename path_type::string_type(TETENGO2_TEXT("kumakuma.jpg"))
+            );
+            const std::unique_ptr<typename canvas_type::picture_type> p_pic2(reader.read());
+            canvas.paint_picture(*p_pic2, position_type(left_type(0), top_type(0)));
 
             const font_type& dialog_font = font_type::dialog_font();
             canvas.draw_text(dialog_font.family(), position_type(left_type(2), top_type(2)));
