@@ -140,9 +140,7 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             return
-                make_unique<widget_details_type>(
-                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
-                );
+                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
         }
 
         /*!
@@ -172,8 +170,7 @@ namespace tetengo2 { namespace detail { namespace windows
             if (!window_class_is_registered(dialog_class_name(), instance_handle))
                 register_window_class_for_dialog<Widget>(instance_handle);
 
-            typename std::tuple_element<0, widget_details_type>::type
-            p_widget(
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CONTEXTHELP | WS_EX_DLGMODALFRAME,
                     dialog_class_name().c_str(),
@@ -199,9 +196,7 @@ namespace tetengo2 { namespace detail { namespace windows
             delete_system_menus(p_widget.get());
 
             return
-                make_unique<widget_details_type>(
-                    std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL)
-                );
+                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
         }
 
         /*!
@@ -361,6 +356,62 @@ namespace tetengo2 { namespace detail { namespace windows
                 make_unique<widget_details_type>(
                     std::move(p_widget), p_original_window_procedure, static_cast< ::HWND>(NULL)
                 );
+        }
+
+        /*!
+            \brief Creates a picture box.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget.
+
+            \return A unique pointer to a picture box.
+
+            \throw std::system_error When a picture box cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_picture_box(Widget& parent)
+        {
+            const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
+            if (!instance_handle)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't get the instance handle!"
+                    )
+                );
+            }
+
+            if (!window_class_is_registered(picture_box_class_name(), instance_handle))
+                register_window_class_for_picture_box<Widget>(instance_handle);
+
+            typename std::tuple_element<0, widget_details_type>::type p_widget(
+                ::CreateWindowExW(
+                    WS_EX_CLIENTEDGE,
+                    picture_box_class_name().c_str(),
+                    L"",
+                    WS_CHILD | WS_TABSTOP | WS_VISIBLE,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    std::get<0>(*parent.details()).get(),
+                    NULL,
+                    instance_handle,
+                    NULL
+                )
+            );
+            if (!p_widget)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't create a picture box!"
+                    )
+                );
+            }
+
+            return 
+                make_unique<widget_details_type>(std::move(p_widget), &::DefWindowProcW, static_cast< ::HWND>(NULL));
         }
 
         /*!
@@ -568,28 +619,28 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
-            \brief Sets a position.
+            \brief Moves a widget.
 
-            \tparam Dimension A dimension type.
             \tparam Widget    A widget type.
             \tparam Position  A position type.
+            \tparam Dimension A dimension type.
 
-            \param widget   A widget.
-            \param position A position.
+            \param widget    A widget.
+            \param position  A position.
+            \param dimension A dimension.
 
             \throw std::system_error When the widget cannot be moved.
         */
-        template <typename Dimension, typename Widget, typename Position>
-        static void set_position(Widget& widget, const Position& position)
+        template <typename Widget, typename Position, typename Dimension>
+        static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
-            const Dimension dim = dimension<Dimension>(widget);
             const ::BOOL result =
                 ::MoveWindow(
                     std::get<0>(*widget.details()).get(),
                     gui::to_pixels<int>(gui::position<Position>::left(position)),
                     gui::to_pixels<int>(gui::position<Position>::top(position)),
-                    gui::to_pixels<int>(gui::dimension<Dimension>::width(dim)),
-                    gui::to_pixels<int>(gui::dimension<Dimension>::height(dim)),
+                    gui::to_pixels<int>(gui::dimension<Dimension>::width(dimension)),
+                    gui::to_pixels<int>(gui::dimension<Dimension>::height(dimension)),
                     visible(widget) ? TRUE : FALSE
                 );
             if (result == 0)
@@ -695,43 +746,6 @@ namespace tetengo2 { namespace detail { namespace windows
                     gui::to_unit<typename position_traits_type::left_type>(point.x),
                     gui::to_unit<typename position_traits_type::top_type>(point.y)
                 );
-        }
-
-        /*!
-            \brief Sets a dimension.
-
-            \tparam Position  A position type.
-            \tparam Widget    A widget type.
-            \tparam Dimension A dimension type.
-
-            \param widget   A widget.
-            \param dimension A dimension.
-
-            \throw std::system_error When the widget cannot be moved.
-        */
-        template <typename Position, typename Widget, typename Dimension>
-        static void set_dimension(Widget& widget, const Dimension& dimension)
-        {
-            assert(
-                gui::dimension<Dimension>::width(dimension) > 0 && gui::dimension<Dimension>::height(dimension) > 0
-            );
-
-            const Position pos = position<Position>(widget);
-            const ::BOOL result =
-                ::MoveWindow(
-                    std::get<0>(*widget.details()).get(),
-                    gui::to_pixels<int>(gui::position<Position>::left(pos)),
-                    gui::to_pixels<int>(gui::position<Position>::top(pos)),
-                    gui::to_pixels<int>(gui::dimension<Dimension>::width(dimension)),
-                    gui::to_pixels<int>(gui::dimension<Dimension>::height(dimension)),
-                    visible(widget) ? TRUE : FALSE
-                );
-            if (result == 0)
-            {
-                BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't move widget.")
-                );
-            }
         }
 
         /*!
@@ -858,8 +872,8 @@ namespace tetengo2 { namespace detail { namespace windows
                 );
             }
 
-            assert(rectangle.right - rectangle.left > 0);
-            assert(rectangle.bottom - rectangle.top > 0);
+            assert(rectangle.right - rectangle.left >= 0);
+            assert(rectangle.bottom - rectangle.top >= 0);
             typedef gui::dimension<Dimension> dimension_traits_type;
             return
                 dimension_traits_type::make(
@@ -1369,6 +1383,12 @@ namespace tetengo2 { namespace detail { namespace windows
             return singleton;
         }
 
+        static const std::wstring& picture_box_class_name()
+        {
+            static const std::wstring singleton = L"tetengo2_picturebox";
+            return singleton;
+        }
+
         static bool window_class_is_registered(
             const std::wstring& window_class_name,
             const ::HINSTANCE   instance_handle
@@ -1453,6 +1473,40 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error(
                         std::error_code(::GetLastError(), win32_category()),
                         "Can't register a window class for a dialog!"
+                    )
+                );
+            }
+        }
+
+        template <typename Widget>
+        static void register_window_class_for_picture_box(const ::HINSTANCE instance_handle)
+        {
+            ::WNDCLASSEXW window_class;
+            window_class.cbSize = sizeof(::WNDCLASSEXW);
+            window_class.style = 0;
+            window_class.lpfnWndProc = window_procedure<Widget>;
+            window_class.cbClsExtra = 0;
+            window_class.cbWndExtra = 0;
+            window_class.hInstance = instance_handle;
+            window_class.hIcon = NULL;
+            window_class.hIconSm = NULL;
+            window_class.hCursor =
+                reinterpret_cast< ::HICON>(
+                    ::LoadImageW(
+                        0, MAKEINTRESOURCEW(OCR_NORMAL), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED | LR_VGACOLOR
+                    )
+                );
+            window_class.hbrBackground = reinterpret_cast< ::HBRUSH>(::GetSysColorBrush(COLOR_WINDOW));
+            window_class.lpszMenuName = NULL;
+            window_class.lpszClassName = picture_box_class_name().c_str();
+
+            const ::ATOM atom = ::RegisterClassExW(&window_class);
+            if (!atom)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()),
+                        "Can't register a window class for a picture box!"
                     )
                 );
             }

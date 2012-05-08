@@ -318,6 +318,21 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename AbstractWindow>
+            boost::optional< ::LRESULT> on_resized(
+                AbstractWindow& abstract_window,
+                const ::WPARAM  w_param,
+                const ::LPARAM  l_param
+            )
+            {
+                if (abstract_window.window_observer_set().resized().empty())
+                    return boost::none;
+
+                abstract_window.window_observer_set().resized()();
+
+                return boost::none;
+            }
+
+            template <typename AbstractWindow>
             boost::optional< ::LRESULT> on_close(
                 AbstractWindow& abstract_window,
                 const ::WPARAM  w_param,
@@ -553,6 +568,42 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
 
+        namespace picture_box
+        {
+            template <typename PictureBox>
+            boost::optional< ::LRESULT> on_erase_background(
+                PictureBox&    picture_box,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                if (picture_box.fast_paint_observer_set().paint().empty())
+                    return boost::none;
+
+                return boost::make_optional< ::LRESULT>(TRUE);
+            }
+
+            template <typename PictureBox>
+            boost::optional< ::LRESULT> on_paint(
+                PictureBox&    picture_box,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                if (picture_box.fast_paint_observer_set().paint().empty())
+                    return boost::none;
+
+                typename PictureBox::fast_widget_canvas_type canvas(*picture_box.details());
+
+                picture_box.fast_paint_observer_set().paint()(canvas);
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+
+        }
+
+
     }
 #endif
 
@@ -765,6 +816,14 @@ namespace tetengo2 { namespace detail { namespace windows
                     cpp11::placeholders_2()
                 )
             );
+            map[WM_SIZE].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::abstract_window::on_resized<AbstractWindow>,
+                    cpp11::ref(abstract_window),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
             map[WM_CLOSE].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::abstract_window::on_close<AbstractWindow>,
@@ -959,6 +1018,44 @@ namespace tetengo2 { namespace detail { namespace windows
         )
         {
             return std::forward<message_handler_map_type>(initial_map);
+        }
+
+        /*!
+            \brief Make a message handler map for a picture box.
+
+            \tparam TextBox A picture box type.
+
+            \param picture_box    A picture box.
+            \param initial_map An initial message handler map.
+
+            \return A message handler map.
+        */
+        template <typename PictureBox>
+        static message_handler_map_type make_picture_box_message_handler_map(
+            PictureBox&                picture_box,
+            message_handler_map_type&& initial_map
+        )
+        {
+            message_handler_map_type map(std::forward<message_handler_map_type>(initial_map));
+
+            map[WM_ERASEBKGND].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::picture_box::on_erase_background<PictureBox>,
+                    cpp11::ref(picture_box),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_PAINT].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::picture_box::on_paint<PictureBox>,
+                    cpp11::ref(picture_box),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+
+            return map;
         }
 
         /*!

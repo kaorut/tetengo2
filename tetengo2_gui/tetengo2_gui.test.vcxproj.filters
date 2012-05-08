@@ -200,5 +200,8 @@
     <ClCompile Include="test\test_tetengo2.gui.common_dialog.file_save.cpp">
       <Filter>sources\test_tetengo2::gui\common_dialog</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.widget.picture_box.cpp">
+      <Filter>sources\test_tetengo2::gui\widget</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

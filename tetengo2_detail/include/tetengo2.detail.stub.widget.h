@@ -173,6 +173,23 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Creates a picture box.
+
+            \tparam Widget A widget type.
+
+            \param parent A parent widget.
+
+            \return A unique pointer to a picture box.
+
+            \throw std::system_error When a picture box cannot be created.
+        */
+        template <typename Widget>
+        static widget_details_ptr_type create_picture_box(Widget& parent)
+        {
+            return create_details<Widget>(&parent);
+        }
+
+        /*!
             \brief Creates a text box.
 
             \tparam Widget A widget type.
@@ -318,25 +335,32 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
-            \brief Sets a position.
+            \brief Moves a widget.
 
-            \tparam Dimension A dimension type.
             \tparam Widget    A widget type.
             \tparam Position  A position type.
+            \tparam Dimension A dimension type.
 
-            \param widget   A widget.
-            \param position A position.
+            \param widget    A widget.
+            \param position  A position.
+            \param dimension A dimension.
 
             \throw std::system_error When the widget cannot be moved.
         */
-        template <typename Dimension, typename Widget, typename Position>
-        static void set_position(Widget& widget, const Position& position)
+        template <typename Widget, typename Position, typename Dimension>
+        static void move(Widget& widget, const Position& position, const Dimension& dimension)
         {
             typedef gui::position<Position> position_traits_type;
+            typedef gui::dimension<Dimension> dimension_traits_type;
             std::get<details_position>(*widget.details()) =
                 std::make_pair(
                     gui::to_pixels<std::size_t>(position_traits_type::left(position)),
                     gui::to_pixels<std::size_t>(position_traits_type::top(position))
+                );
+            std::get<details_dimension>(*widget.details()) =
+                std::make_pair(
+                    gui::to_pixels<std::size_t>(dimension_traits_type::width(dimension)),
+                    gui::to_pixels<std::size_t>(dimension_traits_type::height(dimension))
                 );
         }
 
@@ -385,29 +409,6 @@ namespace tetengo2 { namespace detail { namespace stub
         static Position dialog_position(const Widget& widget, const ParentWidget& parent)
         {
             return position<Position>(parent);
-        }
-
-        /*!
-            \brief Sets a dimension.
-
-            \tparam Position  A position type.
-            \tparam Widget    A widget type.
-            \tparam Dimension A dimension type.
-
-            \param widget   A widget.
-            \param dimension A dimension.
-
-            \throw std::system_error When the widget cannot be moved.
-        */
-        template <typename Position, typename Widget, typename Dimension>
-        static void set_dimension(Widget& widget, const Dimension& dimension)
-        {
-            typedef gui::dimension<Dimension> dimension_traits_type;
-            std::get<details_dimension>(*widget.details()) =
-                std::make_pair(
-                    gui::to_pixels<std::size_t>(dimension_traits_type::width(dimension)),
-                    gui::to_pixels<std::size_t>(dimension_traits_type::height(dimension))
-                );
         }
 
         /*!

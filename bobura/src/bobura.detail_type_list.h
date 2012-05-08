@@ -17,6 +17,7 @@
 #   include <tetengo2.detail.windows.alert.h>
 #   include <tetengo2.detail.windows.common_dialog.h>
 #   include <tetengo2.detail.windows.cursor.h>
+#   include <tetengo2.detail.windows.direct2d.drawing.h>
 #   include <tetengo2.detail.windows.encoding.h>
 #   include <tetengo2.detail.windows.gdiplus.drawing.h>
 #   include <tetengo2.detail.windows.gdiplus.gui_fixture.h>
@@ -55,6 +56,7 @@ namespace bobura
         struct common_dialog;  //!< The detail implementation type of the common dialogs.
         struct cursor;         //!< The detail implementation type of the cursor.
         struct drawing;        //!< The detail implementation type of the drawing.
+        struct fast_drawing;   //!< The detail implementation type of the fast drawing.
         struct encoding;       //!< The detail implementation type of the encoding.
         struct gui_fixture;    //!< The detail implementation type of the GUI fixture.
         struct menu;           //!< The detail implementation type of the menu.
@@ -74,6 +76,7 @@ namespace bobura
         typedef tetengo2::detail::windows::common_dialog common_dialog_type;
         typedef tetengo2::detail::windows::cursor cursor_type;
         typedef tetengo2::detail::windows::gdiplus::drawing drawing_type;
+        typedef tetengo2::detail::windows::direct2d::drawing fast_drawing_type;
         typedef tetengo2::detail::windows::encoding encoding_type;
         typedef
             std::tuple<tetengo2::detail::windows::gui_fixture, tetengo2::detail::windows::gdiplus::gui_fixture>
@@ -90,6 +93,7 @@ namespace bobura
         typedef tetengo2::detail::stub::common_dialog common_dialog_type;
         typedef tetengo2::detail::stub::cursor cursor_type;
         typedef tetengo2::detail::stub::drawing drawing_type;
+        typedef tetengo2::detail::stub::drawing fast_drawing_type;
         typedef tetengo2::detail::stub::encoding encoding_type;
         typedef std::tuple<tetengo2::detail::stub::gui_fixture> gui_fixture_type;
         typedef tetengo2::detail::stub::menu menu_type;
@@ -109,6 +113,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::common_dialog, detail::detail::common_dialog_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::cursor, detail::detail::cursor_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::drawing, detail::detail::drawing_type>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::fast_drawing, detail::detail::fast_drawing_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::encoding, detail::detail::encoding_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::gui_fixture, detail::detail::gui_fixture_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::menu, detail::detail::menu_type>,
@@ -120,7 +125,7 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::virtual_key, detail::detail::virtual_key_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::detail::widget, detail::detail::widget_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>
+        >>>>>>>>>>>>>>
         detail_type_list;
 
 

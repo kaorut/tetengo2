@@ -22,6 +22,7 @@ extra_headers = \
     bobura.load_save.save_to_file.h \
     bobura.main_window.h \
     bobura.message.about_dialog.h \
+    bobura.message.diagram_picture_box.h \
     bobura.message.file_property_dialog_dialog.h \
     bobura.message.main_window.h \
     bobura.message.timetable_model.h \

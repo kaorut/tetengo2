@@ -10,18 +10,17 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_DIRECT2D_ERRORCATEGORY_H)
 #define TETENGO2_DETAIL_WINDOWS_DIRECT2D_ERRORCATEGORY_H
 
-#include <cassert>
-#include <string>
-#include <system_error>
+//#include <string>
+//#include <system_error>
 
 #pragma warning (push)
 #pragma warning (disable: 4005)
 #include <intsafe.h>
 #include <stdint.h>
 #pragma warning(pop)
-#define NOMINMAX
-#define OEMRESOURCE
-#include <Windows.h>
+//#define NOMINMAX
+//#define OEMRESOURCE
+//#include <Windows.h>
 #include <d2d1.h>
 
 #include "tetengo2.detail.windows.error_category.h"
@@ -75,6 +74,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         virtual std::string message(const value_type error_value)
         const
         {
+            if (error_value == D2DERR_INSUFFICIENT_BUFFER)
+                return "The supplied buffer is too small to accommodate the data.";
+
             switch (error_value)
             {
             case D2DERR_BAD_NUMBER:
@@ -87,8 +89,6 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 return "The requested size is larger than the guaranteed supported texture size.";
             case D2DERR_INCOMPATIBLE_BRUSH_TYPES:
                 return "The brush types are incompatible for the call.";
-            case D2DERR_INSUFFICIENT_BUFFER:
-                return "The supplied buffer is too small to accommodate the data.";
             case D2DERR_INTERNAL_ERROR:
                 return "The application should close this instance of Direct2D and restart it as a new process.";
             case D2DERR_INVALID_CALL:

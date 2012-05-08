@@ -20,7 +20,6 @@
 
 //#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
-#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
 #pragma warning (push)
@@ -31,12 +30,10 @@
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
-#include <d2d1.h>
+//#include <d2d1.h>
 #include <dwrite.h>
 #include <dxgiformat.h>
-#include <ObjBase.h>
-#include <Unknwn.h>
-#include <wincodec.h>
+//#include <Unknwn.h>
 
 #include "tetengo2.detail.windows.com_ptr.h"
 #include "tetengo2.detail.windows.direct2d.error_category.h"
@@ -73,7 +70,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         };
 
         class background_details : boost::noncopyable
-        {};
+        {
+        public:
+            virtual ~background_details()
+            {}
+        
+
+        };
 
         class solid_background_details : public background_details
         {
@@ -203,7 +206,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, direct2d_cateogory()), "Can't create HWND render target.")
+                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create HWND render target.")
                 );
             }
             std::unique_ptr< ::ID2D1HwndRenderTarget, detail::release_render_target> p_render_target(rp_render_target);
@@ -478,7 +481,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(create_bitmap_hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(create_bitmap_hr, direct2d_cateogory()), "Can't create bitmap.")
+                    std::system_error(std::error_code(create_bitmap_hr, direct2d_category()), "Can't create bitmap.")
                 );
             }
             const typename unique_com_ptr< ::ID2D1Bitmap>::type p_bitmap(rp_bitmap);
@@ -490,9 +493,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
     private:
         // types
 
-        typedef typename unique_com_ptr< ::ID2D1Factory>::type direct2d_factory_ptr_type;
+        typedef unique_com_ptr< ::ID2D1Factory>::type direct2d_factory_ptr_type;
 
-        typedef typename unique_com_ptr< ::IDWriteFactory>::type direct_write_factory_ptr_type;
+        typedef unique_com_ptr< ::IDWriteFactory>::type direct_write_factory_ptr_type;
 
 
         // static functions
@@ -510,7 +513,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, direct2d_cateogory()), "Can't create Direct2D factory.")
+                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create Direct2D factory.")
                 );
             }
 
@@ -558,7 +561,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 );
         }
 
-        static typename unique_com_ptr< ::ID2D1Brush>::type create_brush(
+        static unique_com_ptr< ::ID2D1Brush>::type create_brush(
             canvas_details_type&           canvas,
             const background_details_type& background_details
         )
@@ -580,17 +583,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 if (FAILED(hr))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(std::error_code(hr, direct2d_cateogory()), "Can't create solid color brush.")
+                        std::system_error(std::error_code(hr, direct2d_category()), "Can't create solid color brush.")
                     );
                 }
-                return typename unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
+                return unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
             }
 
             BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid background details type."));
         }
 
         template <typename String, typename Font, typename Encoder>
-        static typename unique_com_ptr< ::IDWriteTextLayout>::type create_text_layout(
+        static unique_com_ptr< ::IDWriteTextLayout>::type create_text_layout(
             const String&       text,
             const Font&         font,
             const Encoder&      encoder
