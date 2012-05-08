@@ -9,11 +9,6 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOW_H)
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
-//#include <cstddef>
-#include <memory>
-//#include <type_traits>
-//#include <utility>
-
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 
