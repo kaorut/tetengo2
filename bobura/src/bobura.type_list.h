@@ -908,7 +908,14 @@ namespace bobura
                 boost::mpl::at<ui_type_list, type::ui::control>::type,
                 boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
             >::type
-            message_type_list;
+            main_window_message_type_list;
+        typedef
+            message::diagram_picture_box::type_list<
+                boost::mpl::at<ui_type_list, type::ui::canvas>::type,
+                boost::mpl::at<ui_type_list, type::ui::position>::type,
+                boost::mpl::at<ui_type_list, type::ui::picture_reader>::type
+            >::type
+            diagram_picture_box_type_list;
     }}
 #endif
 
@@ -924,11 +931,12 @@ namespace bobura
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
                     boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type,
-                    detail::main_window::message_type_list
+                    detail::main_window::main_window_message_type_list,
+                    detail::main_window::diagram_picture_box_type_list
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::main_window::message_type_list, detail::main_window::message_type_list>,
+            boost::mpl::pair<type::main_window::message_type_list, detail::main_window::main_window_message_type_list>,
         tetengo2::meta::assoc_list_end
         >>
         main_window_type_list;

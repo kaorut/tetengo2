@@ -14,6 +14,7 @@
 #include <tetengo2.meta.assoc_list.h>
 
 #include "bobura.message.about_dialog.h"
+#include "bobura.message.diagram_picture_box.h"
 #include "bobura.message.file_property_dialog.h"
 #include "bobura.message.main_window.h"
 #include "bobura.message.timetable_model.h"
@@ -84,6 +85,31 @@ namespace bobura { namespace message
                 type;
 
 
+        };
+    }
+
+    namespace diagram_picture_box
+    {
+        /*!
+            \brief The meta function for the type list of the dialog picture box messages.
+
+            \tparam Canvas        A canvas type.
+            \tparam Position      A position type.
+            \tparam PictureReader A picture reader type.
+        */
+        template <typename Canvas, typename Position, typename PictureReader>
+        class type_list
+        {
+        public:
+            // types
+
+            //! The type list for the diagram picture box.
+            typedef
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::paint_paint, paint_paint<Canvas, Position, PictureReader>>,
+                tetengo2::meta::assoc_list_end
+                >
+                type;
         };
     }
 

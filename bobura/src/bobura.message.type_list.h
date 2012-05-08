@@ -32,14 +32,21 @@ namespace bobura { namespace message
             //! The menu selection observer type.
             struct menu_selected;
 
-            //! The paint observer type.
-            struct paint_paint;
-
             //! The window resized observer type.
             struct window_resized;
 
             //! The window closing observer type.
             struct window_closing;
+
+        }
+    }
+
+    namespace diagram_picture_box
+    {
+        namespace type
+        {
+            //! The paint observer type.
+            struct paint_paint;
 
         }
     }

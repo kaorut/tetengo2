@@ -34,7 +34,8 @@ namespace bobura
         \tparam Settings                  A settings type.
         \tparam ConfirmFileSave           A file save confirmation type.
         \tparam MessageLoopBreak          A message loop break type.
-        \tparam MainWindowMessageTypeList A message type.
+        \tparam MainWindowMessageTypeList A main window message type list type.
+        \tparam DiagramPictureBoxTypeList A diagram picture box type list type.
     */
     template <
         typename Window,
@@ -43,7 +44,8 @@ namespace bobura
         typename Settings,
         typename ConfirmFileSave,
         typename MessageLoopBreak,
-        typename MainWindowMessageTypeList
+        typename MainWindowMessageTypeList,
+        typename DiagramPictureBoxTypeList
     >
     class main_window : public Window
     {
@@ -71,8 +73,11 @@ namespace bobura
         //! The message loop break type.
         typedef MessageLoopBreak message_loop_break_type;
 
-        //! The message type list type.
+        //! The main window message type list type.
         typedef MainWindowMessageTypeList main_window_message_type_list_type;
+
+        //! The diagram picture box type list type.
+        typedef DiagramPictureBoxTypeList diagram_picture_box_type_list_type;
 
 
         // constructors and destructor
@@ -179,6 +184,12 @@ namespace bobura
                 >::type(*this, m_confirm_file_save)
             );
             this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
+
+            m_p_diagram_picture_box->paint_observer_set().paint().connect(
+                typename boost::mpl::at<
+                    diagram_picture_box_type_list_type, message::diagram_picture_box::type::paint_paint
+                >::type(m_settings.image_directory_path())
+            );
         }
 
 
