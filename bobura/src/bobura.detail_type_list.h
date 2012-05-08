@@ -17,6 +17,7 @@
 #   include <tetengo2.detail.windows.alert.h>
 #   include <tetengo2.detail.windows.common_dialog.h>
 #   include <tetengo2.detail.windows.cursor.h>
+#   include <tetengo2.detail.windows.direct2d.drawing.h>
 #   include <tetengo2.detail.windows.encoding.h>
 #   include <tetengo2.detail.windows.gdiplus.drawing.h>
 #   include <tetengo2.detail.windows.gdiplus.gui_fixture.h>

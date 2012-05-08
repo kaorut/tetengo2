@@ -70,7 +70,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         };
 
         class background_details : boost::noncopyable
-        {};
+        {
+        public:
+            virtual ~background_details()
+            {}
+        
+
+        };
 
         class solid_background_details : public background_details
         {
@@ -487,9 +493,9 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
     private:
         // types
 
-        typedef typename unique_com_ptr< ::ID2D1Factory>::type direct2d_factory_ptr_type;
+        typedef unique_com_ptr< ::ID2D1Factory>::type direct2d_factory_ptr_type;
 
-        typedef typename unique_com_ptr< ::IDWriteFactory>::type direct_write_factory_ptr_type;
+        typedef unique_com_ptr< ::IDWriteFactory>::type direct_write_factory_ptr_type;
 
 
         // static functions
@@ -507,7 +513,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             if (FAILED(hr))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(std::error_code(hr, direct2d_cateogory()), "Can't create Direct2D factory.")
+                    std::system_error(std::error_code(hr, direct2d_category()), "Can't create Direct2D factory.")
                 );
             }
 
@@ -555,7 +561,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 );
         }
 
-        static typename unique_com_ptr< ::ID2D1Brush>::type create_brush(
+        static unique_com_ptr< ::ID2D1Brush>::type create_brush(
             canvas_details_type&           canvas,
             const background_details_type& background_details
         )
@@ -577,17 +583,17 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 if (FAILED(hr))
                 {
                     BOOST_THROW_EXCEPTION(
-                        std::system_error(std::error_code(hr, direct2d_cateogory()), "Can't create solid color brush.")
+                        std::system_error(std::error_code(hr, direct2d_category()), "Can't create solid color brush.")
                     );
                 }
-                return typename unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
+                return unique_com_ptr< ::ID2D1Brush>::type(rp_brush);
             }
 
             BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid background details type."));
         }
 
         template <typename String, typename Font, typename Encoder>
-        static typename unique_com_ptr< ::IDWriteTextLayout>::type create_text_layout(
+        static unique_com_ptr< ::IDWriteTextLayout>::type create_text_layout(
             const String&       text,
             const Font&         font,
             const Encoder&      encoder
