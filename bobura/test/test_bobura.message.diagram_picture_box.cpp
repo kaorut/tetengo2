@@ -6,6 +6,10 @@
     $Id$
 */
 
+#include <memory>
+
+#include <boost/filesystem.hpp>
+
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -18,23 +22,13 @@ namespace
 {
     // types
 
-    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::dialog>::type dialog_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
+
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::position>::type position_type;
+
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_reader>::type picture_reader_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
-
-    class concrete_dialog : public dialog_type
-    {
-    public:
-        explicit concrete_dialog(window_type::base_type& parent)
-        :
-        dialog_type(parent)
-        {}
-
-    private:
-        virtual void set_result_impl()
-        {}
-
-    };
 
 
 }
@@ -50,7 +44,7 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::message::picture_box::paint_paint<canvas_type, position_type, picture_reader_type> paint(
+        const bobura::message::diagram_picture_box::paint_paint<canvas_type, position_type, picture_reader_type> paint(
             boost::filesystem::path("image_path")
         );
     }
@@ -59,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::message::picture_box::paint_paint<canvas_type, position_type, picture_reader_type> paint(
+        const bobura::message::diagram_picture_box::paint_paint<canvas_type, position_type, picture_reader_type> paint(
             boost::filesystem::path("image_path")
         );
 

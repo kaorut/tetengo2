@@ -905,9 +905,6 @@ namespace bobura
                 boost::mpl::at<command_type_list_type_list, type::command_type_list::command>::type,
                 boost::mpl::at<model_type_list, type::model::model>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
-                boost::mpl::at<ui_type_list, type::ui::canvas>::type,
-                boost::mpl::at<ui_type_list, type::ui::position>::type,
-                boost::mpl::at<ui_type_list, type::ui::picture_reader>::type,
                 boost::mpl::at<ui_type_list, type::ui::control>::type,
                 boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
             >::type
