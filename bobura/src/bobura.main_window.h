@@ -141,6 +141,16 @@ namespace bobura
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        struct paint_background
+        {
+            bool operator()(typename base_type::canvas_type& canvas)
+            const
+            {
+                return true;
+            }
+
+        };
+
 
         // variables
 
@@ -173,6 +183,7 @@ namespace bobura
 
         void set_message_observers()
         {
+            this->paint_observer_set().paint_background().connect(paint_background());
             this->window_observer_set().resized().connect(
                 typename boost::mpl::at<
                     main_window_message_type_list_type, message::main_window::type::window_resized
