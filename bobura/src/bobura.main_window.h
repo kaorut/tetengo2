@@ -199,7 +199,7 @@ namespace bobura
             m_p_diagram_picture_box->fast_paint_observer_set().paint().connect(
                 typename boost::mpl::at<
                     diagram_picture_box_type_list_type, message::diagram_picture_box::type::paint_paint
-                >::type(m_settings.image_directory_path())
+                >::type()
             );
         }
 

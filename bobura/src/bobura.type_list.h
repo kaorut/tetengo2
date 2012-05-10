@@ -956,11 +956,7 @@ namespace bobura
             >::type
             main_window_message_type_list;
         typedef
-            message::diagram_picture_box::type_list<
-                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
-                boost::mpl::at<ui_type_list, type::ui::position>::type,
-                boost::mpl::at<ui_type_list, type::ui::fast_picture_reader>::type
-            >::type
+            message::diagram_picture_box::type_list<boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type>::type
             diagram_picture_box_type_list;
     }}
 #endif
