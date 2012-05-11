@@ -15,6 +15,7 @@
 //#include <memory>
 //#include <string>
 //#include <system_error>
+#include <tuple>
 //#include <type_traits>
 //#include <utility>
 //#include <vector>
@@ -477,12 +478,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace gdiplus
         template <typename HandleOrWidgetDetails>
         static std::unique_ptr<canvas_details_type> create_canvas_impl(
             const HandleOrWidgetDetails& widget_details,
-            typename std::enable_if<
-                std::is_convertible<typename HandleOrWidgetDetails::first_type::pointer, ::HWND>::value
-            >::type* = NULL
+            typename std::enable_if<!std::is_convertible<HandleOrWidgetDetails, ::HDC>::value>::type* = NULL
         )
         {
-            std::unique_ptr<canvas_details_type> p_canvas(make_unique<Gdiplus::Graphics>(widget_details.first.get()));
+            std::unique_ptr<canvas_details_type> p_canvas(
+                make_unique<Gdiplus::Graphics>(std::get<0>(widget_details).get())
+            );
 
             initialize_canvas(*p_canvas);
 
