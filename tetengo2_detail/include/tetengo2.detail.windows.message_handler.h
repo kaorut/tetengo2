@@ -606,9 +606,11 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                     ::EndPaint(std::get<0>(*picture_box.details()).get(), &paint_struct);
                 } BOOST_SCOPE_EXIT_END;
-                typename PictureBox::fast_widget_canvas_type canvas(*picture_box.details());
 
-                picture_box.fast_paint_observer_set().paint()(canvas);
+                const std::unique_ptr<typename PictureBox::fast_canvas_type> p_canvas =
+                    picture_box.create_fast_canvas();
+
+                picture_box.fast_paint_observer_set().paint()(*p_canvas);
 
                 return boost::make_optional< ::LRESULT>(0);
             }
