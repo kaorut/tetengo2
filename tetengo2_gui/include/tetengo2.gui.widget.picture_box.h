@@ -59,21 +59,26 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation pointer type.
         typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
+        //! The scroll bar style type.
+        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a picture box.
 
-            \param parent A parent widget.
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style type.
         */
-        explicit picture_box(widget_type& parent)
+        picture_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         base_type(
+            scroll_bar_style,
             message_handler_details_type::make_picture_box_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_picture_box(parent)
         ),
@@ -103,7 +108,7 @@ namespace tetengo2 { namespace gui { namespace widget
         std::unique_ptr<fast_canvas_type> create_fast_canvas()
         const
         {
-            return make_unique<fast_widget_canvas_type>(*details());
+            return make_unique<fast_widget_canvas_type>(*this->details());
         }
 
         /*!

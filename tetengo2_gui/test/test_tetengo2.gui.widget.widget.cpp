@@ -63,7 +63,7 @@ namespace
 
         explicit concrete_widget(widget_type* const p_parent = NULL)
         :
-        widget_type(message_handler_map_type()),
+        widget_type(widget_type::scroll_bar_style_none, message_handler_map_type()),
         m_p_details(
             tetengo2::make_unique<widget_details_type::widget_details_type>(
                 p_parent,

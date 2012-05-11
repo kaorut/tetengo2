@@ -190,7 +190,8 @@ namespace bobura
 
         std::unique_ptr<image_type> create_application_image()
         {
-            std::unique_ptr<image_type> p_image(tetengo2::make_unique<image_type>(*this));
+            std::unique_ptr<image_type> p_image =
+                tetengo2::make_unique<image_type>(*this, image_type::scroll_bar_style_none);
 
             picture_reader_type picture_reader(
                 m_settings.image_directory_path() / string_type(TETENGO2_TEXT("kuma.png"))
@@ -221,7 +222,7 @@ namespace bobura
 
         std::unique_ptr<label_type> create_copyright_label()
         {
-            std::unique_ptr<label_type> p_label(tetengo2::make_unique<label_type>(*this));
+            std::unique_ptr<label_type> p_label = tetengo2::make_unique<label_type>(*this);
 
             p_label->set_text(string_type(TETENGO2_TEXT("Copyright (C) 2007-2012 kaoru")));
             std::unique_ptr<background_type> p_background(tetengo2::make_unique<transparent_background_type>());
@@ -232,7 +233,7 @@ namespace bobura
 
         std::unique_ptr<link_label_type> create_link_label()
         {
-            std::unique_ptr<link_label_type> p_label(tetengo2::make_unique<link_label_type>(*this));
+            std::unique_ptr<link_label_type> p_label =tetengo2::make_unique<link_label_type>(*this);
 
             p_label->set_text(string_type(TETENGO2_TEXT("http://www.tetengo.org/")));
             p_label->set_target(p_label->text());
@@ -242,9 +243,8 @@ namespace bobura
 
         std::unique_ptr<button_type> create_ok_button()
         {
-            std::unique_ptr<button_type> p_button(
-                tetengo2::make_unique<button_type>(*this, button_type::style_default)
-            );
+            std::unique_ptr<button_type> p_button =
+                tetengo2::make_unique<button_type>(*this, button_type::style_default);
 
             p_button->set_text(m_message_catalog.get(TETENGO2_TEXT("Common:OK")));
             p_button->mouse_observer_set().clicked().connect(

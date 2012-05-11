@@ -32,7 +32,7 @@ namespace
     public:
         concrete_window()
         :
-        abstract_window_type(message_handler_map_type()),
+        abstract_window_type(abstract_window_type::scroll_bar_style_none, message_handler_map_type()),
         m_p_details(tetengo2::make_unique<details_type>())
         {
             initialize(this);

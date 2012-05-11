@@ -17,6 +17,10 @@ namespace
     // types
 
     typedef
+        boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::abstract_window>::type
+        abstract_window_type;
+
+    typedef
         boost::mpl::at<test_tetengo2::gui::widget_type_list, test_tetengo2::gui::type::widget::window>::type
         window_type;
 
@@ -38,8 +42,18 @@ BOOST_AUTO_TEST_SUITE(window)
             const window_type window;
         }
         {
+            const window_type window(window_type::scroll_bar_style_none);
+        }
+        {
+            const window_type window(window_type::scroll_bar_style_both);
+        }
+        {
             window_type parent;
-            const window_type window(static_cast<window_type::base_type&>(parent));
+            const window_type window(static_cast<abstract_window_type&>(parent), window_type::scroll_bar_style_none);
+        }
+        {
+            window_type parent;
+            const window_type window(static_cast<abstract_window_type&>(parent), window_type::scroll_bar_style_both);
         }
     }
 

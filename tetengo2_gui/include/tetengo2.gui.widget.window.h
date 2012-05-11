@@ -52,15 +52,20 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation pointer type.
         typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
+        //! The scroll bar style type.
+        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a top level window.
+
+            \param scroll_bar_style A scroll bar style.
         */
-        window()
+        explicit window(const scroll_bar_style_type scroll_bar_style = base_type::scroll_bar_style_none)
         :
-        base_type(message_handler_map_type()),
+        base_type(scroll_bar_style, message_handler_map_type()),
         m_p_details(widget_details_type::template create_window<typename base_type::base_type>())
         {
             initialize(this);
@@ -69,15 +74,19 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a owned window.
 
-            \param parent A parent window.
+            \param parent           A parent window.
+            \param scroll_bar_style A scroll bar style.
         */
-        explicit window(base_type& parent)
+        window(base_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
-        base_type(message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type())),
+        base_type(
+            scroll_bar_style,
+            message_handler_details_type::make_window_message_handler_map(*this, message_handler_map_type())
+        ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif

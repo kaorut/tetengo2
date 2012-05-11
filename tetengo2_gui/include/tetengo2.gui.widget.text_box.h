@@ -49,21 +49,26 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation pointer type.
         typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
+        //! The scroll bar style type.
+        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a text box.
 
-            \param parent A parent widget.
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style type.
         */
-        explicit text_box(widget_type& parent)
+        text_box(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         base_type(
+            scroll_bar_style,
             message_handler_details_type::make_text_box_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_text_box(parent)
         )

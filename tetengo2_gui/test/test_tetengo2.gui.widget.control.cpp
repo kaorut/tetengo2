@@ -32,6 +32,7 @@ namespace
         concrete_control()
         :
         control_type(
+            control_type::scroll_bar_style_none,
             message_handler_map_type(),
             widget_details_type::widget_details_ptr_type(
                 tetengo2::make_unique<widget_details_type::widget_details_type>()

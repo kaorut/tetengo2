@@ -176,7 +176,8 @@ namespace bobura
 
         std::unique_ptr<picture_box_type> make_diagram_picture_box()
         {
-            std::unique_ptr<picture_box_type> p_picture_box(tetengo2::make_unique<picture_box_type>(*this));
+            std::unique_ptr<picture_box_type> p_picture_box =
+                tetengo2::make_unique<picture_box_type>(*this, picture_box_type::scroll_bar_style_none);
 
             return std::move(p_picture_box);
         }

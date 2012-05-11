@@ -115,6 +115,15 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The child type.
         typedef widget child_type;
 
+        //! The scroll bar style type.
+        enum scroll_bar_style_type
+        {
+            scroll_bar_style_none,       //!< The widget has no scroll bar.
+            scroll_bar_style_horizontal, //!< The widget has a horizontal scroll bar.
+            scroll_bar_style_vertical,   //!< The widget has a vertical scroll bar.
+            scroll_bar_style_both,       //!< The widget has both horizontal and vertiacal scroll bars.
+        };
+
 
         // constructors and destructor
 
@@ -678,9 +687,10 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a widget.
 
+            \param scroll_bar_style    A scroll bar style.
             \param message_handler_map A message handler map.
         */
-        explicit widget(message_handler_map_type&& message_handler_map)
+        widget(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)

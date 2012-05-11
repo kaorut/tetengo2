@@ -38,8 +38,14 @@ BOOST_AUTO_TEST_SUITE(text_box)
     {
         BOOST_TEST_PASSPOINT();
 
-        window_type parent;
-        const text_box_type text_box(parent);
+        {
+            window_type parent;
+            const text_box_type text_box(parent, text_box_type::scroll_bar_style_none);
+        }
+        {
+            window_type parent;
+            const text_box_type text_box(parent, text_box_type::scroll_bar_style_both);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(read_only)
@@ -47,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(text_box)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        const text_box_type text_box(parent);
+        const text_box_type text_box(parent, text_box_type::scroll_bar_style_none);
 
         BOOST_CHECK(!text_box.read_only());
     }
@@ -58,7 +64,7 @@ BOOST_AUTO_TEST_SUITE(text_box)
 
         {
             window_type parent;
-            text_box_type text_box(parent);
+            text_box_type text_box(parent, text_box_type::scroll_bar_style_none);
 
             text_box.set_read_only(false);
 
@@ -66,7 +72,7 @@ BOOST_AUTO_TEST_SUITE(text_box)
         }
         {
             window_type parent;
-            text_box_type text_box(parent);
+            text_box_type text_box(parent, text_box_type::scroll_bar_style_none);
 
             text_box.set_read_only(true);
 
