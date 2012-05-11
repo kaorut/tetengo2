@@ -9,11 +9,6 @@
 #if !defined(BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H)
 #define BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H
 
-//#include <cstddef>
-#include <memory>
-//#include <type_traits>
-//#include <utility>
-
 #include <tetengo2.gui.measure.h>
 
 

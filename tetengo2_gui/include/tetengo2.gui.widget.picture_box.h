@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_WIDGET_PICTUREBOX_H)
 #define TETENGO2_GUI_WIDGET_PICTUREBOX_H
 
+//#include <memory>
+
 #include "tetengo2.gui.widget.control.h"
 
 
