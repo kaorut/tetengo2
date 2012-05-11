@@ -94,6 +94,17 @@ namespace tetengo2 { namespace gui { namespace widget
         // functions
 
         /*!
+            \brief Creates a fast canvas.
+
+            \return The unique pointer to a fast canvas.
+        */
+        std::unique_ptr<fast_canvas_type> create_fast_canvas()
+        const
+        {
+            return make_unique<fast_widget_canvas_type>(*details());
+        }
+
+        /*!
             \brief Returns the fast paint observer set.
 
             \return The fast paint observer set.
