@@ -593,6 +593,19 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (picture_box.fast_paint_observer_set().paint().empty())
                     return boost::none;
 
+                ::PAINTSTRUCT paint_struct = {};
+                if (!::BeginPaint(std::get<0>(*picture_box.details()).get(), &paint_struct))
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint."
+                        )
+                    );
+                }
+                BOOST_SCOPE_EXIT((&picture_box)(&paint_struct))
+                {
+                    ::EndPaint(std::get<0>(*picture_box.details()).get(), &paint_struct);
+                } BOOST_SCOPE_EXIT_END;
                 typename PictureBox::fast_widget_canvas_type canvas(*picture_box.details());
 
                 picture_box.fast_paint_observer_set().paint()(canvas);
