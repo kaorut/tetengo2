@@ -442,7 +442,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 create_text_layout(text, font, encoder);
 
             ::ID2D1SolidColorBrush* rp_brush = NULL;
-            canvas.CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Orange), D2D1::BrushProperties(), &rp_brush);
+            canvas.CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Orange, 0.67f), D2D1::BrushProperties(), &rp_brush);
             const typename unique_com_ptr< ::ID2D1Brush>::type p_brush(rp_brush);
 
             canvas.DrawTextLayout(origin, p_layout.get(), p_brush.get());

@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_WIDGET_PICTUREBOX_H)
 #define TETENGO2_GUI_WIDGET_PICTUREBOX_H
 
+//#include <memory>
+
 #include "tetengo2.gui.widget.control.h"
 
 
@@ -81,6 +83,7 @@ namespace tetengo2 { namespace gui { namespace widget
         m_fast_paint_observer_set()
         {
             initialize(this);
+            this->paint_observer_set().paint_background().connect(paint_background());
         }
 
         /*!
@@ -91,6 +94,17 @@ namespace tetengo2 { namespace gui { namespace widget
 
 
         // functions
+
+        /*!
+            \brief Creates a fast canvas.
+
+            \return The unique pointer to a fast canvas.
+        */
+        std::unique_ptr<fast_canvas_type> create_fast_canvas()
+        const
+        {
+            return make_unique<fast_widget_canvas_type>(*details());
+        }
 
         /*!
             \brief Returns the fast paint observer set.
@@ -118,6 +132,16 @@ namespace tetengo2 { namespace gui { namespace widget
         // types
 
         typedef typename message_handler_details_type::message_handler_map_type message_handler_map_type;
+
+        struct paint_background
+        {
+            bool operator()(typename base_type::canvas_type& canvas)
+            const
+            {
+                return true;
+            }
+
+        };
 
 
         // variables

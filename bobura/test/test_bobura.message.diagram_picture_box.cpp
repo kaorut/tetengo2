@@ -8,7 +8,6 @@
 
 //#include <memory>
 
-//#include <boost/filesystem.hpp>
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -43,18 +42,14 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::message::diagram_picture_box::paint_paint<canvas_type, position_type, picture_reader_type> paint(
-            boost::filesystem::path("image_path")
-        );
+        const bobura::message::diagram_picture_box::paint_paint<canvas_type> paint;
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        const bobura::message::diagram_picture_box::paint_paint<canvas_type, position_type, picture_reader_type> paint(
-            boost::filesystem::path("image_path")
-        );
+        const bobura::message::diagram_picture_box::paint_paint<canvas_type> paint;
 
         const window_type window;
         std::unique_ptr<canvas_type> p_canvas(window.create_canvas());

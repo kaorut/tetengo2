@@ -13,6 +13,7 @@
 //#include <cassert>
 //#include <cstddef>
 //#include <functional>
+//#include <memory>
 //#include <system_error>
 //#include <tuple>
 #include <unordered_map>
@@ -593,9 +594,24 @@ namespace tetengo2 { namespace detail { namespace windows
                 if (picture_box.fast_paint_observer_set().paint().empty())
                     return boost::none;
 
-                typename PictureBox::fast_widget_canvas_type canvas(*picture_box.details());
+                ::PAINTSTRUCT paint_struct = {};
+                if (!::BeginPaint(std::get<0>(*picture_box.details()).get(), &paint_struct))
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint."
+                        )
+                    );
+                }
+                BOOST_SCOPE_EXIT((&picture_box)(&paint_struct))
+                {
+                    ::EndPaint(std::get<0>(*picture_box.details()).get(), &paint_struct);
+                } BOOST_SCOPE_EXIT_END;
 
-                picture_box.fast_paint_observer_set().paint()(canvas);
+                const std::unique_ptr<typename PictureBox::fast_canvas_type> p_canvas =
+                    picture_box.create_fast_canvas();
+
+                picture_box.fast_paint_observer_set().paint()(*p_canvas);
 
                 return boost::make_optional< ::LRESULT>(0);
             }

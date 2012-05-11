@@ -42,6 +42,34 @@ BOOST_AUTO_TEST_SUITE(picture_box)
         const picture_box_type picture_box(parent);
     }
 
+    BOOST_AUTO_TEST_CASE(create_fast_canvas)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        window_type parent;
+        const picture_box_type picture_box(parent);
+
+        picture_box.create_fast_canvas();
+    }
+
+    BOOST_AUTO_TEST_CASE(fast_paint_observer_set)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            window_type parent;
+            const picture_box_type picture_box(parent);
+
+            picture_box.fast_paint_observer_set();
+        }
+        {
+            window_type parent;
+            picture_box_type picture_box(parent);
+
+            picture_box.fast_paint_observer_set();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
