@@ -167,17 +167,17 @@ namespace bobura
 
         void initialize_window()
         {
-            m_p_diagram_picture_box = make_diagram_picture_box();
+            m_p_diagram_picture_box = create_diagram_picture_box();
 
             set_message_observers();
 
             set_title(boost::none, false);
         }
 
-        std::unique_ptr<picture_box_type> make_diagram_picture_box()
+        std::unique_ptr<picture_box_type> create_diagram_picture_box()
         {
             std::unique_ptr<picture_box_type> p_picture_box =
-                tetengo2::make_unique<picture_box_type>(*this, picture_box_type::scroll_bar_style_none);
+                tetengo2::make_unique<picture_box_type>(*this, picture_box_type::scroll_bar_style_both);
 
             return std::move(p_picture_box);
         }
