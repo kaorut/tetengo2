@@ -1,13 +1,13 @@
 /*! \file
-    \brief The definition of tetengo2::gui::fixture.
+    \brief The definition of tetengo2::gui::scroll_bar.
 
     Copyright (C) 2007-2012 kaoru
 
     $Id$
 */
 
-#if !defined(TETENGO2_GUI_FIXTURE_H)
-#define TETENGO2_GUI_FIXTURE_H
+#if !defined(TETENGO2_GUI_SCROLLBAR_H)
+#define TETENGO2_GUI_SCROLLBAR_H
 
 #include <boost/noncopyable.hpp>
 
@@ -15,35 +15,27 @@
 namespace tetengo2 { namespace gui
 {
     /*!
-        \brief The class template for a GUI fixture.
+        \brief The class template for a scroll bar.
 
-        \tparam FixtureDetails A detail implementation type of a fixture.
+        \tparam Size A size type.
     */
-    template <typename FixtureDetails>
-    class fixture : private boost::noncopyable
+    template <typename Size>
+    class scroll_bar : private boost::noncopyable
     {
     public:
         // types
 
-        //! The detail implementation type of a fixture.
-        typedef FixtureDetails fixture_details_type;
+        //! The size type.
+        typedef Size size_type;
 
 
         // constructors and destructor
 
         /*!
-            \brief Creates a GUI fixture.
+            \brief Creates a scroll bar.
         */
-        fixture()
-        :
-        m_fixture_details()
+        scroll_bar()
         {}
-
-
-    private:
-        // variables
-
-        const fixture_details_type m_fixture_details;
 
 
     };
