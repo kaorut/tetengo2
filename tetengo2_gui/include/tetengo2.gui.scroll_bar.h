@@ -14,15 +14,18 @@
 
 #include <boost/throw_exception.hpp>
 
+#include "tetengo2.unique.h"
+
 
 namespace tetengo2 { namespace gui
 {
     /*!
         \brief The class template for a scroll bar.
 
-        \tparam Size A size type.
+        \tparam Size          A size type.
+        \tparam ScrollDetails A detail implementation type of a scroll.
     */
-    template <typename Size>
+    template <typename Size, typename ScrollDetails>
     class scroll_bar
     {
     public:
@@ -34,6 +37,15 @@ namespace tetengo2 { namespace gui
         //! The range type.
         typedef std::pair<size_type, size_type> range_type;
 
+        //! The detail implementation type of a scroll.
+        typedef ScrollDetails details_type;
+
+        //! The detail implementation type of a scroll bar.
+        typedef typename details_type::scroll_bar_details_type scroll_bar_details_type;
+
+        //! The detail implementation pointer type of a scroll bar.
+        typedef typename details_type::scroll_bar_details_ptr_type scroll_bar_details_ptr_type;
+
 
         // constructors and destructor
 
@@ -44,6 +56,7 @@ namespace tetengo2 { namespace gui
         */
         scroll_bar()
         :
+        m_p_details(tetengo2::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 0)),
         m_position(0),
         m_range(0, 0),
         m_page_size(0)
@@ -140,6 +153,8 @@ namespace tetengo2 { namespace gui
 
     private:
         // variables
+
+        scroll_bar_details_ptr_type m_p_details;
 
         size_type m_position;
 

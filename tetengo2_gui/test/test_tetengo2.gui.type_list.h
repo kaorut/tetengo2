@@ -183,9 +183,7 @@ namespace test_tetengo2 { namespace gui
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::gui_common::scroll_bar,
-                tetengo2::gui::scroll_bar<
-                    boost::mpl::at<type_list, type::size>::type
-                >
+                tetengo2::gui::scroll_bar<boost::mpl::at<type_list, type::size>::type, tetengo2::detail::stub::scroll>
             >,
         tetengo2::meta::assoc_list_end
         >>>
