@@ -12,14 +12,18 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "tetengo2.gui.scroll_bar.h"
+#include "test_tetengo2.gui.type_list.h"
 
 
 namespace
 {
     // types
 
-    typedef tetengo2::gui::scroll_bar<std::size_t> scroll_bar_type;
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::scroll_bar
+        >::type
+        scroll_bar_type;
 
 
 }

@@ -9,11 +9,16 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_SCROLL_H)
 #define TETENGO2_DETAIL_WINDOWS_SCROLL_H
 
-//#include <boost/noncopyable.hpp>
+#include <memory>
+#include <tuple>
 
-//#define NOMINMAX
-//#define OEMRESOURCE
-//#include <Windows.h>
+#include <boost/noncopyable.hpp>
+
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
+
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace detail { namespace windows
@@ -26,8 +31,31 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // types
 
+        //! The scroll bar details type.
+        typedef ::HWND scroll_bar_details_type;
+
+        //! The scroll bar details pointer type.
+        typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
+
 
         // static functions
+
+        /*!
+            \brief Creates a scroll bar.
+
+            \tparam Widget A widget type.
+
+            \param widget A widget.
+
+            \return A unique pointer to a scroll bar. 
+
+            \throw std::system_error When a system cursor cannot be created.
+        */
+        template <typename Widget>
+        scroll_bar_details_ptr_type create_scroll_bar(Widget& widget)
+        {
+            return scroll_bar_details_ptr_type();
+        }
 
 
     private:

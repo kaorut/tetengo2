@@ -25,6 +25,7 @@
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.message_loop.h"
+#include "tetengo2.detail.stub.scroll.h"
 #include "tetengo2.detail.stub.system_color.h"
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.virtual_key.h"
@@ -64,6 +65,7 @@
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
 #include "tetengo2.gui.message.window_observer_set.h"
+#include "tetengo2.gui.scroll_bar.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.virtual_key.h"
@@ -157,7 +159,7 @@ namespace test_tetengo2 { namespace gui
     {
         struct alert;          //!< The alert type.
         struct virtual_key;    //!< The virtual key type.
-        struct dimension;      //!< The dimmension type.
+        struct scroll_bar;     //!< The scroll bar type.
     }}
 
     //! The GUI common type list.
@@ -178,8 +180,15 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::string>::type, tetengo2::detail::stub::virtual_key
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::gui_common::scroll_bar,
+                tetengo2::gui::scroll_bar<
+                    boost::mpl::at<type_list, type::size>::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         gui_common_type_list;
 
 
