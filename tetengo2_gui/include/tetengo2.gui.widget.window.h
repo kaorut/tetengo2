@@ -66,7 +66,9 @@ namespace tetengo2 { namespace gui { namespace widget
         explicit window(const scroll_bar_style_type scroll_bar_style = base_type::scroll_bar_style_none)
         :
         base_type(scroll_bar_style, message_handler_map_type()),
-        m_p_details(widget_details_type::template create_window<typename base_type::base_type>())
+        m_p_details(
+            widget_details_type::template create_window<typename base_type::base_type>(boost::none, scroll_bar_style)
+        )
         {
             initialize(this);
         }
@@ -90,7 +92,9 @@ namespace tetengo2 { namespace gui { namespace widget
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
-        m_p_details(widget_details_type::template create_window<typename base_type::base_type>(parent))
+        m_p_details(
+            widget_details_type::template create_window<typename base_type::base_type>(parent, scroll_bar_style)
+        )
         {
             initialize(this);
         }

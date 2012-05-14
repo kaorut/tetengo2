@@ -80,7 +80,7 @@ namespace tetengo2 { namespace gui { namespace widget
         base_type(
             scroll_bar_style,
             message_handler_details_type::make_picture_box_message_handler_map(*this, message_handler_map_type()),
-            widget_details_type::create_picture_box(parent)
+            widget_details_type::create_picture_box(parent, scroll_bar_style)
         ),
 #if defined(_MSC_VER)
 #   pragma warning(pop)
