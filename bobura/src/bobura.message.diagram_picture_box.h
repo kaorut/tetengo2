@@ -33,12 +33,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         /*!
             \brief Creates a paint observer of the picture box.
-
-            \tparam P A path type.
-
-            \param image_directory_path An image directory path.
         */
-        explicit paint_paint()
+        paint_paint()
         {}
 
 

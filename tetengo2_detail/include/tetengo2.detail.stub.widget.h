@@ -88,7 +88,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget. When uninitialized, the window has no parent.
+            \param parent           A parent widget. When uninitialized, the window has no parent.
+            \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a window.
 
@@ -201,7 +202,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget.
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a text box.
 
