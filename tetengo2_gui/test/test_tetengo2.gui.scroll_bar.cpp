@@ -8,7 +8,7 @@
 
 #include <cassert>
 #include <cstddef>
-#include <stdexcept>
+//#include <stdexcept>
 
 #include <boost/test/unit_test.hpp>
 
