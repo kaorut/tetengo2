@@ -50,14 +50,8 @@ BOOST_AUTO_TEST_SUITE(image)
     {
         BOOST_TEST_PASSPOINT();
 
-        {
-            window_type parent;
-            const image_type image(parent, image_type::scroll_bar_style_none);
-        }
-        {
-            window_type parent;
-            const image_type image(parent, image_type::scroll_bar_style_both);
-        }
+        window_type parent;
+        const image_type image(parent);
     }
 
     BOOST_AUTO_TEST_CASE(has_picture)
@@ -65,7 +59,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        image_type image(parent, image_type::scroll_bar_style_none);
+        image_type image(parent);
 
         BOOST_CHECK(!image.has_picture());
 
@@ -80,7 +74,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        image_type image(parent, image_type::scroll_bar_style_none);
+        image_type image(parent);
         const image_type& const_image = image;
 
         BOOST_CHECK_THROW(image.picture(), std::logic_error);
@@ -98,7 +92,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        image_type image(parent, image_type::scroll_bar_style_none);
+        image_type image(parent);
 
         picture_reader_type picture_reader("image_file");
         image.set_picture(picture_reader.read());
@@ -115,7 +109,7 @@ BOOST_AUTO_TEST_SUITE(image)
         BOOST_TEST_PASSPOINT();
 
         window_type parent;
-        image_type image(parent, image_type::scroll_bar_style_none);
+        image_type image(parent);
         picture_reader_type picture_reader("image_file");
         image.set_picture(picture_reader.read());
 

@@ -59,26 +59,22 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation pointer type.
         typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
-        //! The scroll bar style type.
-        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
-
 
         // constructors and destructor
 
         /*!
             \brief Creates an image.
 
-            \param parent           A parent widget.
-            \param scroll_bar_style A scroll bar style.
+            \param parent A parent widget.
         */
-        image(widget_type& parent, const scroll_bar_style_type scroll_bar_style)
+        image(widget_type& parent)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         base_type(
-            scroll_bar_style,
+            base_type::scroll_bar_style_none,
             message_handler_details_type::make_image_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_image(parent)
         ),
