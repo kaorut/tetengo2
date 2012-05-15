@@ -82,6 +82,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The cursor type.
         typedef typename system_cursor_type::base_type cursor_type;
 
+        //! The scroll bar type.
+        typedef typename traits_type::scroll_bar_type scroll_bar_type;
+
         //! The focus observer set type.
         typedef typename traits_type::focus_observer_set_type focus_observer_set_type;
 
