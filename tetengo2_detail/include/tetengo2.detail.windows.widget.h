@@ -1535,10 +1535,10 @@ namespace tetengo2 { namespace detail { namespace windows
             {
             case Widget::scroll_bar_style_none:
                 return 0;
-            case Widget::scroll_bar_style_horizontal:
-                return WS_HSCROLL;
             case Widget::scroll_bar_style_vertical:
                 return WS_VSCROLL;
+            case Widget::scroll_bar_style_horizontal:
+                return WS_HSCROLL;
             case Widget::scroll_bar_style_both:
                 return WS_HSCROLL | WS_VSCROLL;
             default:
