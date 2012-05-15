@@ -59,7 +59,7 @@ namespace tetengo2 { namespace detail { namespace windows
             \throw std::system_error When a system cursor cannot be created.
         */
         template <typename WidgetDetails>
-        static scroll_bar_details_ptr_type create_scroll_bar(WidgetDetails& widget_details)
+        static scroll_bar_details_ptr_type create_scroll_bar(const WidgetDetails& widget_details)
         {
             return tetengo2::make_unique<scroll_bar_details_type>(std::get<0>(widget_details).get());
         }
