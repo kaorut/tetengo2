@@ -20,9 +20,7 @@ namespace
     // types
 
     typedef
-        boost::mpl::at<
-            test_tetengo2::gui::gui_common_type_list, test_tetengo2::gui::type::gui_common::scroll_bar
-        >::type
+        boost::mpl::at<test_tetengo2::gui::scroll_type_list, test_tetengo2::gui::type::scroll::scroll_bar>::type
         scroll_bar_type;
 
 

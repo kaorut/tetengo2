@@ -160,7 +160,6 @@ namespace test_tetengo2 { namespace gui
     {
         struct alert;          //!< The alert type.
         struct virtual_key;    //!< The virtual key type.
-        struct scroll_bar;     //!< The scroll bar type.
     }}
 
     //! The GUI common type list.
@@ -181,13 +180,8 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::string>::type, tetengo2::detail::stub::virtual_key
                 >
             >,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::gui_common::scroll_bar,
-                tetengo2::gui::scroll_bar<boost::mpl::at<type_list, type::size>::type, tetengo2::detail::stub::scroll>
-            >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>
         gui_common_type_list;
 
 
@@ -487,6 +481,25 @@ namespace test_tetengo2 { namespace gui
         menu_type_list;
 
 
+    /**** Scroll ************************************************************/
+
+    namespace type { namespace scroll
+    {
+        struct scroll_bar;     //!< The scroll bar type.
+    }}
+
+    //! The scroll type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::scroll::scroll_bar,
+                tetengo2::gui::scroll_bar<boost::mpl::at<type_list, type::size>::type, tetengo2::detail::stub::scroll>
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        scroll_type_list;
+
+
     /**** Widget ************************************************************/
 
     namespace type { namespace widget
@@ -521,7 +534,7 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<drawing_type_list, type::drawing::background>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::font>::type,
                 boost::mpl::at<cursor_type_list, type::cursor::system>::type,
-                boost::mpl::at<gui_common_type_list, type::gui_common::scroll_bar>::type,
+                boost::mpl::at<scroll_type_list, type::scroll::scroll_bar>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::focus_observer_set>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::keyboard_observer_set>::type,
