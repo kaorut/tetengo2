@@ -16,7 +16,7 @@
 namespace tetengo2 { namespace gui { namespace message
 {
     /*!
-        \brief The class for a paint observer set.
+        \brief The class for a menu observer set.
     */
     class menu_observer_set : private boost::noncopyable
     {

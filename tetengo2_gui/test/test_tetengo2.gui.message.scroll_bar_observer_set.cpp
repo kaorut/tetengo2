@@ -1,5 +1,5 @@
 /*! \file
-    \brief Test of class tetengo2::gui::message::menu_observer_set.
+    \brief Test of class tetengo2::gui::message::scroll_bar_observer_set.
 
     Copyright (C) 2007-2012 kaoru
 
@@ -18,9 +18,9 @@ namespace
 
     typedef
         boost::mpl::at<
-            test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::menu_observer_set
+            test_tetengo2::gui::observer_set_type_list, test_tetengo2::gui::type::observer_set::scroll_bar_observer_set
         >::type
-        menu_observer_set_type;
+        scroll_bar_observer_set_type;
 
 
 }
@@ -29,22 +29,38 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_tetengo2)
 BOOST_AUTO_TEST_SUITE(gui)
 BOOST_AUTO_TEST_SUITE(message)
-BOOST_AUTO_TEST_SUITE(menu_observer_set)
+BOOST_AUTO_TEST_SUITE(scroll_bar_observer_set)
     // test cases
 
-    BOOST_AUTO_TEST_CASE(selected)
+    BOOST_AUTO_TEST_CASE(scrolling)
     {
         BOOST_TEST_PASSPOINT();
 
         {
-            const menu_observer_set_type observer_set;
+            const scroll_bar_observer_set_type observer_set;
 
-            observer_set.selected();
+            observer_set.scrolling();
         }
         {
-            menu_observer_set_type observer_set;
+            scroll_bar_observer_set_type observer_set;
 
-            observer_set.selected();
+            observer_set.scrolling();
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(scrolled)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const scroll_bar_observer_set_type observer_set;
+
+            observer_set.scrolled();
+        }
+        {
+            scroll_bar_observer_set_type observer_set;
+
+            observer_set.scrolled();
         }
     }
 
