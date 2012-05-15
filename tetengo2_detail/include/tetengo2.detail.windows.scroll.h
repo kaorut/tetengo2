@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <tuple>
+#include <utility>
 
 #include <boost/noncopyable.hpp>
 
@@ -31,6 +32,12 @@ namespace tetengo2 { namespace detail { namespace windows
     public:
         // types
 
+        //! The size type.
+        typedef std::size_t size_type;
+
+        //! The range type.
+        typedef std::pair<size_type, size_type> range_type;
+
         //! The scroll bar details type.
         typedef ::HWND scroll_bar_details_type;
 
@@ -43,18 +50,90 @@ namespace tetengo2 { namespace detail { namespace windows
         /*!
             \brief Creates a scroll bar.
 
-            \tparam Widget A widget type.
+            \tparam WidgetDetails A detail implementation type of a widget.
 
-            \param widget A widget.
+            \param widget_details A detail implementation of a widget.
 
             \return A unique pointer to a scroll bar. 
 
             \throw std::system_error When a system cursor cannot be created.
         */
-        template <typename Widget>
-        scroll_bar_details_ptr_type create_scroll_bar(Widget& widget)
+        template <typename WidgetDetails>
+        static scroll_bar_details_ptr_type create_scroll_bar(WidgetDetails& widget_details)
         {
-            return scroll_bar_details_ptr_type();
+            return tetengo2::make_unique<scroll_bar_details_type>(std::get<0>(widget_details).get());
+        }
+
+        /*!
+            \brief Returns the position.
+
+            \param details A detail implementation of a scroll bar.
+            
+            \return The position.
+        */
+        static size_type position(const scroll_bar_details_type& details)
+        {
+            return 0;
+        }
+
+        /*!
+            \brief Sets a position.
+
+            \param details  A detail implementation of a scroll bar.
+            \param position A position.
+        */
+        static void set_position(scroll_bar_details_type& details, const size_type position)
+        {
+
+        }
+
+        /*!
+            \brief Returns the range.
+
+            \param details A detail implementation of a scroll bar.
+            
+            \return The range.
+        */
+        static range_type range(const scroll_bar_details_type& details)
+        {
+            return std::make_pair(0, 100);
+        }
+
+        /*!
+            \brief Sets a range.
+
+            \tparam R A range type.
+
+            \param details A detail implementation of a scroll bar.
+            \param range   A range.
+        */
+        template <typename R>
+        static void set_range(scroll_bar_details_type& details, R&& range)
+        {
+
+        }
+
+        /*!
+            \brief Returns the page size.
+
+            \param details A detail implementation of a scroll bar.
+            
+            \return The page size.
+        */
+        static size_type page_size(const scroll_bar_details_type& details)
+        {
+            return 0;
+        }
+
+        /*!
+            \brief Sets a page size.
+
+            \param details   A detail implementation of a scroll bar.
+            \param page_size A page size.
+        */
+        static void set_page_size(scroll_bar_details_type& details, const size_type page_size)
+        {
+
         }
 
 

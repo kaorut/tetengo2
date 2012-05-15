@@ -51,15 +51,11 @@ namespace tetengo2 { namespace gui
 
         /*!
             \brief Creates a scroll bar.
-
-            The position, the range and the page size are initialized to 0.
         */
-        scroll_bar()
+        template <typename WidgetDetails>
+        scroll_bar(const WidgetDetails& widget_details)
         :
-        m_p_details(tetengo2::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 0)),
-        m_position(0),
-        m_range(0, 0),
-        m_page_size(0)
+        m_p_details(details_type::create_scroll_bar(widget_details))
         {}
 
 
@@ -73,7 +69,7 @@ namespace tetengo2 { namespace gui
         size_type position()
         const
         {
-            return m_position;
+            return details_type::position(*m_p_details);
         }
 
         /*!
@@ -87,10 +83,11 @@ namespace tetengo2 { namespace gui
         */
         void set_position(const size_type position)
         {
-            if (position < m_range.first || m_range.second < position)
+            const range_type r = range();
+            if (position < r.first || r.second < position)
                 BOOST_THROW_EXCEPTION(std::out_of_range("The position is outside the range."));
 
-            m_position = position;
+            details_type::set_position(*m_p_details, position);
         }
 
         /*!
@@ -98,10 +95,10 @@ namespace tetengo2 { namespace gui
 
             \return The range.
         */
-        const range_type& range()
+        const range_type range()
         const
         {
-            return m_range;
+            return details_type::range(*m_p_details);
         }
 
         /*!
@@ -121,10 +118,11 @@ namespace tetengo2 { namespace gui
         {
             if (range.first > range.second)
                 BOOST_THROW_EXCEPTION(std::out_of_range("Reversed range is not allowed."));
-            if (m_position < range.first || range.second <= m_position)
+            const size_type p = position();
+            if (p < range.first || range.second <= p)
                 BOOST_THROW_EXCEPTION(std::out_of_range("The position is outside the range."));
 
-            m_range = std::forward<R>(range);
+            details_type::set_range(*m_p_details, std::forward<R>(range));
         }
 
         /*!
@@ -135,7 +133,7 @@ namespace tetengo2 { namespace gui
         size_type page_size()
         const
         {
-            return m_page_size;
+            return details_type::page_size(*m_p_details);
         }
 
         /*!
@@ -147,7 +145,7 @@ namespace tetengo2 { namespace gui
         */
         void set_page_size(const size_type page_size)
         {
-            m_page_size = page_size;
+            details_type::set_page_size(*m_p_details, page_size);
         }
 
 
