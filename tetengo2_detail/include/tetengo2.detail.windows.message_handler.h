@@ -155,6 +155,25 @@ namespace tetengo2 { namespace detail { namespace windows
                 return boost::none;
             }
 
+            template <typename Size>
+            Size new_scroll_bar_position(const ::HWND window_handle, const int style)
+            {
+                ::SCROLLINFO info = {};
+                info.cbSize = sizeof(::SCROLLINFO);
+                info.fMask = SIF_TRACKPOS;
+
+                if (::GetScrollInfo(window_handle, style, &info) == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(::GetLastError(), win32_category()), "Can't obtain scroll information."
+                        )
+                    );
+                }
+
+                return info.nTrackPos;
+            }
+
             template <typename Widget>
             boost::optional< ::LRESULT> on_vertical_scroll(
                 Widget&        widget,
@@ -166,17 +185,22 @@ namespace tetengo2 { namespace detail { namespace windows
                     return boost::none;
 
                 const int scroll_code = LOWORD(w_param);
+                typedef typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type size_type;
                 if (scroll_code == SB_THUMBTRACK)
                 {
                     if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                         return boost::none;
-                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()();
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), SB_VERT)
+                    );
                 }
                 else
                 {
                     if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                         return boost::none;
-                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()();
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), SB_VERT)
+                    );
                 }
 
                 return boost::make_optional< ::LRESULT>(0);
@@ -193,17 +217,22 @@ namespace tetengo2 { namespace detail { namespace windows
                     return boost::none;
 
                 const int scroll_code = LOWORD(w_param);
+                typedef typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type size_type;
                 if (scroll_code == SB_THUMBTRACK)
                 {
                     if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                         return boost::none;
-                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()();
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), SB_HORZ)
+                    );
                 }
                 else
                 {
                     if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                         return boost::none;
-                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()();
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), SB_HORZ)
+                    );
                 }
 
                 return boost::make_optional< ::LRESULT>(0);

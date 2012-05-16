@@ -16,25 +16,35 @@
 namespace tetengo2 { namespace gui { namespace message
 {
     /*!
-        \brief The class for a scroll bar observer set.
+        \brief The class template for a scroll bar observer set.
+
+        \tparam Size A size type.
     */
+    template <typename Size>
     class scroll_bar_observer_set : private boost::noncopyable
     {
     public:
         // types
 
+        //! The size type.
+        typedef Size size_type;
+
         /*!
             \brief The observer type of scrolling.
+
+            \param new_position A new position.
         */
-        typedef void scrolling_type();
+        typedef void scrolling_type(size_type new_position);
 
         //! The signal type of scrolling.
         typedef boost::signals2::signal<scrolling_type> scrolling_signal_type;
 
         /*!
             \brief The observer type of scrolled.
+
+            \param new_position A new position.
         */
-        typedef void scrolled_type();
+        typedef void scrolled_type(size_type new_position);
 
         //! The signal type of scrolled.
         typedef boost::signals2::signal<scrolled_type> scrolled_signal_type;

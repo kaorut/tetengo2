@@ -389,7 +389,8 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<type::observer_set::menu_observer_set, tetengo2::gui::message::menu_observer_set>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
-                type::observer_set::scroll_bar_observer_set, tetengo2::gui::message::scroll_bar_observer_set
+                type::observer_set::scroll_bar_observer_set,
+                tetengo2::gui::message::scroll_bar_observer_set<boost::mpl::at<type_list, type::size>::type>
             >,
         tetengo2::meta::assoc_list_end
         >>>>>>>

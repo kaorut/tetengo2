@@ -104,7 +104,12 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static void set_position(scroll_bar_details_type& details, const size_type position)
         {
+            ::SCROLLINFO info = {};
+            info.cbSize = sizeof(::SCROLLINFO);
+            info.fMask = SIF_POS;
+            info.nPos = static_cast<int>(position);
 
+            ::SetScrollInfo(details, SB_VERT, &info, FALSE);
         }
 
         /*!
