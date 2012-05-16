@@ -22,10 +22,11 @@ namespace tetengo2 { namespace gui
     /*!
         \brief The class template for a scroll bar.
 
-        \tparam Size          A size type.
-        \tparam ScrollDetails A detail implementation type of a scroll.
+        \tparam Size                 A size type.
+        \tparam ScrollBarObserverSet A scroll bar observer set.
+        \tparam ScrollDetails        A detail implementation type of a scroll.
     */
-    template <typename Size, typename ScrollDetails>
+    template <typename Size, typename ScrollBarObserverSet, typename ScrollDetails>
     class scroll_bar
     {
     public:
@@ -36,6 +37,9 @@ namespace tetengo2 { namespace gui
 
         //! The range type.
         typedef std::pair<size_type, size_type> range_type;
+
+        //! The scroll bar observer set type.
+        typedef ScrollBarObserverSet scroll_bar_observer_set_type;
 
         //! The detail implementation type of a scroll.
         typedef ScrollDetails details_type;
@@ -55,7 +59,8 @@ namespace tetengo2 { namespace gui
         template <typename WidgetDetails>
         scroll_bar(const WidgetDetails& widget_details)
         :
-        m_p_details(details_type::create_scroll_bar(widget_details))
+        m_p_details(details_type::create_scroll_bar(widget_details)),
+        m_scroll_bar_observer_set()
         {}
 
 
@@ -148,17 +153,34 @@ namespace tetengo2 { namespace gui
             details_type::set_page_size(*m_p_details, page_size);
         }
 
+        /*!
+            \brief Returns the scroll bar observer set.
+
+            \return The scroll bar observer set.
+        */
+        const scroll_bar_observer_set_type& scroll_bar_observer_set()
+        const
+        {
+            return m_scroll_bar_observer_set;
+        }
+
+        /*!
+            \brief Returns the scroll bar observer set.
+
+            \return The scroll bar observer set.
+        */
+        scroll_bar_observer_set_type& scroll_bar_observer_set()
+        {
+            return m_scroll_bar_observer_set;
+        }
+
 
     private:
         // variables
 
         scroll_bar_details_ptr_type m_p_details;
 
-        size_type m_position;
-
-        range_type m_range;
-
-        size_type m_page_size;
+        scroll_bar_observer_set_type m_scroll_bar_observer_set;
 
 
     };
