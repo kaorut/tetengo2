@@ -156,6 +156,60 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Widget>
+            boost::optional< ::LRESULT> on_vertical_scroll(
+                Widget&        widget,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                if (!widget.vertical_scroll_bar())
+                    return boost::none;
+
+                const int scroll_code = LOWORD(w_param);
+                if (scroll_code == SB_THUMBTRACK)
+                {
+                    if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
+                        return boost::none;
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()();
+                }
+                else
+                {
+                    if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                        return boost::none;
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()();
+                }
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_horizontal_scroll(
+                Widget&        widget,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                if (!widget.horizontal_scroll_bar())
+                    return boost::none;
+
+                const int scroll_code = LOWORD(w_param);
+                if (scroll_code == SB_THUMBTRACK)
+                {
+                    if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
+                        return boost::none;
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()();
+                }
+                else
+                {
+                    if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                        return boost::none;
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()();
+                }
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+            template <typename Widget>
             boost::optional< ::LRESULT> on_erase_background(
                 Widget&        widget,
                 const ::WPARAM w_param,
@@ -757,6 +811,22 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_KILLFOCUS].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::widget::on_kill_focus<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_VSCROLL].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_vertical_scroll<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_HSCROLL].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_vertical_scroll<Widget>,
                     cpp11::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
