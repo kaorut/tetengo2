@@ -66,6 +66,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param details A detail implementation of a scroll bar.
             
             \return The position.
+
+            \throw std::system_error When the scroll information cannot be obtained.
         */
         static size_type position(const scroll_bar_details_type& details)
         {
@@ -77,6 +79,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param details  A detail implementation of a scroll bar.
             \param position A position.
+
+            \throw std::system_error When the scroll information cannot be set.
         */
         static void set_position(scroll_bar_details_type& details, const size_type position)
         {
@@ -89,6 +93,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param details A detail implementation of a scroll bar.
             
             \return The range.
+
+            \throw std::system_error When the scroll information cannot be obtained.
         */
         static const range_type& range(const scroll_bar_details_type& details)
         {
@@ -102,6 +108,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param details A detail implementation of a scroll bar.
             \param range   A range.
+
+            \throw std::system_error When the scroll information cannot be set.
         */
         template <typename R>
         static void set_range(scroll_bar_details_type& details, R&& range)
@@ -115,6 +123,8 @@ namespace tetengo2 { namespace detail { namespace stub
             \param details A detail implementation of a scroll bar.
             
             \return The page size.
+
+            \throw std::system_error When the scroll information cannot be obtained.
         */
         static size_type page_size(const scroll_bar_details_type& details)
         {
@@ -126,6 +136,8 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \param details   A detail implementation of a scroll bar.
             \param page_size A page size.
+
+            \throw std::system_error When the scroll information cannot be set.
         */
         static void set_page_size(scroll_bar_details_type& details, const size_type page_size)
         {
