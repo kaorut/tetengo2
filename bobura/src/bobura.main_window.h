@@ -202,6 +202,18 @@ namespace bobura
                     diagram_picture_box_type_list_type, message::diagram_picture_box::type::paint_paint
                 >::type()
             );
+            m_p_diagram_picture_box->vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+                TETENGO2_CPP11_BIND(vsc, tetengo2::cpp11::ref(*m_p_diagram_picture_box))
+            );
+        }
+
+        static void vsc(picture_box_type& picture_box)
+        {
+            const std::size_t pos = picture_box.vertical_scroll_bar()->position();
+            const std::size_t ps = picture_box.vertical_scroll_bar()->page_size();
+            ps;
+
+            picture_box.vertical_scroll_bar()->set_position(pos);
         }
 
 
