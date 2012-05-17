@@ -9,8 +9,9 @@
 #if !defined(TETENGO2_GUI_SCROLLBAR_H)
 #define TETENGO2_GUI_SCROLLBAR_H
 
+#include <cassert>
 #include <stdexcept>
-#include <utility>
+//#include <utility>
 
 #include <boost/throw_exception.hpp>
 

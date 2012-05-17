@@ -9,9 +9,11 @@
 #if !defined(TETENGO2_DETAIL_STUB_SCROLL_H)
 #define TETENGO2_DETAIL_STUB_SCROLL_H
 
-#include <memory>
+#include <cstddef>
+//#include <memory>
+#include <system_error>
 #include <tuple>
-#include <utility>
+//#include <utility>
 
 #include <boost/noncopyable.hpp>
 
