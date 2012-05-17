@@ -14,6 +14,7 @@
 //#include <cstddef>
 //#include <functional>
 //#include <memory>
+#include <stdexcept>
 //#include <system_error>
 //#include <tuple>
 #include <unordered_map>
@@ -156,11 +157,11 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Size>
-            Size new_scroll_bar_position(const ::HWND window_handle, const int style)
+            Size new_scroll_bar_position(const ::HWND window_handle, const int scroll_code, const int style)
             {
                 ::SCROLLINFO info = {};
                 info.cbSize = sizeof(::SCROLLINFO);
-                info.fMask = SIF_TRACKPOS;
+                info.fMask = SIF_POS | SIF_RANGE | SIF_PAGE | SIF_TRACKPOS;
 
                 if (::GetScrollInfo(window_handle, style, &info) == 0)
                 {
@@ -171,7 +172,55 @@ namespace tetengo2 { namespace detail { namespace windows
                     );
                 }
 
-                return info.nTrackPos;
+                if (style == SB_VERT)
+                {
+                    switch (scroll_code)
+                    {
+                    case SB_LINEUP:
+                        return std::max(info.nMin, info.nPos - 1);
+                    case SB_LINEDOWN:
+                        return std::min(info.nMax, info.nPos + 1);
+                    case SB_PAGEUP:
+                        return std::max<int>(info.nMin, info.nPos - info.nPage);
+                    case SB_PAGEDOWN:
+                        return std::min<int>(info.nMax, info.nPos + info.nPage);
+                    case SB_THUMBPOSITION:
+                    case SB_THUMBTRACK:
+                        return info.nTrackPos;
+                    case SB_TOP:
+                        return info.nMin;
+                    case SB_BOTTOM:
+                        return info.nMax;
+                    default:
+                        assert(false);
+                        BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll code."));
+                    }
+                }
+                else
+                {
+                    assert(style == SB_HORZ);
+                    switch (scroll_code)
+                    {
+                    case SB_LINELEFT:
+                        return std::max(info.nMin, info.nPos - 1);
+                    case SB_LINERIGHT:
+                        return std::min(info.nMax, info.nPos + 1);
+                    case SB_PAGELEFT:
+                        return std::max<int>(info.nMin, info.nPos - info.nPage);
+                    case SB_PAGERIGHT:
+                        return std::min<int>(info.nMax, info.nPos + info.nPage);
+                    case SB_THUMBPOSITION:
+                    case SB_THUMBTRACK:
+                        return info.nTrackPos;
+                    case SB_LEFT:
+                        return info.nMin;
+                    case SB_RIGHT:
+                        return info.nMax;
+                    default:
+                        assert(false);
+                        BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll code."));
+                    }
+                }
             }
 
             template <typename Widget>
@@ -186,12 +235,16 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 const int scroll_code = LOWORD(w_param);
                 typedef typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type size_type;
-                if (scroll_code == SB_THUMBTRACK)
+                if (scroll_code == SB_ENDSCROLL)
+                {
+                    return boost::none;
+                }
+                else if (scroll_code == SB_THUMBTRACK)
                 {
                     if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                         return boost::none;
                     widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), SB_VERT)
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT)
                     );
                 }
                 else
@@ -199,7 +252,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                         return boost::none;
                     widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), SB_VERT)
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT)
                     );
                 }
 
@@ -218,12 +271,16 @@ namespace tetengo2 { namespace detail { namespace windows
 
                 const int scroll_code = LOWORD(w_param);
                 typedef typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type size_type;
-                if (scroll_code == SB_THUMBTRACK)
+                if (scroll_code == SB_ENDSCROLL)
+                {
+                    return boost::none;
+                }
+                else if (scroll_code == SB_THUMBTRACK)
                 {
                     if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                         return boost::none;
                     widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), SB_HORZ)
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ)
                     );
                 }
                 else
@@ -231,7 +288,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                         return boost::none;
                     widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), SB_HORZ)
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ)
                     );
                 }
 

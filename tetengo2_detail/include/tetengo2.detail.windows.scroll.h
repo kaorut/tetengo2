@@ -122,7 +122,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.fMask = SIF_POS;
             info.nPos = static_cast<int>(position);
 
-            ::SetScrollInfo(details.first, details.second, &info, FALSE);
+            ::SetScrollInfo(details.first, details.second, &info, TRUE);
         }
 
         /*!
