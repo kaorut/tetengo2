@@ -42,10 +42,17 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::pair<size_type, size_type> range_type;
 
         //! The scroll bar details type.
-        typedef ::HWND scroll_bar_details_type;
+        typedef std::pair< ::HWND, int> scroll_bar_details_type;
 
         //! The scroll bar details pointer type.
         typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
+
+        //! The style type.
+        enum style_type
+        {
+            style_vertical,   //!< The vertical style.
+            style_horizontal, //!< The horizontal style.
+        };
 
 
         // static functions
@@ -56,15 +63,21 @@ namespace tetengo2 { namespace detail { namespace windows
             \tparam WidgetDetails A detail implementation type of a widget.
 
             \param widget_details A detail implementation of a widget.
+            \param style          A style.
 
             \return A unique pointer to a scroll bar. 
 
             \throw std::system_error When a system cursor cannot be created.
         */
         template <typename WidgetDetails>
-        static scroll_bar_details_ptr_type create_scroll_bar(const WidgetDetails& widget_details)
+        static scroll_bar_details_ptr_type create_scroll_bar(
+            const WidgetDetails& widget_details,
+            const style_type     style
+        )
         {
-            return tetengo2::make_unique<scroll_bar_details_type>(std::get<0>(widget_details).get());
+            return tetengo2::make_unique<scroll_bar_details_type>(
+                std::get<0>(widget_details).get(), to_native_style(style)
+            );
         }
 
         /*!
@@ -82,7 +95,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_POS;
             
-            if (::GetScrollInfo(details, SB_VERT, &info) == 0)
+            if (::GetScrollInfo(details.first, details.second, &info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -109,7 +122,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.fMask = SIF_POS;
             info.nPos = static_cast<int>(position);
 
-            ::SetScrollInfo(details, SB_VERT, &info, FALSE);
+            ::SetScrollInfo(details.first, details.second, &info, FALSE);
         }
 
         /*!
@@ -172,6 +185,20 @@ namespace tetengo2 { namespace detail { namespace windows
 
     private:
         // static functions
+
+        static int to_native_style(const style_type style)
+        {
+            switch (style)
+            {
+            case style_vertical:
+                return SB_VERT;
+            case style_horizontal:
+                return SB_HORZ;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid style."));
+            }
+        }
 
 
         // forbidden operations

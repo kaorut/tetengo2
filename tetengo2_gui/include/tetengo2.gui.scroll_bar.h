@@ -50,16 +50,26 @@ namespace tetengo2 { namespace gui
         //! The detail implementation pointer type of a scroll bar.
         typedef typename details_type::scroll_bar_details_ptr_type scroll_bar_details_ptr_type;
 
+        //! The style type.
+        enum style_type
+        {
+            style_vertical,   //!< The vertical style.
+            style_horizontal, //!< The horizontal style.
+        };
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a scroll bar.
+
+            \param widget_details A detail implementation of a widget.
+            \param style          A style.
         */
         template <typename WidgetDetails>
-        scroll_bar(const WidgetDetails& widget_details)
+        scroll_bar(const WidgetDetails& widget_details, const style_type style)
         :
-        m_p_details(details_type::create_scroll_bar(widget_details)),
+        m_p_details(details_type::create_scroll_bar(widget_details, to_details_style(style))),
         m_scroll_bar_observer_set()
         {}
 
@@ -176,6 +186,23 @@ namespace tetengo2 { namespace gui
 
 
     private:
+        // static functions
+
+        static typename details_type::style_type to_details_style(const style_type style)
+        {
+            switch (style)
+            {
+            case style_vertical:
+                return details_type::style_vertical;
+            case style_horizontal:
+                return details_type::style_horizontal;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid style."));
+            }
+        }
+
+
         // variables
 
         scroll_bar_details_ptr_type m_p_details;

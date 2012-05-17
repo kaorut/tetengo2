@@ -40,6 +40,13 @@ namespace tetengo2 { namespace detail { namespace stub
         //! The scroll bar details pointer type.
         typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
 
+        //! The style type.
+        enum style_type
+        {
+            style_vertical,   //!< The vertical style.
+            style_horizontal, //!< The horizontal style.
+        };
+
 
         // static functions
 
@@ -49,13 +56,17 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam WidgetDetails A detail implementation type of a widget.
 
             \param widget_details A detail implementation of a widget.
+            \param style          A style type.
 
             \return A unique pointer to a scroll bar. 
 
             \throw std::system_error When a system cursor cannot be created.
         */
         template <typename WidgetDetails>
-        static scroll_bar_details_ptr_type create_scroll_bar(const WidgetDetails& widget_details)
+        static scroll_bar_details_ptr_type create_scroll_bar(
+            const WidgetDetails& widget_details,
+            const style_type     style
+        )
         {
             return tetengo2::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10);
         }
