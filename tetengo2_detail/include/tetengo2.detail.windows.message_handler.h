@@ -172,54 +172,32 @@ namespace tetengo2 { namespace detail { namespace windows
                     );
                 }
 
-                if (style == SB_VERT)
+                switch (scroll_code)
                 {
-                    switch (scroll_code)
-                    {
-                    case SB_LINEUP:
-                        return std::max(info.nMin, info.nPos - 1);
-                    case SB_LINEDOWN:
-                        return std::min(info.nMax, info.nPos + 1);
-                    case SB_PAGEUP:
-                        return std::max<int>(info.nMin, info.nPos - info.nPage);
-                    case SB_PAGEDOWN:
-                        return std::min<int>(info.nMax, info.nPos + info.nPage);
-                    case SB_THUMBPOSITION:
-                    case SB_THUMBTRACK:
-                        return info.nTrackPos;
-                    case SB_TOP:
-                        return info.nMin;
-                    case SB_BOTTOM:
-                        return info.nMax;
-                    default:
-                        assert(false);
-                        BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll code."));
-                    }
-                }
-                else
-                {
-                    assert(style == SB_HORZ);
-                    switch (scroll_code)
-                    {
-                    case SB_LINELEFT:
-                        return std::max(info.nMin, info.nPos - 1);
-                    case SB_LINERIGHT:
-                        return std::min(info.nMax, info.nPos + 1);
-                    case SB_PAGELEFT:
-                        return std::max<int>(info.nMin, info.nPos - info.nPage);
-                    case SB_PAGERIGHT:
-                        return std::min<int>(info.nMax, info.nPos + info.nPage);
-                    case SB_THUMBPOSITION:
-                    case SB_THUMBTRACK:
-                        return info.nTrackPos;
-                    case SB_LEFT:
-                        return info.nMin;
-                    case SB_RIGHT:
-                        return info.nMax;
-                    default:
-                        assert(false);
-                        BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll code."));
-                    }
+                case SB_LINEUP:
+                    static_assert(SB_LINELEFT == SB_LINEUP, "SB_LINELEFT != SB_LINEUP");
+                    return std::max(info.nMin, info.nPos - 1);
+                case SB_LINEDOWN:
+                    static_assert(SB_LINERIGHT == SB_LINEDOWN, "SB_LINERIGHT != SB_LINEDOWN");
+                    return std::min(info.nMax, info.nPos + 1);
+                case SB_PAGEUP:
+                    static_assert(SB_PAGELEFT == SB_PAGEUP, "SB_PAGELEFT != SB_PAGEUP");
+                    return std::max<int>(info.nMin, info.nPos - info.nPage);
+                case SB_PAGEDOWN:
+                    static_assert(SB_PAGERIGHT == SB_PAGEDOWN, "SB_PAGERIGHT != SB_PAGEDOWN");
+                    return std::min<int>(info.nMax, info.nPos + info.nPage);
+                case SB_THUMBPOSITION:
+                case SB_THUMBTRACK:
+                    return info.nTrackPos;
+                case SB_TOP:
+                    static_assert(SB_LEFT == SB_TOP, "SB_LEFT != SB_TOP");
+                    return info.nMin;
+                case SB_BOTTOM:
+                    static_assert(SB_RIGHT == SB_BOTTOM, "SB_RIGHT != SB_BOTTOM");
+                    return info.nMax;
+                default:
+                    assert(false);
+                    BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll code."));
                 }
             }
 
