@@ -119,7 +119,7 @@ namespace tetengo2 { namespace detail { namespace windows
         {
             ::SCROLLINFO info = {};
             info.cbSize = sizeof(::SCROLLINFO);
-            info.fMask = SIF_POS;
+            info.fMask = SIF_POS | SIF_DISABLENOSCROLL;
             info.nPos = static_cast<int>(position);
 
             ::SetScrollInfo(details.first, details.second, &info, TRUE);
@@ -136,7 +136,20 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static range_type range(const scroll_bar_details_type& details)
         {
-            return std::make_pair(0, 100);
+            ::SCROLLINFO info = {};
+            info.cbSize = sizeof(::SCROLLINFO);
+            info.fMask = SIF_RANGE;
+            
+            if (::GetScrollInfo(details.first, details.second, &info) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain scroll information."
+                    )
+                );
+            }
+
+            return range_type(info.nMin, info.nMax);
         }
 
         /*!
@@ -152,7 +165,13 @@ namespace tetengo2 { namespace detail { namespace windows
         template <typename R>
         static void set_range(scroll_bar_details_type& details, R&& range)
         {
+            ::SCROLLINFO info = {};
+            info.cbSize = sizeof(::SCROLLINFO);
+            info.fMask = SIF_RANGE | SIF_DISABLENOSCROLL;
+            info.nMin = static_cast<int>(range.first);
+            info.nMax = static_cast<int>(range.second);
 
+            ::SetScrollInfo(details.first, details.second, &info, TRUE);
         }
 
         /*!
@@ -166,7 +185,20 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static size_type page_size(const scroll_bar_details_type& details)
         {
-            return 0;
+            ::SCROLLINFO info = {};
+            info.cbSize = sizeof(::SCROLLINFO);
+            info.fMask = SIF_PAGE;
+            
+            if (::GetScrollInfo(details.first, details.second, &info) == 0)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(
+                        std::error_code(::GetLastError(), win32_category()), "Can't obtain scroll information."
+                    )
+                );
+            }
+
+            return info.nPage;
         }
 
         /*!
@@ -179,7 +211,12 @@ namespace tetengo2 { namespace detail { namespace windows
         */
         static void set_page_size(scroll_bar_details_type& details, const size_type page_size)
         {
+            ::SCROLLINFO info = {};
+            info.cbSize = sizeof(::SCROLLINFO);
+            info.fMask = SIF_PAGE | SIF_DISABLENOSCROLL;
+            info.nPage = static_cast< ::UINT>(page_size);
 
+            ::SetScrollInfo(details.first, details.second, &info, TRUE);
         }
 
 
