@@ -14,6 +14,7 @@
 //#include <cstddef>
 //#include <functional>
 //#include <memory>
+//#include <stdexcept>
 //#include <system_error>
 //#include <tuple>
 #include <unordered_map>
@@ -153,6 +154,123 @@ namespace tetengo2 { namespace detail { namespace windows
             {
                 widget.focus_observer_set().lost_focus()();
                 return boost::none;
+            }
+
+            template <typename Size>
+            Size new_scroll_bar_position(const ::HWND window_handle, const int scroll_code, const int style)
+            {
+                ::SCROLLINFO info = {};
+                info.cbSize = sizeof(::SCROLLINFO);
+                info.fMask = SIF_POS | SIF_RANGE | SIF_PAGE | SIF_TRACKPOS;
+
+                if (::GetScrollInfo(window_handle, style, &info) == 0)
+                {
+                    BOOST_THROW_EXCEPTION(
+                        std::system_error(
+                            std::error_code(::GetLastError(), win32_category()), "Can't obtain scroll information."
+                        )
+                    );
+                }
+
+                switch (scroll_code)
+                {
+                case SB_LINEUP:
+                    static_assert(SB_LINELEFT == SB_LINEUP, "SB_LINELEFT != SB_LINEUP");
+                    return std::max(info.nMin, info.nPos - 1);
+                case SB_LINEDOWN:
+                    static_assert(SB_LINERIGHT == SB_LINEDOWN, "SB_LINERIGHT != SB_LINEDOWN");
+                    return std::min(info.nMax, info.nPos + 1);
+                case SB_PAGEUP:
+                    static_assert(SB_PAGELEFT == SB_PAGEUP, "SB_PAGELEFT != SB_PAGEUP");
+                    return std::max<int>(info.nMin, info.nPos - info.nPage);
+                case SB_PAGEDOWN:
+                    static_assert(SB_PAGERIGHT == SB_PAGEDOWN, "SB_PAGERIGHT != SB_PAGEDOWN");
+                    return std::min<int>(info.nMax, info.nPos + info.nPage);
+                case SB_THUMBPOSITION:
+                case SB_THUMBTRACK:
+                    return info.nTrackPos;
+                case SB_TOP:
+                    static_assert(SB_LEFT == SB_TOP, "SB_LEFT != SB_TOP");
+                    return info.nMin;
+                case SB_BOTTOM:
+                    static_assert(SB_RIGHT == SB_BOTTOM, "SB_RIGHT != SB_BOTTOM");
+                    return info.nMax;
+                default:
+                    assert(false);
+                    BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll code."));
+                }
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_vertical_scroll(
+                Widget&        widget,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                if (!widget.vertical_scroll_bar())
+                    return boost::none;
+
+                const int scroll_code = LOWORD(w_param);
+                typedef typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type size_type;
+                if (scroll_code == SB_ENDSCROLL)
+                {
+                    return boost::none;
+                }
+                else if (scroll_code == SB_THUMBTRACK)
+                {
+                    if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
+                        return boost::none;
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT)
+                    );
+                }
+                else
+                {
+                    if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                        return boost::none;
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT)
+                    );
+                }
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_horizontal_scroll(
+                Widget&        widget,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                if (!widget.horizontal_scroll_bar())
+                    return boost::none;
+
+                const int scroll_code = LOWORD(w_param);
+                typedef typename Widget::scroll_bar_type::scroll_bar_observer_set_type::size_type size_type;
+                if (scroll_code == SB_ENDSCROLL)
+                {
+                    return boost::none;
+                }
+                else if (scroll_code == SB_THUMBTRACK)
+                {
+                    if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
+                        return boost::none;
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ)
+                    );
+                }
+                else
+                {
+                    if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                        return boost::none;
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(
+                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ)
+                    );
+                }
+
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
@@ -757,6 +875,22 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_KILLFOCUS].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::widget::on_kill_focus<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_VSCROLL].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_vertical_scroll<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_HSCROLL].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_vertical_scroll<Widget>,
                     cpp11::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()

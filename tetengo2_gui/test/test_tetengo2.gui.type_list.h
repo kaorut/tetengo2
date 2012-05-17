@@ -25,6 +25,7 @@
 #include "tetengo2.detail.stub.menu.h"
 #include "tetengo2.detail.stub.message_handler.h"
 #include "tetengo2.detail.stub.message_loop.h"
+#include "tetengo2.detail.stub.scroll.h"
 #include "tetengo2.detail.stub.system_color.h"
 #include "tetengo2.detail.stub.unit.h"
 #include "tetengo2.detail.stub.virtual_key.h"
@@ -63,7 +64,9 @@
 #include "tetengo2.gui.message.message_loop_break.h"
 #include "tetengo2.gui.message.mouse_observer_set.h"
 #include "tetengo2.gui.message.paint_observer_set.h"
+#include "tetengo2.gui.message.scroll_bar_observer_set.h"
 #include "tetengo2.gui.message.window_observer_set.h"
+#include "tetengo2.gui.scroll_bar.h"
 #include "tetengo2.gui.unit.em.h"
 #include "tetengo2.gui.unit.pixel.h"
 #include "tetengo2.gui.virtual_key.h"
@@ -157,7 +160,6 @@ namespace test_tetengo2 { namespace gui
     {
         struct alert;          //!< The alert type.
         struct virtual_key;    //!< The virtual key type.
-        struct dimension;      //!< The dimmension type.
     }}
 
     //! The GUI common type list.
@@ -357,6 +359,7 @@ namespace test_tetengo2 { namespace gui
         struct keyboard_observer_set; //!< The keyboard observer set type.
         struct mouse_observer_set; //!< The mouse observer set type.
         struct menu_observer_set; //!< The menu observer set type.
+        struct scroll_bar_observer_set; //!< The scroll bar observer set type.
     }}
 
     //! The observer set type list.
@@ -384,8 +387,13 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<type::observer_set::mouse_observer_set, tetengo2::gui::message::mouse_observer_set>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::observer_set::menu_observer_set, tetengo2::gui::message::menu_observer_set>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::observer_set::scroll_bar_observer_set,
+                tetengo2::gui::message::scroll_bar_observer_set<boost::mpl::at<type_list, type::size>::type>
+            >,
         tetengo2::meta::assoc_list_end
-        >>>>>>
+        >>>>>>>
         observer_set_type_list;
 
 
@@ -474,6 +482,29 @@ namespace test_tetengo2 { namespace gui
         menu_type_list;
 
 
+    /**** Scroll ************************************************************/
+
+    namespace type { namespace scroll
+    {
+        struct scroll_bar;     //!< The scroll bar type.
+    }}
+
+    //! The scroll type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::scroll::scroll_bar,
+                tetengo2::gui::scroll_bar<
+                    boost::mpl::at<type_list, type::size>::type,
+                    boost::mpl::at<observer_set_type_list, type::observer_set::scroll_bar_observer_set>::type,
+                    tetengo2::detail::stub::scroll
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        scroll_type_list;
+
+
     /**** Widget ************************************************************/
 
     namespace type { namespace widget
@@ -508,6 +539,7 @@ namespace test_tetengo2 { namespace gui
                 boost::mpl::at<drawing_type_list, type::drawing::background>::type,
                 boost::mpl::at<drawing_type_list, type::drawing::font>::type,
                 boost::mpl::at<cursor_type_list, type::cursor::system>::type,
+                boost::mpl::at<scroll_type_list, type::scroll::scroll_bar>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::focus_observer_set>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::paint_observer_set>::type,
                 boost::mpl::at<observer_set_type_list, type::observer_set::keyboard_observer_set>::type,

@@ -82,6 +82,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The cursor type.
         typedef typename system_cursor_type::base_type cursor_type;
 
+        //! The scroll bar type.
+        typedef typename traits_type::scroll_bar_type scroll_bar_type;
+
         //! The focus observer set type.
         typedef typename traits_type::focus_observer_set_type focus_observer_set_type;
 
@@ -114,6 +117,15 @@ namespace tetengo2 { namespace gui { namespace widget
 
         //! The child type.
         typedef widget child_type;
+
+        //! The scroll bar style type.
+        enum scroll_bar_style_type
+        {
+            scroll_bar_style_none,       //!< The widget has no scroll bar.
+            scroll_bar_style_vertical,   //!< The widget has a vertical scroll bar.
+            scroll_bar_style_horizontal, //!< The widget has a horizontal scroll bar.
+            scroll_bar_style_both,       //!< The widget has both vertiacal and horizontal scroll bars.
+        };
 
 
         // constructors and destructor
@@ -439,6 +451,60 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Returns the vertical scroll bar.
+
+            \return The vertical scroll bar.
+        */
+        boost::optional<const scroll_bar_type&> vertical_scroll_bar()
+        const
+        {
+            if (!m_p_vertical_scroll_bar)
+                return boost::none;
+
+            return *m_p_vertical_scroll_bar;
+        }
+
+        /*!
+            \brief Returns the vertical scroll bar.
+
+            \return The vertical scroll bar.
+        */
+        boost::optional<scroll_bar_type&> vertical_scroll_bar()
+        {
+            if (!m_p_vertical_scroll_bar)
+                return boost::none;
+
+            return *m_p_vertical_scroll_bar;
+        }
+
+        /*!
+            \brief Returns the horizontal scroll bar.
+
+            \return The horizontal scroll bar.
+        */
+        boost::optional<const scroll_bar_type&> horizontal_scroll_bar()
+        const
+        {
+            if (!m_p_horizontal_scroll_bar)
+                return boost::none;
+
+            return *m_p_horizontal_scroll_bar;
+        }
+
+        /*!
+            \brief Returns the horizontal scroll bar.
+
+            \return The horizontal scroll bar.
+        */
+        boost::optional<scroll_bar_type&> horizontal_scroll_bar()
+        {
+            if (!m_p_horizontal_scroll_bar)
+                return boost::none;
+
+            return *m_p_horizontal_scroll_bar;
+        }
+
+        /*!
             \brief Returns the constant children.
 
             \return The children.
@@ -669,7 +735,11 @@ namespace tetengo2 { namespace gui { namespace widget
             assert(p_widget);
 
             widget_details_type::associate_to_native_window_system(*p_widget);
+
             p_widget->set_font(font_type::dialog_font());
+
+            p_widget->m_p_vertical_scroll_bar = p_widget->create_vertical_scroll_bar();
+            p_widget->m_p_horizontal_scroll_bar = p_widget->create_horizontal_scroll_bar();
         }
 
 
@@ -678,9 +748,10 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a widget.
 
+            \param scroll_bar_style    A scroll bar style.
             \param message_handler_map A message handler map.
         */
-        explicit widget(message_handler_map_type&& message_handler_map)
+        widget(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
@@ -698,6 +769,9 @@ namespace tetengo2 { namespace gui { namespace widget
         m_destroyed(false),
         m_p_background(),
         m_p_cursor(),
+        m_scroll_bar_style(scroll_bar_style),
+        m_p_vertical_scroll_bar(),
+        m_p_horizontal_scroll_bar(),
         m_focus_observer_set(),
         m_paint_observer_set(),
         m_keyboard_observer_set(),
@@ -792,6 +866,12 @@ namespace tetengo2 { namespace gui { namespace widget
 
         std::unique_ptr<cursor_type> m_p_cursor;
 
+        const scroll_bar_style_type m_scroll_bar_style;
+
+        std::unique_ptr<scroll_bar_type> m_p_vertical_scroll_bar;
+
+        std::unique_ptr<scroll_bar_type> m_p_horizontal_scroll_bar;
+
         focus_observer_set_type m_focus_observer_set;
 
         paint_observer_set_type m_paint_observer_set;
@@ -809,6 +889,25 @@ namespace tetengo2 { namespace gui { namespace widget
 
         virtual boost::optional<details_type&> details_impl()
         = 0;
+
+
+        // functions
+
+        std::unique_ptr<scroll_bar_type> create_vertical_scroll_bar()
+        {
+            if (m_scroll_bar_style != scroll_bar_style_vertical && m_scroll_bar_style != scroll_bar_style_both)
+                return std::unique_ptr<scroll_bar_type>();
+
+            return tetengo2::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_vertical);
+        }
+
+        std::unique_ptr<scroll_bar_type> create_horizontal_scroll_bar()
+        {
+            if (m_scroll_bar_style != scroll_bar_style_horizontal && m_scroll_bar_style != scroll_bar_style_both)
+                return std::unique_ptr<scroll_bar_type>();
+
+            return tetengo2::make_unique<scroll_bar_type>(*details(), scroll_bar_type::style_horizontal);
+        }
 
 
     };

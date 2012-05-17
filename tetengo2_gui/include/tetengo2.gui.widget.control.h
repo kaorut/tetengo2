@@ -55,6 +55,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The keyboard observer set type.
         typedef typename base_type::keyboard_observer_set_type keyboard_observer_set_type;
 
+        //! The scroll bar style type.
+        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+
         //! The color type.
         typedef typename traits_type::color_type color_type;
 
@@ -134,16 +137,22 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates a control.
 
+            \param scroll_bar_style    A scroll bar style.
             \param message_handler_map A message handler map.
             \param p_details           A unique pointer to a detail implementation.
         */
-        control(message_handler_map_type&& message_handler_map, details_ptr_type p_details)
+        control(
+            const scroll_bar_style_type scroll_bar_style,
+            message_handler_map_type&&  message_handler_map,
+            details_ptr_type            p_details
+        )
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         base_type(
+            scroll_bar_style,
             message_handler_details_type::make_control_message_handler_map(
                 *this, std::forward<message_handler_map_type>(message_handler_map)
             )

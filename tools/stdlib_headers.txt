@@ -73,6 +73,7 @@
 ::GetParent                                      Windows.h
 ::GetProcAddress                                 Windows.h
 ::GetPropW                                       Windows.h
+::GetScrollInfo                                  Windows.h
 ::GetStockObject                                 Windows.h
 ::GetSysColor                                    Windows.h
 ::GetSysColorBrush                               Windows.h
@@ -156,6 +157,7 @@
 ::ReleaseDC                                      Windows.h
 ::RemoveMenu                                     Windows.h
 ::RemovePropW                                    Windows.h
+::SCROLLINFO                                     Windows.h
 ::SHCreateItemFromParsingName                    Windows.h,ShObjIdl.h
 ::SendMessageW                                   Windows.h
 ::SetActiveWindow                                Windows.h
@@ -164,6 +166,7 @@
 ::SetFocus                                       Windows.h
 ::SetMenu                                        Windows.h
 ::SetPropW                                       Windows.h
+::SetScrollInfo                                  Windows.h
 ::SetTextColor                                   Windows.h
 ::SetWindowLongPtrW                              Windows.h
 ::SetWindowLongW                                 Windows.h
@@ -526,9 +529,11 @@ std::locale::global                              locale
 std::logic_error                                 stdexcept
 std::make_pair                                   utility
 std::make_tuple                                  tuple
+std::max                                         algorithm
 std::mbstate_t                                   cwchar
 std::messages                                    locale
 std::messages_base::catalog                      locale
+std::min                                         algorithm
 std::move                                        utility
 std::numeric_limits                              limits
 std::ostream                                     ostream

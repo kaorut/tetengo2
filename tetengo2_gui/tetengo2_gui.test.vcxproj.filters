@@ -203,5 +203,11 @@
     <ClCompile Include="test\test_tetengo2.gui.widget.picture_box.cpp">
       <Filter>sources\test_tetengo2::gui\widget</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.scroll_bar.cpp">
+      <Filter>sources\test_tetengo2::gui</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_tetengo2.gui.message.scroll_bar_observer_set.cpp">
+      <Filter>sources\test_tetengo2::gui\message</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -39,7 +39,9 @@ headers = \
     tetengo2.gui.message.message_loop_break.h \
     tetengo2.gui.message.mouse_observer_set.h \
     tetengo2.gui.message.paint_observer_set.h \
+    tetengo2.gui.message.scroll_bar_observer_set.h \
     tetengo2.gui.message.window_observer_set.h \
+    tetengo2.gui.scroll_bar.h \
     tetengo2.gui.unit.em.h \
     tetengo2.gui.unit.pixel.h \
     tetengo2.gui.unit.unit.h \

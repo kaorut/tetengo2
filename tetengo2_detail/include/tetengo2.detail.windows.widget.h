@@ -94,14 +94,18 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget. When uninitialized, the window has no parent.
+            \param parent           A parent widget. When uninitialized, the window has no parent.
+            \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a window.
 
             \throw std::system_error When a window cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_window(const boost::optional<Widget&>& parent = boost::none)
+        static widget_details_ptr_type create_window(
+            const boost::optional<Widget&>&              parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
+        )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
             if (!instance_handle)
@@ -118,7 +122,7 @@ namespace tetengo2 { namespace detail { namespace windows
 
             typename std::tuple_element<0, widget_details_type>::type p_widget(
                 ::CreateWindowExW(
-                    WS_EX_ACCEPTFILES | WS_EX_APPWINDOW,
+                    WS_EX_ACCEPTFILES | WS_EX_APPWINDOW | window_style_for_scroll_bars<Widget>(scroll_bar_style),
                     window_class_name().c_str(),
                     window_class_name().c_str(),
                     WS_OVERLAPPEDWINDOW,
@@ -363,14 +367,18 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget.
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a picture box.
 
             \throw std::system_error When a picture box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_picture_box(Widget& parent)
+        static widget_details_ptr_type create_picture_box(
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
+        )
         {
             const ::HINSTANCE instance_handle = ::GetModuleHandle(NULL);
             if (!instance_handle)
@@ -390,7 +398,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     WS_EX_CLIENTEDGE,
                     picture_box_class_name().c_str(),
                     L"",
-                    WS_CHILD | WS_TABSTOP | WS_VISIBLE,
+                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | window_style_for_scroll_bars<Widget>(scroll_bar_style),
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
@@ -419,21 +427,29 @@ namespace tetengo2 { namespace detail { namespace windows
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget.
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a text box.
 
             \throw std::system_error When a text box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_text_box(Widget& parent)
+        static widget_details_ptr_type create_text_box(
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
+        )
         {
             typename std::tuple_element<0, widget_details_type>::type p_widget(
                 ::CreateWindowExW(
                     WS_EX_CLIENTEDGE,
                     L"Edit",
                     L"",
-                    WS_CHILD | WS_TABSTOP | WS_VISIBLE | ES_AUTOHSCROLL,
+                    WS_CHILD |
+                        WS_TABSTOP |
+                        WS_VISIBLE |
+                        ES_AUTOHSCROLL |
+                        window_style_for_scroll_bars<Widget>(scroll_bar_style),
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
                     CW_USEDEFAULT,
@@ -1509,6 +1525,25 @@ namespace tetengo2 { namespace detail { namespace windows
                         "Can't register a window class for a picture box!"
                     )
                 );
+            }
+        }
+
+        template <typename Widget>
+        static ::DWORD window_style_for_scroll_bars(const typename Widget::scroll_bar_style_type style)
+        {
+            switch (style)
+            {
+            case Widget::scroll_bar_style_none:
+                return 0;
+            case Widget::scroll_bar_style_vertical:
+                return WS_VSCROLL;
+            case Widget::scroll_bar_style_horizontal:
+                return WS_HSCROLL;
+            case Widget::scroll_bar_style_both:
+                return WS_HSCROLL | WS_VSCROLL;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll bar style."));
             }
         }
 

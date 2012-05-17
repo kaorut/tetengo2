@@ -54,7 +54,9 @@
 #include <tetengo2.gui.message.message_loop_break.h>
 #include <tetengo2.gui.message.mouse_observer_set.h>
 #include <tetengo2.gui.message.paint_observer_set.h>
+#include <tetengo2.gui.message.scroll_bar_observer_set.h>
 #include <tetengo2.gui.message.window_observer_set.h>
+#include <tetengo2.gui.scroll_bar.h>
 #include <tetengo2.gui.unit.em.h>
 #include <tetengo2.gui.virtual_key.h>
 #include <tetengo2.gui.widget.abstract_window.h>
@@ -495,6 +497,13 @@ namespace bobura
             tetengo2::gui::cursor::system<boost::mpl::at<detail_type_list, type::detail::cursor>::type>
             system_cursor_type;
         typedef
+            tetengo2::gui::scroll_bar<
+                boost::mpl::at<common_type_list, type::size>::type,
+                tetengo2::gui::message::scroll_bar_observer_set<boost::mpl::at<common_type_list, type::size>::type>,
+                boost::mpl::at<detail_type_list, type::detail::scroll>::type
+            >
+            scroll_bar_type;
+        typedef
             tetengo2::gui::virtual_key<
                 boost::mpl::at<common_type_list, type::string>::type,
                 boost::mpl::at<detail_type_list, type::detail::virtual_key>::type
@@ -511,6 +520,7 @@ namespace bobura
                 background_type,
                 font_type,
                 system_cursor_type,
+                scroll_bar_type,
                 tetengo2::gui::message::focus_observer_set,
                 tetengo2::gui::message::paint_observer_set<canvas_type>,
                 tetengo2::gui::message::keyboard_observer_set<

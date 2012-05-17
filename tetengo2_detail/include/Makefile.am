@@ -12,6 +12,7 @@ headers = \
     tetengo2.detail.stub.menu.h \
     tetengo2.detail.stub.message_handler.h \
     tetengo2.detail.stub.message_loop.h \
+    tetengo2.detail.stub.scroll.h \
     tetengo2.detail.stub.system_color.h \
     tetengo2.detail.stub.unit.h \
     tetengo2.detail.stub.virtual_key.h \
@@ -35,6 +36,7 @@ extra_headers = \
     tetengo2.detail.windows.message_handler.h \
     tetengo2.detail.windows.message_loop.h \
     tetengo2.detail.windows.picture.h \
+    tetengo2.detail.windows.scroll.h \
     tetengo2.detail.windows.system_color.h \
     tetengo2.detail.windows.unit.h \
     tetengo2.detail.windows.virtual_key.h \

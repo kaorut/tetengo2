@@ -67,13 +67,14 @@ namespace tetengo2 { namespace gui { namespace widget
 
             \param parent A parent widget.
         */
-        explicit image(widget_type& parent)
+        image(widget_type& parent)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         base_type(
+            base_type::scroll_bar_style_none,
             message_handler_details_type::make_image_message_handler_map(*this, message_handler_map_type()),
             widget_details_type::create_image(parent)
         ),

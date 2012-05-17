@@ -61,9 +61,12 @@ namespace
             return encoder();
         }
 
-        explicit concrete_widget(widget_type* const p_parent = NULL)
+        explicit concrete_widget(
+            widget_type* const                       p_parent = NULL,
+            const widget_type::scroll_bar_style_type scroll_bar_style = widget_type::scroll_bar_style_none
+        )
         :
-        widget_type(message_handler_map_type()),
+        widget_type(scroll_bar_style, message_handler_map_type()),
         m_p_details(
             tetengo2::make_unique<widget_details_type::widget_details_type>(
                 p_parent,
@@ -503,6 +506,58 @@ BOOST_AUTO_TEST_SUITE(widget)
         const boost::optional<const widget_type::cursor_type&> cursor = widget.cursor();
         BOOST_CHECK(cursor);
         BOOST_CHECK(dynamic_cast<const system_cursor_type&>(*cursor).style() == system_cursor_type::style_hand);
+    }
+
+    BOOST_AUTO_TEST_CASE(vertical_scroll_bar)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_none);
+
+            BOOST_CHECK(!widget.vertical_scroll_bar());
+        }
+        {
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_vertical);
+
+            BOOST_CHECK(widget.vertical_scroll_bar());
+        }
+        {
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_horizontal);
+
+            BOOST_CHECK(!widget.vertical_scroll_bar());
+        }
+        {
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_both);
+
+            BOOST_CHECK(widget.vertical_scroll_bar());
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(horizontal_scroll_bar)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_none);
+
+            BOOST_CHECK(!widget.horizontal_scroll_bar());
+        }
+        {
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_vertical);
+
+            BOOST_CHECK(!widget.horizontal_scroll_bar());
+        }
+        {
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_horizontal);
+
+            BOOST_CHECK(widget.horizontal_scroll_bar());
+        }
+        {
+            const concrete_widget widget(NULL, widget_type::scroll_bar_style_both);
+
+            BOOST_CHECK(widget.horizontal_scroll_bar());
+        }
     }
 
     BOOST_AUTO_TEST_CASE(children)

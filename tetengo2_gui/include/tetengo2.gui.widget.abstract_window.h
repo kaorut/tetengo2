@@ -68,6 +68,9 @@ namespace tetengo2 { namespace gui { namespace widget
         //! The detail implementation pointer type.
         typedef typename widget_details_type::widget_details_ptr_type details_ptr_type;
 
+        //! The scroll bar style type.
+        typedef typename base_type::scroll_bar_style_type scroll_bar_style_type;
+
 
         // functions
 
@@ -185,15 +188,17 @@ namespace tetengo2 { namespace gui { namespace widget
         /*!
             \brief Creates an abstract window.
 
+            \param scroll_bar_style    A scroll bar style type.
             \param message_handler_map A message handler map.
         */
-        explicit abstract_window(message_handler_map_type&& message_handler_map)
+        abstract_window(const scroll_bar_style_type scroll_bar_style, message_handler_map_type&& message_handler_map)
         :
 #if defined(_MSC_VER)
 #   pragma warning(push)
 #   pragma warning(disable: 4355)
 #endif
         base_type(
+            scroll_bar_style,
             message_handler_details_type::make_abstract_window_message_handler_map(
                 *this, std::forward<message_handler_map_type>(message_handler_map)
             )

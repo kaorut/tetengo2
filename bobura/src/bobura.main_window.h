@@ -9,6 +9,7 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
+//#include <cstddef>
 //#include <memory>
 //#include <utility>
 
@@ -167,16 +168,17 @@ namespace bobura
 
         void initialize_window()
         {
-            m_p_diagram_picture_box = make_diagram_picture_box();
+            m_p_diagram_picture_box = create_diagram_picture_box();
 
             set_message_observers();
 
             set_title(boost::none, false);
         }
 
-        std::unique_ptr<picture_box_type> make_diagram_picture_box()
+        std::unique_ptr<picture_box_type> create_diagram_picture_box()
         {
-            std::unique_ptr<picture_box_type> p_picture_box(tetengo2::make_unique<picture_box_type>(*this));
+            std::unique_ptr<picture_box_type> p_picture_box =
+                tetengo2::make_unique<picture_box_type>(*this, picture_box_type::scroll_bar_style_both);
 
             return std::move(p_picture_box);
         }
@@ -201,6 +203,17 @@ namespace bobura
                     diagram_picture_box_type_list_type, message::diagram_picture_box::type::paint_paint
                 >::type()
             );
+            m_p_diagram_picture_box->vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+                TETENGO2_CPP11_BIND(
+                    vsc, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(*m_p_diagram_picture_box)
+                )
+            );
+            m_p_diagram_picture_box->vertical_scroll_bar()->set_page_size(10);
+        }
+
+        static void vsc(const std::size_t new_position, picture_box_type& picture_box)
+        {
+            picture_box.vertical_scroll_bar()->set_position(new_position);
         }
 
 

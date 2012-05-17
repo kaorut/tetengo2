@@ -88,14 +88,18 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget. When uninitialized, the window has no parent.
+            \param parent           A parent widget. When uninitialized, the window has no parent.
+            \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a window.
 
             \throw std::system_error When a window cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_window(const boost::optional<Widget&>& parent = boost::none)
+        static widget_details_ptr_type create_window(
+            const boost::optional<Widget&>&              parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
+        )
         {
             return create_details<Widget>(parent ? &*parent : NULL);
         }
@@ -177,14 +181,18 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget.
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a picture box.
 
             \throw std::system_error When a picture box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_picture_box(Widget& parent)
+        static widget_details_ptr_type create_picture_box(
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
+        )
         {
             return create_details<Widget>(&parent);
         }
@@ -194,14 +202,18 @@ namespace tetengo2 { namespace detail { namespace stub
 
             \tparam Widget A widget type.
 
-            \param parent A parent widget.
+            \param parent           A parent widget.
+            \param scroll_bar_style A scroll bar style.
 
             \return A unique pointer to a text box.
 
             \throw std::system_error When a text box cannot be created.
         */
         template <typename Widget>
-        static widget_details_ptr_type create_text_box(Widget& parent)
+        static widget_details_ptr_type create_text_box(
+            Widget&                                      parent,
+            const typename Widget::scroll_bar_style_type scroll_bar_style
+        )
         {
             return create_details<Widget>(&parent);
         }
