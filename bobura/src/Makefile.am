@@ -14,6 +14,7 @@ extra_headers = \
     bobura.command.save_to_file.h \
     bobura.command.type_list.h \
     bobura.command.type_list_impl.h \
+    bobura.diagram_view.h \
     bobura.detail_type_list.h \
     bobura.file_property_dialog.h \
     bobura.load_save.confirm_file_save.h \
