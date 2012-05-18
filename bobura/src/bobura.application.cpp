@@ -94,19 +94,13 @@ namespace bobura
         int run()
         {
             const message_catalog_type message_catalog;
-            const save_to_file_type save_to_file(false, message_catalog);
-            const save_to_file_type ask_file_path_and_save_to_file(true, message_catalog);
-            const confirm_file_save_type confirm_file_save(m_model, save_to_file, message_catalog);
-            const new_file_type new_file(confirm_file_save);
-            const load_from_file_type load_from_file(confirm_file_save, message_catalog);
+            const command_set_holder_type command_set_holder(m_settings, m_model, message_catalog);
 
-            const command_set_type command_set(
-                new_file, load_from_file, save_to_file, ask_file_path_and_save_to_file, m_settings, message_catalog
-            );
-
-            main_window_type main_window(message_catalog, m_settings, confirm_file_save); 
+            main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
             set_message_observers(m_model, main_window);
-            main_window.set_menu_bar(build_main_window_menu(command_set, m_model, main_window, message_catalog));
+            main_window.set_menu_bar(build_main_window_menu(
+                command_set_holder.command_set(), m_model, main_window, message_catalog)
+            );
             main_window.set_visible(true);
 
             return message_loop_type(main_window)();
@@ -114,6 +108,60 @@ namespace bobura
 
 
     private:
+        // types
+
+        class command_set_holder_type : private boost::noncopyable
+        {
+        public:
+            command_set_holder_type(
+                const settings_type&        settings,
+                model_type&                 model,
+                const message_catalog_type& message_catalog
+            )
+            :
+            m_save_to_file(false, message_catalog),
+            m_ask_file_path_and_save_to_file(true, message_catalog),
+            m_confirm_file_save(model, m_save_to_file, message_catalog),
+            m_new_file(m_confirm_file_save),
+            m_load_from_file(m_confirm_file_save, message_catalog),
+            m_command_set(
+                m_new_file,
+                m_load_from_file,
+                m_save_to_file,
+                m_ask_file_path_and_save_to_file,
+                settings,
+                message_catalog
+            )
+            {}
+
+            const confirm_file_save_type& confirm_file_save()
+            const
+            {
+                return m_confirm_file_save;
+            }
+
+            const command_set_type& command_set()
+            const
+            {
+                return m_command_set;
+            }
+
+        private:
+            const save_to_file_type m_save_to_file;
+
+            const save_to_file_type m_ask_file_path_and_save_to_file;
+
+            const confirm_file_save_type m_confirm_file_save;
+
+            const new_file_type m_new_file;
+
+            const load_from_file_type m_load_from_file;
+
+            const command_set_type m_command_set;
+
+        };
+
+
         // static functions
 
         static void set_message_observers(model_type& model, main_window_type& main_window)
