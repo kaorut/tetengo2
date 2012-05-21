@@ -336,7 +336,7 @@ namespace bobura
             main_window.diagram_picture_box().fast_paint_observer_set().paint().connect(
                 boost::mpl::at<
                     diagram_picture_box_message_type_list, message::diagram_picture_box::type::paint_paint
-                >::type(m_view)
+                >::type(main_window.diagram_picture_box(), m_view)
             );
         }
 

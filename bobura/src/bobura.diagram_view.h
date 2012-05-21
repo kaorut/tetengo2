@@ -35,6 +35,9 @@ namespace bobura
         //! The canvas type.
         typedef Canvas canvas_type;
 
+        //! The canvas dimension type.
+        typedef typename canvas_type::dimension_type dimension_type;
+
         //! The solid background type.
         typedef SolidBackground solid_background_type;
 
@@ -59,15 +62,11 @@ namespace bobura
 
             \param canvas A canvas.
         */
-        void draw_to(canvas_type& canvas)
+        void draw_to(canvas_type& canvas, const dimension_type& canvas_dimension)
         const
         {
-            const solid_background_type white_background(color_type(255, 255, 255));
-            canvas.fill_rectangle(
-                position_type(left_type(2), top_type(3)),
-                dimension_type(width_type(5), height_type(3)),
-                white_background
-            );
+            const solid_background_type background(color_type(255, 255, 255));
+            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension, background);
         }
 
 
@@ -79,8 +78,6 @@ namespace bobura
         typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
-
-        typedef typename canvas_type::dimension_type dimension_type;
 
         typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 

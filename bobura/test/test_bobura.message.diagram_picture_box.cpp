@@ -32,7 +32,10 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
-    typedef bobura::message::diagram_picture_box::paint_paint<canvas_type, view_type> paint_paint_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
+
+    typedef
+        bobura::message::diagram_picture_box::paint_paint<canvas_type, picture_box_type, view_type> paint_paint_type;
 
 }
 
@@ -47,21 +50,24 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
     {
         BOOST_TEST_PASSPOINT();
 
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_none);
         const model_type model;
         const view_type view(model);
-        const paint_paint_type paint(view);
+        const paint_paint_type paint(picture_box, view);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_none);
         const model_type model;
         const view_type view(model);
-        const paint_paint_type paint(view);
+        const paint_paint_type paint(picture_box, view);
 
-        const window_type window;
-        std::unique_ptr<canvas_type> p_canvas(window.create_canvas());
+        std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
         paint(*p_canvas);
     }
 

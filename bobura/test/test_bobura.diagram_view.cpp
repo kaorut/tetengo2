@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
 
         const window_type window;
         std::unique_ptr<canvas_type> p_canvas(window.create_canvas());
-        view.draw_to(*p_canvas);
+        view.draw_to(*p_canvas, window.client_dimension());
     }
 
 
