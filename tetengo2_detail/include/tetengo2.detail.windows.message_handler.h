@@ -890,7 +890,7 @@ namespace tetengo2 { namespace detail { namespace windows
             );
             map[WM_HSCROLL].push_back(
                 TETENGO2_CPP11_BIND(
-                    detail::widget::on_vertical_scroll<Widget>,
+                    detail::widget::on_horizontal_scroll<Widget>,
                     cpp11::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()

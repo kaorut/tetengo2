@@ -95,9 +95,8 @@ BOOST_AUTO_TEST_SUITE(scroll_bar)
         }
         {
             scroll_bar_type scroll_bar(0, scroll_bar_type::style_vertical);
-            assert(scroll_bar.position() == 0);
 
-            BOOST_CHECK_THROW(scroll_bar.set_range(scroll_bar_type::range_type(10, 42)), std::out_of_range);
+            BOOST_CHECK_THROW(scroll_bar.set_range(scroll_bar_type::range_type(42, 10)), std::out_of_range);
         }
     }
 
