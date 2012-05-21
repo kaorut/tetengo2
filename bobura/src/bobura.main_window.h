@@ -9,6 +9,7 @@
 #if !defined(BOBURA_MAINWINDOW_H)
 #define BOBURA_MAINWINDOW_H
 
+#include <cassert>
 //#include <cstddef>
 //#include <memory>
 //#include <utility>
