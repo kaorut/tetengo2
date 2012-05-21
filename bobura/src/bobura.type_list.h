@@ -388,6 +388,7 @@ namespace bobura
         struct button;         //!< The button type.
         struct message_loop;   //!< The message loop type.
         struct message_loop_break; //!< The message loop break type.
+        struct solid_background; //!< The solid background type.
         struct fast_solid_background; //!< The fast solid background type.
         struct transparent_background; //!< The transparent background type.
     }}
@@ -743,11 +744,13 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::message_loop_break, detail::ui::message_loop_break_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::ui::solid_background, detail::ui::solid_background_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::fast_solid_background, detail::ui::fast_solid_background_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 

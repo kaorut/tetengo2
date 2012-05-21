@@ -26,7 +26,9 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
-    typedef bobura::diagram_view<model_type, canvas_type> view_type;
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::solid_background>::type solid_background_type;
+
+    typedef bobura::diagram_view<model_type, canvas_type, solid_background_type> view_type;
 
 
 }
