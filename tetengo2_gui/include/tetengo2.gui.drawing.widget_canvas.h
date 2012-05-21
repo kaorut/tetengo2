@@ -19,6 +19,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         \tparam Size           A size type.
         \tparam String         A string type.
+        \tparam Position       A position type.
         \tparam Dimension      A dimension type.
         \tparam Encoder        An encoder type.
         \tparam Background     A background type.
@@ -29,6 +30,7 @@ namespace tetengo2 { namespace gui { namespace drawing
     template <
         typename Size,
         typename String,
+        typename Position,
         typename Dimension,
         typename Encoder,
         typename Background,
@@ -36,13 +38,15 @@ namespace tetengo2 { namespace gui { namespace drawing
         typename Picture,
         typename DrawingDetails
     >
-    class widget_canvas : public canvas<Size, String, Dimension, Encoder, Background, Font, Picture, DrawingDetails>
+    class widget_canvas :
+        public canvas<Size, String, Position, Dimension, Encoder, Background, Font, Picture, DrawingDetails>
     {
     public:
         // types
 
         //! The base type.
-        typedef canvas<Size, String, Dimension, Encoder, Background, Font, Picture, DrawingDetails> base_type;
+        typedef
+            canvas<Size, String, Position, Dimension, Encoder, Background, Font, Picture, DrawingDetails> base_type;
 
 
         // constructors and destructor

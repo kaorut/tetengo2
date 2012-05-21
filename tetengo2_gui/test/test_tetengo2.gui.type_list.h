@@ -322,6 +322,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::drawing::canvas<
                     boost::mpl::at<type_list, type::size>::type,
                     boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<type_list, type::position>::type,
                     boost::mpl::at<type_list, type::dimension>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::drawing::background_type,
@@ -336,6 +337,7 @@ namespace test_tetengo2 { namespace gui
                 tetengo2::gui::drawing::widget_canvas<
                     boost::mpl::at<type_list, type::size>::type,
                     boost::mpl::at<type_list, type::string>::type,
+                    boost::mpl::at<type_list, type::position>::type,
                     boost::mpl::at<type_list, type::dimension>::type,
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::drawing::background_type,

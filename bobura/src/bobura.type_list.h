@@ -388,6 +388,7 @@ namespace bobura
         struct button;         //!< The button type.
         struct message_loop;   //!< The message loop type.
         struct message_loop_break; //!< The message loop break type.
+        struct fast_solid_background; //!< The fast solid background type.
         struct transparent_background; //!< The transparent background type.
     }}
 
@@ -465,6 +466,7 @@ namespace bobura
             tetengo2::gui::drawing::widget_canvas<
                 boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
+                position_type,
                 dimension_type,
                 boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
                 background_type,
@@ -478,6 +480,7 @@ namespace bobura
             tetengo2::gui::drawing::widget_canvas<
                 boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<common_type_list, type::string>::type,
+                position_type,
                 dimension_type,
                 boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
                 fast_background_type,
@@ -631,6 +634,11 @@ namespace bobura
             >
             solid_background_type;
         typedef
+            tetengo2::gui::drawing::solid_background<
+                color_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+            >
+            fast_solid_background_type;
+        typedef
             tetengo2::gui::drawing::system_color_set<
                 color_type, boost::mpl::at<detail_type_list, type::detail::system_color>::type
             >
@@ -733,11 +741,13 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair< type::ui::message_loop_break, detail::ui::message_loop_break_type>,
+            boost::mpl::pair<type::ui::message_loop_break, detail::ui::message_loop_break_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair< type::ui::transparent_background, detail::ui::transparent_background_type>,
+            boost::mpl::pair<type::ui::fast_solid_background, detail::ui::fast_solid_background_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -803,7 +813,8 @@ namespace bobura
                 type::view::view,
                 bobura::diagram_view<
                     boost::mpl::at<model_type_list, type::model::model>::type,
-                    boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+                    boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                    boost::mpl::at<ui_type_list, type::ui::fast_solid_background>::type
                 >
             >,
         tetengo2::meta::assoc_list_end

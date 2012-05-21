@@ -27,6 +27,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         \tparam Size           A size type.
         \tparam String         A string type.
+        \tparam Position       A position type.
         \tparam Dimension      A dimension type.
         \tparam Encoder        An encoder type.
         \tparam Background     A background type.
@@ -37,6 +38,7 @@ namespace tetengo2 { namespace gui { namespace drawing
     template <
         typename Size,
         typename String,
+        typename Position,
         typename Dimension,
         typename Encoder,
         typename Background,
@@ -54,6 +56,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         //! The string type.
         typedef String string_type;
+
+        //! The position type.
+        typedef Position position_type;
 
         //! The dimension type.
         typedef Dimension dimension_type;
