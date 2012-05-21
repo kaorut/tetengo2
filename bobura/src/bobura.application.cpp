@@ -105,7 +105,7 @@ namespace bobura
             const command_set_holder_type command_set_holder(m_settings, m_model, message_catalog);
 
             main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
-            set_message_observers(m_model, main_window);
+            set_message_observers(main_window);
             main_window.set_menu_bar(build_main_window_menu(
                 command_set_holder.command_set(), m_model, main_window, message_catalog)
             );
@@ -171,26 +171,6 @@ namespace bobura
 
 
         // static functions
-
-        static void set_message_observers(model_type& model, main_window_type& main_window)
-        {
-            model.observer_set().reset().connect(
-                boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
-                    model, main_window
-                )
-            );
-            model.observer_set().changed().connect(
-                boost::mpl::at<model_message_type_list_type, message::timetable_model::type::changed>::type(
-                    model, main_window
-                )
-            );
-
-            main_window.diagram_picture_box().fast_paint_observer_set().paint().connect(
-                boost::mpl::at<
-                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::paint_paint
-                >::type()
-            );
-        }
 
         static std::unique_ptr<menu_bar_type> build_main_window_menu(
             const command_set_type&     command_set,
@@ -337,6 +317,28 @@ namespace bobura
 
         const view_type m_view;
 
+
+        // functions
+
+        void set_message_observers(main_window_type& main_window)
+        {
+            m_model.observer_set().reset().connect(
+                boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
+                    m_model, main_window
+                )
+            );
+            m_model.observer_set().changed().connect(
+                boost::mpl::at<model_message_type_list_type, message::timetable_model::type::changed>::type(
+                    m_model, main_window
+                )
+            );
+
+            main_window.diagram_picture_box().fast_paint_observer_set().paint().connect(
+                boost::mpl::at<
+                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::paint_paint
+                >::type(m_view)
+            );
+        }
 
     };
 

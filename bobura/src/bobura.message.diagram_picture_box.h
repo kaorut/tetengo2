@@ -18,8 +18,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
         \brief The class template for a paint observer of the picture box.
 
         \tparam Canvas A canvas type.
+        \tparam View   A view type.
     */
-    template <typename Canvas>
+    template <typename Canvas, typename View>
     class paint_paint
     {
     public:
@@ -28,13 +29,20 @@ namespace bobura { namespace message { namespace diagram_picture_box
         //! The canvas type.
         typedef Canvas canvas_type;
 
+        //! The view type.
+        typedef View view_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a paint observer of the picture box.
+
+            \param view A view.
         */
-        paint_paint()
+        explicit paint_paint(const view_type& view)
+        :
+        m_view(view)
         {}
 
 
@@ -50,6 +58,12 @@ namespace bobura { namespace message { namespace diagram_picture_box
         {
 
         }
+
+
+    private:
+        // variables
+
+        const view_type& m_view;
 
 
     };
