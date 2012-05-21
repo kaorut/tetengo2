@@ -134,9 +134,6 @@ namespace tetengo2 { namespace gui
         {
             if (range.first > range.second)
                 BOOST_THROW_EXCEPTION(std::out_of_range("Reversed range is not allowed."));
-            const size_type p = position();
-            if (p < range.first || range.second <= p)
-                BOOST_THROW_EXCEPTION(std::out_of_range("The position is outside the range."));
 
             details_type::set_range(*m_p_details, std::forward<R>(range));
         }

@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOW_H)
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
+#include <boost/rational.hpp>
+
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 
@@ -126,6 +128,29 @@ namespace bobura { namespace message { namespace main_window
             m_diagram_picture_box.set_position_and_dimension(
                 position_type(left_type(0), top_type(0)), m_window.client_dimension()
             );
+
+            if (m_diagram_picture_box.vertical_scroll_bar())
+            {
+                m_diagram_picture_box.vertical_scroll_bar()->set_range(std::make_pair(0, 48));
+                m_diagram_picture_box.vertical_scroll_bar()->set_page_size(
+                    boost::rational_cast<scroll_bar_size_type>(
+                        tetengo2::gui::dimension<dimension_type>::height(
+                            m_diagram_picture_box.client_dimension()
+                        ).value()
+                    )
+                );
+            }
+            if (m_diagram_picture_box.horizontal_scroll_bar())
+            {
+                m_diagram_picture_box.horizontal_scroll_bar()->set_range(std::make_pair(0, 64));
+                m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(
+                    boost::rational_cast<scroll_bar_size_type>(
+                        tetengo2::gui::dimension<dimension_type>::width(
+                            m_diagram_picture_box.client_dimension()
+                        ).value()
+                    )
+                );
+            }
         }
 
 
@@ -137,6 +162,10 @@ namespace bobura { namespace message { namespace main_window
         typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+        typedef typename control_type::dimension_type dimension_type;
+
+        typedef typename control_type::scroll_bar_type::size_type scroll_bar_size_type;
 
 
         // variables
