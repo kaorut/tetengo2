@@ -32,6 +32,8 @@ namespace bobura
             boost::mpl::at<application_type_list, type::application::model_message_type_list>::type
             model_message_type_list_type;
 
+        typedef boost::mpl::at<view_type_list, type::view::view>::type view_type;
+
         typedef boost::mpl::at<locale_type_list, type::locale::message_catalog>::type message_catalog_type;
 
         typedef boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type confirm_file_save_type;
@@ -85,7 +87,8 @@ namespace bobura
         :
         m_gui_fixture(),
         m_settings(settings),
-        m_model()
+        m_model(),
+        m_view(m_model)
         {}
 
 
@@ -320,6 +323,8 @@ namespace bobura
         const settings_type& m_settings;
 
         model_type m_model;
+
+        const view_type m_view;
 
 
     };

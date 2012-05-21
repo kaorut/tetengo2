@@ -95,6 +95,7 @@
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.detail_type_list.h"
+#include "bobura.diagram_view.h"
 #include "bobura.file_property_dialog.h"
 #include "bobura.load_save.confirm_file_save.h"
 #include "bobura.load_save.load_from_file.h"
@@ -358,6 +359,24 @@ namespace bobura
         tetengo2::meta::assoc_list_end
         >>>>>
         model_type_list;
+
+
+    /**** View **************************************************************/
+
+    namespace type { namespace view
+    {
+        struct view;           //!< The view type.
+    }}
+
+    //! The view type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::view::view, bobura::diagram_view<boost::mpl::at<model_type_list, type::model::model>::type>
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        view_type_list;
 
 
     /**** User Interface ****************************************************/

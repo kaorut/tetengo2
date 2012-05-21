@@ -14,20 +14,30 @@
 namespace bobura
 {
    /*!
-        \brief The class for a diagram view.
+        \brief The class template for a diagram view.
+
+        \tparam Model A model type.
     */
+    template <typename Model>
     class diagram_view : private boost::noncopyable
     {
     public:
         // types
+
+        //! The model type.
+        typedef Model model_type;
 
 
         // constructors and destructor
 
         /*!
             \brief Creates a diagram view.
+
+            \param model A model.
         */
-        diagram_view()
+        explicit diagram_view(const model_type& model)
+        :
+        m_model(model)
         {}
 
 
@@ -35,6 +45,9 @@ namespace bobura
 
 
     private:
+        // variables
+
+        const model_type& m_model;
 
 
     };
