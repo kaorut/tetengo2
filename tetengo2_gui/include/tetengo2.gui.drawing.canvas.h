@@ -236,7 +236,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \throw std::invalid_argument When p_details is NULL.
         */
-        canvas(details_ptr_type p_details)
+        explicit canvas(details_ptr_type p_details)
         :
         m_p_details(std::move(p_details)),
         m_font(font_type::dialog_font())
