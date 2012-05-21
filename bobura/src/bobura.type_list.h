@@ -361,24 +361,6 @@ namespace bobura
         model_type_list;
 
 
-    /**** View **************************************************************/
-
-    namespace type { namespace view
-    {
-        struct view;           //!< The view type.
-    }}
-
-    //! The view type list.
-    typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::view::view, bobura::diagram_view<boost::mpl::at<model_type_list, type::model::model>::type>
-            >,
-        tetengo2::meta::assoc_list_end
-        >
-        view_type_list;
-
-
     /**** User Interface ****************************************************/
 
     namespace type { namespace ui
@@ -805,6 +787,28 @@ namespace bobura
         tetengo2::meta::assoc_list_end
         >>>
         common_dialog_type_list;
+
+
+    /**** View **************************************************************/
+
+    namespace type { namespace view
+    {
+        struct view;           //!< The view type.
+    }}
+
+    //! The view type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::view::view,
+                bobura::diagram_view<
+                    boost::mpl::at<model_type_list, type::model::model>::type,
+                    boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        view_type_list;
 
 
     /**** Dialog ************************************************************/

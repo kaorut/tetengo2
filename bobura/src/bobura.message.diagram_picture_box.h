@@ -56,7 +56,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void operator()(canvas_type& canvas)
         const
         {
-
+            m_view.draw_to(canvas);
         }
 
 

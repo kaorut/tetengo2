@@ -16,9 +16,10 @@ namespace bobura
    /*!
         \brief The class template for a diagram view.
 
-        \tparam Model A model type.
+        \tparam Model  A model type.
+        \tparam Canvas A canvas type.
     */
-    template <typename Model>
+    template <typename Model, typename Canvas>
     class diagram_view : private boost::noncopyable
     {
     public:
@@ -26,6 +27,9 @@ namespace bobura
 
         //! The model type.
         typedef Model model_type;
+
+        //! The canvas type.
+        typedef Canvas canvas_type;
 
 
         // constructors and destructor
@@ -42,6 +46,17 @@ namespace bobura
 
 
         // functions
+
+        /*!
+            \brief Draws the view.
+
+            \param canvas A canvas.
+        */
+        void draw_to(canvas_type& canvas)
+        const
+        {
+
+        }
 
 
     private:
