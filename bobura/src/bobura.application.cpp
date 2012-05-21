@@ -14,6 +14,7 @@
 
 #include <tetengo2.unique.h>
 
+#include "bobura.message.type_list.h"
 #define USE_TYPES_FOR_APPLICATION
 #include "bobura.type_list.h"
 
@@ -53,6 +54,10 @@ namespace bobura
         typedef
             boost::mpl::at<main_window_type_list, type::main_window::message_type_list>::type
             main_window_message_type_list_type;
+
+        typedef
+            boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box_message_type_list>::type
+            diagram_picture_box_message_type_list;
 
         typedef boost::mpl::at<ui_type_list, type::ui::menu_bar>::type menu_bar_type;
 
@@ -178,6 +183,12 @@ namespace bobura
                 boost::mpl::at<model_message_type_list_type, message::timetable_model::type::changed>::type(
                     model, main_window
                 )
+            );
+
+            main_window.diagram_picture_box().fast_paint_observer_set().paint().connect(
+                boost::mpl::at<
+                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::paint_paint
+                >::type()
             );
         }
 

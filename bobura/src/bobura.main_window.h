@@ -36,7 +36,6 @@ namespace bobura
         \tparam ConfirmFileSave           A file save confirmation type.
         \tparam MessageLoopBreak          A message loop break type.
         \tparam MainWindowMessageTypeList A main window message type list type.
-        \tparam DiagramPictureBoxTypeList A diagram picture box type list type.
     */
     template <
         typename Window,
@@ -45,8 +44,7 @@ namespace bobura
         typename Settings,
         typename ConfirmFileSave,
         typename MessageLoopBreak,
-        typename MainWindowMessageTypeList,
-        typename DiagramPictureBoxTypeList
+        typename MainWindowMessageTypeList
     >
     class main_window : public Window
     {
@@ -76,9 +74,6 @@ namespace bobura
 
         //! The main window message type list type.
         typedef MainWindowMessageTypeList main_window_message_type_list_type;
-
-        //! The diagram picture box type list type.
-        typedef DiagramPictureBoxTypeList diagram_picture_box_type_list_type;
 
 
         // constructors and destructor
@@ -130,6 +125,29 @@ namespace bobura
             title += m_message_catalog.get(TETENGO2_TEXT("App:Bobura"));
 
             set_text(title);
+        }
+
+        /*!
+            \brief Returns the diagram picture box.
+
+            \return The diagram picture box.
+        */
+        const picture_box_type& diagram_picture_box()
+        const
+        {
+            assert(m_p_diagram_picture_box);
+            return *m_p_diagram_picture_box;
+        }
+
+        /*!
+            \brief Returns the diagram picture box.
+
+            \return The diagram picture box.
+        */
+        picture_box_type& diagram_picture_box()
+        {
+            assert(m_p_diagram_picture_box);
+            return *m_p_diagram_picture_box;
         }
 
 
@@ -198,11 +216,6 @@ namespace bobura
             );
             this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
 
-            m_p_diagram_picture_box->fast_paint_observer_set().paint().connect(
-                typename boost::mpl::at<
-                    diagram_picture_box_type_list_type, message::diagram_picture_box::type::paint_paint
-                >::type()
-            );
             m_p_diagram_picture_box->vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
                 TETENGO2_CPP11_BIND(
                     vsc, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(*m_p_diagram_picture_box)
