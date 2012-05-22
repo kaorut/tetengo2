@@ -76,6 +76,16 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         );
     }
 
+    BOOST_AUTO_TEST_CASE(dimension)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        const view_type view(model);
+
+        view.dimension();
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

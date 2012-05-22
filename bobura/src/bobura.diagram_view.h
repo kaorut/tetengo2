@@ -78,6 +78,17 @@ namespace bobura
             canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension, background);
         }
 
+        /*!
+            \brief Returns the dimension.
+
+            \return The dimension.
+        */
+        dimension_type dimension()
+        const
+        {
+            return dimension_type(width_type(64), height_type(48));
+        }
+
 
     private:
         // types

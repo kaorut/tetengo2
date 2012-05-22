@@ -135,28 +135,36 @@ namespace bobura { namespace message { namespace main_window
                 position_type(left_type(0), top_type(0)), m_window.client_dimension()
             );
 
-            if (m_diagram_picture_box.vertical_scroll_bar())
-            {
-                m_diagram_picture_box.vertical_scroll_bar()->set_range(std::make_pair(0, 48));
-                m_diagram_picture_box.vertical_scroll_bar()->set_page_size(
+            assert(m_diagram_picture_box.vertical_scroll_bar());
+            assert(m_diagram_picture_box.horizontal_scroll_bar());
+            const dimension_type view_dimension = m_view.dimension();
+            const dimension_type picture_box_client_dimension = m_diagram_picture_box.client_dimension();
+            m_diagram_picture_box.vertical_scroll_bar()->set_range(
+                std::make_pair(
+                    0U,
                     boost::rational_cast<scroll_bar_size_type>(
-                        tetengo2::gui::dimension<dimension_type>::height(
-                            m_diagram_picture_box.client_dimension()
-                        ).value()
+                        tetengo2::gui::dimension<dimension_type>::height(view_dimension).value()
                     )
-                );
-            }
-            if (m_diagram_picture_box.horizontal_scroll_bar())
-            {
-                m_diagram_picture_box.horizontal_scroll_bar()->set_range(std::make_pair(0, 64));
-                m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(
+                )
+            );
+            m_diagram_picture_box.vertical_scroll_bar()->set_page_size(
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::height(picture_box_client_dimension).value()
+                )
+            );
+            m_diagram_picture_box.horizontal_scroll_bar()->set_range(
+                std::make_pair(
+                    0U,
                     boost::rational_cast<scroll_bar_size_type>(
-                        tetengo2::gui::dimension<dimension_type>::width(
-                            m_diagram_picture_box.client_dimension()
-                        ).value()
+                        tetengo2::gui::dimension<dimension_type>::width(view_dimension).value()
                     )
-                );
-            }
+                )
+            );
+            m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::width(picture_box_client_dimension).value()
+                )
+            );
         }
 
 
