@@ -35,7 +35,10 @@ namespace bobura
         //! The canvas type.
         typedef Canvas canvas_type;
 
-        //! The canvas dimension type.
+        //! The position type.
+        typedef typename canvas_type::position_type position_type;
+
+        //! The dimension type.
         typedef typename canvas_type::dimension_type dimension_type;
 
         //! The solid background type.
@@ -60,9 +63,15 @@ namespace bobura
         /*!
             \brief Draws the view.
 
-            \param canvas A canvas.
+            \param canvas              A canvas.
+            \param canvas_dimension    A canvas dimension.
+            \param scroll_bar_position A scroll bar position.
         */
-        void draw_to(canvas_type& canvas, const dimension_type& canvas_dimension)
+        void draw_to(
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const position_type&  scroll_bar_position
+        )
         const
         {
             const solid_background_type background(color_type(255, 255, 255));
@@ -73,17 +82,15 @@ namespace bobura
     private:
         // types
 
-        typedef typename canvas_type::position_type position_type;
-
         typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        typedef typename solid_background_type::color_type color_type;
+
         typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
 
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
-
-        typedef typename solid_background_type::color_type color_type;
 
 
         // variables

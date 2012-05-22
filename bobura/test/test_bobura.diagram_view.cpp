@@ -9,6 +9,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
+#include <tetengo2.gui.measure.h>
 #include <tetengo2.unique.h>
 
 #include "bobura.type_list.h"
@@ -23,6 +24,20 @@ namespace
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
+
+    typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
+
+    typedef picture_box_type::position_type position_type;
+
+    typedef tetengo2::gui::position<position_type>::left_type left_type;
+
+    typedef tetengo2::gui::position<position_type>::top_type top_type;
+
+    typedef picture_box_type::dimension_type dimension_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+    typedef tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::canvas>::type canvas_type;
 
@@ -53,9 +68,12 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         const model_type model;
         const view_type view(model);
 
-        const window_type window;
-        std::unique_ptr<canvas_type> p_canvas(window.create_canvas());
-        view.draw_to(*p_canvas, window.client_dimension());
+        window_type window;
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_both);
+        std::unique_ptr<canvas_type> p_canvas(picture_box.create_canvas());
+        view.draw_to(
+            *p_canvas, dimension_type(width_type(42), height_type(24)), position_type(left_type(2), top_type(3))
+        );
     }
 
 

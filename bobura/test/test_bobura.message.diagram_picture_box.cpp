@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_SUITE(paint_paint)
         BOOST_TEST_PASSPOINT();
 
         window_type window;
-        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_none);
+        const picture_box_type picture_box(window, picture_box_type::scroll_bar_style_both);
         const model_type model;
         const view_type view(model);
         const paint_paint_type paint(picture_box, view);

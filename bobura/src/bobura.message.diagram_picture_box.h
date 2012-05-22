@@ -9,6 +9,8 @@
 #if !defined(BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H)
 #define BOBURA_MESSAGE_DIAGRAMPICTUREBOX_H
 
+#include <cassert>
+
 #include <tetengo2.gui.measure.h>
 
 
@@ -45,7 +47,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \param picture_box A picture box.
             \param view        A view.
         */
-        explicit paint_paint(const picture_box_type& picture_box, const view_type& view)
+        paint_paint(const picture_box_type& picture_box, const view_type& view)
         :
         m_picture_box(picture_box),
         m_view(view)
@@ -62,11 +64,38 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void operator()(canvas_type& canvas)
         const
         {
-            m_view.draw_to(canvas, m_picture_box.client_dimension());
+            assert(m_picture_box.vertical_scroll_bar());
+            assert(m_picture_box.horizontal_scroll_bar());
+            m_view.draw_to(
+                canvas,
+                m_picture_box.client_dimension(),
+                to_position(
+                    m_picture_box.vertical_scroll_bar()->position(), m_picture_box.horizontal_scroll_bar()->position()
+                )
+            );
         }
 
 
     private:
+        // types
+
+        typedef typename picture_box_type::position_type position_type;
+
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
+        typedef typename picture_box_type::scroll_bar_type::size_type scroll_bar_size_type;
+
+
+        // static functions
+
+        static position_type to_position(const scroll_bar_size_type left, const scroll_bar_size_type top)
+        {
+            return position_type(left_type(left), top_type(top));
+        }
+
+
         // variables
 
         const picture_box_type& m_picture_box;
