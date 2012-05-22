@@ -216,18 +216,6 @@ namespace bobura
                 >::type(*this, m_confirm_file_save)
             );
             this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
-
-            m_p_diagram_picture_box->vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
-                TETENGO2_CPP11_BIND(
-                    vsc, tetengo2::cpp11::placeholders_1(), tetengo2::cpp11::ref(*m_p_diagram_picture_box)
-                )
-            );
-            m_p_diagram_picture_box->vertical_scroll_bar()->set_page_size(10);
-        }
-
-        static void vsc(const std::size_t new_position, picture_box_type& picture_box)
-        {
-            picture_box.vertical_scroll_bar()->set_position(new_position);
         }
 
 

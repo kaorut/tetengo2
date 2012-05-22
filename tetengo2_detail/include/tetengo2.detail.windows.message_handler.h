@@ -221,17 +221,25 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                     if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                         return boost::none;
-                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT)
-                    );
+                    const size_type new_position =
+                        new_scroll_bar_position<size_type>(
+                            std::get<0>(*widget.details()).get(), scroll_code, SB_VERT
+                        );
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
                 }
                 else
                 {
+                    const size_type new_position =
+                        new_scroll_bar_position<size_type>(
+                            std::get<0>(*widget.details()).get(), scroll_code, SB_VERT
+                        );
                     if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                    {
+                        widget.vertical_scroll_bar()->set_position(new_position);
                         return boost::none;
-                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT)
-                    );
+                    }
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                    widget.vertical_scroll_bar()->set_position(new_position);
                 }
 
                 return boost::make_optional< ::LRESULT>(0);
@@ -257,17 +265,25 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                     if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                         return boost::none;
-                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ)
-                    );
+                    const size_type new_position =
+                        new_scroll_bar_position<size_type>(
+                            std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ
+                        );
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
                 }
                 else
                 {
+                    const size_type new_position =
+                        new_scroll_bar_position<size_type>(
+                            std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ
+                        );
                     if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                    {
+                        widget.horizontal_scroll_bar()->set_position(new_position);
                         return boost::none;
-                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ)
-                    );
+                    }
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                    widget.horizontal_scroll_bar()->set_position(new_position);
                 }
 
                 return boost::make_optional< ::LRESULT>(0);
