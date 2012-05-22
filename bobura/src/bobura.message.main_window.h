@@ -86,14 +86,18 @@ namespace bobura { namespace message { namespace main_window
     /*!
         \brief The class template for a window resized observer of the main window.
 
+        \tparam View           A view type.
         \tparam AbstractWindow An abstract window type.
         \tparam Control        A control type.
     */
-    template <typename AbstractWindow, typename Control>
+    template <typename View, typename AbstractWindow, typename Control>
     class window_resized
     {
     public:
         // types
+
+        //! The view type.
+        typedef View view_type;
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
@@ -107,11 +111,13 @@ namespace bobura { namespace message { namespace main_window
         /*!
             \brief Creates a window resized observer of the main window.
 
+            \param view                A view.
             \param window              A window.
             \param diagram_picture_box A diagram picture box.
         */
-        window_resized(abstract_window_type& window, control_type& diagram_picture_box)
+        window_resized(const view_type& view, abstract_window_type& window, control_type& diagram_picture_box)
         :
+        m_view(view),
         m_window(window),
         m_diagram_picture_box(diagram_picture_box)
         {}
@@ -169,6 +175,8 @@ namespace bobura { namespace message { namespace main_window
 
 
         // variables
+
+        const view_type& m_view;
 
         abstract_window_type& m_window;
 
