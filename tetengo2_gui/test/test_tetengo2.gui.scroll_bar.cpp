@@ -6,7 +6,6 @@
     $Id$
 */
 
-//#include <cassert>
 //#include <stdexcept>
 
 //#include <boost/mpl/at.hpp>

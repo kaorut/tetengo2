@@ -9,6 +9,9 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOW_H)
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
+#include <cassert>
+//#include <utility>
+
 #include <boost/rational.hpp>
 
 #include <tetengo2.gui.measure.h>

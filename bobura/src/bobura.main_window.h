@@ -10,7 +10,6 @@
 #define BOBURA_MAINWINDOW_H
 
 #include <cassert>
-//#include <cstddef>
 //#include <memory>
 //#include <utility>
 
