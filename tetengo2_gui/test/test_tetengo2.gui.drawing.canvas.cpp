@@ -25,6 +25,10 @@ namespace
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
 
     typedef
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type
+        color_type;
+
+    typedef
         boost::mpl::at<
             test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
         >::type
@@ -116,6 +120,15 @@ BOOST_AUTO_TEST_SUITE(canvas)
         canvas.set_font(font);
 
         BOOST_CHECK(canvas.font() == font);
+    }
+
+    BOOST_AUTO_TEST_CASE(draw_line)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.draw_line(std::make_pair(12, 34), std::make_pair(56, 78), 42, color_type(12, 34, 56, 78));
     }
 
     BOOST_AUTO_TEST_CASE(draw_focus_indication)
