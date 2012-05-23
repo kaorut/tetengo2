@@ -28,6 +28,7 @@
 #include <tetengo2.gui.common_dialog.message_box.h>
 #include <tetengo2.gui.cursor.system.h>
 #include <tetengo2.gui.drawing.background.h>
+#include <tetengo2.gui.drawing.canvas_traits.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
 #include <tetengo2.gui.drawing.picture.h>
@@ -473,7 +474,7 @@ namespace bobura
             >
             fast_picture_reader_type;
         typedef
-            tetengo2::gui::drawing::widget_canvas<
+            tetengo2::gui::drawing::canvas_traits<
                 unit_size_type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 position_type,
@@ -483,13 +484,17 @@ namespace bobura
                 background_type,
                 solid_background_type,
                 font_type,
-                picture_type,
-                boost::mpl::at<detail_type_list, type::detail::drawing>::type
+                picture_type
+            >
+            canvas_traits_type;
+        typedef
+            tetengo2::gui::drawing::widget_canvas<
+                canvas_traits_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             widget_canvas_type;
         typedef widget_canvas_type::base_type canvas_type;
         typedef
-            tetengo2::gui::drawing::widget_canvas<
+            tetengo2::gui::drawing::canvas_traits<
                 unit_size_type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 position_type,
@@ -499,8 +504,12 @@ namespace bobura
                 fast_background_type,
                 fast_solid_background_type,
                 fast_font_type,
-                fast_picture_type,
-                boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+                fast_picture_type
+            >
+            fast_canvas_traits_type;
+        typedef
+            tetengo2::gui::drawing::widget_canvas<
+                fast_canvas_traits_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
             >
             fast_widget_canvas_type;
         typedef fast_widget_canvas_type::base_type fast_canvas_type;

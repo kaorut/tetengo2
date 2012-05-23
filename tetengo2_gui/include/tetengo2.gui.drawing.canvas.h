@@ -28,65 +28,47 @@ namespace tetengo2 { namespace gui { namespace drawing
     /*!
         \brief The class template for a canvas.
 
-        \tparam Size            A size type.
-        \tparam String          A string type.
-        \tparam Position        A position type.
-        \tparam Dimension       A dimension type.
-        \tparam Encoder         An encoder type.
-        \tparam Color           A color type.
-        \tparam Background      A background type.
-        \tparam SolidBackground A solid background type.
-        \tparam Font            A font type.
-        \tparam Picture         A picture type.
-        \tparam DrawingDetails  A detail implementation type of a drawing.
+        \tparam Traits         A traits type.
+        \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <
-        typename Size,
-        typename String,
-        typename Position,
-        typename Dimension,
-        typename Encoder,
-        typename Color,
-        typename Background,
-        typename SolidBackground,
-        typename Font,
-        typename Picture,
-        typename DrawingDetails
-    >
+    template <typename Traits, typename DrawingDetails>
     class canvas : private boost::noncopyable
     {
     public:
         // types
 
+        //! The traits type.
+        typedef Traits traits_type;
+
         //! The size type.
-        typedef Size size_type;
+        typedef typename traits_type::size_type size_type;
 
         //! The string type.
-        typedef String string_type;
+        typedef typename traits_type::string_type string_type;
 
         //! The position type.
-        typedef Position position_type;
+        typedef typename traits_type::position_type position_type;
 
         //! The dimension type.
-        typedef Dimension dimension_type;
+        typedef typename traits_type::dimension_type dimension_type;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        typedef typename traits_type::encoder_type encoder_type;
 
         //! The color type.
-        typedef Color color_type;
+        typedef typename traits_type::color_type color_type;
 
         //! The background type.
-        typedef Background background_type;
+        typedef typename traits_type::background_type background_type;
 
         //! The solid background type.
-        typedef SolidBackground solid_background_type;
+        typedef typename traits_type::solid_background_type solid_background_type;
 
         //! The font type.
-        typedef Font font_type;
+        typedef typename traits_type::font_type font_type;
 
         //! The picture type.
-        typedef Picture picture_type;
+        typedef typename traits_type::picture_type picture_type;
 
         //! The detail implementation type of a drawing.
         typedef DrawingDetails drawing_details_type;

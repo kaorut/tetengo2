@@ -11,6 +11,7 @@ headers = \
     tetengo2.gui.cursor.system.h \
     tetengo2.gui.drawing.background.h \
     tetengo2.gui.drawing.canvas.h \
+    tetengo2.gui.drawing.canvas_traits.h \
     tetengo2.gui.drawing.color.h \
     tetengo2.gui.drawing.font.h \
     tetengo2.gui.drawing.picture.h \
