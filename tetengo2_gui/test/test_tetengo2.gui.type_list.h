@@ -265,6 +265,7 @@ namespace test_tetengo2 { namespace gui
         typedef tetengo2::detail::stub::system_color system_color_details_type;
         typedef tetengo2::detail::stub::drawing drawing_details_type;
         typedef tetengo2::gui::drawing::background<drawing_details_type> background_type;
+        typedef tetengo2::gui::drawing::solid_background<color_type, drawing_details_type> solid_background_type;
         typedef tetengo2::gui::drawing::transparent_background<drawing_details_type> transparent_background_type;
         typedef
             tetengo2::gui::drawing::font<
@@ -293,12 +294,7 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::background, detail::drawing::background_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::solid_background,
-                tetengo2::gui::drawing::solid_background<
-                    detail::drawing::color_type, detail::drawing::drawing_details_type
-                >
-            >,
+            boost::mpl::pair<type::drawing::solid_background, detail::drawing::solid_background_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::drawing::transparent_background, detail::drawing::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::font, detail::drawing::font_type>,
@@ -327,6 +323,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::drawing::color_type,
                     detail::drawing::background_type,
+                    detail::drawing::solid_background_type,
                     detail::drawing::font_type,
                     detail::drawing::picture_type,
                     detail::drawing::drawing_details_type
@@ -343,6 +340,7 @@ namespace test_tetengo2 { namespace gui
                     boost::mpl::at<type_list, type::ui_encoder>::type,
                     detail::drawing::color_type,
                     detail::drawing::background_type,
+                    detail::drawing::solid_background_type,
                     detail::drawing::font_type,
                     detail::drawing::picture_type,
                     detail::drawing::drawing_details_type

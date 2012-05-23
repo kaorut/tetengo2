@@ -422,6 +422,16 @@ namespace bobura
             tetengo2::gui::drawing::background<boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type>
             fast_background_type;
         typedef
+            tetengo2::gui::drawing::solid_background<
+                color_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
+            >
+            solid_background_type;
+        typedef
+            tetengo2::gui::drawing::solid_background<
+                color_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+            >
+            fast_solid_background_type;
+        typedef
             tetengo2::gui::drawing::transparent_background<
                 boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
@@ -473,6 +483,7 @@ namespace bobura
                 boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
                 color_type,
                 background_type,
+                solid_background_type,
                 font_type,
                 picture_type,
                 boost::mpl::at<detail_type_list, type::detail::drawing>::type
@@ -488,6 +499,7 @@ namespace bobura
                 boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
                 color_type,
                 fast_background_type,
+                fast_solid_background_type,
                 fast_font_type,
                 fast_picture_type,
                 boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
@@ -631,16 +643,6 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             label_type;
-        typedef
-            tetengo2::gui::drawing::solid_background<
-                color_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
-            >
-            solid_background_type;
-        typedef
-            tetengo2::gui::drawing::solid_background<
-                color_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
-            >
-            fast_solid_background_type;
         typedef
             tetengo2::gui::drawing::system_color_set<
                 color_type, boost::mpl::at<detail_type_list, type::detail::system_color>::type

@@ -10,6 +10,7 @@
 #define TETENGO2_GUI_DRAWING_CANVAS_H
 
 //#include <cstddef>
+#include <memory>
 #include <stdexcept>
 //#include <utility>
 
@@ -18,6 +19,7 @@
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing
@@ -25,16 +27,17 @@ namespace tetengo2 { namespace gui { namespace drawing
     /*!
         \brief The class template for a canvas.
 
-        \tparam Size           A size type.
-        \tparam String         A string type.
-        \tparam Position       A position type.
-        \tparam Dimension      A dimension type.
-        \tparam Encoder        An encoder type.
-        \tparam Color          A color type.
-        \tparam Background     A background type.
-        \tparam Font           A font type.
-        \tparam Picture        A picture type.
-        \tparam DrawingDetails A detail implementation type of a drawing.
+        \tparam Size            A size type.
+        \tparam String          A string type.
+        \tparam Position        A position type.
+        \tparam Dimension       A dimension type.
+        \tparam Encoder         An encoder type.
+        \tparam Color           A color type.
+        \tparam Background      A background type.
+        \tparam SolidBackground A solid background type.
+        \tparam Font            A font type.
+        \tparam Picture         A picture type.
+        \tparam DrawingDetails  A detail implementation type of a drawing.
     */
     template <
         typename Size,
@@ -44,6 +47,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         typename Encoder,
         typename Color,
         typename Background,
+        typename SolidBackground,
         typename Font,
         typename Picture,
         typename DrawingDetails
@@ -73,6 +77,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         //! The background type.
         typedef Background background_type;
+
+        //! The solid background type.
+        typedef SolidBackground solid_background_type;
 
         //! The font type.
         typedef Font font_type;
@@ -266,7 +273,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         explicit canvas(details_ptr_type p_details)
         :
         m_p_details(std::move(p_details)),
-        m_font(font_type::dialog_font())
+        m_font(font_type::dialog_font()),
+        m_color(0, 0, 0, 255),
+        m_p_background(make_unique<const solid_background_type>(color_type(255, 255, 255, 255)))
         {
             if (!m_p_details)
                 BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is NULL."));
@@ -288,6 +297,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         const details_ptr_type m_p_details;
 
         font_type m_font;
+
+        color_type m_color;
+
+        std::unique_ptr<const background_type> m_p_background;
 
 
     };
