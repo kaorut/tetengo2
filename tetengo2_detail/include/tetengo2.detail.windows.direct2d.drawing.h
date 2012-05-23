@@ -212,7 +212,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             std::unique_ptr< ::ID2D1HwndRenderTarget, detail::release_render_target> p_render_target(rp_render_target);
 
             p_render_target->BeginDraw();
-            p_render_target->Clear(::D2D1::ColorF(::GetSysColor(COLOR_3DFACE)));
+            p_render_target->Clear(colorref_to_color_f(::GetSysColor(COLOR_3DFACE)));
 
             return canvas_details_ptr_type(std::move(p_render_target));
         }
@@ -598,6 +598,26 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 );
         }
 
+        static ::D2D1_COLOR_F colorref_to_color_f(const ::COLORREF colorref)
+        {
+            return rgba_to_color_f(GetRValue(colorref), GetGValue(colorref), GetBValue(colorref), 255);
+        }
+
+        static ::D2D1_COLOR_F rgba_to_color_f(
+            const unsigned char red,
+            const unsigned char green,
+            const unsigned char blue,
+            const unsigned char alpha
+        )
+        {
+            return D2D1::ColorF(
+                static_cast< ::FLOAT>(red / 255.0),
+                static_cast< ::FLOAT>(green / 255.0),
+                static_cast< ::FLOAT>(blue / 255.0),
+                static_cast< ::FLOAT>(alpha / 255.0)
+            );
+        }
+
         static unique_com_ptr< ::ID2D1Brush>::type create_brush(
             canvas_details_type&           canvas,
             const background_details_type& background_details
@@ -610,10 +630,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 ::ID2D1SolidColorBrush* rp_brush = NULL;
                 const ::HRESULT hr =
                     canvas.CreateSolidColorBrush(
-                        D2D1::ColorF(
-                            RGB(p_solid->red(), p_solid->blue(), p_solid->green()),
-                            static_cast< ::FLOAT>(p_solid->alpha() / 255.0)
-                        ),
+                        rgba_to_color_f(p_solid->red(), p_solid->green(), p_solid->blue(), p_solid->alpha()),
                         D2D1::BrushProperties(),
                         &rp_brush
                     );
