@@ -21,11 +21,10 @@ namespace tetengo2 { namespace gui { namespace unit
     /*!
         \brief The class template for a pixel unit.
 
-        \tparam Value      A value type.
-        \tparam PixelValue A pixel value type.
+        \tparam Value A value type.
    */
-    template <typename Value, typename PixelValue>
-    class pixel : public unit<pixel<Value, PixelValue>, Value>
+    template <typename Value>
+    class pixel : public unit<pixel<Value>, Value>
     {
     public:
         // types
@@ -33,20 +32,20 @@ namespace tetengo2 { namespace gui { namespace unit
         //! The value type.
         typedef Value value_type;
 
-        //! The pixel value type.
-        typedef PixelValue pixel_value_type;
-
 
         // static functions
 
         /*!
             \brief Returns a pixel unit made from a value in pixels.
 
+            \tparam PixelValue A pixel value type.
+
             \param value A value in pixels.
 
             \return A pixel unit.
         */
-        static pixel from_pixels(const pixel_value_type value)
+        template <typename PixelValue>
+        static pixel from_pixels(const PixelValue value)
         {
             return pixel(value_type(value));
         }
@@ -167,12 +166,15 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Returns the value in pixels.
 
+            \tparam PixelValue A pixel value type.
+
             \return The value in pixels.
         */
-        pixel_value_type to_pixels()
+        template <typename PixelValue>
+        PixelValue to_pixels()
         const
         {
-            return static_cast<pixel_value_type>(m_value);
+            return static_cast<PixelValue>(m_value);
         }
 
 

@@ -401,7 +401,6 @@ namespace bobura
         typedef
             tetengo2::gui::unit::em<
                 boost::rational<boost::mpl::at<common_type_list, type::difference>::type>,
-                boost::mpl::at<common_type_list, type::difference>::type,
                 boost::mpl::at<detail_type_list, type::detail::unit>::type
             >
             unit_difference_type;
@@ -409,7 +408,6 @@ namespace bobura
         typedef
             tetengo2::gui::unit::em<
                 boost::rational<boost::mpl::at<common_type_list, type::size>::type>,
-                boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<detail_type_list, type::detail::unit>::type
             >
             unit_size_type;

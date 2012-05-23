@@ -22,20 +22,16 @@ namespace tetengo2 { namespace gui { namespace unit
         \brief The class template for a EM height unit.
 
         \tparam Value       A value type.
-        \tparam PixelValue  A em value type.
         \tparam UnitDetails A detail implementation type of a unit.
    */
-    template <typename Value, typename PixelValue, typename UnitDetails>
-    class em : public unit<em<Value, PixelValue, UnitDetails>, Value>
+    template <typename Value, typename UnitDetails>
+    class em : public unit<em<Value, UnitDetails>, Value>
     {
     public:
         // types
 
         //! The value type.
         typedef Value value_type;
-
-        //! The pixel value type.
-        typedef PixelValue pixel_value_type;
 
         //! The detail implementation type of a unit.
         typedef UnitDetails unit_details_type;
@@ -46,11 +42,14 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Returns an EM height unit made from a value in pixels.
 
+            \tparam PixelValue A pixel value type.
+
             \param value A value in pixels.
 
             \return An EM height unit.
         */
-        static em from_pixels(const pixel_value_type value)
+        template <typename PixelValue>
+        static em from_pixels(const PixelValue value)
         {
             return em(unit_details_type::template pixels_to_em<value_type>(value));
         }
@@ -171,12 +170,15 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Returns the value in pixels.
 
+            \tparam PixelValue A pixel value type.
+
             \return The value in ems.
         */
-        pixel_value_type to_pixels()
+        template <typename PixelValue>
+        PixelValue to_pixels()
         const
         {
-            return unit_details_type::template em_to_pixels<pixel_value_type>(m_value);
+            return unit_details_type::template em_to_pixels<PixelValue>(m_value);
         }
 
 

@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            const tetengo2::gui::unit::pixel<int, int> value(123);
+            const tetengo2::gui::unit::pixel<int> value(123);
 
             const int pixels = tetengo2::gui::to_pixels<int>(value);
 
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_SUITE(gui)
         BOOST_TEST_PASSPOINT();
 
         {
-            typedef tetengo2::gui::unit::pixel<int, int> unit_type;
+            typedef tetengo2::gui::unit::pixel<int> unit_type;
             const int value = 123;
 
             const unit_type unit = tetengo2::gui::to_unit<unit_type>(value);

@@ -46,7 +46,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static Value pixels_to_em(const PixelValue pixel_value)
         {
             const ::LOGFONTW& message_font = get_message_font();
-            return to_value<Value, PixelValue>(pixel_value, -message_font.lfHeight);
+            return to_value<Value, PixelValue>(pixel_value, static_cast<PixelValue>(-message_font.lfHeight));
         }
 
         /*!
@@ -79,7 +79,9 @@ namespace tetengo2 { namespace detail { namespace windows
             >::type* = NULL
         )
         {
-            return boost::rational<typename Value::int_type>(numerator, denominator);
+            return boost::rational<typename Value::int_type>(
+                static_cast<typename Value::int_type>(numerator), static_cast<typename Value::int_type>(denominator)
+            );
         }
 
         template <typename Value, typename PixelValue>

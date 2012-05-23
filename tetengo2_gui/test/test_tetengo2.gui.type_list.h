@@ -233,8 +233,8 @@ namespace test_tetengo2 { namespace gui
     typedef
         tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::unit_details, detail::unit::unit_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::unit::em, tetengo2::gui::unit::em<int, int, detail::unit::unit_details_type>>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::pixel, tetengo2::gui::unit::pixel<int, int>>,
+            boost::mpl::pair<type::unit::em, tetengo2::gui::unit::em<int, detail::unit::unit_details_type>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::pixel, tetengo2::gui::unit::pixel<int>>,
         tetengo2::meta::assoc_list_end
         >>>
         unit_type_list;
