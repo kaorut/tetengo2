@@ -67,7 +67,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         // virtual functions
 
-        virtual std::unique_ptr<background> clone_impl()
+        virtual std::unique_ptr<base_type> clone_impl()
         const
         {
             return tetengo2::make_unique<transparent_background>();
