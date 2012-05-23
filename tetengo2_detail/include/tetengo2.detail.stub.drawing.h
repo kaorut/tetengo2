@@ -181,6 +181,29 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Draws a line.
+
+            \tparam Position A position type.
+            \tparam Size     A size type.
+            \tparam Color    A color type.
+
+            \param canvas A canvas.
+            \param from   A beginning position.
+            \param to     An ending position.
+            \param width  A width.
+            \param color  A color.
+        */
+        template <typename Position, typename Size, typename Color>
+        static void draw_line(
+            canvas_details_type& canvas,
+            const Position&      from,
+            const Position&      to,
+            const Size           width,
+            const Color&         color
+        )
+        {}
+
+        /*!
             \brief Draws a focus indication.
 
             \tparam Position  A position type.

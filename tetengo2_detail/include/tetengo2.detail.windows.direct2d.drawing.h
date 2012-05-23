@@ -293,6 +293,35 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         /*!
+            \brief Draws a line.
+
+            \tparam Position A position type.
+            \tparam Size     A size type.
+            \tparam Color    A color type.
+
+            \param canvas A canvas.
+            \param from   A beginning position.
+            \param to     An ending position.
+            \param width  A width.
+            \param color  A color.
+        */
+        template <typename Position, typename Size, typename Color>
+        static void draw_line(
+            canvas_details_type& canvas,
+            const Position&      from,
+            const Position&      to,
+            const Size           width,
+            const Color&         color
+        )
+        {
+            const background_details_ptr_type p_background_details = create_solid_background(color);
+            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
+            canvas.DrawLine(
+                position_to_point_2f(from), position_to_point_2f(to), p_brush.get(), static_cast< ::FLOAT>(width)
+            );
+        }
+
+        /*!
             \brief Draws a focus indication.
 
             \tparam Position  A position type.
@@ -338,7 +367,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *background_details);
 
-            canvas.FillRectangle(position_and_dimension_to_reft_f(position, dimension), p_brush.get());
+            canvas.FillRectangle(position_and_dimension_to_rect_f(position, dimension), p_brush.get());
         }
 
         /*!
@@ -486,7 +515,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
             const typename unique_com_ptr< ::ID2D1Bitmap>::type p_bitmap(rp_bitmap);
 
-            canvas.DrawBitmap(p_bitmap.get(), position_and_dimension_to_reft_f(position, dimension));
+            canvas.DrawBitmap(p_bitmap.get(), position_and_dimension_to_rect_f(position, dimension));
         }
 
 
@@ -545,8 +574,16 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             return direct_write_factory_ptr_type(rp_factory);
         }
 
+        template <typename Position>
+        static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
+        {
+            const std::size_t left = gui::to_pixels<std::size_t>(gui::position<Position>::left(position));
+            const std::size_t top = gui::to_pixels<std::size_t>(gui::position<Position>::top(position));
+            return D2D1::Point2F(static_cast< ::FLOAT>(left), static_cast< ::FLOAT>(top));
+        }
+
         template <typename Position, typename Dimension>
-        static ::D2D1_RECT_F position_and_dimension_to_reft_f(const Position& position, const Dimension& dimension)
+        static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
         {
             const std::size_t left = gui::to_pixels<std::size_t>(gui::position<Position>::left(position));
             const std::size_t top = gui::to_pixels<std::size_t>(gui::position<Position>::top(position));

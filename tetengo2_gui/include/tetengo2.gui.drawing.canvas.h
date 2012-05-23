@@ -138,7 +138,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         template <typename P>
         void draw_line(const P& from, const P& to, const size_type width, const color_type& color)
         {
-
+            drawing_details_type::draw_line(*m_p_details, from, to, width, color);
         }
 
         /*!
