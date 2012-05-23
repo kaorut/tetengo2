@@ -476,7 +476,7 @@ namespace bobura
             fast_picture_reader_type;
         typedef
             tetengo2::gui::drawing::widget_canvas<
-                boost::mpl::at<common_type_list, type::size>::type,
+                unit_size_type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 position_type,
                 dimension_type,
@@ -492,7 +492,7 @@ namespace bobura
         typedef widget_canvas_type::base_type canvas_type;
         typedef
             tetengo2::gui::drawing::widget_canvas<
-                boost::mpl::at<common_type_list, type::size>::type,
+                unit_size_type,
                 boost::mpl::at<common_type_list, type::string>::type,
                 position_type,
                 dimension_type,

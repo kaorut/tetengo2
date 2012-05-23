@@ -317,7 +317,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const background_details_ptr_type p_background_details = create_solid_background(color);
             const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
             canvas.DrawLine(
-                position_to_point_2f(from), position_to_point_2f(to), p_brush.get(), static_cast< ::FLOAT>(width)
+                position_to_point_2f(from), position_to_point_2f(to), p_brush.get(), size_to_float(width)
             );
         }
 
@@ -466,16 +466,12 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const Color&         color
         )
         {
-            const std::size_t left = gui::to_pixels<std::size_t>(gui::position<Position>::left(position));
-            const std::size_t top = gui::to_pixels<std::size_t>(gui::position<Position>::top(position));
-            const ::D2D1_POINT_2F origin = { static_cast< ::FLOAT>(left), static_cast< ::FLOAT>(top) };
-            
             const typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout =
                 create_text_layout(text, font, encoder);
 
             const background_details_ptr_type p_background_details = create_solid_background(color);
             const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
-            canvas.DrawTextLayout(origin, p_layout.get(), p_brush.get());
+            canvas.DrawTextLayout(position_to_point_2f(position), p_layout.get(), p_brush.get());
         }
 
         /*!
@@ -575,28 +571,28 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             return direct_write_factory_ptr_type(rp_factory);
         }
 
+        template <typename Size>
+        static ::FLOAT size_to_float(const Size size)
+        {
+            return gui::to_pixels< ::FLOAT>(size);
+        }
+
         template <typename Position>
         static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
         {
-            const std::size_t left = gui::to_pixels<std::size_t>(gui::position<Position>::left(position));
-            const std::size_t top = gui::to_pixels<std::size_t>(gui::position<Position>::top(position));
-            return D2D1::Point2F(static_cast< ::FLOAT>(left), static_cast< ::FLOAT>(top));
+            const ::FLOAT left = gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position));
+            const ::FLOAT top = gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position));
+            return D2D1::Point2F(left, top);
         }
 
         template <typename Position, typename Dimension>
         static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
         {
-            const std::size_t left = gui::to_pixels<std::size_t>(gui::position<Position>::left(position));
-            const std::size_t top = gui::to_pixels<std::size_t>(gui::position<Position>::top(position));
-            const std::size_t width = gui::to_pixels<std::size_t>(gui::dimension<Dimension>::width(dimension));
-            const std::size_t height = gui::to_pixels<std::size_t>(gui::dimension<Dimension>::height(dimension));
-            return 
-                D2D1::RectF(
-                    static_cast< ::FLOAT>(left),
-                    static_cast< ::FLOAT>(top),
-                    static_cast< ::FLOAT>(left + width),
-                    static_cast< ::FLOAT>(top + height)
-                );
+            const ::FLOAT left = gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position));
+            const ::FLOAT top = gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position));
+            const ::FLOAT width = gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension));
+            const ::FLOAT height = gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension));
+            return D2D1::RectF(left, top, left + width, top + height);
         }
 
         static ::D2D1_COLOR_F colorref_to_color_f(const ::COLORREF colorref)
