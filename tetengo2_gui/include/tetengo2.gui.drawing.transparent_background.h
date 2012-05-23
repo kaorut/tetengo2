@@ -9,9 +9,12 @@
 #if !defined(TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H
 
+#include <memory>
+
 //#include <boost/optional.hpp>
 
 #include "tetengo2.gui.drawing.background.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing
@@ -63,6 +66,12 @@ namespace tetengo2 { namespace gui { namespace drawing
 
 
         // virtual functions
+
+        virtual std::unique_ptr<background> clone_impl()
+        const
+        {
+            return tetengo2::make_unique<transparent_background>();
+        }
 
         virtual boost::optional<const details_type&>
         details_impl()
