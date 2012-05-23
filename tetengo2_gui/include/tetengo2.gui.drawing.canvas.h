@@ -9,8 +9,9 @@
 #if !defined(TETENGO2_GUI_DRAWING_CANVAS_H)
 #define TETENGO2_GUI_DRAWING_CANVAS_H
 
+#include <cassert>
 //#include <cstddef>
-#include <memory>
+//#include <memory>
 #include <stdexcept>
 //#include <utility>
 

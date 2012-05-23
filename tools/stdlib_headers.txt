@@ -17,9 +17,9 @@
 ::CreateMenu                                     Windows.h
 ::CreatePopupMenu                                Windows.h
 ::CreateWindowExW                                Windows.h
-::D2D1::ColorF                                   Windows.h,d2d1.h
 ::D2D1CreateFactory                              Windows.h,d2d1.h
 ::D2D1_ALPHA_MODE_PREMULTIPLIED                  Windows.h,d2d1.h
+::D2D1_COLOR_F                                   Windows.h,d2d1.h
 ::D2D1_FACTORY_TYPE_SINGLE_THREADED              Windows.h,d2d1.h
 ::D2D1_HWND_RENDER_TARGET_PROPERTIES             Windows.h,d2d1.h
 ::D2D1_POINT_2F                                  Windows.h,d2d1.h
@@ -219,9 +219,9 @@ BOOST_THROW_EXCEPTION                            boost/throw_exception.hpp
 BOOST_WARN_MESSAGE                               boost/test/unit_test.hpp
 D2D1::BrushProperties                            Windows.h,d2d1.h
 D2D1::ColorF                                     Windows.h,d2d1.h
-D2D1::ColorF::Orange                             Windows.h,d2d1.h
 D2D1::HwndRenderTargetProperties                 Windows.h,d2d1.h
 D2D1::PixelFormat                                Windows.h,d2d1.h
+D2D1::Point2F                                    Windows.h,d2d1.h
 D2D1::RectF                                      Windows.h,d2d1.h
 D2D1::RenderTargetProperties                     Windows.h,d2d1.h
 D2D1::SizeU                                      Windows.h,d2d1.h

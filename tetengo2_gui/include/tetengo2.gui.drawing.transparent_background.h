@@ -9,7 +9,7 @@
 #if !defined(TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_TRANSPARENTBACKGROUND_H
 
-#include <memory>
+//#include <memory>
 
 //#include <boost/optional.hpp>
 

@@ -9,8 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_SOLIDBACKGROUND_H
 
-#include <memory>
-#include <utility>
+//#include <memory>
+//#include <utility>
 
 //#include <boost/optional.hpp>
 
