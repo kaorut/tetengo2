@@ -109,6 +109,52 @@ namespace tetengo2 { namespace gui { namespace drawing
         // functions
 
         /*!
+            \brief Returns the color.
+
+            \return The color.
+        */
+        const color_type& color()
+        const
+        {
+            return m_color;
+        }
+
+        /*!
+            \brief Sets a color.
+
+            \tparam C A color type.
+
+            \param color A color.
+        */
+        template <typename C>
+        void set_color(C&& color)
+        {
+            m_color = std::forward<C>(color);
+        }
+
+        /*!
+            \brief Returns the background.
+
+            \return The background.
+        */
+        const background_type& background()
+        const
+        {
+            assert(m_p_background);
+            return *m_p_background;
+        }
+
+        /*!
+            \brief Sets a background.
+
+            \param p_background A unique pointer to a background.
+        */
+        void set_background(std::unique_ptr<background_type> p_background)
+        {
+            m_p_background = std::move(p_background);
+        }
+
+        /*!
             \brief Returns the font.
 
             \return The font.
@@ -266,6 +312,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a canvas.
 
+            The initial foreground color is black.
+            The initial background is a solid white color background.
+            The initlai font is a dialog font.
+
             \param p_details A detail implementation.
 
             \throw std::invalid_argument When p_details is NULL.
@@ -273,9 +323,9 @@ namespace tetengo2 { namespace gui { namespace drawing
         explicit canvas(details_ptr_type p_details)
         :
         m_p_details(std::move(p_details)),
-        m_font(font_type::dialog_font()),
         m_color(0, 0, 0, 255),
-        m_p_background(make_unique<const solid_background_type>(color_type(255, 255, 255, 255)))
+        m_p_background(make_unique<const solid_background_type>(color_type(255, 255, 255, 255))),
+        m_font(font_type::dialog_font())
         {
             if (!m_p_details)
                 BOOST_THROW_EXCEPTION(std::invalid_argument("The detail implementation is NULL."));
@@ -296,11 +346,11 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         const details_ptr_type m_p_details;
 
-        font_type m_font;
-
         color_type m_color;
 
         std::unique_ptr<const background_type> m_p_background;
+
+        font_type m_font;
 
 
     };

@@ -30,6 +30,18 @@ namespace
 
     typedef
         boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::background
+        >::type
+        background_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::solid_background
+        >::type
+        solid_background_type;
+
+    typedef
+        boost::mpl::at<
             test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
         >::type
         transparent_background_type;
@@ -97,6 +109,54 @@ BOOST_AUTO_TEST_SUITE(canvas)
         {
             BOOST_CHECK_THROW(const concrete_canvas0 canvas, std::invalid_argument);
         }
+    }
+
+    BOOST_AUTO_TEST_CASE(color)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
+
+        const color_type& color = canvas.color();
+
+        BOOST_CHECK(color == color_type(0, 0, 0, 255));
+    }
+
+    BOOST_AUTO_TEST_CASE(set_color)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        const color_type color(12, 34, 56, 78);
+        canvas.set_color(color);
+
+        BOOST_CHECK(canvas.color() == color);
+    }
+
+    BOOST_AUTO_TEST_CASE(background)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
+
+        const background_type& background = canvas.background();
+        const solid_background_type* const p_solid_background =
+            dynamic_cast<const solid_background_type*>(&background);
+
+        BOOST_CHECK(p_solid_background);
+        BOOST_CHECK(p_solid_background->color() == color_type(255, 255, 255, 255));
+    }
+
+    BOOST_AUTO_TEST_CASE(set_background)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.set_background(tetengo2::make_unique<transparent_background_type>());
+
+        BOOST_CHECK(dynamic_cast<const transparent_background_type*>(&canvas.background()));
     }
 
     BOOST_AUTO_TEST_CASE(font)
