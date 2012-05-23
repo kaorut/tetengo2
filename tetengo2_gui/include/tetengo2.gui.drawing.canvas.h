@@ -30,6 +30,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         \tparam Position       A position type.
         \tparam Dimension      A dimension type.
         \tparam Encoder        An encoder type.
+        \tparam Color          A color type.
         \tparam Background     A background type.
         \tparam Font           A font type.
         \tparam Picture        A picture type.
@@ -41,6 +42,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         typename Position,
         typename Dimension,
         typename Encoder,
+        typename Color,
         typename Background,
         typename Font,
         typename Picture,
@@ -65,6 +67,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
         //! The encoder type.
         typedef Encoder encoder_type;
+
+        //! The color type.
+        typedef Color color_type;
 
         //! The background type.
         typedef Background background_type;
@@ -118,6 +123,22 @@ namespace tetengo2 { namespace gui { namespace drawing
         void set_font(F&& font)
         {
             m_font = std::forward<F>(font);
+        }
+
+        /*!
+            \brief Draws a line.
+
+            \tparam P A position type.
+
+            \param from A beginning position.
+            \param to   An ending position.
+            \param width A width.
+            \param color A color.
+        */
+        template <typename P>
+        void draw_line(const P& from, const P& to, const size_type width, const color_type& color)
+        {
+
         }
 
         /*!

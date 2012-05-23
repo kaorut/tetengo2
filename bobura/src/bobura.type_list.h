@@ -414,6 +414,7 @@ namespace bobura
             >
             unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;
+        typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
             tetengo2::gui::drawing::background<boost::mpl::at<detail_type_list, type::detail::drawing>::type>
             background_type;
@@ -470,6 +471,7 @@ namespace bobura
                 position_type,
                 dimension_type,
                 boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                color_type,
                 background_type,
                 font_type,
                 picture_type,
@@ -484,6 +486,7 @@ namespace bobura
                 position_type,
                 dimension_type,
                 boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                color_type,
                 fast_background_type,
                 fast_font_type,
                 fast_picture_type,
@@ -610,7 +613,6 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             dialog_type;
-        typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
             tetengo2::gui::widget::traits::control_traits<widget_traits_type, color_type>
             control_traits_type;
