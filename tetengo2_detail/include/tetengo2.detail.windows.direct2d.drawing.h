@@ -445,22 +445,25 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \tparam String   A string type.
             \tparam Encoder  An encoder type.
             \tparam Position A position type.
+            \tparam Color    A color type.
 
             \param canvas   A canvas.
             \param font     A font.
             \param text     A text to draw.
             \param encoder  An encoder.
             \param position A position where the text is drawn.
+            \param color    A color.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position>
+        template <typename Font, typename String, typename Encoder, typename Position, typename Color>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
-            const Position&      position
+            const Position&      position,
+            const Color&         color
         )
         {
             const std::size_t left = gui::to_pixels<std::size_t>(gui::position<Position>::left(position));
@@ -470,10 +473,8 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             const typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout =
                 create_text_layout(text, font, encoder);
 
-            ::ID2D1SolidColorBrush* rp_brush = NULL;
-            canvas.CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Orange, 0.67f), D2D1::BrushProperties(), &rp_brush);
-            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush(rp_brush);
-
+            const background_details_ptr_type p_background_details = create_solid_background(color);
+            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
             canvas.DrawTextLayout(origin, p_layout.get(), p_brush.get());
         }
 

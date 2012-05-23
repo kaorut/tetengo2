@@ -195,11 +195,12 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param text     A text to draw.
             \param position A position where the text is drawn.
+            \param color    A color.
         */
         template <typename P>
-        void draw_text(const string_type& text, const P& position)
+        void draw_text(const string_type& text, const P& position, const color_type& color)
         {
-            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position);
+            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, color);
         }
 
         /*!
