@@ -74,21 +74,13 @@ namespace bobura
         )
         const
         {
-            const solid_background_type background(color_type(255, 255, 255));
-            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension, background);
+            canvas.set_background(tetengo2::make_unique<const solid_background_type>(color_type(255, 255, 255)));
+            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension);
 
-            canvas.draw_line(
-                position_type(left_type(5), top_type(5)),
-                position_type(left_type(15), top_type(10)),
-                8,
-                color_type(255, 128, 128, 128)
-            );
-            canvas.draw_line(
-                position_type(left_type(15), top_type(5)),
-                position_type(left_type(5), top_type(10)),
-                8,
-                color_type(128, 255, 128, 128)
-            );
+            canvas.set_color(color_type(255, 128, 128, 128));
+            canvas.draw_line(position_type(left_type(5), top_type(5)), position_type(left_type(15), top_type(10)), 8);
+            canvas.set_color(color_type(128, 255, 128, 128));
+            canvas.draw_line(position_type(left_type(15), top_type(5)), position_type(left_type(5), top_type(10)), 8);
         }
 
         /*!

@@ -149,7 +149,7 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param p_background A unique pointer to a background.
         */
-        void set_background(std::unique_ptr<background_type> p_background)
+        void set_background(std::unique_ptr<const background_type> p_background)
         {
             m_p_background = std::move(p_background);
         }
@@ -183,15 +183,14 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \tparam P A position type.
 
-            \param from A beginning position.
-            \param to   An ending position.
+            \param from  A beginning position.
+            \param to    An ending position.
             \param width A width.
-            \param color A color.
         */
         template <typename P>
-        void draw_line(const P& from, const P& to, const size_type width, const color_type& color)
+        void draw_line(const P& from, const P& to, const size_type width)
         {
-            drawing_details_type::draw_line(*m_p_details, from, to, width, color);
+            drawing_details_type::draw_line(*m_p_details, from, to, width, m_color);
         }
 
         /*!
@@ -217,12 +216,12 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param position   A position of a region.
             \param dimension  A dimension of a region.
-            \param background A background.
         */
         template <typename P, typename D>
-        void fill_rectangle(const P& position, const D& dimension, const background_type& background)
+        void fill_rectangle(const P& position, const D& dimension)
         {
-            drawing_details_type::fill_rectangle(*m_p_details, position, dimension, background);
+            assert(m_p_background);
+            drawing_details_type::fill_rectangle(*m_p_details, position, dimension, *m_p_background);
         }
 
         /*!
@@ -248,12 +247,11 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param text     A text to draw.
             \param position A position where the text is drawn.
-            \param color    A color.
         */
         template <typename P>
-        void draw_text(const string_type& text, const P& position, const color_type& color)
+        void draw_text(const string_type& text, const P& position)
         {
-            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, color);
+            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, m_color);
         }
 
         /*!

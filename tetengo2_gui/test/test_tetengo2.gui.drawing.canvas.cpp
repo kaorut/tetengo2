@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.set_background(tetengo2::make_unique<transparent_background_type>());
+        canvas.set_background(tetengo2::make_unique<const transparent_background_type>());
 
         BOOST_CHECK(dynamic_cast<const transparent_background_type*>(&canvas.background()));
     }
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_line(std::make_pair(12, 34), std::make_pair(56, 78), 42, color_type(12, 34, 56, 78));
+        canvas.draw_line(std::make_pair(12, 34), std::make_pair(56, 78), 42);
     }
 
     BOOST_AUTO_TEST_CASE(draw_focus_indication)
@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.fill_rectangle(std::make_pair(12, 34), std::make_pair(56, 78), transparent_background_type());
+        canvas.fill_rectangle(std::make_pair(12, 34), std::make_pair(56, 78));
     }
 
     BOOST_AUTO_TEST_CASE(calc_text_dimension)
@@ -226,7 +226,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34), color_type(12, 34, 56, 78));
+        canvas.draw_text(string_type(TETENGO2_TEXT("hoge")), std::make_pair(12, 34));
     }
 
     BOOST_AUTO_TEST_CASE(paint_picture)
