@@ -48,6 +48,9 @@ namespace bobura { namespace message
             //! The paint observer type.
             struct paint_paint;
 
+            //! The scroll bar observer type.
+            struct scroll_bar_scrolled;
+
         }
     }
 

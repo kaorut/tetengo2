@@ -108,8 +108,10 @@ namespace bobura { namespace message
             //! The type list for the diagram picture box.
             typedef
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::paint_paint, paint_paint<Canvas, PictureBox, View>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::scroll_bar_scrolled, scroll_bar_scrolled<PictureBox>>,
                 tetengo2::meta::assoc_list_end
-                >
+                >>
                 type;
         };
     }

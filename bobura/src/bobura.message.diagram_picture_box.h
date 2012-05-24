@@ -106,6 +106,60 @@ namespace bobura { namespace message { namespace diagram_picture_box
     };
 
 
+    /*!
+        \brief The class template for a scroll bar observer of the picture box.
+
+        \tparam PictureBox A picture box type.
+    */
+    template <typename PictureBox>
+    class scroll_bar_scrolled
+    {
+    public:
+        // types
+
+        //! The picture box type.
+        typedef PictureBox picture_box_type;
+
+        //! The size type.
+        typedef typename picture_box_type::scroll_bar_type::size_type size_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a scroll bar observer of the picture box.
+
+            \param picture_box A picture box.
+        */
+        explicit scroll_bar_scrolled(const picture_box_type& picture_box)
+        :
+        m_picture_box(picture_box)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the scroll bar is scrolled.
+
+            \param new_position A new position.
+        */
+        void operator()(const size_type new_position)
+        const
+        {
+            m_picture_box.repaint();
+        }
+
+
+    private:
+        // variables
+
+        const picture_box_type& m_picture_box;
+
+
+    };
+
+
 }}}
 
 

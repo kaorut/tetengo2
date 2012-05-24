@@ -29,13 +29,14 @@ namespace bobura
     /*!
         \brief The class template for the main window.
 
-        \tparam Window                    A window type.
-        \tparam MessageCatalog            A message catalog type.
-        \tparam PictureBox                A picture box type.
-        \tparam Settings                  A settings type.
-        \tparam ConfirmFileSave           A file save confirmation type.
-        \tparam MessageLoopBreak          A message loop break type.
-        \tparam MainWindowMessageTypeList A main window message type list type.
+        \tparam Window                           A window type.
+        \tparam MessageCatalog                   A message catalog type.
+        \tparam PictureBox                       A picture box type.
+        \tparam Settings                         A settings type.
+        \tparam ConfirmFileSave                  A file save confirmation type.
+        \tparam MessageLoopBreak                 A message loop break type.
+        \tparam MainWindowMessageTypeList        A main window message type list type.
+        \tparam DiagramPictureBoxMessageTypeList A diagram picture box message type list type.
     */
     template <
         typename Window,
@@ -44,7 +45,8 @@ namespace bobura
         typename Settings,
         typename ConfirmFileSave,
         typename MessageLoopBreak,
-        typename MainWindowMessageTypeList
+        typename MainWindowMessageTypeList,
+        typename DiagramPictureBoxMessageTypeList
     >
     class main_window : public Window
     {
@@ -74,6 +76,9 @@ namespace bobura
 
         //! The main window message type list type.
         typedef MainWindowMessageTypeList main_window_message_type_list_type;
+
+        //! The diagram picture box message type list type.
+        typedef DiagramPictureBoxMessageTypeList diagram_picture_box_message_type_list_type;
 
 
         // constructors and destructor
@@ -210,6 +215,33 @@ namespace bobura
                 >::type(*this, m_confirm_file_save)
             );
             this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
+
+            assert(m_p_diagram_picture_box->vertical_scroll_bar());
+            m_p_diagram_picture_box->vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
+                typename boost::mpl::at<
+                    diagram_picture_box_message_type_list_type,
+                    message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(*m_p_diagram_picture_box)
+            );
+            m_p_diagram_picture_box->vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+                typename boost::mpl::at<
+                    diagram_picture_box_message_type_list_type,
+                    message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(*m_p_diagram_picture_box)
+            );
+            assert(m_p_diagram_picture_box->horizontal_scroll_bar());
+            m_p_diagram_picture_box->horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
+                typename boost::mpl::at<
+                    diagram_picture_box_message_type_list_type,
+                    message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(*m_p_diagram_picture_box)
+            );
+            m_p_diagram_picture_box->horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+                typename boost::mpl::at<
+                    diagram_picture_box_message_type_list_type,
+                    message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(*m_p_diagram_picture_box)
+            );
         }
 
 
