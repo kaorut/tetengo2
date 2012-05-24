@@ -9,6 +9,7 @@
 #if !defined(BOBURA_DIAGRAMVIEW_H)
 #define BOBURA_DIAGRAMVIEW_H
 
+#include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/rational.hpp>
 
@@ -44,6 +45,9 @@ namespace bobura
 
         //! The dimension type.
         typedef typename canvas_type::dimension_type dimension_type;
+
+        //! The string type.
+        typedef typename canvas_type::string_type string_type;
 
         //! The solid background type.
         typedef SolidBackground solid_background_type;
@@ -84,6 +88,7 @@ namespace bobura
             draw_time_lines(
                 canvas, canvas_dimension, tetengo2::gui::position<position_type>::left(scroll_bar_position)
             );
+            draw_frames(canvas, canvas_dimension);
         }
 
         /*!
@@ -112,14 +117,14 @@ namespace bobura
             const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
             width_type page_width(0);
             if (canvas_width > station_header_width())
-                page_width = canvas_width - station_header_width();
+                page_width = canvas_width - station_header_width() - width_type(20);
             else
                 page_width = tetengo2::gui::dimension<dimension_type>::width(max_dimension) + width_type(1);
 
             const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
             height_type page_height(0);
             if (canvas_height > time_header_height())
-                page_height = canvas_height - time_header_height();
+                page_height = canvas_height - time_header_height() - height_type(20);
             else
                 page_height = tetengo2::gui::dimension<dimension_type>::height(max_dimension) + height_type(1);
 
@@ -151,7 +156,7 @@ namespace bobura
 
         static const height_type& time_header_height()
         {
-            static const height_type singleton(2);
+            static const height_type singleton(3);
             return singleton;
         }
 
@@ -198,20 +203,53 @@ namespace bobura
 
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
 
-            const left_type left(boost::rational_cast<std::size_t>(horizontal_scroll_bar_position.value()) % 20);
+            typedef typename left_type::value_type::int_type left_int_type;
+            const left_int_type int_scroll_position =
+                boost::rational_cast<left_int_type>(horizontal_scroll_bar_position.value());
+            const left_int_type int_left = int_scroll_position % 20;
+            const left_int_type first_visible_hour = int_scroll_position / 20 + (int_left > 0 ? 1 : 0);
+            left_int_type hour = first_visible_hour;
             for (
-                left_type position = to_rational<left_type>(station_header_width()) + left;
+                left_type position = to_rational<left_type>(station_header_width()) - left_type(int_left);
                 position < canvas_right;
                 position += left_type(20)
             )
             {
+                if (position < to_rational<left_type>(station_header_width()))
+                    continue;
+
                 canvas.draw_line(
                     position_type(position, top_type(1)),
                     position_type(position, canvas_bottom),
-                    size_type(typename size_type::value_type(1, 6))
+                    size_type(typename size_type::value_type(1, 12))
                 );
+
+                canvas.draw_text(boost::lexical_cast<string_type>(hour % 24), position_type(position, top_type(1)));
+                ++hour;
             }
 
+        }
+
+        void draw_frames(canvas_type& canvas, const dimension_type& canvas_dimension)
+        const
+        {
+            const left_type canvas_right =
+                to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+            const top_type canvas_bottom =
+                to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
+
+            canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
+
+            canvas.draw_line(
+                position_type(left_type(0), to_rational<top_type>(time_header_height())),
+                position_type(canvas_right, to_rational<top_type>(time_header_height())),
+                size_type(typename size_type::value_type(1, 6))
+            );
+            canvas.draw_line(
+                position_type(to_rational<left_type>(station_header_width()), top_type(0)),
+                position_type(to_rational<left_type>(station_header_width()), canvas_bottom),
+                size_type(typename size_type::value_type(1, 8))
+            );
         }
 
 
