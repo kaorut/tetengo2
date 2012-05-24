@@ -78,28 +78,12 @@ namespace bobura
         )
         const
         {
-            canvas.set_background(tetengo2::make_unique<const solid_background_type>(color_type(255, 255, 255)));
-            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension);
+            clear_background(canvas, canvas_dimension);
 
-            canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
-            canvas.draw_line(
-                position_type(left_type(0), to_rational<top_type>(time_header_height())),
-                position_type(
-                    to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension)),
-                    to_rational<top_type>(time_header_height())
-                ),
-                size_type(typename size_type::value_type(1, 12))
+            draw_header(canvas);
+            draw_time_lines(
+                canvas, canvas_dimension, tetengo2::gui::position<position_type>::left(scroll_bar_position)
             );
-            canvas.draw_line(
-                position_type(to_rational<left_type>(station_header_width()), top_type(0)),
-                position_type(
-                    to_rational<left_type>(station_header_width()),
-                    to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension))
-                ),
-                size_type(typename size_type::value_type(1, 12))
-            );
-
-            canvas.draw_text(m_model.timetable().title(), position_type(left_type(0), top_type(0)));
         }
 
         /*!
@@ -110,7 +94,7 @@ namespace bobura
         dimension_type dimension()
         const
         {
-            return dimension_type(width_type(64) - station_header_width(), height_type(48) - time_header_height());
+            return dimension_type(width_type(20 * 24), height_type(48));
         }
 
         /*!
@@ -181,6 +165,54 @@ namespace bobura
         // variables
 
         const model_type& m_model;
+
+
+        // functions
+
+        void clear_background(canvas_type& canvas, const dimension_type& canvas_dimension)
+        const
+        {
+            canvas.set_background(tetengo2::make_unique<const solid_background_type>(color_type(255, 255, 255)));
+            canvas.fill_rectangle(position_type(left_type(0), top_type(0)), canvas_dimension);
+        }
+
+        void draw_header(canvas_type& canvas)
+        const
+        {
+            canvas.set_color(color_type(0x00, 0x00, 0x00, 0xFF));
+
+            canvas.draw_text(m_model.timetable().title(), position_type(left_type(0), top_type(0)));
+        }
+
+        void draw_time_lines(
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const left_type&      horizontal_scroll_bar_position
+        )
+        const
+        {
+            const left_type canvas_right =
+                to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+            const top_type canvas_bottom =
+                to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
+
+            canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
+
+            const left_type left(boost::rational_cast<std::size_t>(horizontal_scroll_bar_position.value()) % 20);
+            for (
+                left_type position = to_rational<left_type>(station_header_width()) + left;
+                position < canvas_right;
+                position += left_type(20)
+            )
+            {
+                canvas.draw_line(
+                    position_type(position, top_type(1)),
+                    position_type(position, canvas_bottom),
+                    size_type(typename size_type::value_type(1, 6))
+                );
+            }
+
+        }
 
 
     };

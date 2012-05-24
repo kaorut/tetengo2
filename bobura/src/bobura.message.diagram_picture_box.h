@@ -70,7 +70,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 canvas,
                 m_picture_box.client_dimension(),
                 to_position(
-                    m_picture_box.vertical_scroll_bar()->position(), m_picture_box.horizontal_scroll_bar()->position()
+                    m_picture_box.horizontal_scroll_bar()->position(), m_picture_box.vertical_scroll_bar()->position()
                 )
             );
         }
