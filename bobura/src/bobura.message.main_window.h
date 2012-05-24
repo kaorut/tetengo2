@@ -141,7 +141,7 @@ namespace bobura { namespace message { namespace main_window
             assert(m_diagram_picture_box.vertical_scroll_bar());
             assert(m_diagram_picture_box.horizontal_scroll_bar());
             const dimension_type view_dimension = m_view.dimension();
-            const dimension_type picture_box_client_dimension = m_diagram_picture_box.client_dimension();
+            const dimension_type page_size = m_view.page_size(m_diagram_picture_box.client_dimension());
             m_diagram_picture_box.vertical_scroll_bar()->set_range(
                 std::make_pair(
                     0U,
@@ -152,7 +152,7 @@ namespace bobura { namespace message { namespace main_window
             );
             m_diagram_picture_box.vertical_scroll_bar()->set_page_size(
                 boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::height(picture_box_client_dimension).value()
+                    tetengo2::gui::dimension<dimension_type>::height(page_size).value()
                 )
             );
             m_diagram_picture_box.horizontal_scroll_bar()->set_range(
@@ -165,7 +165,7 @@ namespace bobura { namespace message { namespace main_window
             );
             m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(
                 boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::width(picture_box_client_dimension).value()
+                    tetengo2::gui::dimension<dimension_type>::width(page_size).value()
                 )
             );
         }
