@@ -98,6 +98,8 @@ namespace bobura
                 ),
                 size_type(typename size_type::value_type(1, 12))
             );
+
+            canvas.draw_text(m_model.timetable().title(), position_type(left_type(0), top_type(0)));
         }
 
         /*!
