@@ -582,7 +582,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         {
             const ::FLOAT left = gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position));
             const ::FLOAT top = gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position));
-            return D2D1::Point2F(left, top);
+            return D2D1::Point2F(left - 0.5f, top - 0.5f);
         }
 
         template <typename Position, typename Dimension>
