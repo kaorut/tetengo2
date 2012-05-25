@@ -15,6 +15,7 @@
 
 #include <boost/throw_exception.hpp>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"
 
 
@@ -71,8 +72,11 @@ namespace tetengo2 { namespace gui
         scroll_bar(const WidgetDetails& widget_details, const style_type style)
         :
         m_p_details(details_type::create_scroll_bar(widget_details, to_details_style(style))),
-        m_scroll_bar_observer_set()
-        {}
+        m_scroll_bar_observer_set(),
+        m_tracking_position()
+        {
+            set_observers();
+        }
 
 
         // functions
@@ -104,6 +108,17 @@ namespace tetengo2 { namespace gui
                 BOOST_THROW_EXCEPTION(std::out_of_range("The position is outside the range."));
 
             details_type::set_position(*m_p_details, position);
+        }
+
+        /*!
+            \brief Returns the tracking position.
+
+            \return The tracking position.
+        */
+        size_type tracking_position()
+        const
+        {
+            return m_tracking_position;
         }
 
         /*!
@@ -206,6 +221,26 @@ namespace tetengo2 { namespace gui
         scroll_bar_details_ptr_type m_p_details;
 
         scroll_bar_observer_set_type m_scroll_bar_observer_set;
+
+        size_type m_tracking_position;
+
+
+        // functions
+
+        void set_observers()
+        {
+            m_scroll_bar_observer_set.scrolling().connect(
+                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, tetengo2::cpp11::placeholders_1())
+            );
+            m_scroll_bar_observer_set.scrolled().connect(
+                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, tetengo2::cpp11::placeholders_1())
+            );
+        }
+
+        void set_tracking_position(const size_type new_position)
+        {
+            m_tracking_position = new_position;
+        }
 
 
     };
