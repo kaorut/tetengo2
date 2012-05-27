@@ -82,6 +82,13 @@ namespace bobura
         )
         const
         {
+            const dimension_type page_size = page_size;
+            const std::size_t cdx = boost::rational_cast<std::size_t>(canvas_dimension.first.value()); cdx;
+            const std::size_t cdy = boost::rational_cast<std::size_t>(canvas_dimension.second.value()); cdy;
+            const std::size_t sbp = boost::rational_cast<std::size_t>(scroll_bar_position.first.value()); sbp;
+            const std::size_t psx = boost::rational_cast<std::size_t>(page_size.first.value()); psx;
+            const std::size_t psy = boost::rational_cast<std::size_t>(page_size.second.value()); psy;
+
             clear_background(canvas, canvas_dimension);
 
             draw_header(canvas);
@@ -115,18 +122,10 @@ namespace bobura
             const dimension_type max_dimension = dimension();
 
             const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
-            width_type page_width(0);
-            if (canvas_width > station_header_width())
-                page_width = canvas_width - station_header_width() - width_type(20);
-            else
-                page_width = tetengo2::gui::dimension<dimension_type>::width(max_dimension) + width_type(1);
+            const width_type page_width = canvas_width - station_header_width();
 
             const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
-            height_type page_height(0);
-            if (canvas_height > time_header_height())
-                page_height = canvas_height - time_header_height() - height_type(20);
-            else
-                page_height = tetengo2::gui::dimension<dimension_type>::height(max_dimension) + height_type(1);
+            const height_type page_height = canvas_height - time_header_height();
 
             return dimension_type(std::move(page_width), std::move(page_height));
         }

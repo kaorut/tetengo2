@@ -138,36 +138,7 @@ namespace bobura { namespace message { namespace main_window
                 position_type(left_type(0), top_type(0)), m_window.client_dimension()
             );
 
-            assert(m_diagram_picture_box.vertical_scroll_bar());
-            assert(m_diagram_picture_box.horizontal_scroll_bar());
-            const dimension_type view_dimension = m_view.dimension();
-            const dimension_type page_size = m_view.page_size(m_diagram_picture_box.client_dimension());
-            m_diagram_picture_box.vertical_scroll_bar()->set_range(
-                std::make_pair(
-                    0U,
-                    boost::rational_cast<scroll_bar_size_type>(
-                        tetengo2::gui::dimension<dimension_type>::height(view_dimension).value()
-                    )
-                )
-            );
-            m_diagram_picture_box.vertical_scroll_bar()->set_page_size(
-                boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::height(page_size).value()
-                )
-            );
-            m_diagram_picture_box.horizontal_scroll_bar()->set_range(
-                std::make_pair(
-                    0U,
-                    boost::rational_cast<scroll_bar_size_type>(
-                        tetengo2::gui::dimension<dimension_type>::width(view_dimension).value()
-                    )
-                )
-            );
-            m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(
-                boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::width(page_size).value()
-                )
-            );
+            update_scroll_bars();
         }
 
 
@@ -192,6 +163,69 @@ namespace bobura { namespace message { namespace main_window
         abstract_window_type& m_window;
 
         control_type& m_diagram_picture_box;
+
+
+        // functions
+
+        void update_scroll_bars()
+        const
+        {
+            assert(m_diagram_picture_box.vertical_scroll_bar());
+            assert(m_diagram_picture_box.horizontal_scroll_bar());
+            
+            const dimension_type page_size = m_view.page_size(m_diagram_picture_box.client_dimension());
+            const scroll_bar_size_type page_width =
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::width(page_size).value()
+                );
+            const scroll_bar_size_type page_height =
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::height(page_size).value()
+                );
+
+            const dimension_type view_dimension = m_view.dimension();
+            const scroll_bar_size_type width =
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::width(view_dimension).value()
+                );
+            const scroll_bar_size_type height =
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::height(view_dimension).value()
+                );
+
+            if (page_height < height)
+            {
+                m_diagram_picture_box.vertical_scroll_bar()->set_range(std::make_pair(0U, height));
+                m_diagram_picture_box.vertical_scroll_bar()->set_page_size(page_height);
+                if (m_diagram_picture_box.vertical_scroll_bar()->position() + page_height > height)
+                {
+                    m_diagram_picture_box.vertical_scroll_bar()->set_position(height - page_height);
+                    m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(width - page_width);
+                }
+            }
+            else
+            {
+                m_diagram_picture_box.vertical_scroll_bar()->set_range(std::make_pair(0U, 1U));
+                m_diagram_picture_box.vertical_scroll_bar()->set_page_size(2U);
+            }
+
+            if (page_width < width)
+            {
+                m_diagram_picture_box.horizontal_scroll_bar()->set_range(std::make_pair(0U, width));
+                m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(page_width);
+                const scroll_bar_size_type pos = m_diagram_picture_box.horizontal_scroll_bar()->position(); pos;
+                if (m_diagram_picture_box.horizontal_scroll_bar()->position() + page_width > width)
+                {
+                    m_diagram_picture_box.horizontal_scroll_bar()->set_position(width - page_width);
+                    m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(width - page_width);
+                }
+            }
+            else
+            {
+                m_diagram_picture_box.horizontal_scroll_bar()->set_range(std::make_pair(0U, 1U));
+                m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(2U);
+            }
+        }
 
 
     };
