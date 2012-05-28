@@ -177,6 +177,28 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
+            \brief Returns the enabled status.
+
+            \retval true  When the scroll bar is enabled.
+            \retval false Otherwise.
+        */
+        bool enabled()
+        const
+        {
+            return details_type::enabled(*m_p_details);
+        }
+
+        /*!
+            \brief Sets an entabled status.
+
+            \param enabled An enabled status.
+        */
+        void set_enabled(const bool enabled)
+        {
+            details_type::set_enabled(*m_p_details, enabled);
+        }
+
+        /*!
             \brief Returns the scroll bar observer set.
 
             \return The scroll bar observer set.

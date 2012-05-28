@@ -45,7 +45,7 @@ namespace tetengo2 { namespace detail { namespace windows
         typedef std::pair<size_type, size_type> range_type;
 
         //! The scroll bar details type.
-        typedef std::pair< ::HWND, int> scroll_bar_details_type;
+        typedef std::tuple< ::HWND, int, bool> scroll_bar_details_type;
 
         //! The scroll bar details pointer type.
         typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
@@ -78,9 +78,14 @@ namespace tetengo2 { namespace detail { namespace windows
             const style_type     style
         )
         {
-            return tetengo2::make_unique<scroll_bar_details_type>(
-                std::get<0>(widget_details).get(), to_native_style(style)
-            );
+            scroll_bar_details_ptr_type p_scroll_bar_details =
+                tetengo2::make_unique<scroll_bar_details_type>(
+                    std::get<0>(widget_details).get(), to_native_style(style), true
+                );
+
+            set_enabled(*p_scroll_bar_details, true);
+
+            return std::move(p_scroll_bar_details);
         }
 
         /*!
@@ -98,7 +103,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_POS;
             
-            if (::GetScrollInfo(details.first, details.second, &info) == 0)
+            if (::GetScrollInfo(std::get<0>(details), std::get<1>(details), &info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -125,7 +130,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.fMask = SIF_POS | SIF_DISABLENOSCROLL;
             info.nPos = static_cast<int>(position);
 
-            ::SetScrollInfo(details.first, details.second, &info, TRUE);
+            ::SetScrollInfo(std::get<0>(details), std::get<1>(details), &info, TRUE);
         }
 
         /*!
@@ -143,7 +148,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_RANGE;
             
-            if (::GetScrollInfo(details.first, details.second, &info) == 0)
+            if (::GetScrollInfo(std::get<0>(details), std::get<1>(details), &info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -174,7 +179,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.nMin = static_cast<int>(range.first);
             info.nMax = static_cast<int>(range.second);
 
-            ::SetScrollInfo(details.first, details.second, &info, TRUE);
+            ::SetScrollInfo(std::get<0>(details), std::get<1>(details), &info, TRUE);
         }
 
         /*!
@@ -192,7 +197,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.cbSize = sizeof(::SCROLLINFO);
             info.fMask = SIF_PAGE;
             
-            if (::GetScrollInfo(details.first, details.second, &info) == 0)
+            if (::GetScrollInfo(std::get<0>(details), std::get<1>(details), &info) == 0)
             {
                 BOOST_THROW_EXCEPTION(
                     std::system_error(
@@ -219,7 +224,7 @@ namespace tetengo2 { namespace detail { namespace windows
             info.fMask = SIF_PAGE | SIF_DISABLENOSCROLL;
             info.nPage = static_cast< ::UINT>(page_size);
 
-            ::SetScrollInfo(details.first, details.second, &info, TRUE);
+            ::SetScrollInfo(std::get<0>(details), std::get<1>(details), &info, TRUE);
         }
 
 
@@ -238,6 +243,33 @@ namespace tetengo2 { namespace detail { namespace windows
                 assert(false);
                 BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid style."));
             }
+        }
+
+        /*!
+            \brief Returns the enabled status.
+
+            \param details A detail implementation of a scroll bar.
+
+            \retval true  When the scroll bar is enabled.
+            \retval false Otherwise.
+        */
+        static bool enabled(const scroll_bar_details_type& details)
+        {
+            return std::get<2>(details);
+        }
+
+        /*!
+            \brief Sets an enabled status.
+
+            \param details A detail implementation of a scroll bar.
+            \param enabled An enable status.
+        */
+        static void set_enabled(scroll_bar_details_type& details, const bool enabled)
+        {
+            ::EnableScrollBar(
+                std::get<0>(details), std::get<1>(details), enabled ? ESB_ENABLE_BOTH : ESB_DISABLE_BOTH
+            );
+            std::get<2>(details) = enabled;
         }
 
 
