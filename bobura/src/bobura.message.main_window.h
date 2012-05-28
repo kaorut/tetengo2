@@ -193,11 +193,7 @@ namespace bobura { namespace message { namespace main_window
                     tetengo2::gui::dimension<dimension_type>::height(view_dimension).value()
                 ) - 1;
 
-            if (page_height == 0)
-            {
-                m_diagram_picture_box.vertical_scroll_bar()->set_enabled(false);
-            }
-            else if (page_height < height)
+            if (0 < page_height && page_height <= height)
             {
                 m_diagram_picture_box.vertical_scroll_bar()->set_enabled(true);
                 m_diagram_picture_box.vertical_scroll_bar()->set_range(std::make_pair(0U, height));
@@ -209,12 +205,12 @@ namespace bobura { namespace message { namespace main_window
                     m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
             }
-
-            if (page_width == 0)
+            else
             {
-                m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(false);
+                m_diagram_picture_box.vertical_scroll_bar()->set_enabled(false);
             }
-            else if (page_width < width)
+
+            if (0 < page_width && page_width <= width)
             {
                 m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(true);
                 m_diagram_picture_box.horizontal_scroll_bar()->set_range(std::make_pair(0U, width));
@@ -226,6 +222,10 @@ namespace bobura { namespace message { namespace main_window
                     m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
                     m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
+            }
+            else
+            {
+                m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(false);
             }
         }
 
