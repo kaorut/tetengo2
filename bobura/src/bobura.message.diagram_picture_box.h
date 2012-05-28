@@ -11,6 +11,8 @@
 
 #include <cassert>
 
+#include <boost/rational.hpp>
+
 #include <tetengo2.gui.measure.h>
 
 
@@ -65,14 +67,64 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
+            if (shift || control || meta)
+                return;
 
+            if (direction == picture_box_type::mouse_observer_set_type::direction_vertical)
+            {
+                if (!m_picture_box.vertical_scroll_bar()->enabled())
+                    return;
+
+                const scroll_bar_size_type new_position =
+                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), -delta);
+                m_picture_box.vertical_scroll_bar()->set_position(new_position);
+                m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+            }
+            else
+            {
+                assert(direction == picture_box_type::mouse_observer_set_type::direction_horizontal);
+
+                if (!m_picture_box.horizontal_scroll_bar()->enabled())
+                    return;
+
+                const scroll_bar_size_type new_position =
+                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
+                m_picture_box.horizontal_scroll_bar()->set_position(new_position);
+                m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+            }
         }
 
 
     private:
+        // types
+
+        typedef typename picture_box_type::scroll_bar_type::size_type scroll_bar_size_type;
+
+
         // variables
 
         picture_box_type& m_picture_box;
+
+
+        // functions
+
+        scroll_bar_size_type calculate_new_position(
+            const typename typename picture_box_type::scroll_bar_type& scroll_bar,
+            const delta_type&                                          delta
+        )
+        const
+        {
+            typedef typename delta_type::int_type delta_int_type;
+            const delta_int_type new_position =
+                scroll_bar.position() + boost::rational_cast<delta_int_type>(delta * 3);
+
+            if (new_position < static_cast<delta_int_type>(scroll_bar.range().first))
+                return scroll_bar.range().first;
+            if (new_position > static_cast<delta_int_type>(scroll_bar.range().second - scroll_bar.page_size() + 1))
+                return scroll_bar.range().second - scroll_bar.page_size() + 1;
+
+            return new_position;
+        }
 
 
     };
