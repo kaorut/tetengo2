@@ -9,6 +9,8 @@
 #if !defined(BOBURA_DIAGRAMVIEW_H)
 #define BOBURA_DIAGRAMVIEW_H
 
+//#include <utility>
+
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/rational.hpp>

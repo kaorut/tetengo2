@@ -47,6 +47,7 @@
 ::DispatchMessageW                               Windows.h
 ::DrawFocusRect                                  Windows.h
 ::DrawMenuBar                                    Windows.h
+::EnableScrollBar                                Windows.h
 ::EnableWindow                                   Windows.h
 ::EndPaint                                       Windows.h
 ::EnumChildWindows                               Windows.h

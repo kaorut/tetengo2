@@ -123,7 +123,6 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename Widget>
             boost::optional< ::LRESULT> on_mouse_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
-                const std::wstring title = widget.text();
                 if (widget.mouse_observer_set().wheeled().empty())
                     return boost::none;
 
