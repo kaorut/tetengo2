@@ -82,13 +82,6 @@ namespace bobura
         )
         const
         {
-            const dimension_type page_size = page_size;
-            const std::size_t cdx = boost::rational_cast<std::size_t>(canvas_dimension.first.value()); cdx;
-            const std::size_t cdy = boost::rational_cast<std::size_t>(canvas_dimension.second.value()); cdy;
-            const std::size_t sbp = boost::rational_cast<std::size_t>(scroll_bar_position.first.value()); sbp;
-            const std::size_t psx = boost::rational_cast<std::size_t>(page_size.first.value()); psx;
-            const std::size_t psy = boost::rational_cast<std::size_t>(page_size.second.value()); psy;
-
             clear_background(canvas, canvas_dimension);
 
             draw_header(canvas);
