@@ -206,8 +206,16 @@ namespace bobura
             return std::move(p_picture_box);
         }
 
+        void focus_on_diagram_picture_box()
+        {
+            m_p_diagram_picture_box->set_focus();
+        }
+
         void set_message_observers()
         {
+            this->focus_observer_set().got_focus().connect(
+                TETENGO2_CPP11_BIND(&main_window::focus_on_diagram_picture_box, this)
+            );
             this->paint_observer_set().paint_background().connect(paint_background());
             this->window_observer_set().closing().connect(
                 typename boost::mpl::at<
