@@ -18,6 +18,11 @@ Depends on  : (none)
 Description : Support scroll by mouse wheel.
 ------------------------------------------------------------------------------
 Number      : 00000172
+Added on    : 2012/05/28
+Depends on  : (none)
+Description : Split tetengo2.detail.windows.message_handler.h.
+------------------------------------------------------------------------------
+Number      : 00000173
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
