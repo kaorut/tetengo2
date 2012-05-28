@@ -121,6 +121,22 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Widget>
+            boost::optional< ::LRESULT> on_mouse_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+            {
+                return boost::none;
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_mouse_h_wheel(
+                Widget&        widget,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                return boost::none;
+            }
+
+            template <typename Widget>
             boost::optional< ::LRESULT> on_control_color(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 if (l_param == 0) return boost::none;
@@ -827,6 +843,22 @@ namespace tetengo2 { namespace detail { namespace windows
             map[WM_CHAR].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::widget::on_char<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_MOUSEWHEEL].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_mouse_wheel<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_MOUSEHWHEEL].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_mouse_h_wheel<Widget>,
                     cpp11::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()
