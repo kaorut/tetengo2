@@ -17,6 +17,67 @@
 namespace bobura { namespace message { namespace diagram_picture_box
 {
     /*!
+        \brief The class template for a mouse wheel observer of the picture box.
+
+        \tparam PictureBox A picture box type.
+    */
+    template <typename PictureBox>
+    class mouse_wheeled
+    {
+    public:
+        // types
+
+        //! The picture box type.
+        typedef PictureBox picture_box_type;
+
+        //! The delta type.
+        typedef typename picture_box_type::mouse_observer_set_type::delta_type delta_type;
+
+        //! The direction type.
+        typedef typename picture_box_type::mouse_observer_set_type::direction_type direction_type;
+
+
+        // constructors and destructor
+
+        explicit mouse_wheeled(picture_box_type& picture_box)
+        :
+        m_picture_box(picture_box)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the mouse wheel is wheeled.
+
+            \param delta     A delta.
+            \param direction A direction.
+            \param shift     True when shift key is pressed.
+            \param control   True when control key is pressed.
+            \param meta      True when meta key is pressed.
+        */
+        void operator()(
+            const delta_type&    delta,
+            const direction_type direction,
+            const bool           shift,
+            const bool           control,
+            const bool           meta
+        )
+        const
+        {
+
+        }
+
+
+    private:
+        // variables
+
+        picture_box_type& m_picture_box;
+
+
+    };
+
+    /*!
         \brief The class template for a paint observer of the picture box.
 
         \tparam Canvas     A canvas type.

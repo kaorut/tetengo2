@@ -98,6 +98,16 @@ namespace tetengo2 { namespace gui { namespace message
             return m_wheeled;
         }
 
+        /*!
+            \brief Returns the observer called when a mouse wheel is wheeled.
+
+            \return The observer called when a mouse wheel is wheeled.
+        */
+        wheeled_signal_type& wheeled()
+        {
+            return m_wheeled;
+        }
+
 
     private:
         // variables
