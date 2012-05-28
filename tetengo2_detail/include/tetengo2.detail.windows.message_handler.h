@@ -176,16 +176,16 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                 case SB_LINEUP:
                     static_assert(SB_LINELEFT == SB_LINEUP, "SB_LINELEFT != SB_LINEUP");
-                    return std::max(info.nMin, info.nPos - 1);
+                    return std::max<int>(info.nMin, info.nPos - 1);
                 case SB_LINEDOWN:
                     static_assert(SB_LINERIGHT == SB_LINEDOWN, "SB_LINERIGHT != SB_LINEDOWN");
-                    return std::min(info.nMax, info.nPos + 1);
+                    return std::min<int>(info.nMax - info.nPage + 1, info.nPos + 1);
                 case SB_PAGEUP:
                     static_assert(SB_PAGELEFT == SB_PAGEUP, "SB_PAGELEFT != SB_PAGEUP");
                     return std::max<int>(info.nMin, info.nPos - info.nPage);
                 case SB_PAGEDOWN:
                     static_assert(SB_PAGERIGHT == SB_PAGEDOWN, "SB_PAGERIGHT != SB_PAGEDOWN");
-                    return std::min<int>(info.nMax, info.nPos + info.nPage);
+                    return std::min<int>(info.nMax - info.nPage + 1, info.nPos + info.nPage);
                 case SB_THUMBPOSITION:
                 case SB_THUMBTRACK:
                     return info.nTrackPos;
@@ -194,7 +194,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     return info.nMin;
                 case SB_BOTTOM:
                     static_assert(SB_RIGHT == SB_BOTTOM, "SB_RIGHT != SB_BOTTOM");
-                    return info.nMax;
+                    return info.nMax - info.nPage + 1;
                 default:
                     assert(false);
                     BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll code."));
