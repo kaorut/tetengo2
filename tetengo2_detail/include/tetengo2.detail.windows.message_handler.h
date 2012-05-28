@@ -123,7 +123,21 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename Widget>
             boost::optional< ::LRESULT> on_mouse_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
-                return boost::none;
+                if (widget.mouse_observer_set().wheeled().empty())
+                    return boost::none;
+
+                const short delta = GET_WHEEL_DELTA_WPARAM(w_param);
+                const unsigned int key_state = GET_KEYSTATE_WPARAM(w_param);
+
+                widget.mouse_observer_set().wheeled()(
+                    typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
+                    Widget::mouse_observer_set_type::direction_vertical,
+                    (key_state & MK_SHIFT) != 0,
+                    (key_state & MK_CONTROL) != 0,
+                    false
+                );
+
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
@@ -133,7 +147,21 @@ namespace tetengo2 { namespace detail { namespace windows
                 const ::LPARAM l_param
             )
             {
-                return boost::none;
+                if (widget.mouse_observer_set().wheeled().empty())
+                    return boost::none;
+
+                const short delta = GET_WHEEL_DELTA_WPARAM(w_param);
+                const unsigned int key_state = GET_KEYSTATE_WPARAM(w_param);
+
+                widget.mouse_observer_set().wheeled()(
+                    typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
+                    Widget::mouse_observer_set_type::direction_horizontal,
+                    (key_state & MK_SHIFT) != 0,
+                    (key_state & MK_CONTROL) != 0,
+                    false
+                );
+
+                return boost::make_optional< ::LRESULT>(0);
             }
 
             template <typename Widget>
