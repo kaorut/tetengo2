@@ -299,6 +299,15 @@ BOOST_AUTO_TEST_SUITE(widget)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(set_focus)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_widget widget;
+
+        widget.set_focus();
+    }
+
     BOOST_AUTO_TEST_CASE(position)
     {
         BOOST_TEST_PASSPOINT();

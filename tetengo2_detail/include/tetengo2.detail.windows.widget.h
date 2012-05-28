@@ -1242,6 +1242,22 @@ namespace tetengo2 { namespace detail { namespace windows
         }
 
         /*!
+            \brief Focuses on a widget.
+
+            \param widget A widget.
+        */
+        template <typename Widget>
+        static void set_focus(Widget& widget)
+        {
+            if (::SetFocus(std::get<0>(*widget.details()).get()) == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set focus.")
+                );
+            }
+        }
+
+        /*!
             \brief Checks whether a widget is read-only.
 
             \tparam Widget A widget type.

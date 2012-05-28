@@ -263,6 +263,14 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Focuses on the widget.
+        */
+        void set_focus()
+        {
+            widget_details_type::set_focus(*this);
+        }
+
+        /*!
             \brief Returns the position.
 
             \return The position.
