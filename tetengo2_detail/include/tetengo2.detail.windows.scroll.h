@@ -227,24 +227,6 @@ namespace tetengo2 { namespace detail { namespace windows
             ::SetScrollInfo(std::get<0>(details), std::get<1>(details), &info, TRUE);
         }
 
-
-    private:
-        // static functions
-
-        static int to_native_style(const style_type style)
-        {
-            switch (style)
-            {
-            case style_vertical:
-                return SB_VERT;
-            case style_horizontal:
-                return SB_HORZ;
-            default:
-                assert(false);
-                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid style."));
-            }
-        }
-
         /*!
             \brief Returns the enabled status.
 
@@ -270,6 +252,24 @@ namespace tetengo2 { namespace detail { namespace windows
                 std::get<0>(details), std::get<1>(details), enabled ? ESB_ENABLE_BOTH : ESB_DISABLE_BOTH
             );
             std::get<2>(details) = enabled;
+        }
+
+
+    private:
+        // static functions
+
+        static int to_native_style(const style_type style)
+        {
+            switch (style)
+            {
+            case style_vertical:
+                return SB_VERT;
+            case style_horizontal:
+                return SB_HORZ;
+            default:
+                assert(false);
+                BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid style."));
+            }
         }
 
 

@@ -195,10 +195,11 @@ namespace bobura { namespace message { namespace main_window
 
             if (page_height == 0)
             {
-
+                m_diagram_picture_box.vertical_scroll_bar()->set_enabled(false);
             }
             else if (page_height < height)
             {
+                m_diagram_picture_box.vertical_scroll_bar()->set_enabled(true);
                 m_diagram_picture_box.vertical_scroll_bar()->set_range(std::make_pair(0U, height));
                 m_diagram_picture_box.vertical_scroll_bar()->set_page_size(page_height);
                 if (m_diagram_picture_box.vertical_scroll_bar()->position() + page_height > height)
@@ -211,10 +212,11 @@ namespace bobura { namespace message { namespace main_window
 
             if (page_width == 0)
             {
-
+                m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(false);
             }
             else if (page_width < width)
             {
+                m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(true);
                 m_diagram_picture_box.horizontal_scroll_bar()->set_range(std::make_pair(0U, width));
                 m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(page_width);
                 const scroll_bar_size_type pos = m_diagram_picture_box.horizontal_scroll_bar()->position(); pos;
