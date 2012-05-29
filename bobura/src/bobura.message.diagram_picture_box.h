@@ -115,8 +115,15 @@ namespace bobura { namespace message { namespace diagram_picture_box
         const
         {
             typedef typename delta_type::int_type delta_int_type;
-            const delta_int_type new_position =
-                scroll_bar.position() + boost::rational_cast<delta_int_type>(delta * 3);
+            delta_int_type int_delta = boost::rational_cast<delta_int_type>(delta * 3);
+            if (int_delta == 0)
+            {
+                if (delta > 0)
+                    ++int_delta;
+                else
+                    --int_delta;
+            }
+            const delta_int_type new_position = scroll_bar.position() + int_delta;
 
             if (new_position < static_cast<delta_int_type>(scroll_bar.range().first))
                 return scroll_bar.range().first;

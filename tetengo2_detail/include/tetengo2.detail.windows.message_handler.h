@@ -282,8 +282,8 @@ namespace tetengo2 { namespace detail { namespace windows
                         widget.vertical_scroll_bar()->set_position(new_position);
                         return boost::none;
                     }
-                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                     widget.vertical_scroll_bar()->set_position(new_position);
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
 
                 return boost::make_optional< ::LRESULT>(0);
