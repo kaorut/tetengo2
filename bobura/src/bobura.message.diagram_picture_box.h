@@ -114,8 +114,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         // functions
 
         scroll_bar_size_type calculate_new_position(
-            const typename typename picture_box_type::scroll_bar_type& scroll_bar,
-            const delta_type&                                          delta
+            const typename picture_box_type::scroll_bar_type& scroll_bar,
+            const delta_type&                                 delta
         )
         const
         {
