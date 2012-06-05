@@ -64,7 +64,9 @@ namespace bobura
         */
         explicit diagram_view(const model_type& model)
         :
-        m_model(model)
+        m_model(model),
+        m_station_header_width(8),
+        m_time_header_height(3)
         {}
 
 
@@ -116,11 +118,11 @@ namespace bobura
         {
             const width_type canvas_width = tetengo2::gui::dimension<dimension_type>::width(canvas_dimension);
             const width_type page_width =
-                canvas_width > station_header_width() ? canvas_width - station_header_width() : width_type(0);
+                canvas_width > m_station_header_width ? canvas_width - m_station_header_width : width_type(0);
 
             const height_type canvas_height = tetengo2::gui::dimension<dimension_type>::height(canvas_dimension);
             const height_type page_height =
-                canvas_height > time_header_height() ? canvas_height - time_header_height() : height_type(0);
+                canvas_height > m_time_header_height ? canvas_height - m_time_header_height : height_type(0);
 
             return dimension_type(std::move(page_width), std::move(page_height));
         }
@@ -142,18 +144,6 @@ namespace bobura
 
         // static functions
 
-        static const width_type& station_header_width()
-        {
-            static const width_type singleton(8);
-            return singleton;
-        }
-
-        static const height_type& time_header_height()
-        {
-            static const height_type singleton(3);
-            return singleton;
-        }
-
         template <typename To, typename From>
         static To to_rational(const From& from)
         {
@@ -164,6 +154,10 @@ namespace bobura
         // variables
 
         const model_type& m_model;
+
+        width_type m_station_header_width;
+
+        height_type m_time_header_height;
 
 
         // functions
@@ -204,12 +198,12 @@ namespace bobura
             const left_int_type first_visible_hour = int_scroll_position / 20 + (int_left > 0 ? 1 : 0);
             left_int_type hour = first_visible_hour;
             for (
-                left_type position = to_rational<left_type>(station_header_width()) - left_type(int_left);
+                left_type position = to_rational<left_type>(m_station_header_width) - left_type(int_left);
                 position < canvas_right;
                 position += left_type(20)
             )
             {
-                if (position < to_rational<left_type>(station_header_width()))
+                if (position < to_rational<left_type>(m_station_header_width))
                     continue;
 
                 canvas.draw_line(
@@ -235,13 +229,13 @@ namespace bobura
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
 
             canvas.draw_line(
-                position_type(left_type(0), to_rational<top_type>(time_header_height())),
-                position_type(canvas_right, to_rational<top_type>(time_header_height())),
+                position_type(left_type(0), to_rational<top_type>(m_time_header_height)),
+                position_type(canvas_right, to_rational<top_type>(m_time_header_height)),
                 size_type(typename size_type::value_type(1, 6))
             );
             canvas.draw_line(
-                position_type(to_rational<left_type>(station_header_width()), top_type(0)),
-                position_type(to_rational<left_type>(station_header_width()), canvas_bottom),
+                position_type(to_rational<left_type>(m_station_header_width), top_type(0)),
+                position_type(to_rational<left_type>(m_station_header_width), canvas_bottom),
                 size_type(typename size_type::value_type(1, 8))
             );
         }
