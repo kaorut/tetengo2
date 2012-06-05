@@ -29,9 +29,10 @@ namespace bobura { namespace message
             \brief The meta function for the type list of the timetable model messages.
 
             \tparam TimetableModel A timetable model type.
+            \tparam DiagramView    A diagram view type.
             \tparam MainWindow     A main window type.
         */
-        template <typename TimetableModel, typename MainWindow>
+        template <typename TimetableModel, typename DiagramView, typename MainWindow>
         class type_list
         {
         public:
@@ -39,8 +40,10 @@ namespace bobura { namespace message
 
             //! The type list for the timetable model.
             typedef
-                tetengo2::meta::assoc_list<boost::mpl::pair<type::reset, reset<TimetableModel, MainWindow>>,
-                tetengo2::meta::assoc_list<boost::mpl::pair<type::changed, changed<TimetableModel, MainWindow>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::reset, reset<TimetableModel, DiagramView, MainWindow>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::changed, changed<TimetableModel, DiagramView, MainWindow>>,
                 tetengo2::meta::assoc_list_end
                 >>
                 type;

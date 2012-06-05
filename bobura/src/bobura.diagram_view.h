@@ -127,6 +127,14 @@ namespace bobura
             return dimension_type(std::move(page_width), std::move(page_height));
         }
 
+        /*!
+            \brief Updates the station positions.
+        */
+        void update_station_positions()
+        {
+
+        }
+
 
     private:
         // types

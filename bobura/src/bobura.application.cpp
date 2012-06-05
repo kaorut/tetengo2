@@ -315,7 +315,7 @@ namespace bobura
 
         model_type m_model;
 
-        const view_type m_view;
+        view_type m_view;
 
 
         // functions
@@ -324,12 +324,12 @@ namespace bobura
         {
             m_model.observer_set().reset().connect(
                 boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
-                    m_model, main_window
+                    m_model, m_view, main_window
                 )
             );
             m_model.observer_set().changed().connect(
                 boost::mpl::at<model_message_type_list_type, message::timetable_model::type::changed>::type(
-                    m_model, main_window
+                    m_model, m_view, main_window
                 )
             );
 

@@ -1080,6 +1080,7 @@ namespace bobura
                 type::application::model_message_type_list,
                 message::timetable_model::type_list<
                     boost::mpl::at<model_type_list, type::model::model>::type,
+                    boost::mpl::at<view_type_list, type::view::view>::type,
                     boost::mpl::at<main_window_type_list, type::main_window::main_window>::type
                 >::type
             >,
