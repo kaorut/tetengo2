@@ -22,7 +22,7 @@ Tetengo2 is a kind of GUI toolkit.
 \arg g++ 4.4.5 or 4.5.3 with -std=gnu++0x option (on UNIX)
 \arg Boost 1.49.0 or later
 \arg bzip2 1.0.6 or later
-\arg Doxygen 1.8.0 or later
+\arg Doxygen 1.8.1 or later
 
 
 Copyright (C) 2007-2012 kaoru

@@ -41,6 +41,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         // constructors and destructor
 
+        /*!
+            \brief Creates a mouse wheel observer of the picture box.
+
+            \param picture_box A picture box.
+        */
         explicit mouse_wheeled(picture_box_type& picture_box)
         :
         m_picture_box(picture_box)
