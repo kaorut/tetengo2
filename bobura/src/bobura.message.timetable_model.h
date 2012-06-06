@@ -104,6 +104,7 @@ namespace bobura { namespace message { namespace timetable_model
 
     };
 
+
      /*!
         \brief The class template for a timetable model change observer.
 
