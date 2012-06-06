@@ -11,7 +11,6 @@
 
 //#include <utility>
 
-#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/rational.hpp>
@@ -98,7 +97,6 @@ namespace bobura
             draw_station_lines(
                 canvas, canvas_dimension, tetengo2::gui::position<position_type>::top(scroll_bar_position)
             );
-            draw_frames(canvas, canvas_dimension);
         }
 
         /*!
@@ -293,41 +291,30 @@ namespace bobura
             const left_type canvas_right =
                 to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
 
-            BOOST_FOREACH (const top_type& position, m_station_positions)
+            for (typename std::vector<top_type>::size_type i = 0; i < m_station_positions.size(); ++i)
             {
+                const top_type& position = m_station_positions[i];
+                const top_type line_position = position + to_rational<top_type>(m_time_header_height);
+
                 canvas.draw_line(
-                    position_type(left_type(0), position + to_rational<top_type>(m_time_header_height)),
-                    position_type(canvas_right, position + to_rational<top_type>(m_time_header_height)),
+                    position_type(left_type(0), line_position),
+                    position_type(canvas_right, line_position),
                     size_type(typename size_type::value_type(1, 12))
                 );
-            }
-        }
 
-        void draw_frames(canvas_type& canvas, const dimension_type& canvas_dimension)
-        const
-        {
-            const left_type canvas_right =
-                to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
-            const top_type canvas_bottom =
-                to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
-            const top_type station_position_bottom =
-                to_rational<top_type>(
-                    tetengo2::gui::dimension<dimension_type>::height(m_dimension) + m_time_header_height
+                const string_type& station_name = m_model.timetable().station_locations()[i].station().name();
+                const dimension_type station_name_dimension = canvas.calc_text_dimension(station_name);
+                canvas.draw_text(
+                    station_name,
+                    position_type(
+                        left_type(0),
+                        line_position -
+                            to_rational<top_type>(
+                                tetengo2::gui::dimension<dimension_type>::height(station_name_dimension)
+                            )
+                    )
                 );
-            const top_type line_bottom = std::min(canvas_bottom, station_position_bottom);
-
-            canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
-
-            canvas.draw_line(
-                position_type(left_type(0), to_rational<top_type>(m_time_header_height)),
-                position_type(canvas_right, to_rational<top_type>(m_time_header_height)),
-                size_type(typename size_type::value_type(1, 6))
-            );
-            canvas.draw_line(
-                position_type(to_rational<left_type>(m_station_header_width), top_type(0)),
-                position_type(to_rational<left_type>(m_station_header_width), line_bottom),
-                size_type(typename size_type::value_type(1, 8))
-            );
+            }
         }
 
 
