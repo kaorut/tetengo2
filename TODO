@@ -9,7 +9,7 @@
 ------------------------------------------------------------------------------
 Number      : 00000167
 Added on    : 2012/05/09
-Depends on  : 00000168
+Depends on  : 00000173
 Description : Create bobura::diagram::view.
 ------------------------------------------------------------------------------
 Number      : 00000172
@@ -18,6 +18,11 @@ Depends on  : (none)
 Description : Split tetengo2.detail.windows.message_handler.h.
 ------------------------------------------------------------------------------
 Number      : 00000173
+Added on    : 2012/06/06
+Depends on  : (none)
+Description : Create bobura::model::timetable::station_intervals().
+------------------------------------------------------------------------------
+Number      : 00000174
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
