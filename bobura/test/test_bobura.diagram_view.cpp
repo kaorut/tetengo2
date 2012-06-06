@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
-        const view_type view(model);
+        view_type view(model);
 
         view.update_station_positions();
     }
