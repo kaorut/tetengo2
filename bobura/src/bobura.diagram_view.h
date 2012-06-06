@@ -65,6 +65,7 @@ namespace bobura
         explicit diagram_view(const model_type& model)
         :
         m_model(model),
+        m_dimension(width_type(20 * 24), height_type(0)),
         m_station_header_width(8),
         m_time_header_height(3),
         m_station_positions()
@@ -101,10 +102,10 @@ namespace bobura
 
             \return The dimension.
         */
-        dimension_type dimension()
+        const dimension_type& dimension()
         const
         {
-            return dimension_type(width_type(20 * 24), height_type(48));
+            return m_dimension;
         }
 
         /*!
@@ -133,13 +134,24 @@ namespace bobura
         */
         void update_station_positions()
         {
-            station_intervals_type intervals = m_model.timetable().station_intervals();
+            const station_intervals_type intervals = m_model.timetable().station_intervals();
+            if (intervals.empty())
+            {
+                m_station_positions.clear();
+                m_dimension =
+                    dimension_type(tetengo2::gui::dimension<dimension_type>::width(m_dimension), height_type(0));
+                return;
+            }
             
             std::vector<height_type> positions;
             positions.reserve(intervals.size());
-            std::transform(intervals.begin(), intervals.end(), std::back_inserter(positions), to_station_position);
+            std::transform(intervals.begin(), intervals.end(), std::back_inserter(positions), to_station_position());
 
             m_station_positions = std::move(positions);
+            m_dimension =
+                dimension_type(
+                    tetengo2::gui::dimension<dimension_type>::width(m_dimension), m_station_positions.back()
+                );
         }
 
 
@@ -160,6 +172,26 @@ namespace bobura
 
         typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
 
+        class to_station_position
+        {
+        public:
+            to_station_position()
+            :
+            m_sum(0)
+            {}
+
+            height_type operator()(const station_interval_type& interval)
+            {
+                const station_interval_type position = m_sum;
+                m_sum += interval;
+                return height_type(position);
+            }
+
+        private:
+            station_interval_type m_sum;
+
+        };
+
 
         // static functions
 
@@ -169,15 +201,12 @@ namespace bobura
             return To(typename To::value_type(from.value().numerator(), from.value().denominator()));
         }
 
-        static height_type to_station_position(const station_interval_type& interval)
-        {
-            return height_type(interval);
-        }
-
 
         // variables
 
         const model_type& m_model;
+
+        dimension_type m_dimension;
 
         width_type m_station_header_width;
 
@@ -214,6 +243,11 @@ namespace bobura
                 to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
             const top_type canvas_bottom =
                 to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
+            const top_type station_position_bottom =
+                to_rational<top_type>(
+                    tetengo2::gui::dimension<dimension_type>::height(m_dimension) + m_time_header_height
+                );
+            const top_type line_bottom = std::min(canvas_bottom, station_position_bottom);
 
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
 
@@ -234,7 +268,7 @@ namespace bobura
 
                 canvas.draw_line(
                     position_type(position, top_type(1)),
-                    position_type(position, canvas_bottom),
+                    position_type(position, line_bottom),
                     size_type(typename size_type::value_type(1, 12))
                 );
 
@@ -251,6 +285,11 @@ namespace bobura
                 to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
             const top_type canvas_bottom =
                 to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
+            const top_type station_position_bottom =
+                to_rational<top_type>(
+                    tetengo2::gui::dimension<dimension_type>::height(m_dimension) + m_time_header_height
+                );
+            const top_type line_bottom = std::min(canvas_bottom, station_position_bottom);
 
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
 
@@ -261,7 +300,7 @@ namespace bobura
             );
             canvas.draw_line(
                 position_type(to_rational<left_type>(m_station_header_width), top_type(0)),
-                position_type(to_rational<left_type>(m_station_header_width), canvas_bottom),
+                position_type(to_rational<left_type>(m_station_header_width), line_bottom),
                 size_type(typename size_type::value_type(1, 8))
             );
         }
