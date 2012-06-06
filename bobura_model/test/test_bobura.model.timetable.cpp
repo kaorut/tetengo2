@@ -648,6 +648,13 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(station_intervals)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+    }
+
     BOOST_AUTO_TEST_CASE(down_trains)
     {
         BOOST_TEST_PASSPOINT();

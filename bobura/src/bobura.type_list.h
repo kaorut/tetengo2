@@ -301,6 +301,7 @@ namespace bobura
             bobura::model::timetable<
                 boost::mpl::at<common_type_list, type::string>::type,
                 station_location_type,
+                boost::rational<boost::mpl::at<common_type_list, type::size>::type>,
                 train_type,
                 bobura::model::message::timetable_observer_set
             >

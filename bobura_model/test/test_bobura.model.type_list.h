@@ -127,6 +127,7 @@ namespace test_bobura { namespace model
                 bobura::model::timetable<
                     boost::mpl::at<type_list, type::string>::type,
                     detail::model::station_location_type,
+                    boost::mpl::at<type_list, type::size>::type,
                     detail::model::train_type,
                     bobura::model::message::timetable_observer_set
                 >
