@@ -66,7 +66,8 @@ namespace bobura
         :
         m_model(model),
         m_station_header_width(8),
-        m_time_header_height(3)
+        m_time_header_height(3),
+        m_station_positions()
         {}
 
 
@@ -132,7 +133,13 @@ namespace bobura
         */
         void update_station_positions()
         {
+            station_intervals_type intervals = m_model.timetable().station_intervals();
+            
+            std::vector<height_type> positions;
+            positions.reserve(intervals.size());
+            std::transform(intervals.begin(), intervals.end(), std::back_inserter(positions), to_station_position);
 
+            m_station_positions = std::move(positions);
         }
 
 
@@ -149,6 +156,10 @@ namespace bobura
 
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
+        typedef typename model_type::timetable_type::station_interval_type station_interval_type;
+
+        typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
+
 
         // static functions
 
@@ -156,6 +167,11 @@ namespace bobura
         static To to_rational(const From& from)
         {
             return To(typename To::value_type(from.value().numerator(), from.value().denominator()));
+        }
+
+        static height_type to_station_position(const station_interval_type& interval)
+        {
+            return height_type(interval);
         }
 
 
@@ -166,6 +182,8 @@ namespace bobura
         width_type m_station_header_width;
 
         height_type m_time_header_height;
+
+        std::vector<height_type> m_station_positions;
 
 
         // functions

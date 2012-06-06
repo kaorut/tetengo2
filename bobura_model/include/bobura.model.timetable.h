@@ -247,7 +247,9 @@ namespace bobura { namespace model
         station_intervals_type station_intervals()
         const
         {
-            return station_intervals_type();
+            const station_intervals_type intervals(m_station_locations.size(), 5);
+
+            return intervals;
         }
 
         /*!
