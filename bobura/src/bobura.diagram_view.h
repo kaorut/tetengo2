@@ -11,6 +11,7 @@
 
 //#include <utility>
 
+#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/rational.hpp>
@@ -93,6 +94,9 @@ namespace bobura
             draw_header(canvas);
             draw_time_lines(
                 canvas, canvas_dimension, tetengo2::gui::position<position_type>::left(scroll_bar_position)
+            );
+            draw_station_lines(
+                canvas, canvas_dimension, tetengo2::gui::position<position_type>::top(scroll_bar_position)
             );
             draw_frames(canvas, canvas_dimension);
         }
@@ -276,6 +280,26 @@ namespace bobura
                 ++hour;
             }
 
+        }
+
+        void draw_station_lines(
+            canvas_type&          canvas,
+            const dimension_type& canvas_dimension,
+            const left_type&      vertical_scroll_bar_position
+        )
+        const
+        {
+            const left_type canvas_right =
+                to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+
+            BOOST_FOREACH (const height_type& position, m_station_positions)
+            {
+                canvas.draw_line(
+                    position_type(left_type(0), to_rational<top_type>(position + m_time_header_height)),
+                    position_type(canvas_right, to_rational<top_type>(position + m_time_header_height)),
+                    size_type(typename size_type::value_type(1, 12))
+                );
+            }
         }
 
         void draw_frames(canvas_type& canvas, const dimension_type& canvas_dimension)
