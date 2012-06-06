@@ -147,14 +147,15 @@ namespace bobura
                 return;
             }
             
-            std::vector<height_type> positions;
+            std::vector<top_type> positions;
             positions.reserve(intervals.size());
             std::transform(intervals.begin(), intervals.end(), std::back_inserter(positions), to_station_position());
 
             m_station_positions = std::move(positions);
             m_dimension =
                 dimension_type(
-                    tetengo2::gui::dimension<dimension_type>::width(m_dimension), m_station_positions.back()
+                    tetengo2::gui::dimension<dimension_type>::width(m_dimension),
+                    to_rational<height_type>(m_station_positions.back())
                 );
         }
 
@@ -184,11 +185,11 @@ namespace bobura
             m_sum(0)
             {}
 
-            height_type operator()(const station_interval_type& interval)
+            top_type operator()(const station_interval_type& interval)
             {
                 const station_interval_type position = m_sum;
                 m_sum += interval;
-                return height_type(position);
+                return top_type(typename top_type::value_type(position.numerator(), position.denominator()));
             }
 
         private:
@@ -216,7 +217,7 @@ namespace bobura
 
         height_type m_time_header_height;
 
-        std::vector<height_type> m_station_positions;
+        std::vector<top_type> m_station_positions;
 
 
         // functions
@@ -292,11 +293,11 @@ namespace bobura
             const left_type canvas_right =
                 to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
 
-            BOOST_FOREACH (const height_type& position, m_station_positions)
+            BOOST_FOREACH (const top_type& position, m_station_positions)
             {
                 canvas.draw_line(
-                    position_type(left_type(0), to_rational<top_type>(position + m_time_header_height)),
-                    position_type(canvas_right, to_rational<top_type>(position + m_time_header_height)),
+                    position_type(left_type(0), position + to_rational<top_type>(m_time_header_height)),
+                    position_type(canvas_right, position + to_rational<top_type>(m_time_header_height)),
                     size_type(typename size_type::value_type(1, 12))
                 );
             }
