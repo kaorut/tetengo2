@@ -206,6 +206,12 @@ namespace bobura { namespace message { namespace main_window
             }
             else
             {
+                if (view_height <= page_height)
+                {
+                    const scroll_bar_size_type new_position = 0;
+                    m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
+                    m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                }
                 m_diagram_picture_box.vertical_scroll_bar()->set_enabled(false);
             }
 
@@ -224,6 +230,12 @@ namespace bobura { namespace message { namespace main_window
             }
             else
             {
+                if (view_width <= page_width)
+                {
+                    const scroll_bar_size_type new_position = 0;
+                    m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
+                    m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                }
                 m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(false);
             }
         }

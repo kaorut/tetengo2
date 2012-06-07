@@ -284,7 +284,7 @@ namespace bobura
         void draw_station_lines(
             canvas_type&          canvas,
             const dimension_type& canvas_dimension,
-            const left_type&      vertical_scroll_bar_position
+            const top_type&       vertical_scroll_bar_position
         )
         const
         {
@@ -294,7 +294,10 @@ namespace bobura
             for (typename std::vector<top_type>::size_type i = 0; i < m_station_positions.size(); ++i)
             {
                 const top_type& position = m_station_positions[i];
-                const top_type line_position = position + to_rational<top_type>(m_time_header_height);
+                const top_type line_position =
+                    position + to_rational<top_type>(m_time_header_height) - vertical_scroll_bar_position;
+                if (line_position < to_rational<top_type>(m_time_header_height))
+                    continue;
 
                 canvas.draw_line(
                     position_type(left_type(0), line_position),
