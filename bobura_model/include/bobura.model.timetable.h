@@ -16,6 +16,7 @@
 #include <vector>
 
 #include <boost/operators.hpp>
+#include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility.hpp>
 
@@ -247,7 +248,14 @@ namespace bobura { namespace model
         station_intervals_type station_intervals()
         const
         {
-            const station_intervals_type intervals(m_station_locations.size(), 5);
+            station_intervals_type intervals(m_station_locations.size(), 0);
+            if (m_station_locations.empty())
+                return intervals;
+
+            for (typename station_intervals_type::size_type i = 0; i < intervals.size() - 1; ++i)
+            {
+                intervals[i] = shortest_travel_time(i, i + 1);
+            }
 
             return intervals;
         }
@@ -367,6 +375,12 @@ namespace bobura { namespace model
 
         typedef typename train_type::stops_type::difference_type difference_type;
 
+        typedef typename train_type::stop_type stop_type;
+
+        typedef typename stop_type::time_type time_type;
+
+        typedef typename time_type::time_span_type time_span_type;
+
 
         // static functions
 
@@ -402,6 +416,11 @@ namespace bobura { namespace model
                 mutable_iter, std::distance<typename Container::const_iterator>(container.begin(), const_iter)
             );
             return mutable_iter;
+        }
+
+        static station_interval_type to_station_interval(const time_span_type& time_span)
+        {
+            return station_interval_type(time_span.seconds(), 60);
         }
 
 
@@ -461,6 +480,74 @@ namespace bobura { namespace model
             trains.erase(to_mutable(first, trains), to_mutable(last, trains));
 
             m_observer_set.changed()();
+        }
+
+        station_interval_type shortest_travel_time(
+            const typename station_intervals_type::size_type from,
+            const typename station_intervals_type::size_type to
+        )
+        const
+        {
+            const boost::optional<time_span_type> down_travel_time =
+                shortest_travel_time_impl(m_down_trains, from, to);
+            const boost::optional<time_span_type> up_travel_time =
+                shortest_travel_time_impl(m_up_trains, to, from);
+
+            if (!down_travel_time && !up_travel_time)
+                return station_interval_type(3);
+            if (!up_travel_time)
+                return to_station_interval(*down_travel_time);
+            if (!down_travel_time)
+                return to_station_interval(*up_travel_time);
+            return
+                *down_travel_time < *up_travel_time ?
+                to_station_interval(*down_travel_time) : to_station_interval(*up_travel_time);
+        }
+
+        boost::optional<time_span_type> shortest_travel_time_impl(
+            const trains_type&                               trains,
+            const typename station_intervals_type::size_type from,
+            const typename station_intervals_type::size_type to
+        )
+        const
+        {
+            if (trains.empty())
+                return boost::none;
+
+            boost::optional<time_span_type> travel_time = calculate_travel_time(trains[0], from, to);
+            for (typename trains_type::size_type i = 1; i < trains.size(); ++i)
+            {
+                const boost::optional<time_span_type> new_travel_time = calculate_travel_time(trains[i], from, to);
+                if (!new_travel_time)
+                    continue;
+
+                if (!travel_time || *new_travel_time < *travel_time)
+                    travel_time = *new_travel_time;
+            }
+
+            return travel_time ? boost::make_optional(*travel_time) : boost::none;
+        }
+
+        boost::optional<time_span_type> calculate_travel_time(
+            const train_type&                                train, 
+            const typename station_intervals_type::size_type from,
+            const typename station_intervals_type::size_type to
+        )
+        const
+        {
+            const stop_type& from_stop = train.stops()[from];
+            const time_type from_time =
+                from_stop.departure() != time_type::uninitialized() ? from_stop.departure() : from_stop.arrival();
+            if (from_time == time_type::uninitialized())
+                return boost::none;
+
+            const stop_type& to_stop = train.stops()[to];
+            const time_type to_time =
+                to_stop.arrival() != time_type::uninitialized() ? to_stop.arrival() : to_stop.departure();
+            if (to_time == time_type::uninitialized())
+                return boost::none;
+
+            return boost::make_optional(to_time - from_time);
         }
 
 
