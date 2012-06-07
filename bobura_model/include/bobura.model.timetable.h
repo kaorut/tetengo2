@@ -248,14 +248,21 @@ namespace bobura { namespace model
         station_intervals_type station_intervals()
         const
         {
-            station_intervals_type intervals(m_station_locations.size(), 0);
             if (m_station_locations.empty())
-                return intervals;
+                return station_intervals_type(m_station_locations.size(), 3);
 
-            for (typename station_intervals_type::size_type i = 0; i < intervals.size() - 1; ++i)
-            {
-                intervals[i] = shortest_travel_time(i, i + 1);
-            }
+            const station_intervals_type down_intervals = down_station_intervals();
+            const station_intervals_type up_intervals = up_station_intervals();
+
+            station_intervals_type intervals;
+            intervals.reserve(m_station_locations.size());
+            std::transform(
+                down_intervals.begin(),
+                down_intervals.end(),
+                up_intervals.begin(),
+                std::back_inserter(intervals),
+                select_station_interval
+            );
 
             return intervals;
         }
@@ -418,9 +425,29 @@ namespace bobura { namespace model
             return mutable_iter;
         }
 
-        static station_interval_type to_station_interval(const time_span_type& time_span)
+        static const station_interval_type& whole_day()
         {
-            return station_interval_type(time_span.seconds(), 60);
+            static const station_interval_type singleton =
+                to_station_interval(time_span_type(time_span_type::seconds_of_whole_day()));
+            return singleton;
+        }
+
+        static station_interval_type select_station_interval(
+            const station_interval_type& interval1,
+            const station_interval_type& interval2
+        )
+        {
+
+            const station_interval_type selected = std::min(interval1, interval2);
+            return selected < whole_day() ? selected : selected - whole_day();
+        }
+
+        static station_interval_type to_station_interval(
+            const time_span_type&                            time_span,
+            const typename station_intervals_type::size_type denominator = 1
+        )
+        {
+            return station_interval_type(time_span.seconds(), 60 * denominator);
         }
 
 
@@ -482,29 +509,65 @@ namespace bobura { namespace model
             m_observer_set.changed()();
         }
 
-        station_interval_type shortest_travel_time(
-            const typename station_intervals_type::size_type from,
-            const typename station_intervals_type::size_type to
-        )
+        station_intervals_type down_station_intervals()
         const
         {
-            const boost::optional<time_span_type> down_travel_time =
-                shortest_travel_time_impl(m_down_trains, from, to);
-            const boost::optional<time_span_type> up_travel_time =
-                shortest_travel_time_impl(m_up_trains, to, from);
+            station_intervals_type intervals(m_station_locations.size(), 3 + whole_day());
 
-            if (!down_travel_time && !up_travel_time)
-                return station_interval_type(3);
-            if (!up_travel_time)
-                return to_station_interval(*down_travel_time);
-            if (!down_travel_time)
-                return to_station_interval(*up_travel_time);
-            return
-                *down_travel_time < *up_travel_time ?
-                to_station_interval(*down_travel_time) : to_station_interval(*up_travel_time);
+            for (typename station_intervals_type::size_type from = 0; from < intervals.size(); ++from)
+            {
+                if (!shortest_travel_time(m_down_trains, from, from))
+                    continue;
+
+                for (typename station_intervals_type::size_type to = from + 1; to < intervals.size(); ++to)
+                {
+                    const boost::optional<time_span_type> travel_time = shortest_travel_time(m_down_trains, from, to);
+                    if (travel_time)
+                    {
+                        for (typename station_intervals_type::size_type i = from; i < to; ++i)
+                        {
+                            intervals[i] = to_station_interval(*travel_time, to - from);
+                            if (to - from > 1)
+                                intervals[i] += whole_day();
+                        }
+                        break;
+                    }
+                }
+            }
+
+            return intervals;
         }
 
-        boost::optional<time_span_type> shortest_travel_time_impl(
+        station_intervals_type up_station_intervals()
+        const
+        {
+            station_intervals_type intervals(m_station_locations.size(), 3 + whole_day());
+
+            for (typename station_intervals_type::size_type from = 0; from < intervals.size(); ++from)
+            {
+                if (!shortest_travel_time(m_up_trains, from, from))
+                    continue;
+
+                for (typename station_intervals_type::size_type to = from + 1; to < intervals.size(); ++to)
+                {
+                    const boost::optional<time_span_type> travel_time = shortest_travel_time(m_up_trains, to, from);
+                    if (travel_time)
+                    {
+                        for (typename station_intervals_type::size_type i = from; i < to; ++i)
+                        {
+                            intervals[i] = to_station_interval(*travel_time, to - from);
+                            if (to - from > 1)
+                                intervals[i] += whole_day();
+                        }
+                        break;
+                    }
+                }
+            }
+
+            return intervals;
+        }
+
+        boost::optional<time_span_type> shortest_travel_time(
             const trains_type&                               trains,
             const typename station_intervals_type::size_type from,
             const typename station_intervals_type::size_type to
