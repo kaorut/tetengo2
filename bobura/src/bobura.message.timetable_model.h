@@ -89,6 +89,7 @@ namespace bobura { namespace message { namespace timetable_model
             detail::set_main_window_title(m_timetable_model, m_main_window);
             m_diagram_view.update_station_positions();
             m_main_window.diagram_picture_box().repaint();
+            m_main_window.window_observer_set().resized()();
         }
 
 
@@ -159,6 +160,7 @@ namespace bobura { namespace message { namespace timetable_model
             detail::set_main_window_title(m_timetable_model, m_main_window);
             m_diagram_view.update_station_positions();
             m_main_window.diagram_picture_box().repaint();
+            m_main_window.window_observer_set().resized()();
         }
 
 
