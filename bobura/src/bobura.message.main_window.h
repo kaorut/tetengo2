@@ -153,6 +153,10 @@ namespace bobura { namespace message { namespace main_window
 
         typedef typename control_type::dimension_type dimension_type;
 
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
+
         typedef typename control_type::scroll_bar_type::size_type scroll_bar_size_type;
 
 
@@ -183,17 +187,12 @@ namespace bobura { namespace message { namespace main_window
                     tetengo2::gui::dimension<dimension_type>::height(page_size).value()
                 );
 
-            const dimension_type view_dimension = m_view.dimension();
-            const scroll_bar_size_type width =
-                boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::width(view_dimension).value()
-                ) - 1;
-            const scroll_bar_size_type height =
-                boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::height(view_dimension).value()
-                ) - 1;
+            const width_type view_width = tetengo2::gui::dimension<dimension_type>::width(m_view.dimension());
+            const height_type view_height = tetengo2::gui::dimension<dimension_type>::height(m_view.dimension());
+            const scroll_bar_size_type width = boost::rational_cast<scroll_bar_size_type>(view_width.value()) - 1;
+            const scroll_bar_size_type height = boost::rational_cast<scroll_bar_size_type>(view_height.value()) - 1;
 
-            if (0 < page_height && page_height <= height)
+            if (view_height > 0 && 0 < page_height && page_height <= height)
             {
                 m_diagram_picture_box.vertical_scroll_bar()->set_enabled(true);
                 m_diagram_picture_box.vertical_scroll_bar()->set_range(std::make_pair(0U, height));
@@ -210,7 +209,7 @@ namespace bobura { namespace message { namespace main_window
                 m_diagram_picture_box.vertical_scroll_bar()->set_enabled(false);
             }
 
-            if (0 < page_width && page_width <= width)
+            if (view_width > 0 && 0 < page_width && page_width <= width)
             {
                 m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(true);
                 m_diagram_picture_box.horizontal_scroll_bar()->set_range(std::make_pair(0U, width));
