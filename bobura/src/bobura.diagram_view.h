@@ -9,7 +9,10 @@
 #if !defined(BOBURA_DIAGRAMVIEW_H)
 #define BOBURA_DIAGRAMVIEW_H
 
+#include <algorithm>
+#include <iterator>
 //#include <utility>
+#include <vector>
 
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
