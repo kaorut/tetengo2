@@ -344,78 +344,78 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             }
             BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
         }
-        //{
-        //    // |DOWN|   | UP |
-        //    // +----+---+----+
-        //    // |1000|AAA|    |
-        //    // |  v |BBB|    |
-        //    // |  v |CCC|    |
-        //    // |1012|DDD|    |
-        //    // +----+---+----+
-        //    const std::vector<station_location_type> station_locations = make_station_locations();
-        //    std::vector<train_type> down_trains;
-        //    {
-        //        std::vector<stop_type> stops;
-        //        stops.push_back(make_stop(false, 10, 0));
-        //        stops.push_back(make_stop());
-        //        stops.push_back(make_stop());
-        //        stops.push_back(make_stop(true, 10, 12));
-        //        down_trains.push_back(make_train(stops.begin(), stops.end()));
-        //    }
-        //    const std::vector<train_type> up_trains;
-        //    const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
+        {
+            // |DOWN|   | UP |
+            // +----+---+----+
+            // |1000|AAA|    |
+            // |  v |BBB|    |
+            // |  v |CCC|    |
+            // |1012|DDD|    |
+            // +----+---+----+
+            const std::vector<station_location_type> station_locations = make_station_locations();
+            std::vector<train_type> down_trains;
+            {
+                std::vector<stop_type> stops;
+                stops.push_back(make_stop(false, 10, 0));
+                stops.push_back(make_stop());
+                stops.push_back(make_stop());
+                stops.push_back(make_stop(true, 10, 12));
+                down_trains.push_back(make_train(stops.begin(), stops.end()));
+            }
+            const std::vector<train_type> up_trains;
+            const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-        //    const station_intervals_type intervals = calculator.calculate();
+            const station_intervals_type intervals = calculator.calculate();
 
-        //    station_intervals_type expected;
-        //    {
-        //        expected.push_back(4);
-        //        expected.push_back(4);
-        //        expected.push_back(4);
-        //        expected.push_back(station_interval_calculator_type::default_interval());
-        //    }
-        //    BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
-        //}
-        //{
-        //    // |DOWN|   | UP |
-        //    // +----+---+----+
-        //    // |1000|AAA|====|
-        //    // |  v |BBB|1108|
-        //    // |1010|CCC|  ^ |
-        //    // |====|DDD|1100|
-        //    // +----+---+----+
-        //    const std::vector<station_location_type> station_locations = make_station_locations();
-        //    std::vector<train_type> down_trains;
-        //    {
-        //        std::vector<stop_type> stops;
-        //        stops.push_back(make_stop(false, 10, 0));
-        //        stops.push_back(make_stop());
-        //        stops.push_back(make_stop(true, 10, 10));
-        //        stops.push_back(make_stop());
-        //        down_trains.push_back(make_train(stops.begin(), stops.end()));
-        //    }
-        //    std::vector<train_type> up_trains;
-        //    {
-        //        std::vector<stop_type> stops;
-        //        stops.push_back(make_stop());
-        //        stops.push_back(make_stop(true, 11, 8));
-        //        stops.push_back(make_stop());
-        //        stops.push_back(make_stop(false, 11, 0));
-        //        up_trains.push_back(make_train(stops.begin(), stops.end()));
-        //    }
-        //    const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
+            station_intervals_type expected;
+            {
+                expected.push_back(4);
+                expected.push_back(4);
+                expected.push_back(4);
+                expected.push_back(station_interval_calculator_type::default_interval());
+            }
+            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+        }
+        {
+            // |DOWN|   | UP |
+            // +----+---+----+
+            // |1000|AAA|====|
+            // |  v |BBB|1108|
+            // |1010|CCC|  ^ |
+            // |====|DDD|1100|
+            // +----+---+----+
+            const std::vector<station_location_type> station_locations = make_station_locations();
+            std::vector<train_type> down_trains;
+            {
+                std::vector<stop_type> stops;
+                stops.push_back(make_stop(false, 10, 0));
+                stops.push_back(make_stop());
+                stops.push_back(make_stop(true, 10, 10));
+                stops.push_back(make_stop());
+                down_trains.push_back(make_train(stops.begin(), stops.end()));
+            }
+            std::vector<train_type> up_trains;
+            {
+                std::vector<stop_type> stops;
+                stops.push_back(make_stop());
+                stops.push_back(make_stop(true, 11, 8));
+                stops.push_back(make_stop());
+                stops.push_back(make_stop(false, 11, 0));
+                up_trains.push_back(make_train(stops.begin(), stops.end()));
+            }
+            const station_interval_calculator_type calculator(station_locations, down_trains, up_trains);
 
-        //    const station_intervals_type intervals = calculator.calculate();
+            const station_intervals_type intervals = calculator.calculate();
 
-        //    station_intervals_type expected;
-        //    {
-        //        expected.push_back(5);
-        //        expected.push_back(4);
-        //        expected.push_back(4);
-        //        expected.push_back(station_interval_calculator_type::default_interval());
-        //    }
-        //    BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
-        //}
+            station_intervals_type expected;
+            {
+                expected.push_back(5);
+                expected.push_back(4);
+                expected.push_back(4);
+                expected.push_back(station_interval_calculator_type::default_interval());
+            }
+            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+        }
     }
 
 

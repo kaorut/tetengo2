@@ -128,6 +128,12 @@ namespace bobura { namespace model { namespace timetable_info
             return singleton;
         }
 
+        static const station_interval_type& whole_day2()
+        {
+            static const station_interval_type singleton = whole_day() * 2;
+            return singleton;
+        }
+
         static station_interval_type select_station_interval(
             const station_interval_type& interval1,
             const station_interval_type& interval2
@@ -135,7 +141,12 @@ namespace bobura { namespace model { namespace timetable_info
         {
 
             const station_interval_type selected = std::min(interval1, interval2);
-            return selected < whole_day() ? selected : selected - whole_day();
+            if      (selected >= whole_day2())
+                return selected - whole_day2();
+            else if (selected >= whole_day())
+                return selected - whole_day();
+            else
+                return selected;
         }
 
         static station_interval_type to_station_interval(
@@ -163,7 +174,7 @@ namespace bobura { namespace model { namespace timetable_info
         station_intervals_type station_intervals(const trains_type& trains, const bool is_down)
         const
         {
-            station_intervals_type intervals(m_station_locations.size(), default_interval() + whole_day());
+            station_intervals_type intervals(m_station_locations.size(), default_interval() + whole_day2());
 
             for (typename station_intervals_type::size_type from = 0; from < intervals.size(); ++from)
             {
