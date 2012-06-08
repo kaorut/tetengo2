@@ -652,7 +652,8 @@ BOOST_AUTO_TEST_SUITE(timetable)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        const timetable_type timetable;
+        timetable.station_intervals();
     }
 
     BOOST_AUTO_TEST_CASE(down_trains)

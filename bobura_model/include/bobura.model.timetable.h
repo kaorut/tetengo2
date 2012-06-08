@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <iterator>
 #include <stdexcept>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -447,7 +448,9 @@ namespace bobura { namespace model
             const typename station_intervals_type::size_type denominator = 1
         )
         {
-            return station_interval_type(time_span.seconds(), 60 * denominator);
+            station_interval_type interval(time_span.seconds());
+            interval /= 60 * denominator;
+            return interval;
         }
 
 
