@@ -85,6 +85,7 @@ namespace test_bobura { namespace model
         struct time;           //!< The time type.
         struct stop;           //!< The stop type.
         struct train;          //!< The train type.
+        struct station_interval_calculator; //!< The station interval calculator type.
         struct timetable;      //!< The timetable type.
     }}
 
@@ -129,6 +130,10 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::train, detail::model::train_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::model::station_interval_calculator, detail::model::station_interval_calculator_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::model::timetable,
                 bobura::model::timetable<
                     boost::mpl::at<type_list, type::string>::type,
@@ -139,7 +144,7 @@ namespace test_bobura { namespace model
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>>>>>
         model_type_list;
 
 
