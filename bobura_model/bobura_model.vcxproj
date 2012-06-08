@@ -96,6 +96,7 @@
     <ClInclude Include="include\bobura.model.station.h" />
     <ClInclude Include="include\bobura.model.station_info.grade.h" />
     <ClInclude Include="include\bobura.model.timetable.h" />
+    <ClInclude Include="include\bobura.model.timetable_info.station_interval_calculator.h" />
     <ClInclude Include="include\bobura.model.timetable_info.station_location.h" />
     <ClInclude Include="include\bobura.model.train.h" />
     <ClInclude Include="include\bobura.model.train_info.stop.h" />
