@@ -50,6 +50,15 @@ namespace bobura { namespace model { namespace timetable_info
         typedef std::vector<station_interval_type> station_intervals_type;
 
 
+        // static functions
+
+        static const station_interval_type& default_interval()
+        {
+            static const station_interval_type singleton(3);
+            return singleton;
+        }
+
+
         // constructors and destructor
 
         /*!
@@ -81,7 +90,7 @@ namespace bobura { namespace model { namespace timetable_info
         const
         {
             if (m_station_locations.empty())
-                return station_intervals_type(m_station_locations.size(), 3);
+                return station_intervals_type(m_station_locations.size(), default_interval());
 
             const station_intervals_type down_intervals = station_intervals(m_down_trains, true);
             const station_intervals_type up_intervals = station_intervals(m_up_trains, false);
@@ -154,7 +163,7 @@ namespace bobura { namespace model { namespace timetable_info
         station_intervals_type station_intervals(const trains_type& trains, const bool is_down)
         const
         {
-            station_intervals_type intervals(m_station_locations.size(), 3 + whole_day());
+            station_intervals_type intervals(m_station_locations.size(), default_interval() + whole_day());
 
             for (typename station_intervals_type::size_type from = 0; from < intervals.size(); ++from)
             {

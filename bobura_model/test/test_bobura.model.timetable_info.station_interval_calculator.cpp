@@ -86,6 +86,13 @@ BOOST_AUTO_TEST_SUITE(timetable_info)
 BOOST_AUTO_TEST_SUITE(station_interval_calculator)
     // test cases
 
+    BOOST_AUTO_TEST_CASE(default_interval)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        BOOST_CHECK(station_interval_calculator_type::default_interval() > 0);
+    }
+
     BOOST_AUTO_TEST_CASE(construction)
     {
         BOOST_TEST_PASSPOINT();
@@ -118,7 +125,10 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             const station_intervals_type intervals = calculator.calculate();
 
-            BOOST_CHECK(intervals.size() == station_locations.size());
+            const station_intervals_type expected(
+                station_locations.size(), station_interval_calculator_type::default_interval()
+            );
+            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
         }
     }
 
