@@ -41,6 +41,7 @@
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.station.h"
 #include "bobura.model.timetable.h"
+#include "bobura.model.timetable_info.station_interval_calculator.h"
 #include "bobura.model.timetable_info.station_location.h"
 #include "bobura.model.train.h"
 #include "bobura.model.train_info.stop.h"
@@ -108,6 +109,11 @@ namespace test_bobura { namespace model
                 boost::mpl::at<type_list, type::string>::type, boost::mpl::at<type_list, type::string>::type, stop_type
             >
             train_type;
+        typedef
+            bobura::model::timetable_info::station_interval_calculator<
+                station_location_type, train_type, boost::mpl::at<type_list, type::size>::type
+            >
+            station_interval_calculator_type;
     }}
 #endif
 
@@ -127,7 +133,7 @@ namespace test_bobura { namespace model
                 bobura::model::timetable<
                     boost::mpl::at<type_list, type::string>::type,
                     detail::model::station_location_type,
-                    boost::mpl::at<type_list, type::size>::type,
+                    detail::model::station_interval_calculator_type,
                     detail::model::train_type,
                     bobura::model::message::timetable_observer_set
                 >
