@@ -10,6 +10,7 @@
 #define BOBURA_MODEL_TIMETABLEINFO_STATIONINTERVALCALCULATOR_H
 
 #include <algorithm>
+#include <cassert>
 #include <iterator>
 #include <vector>
 
@@ -92,25 +93,42 @@ namespace bobura { namespace model { namespace timetable_info
             if (m_station_locations.empty())
                 return station_intervals_type(m_station_locations.size(), default_interval());
 
-            const station_intervals_type down_intervals = station_intervals(m_down_trains, true);
-            const station_intervals_type up_intervals = station_intervals(m_up_trains, false);
+            station_intervals_type intervals(m_station_locations.size(), default_interval() + whole_day2());
 
-            station_intervals_type intervals;
-            intervals.reserve(m_station_locations.size());
-            std::transform(
-                down_intervals.begin(),
-                down_intervals.end(),
-                up_intervals.begin(),
-                std::back_inserter(intervals),
-                select_station_interval
-            );
+            BOOST_FOREACH (const train_type& train, m_down_trains)
+            {
+                const station_intervals_type intervals_by_train = calculate_by_train(train, true);
+                assert(intervals.size() == intervals_by_train.size());
+                std::transform(
+                    intervals.begin(),
+                    intervals.end(),
+                    intervals_by_train.begin(),
+                    intervals.begin(),
+                    std::min<station_interval_type>
+                );
+            }
+            BOOST_FOREACH (const train_type& train, m_up_trains)
+            {
+                const station_intervals_type intervals_by_train = calculate_by_train(train, false);
+                assert(intervals.size() == intervals_by_train.size());
+                std::transform(
+                    intervals.begin(),
+                    intervals.end(),
+                    intervals_by_train.begin(),
+                    intervals.begin(),
+                    std::min<station_interval_type>
+                );
+            }
 
+            std::for_each(intervals.begin(), intervals.end(), normalize);
             return intervals;
         }
 
 
     private:
         // types
+
+        typedef typename train_type::stops_type::size_type stop_index_type;
 
         typedef typename train_type::stop_type stop_type;
 
@@ -134,19 +152,12 @@ namespace bobura { namespace model { namespace timetable_info
             return singleton;
         }
 
-        static station_interval_type select_station_interval(
-            const station_interval_type& interval1,
-            const station_interval_type& interval2
-        )
+        static void normalize(station_interval_type& interval)
         {
-
-            const station_interval_type selected = std::min(interval1, interval2);
-            if      (selected >= whole_day2())
-                return selected - whole_day2();
-            else if (selected >= whole_day())
-                return selected - whole_day();
-            else
-                return selected;
+            if      (interval >= whole_day2())
+                interval -= whole_day2();
+            else if (interval >= whole_day())
+                interval -= whole_day();
         }
 
         static station_interval_type to_station_interval(
@@ -171,66 +182,47 @@ namespace bobura { namespace model { namespace timetable_info
 
         // functions
 
-        station_intervals_type station_intervals(const trains_type& trains, const bool is_down)
+        station_intervals_type calculate_by_train(const train_type& train, const bool down)
         const
         {
-            station_intervals_type intervals(m_station_locations.size(), default_interval() + whole_day2());
+            station_intervals_type intervals(train.stops().size(), default_interval() + whole_day2());
 
-            for (typename station_intervals_type::size_type from = 0; from < intervals.size(); ++from)
+            for (stop_index_type from = 0; from < train.stops().size() - 1; )
             {
-                if (!shortest_travel_time(trains, from, from))
-                    continue;
-
-                for (typename station_intervals_type::size_type to = from + 1; to < intervals.size(); ++to)
+                if (!calculate_travel_time(train, from, from))
                 {
-                    const typename station_intervals_type::size_type departure = is_down ? from : to;
-                    const typename station_intervals_type::size_type arrival = is_down ? to : from;
+                    ++from;
+                    continue;
+                }
+
+                stop_index_type to = from + 1;
+                for (; to < train.stops().size(); ++to)
+                {
+                    const stop_index_type departure = down ? from : to;
+                    const stop_index_type arrival = down ? to : from;
                     const boost::optional<time_span_type> travel_time =
-                        shortest_travel_time(trains, departure, arrival);
+                        calculate_travel_time(train, departure, arrival);
                     if (travel_time)
                     {
-                        for (typename station_intervals_type::size_type i = from; i < to; ++i)
-                        {
-                            intervals[i] = to_station_interval(*travel_time, to - from);
-                            if (to - from > 1)
-                                intervals[i] += whole_day();
-                        }
+                        station_interval_type interval = to_station_interval(*travel_time, to - from);
+                        if (to - from > 1)
+                            interval += whole_day();
+                        for (stop_index_type i = from; i < to; ++i)
+                            intervals[i] = std::move(interval);
                         break;
                     }
                 }
+
+                from = to;
             }
 
             return intervals;
         }
 
-        boost::optional<time_span_type> shortest_travel_time(
-            const trains_type&                               trains,
-            const typename station_intervals_type::size_type from,
-            const typename station_intervals_type::size_type to
-        )
-        const
-        {
-            if (trains.empty())
-                return boost::none;
-
-            boost::optional<time_span_type> travel_time = calculate_travel_time(trains[0], from, to);
-            for (typename trains_type::size_type i = 1; i < trains.size(); ++i)
-            {
-                const boost::optional<time_span_type> new_travel_time = calculate_travel_time(trains[i], from, to);
-                if (!new_travel_time)
-                    continue;
-
-                if (!travel_time || *new_travel_time < *travel_time)
-                    travel_time = *new_travel_time;
-            }
-
-            return travel_time ? boost::make_optional(*travel_time) : boost::none;
-        }
-
         boost::optional<time_span_type> calculate_travel_time(
-            const train_type&                                train, 
-            const typename station_intervals_type::size_type from,
-            const typename station_intervals_type::size_type to
+            const train_type&     train, 
+            const stop_index_type from,
+            const stop_index_type to
         )
         const
         {
