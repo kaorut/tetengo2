@@ -412,36 +412,27 @@ namespace bobura
         )
         const
         {
-            if (down)
-                draw_down_train(train, canvas, canvas_dimension, scroll_bar_position);
-            else
-                draw_up_train(train, canvas, canvas_dimension, scroll_bar_position);
-        }
-
-        void draw_down_train(
-            const train_type&     train,
-            canvas_type&          canvas,
-            const dimension_type& canvas_dimension,
-            const position_type&  scroll_bar_position
-        )
-        const
-        {
-            for (stop_index_type from = 0; from < train.stops().size() - 1; )
+            for (stop_index_type i = 0; i < train.stops().size() - 1; )
             {
-                if (!has_time(train.stops()[from]))
+                if (!has_time(train.stops()[i]))
                 {
-                    ++from;
+                    ++i;
                     continue;
                 }
 
-                stop_index_type to = from + 1;
-                for (; to < train.stops().size(); ++to)
+                stop_index_type j = i + 1;
+                for (; j < train.stops().size(); ++j)
                 {
-                    if (has_time(train.stops()[to]))
+                    if (has_time(train.stops()[j]))
                     {
+                        const stop_index_type from = down ? i : j;
+                        const stop_index_type to = down ? j : i;
+
                         const time_type& departure_time = get_departure_time(train.stops()[from]);
-                        const time_type& estimated_arrival_time = estimate_arrival_time(departure_time, from, to);
                         const time_type& arrival_time = get_arrival_time(train.stops()[to]);
+                        const time_type& estimated_arrival_time =
+                            train.stops()[to].arrival() == time_type::uninitialized() ?
+                            estimate_arrival_time(departure_time, i, j) : arrival_time;
 
                         draw_train_line(
                             from,
@@ -457,32 +448,21 @@ namespace bobura
                     }
                 }
 
-                from = to;
+                i = j;
             }
-        }
-
-        void draw_up_train(
-            const train_type&     train,
-            canvas_type&          canvas,
-            const dimension_type& canvas_dimension,
-            const position_type&  scroll_bar_position
-        )
-        const
-        {
-
         }
 
         time_type estimate_arrival_time(
             const time_type&      departure_time,
-            const stop_index_type departure_stop_index,
-            const stop_index_type arrival_stop_index
+            const stop_index_type upper_stop_index,
+            const stop_index_type lower_stop_index
         )
         const
         {
             const time_span_type travel_time =
                 std::accumulate(
-                    m_station_intervals.begin() + departure_stop_index,
-                    m_station_intervals.begin() + arrival_stop_index,
+                    m_station_intervals.begin() + upper_stop_index,
+                    m_station_intervals.begin() + lower_stop_index,
                     time_span_type(0)
                 );
             return departure_time + travel_time;
