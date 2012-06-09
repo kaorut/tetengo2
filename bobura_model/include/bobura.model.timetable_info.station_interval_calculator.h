@@ -11,9 +11,10 @@
 
 #include <algorithm>
 #include <cassert>
-#include <iterator>
+#include <utility>
 #include <vector>
 
+#include <boost/foreach.hpp>
 #include <boost/optional.hpp>
 
 
