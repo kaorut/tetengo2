@@ -23,6 +23,11 @@ Depends on  : (none)
 Description : Create bobura::model::timetable::station_intervals().
 ------------------------------------------------------------------------------
 Number      : 00000174
+Added on    : 2012/06/09
+Depends on  : (none)
+Description : Create bobura::command::reload.
+------------------------------------------------------------------------------
+Number      : 00000175
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
