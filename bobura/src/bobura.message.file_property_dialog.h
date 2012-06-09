@@ -62,8 +62,7 @@ namespace bobura { namespace message { namespace file_property_dialog
     };
 
      /*!
-        \brief The class template for a mouse click observer of the cancel
-               button.
+        \brief The class template for a mouse click observer of the cancel button.
 
         \tparam Dialog A dialog type.
     */

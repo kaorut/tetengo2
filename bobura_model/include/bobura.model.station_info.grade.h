@@ -17,7 +17,7 @@
 namespace bobura { namespace model { namespace station_info
 {
     /*!
-        \brief The class for a station grade.
+        \brief The class template for a station grade.
 
         \tparam GradeName A grade name type.
     */
@@ -72,7 +72,7 @@ namespace bobura { namespace model { namespace station_info
 
 
     /*!
-        \brief The class for a local station grade.
+        \brief The class template for a local station grade.
 
         \tparam GradeName A grade name type.
     */
@@ -124,7 +124,7 @@ namespace bobura { namespace model { namespace station_info
     };
 
     /*!
-        \brief The class for a principal station grade.
+        \brief The class template for a principal station grade.
 
         \tparam GradeName A grade name type.
    */
@@ -176,7 +176,7 @@ namespace bobura { namespace model { namespace station_info
     };
 
     /*!
-        \brief The class for a local terminal station grade.
+        \brief The class template for a local terminal station grade.
 
         \tparam GradeName A grade name type.
     */
@@ -228,7 +228,7 @@ namespace bobura { namespace model { namespace station_info
    };
 
     /*!
-        \brief The class for a principal terminal station grade.
+        \brief The class template for a principal terminal station grade.
 
         \tparam GradeName A grade name type.
     */

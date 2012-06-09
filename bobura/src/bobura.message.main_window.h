@@ -21,8 +21,7 @@
 namespace bobura { namespace message { namespace main_window
 {
     /*!
-        \brief The class template for a menu selection observer of the main
-               window.
+        \brief The class template for a menu selection observer of the main window.
 
         \tparam Command        A command type.
         \tparam Model          A model type.

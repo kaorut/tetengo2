@@ -17,7 +17,7 @@
 namespace bobura { namespace model { namespace train_info
 {
     /*!
-        \brief The class for a train stop.
+        \brief The class template for a train stop.
 
         \tparam Time     A time type.
         \tparam Platform A string type.
