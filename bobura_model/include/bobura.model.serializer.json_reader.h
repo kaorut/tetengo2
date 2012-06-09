@@ -147,7 +147,7 @@ namespace bobura { namespace model { namespace serializer
             const boost::optional<std::vector<station_location_type>> stations = read_stations(pull_parser);
             if (!stations)
                 return std::unique_ptr<timetable_type>();
-            BOOST_FOREACH(const station_location_type& station, *stations)
+            BOOST_FOREACH (const station_location_type& station, *stations)
             {
                 p_timetable->insert_station_location(p_timetable->station_locations().end(), station);
             }
@@ -155,7 +155,7 @@ namespace bobura { namespace model { namespace serializer
             const boost::optional<std::vector<train_type>> down_trains = read_trains(pull_parser, stations->size());
             if (!down_trains)
                 return std::unique_ptr<timetable_type>();
-            BOOST_FOREACH(const train_type& train, *down_trains)
+            BOOST_FOREACH (const train_type& train, *down_trains)
             {
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
@@ -163,7 +163,7 @@ namespace bobura { namespace model { namespace serializer
             const boost::optional<std::vector<train_type>> up_trains = read_trains(pull_parser, stations->size());
             if (!up_trains)
                 return std::unique_ptr<timetable_type>();
-            BOOST_FOREACH(const train_type& train, *up_trains)
+            BOOST_FOREACH (const train_type& train, *up_trains)
             {
                 p_timetable->insert_up_train(p_timetable->up_trains().end(), train);
             }
@@ -348,7 +348,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             if (stops->size() > station_count)
                 return boost::none;
-            BOOST_FOREACH(const stop_type& stop, *stops)
+            BOOST_FOREACH (const stop_type& stop, *stops)
             {
                 train.insert_stop(train.stops().end(), stop);
             }
