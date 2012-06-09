@@ -299,9 +299,7 @@ namespace bobura
             >
             train_type;
         typedef
-            bobura::model::timetable_info::station_interval_calculator<
-                station_location_type, train_type, boost::rational<boost::mpl::at<common_type_list, type::size>::type>
-            >
+            bobura::model::timetable_info::station_interval_calculator<station_location_type, train_type>
             station_interval_calculator_type;
         typedef
             bobura::model::timetable<

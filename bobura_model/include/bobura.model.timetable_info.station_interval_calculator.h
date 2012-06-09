@@ -25,9 +25,8 @@ namespace bobura { namespace model { namespace timetable_info
 
         \tparam StationLocation A station location type.
         \tparam Train           A train type.
-        \tparam StationInterval A station interval type.
     */
-    template <typename StationLocation, typename Train, typename StationInterval>
+    template <typename StationLocation, typename Train>
     class station_interval_calculator
     {
     public:
@@ -45,18 +44,24 @@ namespace bobura { namespace model { namespace timetable_info
         //! The trains type.
         typedef std::vector<train_type> trains_type;
 
-        //! The station interval type.
-        typedef StationInterval station_interval_type;
+        //! The stop type.
+        typedef typename train_type::stop_type stop_type;
+
+        //! The time type.
+        typedef typename stop_type::time_type time_type;
+
+        //! The time span type.
+        typedef typename time_type::time_span_type time_span_type;
 
         //! The station intervals type.
-        typedef std::vector<station_interval_type> station_intervals_type;
+        typedef std::vector<time_span_type> station_intervals_type;
 
 
         // static functions
 
-        static const station_interval_type& default_interval()
+        static const time_span_type& default_interval()
         {
-            static const station_interval_type singleton(3);
+            static const time_span_type singleton(3 * 60);
             return singleton;
         }
 
@@ -123,29 +128,22 @@ namespace bobura { namespace model { namespace timetable_info
 
         typedef typename train_type::stops_type::size_type stop_index_type;
 
-        typedef typename train_type::stop_type stop_type;
-
-        typedef typename stop_type::time_type time_type;
-
-        typedef typename time_type::time_span_type time_span_type;
-
 
         // static functions
 
-        static const station_interval_type& whole_day()
+        static const time_span_type& whole_day()
         {
-            static const station_interval_type singleton =
-                to_station_interval(time_span_type(time_span_type::seconds_of_whole_day()));
+            static const time_span_type singleton(time_span_type::seconds_of_whole_day());
             return singleton;
         }
 
-        static const station_interval_type& whole_day2()
+        static const time_span_type& whole_day2()
         {
-            static const station_interval_type singleton = whole_day() * 2;
+            static const time_span_type singleton(whole_day().seconds() * 2);
             return singleton;
         }
 
-        static void normalize(station_interval_type& interval)
+        static void normalize(time_span_type& interval)
         {
             if      (interval >= whole_day2())
                 interval -= whole_day2();
@@ -153,22 +151,9 @@ namespace bobura { namespace model { namespace timetable_info
                 interval -= whole_day();
         }
 
-        static const station_interval_type& select(
-            const station_interval_type& interval1,
-            const station_interval_type& interval2
-        )
+        static const time_span_type& select(const time_span_type& interval1, const time_span_type& interval2)
         {
-            return std::min<station_interval_type>(interval1, interval2);
-        }
-
-        static station_interval_type to_station_interval(
-            const time_span_type&                            time_span,
-            const typename station_intervals_type::size_type denominator = 1
-        )
-        {
-            station_interval_type interval(time_span.seconds());
-            interval /= 60 * denominator;
-            return interval;
+            return std::min<time_span_type>(interval1, interval2);
         }
 
 
@@ -205,7 +190,7 @@ namespace bobura { namespace model { namespace timetable_info
                         calculate_travel_time(train, departure, arrival);
                     if (travel_time)
                     {
-                        station_interval_type interval = to_station_interval(*travel_time, to - from);
+                        time_span_type interval(travel_time->seconds() / (to - from));
                         if (to - from > 1)
                             interval += whole_day();
                         for (stop_index_type i = from; i < to; ++i)

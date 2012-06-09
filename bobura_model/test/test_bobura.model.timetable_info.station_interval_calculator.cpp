@@ -42,6 +42,8 @@ namespace
 
     typedef time_type::tick_type time_tick_type;
 
+    typedef time_type::time_span_type time_span_type;
+
     typedef station_interval_calculator_type::station_intervals_type station_intervals_type;
 
     typedef boost::mpl::at<test_bobura::model::type_list, test_bobura::model::type::string>::type string_type;
@@ -129,7 +131,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_CHECK(station_interval_calculator_type::default_interval() > 0);
+        BOOST_CHECK(station_interval_calculator_type::default_interval().seconds() > 0);
     }
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -174,7 +176,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             const station_intervals_type expected(
                 station_locations.size(), station_interval_calculator_type::default_interval()
             );
-            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+            BOOST_CHECK(intervals == expected);
         }
         {
             // |DOWN|   | UP |
@@ -202,7 +204,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             const station_intervals_type expected(
                 station_locations.size(), station_interval_calculator_type::default_interval()
             );
-            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+            BOOST_CHECK(intervals == expected);
         }
         {
             // |DOWN|   | UP |
@@ -230,7 +232,7 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
             const station_intervals_type expected(
                 station_locations.size(), station_interval_calculator_type::default_interval()
             );
-            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+            BOOST_CHECK(intervals == expected);
         }
         {
             // |DOWN|   | UP |
@@ -257,12 +259,12 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(1);
-                expected.push_back(2);
-                expected.push_back(3);
+                expected.push_back(time_span_type(1 * 60));
+                expected.push_back(time_span_type(2 * 60));
+                expected.push_back(time_span_type(3 * 60));
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
-            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+            BOOST_CHECK(intervals == expected);
         }
         {
             // |DOWN|DOWN|   | UP |
@@ -297,12 +299,12 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(1);
-                expected.push_back(1);
-                expected.push_back(1);
+                expected.push_back(time_span_type(1 * 60));
+                expected.push_back(time_span_type(1 * 60));
+                expected.push_back(time_span_type(1 * 60));
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
-            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+            BOOST_CHECK(intervals == expected);
         }
         {
             // |DOWN|   | UP |
@@ -337,12 +339,12 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(1);
-                expected.push_back(2);
-                expected.push_back(2);
+                expected.push_back(time_span_type(1 * 60));
+                expected.push_back(time_span_type(2 * 60));
+                expected.push_back(time_span_type(2 * 60));
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
-            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+            BOOST_CHECK(intervals == expected);
         }
         {
             // |DOWN|   | UP |
@@ -369,12 +371,12 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(4);
-                expected.push_back(4);
-                expected.push_back(4);
+                expected.push_back(time_span_type(4 * 60));
+                expected.push_back(time_span_type(4 * 60));
+                expected.push_back(time_span_type(4 * 60));
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
-            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+            BOOST_CHECK(intervals == expected);
         }
         {
             // |DOWN|DOWN|   | UP |
@@ -409,12 +411,12 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(3);
-                expected.push_back(2);
-                expected.push_back(2);
+                expected.push_back(time_span_type(3 * 60));
+                expected.push_back(time_span_type(2 * 60));
+                expected.push_back(time_span_type(2 * 60));
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
-            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+            BOOST_CHECK(intervals == expected);
         }
         {
             // |DOWN|   | UP |
@@ -449,12 +451,12 @@ BOOST_AUTO_TEST_SUITE(station_interval_calculator)
 
             station_intervals_type expected;
             {
-                expected.push_back(5);
-                expected.push_back(4);
-                expected.push_back(4);
+                expected.push_back(time_span_type(5 * 60));
+                expected.push_back(time_span_type(4 * 60));
+                expected.push_back(time_span_type(4 * 60));
                 expected.push_back(station_interval_calculator_type::default_interval());
             }
-            BOOST_CHECK_EQUAL_COLLECTIONS(intervals.begin(), intervals.end(), expected.begin(), expected.end());
+            BOOST_CHECK(intervals == expected);
         }
     }
 

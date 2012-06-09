@@ -176,8 +176,6 @@ namespace bobura
 
         typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
-        typedef typename model_type::timetable_type::station_interval_type station_interval_type;
-
         typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
 
         typedef typename model_type::timetable_type::train_type train_type;
@@ -187,6 +185,8 @@ namespace bobura
         typedef typename train_type::stop_type stop_type;
 
         typedef typename stop_type::time_type time_type;
+
+        typedef typename time_type::time_span_type time_span_type;
 
         typedef typename train_type::stops_type::size_type stop_index_type;
 
@@ -199,15 +199,15 @@ namespace bobura
             m_sum(0)
             {}
 
-            top_type operator()(const station_interval_type& interval)
+            top_type operator()(const time_span_type& interval)
             {
-                const station_interval_type position = m_sum;
+                const time_span_type position = m_sum;
                 m_sum += interval;
-                return top_type(typename top_type::value_type(position.numerator(), position.denominator()));
+                return top_type(typename top_type::value_type(position.seconds(), 60));
             }
 
         private:
-            station_interval_type m_sum;
+            time_span_type m_sum;
 
         };
 

@@ -60,11 +60,8 @@ namespace bobura { namespace model
         //! The station interval calculator type.
         typedef StationIntervalCalculator station_interval_calculator_type;
 
-        //! The station interval type.
-        typedef typename station_interval_calculator_type::station_interval_type station_interval_type;
-
         //! The station intervals type.
-        typedef std::vector<station_interval_type> station_intervals_type;
+        typedef typename station_interval_calculator_type::station_intervals_type station_intervals_type;
 
         //! The train type.
         typedef Train train_type;
