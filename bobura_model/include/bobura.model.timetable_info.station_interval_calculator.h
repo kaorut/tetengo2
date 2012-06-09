@@ -100,11 +100,7 @@ namespace bobura { namespace model { namespace timetable_info
                 const station_intervals_type intervals_by_train = calculate_by_train(train, true);
                 assert(intervals.size() == intervals_by_train.size());
                 std::transform(
-                    intervals.begin(),
-                    intervals.end(),
-                    intervals_by_train.begin(),
-                    intervals.begin(),
-                    std::min<station_interval_type>
+                    intervals.begin(), intervals.end(), intervals_by_train.begin(), intervals.begin(), select
                 );
             }
             BOOST_FOREACH (const train_type& train, m_up_trains)
@@ -112,11 +108,7 @@ namespace bobura { namespace model { namespace timetable_info
                 const station_intervals_type intervals_by_train = calculate_by_train(train, false);
                 assert(intervals.size() == intervals_by_train.size());
                 std::transform(
-                    intervals.begin(),
-                    intervals.end(),
-                    intervals_by_train.begin(),
-                    intervals.begin(),
-                    std::min<station_interval_type>
+                    intervals.begin(), intervals.end(), intervals_by_train.begin(), intervals.begin(), select
                 );
             }
 
@@ -158,6 +150,14 @@ namespace bobura { namespace model { namespace timetable_info
                 interval -= whole_day2();
             else if (interval >= whole_day())
                 interval -= whole_day();
+        }
+
+        static const station_interval_type& select(
+            const station_interval_type& interval1,
+            const station_interval_type& interval2
+        )
+        {
+            return std::min<station_interval_type>(interval1, interval2);
         }
 
         static station_interval_type to_station_interval(
