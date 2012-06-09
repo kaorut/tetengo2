@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <numeric>
 //#include <utility>
 #include <vector>
 
@@ -72,6 +73,7 @@ namespace bobura
         m_dimension(width_type(20 * 24), height_type(0)),
         m_station_header_width(8),
         m_time_header_height(3),
+        m_station_intervals(),
         m_station_positions()
         {}
 
@@ -137,12 +139,12 @@ namespace bobura
         }
 
         /*!
-            \brief Updates the station positions.
+            \brief Updates the station intervals.
         */
-        void update_station_positions()
+        void update_station_intervals()
         {
-            const station_intervals_type intervals = m_model.timetable().station_intervals();
-            if (intervals.empty())
+            m_station_intervals = m_model.timetable().station_intervals();
+            if (m_station_intervals.empty())
             {
                 m_station_positions.clear();
                 m_dimension =
@@ -151,8 +153,13 @@ namespace bobura
             }
             
             std::vector<top_type> positions;
-            positions.reserve(intervals.size());
-            std::transform(intervals.begin(), intervals.end(), std::back_inserter(positions), to_station_position());
+            positions.reserve(m_station_intervals.size());
+            std::transform(
+                m_station_intervals.begin(),
+                m_station_intervals.end(),
+                std::back_inserter(positions),
+                to_station_position()
+            );
 
             m_station_positions = std::move(positions);
             m_dimension =
@@ -253,6 +260,8 @@ namespace bobura
         width_type m_station_header_width;
 
         height_type m_time_header_height;
+
+        station_intervals_type m_station_intervals;
 
         std::vector<top_type> m_station_positions;
 
@@ -431,10 +440,17 @@ namespace bobura
                     if (has_time(train.stops()[to]))
                     {
                         const time_type& departure_time = get_departure_time(train.stops()[from]);
+                        const time_type& estimated_arrival_time = estimate_arrival_time(departure_time, from, to);
                         const time_type& arrival_time = get_arrival_time(train.stops()[to]);
 
                         draw_train_line(
-                            from, departure_time, to, arrival_time, canvas, canvas_dimension, scroll_bar_position
+                            from,
+                            departure_time,
+                            to,
+                            std::min(estimated_arrival_time, arrival_time),
+                            canvas,
+                            canvas_dimension,
+                            scroll_bar_position
                         );
 
                         break;
@@ -454,6 +470,22 @@ namespace bobura
         const
         {
 
+        }
+
+        time_type estimate_arrival_time(
+            const time_type&      departure_time,
+            const stop_index_type departure_stop_index,
+            const stop_index_type arrival_stop_index
+        )
+        const
+        {
+            const time_span_type travel_time =
+                std::accumulate(
+                    m_station_intervals.begin() + departure_stop_index,
+                    m_station_intervals.begin() + arrival_stop_index,
+                    time_span_type(0)
+                );
+            return departure_time + travel_time;
         }
 
         void draw_train_line(

@@ -98,14 +98,14 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         view.page_size(dimension_type(width_type(42), height_type(24)));
     }
 
-    BOOST_AUTO_TEST_CASE(update_station_positions)
+    BOOST_AUTO_TEST_CASE(update_station_intervals)
     {
         BOOST_TEST_PASSPOINT();
 
         const model_type model;
         view_type view(model);
 
-        view.update_station_positions();
+        view.update_station_intervals();
     }
 
 
