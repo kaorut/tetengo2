@@ -274,13 +274,13 @@ namespace bobura { namespace model { namespace serializer
 
         static const station_grade_type* to_station_grade(const string_type& name)
         {
-            if      (name == string_type(TETENGO2_TEXT("local")))
+            if      (name == station_grade_type_set_type::local_type::instance().name())
                 return &station_grade_type_set_type::local_type::instance();
-            else if (name == string_type(TETENGO2_TEXT("principal")))
+            else if (name == station_grade_type_set_type::principal_type::instance().name())
                 return &station_grade_type_set_type::principal_type::instance();
-            else if (name == string_type(TETENGO2_TEXT("local_terminal")))
+            else if (name == station_grade_type_set_type::local_terminal_type::instance().name())
                 return &station_grade_type_set_type::local_terminal_type::instance();
-            else if (name == string_type(TETENGO2_TEXT("principal_terminal")))
+            else if (name == station_grade_type_set_type::principal_terminal_type::instance().name())
                 return &station_grade_type_set_type::principal_terminal_type::instance();
             else
                 return NULL;

@@ -3,7 +3,7 @@
         "title": "豊肥本線"
     },
     [
-        { "name": "熊本",       "grade": "local_terminal", "meterage":    0 },
+        { "name": "熊本",       "grade": "local terminal", "meterage":    0 },
         { "name": "平成",       "grade": "local",          "meterage":   27 },
         { "name": "南熊本",     "grade": "local",          "meterage":   36 },
         { "name": "新水前寺",   "grade": "local",          "meterage":   52 },
