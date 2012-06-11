@@ -477,6 +477,8 @@ namespace bobura { namespace model { namespace serializer
 
         static boost::optional<input_string_type> read_string(pull_parser_type& pull_parser)
         {
+            if (!pull_parser.has_next())
+                return boost::none;
             const element_type& element = pull_parser.peek();
             if (element.which() != 2)
                 return boost::none;
@@ -513,6 +515,8 @@ namespace bobura { namespace model { namespace serializer
         template <typename Integer>
         static boost::optional<Integer> read_integer(pull_parser_type& pull_parser)
         {
+            if (!pull_parser.has_next())
+                return boost::none;
             const element_type& element = pull_parser.peek();
             if (element.which() != 2)
                 return boost::none;
