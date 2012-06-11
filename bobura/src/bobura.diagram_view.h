@@ -10,8 +10,10 @@
 #define BOBURA_DIAGRAMVIEW_H
 
 #include <algorithm>
+#include <cassert>
 #include <iterator>
 #include <numeric>
+#include <tuple>
 //#include <utility>
 #include <vector>
 
@@ -73,6 +75,7 @@ namespace bobura
         m_dimension(width_type(20 * 24), height_type(0)),
         m_station_header_width(8),
         m_time_header_height(3),
+        m_time_offset(time_type(0, 0, 0)),
         m_station_intervals(),
         m_station_positions()
         {}
@@ -261,6 +264,8 @@ namespace bobura
 
         height_type m_time_header_height;
 
+        time_type m_time_offset;
+
         station_intervals_type m_station_intervals;
 
         std::vector<top_type> m_station_positions;
@@ -290,8 +295,10 @@ namespace bobura
         )
         const
         {
+            const left_type canvas_left = to_rational<left_type>(m_station_header_width);
             const left_type canvas_right =
                 to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+            const top_type canvas_top = to_rational<top_type>(m_time_header_height);
             const top_type canvas_bottom =
                 to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
             const top_type station_position_bottom =
@@ -302,31 +309,40 @@ namespace bobura
 
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
 
-            typedef typename left_type::value_type::int_type left_int_type;
-            const left_int_type int_scroll_position =
-                boost::rational_cast<left_int_type>(horizontal_scroll_bar_position.value());
-            const left_int_type int_left = int_scroll_position % 20;
-            const left_int_type first_visible_hour = int_scroll_position / 20 + (int_left > 0 ? 1 : 0);
-            left_int_type hour = first_visible_hour;
-            for (
-                left_type position = to_rational<left_type>(m_station_header_width) - left_type(int_left);
-                position < canvas_right;
-                position += left_type(20)
-            )
+            typedef typename time_type::tick_type time_tick_type;
+            for (time_tick_type i = 0; i <= 24 * 60; ++i)
             {
-                if (position < to_rational<left_type>(m_station_header_width))
+                const time_type time(i * 60 + m_time_offset.seconds_from_midnight());
+                const std::tuple<time_tick_type, time_tick_type, time_tick_type> hours_minutes_seconds =
+                    time.hours_minutes_seconds();
+                const time_tick_type hours = std::get<0>(hours_minutes_seconds);
+                const time_tick_type minutes = std::get<1>(hours_minutes_seconds);
+                assert(std::get<2>(hours_minutes_seconds) == 0);
+
+                const left_type position = time_to_left(time, i / (24 * 60), horizontal_scroll_bar_position);
+                if (position < canvas_left)
                     continue;
+                if (position > canvas_right)
+                    break;
+
+                size_type line_width(typename size_type::value_type(1, 96));
+                top_type line_top = canvas_top;
+                if (minutes == 0)
+                {
+                    line_width = size_type(typename size_type::value_type(1, 12));
+                    line_top = top_type(1);
+
+                    canvas.draw_text(boost::lexical_cast<string_type>(hours), position_type(position, top_type(1)));
+                }
+                else if (minutes % 10 == 0)
+                {
+                    line_width = size_type(typename size_type::value_type(1, 48));
+                }
 
                 canvas.draw_line(
-                    position_type(position, top_type(1)),
-                    position_type(position, line_bottom),
-                    size_type(typename size_type::value_type(1, 12))
+                    position_type(position, line_top), position_type(position, line_bottom), line_width
                 );
-
-                canvas.draw_text(boost::lexical_cast<string_type>(hour % 24), position_type(position, top_type(1)));
-                ++hour;
             }
-
         }
 
         void draw_station_lines(
@@ -338,6 +354,8 @@ namespace bobura
         {
             const left_type canvas_right =
                 to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+
+            canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
 
             for (typename std::vector<top_type>::size_type i = 0; i < m_station_positions.size(); ++i)
             {
@@ -483,6 +501,8 @@ namespace bobura
                 tetengo2::gui::position<position_type>::left(scroll_bar_position);
             const top_type vertical_scroll_bar_position =
                 tetengo2::gui::position<position_type>::top(scroll_bar_position);
+
+            canvas.set_color(color_type(0x80, 0x80, 0xC0, 0xFF));
 
             if (departure_time < arrival_time)
             {
