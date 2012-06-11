@@ -319,16 +319,13 @@ namespace bobura
                 const time_tick_type minutes = std::get<1>(hours_minutes_seconds);
                 assert(std::get<2>(hours_minutes_seconds) == 0);
 
-                const bool next_day =
-                    static_cast<typename time_span_type::tick_type>(i * 60 + m_time_offset.seconds()) >=
-                    time_span_type::seconds_of_whole_day();
-                const left_type position = time_to_left(time, next_day ? 1 : 0, horizontal_scroll_bar_position);
+                const left_type position = time_to_left(time, i == 24 * 60, horizontal_scroll_bar_position);
                 if (position < canvas_left)
                     continue;
                 if (position > canvas_right)
                     break;
 
-                size_type line_width(typename size_type::value_type(1, 96));
+                size_type line_width(typename size_type::value_type(1, 48));
                 top_type line_top = canvas_top;
                 if (minutes == 0)
                 {
@@ -339,7 +336,7 @@ namespace bobura
                 }
                 else if (minutes % 10 == 0)
                 {
-                    line_width = size_type(typename size_type::value_type(1, 48));
+                    line_width = size_type(typename size_type::value_type(1, 24));
                 }
 
                 canvas.draw_line(
@@ -507,6 +504,8 @@ namespace bobura
 
             canvas.set_color(color_type(0x80, 0x80, 0xC0, 0xFF));
 
+            const time_type adjusted_dtime = departure_time - m_time_offset;
+            const time_type adjusted_arime = arrival_time - m_time_offset;
             if (departure_time - m_time_offset < arrival_time - m_time_offset)
             {
                 draw_train_line_impl(
@@ -586,6 +585,8 @@ namespace bobura
         {
             typename left_type::value_type left_value(time.seconds_from_midnight());
             left_value -= m_time_offset.seconds();
+            if (left_value < 0)
+                left_value += time_span_type::seconds_of_whole_day();
             left_value += previous_or_next_day * time_span_type::seconds_of_whole_day();
             left_value /= 180;
             return
