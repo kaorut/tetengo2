@@ -9,6 +9,11 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_WINDOWSVERSION_H)
 #define TETENGO2_DETAIL_WINDOWS_WINDOWSVERSION_H
 
+#pragma warning (push)
+#pragma warning (disable: 4005)
+#include <intsafe.h>
+#include <stdint.h>
+#pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>
