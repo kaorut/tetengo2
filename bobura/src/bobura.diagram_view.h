@@ -75,7 +75,7 @@ namespace bobura
         m_dimension(width_type(20 * 24), height_type(0)),
         m_station_header_width(8),
         m_time_header_height(3),
-        m_time_offset(time_type(0, 0, 0)),
+        m_time_offset(time_span_type(3, 0, 0)),
         m_station_intervals(),
         m_station_positions()
         {}
@@ -264,7 +264,7 @@ namespace bobura
 
         height_type m_time_header_height;
 
-        time_type m_time_offset;
+        time_span_type m_time_offset;
 
         station_intervals_type m_station_intervals;
 
@@ -312,14 +312,17 @@ namespace bobura
             typedef typename time_type::tick_type time_tick_type;
             for (time_tick_type i = 0; i <= 24 * 60; ++i)
             {
-                const time_type time(i * 60 + m_time_offset.seconds_from_midnight());
+                const time_type time(i * 60 + m_time_offset.seconds());
                 const std::tuple<time_tick_type, time_tick_type, time_tick_type> hours_minutes_seconds =
                     time.hours_minutes_seconds();
                 const time_tick_type hours = std::get<0>(hours_minutes_seconds);
                 const time_tick_type minutes = std::get<1>(hours_minutes_seconds);
                 assert(std::get<2>(hours_minutes_seconds) == 0);
 
-                const left_type position = time_to_left(time, i / (24 * 60), horizontal_scroll_bar_position);
+                const bool next_day =
+                    static_cast<typename time_span_type::tick_type>(i * 60 + m_time_offset.seconds()) >=
+                    time_span_type::seconds_of_whole_day();
+                const left_type position = time_to_left(time, next_day ? 1 : 0, horizontal_scroll_bar_position);
                 if (position < canvas_left)
                     continue;
                 if (position > canvas_right)
@@ -504,7 +507,7 @@ namespace bobura
 
             canvas.set_color(color_type(0x80, 0x80, 0xC0, 0xFF));
 
-            if (departure_time < arrival_time)
+            if (departure_time - m_time_offset < arrival_time - m_time_offset)
             {
                 draw_train_line_impl(
                     departure_station_index,
@@ -582,6 +585,7 @@ namespace bobura
         const
         {
             typename left_type::value_type left_value(time.seconds_from_midnight());
+            left_value -= m_time_offset.seconds();
             left_value += previous_or_next_day * time_span_type::seconds_of_whole_day();
             left_value /= 180;
             return
