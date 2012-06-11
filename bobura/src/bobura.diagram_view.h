@@ -504,8 +504,6 @@ namespace bobura
 
             canvas.set_color(color_type(0x80, 0x80, 0xC0, 0xFF));
 
-            const time_type adjusted_dtime = departure_time - m_time_offset;
-            const time_type adjusted_arime = arrival_time - m_time_offset;
             if (departure_time - m_time_offset < arrival_time - m_time_offset)
             {
                 draw_train_line_impl(
@@ -572,6 +570,39 @@ namespace bobura
                 time_to_left(arrival_time, next_day_arrival ? 1 : 0, horizontal_scroll_bar_position),
                 station_index_to_top(arrival_station_index, vertical_scroll_bar_position)
             );
+            
+            const left_type left_bound = tetengo2::gui::position<position_type>::left(departure);
+            if (
+                left_bound >
+                to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension))
+            )
+            {
+                return;
+            }
+            const left_type right_bound = tetengo2::gui::position<position_type>::left(arrival);
+            if (right_bound < to_rational<left_type>(m_station_header_width))
+            {
+                return;
+            }
+            const top_type upper_bound =
+                departure_station_index < arrival_station_index ? 
+                tetengo2::gui::position<position_type>::top(departure) :
+                tetengo2::gui::position<position_type>::top(arrival);
+            if (
+                upper_bound >
+                to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension))
+                )
+            {
+                return;
+            }
+            const top_type lower_bound =
+                departure_station_index < arrival_station_index ? 
+                tetengo2::gui::position<position_type>::top(arrival) :
+                tetengo2::gui::position<position_type>::top(departure);
+            if (lower_bound < to_rational<top_type>(m_time_header_height))
+            {
+                return;
+            }
 
             canvas.draw_line(departure, arrival, size_type(typename size_type::value_type(1, 6)));
         }
