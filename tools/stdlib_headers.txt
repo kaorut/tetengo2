@@ -489,6 +489,7 @@ boost::throw_line                                boost/exception/all.hpp
 boost::totally_ordered                           boost/operators.hpp
 boost::unique_lock                               boost/thread.hpp
 boost::variant                                   boost/variant.hpp
+std::accumulate                                  numeric
 std::advance                                     iterator
 std::any_of                                      algorithm
 std::back_inserter                               iterator

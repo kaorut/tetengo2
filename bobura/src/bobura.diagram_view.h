@@ -19,7 +19,6 @@
 
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/rational.hpp>
 
 #include <tetengo2.cpp11.h>
 #include <tetengo2.gui.measure.h>
