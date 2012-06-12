@@ -17,6 +17,7 @@ sources = \
     test_bobura.command.nop.cpp \
     test_bobura.command.save_to_file.cpp \
     test_bobura.command.set.cpp \
+    test_bobura.diagram_view.cpp \
     test_bobura.file_property_dialog.cpp \
     test_bobura.load_save.confirm_file_save.cpp \
     test_bobura.load_save.load_from_file.cpp \

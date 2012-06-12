@@ -28,6 +28,7 @@
 #include <tetengo2.gui.common_dialog.message_box.h>
 #include <tetengo2.gui.cursor.system.h>
 #include <tetengo2.gui.drawing.background.h>
+#include <tetengo2.gui.drawing.canvas_traits.h>
 #include <tetengo2.gui.drawing.color.h>
 #include <tetengo2.gui.drawing.font.h>
 #include <tetengo2.gui.drawing.picture.h>
@@ -95,6 +96,7 @@
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.detail_type_list.h"
+#include "bobura.diagram_view.h"
 #include "bobura.file_property_dialog.h"
 #include "bobura.load_save.confirm_file_save.h"
 #include "bobura.load_save.load_from_file.h"
@@ -112,6 +114,7 @@
 #include "bobura.model.train.h"
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.timetable.h"
+#include "bobura.model.timetable_info.station_interval_calculator.h"
 #include "bobura.model.timetable_info.station_location.h"
 #include "bobura.model.train_info.stop.h"
 #include "bobura.model.train_info.time.h"
@@ -296,9 +299,13 @@ namespace bobura
             >
             train_type;
         typedef
+            bobura::model::timetable_info::station_interval_calculator<station_location_type, train_type>
+            station_interval_calculator_type;
+        typedef
             bobura::model::timetable<
                 boost::mpl::at<common_type_list, type::string>::type,
                 station_location_type,
+                station_interval_calculator_type,
                 train_type,
                 bobura::model::message::timetable_observer_set
             >
@@ -387,6 +394,8 @@ namespace bobura
         struct button;         //!< The button type.
         struct message_loop;   //!< The message loop type.
         struct message_loop_break; //!< The message loop break type.
+        struct solid_background; //!< The solid background type.
+        struct fast_solid_background; //!< The fast solid background type.
         struct transparent_background; //!< The transparent background type.
     }}
 
@@ -398,7 +407,6 @@ namespace bobura
         typedef
             tetengo2::gui::unit::em<
                 boost::rational<boost::mpl::at<common_type_list, type::difference>::type>,
-                boost::mpl::at<common_type_list, type::difference>::type,
                 boost::mpl::at<detail_type_list, type::detail::unit>::type
             >
             unit_difference_type;
@@ -406,17 +414,27 @@ namespace bobura
         typedef
             tetengo2::gui::unit::em<
                 boost::rational<boost::mpl::at<common_type_list, type::size>::type>,
-                boost::mpl::at<common_type_list, type::size>::type,
                 boost::mpl::at<detail_type_list, type::detail::unit>::type
             >
             unit_size_type;
         typedef std::pair<unit_size_type, unit_size_type> dimension_type;
+        typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
             tetengo2::gui::drawing::background<boost::mpl::at<detail_type_list, type::detail::drawing>::type>
             background_type;
         typedef
             tetengo2::gui::drawing::background<boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type>
             fast_background_type;
+        typedef
+            tetengo2::gui::drawing::solid_background<
+                color_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
+            >
+            solid_background_type;
+        typedef
+            tetengo2::gui::drawing::solid_background<
+                color_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+            >
+            fast_solid_background_type;
         typedef
             tetengo2::gui::drawing::transparent_background<
                 boost::mpl::at<detail_type_list, type::detail::drawing>::type
@@ -461,28 +479,42 @@ namespace bobura
             >
             fast_picture_reader_type;
         typedef
-            tetengo2::gui::drawing::widget_canvas<
-                boost::mpl::at<common_type_list, type::size>::type,
+            tetengo2::gui::drawing::canvas_traits<
+                unit_size_type,
                 boost::mpl::at<common_type_list, type::string>::type,
+                position_type,
                 dimension_type,
                 boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                color_type,
                 background_type,
+                solid_background_type,
                 font_type,
-                picture_type,
-                boost::mpl::at<detail_type_list, type::detail::drawing>::type
+                picture_type
+            >
+            canvas_traits_type;
+        typedef
+            tetengo2::gui::drawing::widget_canvas<
+                canvas_traits_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
             >
             widget_canvas_type;
         typedef widget_canvas_type::base_type canvas_type;
         typedef
-            tetengo2::gui::drawing::widget_canvas<
-                boost::mpl::at<common_type_list, type::size>::type,
+            tetengo2::gui::drawing::canvas_traits<
+                unit_size_type,
                 boost::mpl::at<common_type_list, type::string>::type,
+                position_type,
                 dimension_type,
                 boost::mpl::at<locale_type_list, type::locale::ui_encoder>::type,
+                color_type,
                 fast_background_type,
+                fast_solid_background_type,
                 fast_font_type,
-                fast_picture_type,
-                boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
+                fast_picture_type
+            >
+            fast_canvas_traits_type;
+        typedef
+            tetengo2::gui::drawing::widget_canvas<
+                fast_canvas_traits_type, boost::mpl::at<detail_type_list, type::detail::fast_drawing>::type
             >
             fast_widget_canvas_type;
         typedef fast_widget_canvas_type::base_type fast_canvas_type;
@@ -526,7 +558,7 @@ namespace bobura
                 tetengo2::gui::message::keyboard_observer_set<
                     virtual_key_type, boost::mpl::at<common_type_list, type::string>::type::value_type
                 >,
-                tetengo2::gui::message::mouse_observer_set
+                tetengo2::gui::message::mouse_observer_set<boost::mpl::at<common_type_list, type::difference>::type>
             >
             widget_traits_type;
         typedef tetengo2::gui::menu::shortcut_key<virtual_key_type> shortcut_key_type;
@@ -605,7 +637,6 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             dialog_type;
-        typedef tetengo2::gui::drawing::color<unsigned char> color_type;
         typedef
             tetengo2::gui::widget::traits::control_traits<widget_traits_type, color_type>
             control_traits_type;
@@ -624,11 +655,6 @@ namespace bobura
                 boost::mpl::at<detail_type_list, type::detail::message_handler>::type
             >
             label_type;
-        typedef
-            tetengo2::gui::drawing::solid_background<
-                color_type, boost::mpl::at<detail_type_list, type::detail::drawing>::type
-            >
-            solid_background_type;
         typedef
             tetengo2::gui::drawing::system_color_set<
                 color_type, boost::mpl::at<detail_type_list, type::detail::system_color>::type
@@ -732,11 +758,15 @@ namespace bobura
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::text_box, detail::ui::text_box_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::ui::message_loop, detail::ui::message_loop_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair< type::ui::message_loop_break, detail::ui::message_loop_break_type>,
+            boost::mpl::pair<type::ui::message_loop_break, detail::ui::message_loop_break_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair< type::ui::transparent_background, detail::ui::transparent_background_type>,
+            boost::mpl::pair<type::ui::solid_background, detail::ui::solid_background_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::ui::fast_solid_background, detail::ui::fast_solid_background_type>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::ui::transparent_background, detail::ui::transparent_background_type>,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>>>>>>>>>>>>>>>>>
+        >>>>>>>>>>>>>>>>>>>>>>>>>>
         ui_type_list;
 
 
@@ -786,6 +816,29 @@ namespace bobura
         tetengo2::meta::assoc_list_end
         >>>
         common_dialog_type_list;
+
+
+    /**** View **************************************************************/
+
+    namespace type { namespace view
+    {
+        struct view;           //!< The view type.
+    }}
+
+    //! The view type list.
+    typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::view::view,
+                bobura::diagram_view<
+                    boost::mpl::at<model_type_list, type::model::model>::type,
+                    boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                    boost::mpl::at<ui_type_list, type::ui::fast_solid_background>::type
+                >
+            >,
+        tetengo2::meta::assoc_list_end
+        >
+        view_type_list;
 
 
     /**** Dialog ************************************************************/
@@ -950,7 +1003,8 @@ namespace bobura
     namespace type { namespace main_window
     {
         struct main_window;    //!< The main window type.
-        struct message_type_list; //!< The main window message type list.
+        struct message_type_list; //!< The main window message type list type.
+        struct diagram_picture_box_message_type_list; //!< The diagram picture box message type list type.
     }}
 
 #if !defined(DOCUMENTATION)
@@ -960,14 +1014,19 @@ namespace bobura
             message::main_window::type_list<
                 boost::mpl::at<command_type_list_type_list, type::command_type_list::command>::type,
                 boost::mpl::at<model_type_list, type::model::model>::type,
+                boost::mpl::at<view_type_list, type::view::view>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
                 boost::mpl::at<ui_type_list, type::ui::control>::type,
                 boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
             >::type
             main_window_message_type_list;
         typedef
-            message::diagram_picture_box::type_list<boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type>::type
-            diagram_picture_box_type_list;
+            message::diagram_picture_box::type_list<
+                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
+                boost::mpl::at<view_type_list, type::view::view>::type
+            >::type
+            diagram_picture_box_message_type_list;
     }}
 #endif
 
@@ -984,13 +1043,18 @@ namespace bobura
                     boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
                     boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type,
                     detail::main_window::main_window_message_type_list,
-                    detail::main_window::diagram_picture_box_type_list
+                    detail::main_window::diagram_picture_box_message_type_list
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::main_window::message_type_list, detail::main_window::main_window_message_type_list>,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::main_window::diagram_picture_box_message_type_list,
+                detail::main_window::diagram_picture_box_message_type_list
+            >,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         main_window_type_list;
 
 
@@ -1021,6 +1085,7 @@ namespace bobura
                 type::application::model_message_type_list,
                 message::timetable_model::type_list<
                     boost::mpl::at<model_type_list, type::model::model>::type,
+                    boost::mpl::at<view_type_list, type::view::view>::type,
                     boost::mpl::at<main_window_type_list, type::main_window::main_window>::type
                 >::type
             >,

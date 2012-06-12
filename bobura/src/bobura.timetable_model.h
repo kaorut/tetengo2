@@ -133,6 +133,14 @@ namespace bobura
         }
 
         /*!
+            \brief Resets an empty timetable.
+        */
+        void reset_timetable()
+        {
+            reset_timetable_impl(tetengo2::make_unique<timetable_type>(), boost::optional<path_type>());
+        }
+
+        /*!
             \brief Resets a timetable.
 
             \param p_timetable A unique pointer to a timetable.

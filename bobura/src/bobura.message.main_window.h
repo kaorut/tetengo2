@@ -9,6 +9,11 @@
 #if !defined(BOBURA_MESSAGE_MAINWINDOW_H)
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
+#include <cassert>
+//#include <utility>
+
+#include <boost/rational.hpp>
+
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>
 
@@ -16,8 +21,7 @@
 namespace bobura { namespace message { namespace main_window
 {
     /*!
-        \brief The class template for a menu selection observer of the main
-               window.
+        \brief The class template for a menu selection observer of the main window.
 
         \tparam Command        A command type.
         \tparam Model          A model type.
@@ -84,14 +88,18 @@ namespace bobura { namespace message { namespace main_window
     /*!
         \brief The class template for a window resized observer of the main window.
 
+        \tparam View           A view type.
         \tparam AbstractWindow An abstract window type.
         \tparam Control        A control type.
     */
-    template <typename AbstractWindow, typename Control>
+    template <typename View, typename AbstractWindow, typename Control>
     class window_resized
     {
     public:
         // types
+
+        //! The view type.
+        typedef View view_type;
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
@@ -105,11 +113,13 @@ namespace bobura { namespace message { namespace main_window
         /*!
             \brief Creates a window resized observer of the main window.
 
+            \param view                A view.
             \param window              A window.
             \param diagram_picture_box A diagram picture box.
         */
-        window_resized(abstract_window_type& window, control_type& diagram_picture_box)
+        window_resized(const view_type& view, abstract_window_type& window, control_type& diagram_picture_box)
         :
+        m_view(view),
         m_window(window),
         m_diagram_picture_box(diagram_picture_box)
         {}
@@ -126,6 +136,8 @@ namespace bobura { namespace message { namespace main_window
             m_diagram_picture_box.set_position_and_dimension(
                 position_type(left_type(0), top_type(0)), m_window.client_dimension()
             );
+
+            update_scroll_bars();
         }
 
 
@@ -138,12 +150,94 @@ namespace bobura { namespace message { namespace main_window
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
 
+        typedef typename control_type::dimension_type dimension_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
+
+        typedef typename control_type::scroll_bar_type::size_type scroll_bar_size_type;
+
 
         // variables
+
+        const view_type& m_view;
 
         abstract_window_type& m_window;
 
         control_type& m_diagram_picture_box;
+
+
+        // functions
+
+        void update_scroll_bars()
+        const
+        {
+            assert(m_diagram_picture_box.vertical_scroll_bar());
+            assert(m_diagram_picture_box.horizontal_scroll_bar());
+            
+            const dimension_type page_size = m_view.page_size(m_diagram_picture_box.client_dimension());
+            const scroll_bar_size_type page_width =
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::width(page_size).value()
+                );
+            const scroll_bar_size_type page_height =
+                boost::rational_cast<scroll_bar_size_type>(
+                    tetengo2::gui::dimension<dimension_type>::height(page_size).value()
+                );
+
+            const width_type view_width = tetengo2::gui::dimension<dimension_type>::width(m_view.dimension());
+            const height_type view_height = tetengo2::gui::dimension<dimension_type>::height(m_view.dimension());
+            const scroll_bar_size_type width = boost::rational_cast<scroll_bar_size_type>(view_width.value()) - 1;
+            const scroll_bar_size_type height = boost::rational_cast<scroll_bar_size_type>(view_height.value()) - 1;
+
+            if (view_height > 0 && 0 < page_height && page_height <= height)
+            {
+                m_diagram_picture_box.vertical_scroll_bar()->set_enabled(true);
+                m_diagram_picture_box.vertical_scroll_bar()->set_range(std::make_pair(0U, height));
+                m_diagram_picture_box.vertical_scroll_bar()->set_page_size(page_height);
+                if (m_diagram_picture_box.vertical_scroll_bar()->position() + page_height > height)
+                {
+                    const scroll_bar_size_type new_position = height - page_height + 1;
+                    m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
+                    m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                }
+            }
+            else
+            {
+                if (view_height <= page_height)
+                {
+                    const scroll_bar_size_type new_position = 0;
+                    m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
+                    m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                }
+                m_diagram_picture_box.vertical_scroll_bar()->set_enabled(false);
+            }
+
+            if (view_width > 0 && 0 < page_width && page_width <= width)
+            {
+                m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(true);
+                m_diagram_picture_box.horizontal_scroll_bar()->set_range(std::make_pair(0U, width));
+                m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(page_width);
+                const scroll_bar_size_type pos = m_diagram_picture_box.horizontal_scroll_bar()->position(); pos;
+                if (m_diagram_picture_box.horizontal_scroll_bar()->position() + page_width > width)
+                {
+                    const scroll_bar_size_type new_position = width - page_width + 1;
+                    m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
+                    m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                }
+            }
+            else
+            {
+                if (view_width <= page_width)
+                {
+                    const scroll_bar_size_type new_position = 0;
+                    m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
+                    m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                }
+                m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(false);
+            }
+        }
 
 
     };

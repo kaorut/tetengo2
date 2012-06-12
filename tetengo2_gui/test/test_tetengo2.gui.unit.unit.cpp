@@ -18,20 +18,19 @@ namespace
 {
     // types
 
-    template <typename Value, typename PixelValue>
-    class concrete_unit : public tetengo2::gui::unit::unit<concrete_unit<Value, PixelValue>, Value>
+    template <typename Value>
+    class concrete_unit : public tetengo2::gui::unit::unit<concrete_unit<Value>, Value>
     {
     public:
         // types
 
         typedef Value value_type;
 
-        typedef PixelValue pixel_value_type;
-
 
         // static functions
 
-        static concrete_unit from_pixels(const pixel_value_type value)
+        template <typename PV>
+        static concrete_unit from_pixels(const PV value)
         {
             return concrete_unit(value / 7);
         }
@@ -93,7 +92,8 @@ namespace
             return m_value;
         }
 
-        pixel_value_type to_pixels()
+        template <typename PV>
+        PV to_pixels()
         const
         {
             return m_value * 7;
@@ -108,9 +108,9 @@ namespace
 
     };
 
-    typedef concrete_unit<int, int> unit_type;
+    typedef concrete_unit<int> unit_type;
 
-    typedef concrete_unit<unsigned short, unsigned short> another_unit_type;
+    typedef concrete_unit<unsigned short> another_unit_type;
 
 
 }

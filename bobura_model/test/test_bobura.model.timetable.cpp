@@ -648,6 +648,14 @@ BOOST_AUTO_TEST_SUITE(timetable)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(station_intervals)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const timetable_type timetable;
+        timetable.station_intervals();
+    }
+
     BOOST_AUTO_TEST_CASE(down_trains)
     {
         BOOST_TEST_PASSPOINT();

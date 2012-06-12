@@ -29,6 +29,11 @@
 #include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
+//#pragma warning (push)
+//#pragma warning (disable: 4005)
+//#include <intsafe.h>
+//#include <stdint.h>
+//#pragma warning(pop)
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
@@ -1237,6 +1242,22 @@ namespace tetengo2 { namespace detail { namespace windows
                     std::system_error(
                         std::error_code(::GetLastError(), win32_category()), "Can't set focusable status."
                     )
+                );
+            }
+        }
+
+        /*!
+            \brief Focuses on a widget.
+
+            \param widget A widget.
+        */
+        template <typename Widget>
+        static void set_focus(Widget& widget)
+        {
+            if (::SetFocus(std::get<0>(*widget.details()).get()) == NULL)
+            {
+                BOOST_THROW_EXCEPTION(
+                    std::system_error(std::error_code(::GetLastError(), win32_category()), "Can't set focus.")
                 );
             }
         }

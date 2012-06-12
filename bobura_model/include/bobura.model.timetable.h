@@ -27,13 +27,23 @@ namespace bobura { namespace model
     /*!
         \brief The class template for a timetable.
 
-        \tparam String          A string type.
-        \tparam StationLocation A station location type.
-        \tparam Train           A train type.
-        \tparam ObserverSet     An observer set type.
+        \tparam String                    A string type.
+        \tparam StationLocation           A station location type.
+        \tparam StationIntervalCalculator A station interval calculatortype.
+        \tparam Train                     A train type.
+        \tparam ObserverSet               An observer set type.
     */
-    template <typename String, typename StationLocation, typename Train, typename ObserverSet>
-    class timetable : private boost::equality_comparable<timetable<String, StationLocation, Train, ObserverSet>>
+    template <
+        typename String,
+        typename StationLocation,
+        typename StationIntervalCalculator,
+        typename Train,
+        typename ObserverSet
+    >
+    class timetable :
+        private boost::equality_comparable<
+            timetable<String, StationLocation, StationIntervalCalculator, Train, ObserverSet>
+        >
     {
     public:
         // types
@@ -46,6 +56,12 @@ namespace bobura { namespace model
 
         //! The station locations type.
         typedef std::vector<station_location_type> station_locations_type;
+
+        //! The station interval calculator type.
+        typedef StationIntervalCalculator station_interval_calculator_type;
+
+        //! The station intervals type.
+        typedef typename station_interval_calculator_type::station_intervals_type station_intervals_type;
 
         //! The train type.
         typedef Train train_type;
@@ -226,6 +242,18 @@ namespace bobura { namespace model
         }
 
         /*!
+            \brief Returns the station intervals.
+
+            \return The station intervals.
+        */
+        station_intervals_type station_intervals()
+        const
+        {
+            const station_interval_calculator_type calculator(m_station_locations, m_down_trains, m_up_trains);
+            return calculator.calculate();
+        }
+
+        /*!
             \brief Returns the down trains.
 
             \return The down trains
@@ -340,6 +368,8 @@ namespace bobura { namespace model
 
         typedef typename train_type::stops_type::difference_type difference_type;
 
+        typedef typename train_type::stop_type stop_type;
+
 
         // static functions
 
@@ -347,10 +377,10 @@ namespace bobura { namespace model
         {
             train.insert_stop(
                 train.stops().begin() + offset,
-                typename train_type::stop_type(
+                stop_type(
                     train_type::stop_type::time_type::uninitialized(),
                     train_type::stop_type::time_type::uninitialized(),
-                    typename train_type::stop_type::platform_type()
+                    typename stop_type::platform_type()
                 )
             );
         }

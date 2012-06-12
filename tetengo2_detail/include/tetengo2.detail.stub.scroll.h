@@ -37,7 +37,7 @@ namespace tetengo2 { namespace detail { namespace stub
         typedef std::pair<size_type, size_type> range_type;
 
         //! The scroll bar details type.
-        typedef std::tuple<size_type, std::pair<size_type, size_type>, size_type> scroll_bar_details_type;
+        typedef std::tuple<size_type, std::pair<size_type, size_type>, size_type, bool> scroll_bar_details_type;
 
         //! The scroll bar details pointer type.
         typedef std::unique_ptr<scroll_bar_details_type> scroll_bar_details_ptr_type;
@@ -70,7 +70,7 @@ namespace tetengo2 { namespace detail { namespace stub
             const style_type     style
         )
         {
-            return tetengo2::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10);
+            return tetengo2::make_unique<scroll_bar_details_type>(0, std::make_pair(0, 100), 10, true);
         }
 
         /*!
@@ -155,6 +155,30 @@ namespace tetengo2 { namespace detail { namespace stub
         static void set_page_size(scroll_bar_details_type& details, const size_type page_size)
         {
             std::get<2>(details) = page_size;
+        }
+
+        /*!
+            \brief Returns the enabled status.
+
+            \param details A detail implementation of a scroll bar.
+
+            \retval true  When the scroll bar is enabled.
+            \retval false Otherwise.
+        */
+        static bool enabled(const scroll_bar_details_type& details)
+        {
+            return std::get<3>(details);
+        }
+
+        /*!
+            \brief Sets an enabled status.
+
+            \param details A detail implementation of a scroll bar.
+            \param enabled An enable status.
+        */
+        static void set_enabled(scroll_bar_details_type& details, const bool enabled)
+        {
+            std::get<3>(details) = enabled;
         }
 
 

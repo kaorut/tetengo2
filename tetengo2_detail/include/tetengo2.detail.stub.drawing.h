@@ -181,6 +181,29 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Draws a line.
+
+            \tparam Position A position type.
+            \tparam Size     A size type.
+            \tparam Color    A color type.
+
+            \param canvas A canvas.
+            \param from   A beginning position.
+            \param to     An ending position.
+            \param width  A width.
+            \param color  A color.
+        */
+        template <typename Position, typename Size, typename Color>
+        static void draw_line(
+            canvas_details_type& canvas,
+            const Position&      from,
+            const Position&      to,
+            const Size           width,
+            const Color&         color
+        )
+        {}
+
+        /*!
             \brief Draws a focus indication.
 
             \tparam Position  A position type.
@@ -273,22 +296,25 @@ namespace tetengo2 { namespace detail { namespace stub
             \tparam String   A string type.
             \tparam Encoder  An encoder type.
             \tparam Position A position type.
+            \tparam Color    A color type.
 
             \param canvas   A canvas.
             \param font     A font.
             \param text     A text to draw.
             \param encoder  An encoder.
             \param position A position where the text is drawn.
+            \param color    A color.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position>
+        template <typename Font, typename String, typename Encoder, typename Position, typename Color>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
-            const Position&      position
+            const Position&      position,
+            const Color&         color
         )
         {}
 

@@ -23,6 +23,8 @@ namespace
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
+    typedef boost::mpl::at<bobura::view_type_list, bobura::type::view::view>::type view_type;
+
     typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
     typedef boost::mpl::at<bobura::common_type_list, bobura::type::path>::type path_type;
@@ -58,6 +60,7 @@ BOOST_AUTO_TEST_SUITE(reset)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
+        view_type view(model);
         const message_catalog_type message_catalog;
         std::vector<string_type> arguments;
         path_type path;
@@ -65,7 +68,9 @@ BOOST_AUTO_TEST_SUITE(reset)
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         main_window_type main_window(message_catalog, settings, confirm_file_save);
-        const bobura::message::timetable_model::reset<model_type, main_window_type> observer(model, main_window);
+        const bobura::message::timetable_model::reset<model_type, view_type, main_window_type> observer(
+            model, view, main_window
+        );
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -73,6 +78,7 @@ BOOST_AUTO_TEST_SUITE(reset)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
+        view_type view(model);
         const message_catalog_type message_catalog;
         std::vector<string_type> arguments;
         path_type path;
@@ -80,7 +86,9 @@ BOOST_AUTO_TEST_SUITE(reset)
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         main_window_type main_window(message_catalog, settings, confirm_file_save);
-        const bobura::message::timetable_model::reset<model_type, main_window_type> observer(model, main_window);
+        const bobura::message::timetable_model::reset<model_type, view_type, main_window_type> observer(
+            model, view, main_window
+        );
 
         observer();
     }
@@ -95,6 +103,7 @@ BOOST_AUTO_TEST_SUITE(changed)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
+        view_type view(model);
         const message_catalog_type message_catalog;
         std::vector<string_type> arguments;
         path_type path;
@@ -102,7 +111,9 @@ BOOST_AUTO_TEST_SUITE(changed)
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         main_window_type main_window(message_catalog, settings, confirm_file_save);
-        const bobura::message::timetable_model::changed<model_type, main_window_type> observer(model, main_window);
+        const bobura::message::timetable_model::changed<model_type, view_type, main_window_type> observer(
+            model, view, main_window
+        );
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -110,6 +121,7 @@ BOOST_AUTO_TEST_SUITE(changed)
         BOOST_TEST_PASSPOINT();
 
         model_type model;
+        view_type view(model);
         const message_catalog_type message_catalog;
         std::vector<string_type> arguments;
         path_type path;
@@ -117,7 +129,9 @@ BOOST_AUTO_TEST_SUITE(changed)
         const save_to_file_type save_to_file(false, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         main_window_type main_window(message_catalog, settings, confirm_file_save);
-        const bobura::message::timetable_model::changed<model_type, main_window_type> observer(model, main_window);
+        const bobura::message::timetable_model::changed<model_type, view_type, main_window_type> observer(
+            model, view, main_window
+        );
 
         observer();
     }

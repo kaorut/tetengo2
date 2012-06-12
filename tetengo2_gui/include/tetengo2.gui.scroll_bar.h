@@ -15,6 +15,7 @@
 
 #include <boost/throw_exception.hpp>
 
+#include "tetengo2.cpp11.h"
 #include "tetengo2.unique.h"
 
 
@@ -71,8 +72,11 @@ namespace tetengo2 { namespace gui
         scroll_bar(const WidgetDetails& widget_details, const style_type style)
         :
         m_p_details(details_type::create_scroll_bar(widget_details, to_details_style(style))),
-        m_scroll_bar_observer_set()
-        {}
+        m_scroll_bar_observer_set(),
+        m_tracking_position()
+        {
+            set_observers();
+        }
 
 
         // functions
@@ -107,6 +111,17 @@ namespace tetengo2 { namespace gui
         }
 
         /*!
+            \brief Returns the tracking position.
+
+            \return The tracking position.
+        */
+        size_type tracking_position()
+        const
+        {
+            return m_tracking_position;
+        }
+
+        /*!
             \brief Returns the range.
 
             \return The range.
@@ -134,9 +149,6 @@ namespace tetengo2 { namespace gui
         {
             if (range.first > range.second)
                 BOOST_THROW_EXCEPTION(std::out_of_range("Reversed range is not allowed."));
-            const size_type p = position();
-            if (p < range.first || range.second <= p)
-                BOOST_THROW_EXCEPTION(std::out_of_range("The position is outside the range."));
 
             details_type::set_range(*m_p_details, std::forward<R>(range));
         }
@@ -162,6 +174,28 @@ namespace tetengo2 { namespace gui
         void set_page_size(const size_type page_size)
         {
             details_type::set_page_size(*m_p_details, page_size);
+        }
+
+        /*!
+            \brief Returns the enabled status.
+
+            \retval true  When the scroll bar is enabled.
+            \retval false Otherwise.
+        */
+        bool enabled()
+        const
+        {
+            return details_type::enabled(*m_p_details);
+        }
+
+        /*!
+            \brief Sets an entabled status.
+
+            \param enabled An enabled status.
+        */
+        void set_enabled(const bool enabled)
+        {
+            details_type::set_enabled(*m_p_details, enabled);
         }
 
         /*!
@@ -209,6 +243,26 @@ namespace tetengo2 { namespace gui
         scroll_bar_details_ptr_type m_p_details;
 
         scroll_bar_observer_set_type m_scroll_bar_observer_set;
+
+        size_type m_tracking_position;
+
+
+        // functions
+
+        void set_observers()
+        {
+            m_scroll_bar_observer_set.scrolling().connect(
+                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, tetengo2::cpp11::placeholders_1())
+            );
+            m_scroll_bar_observer_set.scrolled().connect(
+                TETENGO2_CPP11_BIND(&scroll_bar::set_tracking_position, this, tetengo2::cpp11::placeholders_1())
+            );
+        }
+
+        void set_tracking_position(const size_type new_position)
+        {
+            m_tracking_position = new_position;
+        }
 
 
     };

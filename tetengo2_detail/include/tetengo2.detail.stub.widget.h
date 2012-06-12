@@ -710,6 +710,15 @@ namespace tetengo2 { namespace detail { namespace stub
         }
 
         /*!
+            \brief Focuses on a widget.
+
+            \param widget A widget.
+        */
+        template <typename Widget>
+        static void set_focus(Widget& widget)
+        {}
+
+        /*!
             \brief Checks whether a widget is read-only.
 
             \tparam Widget A widget type.

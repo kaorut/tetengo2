@@ -48,6 +48,22 @@ BOOST_AUTO_TEST_SUITE(mouse_observer_set)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(wheeled)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const mouse_observer_set_type observer_set;
+
+            observer_set.wheeled();
+        }
+        {
+            mouse_observer_set_type observer_set;
+
+            observer_set.clicked();
+        }
+    }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

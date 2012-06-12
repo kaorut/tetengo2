@@ -14,6 +14,7 @@
 
 #include <tetengo2.unique.h>
 
+#include "bobura.message.type_list.h"
 #define USE_TYPES_FOR_APPLICATION
 #include "bobura.type_list.h"
 
@@ -31,6 +32,8 @@ namespace bobura
         typedef
             boost::mpl::at<application_type_list, type::application::model_message_type_list>::type
             model_message_type_list_type;
+
+        typedef boost::mpl::at<view_type_list, type::view::view>::type view_type;
 
         typedef boost::mpl::at<locale_type_list, type::locale::message_catalog>::type message_catalog_type;
 
@@ -51,6 +54,10 @@ namespace bobura
         typedef
             boost::mpl::at<main_window_type_list, type::main_window::message_type_list>::type
             main_window_message_type_list_type;
+
+        typedef
+            boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box_message_type_list>::type
+            diagram_picture_box_message_type_list;
 
         typedef boost::mpl::at<ui_type_list, type::ui::menu_bar>::type menu_bar_type;
 
@@ -85,7 +92,8 @@ namespace bobura
         :
         m_gui_fixture(),
         m_settings(settings),
-        m_model()
+        m_model(),
+        m_view(m_model)
         {}
 
 
@@ -94,19 +102,14 @@ namespace bobura
         int run()
         {
             const message_catalog_type message_catalog;
-            const save_to_file_type save_to_file(false, message_catalog);
-            const save_to_file_type ask_file_path_and_save_to_file(true, message_catalog);
-            const confirm_file_save_type confirm_file_save(m_model, save_to_file, message_catalog);
-            const new_file_type new_file(confirm_file_save);
-            const load_from_file_type load_from_file(confirm_file_save, message_catalog);
+            const command_set_holder_type command_set_holder(m_settings, m_model, message_catalog);
 
-            const command_set_type command_set(
-                new_file, load_from_file, save_to_file, ask_file_path_and_save_to_file, m_settings, message_catalog
+            main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
+            set_message_observers(main_window);
+            m_model.reset_timetable();
+            main_window.set_menu_bar(build_main_window_menu(
+                command_set_holder.command_set(), m_model, main_window, message_catalog)
             );
-
-            main_window_type main_window(message_catalog, m_settings, confirm_file_save); 
-            set_message_observers(m_model, main_window);
-            main_window.set_menu_bar(build_main_window_menu(command_set, m_model, main_window, message_catalog));
             main_window.set_visible(true);
 
             return message_loop_type(main_window)();
@@ -114,21 +117,61 @@ namespace bobura
 
 
     private:
-        // static functions
+        // types
 
-        static void set_message_observers(model_type& model, main_window_type& main_window)
+        class command_set_holder_type : private boost::noncopyable
         {
-            model.observer_set().reset().connect(
-                boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
-                    model, main_window
-                )
-            );
-            model.observer_set().changed().connect(
-                boost::mpl::at<model_message_type_list_type, message::timetable_model::type::changed>::type(
-                    model, main_window
-                )
-            );
-        }
+        public:
+            command_set_holder_type(
+                const settings_type&        settings,
+                model_type&                 model,
+                const message_catalog_type& message_catalog
+            )
+            :
+            m_save_to_file(false, message_catalog),
+            m_ask_file_path_and_save_to_file(true, message_catalog),
+            m_confirm_file_save(model, m_save_to_file, message_catalog),
+            m_new_file(m_confirm_file_save),
+            m_load_from_file(m_confirm_file_save, message_catalog),
+            m_command_set(
+                m_new_file,
+                m_load_from_file,
+                m_save_to_file,
+                m_ask_file_path_and_save_to_file,
+                settings,
+                message_catalog
+            )
+            {}
+
+            const confirm_file_save_type& confirm_file_save()
+            const
+            {
+                return m_confirm_file_save;
+            }
+
+            const command_set_type& command_set()
+            const
+            {
+                return m_command_set;
+            }
+
+        private:
+            const save_to_file_type m_save_to_file;
+
+            const save_to_file_type m_ask_file_path_and_save_to_file;
+
+            const confirm_file_save_type m_confirm_file_save;
+
+            const new_file_type m_new_file;
+
+            const load_from_file_type m_load_from_file;
+
+            const command_set_type m_command_set;
+
+        };
+
+
+        // static functions
 
         static std::unique_ptr<menu_bar_type> build_main_window_menu(
             const command_set_type&     command_set,
@@ -273,6 +316,35 @@ namespace bobura
 
         model_type m_model;
 
+        view_type m_view;
+
+
+        // functions
+
+        void set_message_observers(main_window_type& main_window)
+        {
+            m_model.observer_set().reset().connect(
+                boost::mpl::at<model_message_type_list_type, message::timetable_model::type::reset>::type(
+                    m_model, m_view, main_window
+                )
+            );
+            m_model.observer_set().changed().connect(
+                boost::mpl::at<model_message_type_list_type, message::timetable_model::type::changed>::type(
+                    m_model, m_view, main_window
+                )
+            );
+
+            main_window.window_observer_set().resized().connect(
+                boost::mpl::at<main_window_message_type_list_type, message::main_window::type::window_resized>::type(
+                    m_view, main_window, main_window.diagram_picture_box()
+                )
+            );
+            main_window.diagram_picture_box().fast_paint_observer_set().paint().connect(
+                boost::mpl::at<
+                    diagram_picture_box_message_type_list, message::diagram_picture_box::type::paint_paint
+                >::type(main_window.diagram_picture_box(), m_view)
+            );
+        }
 
     };
 

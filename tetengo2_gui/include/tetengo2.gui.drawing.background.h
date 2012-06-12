@@ -9,6 +9,8 @@
 #if !defined(TETENGO2_GUI_DRAWING_BACKGROUND_H)
 #define TETENGO2_GUI_DRAWING_BACKGROUND_H
 
+#include <memory>
+
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 
@@ -48,6 +50,17 @@ namespace tetengo2 { namespace gui { namespace drawing
         // functions
 
         /*!
+            \brief Clones the background.
+
+            \return A unique pointer to a clone.
+        */
+        std::unique_ptr<background> clone()
+        const
+        {
+            return clone_impl();
+        }
+
+        /*!
             \brief Returns the detail implementation;
 
             \return The detail implementation.
@@ -81,6 +94,9 @@ namespace tetengo2 { namespace gui { namespace drawing
 
     private:
         // virtual functions
+
+        virtual std::unique_ptr<background> clone_impl()
+        const = 0;
 
         virtual boost::optional<details_type&> details_impl()
         = 0;

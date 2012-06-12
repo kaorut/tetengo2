@@ -45,7 +45,7 @@ namespace tetengo2 { namespace gui { namespace unit
         /*!
             \brief Returns a unit made from another unit.
 
-            \tparam U A unit type.
+            \tparam U  A unit type.
 
             \param value A value in another unit.
 
@@ -54,7 +54,7 @@ namespace tetengo2 { namespace gui { namespace unit
         template <typename U>
         static concrete_unit_type from(const unit<U, typename U::value_type>& value)
         {
-            return concrete_unit_type::from_pixels(static_cast<const U&>(value).to_pixels());
+            return concrete_unit_type::from_pixels(static_cast<const U&>(value).template to_pixels<int>());
         }
 
 

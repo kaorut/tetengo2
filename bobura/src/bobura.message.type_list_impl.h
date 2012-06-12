@@ -29,9 +29,10 @@ namespace bobura { namespace message
             \brief The meta function for the type list of the timetable model messages.
 
             \tparam TimetableModel A timetable model type.
+            \tparam DiagramView    A diagram view type.
             \tparam MainWindow     A main window type.
         */
-        template <typename TimetableModel, typename MainWindow>
+        template <typename TimetableModel, typename DiagramView, typename MainWindow>
         class type_list
         {
         public:
@@ -39,8 +40,10 @@ namespace bobura { namespace message
 
             //! The type list for the timetable model.
             typedef
-                tetengo2::meta::assoc_list<boost::mpl::pair<type::reset, reset<TimetableModel, MainWindow>>,
-                tetengo2::meta::assoc_list<boost::mpl::pair<type::changed, changed<TimetableModel, MainWindow>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::reset, reset<TimetableModel, DiagramView, MainWindow>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::changed, changed<TimetableModel, DiagramView, MainWindow>>,
                 tetengo2::meta::assoc_list_end
                 >>
                 type;
@@ -56,6 +59,7 @@ namespace bobura { namespace message
 
             \tparam Command         A command type.
             \tparam Model           A model type.
+            \tparam View            A view type.
             \tparam AbstractWindow  An abstract window type.
             \tparam Control         A control type.
             \tparam ConfirmFileSave A file save confirmation type.
@@ -63,6 +67,7 @@ namespace bobura { namespace message
         template <
             typename Command,
             typename Model,
+            typename View,
             typename AbstractWindow,
             typename Control,
             typename ConfirmFileSave
@@ -77,7 +82,7 @@ namespace bobura { namespace message
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::menu_selected, menu_selected<Command, Model, AbstractWindow>>,
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::window_resized, window_resized<AbstractWindow, Control>>,
+                    boost::mpl::pair<type::window_resized, window_resized<View, AbstractWindow, Control>>,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::window_closing, window_closing<AbstractWindow, ConfirmFileSave>>,
                 tetengo2::meta::assoc_list_end
@@ -93,9 +98,11 @@ namespace bobura { namespace message
         /*!
             \brief The meta function for the type list of the dialog picture box messages.
 
-            \tparam Canvas A canvas type.
+            \tparam Canvas     A canvas type.
+            \tparam PictureBox A picture box type.
+            \tparam View       A view type.
         */
-        template <typename Canvas>
+        template <typename Canvas, typename PictureBox, typename View>
         class type_list
         {
         public:
@@ -103,9 +110,12 @@ namespace bobura { namespace message
 
             //! The type list for the diagram picture box.
             typedef
-                tetengo2::meta::assoc_list<boost::mpl::pair<type::paint_paint, paint_paint<Canvas>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::mouse_wheeled, mouse_wheeled<PictureBox>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::paint_paint, paint_paint<Canvas, PictureBox, View>>,
+                tetengo2::meta::assoc_list<
+                    boost::mpl::pair<type::scroll_bar_scrolled, scroll_bar_scrolled<PictureBox>>,
                 tetengo2::meta::assoc_list_end
-                >
+                >>>
                 type;
         };
     }

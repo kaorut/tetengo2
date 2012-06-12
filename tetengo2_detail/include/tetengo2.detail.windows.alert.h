@@ -17,6 +17,11 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
 
+#pragma warning (push)
+#pragma warning (disable: 4005)
+#include <intsafe.h>
+#include <stdint.h>
+#pragma warning(pop)
 #define NOMINMAX
 #define OEMRESOURCE
 #include <Windows.h>

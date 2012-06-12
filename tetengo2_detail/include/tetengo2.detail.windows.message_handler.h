@@ -26,6 +26,11 @@
 //#include <boost/scope_exit.hpp>
 //#include <boost/throw_exception.hpp>
 
+//#pragma warning (push)
+//#pragma warning (disable: 4005)
+//#include <intsafe.h>
+//#include <stdint.h>
+//#pragma warning(pop)
 //#define NOMINMAX
 //#define OEMRESOURCE
 //#include <Windows.h>
@@ -121,6 +126,50 @@ namespace tetengo2 { namespace detail { namespace windows
             }
 
             template <typename Widget>
+            boost::optional< ::LRESULT> on_mouse_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
+            {
+                if (widget.mouse_observer_set().wheeled().empty())
+                    return boost::none;
+
+                const short delta = GET_WHEEL_DELTA_WPARAM(w_param);
+                const unsigned int key_state = GET_KEYSTATE_WPARAM(w_param);
+
+                widget.mouse_observer_set().wheeled()(
+                    typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
+                    Widget::mouse_observer_set_type::direction_vertical,
+                    (key_state & MK_SHIFT) != 0,
+                    (key_state & MK_CONTROL) != 0,
+                    false
+                );
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+            template <typename Widget>
+            boost::optional< ::LRESULT> on_mouse_h_wheel(
+                Widget&        widget,
+                const ::WPARAM w_param,
+                const ::LPARAM l_param
+            )
+            {
+                if (widget.mouse_observer_set().wheeled().empty())
+                    return boost::none;
+
+                const short delta = GET_WHEEL_DELTA_WPARAM(w_param);
+                const unsigned int key_state = GET_KEYSTATE_WPARAM(w_param);
+
+                widget.mouse_observer_set().wheeled()(
+                    typename Widget::mouse_observer_set_type::delta_type(delta, WHEEL_DELTA),
+                    Widget::mouse_observer_set_type::direction_horizontal,
+                    (key_state & MK_SHIFT) != 0,
+                    (key_state & MK_CONTROL) != 0,
+                    false
+                );
+
+                return boost::make_optional< ::LRESULT>(0);
+            }
+
+            template <typename Widget>
             boost::optional< ::LRESULT> on_control_color(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
             {
                 if (l_param == 0) return boost::none;
@@ -176,16 +225,16 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                 case SB_LINEUP:
                     static_assert(SB_LINELEFT == SB_LINEUP, "SB_LINELEFT != SB_LINEUP");
-                    return std::max(info.nMin, info.nPos - 1);
+                    return std::max<int>(info.nMin, info.nPos - 1);
                 case SB_LINEDOWN:
                     static_assert(SB_LINERIGHT == SB_LINEDOWN, "SB_LINERIGHT != SB_LINEDOWN");
-                    return std::min(info.nMax, info.nPos + 1);
+                    return std::min<int>(info.nMax - info.nPage + 1, info.nPos + 1);
                 case SB_PAGEUP:
                     static_assert(SB_PAGELEFT == SB_PAGEUP, "SB_PAGELEFT != SB_PAGEUP");
                     return std::max<int>(info.nMin, info.nPos - info.nPage);
                 case SB_PAGEDOWN:
                     static_assert(SB_PAGERIGHT == SB_PAGEDOWN, "SB_PAGERIGHT != SB_PAGEDOWN");
-                    return std::min<int>(info.nMax, info.nPos + info.nPage);
+                    return std::min<int>(info.nMax - info.nPage + 1, info.nPos + info.nPage);
                 case SB_THUMBPOSITION:
                 case SB_THUMBTRACK:
                     return info.nTrackPos;
@@ -194,7 +243,7 @@ namespace tetengo2 { namespace detail { namespace windows
                     return info.nMin;
                 case SB_BOTTOM:
                     static_assert(SB_RIGHT == SB_BOTTOM, "SB_RIGHT != SB_BOTTOM");
-                    return info.nMax;
+                    return info.nMax - info.nPage + 1;
                 default:
                     assert(false);
                     BOOST_THROW_EXCEPTION(std::invalid_argument("Invalid scroll code."));
@@ -221,17 +270,25 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                     if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                         return boost::none;
-                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT)
-                    );
+                    const size_type new_position =
+                        new_scroll_bar_position<size_type>(
+                            std::get<0>(*widget.details()).get(), scroll_code, SB_VERT
+                        );
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
                 }
                 else
                 {
+                    const size_type new_position =
+                        new_scroll_bar_position<size_type>(
+                            std::get<0>(*widget.details()).get(), scroll_code, SB_VERT
+                        );
                     if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                    {
+                        widget.vertical_scroll_bar()->set_position(new_position);
                         return boost::none;
-                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT)
-                    );
+                    }
+                    widget.vertical_scroll_bar()->set_position(new_position);
+                    widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
 
                 return boost::make_optional< ::LRESULT>(0);
@@ -257,17 +314,25 @@ namespace tetengo2 { namespace detail { namespace windows
                 {
                     if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                         return boost::none;
-                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ)
-                    );
+                    const size_type new_position =
+                        new_scroll_bar_position<size_type>(
+                            std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ
+                        );
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
                 }
                 else
                 {
+                    const size_type new_position =
+                        new_scroll_bar_position<size_type>(
+                            std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ
+                        );
                     if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
+                    {
+                        widget.horizontal_scroll_bar()->set_position(new_position);
                         return boost::none;
-                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(
-                        new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ)
-                    );
+                    }
+                    widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                    widget.horizontal_scroll_bar()->set_position(new_position);
                 }
 
                 return boost::make_optional< ::LRESULT>(0);
@@ -816,6 +881,22 @@ namespace tetengo2 { namespace detail { namespace windows
                     cpp11::placeholders_2()
                 )
             );
+            map[WM_MOUSEWHEEL].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_mouse_wheel<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
+            map[WM_MOUSEHWHEEL].push_back(
+                TETENGO2_CPP11_BIND(
+                    detail::widget::on_mouse_h_wheel<Widget>,
+                    cpp11::ref(widget),
+                    cpp11::placeholders_1(),
+                    cpp11::placeholders_2()
+                )
+            );
             map[WM_CTLCOLORBTN].push_back(
                 TETENGO2_CPP11_BIND(
                     detail::widget::on_control_color<Widget>,
@@ -890,7 +971,7 @@ namespace tetengo2 { namespace detail { namespace windows
             );
             map[WM_HSCROLL].push_back(
                 TETENGO2_CPP11_BIND(
-                    detail::widget::on_vertical_scroll<Widget>,
+                    detail::widget::on_horizontal_scroll<Widget>,
                     cpp11::ref(widget),
                     cpp11::placeholders_1(),
                     cpp11::placeholders_2()

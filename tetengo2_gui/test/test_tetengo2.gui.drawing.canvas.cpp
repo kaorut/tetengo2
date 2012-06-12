@@ -25,6 +25,22 @@ namespace
     typedef boost::mpl::at<test_tetengo2::gui::type_list, test_tetengo2::gui::type::dimension>::type dimension_type;
 
     typedef
+        boost::mpl::at<test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::color>::type
+        color_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::background
+        >::type
+        background_type;
+
+    typedef
+        boost::mpl::at<
+            test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::solid_background
+        >::type
+        solid_background_type;
+
+    typedef
         boost::mpl::at<
             test_tetengo2::gui::drawing_type_list, test_tetengo2::gui::type::drawing::transparent_background
         >::type
@@ -95,6 +111,54 @@ BOOST_AUTO_TEST_SUITE(canvas)
         }
     }
 
+    BOOST_AUTO_TEST_CASE(color)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
+
+        const color_type& color = canvas.color();
+
+        BOOST_CHECK(color == color_type(0, 0, 0, 255));
+    }
+
+    BOOST_AUTO_TEST_CASE(set_color)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        const color_type color(12, 34, 56, 78);
+        canvas.set_color(color);
+
+        BOOST_CHECK(canvas.color() == color);
+    }
+
+    BOOST_AUTO_TEST_CASE(background)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_canvas canvas;
+
+        const background_type& background = canvas.background();
+        const solid_background_type* const p_solid_background =
+            dynamic_cast<const solid_background_type*>(&background);
+
+        BOOST_CHECK(p_solid_background);
+        BOOST_CHECK(p_solid_background->color() == color_type(255, 255, 255, 255));
+    }
+
+    BOOST_AUTO_TEST_CASE(set_background)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.set_background(tetengo2::make_unique<const transparent_background_type>());
+
+        BOOST_CHECK(dynamic_cast<const transparent_background_type*>(&canvas.background()));
+    }
+
     BOOST_AUTO_TEST_CASE(font)
     {
         BOOST_TEST_PASSPOINT();
@@ -118,6 +182,15 @@ BOOST_AUTO_TEST_SUITE(canvas)
         BOOST_CHECK(canvas.font() == font);
     }
 
+    BOOST_AUTO_TEST_CASE(draw_line)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        concrete_canvas canvas;
+
+        canvas.draw_line(std::make_pair(12, 34), std::make_pair(56, 78), 42);
+    }
+
     BOOST_AUTO_TEST_CASE(draw_focus_indication)
     {
         BOOST_TEST_PASSPOINT();
@@ -133,7 +206,7 @@ BOOST_AUTO_TEST_SUITE(canvas)
 
         concrete_canvas canvas;
 
-        canvas.fill_rectangle(std::make_pair(12, 34), std::make_pair(56, 78), transparent_background_type());
+        canvas.fill_rectangle(std::make_pair(12, 34), std::make_pair(56, 78));
     }
 
     BOOST_AUTO_TEST_CASE(calc_text_dimension)

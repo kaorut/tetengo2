@@ -12,6 +12,7 @@
 #include <cstddef>
 #include <algorithm>
 #include <iomanip>
+#include <locale>
 #include <sstream>
 #include <string>
 #include <tuple>
@@ -415,7 +416,8 @@ namespace bobura { namespace model { namespace serializer
                 std::get<1>(hours_minutes_seconds) * 100 +
                 std::get<2>(hours_minutes_seconds);
             std::basic_ostringstream<output_char_type> stream;
-            stream << boost::basic_format<output_char_type>(TETENGO2_TEXT("% 6d")) % representation;
+            stream <<
+                boost::basic_format<output_char_type>(TETENGO2_TEXT("% 6d"), std::locale::classic()) % representation;
             return stream.str();
         }
 

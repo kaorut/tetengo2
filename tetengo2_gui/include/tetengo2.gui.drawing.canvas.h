@@ -9,7 +9,9 @@
 #if !defined(TETENGO2_GUI_DRAWING_CANVAS_H)
 #define TETENGO2_GUI_DRAWING_CANVAS_H
 
+#include <cassert>
 //#include <cstddef>
+//#include <memory>
 #include <stdexcept>
 //#include <utility>
 
@@ -18,6 +20,7 @@
 #include <boost/throw_exception.hpp>
 
 #include "tetengo2.gui.measure.h"
+#include "tetengo2.unique.h"
 
 
 namespace tetengo2 { namespace gui { namespace drawing
@@ -25,50 +28,47 @@ namespace tetengo2 { namespace gui { namespace drawing
     /*!
         \brief The class template for a canvas.
 
-        \tparam Size           A size type.
-        \tparam String         A string type.
-        \tparam Dimension      A dimension type.
-        \tparam Encoder        An encoder type.
-        \tparam Background     A background type.
-        \tparam Font           A font type.
-        \tparam Picture        A picture type.
+        \tparam Traits         A traits type.
         \tparam DrawingDetails A detail implementation type of a drawing.
     */
-    template <
-        typename Size,
-        typename String,
-        typename Dimension,
-        typename Encoder,
-        typename Background,
-        typename Font,
-        typename Picture,
-        typename DrawingDetails
-    >
+    template <typename Traits, typename DrawingDetails>
     class canvas : private boost::noncopyable
     {
     public:
         // types
 
+        //! The traits type.
+        typedef Traits traits_type;
+
         //! The size type.
-        typedef Size size_type;
+        typedef typename traits_type::size_type size_type;
 
         //! The string type.
-        typedef String string_type;
+        typedef typename traits_type::string_type string_type;
+
+        //! The position type.
+        typedef typename traits_type::position_type position_type;
 
         //! The dimension type.
-        typedef Dimension dimension_type;
+        typedef typename traits_type::dimension_type dimension_type;
 
         //! The encoder type.
-        typedef Encoder encoder_type;
+        typedef typename traits_type::encoder_type encoder_type;
+
+        //! The color type.
+        typedef typename traits_type::color_type color_type;
 
         //! The background type.
-        typedef Background background_type;
+        typedef typename traits_type::background_type background_type;
+
+        //! The solid background type.
+        typedef typename traits_type::solid_background_type solid_background_type;
 
         //! The font type.
-        typedef Font font_type;
+        typedef typename traits_type::font_type font_type;
 
         //! The picture type.
-        typedef Picture picture_type;
+        typedef typename traits_type::picture_type picture_type;
 
         //! The detail implementation type of a drawing.
         typedef DrawingDetails drawing_details_type;
@@ -90,6 +90,52 @@ namespace tetengo2 { namespace gui { namespace drawing
 
 
         // functions
+
+        /*!
+            \brief Returns the color.
+
+            \return The color.
+        */
+        const color_type& color()
+        const
+        {
+            return m_color;
+        }
+
+        /*!
+            \brief Sets a color.
+
+            \tparam C A color type.
+
+            \param color A color.
+        */
+        template <typename C>
+        void set_color(C&& color)
+        {
+            m_color = std::forward<C>(color);
+        }
+
+        /*!
+            \brief Returns the background.
+
+            \return The background.
+        */
+        const background_type& background()
+        const
+        {
+            assert(m_p_background);
+            return *m_p_background;
+        }
+
+        /*!
+            \brief Sets a background.
+
+            \param p_background A unique pointer to a background.
+        */
+        void set_background(std::unique_ptr<const background_type> p_background)
+        {
+            m_p_background = std::move(p_background);
+        }
 
         /*!
             \brief Returns the font.
@@ -116,6 +162,21 @@ namespace tetengo2 { namespace gui { namespace drawing
         }
 
         /*!
+            \brief Draws a line.
+
+            \tparam P A position type.
+
+            \param from  A beginning position.
+            \param to    An ending position.
+            \param width A width.
+        */
+        template <typename P>
+        void draw_line(const P& from, const P& to, const size_type width)
+        {
+            drawing_details_type::draw_line(*m_p_details, from, to, width, m_color);
+        }
+
+        /*!
             \brief Draws a focus indication.
 
             \tparam P A position type.
@@ -138,12 +199,12 @@ namespace tetengo2 { namespace gui { namespace drawing
 
             \param position   A position of a region.
             \param dimension  A dimension of a region.
-            \param background A background.
         */
         template <typename P, typename D>
-        void fill_rectangle(const P& position, const D& dimension, const background_type& background)
+        void fill_rectangle(const P& position, const D& dimension)
         {
-            drawing_details_type::fill_rectangle(*m_p_details, position, dimension, background);
+            assert(m_p_background);
+            drawing_details_type::fill_rectangle(*m_p_details, position, dimension, *m_p_background);
         }
 
         /*!
@@ -173,7 +234,7 @@ namespace tetengo2 { namespace gui { namespace drawing
         template <typename P>
         void draw_text(const string_type& text, const P& position)
         {
-            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position);
+            drawing_details_type::draw_text(*m_p_details, m_font, text, encoder(), position, m_color);
         }
 
         /*!
@@ -232,13 +293,19 @@ namespace tetengo2 { namespace gui { namespace drawing
         /*!
             \brief Creates a canvas.
 
+            The initial foreground color is black.
+            The initial background is a solid white color background.
+            The initlai font is a dialog font.
+
             \param p_details A detail implementation.
 
             \throw std::invalid_argument When p_details is NULL.
         */
-        canvas(details_ptr_type p_details)
+        explicit canvas(details_ptr_type p_details)
         :
         m_p_details(std::move(p_details)),
+        m_color(0, 0, 0, 255),
+        m_p_background(make_unique<const solid_background_type>(color_type(255, 255, 255, 255))),
         m_font(font_type::dialog_font())
         {
             if (!m_p_details)
@@ -259,6 +326,10 @@ namespace tetengo2 { namespace gui { namespace drawing
         // variables
 
         const details_ptr_type m_p_details;
+
+        color_type m_color;
+
+        std::unique_ptr<const background_type> m_p_background;
 
         font_type m_font;
 

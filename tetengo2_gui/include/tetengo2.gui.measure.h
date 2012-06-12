@@ -29,7 +29,7 @@ namespace tetengo2 { namespace gui
     template <typename PixelValue, typename Unit>
     PixelValue to_pixels(const Unit& value, typename std::enable_if<!std::is_arithmetic<Unit>::value>::type* = NULL)
     {
-        return static_cast<PixelValue>(value.to_pixels());
+        return value.template to_pixels<PixelValue>();
     }
 
     /*!
@@ -45,7 +45,7 @@ namespace tetengo2 { namespace gui
     template <typename Unit, typename PixelValue>
     Unit to_unit(const PixelValue value, typename std::enable_if<!std::is_arithmetic<Unit>::value>::type* = NULL)
     {
-        return Unit::from_pixels(static_cast<typename Unit::pixel_value_type>(value));
+        return Unit::from_pixels(value);
     }
 
 #if !defined(DOCUMENTATION)

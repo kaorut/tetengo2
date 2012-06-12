@@ -45,8 +45,14 @@ namespace bobura { namespace message
     {
         namespace type
         {
+            //! The mouse observer type.
+            struct mouse_wheeled;
+
             //! The paint observer type.
             struct paint_paint;
+
+            //! The scroll bar observer type.
+            struct scroll_bar_scrolled;
 
         }
     }

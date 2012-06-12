@@ -41,6 +41,7 @@
 #include "bobura.model.station_info.grade.h"
 #include "bobura.model.station.h"
 #include "bobura.model.timetable.h"
+#include "bobura.model.timetable_info.station_interval_calculator.h"
 #include "bobura.model.timetable_info.station_location.h"
 #include "bobura.model.train.h"
 #include "bobura.model.train_info.stop.h"
@@ -84,6 +85,7 @@ namespace test_bobura { namespace model
         struct time;           //!< The time type.
         struct stop;           //!< The stop type.
         struct train;          //!< The train type.
+        struct station_interval_calculator; //!< The station interval calculator type.
         struct timetable;      //!< The timetable type.
     }}
 
@@ -108,6 +110,9 @@ namespace test_bobura { namespace model
                 boost::mpl::at<type_list, type::string>::type, boost::mpl::at<type_list, type::string>::type, stop_type
             >
             train_type;
+        typedef
+            bobura::model::timetable_info::station_interval_calculator<station_location_type, train_type>
+            station_interval_calculator_type;
     }}
 #endif
 
@@ -123,16 +128,21 @@ namespace test_bobura { namespace model
         tetengo2::meta::assoc_list<boost::mpl::pair<type::model::train, detail::model::train_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::model::station_interval_calculator, detail::model::station_interval_calculator_type
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::model::timetable,
                 bobura::model::timetable<
                     boost::mpl::at<type_list, type::string>::type,
                     detail::model::station_location_type,
+                    detail::model::station_interval_calculator_type,
                     detail::model::train_type,
                     bobura::model::message::timetable_observer_set
                 >
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>>>>
+        >>>>>>>>>
         model_type_list;
 
 

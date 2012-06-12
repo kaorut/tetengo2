@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_SUITE(pixel)
 
         const unit_type unit(123);
 
-        BOOST_CHECK_EQUAL(unit.to_pixels(), 123);
+        BOOST_CHECK_EQUAL(unit.to_pixels<int>(), 123);
     }
 
 

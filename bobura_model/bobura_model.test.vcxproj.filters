@@ -101,5 +101,8 @@
     <ClCompile Include="test\test_bobura.model.serializer.bzip2_reader.cpp">
       <Filter>sources\test_bobura::model\serializer</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.model.timetable_info.station_interval_calculator.cpp">
+      <Filter>sources\test_bobura::model\timetable_info</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

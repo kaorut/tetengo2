@@ -224,6 +224,36 @@ namespace
     const std::string json10 =
         "hoge\n";
 
+    const std::string json11 =
+        "[\n"
+        "    {\n"
+        "        \"title\": \"hoge\"\n"
+        "    },\n"
+        "    [\n"
+        "        {\n"
+        "            \"name\":     \"stationA\",\n"
+        "            \"grade\":    \"local\",\n"
+        "            \"meterage\": 42\n"
+        "        },\n"
+        "        {\n"
+        "            \"name\":     \"stationB\",\n"
+        "            \"grade\":    \"principal\",\n"
+        "            \"meterage\": 4242\n"
+        "        }\n"
+        "    ],\n"
+        "    [\n"
+        "        {\n"
+        "            \"number\": \"123D\",\n"
+        "            \"note\":   \"\",\n"
+        "            \"stops\":  [\n"
+        "                [    -1, 235000, \"1\"],\n"
+        "                [ 01000,     -1, \"\"]\n"
+        "            ]\n"
+        "        }\n"
+        "    ],\n"
+        "    []\n"
+        "]\n";
+
 
 }
 
@@ -459,6 +489,16 @@ BOOST_AUTO_TEST_SUITE(json_reader)
         }
         {
             std::istringstream input_stream(json8);
+            const std::unique_ptr<timetable_type> p_timetable =
+                json_reader.read(
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),
+                    boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>())
+                );
+
+            BOOST_CHECK(!p_timetable);
+        }
+        {
+            std::istringstream input_stream(json11);
             const std::unique_ptr<timetable_type> p_timetable =
                 json_reader.read(
                     boost::spirit::make_default_multi_pass(std::istreambuf_iterator<char>(input_stream)),

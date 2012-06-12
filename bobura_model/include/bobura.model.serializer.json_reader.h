@@ -147,7 +147,7 @@ namespace bobura { namespace model { namespace serializer
             const boost::optional<std::vector<station_location_type>> stations = read_stations(pull_parser);
             if (!stations)
                 return std::unique_ptr<timetable_type>();
-            BOOST_FOREACH(const station_location_type& station, *stations)
+            BOOST_FOREACH (const station_location_type& station, *stations)
             {
                 p_timetable->insert_station_location(p_timetable->station_locations().end(), station);
             }
@@ -155,7 +155,7 @@ namespace bobura { namespace model { namespace serializer
             const boost::optional<std::vector<train_type>> down_trains = read_trains(pull_parser, stations->size());
             if (!down_trains)
                 return std::unique_ptr<timetable_type>();
-            BOOST_FOREACH(const train_type& train, *down_trains)
+            BOOST_FOREACH (const train_type& train, *down_trains)
             {
                 p_timetable->insert_down_train(p_timetable->down_trains().end(), train);
             }
@@ -163,7 +163,7 @@ namespace bobura { namespace model { namespace serializer
             const boost::optional<std::vector<train_type>> up_trains = read_trains(pull_parser, stations->size());
             if (!up_trains)
                 return std::unique_ptr<timetable_type>();
-            BOOST_FOREACH(const train_type& train, *up_trains)
+            BOOST_FOREACH (const train_type& train, *up_trains)
             {
                 p_timetable->insert_up_train(p_timetable->up_trains().end(), train);
             }
@@ -274,13 +274,13 @@ namespace bobura { namespace model { namespace serializer
 
         static const station_grade_type* to_station_grade(const string_type& name)
         {
-            if      (name == string_type(TETENGO2_TEXT("local")))
+            if      (name == station_grade_type_set_type::local_type::instance().name())
                 return &station_grade_type_set_type::local_type::instance();
-            else if (name == string_type(TETENGO2_TEXT("principal")))
+            else if (name == station_grade_type_set_type::principal_type::instance().name())
                 return &station_grade_type_set_type::principal_type::instance();
-            else if (name == string_type(TETENGO2_TEXT("local_terminal")))
+            else if (name == station_grade_type_set_type::local_terminal_type::instance().name())
                 return &station_grade_type_set_type::local_terminal_type::instance();
-            else if (name == string_type(TETENGO2_TEXT("principal_terminal")))
+            else if (name == station_grade_type_set_type::principal_terminal_type::instance().name())
                 return &station_grade_type_set_type::principal_terminal_type::instance();
             else
                 return NULL;
@@ -348,7 +348,7 @@ namespace bobura { namespace model { namespace serializer
                 return boost::none;
             if (stops->size() > station_count)
                 return boost::none;
-            BOOST_FOREACH(const stop_type& stop, *stops)
+            BOOST_FOREACH (const stop_type& stop, *stops)
             {
                 train.insert_stop(train.stops().end(), stop);
             }
@@ -477,6 +477,8 @@ namespace bobura { namespace model { namespace serializer
 
         static boost::optional<input_string_type> read_string(pull_parser_type& pull_parser)
         {
+            if (!pull_parser.has_next())
+                return boost::none;
             const element_type& element = pull_parser.peek();
             if (element.which() != 2)
                 return boost::none;
@@ -513,6 +515,8 @@ namespace bobura { namespace model { namespace serializer
         template <typename Integer>
         static boost::optional<Integer> read_integer(pull_parser_type& pull_parser)
         {
+            if (!pull_parser.has_next())
+                return boost::none;
             const element_type& element = pull_parser.peek();
             if (element.which() != 2)
                 return boost::none;

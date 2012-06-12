@@ -212,7 +212,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             std::unique_ptr< ::ID2D1HwndRenderTarget, detail::release_render_target> p_render_target(rp_render_target);
 
             p_render_target->BeginDraw();
-            p_render_target->Clear(::D2D1::ColorF(::GetSysColor(COLOR_3DFACE)));
+            p_render_target->Clear(colorref_to_color_f(::GetSysColor(COLOR_3DFACE)));
 
             return canvas_details_ptr_type(std::move(p_render_target));
         }
@@ -293,6 +293,35 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
         }
 
         /*!
+            \brief Draws a line.
+
+            \tparam Position A position type.
+            \tparam Size     A size type.
+            \tparam Color    A color type.
+
+            \param canvas A canvas.
+            \param from   A beginning position.
+            \param to     An ending position.
+            \param width  A width.
+            \param color  A color.
+        */
+        template <typename Position, typename Size, typename Color>
+        static void draw_line(
+            canvas_details_type& canvas,
+            const Position&      from,
+            const Position&      to,
+            const Size           width,
+            const Color&         color
+        )
+        {
+            const background_details_ptr_type p_background_details = create_solid_background(color);
+            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
+            canvas.DrawLine(
+                position_to_point_2f(from), position_to_point_2f(to), p_brush.get(), size_to_float(width)
+            );
+        }
+
+        /*!
             \brief Draws a focus indication.
 
             \tparam Position  A position type.
@@ -338,7 +367,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
 
             const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *background_details);
 
-            canvas.FillRectangle(position_and_dimension_to_reft_f(position, dimension), p_brush.get());
+            canvas.FillRectangle(position_and_dimension_to_rect_f(position, dimension), p_brush.get());
         }
 
         /*!
@@ -416,36 +445,33 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             \tparam String   A string type.
             \tparam Encoder  An encoder type.
             \tparam Position A position type.
+            \tparam Color    A color type.
 
             \param canvas   A canvas.
             \param font     A font.
             \param text     A text to draw.
             \param encoder  An encoder.
             \param position A position where the text is drawn.
+            \param color    A color.
 
             \throw std::system_error When the text cannot be drawn.
         */
-        template <typename Font, typename String, typename Encoder, typename Position>
+        template <typename Font, typename String, typename Encoder, typename Position, typename Color>
         static void draw_text(
             canvas_details_type& canvas,
             const Font&          font,
             const String&        text,
             const Encoder&       encoder,
-            const Position&      position
+            const Position&      position,
+            const Color&         color
         )
         {
-            const std::size_t left = gui::to_pixels<std::size_t>(gui::position<Position>::left(position));
-            const std::size_t top = gui::to_pixels<std::size_t>(gui::position<Position>::top(position));
-            const ::D2D1_POINT_2F origin = { static_cast< ::FLOAT>(left), static_cast< ::FLOAT>(top) };
-            
             const typename unique_com_ptr< ::IDWriteTextLayout>::type p_layout =
                 create_text_layout(text, font, encoder);
 
-            ::ID2D1SolidColorBrush* rp_brush = NULL;
-            canvas.CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Orange, 0.67f), D2D1::BrushProperties(), &rp_brush);
-            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush(rp_brush);
-
-            canvas.DrawTextLayout(origin, p_layout.get(), p_brush.get());
+            const background_details_ptr_type p_background_details = create_solid_background(color);
+            const typename unique_com_ptr< ::ID2D1Brush>::type p_brush = create_brush(canvas, *p_background_details);
+            canvas.DrawTextLayout(position_to_point_2f(position), p_layout.get(), p_brush.get());
         }
 
         /*!
@@ -486,7 +512,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             }
             const typename unique_com_ptr< ::ID2D1Bitmap>::type p_bitmap(rp_bitmap);
 
-            canvas.DrawBitmap(p_bitmap.get(), position_and_dimension_to_reft_f(position, dimension));
+            canvas.DrawBitmap(p_bitmap.get(), position_and_dimension_to_rect_f(position, dimension));
         }
 
 
@@ -545,20 +571,48 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
             return direct_write_factory_ptr_type(rp_factory);
         }
 
-        template <typename Position, typename Dimension>
-        static ::D2D1_RECT_F position_and_dimension_to_reft_f(const Position& position, const Dimension& dimension)
+        template <typename Size>
+        static ::FLOAT size_to_float(const Size size)
         {
-            const std::size_t left = gui::to_pixels<std::size_t>(gui::position<Position>::left(position));
-            const std::size_t top = gui::to_pixels<std::size_t>(gui::position<Position>::top(position));
-            const std::size_t width = gui::to_pixels<std::size_t>(gui::dimension<Dimension>::width(dimension));
-            const std::size_t height = gui::to_pixels<std::size_t>(gui::dimension<Dimension>::height(dimension));
-            return 
-                D2D1::RectF(
-                    static_cast< ::FLOAT>(left),
-                    static_cast< ::FLOAT>(top),
-                    static_cast< ::FLOAT>(left + width),
-                    static_cast< ::FLOAT>(top + height)
-                );
+            return gui::to_pixels< ::FLOAT>(size);
+        }
+
+        template <typename Position>
+        static ::D2D1_POINT_2F position_to_point_2f(const Position& position)
+        {
+            const ::FLOAT left = gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position));
+            const ::FLOAT top = gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position));
+            return D2D1::Point2F(left - 0.5f, top - 0.5f);
+        }
+
+        template <typename Position, typename Dimension>
+        static ::D2D1_RECT_F position_and_dimension_to_rect_f(const Position& position, const Dimension& dimension)
+        {
+            const ::FLOAT left = gui::to_pixels< ::FLOAT>(gui::position<Position>::left(position));
+            const ::FLOAT top = gui::to_pixels< ::FLOAT>(gui::position<Position>::top(position));
+            const ::FLOAT width = gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::width(dimension));
+            const ::FLOAT height = gui::to_pixels< ::FLOAT>(gui::dimension<Dimension>::height(dimension));
+            return D2D1::RectF(left, top, left + width, top + height);
+        }
+
+        static ::D2D1_COLOR_F colorref_to_color_f(const ::COLORREF colorref)
+        {
+            return rgba_to_color_f(GetRValue(colorref), GetGValue(colorref), GetBValue(colorref), 255);
+        }
+
+        static ::D2D1_COLOR_F rgba_to_color_f(
+            const unsigned char red,
+            const unsigned char green,
+            const unsigned char blue,
+            const unsigned char alpha
+        )
+        {
+            return D2D1::ColorF(
+                static_cast< ::FLOAT>(red / 255.0),
+                static_cast< ::FLOAT>(green / 255.0),
+                static_cast< ::FLOAT>(blue / 255.0),
+                static_cast< ::FLOAT>(alpha / 255.0)
+            );
         }
 
         static unique_com_ptr< ::ID2D1Brush>::type create_brush(
@@ -573,10 +627,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace direct2d
                 ::ID2D1SolidColorBrush* rp_brush = NULL;
                 const ::HRESULT hr =
                     canvas.CreateSolidColorBrush(
-                        D2D1::ColorF(
-                            RGB(p_solid->red(), p_solid->blue(), p_solid->green()),
-                            static_cast< ::FLOAT>(p_solid->alpha() / 255.0)
-                        ),
+                        rgba_to_color_f(p_solid->red(), p_solid->green(), p_solid->blue(), p_solid->alpha()),
                         D2D1::BrushProperties(),
                         &rp_brush
                     );

@@ -17,7 +17,7 @@
 namespace bobura { namespace model { namespace timetable_info
 {
     /*!
-        \brief The class for a station location.
+        \brief The class template for a station location.
 
         \tparam Station  A station type.
         \tparam Meterage A meterage type.

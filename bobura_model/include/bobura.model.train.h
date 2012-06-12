@@ -19,7 +19,7 @@
 namespace bobura { namespace model
 {
     /*!
-        \brief The class for a train.
+        \brief The class template for a train.
 
         \tparam Number A number type.
         \tparam Note   A note type.

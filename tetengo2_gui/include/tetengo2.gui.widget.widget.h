@@ -263,6 +263,14 @@ namespace tetengo2 { namespace gui { namespace widget
         }
 
         /*!
+            \brief Focuses on the widget.
+        */
+        void set_focus()
+        {
+            widget_details_type::set_focus(*this);
+        }
+
+        /*!
             \brief Returns the position.
 
             \return The position.
@@ -841,9 +849,8 @@ namespace tetengo2 { namespace gui { namespace widget
             {
                 if (!m_self.background()) return false;
 
-                canvas.fill_rectangle(
-                    position_type(left_type(0), top_type(0)), m_self.client_dimension(), *m_self.background()
-                );
+                canvas.set_background(m_self.background()->clone());
+                canvas.fill_rectangle(position_type(left_type(0), top_type(0)), m_self.client_dimension());
 
                 return true;
             }

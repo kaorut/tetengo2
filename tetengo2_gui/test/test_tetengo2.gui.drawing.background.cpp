@@ -6,9 +6,13 @@
     $Id$
 */
 
+//#include <memory>
+
 //#include <boost/mpl/at.hpp>
 //#include <boost/optional.hpp>
 #include <boost/test/unit_test.hpp>
+
+#include "tetengo2.unique.h"
 
 #include "test_tetengo2.gui.type_list.h"
 
@@ -30,6 +34,12 @@ namespace
 
 
     private:
+        virtual std::unique_ptr<background_type> clone_impl()
+        const
+        {
+            return tetengo2::make_unique<concrete_background>();
+        }
+
         virtual boost::optional<const background_type::details_type&> details_impl()
         const
         {
@@ -59,6 +69,17 @@ BOOST_AUTO_TEST_SUITE(background)
         BOOST_TEST_PASSPOINT();
 
         const concrete_background background;
+
+        background.clone();
+    }
+
+    BOOST_AUTO_TEST_CASE(clone)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_background background;
+
+        background.details();
     }
 
     BOOST_AUTO_TEST_CASE(details)

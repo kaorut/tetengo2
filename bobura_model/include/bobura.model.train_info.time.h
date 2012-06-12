@@ -24,7 +24,7 @@
 namespace bobura { namespace model { namespace train_info
 {
     /*!
-        \brief The class for a time.
+        \brief The class template for a time.
 
         \tparam TimeTick A time tick type.
         \tparam TimeSpan A time span type.

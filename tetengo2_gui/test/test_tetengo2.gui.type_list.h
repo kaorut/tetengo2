@@ -38,6 +38,7 @@
 #include "tetengo2.gui.cursor.system.h"
 #include "tetengo2.gui.drawing.background.h"
 #include "tetengo2.gui.drawing.canvas.h"
+#include "tetengo2.gui.drawing.canvas_traits.h"
 #include "tetengo2.gui.drawing.color.h"
 #include "tetengo2.gui.drawing.font.h"
 #include "tetengo2.gui.drawing.picture.h"
@@ -233,8 +234,8 @@ namespace test_tetengo2 { namespace gui
     typedef
         tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::unit_details, detail::unit::unit_details_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::unit::em, tetengo2::gui::unit::em<int, int, detail::unit::unit_details_type>>,
-        tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::pixel, tetengo2::gui::unit::pixel<int, int>>,
+            boost::mpl::pair<type::unit::em, tetengo2::gui::unit::em<int, detail::unit::unit_details_type>>,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::unit::pixel, tetengo2::gui::unit::pixel<int>>,
         tetengo2::meta::assoc_list_end
         >>>
         unit_type_list;
@@ -265,6 +266,7 @@ namespace test_tetengo2 { namespace gui
         typedef tetengo2::detail::stub::system_color system_color_details_type;
         typedef tetengo2::detail::stub::drawing drawing_details_type;
         typedef tetengo2::gui::drawing::background<drawing_details_type> background_type;
+        typedef tetengo2::gui::drawing::solid_background<color_type, drawing_details_type> solid_background_type;
         typedef tetengo2::gui::drawing::transparent_background<drawing_details_type> transparent_background_type;
         typedef
             tetengo2::gui::drawing::font<
@@ -276,6 +278,20 @@ namespace test_tetengo2 { namespace gui
         typedef
             tetengo2::gui::drawing::picture<boost::mpl::at<type_list, type::size>::type, drawing_details_type>
             picture_type;
+        typedef
+            tetengo2::gui::drawing::canvas_traits<
+                boost::mpl::at<type_list, type::size>::type,
+                boost::mpl::at<type_list, type::string>::type,
+                boost::mpl::at<type_list, type::position>::type,
+                boost::mpl::at<type_list, type::dimension>::type,
+                boost::mpl::at<type_list, type::ui_encoder>::type,
+                color_type,
+                background_type,
+                solid_background_type,
+                font_type,
+                picture_type
+            >
+            canvas_traits_type;
         typedef drawing_details_type::canvas_details_type canvas_details_type;
         typedef drawing_details_type::canvas_details_ptr_type canvas_details_ptr_type;
     }}
@@ -293,12 +309,7 @@ namespace test_tetengo2 { namespace gui
             >,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::background, detail::drawing::background_type>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::drawing::solid_background,
-                tetengo2::gui::drawing::solid_background<
-                    detail::drawing::color_type, detail::drawing::drawing_details_type
-                >
-            >,
+            boost::mpl::pair<type::drawing::solid_background, detail::drawing::solid_background_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::drawing::transparent_background, detail::drawing::transparent_background_type>,
         tetengo2::meta::assoc_list<boost::mpl::pair<type::drawing::font, detail::drawing::font_type>,
@@ -320,28 +331,14 @@ namespace test_tetengo2 { namespace gui
             boost::mpl::pair<
                 type::drawing::canvas,
                 tetengo2::gui::drawing::canvas<
-                    boost::mpl::at<type_list, type::size>::type,
-                    boost::mpl::at<type_list, type::string>::type,
-                    boost::mpl::at<type_list, type::dimension>::type,
-                    boost::mpl::at<type_list, type::ui_encoder>::type,
-                    detail::drawing::background_type,
-                    detail::drawing::font_type,
-                    detail::drawing::picture_type,
-                    detail::drawing::drawing_details_type
+                    detail::drawing::canvas_traits_type, detail::drawing::drawing_details_type
                 >
             >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::drawing::widget_canvas,
                 tetengo2::gui::drawing::widget_canvas<
-                    boost::mpl::at<type_list, type::size>::type,
-                    boost::mpl::at<type_list, type::string>::type,
-                    boost::mpl::at<type_list, type::dimension>::type,
-                    boost::mpl::at<type_list, type::ui_encoder>::type,
-                    detail::drawing::background_type,
-                    detail::drawing::font_type,
-                    detail::drawing::picture_type,
-                    detail::drawing::drawing_details_type
+                    detail::drawing::canvas_traits_type, detail::drawing::drawing_details_type
                 >
             >,
         tetengo2::meta::assoc_list_end
@@ -384,7 +381,10 @@ namespace test_tetengo2 { namespace gui
                 >
             >,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::observer_set::mouse_observer_set, tetengo2::gui::message::mouse_observer_set>,
+            boost::mpl::pair<
+                type::observer_set::mouse_observer_set,
+                tetengo2::gui::message::mouse_observer_set<boost::mpl::at<type_list, type::difference>::type>
+            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::observer_set::menu_observer_set, tetengo2::gui::message::menu_observer_set>,
         tetengo2::meta::assoc_list<

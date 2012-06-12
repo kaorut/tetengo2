@@ -204,7 +204,7 @@ namespace tetengo2 { namespace text
         {
             attribute_map_type attribute_map;
 
-            BOOST_FOREACH(const typename grammar_type::structure_attribute_type& sa, structure_attributes)
+            BOOST_FOREACH (const typename grammar_type::structure_attribute_type& sa, structure_attributes)
             {
                 attribute_map.insert(to_attribute(sa));
             }
