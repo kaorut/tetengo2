@@ -92,18 +92,18 @@ namespace bobura { namespace load_save
         const
         {
             if (!m_model.changed())
-                return false;
+                return true;
 
             const typename message_box_type::button_id_type selected_button = create_message_box(parent)->do_modal();
             if (selected_button == message_box_type::button_cancel)
-                return true;
+                return false;
             if (selected_button == message_box_type::button_yes)
             {
                 if (!m_save_to_file(m_model, parent))
-                    return true;
+                    return false;
             }
 
-            return false;
+            return true;
         }
 
 

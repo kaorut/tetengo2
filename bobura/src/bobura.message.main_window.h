@@ -287,7 +287,7 @@ namespace bobura { namespace message { namespace main_window
         void operator()(bool& cancel)
         const
         {
-            cancel = m_confirm_file_save(m_window);
+            cancel = !m_confirm_file_save(m_window);
         }
 
 

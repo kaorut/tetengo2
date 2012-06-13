@@ -101,7 +101,7 @@ namespace bobura { namespace load_save
         void operator()(model_type& model, abstract_window_type& parent)
         const
         {
-            if (m_confirm_file_save(parent))
+            if (!m_confirm_file_save(parent))
                 return;
 
             file_open_dialog_type dialog(
