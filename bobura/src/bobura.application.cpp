@@ -205,6 +205,14 @@ namespace bobura
                 );
                 append_menu_command(
                     *p_popup_menu,
+                    message_catalog.get(TETENGO2_TEXT("Menu:File:&Reload")),
+                    command_set.nop(),
+                    model,
+                    main_window,
+                    shortcut_key_type(virtual_key_type::f5(), false, false, false)
+                );
+                append_menu_command(
+                    *p_popup_menu,
                     message_catalog.get(TETENGO2_TEXT("Menu:File:&Save")),
                     command_set.save_to_file(),
                     model,
@@ -221,7 +229,7 @@ namespace bobura
                 append_menu_separator(*p_popup_menu);
                 append_menu_command(
                     *p_popup_menu,
-                    message_catalog.get(TETENGO2_TEXT("Menu:File:P&roperty...")),
+                    message_catalog.get(TETENGO2_TEXT("Menu:File:Proper&ty...")),
                     command_set.file_property(),
                     model,
                     main_window
