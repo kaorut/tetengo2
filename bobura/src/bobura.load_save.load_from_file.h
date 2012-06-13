@@ -80,11 +80,17 @@ namespace bobura { namespace load_save
         /*!
             \brief Creates a file loading.
 
+            \param ask_file_path     Set true to show a file selection dialog.
             \param confirm_file_save A file save confirmation.
             \param message_catalog   A message catalog.
         */
-        load_from_file(const confirm_file_save_type& confirm_file_save, const message_catalog_type& message_catalog)
+        load_from_file(
+            const bool                    ask_file_path,
+            const confirm_file_save_type& confirm_file_save,
+            const message_catalog_type&   message_catalog
+        )
         :
+        m_ask_file_path(ask_file_path),
         m_confirm_file_save(confirm_file_save),
         m_message_catalog(message_catalog)
         {}
@@ -101,16 +107,31 @@ namespace bobura { namespace load_save
         void operator()(model_type& model, abstract_window_type& parent)
         const
         {
+            if (!m_ask_file_path && !model.has_path())
+                return;
+
             if (!m_confirm_file_save(parent))
                 return;
 
-            file_open_dialog_type dialog(
-                m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Open")), make_file_filters(), parent
-            );
-            dialog.do_modal();
+            path_type path;
+            if (m_ask_file_path)
+            {
+                file_open_dialog_type dialog(
+                    m_message_catalog.get(TETENGO2_TEXT("Dialog:FileOpenSave:Open")), make_file_filters(), parent
+                );
+                dialog.do_modal();
 
-            const path_type path = dialog.result();
-            if (path.empty()) return;
+                path = dialog.result();
+                if (path.empty())
+                    return;
+            }
+            else
+            {
+                if (!model.changed())
+                    return;
+
+                path = model.path();
+            }
 
             boost::filesystem::ifstream input_stream(path, std::ios_base::binary);
             if (!input_stream)
@@ -146,6 +167,8 @@ namespace bobura { namespace load_save
 
 
         // variables
+
+        const bool m_ask_file_path;
 
         const confirm_file_save_type& m_confirm_file_save;
 

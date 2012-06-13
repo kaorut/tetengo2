@@ -65,12 +65,13 @@ BOOST_AUTO_TEST_SUITE(set)
         const save_to_file_type ask_file_path_and_save_to_file(true, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         const new_file_type new_file(confirm_file_save);
-        const load_from_file_type load_from_file(confirm_file_save, message_catalog);
+        const load_from_file_type reload(false, confirm_file_save, message_catalog);
+        const load_from_file_type load_from_file(true, confirm_file_save, message_catalog);
         std::vector<string_type> arguments;
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         const command_set_type command_set(
-            new_file, load_from_file, save_to_file, ask_file_path_and_save_to_file, settings, message_catalog
+            new_file, load_from_file, reload, save_to_file, ask_file_path_and_save_to_file, settings, message_catalog
         );
     }
 
@@ -84,12 +85,13 @@ BOOST_AUTO_TEST_SUITE(set)
         const save_to_file_type ask_file_path_and_save_to_file(true, message_catalog);
         const confirm_file_save_type confirm_file_save(model, save_to_file, message_catalog);
         const new_file_type new_file(confirm_file_save);
-        const load_from_file_type load_from_file(confirm_file_save, message_catalog);
+        const load_from_file_type reload(false, confirm_file_save, message_catalog);
+        const load_from_file_type load_from_file(true, confirm_file_save, message_catalog);
         std::vector<string_type> arguments;
         path_type path;
         const settings_type settings(std::move(arguments), std::move(path));
         const command_set_type command_set(
-            new_file, load_from_file, save_to_file, ask_file_path_and_save_to_file, settings, message_catalog
+            new_file, load_from_file, reload, save_to_file, ask_file_path_and_save_to_file, settings, message_catalog
         );
 
         command_set.about();
@@ -98,6 +100,7 @@ BOOST_AUTO_TEST_SUITE(set)
         command_set.load_from_file();
         command_set.new_file();
         command_set.nop();
+        command_set.reload();
         command_set.save_to_file();
     }
 

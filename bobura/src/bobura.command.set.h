@@ -70,6 +70,7 @@ namespace bobura { namespace command
 
             \param new_file                   A file initialization.
             \param load_from_file             A file loading.
+            \param load_from_file             A file reloading.
             \param save_to_file               A file saving.
             \param ask_file_path_save_to_file A file saving after file path query.
             \param settings                   Settings.
@@ -78,6 +79,7 @@ namespace bobura { namespace command
         set(
             const new_file_type&          new_file,
             const load_from_file_type&    load_from_file,
+            const load_from_file_type&    reload,
             const save_to_file_type&      save_to_file,
             const save_to_file_type&      ask_file_path_save_to_file,
             const settings_type&          settings,
@@ -90,6 +92,7 @@ namespace bobura { namespace command
         m_load_from_file(make_load_from_file(load_from_file)),
         m_new_file(make_new_file(new_file)),
         m_nop(make_nop()),
+        m_reload(make_load_from_file(reload)),
         m_save_to_file(make_save_to_file(save_to_file)),
         m_ask_file_path_and_save_to_file(make_save_to_file(ask_file_path_save_to_file))
         {}
@@ -161,6 +164,17 @@ namespace bobura { namespace command
         const
         {
             return m_nop;
+        }
+
+        /*!
+            \brief Returns the command reload.
+
+            \return The command.
+        */
+        const command_type& reload()
+        const
+        {
+            return m_reload;
         }
 
         /*!
@@ -239,6 +253,8 @@ namespace bobura { namespace command
         const command_type m_new_file;
 
         const command_type m_nop;
+
+        const command_type m_reload;
 
         const command_type m_save_to_file;
 

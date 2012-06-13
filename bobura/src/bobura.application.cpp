@@ -132,10 +132,12 @@ namespace bobura
             m_ask_file_path_and_save_to_file(true, message_catalog),
             m_confirm_file_save(model, m_save_to_file, message_catalog),
             m_new_file(m_confirm_file_save),
-            m_load_from_file(m_confirm_file_save, message_catalog),
+            m_reload(false, m_confirm_file_save, message_catalog),
+            m_load_from_file(true, m_confirm_file_save, message_catalog),
             m_command_set(
                 m_new_file,
                 m_load_from_file,
+                m_reload,
                 m_save_to_file,
                 m_ask_file_path_and_save_to_file,
                 settings,
@@ -163,6 +165,8 @@ namespace bobura
             const confirm_file_save_type m_confirm_file_save;
 
             const new_file_type m_new_file;
+
+            const load_from_file_type m_reload;
 
             const load_from_file_type m_load_from_file;
 
@@ -206,7 +210,7 @@ namespace bobura
                 append_menu_command(
                     *p_popup_menu,
                     message_catalog.get(TETENGO2_TEXT("Menu:File:&Reload")),
-                    command_set.nop(),
+                    command_set.reload(),
                     model,
                     main_window,
                     shortcut_key_type(virtual_key_type::f5(), false, false, false)
