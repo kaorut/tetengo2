@@ -113,6 +113,27 @@ namespace tetengo2 { namespace gui { namespace menu
         }
         
         /*!
+            \brief Returns the enabled status.
+
+            \return The enabled status.
+        */
+        bool enabled()
+        const
+        {
+            return menu_details_type::enabled(*this);
+        }
+
+        /*!
+            \brief Sets an enabled status.
+
+            \param enabled An enabled status.
+        */
+        void set_enabled(const bool enabled)
+        {
+            menu_details_type::set_enabled(*this, enabled);
+        }
+
+        /*!
             \brief Checks whether the menu has a shortucut key.
 
             \retval true  When the menu has a shortcut key.

@@ -106,6 +106,35 @@ BOOST_AUTO_TEST_SUITE(menu_base)
         BOOST_CHECK(&menu.style() == &menu_details_type::menu_command_style());
     }
 
+    BOOST_AUTO_TEST_CASE(enabled)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
+
+        BOOST_CHECK(menu.enabled());
+    }
+
+    BOOST_AUTO_TEST_CASE(set_enabled)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
+
+            menu.set_enabled(true);
+
+            BOOST_CHECK(menu.enabled());
+        }
+        {
+            concrete_menu menu(string_type(TETENGO2_TEXT("Tetengo")));
+
+            menu.set_enabled(false);
+
+            BOOST_CHECK(!menu.enabled());
+        }
+    }
+
     BOOST_AUTO_TEST_CASE(has_shortcut_key)
     {
         BOOST_TEST_PASSPOINT();
