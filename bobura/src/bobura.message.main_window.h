@@ -11,6 +11,7 @@
 
 #include <cassert>
 //#include <utility>
+#include <vector>
 
 #include <boost/rational.hpp>
 
@@ -20,6 +21,63 @@
 
 namespace bobura { namespace message { namespace main_window
 {
+    /*!
+        \brief The class template for a popup menu selection observer of the main window.
+
+        \tparam PopupMenu A popup menu type.
+        \tparam Command   A command type.
+    */
+    template <typename PopupMenu, typename Command>
+    class popup_menu_selected
+    {
+    public:
+        // types
+
+        //! The popup menu type.
+        typedef PopupMenu popup_menu_type;
+
+        //! The command type.
+        typedef Command command_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a popup menu selection observer of the main window.
+
+            \param popup_menu A popup menu type.
+            \param commands   Commands.
+        */
+        popup_menu_selected(popup_menu_type& popup_menu, std::vector<const command_type*>&& commands)
+        :
+        m_popup_menu(popup_menu),
+        m_commands(commands)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when the menu is selected.
+        */
+        void operator()()
+        const
+        {
+
+        }
+
+
+    private:
+        // variables
+
+        popup_menu_type& m_popup_menu;
+
+        std::vector<const command_type*> m_commands;
+
+
+    };
+
+
     /*!
         \brief The class template for a menu command selection observer of the main window.
 

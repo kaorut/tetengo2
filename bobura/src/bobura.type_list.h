@@ -1012,6 +1012,7 @@ namespace bobura
     {
         typedef
             message::main_window::type_list<
+                boost::mpl::at<ui_type_list, type::ui::popup_menu>::type,
                 boost::mpl::at<command_type_list_type_list, type::command_type_list::command>::type,
                 boost::mpl::at<model_type_list, type::model::model>::type,
                 boost::mpl::at<view_type_list, type::view::view>::type,
