@@ -120,7 +120,7 @@ namespace tetengo2 { namespace gui { namespace menu
         bool enabled()
         const
         {
-            return menu_details_type::enabled(*this);
+            return m_enabled;
         }
 
         /*!
@@ -131,6 +131,7 @@ namespace tetengo2 { namespace gui { namespace menu
         void set_enabled(const bool enabled)
         {
             menu_details_type::set_enabled(*this, enabled);
+            m_enabled = enabled;
         }
 
         /*!
@@ -338,10 +339,13 @@ namespace tetengo2 { namespace gui { namespace menu
         menu_base(S&& text, details_ptr_type p_details)
         :
         m_text(std::forward<S>(text)),
+        m_enabled(true),
         m_shortcut_key(),
         m_menu_observer_set(),
         m_p_details(std::move(p_details))
-        {}
+        {
+            set_enabled(true);
+        }
 
         /*!
             \brief Creates a menu base without a shortcut key.
@@ -357,10 +361,13 @@ namespace tetengo2 { namespace gui { namespace menu
         menu_base(S&& text, SK&& shortcut_key, details_ptr_type p_details)
         :
         m_text(std::forward<S>(text)),
+        m_enabled(true),
         m_shortcut_key(std::forward<SK>(shortcut_key)),
         m_menu_observer_set(),
         m_p_details(std::move(p_details))
-        {}
+        {
+            set_enabled(true);
+        }
 
 
     private:
@@ -377,6 +384,8 @@ namespace tetengo2 { namespace gui { namespace menu
         // variables
 
         const string_type m_text;
+
+        bool m_enabled;
 
         const boost::optional<shortcut_key_type> m_shortcut_key;
 

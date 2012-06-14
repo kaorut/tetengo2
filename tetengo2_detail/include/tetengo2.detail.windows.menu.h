@@ -171,21 +171,6 @@ namespace tetengo2 { namespace detail { namespace windows
         }
         
         /*!
-            \brief Returns the enabled status.
-
-            \tparam MenuBase A menu base type.
-
-            \param menu A menu.
-
-            \return The enabled status.
-        */
-        template <typename MenuBase>
-        static bool enabled(const MenuBase& menu)
-        {
-            return true;
-        }
-
-        /*!
             \brief Sets an enabled status.
 
             \tparam MenuBase A menu base type.

@@ -11,7 +11,6 @@
 
 #include <memory>
 #include <system_error>
-#include <tuple>
 
 #include <boost/noncopyable.hpp>
 
@@ -29,7 +28,7 @@ namespace tetengo2 { namespace detail { namespace stub
         // types
 
         //! The menu details type.
-        typedef std::tuple<bool> menu_details_type;
+        struct menu_details_type {};
 
         //! The menu details pointer type.
         typedef std::unique_ptr<menu_details_type> menu_details_ptr_type;
@@ -55,7 +54,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static menu_details_ptr_type create_menu_bar()
         {
-            return tetengo2::make_unique<menu_details_type>(true);
+            return tetengo2::make_unique<menu_details_type>();
         }
 
         /*!
@@ -67,7 +66,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static menu_details_ptr_type create_popup_menu()
         {
-            return tetengo2::make_unique<menu_details_type>(true);
+            return tetengo2::make_unique<menu_details_type>();
         }
 
         /*!
@@ -77,22 +76,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         static menu_details_ptr_type create_menu()
         {
-            return tetengo2::make_unique<menu_details_type>(true);
-        }
-
-        /*!
-            \brief Returns the enabled status.
-
-            \tparam MenuBase A menu base type.
-
-            \param menu A menu.
-
-            \return The enabled status.
-        */
-        template <typename MenuBase>
-        static bool enabled(const MenuBase& menu)
-        {
-            return std::get<0>(*menu.details());
+            return tetengo2::make_unique<menu_details_type>();
         }
 
         /*!
@@ -105,9 +89,7 @@ namespace tetengo2 { namespace detail { namespace stub
         */
         template <typename MenuBase>
         static void set_enabled(MenuBase& menu, const bool enabled)
-        {
-            std::get<0>(*menu.details()) = enabled;
-        }
+        {}
 
         /*!
             \brief Creates an empty shortcut key table.
