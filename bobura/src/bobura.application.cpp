@@ -304,7 +304,6 @@ namespace bobura
                 )
             );
 
-            p_menu_command->set_enabled(false);
             p_menu_command->menu_observer_set().selected().connect(
                 boost::mpl::at<main_window_message_type_list_type, message::main_window::type::menu_selected>::type(
                     command, model, main_window

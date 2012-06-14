@@ -1162,7 +1162,7 @@ namespace tetengo2 { namespace detail { namespace windows
         static void set_menu_bar(Widget& widget, const boost::optional<const MenuBase&>& menu = boost::none)
         {
             const ::BOOL result =
-                ::SetMenu(std::get<0>(*widget.details()).get(), menu ? &*menu->details()->second : NULL);
+                ::SetMenu(std::get<0>(*widget.details()).get(), menu ? &*std::get<1>(*menu->details()) : NULL);
             if (result == 0)
             {
                 BOOST_THROW_EXCEPTION(

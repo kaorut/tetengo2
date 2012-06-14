@@ -433,14 +433,14 @@ namespace tetengo2 { namespace detail { namespace windows
             template <typename MenuBase>
             bool same_menu(const MenuBase& menu1, const ::UINT menu2_id)
             {
-                return menu1.details()->first == menu2_id;
+                return std::get<0>(*menu1.details()) == menu2_id;
             }
 
             template <typename MenuBase>
             bool same_popup_menu(const MenuBase& menu1, const ::HMENU menu2_handle)
             {
                 if (!menu1.details() || !menu2_handle) return false;
-                return &*menu1.details()->second == menu2_handle;
+                return &*std::get<1>(*menu1.details()) == menu2_handle;
             }
 
             template <typename AbstractWindow>
