@@ -39,8 +39,8 @@ namespace
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef
-        bobura::message::main_window::menu_selected<nop_command_type, model_type, abstract_window_type>
-        menu_selected_type;
+        bobura::message::main_window::menu_command_selected<nop_command_type, model_type, abstract_window_type>
+        menu_command_selected_type;
 
 
 }
@@ -52,7 +52,7 @@ namespace
 BOOST_AUTO_TEST_SUITE(test_bobura)
 BOOST_AUTO_TEST_SUITE(message)
 BOOST_AUTO_TEST_SUITE(main_window)
-BOOST_AUTO_TEST_SUITE(menu_selected)
+BOOST_AUTO_TEST_SUITE(menu_command_selected)
     // test cases
 
     BOOST_AUTO_TEST_CASE(construction)
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_SUITE(menu_selected)
         const nop_command_type command = nop_command_type();
         model_type model;
         window_type window;
-        const menu_selected_type menu(command, model, window);
+        const menu_command_selected_type menu(command, model, window);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_SUITE(menu_selected)
         const nop_command_type command = nop_command_type();
         model_type model;
         window_type window;
-        const menu_selected_type menu(command, model, window);
+        const menu_command_selected_type menu(command, model, window);
 
         menu();
     }

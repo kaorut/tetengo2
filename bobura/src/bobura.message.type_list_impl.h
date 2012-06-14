@@ -80,7 +80,9 @@ namespace bobura { namespace message
             //! The type list for the main window.
             typedef
                 tetengo2::meta::assoc_list<
-                    boost::mpl::pair<type::menu_selected, menu_selected<Command, Model, AbstractWindow>>,
+                    boost::mpl::pair<
+                        type::menu_command_selected, menu_command_selected<Command, Model, AbstractWindow>
+                    >,
                 tetengo2::meta::assoc_list<
                     boost::mpl::pair<type::window_resized, window_resized<View, AbstractWindow, Control>>,
                 tetengo2::meta::assoc_list<

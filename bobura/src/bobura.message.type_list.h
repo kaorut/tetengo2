@@ -29,8 +29,8 @@ namespace bobura { namespace message
     {
         namespace type
         {
-            //! The menu selection observer type.
-            struct menu_selected;
+            //! The menu command selection observer type.
+            struct menu_command_selected;
 
             //! The window resized observer type.
             struct window_resized;
