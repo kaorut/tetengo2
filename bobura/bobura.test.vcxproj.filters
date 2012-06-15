@@ -104,5 +104,8 @@
     <ClCompile Include="test\test_bobura.diagram_view.cpp">
       <Filter>sources\test_bobura</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.command.command_base.cpp">
+      <Filter>sources\test_bobura\command</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

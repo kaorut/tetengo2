@@ -10,6 +10,7 @@ sources = \
     master.cpp \
     test_bobura.about_dialog.cpp \
     test_bobura.command.about.cpp \
+    test_bobura.command.command_base.cpp \
     test_bobura.command.exit.cpp \
     test_bobura.command.file_property.cpp \
     test_bobura.command.load_from_file.cpp \

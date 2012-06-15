@@ -135,6 +135,9 @@
     <ClInclude Include="src\bobura.diagram_view.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.command_base.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
