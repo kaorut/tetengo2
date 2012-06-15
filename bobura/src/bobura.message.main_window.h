@@ -13,6 +13,7 @@
 //#include <utility>
 #include <vector>
 
+#include <boost/foreach.hpp>
 #include <boost/rational.hpp>
 
 #include <tetengo2.gui.measure.h>
@@ -52,7 +53,11 @@ namespace bobura { namespace message { namespace main_window
         :
         m_popup_menu(popup_menu),
         m_commands(commands)
-        {}
+        {
+            assert(
+                static_cast<std::size_t>(std::distance(m_popup_menu.begin(), m_popup_menu.end())) == m_commands.size()
+            );
+        }
 
 
         // functions
@@ -63,11 +68,27 @@ namespace bobura { namespace message { namespace main_window
         void operator()()
         const
         {
+            std::size_t i = 0;
+            BOOST_FOREACH (const menu_base_type& menu_item, std::make_pair(m_popup_menu.begin(), m_popup_menu.end()))
+            {
+                assert(i < m_commands.size());
+                const command_type* const p_command = m_commands[i];
+                if (!p_command)
+                    continue;
 
+                menu_item;
+
+                ++i;
+            }
         }
 
 
     private:
+        // types
+
+        typedef typename popup_menu_type::base_type::base_type menu_base_type;
+
+
         // variables
 
         popup_menu_type& m_popup_menu;

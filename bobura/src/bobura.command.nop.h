@@ -34,6 +34,18 @@ namespace bobura { namespace command
         // functions
 
         /*!
+            \brief Returns the enabled status.
+
+            \retval true  When the command is enabled.
+            \retval false Otherwise.
+        */
+        bool enabled()
+        const
+        {
+            return true;
+        }
+
+        /*!
             \brief Executes the command.
 
             \param model  A model.

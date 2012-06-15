@@ -44,6 +44,18 @@ namespace bobura { namespace command
         // constructors and destructor
 
         /*!
+            \brief Returns the enabled status.
+
+            \retval true  When the command is enabled.
+            \retval false Otherwise.
+        */
+        bool enabled()
+        const
+        {
+            return true;
+        }
+
+        /*!
             \brief Creates an about command.
 
             \param message_catalog A message catalog.
