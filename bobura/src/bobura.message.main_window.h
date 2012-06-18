@@ -29,8 +29,9 @@ namespace bobura { namespace message { namespace main_window
 
         \tparam PopupMenu A popup menu type.
         \tparam Command   A command type.
+        \tparam Model     A model type.
     */
-    template <typename PopupMenu, typename Command>
+    template <typename PopupMenu, typename Command, typename Model>
     class popup_menu_selected
     {
     public:
@@ -42,6 +43,9 @@ namespace bobura { namespace message { namespace main_window
         //! The command type.
         typedef Command command_type;
 
+        //! The model type.
+        typedef Model model_type;
+
 
         // constructors and destructor
 
@@ -50,11 +54,17 @@ namespace bobura { namespace message { namespace main_window
 
             \param popup_menu A popup menu type.
             \param commands   Commands.
+            \param model      A model.
         */
-        popup_menu_selected(popup_menu_type& popup_menu, std::vector<const command_type*>&& commands)
+        popup_menu_selected(
+            popup_menu_type&                   popup_menu,
+            std::vector<const command_type*>&& commands,
+            const model_type&                  model
+        )
         :
         m_popup_menu(popup_menu),
-        m_commands(commands)
+        m_commands(commands),
+        m_model(model)
         {
             assert(
                 static_cast<std::size_t>(std::distance(m_popup_menu.begin(), m_popup_menu.end())) == m_commands.size()
@@ -78,7 +88,7 @@ namespace bobura { namespace message { namespace main_window
                 if (!p_command)
                     continue;
 
-                menu_item.set_enabled(p_command->enabled());
+                menu_item.set_enabled(p_command->enabled(m_model));
 
                 ++i;
             }
@@ -96,6 +106,8 @@ namespace bobura { namespace message { namespace main_window
         popup_menu_type& m_popup_menu;
 
         std::vector<const command_type*> m_commands;
+
+        const model_type& m_model;
 
 
     };

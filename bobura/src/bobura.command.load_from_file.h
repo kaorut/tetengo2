@@ -61,10 +61,10 @@ namespace bobura { namespace command
 
         // virtual functions
 
-        virtual bool enabled_impl()
+        virtual bool enabled_impl(const model_type& model)
         const
         {
-            return true;
+            return m_load_from_file.reloadable(model);
         }
 
         /*!

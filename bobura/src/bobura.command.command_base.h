@@ -36,13 +36,15 @@ namespace bobura { namespace command
         /*!
             \brief Returns the enabled status.
 
+            \param model A model.
+
             \retval true  When the command is enabled.
             \retval false Otherwise.
         */
-        bool enabled()
+        bool enabled(const model_type& model)
         const
         {
-            return enabled_impl();
+            return enabled_impl(model);
         }
 
         /*!
@@ -61,7 +63,7 @@ namespace bobura { namespace command
     private:
         // virtual functions
 
-        virtual bool enabled_impl()
+        virtual bool enabled_impl(const model_type& model)
         const = 0;
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)

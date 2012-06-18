@@ -99,6 +99,20 @@ namespace bobura { namespace load_save
         // functions
 
         /*!
+            \brief Return whether the model is reloadable.
+
+            \param model A model.
+
+            \retval true  When the model is reloadable.
+            \retval false Otherwise.
+        */
+        bool reloadable(const model_type& model)
+        const
+        {
+            return m_ask_file_path || model.has_path();
+        }
+
+        /*!
             \brief Executes the load_save.
 
             \param model  A model.
