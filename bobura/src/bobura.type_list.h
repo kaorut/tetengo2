@@ -93,6 +93,7 @@
 #include <tetengo2.text.push_parser.h>
 
 #include "bobura.about_dialog.h"
+#include "bobura.command.command_base.h"
 #include "bobura.command.set.h"
 #include "bobura.command.type_list_impl.h"
 #include "bobura.detail_type_list.h"
@@ -971,7 +972,7 @@ namespace bobura
     {
         typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
         typedef boost::mpl::at<ui_type_list, type::ui::abstract_window>::type abstract_window_type;
-        typedef std::function<void (model_type& model, abstract_window_type& parent)> command_type;
+        typedef bobura::command::command_base<model_type, abstract_window_type> command_type;
     }}
 #endif
 

@@ -9,6 +9,8 @@
 #if !defined(BOBURA_COMMAND_FILEPROPERTY_H)
 #define BOBURA_COMMAND_FILEPROPERTY_H
 
+#include "bobura.command.command_base.h"
+
 
 namespace bobura { namespace command
 {
@@ -20,7 +22,7 @@ namespace bobura { namespace command
         \tparam FilePropertyDialog A file property dialog type.
     */
     template <typename Model, typename AbstractWindow, typename FilePropertyDialog>
-    class file_property
+    class file_property : public command_base<Model, AbstractWindow>
     {
     public:
         // types
@@ -34,11 +36,14 @@ namespace bobura { namespace command
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
+        //! The base type.
+        typedef command_base<model_type, abstract_window_type> base_type;
+
         //! The file property dialog type.
         typedef FilePropertyDialog file_property_dialog_type;
 
         //! The base type.
-        typedef typename file_property_dialog_type::base_type base_type;
+        typedef typename file_property_dialog_type::base_type dialog_base_type;
 
         //! The string type.
         typedef typename file_property_dialog_type::string_type string_type;
@@ -60,27 +65,21 @@ namespace bobura { namespace command
         {}
 
 
-        // functions
+    private:
+        // variables
 
-        /*!
-            \brief Returns the enabled status.
+        const message_catalog_type& m_message_catalog;
 
-            \retval true  When the command is enabled.
-            \retval false Otherwise.
-        */
-        bool enabled()
+
+        // virtual functions
+
+        virtual bool enabled_impl()
         const
         {
             return true;
         }
 
-        /*!
-            \brief Executes the command.
-
-            \param model  A model.
-            \param parent A parent window.
-        */
-        void operator()(model_type& model, abstract_window_type& parent)
+        virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const
         {
             file_property_dialog_type dialog(parent, m_message_catalog);
@@ -90,17 +89,11 @@ namespace bobura { namespace command
                 dialog.set_file_name(model.path().template string<string_type>());
 
             dialog.do_modal();
-            if (dialog.result() != base_type::result_accepted)
+            if (dialog.result() != dialog_base_type::result_accepted)
                 return;
 
             model.timetable().set_title(dialog.line_name());
         }
-
-
-    private:
-        // variables
-
-        const message_catalog_type& m_message_catalog;
 
 
     };

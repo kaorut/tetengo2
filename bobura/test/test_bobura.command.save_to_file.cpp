@@ -55,22 +55,6 @@ BOOST_AUTO_TEST_SUITE(save_to_file_command)
         const save_to_file_command_type save_to_file_command(save_to_file);
     }
 
-    BOOST_AUTO_TEST_CASE(operator_paren)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const message_catalog_type message_catalog;
-        const save_to_file_type save_to_file(false, message_catalog);
-        const save_to_file_command_type save_to_file_command(save_to_file);
-
-        model_type model;
-        window_type parent;
-        save_to_file_command(model, parent);
-
-        BOOST_CHECK(boost::filesystem::exists(model.path()));
-        boost::filesystem::remove(model.path());
-}
-
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

@@ -305,9 +305,9 @@ namespace bobura
             );
 
             p_menu_command->menu_observer_set().selected().connect(
-                boost::mpl::at<main_window_message_type_list_type, message::main_window::type::menu_command_selected>::type(
-                    command, model, main_window
-                )
+                boost::mpl::at<
+                    main_window_message_type_list_type, message::main_window::type::menu_command_selected
+                >::type(command, model, main_window)
             );
 
             popup_menu.insert(popup_menu.end(), std::move(p_menu_command));
@@ -331,9 +331,9 @@ namespace bobura
             );
 
             p_menu_command->menu_observer_set().selected().connect(
-                boost::mpl::at<main_window_message_type_list_type, message::main_window::type::menu_command_selected>::type(
-                    command, model, main_window
-                )
+                boost::mpl::at<
+                    main_window_message_type_list_type, message::main_window::type::menu_command_selected
+                >::type(command, model, main_window)
             );
 
             popup_menu.insert(popup_menu.end(), std::move(p_menu_command));

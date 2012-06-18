@@ -9,6 +9,8 @@
 #if !defined(BOBURA_COMMAND_LOADFROMFILE_H)
 #define BOBURA_COMMAND_LOADFROMFILE_H
 
+#include "bobura.command.command_base.h"
+
 
 namespace bobura { namespace command
 {
@@ -20,7 +22,7 @@ namespace bobura { namespace command
         \tparam LoadFromFile    A file loading type.
     */
     template <typename Model, typename AbstractWindow, typename LoadFromFile>
-    class load_from_file
+    class load_from_file : public command_base<Model, AbstractWindow>
     {
     public:
         // types
@@ -30,6 +32,9 @@ namespace bobura { namespace command
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
+
+        //! The base type.
+        typedef command_base<model_type, abstract_window_type> base_type;
 
         //! The file loading type.
         typedef LoadFromFile load_from_file_type;
@@ -48,15 +53,15 @@ namespace bobura { namespace command
         {}
 
 
-        // functions
+    private:
+        // variables
 
-        /*!
-            \brief Returns the enabled status.
+        const load_from_file_type& m_load_from_file;
 
-            \retval true  When the command is enabled.
-            \retval false Otherwise.
-        */
-        bool enabled()
+
+        // virtual functions
+
+        virtual bool enabled_impl()
         const
         {
             return true;
@@ -68,17 +73,11 @@ namespace bobura { namespace command
             \param model  A model.
             \param parent A parent window.
         */
-        void operator()(model_type& model, abstract_window_type& parent)
+        virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const
         {
             m_load_from_file(model, parent);
         }
-
-
-    private:
-        // variables
-
-        const load_from_file_type& m_load_from_file;
 
 
     };

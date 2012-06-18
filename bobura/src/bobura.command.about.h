@@ -9,6 +9,8 @@
 #if !defined(BOBURA_COMMAND_ABOUT_H)
 #define BOBURA_COMMAND_ABOUT_H
 
+#include "bobura.command.command_base.h"
+
 
 namespace bobura { namespace command
 {
@@ -20,7 +22,7 @@ namespace bobura { namespace command
         \tparam AboutDialog    An about dialog type.
     */
     template <typename Model, typename AbstractWindow, typename AboutDialog>
-    class about
+    class about : public command_base<Model, AbstractWindow>
     {
     public:
         // types
@@ -30,6 +32,9 @@ namespace bobura { namespace command
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
+
+        //! The base type.
+        typedef command_base<model_type, abstract_window_type> base_type;
 
         //! The about dialog type.
         typedef AboutDialog about_dialog_type;
@@ -44,18 +49,6 @@ namespace bobura { namespace command
         // constructors and destructor
 
         /*!
-            \brief Returns the enabled status.
-
-            \retval true  When the command is enabled.
-            \retval false Otherwise.
-        */
-        bool enabled()
-        const
-        {
-            return true;
-        }
-
-        /*!
             \brief Creates an about command.
 
             \param message_catalog A message catalog.
@@ -68,27 +61,27 @@ namespace bobura { namespace command
         {}
 
 
-        // functions
-
-        /*!
-            \brief Executes the command.
-
-            \param model  A model.
-            \param parent A parent window.
-        */
-        void operator()(model_type& model, abstract_window_type& parent)
-        const
-        {
-            about_dialog_type(parent, m_message_catalog, m_settings).do_modal();
-        }
-
-
     private:
         // variables
 
         const message_catalog_type& m_message_catalog;
 
         const settings_type& m_settings;
+
+
+        // virtual functions
+
+        virtual bool enabled_impl()
+        const
+        {
+            return true;
+        }
+
+        virtual void execute_impl(model_type& model, abstract_window_type& parent)
+        const
+        {
+            about_dialog_type(parent, m_message_catalog, m_settings).do_modal();
+        }
 
 
     };

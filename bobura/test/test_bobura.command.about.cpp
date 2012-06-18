@@ -62,21 +62,6 @@ BOOST_AUTO_TEST_SUITE(about)
         const about_type about(message_catalog, settings);
     }
 
-    BOOST_AUTO_TEST_CASE(operator_paren)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const message_catalog_type message_catalog;
-        std::vector<string_type> arguments;
-        path_type path;
-        const settings_type settings(std::move(arguments), std::move(path));
-        const about_type about(message_catalog, settings);
-
-        model_type model;
-        window_type parent;
-        about(model, parent);
-    }
-
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

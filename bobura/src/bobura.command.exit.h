@@ -9,6 +9,8 @@
 #if !defined(BOBURA_COMMAND_EXIT_H)
 #define BOBURA_COMMAND_EXIT_H
 
+#include "bobura.command.command_base.h"
+
 
 namespace bobura { namespace command
 {
@@ -19,7 +21,7 @@ namespace bobura { namespace command
         \tparam AbstractWindow An abstract window type.
     */
     template <typename Model, typename AbstractWindow>
-    class exit
+    class exit : public command_base<Model, AbstractWindow>
     {
     public:
         // types
@@ -30,28 +32,20 @@ namespace bobura { namespace command
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
+        //! The base type.
+        typedef command_base<model_type, abstract_window_type> base_type;
 
-        // functions
 
-        /*!
-            \brief Returns the enabled status.
+    private:
+        // virtual functions
 
-            \retval true  When the command is enabled.
-            \retval false Otherwise.
-        */
-        bool enabled()
+        virtual bool enabled_impl()
         const
         {
             return true;
         }
 
-        /*!
-            \brief Executes the command.
-
-            \param model  A model.
-            \param parent A parent window.
-        */
-        void operator()(model_type& model, abstract_window_type& parent)
+        virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const
         {
             parent.close();

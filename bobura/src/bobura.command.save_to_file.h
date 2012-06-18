@@ -9,6 +9,8 @@
 #if !defined(BOBURA_COMMAND_SAVETOFILE_H)
 #define BOBURA_COMMAND_SAVETOFILE_H
 
+#include "bobura.command.command_base.h"
+
 
 namespace bobura { namespace command
 {
@@ -20,7 +22,7 @@ namespace bobura { namespace command
         \tparam SaveToFile     A file saving type.
     */
     template <typename Model, typename AbstractWindow, typename SaveToFile>
-    class save_to_file
+    class save_to_file : public command_base<Model, AbstractWindow>
     {
     public:
         // types
@@ -30,6 +32,9 @@ namespace bobura { namespace command
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
+
+        //! The base type.
+        typedef command_base<model_type, abstract_window_type> base_type;
 
         //! The file saving type.
         typedef SaveToFile save_to_file_type;
@@ -48,37 +53,25 @@ namespace bobura { namespace command
         {}
 
 
-        // functions
+    private:
+        // variables
 
-        /*!
-            \brief Returns the enabled status.
+        const save_to_file_type& m_save_to_file;
 
-            \retval true  When the command is enabled.
-            \retval false Otherwise.
-        */
-        bool enabled()
+
+        // virtual functions
+
+        virtual bool enabled_impl()
         const
         {
             return true;
         }
 
-        /*!
-            \brief Executes the command.
-
-            \param model  A model.
-            \param parent A parent window.
-        */
-        void operator()(model_type& model, abstract_window_type& parent)
+        virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const
         {
             m_save_to_file(model, parent);
         }
-
-
-    private:
-        // variables
-
-        const save_to_file_type& m_save_to_file;
 
 
     };

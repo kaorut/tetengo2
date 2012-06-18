@@ -9,18 +9,20 @@
 #if !defined(BOBURA_COMMAND_NEWFILE_H)
 #define BOBURA_COMMAND_NEWFILE_H
 
+#include "bobura.command.command_base.h"
+
 
 namespace bobura { namespace command
 {
     /*!
         \brief The class template for a new-file command.
 
-        \tparam Model           A model type.
-        \tparam AbstractWindow  An abstract window type.
-        \tparam NewFile         A file initialization type.
+        \tparam Model          A model type.
+        \tparam AbstractWindow An abstract window type.
+        \tparam NewFile        A file initialization type.
     */
     template <typename Model, typename AbstractWindow, typename NewFile>
-    class new_file
+    class new_file : public command_base<Model, AbstractWindow>
     {
     public:
         // types
@@ -30,6 +32,9 @@ namespace bobura { namespace command
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
+
+        //! The base type.
+        typedef command_base<model_type, abstract_window_type> base_type;
 
         //! The file initialization type.
         typedef NewFile new_file_type;
@@ -48,37 +53,25 @@ namespace bobura { namespace command
         {}
 
 
-        // functions
+    private:
+        // variables
 
-        /*!
-            \brief Returns the enabled status.
+        const new_file_type& m_new_file;
 
-            \retval true  When the command is enabled.
-            \retval false Otherwise.
-        */
-        bool enabled()
+
+        // virtual functions
+
+        virtual bool enabled_impl()
         const
         {
             return true;
         }
 
-        /*!
-            \brief Executes the command.
-
-            \param model  A model.
-            \param parent A parent window.
-        */
-        void operator()(model_type& model, abstract_window_type& parent)
+        virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const
         {
             m_new_file(model, parent);
         }
-
-
-    private:
-        // variables
-
-        const new_file_type& m_new_file;
 
 
     };

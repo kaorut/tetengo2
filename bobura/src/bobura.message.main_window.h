@@ -147,14 +147,14 @@ namespace bobura { namespace message { namespace main_window
         void operator()()
         const
         {
-            m_command(m_model, m_parent);
+            m_command.execute(m_model, m_parent);
         }
 
 
     private:
         // variables
 
-        command_type m_command;
+        const command_type& m_command;
 
         model_type& m_model;
 
