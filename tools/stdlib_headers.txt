@@ -166,6 +166,7 @@
 ::SetCursor                                      Windows.h
 ::SetFocus                                       Windows.h
 ::SetMenu                                        Windows.h
+::SetMenuItemInfoW                               Windows.h
 ::SetPropW                                       Windows.h
 ::SetScrollInfo                                  Windows.h
 ::SetTextColor                                   Windows.h

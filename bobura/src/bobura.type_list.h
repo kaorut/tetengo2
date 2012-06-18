@@ -10,7 +10,6 @@
 #define BOBURA_TYPELIST_H
 
 //#include <cstddef>
-//#include <functional>
 //#include <iterator>
 #include <ostream>
 //#include <string>

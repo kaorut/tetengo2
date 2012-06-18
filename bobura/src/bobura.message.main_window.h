@@ -10,6 +10,8 @@
 #define BOBURA_MESSAGE_MAINWINDOW_H
 
 #include <cassert>
+//#include <cstddef>
+#include <iterator>
 //#include <utility>
 #include <vector>
 
