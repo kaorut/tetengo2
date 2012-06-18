@@ -71,14 +71,14 @@ namespace bobura { namespace message { namespace main_window
         const
         {
             std::size_t i = 0;
-            BOOST_FOREACH (const menu_base_type& menu_item, std::make_pair(m_popup_menu.begin(), m_popup_menu.end()))
+            BOOST_FOREACH (menu_base_type& menu_item, std::make_pair(m_popup_menu.begin(), m_popup_menu.end()))
             {
                 assert(i < m_commands.size());
                 const command_type* const p_command = m_commands[i];
                 if (!p_command)
                     continue;
 
-                menu_item;
+                menu_item.set_enabled(p_command->enabled());
 
                 ++i;
             }
