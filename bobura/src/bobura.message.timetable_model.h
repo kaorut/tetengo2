@@ -135,6 +135,7 @@ namespace bobura { namespace message { namespace timetable_model
             \brief Creates a timetable model change observer.
 
             \param timetable_model A timetable model.
+            \param diagram_view    A diagram view.
             \param main_window     A main window.
         */
         changed(

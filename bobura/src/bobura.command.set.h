@@ -77,7 +77,7 @@ namespace bobura { namespace command
 
             \param new_file                   A file initialization.
             \param load_from_file             A file loading.
-            \param load_from_file             A file reloading.
+            \param reload                     A file reloading.
             \param save_to_file               A file saving.
             \param ask_file_path_save_to_file A file saving after file path query.
             \param settings                   Settings.
