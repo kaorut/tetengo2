@@ -142,6 +142,62 @@ namespace bobura { namespace message { namespace diagram_picture_box
     };
 
     /*!
+        \brief The class template for a key down observer of the picture box.
+
+        \tparam PictureBox A picture box type.
+    */
+    template <typename PictureBox>
+    class keyboard_key_down
+    {
+    public:
+        // types
+
+        //! The picture box type.
+        typedef PictureBox picture_box_type;
+
+        //! The virtual key type.
+        typedef typename picture_box_type::keyboard_observer_set_type::virtual_key_type virtual_key_type;
+
+
+        // constructors and destructor
+
+        /*!
+            \brief Creates a key down observer of the picture box.
+
+            \param picture_box A picture box.
+        */
+        explicit keyboard_key_down(picture_box_type& picture_box)
+        :
+        m_picture_box(picture_box)
+        {}
+
+
+        // functions
+
+        /*!
+            \brief Called when a key is pressed down.
+
+            \param virtual_key A virtual key.
+            \param shift       True when shift key is pressed.
+            \param control     True when control key is pressed.
+            \param meta        True when meta key is pressed.
+        */
+        void operator()(const virtual_key_type& virtual_key, const bool shift, const bool control, const bool meta)
+        const
+        {
+
+        }
+
+
+    private:
+        // variables
+
+        picture_box_type& m_picture_box;
+
+
+    };
+
+    /*!
         \brief The class template for a paint observer of the picture box.
 
         \tparam Canvas     A canvas type.
