@@ -77,6 +77,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
             if (direction == picture_box_type::mouse_observer_set_type::direction_vertical)
             {
+                assert(m_picture_box.vertical_scroll_bar());
                 if (!m_picture_box.vertical_scroll_bar()->enabled())
                     return;
 
@@ -89,6 +90,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
             {
                 assert(direction == picture_box_type::mouse_observer_set_type::direction_horizontal);
 
+                assert(m_picture_box.horizontal_scroll_bar());
                 if (!m_picture_box.horizontal_scroll_bar()->enabled())
                     return;
 

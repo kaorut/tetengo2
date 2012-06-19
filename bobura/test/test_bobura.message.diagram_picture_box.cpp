@@ -34,6 +34,14 @@ namespace
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::picture_box>::type picture_box_type;
 
+    typedef picture_box_type::mouse_observer_set_type mouse_observer_set_type;
+
+    typedef bobura::message::diagram_picture_box::mouse_wheeled<picture_box_type> mouse_wheeled_type;
+
+    typedef picture_box_type::keyboard_observer_set_type::virtual_key_type virtual_key_type;
+
+    typedef bobura::message::diagram_picture_box::keyboard_key_down<picture_box_type> keyboard_key_down_type;
+
     typedef
         bobura::message::diagram_picture_box::paint_paint<canvas_type, picture_box_type, view_type> paint_paint_type;
 
@@ -54,14 +62,20 @@ BOOST_AUTO_TEST_SUITE(mouse_wheeled)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type window;
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_vertical);
+        const mouse_wheeled_type mouse_wheeled(picture_box);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type window;
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_vertical);
+        const mouse_wheeled_type mouse_wheeled(picture_box);
+
+        mouse_wheeled(42, mouse_observer_set_type::direction_vertical, false, false, false);
     }
 
 
@@ -73,14 +87,20 @@ BOOST_AUTO_TEST_SUITE(keyboard_key_down)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type window;
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_none);
+        const keyboard_key_down_type keyboard_key_down(picture_box);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
     {
         BOOST_TEST_PASSPOINT();
 
-        BOOST_WARN_MESSAGE(false, "Not implemented yet.");
+        window_type window;
+        picture_box_type picture_box(window, picture_box_type::scroll_bar_style_none);
+        const keyboard_key_down_type keyboard_key_down(picture_box);
+
+        keyboard_key_down(virtual_key_type::char_a(), false, false, false);
     }
 
 
