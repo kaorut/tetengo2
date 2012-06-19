@@ -187,14 +187,130 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void operator()(const virtual_key_type& virtual_key, const bool shift, const bool control, const bool meta)
         const
         {
-
+            if (
+                virtual_key == virtual_key_type::left() ||
+                virtual_key == virtual_key_type::right() ||
+                virtual_key == virtual_key_type::up() ||
+                virtual_key == virtual_key_type::down() ||
+                virtual_key == virtual_key_type::page_up() ||
+                virtual_key == virtual_key_type::page_down() ||
+                virtual_key == virtual_key_type::home() ||
+                virtual_key == virtual_key_type::end()
+            )
+            {
+                scroll(virtual_key, shift, control, meta);
+            }
         }
 
 
     private:
+        // types
+
+        typedef typename picture_box_type::scroll_bar_type::size_type scroll_bar_size_type;
+
+
         // variables
 
         picture_box_type& m_picture_box;
+
+
+        // functions
+
+        void scroll(const virtual_key_type& virtual_key, const bool shift, const bool control, const bool meta)
+        const
+        {
+            if (shift || meta)
+                return;
+
+            const bool vertical = is_vertical(virtual_key, control);
+            if (vertical)
+            {
+                assert(m_picture_box.vertical_scroll_bar());
+                if (!m_picture_box.vertical_scroll_bar()->enabled())
+                    return;
+
+                const scroll_bar_size_type new_position =
+                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), virtual_key);
+                m_picture_box.vertical_scroll_bar()->set_position(new_position);
+                m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+            }
+            else
+            {
+                assert(m_picture_box.horizontal_scroll_bar());
+                if (!m_picture_box.horizontal_scroll_bar()->enabled())
+                    return;
+
+                const scroll_bar_size_type new_position =
+                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), virtual_key);
+                m_picture_box.horizontal_scroll_bar()->set_position(new_position);
+                m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+            }
+        }
+
+        bool is_vertical(const virtual_key_type& virtual_key, const bool control)
+        const
+        {
+            if (virtual_key == virtual_key_type::up() || virtual_key == virtual_key_type::down())
+            {
+                return true;
+            }
+            else if (
+                !control &&
+                (virtual_key == virtual_key_type::page_up() || virtual_key == virtual_key_type::page_down())
+            )
+            {
+                return true;
+            }
+            else if (!control && (virtual_key == virtual_key_type::home() || virtual_key == virtual_key_type::end()))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        scroll_bar_size_type calculate_new_position(
+            const typename picture_box_type::scroll_bar_type& scroll_bar,
+            const virtual_key_type&                           virtual_key
+        )
+        const
+        {
+            const scroll_bar_size_type min_position = scroll_bar.range().first;
+            const scroll_bar_size_type max_position = scroll_bar.range().second - scroll_bar.page_size() + 1;
+
+            if      (virtual_key == virtual_key_type::home())
+            {
+                return min_position;
+            }
+            else if (virtual_key == virtual_key_type::end())
+            {
+                return max_position;
+            }
+            else if (virtual_key == virtual_key_type::page_up())
+            {
+                return
+                    scroll_bar.position() > min_position + scroll_bar.page_size() ?
+                    scroll_bar.position() - scroll_bar.page_size() : min_position;
+            }
+            else if (virtual_key == virtual_key_type::page_down())
+            {
+                return
+                    scroll_bar.position() + scroll_bar.page_size() < max_position ?
+                    scroll_bar.position() + scroll_bar.page_size() : max_position;
+            }
+            else if (virtual_key == virtual_key_type::up() || virtual_key == virtual_key_type::left())
+            {
+                return scroll_bar.position() > min_position + 1 ? scroll_bar.position() - 1 : min_position;
+            }
+            else
+            {
+                assert(virtual_key == virtual_key_type::down() || virtual_key == virtual_key_type::right());
+
+                return scroll_bar.position() + 1 < max_position ? scroll_bar.position() + 1 : max_position;
+            }
+        }
 
 
     };
