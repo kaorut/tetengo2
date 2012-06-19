@@ -167,6 +167,7 @@ sub scan_source
 				$code_line =~ /(D2DERR_[A-Z0-9_]*)/ ||
 				$code_line =~ /(WINCODEC_[A-Z0-9_]*)/ ||
 				$code_line =~ /(VK_[A-Z0-9_]*)/ ||
+				$code_line =~ /(WM_[A-Z0-9_]*)/ ||
 				$code_line =~ /(WINAPI)/
 			)
 			{

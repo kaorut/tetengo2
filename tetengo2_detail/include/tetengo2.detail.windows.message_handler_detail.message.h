@@ -11,9 +11,23 @@
 #if !defined(TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_MESSAGE_H)
 #define TETENGO2_DETAIL_WINDOWS_MESSAGEHANDLERDETAIL_MESSAGE_H
 
+#pragma warning (push)
+#pragma warning (disable: 4005)
+#include <intsafe.h>
+#include <stdint.h>
+#pragma warning(pop)
+#define NOMINMAX
+#define OEMRESOURCE
+#include <Windows.h>
+
 
 namespace tetengo2 { namespace detail { namespace windows { namespace message_handler_detail
 {
+    enum message_type
+    {
+        WM_TETENGO2_COMMAND = WM_APP + 1,
+        WM_TETENGO2_CONTROL_COLOR,
+    };
 
 
 }}}}
