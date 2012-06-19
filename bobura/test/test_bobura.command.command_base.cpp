@@ -25,7 +25,7 @@ namespace
     class concrete_command : public bobura::command::command_base<model_type, abstract_window_type>
     {
     private:
-        virtual bool enabled_impl()
+        virtual bool enabled_impl(const model_type& model)
         const
         {
             return true;
@@ -51,7 +51,8 @@ BOOST_AUTO_TEST_SUITE(command_base)
 
         const concrete_command command;
 
-        command.enabled();
+        const model_type model;
+        command.enabled(model);
     }
 
     BOOST_AUTO_TEST_CASE(execute)
