@@ -45,11 +45,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename Control>
-        boost::optional< ::LRESULT> on_control_color(
-            Control&       control,
-            const ::WPARAM w_param,
-            const ::LPARAM l_param
-        )
+        boost::optional< ::LRESULT> on_control_color(Control& control, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             if (!control.background() && !control.text_color())
                 return boost::none;
@@ -66,11 +62,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 const ::COLORREF previous_color =
                     ::SetTextColor(
                         device_context,
-                        RGB(
-                            control.text_color()->red(),
-                            control.text_color()->green(),
-                            control.text_color()->blue()
-                        )
+                        RGB(control.text_color()->red(), control.text_color()->green(), control.text_color()->blue())
                     );
                 if (previous_color == CLR_INVALID)
                 {

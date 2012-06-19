@@ -39,9 +39,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (hi_wparam == 0 && (lo_wparam == IDOK || lo_wparam == IDCANCEL))
             {
                 const ::HWND widget_handle = reinterpret_cast< ::HWND>(l_param);
-                assert(
-                    widget_handle == ::GetDlgItem(std::get<0>(*dialog.details()).get(), lo_wparam)
-                );
+                assert(widget_handle == ::GetDlgItem(std::get<0>(*dialog.details()).get(), lo_wparam));
                 if (widget_handle)
                 {
                     WidgetDetails::p_widget_from<typename Dialog::base_type::base_type>(widget_handle)->click();

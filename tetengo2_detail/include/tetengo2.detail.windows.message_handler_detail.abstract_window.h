@@ -91,9 +91,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                     abstract_window.menu_bar().recursive_begin(),
                     abstract_window.menu_bar().recursive_end(),
                     TETENGO2_CPP11_BIND(
-                        same_popup_menu<typename menu_bar_type::base_type::base_type>,
-                        cpp11::placeholders_1(),
-                        handle
+                        same_popup_menu<typename menu_bar_type::base_type::base_type>, cpp11::placeholders_1(), handle
                     )
                 );
             if (found == abstract_window.menu_bar().recursive_end())

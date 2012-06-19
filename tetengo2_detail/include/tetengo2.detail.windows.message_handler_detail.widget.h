@@ -128,11 +128,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename Widget>
-        boost::optional< ::LRESULT> on_mouse_h_wheel(
-            Widget&        widget,
-            const ::WPARAM w_param,
-            const ::LPARAM l_param
-        )
+        boost::optional< ::LRESULT> on_mouse_h_wheel(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             if (widget.mouse_observer_set().wheeled().empty())
                 return boost::none;
@@ -233,11 +229,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename Widget>
-        boost::optional< ::LRESULT> on_vertical_scroll(
-            Widget&        widget,
-            const ::WPARAM w_param,
-            const ::LPARAM l_param
-        )
+        boost::optional< ::LRESULT> on_vertical_scroll(Widget& widget, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             if (!widget.vertical_scroll_bar())
                 return boost::none;
@@ -253,17 +245,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                     return boost::none;
                 const size_type new_position =
-                    new_scroll_bar_position<size_type>(
-                        std::get<0>(*widget.details()).get(), scroll_code, SB_VERT
-                    );
+                    new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT);
                 widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
             }
             else
             {
                 const size_type new_position =
-                    new_scroll_bar_position<size_type>(
-                        std::get<0>(*widget.details()).get(), scroll_code, SB_VERT
-                    );
+                    new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_VERT);
                 if (widget.vertical_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                 {
                     widget.vertical_scroll_bar()->set_position(new_position);
@@ -297,17 +285,13 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().empty())
                     return boost::none;
                 const size_type new_position =
-                    new_scroll_bar_position<size_type>(
-                        std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ
-                    );
+                    new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ);
                 widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolling()(new_position);
             }
             else
             {
                 const size_type new_position =
-                    new_scroll_bar_position<size_type>(
-                        std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ
-                    );
+                    new_scroll_bar_position<size_type>(std::get<0>(*widget.details()).get(), scroll_code, SB_HORZ);
                 if (widget.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().empty())
                 {
                     widget.horizontal_scroll_bar()->set_position(new_position);
@@ -347,9 +331,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (!::BeginPaint(std::get<0>(*widget.details()).get(), &paint_struct))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint."
-                    )
+                    std::system_error(std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint.")
                 );
             }
             BOOST_SCOPE_EXIT((&widget)(&paint_struct))
@@ -394,8 +376,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             const Widget* const p_widget =
                 reinterpret_cast<const Widget*>(
                     ::RemovePropW(
-                        std::get<0>(*widget.details()).get(),
-                        WidgetDetails::property_key_for_cpp_instance().c_str()
+                        std::get<0>(*widget.details()).get(), WidgetDetails::property_key_for_cpp_instance().c_str()
                     )
                 );
             p_widget;

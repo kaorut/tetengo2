@@ -47,11 +47,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
         }
 
         template <typename PictureBox>
-        boost::optional< ::LRESULT> on_paint(
-            PictureBox&    picture_box,
-            const ::WPARAM w_param,
-            const ::LPARAM l_param
-        )
+        boost::optional< ::LRESULT> on_paint(PictureBox& picture_box, const ::WPARAM w_param, const ::LPARAM l_param)
         {
             if (picture_box.fast_paint_observer_set().paint().empty())
                 return boost::none;
@@ -60,9 +56,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
             if (!::BeginPaint(std::get<0>(*picture_box.details()).get(), &paint_struct))
             {
                 BOOST_THROW_EXCEPTION(
-                    std::system_error(
-                        std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint."
-                    )
+                    std::system_error(std::error_code(ERROR_FUNCTION_FAILED, win32_category()), "Can't begin paint.")
                 );
             }
             BOOST_SCOPE_EXIT((&picture_box)(&paint_struct))
@@ -70,8 +64,7 @@ namespace tetengo2 { namespace detail { namespace windows { namespace message_ha
                 ::EndPaint(std::get<0>(*picture_box.details()).get(), &paint_struct);
             } BOOST_SCOPE_EXIT_END;
 
-            const std::unique_ptr<typename PictureBox::fast_canvas_type> p_canvas =
-                picture_box.create_fast_canvas();
+            const std::unique_ptr<typename PictureBox::fast_canvas_type> p_canvas = picture_box.create_fast_canvas();
 
             picture_box.fast_paint_observer_set().paint()(*p_canvas);
 
