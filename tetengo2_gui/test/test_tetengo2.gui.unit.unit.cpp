@@ -43,11 +43,6 @@ namespace
         m_value(value)
         {}
 
-        explicit concrete_unit(value_type&& value)
-        :
-        m_value(std::forward<value_type>(value))
-        {}
-
 
         // functions
 
@@ -86,7 +81,7 @@ namespace
             return *this;
         }
 
-        const value_type& value()
+const value_type& value()
         const
         {
             return m_value;

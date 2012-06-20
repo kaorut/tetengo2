@@ -118,23 +118,6 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
-            \brief Adds units.
-
-            \tparam U A unit type.
-
-            \param one     One unit.
-            \param another Another unit.
-
-            \return A unit.
-        */
-        template <typename U>
-        friend concrete_unit_type operator+(concrete_unit_type&& one, const unit<U, typename U::value_type>& another)
-        {
-            one += another;
-            return std::forward<concrete_unit_type>(one);
-        }
-
-        /*!
             \brief Subtracts another unit.
 
             \param another Another unit.
@@ -190,23 +173,6 @@ namespace tetengo2 { namespace gui { namespace unit
         )
         {
             return operator-(concrete_unit_type(one), another);
-        }
-
-        /*!
-            \brief Subtracts units.
-
-            \tparam U A unit type.
-
-            \param one     One unit.
-            \param another Another unit.
-
-            \return A unit.
-        */
-        template <typename U>
-        friend concrete_unit_type operator-(concrete_unit_type&&  one, const unit<U, typename U::value_type>& another)
-        {
-            one -= another;
-            return std::forward<concrete_unit_type>(one);
         }
 
         /*!

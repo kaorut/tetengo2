@@ -63,16 +63,6 @@ namespace tetengo2 { namespace gui { namespace unit
         m_value(value)
         {}
 
-        /*!
-            \brief Creates a pixel unit.
-
-            \param value A value.
-        */
-        explicit pixel(value_type&& value)
-        :
-        m_value(std::forward<value_type>(value))
-        {}
-
 
         // functions
 

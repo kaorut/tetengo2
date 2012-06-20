@@ -67,16 +67,6 @@ namespace tetengo2 { namespace gui { namespace unit
         m_value(value)
         {}
 
-        /*!
-            \brief Creates an EM height unit.
-
-            \param value A value.
-        */
-        explicit em(value_type&& value)
-        :
-        m_value(std::forward<value_type>(value))
-        {}
-
 
         // functions
 
