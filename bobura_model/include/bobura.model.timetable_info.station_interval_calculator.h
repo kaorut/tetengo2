@@ -58,7 +58,12 @@ namespace bobura { namespace model { namespace timetable_info
 
 
         // static functions
+        
+        /*!
+            \brief Returns the default interval.
 
+            \return The default interval.
+        */
         static const time_span_type& default_interval()
         {
             static const time_span_type singleton(3 * 60);

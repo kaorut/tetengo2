@@ -229,6 +229,11 @@ namespace bobura
                     diagram_picture_box_message_type_list_type, message::diagram_picture_box::type::mouse_wheeled
                 >::type(*m_p_diagram_picture_box)
             );
+            m_p_diagram_picture_box->keyboard_observer_set().key_down().connect(
+                typename boost::mpl::at<
+                    diagram_picture_box_message_type_list_type, message::diagram_picture_box::type::keyboard_key_down
+                >::type(*m_p_diagram_picture_box)
+            );
             assert(m_p_diagram_picture_box->vertical_scroll_bar());
             m_p_diagram_picture_box->vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
                 typename boost::mpl::at<

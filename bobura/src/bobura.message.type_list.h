@@ -51,6 +51,9 @@ namespace bobura { namespace message
             //! The mouse observer type.
             struct mouse_wheeled;
 
+            //! The keyboard key down observer type.
+            struct keyboard_key_down;
+
             //! The paint observer type.
             struct paint_paint;
 
