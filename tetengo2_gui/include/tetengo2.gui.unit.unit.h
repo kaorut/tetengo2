@@ -114,7 +114,9 @@ namespace tetengo2 { namespace gui { namespace unit
             const unit<U, typename U::value_type>& another
         )
         {
-            return operator+(concrete_unit_type(one), another);
+            concrete_unit_type unit(one);
+            unit += another;
+            return unit;
         }
 
         /*!
@@ -172,7 +174,9 @@ namespace tetengo2 { namespace gui { namespace unit
             const unit<U, typename U::value_type>& another
         )
         {
-            return operator-(concrete_unit_type(one), another);
+            concrete_unit_type unit(one);
+            unit -= another;
+            return unit;
         }
 
         /*!
