@@ -13,8 +13,6 @@
 
 #include <boost/operators.hpp>
 
-#include "tetengo2.operators.h"
-
 
 namespace tetengo2 { namespace gui { namespace unit
 {
@@ -27,8 +25,8 @@ namespace tetengo2 { namespace gui { namespace unit
     class unit :
         private boost::totally_ordered<ConcreteUnit>,
         private boost::totally_ordered<ConcreteUnit, Value>,
-        private additive<ConcreteUnit>,
-        private additive<ConcreteUnit, Value>
+        private boost::additive<ConcreteUnit>,
+        private boost::additive<ConcreteUnit, Value>
     {
     public:
         // types

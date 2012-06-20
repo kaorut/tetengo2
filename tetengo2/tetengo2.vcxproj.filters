@@ -33,9 +33,6 @@
     <ClInclude Include="include\tetengo2.meta.assoc_list.h">
       <Filter>headers\tetengo2\meta</Filter>
     </ClInclude>
-    <ClInclude Include="include\tetengo2.operators.h">
-      <Filter>headers\tetengo2</Filter>
-    </ClInclude>
     <ClInclude Include="include\tetengo2.unique.h">
       <Filter>headers\tetengo2</Filter>
     </ClInclude>
