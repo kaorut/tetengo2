@@ -51,6 +51,21 @@ namespace
 
         // functions
 
+        friend bool operator==(const concrete_unit& one, const value_type& another)
+        {
+            return one.m_value == another;
+        }
+
+        friend bool operator<(const concrete_unit& one, const value_type& another)
+        {
+            return one.m_value < another;
+        }
+
+        friend bool operator>(const concrete_unit& one, const value_type& another)
+        {
+            return one.m_value > another;
+        }
+
         concrete_unit& add(const value_type& another)
         {
             concrete_unit temp(*this);
@@ -69,21 +84,6 @@ namespace
 
             boost::swap(temp, *this);
             return *this;
-        }
-
-        friend bool operator==(const concrete_unit& one, const value_type& another)
-        {
-            return one.m_value == another;
-        }
-
-        friend bool operator<(const concrete_unit& one, const value_type& another)
-        {
-            return one.m_value < another;
-        }
-
-        friend bool operator>(const concrete_unit& one, const value_type& another)
-        {
-            return one.m_value > another;
         }
 
         const value_type& value()

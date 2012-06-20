@@ -50,28 +50,6 @@ BOOST_AUTO_TEST_SUITE(em)
         }
     }
 
-    BOOST_AUTO_TEST_CASE(add)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        unit_type unit1(456);
-
-        unit1.add(123);
-
-        BOOST_CHECK_EQUAL(unit1.value(), 579);
-    }
-
-    BOOST_AUTO_TEST_CASE(subtract)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        unit_type unit1(456);
-
-        unit1.subtract(123);
-
-        BOOST_CHECK_EQUAL(unit1.value(), 333);
-    }
-
     BOOST_AUTO_TEST_CASE(operator_equal)
     {
         BOOST_TEST_PASSPOINT();
@@ -104,6 +82,28 @@ BOOST_AUTO_TEST_SUITE(em)
         const unit_type unit1(456);
 
         BOOST_CHECK(unit1 > 123);
+    }
+
+    BOOST_AUTO_TEST_CASE(add)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        unit_type unit1(456);
+
+        unit1.add(123);
+
+        BOOST_CHECK_EQUAL(unit1.value(), 579);
+    }
+
+    BOOST_AUTO_TEST_CASE(subtract)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        unit_type unit1(456);
+
+        unit1.subtract(123);
+
+        BOOST_CHECK_EQUAL(unit1.value(), 333);
     }
 
     BOOST_AUTO_TEST_CASE(value)

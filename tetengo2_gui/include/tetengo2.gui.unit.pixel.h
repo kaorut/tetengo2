@@ -77,40 +77,6 @@ namespace tetengo2 { namespace gui { namespace unit
         // functions
 
         /*!
-            \brief Adds another value in pixel unit.
-
-            \param another Another value in pixel unit.
-
-            \return This object.
-        */
-        pixel& add(const value_type& another)
-        {
-            pixel temp(*this);
-
-            temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
-
-        /*!
-            \brief Subtracts another value in pixel unit.
-
-            \param another Another value in pixel unit.
-
-            \return This object.
-        */
-        pixel& subtract(const value_type& another)
-        {
-            pixel temp(*this);
-
-            temp.m_value -= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
-
-        /*!
             \brief Checks whether one  pixel unit is equal to another.
 
             \param one     One pixel unit.
@@ -150,6 +116,40 @@ namespace tetengo2 { namespace gui { namespace unit
         friend bool operator>(const pixel& one, const value_type& another)
         {
             return one.m_value > another;
+        }
+
+        /*!
+            \brief Adds another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& add(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value += another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Subtracts another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& subtract(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value -= another;
+
+            boost::swap(temp, *this);
+            return *this;
         }
 
         /*!

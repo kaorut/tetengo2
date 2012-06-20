@@ -81,40 +81,6 @@ namespace tetengo2 { namespace gui { namespace unit
         // functions
 
         /*!
-            \brief Adds another value in EM height unit.
-
-            \param another Another value in EM height unit.
-
-            \return This object.
-        */
-        em& add(const value_type& another)
-        {
-            em temp(*this);
-
-            temp.m_value += another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
-
-        /*!
-            \brief Subtracts another value in EM height unit.
-
-            \param another Another value in EM height unit.
-
-            \return This object.
-        */
-        em& subtract(const value_type& another)
-        {
-            em temp(*this);
-
-            temp.m_value -= another;
-
-            boost::swap(temp, *this);
-            return *this;
-        }
-
-        /*!
             \brief Checks whether one EM height unit is equal to another.
 
             \param one     One EM height unit.
@@ -154,6 +120,40 @@ namespace tetengo2 { namespace gui { namespace unit
         friend bool operator>(const em& one, const value_type& another)
         {
             return one.m_value > another;
+        }
+
+        /*!
+            \brief Adds another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& add(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value += another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Subtracts another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& subtract(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value -= another;
+
+            boost::swap(temp, *this);
+            return *this;
         }
 
         /*!
