@@ -71,13 +71,15 @@ namespace bobura
         explicit diagram_view(const model_type& model)
         :
         m_model(model),
-        m_dimension(width_type(20 * 24), height_type(0)),
+        m_dimension(width_type(0), height_type(0)),
         m_station_header_width(8),
         m_time_header_height(3),
         m_time_offset(time_span_type(3, 0, 0)),
         m_station_intervals(),
         m_station_positions()
-        {}
+        {
+            update_dimension();
+        }
 
 
         // functions
@@ -120,6 +122,34 @@ namespace bobura
         }
 
         /*!
+            \brief Updates the dimension.
+        */
+        void update_dimension()
+        {
+            const width_type width(20 * 24);
+
+            m_station_intervals = m_model.timetable().station_intervals();
+            if (m_station_intervals.empty())
+            {
+                m_station_positions.clear();
+                m_dimension = dimension_type(width, height_type(0));
+                return;
+            }
+            
+            std::vector<top_type> positions;
+            positions.reserve(m_station_intervals.size());
+            std::transform(
+                m_station_intervals.begin(),
+                m_station_intervals.end(),
+                std::back_inserter(positions),
+                to_station_position()
+            );
+
+            m_station_positions = std::move(positions);
+            m_dimension = dimension_type(width, height_type::from(m_station_positions.back()));
+        }
+
+        /*!
             \brief Returns the page size.
 
             \param canvas_dimension A canvas dimension.
@@ -138,37 +168,6 @@ namespace bobura
                 canvas_height > m_time_header_height ? canvas_height - m_time_header_height : height_type(0);
 
             return dimension_type(std::move(page_width), std::move(page_height));
-        }
-
-        /*!
-            \brief Updates the station intervals.
-        */
-        void update_station_intervals()
-        {
-            m_station_intervals = m_model.timetable().station_intervals();
-            if (m_station_intervals.empty())
-            {
-                m_station_positions.clear();
-                m_dimension =
-                    dimension_type(tetengo2::gui::dimension<dimension_type>::width(m_dimension), height_type(0));
-                return;
-            }
-            
-            std::vector<top_type> positions;
-            positions.reserve(m_station_intervals.size());
-            std::transform(
-                m_station_intervals.begin(),
-                m_station_intervals.end(),
-                std::back_inserter(positions),
-                to_station_position()
-            );
-
-            m_station_positions = std::move(positions);
-            m_dimension =
-                dimension_type(
-                    tetengo2::gui::dimension<dimension_type>::width(m_dimension),
-                    height_type::from(m_station_positions.back())
-                );
         }
 
 

@@ -88,6 +88,16 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         view.dimension();
     }
 
+    BOOST_AUTO_TEST_CASE(update_dimension)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        view_type view(model);
+
+        view.update_dimension();
+    }
+
     BOOST_AUTO_TEST_CASE(page_size)
     {
         BOOST_TEST_PASSPOINT();
@@ -96,16 +106,6 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         const view_type view(model);
 
         view.page_size(dimension_type(width_type(42), height_type(24)));
-    }
-
-    BOOST_AUTO_TEST_CASE(update_station_intervals)
-    {
-        BOOST_TEST_PASSPOINT();
-
-        const model_type model;
-        view_type view(model);
-
-        view.update_station_intervals();
     }
 
 
