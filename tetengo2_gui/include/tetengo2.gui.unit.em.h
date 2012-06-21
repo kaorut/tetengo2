@@ -147,6 +147,40 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
+            \brief Multiplies another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& multiply(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value *= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Divides by another value in EM height unit.
+
+            \param another Another value in EM height unit.
+
+            \return This object.
+        */
+        em& divide_by(const value_type& another)
+        {
+            em temp(*this);
+
+            temp.m_value /= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
             \brief Returns the value.
 
             \return The value.

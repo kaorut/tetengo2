@@ -106,6 +106,28 @@ BOOST_AUTO_TEST_SUITE(em)
         BOOST_CHECK_EQUAL(unit1.value(), 333);
     }
 
+    BOOST_AUTO_TEST_CASE(multiply)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        unit_type unit1(456);
+
+        unit1.multiply(123);
+
+        BOOST_CHECK_EQUAL(unit1.value(), 56088);
+    }
+
+    BOOST_AUTO_TEST_CASE(divide_by)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        unit_type unit1(456);
+
+        unit1.divide_by(123);
+
+        BOOST_CHECK_EQUAL(unit1.value(), 3);
+    }
+
     BOOST_AUTO_TEST_CASE(value)
     {
         BOOST_TEST_PASSPOINT();

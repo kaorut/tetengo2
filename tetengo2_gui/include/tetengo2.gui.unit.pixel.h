@@ -143,6 +143,40 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
+            \brief Multiplies another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& multiply(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value *= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
+            \brief Divides by another value in pixel unit.
+
+            \param another Another value in pixel unit.
+
+            \return This object.
+        */
+        pixel& divide_by(const value_type& another)
+        {
+            pixel temp(*this);
+
+            temp.m_value /= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        /*!
             \brief Returns the value.
 
             \return The value.

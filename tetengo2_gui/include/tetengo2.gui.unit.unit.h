@@ -27,7 +27,7 @@ namespace tetengo2 { namespace gui { namespace unit
         private boost::totally_ordered<ConcreteUnit, Value>,
         private boost::additive<ConcreteUnit>,
         private boost::additive<ConcreteUnit, Value>,
-        private boost::multipliable<ConcreteUnit, Value>
+        private boost::multiplicative<ConcreteUnit, Value>
     {
     public:
         // types
@@ -177,6 +177,30 @@ namespace tetengo2 { namespace gui { namespace unit
             concrete_unit_type unit(one);
             unit -= another;
             return unit;
+        }
+
+        /*!
+            \brief Multiplies another value.
+
+            \param another Another value.
+
+            \return This object.
+        */
+        concrete_unit_type& operator*=(const value_type& another)
+        {
+            return this_as_concrete().multiply(another);
+        }
+
+        /*!
+            \brief Divides by another value.
+
+            \param another Another value.
+
+            \return This object.
+        */
+        concrete_unit_type& operator/=(const value_type& another)
+        {
+            return this_as_concrete().divide_by(another);
         }
 
         /*!

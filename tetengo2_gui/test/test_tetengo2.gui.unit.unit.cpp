@@ -81,7 +81,27 @@ namespace
             return *this;
         }
 
-const value_type& value()
+        concrete_unit& multiply(const value_type& another)
+        {
+            concrete_unit temp(*this);
+
+            temp.m_value *= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        concrete_unit& divide_by(const value_type& another)
+        {
+            concrete_unit temp(*this);
+
+            temp.m_value /= another;
+
+            boost::swap(temp, *this);
+            return *this;
+        }
+
+        const value_type& value()
         const
         {
             return m_value;
@@ -240,6 +260,58 @@ BOOST_AUTO_TEST_SUITE(unit)
             const unit_type unit3 = unit1 - 123;
 
             BOOST_CHECK_EQUAL(unit3.value(), 333);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_multiply_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            unit_type unit1(456);
+
+            unit1 *= 123;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 56088);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_multiply)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const unit_type unit1(456);
+
+            const unit_type unit3 = unit1 * 123;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 56088);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_divide_assign)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            unit_type unit1(456);
+
+            unit1 /= 123;
+
+            BOOST_CHECK_EQUAL(unit1.value(), 3);
+        }
+    }
+
+    BOOST_AUTO_TEST_CASE(operator_divide)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        {
+            const unit_type unit1(456);
+
+            const unit_type unit3 = unit1 / 123;
+
+            BOOST_CHECK_EQUAL(unit3.value(), 3);
         }
     }
 
