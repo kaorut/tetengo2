@@ -71,7 +71,7 @@ namespace bobura
         explicit diagram_view(const model_type& model)
         :
         m_model(model),
-        m_horizontal_scale(2),
+        m_horizontal_scale(1),
         m_vertical_scale(1),
         m_dimension(width_type(0), height_type(0)),
         m_station_header_width(8),
@@ -144,7 +144,7 @@ namespace bobura
                 m_station_intervals.begin(),
                 m_station_intervals.end(),
                 std::back_inserter(positions),
-                to_station_position()
+                to_station_position(m_vertical_scale)
             );
 
             m_station_positions = std::move(positions);
@@ -204,8 +204,9 @@ namespace bobura
         class to_station_position
         {
         public:
-            to_station_position()
+            explicit to_station_position(const typename height_type::value_type& vertical_scale)
             :
+            m_vertical_scale(vertical_scale),
             m_sum(0)
             {}
 
@@ -213,10 +214,14 @@ namespace bobura
             {
                 const time_span_type position = m_sum;
                 m_sum += interval;
-                return top_type(typename top_type::value_type(position.seconds(), 60));
+                return
+                    top_type(typename top_type::value_type(position.seconds(), 60)) *
+                    top_type::from(height_type(m_vertical_scale)).value();
             }
 
         private:
+            const typename height_type::value_type& m_vertical_scale;
+
             time_span_type m_sum;
 
         };
