@@ -71,6 +71,8 @@ namespace bobura
         explicit diagram_view(const model_type& model)
         :
         m_model(model),
+        m_horizontal_scale(2),
+        m_vertical_scale(1),
         m_dimension(width_type(0), height_type(0)),
         m_station_header_width(8),
         m_time_header_height(3),
@@ -126,7 +128,7 @@ namespace bobura
         */
         void update_dimension()
         {
-            const width_type width(20 * 24);
+            const width_type width(20 * 24 * m_horizontal_scale);
 
             m_station_intervals = m_model.timetable().station_intervals();
             if (m_station_intervals.empty())
@@ -249,6 +251,10 @@ namespace bobura
         // variables
 
         const model_type& m_model;
+
+        typename width_type::value_type m_horizontal_scale;
+
+        typename height_type::value_type m_vertical_scale;
 
         dimension_type m_dimension;
 
@@ -594,6 +600,7 @@ namespace bobura
                 left_value += time_span_type::seconds_of_whole_day();
             left_value += previous_or_next_day * time_span_type::seconds_of_whole_day();
             left_value /= 180;
+            left_value *= left_type::from(width_type(m_horizontal_scale)).value();
             return left_type(left_value) - horizontal_scroll_bar_position + left_type::from(m_station_header_width);
         }
 
