@@ -167,7 +167,7 @@ namespace bobura
             m_dimension =
                 dimension_type(
                     tetengo2::gui::dimension<dimension_type>::width(m_dimension),
-                    to_rational<height_type>(m_station_positions.back())
+                    height_type::from(m_station_positions.back())
                 );
         }
 
@@ -222,12 +222,6 @@ namespace bobura
 
 
         // static functions
-
-        template <typename To, typename From>
-        static To to_rational(const From& from)
-        {
-            return To(typename To::value_type(from.value().numerator(), from.value().denominator()));
-        }
 
         static bool has_time(const stop_type& stop)
         {
@@ -294,16 +288,14 @@ namespace bobura
         )
         const
         {
-            const left_type canvas_left = to_rational<left_type>(m_station_header_width);
+            const left_type canvas_left = left_type::from(m_station_header_width);
             const left_type canvas_right =
-                to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
-            const top_type canvas_top = to_rational<top_type>(m_time_header_height);
+                left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+            const top_type canvas_top = top_type::from(m_time_header_height);
             const top_type canvas_bottom =
-                to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
+                top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension));
             const top_type station_position_bottom =
-                to_rational<top_type>(
-                    tetengo2::gui::dimension<dimension_type>::height(m_dimension) + m_time_header_height
-                );
+                top_type::from(tetengo2::gui::dimension<dimension_type>::height(m_dimension) + m_time_header_height);
             const top_type line_bottom = std::min(canvas_bottom, station_position_bottom);
 
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
@@ -352,7 +344,7 @@ namespace bobura
         const
         {
             const left_type canvas_right =
-                to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
+                left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension));
 
             canvas.set_color(color_type(0x80, 0x80, 0x80, 0xFF));
 
@@ -360,8 +352,8 @@ namespace bobura
             {
                 const top_type& position = m_station_positions[i];
                 const top_type line_position =
-                    position + to_rational<top_type>(m_time_header_height) - vertical_scroll_bar_position;
-                if (line_position < to_rational<top_type>(m_time_header_height))
+                    position + top_type::from(m_time_header_height) - vertical_scroll_bar_position;
+                if (line_position < top_type::from(m_time_header_height))
                     continue;
 
                 canvas.draw_line(
@@ -377,9 +369,7 @@ namespace bobura
                     position_type(
                         left_type(0),
                         line_position -
-                            to_rational<top_type>(
-                                tetengo2::gui::dimension<dimension_type>::height(station_name_dimension)
-                            )
+                            top_type::from(tetengo2::gui::dimension<dimension_type>::height(station_name_dimension))
                     )
                 );
             }
@@ -571,37 +561,23 @@ namespace bobura
             );
             
             const left_type left_bound = tetengo2::gui::position<position_type>::left(departure);
-            if (
-                left_bound >
-                to_rational<left_type>(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension))
-            )
-            {
+            if (left_bound > left_type::from(tetengo2::gui::dimension<dimension_type>::width(canvas_dimension)))
                 return;
-            }
             const left_type right_bound = tetengo2::gui::position<position_type>::left(arrival);
-            if (right_bound < to_rational<left_type>(m_station_header_width))
-            {
+            if (right_bound < left_type::from(m_station_header_width))
                 return;
-            }
             const top_type upper_bound =
                 departure_station_index < arrival_station_index ? 
                 tetengo2::gui::position<position_type>::top(departure) :
                 tetengo2::gui::position<position_type>::top(arrival);
-            if (
-                upper_bound >
-                to_rational<top_type>(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension))
-                )
-            {
+            if (upper_bound > top_type::from(tetengo2::gui::dimension<dimension_type>::height(canvas_dimension)))
                 return;
-            }
             const top_type lower_bound =
                 departure_station_index < arrival_station_index ? 
                 tetengo2::gui::position<position_type>::top(arrival) :
                 tetengo2::gui::position<position_type>::top(departure);
-            if (lower_bound < to_rational<top_type>(m_time_header_height))
-            {
+            if (lower_bound < top_type::from(m_time_header_height))
                 return;
-            }
 
             canvas.draw_line(departure, arrival, size_type(typename size_type::value_type(1, 6)));
         }
@@ -619,10 +595,7 @@ namespace bobura
                 left_value += time_span_type::seconds_of_whole_day();
             left_value += previous_or_next_day * time_span_type::seconds_of_whole_day();
             left_value /= 180;
-            return
-                left_type(left_value) -
-                horizontal_scroll_bar_position +
-                to_rational<left_type>(m_station_header_width);
+            return left_type(left_value) - horizontal_scroll_bar_position + left_type::from(m_station_header_width);
         }
 
         top_type station_index_to_top(
@@ -634,7 +607,7 @@ namespace bobura
             return
                 m_station_positions[station_index] -
                 vertical_scroll_bar_position +
-                to_rational<top_type>(m_time_header_height);
+                top_type::from(m_time_header_height);
         }
 
 
