@@ -48,8 +48,6 @@ namespace bobura
 
         typedef boost::mpl::at<application_type_list, type::application::command_set>::type command_set_type;
 
-        typedef command_set_type::command_type command_type;
-
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
 
         typedef
@@ -60,23 +58,7 @@ namespace bobura
             boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box_message_type_list>::type
             diagram_picture_box_message_type_list;
 
-        typedef boost::mpl::at<ui_type_list, type::ui::menu_bar>::type menu_bar_type;
-
-        typedef boost::mpl::at<ui_type_list, type::ui::menu_command>::type menu_command_type;
-
-        typedef menu_command_type::base_type menu_base_type;
-
-        typedef menu_base_type::shortcut_key_type shortcut_key_type;
-
-        typedef shortcut_key_type::virtual_key_type virtual_key_type;
-
-        typedef boost::mpl::at<ui_type_list, type::ui::popup_menu>::type popup_menu_type;
-
-        typedef boost::mpl::at<ui_type_list, type::ui::menu_separator>::type menu_separator_type;
-
         typedef boost::mpl::at<ui_type_list, type::ui::message_loop>::type message_loop_type;
-
-        typedef boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type message_loop_break_type;
 
         typedef boost::mpl::at<ui_type_list, type::ui::gui_fixture>::type gui_fixture_type;
 
