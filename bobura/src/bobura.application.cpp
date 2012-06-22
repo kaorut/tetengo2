@@ -262,7 +262,90 @@ namespace bobura
                         main_window_message_type_list_type, message::main_window::type::popup_menu_selected
                     >::type(*p_popup_menu, std::move(commands), model)
                 );
+                p_menu_bar->insert(p_menu_bar->end(), std::move(p_popup_menu));
+            }
+            {
+                std::unique_ptr<popup_menu_type> p_popup_menu(
+                    tetengo2::make_unique<popup_menu_type>(message_catalog.get(TETENGO2_TEXT("Menu:&View")))
+                );
+                std::vector<const command_type*> commands;
 
+                {
+                    std::unique_ptr<popup_menu_type> p_horizontal_zoom_popup_menu(
+                        tetengo2::make_unique<popup_menu_type>(
+                            message_catalog.get(TETENGO2_TEXT("Menu:View:&Horizontal Zoom"))
+                        )
+                    );
+                    std::vector<const command_type*> horizontal_zoom_commands;
+
+                    append_menu_command(
+                        *p_horizontal_zoom_popup_menu,
+                        message_catalog.get(TETENGO2_TEXT("Menu:View:Horizontal Zoom:Zoom &In")),
+                        command_set.nop(),
+                        model,
+                        main_window,
+                        horizontal_zoom_commands,
+                        shortcut_key_type(virtual_key_type::right(), true, false, false)
+                    );
+                    append_menu_command(
+                        *p_horizontal_zoom_popup_menu,
+                        message_catalog.get(TETENGO2_TEXT("Menu:View:Horizontal Zoom:Zoom &Out")),
+                        command_set.nop(),
+                        model,
+                        main_window,
+                        horizontal_zoom_commands,
+                        shortcut_key_type(virtual_key_type::left(), true, false, false)
+                    );
+
+                    p_horizontal_zoom_popup_menu->menu_observer_set().selected().connect(
+                        boost::mpl::at<
+                            main_window_message_type_list_type, message::main_window::type::popup_menu_selected
+                        >::type(*p_horizontal_zoom_popup_menu, std::move(horizontal_zoom_commands), model)
+                    );
+                    commands.push_back(&command_set.nop());
+                    p_popup_menu->insert(p_popup_menu->end(), std::move(p_horizontal_zoom_popup_menu));
+                }
+                {
+                    std::unique_ptr<popup_menu_type> p_vertical_zoom_popup_menu(
+                        tetengo2::make_unique<popup_menu_type>(
+                            message_catalog.get(TETENGO2_TEXT("Menu:View:&Vertical Zoom"))
+                        )
+                    );
+                    std::vector<const command_type*> vertical_zoom_commands;
+
+                    append_menu_command(
+                        *p_vertical_zoom_popup_menu,
+                        message_catalog.get(TETENGO2_TEXT("Menu:View:Vertical Zoom:Zoom &In")),
+                        command_set.nop(),
+                        model,
+                        main_window,
+                        vertical_zoom_commands,
+                        shortcut_key_type(virtual_key_type::down(), true, false, false)
+                    );
+                    append_menu_command(
+                        *p_vertical_zoom_popup_menu,
+                        message_catalog.get(TETENGO2_TEXT("Menu:View:Vertical Zoom:Zoom &Out")),
+                        command_set.nop(),
+                        model,
+                        main_window,
+                        vertical_zoom_commands,
+                        shortcut_key_type(virtual_key_type::up(), true, false, false)
+                    );
+
+                    p_vertical_zoom_popup_menu->menu_observer_set().selected().connect(
+                        boost::mpl::at<
+                            main_window_message_type_list_type, message::main_window::type::popup_menu_selected
+                        >::type(*p_vertical_zoom_popup_menu, std::move(vertical_zoom_commands), model)
+                    );
+                    commands.push_back(&command_set.nop());
+                    p_popup_menu->insert(p_popup_menu->end(), std::move(p_vertical_zoom_popup_menu));
+                }
+
+                p_popup_menu->menu_observer_set().selected().connect(
+                    boost::mpl::at<
+                        main_window_message_type_list_type, message::main_window::type::popup_menu_selected
+                    >::type(*p_popup_menu, std::move(commands), model)
+                );
                 p_menu_bar->insert(p_menu_bar->end(), std::move(p_popup_menu));
             }
             {
@@ -285,7 +368,6 @@ namespace bobura
                         main_window_message_type_list_type, message::main_window::type::popup_menu_selected
                     >::type(*p_popup_menu, std::move(commands), model)
                 );
-
                 p_menu_bar->insert(p_menu_bar->end(), std::move(p_popup_menu));
             }
 
