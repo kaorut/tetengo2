@@ -16,6 +16,7 @@
 
 #include <tetengo2.unique.h>
 
+#include "bobura.main_window_menu_builder.h"
 #include "bobura.message.type_list.h"
 #define USE_TYPES_FOR_APPLICATION
 #include "bobura.type_list.h"
@@ -109,8 +110,8 @@ namespace bobura
             main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
             set_message_observers(main_window);
             m_model.reset_timetable();
-            main_window.set_menu_bar(build_main_window_menu(
-                command_set_holder.command_set(), m_model, main_window, message_catalog)
+            main_window.set_menu_bar(
+                build_main_window_menu(command_set_holder.command_set(), m_model, main_window, message_catalog)
             );
             main_window.set_visible(true);
 

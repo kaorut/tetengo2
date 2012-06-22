@@ -9,32 +9,87 @@
 #if !defined(BOBURA_MAINWINDOWMENUBUILDER_H)
 #define BOBURA_MAINWINDOWMENUBUILDER_H
 
+#include <memory>
+
+#include <boost/mpl/at.hpp>
+
+#define USE_TYPES_FOR_APPLICATION
+#include "bobura.type_list.h"
+
 
 namespace bobura
 {
     /*!
-        \brief The class template for the main window menu builder.
-
-        \tparam String A string type.
-        \tparam Path   A path type.
+        \brief The class for the main window menu builder.
     */
-    template <typename String, typename Path>
     class main_window_menu_builder : private boost::noncopyable
     {
     public:
         // types
 
-        //! The string type.
-        typedef String string_type;
+        //! The menu bar type.
+        typedef boost::mpl::at<ui_type_list, type::ui::menu_bar>::type menu_bar_type;
 
-        //! The path type.
-        typedef Path path_type;
+        //! The command set type.
+        typedef boost::mpl::at<application_type_list, type::application::command_set>::type command_set_type;
+
+        //! The model type.
+        typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
+
+        //! The main window type.
+        typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
+
+        //! The message catalog type.
+        typedef boost::mpl::at<locale_type_list, type::locale::message_catalog>::type message_catalog_type;
 
 
         // constructors and destructor
 
+        /*!
+            \brief Creates a main window menu builder.
+
+            \param command_set     A command set.
+            \param model           A model.
+            \param main_window     A main window.
+            \param message_catalog A message catalog.
+        */
+        main_window_menu_builder(
+            const command_set_type&     command_set,
+            model_type&                 model,
+            main_window_type&           main_window,
+            const message_catalog_type& message_catalog
+        )
+        :
+        m_command_set(command_set),
+        m_model(model),
+        m_main_window(main_window),
+        m_message_catalog(message_catalog)
+        {}
+
 
         // functions
+
+        /*!
+            \brief Builds a main window menu bar.
+
+            \return A main window menu bar.
+        */
+        std::unique_ptr<menu_bar_type> build()
+        {
+            return std::unique_ptr<menu_bar_type>();
+        }
+
+
+    private:
+        // variables
+
+        const command_set_type& m_command_set;
+
+        model_type& m_model;
+
+        main_window_type& m_main_window;
+
+        const message_catalog_type& m_message_catalog;
 
 
     };
