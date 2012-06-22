@@ -113,8 +113,5 @@
     <ClCompile Include="test\test_bobura.view.scale_list.cpp">
       <Filter>sources\test_bobura\view</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_bobura.main_window_menu_builder.cpp">
-      <Filter>sources\test_bobura</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

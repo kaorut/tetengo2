@@ -186,5 +186,8 @@
     <ClCompile Include="src\bobura.application.cpp">
       <Filter>sources\bobura</Filter>
     </ClCompile>
+    <ClCompile Include="src\bobura.main_window_menu_builder.cpp">
+      <Filter>sources\bobura</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -39,6 +39,7 @@ extra_headers = \
 
 extra_sources = \
     bobura.application.cpp \
+    bobura.main_window_menu_builder.cpp \
     main.cpp
 
 EXTRA_DIST = $(extra_headers) $(extra_sources)
