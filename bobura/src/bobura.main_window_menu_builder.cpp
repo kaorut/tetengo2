@@ -24,6 +24,8 @@ namespace bobura
 
         typedef menu_command_type::base_type menu_base_type;
 
+        typedef menu_base_type::string_type string_type;
+
         typedef menu_base_type::shortcut_key_type shortcut_key_type;
 
         typedef shortcut_key_type::virtual_key_type virtual_key_type;
@@ -90,6 +92,8 @@ namespace bobura
 
         typedef command_set_type::command_type command_type;
 
+        typedef std::vector<const command_type*> commands_type;
+
 
         // variables
 
@@ -107,10 +111,9 @@ namespace bobura
         std::unique_ptr<popup_menu_type> build_file_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu(
-                tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:&File")))
-            );
-            std::vector<const command_type*> commands;
+            std::unique_ptr<popup_menu_type> p_popup_menu =
+                tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:&File")));
+            commands_type commands;
 
             append_menu_command(
                 *p_popup_menu,
@@ -146,7 +149,9 @@ namespace bobura
                 m_command_set.ask_file_path_and_save_to_file(),
                 commands
             );
+
             append_menu_separator(*p_popup_menu, commands);
+
             append_menu_command(
                 *p_popup_menu,
                 m_message_catalog.get(TETENGO2_TEXT("Menu:File:Proper&ty...")),
@@ -161,44 +166,32 @@ namespace bobura
                 commands
             );
 
-            p_popup_menu->menu_observer_set().selected().connect(
-                boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::popup_menu_selected
-                >::type(*p_popup_menu, std::move(commands), m_model)
-            );
+            connect_popup_menu_observer(*p_popup_menu, std::move(commands));
             return std::move(p_popup_menu);
         }
 
         std::unique_ptr<popup_menu_type> build_view_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu(
-                tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:&View")))
-            );
-            std::vector<const command_type*> commands;
+            std::unique_ptr<popup_menu_type> p_popup_menu =
+                tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:&View")));
+            commands_type commands;
 
-            commands.push_back(&m_command_set.nop());
-            p_popup_menu->insert(p_popup_menu->end(), build_horizontal_zoom_menu());
-            commands.push_back(&m_command_set.nop());
-            p_popup_menu->insert(p_popup_menu->end(), build_vertical_zoom_menu());
+            append_popup_menu(*p_popup_menu, build_horizontal_zoom_menu(), commands);
+            append_popup_menu(*p_popup_menu, build_vertical_zoom_menu(), commands);
 
-            p_popup_menu->menu_observer_set().selected().connect(
-                boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::popup_menu_selected
-                >::type(*p_popup_menu, std::move(commands), m_model)
-            );
+            connect_popup_menu_observer(*p_popup_menu, std::move(commands));
             return std::move(p_popup_menu);
         }
 
         std::unique_ptr<popup_menu_type> build_horizontal_zoom_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu(
+            std::unique_ptr<popup_menu_type> p_popup_menu =
                 tetengo2::make_unique<popup_menu_type>(
                     m_message_catalog.get(TETENGO2_TEXT("Menu:View:&Horizontal Zoom"))
-                )
-            );
-            std::vector<const command_type*> commands;
+                );
+            commands_type commands;
 
             append_menu_command(
                 *p_popup_menu,
@@ -215,23 +208,18 @@ namespace bobura
                 shortcut_key_type(virtual_key_type::left(), true, false, false)
             );
 
-            p_popup_menu->menu_observer_set().selected().connect(
-                boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::popup_menu_selected
-                >::type(*p_popup_menu, std::move(commands), m_model)
-            );
+            connect_popup_menu_observer(*p_popup_menu, std::move(commands));
             return std::move(p_popup_menu);
         }
 
         std::unique_ptr<popup_menu_type> build_vertical_zoom_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu(
+            std::unique_ptr<popup_menu_type> p_popup_menu =
                 tetengo2::make_unique<popup_menu_type>(
                     m_message_catalog.get(TETENGO2_TEXT("Menu:View:&Vertical Zoom"))
-                )
-            );
-            std::vector<const command_type*> commands;
+                );
+            commands_type commands;
 
             append_menu_command(
                 *p_popup_menu,
@@ -248,21 +236,16 @@ namespace bobura
                 shortcut_key_type(virtual_key_type::up(), true, false, false)
             );
 
-            p_popup_menu->menu_observer_set().selected().connect(
-                boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::popup_menu_selected
-                >::type(*p_popup_menu, std::move(commands), m_model)
-            );
+            connect_popup_menu_observer(*p_popup_menu, std::move(commands));
             return std::move(p_popup_menu);
         }
 
         std::unique_ptr<popup_menu_type> build_help_menu()
         const
         {
-            std::unique_ptr<popup_menu_type> p_popup_menu(
-                tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:&Help")))
-            );
-            std::vector<const command_type*> commands;
+            std::unique_ptr<popup_menu_type> p_popup_menu =
+                tetengo2::make_unique<popup_menu_type>(m_message_catalog.get(TETENGO2_TEXT("Menu:&Help")));
+            commands_type commands;
 
             append_menu_command(
                 *p_popup_menu,
@@ -271,51 +254,62 @@ namespace bobura
                 commands
             );
 
-            p_popup_menu->menu_observer_set().selected().connect(
-                boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::popup_menu_selected
-                >::type(*p_popup_menu, std::move(commands), m_model)
-            );
+            connect_popup_menu_observer(*p_popup_menu, std::move(commands));
             return std::move(p_popup_menu);
         }
 
-        void append_menu_command(
-            menu_base_type&                   popup_menu,
-            menu_base_type::string_type&&     text,
-            const command_type&               command,
-            std::vector<const command_type*>& commands
+        void append_popup_menu(
+            popup_menu_type&                 popup_menu,
+            std::unique_ptr<popup_menu_type> p_child_popup_menu,
+            commands_type&                   commands
         )
         const
         {
-            std::unique_ptr<menu_base_type> p_menu_command(
-                tetengo2::make_unique<menu_command_type>(std::forward<menu_base_type::string_type>(text))
-            );
-
-            p_menu_command->menu_observer_set().selected().connect(
-                boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::menu_command_selected
-                >::type(command, m_model, m_main_window)
-            );
-
-            popup_menu.insert(popup_menu.end(), std::move(p_menu_command));
-            commands.push_back(&command);
+            popup_menu.insert(popup_menu.end(), std::move(p_child_popup_menu));
+            commands.push_back(NULL);
         }
 
         void append_menu_command(
-            menu_base_type&                   popup_menu,
-            menu_base_type::string_type&&     text,
-            const command_type&               command,
-            std::vector<const command_type*>& commands,
-            shortcut_key_type&&               shortcut_key
+            popup_menu_type&    popup_menu,
+            string_type&&       text,
+            const command_type& command,
+            commands_type&      commands
         )
         const
         {
-            std::unique_ptr<menu_base_type> p_menu_command(
+            std::unique_ptr<menu_command_type> p_menu_command(
+                tetengo2::make_unique<menu_command_type>(std::forward<string_type>(text))
+            );
+
+            append_menu_command_impl(popup_menu, std::move(p_menu_command), command, commands);
+        }
+
+        void append_menu_command(
+            popup_menu_type&    popup_menu,
+            string_type&&       text,
+            const command_type& command,
+            commands_type&      commands,
+            shortcut_key_type&& shortcut_key
+        )
+        const
+        {
+            std::unique_ptr<menu_command_type> p_menu_command(
                 tetengo2::make_unique<menu_command_type>(
-                    std::forward<menu_base_type::string_type>(text), std::forward<shortcut_key_type>(shortcut_key)
+                    std::forward<string_type>(text), std::forward<shortcut_key_type>(shortcut_key)
                 )
             );
 
+            append_menu_command_impl(popup_menu, std::move(p_menu_command), command, commands);
+        }
+
+        void append_menu_command_impl(
+            popup_menu_type&                   popup_menu,
+            std::unique_ptr<menu_command_type> p_menu_command,
+            const command_type&                command,
+            commands_type&                     commands
+        )
+        const
+        {
             p_menu_command->menu_observer_set().selected().connect(
                 boost::mpl::at<
                     main_window_message_type_list_type, message::main_window::type::menu_command_selected
@@ -326,12 +320,22 @@ namespace bobura
             commands.push_back(&command);
         }
 
-        void append_menu_separator(menu_base_type& popup_menu, std::vector<const command_type*>& commands)
+        void append_menu_separator(popup_menu_type& popup_menu, commands_type& commands)
         const
         {
-            std::unique_ptr<menu_base_type> p_menu_separator(tetengo2::make_unique<menu_separator_type>());
+            std::unique_ptr<menu_separator_type> p_menu_separator(tetengo2::make_unique<menu_separator_type>());
             popup_menu.insert(popup_menu.end(), std::move(p_menu_separator));
             commands.push_back(NULL);
+        }
+
+        void connect_popup_menu_observer(popup_menu_type& popup_menu, commands_type&& commands)
+        const
+        {
+            popup_menu.menu_observer_set().selected().connect(
+                boost::mpl::at<
+                    main_window_message_type_list_type, message::main_window::type::popup_menu_selected
+                >::type(popup_menu, std::forward<commands_type>(commands), m_model)
+            );
         }
 
 
