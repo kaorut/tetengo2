@@ -144,6 +144,9 @@
     <ClInclude Include="src\bobura.view.scale_list.h">
       <Filter>headers\bobura\view</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.main_window_menu_builder.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">

@@ -23,6 +23,7 @@ extra_headers = \
     bobura.load_save.new_file.h \
     bobura.load_save.save_to_file.h \
     bobura.main_window.h \
+    bobura.main_window_menu_builder.h \
     bobura.message.about_dialog.h \
     bobura.message.diagram_picture_box.h \
     bobura.message.file_property_dialog_dialog.h \

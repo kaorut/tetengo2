@@ -111,6 +111,7 @@
     <ClCompile Include="test\test_bobura.load_save.new_file.cpp" />
     <ClCompile Include="test\test_bobura.load_save.save_to_file.cpp" />
     <ClCompile Include="test\test_bobura.main_window.cpp" />
+    <ClCompile Include="test\test_bobura.main_window_menu_builder.cpp" />
     <ClCompile Include="test\test_bobura.message.about_dialog.cpp" />
     <ClCompile Include="test\test_bobura.message.diagram_picture_box.cpp" />
     <ClCompile Include="test\test_bobura.message.file_property_dialog.cpp" />
