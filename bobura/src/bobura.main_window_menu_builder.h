@@ -58,13 +58,7 @@ namespace bobura
             model_type&                 model,
             main_window_type&           main_window,
             const message_catalog_type& message_catalog
-        )
-        :
-        m_command_set(command_set),
-        m_model(model),
-        m_main_window(main_window),
-        m_message_catalog(message_catalog)
-        {}
+        );
 
 
         // functions
@@ -75,21 +69,18 @@ namespace bobura
             \return A main window menu bar.
         */
         std::unique_ptr<menu_bar_type> build()
-        {
-            return std::unique_ptr<menu_bar_type>();
-        }
+        const;
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const command_set_type& m_command_set;
-
-        model_type& m_model;
-
-        main_window_type& m_main_window;
-
-        const message_catalog_type& m_message_catalog;
+        const std::unique_ptr<impl> m_p_impl;
 
 
     };
