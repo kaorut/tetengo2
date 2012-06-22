@@ -60,6 +60,11 @@ namespace bobura
             const message_catalog_type& message_catalog
         );
 
+        /*!
+            \brief Destroys the main window menu builder.
+        */
+        ~main_window_menu_builder();
+
 
         // functions
 
