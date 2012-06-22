@@ -40,6 +40,11 @@ Description : Create bobura::command::vertically_zoom_in, vertically_zoom_out
               and set_vertical_scale.
 ------------------------------------------------------------------------------
 Number      : 00000183
+Added on    : 2012/06/22
+Depends on  : (none)
+Description : Create bobura::main_window_menu_builder.
+------------------------------------------------------------------------------
+Number      : 00000184
 Added on    : 2012/mm/dd
 Depends on  : (none)
 Description : 
