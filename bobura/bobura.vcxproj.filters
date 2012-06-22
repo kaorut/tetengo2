@@ -34,6 +34,9 @@
     <Filter Include="sources\bobura">
       <UniqueIdentifier>{488e0060-acd9-44c7-bcfd-b427108b284c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\bobura\view">
+      <UniqueIdentifier>{780fad15-896d-4a3d-91e0-6aa690a1d7f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bobura.about_dialog.h">
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="src\bobura.command.command_base.h">
       <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.view.scale_list.h">
+      <Filter>headers\bobura\view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

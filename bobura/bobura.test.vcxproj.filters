@@ -19,6 +19,9 @@
     <Filter Include="sources\test_bobura\load_save">
       <UniqueIdentifier>{5c8a32b6-52cb-4119-bd2b-1d23226b1a94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\test_bobura\view">
+      <UniqueIdentifier>{ef97df1a-c90f-499c-b241-4f9b846a504d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\precompiled\precompiled.h">
@@ -106,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="test\test_bobura.command.command_base.cpp">
       <Filter>sources\test_bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_bobura.view.scale_list.cpp">
+      <Filter>sources\test_bobura\view</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -120,6 +120,7 @@
     <ClInclude Include="src\bobura.settings.h" />
     <ClInclude Include="src\bobura.timetable_model.h" />
     <ClInclude Include="src\bobura.type_list.h" />
+    <ClInclude Include="src\bobura.view.scale_list.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\win32\bobura.rc" />
