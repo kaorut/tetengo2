@@ -47,6 +47,10 @@ namespace
 
     typedef bobura::diagram_view<model_type, canvas_type, solid_background_type> view_type;
 
+    typedef view_type::horizontal_scale_type horizontal_scale_type;
+
+    typedef view_type::vertical_scale_type vertical_scale_type;
+
 
 }
 
@@ -76,6 +80,58 @@ BOOST_AUTO_TEST_SUITE(diagram_view)
         view.draw_to(
             *p_canvas, dimension_type(width_type(42), height_type(24)), position_type(left_type(2), top_type(3))
         );
+    }
+
+    BOOST_AUTO_TEST_CASE(horizontal_scale)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        const view_type view(model);
+
+        view.horizontal_scale();
+    }
+
+    BOOST_AUTO_TEST_CASE(set_horizontal_scale)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        view_type view(model);
+
+        view.set_horizontal_scale(horizontal_scale_type(42));
+
+        BOOST_CHECK(view.horizontal_scale() == horizontal_scale_type(42));
+
+        view.set_horizontal_scale(horizontal_scale_type(24));
+
+        BOOST_CHECK(view.horizontal_scale() == horizontal_scale_type(24));
+    }
+
+    BOOST_AUTO_TEST_CASE(vertical_scale)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        const view_type view(model);
+
+        view.vertical_scale();
+    }
+
+    BOOST_AUTO_TEST_CASE(set_vertical_scale)
+    {
+        BOOST_TEST_PASSPOINT();
+
+        const model_type model;
+        view_type view(model);
+
+        view.set_vertical_scale(vertical_scale_type(42));
+
+        BOOST_CHECK(view.vertical_scale() == vertical_scale_type(42));
+
+        view.set_vertical_scale(vertical_scale_type(24));
+
+        BOOST_CHECK(view.vertical_scale() == vertical_scale_type(24));
     }
 
     BOOST_AUTO_TEST_CASE(dimension)

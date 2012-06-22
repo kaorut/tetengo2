@@ -51,8 +51,26 @@ namespace bobura
         //! The position type.
         typedef typename canvas_type::position_type position_type;
 
+        //! The left type.
+        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
+
+        //! The top type.
+        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
+
         //! The dimension type.
         typedef typename canvas_type::dimension_type dimension_type;
+
+        //! The width type.
+        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
+
+        //! The height type.
+        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
+
+        //! The horizontal scale type.
+        typedef typename width_type::value_type horizontal_scale_type;
+
+        //! The vertical scale type.
+        typedef typename height_type::value_type vertical_scale_type;
 
         //! The string type.
         typedef typename canvas_type::string_type string_type;
@@ -110,6 +128,56 @@ namespace bobura
                 canvas, canvas_dimension, tetengo2::gui::position<position_type>::top(scroll_bar_position)
             );
             draw_trains(canvas, canvas_dimension, scroll_bar_position);
+        }
+
+        /*!
+            \brief Returns the horizontal scale.
+
+            \return The horizontal scale.
+        */
+        const horizontal_scale_type& horizontal_scale()
+        const
+        {
+            return m_horizontal_scale;
+        }
+
+        /*!
+            \brief Sets a horizontal scale.
+
+            \tparam HS A horizontal scale type.
+
+            \param scale A horizontal scale.
+        */
+        template <typename HS>
+        void set_horizontal_scale(HS&& scale)
+        {
+            m_horizontal_scale = std::forward<HS>(scale);
+            update_dimension();
+        }
+
+        /*!
+            \brief Returns the vertical scale.
+
+            \return The vertical scale.
+        */
+        const vertical_scale_type& vertical_scale()
+        const
+        {
+            return m_vertical_scale;
+        }
+
+        /*!
+            \brief Sets a vertical scale.
+
+            \tparam VS A vertical scale type.
+
+            \param scale A vertical scale.
+        */
+        template <typename VS>
+        void set_vertical_scale(VS&& scale)
+        {
+            m_vertical_scale = std::forward<VS>(scale);
+            update_dimension();
         }
 
         /*!
@@ -176,15 +244,7 @@ namespace bobura
     private:
         // types
 
-        typedef typename tetengo2::gui::position<position_type>::left_type left_type;
-
-        typedef typename tetengo2::gui::position<position_type>::top_type top_type;
-
         typedef typename solid_background_type::color_type color_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
 
         typedef typename model_type::timetable_type::station_intervals_type station_intervals_type;
 
@@ -204,7 +264,7 @@ namespace bobura
         class to_station_position
         {
         public:
-            explicit to_station_position(const typename height_type::value_type& vertical_scale)
+            explicit to_station_position(const vertical_scale_type& vertical_scale)
             :
             m_vertical_scale(vertical_scale),
             m_sum(0)
@@ -220,7 +280,7 @@ namespace bobura
             }
 
         private:
-            const typename height_type::value_type& m_vertical_scale;
+            const vertical_scale_type& m_vertical_scale;
 
             time_span_type m_sum;
 
@@ -257,9 +317,9 @@ namespace bobura
 
         const model_type& m_model;
 
-        typename width_type::value_type m_horizontal_scale;
+        horizontal_scale_type m_horizontal_scale;
 
-        typename height_type::value_type m_vertical_scale;
+        vertical_scale_type m_vertical_scale;
 
         dimension_type m_dimension;
 
