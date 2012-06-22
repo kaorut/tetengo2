@@ -86,8 +86,6 @@ namespace bobura
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:&New")),
                     m_command_set.new_file(),
-                    m_model,
-                    m_main_window,
                     commands,
                     shortcut_key_type(virtual_key_type::char_n(), false, true, false)
                 );
@@ -95,8 +93,6 @@ namespace bobura
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:&Open...")),
                     m_command_set.load_from_file(),
-                    m_model,
-                    m_main_window,
                     commands,
                     shortcut_key_type(virtual_key_type::char_o(), false, true, false)
                 );
@@ -104,8 +100,6 @@ namespace bobura
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:&Reload")),
                     m_command_set.reload(),
-                    m_model,
-                    m_main_window,
                     commands,
                     shortcut_key_type(virtual_key_type::f5(), false, false, false)
                 );
@@ -113,8 +107,6 @@ namespace bobura
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:&Save")),
                     m_command_set.save_to_file(),
-                    m_model,
-                    m_main_window,
                     commands,
                     shortcut_key_type(virtual_key_type::char_s(), false, true, false)
                 );
@@ -122,8 +114,6 @@ namespace bobura
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:Save &As...")),
                     m_command_set.ask_file_path_and_save_to_file(),
-                    m_model,
-                    m_main_window,
                     commands
                 );
                 append_menu_separator(*p_popup_menu, commands);
@@ -131,8 +121,6 @@ namespace bobura
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:Proper&ty...")),
                     m_command_set.file_property(),
-                    m_model,
-                    m_main_window,
                     commands
                 );
                 append_menu_separator(*p_popup_menu, commands);
@@ -140,8 +128,6 @@ namespace bobura
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:File:E&xit")),
                     m_command_set.exit(),
-                    m_model,
-                    m_main_window,
                     commands
                 );
 
@@ -170,8 +156,6 @@ namespace bobura
                         *p_horizontal_zoom_popup_menu,
                         m_message_catalog.get(TETENGO2_TEXT("Menu:View:Horizontal Zoom:Zoom &In")),
                         m_command_set.nop(),
-                        m_model,
-                        m_main_window,
                         horizontal_zoom_commands,
                         shortcut_key_type(virtual_key_type::right(), true, false, false)
                     );
@@ -179,8 +163,6 @@ namespace bobura
                         *p_horizontal_zoom_popup_menu,
                         m_message_catalog.get(TETENGO2_TEXT("Menu:View:Horizontal Zoom:Zoom &Out")),
                         m_command_set.nop(),
-                        m_model,
-                        m_main_window,
                         horizontal_zoom_commands,
                         shortcut_key_type(virtual_key_type::left(), true, false, false)
                     );
@@ -205,8 +187,6 @@ namespace bobura
                         *p_vertical_zoom_popup_menu,
                         m_message_catalog.get(TETENGO2_TEXT("Menu:View:Vertical Zoom:Zoom &In")),
                         m_command_set.nop(),
-                        m_model,
-                        m_main_window,
                         vertical_zoom_commands,
                         shortcut_key_type(virtual_key_type::down(), true, false, false)
                     );
@@ -214,8 +194,6 @@ namespace bobura
                         *p_vertical_zoom_popup_menu,
                         m_message_catalog.get(TETENGO2_TEXT("Menu:View:Vertical Zoom:Zoom &Out")),
                         m_command_set.nop(),
-                        m_model,
-                        m_main_window,
                         vertical_zoom_commands,
                         shortcut_key_type(virtual_key_type::up(), true, false, false)
                     );
@@ -246,8 +224,6 @@ namespace bobura
                     *p_popup_menu,
                     m_message_catalog.get(TETENGO2_TEXT("Menu:Help:&About")),
                     m_command_set.about(),
-                    m_model,
-                    m_main_window,
                     commands
                 );
 
@@ -281,8 +257,6 @@ namespace bobura
             menu_base_type&                   popup_menu,
             menu_base_type::string_type&&     text,
             const command_type&               command,
-            model_type&                       m_model,
-            main_window_type&                 m_main_window,
             std::vector<const command_type*>& commands
         )
         const
@@ -305,8 +279,6 @@ namespace bobura
             menu_base_type&                   popup_menu,
             menu_base_type::string_type&&     text,
             const command_type&               command,
-            model_type&                       m_model,
-            main_window_type&                 m_main_window,
             std::vector<const command_type*>& commands,
             shortcut_key_type&&               shortcut_key
         )
