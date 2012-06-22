@@ -58,6 +58,10 @@
     \brief The namespace for train information.
 */
 
+/*! \namespace bobura::view
+    \brief The namespace for view processings.
+*/
+
 /*! \namespace tetengo2
     \brief The root namespace for Tetengo2.
 */
