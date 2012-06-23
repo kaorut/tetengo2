@@ -72,7 +72,11 @@ namespace bobura { namespace command
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const
-        {}
+        {
+            const view_scale_list_type scale_list;
+            m_diagram_view.set_horizontal_scale(scale_list.larger(m_diagram_view.horizontal_scale()));
+            parent.repaint();
+        }
 
 
     };
