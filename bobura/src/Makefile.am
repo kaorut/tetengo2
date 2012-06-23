@@ -9,6 +9,8 @@ extra_headers = \
     bobura.command.command_base.h \
     bobura.command.exit.h \
     bobura.command.file_property.h \
+    bobura.command.horizontally_zoom_in.h \
+    bobura.command.horizontally_zoom_out.h \
     bobura.command.load_from_file.h \
     bobura.command.new_file.h \
     bobura.command.nop.h \

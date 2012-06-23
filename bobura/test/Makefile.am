@@ -13,6 +13,8 @@ sources = \
     test_bobura.command.command_base.cpp \
     test_bobura.command.exit.cpp \
     test_bobura.command.file_property.cpp \
+    test_bobura.command.horizontally_zoom_in.cpp \
+    test_bobura.command.horizontally_zoom_out.cpp \
     test_bobura.command.load_from_file.cpp \
     test_bobura.command.new_file.cpp \
     test_bobura.command.nop.cpp \
