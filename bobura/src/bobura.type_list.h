@@ -121,6 +121,7 @@
 #include "bobura.model.train_info.time_span.h"
 #include "bobura.settings.h"
 #include "bobura.timetable_model.h"
+#include "bobura.view.scale_list.h"
 
 
 namespace bobura
@@ -823,6 +824,7 @@ namespace bobura
     namespace type { namespace view
     {
         struct view;           //!< The view type.
+        struct scale_list;     //!< The scale list type.
     }}
 
     //! The view type list.
@@ -836,8 +838,17 @@ namespace bobura
                     boost::mpl::at<ui_type_list, type::ui::fast_solid_background>::type
                 >
             >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
+                type::view::scale_list,
+                bobura::view::scale_list<
+                    boost::rational<boost::mpl::at<common_type_list, type::size>::type>,
+                    boost::mpl::at<common_type_list, type::size>::type,
+                    boost::mpl::at<common_type_list, type::string>::type
+                >
+            >,
         tetengo2::meta::assoc_list_end
-        >
+        >>
         view_type_list;
 
 
@@ -986,8 +997,10 @@ namespace bobura
                     detail::command_type_list::command_type,
                     boost::mpl::at<model_type_list, type::model::model>::type,
                     boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
-                    boost::mpl::at<dialog_type_list, type::dialog::file_property_dialog>::type,
                     boost::mpl::at<dialog_type_list, type::dialog::about_dialog>::type,
+                    boost::mpl::at<dialog_type_list, type::dialog::file_property_dialog>::type,
+                    boost::mpl::at<view_type_list, type::view::view>::type,
+                    boost::mpl::at<view_type_list, type::view::scale_list>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::new_file>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type

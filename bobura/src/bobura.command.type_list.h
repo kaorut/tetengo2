@@ -14,14 +14,15 @@ namespace bobura { namespace command
 {
     namespace type
     {
-        struct command;        //!< The command type.
-        struct about;          //!< The about type.
-        struct exit;           //!< The exit type.
-        struct file_property;  //!< The file property type.
-        struct load_from_file; //!< The load-from-file type.
-        struct new_file;       //!< The new-file type.
-        struct nop;            //!< The nop type.
-        struct save_to_file;   //!< The save-to-file type.
+        struct command;              //!< The command type.
+        struct about;                //!< The about type.
+        struct exit;                 //!< The exit type.
+        struct file_property;        //!< The file property type.
+        struct horizontally_zoom_in; //!< The horizontal zoom-in type.
+        struct load_from_file;       //!< The load-from-file type.
+        struct new_file;             //!< The new-file type.
+        struct nop;                  //!< The nop type.
+        struct save_to_file;         //!< The save-to-file type.
     }
 
 
