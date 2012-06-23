@@ -11,7 +11,6 @@
 
 #include "bobura.command.command_base.h"
 
-
 namespace bobura { namespace command
 {
     /*!
