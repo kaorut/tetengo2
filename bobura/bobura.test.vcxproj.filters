@@ -113,5 +113,8 @@
     <ClCompile Include="test\test_bobura.view.scale_list.cpp">
       <Filter>sources\test_bobura\view</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.command.horizontally_zoom_in.cpp">
+      <Filter>sources\test_bobura\command</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -147,6 +147,9 @@
     <ClInclude Include="src\bobura.main_window_menu_builder.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.horizontally_zoom_in.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
