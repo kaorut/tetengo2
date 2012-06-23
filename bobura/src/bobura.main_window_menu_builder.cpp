@@ -203,7 +203,7 @@ namespace bobura
             append_menu_command(
                 *p_popup_menu,
                 m_message_catalog.get(TETENGO2_TEXT("Menu:View:Horizontal Zoom:Zoom &Out")),
-                m_command_set.nop(),
+                m_command_set.horizontally_zoom_out(),
                 commands,
                 shortcut_key_type(virtual_key_type::left(), true, false, false)
             );

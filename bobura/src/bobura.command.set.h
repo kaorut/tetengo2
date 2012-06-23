@@ -104,6 +104,7 @@ namespace bobura { namespace command
         m_p_exit(create_exit()),
         m_p_file_property(create_file_property(message_catalog)),
         m_p_horizontally_zoom_in(create_horizontally_zoom_in(diagram_view)),
+        m_p_horizontally_zoom_out(create_horizontally_zoom_out(diagram_view)),
         m_p_load_from_file(create_load_from_file(load_from_file)),
         m_p_new_file(create_new_file(new_file)),
         m_p_nop(create_nop()),
@@ -157,6 +158,17 @@ namespace bobura { namespace command
         const
         {
             return *m_p_horizontally_zoom_in;
+        }
+
+        /*!
+            \brief Returns the command horizontal zoom-out.
+
+            \return The command.
+        */
+        const command_type& horizontally_zoom_out()
+        const
+        {
+            return *m_p_horizontally_zoom_out;
         }
 
         /*!
@@ -259,6 +271,13 @@ namespace bobura { namespace command
             );
         }
 
+        static command_ptr_type create_horizontally_zoom_out(diagram_view_type& diagram_view)
+        {
+            return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::horizontally_zoom_out>::type>(
+                diagram_view
+            );
+        }
+
         static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
         {
             return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::load_from_file>::type>(
@@ -293,6 +312,8 @@ namespace bobura { namespace command
         const command_ptr_type m_p_file_property;
 
         const command_ptr_type m_p_horizontally_zoom_in;
+
+        const command_ptr_type m_p_horizontally_zoom_out;
 
         const command_ptr_type m_p_load_from_file;
 

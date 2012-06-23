@@ -100,6 +100,7 @@
     <ClCompile Include="test\test_bobura.command.exit.cpp" />
     <ClCompile Include="test\test_bobura.command.file_property.cpp" />
     <ClCompile Include="test\test_bobura.command.horizontally_zoom_in.cpp" />
+    <ClCompile Include="test\test_bobura.command.horizontally_zoom_out.cpp" />
     <ClCompile Include="test\test_bobura.command.load_from_file.cpp" />
     <ClCompile Include="test\test_bobura.command.new_file.cpp" />
     <ClCompile Include="test\test_bobura.command.nop.cpp" />
