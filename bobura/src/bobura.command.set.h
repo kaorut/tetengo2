@@ -29,6 +29,7 @@ namespace bobura { namespace command
         \tparam NewFile         A file initialization type.
         \tparam LoadFromFile    A file loading type.
         \tparam SaveToFile      A file saving type.
+        \tparam DiagramView     A diagram view type.
         \tparam Settings        A settings type.
         \tparam MessageCatalog  A message catalog type.
     */
@@ -37,6 +38,7 @@ namespace bobura { namespace command
         typename NewFile,
         typename LoadFromFile,
         typename SaveToFile,
+        typename DiagramView,
         typename Settings,
         typename MessageCatalog
     >
@@ -63,6 +65,9 @@ namespace bobura { namespace command
         //! The file saving type.
         typedef SaveToFile save_to_file_type;
 
+        //! The diagram view type.
+        typedef DiagramView diagram_view_type;
+
         //! The settings type.
         typedef Settings settings_type;
 
@@ -80,6 +85,7 @@ namespace bobura { namespace command
             \param reload                     A file reloading.
             \param save_to_file               A file saving.
             \param ask_file_path_save_to_file A file saving after file path query.
+            \param diagram_view               A diagram view.
             \param settings                   Settings.
             \param message_catalog            A message catalog.
         */
@@ -89,6 +95,7 @@ namespace bobura { namespace command
             const load_from_file_type&    reload,
             const save_to_file_type&      save_to_file,
             const save_to_file_type&      ask_file_path_save_to_file,
+            diagram_view_type&            diagram_view,
             const settings_type&          settings,
             const message_catalog_type&   message_catalog
         )
@@ -96,6 +103,7 @@ namespace bobura { namespace command
         m_p_about(create_about(message_catalog, settings)),
         m_p_exit(create_exit()),
         m_p_file_property(create_file_property(message_catalog)),
+        m_p_horizontally_zoom_in(create_horizontally_zoom_in(diagram_view)),
         m_p_load_from_file(create_load_from_file(load_from_file)),
         m_p_new_file(create_new_file(new_file)),
         m_p_nop(create_nop()),
@@ -138,6 +146,17 @@ namespace bobura { namespace command
         const
         {
             return *m_p_file_property;
+        }
+
+        /*!
+            \brief Returns the command horizontal zoom-in.
+
+            \return The command.
+        */
+        const command_type& horizontally_zoom_in()
+        const
+        {
+            return *m_p_horizontally_zoom_in;
         }
 
         /*!
@@ -233,6 +252,13 @@ namespace bobura { namespace command
             );
         }
 
+        static command_ptr_type create_horizontally_zoom_in(diagram_view_type& diagram_view)
+        {
+            return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::horizontally_zoom_in>::type>(
+                diagram_view
+            );
+        }
+
         static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
         {
             return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::load_from_file>::type>(
@@ -265,6 +291,8 @@ namespace bobura { namespace command
         const command_ptr_type m_p_exit;
 
         const command_ptr_type m_p_file_property;
+
+        const command_ptr_type m_p_horizontally_zoom_in;
 
         const command_ptr_type m_p_load_from_file;
 

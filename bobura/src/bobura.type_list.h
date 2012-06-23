@@ -1090,6 +1090,7 @@ namespace bobura
                     boost::mpl::at<load_save_type_list, type::load_save::new_file>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type,
+                    boost::mpl::at<view_type_list, type::view::view>::type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
                 >

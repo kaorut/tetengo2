@@ -85,7 +85,7 @@ namespace bobura
         int run()
         {
             const message_catalog_type message_catalog;
-            const command_set_holder_type command_set_holder(m_settings, m_model, message_catalog);
+            const command_set_holder_type command_set_holder(m_settings, m_model, m_view, message_catalog);
 
             main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
             set_message_observers(main_window);
@@ -110,6 +110,7 @@ namespace bobura
             command_set_holder_type(
                 const settings_type&        settings,
                 model_type&                 model,
+                view_type&                  view,
                 const message_catalog_type& message_catalog
             )
             :
@@ -125,6 +126,7 @@ namespace bobura
                 m_reload,
                 m_save_to_file,
                 m_ask_file_path_and_save_to_file,
+                view,
                 settings,
                 message_catalog
             )
