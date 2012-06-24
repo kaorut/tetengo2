@@ -9,7 +9,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.command.nop.h"
+#include "bobura.type_list.h"
 
 #include "bobura.message.main_window.h"
 
@@ -18,11 +18,17 @@ namespace
 {
     // types
 
-    typedef bobura::command::nop nop_command_type;
-
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::abstract_window>::type abstract_window_type;
+
+    struct command_type
+    {
+        void execute(model_type& model, abstract_window_type& parent)
+        const
+        {}
+
+    };
 
     typedef boost::mpl::at<bobura::locale_type_list, bobura::type::locale::message_catalog>::type message_catalog_type;
 
@@ -35,7 +41,7 @@ namespace
     typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::window>::type window_type;
 
     typedef
-        bobura::message::main_window::menu_command_selected<nop_command_type, model_type, abstract_window_type>
+        bobura::message::main_window::menu_command_selected<command_type, model_type, abstract_window_type>
         menu_command_selected_type;
 
 
@@ -55,7 +61,7 @@ BOOST_AUTO_TEST_SUITE(menu_command_selected)
     {
         BOOST_TEST_PASSPOINT();
 
-        const nop_command_type command = nop_command_type();
+        const command_type command;
         model_type model;
         window_type window;
         const menu_command_selected_type menu(command, model, window);
@@ -65,7 +71,7 @@ BOOST_AUTO_TEST_SUITE(menu_command_selected)
     {
         BOOST_TEST_PASSPOINT();
 
-        const nop_command_type command = nop_command_type();
+        const command_type command;
         model_type model;
         window_type window;
         const menu_command_selected_type menu(command, model, window);
