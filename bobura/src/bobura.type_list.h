@@ -94,7 +94,6 @@
 #include "bobura.about_dialog.h"
 #include "bobura.command.command_base.h"
 #include "bobura.command.set.h"
-#include "bobura.command.type_list_impl.h"
 #include "bobura.detail_type_list.h"
 #include "bobura.diagram_view.h"
 #include "bobura.file_property_dialog.h"
@@ -974,40 +973,14 @@ namespace bobura
     namespace type { namespace command_type_list
     {
         struct command;        //!< The command.
-        struct command_type_list; //!< The command type list.
     }}
-
-#if !defined(DOCUMENTATION)
-    namespace detail { namespace command_type_list
-    {
-        typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
-        typedef boost::mpl::at<ui_type_list, type::ui::abstract_window>::type abstract_window_type;
-        typedef bobura::command::command_base command_type;
-    }}
-#endif
 
     //! The type list for the command type list.
     typedef
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::command_type_list::command, detail::command_type_list::command_type>,
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::command_type_list::command_type_list,
-                command::type_list<
-                    detail::command_type_list::command_type,
-                    boost::mpl::at<model_type_list, type::model::model>::type,
-                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
-                    boost::mpl::at<dialog_type_list, type::dialog::about_dialog>::type,
-                    boost::mpl::at<dialog_type_list, type::dialog::file_property_dialog>::type,
-                    boost::mpl::at<view_type_list, type::view::view>::type,
-                    boost::mpl::at<view_type_list, type::view::scale_list>::type,
-                    boost::mpl::at<load_save_type_list, type::load_save::new_file>::type,
-                    boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type,
-                    boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type
-                >::type
-            >,
+            boost::mpl::pair<type::command_type_list::command, bobura::command::command_base>,
         tetengo2::meta::assoc_list_end
-        >>
+        >
         command_type_list_type_list;
 
 
@@ -1086,7 +1059,6 @@ namespace bobura
             boost::mpl::pair<
                 type::application::command_set,
                 command::set<
-                    boost::mpl::at<command_type_list_type_list, type::command_type_list::command_type_list>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::new_file>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type,
