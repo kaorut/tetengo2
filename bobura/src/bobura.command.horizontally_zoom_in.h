@@ -22,7 +22,7 @@ namespace bobura { namespace command
         \tparam ViewScaleList  A view scale list type.
     */
     template <typename Model, typename AbstractWindow, typename DiagramView, typename ViewScaleList>
-    class horizontally_zoom_in : public command_base<Model, AbstractWindow>
+    class horizontally_zoom_in : public command_base
     {
     public:
         // types
@@ -34,7 +34,7 @@ namespace bobura { namespace command
         typedef AbstractWindow abstract_window_type;
 
         //! The base type.
-        typedef command_base<model_type, abstract_window_type> base_type;
+        typedef command_base base_type;
 
         //! The diagram view type.
         typedef DiagramView diagram_view_type;

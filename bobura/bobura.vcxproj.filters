@@ -37,6 +37,9 @@
     <Filter Include="headers\bobura\view">
       <UniqueIdentifier>{780fad15-896d-4a3d-91e0-6aa690a1d7f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\bobura\command">
+      <UniqueIdentifier>{9e4b0e63-dad4-428d-a6a8-49aacad65b59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bobura.about_dialog.h">
@@ -194,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="src\bobura.main_window_menu_builder.cpp">
       <Filter>sources\bobura</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.command_base.cpp">
+      <Filter>sources\bobura\command</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

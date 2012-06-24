@@ -22,7 +22,7 @@ namespace bobura { namespace command
         \tparam LoadFromFile    A file loading type.
     */
     template <typename Model, typename AbstractWindow, typename LoadFromFile>
-    class load_from_file : public command_base<Model, AbstractWindow>
+    class load_from_file : public command_base
     {
     public:
         // types
@@ -34,7 +34,7 @@ namespace bobura { namespace command
         typedef AbstractWindow abstract_window_type;
 
         //! The base type.
-        typedef command_base<model_type, abstract_window_type> base_type;
+        typedef command_base base_type;
 
         //! The file loading type.
         typedef LoadFromFile load_from_file_type;

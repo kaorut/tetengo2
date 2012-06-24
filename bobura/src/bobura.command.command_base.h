@@ -9,26 +9,27 @@
 #if !defined(BOBURA_COMMAND_COMMANDBASE_H)
 #define BOBURA_COMMAND_COMMANDBASE_H
 
+#include <boost/mpl/at.hpp>
+
+#define USE_TYPES_FOR_APPLICATION
+#include "bobura.type_list.h"
+
 
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for a command base.
-
-        \tparam Model          A model type.
-        \tparam AbstractWindow An abstract window type.
+        \brief The class for a command base.
     */
-    template <typename Model, typename AbstractWindow>
     class command_base
     {
     public:
         // types
 
         //! The model type.
-        typedef Model model_type;
+        typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 
         //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
+        typedef boost::mpl::at<bobura::ui_type_list, bobura::type::ui::abstract_window>::type abstract_window_type;
 
 
         // functions
@@ -42,10 +43,7 @@ namespace bobura { namespace command
             \retval false Otherwise.
         */
         bool enabled(const model_type& model)
-        const
-        {
-            return enabled_impl(model);
-        }
+        const;
 
         /*!
             \brief Executes the command.
@@ -54,10 +52,7 @@ namespace bobura { namespace command
             \param parent A parent window.
         */
         void execute(model_type& model, abstract_window_type& parent)
-        const
-        {
-            execute_impl(model, parent);
-        }
+        const;
 
 
     private:

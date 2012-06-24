@@ -22,7 +22,7 @@ namespace bobura { namespace command
         \tparam FilePropertyDialog A file property dialog type.
     */
     template <typename Model, typename AbstractWindow, typename FilePropertyDialog>
-    class file_property : public command_base<Model, AbstractWindow>
+    class file_property : public command_base
     {
     public:
         // types
@@ -37,7 +37,7 @@ namespace bobura { namespace command
         typedef AbstractWindow abstract_window_type;
 
         //! The base type.
-        typedef command_base<model_type, abstract_window_type> base_type;
+        typedef command_base base_type;
 
         //! The file property dialog type.
         typedef FilePropertyDialog file_property_dialog_type;

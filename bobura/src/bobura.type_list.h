@@ -982,7 +982,7 @@ namespace bobura
     {
         typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
         typedef boost::mpl::at<ui_type_list, type::ui::abstract_window>::type abstract_window_type;
-        typedef bobura::command::command_base<model_type, abstract_window_type> command_type;
+        typedef bobura::command::command_base command_type;
     }}
 #endif
 
