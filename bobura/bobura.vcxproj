@@ -90,6 +90,7 @@
     <ClInclude Include="res\win32\resource.h" />
     <ClInclude Include="src\bobura.about_dialog.h" />
     <ClInclude Include="src\bobura.application.h" />
+    <ClInclude Include="src\bobura.basic_type_list.h" />
     <ClInclude Include="src\bobura.command.about.h" />
     <ClInclude Include="src\bobura.command.command_base.h" />
     <ClInclude Include="src\bobura.command.exit.h" />
