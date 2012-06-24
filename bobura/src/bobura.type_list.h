@@ -968,22 +968,6 @@ namespace bobura
         load_save_type_list;
 
 
-    /**** Command Type List *************************************************/
-
-    namespace type { namespace command_type_list
-    {
-        struct command;        //!< The command.
-    }}
-
-    //! The type list for the command type list.
-    typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<type::command_type_list::command, bobura::command::command_base>,
-        tetengo2::meta::assoc_list_end
-        >
-        command_type_list_type_list;
-
-
     /**** Main Window *******************************************************/
 
     namespace type { namespace main_window
@@ -999,7 +983,7 @@ namespace bobura
         typedef
             message::main_window::type_list<
                 boost::mpl::at<ui_type_list, type::ui::popup_menu>::type,
-                boost::mpl::at<command_type_list_type_list, type::command_type_list::command>::type,
+                bobura::command::command_base,
                 boost::mpl::at<model_type_list, type::model::model>::type,
                 boost::mpl::at<view_type_list, type::view::view>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
