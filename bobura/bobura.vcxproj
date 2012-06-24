@@ -101,8 +101,6 @@
     <ClInclude Include="src\bobura.command.nop.h" />
     <ClInclude Include="src\bobura.command.save_to_file.h" />
     <ClInclude Include="src\bobura.command.set.h" />
-    <ClInclude Include="src\bobura.command.type_list.h" />
-    <ClInclude Include="src\bobura.command.type_list_impl.h" />
     <ClInclude Include="src\bobura.detail_type_list.h" />
     <ClInclude Include="src\bobura.diagram_view.h" />
     <ClInclude Include="src\bobura.file_property_dialog.h" />
