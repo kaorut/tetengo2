@@ -6,7 +6,6 @@
     $Id$
 */
 
-#define USE_TYPES_FOR_APPLICATION
 #include "bobura.type_list.h"
 
 #include "bobura.command.command_base.h"

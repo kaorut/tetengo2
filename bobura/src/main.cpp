@@ -31,7 +31,6 @@
 #include <tetengo2.unique.h>
 
 #include "bobura.application.h"
-#define USE_TYPES_FOR_APPLICATION
 #include "bobura.type_list.h"
 
 

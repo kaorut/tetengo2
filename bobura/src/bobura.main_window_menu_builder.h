@@ -13,7 +13,6 @@
 
 #include <boost/mpl/at.hpp>
 
-#define USE_TYPES_FOR_APPLICATION
 #include "bobura.type_list.h"
 
 

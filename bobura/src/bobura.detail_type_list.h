@@ -13,7 +13,7 @@
 
 #include <boost/mpl/pair.hpp>
 
-#if defined(USE_TYPES_FOR_APPLICATION)
+#if defined(USE_TETENGO2_DETAIL_TYPES_FOR_APPLICATION)
 #   include <tetengo2.detail.windows.alert.h>
 #   include <tetengo2.detail.windows.common_dialog.h>
 #   include <tetengo2.detail.windows.cursor.h>
@@ -74,7 +74,7 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace detail
     {
-#if defined(USE_TYPES_FOR_APPLICATION)
+#if defined(USE_TETENGO2_DETAIL_TYPES_FOR_APPLICATION)
         typedef tetengo2::detail::windows::alert alert_type;
         typedef tetengo2::detail::windows::common_dialog common_dialog_type;
         typedef tetengo2::detail::windows::cursor cursor_type;

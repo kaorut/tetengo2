@@ -88,8 +88,7 @@ namespace bobura { namespace message { namespace main_window
                 if (!p_command)
                     continue;
 
-                //menu_item.set_enabled(p_command->enabled(m_model));
-                menu_item.set_enabled(true);
+                menu_item.set_enabled(p_command->enabled(m_model));
 
                 ++i;
             }
@@ -162,7 +161,7 @@ namespace bobura { namespace message { namespace main_window
         void operator()()
         const
         {
-            //m_command.execute(m_model, m_parent);
+            m_command.execute(m_model, m_parent);
         }
 
 

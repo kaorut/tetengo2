@@ -9,7 +9,7 @@
 //#include <boost/mpl/at.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "bobura.type_list.h"
+#include "bobura.command.nop.h"
 
 #include "bobura.message.main_window.h"
 
@@ -18,11 +18,7 @@ namespace
 {
     // types
 
-    typedef
-        boost::mpl::at<bobura::command_type_list_type_list, bobura::type::command_type_list::command_type_list>::type
-        command_type_list_type;
-
-    typedef boost::mpl::at<command_type_list_type, bobura::command::type::nop>::type nop_command_type;
+    typedef bobura::command::nop nop_command_type;
 
     typedef boost::mpl::at<bobura::model_type_list, bobura::type::model::model>::type model_type;
 

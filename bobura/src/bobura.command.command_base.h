@@ -11,6 +11,7 @@
 
 #include <boost/mpl/at.hpp>
 
+#include "bobura.basic_type_list.h"
 
 namespace bobura { namespace command
 {
@@ -23,10 +24,10 @@ namespace bobura { namespace command
         // types
 
         //! The model type.
-        typedef int model_type;
+        typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;
 
         //! The abstract window type.
-        typedef int abstract_window_type;
+        typedef boost::mpl::at<ui_type_list, type::ui::abstract_window>::type abstract_window_type;
 
 
         // functions
