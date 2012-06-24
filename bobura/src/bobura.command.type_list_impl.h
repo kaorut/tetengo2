@@ -78,7 +78,7 @@ namespace bobura { namespace command
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::load_from_file, load_from_file<Model, AbstractWindow, LoadFromFile>>,
             tetengo2::meta::assoc_list<boost::mpl::pair<type::new_file, new_file<Model, AbstractWindow, NewFile>>,
-            tetengo2::meta::assoc_list<boost::mpl::pair<type::nop, nop<Model, AbstractWindow>>,
+            tetengo2::meta::assoc_list<boost::mpl::pair<type::nop, nop>,
             tetengo2::meta::assoc_list<
                 boost::mpl::pair<type::save_to_file, save_to_file<Model, AbstractWindow, SaveToFile>>,
             tetengo2::meta::assoc_list_end

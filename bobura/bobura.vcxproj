@@ -142,6 +142,7 @@
     </ClCompile>
     <ClCompile Include="src\bobura.application.cpp" />
     <ClCompile Include="src\bobura.command.command_base.cpp" />
+    <ClCompile Include="src\bobura.command.nop.cpp" />
     <ClCompile Include="src\bobura.main_window_menu_builder.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
