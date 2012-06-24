@@ -9,17 +9,6 @@ extra_headers =
 sources = \
     master.cpp \
     test_bobura.about_dialog.cpp \
-    test_bobura.command.about.cpp \
-    test_bobura.command.command_base.cpp \
-    test_bobura.command.exit.cpp \
-    test_bobura.command.file_property.cpp \
-    test_bobura.command.horizontally_zoom_in.cpp \
-    test_bobura.command.horizontally_zoom_out.cpp \
-    test_bobura.command.load_from_file.cpp \
-    test_bobura.command.new_file.cpp \
-    test_bobura.command.nop.cpp \
-    test_bobura.command.save_to_file.cpp \
-    test_bobura.command.set.cpp \
     test_bobura.diagram_view.cpp \
     test_bobura.file_property_dialog.cpp \
     test_bobura.load_save.confirm_file_save.cpp \
