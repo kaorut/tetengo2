@@ -207,5 +207,8 @@
     <ClCompile Include="src\bobura.command.exit.cpp">
       <Filter>sources\bobura\command</Filter>
     </ClCompile>
+    <ClCompile Include="src\bobura.command.file_property.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
