@@ -201,5 +201,8 @@
     <ClCompile Include="src\bobura.command.nop.cpp">
       <Filter>sources\bobura\command</Filter>
     </ClCompile>
+    <ClCompile Include="src\bobura.command.about.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
