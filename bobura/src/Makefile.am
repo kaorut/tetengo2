@@ -15,8 +15,7 @@ extra_headers = \
     bobura.command.new_file.h \
     bobura.command.nop.h \
     bobura.command.save_to_file.h \
-    bobura.command.type_list.h \
-    bobura.command.type_list_impl.h \
+    bobura.command.set.h \
     bobura.diagram_view.h \
     bobura.detail_type_list.h \
     bobura.file_property_dialog.h \
@@ -41,6 +40,16 @@ extra_headers = \
 
 extra_sources = \
     bobura.application.cpp \
+    bobura.command.about.cpp \
+    bobura.command.command_base.cpp \
+    bobura.command.exit.cpp \
+    bobura.command.file_property.cpp \
+    bobura.command.horizontally_zoom_in.cpp \
+    bobura.command.horizontally_zoom_out.cpp \
+    bobura.command.load_from_file.cpp \
+    bobura.command.new_file.cpp \
+    bobura.command.nop.cpp \
+    bobura.command.save_to_file.cpp \
     bobura.main_window_menu_builder.cpp \
     main.cpp
 
