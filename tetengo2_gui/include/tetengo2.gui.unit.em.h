@@ -9,8 +9,6 @@
 #if !defined(TETENGO2_GUI_UNIT_EM_H)
 #define TETENGO2_GUI_UNIT_EM_H
 
-//#include <utility>
-
 #include <boost/swap.hpp>
 
 #include "tetengo2.gui.unit.unit.h"

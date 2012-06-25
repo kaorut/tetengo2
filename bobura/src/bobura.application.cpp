@@ -6,11 +6,6 @@
     $Id$
 */
 
-//#include <cstddef>
-//#include <memory>
-//#include <utility>
-//#include <vector>
-
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 

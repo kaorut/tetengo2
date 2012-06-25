@@ -10,7 +10,8 @@
 #define BOBURA_VIEW_SCALELIST_H
 
 #include <algorithm>
-#include <functional>
+#include <cassert>
+//#include <functional>
 #include <stdexcept>
 #include <vector>
 

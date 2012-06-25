@@ -7,7 +7,7 @@
 */
 
 #include <cstddef>
-#include <cstring>
+#include <string>
 
 #include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>

@@ -6,8 +6,12 @@
     $Id$
 */
 
-#include <memory>
-#include <utility>
+//#include <cstddef>
+//#include <memory>
+//#include <utility>
+//#include <vector>
+
+//#include <boost/mpl/at.hpp>
 
 #include <tetengo2.unique.h>
 

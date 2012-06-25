@@ -9,7 +9,7 @@
 #if !defined(BOBURA_COMMAND_NOP_H)
 #define BOBURA_COMMAND_NOP_H
 
-#include <memory>
+//#include <memory>
 
 #include "bobura.command.command_base.h"
 
