@@ -210,5 +210,11 @@
     <ClCompile Include="src\bobura.command.file_property.cpp">
       <Filter>sources\bobura\command</Filter>
     </ClCompile>
+    <ClCompile Include="src\bobura.command.horizontally_zoom_in.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.horizontally_zoom_out.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

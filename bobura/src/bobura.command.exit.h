@@ -15,7 +15,7 @@
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for an exit command.
+        \brief The class for an exit command.
     */
     class exit : public command_base
     {

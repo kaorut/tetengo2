@@ -15,7 +15,7 @@
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for a file property command.
+        \brief The class for a file property command.
     */
     class file_property : public command_base
     {

@@ -11,36 +11,25 @@
 
 #include "bobura.command.command_base.h"
 
+
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for a horizontal zoom-in command.
-
-        \tparam Model          A model type.
-        \tparam AbstractWindow An abstract window type.
-        \tparam DiagramView    A diagram view type.
-        \tparam ViewScaleList  A view scale list type.
+        \brief The class for a horizontal zoom-in command.
     */
-    template <typename Model, typename AbstractWindow, typename DiagramView, typename ViewScaleList>
     class horizontally_zoom_in : public command_base
     {
     public:
         // types
 
-        //! The model type.
-        typedef Model model_type;
-
-        //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
-
         //! The base type.
         typedef command_base base_type;
 
         //! The diagram view type.
-        typedef DiagramView diagram_view_type;
+        typedef boost::mpl::at<view_type_list, type::view::view>::type diagram_view_type;
 
         //! The view scale list type.
-        typedef ViewScaleList view_scale_list_type;
+        typedef boost::mpl::at<view_type_list, type::view::scale_list>::type view_scale_list_type;
 
 
         // constructors and destructor
@@ -50,33 +39,32 @@ namespace bobura { namespace command
 
             \param diagram_view A diagram view.
         */
-        explicit horizontally_zoom_in(diagram_view_type& diagram_view)
-        :
-        m_diagram_view(diagram_view)
-        {}
+        explicit horizontally_zoom_in(diagram_view_type& diagram_view);
+
+        /*!
+            \brief Destroys the horizontal zoom-in command.
+        */
+        ~horizontally_zoom_in();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        diagram_view_type& m_diagram_view;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
         virtual bool enabled_impl(const model_type& model)
-        const
-        {
-            return true;
-        }
+        const;
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
-        const
-        {
-            const view_scale_list_type scale_list;
-            m_diagram_view.set_horizontal_scale(scale_list.larger(m_diagram_view.horizontal_scale()));
-            parent.repaint();
-        }
+        const;
 
 
     };

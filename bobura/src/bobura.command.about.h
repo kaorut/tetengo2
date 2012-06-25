@@ -17,7 +17,7 @@
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for an about command.
+        \brief The class for an about command.
     */
     class about : public command_base
     {

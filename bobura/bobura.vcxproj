@@ -144,6 +144,8 @@
     <ClCompile Include="src\bobura.command.command_base.cpp" />
     <ClCompile Include="src\bobura.command.exit.cpp" />
     <ClCompile Include="src\bobura.command.file_property.cpp" />
+    <ClCompile Include="src\bobura.command.horizontally_zoom_in.cpp" />
+    <ClCompile Include="src\bobura.command.horizontally_zoom_out.cpp" />
     <ClCompile Include="src\bobura.command.nop.cpp" />
     <ClCompile Include="src\bobura.main_window_menu_builder.cpp" />
     <ClCompile Include="src\main.cpp" />

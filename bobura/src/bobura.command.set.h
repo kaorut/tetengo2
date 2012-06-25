@@ -20,6 +20,8 @@
 #include "bobura.command.command_base.h"
 #include "bobura.command.exit.h"
 #include "bobura.command.file_property.h"
+#include "bobura.command.horizontally_zoom_in.h"
+#include "bobura.command.horizontally_zoom_out.h"
 #include "bobura.command.nop.h"
 
 
@@ -99,8 +101,6 @@ namespace bobura { namespace command
             const message_catalog_type&   message_catalog
         )
         :
-        //m_p_horizontally_zoom_in(create_horizontally_zoom_in(diagram_view)),
-        //m_p_horizontally_zoom_out(create_horizontally_zoom_out(diagram_view)),
         //m_p_load_from_file(create_load_from_file(load_from_file)),
         //m_p_new_file(create_new_file(new_file)),
         //m_p_reload(create_load_from_file(reload)),
@@ -109,8 +109,8 @@ namespace bobura { namespace command
         m_p_about(create_about(message_catalog, settings)),
         m_p_exit(create_exit()),
         m_p_file_property(create_file_property(message_catalog)),
-        m_p_horizontally_zoom_in(create_nop()),
-        m_p_horizontally_zoom_out(create_nop()),
+        m_p_horizontally_zoom_in(create_horizontally_zoom_in(diagram_view)),
+        m_p_horizontally_zoom_out(create_horizontally_zoom_out(diagram_view)),
         m_p_load_from_file(create_nop()),
         m_p_new_file(create_nop()),
         m_p_nop(create_nop()),
@@ -266,19 +266,15 @@ namespace bobura { namespace command
             return tetengo2::make_unique<bobura::command::file_property>(message_catalog);
         }
 
-        //static command_ptr_type create_horizontally_zoom_in(diagram_view_type& diagram_view)
-        //{
-        //    return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::horizontally_zoom_in>::type>(
-        //        diagram_view
-        //    );
-        //}
+        static command_ptr_type create_horizontally_zoom_in(diagram_view_type& diagram_view)
+        {
+            return tetengo2::make_unique<bobura::command::horizontally_zoom_in>(diagram_view);
+        }
 
-        //static command_ptr_type create_horizontally_zoom_out(diagram_view_type& diagram_view)
-        //{
-        //    return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::horizontally_zoom_out>::type>(
-        //        diagram_view
-        //    );
-        //}
+        static command_ptr_type create_horizontally_zoom_out(diagram_view_type& diagram_view)
+        {
+            return tetengo2::make_unique<bobura::command::horizontally_zoom_out>(diagram_view);
+        }
 
         //static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
         //{
