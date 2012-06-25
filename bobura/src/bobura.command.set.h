@@ -16,6 +16,7 @@
 
 #include <tetengo2.unique.h>
 
+#include "bobura.command.about.h"
 #include "bobura.command.command_base.h"
 #include "bobura.command.nop.h"
 
@@ -96,18 +97,16 @@ namespace bobura { namespace command
             const message_catalog_type&   message_catalog
         )
         :
-        //m_p_about(create_about(message_catalog, settings)),
         //m_p_exit(create_exit()),
         //m_p_file_property(create_file_property(message_catalog)),
         //m_p_horizontally_zoom_in(create_horizontally_zoom_in(diagram_view)),
         //m_p_horizontally_zoom_out(create_horizontally_zoom_out(diagram_view)),
         //m_p_load_from_file(create_load_from_file(load_from_file)),
         //m_p_new_file(create_new_file(new_file)),
-        //m_p_nop(create_nop()),
         //m_p_reload(create_load_from_file(reload)),
         //m_p_save_to_file(create_save_to_file(save_to_file)),
         //m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_save_to_file))
-        m_p_about(create_nop()),
+        m_p_about(create_about(message_catalog, settings)),
         m_p_exit(create_nop()),
         m_p_file_property(create_nop()),
         m_p_horizontally_zoom_in(create_nop()),
@@ -249,15 +248,13 @@ namespace bobura { namespace command
     private:
         // static functions
 
-        //static command_ptr_type create_about(
-        //    const message_catalog_type& message_catalog,
-        //    const settings_type&        settings
-        //)
-        //{
-        //    return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::about>::type>(
-        //        message_catalog, settings
-        //    );
-        //}
+        static command_ptr_type create_about(
+            const message_catalog_type& message_catalog,
+            const settings_type&        settings
+        )
+        {
+            return tetengo2::make_unique<bobura::command::about>(message_catalog, settings);
+        }
 
         //static command_ptr_type create_exit()
         //{
@@ -299,7 +296,7 @@ namespace bobura { namespace command
 
         static command_ptr_type create_nop()
         {
-            return command_ptr_type(new bobura::command::nop());
+            return tetengo2::make_unique<bobura::command::nop>();
         }
 
         //static command_ptr_type create_save_to_file(const save_to_file_type& save_to_file)
