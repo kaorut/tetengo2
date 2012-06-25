@@ -9,6 +9,10 @@
 #if !defined(BOBURA_COMMAND_HORIZONTALLYZOOMIN_H)
 #define BOBURA_COMMAND_HORIZONTALLYZOOMIN_H
 
+//#include <memory>
+
+//#include <boost/mpl/at.hpp>
+
 #include "bobura.command.command_base.h"
 
 

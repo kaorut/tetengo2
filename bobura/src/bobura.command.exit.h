@@ -9,6 +9,8 @@
 #if !defined(BOBURA_COMMAND_EXIT_H)
 #define BOBURA_COMMAND_EXIT_H
 
+//#include <memory>
+
 #include "bobura.command.command_base.h"
 
 

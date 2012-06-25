@@ -9,6 +9,10 @@
 #if !defined(BOBURA_COMMAND_LOADFROMFILE_H)
 #define BOBURA_COMMAND_LOADFROMFILE_H
 
+//#include <memory>
+
+//#include <boost/mpl/at.hpp>
+
 #include "bobura.command.command_base.h"
 
 
