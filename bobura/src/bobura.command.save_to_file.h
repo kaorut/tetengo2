@@ -15,29 +15,18 @@
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for a save-to-file command.
-
-        \tparam Model          A model type.
-        \tparam AbstractWindow An abstract window type.
-        \tparam SaveToFile     A file saving type.
+        \brief The class for a save-to-file command.
     */
-    template <typename Model, typename AbstractWindow, typename SaveToFile>
     class save_to_file : public command_base
     {
     public:
         // types
 
-        //! The model type.
-        typedef Model model_type;
-
-        //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
-
         //! The base type.
         typedef command_base base_type;
 
         //! The file saving type.
-        typedef SaveToFile save_to_file_type;
+        typedef boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type save_to_file_type;
 
 
         // constructors and destructor
@@ -47,31 +36,32 @@ namespace bobura { namespace command
 
             \param save_to_file A file saving.
         */
-        explicit save_to_file(const save_to_file_type& save_to_file)
-        :
-        m_save_to_file(save_to_file)
-        {}
+        explicit save_to_file(const save_to_file_type& save_to_file);
+
+        /*!
+            \brief Destroys the save-to-file command.
+        */
+        ~save_to_file();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const save_to_file_type& m_save_to_file;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
         virtual bool enabled_impl(const model_type& model)
-        const
-        {
-            return true;
-        }
+        const;
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
-        const
-        {
-            m_save_to_file(model, parent);
-        }
+        const;
 
 
     };

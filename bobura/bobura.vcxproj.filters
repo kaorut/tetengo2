@@ -216,5 +216,14 @@
     <ClCompile Include="src\bobura.command.horizontally_zoom_out.cpp">
       <Filter>sources\bobura\command</Filter>
     </ClCompile>
+    <ClCompile Include="src\bobura.command.load_from_file.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.new_file.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.save_to_file.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

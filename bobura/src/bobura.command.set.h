@@ -22,7 +22,10 @@
 #include "bobura.command.file_property.h"
 #include "bobura.command.horizontally_zoom_in.h"
 #include "bobura.command.horizontally_zoom_out.h"
+#include "bobura.command.load_from_file.h"
+#include "bobura.command.new_file.h"
 #include "bobura.command.nop.h"
+#include "bobura.command.save_to_file.h"
 
 
 namespace bobura { namespace command
@@ -101,22 +104,17 @@ namespace bobura { namespace command
             const message_catalog_type&   message_catalog
         )
         :
-        //m_p_load_from_file(create_load_from_file(load_from_file)),
-        //m_p_new_file(create_new_file(new_file)),
-        //m_p_reload(create_load_from_file(reload)),
-        //m_p_save_to_file(create_save_to_file(save_to_file)),
-        //m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_save_to_file))
         m_p_about(create_about(message_catalog, settings)),
         m_p_exit(create_exit()),
         m_p_file_property(create_file_property(message_catalog)),
         m_p_horizontally_zoom_in(create_horizontally_zoom_in(diagram_view)),
         m_p_horizontally_zoom_out(create_horizontally_zoom_out(diagram_view)),
-        m_p_load_from_file(create_nop()),
-        m_p_new_file(create_nop()),
+        m_p_load_from_file(create_load_from_file(load_from_file)),
+        m_p_new_file(create_new_file(new_file)),
         m_p_nop(create_nop()),
-        m_p_reload(create_nop()),
-        m_p_save_to_file(create_nop()),
-        m_p_ask_file_path_and_save_to_file(create_nop())
+        m_p_reload(create_load_from_file(reload)),
+        m_p_save_to_file(create_save_to_file(save_to_file)),
+        m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_save_to_file))
         {}
 
 
@@ -276,29 +274,25 @@ namespace bobura { namespace command
             return tetengo2::make_unique<bobura::command::horizontally_zoom_out>(diagram_view);
         }
 
-        //static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
-        //{
-        //    return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::load_from_file>::type>(
-        //        load_from_file
-        //    );
-        //}
+        static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
+        {
+            return tetengo2::make_unique<bobura::command::load_from_file>(load_from_file);
+        }
 
-        //static command_ptr_type create_new_file(const new_file_type& new_file)
-        //{
-        //    return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::new_file>::type>(new_file);
-        //}
+        static command_ptr_type create_new_file(const new_file_type& new_file)
+        {
+            return tetengo2::make_unique<bobura::command::new_file>(new_file);
+        }
 
         static command_ptr_type create_nop()
         {
             return tetengo2::make_unique<bobura::command::nop>();
         }
 
-        //static command_ptr_type create_save_to_file(const save_to_file_type& save_to_file)
-        //{
-        //    return tetengo2::make_unique<typename boost::mpl::at<type_list_type, type::save_to_file>::type>(
-        //        save_to_file
-        //    );
-        //}
+        static command_ptr_type create_save_to_file(const save_to_file_type& save_to_file)
+        {
+            return tetengo2::make_unique<bobura::command::save_to_file>(save_to_file);
+        }
 
 
         // variables

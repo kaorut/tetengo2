@@ -15,29 +15,18 @@
 namespace bobura { namespace command
 {
     /*!
-        \brief The class template for a new-file command.
-
-        \tparam Model          A model type.
-        \tparam AbstractWindow An abstract window type.
-        \tparam NewFile        A file initialization type.
+        \brief The class for a new-file command.
     */
-    template <typename Model, typename AbstractWindow, typename NewFile>
     class new_file : public command_base
     {
     public:
         // types
 
-        //! The model type.
-        typedef Model model_type;
-
-        //! The abstract window type.
-        typedef AbstractWindow abstract_window_type;
-
         //! The base type.
         typedef command_base base_type;
 
         //! The file initialization type.
-        typedef NewFile new_file_type;
+        typedef boost::mpl::at<load_save_type_list, type::load_save::new_file>::type new_file_type;
 
 
         // constructors and destructor
@@ -47,31 +36,32 @@ namespace bobura { namespace command
 
             \param new_file A file initialization type.
         */
-        explicit new_file(const new_file_type& new_file)
-        :
-        m_new_file(new_file)
-        {}
+        explicit new_file(const new_file_type& new_file);
+
+        /*!
+            \brief Destroys the new-file command.
+        */
+        ~new_file();
 
 
     private:
+        // types
+
+        class impl;
+
+
         // variables
 
-        const new_file_type& m_new_file;
+        const std::unique_ptr<impl> m_p_impl;
 
 
         // virtual functions
 
         virtual bool enabled_impl(const model_type& model)
-        const
-        {
-            return true;
-        }
+        const;
 
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
-        const
-        {
-            m_new_file(model, parent);
-        }
+        const;
 
 
     };
