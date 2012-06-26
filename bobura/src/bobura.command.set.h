@@ -25,6 +25,8 @@
 #include "bobura.command.new_file.h"
 #include "bobura.command.nop.h"
 #include "bobura.command.save_to_file.h"
+#include "bobura.command.vertically_zoom_in.h"
+#include "bobura.command.vertically_zoom_out.h"
 
 
 namespace bobura { namespace command
@@ -113,7 +115,9 @@ namespace bobura { namespace command
         m_p_nop(create_nop()),
         m_p_reload(create_load_from_file(reload)),
         m_p_save_to_file(create_save_to_file(save_to_file)),
-        m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_save_to_file))
+        m_p_ask_file_path_and_save_to_file(create_save_to_file(ask_file_path_save_to_file)),
+        m_p_vertically_zoom_in(create_vertically_zoom_in(diagram_view)),
+        m_p_vertically_zoom_out(create_vertically_zoom_out(diagram_view))
         {}
 
 
@@ -241,6 +245,28 @@ namespace bobura { namespace command
             return *m_p_ask_file_path_and_save_to_file;
         }
 
+        /*!
+            \brief Returns the command vertical zoom-in.
+
+            \return The command.
+        */
+        const command_type& vertically_zoom_in()
+        const
+        {
+            return *m_p_vertically_zoom_in;
+        }
+
+        /*!
+            \brief Returns the command vertical zoom-out.
+
+            \return The command.
+        */
+        const command_type& vertically_zoom_out()
+        const
+        {
+            return *m_p_vertically_zoom_out;
+        }
+
 
     private:
         // static functions
@@ -293,6 +319,16 @@ namespace bobura { namespace command
             return tetengo2::make_unique<bobura::command::save_to_file>(save_to_file);
         }
 
+        static command_ptr_type create_vertically_zoom_in(diagram_view_type& diagram_view)
+        {
+            return tetengo2::make_unique<bobura::command::vertically_zoom_in>(diagram_view);
+        }
+
+        static command_ptr_type create_vertically_zoom_out(diagram_view_type& diagram_view)
+        {
+            return tetengo2::make_unique<bobura::command::vertically_zoom_out>(diagram_view);
+        }
+
 
         // variables
 
@@ -317,6 +353,10 @@ namespace bobura { namespace command
         const command_ptr_type m_p_save_to_file;
 
         const command_ptr_type m_p_ask_file_path_and_save_to_file;
+
+        const command_ptr_type m_p_vertically_zoom_in;
+
+        const command_ptr_type m_p_vertically_zoom_out;
 
 
     };

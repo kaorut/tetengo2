@@ -228,14 +228,14 @@ namespace bobura
             append_menu_command(
                 *p_popup_menu,
                 m_message_catalog.get(TETENGO2_TEXT("Menu:View:Vertical Zoom:Zoom &In")),
-                m_command_set.nop(),
+                m_command_set.vertically_zoom_in(),
                 commands,
                 shortcut_key_type(virtual_key_type::down(), true, false, false)
             );
             append_menu_command(
                 *p_popup_menu,
                 m_message_catalog.get(TETENGO2_TEXT("Menu:View:Vertical Zoom:Zoom &Out")),
-                m_command_set.nop(),
+                m_command_set.vertically_zoom_out(),
                 commands,
                 shortcut_key_type(virtual_key_type::up(), true, false, false)
             );
