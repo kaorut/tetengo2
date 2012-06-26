@@ -47,6 +47,7 @@ namespace bobura { namespace command
             const view_scale_list_type scale_list;
             m_diagram_view.set_horizontal_scale(scale_list.larger(m_diagram_view.horizontal_scale()));
             parent.window_observer_set().resized()();
+            parent.repaint();
         }
 
 
