@@ -179,6 +179,19 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
+            \brief Divides by another EM height unit.
+
+            \param another Another EM height unit.
+
+            \return A value.
+        */
+        value_type divide_by(const em& another)
+        const
+        {
+            return value() / another.value();
+        }
+
+        /*!
             \brief Returns the value.
 
             \return The value.

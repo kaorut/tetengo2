@@ -202,6 +202,19 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
+            \brief Divides by another unit.
+
+            \param one     One unit.
+            \param another Another unit.
+
+            \return A value.
+        */
+        friend value_type operator/(const concrete_unit_type& one, const concrete_unit_type& another)
+        {
+            return one.divide_by(another);
+        }
+
+        /*!
             \brief Checks whether one unit is equal to another.
 
             \tparam U A unit type.

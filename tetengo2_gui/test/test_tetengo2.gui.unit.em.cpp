@@ -121,11 +121,19 @@ BOOST_AUTO_TEST_SUITE(em)
     {
         BOOST_TEST_PASSPOINT();
 
-        unit_type unit1(456);
+        {
+            unit_type unit1(456);
 
-        unit1.divide_by(123);
+            unit1.divide_by(123);
 
-        BOOST_CHECK_EQUAL(unit1.value(), 3);
+            BOOST_CHECK_EQUAL(unit1.value(), 3);
+        }
+        {
+            const unit_type unit1(456);
+            const unit_type unit2(123);
+
+            BOOST_CHECK_EQUAL(unit1.divide_by(unit2), 3);
+        }
     }
 
     BOOST_AUTO_TEST_CASE(value)

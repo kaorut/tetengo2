@@ -175,6 +175,19 @@ namespace tetengo2 { namespace gui { namespace unit
         }
 
         /*!
+            \brief Divides by another pixel unit.
+
+            \param another Another pixel unit.
+
+            \return A value.
+        */
+        value_type divide_by(const pixel& another)
+        const
+        {
+            return value() / another.value();
+        }
+
+        /*!
             \brief Returns the value.
 
             \return The value.

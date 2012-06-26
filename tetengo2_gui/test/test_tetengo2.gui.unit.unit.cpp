@@ -99,6 +99,12 @@ namespace
             return *this;
         }
 
+        value_type divide_by(const concrete_unit& another)
+        const
+        {
+            return value() / another.value();
+        }
+
         const value_type& value()
         const
         {
@@ -310,6 +316,14 @@ BOOST_AUTO_TEST_SUITE(unit)
             const unit_type unit3 = unit1 / 123;
 
             BOOST_CHECK_EQUAL(unit3.value(), 3);
+        }
+        {
+            const unit_type unit1(456);
+            const unit_type unit2(123);
+
+            const int value = unit1 / unit2;
+
+            BOOST_CHECK_EQUAL(value, 3);
         }
     }
 
