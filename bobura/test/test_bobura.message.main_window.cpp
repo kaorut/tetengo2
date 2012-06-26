@@ -24,6 +24,9 @@ namespace
 
     struct command_type
     {
+        command_type()
+        {}
+
         void execute(model_type& model, abstract_window_type& parent)
         const
         {}
