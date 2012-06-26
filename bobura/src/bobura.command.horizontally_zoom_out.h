@@ -63,9 +63,6 @@ namespace bobura { namespace command
 
         // virtual functions
 
-        virtual bool enabled_impl(const model_type& model)
-        const;
-
         virtual void execute_impl(model_type& model, abstract_window_type& parent)
         const;
 

@@ -35,12 +35,6 @@ namespace bobura { namespace command
 
         // functions
 
-        bool enabled(const model_type& model)
-        const
-        {
-            return true;
-        }
-
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
@@ -68,12 +62,6 @@ namespace bobura { namespace command
     horizontally_zoom_in::~horizontally_zoom_in()
     {}
     
-    bool horizontally_zoom_in::enabled_impl(const model_type& model)
-    const
-    {
-        return m_p_impl->enabled(model);
-    }
-
     void horizontally_zoom_in::execute_impl(model_type& model, abstract_window_type& parent)
     const
     {

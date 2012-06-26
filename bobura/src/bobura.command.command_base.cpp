@@ -23,5 +23,11 @@ namespace bobura { namespace command
         execute_impl(model, parent);
     }
 
+    bool command_base::enabled_impl(const model_type& model)
+    const
+    {
+        return true;
+    }
+
 
 }}
