@@ -65,7 +65,7 @@ namespace bobura { namespace view
         /*!
             \brief Returns the scale at the specified index.
 
-            \param index.
+            \param index An index.
 
             \return The scale.
 
@@ -83,7 +83,7 @@ namespace bobura { namespace view
         /*!
             \brief Returns the scale label at the specified index.
 
-            \param index.
+            \param index An index.
 
             \return The scale label.
 
