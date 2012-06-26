@@ -153,6 +153,12 @@
     <ClInclude Include="src\bobura.basic_type_list.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.vertically_zoom_in.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.vertically_zoom_out.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
@@ -223,6 +229,12 @@
       <Filter>sources\bobura\command</Filter>
     </ClCompile>
     <ClCompile Include="src\bobura.command.save_to_file.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.vertically_zoom_in.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.vertically_zoom_out.cpp">
       <Filter>sources\bobura\command</Filter>
     </ClCompile>
   </ItemGroup>
