@@ -226,15 +226,11 @@ namespace bobura { namespace message { namespace main_window
         void operator()()
         const
         {
-            const dimension_type previous_size = m_diagram_picture_box.dimension();
-            if (previous_size == m_window.client_dimension())
-                return;
-
             m_diagram_picture_box.set_position_and_dimension(
                 position_type(left_type(0), top_type(0)), m_window.client_dimension()
             );
 
-            update_scroll_bars(previous_size);
+            update_scroll_bars();
         }
 
 
@@ -267,7 +263,7 @@ namespace bobura { namespace message { namespace main_window
 
         // functions
 
-        void update_scroll_bars(const dimension_type& pervious_dimension)
+        void update_scroll_bars()
         const
         {
             assert(m_diagram_picture_box.vertical_scroll_bar());
@@ -288,6 +284,10 @@ namespace bobura { namespace message { namespace main_window
             const scroll_bar_size_type width = boost::rational_cast<scroll_bar_size_type>(view_width.value()) - 1;
             const scroll_bar_size_type height = boost::rational_cast<scroll_bar_size_type>(view_height.value()) - 1;
 
+            const scroll_bar_size_type previous_width =
+                m_diagram_picture_box.horizontal_scroll_bar()->range().second;
+            const scroll_bar_size_type previous_height = m_diagram_picture_box.vertical_scroll_bar()->range().second;
+
             if (view_height > 0 && 0 < page_height && page_height <= height)
             {
                 m_diagram_picture_box.vertical_scroll_bar()->set_enabled(true);
@@ -296,6 +296,13 @@ namespace bobura { namespace message { namespace main_window
                 if (m_diagram_picture_box.vertical_scroll_bar()->position() + page_height > height)
                 {
                     const scroll_bar_size_type new_position = height - page_height + 1;
+                    m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
+                    m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                }
+                else if (previous_height > 0 && previous_height != height)
+                {
+                    const scroll_bar_size_type new_position =
+                        m_diagram_picture_box.vertical_scroll_bar()->position() * height / previous_height;
                     m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
                     m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
@@ -320,6 +327,13 @@ namespace bobura { namespace message { namespace main_window
                 if (m_diagram_picture_box.horizontal_scroll_bar()->position() + page_width > width)
                 {
                     const scroll_bar_size_type new_position = width - page_width + 1;
+                    m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
+                    m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                }
+                else if (previous_width > 0 && previous_width != width)
+                {
+                    const scroll_bar_size_type new_position =
+                        m_diagram_picture_box.horizontal_scroll_bar()->position() * width / previous_width;
                     m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
                     m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
