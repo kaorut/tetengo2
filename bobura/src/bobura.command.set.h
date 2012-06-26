@@ -276,57 +276,57 @@ namespace bobura { namespace command
             const settings_type&        settings
         )
         {
-            return tetengo2::make_unique<bobura::command::about>(message_catalog, settings);
+            return tetengo2::make_unique<command::about>(message_catalog, settings);
         }
 
         static command_ptr_type create_exit()
         {
-            return tetengo2::make_unique<bobura::command::exit>();
+            return tetengo2::make_unique<command::exit>();
         }
 
         static command_ptr_type create_file_property(const message_catalog_type& message_catalog)
         {
-            return tetengo2::make_unique<bobura::command::file_property>(message_catalog);
+            return tetengo2::make_unique<command::file_property>(message_catalog);
         }
 
         static command_ptr_type create_horizontally_zoom_in(diagram_view_type& diagram_view)
         {
-            return tetengo2::make_unique<bobura::command::horizontally_zoom_in>(diagram_view);
+            return tetengo2::make_unique<command::horizontally_zoom_in>(diagram_view);
         }
 
         static command_ptr_type create_horizontally_zoom_out(diagram_view_type& diagram_view)
         {
-            return tetengo2::make_unique<bobura::command::horizontally_zoom_out>(diagram_view);
+            return tetengo2::make_unique<command::horizontally_zoom_out>(diagram_view);
         }
 
         static command_ptr_type create_load_from_file(const load_from_file_type& load_from_file)
         {
-            return tetengo2::make_unique<bobura::command::load_from_file>(load_from_file);
+            return tetengo2::make_unique<command::load_from_file>(load_from_file);
         }
 
         static command_ptr_type create_new_file(const new_file_type& new_file)
         {
-            return tetengo2::make_unique<bobura::command::new_file>(new_file);
+            return tetengo2::make_unique<command::new_file>(new_file);
         }
 
         static command_ptr_type create_nop()
         {
-            return tetengo2::make_unique<bobura::command::nop>();
+            return tetengo2::make_unique<command::nop>();
         }
 
         static command_ptr_type create_save_to_file(const save_to_file_type& save_to_file)
         {
-            return tetengo2::make_unique<bobura::command::save_to_file>(save_to_file);
+            return tetengo2::make_unique<command::save_to_file>(save_to_file);
         }
 
         static command_ptr_type create_vertically_zoom_in(diagram_view_type& diagram_view)
         {
-            return tetengo2::make_unique<bobura::command::vertically_zoom_in>(diagram_view);
+            return tetengo2::make_unique<command::vertically_zoom_in>(diagram_view);
         }
 
         static command_ptr_type create_vertically_zoom_out(diagram_view_type& diagram_view)
         {
-            return tetengo2::make_unique<bobura::command::vertically_zoom_out>(diagram_view);
+            return tetengo2::make_unique<command::vertically_zoom_out>(diagram_view);
         }
 
 
