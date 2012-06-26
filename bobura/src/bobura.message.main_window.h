@@ -226,11 +226,15 @@ namespace bobura { namespace message { namespace main_window
         void operator()()
         const
         {
+            const dimension_type previous_size = m_diagram_picture_box.dimension();
+            if (previous_size == m_window.client_dimension())
+                return;
+
             m_diagram_picture_box.set_position_and_dimension(
                 position_type(left_type(0), top_type(0)), m_window.client_dimension()
             );
 
-            update_scroll_bars();
+            update_scroll_bars(previous_size);
         }
 
 
@@ -263,7 +267,7 @@ namespace bobura { namespace message { namespace main_window
 
         // functions
 
-        void update_scroll_bars()
+        void update_scroll_bars(const dimension_type& pervious_dimension)
         const
         {
             assert(m_diagram_picture_box.vertical_scroll_bar());
