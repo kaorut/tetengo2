@@ -299,10 +299,14 @@ namespace bobura { namespace message { namespace main_window
                     m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
                     m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
-                else if (previous_height > 0 && previous_height != height)
+                else if (previous_height > 0 && previous_height != view_height.value())
                 {
                     const scroll_bar_size_type new_position =
-                        m_diagram_picture_box.vertical_scroll_bar()->position() * height / previous_height;
+                        boost::rational_cast<scroll_bar_size_type>(
+                            m_diagram_picture_box.vertical_scroll_bar()->position() *
+                            view_height.value() /
+                            previous_height
+                        );
                     m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
                     m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
@@ -330,10 +334,14 @@ namespace bobura { namespace message { namespace main_window
                     m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
                     m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
-                else if (previous_width > 0 && previous_width != width)
+                else if (previous_width > 0 && previous_width != view_width.value())
                 {
                     const scroll_bar_size_type new_position =
-                        m_diagram_picture_box.horizontal_scroll_bar()->position() * width / previous_width;
+                        boost::rational_cast<scroll_bar_size_type>(
+                            m_diagram_picture_box.horizontal_scroll_bar()->position() *
+                            view_width.value() /
+                            previous_width
+                        );
                     m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
                     m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
                 }
