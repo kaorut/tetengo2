@@ -6,6 +6,10 @@
     $Id$
 */
 
+#include <boost/mpl/at.hpp>
+
+#include "bobura.type_list.h"
+
 #include "bobura.command.horizontally_zoom_out.h"
 
 
@@ -40,12 +44,24 @@ namespace bobura { namespace command
         {
             const view_scale_list_type scale_list;
             m_diagram_view.set_horizontal_scale(scale_list.smaller(m_diagram_view.horizontal_scale()));
-            parent.window_observer_set().resized()();
-            parent.repaint();
+
+            main_window_type* const p_main_window = dynamic_cast<main_window_type*>(&parent);
+            assert(p_main_window);
+            p_main_window->diagram_picture_box().update_scroll_bars(
+                m_diagram_view.dimension(),
+                m_diagram_view.page_size(p_main_window->diagram_picture_box().client_dimension()),
+                true
+            );
+            p_main_window->diagram_picture_box().repaint();
         }
 
 
     private:
+        // types
+
+        typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
+
+
         // variables
 
         diagram_view_type& m_diagram_view;

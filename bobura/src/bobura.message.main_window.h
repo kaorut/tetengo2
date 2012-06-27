@@ -230,7 +230,7 @@ namespace bobura { namespace message { namespace main_window
             );
 
             m_diagram_picture_box.update_scroll_bars(
-                m_view.dimension(), m_view.page_size(m_diagram_picture_box.client_dimension())
+                m_view.dimension(), m_view.page_size(m_diagram_picture_box.client_dimension()), false
             );
         }
 

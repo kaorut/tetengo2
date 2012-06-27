@@ -79,8 +79,13 @@ namespace bobura
 
             \param view_dimension A view dimension.
             \param page_dimension A page dimension.
+            \param zooming        True when zooming.
         */
-        void update_scroll_bars(const dimension_type& view_dimension, const dimension_type& page_dimension)
+        void update_scroll_bars(
+            const dimension_type& view_dimension,
+            const dimension_type& page_dimension,
+            const bool            zooming
+        )
         {
             assert(vertical_scroll_bar());
             assert(horizontal_scroll_bar());
@@ -90,14 +95,16 @@ namespace bobura
                 tetengo2::gui::dimension<dimension_type>::height(view_dimension),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::height(page_dimension).value()
-                )
+                ),
+                zooming
             );
             update_scroll_bar(
                 *horizontal_scroll_bar(),
                 tetengo2::gui::dimension<dimension_type>::width(view_dimension),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::width(page_dimension).value()
-                )
+                ),
+                zooming
             );
         }
 
@@ -156,7 +163,8 @@ namespace bobura
         void update_scroll_bar(
             scroll_bar_type&           scroll_bar,
             const Size&                view_size,
-            const scroll_bar_size_type page_size
+            const scroll_bar_size_type page_size,
+            const bool                 zooming
 
         )
         {
@@ -175,7 +183,7 @@ namespace bobura
                     scroll_bar.set_position(new_position);
                     scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
                 }
-                else if (previous_size > 0 && previous_size != view_size.value())
+                else if (zooming && previous_size > 0 && previous_size != view_size.value())
                 {
                     const scroll_bar_size_type new_position =
                         calculate_scroll_bar_position(
