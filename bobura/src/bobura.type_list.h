@@ -40,22 +40,22 @@ namespace bobura
     {
         typedef command::command_base command_type;
         typedef
+            diagram_picture_box<
+                boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
+                boost::mpl::at<ui_type_list, type::ui::abstract_window>::type
+            >
+            diagram_picture_box_type;
+        typedef
             message::main_window::type_list<
                 boost::mpl::at<ui_type_list, type::ui::popup_menu>::type,
                 command_type,
                 boost::mpl::at<model_type_list, type::model::model>::type,
                 boost::mpl::at<view_type_list, type::view::view>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
-                boost::mpl::at<ui_type_list, type::ui::control>::type,
+                diagram_picture_box_type,
                 boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
             >::type
             main_window_message_type_list;
-        typedef
-            diagram_picture_box<
-                boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
-                boost::mpl::at<ui_type_list, type::ui::abstract_window>::type
-            >
-            diagram_picture_box_type;
         typedef
             message::diagram_picture_box::type_list<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,

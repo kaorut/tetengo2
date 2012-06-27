@@ -181,11 +181,11 @@ namespace bobura { namespace message { namespace main_window
     /*!
         \brief The class template for a window resized observer of the main window.
 
-        \tparam View           A view type.
-        \tparam AbstractWindow An abstract window type.
-        \tparam Control        A control type.
+        \tparam View              A view type.
+        \tparam AbstractWindow    An abstract window type.
+        \tparam DiagramPictureBox A diagram picture box type.
     */
-    template <typename View, typename AbstractWindow, typename Control>
+    template <typename View, typename AbstractWindow, typename DiagramPictureBox>
     class window_resized
     {
     public:
@@ -197,8 +197,8 @@ namespace bobura { namespace message { namespace main_window
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
-        //! The control type.
-        typedef Control control_type;
+        //! The diagram picture box type.
+        typedef DiagramPictureBox diagram_picture_box_type;
 
 
         // constructors and destructor
@@ -210,7 +210,7 @@ namespace bobura { namespace message { namespace main_window
             \param window              A window.
             \param diagram_picture_box A diagram picture box.
         */
-        window_resized(const view_type& view, abstract_window_type& window, control_type& diagram_picture_box)
+        window_resized(const view_type& view, abstract_window_type& window, diagram_picture_box_type& diagram_picture_box)
         :
         m_view(view),
         m_window(window),
@@ -230,28 +230,22 @@ namespace bobura { namespace message { namespace main_window
                 position_type(left_type(0), top_type(0)), m_window.client_dimension()
             );
 
-            update_scroll_bars();
+            m_diagram_picture_box.update_scroll_bars(
+                m_view.dimension(), m_view.page_size(m_diagram_picture_box.client_dimension())
+            );
         }
 
 
     private:
         // types
 
+        typedef typename diagram_picture_box_type::base_type::base_type control_type;
+
         typedef typename control_type::position_type position_type;
 
         typedef typename tetengo2::gui::position<position_type>::left_type left_type;
 
         typedef typename tetengo2::gui::position<position_type>::top_type top_type;
-
-        typedef typename control_type::dimension_type dimension_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::width_type width_type;
-
-        typedef typename tetengo2::gui::dimension<dimension_type>::height_type height_type;
-
-        typedef typename control_type::scroll_bar_type scroll_bar_type;
-
-        typedef typename scroll_bar_type::size_type scroll_bar_size_type;
 
 
         // variables
@@ -260,101 +254,7 @@ namespace bobura { namespace message { namespace main_window
 
         abstract_window_type& m_window;
 
-        control_type& m_diagram_picture_box;
-
-
-        // functions
-
-        void update_scroll_bars()
-        const
-        {
-            assert(m_diagram_picture_box.vertical_scroll_bar());
-            assert(m_diagram_picture_box.horizontal_scroll_bar());
-            
-            const dimension_type page_dimension = m_view.page_size(m_diagram_picture_box.client_dimension());
-
-            update_scroll_bar(
-                *m_diagram_picture_box.vertical_scroll_bar(),
-                tetengo2::gui::dimension<dimension_type>::height(m_view.dimension()),
-                boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::height(page_dimension).value()
-                )
-            );
-            update_scroll_bar(
-                *m_diagram_picture_box.horizontal_scroll_bar(),
-                tetengo2::gui::dimension<dimension_type>::width(m_view.dimension()),
-                boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::width(page_dimension).value()
-                )
-            );
-        }
-
-        template <typename Size>
-        void update_scroll_bar(
-            scroll_bar_type&           scroll_bar,
-            const Size&                view_size,
-            const scroll_bar_size_type page_size
-
-        )
-        const
-        {
-            const scroll_bar_size_type size =
-                view_size.value() > 0 ? boost::rational_cast<scroll_bar_size_type>(view_size.value()) - 1 : 0;
-            const scroll_bar_size_type previous_size = scroll_bar.range().second;
-
-            if (view_size > 0 && 0 < page_size && page_size <= size)
-            {
-                scroll_bar.set_enabled(true);
-                scroll_bar.set_range(std::make_pair(0U, size));
-                scroll_bar.set_page_size(page_size);
-                if (scroll_bar.position() + page_size > size)
-                {
-                    const scroll_bar_size_type new_position = size - page_size + 1;
-                    scroll_bar.set_position(new_position);
-                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
-                }
-                else if (previous_size > 0 && previous_size != view_size.value())
-                {
-                    const scroll_bar_size_type new_position =
-                        calculate_scroll_bar_position(
-                            scroll_bar, view_size, previous_size, page_size, size - page_size + 1
-                        );
-                    scroll_bar.set_position(new_position);
-                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
-                }
-            }
-            else
-            {
-                if (view_size <= page_size)
-                {
-                    const scroll_bar_size_type new_position = 0;
-                    scroll_bar.set_position(new_position);
-                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
-                }
-                scroll_bar.set_enabled(false);
-            }
-        }
-
-        template <typename ViewSize>
-        scroll_bar_size_type calculate_scroll_bar_position(
-            const scroll_bar_type&     scroll_bar,
-            const ViewSize&            view_size,
-            const scroll_bar_size_type previous_size,
-            const scroll_bar_size_type page_size,
-            const scroll_bar_size_type max
-        )
-        const
-        {
-            const boost::rational<scroll_bar_size_type> change_rate = view_size.value() / previous_size;
-            const boost::rational<scroll_bar_size_type> half_page_size(page_size, 2);
-            if ((scroll_bar.position() + half_page_size) * change_rate < half_page_size)
-                return 0;
-            const boost::rational<scroll_bar_size_type> new_position =
-                (scroll_bar.position() + half_page_size) * change_rate - half_page_size;
-            if (new_position > boost::rational<scroll_bar_size_type>(max))
-                return max;
-            return boost::rational_cast<scroll_bar_size_type>(new_position);
-        }
+        diagram_picture_box_type& m_diagram_picture_box;
 
 
     };
