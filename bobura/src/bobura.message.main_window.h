@@ -16,7 +16,6 @@
 #include <vector>
 
 #include <boost/foreach.hpp>
-#include <boost/rational.hpp>
 
 #include <tetengo2.gui.measure.h>
 #include <tetengo2.text.h>

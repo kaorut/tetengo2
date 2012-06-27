@@ -9,11 +9,15 @@
 #if !defined(BOBURA_DIAGRAMPICTUREBOX_H)
 #define BOBURA_DIAGRAMPICTUREBOX_H
 
-#include <boost/mpl/at.hpp>
+#include <cassert>
+//#include <utility>
 
-#include "bobura.message.type_list.h"
+#include <boost/mpl/at.hpp>
+#include <boost/rational.hpp>
 
 #include <tetengo2.gui.measure.h>
+
+#include "bobura.message.type_list.h"
 
 
 namespace bobura
