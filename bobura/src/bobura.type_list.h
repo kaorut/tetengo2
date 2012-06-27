@@ -51,6 +51,12 @@ namespace bobura
             >::type
             main_window_message_type_list;
         typedef
+            diagram_picture_box<
+                boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
+                boost::mpl::at<ui_type_list, type::ui::abstract_window>::type
+            >
+            diagram_picture_box_type;
+        typedef
             message::diagram_picture_box::type_list<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
                 command_type,
@@ -71,7 +77,7 @@ namespace bobura
                 main_window<
                     boost::mpl::at<ui_type_list, type::ui::window>::type,
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
-                    boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
+                    detail::main_window::diagram_picture_box_type,
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
                     boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type,
@@ -82,13 +88,7 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::main_window::message_type_list, detail::main_window::main_window_message_type_list>,
         tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::main_window::diagram_picture_box, 
-                diagram_picture_box<
-                    boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
-                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type
-                >
-            >,
+            boost::mpl::pair<type::main_window::diagram_picture_box, detail::main_window::diagram_picture_box_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::main_window::diagram_picture_box_message_type_list,

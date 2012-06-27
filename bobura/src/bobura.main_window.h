@@ -31,7 +31,7 @@ namespace bobura
 
         \tparam Window                           A window type.
         \tparam MessageCatalog                   A message catalog type.
-        \tparam PictureBox                       A picture box type.
+        \tparam DiagramPictureBox                A diagram picture box type.
         \tparam Settings                         A settings type.
         \tparam ConfirmFileSave                  A file save confirmation type.
         \tparam MessageLoopBreak                 A message loop break type.
@@ -41,7 +41,7 @@ namespace bobura
     template <
         typename Window,
         typename MessageCatalog,
-        typename PictureBox,
+        typename DiagramPictureBox,
         typename Settings,
         typename ConfirmFileSave,
         typename MessageLoopBreak,
@@ -62,8 +62,8 @@ namespace bobura
         //! The message catalog type.
         typedef MessageCatalog message_catalog_type;
 
-        //! The picture box type.
-        typedef PictureBox picture_box_type;
+        //! The diagram picture box type.
+        typedef DiagramPictureBox diagram_picture_box_type;
 
         //! The settings type.
         typedef Settings settings_type;
@@ -137,7 +137,7 @@ namespace bobura
 
             \return The diagram picture box.
         */
-        const picture_box_type& diagram_picture_box()
+        const diagram_picture_box_type& diagram_picture_box()
         const
         {
             assert(m_p_diagram_picture_box);
@@ -149,7 +149,7 @@ namespace bobura
 
             \return The diagram picture box.
         */
-        picture_box_type& diagram_picture_box()
+        diagram_picture_box_type& diagram_picture_box()
         {
             assert(m_p_diagram_picture_box);
             return *m_p_diagram_picture_box;
@@ -180,7 +180,7 @@ namespace bobura
 
         const message_catalog_type& m_message_catalog;
 
-        std::unique_ptr<picture_box_type> m_p_diagram_picture_box;
+        std::unique_ptr<diagram_picture_box_type> m_p_diagram_picture_box;
 
         const settings_type& m_settings;
 
@@ -191,19 +191,11 @@ namespace bobura
 
         void initialize_window()
         {
-            m_p_diagram_picture_box = create_diagram_picture_box();
+            m_p_diagram_picture_box = tetengo2::make_unique<diagram_picture_box_type>(*this);
 
             set_message_observers();
 
             set_title(boost::none, false);
-        }
-
-        std::unique_ptr<picture_box_type> create_diagram_picture_box()
-        {
-            std::unique_ptr<picture_box_type> p_picture_box =
-                tetengo2::make_unique<picture_box_type>(*this, picture_box_type::scroll_bar_style_both);
-
-            return std::move(p_picture_box);
         }
 
         void focus_on_diagram_picture_box()

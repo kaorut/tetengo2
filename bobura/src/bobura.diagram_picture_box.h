@@ -15,19 +15,19 @@
 namespace bobura
 {
     /*!
-        \brief The class template for the picture box.
+        \brief The class template for the diagram picture box.
 
-        \tparam PictureBox     A picture box type.
+        \tparam DiagramPictureBox     A picture box type.
         \tparam AbstractWindow An abstract window type.
     */
-    template <typename PictureBox, typename AbstractWindow>
-    class diagram_picture_box : public PictureBox
+    template <typename DiagramPictureBox, typename AbstractWindow>
+    class diagram_picture_box : public DiagramPictureBox
     {
     public:
         // types
 
         //! The base type.
-        typedef PictureBox base_type;
+        typedef DiagramPictureBox base_type;
 
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
@@ -36,17 +36,17 @@ namespace bobura
         // constructors and destructor
 
         /*!
-            \brief Creates a picture box.
+            \brief Creates a diagram picture box.
 
             \param parent A parent.
         */
-        diagram_picture_box(abstract_window_type& parent)
+        explicit diagram_picture_box(abstract_window_type& parent)
         :
         base_type(parent, base_type::scroll_bar_style_both)
         {}
 
         /*!
-            \brief Destroys the picture box.
+            \brief Destroys the diagram picture box.
         */
         virtual ~diagram_picture_box()
         {}
