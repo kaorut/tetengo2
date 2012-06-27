@@ -127,27 +127,23 @@ namespace bobura
             assert(vertical_scroll_bar());
             vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
                 typename boost::mpl::at<
-                    message_type_list_type,
-                    message::diagram_picture_box::type::scroll_bar_scrolled
+                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
                 >::type(*this)
             );
             vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
                 typename boost::mpl::at<
-                    message_type_list_type,
-                    message::diagram_picture_box::type::scroll_bar_scrolled
+                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
                 >::type(*this)
             );
             assert(horizontal_scroll_bar());
             horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
                 typename boost::mpl::at<
-                    message_type_list_type,
-                    message::diagram_picture_box::type::scroll_bar_scrolled
+                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
                 >::type(*this)
             );
             horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
                 typename boost::mpl::at<
-                    message_type_list_type,
-                    message::diagram_picture_box::type::scroll_bar_scrolled
+                    message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
                 >::type(*this)
             );
         }
