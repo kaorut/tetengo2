@@ -9,6 +9,8 @@
 #if !defined(BOBURA_DIAGRAMPICTUREBOX_H)
 #define BOBURA_DIAGRAMPICTUREBOX_H
 
+#include <boost/mpl/at.hpp>
+
 #include "bobura.message.type_list.h"
 
 #include <tetengo2.gui.measure.h>
@@ -19,10 +21,11 @@ namespace bobura
     /*!
         \brief The class template for the diagram picture box.
 
-        \tparam DiagramPictureBox     A picture box type.
-        \tparam AbstractWindow An abstract window type.
+        \tparam DiagramPictureBox A picture box type.
+        \tparam AbstractWindow    An abstract window type.
+        \tparam MessageTypeList   A message type list.
     */
-    template <typename DiagramPictureBox, typename AbstractWindow>
+    template <typename DiagramPictureBox, typename AbstractWindow, typename MessageTypeList>
     class diagram_picture_box : public DiagramPictureBox
     {
     public:
@@ -40,6 +43,9 @@ namespace bobura
         //! The abstract window type.
         typedef AbstractWindow abstract_window_type;
 
+        //! The message type list type.
+        typedef MessageTypeList message_type_list_type;
+
 
         // constructors and destructor
 
@@ -51,7 +57,9 @@ namespace bobura
         explicit diagram_picture_box(abstract_window_type& parent)
         :
         base_type(parent, base_type::scroll_bar_style_both)
-        {}
+        {
+            set_observers();
+        }
 
         /*!
             \brief Destroys the diagram picture box.
@@ -103,6 +111,46 @@ namespace bobura
 
 
         // functions
+
+        void set_observers()
+        {
+            mouse_observer_set().wheeled().connect(
+                typename boost::mpl::at<
+                    message_type_list_type, message::diagram_picture_box::type::mouse_wheeled
+                >::type(*this)
+            );
+            keyboard_observer_set().key_down().connect(
+                typename boost::mpl::at<
+                    message_type_list_type, message::diagram_picture_box::type::keyboard_key_down
+                >::type(*this)
+            );
+            assert(vertical_scroll_bar());
+            vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
+                typename boost::mpl::at<
+                    message_type_list_type,
+                    message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(*this)
+            );
+            vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+                typename boost::mpl::at<
+                    message_type_list_type,
+                    message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(*this)
+            );
+            assert(horizontal_scroll_bar());
+            horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
+                typename boost::mpl::at<
+                    message_type_list_type,
+                    message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(*this)
+            );
+            horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+                typename boost::mpl::at<
+                    message_type_list_type,
+                    message::diagram_picture_box::type::scroll_bar_scrolled
+                >::type(*this)
+            );
+        }
 
         template <typename Size>
         void update_scroll_bar(

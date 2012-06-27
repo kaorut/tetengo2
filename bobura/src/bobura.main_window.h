@@ -29,14 +29,13 @@ namespace bobura
     /*!
         \brief The class template for the main window.
 
-        \tparam Window                           A window type.
-        \tparam MessageCatalog                   A message catalog type.
-        \tparam DiagramPictureBox                A diagram picture box type.
-        \tparam Settings                         A settings type.
-        \tparam ConfirmFileSave                  A file save confirmation type.
-        \tparam MessageLoopBreak                 A message loop break type.
-        \tparam MainWindowMessageTypeList        A main window message type list type.
-        \tparam DiagramPictureBoxMessageTypeList A diagram picture box message type list type.
+        \tparam Window            A window type.
+        \tparam MessageCatalog    A message catalog type.
+        \tparam DiagramPictureBox A diagram picture box type.
+        \tparam Settings          A settings type.
+        \tparam ConfirmFileSave   A file save confirmation type.
+        \tparam MessageLoopBreak  A message loop break type.
+        \tparam MessageTypeList   A message type list type.
     */
     template <
         typename Window,
@@ -45,8 +44,7 @@ namespace bobura
         typename Settings,
         typename ConfirmFileSave,
         typename MessageLoopBreak,
-        typename MainWindowMessageTypeList,
-        typename DiagramPictureBoxMessageTypeList
+        typename MessageTypeList
     >
     class main_window : public Window
     {
@@ -74,11 +72,8 @@ namespace bobura
         //! The message loop break type.
         typedef MessageLoopBreak message_loop_break_type;
 
-        //! The main window message type list type.
-        typedef MainWindowMessageTypeList main_window_message_type_list_type;
-
-        //! The diagram picture box message type list type.
-        typedef DiagramPictureBoxMessageTypeList diagram_picture_box_message_type_list_type;
+        //! The message type list type.
+        typedef MessageTypeList message_type_list_type;
 
 
         // constructors and destructor
@@ -211,47 +206,10 @@ namespace bobura
             this->paint_observer_set().paint_background().connect(paint_background());
             this->window_observer_set().closing().connect(
                 typename boost::mpl::at<
-                    main_window_message_type_list_type, message::main_window::type::window_closing
+                    message_type_list_type, message::main_window::type::window_closing
                 >::type(*this, m_confirm_file_save)
             );
             this->window_observer_set().destroyed().connect(TETENGO2_CPP11_BIND(message_loop_break_type(), 0));
-
-            m_p_diagram_picture_box->mouse_observer_set().wheeled().connect(
-                typename boost::mpl::at<
-                    diagram_picture_box_message_type_list_type, message::diagram_picture_box::type::mouse_wheeled
-                >::type(*m_p_diagram_picture_box)
-            );
-            m_p_diagram_picture_box->keyboard_observer_set().key_down().connect(
-                typename boost::mpl::at<
-                    diagram_picture_box_message_type_list_type, message::diagram_picture_box::type::keyboard_key_down
-                >::type(*m_p_diagram_picture_box)
-            );
-            assert(m_p_diagram_picture_box->vertical_scroll_bar());
-            m_p_diagram_picture_box->vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
-                typename boost::mpl::at<
-                    diagram_picture_box_message_type_list_type,
-                    message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*m_p_diagram_picture_box)
-            );
-            m_p_diagram_picture_box->vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
-                typename boost::mpl::at<
-                    diagram_picture_box_message_type_list_type,
-                    message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*m_p_diagram_picture_box)
-            );
-            assert(m_p_diagram_picture_box->horizontal_scroll_bar());
-            m_p_diagram_picture_box->horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
-                typename boost::mpl::at<
-                    diagram_picture_box_message_type_list_type,
-                    message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*m_p_diagram_picture_box)
-            );
-            m_p_diagram_picture_box->horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
-                typename boost::mpl::at<
-                    diagram_picture_box_message_type_list_type,
-                    message::diagram_picture_box::type::scroll_bar_scrolled
-                >::type(*m_p_diagram_picture_box)
-            );
         }
 
 

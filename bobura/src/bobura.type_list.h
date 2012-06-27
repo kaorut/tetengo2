@@ -40,9 +40,18 @@ namespace bobura
     {
         typedef command::command_base command_type;
         typedef
+            message::diagram_picture_box::type_list<
+                boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
+                command_type,
+                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
+                boost::mpl::at<view_type_list, type::view::view>::type
+            >::type
+            diagram_picture_box_message_type_list;
+        typedef
             diagram_picture_box<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
-                boost::mpl::at<ui_type_list, type::ui::abstract_window>::type
+                boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
+                diagram_picture_box_message_type_list
             >
             diagram_picture_box_type;
         typedef
@@ -56,14 +65,6 @@ namespace bobura
                 boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type
             >::type
             main_window_message_type_list;
-        typedef
-            message::diagram_picture_box::type_list<
-                boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
-                command_type,
-                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
-                boost::mpl::at<view_type_list, type::view::view>::type
-            >::type
-            diagram_picture_box_message_type_list;
     }}
 #endif
 
@@ -81,8 +82,7 @@ namespace bobura
                     boost::mpl::at<common_type_list, type::settings>::type,
                     boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
                     boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type,
-                    detail::main_window::main_window_message_type_list,
-                    detail::main_window::diagram_picture_box_message_type_list
+                    detail::main_window::main_window_message_type_list
                 >
             >,
         tetengo2::meta::assoc_list<
