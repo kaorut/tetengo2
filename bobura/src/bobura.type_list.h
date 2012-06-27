@@ -27,6 +27,7 @@ namespace bobura
 
     namespace type { namespace main_window
     {
+        struct command;        //!< The command type.
         struct main_window;    //!< The main window type.
         struct message_type_list; //!< The main window message type list type.
         struct diagram_picture_box_message_type_list; //!< The diagram picture box message type list type.
@@ -35,10 +36,11 @@ namespace bobura
 #if !defined(DOCUMENTATION)
     namespace detail { namespace main_window
     {
+        typedef command::command_base command_type;
         typedef
             message::main_window::type_list<
                 boost::mpl::at<ui_type_list, type::ui::popup_menu>::type,
-                command::command_base,
+                command_type,
                 boost::mpl::at<model_type_list, type::model::model>::type,
                 boost::mpl::at<view_type_list, type::view::view>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
@@ -49,7 +51,7 @@ namespace bobura
         typedef
             message::diagram_picture_box::type_list<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
-                command::command_base,
+                command_type,
                 boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                 boost::mpl::at<view_type_list, type::view::view>::type
             >::type
@@ -59,6 +61,8 @@ namespace bobura
 
     //! The type list for the main window.
     typedef
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::main_window::command, detail::main_window::command_type>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::main_window::main_window,
@@ -81,7 +85,7 @@ namespace bobura
                 detail::main_window::diagram_picture_box_message_type_list
             >,
         tetengo2::meta::assoc_list_end
-        >>>
+        >>>>
         main_window_type_list;
 
 
