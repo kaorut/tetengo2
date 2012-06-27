@@ -83,5 +83,8 @@
     <ClCompile Include="test\test_bobura.view.scale_list.cpp">
       <Filter>sources\test_bobura\view</Filter>
     </ClCompile>
+    <ClCompile Include="test\test_bobura.diagram_picture_box.cpp">
+      <Filter>sources\test_bobura</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

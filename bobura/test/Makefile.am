@@ -9,6 +9,7 @@ extra_headers =
 sources = \
     master.cpp \
     test_bobura.about_dialog.cpp \
+    test_bobura.diagram_picture_box.cpp \
     test_bobura.diagram_view.cpp \
     test_bobura.file_property_dialog.cpp \
     test_bobura.load_save.confirm_file_save.cpp \

@@ -105,6 +105,7 @@
     <ClInclude Include="src\bobura.command.vertically_zoom_in.h" />
     <ClInclude Include="src\bobura.command.vertically_zoom_out.h" />
     <ClInclude Include="src\bobura.detail_type_list.h" />
+    <ClInclude Include="src\bobura.diagram_picture_box.h" />
     <ClInclude Include="src\bobura.diagram_view.h" />
     <ClInclude Include="src\bobura.file_property_dialog.h" />
     <ClInclude Include="src\bobura.load_save.confirm_file_save.h" />

@@ -17,6 +17,7 @@
 #include "bobura.basic_type_list.h"
 #include "bobura.command.command_base.h"
 #include "bobura.command.set.h"
+#include "bobura.diagram_picture_box.h"
 #include "bobura.main_window.h"
 #include "bobura.message.type_list_impl.h"
 
@@ -30,6 +31,7 @@ namespace bobura
         struct command;        //!< The command type.
         struct main_window;    //!< The main window type.
         struct message_type_list; //!< The main window message type list type.
+        struct diagram_picture_box;
         struct diagram_picture_box_message_type_list; //!< The diagram picture box message type list type.
     }}
 
@@ -81,11 +83,19 @@ namespace bobura
             boost::mpl::pair<type::main_window::message_type_list, detail::main_window::main_window_message_type_list>,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
+                type::main_window::diagram_picture_box, 
+                diagram_picture_box<
+                    boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
+                    boost::mpl::at<ui_type_list, type::ui::abstract_window>::type
+                >
+            >,
+        tetengo2::meta::assoc_list<
+            boost::mpl::pair<
                 type::main_window::diagram_picture_box_message_type_list,
                 detail::main_window::diagram_picture_box_message_type_list
             >,
         tetengo2::meta::assoc_list_end
-        >>>>
+        >>>>>
         main_window_type_list;
 
 

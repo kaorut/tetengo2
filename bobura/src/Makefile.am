@@ -18,6 +18,7 @@ extra_headers = \
     bobura.command.set.h \
     bobura.command.vertically_zoom_in.h \
     bobura.command.vertically_zoom_out.h \
+    bobura.diagram_picture_box.h \
     bobura.diagram_view.h \
     bobura.detail_type_list.h \
     bobura.file_property_dialog.h \

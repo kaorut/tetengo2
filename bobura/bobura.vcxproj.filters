@@ -159,6 +159,9 @@
     <ClInclude Include="src\bobura.command.vertically_zoom_out.h">
       <Filter>headers\bobura\command</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.diagram_picture_box.h">
+      <Filter>headers\bobura</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
