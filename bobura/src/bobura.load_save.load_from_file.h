@@ -141,9 +141,6 @@ namespace bobura { namespace load_save
             }
             else
             {
-                if (!model.changed())
-                    return;
-
                 path = model.path();
             }
 
