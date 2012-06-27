@@ -22,8 +22,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
         \brief The class template for a mouse wheel observer of the picture box.
 
         \tparam PictureBox A picture box type.
+        \tparam Command    A command type.
     */
-    template <typename PictureBox>
+    template <typename PictureBox, typename Command>
     class mouse_wheeled
     {
     public:
@@ -37,6 +38,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         //! The direction type.
         typedef typename picture_box_type::mouse_observer_set_type::direction_type direction_type;
+
+        //! The command type.
+        typedef Command command_type;
 
 
         // constructors and destructor

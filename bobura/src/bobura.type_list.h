@@ -48,8 +48,9 @@ namespace bobura
             main_window_message_type_list;
         typedef
             message::diagram_picture_box::type_list<
-                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
+                command::command_base,
+                boost::mpl::at<ui_type_list, type::ui::fast_canvas>::type,
                 boost::mpl::at<view_type_list, type::view::view>::type
             >::type
             diagram_picture_box_message_type_list;
