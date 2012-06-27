@@ -271,95 +271,67 @@ namespace bobura { namespace message { namespace main_window
             assert(m_diagram_picture_box.vertical_scroll_bar());
             assert(m_diagram_picture_box.horizontal_scroll_bar());
             
-            const dimension_type page_size = m_view.page_size(m_diagram_picture_box.client_dimension());
-            const scroll_bar_size_type page_width =
+            const dimension_type page_dimension = m_view.page_size(m_diagram_picture_box.client_dimension());
+
+            update_scroll_bar(
+                *m_diagram_picture_box.vertical_scroll_bar(),
+                tetengo2::gui::dimension<dimension_type>::height(m_view.dimension()),
                 boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::width(page_size).value()
-                );
-            const scroll_bar_size_type page_height =
+                    tetengo2::gui::dimension<dimension_type>::height(page_dimension).value()
+                )
+            );
+            update_scroll_bar(
+                *m_diagram_picture_box.horizontal_scroll_bar(),
+                tetengo2::gui::dimension<dimension_type>::width(m_view.dimension()),
                 boost::rational_cast<scroll_bar_size_type>(
-                    tetengo2::gui::dimension<dimension_type>::height(page_size).value()
-                );
+                    tetengo2::gui::dimension<dimension_type>::width(page_dimension).value()
+                )
+            );
+        }
 
-            const width_type view_width = tetengo2::gui::dimension<dimension_type>::width(m_view.dimension());
-            const height_type view_height = tetengo2::gui::dimension<dimension_type>::height(m_view.dimension());
-            const scroll_bar_size_type width = boost::rational_cast<scroll_bar_size_type>(view_width.value()) - 1;
-            const scroll_bar_size_type height = boost::rational_cast<scroll_bar_size_type>(view_height.value()) - 1;
+        template <typename Size>
+        void update_scroll_bar(
+            scroll_bar_type&           scroll_bar,
+            const Size&                view_size,
+            const scroll_bar_size_type page_size
 
-            const scroll_bar_size_type previous_width =
-                m_diagram_picture_box.horizontal_scroll_bar()->range().second;
-            const scroll_bar_size_type previous_height = m_diagram_picture_box.vertical_scroll_bar()->range().second;
+        )
+        const
+        {
+            const scroll_bar_size_type size =
+                view_size.value() > 0 ? boost::rational_cast<scroll_bar_size_type>(view_size.value()) - 1 : 0;
+            const scroll_bar_size_type previous_size = scroll_bar.range().second;
 
-            if (view_height > 0 && 0 < page_height && page_height <= height)
+            if (view_size > 0 && 0 < page_size && page_size <= size)
             {
-                m_diagram_picture_box.vertical_scroll_bar()->set_enabled(true);
-                m_diagram_picture_box.vertical_scroll_bar()->set_range(std::make_pair(0U, height));
-                m_diagram_picture_box.vertical_scroll_bar()->set_page_size(page_height);
-                if (m_diagram_picture_box.vertical_scroll_bar()->position() + page_height > height)
+                scroll_bar.set_enabled(true);
+                scroll_bar.set_range(std::make_pair(0U, size));
+                scroll_bar.set_page_size(page_size);
+                if (scroll_bar.position() + page_size > size)
                 {
-                    const scroll_bar_size_type new_position = height - page_height + 1;
-                    m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
-                    m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                    const scroll_bar_size_type new_position = size - page_size + 1;
+                    scroll_bar.set_position(new_position);
+                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
                 }
-                else if (previous_height > 0 && previous_height != view_height.value())
+                else if (previous_size > 0 && previous_size != view_size.value())
                 {
                     const scroll_bar_size_type new_position =
                         calculate_scroll_bar_position(
-                            *m_diagram_picture_box.vertical_scroll_bar(),
-                            view_height,
-                            previous_height,
-                            page_height,
-                            height - page_height + 1
+                            scroll_bar, view_size, previous_size, page_size, size - page_size + 1
                         );
-                    m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
-                    m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                    scroll_bar.set_position(new_position);
+                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
                 }
             }
             else
             {
-                if (view_height <= page_height)
+                if (view_size <= page_size)
                 {
                     const scroll_bar_size_type new_position = 0;
-                    m_diagram_picture_box.vertical_scroll_bar()->set_position(new_position);
-                    m_diagram_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                    scroll_bar.set_position(new_position);
+                    scroll_bar.scroll_bar_observer_set().scrolled()(new_position);
                 }
-                m_diagram_picture_box.vertical_scroll_bar()->set_enabled(false);
-            }
-
-            if (view_width > 0 && 0 < page_width && page_width <= width)
-            {
-                m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(true);
-                m_diagram_picture_box.horizontal_scroll_bar()->set_range(std::make_pair(0U, width));
-                m_diagram_picture_box.horizontal_scroll_bar()->set_page_size(page_width);
-                const scroll_bar_size_type pos = m_diagram_picture_box.horizontal_scroll_bar()->position(); pos;
-                if (m_diagram_picture_box.horizontal_scroll_bar()->position() + page_width > width)
-                {
-                    const scroll_bar_size_type new_position = width - page_width + 1;
-                    m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
-                    m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
-                }
-                else if (previous_width > 0 && previous_width != view_width.value())
-                {
-                    const scroll_bar_size_type new_position =
-                        calculate_scroll_bar_position(
-                            *m_diagram_picture_box.horizontal_scroll_bar(),
-                            view_width, previous_width,
-                            page_width,
-                            width - page_width + 1
-                        );
-                    m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
-                    m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
-                }
-            }
-            else
-            {
-                if (view_width <= page_width)
-                {
-                    const scroll_bar_size_type new_position = 0;
-                    m_diagram_picture_box.horizontal_scroll_bar()->set_position(new_position);
-                    m_diagram_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
-                }
-                m_diagram_picture_box.horizontal_scroll_bar()->set_enabled(false);
+                scroll_bar.set_enabled(false);
             }
         }
 
