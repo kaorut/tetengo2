@@ -6,7 +6,9 @@
     $Id$
 */
 
-#include <boost/mpl/at.hpp>
+//#include <cassert>
+
+//#include <boost/mpl/at.hpp>
 
 #include "bobura.type_list.h"
 
