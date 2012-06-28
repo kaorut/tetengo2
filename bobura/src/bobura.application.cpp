@@ -84,9 +84,7 @@ namespace bobura
             const message_catalog_type message_catalog;
             const command_set_holder_type command_set_holder(m_settings, m_model, m_view, message_catalog);
 
-            main_window_type main_window(
-                message_catalog, m_settings, command_set_holder.command_set(), command_set_holder.confirm_file_save()
-            ); 
+            main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
             set_message_observers(main_window);
             m_model.reset_timetable();
             main_window.set_menu_bar(

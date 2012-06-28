@@ -32,7 +32,6 @@ namespace bobura
         \tparam MessageCatalog    A message catalog type.
         \tparam DiagramPictureBox A diagram picture box type.
         \tparam Settings          A settings type.
-        \tparam CommandSet        A command set type.
         \tparam ConfirmFileSave   A file save confirmation type.
         \tparam MessageLoopBreak  A message loop break type.
         \tparam MessageTypeList   A message type list type.
@@ -42,7 +41,6 @@ namespace bobura
         typename MessageCatalog,
         typename DiagramPictureBox,
         typename Settings,
-        typename CommandSet,
         typename ConfirmFileSave,
         typename MessageLoopBreak,
         typename MessageTypeList
@@ -67,9 +65,6 @@ namespace bobura
         //! The settings type.
         typedef Settings settings_type;
 
-        //! The command set type.
-        typedef CommandSet command_set_type;
-
         //! The file save confirmation type.
         typedef ConfirmFileSave confirm_file_save_type;
 
@@ -87,13 +82,11 @@ namespace bobura
 
             \param message_catalog       A message catalog.
             \param settings              Settings.
-            \param command_set           A command set.
             \param confirm_file_save     A file save confirmation.
         */
         main_window(
             const message_catalog_type&   message_catalog,
             const settings_type&          settings,
-            const command_set_type&       command_set,
             const confirm_file_save_type& confirm_file_save
         )
         :
@@ -103,7 +96,7 @@ namespace bobura
         m_settings(settings),
         m_confirm_file_save(confirm_file_save)
         {
-            initialize_window(command_set);
+            initialize_window();
         }
 
         /*!
@@ -190,16 +183,9 @@ namespace bobura
 
         // functions
 
-        void initialize_window(const command_set_type& command_set)
+        void initialize_window()
         {
-            m_p_diagram_picture_box =
-                tetengo2::make_unique<diagram_picture_box_type>(
-                    *this,
-                    command_set.horizontally_zoom_in(),
-                    command_set.horizontally_zoom_out(),
-                    command_set.vertically_zoom_in(),
-                    command_set.vertically_zoom_out()
-                );
+            m_p_diagram_picture_box = tetengo2::make_unique<diagram_picture_box_type>(*this);
 
             set_message_observers();
 

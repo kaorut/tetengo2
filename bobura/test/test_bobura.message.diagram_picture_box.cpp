@@ -36,9 +36,7 @@ namespace
 
     typedef picture_box_type::mouse_observer_set_type mouse_observer_set_type;
 
-    typedef boost::mpl::at<bobura::main_window_type_list, bobura::type::main_window::command>::type command_type;
-
-    typedef bobura::message::diagram_picture_box::mouse_wheeled<picture_box_type, command_type> mouse_wheeled_type;
+    typedef bobura::message::diagram_picture_box::mouse_wheeled<picture_box_type> mouse_wheeled_type;
 
     typedef picture_box_type::keyboard_observer_set_type::virtual_key_type virtual_key_type;
 
