@@ -40,16 +40,7 @@ namespace bobura
     namespace detail { namespace main_window
     {
         typedef command::command_base command_type;
-        typedef
-            command::set<
-                boost::mpl::at<load_save_type_list, type::load_save::new_file>::type,
-                boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type,
-                boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type,
-                boost::mpl::at<view_type_list, type::view::view>::type,
-                boost::mpl::at<common_type_list, type::settings>::type,
-                boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
-            >
-            command_set_type;
+        typedef command::set command_set_type;
         typedef
             message::diagram_picture_box::type_list<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,

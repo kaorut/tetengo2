@@ -153,6 +153,7 @@
     <ClCompile Include="src\bobura.command.new_file.cpp" />
     <ClCompile Include="src\bobura.command.nop.cpp" />
     <ClCompile Include="src\bobura.command.save_to_file.cpp" />
+    <ClCompile Include="src\bobura.command.set.cpp" />
     <ClCompile Include="src\bobura.command.vertically_zoom_in.cpp" />
     <ClCompile Include="src\bobura.command.vertically_zoom_out.cpp" />
     <ClCompile Include="src\bobura.main_window_menu_builder.cpp" />

@@ -53,6 +53,7 @@ extra_sources = \
     bobura.command.new_file.cpp \
     bobura.command.nop.cpp \
     bobura.command.save_to_file.cpp \
+    bobura.command.set.cpp \
     bobura.command.vertically_zoom_in.cpp \
     bobura.command.vertically_zoom_out.cpp \
     bobura.main_window_menu_builder.cpp \

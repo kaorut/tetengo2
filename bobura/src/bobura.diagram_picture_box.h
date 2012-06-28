@@ -76,7 +76,7 @@ namespace bobura
         :
         base_type(parent, base_type::scroll_bar_style_both)
         {
-            set_observers();
+            set_observers(horizontally_zoom_in, horizontally_zoom_out, vertically_zoom_in, vertically_zoom_out);
         }
 
         /*!
