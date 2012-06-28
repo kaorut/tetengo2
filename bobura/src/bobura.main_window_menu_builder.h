@@ -31,7 +31,7 @@ namespace bobura
         typedef boost::mpl::at<ui_type_list, type::ui::menu_bar>::type menu_bar_type;
 
         //! The command set type.
-        typedef boost::mpl::at<application_type_list, type::application::command_set>::type command_set_type;
+        typedef boost::mpl::at<main_window_type_list, type::main_window::command_set>::type command_set_type;
 
         //! The model type.
         typedef boost::mpl::at<model_type_list, type::model::model>::type model_type;

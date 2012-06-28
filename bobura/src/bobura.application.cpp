@@ -6,6 +6,8 @@
     $Id$
 */
 
+#include <memory>
+
 //#include <boost/mpl/at.hpp>
 //#include <boost/noncopyable.hpp>
 
@@ -41,7 +43,7 @@ namespace bobura
 
         typedef boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type save_to_file_type;
 
-        typedef boost::mpl::at<application_type_list, type::application::command_set>::type command_set_type;
+        typedef boost::mpl::at<main_window_type_list, type::main_window::command_set>::type command_set_type;
 
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
 
@@ -82,7 +84,9 @@ namespace bobura
             const message_catalog_type message_catalog;
             const command_set_holder_type command_set_holder(m_settings, m_model, m_view, message_catalog);
 
-            main_window_type main_window(message_catalog, m_settings, command_set_holder.confirm_file_save()); 
+            main_window_type main_window(
+                message_catalog, m_settings, command_set_holder.command_set(), command_set_holder.confirm_file_save()
+            ); 
             set_message_observers(main_window);
             m_model.reset_timetable();
             main_window.set_menu_bar(

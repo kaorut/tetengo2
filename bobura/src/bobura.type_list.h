@@ -29,6 +29,7 @@ namespace bobura
     namespace type { namespace main_window
     {
         struct command;        //!< The command type.
+        struct command_set;    //!< The command set type.
         struct main_window;    //!< The main window type.
         struct message_type_list; //!< The main window message type list type.
         struct diagram_picture_box;
@@ -39,6 +40,16 @@ namespace bobura
     namespace detail { namespace main_window
     {
         typedef command::command_base command_type;
+        typedef
+            command::set<
+                boost::mpl::at<load_save_type_list, type::load_save::new_file>::type,
+                boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type,
+                boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type,
+                boost::mpl::at<view_type_list, type::view::view>::type,
+                boost::mpl::at<common_type_list, type::settings>::type,
+                boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
+            >
+            command_set_type;
         typedef
             message::diagram_picture_box::type_list<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
@@ -51,7 +62,8 @@ namespace bobura
             diagram_picture_box<
                 boost::mpl::at<ui_type_list, type::ui::picture_box>::type,
                 boost::mpl::at<ui_type_list, type::ui::abstract_window>::type,
-                diagram_picture_box_message_type_list
+                diagram_picture_box_message_type_list,
+                command_type
             >
             diagram_picture_box_type;
         typedef
@@ -73,6 +85,8 @@ namespace bobura
         tetengo2::meta::assoc_list<
             boost::mpl::pair<type::main_window::command, detail::main_window::command_type>,
         tetengo2::meta::assoc_list<
+            boost::mpl::pair<type::main_window::command_set, detail::main_window::command_set_type>,
+        tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::main_window::main_window,
                 main_window<
@@ -80,6 +94,7 @@ namespace bobura
                     boost::mpl::at<locale_type_list, type::locale::message_catalog>::type,
                     detail::main_window::diagram_picture_box_type,
                     boost::mpl::at<common_type_list, type::settings>::type,
+                    detail::main_window::command_set_type,
                     boost::mpl::at<load_save_type_list, type::load_save::confirm_file_save>::type,
                     boost::mpl::at<ui_type_list, type::ui::message_loop_break>::type,
                     detail::main_window::main_window_message_type_list
@@ -95,7 +110,7 @@ namespace bobura
                 detail::main_window::diagram_picture_box_message_type_list
             >,
         tetengo2::meta::assoc_list_end
-        >>>>>
+        >>>>>>
         main_window_type_list;
 
 
@@ -103,24 +118,11 @@ namespace bobura
 
     namespace type { namespace application
     {
-        struct command_set;    //!< The command set type.
         struct model_message_type_list; //!< The model message type list type.
     }}
 
     //! The type list for the application.
     typedef
-        tetengo2::meta::assoc_list<
-            boost::mpl::pair<
-                type::application::command_set,
-                command::set<
-                    boost::mpl::at<load_save_type_list, type::load_save::new_file>::type,
-                    boost::mpl::at<load_save_type_list, type::load_save::load_from_file>::type,
-                    boost::mpl::at<load_save_type_list, type::load_save::save_to_file>::type,
-                    boost::mpl::at<view_type_list, type::view::view>::type,
-                    boost::mpl::at<common_type_list, type::settings>::type,
-                    boost::mpl::at<locale_type_list, type::locale::message_catalog>::type
-                >
-            >,
         tetengo2::meta::assoc_list<
             boost::mpl::pair<
                 type::application::model_message_type_list,
@@ -131,7 +133,7 @@ namespace bobura
                 >::type
             >,
         tetengo2::meta::assoc_list_end
-        >>
+        >
         application_type_list;
 
 

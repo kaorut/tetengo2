@@ -28,8 +28,9 @@ namespace bobura
         \tparam DiagramPictureBox A picture box type.
         \tparam AbstractWindow    An abstract window type.
         \tparam MessageTypeList   A message type list.
+        \tparam Command           A command type.
     */
-    template <typename DiagramPictureBox, typename AbstractWindow, typename MessageTypeList>
+    template <typename DiagramPictureBox, typename AbstractWindow, typename MessageTypeList, typename Command>
     class diagram_picture_box : public DiagramPictureBox
     {
     public:
@@ -50,15 +51,28 @@ namespace bobura
         //! The message type list type.
         typedef MessageTypeList message_type_list_type;
 
+        //! The command type.
+        typedef Command command_type;
+
 
         // constructors and destructor
 
         /*!
             \brief Creates a diagram picture box.
 
-            \param parent A parent.
+            \param parent                A parent.
+            \param horizontally_zoom_in  A horizontal zoom-in command.
+            \param horizontally_zoom_out A horizontal zoom-out command.
+            \param vertically_zoom_in    A vertical zoom-in command.
+            \param vertically_zoom_out   A vertical zoom-out command.
         */
-        explicit diagram_picture_box(abstract_window_type& parent)
+        diagram_picture_box(
+            abstract_window_type& parent,
+            const command_type& horizontally_zoom_in,
+            const command_type& horizontally_zoom_out,
+            const command_type& vertically_zoom_in,
+            const command_type& vertically_zoom_out
+        )
         :
         base_type(parent, base_type::scroll_bar_style_both)
         {
@@ -123,7 +137,12 @@ namespace bobura
 
         // functions
 
-        void set_observers()
+        void set_observers(
+            const command_type& horizontally_zoom_in,
+            const command_type& horizontally_zoom_out,
+            const command_type& vertically_zoom_in,
+            const command_type& vertically_zoom_out
+        )
         {
             mouse_observer_set().wheeled().connect(
                 typename boost::mpl::at<
