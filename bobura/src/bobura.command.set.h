@@ -59,21 +59,21 @@ namespace bobura { namespace command
         /*!
             \brief Creates a command set.
 
-            \param new_file                   A file initialization.
-            \param load_from_file             A file loading.
-            \param reload                     A file reloading.
-            \param save_to_file               A file saving.
-            \param ask_file_path_save_to_file A file saving after file path query.
-            \param diagram_view               A diagram view.
-            \param settings                   Settings.
-            \param message_catalog            A message catalog.
+            \param new_file                       A file initialization.
+            \param load_from_file                 A file loading.
+            \param reload                         A file reloading.
+            \param save_to_file                   A file saving.
+            \param ask_file_path_and_save_to_file A file saving after file path query.
+            \param diagram_view                   A diagram view.
+            \param settings                       Settings.
+            \param message_catalog                A message catalog.
         */
         set(
             const new_file_type&        new_file,
             const load_from_file_type&  load_from_file,
             const load_from_file_type&  reload,
             const save_to_file_type&    save_to_file,
-            const save_to_file_type&    ask_file_path_save_to_file,
+            const save_to_file_type&    ask_file_path_and_save_to_file,
             diagram_view_type&          diagram_view,
             const settings_type&        settings,
             const message_catalog_type& message_catalog
