@@ -87,11 +87,11 @@ namespace bobura
             const bool            zooming
         )
         {
-            assert(vertical_scroll_bar());
-            assert(horizontal_scroll_bar());
+            assert(this->vertical_scroll_bar());
+            assert(this->horizontal_scroll_bar());
             
             update_scroll_bar(
-                *vertical_scroll_bar(),
+                *this->vertical_scroll_bar(),
                 tetengo2::gui::dimension<dimension_type>::height(view_dimension),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::height(page_dimension).value()
@@ -99,7 +99,7 @@ namespace bobura
                 zooming
             );
             update_scroll_bar(
-                *horizontal_scroll_bar(),
+                *this->horizontal_scroll_bar(),
                 tetengo2::gui::dimension<dimension_type>::width(view_dimension),
                 boost::rational_cast<scroll_bar_size_type>(
                     tetengo2::gui::dimension<dimension_type>::width(page_dimension).value()
@@ -125,34 +125,34 @@ namespace bobura
 
         void set_observers()
         {
-            mouse_observer_set().wheeled().connect(
+            this->mouse_observer_set().wheeled().connect(
                 typename boost::mpl::at<
                     message_type_list_type, message::diagram_picture_box::type::mouse_wheeled
                 >::type(*this)
             );
-            keyboard_observer_set().key_down().connect(
+            this->keyboard_observer_set().key_down().connect(
                 typename boost::mpl::at<
                     message_type_list_type, message::diagram_picture_box::type::keyboard_key_down
                 >::type(*this)
             );
-            assert(vertical_scroll_bar());
-            vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
+            assert(this->vertical_scroll_bar());
+            this->vertical_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
                 typename boost::mpl::at<
                     message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
                 >::type(*this)
             );
-            vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+            this->vertical_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
                 typename boost::mpl::at<
                     message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
                 >::type(*this)
             );
-            assert(horizontal_scroll_bar());
-            horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
+            assert(this->horizontal_scroll_bar());
+            this->horizontal_scroll_bar()->scroll_bar_observer_set().scrolling().connect(
                 typename boost::mpl::at<
                     message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
                 >::type(*this)
             );
-            horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
+            this->horizontal_scroll_bar()->scroll_bar_observer_set().scrolled().connect(
                 typename boost::mpl::at<
                     message_type_list_type, message::diagram_picture_box::type::scroll_bar_scrolled
                 >::type(*this)
