@@ -6,7 +6,7 @@
     $Id$
 */
 
-#include <memory>
+//#include <memory>
 
 #include <tetengo2.unique.h>
 
