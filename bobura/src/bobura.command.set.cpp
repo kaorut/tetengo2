@@ -6,7 +6,12 @@
     $Id$
 */
 
+#include <memory>
+
+#include <tetengo2.unique.h>
+
 #include "bobura.command.about.h"
+#include "bobura.command.command_base.h"
 #include "bobura.command.exit.h"
 #include "bobura.command.file_property.h"
 #include "bobura.command.horizontally_zoom_in.h"
@@ -41,8 +46,6 @@ namespace bobura { namespace command
         typedef set::message_catalog_type message_catalog_type;
 
         typedef set::command_type command_type;
-
-        typedef set::command_ptr_type command_ptr_type;
 
 
         // constructors and destructor
@@ -156,6 +159,11 @@ namespace bobura { namespace command
 
 
     private:
+        // types
+
+        typedef std::unique_ptr<command_type> command_ptr_type;
+
+
         // static functions
 
         static command_ptr_type create_about(

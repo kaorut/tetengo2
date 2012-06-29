@@ -13,14 +13,13 @@
 
 //#include <boost/noncopyable.hpp>
 
-#include <tetengo2.unique.h>
-
 #include "bobura.basic_type_list.h"
-#include "bobura.command.command_base.h"
 
 
 namespace bobura { namespace command
 {
+    class command_base;
+
     /*!
         \brief The class for a command set.
     */
@@ -49,9 +48,6 @@ namespace bobura { namespace command
 
         //! The command type.
         typedef command_base command_type;
-
-        //! The command pointer type.
-        typedef std::unique_ptr<command_type> command_ptr_type;
 
 
         // constructors
