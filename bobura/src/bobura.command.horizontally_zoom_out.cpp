@@ -54,7 +54,6 @@ namespace bobura { namespace command
                 m_diagram_view.page_size(p_main_window->diagram_picture_box().client_dimension()),
                 true
             );
-            p_main_window->diagram_picture_box().repaint();
         }
 
 
