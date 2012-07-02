@@ -6,14 +6,21 @@
     $Id$
 */
 
-#include "bobura.view.zoom.h"
+#include <cassert>
+
+#include <boost/mpl/at.hpp>
+#include <boost/noncopyable.hpp>
+
+#include "bobura.type_list.h"
 
 #include <tetengo2.unique.h>
+
+#include "bobura.view.zoom.h"
 
 
 namespace bobura { namespace view
 {
-    class zoom::impl
+    class zoom::impl : private boost::noncopyable
     {
     public:
         // types
@@ -22,11 +29,20 @@ namespace bobura { namespace view
 
         typedef zoom::diagram_view_type diagram_view_type;
 
+        typedef
+            boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box>::type
+            diagram_picture_box_type;
+
 
         // constructors and destructor
 
         impl(picture_box_type& picture_box, diagram_view_type& diagram_view)
-        {}
+        :
+        m_p_diagram_picture_box(dynamic_cast<diagram_picture_box_type*>(&picture_box)),
+        m_diagram_view(diagram_view)
+        {
+            assert(m_p_diagram_picture_box);
+        }
 
 
         // functions
@@ -54,6 +70,10 @@ namespace bobura { namespace view
 
     private:
         // variables
+
+        diagram_picture_box_type* const m_p_diagram_picture_box;
+
+        diagram_view_type& m_diagram_view;
 
 
     };

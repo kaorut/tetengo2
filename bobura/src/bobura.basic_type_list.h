@@ -118,7 +118,6 @@
 #include "bobura.settings.h"
 #include "bobura.timetable_model.h"
 #include "bobura.view.scale_list.h"
-#include "bobura.view.zoom.h"
 
 
 namespace bobura
