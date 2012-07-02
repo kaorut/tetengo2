@@ -118,6 +118,7 @@
 #include "bobura.settings.h"
 #include "bobura.timetable_model.h"
 #include "bobura.view.scale_list.h"
+#include "bobura.view.zoom.h"
 
 
 namespace bobura
@@ -821,6 +822,7 @@ namespace bobura
     {
         struct view;           //!< The view type.
         struct scale_list;     //!< The scale list type.
+        struct zoom;           //!< The zoom type.
     }}
 
     //! The view type list.
@@ -843,8 +845,9 @@ namespace bobura
                     boost::mpl::at<common_type_list, type::string>::type
                 >
             >,
+        tetengo2::meta::assoc_list<boost::mpl::pair<type::view::zoom, bobura::view::zoom>,
         tetengo2::meta::assoc_list_end
-        >>
+        >>>
         view_type_list;
 
 
