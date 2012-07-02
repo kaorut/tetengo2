@@ -40,6 +40,9 @@
     <Filter Include="sources\bobura\command">
       <UniqueIdentifier>{9e4b0e63-dad4-428d-a6a8-49aacad65b59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\bobura\view">
+      <UniqueIdentifier>{2ce8d513-3d16-4c50-b8fe-bb84b32e8cfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bobura.about_dialog.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="src\bobura.diagram_picture_box.h">
       <Filter>headers\bobura</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.view.zoom.h">
+      <Filter>headers\bobura\view</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
@@ -242,6 +248,9 @@
     </ClCompile>
     <ClCompile Include="src\bobura.command.set.cpp">
       <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.view.zoom.cpp">
+      <Filter>sources\bobura\view</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
