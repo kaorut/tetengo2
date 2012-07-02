@@ -33,6 +33,8 @@ namespace bobura { namespace view
             boost::mpl::at<main_window_type_list, type::main_window::diagram_picture_box>::type
             diagram_picture_box_type;
 
+        typedef boost::mpl::at<view_type_list, type::view::scale_list>::type view_scale_list_type;
+
 
         // constructors and destructor
 
@@ -49,22 +51,50 @@ namespace bobura { namespace view
 
         void horizontally_zoom_in()
         {
+            const view_scale_list_type scale_list;
+            m_diagram_view.set_horizontal_scale(scale_list.larger(m_diagram_view.horizontal_scale()));
 
+            m_p_diagram_picture_box->update_scroll_bars(
+                m_diagram_view.dimension(),
+                m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
+                true
+            );
         }
 
         void horizontally_zoom_out()
         {
+            const view_scale_list_type scale_list;
+            m_diagram_view.set_horizontal_scale(scale_list.smaller(m_diagram_view.horizontal_scale()));
 
+            m_p_diagram_picture_box->update_scroll_bars(
+                m_diagram_view.dimension(),
+                m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
+                true
+            );
         }
 
         void vertically_zoom_in()
         {
+            const view_scale_list_type scale_list;
+            m_diagram_view.set_vertical_scale(scale_list.larger(m_diagram_view.vertical_scale()));
 
+            m_p_diagram_picture_box->update_scroll_bars(
+                m_diagram_view.dimension(),
+                m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
+                true
+            );
         }
 
         void vertically_zoom_out()
         {
+            const view_scale_list_type scale_list;
+            m_diagram_view.set_vertical_scale(scale_list.smaller(m_diagram_view.vertical_scale()));
 
+            m_p_diagram_picture_box->update_scroll_bars(
+                m_diagram_view.dimension(),
+                m_diagram_view.page_size(m_p_diagram_picture_box->client_dimension()),
+                true
+            );
         }
 
 
