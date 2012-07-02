@@ -21,10 +21,11 @@ namespace bobura { namespace message { namespace diagram_picture_box
     /*!
         \brief The class template for a mouse wheel observer of the picture box.
 
-        \tparam PictureBox A picture box type.
-        \tparam View       A view type.
+        \tparam PictureBox    A picture box type.
+        \tparam View          A view type.
+        \tparam ViewScaleList A view scale list type.
     */
-    template <typename PictureBox, typename View>
+    template <typename PictureBox, typename View, typename ViewScaleList>
     class mouse_wheeled
     {
     public:
@@ -41,6 +42,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         //! The view type.
         typedef View view_type;
+
+        //! The view scale list type.
+        typedef ViewScaleList view_scale_list_type;
 
 
         // constructors and destructor
