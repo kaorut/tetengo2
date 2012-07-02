@@ -72,32 +72,13 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
-            if (shift || control || meta)
-                return;
-
-            if (direction == picture_box_type::mouse_observer_set_type::direction_vertical)
+            if (!control && !meta)
             {
-                assert(m_picture_box.vertical_scroll_bar());
-                if (!m_picture_box.vertical_scroll_bar()->enabled())
-                    return;
-
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), -delta);
-                m_picture_box.vertical_scroll_bar()->set_position(new_position);
-                m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
-            }
-            else
-            {
-                assert(direction == picture_box_type::mouse_observer_set_type::direction_horizontal);
-
-                assert(m_picture_box.horizontal_scroll_bar());
-                if (!m_picture_box.horizontal_scroll_bar()->enabled())
-                    return;
-
-                const scroll_bar_size_type new_position =
-                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
-                m_picture_box.horizontal_scroll_bar()->set_position(new_position);
-                m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+                scroll(
+                    direction == picture_box_type::mouse_observer_set_type::direction_horizontal ? delta : -delta,
+                    direction,
+                    shift
+                );
             }
         }
 
@@ -114,6 +95,41 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
 
         // functions
+
+        void scroll(const delta_type& delta, const direction_type direction, const bool shift)
+        const
+        {
+            if (
+                (!shift && direction == picture_box_type::mouse_observer_set_type::direction_vertical) ||
+                (shift && direction == picture_box_type::mouse_observer_set_type::direction_horizontal)
+            )
+            {
+                assert(m_picture_box.vertical_scroll_bar());
+                if (!m_picture_box.vertical_scroll_bar()->enabled())
+                    return;
+
+                const scroll_bar_size_type new_position =
+                    calculate_new_position(*m_picture_box.vertical_scroll_bar(), delta);
+                m_picture_box.vertical_scroll_bar()->set_position(new_position);
+                m_picture_box.vertical_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+            }
+            else
+            {
+                assert(
+                    (!shift && direction == picture_box_type::mouse_observer_set_type::direction_horizontal) ||
+                    (shift && direction == picture_box_type::mouse_observer_set_type::direction_vertical)
+                );
+
+                assert(m_picture_box.horizontal_scroll_bar());
+                if (!m_picture_box.horizontal_scroll_bar()->enabled())
+                    return;
+
+                const scroll_bar_size_type new_position =
+                    calculate_new_position(*m_picture_box.horizontal_scroll_bar(), delta);
+                m_picture_box.horizontal_scroll_bar()->set_position(new_position);
+                m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
+            }
+        }
 
         scroll_bar_size_type calculate_new_position(
             const typename picture_box_type::scroll_bar_type& scroll_bar,
@@ -198,7 +214,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 virtual_key == virtual_key_type::end()
             )
             {
-                scroll(virtual_key, shift, control, meta);
+                if (!control && !meta)
+                    scroll(virtual_key, shift);
             }
         }
 
@@ -216,13 +233,10 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         // functions
 
-        void scroll(const virtual_key_type& virtual_key, const bool shift, const bool control, const bool meta)
+        void scroll(const virtual_key_type& virtual_key, const bool shift)
         const
         {
-            if (shift || meta)
-                return;
-
-            const bool vertical = is_vertical(virtual_key, control);
+            const bool vertical = is_vertical(virtual_key, shift);
             if (vertical)
             {
                 assert(m_picture_box.vertical_scroll_bar());
@@ -247,7 +261,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
             }
         }
 
-        bool is_vertical(const virtual_key_type& virtual_key, const bool control)
+        bool is_vertical(const virtual_key_type& virtual_key, const bool shift)
         const
         {
             if (virtual_key == virtual_key_type::up() || virtual_key == virtual_key_type::down())
@@ -255,13 +269,13 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 return true;
             }
             else if (
-                !control &&
+                !shift &&
                 (virtual_key == virtual_key_type::page_up() || virtual_key == virtual_key_type::page_down())
             )
             {
                 return true;
             }
-            else if (!control && (virtual_key == virtual_key_type::home() || virtual_key == virtual_key_type::end()))
+            else if (!shift && (virtual_key == virtual_key_type::home() || virtual_key == virtual_key_type::end()))
             {
                 return true;
             }
