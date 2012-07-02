@@ -76,8 +76,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
             {
                 scroll(
                     direction == picture_box_type::mouse_observer_set_type::direction_horizontal ? delta : -delta,
-                    direction,
-                    shift
+                    is_vertical(direction, shift)
                 );
             }
         }
@@ -96,13 +95,10 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
         // functions
 
-        void scroll(const delta_type& delta, const direction_type direction, const bool shift)
+        void scroll(const delta_type& delta, const bool vertical)
         const
         {
-            if (
-                (!shift && direction == picture_box_type::mouse_observer_set_type::direction_vertical) ||
-                (shift && direction == picture_box_type::mouse_observer_set_type::direction_horizontal)
-            )
+            if (vertical)
             {
                 assert(m_picture_box.vertical_scroll_bar());
                 if (!m_picture_box.vertical_scroll_bar()->enabled())
@@ -115,11 +111,6 @@ namespace bobura { namespace message { namespace diagram_picture_box
             }
             else
             {
-                assert(
-                    (!shift && direction == picture_box_type::mouse_observer_set_type::direction_horizontal) ||
-                    (shift && direction == picture_box_type::mouse_observer_set_type::direction_vertical)
-                );
-
                 assert(m_picture_box.horizontal_scroll_bar());
                 if (!m_picture_box.horizontal_scroll_bar()->enabled())
                     return;
@@ -129,6 +120,14 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 m_picture_box.horizontal_scroll_bar()->set_position(new_position);
                 m_picture_box.horizontal_scroll_bar()->scroll_bar_observer_set().scrolled()(new_position);
             }
+        }
+
+        bool is_vertical(const direction_type direction, const bool shift)
+        const
+        {
+            return
+                (!shift && direction == picture_box_type::mouse_observer_set_type::direction_vertical) ||
+                (shift && direction == picture_box_type::mouse_observer_set_type::direction_horizontal);
         }
 
         scroll_bar_size_type calculate_new_position(
