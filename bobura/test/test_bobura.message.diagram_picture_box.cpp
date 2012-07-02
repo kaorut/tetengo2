@@ -36,7 +36,7 @@ namespace
 
     typedef picture_box_type::mouse_observer_set_type mouse_observer_set_type;
 
-    typedef bobura::message::diagram_picture_box::mouse_wheeled<picture_box_type> mouse_wheeled_type;
+    typedef bobura::message::diagram_picture_box::mouse_wheeled<picture_box_type, view_type> mouse_wheeled_type;
 
     typedef picture_box_type::keyboard_observer_set_type::virtual_key_type virtual_key_type;
 
@@ -64,7 +64,9 @@ BOOST_AUTO_TEST_SUITE(mouse_wheeled)
 
         window_type window;
         picture_box_type picture_box(window, picture_box_type::scroll_bar_style_vertical);
-        const mouse_wheeled_type mouse_wheeled(picture_box);
+        const model_type model;
+        view_type view(model);
+        const mouse_wheeled_type mouse_wheeled(picture_box, view);
     }
 
     BOOST_AUTO_TEST_CASE(operator_paren)
@@ -73,7 +75,9 @@ BOOST_AUTO_TEST_SUITE(mouse_wheeled)
 
         window_type window;
         picture_box_type picture_box(window, picture_box_type::scroll_bar_style_vertical);
-        const mouse_wheeled_type mouse_wheeled(picture_box);
+        const model_type model;
+        view_type view(model);
+        const mouse_wheeled_type mouse_wheeled(picture_box, view);
 
         mouse_wheeled(42, mouse_observer_set_type::direction_vertical, false, false, false);
     }

@@ -116,7 +116,7 @@ namespace bobura { namespace message
 
             //! The type list for the diagram picture box.
             typedef
-                tetengo2::meta::assoc_list<boost::mpl::pair<type::mouse_wheeled, mouse_wheeled<PictureBox>>,
+                tetengo2::meta::assoc_list<boost::mpl::pair<type::mouse_wheeled, mouse_wheeled<PictureBox, View>>,
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::keyboard_key_down, keyboard_key_down<PictureBox>>,
                 tetengo2::meta::assoc_list<boost::mpl::pair<type::paint_paint, paint_paint<Canvas, PictureBox, View>>,
                 tetengo2::meta::assoc_list<

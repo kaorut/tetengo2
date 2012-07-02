@@ -22,8 +22,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
         \brief The class template for a mouse wheel observer of the picture box.
 
         \tparam PictureBox A picture box type.
+        \tparam View       A view type.
     */
-    template <typename PictureBox>
+    template <typename PictureBox, typename View>
     class mouse_wheeled
     {
     public:
@@ -38,6 +39,9 @@ namespace bobura { namespace message { namespace diagram_picture_box
         //! The direction type.
         typedef typename picture_box_type::mouse_observer_set_type::direction_type direction_type;
 
+        //! The view type.
+        typedef View view_type;
+
 
         // constructors and destructor
 
@@ -45,10 +49,12 @@ namespace bobura { namespace message { namespace diagram_picture_box
             \brief Creates a mouse wheel observer of the picture box.
 
             \param picture_box A picture box.
+            \param view        A view.
         */
-        explicit mouse_wheeled(picture_box_type& picture_box)
+        mouse_wheeled(picture_box_type& picture_box, view_type& view)
         :
-        m_picture_box(picture_box)
+        m_picture_box(picture_box),
+        m_view(view)
         {}
 
 
@@ -91,6 +97,8 @@ namespace bobura { namespace message { namespace diagram_picture_box
         // variables
 
         picture_box_type& m_picture_box;
+
+        view_type& m_view;
 
 
         // functions

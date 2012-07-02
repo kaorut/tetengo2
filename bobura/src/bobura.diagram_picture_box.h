@@ -125,11 +125,6 @@ namespace bobura
 
         void set_observers()
         {
-            this->mouse_observer_set().wheeled().connect(
-                typename boost::mpl::at<
-                    message_type_list_type, message::diagram_picture_box::type::mouse_wheeled
-                >::type(*this)
-            );
             this->keyboard_observer_set().key_down().connect(
                 typename boost::mpl::at<
                     message_type_list_type, message::diagram_picture_box::type::keyboard_key_down
