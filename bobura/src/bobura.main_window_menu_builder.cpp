@@ -202,14 +202,14 @@ namespace bobura
                 m_message_catalog.get(TETENGO2_TEXT("Menu:View:Horizontal Zoom:Zoom &In")),
                 m_command_set.horizontally_zoom_in(),
                 commands,
-                shortcut_key_type(virtual_key_type::right(), true, false, false)
+                shortcut_key_type(virtual_key_type::right(), false, true, false)
             );
             append_menu_command(
                 *p_popup_menu,
                 m_message_catalog.get(TETENGO2_TEXT("Menu:View:Horizontal Zoom:Zoom &Out")),
                 m_command_set.horizontally_zoom_out(),
                 commands,
-                shortcut_key_type(virtual_key_type::left(), true, false, false)
+                shortcut_key_type(virtual_key_type::left(), false, true, false)
             );
 
             connect_popup_menu_observer(*p_popup_menu, std::move(commands));
@@ -230,14 +230,14 @@ namespace bobura
                 m_message_catalog.get(TETENGO2_TEXT("Menu:View:Vertical Zoom:Zoom &In")),
                 m_command_set.vertically_zoom_in(),
                 commands,
-                shortcut_key_type(virtual_key_type::down(), true, false, false)
+                shortcut_key_type(virtual_key_type::down(), false, true, false)
             );
             append_menu_command(
                 *p_popup_menu,
                 m_message_catalog.get(TETENGO2_TEXT("Menu:View:Vertical Zoom:Zoom &Out")),
                 m_command_set.vertically_zoom_out(),
                 commands,
-                shortcut_key_type(virtual_key_type::up(), true, false, false)
+                shortcut_key_type(virtual_key_type::up(), false, true, false)
             );
 
             connect_popup_menu_observer(*p_popup_menu, std::move(commands));
