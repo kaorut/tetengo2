@@ -89,6 +89,10 @@ namespace bobura { namespace message { namespace diagram_picture_box
                     is_vertical(direction, shift)
                 );
             }
+            else if (control && !meta)
+            {
+                zoom(delta, is_vertical(direction, shift));
+            }
         }
 
 
@@ -106,6 +110,14 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
 
         // functions
+
+        bool is_vertical(const direction_type direction, const bool shift)
+        const
+        {
+            return
+                (!shift && direction == picture_box_type::mouse_observer_set_type::direction_vertical) ||
+                (shift && direction == picture_box_type::mouse_observer_set_type::direction_horizontal);
+        }
 
         void scroll(const delta_type& delta, const bool vertical)
         const
@@ -134,14 +146,6 @@ namespace bobura { namespace message { namespace diagram_picture_box
             }
         }
 
-        bool is_vertical(const direction_type direction, const bool shift)
-        const
-        {
-            return
-                (!shift && direction == picture_box_type::mouse_observer_set_type::direction_vertical) ||
-                (shift && direction == picture_box_type::mouse_observer_set_type::direction_horizontal);
-        }
-
         scroll_bar_size_type calculate_new_position(
             const typename picture_box_type::scroll_bar_type& scroll_bar,
             const delta_type&                                 delta
@@ -165,6 +169,30 @@ namespace bobura { namespace message { namespace diagram_picture_box
                 return scroll_bar.range().second - scroll_bar.page_size() + 1;
 
             return new_position;
+        }
+
+        void zoom(const delta_type delta, const bool vertical)
+        const
+        {
+            const view_scale_list_type scale_list;
+            if (vertical)
+            {
+                m_view.set_vertical_scale(
+                    delta > 0 ?
+                    scale_list.larger(m_view.vertical_scale()) : scale_list.smaller(m_view.vertical_scale())
+                );
+            }
+            else
+            {
+                m_view.set_horizontal_scale(
+                    delta > 0 ?
+                    scale_list.larger(m_view.horizontal_scale()) : scale_list.smaller(m_view.horizontal_scale())
+                );
+            }
+
+            //m_picture_box.update_scroll_bars(
+            //    m_view.dimension(), m_view.page_size(m_picture_box.client_dimension()), true
+            //);
         }
 
 
