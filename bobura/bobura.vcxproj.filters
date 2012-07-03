@@ -168,6 +168,12 @@
     <ClInclude Include="src\bobura.view.zoom.h">
       <Filter>headers\bobura\view</Filter>
     </ClInclude>
+    <ClInclude Include="src\bobura.command.set_horizontal_scale.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bobura.command.set_vertical_scale.h">
+      <Filter>headers\bobura\command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\win32\kuma.ico">
@@ -251,6 +257,12 @@
     </ClCompile>
     <ClCompile Include="src\bobura.view.zoom.cpp">
       <Filter>sources\bobura\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.set_horizontal_scale.cpp">
+      <Filter>sources\bobura\command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bobura.command.set_vertical_scale.cpp">
+      <Filter>sources\bobura\command</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

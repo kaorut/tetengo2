@@ -16,6 +16,8 @@ extra_headers = \
     bobura.command.nop.h \
     bobura.command.save_to_file.h \
     bobura.command.set.h \
+    bobura.command.set_horizontal_scale.h \
+    bobura.command.set_vertical_scale.h \
     bobura.command.vertically_zoom_in.h \
     bobura.command.vertically_zoom_out.h \
     bobura.diagram_picture_box.h \
@@ -55,6 +57,8 @@ extra_sources = \
     bobura.command.nop.cpp \
     bobura.command.save_to_file.cpp \
     bobura.command.set.cpp \
+    bobura.command.set_horizontal_scale.cpp \
+    bobura.command.set_vertical_scale.cpp \
     bobura.command.vertically_zoom_in.cpp \
     bobura.command.vertically_zoom_out.cpp \
     bobura.main_window_menu_builder.cpp \

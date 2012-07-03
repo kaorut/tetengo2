@@ -102,6 +102,8 @@
     <ClInclude Include="src\bobura.command.nop.h" />
     <ClInclude Include="src\bobura.command.save_to_file.h" />
     <ClInclude Include="src\bobura.command.set.h" />
+    <ClInclude Include="src\bobura.command.set_horizontal_scale.h" />
+    <ClInclude Include="src\bobura.command.set_vertical_scale.h" />
     <ClInclude Include="src\bobura.command.vertically_zoom_in.h" />
     <ClInclude Include="src\bobura.command.vertically_zoom_out.h" />
     <ClInclude Include="src\bobura.detail_type_list.h" />
@@ -155,6 +157,8 @@
     <ClCompile Include="src\bobura.command.nop.cpp" />
     <ClCompile Include="src\bobura.command.save_to_file.cpp" />
     <ClCompile Include="src\bobura.command.set.cpp" />
+    <ClCompile Include="src\bobura.command.set_horizontal_scale.cpp" />
+    <ClCompile Include="src\bobura.command.set_vertical_scale.cpp" />
     <ClCompile Include="src\bobura.command.vertically_zoom_in.cpp" />
     <ClCompile Include="src\bobura.command.vertically_zoom_out.cpp" />
     <ClCompile Include="src\bobura.main_window_menu_builder.cpp" />
