@@ -12,7 +12,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include "bobura.type_list.h"
-#include "bobura.view.zoom.h"
 
 #include "bobura.message.diagram_picture_box.h"
 
@@ -37,8 +36,28 @@ namespace
 
     typedef picture_box_type::mouse_observer_set_type mouse_observer_set_type;
 
+    struct dummy_view_zoom_type
+    {
+    public:
+        dummy_view_zoom_type(picture_box_type& picture_box, view_type& diagram_view)
+        {}
+
+        void horizontally_zoom_in(bool snap_to_scale_list)
+        {}
+
+        void horizontally_zoom_out(bool snap_to_scale_list)
+        {}
+
+        void vertically_zoom_in(bool snap_to_scale_list)
+        {}
+
+        void vertically_zoom_out(bool snap_to_scale_list)
+        {}
+
+    };
+
     typedef
-        bobura::message::diagram_picture_box::mouse_wheeled<picture_box_type, view_type, bobura::view::zoom>
+        bobura::message::diagram_picture_box::mouse_wheeled<picture_box_type, view_type, dummy_view_zoom_type>
         mouse_wheeled_type;
 
     typedef picture_box_type::keyboard_observer_set_type::virtual_key_type virtual_key_type;
