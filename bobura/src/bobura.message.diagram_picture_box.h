@@ -82,17 +82,13 @@ namespace bobura { namespace message { namespace diagram_picture_box
         )
         const
         {
+            const delta_type adjusted_delta =
+                direction == picture_box_type::mouse_observer_set_type::direction_horizontal ? delta : -delta;
+
             if (!control && !meta)
-            {
-                scroll(
-                    direction == picture_box_type::mouse_observer_set_type::direction_horizontal ? delta : -delta,
-                    is_vertical(direction, shift)
-                );
-            }
+                scroll(adjusted_delta, is_vertical(direction, shift));
             else if (control && !meta)
-            {
-                zoom(delta, is_vertical(direction, shift));
-            }
+                zoom(adjusted_delta, is_vertical(direction, shift));
         }
 
 
