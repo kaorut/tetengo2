@@ -32,9 +32,6 @@ namespace bobura { namespace command
         //! The diagram view type.
         typedef boost::mpl::at<view_type_list, type::view::view>::type diagram_view_type;
 
-        //! The view scale list type.
-        typedef boost::mpl::at<view_type_list, type::view::scale_list>::type view_scale_list_type;
-
 
         // constructors and destructor
 

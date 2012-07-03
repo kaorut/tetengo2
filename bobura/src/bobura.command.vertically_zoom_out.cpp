@@ -11,6 +11,7 @@
 //#include <boost/mpl/at.hpp>
 
 #include "bobura.type_list.h"
+#include "bobura.view.zoom.h"
 
 #include "bobura.command.vertically_zoom_out.h"
 
@@ -28,8 +29,6 @@ namespace bobura { namespace command
 
         typedef vertically_zoom_out::diagram_view_type diagram_view_type;
 
-        typedef vertically_zoom_out::view_scale_list_type view_scale_list_type;
-
 
         // constructors and destructor
 
@@ -44,16 +43,11 @@ namespace bobura { namespace command
         void execute(model_type& model, abstract_window_type& parent)
         const
         {
-            const view_scale_list_type scale_list;
-            m_diagram_view.set_vertical_scale(scale_list.smaller(m_diagram_view.vertical_scale()));
-
             main_window_type* const p_main_window = dynamic_cast<main_window_type*>(&parent);
             assert(p_main_window);
-            p_main_window->diagram_picture_box().update_scroll_bars(
-                m_diagram_view.dimension(),
-                m_diagram_view.page_size(p_main_window->diagram_picture_box().client_dimension()),
-                true
-            );
+            zoom_type zoom(p_main_window->diagram_picture_box(), m_diagram_view);
+
+            zoom.vertically_zoom_out();
         }
 
 
@@ -61,6 +55,8 @@ namespace bobura { namespace command
         // types
 
         typedef boost::mpl::at<main_window_type_list, type::main_window::main_window>::type main_window_type;
+
+        typedef view::zoom zoom_type;
 
 
         // variables
