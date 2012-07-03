@@ -9,10 +9,10 @@
 #if !defined(BOBURA_VIEW_ZOOM_H)
 #define BOBURA_VIEW_ZOOM_H
 
-#include <memory>
+//#include <memory>
 
-#include <boost/mpl/at.hpp>
-#include <boost/noncopyable.hpp>
+//#include <boost/mpl/at.hpp>
+//#include <boost/noncopyable.hpp>
 
 #include "bobura.basic_type_list.h"
 
