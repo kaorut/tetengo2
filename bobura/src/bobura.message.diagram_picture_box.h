@@ -174,10 +174,27 @@ namespace bobura { namespace message { namespace diagram_picture_box
         void zoom(const delta_type delta, const bool vertical)
         const
         {
+            view_zoom_type zoom(m_picture_box, m_view);
+
+            if (vertical)
+            {
+                if (delta > 0)
+                    zoom.vertically_zoom_in();
+                else
+                    zoom.vertically_zoom_out();
+            }
+            else
+            {
+                if (delta > 0)
+                    zoom.horizontally_zoom_in();
+                else
+                    zoom.horizontally_zoom_out();
+            }
         }
 
 
     };
+
 
     /*!
         \brief The class template for a key down observer of the picture box.
@@ -348,6 +365,7 @@ namespace bobura { namespace message { namespace diagram_picture_box
 
 
     };
+
 
     /*!
         \brief The class template for a paint observer of the picture box.
